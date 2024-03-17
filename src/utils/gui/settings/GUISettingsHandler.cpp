@@ -157,6 +157,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.showLaneDirection = StringUtils::toBool(attrs.getStringSecure("showDirection", toString(mySettings.showLaneDirection)));
             mySettings.showSublanes = StringUtils::toBool(attrs.getStringSecure("showSublanes", toString(mySettings.showSublanes)));
             mySettings.spreadSuperposed = StringUtils::toBool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)));
+            mySettings.disableHideByZoom = StringUtils::toBool(attrs.getStringSecure("disableHideByZoom", toString(mySettings.disableHideByZoom)));
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
             mySettings.vehicleParam = attrs.getStringSecure("vehicleParam", mySettings.vehicleParam);

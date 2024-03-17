@@ -316,6 +316,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
+    myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
     myLaneColorRainbowCheck->setCheck(mySettings->edgeValueHideCheck);
     myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
     myLaneColorRainbowCheck2->setCheck(mySettings->edgeValueHideCheck2);
@@ -584,6 +585,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.showLaneDirection = (myShowLaneDirection->getCheck() != FALSE);
     tmpSettings.showSublanes = (myShowSublanes->getCheck() != FALSE);
     tmpSettings.spreadSuperposed = (mySpreadSuperposed->getCheck() != FALSE);
+    tmpSettings.disableHideByZoom = (myDisableHideByZoom->getCheck() != FALSE);
     if (sender == myParamKey) {
         if (tmpSettings.getLaneEdgeScheme().getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL) {
             tmpSettings.edgeParam = myParamKey->getText().text();
@@ -1821,6 +1823,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
 
     myShowRails = new FXCheckButton(matrixLanes, TL("Show rails"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myShowRails->setCheck(mySettings->showRails);
+
     mySpreadSuperposed = new FXCheckButton(matrixLanes, TL("Spread bidirectional railways/roads"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     mySpreadSuperposed->setHelpText(TL("Make both directional edges for a bidirectional railways or roads visible"));
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
@@ -2316,13 +2319,17 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     myComboRows = new FXRealSpinner(m81, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
     myComboRows->setValue(GUIDesignComboBoxVisibleItemsLarge);
     FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myDither = new FXCheckButton(m82, TL("Dither"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myDither->setCheck(mySettings->dither);
+    myDisableHideByZoom = new FXCheckButton(m82, TL("Disable hide by zoom"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDisableHideByZoom->setHelpText(TL("Disable hidding edges with high zoom out"));
+    myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
     FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myFPS = new FXCheckButton(m83, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myFPS->setCheck(mySettings->fps);
+    myDither = new FXCheckButton(m83, TL("Dither"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myDither->setCheck(mySettings->dither);
     FXMatrix* m84 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
-    myDrawBoundaries = new FXCheckButton(m84, TL("Draw boundaries"), this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myFPS = new FXCheckButton(m84, "FPS", this, MID_SIMPLE_VIEW_COLORCHANGE);
+    myFPS->setCheck(mySettings->fps);
+    FXMatrix* m85 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
+    myDrawBoundaries = new FXCheckButton(m85, TL("Draw boundaries"), this, MID_SIMPLE_VIEW_COLORCHANGE);
     myDrawBoundaries->setCheck(mySettings->drawBoundaries);
     FXMatrix* m86 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myForceDrawForRectangleSelection = new FXCheckButton(m86, TL("Force draw for rectangle selection"), this, MID_SIMPLE_VIEW_COLORCHANGE);

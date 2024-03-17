@@ -519,6 +519,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     showLaneDirection(false),
     showSublanes(true),
     spreadSuperposed(false),
+    disableHideByZoom(false),
     edgeParam("EDGE_KEY"),
     laneParam("LANE_KEY"),
     vehicleParam("PARAM_NUMERICAL"),
@@ -1745,6 +1746,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("showDirection", showLaneDirection);
     dev.writeAttr("showSublanes", showSublanes);
     dev.writeAttr("spreadSuperposed", spreadSuperposed);
+    dev.writeAttr("disableHideByZoom", disableHideByZoom);
     dev.writeAttr("edgeParam", edgeParam);
     dev.writeAttr("laneParam", laneParam);
     dev.writeAttr("vehicleParam", vehicleParam);
@@ -2076,6 +2078,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (spreadSuperposed != v2.spreadSuperposed) {
         return false;
     }
+    if (disableHideByZoom != v2.disableHideByZoom) {
+        return false;
+    }
     if (edgeParam != v2.edgeParam) {
         return false;
     }
@@ -2386,12 +2391,16 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 
 bool
 GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
-    const double size = MAX2(w, h);
-    if (drawForViewObjectsHandler) {
+    if (disableHideByZoom) {
         return true;
     } else {
-        // for low computers 20. for high 10
-        return (scale * size) > 15;
+        const double size = MAX2(w, h);
+        if (drawForViewObjectsHandler) {
+            return true;
+        } else {
+            // for low computers 20. for high 10
+            return (scale * size) > 15;
+        }
     }
 }
 

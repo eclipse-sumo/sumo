@@ -317,6 +317,7 @@ protected:
     FXCheckButton* myShowLaneDirection = nullptr;
     FXCheckButton* myShowSublanes = nullptr;
     FXCheckButton* mySpreadSuperposed = nullptr;
+    FXCheckButton* myDisableHideByZoom = nullptr;
     FXRealSpinner* myLaneWidthUpscaleDialer = nullptr;
     FXRealSpinner* myLaneMinWidthDialer = nullptr;
 

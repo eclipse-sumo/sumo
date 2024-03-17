@@ -720,6 +720,9 @@ public:
     /// @brief Whether to improve visualisation of superposed (rail) edges
     bool spreadSuperposed;
 
+    /// @brief disable hide by zoom
+    bool disableHideByZoom;
+
     /// @brief key for coloring by edge parameter
     std::string edgeParam, laneParam;
     /// @brief key for coloring by vehicle parameter
