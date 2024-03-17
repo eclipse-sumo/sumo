@@ -1149,8 +1149,8 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         // continue depending of index
         if (myIndex == 0) {
             // in the first lane, draw a separator
-            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
-                                      separatorWidth, myDrawingConstants->getDrawingWidth() - separatorWidth);
+            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth,
+                                      myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() - separatorWidth);
         } else {
             // get permissions between this and previous lane
             const auto permissionsA = myParentEdge->getNBEdge()->getPermissions(myIndex - 1);
@@ -1158,13 +1158,13 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
             // get change left and right for passengers
             const bool changeLeft = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
             const bool changeRight = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
-            // if permissions are similar, draw markings. In other case, draw a separator
-            if (permissionsA & permissionsB) {
+            // if permissions are similar and we aren't drawing in spread mode, draw markings. In other case, draw a separator
+            if (!s.spreadSuperposed && (permissionsA & permissionsB)) {
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
                                               3, 6, myDrawingConstants->getDrawingWidth(), changeLeft, changeRight, s.lefthand, 1);
             } else {
                 GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
-                                          separatorWidth, myDrawingConstants->getDrawingWidth() + separatorWidth);
+                                          separatorWidth, myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() + separatorWidth);
             }
             // check if we have change prohibitions
             if ((changeLeft && changeRight) == false) {
@@ -1183,8 +1183,8 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         }
         // check if draw last separator
         if (myIndex == (myParentEdge->getNBEdge()->getNumLanes() - 1)) {
-            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
-                                      separatorWidth, (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth);
+            GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth,
+                                      myDrawingConstants->getOffset() + (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth);
         }
         // pop matrix
         GLHelper::popMatrix();
