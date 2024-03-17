@@ -98,7 +98,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
 - [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
   A virtual traffic management centre
-- [INVENT](https://www.invent-online.de/): Evaluation of modern traffic
+- [INVENT](https://web.archive.org/web/20070310215410/http://www.invent-online.de/de/projekte.html): Evaluation of modern traffic
   management approaches
 - [OIS](https://web.archive.org/web/20040826034935/https://www.dlr.de/vf/forschung/projekte/ois): Verification of
   using optical sensors for optimization of traffic lights
