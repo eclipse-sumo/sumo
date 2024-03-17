@@ -1756,10 +1756,12 @@ void
 GNELane::drawLaneAsRailway() const {
     // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
     // assume crosstie length of 181% gauge (2600mm for standard gauge)
+    // first save current color (obtained from view configuration)
+    const auto currentLaneColor = GLHelper::getColor();
+    // Set current color
+    GLHelper::setColor(currentLaneColor);
     // continue depending of detail
     if (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::LaneDetails) {
-        // Set color back
-        GLHelper::setColor(RGBColor::BLACK);
         // move
         glTranslated(0, 0, 0.1);
         // draw external crossbar
@@ -1778,12 +1780,11 @@ GNELane::drawLaneAsRailway() const {
                                   myDrawingConstants->getOffset());
         // move
         glTranslated(0, 0, 0.01);
-        // Set color back
-        GLHelper::setColor(RGBColor::BLACK);
+        // Set current color
+        GLHelper::setColor(currentLaneColor);
         // Draw crossties
         GLHelper::drawCrossTies(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                crossbarWidth, 0.6 * myDrawingConstants->getExaggeration(),
-                                myDrawingConstants->getDrawingWidth(),
+                                crossbarWidth, 0.6 * myDrawingConstants->getExaggeration(), myDrawingConstants->getDrawingWidth(),
                                 myDrawingConstants->getOffset(), false);
     } else if (myShapeColors.size() > 0) {
         // draw colored box lines
