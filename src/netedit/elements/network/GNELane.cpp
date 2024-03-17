@@ -72,6 +72,8 @@ GNELane::DrawingConstants::DrawingConstants(const GNELane* lane) :
 
 void
 GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
+    // get NBEdge
+    const auto& NBEdge = myLane->getParentEdge()->getNBEdge();
     // get lane struct
     const auto& laneStruct = myLane->myParentEdge->getNBEdge()->getLaneStruct(myLane->getIndex());
     // get selection scale
@@ -97,7 +99,7 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
         myInternalDrawingWidth = myDrawingWidth - (2 * SUMO_const_laneMarkWidth);
     }
     // check if draw superposed
-    myDrawSuperposed = (s.spreadSuperposed && myLane->getParentEdge()->getNBEdge()->isBidiRail());
+    myDrawSuperposed = (s.spreadSuperposed && (NBEdge->isBidiRail() || NBEdge->isBidiEdge()));
     // adjust parameters depending of superposing
     if (myDrawSuperposed) {
         // apply offset
@@ -105,6 +107,9 @@ GNELane::DrawingConstants::update(const GUIVisualizationSettings& s) {
         // reduce width
         myDrawingWidth *= 0.4;
         myInternalDrawingWidth *= 0.4;
+    } else {
+        // restore offset
+        myOffset = 0;
     }
 }
 
