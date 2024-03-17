@@ -1738,9 +1738,9 @@ GNELane::drawDirectionIndicators(const GUIVisualizationSettings& s) const {
                 const double length = MIN2(width * 0.5, myLaneGeometry.getShapeLengths()[i] - subWidth);
                 // draw triangle
                 glBegin(GL_TRIANGLES);
-                glVertex2d(myDrawingConstants->getOffset(), -subWidth - length);
-                glVertex2d(myDrawingConstants->getOffset() - width * 0.25, -subWidth);
-                glVertex2d(myDrawingConstants->getOffset() + width * 0.25, -subWidth);
+                glVertex2d(-myDrawingConstants->getOffset(), -subWidth - length);
+                glVertex2d(-myDrawingConstants->getOffset() - width * 0.25, -subWidth);
+                glVertex2d(-myDrawingConstants->getOffset() + width * 0.25, -subWidth);
                 glEnd();
             }
             // pop triangle matrix
