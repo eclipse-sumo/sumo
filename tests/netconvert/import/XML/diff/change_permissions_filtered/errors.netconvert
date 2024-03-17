@@ -1,0 +1,3 @@
+Error: The from-node is not given for edge 'E1'.
+Error: The to-node is not given for edge 'E1'.
+Quitting (on error).
