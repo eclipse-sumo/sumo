@@ -26,3 +26,6 @@ by-vclass2
 
 # Only keep edges with the given type and *all* that are named explicitly
 by-type_and_explicit
+
+# Only keep edges with speed above threshold
+by-speed
