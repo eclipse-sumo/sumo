@@ -303,8 +303,6 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
     NBNode* last = nullptr;
     std::vector<NBEdge*> prevWayEdges;
     std::vector<NBEdge*> prevWayMinusEdges;
-    prevWayEdges.clear();
-    prevWayMinusEdges.clear();
     std::vector<NBEdge*> currentWayEdges;
     std::vector<NBEdge*> currentWayMinusEdges;
     for (auto it3 = pTLine->getWays().begin(); it3 != pTLine->getWays().end(); it3++) {
@@ -332,7 +330,7 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
             int i = 0;
             while (cont.retrieve("-" + *it3 + "#" + std::to_string(i), true) != nullptr) {
                 if (cont.retrieve("-" + *it3 + "#" + std::to_string(i), false)) {
-                    currentWayMinusEdges.insert(currentWayMinusEdges.begin(),
+                    currentWayMinusEdges.insert(currentWayMinusEdges.end() - foundReverse,
                                                 cont.retrieve("-" + *it3 + "#" + std::to_string(i), false));
                     foundReverse++;
                 }
@@ -352,8 +350,10 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, const NBEdgeCont& cont) {
                       << " done=" << toString(edges)
                       << " first=" << Named::getIDSecure(first)
                       << " last=" << Named::getIDSecure(last)
-                      << " +=" << toString(currentWayEdges)
-                      << " -=" << toString(currentWayMinusEdges)
+                      << "\n    +=" << toString(currentWayEdges)
+                      << "\n    -=" << toString(currentWayMinusEdges)
+                      << "\n   p+=" << toString(prevWayEdges)
+                      << "\n   p-=" << toString(prevWayMinusEdges)
                       << "\n";
         }
 #endif
