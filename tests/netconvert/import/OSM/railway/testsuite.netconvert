@@ -47,3 +47,6 @@ S42_all_signals
 
 # Copy of S42_all_signals
 S42_custom_signals
+
+# keep railway.rail when used for light_rail route but remove it otherwise
+mixed_traffic_filter
