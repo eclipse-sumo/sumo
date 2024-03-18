@@ -1,5 +1,4 @@
 Warning: Discarding unusable type 'waterway.riverbank' (first occurrence for edge '537914721').
-Warning: Discarding unusable type 'railway.construction' (first occurrence for edge '736823803').
 Warning: PT line '社区巴士9011路' in relation 8614125 seems to be split, only keeping first part.
 Warning: PT line '社区巴士9004路' in relation 8617761 seems to be split, only keeping first part.
 Warning: Speed of turning connection '69707916#2_0->131443652#2_0' reduced by 22.23 due to turning radius of 5.61 (length=9.42, angle=127.29).

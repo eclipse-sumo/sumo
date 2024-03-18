@@ -1,12 +1,12 @@
-Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done (3ms).
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (20ms).
 Parsing edges from osm-file 'osm.xml' ... done (2ms).
 Removing duplicate edges ... done.
 Parsing relations from osm-file 'osm.xml' ... 
 done (1ms).
  Import done:
    94 nodes loaded.
-   33 types loaded.
+   35 types loaded.
    190 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -23,13 +23,13 @@ Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
-Dividing of lanes on approached lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (1ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
+Computing node logics ... done (0ms).
 Computing traffic light logics ... 
-done (0ms).
+done (1ms).
  3 traffic light(s) computed.
 Building inner edges ... done (2ms).
 -----------------------------------------------------
@@ -41,10 +41,10 @@ Summary:
   Right-before-left junctions : 6
   Traffic light junctions      : 3
  Network boundaries:
-  Original boundary  : 13.36,52.42,13.57,52.46
+  Original boundary  : 13.36,52.43,13.57,52.46
   Applied offset     : -399345.66,-5809365.64
   Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
 Writing network ... 
-done (33ms).
+done (23ms).
 Success.

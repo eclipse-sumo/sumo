@@ -1,12 +1,12 @@
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'data/osm_bbox.osm.xml.gz' ... done (1ms).
-Parsing edges from osm-file 'data/osm_bbox.osm.xml.gz' ... done (2ms).
+Parsing nodes from osm-file 'data/osm_bbox.osm.xml.gz' ... done (2ms).
+Parsing edges from osm-file 'data/osm_bbox.osm.xml.gz' ... done (1ms).
 Removing duplicate edges ... done.
-Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (28ms).
+Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (19ms).
  Removed 6 traffic lights before loading plain-XML
  Import done:
    48 nodes loaded.
-   33 types loaded.
+   35 types loaded.
    58 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -17,13 +17,13 @@ Joining junction clusters ... done (0ms).
  Joined 2 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (0ms).
    12 nodes removed.
-Moving network to origin ... done (1ms).
+Moving network to origin ... done (10ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Guessing and setting on-/off-ramps ... done (0ms).
 Sorting nodes' edges ... done (0ms).
 Computing node shapes ... done (0ms).
-Computing edge shapes ... done (22ms).
+Computing edge shapes ... done (1ms).
 Computing node types ... 
 done (0ms).
 Computing priorities ... done (0ms).
@@ -35,12 +35,12 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Joining traffic light nodes ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
+Computing node logics ... done (0ms).
 Computing traffic light logics ... 
-done (0ms).
+done (1ms).
  2 traffic light(s) computed.
-Building inner edges ... done (1ms).
-Find accesses for pt rail stops ... done (1ms).
+Building inner edges ... done (0ms).
+Find accesses for pt rail stops ... done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -55,5 +55,5 @@ Summary:
   Applied offset     : -605011.17,-5790381.46
   Converted boundary : 0.00,0.00,145.39,312.65
 -----------------------------------------------------
-Writing network ... done (12ms).
+Writing network ... done (3ms).
 Success.

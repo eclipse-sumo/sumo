@@ -1,11 +1,11 @@
-Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done.
-Parsing edges from osm-file 'osm.xml' ... done.
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (0ms).
+Parsing edges from osm-file 'osm.xml' ... done (0ms).
 Removing duplicate edges ... done.
 Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurrence for edge '10860201').
  Import done:
    4 nodes loaded.
-   34 types loaded.
+   36 types loaded.
    4 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -43,5 +43,5 @@ Summary:
   Applied offset     : -405213.33,-5803545.51
   Converted boundary : 0.00,0.00,14260.81,350.76
 -----------------------------------------------------
-Writing network ... done (5ms).
+Writing network ... done (1ms).
 Success.

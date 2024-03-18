@@ -22,7 +22,7 @@ Warning: Ignoring parking area on edge '142575693#3' due to insufficient space.
 Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
 Warning: 20 total messages of type: Could not find edge for parkingArea '%'.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 4 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 3 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 10 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
 Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.

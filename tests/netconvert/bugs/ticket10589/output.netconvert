@@ -1,12 +1,12 @@
 Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'data/osm_bbox.osm.xml.gz' ... done (3ms).
-Parsing edges from osm-file 'data/osm_bbox.osm.xml.gz' ... done (50ms).
+Parsing edges from osm-file 'data/osm_bbox.osm.xml.gz' ... done (26ms).
 Removing duplicate edges ... done.
-Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (5ms).
+Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (24ms).
  Removed 1 traffic lights before loading plain-XML
  Import done:
    64 nodes loaded.
-   33 types loaded.
+   35 types loaded.
    25 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
@@ -17,7 +17,7 @@ Joining junction clusters ...
 done (0ms).
 Removing empty nodes and geometry nodes ... done (0ms).
    56 nodes removed.
-Moving network to origin ... done (1ms).
+Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Guessing and setting on-/off-ramps ... done (0ms).
@@ -29,7 +29,7 @@ Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
-Dividing of lanes on approached lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (1ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Joining traffic light nodes ... done (0ms).
