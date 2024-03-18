@@ -5,7 +5,6 @@ Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|hi
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.unclassified' (first occurrence for edge '81096583').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.unclassified' (first occurrence for edge '135777011').
 Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.secondary' (first occurrence for edge '143308535').
-Warning: Discarding unusable type 'highway.construction' (first occurrence for edge '190461577').
 Warning: Removing pt stop '1704693343' on non existing edge '158236729#0'.
 Warning: Removing pt stop '1704693369' on non existing edge '220198810#3'.
 Warning: Removing pt stop '1704693381' on non existing edge '220198810#0'.
