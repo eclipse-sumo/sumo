@@ -106,6 +106,12 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
+        // pre-process lines to set permissions
+        if (!myPTLineCont.getLines().empty()) {
+            before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Revising public transport stops based on pt lines"));
+            myPTLineCont.process(myEdgeCont, myPTStopCont);
+            PROGRESS_TIME_MESSAGE(before);
+        }
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Removing unwished edges"));
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
