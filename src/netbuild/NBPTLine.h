@@ -64,7 +64,7 @@ public:
     void write(OutputDevice& device);
     void addWayNode(long long int way, long long int node);
 
-    void setMyNumOfStops(int numStops);
+    void setNumOfStops(int numStops, int missingBefore, int missingAfter);
 
     /// @brief get line reference (not unique)
     const std::string& getRef() const {
@@ -141,4 +141,6 @@ public:
 private:
 
     int myNumOfStops;
+    int myMissingStopsBefore;
+    int myMissingStopsAfter;
 };

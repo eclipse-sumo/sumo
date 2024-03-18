@@ -155,6 +155,9 @@ private:
     /// @brief whether the current stop should be discarded
     bool myCurrentStopWasIgnored;
 
+    int myMissingBefore;
+    int myMissingAfter;
+
 private:
 
     /** @brief Parses an public transport stop

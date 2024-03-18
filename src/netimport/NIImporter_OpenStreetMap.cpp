@@ -2053,18 +2053,27 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
         } else if (myPTRouteType != "" && myIsRoute) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService,
                                             interpretTransportType(myPTRouteType), myRouteColor);
-            ptLine->setMyNumOfStops((int)myStops.size());
             bool hadGap = false;
+            int missingBefore = 0;
+            int missingAfter = 0;
+            int stopIndex = 0;
             for (long long ref : myStops) {
+                stopIndex++;
                 const auto& nodeIt = myOSMNodes.find(ref);
                 if (nodeIt == myOSMNodes.end()) {
-                    if (!ptLine->getStops().empty() && !hadGap) {
-                        hadGap = true;
+                    if (ptLine->getStops().empty()) {
+                        missingBefore++;
+                    } else {
+                        missingAfter++;
+                        if (!hadGap) {
+                            hadGap = true;
+                        }
                     }
                     continue;
                 }
                 if (hadGap) {
                     WRITE_WARNINGF(TL("PT line '%' in relation % seems to be split, only keeping first part."), myName, myCurrentRelation);
+                    missingAfter = myStops.size() - missingBefore - ptLine->getStops().size();
                     break;
                 }
 
@@ -2096,6 +2105,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     }
                 }
             }
+            ptLine->setNumOfStops((int)myStops.size(), missingBefore, missingAfter);
             if (ptLine->getStops().empty()) {
                 WRITE_WARNINGF(TL("PT line in relation % with no stops ignored. Probably OSM file is incomplete."), myCurrentRelation);
                 delete ptLine;
