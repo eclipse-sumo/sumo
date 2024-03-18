@@ -314,9 +314,9 @@ For the persons we use flow definitions:
 
 # Examples
 
-You can find the Skandinavienkai, Port Lübeck Germany scenario files here [tbd](port.md)
+You can find the Skandinavienkai, Port Lübeck Germany scenario files on [Github](https://github.com/DLR-TS/sumo-scenarios/tree/main/port_tutorials/port_l%C3%BCbeck)
 
-And two simple port scenarios here:
+And two more simple port scenarios are there as well:
 
-- Cologne
-- Brunswick
+- [Cologne](https://github.com/DLR-TS/sumo-scenarios/tree/main/port_tutorials/port_cologne) scenario on Github
+- [Brunswick](https://github.com/DLR-TS/sumo-scenarios/tree/main/port_tutorials/port_brunswick) scenario on Github
