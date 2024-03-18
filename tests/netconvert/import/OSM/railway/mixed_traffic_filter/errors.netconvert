@@ -4,8 +4,5 @@ Warning: Discarding unknown compound 'usage.industrial' in type 'railway.rail|se
 Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurrence for edge '4538171').
 Warning: Ambiguous railway kilometrage direction for way '1239255970' (assuming forward)
 Warning: Ambiguous railway kilometrage direction for way '1239255972' (assuming forward)
-Warning: Could not find corresponding edge or compatible lane for pt stop '27199766' (Karl-Bonhoeffer-Nervenklinik). Thus, it will be removed!
-Warning: Could not re-assign PT stop '27199766', probably broken osm file.
+Warning: PT stop '27199766' has been moved to edge '-1239255971'.
 Warning: PT stop '27199769' has been moved to edge '-1239255970'.
-Warning: Removed invalid stop '27199766' from line '2422950'.
-Warning: Removed invalid stop '27199766' from line '2422951'.
