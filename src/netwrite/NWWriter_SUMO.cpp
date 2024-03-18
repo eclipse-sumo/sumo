@@ -428,7 +428,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         into.writeAttr(SUMO_ATTR_CROSSING_EDGES, c->edges);
         writeLane(into, c->id + "_0", crossingSpeed, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
-                  StopOffset(), c->width, c->shape, nullptr,
+                  StopOffset(), c->width, c->shape, c,
                   MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
         into.closeTag();
     }

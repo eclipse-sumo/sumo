@@ -72,6 +72,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="crossingType">
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="node" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="priority" type="xsd:int" use="optional"/>
@@ -83,6 +86,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="walkingAreaType">
+        <xsd:choice  minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="node" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>

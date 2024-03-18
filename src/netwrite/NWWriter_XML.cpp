@@ -365,6 +365,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             if (c->customShape.size() != 0) {
                 writeShape(cdevice, gch, c->customShape, SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
             }
+            c->writeParams(cdevice);
             cdevice.closeTag();
         }
     }
