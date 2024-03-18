@@ -57,6 +57,7 @@
 #define KM_PER_MILE 1.609344
 
 //#define DEBUG_LAYER_ELEVATION
+//#define DEBUG_RAIL_DIRECTION
 
 // ---------------------------------------------------------------------------
 // static members
@@ -543,10 +544,22 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 sc.insert(ptStops.back());
             }
         }
-        nodeDirection = n->myRailDirection;
+        if (n->railwaySignal) {
+            nodeDirection |= n->myRailDirection;
+        }
         Position pos(n->lon, n->lat, n->ele);
         shape.push_back(pos);
     }
+#ifdef DEBUG_LAYER_ELEVATION
+    if (e->id == "DEBUGID") {
+        std::cout
+            << " id=" << id << " from=" << from->getID() << " fromRailDirection=" << myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection 
+            << " to=" << to->getID() << " toRailDirection=" << myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection 
+            << " origRailDirection=" << e->myRailDirection
+            << " nodeDirection=" << nodeDirection
+            << "\n";
+    }
+#endif
     if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
             && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
         //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
