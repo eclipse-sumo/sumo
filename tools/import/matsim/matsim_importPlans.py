@@ -114,7 +114,7 @@ def main(options):
                 try:
                     import pyproj
                     try:
-                        prj = pyproj.Proj(projName)
+                        prj = pyproj.Proj("EPSG:31468" if projName == "GK4" else projName)
                     except pyproj.exceptions.CRSError as e:
                         print("Warning: Could not interpret coordinate system '%s' (%s)" % (
                             projName, e), file=sys.stderr)
@@ -155,19 +155,19 @@ def main(options):
                 if not item.end_time:
                     if item.start_time and item.max_dur:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(item.start_time) +
-                                sumolib.miscutils.parseTime(item.max_dur)
+                            sumolib.miscutils.parseTime(item.start_time) +
+                            sumolib.miscutils.parseTime(item.max_dur)
                         )
                     elif item.start_time:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(item.start_time) +
-                                sumolib.miscutils.parseTime(options.default_dur)
+                            sumolib.miscutils.parseTime(item.start_time) +
+                            sumolib.miscutils.parseTime(options.default_dur)
                         )
                     elif item.max_dur and leg:
                         item.end_time = sumolib.miscutils.humanReadableTime(
-                                sumolib.miscutils.parseTime(leg.dep_time) +
-                                sumolib.miscutils.parseTime(options.default_dur) +
-                                sumolib.miscutils.parseTime(item.max_dur)
+                            sumolib.miscutils.parseTime(leg.dep_time) +
+                            sumolib.miscutils.parseTime(options.default_dur) +
+                            sumolib.miscutils.parseTime(item.max_dur)
                         )
                 lastAct = item
                 durations.append(item.max_dur if item.max_dur else options.default_dur)
