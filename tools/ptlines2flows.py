@@ -44,13 +44,19 @@ def get_options(args=None):
     ap.add_option("-r", "--routes-file", dest="routes", category="output", default="vehroutes.xml",
                   help="file from '--vehroute-output'")
     ap.add_option("-t", "--trips-file", dest="trips", default="trips.trips.xml", help="output trips file")
-    ap.add_option("-p", "--period", type=float, default=600,
+    ap.add_option("-p", "--period", type=ap.time, default=600,
                   help="the default service period (in seconds) to use if none is specified in the ptlines file")
-    ap.add_option("--period-aerialway", type=float, default=60, dest="periodAerialway",
+    ap.add_option("--period-aerialway", type=ap.time, default=60, dest="periodAerialway",
                   help=("the default service period (in seconds) to use for aerialways "
                         "if none is specified in the ptlines file"))
-    ap.add_option("-b", "--begin", type=float, default=0, help="start time")
-    ap.add_option("-e", "--end", type=float, default=3600, help="end time")
+    ap.add_option("-b", "--begin", type=ap.time, default=0, help="start time")
+    ap.add_option("-e", "--end", type=ap.time, default=3600, help="end time")
+    ap.add_option("-j", "--jump-duration", type=ap.time, default=300,
+                  help="The time to add for each missing (when joining opposite lines)")
+    ap.add_option("-T", "--turnaround-duration", type=ap.time, default=300,
+                  help="The extra stopping time at terminal stops")
+    ap.add_option("--no-join", default=False, action="store_true", dest='noJoin',
+                  help="Do not join opposite lines at the terminals")
     ap.add_option("--min-stops", type=int, default=2, help="only import lines with at least this number of stops")
     ap.add_option("-f", "--flow-attributes", dest="flowattrs", default="", help="additional flow attributes")
     ap.add_option("--use-osm-routes", default=False, action="store_true", dest='osmRoutes', help="use osm routes")
@@ -94,16 +100,28 @@ def get_options(args=None):
     if options.types is not None:
         options.types = options.types.split(',')
 
+    options.net = None
     return options
 
 
 class PTLine:
-    def __init__(self, ref, name, completeness, period, color):
+    def __init__(self, ref, name, completeness, missingBefore, missingAfter,
+                 fromEdge, toEdge, period, color, refOrig,
+                 typeID, depart, stop_ids, vias):
         self.ref = ref
         self.name = name
         self.completeness = completeness
+        self.missingBeore = missingBefore
+        self.missingAfter = missingAfter
+        self.fromEdge = fromEdge
+        self.toEdge = toEdge
         self.period = period
         self.color = color
+        self.refOrig = refOrig
+        self.typeID = typeID
+        self.depart = depart
+        self.stop_ids = stop_ids
+        self.vias = vias
 
 
 def writeTypes(fout, prefix, options):
@@ -138,6 +156,12 @@ def getStopEdge(stopsLanes, stop):
     return stopsLanes[stop].rsplit("_", 1)[0]
 
 
+def getNet(options):
+    if options.net is None:
+        options.net = sumolib.net.readNet(options.netfile)
+    return options.net
+
+
 def createTrips(options):
     print("generating trips...")
     stopsLanes = {}
@@ -147,143 +171,164 @@ def createTrips(options):
         if stop.name:
             stopNames[stop.id] = stop.attr_name
 
-    trpMap = {}
-    with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
-        sumolib.writeXMLHeader(
-            fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
-            "routes", options=options)
-        writeTypes(fouttrips, options.vtypeprefix, options)
+    tripList = [] # ids
+    trpMap = {} # ids->PTLine
+    linePairs = collections.defaultdict(list)
 
-        departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
-        if options.randomBegin:
-            departTimes = sorted([options.begin
-                                  + int(random.random() * options.period) for t in departTimes])
+    departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
+    if options.randomBegin:
+        departTimes = sorted([options.begin
+                              + int(random.random() * options.period) for t in departTimes])
 
-        lineCount = collections.defaultdict(int)
-        typeCount = collections.defaultdict(int)
-        numLines = 0
-        numStops = 0
-        numSkipped = 0
-        for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine', heterogeneous=True)):
-            stop_ids = []
-            if not line.hasAttribute("period"):
-                if line.type == "aerialway":
-                    line.setAttribute("period", options.periodAerialway)
-                else:
-                    line.setAttribute("period", options.period)
-            if line.busStop is not None:
-                for stop in line.busStop:
-                    if stop.id not in stopsLanes:
-                        sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
-                        continue
-                    laneId = stopsLanes[stop.id]
-                    try:
-                        edge_id, lane_index = laneId.rsplit("_", 1)
-                    except ValueError:
-                        if options.ignoreErrors:
-                            sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
-                            continue
-                        else:
-                            sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
-                    stop_ids.append(stop.id)
-
-            if options.types is not None and line.type not in options.types:
-                if options.verbose:
-                    print("Skipping line '%s' because it has type '%s'" % (line.id, line.type))
-                numSkipped += 1
-                continue
-
-            if line.hasAttribute("nightService"):
-                if line.nightService == "only" and not options.night:
-                    if options.verbose:
-                        print("Skipping line '%s' because it only drives at night" % (line.id))
-                    numSkipped += 1
-                    continue
-                if line.nightService == "no" and options.night:
-                    if options.verbose:
-                        print("Skipping line '%s' because it only drives during the day" % (line.id))
-                    numSkipped += 1
-                    continue
-
-            lineRefOrig = line.line.replace(" ", "_")
-            lineRefOrig = lineRefOrig.replace(";", "+")
-            lineRefOrig = lineRefOrig.replace(">", "")
-            lineRefOrig = lineRefOrig.replace("<", "")
-
-            if len(stop_ids) < options.min_stops:
-                sys.stderr.write("Warning: skipping line '%s' (%s_%s) because it has too few stops\n" % (
-                    line.id, line.type, lineRefOrig))
-                numSkipped += 1
-                continue
-
-            lineRef = "%s:%s" % (lineRefOrig, lineCount[lineRefOrig])
-            lineCount[lineRefOrig] += 1
-            tripID = "%s_%s_%s" % (trp_nr, line.type, lineRef)
-
-            begin = departTimes[trp_nr]
-            edges = []
-            if line.route is not None:
-                edges = line.route[0].edges.split()
-            if options.osmRoutes and len(edges) == 0 and options.verbose:
-                print("Cannot use OSM route for line '%s' (no edges given)" % line.id)
-            elif options.osmRoutes and len(edges) > 0:
-                edges = line.route[0].edges.split()
-                vias = ''
-                if len(edges) > 2:
-                    vias = ' via="%s"' % (' '.join(edges[1:-1]))
-                fouttrips.write(
-                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
-                     'to="%s"%s>\n') % (
-                        tripID, options.vtypeprefix, line.type, begin, edges[0], edges[-1], vias))
+    lineCount = collections.defaultdict(int)
+    typeCount = collections.defaultdict(int)
+    numLines = 0
+    numStops = 0
+    numSkipped = 0
+    for trp_nr, line in enumerate(sumolib.output.parse(options.ptlines, 'ptLine', heterogeneous=True)):
+        stop_ids = []
+        if not line.hasAttribute("period"):
+            if line.type == "aerialway":
+                line.setAttribute("period", options.periodAerialway)
             else:
-                if options.extendFringe and len(edges) > len(stop_ids):
-                    fr = edges[0]
-                    to = edges[-1]
-                    # ensure that route actually covers the terminal stops
-                    # (otherwise rail network may be invalid beyond stops)
-                    if len(stop_ids) > 0:
-                        firstStop = getStopEdge(stopsLanes, stop_ids[0])
-                        lastStop = getStopEdge(stopsLanes, stop_ids[-1])
-                        if firstStop not in edges:
-                            fr = firstStop
-                            if options.verbose:
-                                print(("Cannot extend route before first stop for line '%s' " +
-                                       "(stop edge %s not in route)") % (line.id, firstStop))
-                        if lastStop not in edges:
-                            to = lastStop
-                            if options.verbose:
-                                print(("Cannot extend route after last stop for line '%s' " +
-                                       "(stop edge %s not in route)") % (line.id, lastStop))
-                else:
-                    if options.extendFringe and options.verbose:
-                        print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)
-                    if len(stop_ids) == 0:
-                        sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
-                        numSkipped += 1
+                line.setAttribute("period", options.period)
+        if line.busStop is not None:
+            for stop in line.busStop:
+                if stop.id not in stopsLanes:
+                    sys.stderr.write("Warning: skipping unknown stop '%s'\n" % stop.id)
+                    continue
+                laneId = stopsLanes[stop.id]
+                try:
+                    edge_id, lane_index = laneId.rsplit("_", 1)
+                except ValueError:
+                    if options.ignoreErrors:
+                        sys.stderr.write("Warning: ignoring stop '%s' on invalid lane '%s'\n" % (stop.id, laneId))
                         continue
-                    fr = getStopEdge(stopsLanes, stop_ids[0])
-                    to = getStopEdge(stopsLanes, stop_ids[-1])
-                fouttrips.write(
-                    ('    <trip id="%s" type="%s%s" depart="%s" departLane="best" from="%s" ' +
-                     'to="%s">\n') % (
-                        tripID, options.vtypeprefix, line.type, begin, fr, to))
+                    else:
+                        sys.exit("Invalid lane '%s' for stop '%s'" % (laneId, stop.id))
+                stop_ids.append(stop.id)
 
-            trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
-                                    line.period, line.getAttributeSecure("color", None))
-            for stop in stop_ids:
-                dur = options.stopduration + options.stopdurationSlack
-                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, dur))
-            fouttrips.write('    </trip>\n')
-            typeCount[line.type] += 1
-            numLines += 1
-            numStops += len(stop_ids)
-        fouttrips.write("</routes>\n")
+        if options.types is not None and line.type not in options.types:
+            if options.verbose:
+                print("Skipping line '%s' because it has type '%s'" % (line.id, line.type))
+            numSkipped += 1
+            continue
+
+        if line.hasAttribute("nightService"):
+            if line.nightService == "only" and not options.night:
+                if options.verbose:
+                    print("Skipping line '%s' because it only drives at night" % (line.id))
+                numSkipped += 1
+                continue
+            if line.nightService == "no" and options.night:
+                if options.verbose:
+                    print("Skipping line '%s' because it only drives during the day" % (line.id))
+                numSkipped += 1
+                continue
+
+        lineRefOrig = line.line.replace(" ", "_")
+        lineRefOrig = lineRefOrig.replace(";", "+")
+        lineRefOrig = lineRefOrig.replace(">", "")
+        lineRefOrig = lineRefOrig.replace("<", "")
+
+        if len(stop_ids) < options.min_stops:
+            sys.stderr.write("Warning: skipping line '%s' (%s_%s) because it has too few stops\n" % (
+                line.id, line.type, lineRefOrig))
+            numSkipped += 1
+            continue
+
+        lineRef = "%s:%s" % (lineRefOrig, lineCount[lineRefOrig])
+        lineCount[lineRefOrig] += 1
+        tripID = "%s_%s_%s" % (trp_nr, line.type, lineRef)
+
+        edges = []
+        fromEdge = None
+        toEdge = None
+        vias = ''
+        if line.route is not None:
+            edges = line.route[0].edges.split()
+        if options.osmRoutes and len(edges) == 0 and options.verbose:
+            print("Cannot use OSM route for line '%s' (no edges given)" % line.id)
+        elif options.osmRoutes and len(edges) > 0:
+            edges = line.route[0].edges.split()
+            fromEdge = edges[0]
+            toEdge = edges[-1]
+            if len(edges) > 2:
+                vias = ' via="%s"' % (' '.join(edges[1:-1]))
+        else:
+            if options.extendFringe and len(edges) > len(stop_ids):
+                fromEdge = edges[0]
+                toEdge = edges[-1]
+                # ensure that route actually covers the terminal stops
+                # (otherwise rail network may be invalid beyond stops)
+                if len(stop_ids) > 0:
+                    firstStop = getStopEdge(stopsLanes, stop_ids[0])
+                    lastStop = getStopEdge(stopsLanes, stop_ids[-1])
+                    if firstStop not in edges:
+                        fromEdge = firstStop
+                        if options.verbose:
+                            print(("Cannot extend route before first stop for line '%s' " +
+                                   "(stop edge %s not in route)") % (line.id, firstStop))
+                    if lastStop not in edges:
+                        toEdge = lastStop
+                        if options.verbose:
+                            print(("Cannot extend route after last stop for line '%s' " +
+                                   "(stop edge %s not in route)") % (line.id, lastStop))
+            else:
+                if options.extendFringe and options.verbose:
+                    print("Cannot extend route to fringe for line '%s' (not enough edges given)" % line.id)
+                if len(stop_ids) == 0:
+                    sys.stderr.write("Warning: skipping line '%s' because it has no stops\n" % line.id)
+                    numSkipped += 1
+                    continue
+                fromEdge = getStopEdge(stopsLanes, stop_ids[0])
+                toEdge = getStopEdge(stopsLanes, stop_ids[-1])
+
+        linePairs[lineRefOrig].append(lineRef)
+        missingBefore = 0 if line.completeness == 1 else line.getAttributeSecure(line.missingBefore)
+        missingAfter = 0 if line.completeness == 1 else line.getAttributeSecure(line.missingAfter)
+        typeID = options.vtypeprefix + line.type
+        trpMap[tripID] = PTLine(lineRef, line.attr_name, line.completeness,
+                                missingBefore, missingAfter,
+                                fromEdge, toEdge,
+                                line.period,
+                                line.getAttributeSecure("color"),
+                                lineRefOrig,
+                                typeID,
+                                departTimes[trp_nr],
+                                stop_ids, vias)
+        tripList.append(tripID)
+        typeCount[line.type] += 1
+        numLines += 1
+        numStops += len(stop_ids)
+
+    writeTrips(options, tripList, trpMap)
     if options.verbose:
         print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
         for lineType, count in sorted(typeCount.items()):
             print("   %s: %s" % (lineType, count))
     print("done.")
     return trpMap, stopNames
+
+
+def writeTrips(options, tripList, trpMap):
+    with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
+        sumolib.writeXMLHeader(
+            fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
+            "routes", options=options)
+        writeTypes(fouttrips, options.vtypeprefix, options)
+
+        for tripID in tripList:
+            ptl = trpMap[tripID]
+            fouttrips.write(
+                ('    <trip id="%s" type="%s" depart="%s" departLane="best" from="%s" ' +
+                 'to="%s"%s>\n') % (
+                    tripID, ptl.typeID, ptl.depart, ptl.fromEdge, ptl.toEdge, ptl.vias))
+            for stop in ptl.stop_ids:
+                dur = options.stopduration + options.stopdurationSlack
+                fouttrips.write('        <stop busStop="%s" duration="%s"/>\n' % (stop, dur))
+            fouttrips.write('    </trip>\n')
+        fouttrips.write("</routes>\n")
 
 
 def runSimulation(options):
@@ -317,6 +362,7 @@ def createRoutes(options, trpMap, stopNames):
     ft = formatTime if options.hrtime else lambda x: x
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
+        joinedLines = set()
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(foutflows, root="routes", options=options)
