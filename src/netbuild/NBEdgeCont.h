@@ -608,6 +608,10 @@ public:
     /// @brief return all edge types in used
     std::set<std::string> getUsedTypes() const;
 
+    /// @brief return number of edges removed
+    int removeEdgesBySpeed(NBDistrictCont& dc);
+    int removeEdgesByPermissions(NBDistrictCont& dc);
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
@@ -748,8 +752,8 @@ private:
     /// @brief The minimum speed an edge may have in order to be kept (default: -1)
     double myEdgesMinSpeed;
 
-    /// @brief Whether edges shall be joined first, then removed
-    bool myRemoveEdgesAfterJoining;
+    /// @brief Whether edges shall be joined and patched first, then removed
+    bool myRemoveEdgesAfterLoading;
 
     /// @brief Set of ids of edges which shall explicitly be kept
     std::set<std::string> myEdges2Keep;

@@ -111,6 +111,14 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             myEdgeCont.removeUnwishedEdges(myDistrictCont);
             PROGRESS_TIME_MESSAGE(before);
         }
+        const int removed = myEdgeCont.removeEdgesBySpeed(myDistrictCont);
+        if (removed > 0) {
+            WRITE_MESSAGEF(TL(" Removed % edges because by minimum speed."), removed);
+        }
+        const int removed2 = myEdgeCont.removeEdgesByPermissions(myDistrictCont);
+        if (removed2 > 0) {
+            WRITE_MESSAGEF(TL(" Removed % edges based on vClass."), removed2);
+        }
     }
     // Processing pt stops and lines
     if (!myPTStopCont.getStops().empty()) {

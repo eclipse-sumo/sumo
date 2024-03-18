@@ -78,7 +78,7 @@ void
 NBEdgeCont::applyOptions(OptionsCont& oc) {
     // set edges dismiss/accept options
     myEdgesMinSpeed = oc.getFloat("keep-edges.min-speed");
-    myRemoveEdgesAfterJoining = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
+    myRemoveEdgesAfterLoading = oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload");
     // we possibly have to load the edges to keep/remove
     if (oc.isSet("keep-edges.input-file")) {
         NBHelpers::loadEdgesFromFile(oc.getString("keep-edges.input-file"), myEdges2Keep);
@@ -201,22 +201,32 @@ NBEdgeCont::insert(NBEdge* edge, bool ignorePrunning) {
 
 bool
 NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
-    // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
-    if (edge->getSpeed() < myEdgesMinSpeed) {
-        return true;
-    }
-    // check whether the edge is a named edge to keep
-    if (!myRemoveEdgesAfterJoining && myEdges2Keep.size() != 0) {
-        if (myEdges2Keep.count(edge->getID()) == 0) {
-            // explicit whitelisting may be combined additively with other filters
-            if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0
-                    && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
-                    && myPruningBoundary.size() == 0) {
-                return true;
+    if (!myRemoveEdgesAfterLoading) {
+        // check whether the edge is a named edge to keep
+        if (myEdges2Keep.size() != 0) {
+            if (myEdges2Keep.count(edge->getID()) == 0) {
+                // explicit whitelisting may be combined additively with other filters
+                if (myVehicleClasses2Keep == 0 && myVehicleClasses2Remove == 0
+                        && myTypes2Keep.size() == 0 && myTypes2Remove.size() == 0
+                        && myPruningBoundary.size() == 0) {
+                    return true;
+                }
+            } else {
+                // explicit whitelisting overrides other filters
+                return false;
             }
-        } else {
-            // explicit whitelisting overrides other filters
-            return false;
+        }
+        // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
+        if (edge->getSpeed() < myEdgesMinSpeed) {
+            return true;
+        }
+        // check whether the edge shall be removed because it does not allow any of the wished classes
+        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+            return true;
+        }
+        // check whether the edge shall be removed due to allowing unwished classes only
+        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+            return true;
         }
     }
     // check whether the edge is a named edge to remove
@@ -224,14 +234,6 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
         if (myEdges2Remove.count(edge->getID()) != 0) {
             return true;
         }
-    }
-    // check whether the edge shall be removed because it does not allow any of the wished classes
-    if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
-        return true;
-    }
-    // check whether the edge shall be removed due to allowing unwished classes only
-    if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
-        return true;
     }
     // check whether the edge shall be removed because it does not have one of the requested types
     if (myTypes2Keep.size() != 0) {
@@ -710,7 +712,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
             throw ProcessError(TL("Could not set connection!"));
         }
     }
-    if (myRemoveEdgesAfterJoining) {
+    if (myRemoveEdgesAfterLoading) {
         if (myEdges2Keep.count(edge->getID()) != 0) {
             myEdges2Keep.insert(one->getID());
             myEdges2Keep.insert(two->getID());
@@ -2138,4 +2140,50 @@ NBEdgeCont::getUsedTypes() const {
     return result;
 }
 
+
+int
+NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* edge = item.second;
+        // remove edges which allow a speed below a set one (set using "keep-edges.min-speed")
+        if (edge->getSpeed() < myEdgesMinSpeed) {
+            toRemove.insert(edge);
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            erase(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
+
+int
+NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* edge = item.second;
+        // check whether the edge shall be removed because it does not allow any of the wished classes
+        if (myVehicleClasses2Keep != 0 && (myVehicleClasses2Keep & edge->getPermissions()) == 0) {
+            toRemove.insert(edge);
+        }
+        // check whether the edge shall be removed due to allowing unwished classes only
+        if (myVehicleClasses2Remove != 0 && (myVehicleClasses2Remove | edge->getPermissions()) == myVehicleClasses2Remove) {
+            toRemove.insert(edge);
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            erase(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
 /****************************************************************************/

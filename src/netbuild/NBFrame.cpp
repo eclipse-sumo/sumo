@@ -640,7 +640,7 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
 
     if (!forNetgen) {
         oc.doRegister("keep-edges.postload", new Option_Bool(false));
-        oc.addDescription("keep-edges.postload", "Edge Removal", TL("Remove edges after joining"));
+        oc.addDescription("keep-edges.postload", "Edge Removal", TL("Remove edges after loading, patching and joining"));
     }
 
     oc.doRegister("keep-edges.in-boundary", new Option_StringVector());
