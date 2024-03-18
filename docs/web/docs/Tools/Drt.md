@@ -22,7 +22,7 @@ use pip instead.
 The minimal call is:
 
 ```
-python tools/drt/drtOnline.py -n <net-file> -r <route-file> -v <vehicle-file>
+python tools/drt/drtOnline.py -n <net-file> -r <route-file> --taxi <vehicle-file>
 ```
 
 The route file contains the requests, which are defined as persons with ride
