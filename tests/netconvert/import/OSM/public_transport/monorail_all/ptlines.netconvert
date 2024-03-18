@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-10-14 08:53:20 by Eclipse SUMO netconvert Version v1_14_1+1724-2e45f2b
+<!-- generated on 2024-03-18 19:31:12 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="146380" name="Schwebebahn: Vohwinkel =&gt; Oberbarmen" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95">
+    <ptLine id="146380" name="Schwebebahn: Vohwinkel =&gt; Oberbarmen" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95" missingBefore="1">
         <route edges="36388592 224023986 326203721 326203720 305115095 305115093 37195413 326352998 666559890"/>
         <busStop id="454042501" name="Bruch"/>
         <busStop id="266775534" name="Hammerstein"/>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="4919325944" name="Wupperfeld"/>
         <busStop id="3329847056" name="Oberbarmen Bahnhof"/>
     </ptLine>
-    <ptLine id="2973510" name="Schwebebahn: Oberbarmen =&gt; Vohwinkel" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95">
+    <ptLine id="2973510" name="Schwebebahn: Oberbarmen =&gt; Vohwinkel" line="60" type="monorail" vClass="rail_urban" color="cyan" completeness="0.95" missingAfter="1">
         <route edges="666559889 366271217 -37195413 -305115093 -305115095 -326203720 -326203722 -224023986 -36388592"/>
         <busStop id="432883073" name="Oberbarmen Bahnhof"/>
         <busStop id="-271135876" name="Wupperfeld"/>
