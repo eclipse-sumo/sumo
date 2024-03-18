@@ -455,26 +455,30 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 GEOSGeometry* carriagesCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, carriagePolygons.data(), (unsigned int)carriagePolygons.size());
                 GEOSGeometry* rampsCollection = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, rampPolygons.data(), (unsigned int)rampPolygons.size());
                 GEOSGeometry* carriagesAndRampsUnion = GEOSUnion(carriagesCollection, rampsCollection);
-                GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
+                if (carriagesAndRampsUnion == nullptr) {
+                    WRITE_WARNING(TL("Error while generating geometry for carriages."));
+                } else {
+                    GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
 #ifdef DEBUG_GEOMETRY_GENERATION
-                dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+                    dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
-                int nbrComponents = 0;
-                double maxArea = 0.0;
-                double totalArea = 0.0;
-                const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
-                if (nbrComponents > 1) {
-                    WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
-                                   nbrComponents, maxArea / totalArea * 100.0, "%");
+                    int nbrComponents = 0;
+                    double maxArea = 0.0;
+                    double totalArea = 0.0;
+                    const GEOSGeometry* pedestrianNetworkWithTrainsAndRampsLargestComponent = getLargestComponent(pedestrianNetworkWithTrainsAndRamps, nbrComponents, maxArea, totalArea);
+                    if (nbrComponents > 1) {
+                        WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
+                                       nbrComponents, maxArea / totalArea * 100.0, "%");
+                    }
+#ifdef DEBUG_GEOMETRY_GENERATION
+                    dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
+#endif
+                    myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
+                    JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
+                    removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
+                    preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
+                    GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
                 }
-#ifdef DEBUG_GEOMETRY_GENERATION
-                dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
-#endif
-                myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
-                JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
-                removePolygonFromDrawing(PEDESTRIAN_NETWORK_ID);
-                preparePolygonForDrawing(pedestrianNetworkWithTrainsAndRampsLargestComponent, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID, PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR);
-                GEOSGeom_destroy(pedestrianNetworkWithTrainsAndRamps);
                 GEOSGeom_destroy(rampsCollection);
                 GEOSGeom_destroy(carriagesCollection);
             }
