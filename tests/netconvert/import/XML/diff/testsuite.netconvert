@@ -46,5 +46,8 @@ remove_opposite
 # ensure there are no NANs in a junction shape
 from_to_samePos
 
-# patching permissions should impact edge filtering by permissions
+# patching permissions does ot impact earlier edge filtering by permissions
 change_permissions_filtered
+
+# patching permissions should impact edge filtering by permissions
+change_permissions_filtered_postload

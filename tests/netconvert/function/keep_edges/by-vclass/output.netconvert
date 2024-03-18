@@ -1,4 +1,4 @@
-Parsing sumo-net from 'input_net.net.xml' ... done.
+Parsing sumo-net from 'input_net.net.xml' ... done (1ms).
  Import done:
    7 nodes loaded.
    4 edges loaded.
