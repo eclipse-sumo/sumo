@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-15 13:49+0000\n"
+"PO-Revision-Date: 2024-03-18 14:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12762,42 +12762,50 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:466
 #: D:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:91
 msgid "No geo-conversion defined"
-msgstr ""
+msgstr "Nessuna proiezione geografica definita"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:547
 msgid " SUMO uses the World Geodetic System 84 (WGS84/UTM).\n"
-msgstr ""
+msgstr " SUMO utilizza il World Geodetic System 84 (WGS84/UTM).\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:548
 msgid ""
 " For a GEO-referenced network, geo coordinates are represented as pairs of "
 "Longitude and Latitude\n"
 msgstr ""
+" In reti con proiezione geografica definita coordinate geografiche vengone "
+"rappresentate da paia di longitudine e latitudine\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:549
 msgid " in decimal degrees without extra symbols. (N,W..)\n"
-msgstr ""
+msgstr " in gradi decimali senza simboli ulteriori. (N,W..)\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:550
 msgid " - Longitude: East-west position of a point on the Earth's surface.\n"
 msgstr ""
+" - Longitudine: Coordinata est/ovest di un punto sulla superficie della "
+"terra.\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:551
 msgid " - Latitude: North-south position of a point on the Earth's surface.\n"
 msgstr ""
+" - Latitudine: coordinate nord/sud di un punto sulla superficie della terra."
+"\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:552
 msgid ""
 " - CheckBox 'geo' enables or disables saving position in GEO coordinates\n"
 msgstr ""
+" - la casella di controllo 'geo' attiva o disattiva di salvare la posizione "
+"in coordinate geografiche\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:566
 msgid "Templates"
-msgstr ""
+msgstr "Modelli"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:570
 msgid "Set as Template"
-msgstr ""
+msgstr "Metti come modello"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:574
 msgid "clear Edge Template"
@@ -12806,11 +12814,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
 #, c-format
 msgid "Set edge '%' as Template"
-msgstr ""
+msgstr "Metti arco '%' come modello"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
 msgid "Only one edge must be inspected"
-msgstr ""
+msgstr "Un arco solo deve essere ispezionato"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:733
 msgid "No edge Template Set"
