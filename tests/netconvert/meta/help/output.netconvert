@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_19_0+1291-b5283f10f2b
+Eclipse SUMO netconvert Version v1_19_0+1359-64c4a1408b8
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -375,7 +375,8 @@ Edge Removal Options:
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                         single line. Selection files from
                                         sumo-gui are also supported)
-  --keep-edges.postload                Remove edges after joining
+  --keep-edges.postload                Remove edges after loading, patching and
+                                        joining
   --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                         the given boundary (given either as
                                         CARTESIAN corner coordinates

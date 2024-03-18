@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 16:28:07 by Eclipse SUMO netconvert Version v1_19_0+1291-b5283f10f2b
+<!-- generated on 2024-03-18 07:54:16 by Eclipse SUMO netconvert Version v1_19_0+1359-64c4a1408b8
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -585,7 +585,7 @@
         <!-- Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges after joining -->
+        <!-- Remove edges after loading, patching and joining -->
         <keep-edges.postload value="false" type="BOOL"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
