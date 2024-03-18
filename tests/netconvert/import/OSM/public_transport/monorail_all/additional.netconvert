@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-15 11:03:48 by Eclipse SUMO netconvert Version v1_19_0+1307-c3315d84abc
+<!-- generated on 2024-03-18 16:27:20 by Eclipse SUMO netconvert Version v1_19_0+1377-53a6e3ab519
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <busStop id="-266775534" name="Hammerstein" lane="-36388592_0" startPos="980.20" endPos="1180.20" friendlyPos="true"/>
     <busStop id="-271135646" name="Pestalozzistraße" lane="-326203720_0" startPos="1799.43" endPos="1999.43" friendlyPos="true" lines="60"/>
     <busStop id="-271135683" name="Robert-Daum-Platz" lane="-326203720_0" startPos="974.72" endPos="1174.72" friendlyPos="true" lines="60"/>
-    <busStop id="-271135716" name="Wuppertal Hauptbahnhof" lane="-305115095_0" startPos="0.00" endPos="44.03" friendlyPos="true"/>
+    <busStop id="-271135716" name="Wuppertal Hauptbahnhof" lane="-305115095_0" startPos="0.00" endPos="44.03" friendlyPos="true" lines="60"/>
     <busStop id="-271135733" name="Kluse" lane="-305115093_0" startPos="711.21" endPos="911.21" friendlyPos="true"/>
     <busStop id="-271135799" name="Loher Brücke" lane="-37195413_0" startPos="3113.86" endPos="3313.86" friendlyPos="true"/>
     <busStop id="-271135812" name="Adlerbrücke" lane="-37195413_0" startPos="2558.21" endPos="2758.21" friendlyPos="true"/>
