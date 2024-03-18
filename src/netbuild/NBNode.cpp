@@ -3657,8 +3657,11 @@ NBNode::isRoundabout() const {
 
 NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,
-                    const PositionVector& customShape, bool fromSumoNet) {
+                    const PositionVector& customShape, bool fromSumoNet, const Parameterised* params) {
     Crossing* c = new Crossing(this, edges, width, priority, tlIndex, tlIndex2, customShape);
+    if (params != nullptr) {
+        c->updateParameters(params->getParametersMap());
+    }
     myCrossings.push_back(std::unique_ptr<Crossing>(c));
     if (fromSumoNet) {
         myCrossingsLoadedFromSumoNet += 1;

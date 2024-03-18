@@ -713,7 +713,7 @@ public:
 
     /// @brief add a pedestrian crossing to this node
     NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
-                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);
+                                  const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false, const Parameterised* params = nullptr);
 
     /// @brief add custom shape for walkingArea
     void addWalkingAreaShape(EdgeVector edges, const PositionVector& shape, double width);

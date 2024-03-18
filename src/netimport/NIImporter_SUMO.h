@@ -308,7 +308,7 @@ private:
     /** @struct Crossing
      * @brief Describes a pedestrian crossing
      */
-    struct Crossing {
+    struct Crossing : public Parameterised {
         Crossing(const std::string& _edgeID) :
             edgeID(_edgeID), customTLIndex(-1), customTLIndex2(-1) {}
 

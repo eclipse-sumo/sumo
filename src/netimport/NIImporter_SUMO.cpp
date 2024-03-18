@@ -369,7 +369,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 if (!edges.empty()) {
                     node->addCrossing(edges, crossing.width, crossing.priority,
-                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true);
+                                      crossing.customTLIndex, crossing.customTLIndex2, crossing.customShape, true, &crossing);
                 }
             }
         }
@@ -654,6 +654,8 @@ NIImporter_SUMO::addLane(const SUMOSAXAttributes& attrs) {
         std::vector<Crossing>& crossings = myPedestrianCrossings[SUMOXMLDefinitions::getJunctionIDFromInternalEdge(myCurrentEdge->id)];
         assert(crossings.size() > 0);
         crossings.back().width = attrs.get<double>(SUMO_ATTR_WIDTH, id.c_str(), ok);
+        myLastParameterised.pop_back();
+        myLastParameterised.push_back(&crossings.back());
         if (myCurrentLane->customShape) {
             crossings.back().customShape = myCurrentLane->shape;
             NBNetBuilder::transformCoordinates(crossings.back().customShape, true, myLocation);
