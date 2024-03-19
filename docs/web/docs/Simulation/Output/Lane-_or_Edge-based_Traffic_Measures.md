@@ -117,7 +117,8 @@ The generated output looks like the following:
                 waitingTime="<TOTAL_WAITING_TIME>" speed="<MEAN_SPEED>" \
                 departed="<EMITTED_VEH_NUMBER>" arrived="<ARRIVED_VEH_NUMBER>" \
                 entered="<ENTERED_VEH_NUMBER>" left="<LEFT_VEH_NUMBER>" \
-                laneChangedFrom="NUMBER_OF_LANE_LEAVERS" laneChangedTo="NUMBER_OF_LANE_ENTERER"/>
+                laneChangedFrom="<NUMBER_OF_LANE_LEAVERS>" laneChangedTo="<NUMBER_OF_LANE_ENTERER>" \
+                speedRelative="<MEAN_SPEED_RELATIVE>" />
 
           ... more lanes...
 
@@ -163,6 +164,7 @@ The meanings of the written values are given in the following table.
 | waitingTime       | s                    | The total number of seconds vehicles were considered halting (speed < speedThreshold). Summed up over all vehicles  |
 | timeLoss         | s                     | The total number of seconds vehicles lost due to driving slower than desired (summed up over all vehicles)    |
 | speed             | m/s                  | The mean speed on the edge/lane within the reported interval.<br><br>**Caution:** This is an average over time and space (space-mean-speed), rather than a local average over the vehicles (time-mean-speed). Since slow vehicles spend more time on the edge they will have a proportionally bigger influence on average speed.     |
+| speedRelative     | -                    | quotient of mean speed value (see above) and the lane speed limit |
 | departed          | \#veh                | The number of vehicles that have been emitted onto the edge/lane within the described interval    |
 | arrived           | \#veh                | The number of vehicles that have finished their route on the edge lane    |
 | entered           | \#veh                | The number of vehicles that have entered the edge/lane by moving from upstream      |
