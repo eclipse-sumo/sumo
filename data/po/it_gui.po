@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-18 14:00+0000\n"
+"PO-Revision-Date: 2024-03-19 14:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -1077,7 +1077,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:56
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "Comprende JuPedSim %.%.%"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:62
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
@@ -3481,7 +3481,7 @@ msgstr "Crea nodi e archi."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "&Traffic light"
-msgstr ""
+msgstr "&Semaforo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Modes traffic lights over junctions."
@@ -3533,7 +3533,7 @@ msgstr "Crea zone di assegnazione del traffico."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:639
 msgid "&POI-Poly"
-msgstr ""
+msgstr "Punti di interesse e poligoni"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:639
 msgid "Create Points-Of-Interest and polygons."
@@ -3541,7 +3541,7 @@ msgstr "Crea punti di interesse e poligoni."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 msgid "Deca&ls"
-msgstr ""
+msgstr "Immagini di fondo"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:643
 msgid "Create decals."
@@ -5376,7 +5376,7 @@ msgstr "Control + clic per creare due fermate nella medesima posizione"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1362
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1383
 msgid "moving selection"
-msgstr ""
+msgstr "sposta la selezione"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1569
 msgid "Selection width:"
@@ -5397,7 +5397,7 @@ msgstr "selezione attraverso un rettangolo"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1754
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
-msgstr ""
+msgstr "% formato di finestra invalido per l'opzione 'window-size'"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1835
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
@@ -5469,7 +5469,7 @@ msgstr "Modifca elementi di rete"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
 msgid "Set mode for editing network elements. (F2)"
-msgstr ""
+msgstr "Metti modo per modificare elementi di rete. (F2)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2106
@@ -5482,7 +5482,7 @@ msgstr "Modifica elementi di domanda di traffico"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 msgid "Set mode for editing traffic demand. (F3)"
-msgstr ""
+msgstr "Metti modo per modificare la domanda di traffico. (F3)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2250
@@ -5495,7 +5495,7 @@ msgstr "Modifica elementi di dati"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 msgid "Set mode for editing data demand. (F4)"
-msgstr ""
+msgstr "Metti modo per modificare la domanda di traffico. (F4)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
 msgid "Change netedit view"
@@ -8067,21 +8067,21 @@ msgstr "Nome del rivelatore multi-corsie (E2)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2244
 msgid "E3 EntryExitDetector"
-msgstr ""
+msgstr "Rivelatore di entrata-uscita E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2249
 msgid "The id of E3"
-msgstr ""
+msgstr "Il codice identificativo del E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2254
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2468
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3249
 msgid "X-Y position of detector in editor (Only used in netedit)"
-msgstr ""
+msgstr "Posizione X-Y del rivelatore nel editore (usato unicamente in netedit)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2266
 msgid "Name of Entry Exit detector"
-msgstr ""
+msgstr "Nome del rivelatore entrata-uscita"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2281
 msgid ""
@@ -8101,12 +8101,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2306
 msgid "E3 DetEntry"
-msgstr ""
+msgstr "Rivelatore di entrata E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2336
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2366
 msgid "E3 DetExit"
-msgstr ""
+msgstr "Rivelatore di uscita E3"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2371
 msgid "The id of Instant Induction Loop (E1Instant)"
@@ -8341,7 +8341,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2758
 msgid "Rerouter (Edge)"
-msgstr ""
+msgstr "Rerouter (arco)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2769
 msgid "Rerouter Interval"
@@ -9500,7 +9500,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5699
 msgid "The layer of the POI for drawing and selecting"
-msgstr ""
+msgstr "Il livello del punto di interesse per disegnare e selezionarlo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5705
 msgid "Width of rendered image in meters"
