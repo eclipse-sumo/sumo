@@ -1076,14 +1076,19 @@ following:
 
 ### Using existing types
 
-Multiple distributions can make use of the same types and optionally override their probabilites
+Multiple distributions can make use of the same types and optionally override their probabilites. 
+Previously defined vehicle type distributions can be referenced as well.
 
 ```xml
 <routes>
     <vType id="type1" accel="0.8" length="5" maxSpeed="70" probability="0.9"/>
     <vType id="type2" accel="1.8" length="15" maxSpeed="50" probability="0.1"/>
+    <vType id="type3" accel="1.9" length="15" maxSpeed="50"/>
+    <vType id="type4" accel="1.7" length="12" maxSpeed="50"/>
     <vTypeDistribution id="typedist1" vTypes="type1 type2"/>
-    <vTypeDistribution id="typedist2" vTypes="type1 type2" probabilities="0.5 0.5"/>
+    <vTypeDistribution id="typedist2" vTypes="type3 type4"/>
+    <vTypeDistribution id="typedist3" vTypes="type1 type2" probabilities="0.5 0.5"/>
+    <vTypeDistribution id="alltypesdist" vTypes="typedist1 typedist2" probabilities="0.5 0.5"/>
 </routes>
 ```
 
