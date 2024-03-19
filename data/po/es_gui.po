@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2024-03-19 07:17+0000\n"
+"PO-Revision-Date: 2024-03-19 07:24+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -5994,7 +5994,7 @@ msgstr "Modo para crear planes para contenedores. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 msgid "Edge data mode"
-msgstr ""
+msgstr "Modo de datos sobre aristas (edgeData)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 msgid "Mode for creating edge datas. (E)"
@@ -6002,7 +6002,7 @@ msgstr "Modo para crear datos de aristas (edgeDatas). (E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Edge relation data mode"
-msgstr ""
+msgstr "Modo de relación entre aristas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Mode for creating edge relation datas. (R)"
@@ -6010,7 +6010,7 @@ msgstr "Modo para crear datos de relación entre aristas (edgeRelDatas). (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "TAZ relation data mode"
-msgstr ""
+msgstr "Modo de relación entre zonas de análisis de tráfico"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3748
 msgid "Mode for creating TAZ relation datas. (Z)"
@@ -7915,7 +7915,7 @@ msgstr "Tiempo de espera antes de empezar a cargar"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1880
 msgid "Parking area the charging station is located"
-msgstr ""
+msgstr "Estacionamiento en el cual se ubica la estación de carga"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1891
 msgid "ParkingArea"
