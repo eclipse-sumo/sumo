@@ -16842,10 +16842,6 @@ msgstr "(Sin proyección definida)"
 msgid "Could not convert coordinates in %."
 msgstr "No se pudieron convertir las coordenadas en %."
 
-#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2323
-msgid "Disable hidding edges with high zoom out"
-msgstr ""
-
 #~ msgid "Traffic light"
 #~ msgstr "Semáforo"
 
