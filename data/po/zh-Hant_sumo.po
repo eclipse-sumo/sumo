@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-03-19 08:36+0100\n"
+"POT-Creation-Date: 2024-03-19 13:52+0100\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -5249,50 +5249,64 @@ msgstr "車道 '%' (長度 %)和路段 '%' (長度 %)的平均路段長度。"
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr "對向車道 '%' 不與路段 '%' 相同的節點連接!"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1423
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:934
+msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
+msgstr ""
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:937
+msgid ""
+"Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
+msgstr ""
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:939
+#, c-format
+msgid "Lane '%' has a maximum allowed speed of 0."
+msgstr "車道 '%' 的最大允許速度為 0。"
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1445
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "載入的圓環 '%'正被 '%' 替換。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1788
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1810
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "路段 '%' 與路段 '%' 重疊了 %。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1804
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1826
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "路段 '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1806
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1828
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "路段 '%' 的坡度(grade)為 %%。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1816
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1838
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "連接線(connection) '%' 有一個 % 米的垂直跳位(jump)。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1818
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1840
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "連接線(connection) '%' 的坡度(grade)為 %%。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1858
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1880
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "不結合(joining)的輕軌電車(tram)路段 '%', 此路段有 % 車道。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1936
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1958
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "輕軌電車(tram)路段 '%' 和 '%' 不明確 (針對車道 '%')。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2090
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2112
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:141
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "路段的 '%' 從節點(from-node)'%' 未知。"
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2094
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2116
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:145
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:566
 #, c-format
@@ -7888,108 +7902,108 @@ msgstr ""
 msgid "Could not add edge '-%'."
 msgstr "無法增加路段 '-%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:983
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:982
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr "節點定義中的屬性 '識別名(id)' 不是超長整數(long long int)類型。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:989
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:988
 msgid "Tag element on wrong XML hierarchy level."
 msgstr "在錯誤的 XML 層次結構級別標記元素。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1043
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1042
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr "鍵 '%' 的值無效 ('%'); 在節點 '%' 中。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1048
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1047
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr "鍵 '%' 的值不是數字值 ('%'); 在節點 '%' 中。。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1193
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1192
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr "參考的幾何資訊 (ref='%') 未知"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1435
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1434
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr "路段 '%' 的預設車道寬度作為鍵(key) '%',它無法被解析(parse)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1438
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1437
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr "路段 '%' 的預設車道寬度作為值(value) '%',它無法被解析(parse)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1444
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1443
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1480
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1479
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr "使用清單 (%) 中的最小車道編號數(lane number); 路段為 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1482
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1486
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1497
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1509
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1535
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1545
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1481
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1485
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1496
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1508
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1534
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1544
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr "鍵 '%' 的值不是數字值 ('%'), 其發生在路段 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1542
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1541
 msgid "Ignoring track count % for edge '%'."
 msgstr "忽略軌道計數(track count) %, 其發生在路段 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1727
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1726
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr "未知車道使用說明符(specifier) '%' 已忽略; 針對路徑(way) '%'"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1836
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1835
 msgid "No node found for reference '%' in relation '%'."
 msgstr "找不到參考 '%' 的節點; 其發生在關係 '%' 中。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1898
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1897
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr "找到未知的限制類型 '%'; 其發生在關係 '%' 中"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1936
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1935
 msgid "Invalid color value '%' in relation %"
 msgstr "無效的顏色值 '%'; 其發生在關係 '%' 中"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1954
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1953
 msgid "No way found for reference '%' in relation '%'"
 msgstr "找不到參考 '%' 的路徑(way); 其發生在關係 '%' 中"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1966
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1965
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr "忽略有未知類型的限制關係 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1970
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1969
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr "忽略有未知的從路徑(from-way)的限制關係 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1974
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1973
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr "忽略有未知的到路徑(to-way)的限制關係 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1978
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1977
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr "忽略有未知的行經(via)的限制關係 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1982
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1981
 msgid "Ignoring restriction relation '%'."
 msgstr "忽略限制關係 '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2007
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2006
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr "於關係(relation)中的平台 '%': '%' 以多邊形給定，目前不支援。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2028
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2027
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
@@ -7998,76 +8012,76 @@ msgstr ""
 "於關係(relation)中的參考平台： '%'： '%' 已損壞。可能開街街圖(OSM)檔案不完"
 "整。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2075
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2074
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr "大眾運輸路線 '%' (於關係 % 中) 似乎被分割(split), 只保留第一部分。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2110
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2109
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
 "大眾運輸路線於關係 % 中沒有停靠站, 因此被忽略。可能開放街圖(OSM)檔案不完整。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2116
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2115
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:228
 msgid "Ignoring duplicate PT line '%'."
 msgstr "忽略重複的大眾運輸列(PT line) '%'。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2131
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2130
 msgid "Via-node '%' was not instantiated"
 msgstr "通過節點(Via-node) '%' 未實例化(instantiated)"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2137
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2136
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr "無法確定限制關係的起始路段(from-edge) '%'"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2141
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2140
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr "無法確定限制關係的到達路段(to-edge) '%'"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2171
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2170
 msgid "direction of restriction relation could not be determined%"
 msgstr "限制關係的方向無法確定%"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2192
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2191
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr "限制關係中的不明確的路徑(way)參照(reference) '%'"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2444
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2443
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 "廢棄未知複合物(compound) '%';發生在類型 '%' 中 (在路段 '%' 第一次出現)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2450
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2449
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr "廢棄未使用的類型 '%' (在路段 '%' 第一次出現)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2495
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2494
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr "廢棄複合類型(compound type) '%' (在路段 '%' 第一次出現)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2510
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2509
 msgid "Adding new type '%' (first occurrence for edge '%')."
 msgstr "新增新的類型 '%' (在路段 '%' 第一次出現)。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2545
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2544
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr "路徑(way) '%' 的鐵路里程方向不明確（假設向前）"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2552
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2551
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr "路徑(way) '%' 的鐵路公里方向不一致: % (跳過)"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2597
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2596
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr "railway:position 的值不是數字('%');發生在節點 '%' 處。"
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2699
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2698
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr "忽略在 % 車道(lanes)上轉向標誌信息;其路段為 % 並具有 % 行駛車道"
@@ -9385,26 +9399,15 @@ msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr "OpenDRIVE 中無法表示出車道 '%' (距離=%) 處的不均勻停止線。"
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:242
+#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:241
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr "在路網中嵌入 的分區(TAZ)資料已不適用。 使用選項 --taz-output 代替"
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:250
-#, c-format
-msgid ""
-"Could not remove output file '%' after error. File contents possibly invalid."
-msgstr ""
-
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:475
+#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:468
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的雙向連接線 (bidi-connection)"
-
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:565
-#, c-format
-msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr "車道 '%' 的最大允許速度為 0。"
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_XML.cpp:88
 #: C:\Repos\sumo/src\polyconvert\PCPolyContainer.cpp:105

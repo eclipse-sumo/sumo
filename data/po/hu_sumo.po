@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-03-19 08:36+0100\n"
+"POT-Creation-Date: 2024-03-19 13:52+0100\n"
 "PO-Revision-Date: 2023-06-10 19:38+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -5064,50 +5064,64 @@ msgstr ""
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1423
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:934
+msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
+msgstr ""
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:937
+msgid ""
+"Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
+msgstr ""
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:939
+#, c-format
+msgid "Lane '%' has a maximum allowed speed of 0."
+msgstr ""
+
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1445
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1788
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1810
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1804
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1826
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1806
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1828
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1816
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1838
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1818
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1840
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1858
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1880
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1936
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1958
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2090
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2112
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:141
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr ""
 
-#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2094
+#: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2116
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:145
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:566
 #, c-format
@@ -7642,182 +7656,182 @@ msgstr ""
 msgid "Could not add edge '-%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:983
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:982
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:989
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:988
 msgid "Tag element on wrong XML hierarchy level."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1043
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1042
 msgid "Value of key '%' is invalid ('%') in node '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1048
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1047
 msgid "Value of key '%' is not numeric ('%') in node '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1193
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1192
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:592
 msgid "The referenced geometry information (ref='%') is not known"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1435
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1434
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1438
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1437
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1444
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1443
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1480
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1479
 msgid "Using minimum lane number from list (%) for edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1482
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1486
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1497
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1509
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1535
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1545
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1481
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1485
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1496
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1508
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1534
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1544
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1542
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1541
 msgid "Ignoring track count % for edge '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1727
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1726
 msgid "Unknown lane use specifier '%' ignored for way '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1836
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1835
 msgid "No node found for reference '%' in relation '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1898
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1897
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1936
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1935
 msgid "Invalid color value '%' in relation %"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1954
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1953
 msgid "No way found for reference '%' in relation '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1966
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1965
 msgid "Ignoring restriction relation '%' with unknown type."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1970
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1969
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1974
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1973
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1978
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1977
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1982
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1981
 msgid "Ignoring restriction relation '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2007
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2006
 #, c-format
 msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2028
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2027
 #, c-format
 msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2075
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2074
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2110
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2109
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2116
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2115
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:228
 msgid "Ignoring duplicate PT line '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2131
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2130
 msgid "Via-node '%' was not instantiated"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2137
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2136
 #, c-format
 msgid "from-edge '%' of restriction relation could not be determined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2141
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2140
 #, c-format
 msgid "to-edge '%' of restriction relation could not be determined"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2171
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2170
 msgid "direction of restriction relation could not be determined%"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2192
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2191
 #, c-format
 msgid "Ambiguous way reference '%' in restriction relation"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2444
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2443
 msgid ""
 "Discarding unknown compound '%' in type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2450
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2449
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2495
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2494
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2510
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2509
 msgid "Adding new type '%' (first occurrence for edge '%')."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2545
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2544
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2552
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2551
 msgid "Inconsistent railway kilometrage direction for way '%': % (skipping)"
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2597
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2596
 msgid "Value of railway:position is not numeric ('%') in node '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2699
+#: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2698
 msgid ""
 "Ignoring turn sign information for % lanes on edge % with % driving lanes"
 msgstr ""
@@ -9102,25 +9116,14 @@ msgid ""
 "Uneven stop line at lane '%' (dist=%) cannot be represented in OpenDRIVE."
 msgstr ""
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:242
+#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:241
 msgid ""
 "Embedding TAZ-data inside the network is deprecated. Use option --taz-output "
 "instead"
 msgstr ""
 
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:250
-#, c-format
-msgid ""
-"Could not remove output file '%' after error. File contents possibly invalid."
-msgstr ""
-
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:475
+#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:468
 msgid "Could not find bidi-connection for edge '%'"
-msgstr ""
-
-#: C:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:565
-#, c-format
-msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWWriter_XML.cpp:88
