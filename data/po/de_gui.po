@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-15 09:31+0000\n"
+"PO-Revision-Date: 2024-03-19 14:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1076,7 +1076,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:56
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "Beinhaltet JuPedSim %.%.%"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:62
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
@@ -3483,7 +3483,7 @@ msgstr "Erstelle Knotenpunkte und Kanten."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "&Traffic light"
-msgstr ""
+msgstr "&Lichtsignalanlage"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:611
 msgid "Modes traffic lights over junctions."
