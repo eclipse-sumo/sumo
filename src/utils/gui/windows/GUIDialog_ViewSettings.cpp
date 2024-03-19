@@ -2320,7 +2320,7 @@ GUIDialog_ViewSettings::buildOpenGLFrame(FXTabBook* tabbook) {
     myComboRows->setValue(GUIDesignComboBoxVisibleItemsLarge);
     FXMatrix* m82 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myDisableHideByZoom = new FXCheckButton(m82, TL("Disable hide by zoom"), this, MID_SIMPLE_VIEW_COLORCHANGE);
-    myDisableHideByZoom->setHelpText(TL("Disable hidding edges with high zoom out"));
+    myDisableHideByZoom->setHelpText(TL("Disable hiding edges with high zoom out"));
     myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
     FXMatrix* m83 = new FXMatrix(verticalFrame, 1, GUIDesignMatrixViewSettings);
     myDither = new FXCheckButton(m83, TL("Dither"), this, MID_SIMPLE_VIEW_COLORCHANGE);
