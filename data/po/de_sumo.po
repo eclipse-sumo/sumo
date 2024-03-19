@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-14 10:01+0000\n"
+"PO-Revision-Date: 2024-03-19 18:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2915,20 +2915,21 @@ msgstr "Fahrzeug '%' wird teleportiert"
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2130
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr ""
+msgstr "Fahrzeug '% wird entfernt"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2134
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr ""
+msgstr "Das ferngesteuerte Fahrzeug '%' wird beibehalten"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2147
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
 msgstr ""
+" Kollision mit Person '%'; Fahrstreifen='%', Weglücke=%, Zeit=%, Abschnitt=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2150
 msgid " collision with person '%', lane='%', time=%, stage=%."
-msgstr ""
+msgstr " Kollision mit Person '%, Fahrstreifen='%', Zeit=%, Abschnitt=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2216
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -3187,7 +3188,7 @@ msgstr "Der Fahrstreifen '%' des Haltepunkts ist unbekannt%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1303
 msgid "Could not map stop position '%' to the network%."
-msgstr ""
+msgstr "Die Haltposition '%' konnte nicht auf das Netz % projiziert werden."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1320
 msgid ""
@@ -3200,21 +3201,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1331
 msgid "Deprecated attribute 'pos' in description of stop%."
-msgstr ""
+msgstr "Veraltetes Attribut 'pos' in der Definition des Haltes%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1339
 msgid "Invalid start or end position for stop on %'%."
-msgstr ""
+msgstr "Ungültige Anfangs- oder Endposition des Haltepunkts auf % '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1353
 msgid "Disconnected plan for % '%' (%!=%)."
-msgstr ""
+msgstr "Unzusammenhängender Plan für % '%' (%!=%)."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1363
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr ""
+"Unzusammenhängender Plan für % '%' (Der Haltebereich %-% liegt außerhalb der "
+"vorherigen Ankunftsposition %)."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1398
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
@@ -3383,6 +3386,8 @@ msgstr ""
 msgid ""
 "Cannot join vehicle '%' to vehicle '%' due to incompatible routes. time=%."
 msgstr ""
+"Fahrzeug '%' kann nicht mit Fahrzeug '%' verbunden werden, da die Routen "
+"nicht miteinander kompatibel sind. Zeit=%."
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:2820
 msgid "Suspicious right_before_left junction '%'."
@@ -3445,6 +3450,8 @@ msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
 msgstr ""
+"Der Fahrzeugtyp '%' definiert sowohl ein 'mass'- als auch ein 'vehicleMass'-"
+"Attribut. Das 'mass'-Attribut wird bevorzugt."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:318
 #, c-format
@@ -3453,6 +3460,9 @@ msgid ""
 "the 'mass' attribute (for the empty mass) and the 'loading' parameter, if "
 "needed."
 msgstr ""
+"Der Fahrzeugtyp '%' definiert das veraltete 'vehicleMass'-Attribut. Bitte "
+"nutze stattdessen das 'mass'-Attribut (für das leere Fahrzeug) und ggf. das "
+"'loading'-Attribut für die Zuladung."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:330
 msgid ""
