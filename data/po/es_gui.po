@@ -1077,7 +1077,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:56
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "Incluye JuPedSim %.%.%"
 
 #: C:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:62
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
@@ -7884,7 +7884,7 @@ msgstr "Nombre de la zona de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
 msgid " The number of parking spaces for road-side parking"
-msgstr " El número de plazas de aparcamiento al borde de la vía"
+msgstr " El número de espacios de parqueo al borde de la vía"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1933
 msgid ""
@@ -7903,7 +7903,7 @@ msgid ""
 "The length of the road-side parking spaces. By default (endPos - startPos) / "
 "roadsideCapacity"
 msgstr ""
-"La longitud de las plazas de aparcamiento en la vía. Por defecto (endPos - "
+"La longitud de los espacios de parqueo en la vía. Por defecto (endPos - "
 "startPos) / roadsideCapacity"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1959
@@ -7922,7 +7922,7 @@ msgstr "Activar o desactivar la posición de lado izquierdo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1978
 msgid "ParkingSpace"
-msgstr ""
+msgstr "Espacio de parqueo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1988
 msgid "Name of parking space"
@@ -7930,11 +7930,11 @@ msgstr "Nombre del espacio de estacionamiento"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1998
 msgid "The length of the road-side parking spaces"
-msgstr "La longitud de las plazas de aparcamiento en la vía"
+msgstr "La longitud de los espacios de parqueo en la vía"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2008
 msgid "The slope of the road-side parking spaces"
-msgstr "La inclinación de las plazas de aparcamiento en la vía"
+msgstr "La inclinación de los espacios de parqueo en la vía"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2021
 msgid "E1 InductionLoop"
@@ -8346,7 +8346,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2746
 msgid "If rerouter is optional"
-msgstr ""
+msgstr "Si rerouter es opcional"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2758
 msgid "Rerouter (Edge)"
@@ -9459,39 +9459,39 @@ msgstr "Caminata: parada de tren->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5494
 msgid "Ride: edge->edge"
-msgstr ""
+msgstr "Conducción: arista->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5508
 msgid "Ride: edge->busStop"
-msgstr ""
+msgstr "Conducción: arista->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5522
 msgid "Ride: edge->trainStop"
-msgstr ""
+msgstr "Conducción: arista->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5537
 msgid "Ride: busStop->edge"
-msgstr ""
+msgstr "Conducción: parada de bus->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5551
 msgid "Ride: busStop->busStop"
-msgstr ""
+msgstr "Conducción: parada de bus->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5565
 msgid "Ride: busStop->trainStop"
-msgstr ""
+msgstr "Conducción: parada de bus->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5580
 msgid "Ride: trainStop->edge"
-msgstr ""
+msgstr "Conducción: parada de tren->arista"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5594
 msgid "Ride: train->busStop"
-msgstr ""
+msgstr "Conducción: tren->parada de bus"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5608
 msgid "Ride: train->trainStop"
-msgstr ""
+msgstr "Conducción: tren->parada de tren"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5645
 msgid "Stop: busStop"
@@ -16841,6 +16841,10 @@ msgstr "(Sin proyección definida)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1715
 msgid "Could not convert coordinates in %."
 msgstr "No se pudieron convertir las coordenadas en %."
+
+#: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2323
+msgid "Disable hidding edges with high zoom out"
+msgstr ""
 
 #~ msgid "Traffic light"
 #~ msgstr "Semáforo"
