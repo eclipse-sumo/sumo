@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2023-07-10 15:12+0200\n"
+"POT-Creation-Date: 2023-07-21 15:19+0200\n"
 "PO-Revision-Date: 2023-09-02 14:54+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -19,118 +19,118 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.0.1-dev\n"
 
-#: D:\Repos\sumo/tools/game\runner.py:63
+#: C:\Repos\sumo/tools/game\runner.py:63
 msgid "Interactive Traffic Light"
 msgstr "İnteraktif Trafik Işığı"
 
-#: D:\Repos\sumo/tools/game\runner.py:64
+#: C:\Repos\sumo/tools/game\runner.py:64
 msgid "Research intersection Ingolstadt"
 msgstr "Araştırma kavşağı Ingolstadt"
 
-#: D:\Repos\sumo/tools/game\runner.py:65
+#: C:\Repos\sumo/tools/game\runner.py:65
 msgid "Simple Junction"
 msgstr "Basit Bağlantı"
 
-#: D:\Repos\sumo/tools/game\runner.py:66
+#: C:\Repos\sumo/tools/game\runner.py:66
 msgid "Simple Junction (Demo)"
 msgstr "Basit Bağlantı (Demo)"
 
-#: D:\Repos\sumo/tools/game\runner.py:67
+#: C:\Repos\sumo/tools/game\runner.py:67
 msgid "Four Junctions"
 msgstr "Dört Kavşak"
 
-#: D:\Repos\sumo/tools/game\runner.py:68
+#: C:\Repos\sumo/tools/game\runner.py:68
 msgid "Six Junctions"
 msgstr "Altı Kavşak"
 
-#: D:\Repos\sumo/tools/game\runner.py:69
+#: C:\Repos\sumo/tools/game\runner.py:69
 msgid "Prof. Kühne"
 msgstr "Prof. Kühne"
 
-#: D:\Repos\sumo/tools/game\runner.py:70
+#: C:\Repos\sumo/tools/game\runner.py:70
 msgid "3D Junction Virtual World"
 msgstr "3D Kavşak Sanal Dünyası"
 
-#: D:\Repos\sumo/tools/game\runner.py:71
+#: C:\Repos\sumo/tools/game\runner.py:71
 msgid "3D Junction OpenStreetMap"
 msgstr "3D Kavşak OpenStreetMap"
 
-#: D:\Repos\sumo/tools/game\runner.py:72
+#: C:\Repos\sumo/tools/game\runner.py:72
 msgid "Highway Ramp"
 msgstr "Otoyol Rampası"
 
-#: D:\Repos\sumo/tools/game\runner.py:73
+#: C:\Repos\sumo/tools/game\runner.py:73
 msgid "Combined Highway On and Off Ramp"
 msgstr "Kombine Otoyol Açık ve Kapalı Rampası"
 
-#: D:\Repos\sumo/tools/game\runner.py:74
+#: C:\Repos\sumo/tools/game\runner.py:74
 msgid "Corridor"
 msgstr "Koridor"
 
-#: D:\Repos\sumo/tools/game\runner.py:75
+#: C:\Repos\sumo/tools/game\runner.py:75
 msgid "Highway Ramp A10"
 msgstr "Otoyol Rampası A10"
 
-#: D:\Repos\sumo/tools/game\runner.py:76
+#: C:\Repos\sumo/tools/game\runner.py:76
 msgid "Demand Responsive Transport (new)"
 msgstr "Talebe Duyarlı Taşımacılık (yeni)"
 
-#: D:\Repos\sumo/tools/game\runner.py:77
+#: C:\Repos\sumo/tools/game\runner.py:77
 msgid "DRT - Advanced (new)"
 msgstr "DRT - Gelişmiş (yeni)"
 
-#: D:\Repos\sumo/tools/game\runner.py:78
+#: C:\Repos\sumo/tools/game\runner.py:78
 msgid "DRT - Demo"
 msgstr "DRT - Demo"
 
-#: D:\Repos\sumo/tools/game\runner.py:79 D:\Repos\sumo/tools/game\runner.py:89
+#: C:\Repos\sumo/tools/game\runner.py:79 C:\Repos\sumo/tools/game\runner.py:89
 msgid "Highscore"
 msgstr "Yüksek skor"
 
-#: D:\Repos\sumo/tools/game\runner.py:80
+#: C:\Repos\sumo/tools/game\runner.py:80
 msgid "Reset Highscore"
 msgstr "Yüksek Skoru Sıfırla"
 
-#: D:\Repos\sumo/tools/game\runner.py:81
+#: C:\Repos\sumo/tools/game\runner.py:81
 msgid "German"
 msgstr "Almanca"
 
-#: D:\Repos\sumo/tools/game\runner.py:82
+#: C:\Repos\sumo/tools/game\runner.py:82
 msgid "English"
 msgstr "İngilizce"
 
-#: D:\Repos\sumo/tools/game\runner.py:83
+#: C:\Repos\sumo/tools/game\runner.py:83
 msgid "Italian"
 msgstr "İtalyanca"
 
-#: D:\Repos\sumo/tools/game\runner.py:84
+#: C:\Repos\sumo/tools/game\runner.py:84
 msgid "Spanish"
 msgstr "İspanyolca"
 
-#: D:\Repos\sumo/tools/game\runner.py:85
+#: C:\Repos\sumo/tools/game\runner.py:85
 msgid "French"
 msgstr "Fransızca"
 
-#: D:\Repos\sumo/tools/game\runner.py:86
+#: C:\Repos\sumo/tools/game\runner.py:86
 msgid "Chinese (simplified)"
 msgstr "Çince (basitleşdirilmiş)"
 
-#: D:\Repos\sumo/tools/game\runner.py:87
+#: C:\Repos\sumo/tools/game\runner.py:87
 msgid "Chinese (traditional)"
 msgstr "Çince (geleneksel)"
 
-#: D:\Repos\sumo/tools/game\runner.py:88
+#: C:\Repos\sumo/tools/game\runner.py:88
 msgid "Quit"
 msgstr "Çıkış"
 
-#: D:\Repos\sumo/tools/game\runner.py:90
+#: C:\Repos\sumo/tools/game\runner.py:90
 msgid "Congratulations!"
 msgstr "Tebrikler!"
 
-#: D:\Repos\sumo/tools/game\runner.py:91
+#: C:\Repos\sumo/tools/game\runner.py:91
 msgid "Your Score"
 msgstr "Puanın"
 
-#: D:\Repos\sumo/tools/game\runner.py:92
+#: C:\Repos\sumo/tools/game\runner.py:92
 msgid "Continue"
 msgstr "Devam Et"

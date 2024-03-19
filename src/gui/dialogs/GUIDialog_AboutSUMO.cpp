@@ -53,14 +53,14 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent) :
     new FXLabel(descriptionFrame, "Eclipse SUMO - Simulation of Urban MObility", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, TL("Graphical user interface for the microscopic, multi-modal traffic simulation SUMO."), nullptr, GUIDesignLabelAboutInfo);
 #ifdef JPS_VERSION
-    new FXLabel(descriptionFrame, TLF("includes JuPedSim %.%.%", int(JPS_VERSION / 100), int(JPS_VERSION % 100 / 10), JPS_VERSION % 10).c_str(), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, TLF("Includes JuPedSim %.%.%", int(JPS_VERSION / 100), int(JPS_VERSION % 100 / 10), JPS_VERSION % 10).c_str(), nullptr, GUIDesignLabelAboutInfo);
 #endif
     new FXLabel(descriptionFrame, HAVE_ENABLED, nullptr, GUIDesignLabelAboutInfo);
 
     // copyright notice
     new FXLabel(this, "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, TL("This application is based on code provided by the Eclipse SUMO project."), nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, TL("These core components are available under the conditions of the Eclipse Public License v2."), nullptr, GUIDesignLabelAboutInfo);
     (new MFXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
 
     // link to homepage
