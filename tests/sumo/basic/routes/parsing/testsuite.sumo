@@ -48,6 +48,9 @@ repeat_embedded
 # test repeating route definition with stops
 repeat_stops
 
+# test repeating route definition where a jump is used to bride a disconnected route
+repeat_jump
+
 # test repeating route definition with stops for flow
 repeat_flow_stops
 
