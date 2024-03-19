@@ -485,9 +485,10 @@ def createRoutes(options, trpMap, stopNames):
                 lastBusStop = stops[-1].busStop
                 lastUntil = stopsUntil.get((id, lastBusStop))
                 if lastUntil is not None:
-                    numRepeats = math.ceil(flow_duration / (lastUntil[-1] - actualDepart[id]))
+                    cycleTime = lastUntil[-1] - actualDepart[id]
+                    numRepeats = math.ceil(flow_duration / cycleTime)
                     if numRepeats > 1:
-                        repeat = ' repeat="%s"' % numRepeats
+                        repeat = ' repeat="%s" cycleTime="%s"' % (numRepeats, ft(cycleTime))
 
             foutflows.write('    <route id="%s"%s edges="%s"%s >\n' % (flowID, color, edges, repeat))
             if vehicle.stop is not None:
