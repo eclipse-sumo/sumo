@@ -199,7 +199,6 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             device->setTrajectory(&t);
         } else {
             const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
-            Trajectory& t = myTrajectories[id];
             const std::vector<SUMOVehicleParameter::Stop> stops;
             ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, std::get<3>(desc.second), true, nullptr, stops);
             if (!MSRoute::dictionary(dummyRouteID, route)) {

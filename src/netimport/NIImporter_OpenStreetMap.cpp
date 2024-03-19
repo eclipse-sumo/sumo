@@ -525,7 +525,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     }
     // get additional direction information
     int nodeDirection = myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection |
-        myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection;
+                        myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection;
 
     std::vector<std::shared_ptr<NBPTStop> > ptStops;
     for (long long i : passed) {
@@ -553,11 +553,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 #ifdef DEBUG_LAYER_ELEVATION
     if (e->id == "DEBUGID") {
         std::cout
-            << " id=" << id << " from=" << from->getID() << " fromRailDirection=" << myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection 
-            << " to=" << to->getID() << " toRailDirection=" << myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection 
-            << " origRailDirection=" << e->myRailDirection
-            << " nodeDirection=" << nodeDirection
-            << "\n";
+                << " id=" << id << " from=" << from->getID() << " fromRailDirection=" << myOSMNodes.find(StringUtils::toLong(from->getID()))->second->myRailDirection
+                << " to=" << to->getID() << " toRailDirection=" << myOSMNodes.find(StringUtils::toLong(to->getID()))->second->myRailDirection
+                << " origRailDirection=" << e->myRailDirection
+                << " nodeDirection=" << nodeDirection
+                << "\n";
     }
 #endif
     if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
@@ -923,8 +923,7 @@ NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<long long int, NIO
     myUniqueNodes(uniqueNodes),
     myImportElevation(oc.getBool("osm.elevation")),
     myDuplicateNodes(0),
-    myOptionsCont(oc)
-{
+    myOptionsCont(oc) {
     // init rail signal rules
     for (std::string kv : oc.getStringVector("osm.railsignals")) {
         if (kv == "DEFAULT") {
@@ -2073,7 +2072,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 if (hadGap) {
                     WRITE_WARNINGF(TL("PT line '%' in relation % seems to be split, only keeping first part."), myName, myCurrentRelation);
-                    missingAfter = myStops.size() - missingBefore - ptLine->getStops().size();
+                    missingAfter = (int)myStops.size() - missingBefore - (int)ptLine->getStops().size();
                     break;
                 }
 

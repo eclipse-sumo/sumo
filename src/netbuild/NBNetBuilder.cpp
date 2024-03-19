@@ -649,7 +649,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
 
     if (lefthand != oc.getBool("flip-y-axis")) {
         mirrorX();
-    };
+    }
 
     if (oc.exists("geometry.check-overlap")  && oc.getFloat("geometry.check-overlap") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Checking overlapping edges"));
