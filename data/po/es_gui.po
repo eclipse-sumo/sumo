@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-19 07:24+0000\n"
+"PO-Revision-Date: 2024-03-19 13:53+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11545,41 +11545,41 @@ msgstr "Agregar semáforo unido"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:499
 msgid "Reset edge endpoints"
-msgstr ""
+msgstr "Restablecer puntos finales de arista"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:500
 msgid "Set custom junction shape"
-msgstr ""
+msgstr "Establecer forma de cruce personalizada"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:501
 msgid "Reset junction shape"
-msgstr ""
+msgstr "Restablecer la forma del cruce"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:502
 msgid "Replace junction by geometry point"
-msgstr ""
+msgstr "Reemplazar el cruce por un punto geométrico"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:503
 #, c-format
 msgid "Split junction (% end points)"
-msgstr ""
+msgstr "Dividir cruce (% puntos finales)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:504
 msgid "Split junction and reconnect"
-msgstr ""
+msgstr "Dividir cruce y volver a conectar"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:507
 msgid "Select roundabout"
-msgstr ""
+msgstr "Seleccionar rotonda"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:511
 msgid "Convert to roundabout (using junction attribute radius %)"
-msgstr ""
+msgstr "Convertir en rotonda (usando el atributo de radio de cruce %)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:520
 #, c-format
 msgid " of % junctions"
-msgstr ""
+msgstr " de % cruces"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:521
 msgid "Clear connections"
@@ -11587,7 +11587,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:522
 msgid "Reset connections"
-msgstr ""
+msgstr "Restablecer conexiones"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:531
 msgid "Reset junction shapes"
@@ -11595,7 +11595,7 @@ msgstr "Restablecer formas de los cruces"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:545
 msgid "wrong edit mode"
-msgstr ""
+msgstr "modo de edición incorrecto"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:1348
 msgid "change junction position"
@@ -14422,7 +14422,7 @@ msgstr "Zona de análisis de tráfico actual: "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:337
 msgid "Invalid TAZ Child"
-msgstr ""
+msgstr "Elemento hijo de zona de análisis de tráfico no válido"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:346
 msgid "TAZ Statistics"
@@ -16601,15 +16601,15 @@ msgstr "Mostrar leyenda de color de vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2318
 msgid "Combobox max rows"
-msgstr ""
+msgstr "Número máximo de filas en cuadros de lista"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2322
 msgid "Disable hide by zoom"
-msgstr ""
+msgstr "Desactivar ocultar según zoom"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2323
 msgid "Disable hiding edges with high zoom out"
-msgstr ""
+msgstr "Desactivar el ocultar ciertas aristas cuando se aleje demasiado el zoom"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2326
 msgid "Dither"
