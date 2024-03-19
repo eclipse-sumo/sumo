@@ -354,24 +354,6 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING(TL("Attribute 'period' is deprecated for route. Use 'cycleTime' instead."));
     }
-    if (myActiveRouteRepeat > 0) {
-        if (MSGlobals::gCheckRoutes) {
-            SUMOVehicleClass vClass = SVC_IGNORING;
-            std::string errSuffix = ".";
-            if (myVehicleParameter != nullptr) {
-                MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-                MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-                if (vtype != nullptr) {
-                    vClass = vtype->getVehicleClass();
-                    errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, vClass);
-                }
-            }
-            if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
-                throw ProcessError(TLF("Disconnected route % when repeating. Last edge '%' is not connected to first edge '%'%",
-                                       rid, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
-            }
-        }
-    }
     myCurrentCosts = attrs.getOpt<double>(SUMO_ATTR_COST, myActiveRouteID.c_str(), ok, -1);
     if (ok && myCurrentCosts != -1 && myCurrentCosts < 0) {
         WRITE_WARNING(TLF("Invalid cost for route '%'.", myActiveRouteID));
@@ -441,6 +423,25 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
             // duplicate route
             ConstMSEdgeVector tmpEdges = myActiveRoute;
             auto tmpStops = myActiveRouteStops;
+
+            if (MSGlobals::gCheckRoutes) {
+                SUMOVehicleClass vClass = SVC_IGNORING;
+                std::string errSuffix = ".";
+                if (myVehicleParameter != nullptr) {
+                    MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
+                    MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
+                    if (vtype != nullptr) {
+                        vClass = vtype->getVehicleClass();
+                        errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, vClass);
+                    }
+                }
+                if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
+                    if (tmpStops.size() == 0 || tmpStops.back().jump < 0) {
+                        throw ProcessError(TLF("Disconnected route '%' when repeating. Last edge '%' is not connected to first edge '%'%",
+                                    myActiveRouteID, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
+                    }
+                }
+            }
             for (int i = 0; i < myActiveRouteRepeat; i++) {
                 myActiveRoute.insert(myActiveRoute.begin(), tmpEdges.begin(), tmpEdges.end());
                 for (SUMOVehicleParameter::Stop stop : tmpStops) {
@@ -464,6 +465,10 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                     }
                     myActiveRouteStops.push_back(stop);
                 }
+            }
+            if (myActiveRouteStops.size() > 0) {
+                // never jump on the last stop of a repeating route
+                myActiveRouteStops.back().jump = -1;
             }
         }
         MSRoute* const route = new MSRoute(myActiveRouteID, myActiveRoute,
