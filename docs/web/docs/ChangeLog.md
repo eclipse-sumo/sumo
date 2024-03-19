@@ -28,10 +28,10 @@ title: ChangeLog
   - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
   - Lane markings are rendered below the junction bubble again #14417 (regression in 1.12.0)
   - The unsupported attribute "lines" is no longer written for a personTrip #14463 (regression in 1.15.0)
-  - Fixed invalid "save" dialog after loading additionals from file. #14464 (regrssion in 1.16.0)
+  - Fixed invalid "save" dialog after loading additionals from file. #14464 (regression in 1.16.0)
   - Fixed missing connections after adding edge #14391 (regression in 1.19.0)
   - Alt+Hotkeys for menus are working again #14396 (regression in 1.19.0)
-  - Fixed superfluous scrollbars in combo boxes #14412 (regressin in 1.19.0)
+  - Fixed superfluous scrollbars in combo boxes #14412 (regression in 1.19.0)
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
   - Tool plot_trajectories.py is now usable. #14147
   - "copy type" now also copies vehicle class #14444
@@ -45,7 +45,7 @@ title: ChangeLog
   - Fixed problems related to option **--dlr-navteq-output**. #14071
   - Option **--junctions.minimal-shape** now persists when re-processing the network. #14375
   - Fixed invalid permissions in OSM import of ferry routes. #14362
-  - Fixec crash when importing Vissim Network with unusual geometry. #14413
+  - Fixed crash when importing Vissim Network with unusual geometry. #14413
   - Prevented writing an invalid network when aborting with an error #14470
   - NEMA junctions now stays consistent on recompute #14491
   - NEMA junctions now work correctly with option --tls.group-signals #14440  
@@ -86,7 +86,7 @@ title: ChangeLog
   - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
   - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
   - Added new attribute `departPos="splitFront"` which causes a train with [`depart="split"`](Simulation/Railways.md#portion_working) to be created at the front rather than the rear of the original train. #14358
-  - vType attribute `mass` is noow used within `carFollowModel="Rail"`. #13055
+  - vType attribute `mass` is now used within `carFollowModel="Rail"`. #13055
   - Option **--fcd-output.attributes** now supports the value 'arrivalDelay' #14447
   - Sumo now allows specifying departure and arrival positions in network or geo-coordinates #2182
   - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258
@@ -110,7 +110,7 @@ title: ChangeLog
  
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
-  - Aded option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
+  - Added option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
   - Option **--output.street-names** is now enabled by default if **--shapefile.name** is set. #14399
   - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476
   - More rail signals are imported from OSM and option **--osm.railsignals** can be used for fine grained control of signal interpretation. #14483
@@ -124,7 +124,7 @@ title: ChangeLog
   - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438 
 
 - Tools
-  - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating vidoes from a simulation with scripted view movements. #14060
+  - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
   - tileGet.py supports downloading rendered tiles from OSM. #14241
   - added `sumolib.net.node.getMaxTLLinkIndex` #14373
   - gtfs2pt.py nows support human-readable times output using option **-H**. #11192
