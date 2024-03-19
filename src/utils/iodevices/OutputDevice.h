@@ -163,9 +163,6 @@ public:
      */
     void close();
 
-    /// @brief deletes the target (if it's a valid file) and return success
-    virtual bool removeSelf() { return true; };
-
 
     /** @brief Sets the precision or resets it to default
      * @param[in] precision The accuracy (number of digits behind '.') to set
