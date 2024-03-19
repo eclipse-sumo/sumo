@@ -16706,35 +16706,29 @@ msgid ""
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
 msgid ""
 "     '' (no operator) matches if string is a substring of that object's "
 "attribute.\n"
 msgstr ""
+"     '' (senza operatore) coincide se la sequenza di caratteri è contenuta "
+"in quella dell'attributo di questo oggetto.\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:284
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
 msgid "     '=' matches if string is an exact match.\n"
-msgstr ""
+msgstr "     '=' coincide se le sequenze di caratteri sono identiche.\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:285
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:285
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:466
 msgid "     '!' matches if string is not a substring.\n"
-msgstr ""
+msgstr "     '!' coincide se la sequenza di caratteri non è contenuta.\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:286
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:467
 msgid "     '^' matches if string is not an exact match.\n"
-msgstr ""
+msgstr "     '^' permette coindicenze non esatte.\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
