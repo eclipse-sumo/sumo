@@ -11789,10 +11789,9 @@ msgstr ""
 msgid "ContainerStop associated with this stop"
 msgstr "Fermata di contenitori associata a questa fermata"
 
-#: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4268
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4261
 msgid "StopChargingStation"
-msgstr ""
+msgstr "Fermata ad una stazione di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4273
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4266
@@ -16737,36 +16736,34 @@ msgstr ""
 msgid "     '^' matches if string is not an exact match.\n"
 msgstr ""
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:288
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:469
 msgid "- Examples:\n"
-msgstr ""
+msgstr "- Esempi:\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:470
 msgid ""
 "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
 msgstr ""
+"     junction; id; 'foo' ->coincide con ogni incrocio il cui codice "
+"identificativo contiene 'foo'\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
+"     junction; type; '=priority' -> coincide con ogni incrocio del tipo "
+"'priority', ma non col tipo 'priority_stop'\n"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
-#: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:472
 msgid "     edge; speed; '>10' -> match all edges with a speed above 10\n"
 msgstr ""
+"     edge; speed; '>10' -> coincide con ogni arco il cui limite di velocità "
+"supera 10\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:55
