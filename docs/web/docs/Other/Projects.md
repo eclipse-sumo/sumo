@@ -90,7 +90,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
 - [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
 - [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
-- [ORINOKO](https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
+- [ORINOKO](https://web.archive.org/web/20220710041841/https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
 - [Soccer2006](https://web.archive.org/web/20150705081516/https://www.dlr.de/desktopdefault.aspx/tabid-1296):
