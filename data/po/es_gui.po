@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-02-16 13:45+0100\n"
-"PO-Revision-Date: 2023-12-07 10:02+0000\n"
+"PO-Revision-Date: 2024-03-19 07:17+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:293
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:296
@@ -168,21 +168,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "Establecer punto de interrupción"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:500
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "Establece un punto de interrupción en el paso actual de la simulación"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "Establecer punto de interrupción desplazado"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:503
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
 msgstr ""
+"Establece un punto de interrupción en el paso actual de la simulación + el "
+"desplazamiento configurado en los ajustes de la aplicación"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 msgid "Edit Breakpoints"
@@ -2864,7 +2866,7 @@ msgstr "Elementos de ruta cargados con éxito: "
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3907
 msgid "reloading demand elements from '%'"
-msgstr ""
+msgstr "recargando elementos de demanda desde '%'"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3912
 msgid "Reloading of route file failed: "
@@ -4802,7 +4804,7 @@ msgstr "Error al restablecer las opciones."
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:313
 msgid "create edge"
-msgstr ""
+msgstr "crear arista"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:372
 msgid "delete junction"
@@ -5541,7 +5543,7 @@ msgstr "Editar elementos de red"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1966
 msgid "Set mode for editing network elements. (F2)"
-msgstr ""
+msgstr "Establecer modo para editar elementos de red. (F2)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 msgid "Edit traffic demand elements"
@@ -5549,7 +5551,7 @@ msgstr "Editar elementos de demanda de tráfico"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1971
 msgid "Set mode for editing traffic demand. (F3)"
-msgstr ""
+msgstr "Establecer modo para editar demanda de tráfico. (F3)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 msgid "Edit data elements"
@@ -5557,7 +5559,7 @@ msgstr "Editar elementos de datos"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1976
 msgid "Set mode for editing data demand. (F4)"
-msgstr ""
+msgstr "Establecer modo para editar elementos de datos. (F4)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1984
 msgid "Change netedit view"
@@ -5797,7 +5799,7 @@ msgstr "Alternar entre mostrar o no solamente los TAZRel de destino"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Inspect mode"
-msgstr ""
+msgstr "Modo de inspección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3367
 msgid "Mode for inspect elements and change their attributes. (I)"
@@ -5805,7 +5807,7 @@ msgstr "Modo para inspeccionar elementos y cambiar sus atributos. (I)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Delete mode"
-msgstr ""
+msgstr "Modo de borrado"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3372
 msgid "Mode for deleting elements. (D)"
@@ -5813,7 +5815,7 @@ msgstr "Modo para borrar elementos. (D)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Select mode"
-msgstr ""
+msgstr "Modo de selección"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3377
 msgid "Mode for selecting elements. (S)"
@@ -5822,7 +5824,7 @@ msgstr "Modo para seleccionar elementos. (S)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
 msgid "Move mode"
-msgstr ""
+msgstr "Modo de movimiento"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3433
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3586
@@ -5831,15 +5833,15 @@ msgstr "Modo para mover elementos. (M)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Edge mode"
-msgstr ""
+msgstr "Modo de arista"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3438
 msgid "Mode for creating junctions and edges. (E)"
-msgstr ""
+msgstr "Modo para crear cruces y aristas. (E)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Traffic light mode"
-msgstr ""
+msgstr "Modo de semáforos"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3443
 msgid "Mode for editing traffic lights over junctions. (T)"
@@ -5847,7 +5849,7 @@ msgstr "Modo para editar semáforos (TLS) sobre cruces. (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Connection mode"
-msgstr ""
+msgstr "Modo de conexiones"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3448
 msgid "Mode for edit connections between lanes. (C)"
@@ -5855,7 +5857,7 @@ msgstr "Modo para editar conexiones entre carriles. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Prohibition mode"
-msgstr ""
+msgstr "Modo de prohibiciones"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3453
 msgid "Mode for editing connection prohibitions. (H)"
@@ -5863,7 +5865,7 @@ msgstr "Modo para editar conexiones prohibidas. (H)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Crossing mode"
-msgstr ""
+msgstr "Modo de cruces peatonales"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3458
 msgid "Mode for creating crossings between edges. (R)"
@@ -5871,23 +5873,23 @@ msgstr "Modo para crear pasos peatonales entre aristas. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Additional mode"
-msgstr ""
+msgstr "Modo de elementos adicionales"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Mode for creating additional elements. (A)"
-msgstr ""
+msgstr "Modo para crear elementos adicionales. (A)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Wire mode"
-msgstr ""
+msgstr "Modo de catenarias"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Mode for editing overhead wires. (W)"
-msgstr ""
+msgstr "Modo para editar catenarias. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "TAZ mode"
-msgstr ""
+msgstr "Modo de zonas de análisis de tráfico (TAZ)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
@@ -5895,7 +5897,7 @@ msgstr "Modo para crear zonas de análisis de tráfico (TAZ). (Z)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Polygon mode"
-msgstr ""
+msgstr "Modo de polígonos"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3478
 msgid "Mode for creating polygons and POIs. (P)"
@@ -5903,7 +5905,7 @@ msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Decal mode"
-msgstr ""
+msgstr "Modo de imágenes de fondo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3483
 msgid "Mode for editing decals. (U)"
@@ -5920,7 +5922,7 @@ msgstr "Modo para crear rutas. (R)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Route distribution mode"
-msgstr ""
+msgstr "Modo de distribución de rutas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3596
 msgid "Mode for creating and editing rout distributions. (W)"
@@ -5928,7 +5930,7 @@ msgstr "Modo para crear y editar distribuciones de rutas. (W)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Vehicle mode"
-msgstr ""
+msgstr "Modo de vehículo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3601
 msgid "Mode for creating vehicles. (V)"
@@ -5936,15 +5938,15 @@ msgstr "Modo para crear vehículos. (V)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Type mode"
-msgstr ""
+msgstr "Modo de tipo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
-msgstr ""
+msgstr "Modo para crear tipos (de vehículos, personas y contendores). (T)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Type distribution mode"
-msgstr ""
+msgstr "Modo de distribuciones de tipo"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Mode for creating and editing type distribution. (U)"
@@ -5952,7 +5954,7 @@ msgstr "Modo para crear y editar distribuciones de tipo. (U)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 msgid "Stop mode"
-msgstr ""
+msgstr "Modo de paradas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 msgid "Mode for creating stops. (A)"
@@ -5960,7 +5962,7 @@ msgstr "Modo para crear paradas. (A)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Person mode"
-msgstr ""
+msgstr "Modo de personas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Mode for creating persons. (P)"
@@ -5968,7 +5970,7 @@ msgstr "Modo para crear personas. (P)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Person plan mode"
-msgstr ""
+msgstr "Modo de planes de personas"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Mode for creating person plans. (L)"
@@ -5976,7 +5978,7 @@ msgstr "Modo para crear planes de personas. (L)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 msgid "Container mode"
-msgstr ""
+msgstr "Modo de contenedores"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 msgid "Mode for creating containers. (C)"
@@ -5984,7 +5986,7 @@ msgstr "Modo para crear contenedores. (C)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 msgid "Container plan mode"
-msgstr ""
+msgstr "Modo de planes de contenedores"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 msgid "Mode for creating container plans. (H)"
