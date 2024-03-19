@@ -133,7 +133,7 @@ chargingStation as defined below:
 
 ## Charging Station output
 
-Option --chargingstations-output "nameOfFile.xml" generates a full
+Option **--chargingstations-output chargingstations.xml** generates a full
 report of energy charged by charging stations:
 
 ```xml
