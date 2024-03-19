@@ -554,11 +554,6 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     }
     writePreferences(into, preferred);
     // some further information
-    if (speed == 0) {
-        WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), lID);
-    } else if (speed < 0) {
-        throw ProcessError("Negative allowed speed (" + toString(speed) + ") on lane '" + lID + "', use --speed.minimum to prevent this.");
-    }
     into.writeAttr(SUMO_ATTR_SPEED, speed);
     if (friction != NBEdge::UNSPECIFIED_FRICTION) {
         into.writeAttr(SUMO_ATTR_FRICTION, friction);
@@ -577,15 +572,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     if (endOffset > 0 || startOffset > 0) {
-        if (startOffset + endOffset < shape.length()) {
-            shape = shape.getSubpart(startOffset, shape.length() - endOffset);
-        } else {
-            WRITE_ERROR("Invalid endOffset " + toString(endOffset) + " at lane '" + lID
-                        + "' with length " + toString(shape.length()) + " (startOffset " + toString(startOffset) + ")");
-            if (!OptionsCont::getOptions().getBool("ignore-errors")) {
-                throw ProcessError();
-            }
-        }
+        assert(startOffset + endOffset < shape.length());
+        shape = shape.getSubpart(startOffset, shape.length() - endOffset);
     }
     into.writeAttr(SUMO_ATTR_SHAPE, shape);
     if (type != "") {
