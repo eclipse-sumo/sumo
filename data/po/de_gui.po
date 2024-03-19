@@ -16064,15 +16064,13 @@ msgstr "Zeige Kandidatenkanten"
 msgid "SHIFT-click: ignore vClass"
 msgstr "SHIFT-Klick: Fahrzeugklasse ignorieren"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:155
 msgid "CTRL-click: force add"
-msgstr ""
+msgstr "CTRL-Klick: Hinzufügen"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:159
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:159
 msgid "BACKSPACE: undo click"
-msgstr ""
+msgstr "RÜCKTASTE: Klick rückgängig machen"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:277
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:948
@@ -16086,12 +16084,10 @@ msgstr "Doppelte Knotenpunkte sind nicht erlaubt"
 msgid "Only two junctions are allowed"
 msgstr "Nur zwei Knotenpunkte sind erlaubt"
 
-#: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:324
-#: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:982
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:324
 #: D:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:982
 msgid "Double TAZs aren't allowed"
-msgstr ""
+msgstr "Duplikate von Verkehrsumlegungszonen sind nicht erlaubt"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:332
 #: D:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:332
@@ -19602,10 +19598,9 @@ msgstr "Fehler beim Laden der Auswahl"
 msgid " time"
 msgstr " Zeit"
 
-#: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 #: D:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 #: D:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
@@ -19702,10 +19697,9 @@ msgstr "Fehler beim Senden des Frame zur Encodierung!"
 msgid "Error during encoding!"
 msgstr "Fehler beim Encodieren!"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:62
 #: D:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:62
 msgid "Overlapped objects"
-msgstr ""
+msgstr "Überlappende Objekte"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:64
 #: D:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:64
