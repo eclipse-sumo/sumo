@@ -1,2 +1,5 @@
 # Tests the edge API
 edge
+
+# see #14552
+setMaxSpeed
