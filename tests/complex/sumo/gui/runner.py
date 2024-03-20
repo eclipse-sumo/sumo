@@ -22,9 +22,8 @@ import subprocess
 import sys
 import time
 import warnings
-warnings.simplefilter("ignore")
-
 import pyautogui
+warnings.simplefilter("ignore")
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -33,6 +32,7 @@ import sumolib  # noqa
 
 PLAY = os.path.join("data", "play.png")
 STOP = os.path.join("data", "stop.png")
+
 
 def findAndClick(obj):
     positionOnScreen = pyautogui.locateOnScreen(obj, minSearchTime=3)

@@ -129,9 +129,8 @@ class PTLine:
         self.stop_ids = stop_ids
         self.vias = vias
         # stop indices that need special handling
-        self.jumps = {} # stopIndex -> duration
+        self.jumps = {}  # stopIndex -> duration
         self.terminalIndices = []
-        self.repeat = None
 
 
 def writeTypes(fout, prefix, options):
@@ -181,8 +180,8 @@ def createTrips(options):
         if stop.name:
             stopNames[stop.id] = stop.attr_name
 
-    tripList = [] # ids
-    trpMap = {} # ids->PTLine
+    tripList = []  # ids
+    trpMap = {}  # ids->PTLine
 
     departTimes = [options.begin for line in sumolib.output.parse_fast(options.ptlines, 'ptLine', ['id'])]
     if options.randomBegin:
@@ -367,7 +366,6 @@ def joinTrips(options, tripList, trpMap):
                         ptl1.jumps[len(ptl1.stop_ids) - 1] = missingPart2 * options.jumpDuration
                     ptl1.terminalIndices.append(len(ptl1.stop_ids) - 1)
 
-
             elif join2:
                 # only append ptl1 after ptl2
                 tripList.remove(tripIDs[0])
@@ -449,7 +447,6 @@ def createRoutes(options, trpMap, stopNames):
     ft = formatTime if options.hrtime else lambda x: x
 
     with codecs.open(options.outfile, 'w', encoding="UTF8") as foutflows:
-        joinedLines = set()
         flows = []
         actualDepart = {}  # departure may be delayed when the edge is not yet empty
         sumolib.writeXMLHeader(foutflows, root="routes", options=options)
@@ -520,8 +517,9 @@ def createRoutes(options, trpMap, stopNames):
             if options.multistart and len(ptline.terminalIndices) == 2:
                 # vehicles stay in a continuous loop. We create a fixed number of vehicles with repeating routes
                 for i in range(number):
-                    departEdge = int(i * routeSize[flowID] / float(number))  # this is a hack since edges could have very different lengths
-                    foutflows.write('    <vehicle id="%s.%s" type="%s" route="%s" depart="%s" departEdge="%s" line="%s" %s>\n' % (
+                    # this is a hack since edges could have very different lengths
+                    departEdge = int(i * routeSize[flowID] / float(number))
+                    foutflows.write('    <vehicle id="%s.%s" type="%s" route="%s" depart="%s" departEdge="%s" line="%s" %s>\n' % (  # noqa
                         flowID, i, type, flowID, ft(begin), departEdge, ptline.ref, options.flowattrs))
                     writeParams(foutflows, ptline)
                     foutflows.write('    </vehicle>\n')
@@ -539,6 +537,7 @@ def createRoutes(options, trpMap, stopNames):
         foutflows.write('</routes>\n')
 
     print("done.")
+
 
 def writeParams(foutflows, ptline):
     if ptline.name is not None:
