@@ -1,0 +1,2 @@
+[run_dependent_text]
+output:answered \d* queries and explored \d*\.\d* edges on average.{REPLACE answered <N> queries and explored <M> edges on average.}
