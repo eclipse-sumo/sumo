@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-19 18:36+0000\n"
+"PO-Revision-Date: 2024-03-20 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3438,7 +3438,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSVehicleControl.cpp:510
 msgid "Vehicle '%' aborted waiting %."
-msgstr ""
+msgstr "Fahrzeug '%' bricht Wartevorgang ab %."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleTransfer.cpp:170
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
@@ -3539,14 +3539,20 @@ msgstr "Unbekannter Schienenfahrzeugtyp: %. Beenden!"
 msgid ""
 "Invalid size of speedTable for vType '%' (at least 2 values are required)."
 msgstr ""
+"Ungültige Größe der Geschwindigkeitstabelle (speedTable) in Fahrzeugtyp '%' ("
+"mindestens zwei Einträge werden benötigt)."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:116
 msgid "Mismatching size of speedTable and tractionTable for vType '%'."
 msgstr ""
+"Größen der Geschwindigkeits- und der Traktionstabelle (speedTable, "
+"tractionTable) stimmen in Fahrzeugtyp '%' nicht überein."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:118
 msgid "Mismatching size of speedTable and resistanceTable for vType '%'."
 msgstr ""
+"Nicht übereinstimmende Größen der Geschwindigkeits- und der "
+"Widerstandstabelle (speedTable, resistanceTable) in Fahrzeugtyp '%'."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:136
 msgid "Undefined maxPower for vType '%'."
@@ -3603,14 +3609,15 @@ msgstr "Die Einrichtung '%' kann den Stand nicht speichern"
 msgid ""
 "Invalid distribution / float value '%' for parameter '%' in vehicle '%'."
 msgstr ""
+"Ungültige Verteilung / Fließkommawert '%' von Parameter '%' im Fahrzeug '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:223
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Ungültiger boolscher Wert '%' von Parameter '%' im Fahrzeug '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:235
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Ungültige Zeitangabe '%' für Parameter '%' im Fahrzeug '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
