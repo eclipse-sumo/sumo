@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-19 14:39+0000\n"
+"PO-Revision-Date: 2024-03-20 14:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10530,12 +10530,16 @@ msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
 msgstr ""
+"Non ho potuto creare l'accesso in netedit; la fermata di autobus contiene "
+"già un accesso all'arco '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:205
 #, c-format
 msgid ""
 "Could not build access in netedit; The lane '%' doesn't support pedestrians"
 msgstr ""
+"Non ho potuto creare l'accesso in netedit; Pedoni non sono autorizzati sulla "
+"corsia '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:211
 msgid "add access in '"
@@ -10620,15 +10624,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:610
 msgid "add entry-exit detector '"
-msgstr ""
+msgstr "aggiungi rivelatore entrata-uscita '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:645
 msgid "add entry detector in '"
-msgstr ""
+msgstr "aggiungi rivelatore di entrata in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:680
 msgid "add exit detector in '"
-msgstr ""
+msgstr "aggiungi rivelatore di uscita in '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:717
 msgid "add instant induction loop '"
@@ -10718,10 +10722,12 @@ msgstr "aggiungi vaporizer in '"
 #, c-format
 msgid "Could not build TAZ with ID '%' in netedit; Invalid Shape."
 msgstr ""
+"Non ho potuto creare la zona di assegnazione del traffico con il codice "
+"identificatibo '%' in netedit; Forma invalida."
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1333
 msgid "add TAZ '"
-msgstr ""
+msgstr "aggiungi zona di assegnazione del traffico '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1394
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1488
@@ -10743,7 +10749,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1528
 msgid "add traction substation '"
-msgstr ""
+msgstr "aggiungi sottostazione elettrica '"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1560
 #, c-format
@@ -10897,18 +10903,20 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:333
 msgid "An entry-exit detector needs at least one entry detector"
 msgstr ""
+"Un rivelatore entrata-uscita ha bisogno di almeno un rivelatore di entrata"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEMultiEntryExitDetector.cpp:336
 msgid "An entry-exit detector needs at least one exit detector"
 msgstr ""
+"Un rivelatore entrata-uscita ha bisogno di almeno un rivelatore di uscita"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:341
 msgid "Release from lane"
-msgstr ""
+msgstr "Stacca da corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPOI.cpp:345
 msgid "Attach to nearest lane"
-msgstr ""
+msgstr "Attacca alla corsia la più vicina"
 
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEPoly.cpp:261
 msgid "Simplify Shape"
@@ -15102,7 +15110,7 @@ msgstr " ora"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:77
 msgid "Value"
@@ -15126,31 +15134,31 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:74
 msgid "Unknown format!"
-msgstr ""
+msgstr "Formato sconosciuto!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:91
 msgid "Unknown codec, falling back to HEVC!"
-msgstr ""
+msgstr "Codec sconosciuto - utilizzo HEVC come ripiego!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:95
 msgid "Unknown codec!"
-msgstr ""
+msgstr "Codec sconosciuto!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:100
 msgid "Could not allocate video codec context!"
-msgstr ""
+msgstr "Non ho potuto assegnare il contesto del codec video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:136
 msgid "Could not open codec!"
-msgstr ""
+msgstr "Non ho potuto aprire il codec!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:142
 msgid "Could not allocate video frame!"
-msgstr ""
+msgstr "Non ho potuto assegnare il fotogramma video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:148
 msgid "Could not allocate the video frame data!"
-msgstr ""
+msgstr "Non ho potuto assegnare il dati del fotogramma video!"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:155
 msgid "Failed to open output file!"
