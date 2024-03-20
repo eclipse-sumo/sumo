@@ -457,7 +457,7 @@ JuPedSim is a pedestrian simulator developed by the Jülich Research Center. It 
 
 ## Installation
 
-If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [this page](../Installing/Windows_Build.md#How to build JuPedSim and then build SUMO with JuPedSim). If you are on Linux or MacOS, you need to build JuPedSim, then build SUMO (have a look [here](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim) for Linux or [here](../Installing/MacOS_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim) for MacOS).
+If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [the build instructions](../Installing/Windows_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim). If you are on Linux or MacOS, you need to [build JuPedSim, then build SUMO](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim).
 
 ## Use
 
