@@ -220,6 +220,13 @@ public:
         return SUMO_TAG_CF_EIDM;
     }
 
+    /** @brief Get the vehicle type's maximum acceleration [m/s^2]
+     * @return The maximum acceleration (in m/s^2) of vehicles of this class
+     */
+    inline double getCurrentAccel(const double speed) const {
+        return interpolateProfile(speed, myDesAccelProfile);
+    }
+
     /** @brief Duplicates the car-following model
      * @param[in] vtype The vehicle type this model belongs to (1:1)
      * @return A duplicate of this car-following model
@@ -301,9 +308,6 @@ private:
 private:
     // @brief The IDM delta exponent
     const double myDelta;
-
-    // @brief A computational shortcut
-    const double myTwoSqrtAccelDecel;
 
     // @brief The number of iterations in speed calculations
     const int myIterations;

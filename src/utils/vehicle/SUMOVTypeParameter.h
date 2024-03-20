@@ -501,4 +501,33 @@ public:
 
     /// @brief return time-to-teleport.bidi (either custom or default)
     SUMOTime getTimeToTeleportBidi(SUMOTime defaultValue) const;
+
+    /** @brief Returns the default maximum acceleration profile for the given vehicle class
+     * This needs to be a function because the actual profile is stored in the car following model
+     * @param[in] vc the vehicle class
+     * @param[in] maxAccel the maximum acceleration for all speeds
+     * @return the maximum acceleration profile in m/s^2
+     */
+    static std::vector<std::pair<double, double> > getDefaultMaxAccelProfile(const SUMOVehicleClass vc, double maxAccel);
+
+    /** @brief Returns the default desired acceleration profile for the given vehicle class
+     * This needs to be a function because the actual profile is stored in the car following model
+     * @param[in] vc the vehicle class
+     * @param[in] desAccel the desired acceleration for all speeds
+     * @return the desired acceleration profile in m/s^2
+     */
+    static std::vector<std::pair<double, double> > getDefaultDesAccelProfile(const SUMOVehicleClass vc, double desAccel);
+
+    /** @brief Returns the named value from the map, or the default if it is not contained there
+     * @param[in] attr The corresponding xml attribute
+     * @param[in] defaultValue The value to return if the given map does not contain the named variable
+     * @return The named value from the map or the default if it does not exist there
+     */
+    std::vector<std::pair<double, double> > getCFProfile(const SumoXMLAttr attr, const std::vector<std::pair<double, double> > defaultProfile) const;
+
+    /** @brief Creates a vector of pairs from a string
+     * @param[in] profile The string containing pairs
+     * @return The vector of pairs
+     */
+    std::vector<std::pair<double, double> > createCFProfile(const SumoXMLAttr attr, const std::string profile) const;
 };

@@ -61,7 +61,9 @@ MSCFModel::MSCFModel(const MSVehicleType* vtype) :
     myApparentDecel(vtype->getParameter().getCFParam(SUMO_ATTR_APPARENTDECEL, myDecel)),
     myCollisionMinGapFactor(vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 1)),
     myHeadwayTime(vtype->getParameter().getCFParam(SUMO_ATTR_TAU, 1.0)),
-    myStartupDelay(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_STARTUP_DELAY, 0.0)))
+    myStartupDelay(TIME2STEPS(vtype->getParameter().getCFParam(SUMO_ATTR_STARTUP_DELAY, 0.0))),
+    myMaxAccelProfile(vtype->getParameter().getCFProfile(SUMO_ATTR_MAXACCEL_PROFILE, SUMOVTypeParameter::getDefaultMaxAccelProfile(vtype->getParameter().vehicleClass, myAccel))),
+    myDesAccelProfile(vtype->getParameter().getCFProfile(SUMO_ATTR_DESACCEL_PROFILE, SUMOVTypeParameter::getDefaultDesAccelProfile(vtype->getParameter().vehicleClass, myAccel)))
 { }
 
 
@@ -270,6 +272,26 @@ MSCFModel::applyStartupDelay(const MSVehicle* veh, const double vMin, const doub
         }
     }
     return vMax;
+}
+
+
+double
+MSCFModel::interpolateProfile(const double speed, const std::vector<std::pair<double, double> > profile) const {
+    double val;
+    // extrapolate, means using the first/last value of the array
+    if (speed < profile[0].first) {
+        val = profile[0].second;
+    } else if (speed > profile.back().first) {
+        val = profile.back().second;
+    } else { // interpolate
+        int x = 0;
+        while (speed > profile[x + 1].first) {
+            x++;
+        }
+        double diff = (profile[x + 1].second - profile[x].second) / (profile[x + 1].first - profile[x].first);
+        val = profile[x].second + diff * (speed - profile[x].first);
+    }
+    return val;
 }
 
 
