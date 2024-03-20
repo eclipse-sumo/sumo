@@ -1693,7 +1693,7 @@ NBOwnTLDef::buildNemaPhases(
 std::string
 NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NBEdge* e) {
     bool haveGreen = false;
-    for (int j = 0; j < (int)state.size(); j++) {
+    for (int j = 0; j < (int)fromEdges.size(); j++) {
         if (fromEdges[j] != e) {
             state[j] = 'r';
         } else if (state[j] != 'r') {
