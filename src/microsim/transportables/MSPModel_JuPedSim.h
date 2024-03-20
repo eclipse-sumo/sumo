@@ -200,7 +200,7 @@ private:
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
     static const double GEOS_BUFFERED_SEGMENT_WIDTH;
-    static const double CARRIAGE_RAMP_WIDTH;
+    static const double CARRIAGE_RAMP_LENGTH;
     static const RGBColor PEDESTRIAN_NETWORK_COLOR;
     static const RGBColor PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR;
     static const std::string PEDESTRIAN_NETWORK_ID;

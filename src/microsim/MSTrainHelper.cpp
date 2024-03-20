@@ -162,7 +162,7 @@ MSTrainHelper::computeDoorPositions() {
 
 
 void 
-MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::list<Position>& unboardingPositions) {
+MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::vector<Position>& unboardingPositions) {
     passengerRadius += PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
     for (Carriage* carriage : myCarriages) {
         Position dir = carriage->front - carriage->back;
@@ -181,10 +181,10 @@ MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::list<Posi
                 }
             }
         }
-        // Shuffle the positions upstream so that we won't have to sample later on, just pop the last element.
-        RandHelper::shuffle(carriage->unboardingPositions);
         std::copy(carriage->unboardingPositions.begin(), carriage->unboardingPositions.end(), std::back_inserter(unboardingPositions));
     }
+    // Shuffle the positions upstream so that we don't have to sample later on, just pop the last element.
+    RandHelper::shuffle(unboardingPositions);
 }
 
 

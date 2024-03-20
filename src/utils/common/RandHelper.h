@@ -235,7 +235,7 @@ public:
     }
 
     template<class T>
-    static void shuffle(const std::vector<T>& v) {
+    static void shuffle(std::vector<T>& v) {
         std::shuffle(v.begin(), v.end(), myRandomNumberGenerator);
     }
 

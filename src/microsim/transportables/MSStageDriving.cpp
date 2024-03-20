@@ -486,20 +486,18 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                         myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
                     }
                     else {
-                        std::list<Position>& unboardingPositions = train->getUnboardingPositions();
+                        std::vector<Position>& unboardingPositions = train->getUnboardingPositions();
                         if (unboardingPositions.empty()) {
                             const MSVehicleType* defaultPedestrianType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true); 
                             const double defaultPassengerRadius = MAX2(defaultPedestrianType->getLength(), defaultPedestrianType->getWidth()) / 2.;
                             trainHelper.computeUnboardingPositions(defaultPassengerRadius, unboardingPositions);
                         }
-                        else {
-                            // Random shuffling of the positions has already been done in the train helper.
-                            const Position availableUnboardingPosition = unboardingPositions.back();
-                            unboardingPositions.pop_back();
-                            const Position arrivalPos = myLane->getShape().transformToVectorCoordinates(availableUnboardingPosition);
-                            myArrivalPos = arrivalPos.x();
-                            myArrivalPosLat = arrivalPos.y();
-                        }
+                        // Random shuffling of the positions has already been done in the train helper.
+                        const Position availableUnboardingPosition = unboardingPositions.back();
+                        unboardingPositions.pop_back();
+                        const Position arrivalPos = myLane->getShape().transformToVectorCoordinates(availableUnboardingPosition);
+                        myArrivalPos = arrivalPos.x();
+                        myArrivalPosLat = arrivalPos.y();
                     }
                 }
             }
