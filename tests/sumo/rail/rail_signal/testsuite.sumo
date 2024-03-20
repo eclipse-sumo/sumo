@@ -110,3 +110,6 @@ route_as_additional
 
 # insertion checks do not prevent deadlock (related to case2 of #12085)
 deadlock_insertion
+
+# see #14554
+reversal_before_signal
