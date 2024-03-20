@@ -68,7 +68,7 @@ public:
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-                             const double arrivalPos, const double dist, const bool isExit,
+                             const double arrivalPos, const double arrivalPosLat, const double dist, const bool isExit,
                              const Position& startPos, const Position& endPos);
 
         /// destructor

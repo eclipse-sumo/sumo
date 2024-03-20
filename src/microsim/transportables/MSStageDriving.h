@@ -61,7 +61,7 @@ class MSStageDriving : public MSStage {
 public:
     /// constructor
     MSStageDriving(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
-                   const double arrivalPos, const std::vector<std::string>& lines,
+                   const double arrivalPos, const double arrivalPosLat, const std::vector<std::string>& lines,
                    const std::string& group = "",
                    const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
 

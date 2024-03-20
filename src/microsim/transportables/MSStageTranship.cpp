@@ -46,7 +46,7 @@ MSStageTranship::MSStageTranship(const std::vector<const MSEdge*>& route,
                                  MSStoppingPlace* toStop,
                                  double speed,
                                  double departPos, double arrivalPos) :
-    MSStageMoving(route, "", toStop, speed, departPos, arrivalPos, 0., -1, MSStageType::TRANSHIP) {
+    MSStageMoving(MSStageType::TRANSHIP, route, "", toStop, speed, departPos, arrivalPos, 0., -1) {
     myDepartPos = SUMOVehicleParameter::interpretEdgePos(
                       departPos, myRoute.front()->getLength(), SUMO_ATTR_DEPARTPOS,
                       "container getting transhipped from " + myRoute.front()->getID());

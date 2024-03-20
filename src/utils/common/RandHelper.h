@@ -234,6 +234,10 @@ public:
         }
     }
 
+    template<class T>
+    static void shuffle(const std::vector<T>& v) {
+        std::shuffle(v.begin(), v.end(), myRandomNumberGenerator);
+    }
 
 protected:
     /// @brief the default random number generator to use

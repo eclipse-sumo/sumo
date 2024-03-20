@@ -35,6 +35,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/MSTrainHelper.h>
+#include <microsim/MSVehicleType.h>
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -49,10 +50,10 @@
 // method definitions
 // ===========================================================================
 MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
-                               MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
-                               const std::string& group,
+                               MSStoppingPlace* toStop, const double arrivalPos, const double arrivalPosLat, 
+                               const std::vector<std::string>& lines, const std::string& group,
                                const std::string& intendedVeh, SUMOTime intendedDepart) :
-    MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING, group),
+    MSStage(MSStageType::DRIVING, destination, toStop, arrivalPos, arrivalPosLat, group),
     myOrigin(origin),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
@@ -73,7 +74,7 @@ MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
 
 MSStage*
 MSStageDriving::clone() const {
-    MSStage* const clon = new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos,
+    MSStage* const clon = new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos, myArrivalPosLat,
             std::vector<std::string>(myLines.begin(), myLines.end()),
             myGroup, myIntendedVehicleID, myIntendedDepart);
     clon->setParameters(*this);
@@ -462,22 +463,44 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 }
             }
             if (useDoors) {
-                const MSVehicle* train = dynamic_cast<const MSVehicle*>(myVehicle);
+                MSVehicle* train = dynamic_cast<MSVehicle*>(myVehicle);
                 if (train != nullptr) {
-                    const MSTrainHelper trainHelper(train);
-                    const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
-                    const int randomCarriageIx = RandHelper::rand(trainHelper.getNumCarriages() - trainHelper.getFirstPassengerCarriage()) + trainHelper.getFirstPassengerCarriage();
-                    const MSTrainHelper::Carriage* randomCarriage = carriages[randomCarriageIx];
-                    const int randomDoorIx = RandHelper::rand(trainHelper.getCarriageDoors());
-                    Position randomDoor = randomCarriage->doors[randomDoorIx];
-                    // Jitter the position before projection because of possible train curvature.
-                    Position direction = randomCarriage->front - randomCarriage->back;
-                    direction.norm2D();
-                    randomDoor.add(direction * RandHelper::rand(-0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH, 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH));
-                    // Project onto the lane.
-                    myArrivalPos = myVehicle->getLane()->getShape().nearest_offset_to_point2D(randomDoor);
-                    myArrivalPos = myVehicle->getLane()->interpolateGeometryPosToLanePos(myArrivalPos);
-                    myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
+                    MSTrainHelper trainHelper = MSTrainHelper(train);
+                    const MSLane* myLane = myVehicle->getLane(); 
+                    const OptionsCont& oc = OptionsCont::getOptions();
+                    const std::string model = oc.getString("pedestrian.model");
+                    if (model != "jupedsim") {
+                        trainHelper.computeDoorPositions();
+                        const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
+                        const int randomCarriageIx = RandHelper::rand(trainHelper.getNumCarriages() - trainHelper.getFirstPassengerCarriage()) + trainHelper.getFirstPassengerCarriage();
+                        const MSTrainHelper::Carriage* randomCarriage = carriages[randomCarriageIx];
+                        const int randomDoorIx = RandHelper::rand(trainHelper.getCarriageDoors());
+                        Position randomDoor = randomCarriage->doorPositions[randomDoorIx];
+                        // Jitter the position before projection because of possible train curvature.
+                        Position direction = randomCarriage->front - randomCarriage->back;
+                        direction.norm2D();
+                        randomDoor.add(direction * RandHelper::rand(-0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH, 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH));
+                        // Project onto the lane.
+                        myArrivalPos = myLane->getShape().nearest_offset_to_point2D(randomDoor);
+                        myArrivalPos = myLane->interpolateGeometryPosToLanePos(myArrivalPos);
+                        myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
+                    }
+                    else {
+                        std::list<Position>& unboardingPositions = train->getUnboardingPositions();
+                        if (unboardingPositions.empty()) {
+                            const MSVehicleType* defaultPedestrianType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true); 
+                            const double defaultPassengerRadius = MAX2(defaultPedestrianType->getLength(), defaultPedestrianType->getWidth()) / 2.;
+                            trainHelper.computeUnboardingPositions(defaultPassengerRadius, unboardingPositions);
+                        }
+                        else {
+                            // Random shuffling of the positions has already been done in the train helper.
+                            const Position availableUnboardingPosition = unboardingPositions.back();
+                            unboardingPositions.pop_back();
+                            const Position arrivalPos = myLane->getShape().transformToVectorCoordinates(availableUnboardingPosition);
+                            myArrivalPos = arrivalPos.x();
+                            myArrivalPosLat = arrivalPos.y();
+                        }
+                    }
                 }
             }
         }

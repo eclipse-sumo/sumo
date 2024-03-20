@@ -420,7 +420,8 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             std::vector<GEOSGeometry*> rampPolygons;
             for (const MSVehicle* train : allStoppedTrains) {
                 if (train->getLeavingPersonNumber() > 0) {
-                    const MSTrainHelper trainHelper(train);
+                    MSTrainHelper trainHelper = MSTrainHelper(train);
+                    trainHelper.computeDoorPositions();
                     const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
                     for (const MSTrainHelper::Carriage* carriage : carriages) {
                         Position dir = carriage->front - carriage->back;
@@ -440,7 +441,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                         // Create ramps geometry.
                         p += CARRIAGE_RAMP_WIDTH;
                         const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
-                        for (const Position& door : carriage->doors) {
+                        for (const Position& door : carriage->doorPositions) {
                             PositionVector rampShape;
                             rampShape.push_back(door - perp * p + dir * d);
                             rampShape.push_back(door - perp * p - dir * d);

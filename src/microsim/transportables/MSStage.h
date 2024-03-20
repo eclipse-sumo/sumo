@@ -68,7 +68,8 @@ enum class MSStageType {
 class MSStage : public Parameterised {
 public:
     /// constructor
-    MSStage(const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos, MSStageType type, const std::string& group = "");
+    MSStage(const MSStageType type, const MSEdge* destination, MSStoppingPlace* toStop, const double arrivalPos,
+            const double arrivalPosLat = 0.0, const std::string& group = "");
 
     /// destructor
     virtual ~MSStage();
@@ -93,6 +94,10 @@ public:
         return myArrivalPos;
     }
 
+    virtual double getArrivalPosLat() const {
+        return myArrivalPosLat;
+    }
+
     void setArrivalPos(double arrivalPos) {
         myArrivalPos = arrivalPos;
     }
@@ -101,6 +106,7 @@ public:
     virtual const MSEdge* getEdge() const;
     virtual const MSEdge* getFromEdge() const;
     virtual double getEdgePos(SUMOTime now) const;
+    virtual double getEdgePosLat(SUMOTime now) const;
 
     /// @brief Return the movement directon on the edge
     virtual int getDirection() const;
@@ -245,8 +251,11 @@ protected:
     /// the stop to reach by getting transported (if any)
     MSStoppingPlace* myDestinationStop;
 
-    /// the position at which we want to arrive
+    /// @brief the longitudinal position at which we want to arrive
     double myArrivalPos;
+
+    /// @brief the lateral position at which we want to arrive
+    double myArrivalPosLat;
 
     /// the time at which this stage started
     SUMOTime myDeparted;

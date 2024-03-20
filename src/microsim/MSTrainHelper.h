@@ -22,7 +22,7 @@
 
 #include <utils/geom/Position.h>
 #include <utils/geom/PositionVector.h>
-
+#include "MSVehicleControl.h"
 
 // ===========================================================================
 // class declarations
@@ -35,15 +35,23 @@ class MSVehicle;
 // ===========================================================================
 /**
  * @class MSTrainHelper
- * @brief A class that helps computing positions of a train's carriages.
+ * @brief A class that helps computing positions of a train's carriages 
+ * and additional structures.
  *
  */
 class MSTrainHelper {
 public:
-    MSTrainHelper(const MSVehicle* vehicle, bool reversed=false, bool secondaryShape=false, double exaggeration=1.0, int vehicleQuality = 3)
-        : myTrain(vehicle) {
+    struct Carriage {
+        Position front;
+        Position back;
+        std::vector<Position> doorPositions;
+        std::vector<Position> unboardingPositions;
+    };
+
+    MSTrainHelper(const MSVehicle* vehicle, bool reversed = false, bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3) 
+        : myTrain(vehicle) { 
         computeTrainDimensions(exaggeration, vehicleQuality);
-        computeCarriages(secondaryShape, reversed);
+        computeCarriages(reversed, secondaryShape);
     }
 
     ~MSTrainHelper() {
@@ -52,58 +60,67 @@ public:
         }
     }
 
-    inline double getUpscaleLength(void) const {
+    inline double getUpscaleLength() const {
         return myUpscaleLength;
     }
 
-    inline double getHalfWidth(void) const {
+    inline double getHalfWidth() const {
         return myHalfWidth;
     }
 
-    inline int getNumCarriages(void) const {
+    inline int getNumCarriages() const {
         return myNumCarriages;
     }
 
-    inline double getCarriageLength(void) const {
+    inline double getCarriageLength() const {
         return myCarriageLength;
     }
 
-    inline double getFirstCarriageLength(void) const {
+    inline double getFirstCarriageLength() const {
         return myFirstCarriageLength;
     }
 
-    inline int getCarriageDoors(void) const {
+    inline int getCarriageDoors() const {
         return myCarriageDoors;
     }
 
-    inline int getFirstCarriageNo(void) const {
+    inline int getFirstCarriageNo() const {
         return myFirstCarriageNo;
     }
 
-    inline int getFirstPassengerCarriage(void) const {
+    inline int getFirstPassengerCarriage() const {
         return myFirstPassengerCarriage;
     }
     
-    inline bool isReversed(void) const {
+    inline bool isReversed() const {
         return myIsReversed;
     }
 
-    struct Carriage {
-        Position front;
-        Position back;
-        std::vector<Position> doors;
-    };
-
-    inline const std::vector<Carriage*>& getCarriages(void) const {
+    inline const std::vector<Carriage*>& getCarriages() const {
         return myCarriages;
     }
+    
+    /// @brief compute door positions on demand and fills the carriage structures
+    /// @remark need to be called before retrieving carriages if door positions needed
+    void computeDoorPositions();
 
-    static const double CARRIAGE_DOOR_WIDTH;
-
+    /// @brief compute unboarding positions on demand and fills the carriage structures
+    /// @remark need to be called before retrieving carriages if unboarding positions needed
+    void computeUnboardingPositions(double passengerRadius, std::list<Position>& unboardingPositions);
+    
     /// @brief return length exaggeration factor (special for long vehicles)
     static double getUpscaleLength(double upscale, double length, int vehicleQuality);
-    
+
+    /// @brief average door width used to compute doors positions
+    static const double CARRIAGE_DOOR_WIDTH;
+
+    /// @brief small extra tolerance used to avoid constraint violations    
+    static const double PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
+
 private:
+    void computeTrainDimensions(double exaggeration, int vehicleQuality);
+    void computeCarriages(bool reversed, bool secondaryShape);
+
     const MSVehicle* myTrain;
     double myUpscaleLength;
     double myLocomotiveLength;
@@ -120,7 +137,4 @@ private:
     int myFirstPassengerCarriage;
     bool myIsReversed;
     std::vector<Carriage*> myCarriages;
-
-    void computeTrainDimensions(double exaggeration, int vehicleQuality = 3);
-    void computeCarriages(bool secondaryShape, bool reversed);
 };
