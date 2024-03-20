@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-20 07:23+0000\n"
+"PO-Revision-Date: 2024-03-20 14:27+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9717,22 +9717,26 @@ msgstr "Parámetro de error de conducción EIDM [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5991
 msgid "EIDM maximal jerk parameter [m/s^3]"
-msgstr ""
+msgstr "Parámetro de sacudida máximo EIDM [m/s^3]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5997
 msgid ""
 "EIDM maximal negative acceleration between two Action Points (threshold) [m/"
 "s^2]"
 msgstr ""
+"Parámetro EIDM de máxima aceleración negativa entre dos puntos de acción "
+"(umbral) [m/s^2]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6003
 msgid ""
 "EIDM Time parameter until vehicle reaches amax after startup/driveoff [s]"
 msgstr ""
+"Parámetro EIDM de tiempo hasta que el vehículo alcanza la aceleración máxima "
+"después del arranque/salida [s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6009
 msgid "EIDM Flatness parameter of startup/driveoff curve [-]"
-msgstr ""
+msgstr "Parámetro EIDM de planicidad de la curva de arranque/salida [-]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6015
 msgid "EIDM Shift parameter of startup/driveoff curve [-]"
