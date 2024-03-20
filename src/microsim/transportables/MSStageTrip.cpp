@@ -295,9 +295,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     if (transportable->getNumStages() == oldNumStages) {
         // append stage so the GUI won't crash due to inconsistent state
         if (myOriginStop != nullptr && myOriginStop == myDestinationStop) {
-            transportable->appendStage(new MSStageWaiting(myDestination, myDestinationStop, 0, -1, previous->getArrivalPos(), "sameStop", false));
+            transportable->appendStage(new MSStageWaiting(myDestination, myDestinationStop, 0, -1, previous->getArrivalPos(), "sameStop", false), 1);
         } else {
-            transportable->appendStage(new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), -1);
+            transportable->appendStage(new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat), 1);
             if (MSGlobals::gCheckRoutes) {  // if not pedestrians will teleport
                 return "Empty route between " + getOriginDescription() + " and " + getDestinationDescription() + " for person '" + transportable->getID() + "'.";
             }
