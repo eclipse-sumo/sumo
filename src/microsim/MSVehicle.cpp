@@ -992,7 +992,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myJunctionConflictEntryTime(SUMOTime_MAX),
     myTimeSinceStartup(TIME2STEPS(3600 * 24)),
     myInfluencer(nullptr),
-    myUnboardingPositions(new std::list<Position>()) {
+    myUnboardingPositions(new std::vector<Position>()) {
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
 }

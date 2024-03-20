@@ -106,7 +106,7 @@ public:
 
     /// @brief compute unboarding positions on demand and fills the carriage structures
     /// @remark need to be called before retrieving carriages if unboarding positions needed
-    void computeUnboardingPositions(double passengerRadius, std::list<Position>& unboardingPositions);
+    void computeUnboardingPositions(double passengerRadius, std::vector<Position>& unboardingPositions);
     
     /// @brief return length exaggeration factor (special for long vehicles)
     static double getUpscaleLength(double upscale, double length, int vehicleQuality);
