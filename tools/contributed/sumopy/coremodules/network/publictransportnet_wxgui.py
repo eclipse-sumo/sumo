@@ -24,8 +24,8 @@ from agilepy.lib_wx.ogleditor import *
 from agilepy.lib_wx.objpanel import ObjPanel
 from agilepy.lib_base.processes import Process
 from agilepy.lib_wx.processdialog import ProcessDialog
-from network import SumoIdsConf, MODES
-import publictransportnet as pt
+from .network import SumoIdsConf, MODES
+from . import publictransportnet as pt
 
 
 class PtStopDrawings(Rectangles):
@@ -300,7 +300,7 @@ class PtWxGuiMixin:
         # Finally, if the directory is changed in the process of getting files, this
         # dialog is set up to change the current working directory to the path chosen.
         defaultfilepath = self._net.ptstops.get_stopfilepath()
-        print '  defaultfilepath', defaultfilepath
+        print('  defaultfilepath', defaultfilepath)
 
         dlg = wx.FileDialog(
             self._mainframe, message="Open stops XML file",
@@ -357,11 +357,11 @@ class PtWxGuiMixin:
         # print '  val,val == wx.ID_OK',val,wx.ID_OK,wx.ID_CANCEL,val == wx.ID_CANCEL
         # print '  status =',dlg.get_status()
         if dlg.get_status() != 'success':  # val == wx.ID_CANCEL:
-            print ">>>>>>>>>Unsuccessful\n"
+            print(">>>>>>>>>Unsuccessful\n")
             dlg.Destroy()
 
         if dlg.get_status() == 'success':
-            print ">>>>>>>>>successful\n"
+            print(">>>>>>>>>successful\n")
             # apply current widget values to scenario instance
             dlg.apply()
             dlg.Destroy()

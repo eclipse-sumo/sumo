@@ -31,7 +31,7 @@ class CsvImporter(Process):
     def __init__(self,  obj, ident='csvimporter', name='CSV importer',
                  info='Import data from a CSV file into object',
                  logger=None, **kwargs):
-        print 'CsvImporter.__init__'
+        print('CsvImporter.__init__')
         self._init_common(ident,
                           parent=obj,
                           name=name,
@@ -78,7 +78,7 @@ class CsvImporter(Process):
         return 'colname_'+attrname
 
     def do(self):
-        print 'CsvImporter.do',
+        print('CsvImporter.do', end=' ')
         obj = self.parent
         attrsman = self.get_attrsman()
         sep = self.sep
@@ -98,9 +98,9 @@ class CsvImporter(Process):
         filepath = self.csvfilepath
         f = open(filepath, 'r')
 
-        INTTYPES = (types.IntType, np.int,  np.int32,  np.int64)
-        FLOATTYPES = (types.FloatType, types.LongType, types.ComplexType, np.float,  np.float32,  np.float64)
-        BOOLTYPES = (types.BooleanType, np.bool_)
+        INTTYPES = (int, np.int,  np.int32,  np.int64)
+        FLOATTYPES = (float, int, complex, np.float,  np.float32,  np.float64)
+        BOOLTYPES = (bool, np.bool_)
 
         #line = f.readline()
         # print '  line[:-1] = *%s*'%(line[:-1],)
@@ -146,7 +146,7 @@ class CsvImporter(Process):
         for line in f.readlines():
             cols = line.split(sep)
             if len(cols) > ind_max:  # restrictive!
-                for ind, vals, valtype in zip(index_to_value.keys(), index_to_value.values(), index_to_type.values()):
+                for ind, vals, valtype in zip(list(index_to_value.keys()), list(index_to_value.values()), list(index_to_type.values())):
                     val = cols[ind].strip()
                     if val not in emptycol:
                         if valtype == INTTYPE:
@@ -173,7 +173,7 @@ class CsvImporter(Process):
                 n_imported += 1
 
         ids = obj.add_rows(n_imported)
-        for ind, values in index_to_value.iteritems():
+        for ind, values in index_to_value.items():
             getattr(obj, index_to_attrname[ind])[ids] = values
 
         f.close()

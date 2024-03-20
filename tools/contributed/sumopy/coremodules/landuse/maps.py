@@ -23,7 +23,7 @@ import os
 import sys
 import numpy as np
 import wx
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from collections import OrderedDict
 import agilepy.lib_base.classman as cm
 import agilepy.lib_base.arrayman as am
@@ -50,7 +50,7 @@ IS_MAPSUPPORT = True
 try:
     from PIL import ImageFilter, Image, ImageChops, ImagePath, ImageDraw
 except:
-    print "WARNING: Maps requires PIL module."
+    print("WARNING: Maps requires PIL module.")
     IS_MAPSUPPORT = False
 
 try:
@@ -61,7 +61,7 @@ except:
         from mpl_toolkits.basemap import pyproj
 
     except:
-        print "WARNING: Maps requires pyproj module."
+        print("WARNING: Maps requires pyproj module.")
         IS_MAPSUPPORT = False
         # print __doc__
         # raise
@@ -71,7 +71,7 @@ URL_GOOGLEMAP = "https://maps.googleapis.com/maps/api/staticmap?"
 
 
 def download_googlemap(filepath, bbox, proj, size=640, filetype='gif', maptype='satellite'):
-    print 'download_googlemap', bbox
+    print('download_googlemap', bbox)
     # https://developers.google.com/maps/documentation/static-maps/intro#Paths
     x_sw, y_sw = bbox[0]
     x_ne, y_ne = bbox[1]
@@ -88,15 +88,15 @@ def download_googlemap(filepath, bbox, proj, size=640, filetype='gif', maptype='
     size_x = size_y = size/2
     url = URL_GOOGLEMAP+"size=%dx%d&visible=%.6f,%.6f|%.6f,%.6f&format=%s&maptype=%s&scale=2"\
         % (size_x, size_y, lat00, lon00, lat11, lon11, filetype.upper(), maptype)
-    print '  url=', url
-    urllib.urlretrieve(url, filepath)
+    print('  url=', url)
+    urllib.request.urlretrieve(url, filepath)
 
     bbox_lonlat = np.array([[lon00, lat00], [lon11, lat11]])
     return bbox_lonlat
 
 
 def download_googlemap_bb(filepath, bbox, proj, apikey, size=640, filetype='gif', maptype='satellite', color="0xff0000ff"):
-    print 'download_googlemap_bb', bbox
+    print('download_googlemap_bb', bbox)
     # https://developers.google.com/maps/documentation/static-maps/intro#Paths
     x_sw, y_sw = bbox[0]
     x_ne, y_ne = bbox[1]
@@ -146,8 +146,8 @@ def download_googlemap_bb(filepath, bbox, proj, apikey, size=640, filetype='gif'
 
     # urllib.urlretrieve (URL_GOOGLEMAP+"size=%dx%d&format=%s&maptype=%s&scale=2&path=color:0xff0000ff|weight:1|%.5f,%.5f|%.5f,%.5f|%.5f,%.5f|%.5f,%.5f"\
     #    %(size_x,size_y,filetype,maptype,lat00,lon00, lat11,lon11, lat01,lon01, lat10,lon10), filepath)
-    print '  url=', url
-    urllib.urlretrieve(url, filepath)
+    print('  url=', url)
+    urllib.request.urlretrieve(url, filepath)
     bbox_lonlat = np.array([[lon00, lat00], [lon11, lat11]])
     return bbox_lonlat
 
@@ -155,7 +155,7 @@ def download_googlemap_bb(filepath, bbox, proj, apikey, size=640, filetype='gif'
 def estimate_angle(filepath):
 
     im = Image.open(filepath).convert("RGB")
-    print 'estimate_angle image', filepath,  "%dx%d" % im.size, im.mode, im.getbands()
+    print('estimate_angle image', filepath,  "%dx%d" % im.size, im.mode, im.getbands())
     imr, img, imb = im.split()
 
     # calculate width and height of bbox in pixel from measured rectangle
@@ -184,7 +184,7 @@ def estimate_angle(filepath):
     # which contains a geo-referenced red rectangle
     angles = np.arange(-3.0, 3.0, 0.01)
     matches = np.zeros(len(angles))
-    for i in xrange(len(angles)):
+    for i in range(len(angles)):
         im_bbox_rot = im_bbox.rotate(angles[i])  # gimp 1.62
         im_corr = ImageChops.multiply(imr, im_bbox_rot)
         # im_corr.show()
@@ -193,11 +193,11 @@ def estimate_angle(filepath):
         # print ' angles[i],matches[i]',angles[i],matches[i]
 
     angle_opt = angles[np.argmax(matches)]
-    print '  angle_opt', angle_opt
+    print('  angle_opt', angle_opt)
 
     ys = np.arange(0, int(0.2*wy), 1)
     matches = np.zeros(len(ys))
-    for y in xrange(len(ys)):
+    for y in range(len(ys)):
         im_bbox = ImageChops.constant(im, 0)
         draw = ImageDraw.Draw(im_bbox)
         draw.line([(0, y), (wx, y)], fill=255)
@@ -211,7 +211,7 @@ def estimate_angle(filepath):
         # print ' y,matches[y]',y,matches[y]
 
     y_opt = ys[np.argmax(matches)]
-    print '  y_opt', y_opt
+    print('  y_opt', y_opt)
 
     if 0:
         im_bbox = ImageChops.constant(im, 0)
@@ -224,13 +224,13 @@ def estimate_angle(filepath):
 
     # assuming rectangle:
     bbox = [(y_opt, y_opt), (wx-y_opt, y_opt), (wx-y_opt, wy-y_opt), (y_opt, wy-y_opt), (y_opt, y_opt)]
-    print '  bbox', bbox
+    print('  bbox', bbox)
     return -angle_opt, bbox
 
 
 class MapsImporter(Process):
     def __init__(self,  maps, logger=None, **kwargs):
-        print 'MapsImporter.__init__', maps, maps.parent.get_ident()
+        print('MapsImporter.__init__', maps, maps.parent.get_ident())
         self._init_common('mapsimporter', name='Background maps importer',
                           logger=logger,
                           info='Downloads and converts background maps.',
@@ -329,7 +329,7 @@ class MapsImporter(Process):
     def do(self):
         self.update_params()
 
-        print 'MapsImporter.do'
+        print('MapsImporter.do')
         # self._maps.download(maptype = self.maptype, mapserver = self.mapserver,
         #            filetype = 'png', rootfilepath = None,
         #            width_tile = self.width_tile,  size_tile = self.size_tile,
@@ -407,7 +407,7 @@ class Maps(am.ArrayObjman):
                                   ))
 
     def write_decals(self, fd, indent=4,  rootdir=None, delta=np.zeros(3, dtype=np.float32)):
-        print 'write_decals', len(self)
+        print('write_decals', len(self))
         net = self.parent.get_net()
         if rootdir is None:
             rootdir = os.path.dirname(net.parent.get_rootfilepath())
@@ -494,7 +494,7 @@ class Maps(am.ArrayObjman):
         width = bbox_sumo[2]-x0
         height = bbox_sumo[3]-y0
 
-        print 'download to', rootfilepath
+        print('download to', rootfilepath)
 
         #            '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'
         #params_proj="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
@@ -507,10 +507,10 @@ class Maps(am.ArrayObjman):
 
         nx = int(width/width_tile+0.5)
         ny = int(height/width_tile+0.5)
-        print '  offset', offset
-        print '  bbox_sumo', bbox_sumo
-        print '  width_tile', width_tile, 'm'
-        print '  Will download %dx%d= %d maps' % (nx, ny, nx*ny)
+        print('  offset', offset)
+        print('  bbox_sumo', bbox_sumo)
+        print('  width_tile', width_tile, 'm')
+        print('  Will download %dx%d= %d maps' % (nx, ny, nx*ny))
         #latlon_tile = np.array([(latlon_ne[0]-latlon_sw[0])/ny, (latlon_ne[1]-latlon_sw[1])/nx])
         #filepaths = []
         #centers = []
@@ -524,13 +524,13 @@ class Maps(am.ArrayObjman):
         angle = None
         bbox = None
         ids_map = []
-        for ix in xrange(nx):
-            for iy in xrange(ny):
+        for ix in range(nx):
+            for iy in range(ny):
 
                 # tile in SUMO network coords. These are the saved coords
                 x_tile = x0+ix*width_tile
                 y_tile = y0+iy*width_tile
-                print '  x_tile,y_tile', x_tile, y_tile
+                print('  x_tile,y_tile', x_tile, y_tile)
                 bb = np.array([[x_tile, y_tile], [x_tile+width_tile, y_tile+width_tile]], np.float32)
 
                 # tile in absolute coordinates. Coords used for download
@@ -552,7 +552,7 @@ class Maps(am.ArrayObjman):
                         angle, bbox = estimate_angle(filepath)
                         # sys.exit(0)
                     else:
-                        print 'WARNING in download: no file downloaded from mapserver'
+                        print('WARNING in download: no file downloaded from mapserver')
                         return ids_map
 
                 bbox_tile_lonlat = download_googlemap_bb(filepath, bbox_tile, proj, apikey,
@@ -560,24 +560,24 @@ class Maps(am.ArrayObjman):
                                                          maptype=maptype, color="0x0000000f")
 
                 if os.path.getsize(filepath) < 2000:  # download failed
-                    print 'WARNING in download: no file downloaded from mapserver'
+                    print('WARNING in download: no file downloaded from mapserver')
                     return ids_map
 
-                print '  bbox_tile', bbox_tile
-                print '  bbox_tile_lonlat', bbox_tile_lonlat
+                print('  bbox_tile', bbox_tile)
+                print('  bbox_tile_lonlat', bbox_tile_lonlat)
 
                 im = Image.open(filepath).convert("RGB")
                 if 1:
-                    print '    downloaded image', filepath,  "%dx%d" % im.size, im.mode, im.getbands()
-                    print '      x_sw,y_sw', x_sw, y_sw
-                    print '      x_ne,y_ne', x_ne, y_ne
+                    print('    downloaded image', filepath,  "%dx%d" % im.size, im.mode, im.getbands())
+                    print('      x_sw,y_sw', x_sw, y_sw)
+                    print('      x_ne,y_ne', x_ne, y_ne)
 
                 # print '  start rotation'
                 im_rot = im.rotate(angle)  # gimp 1.62
                 # im_rot.show()
                 region = im_rot.crop([bbox[0][0], bbox[0][1], bbox[2][0], bbox[2][1]])
                 regsize = region.size
-                print '      regsize', regsize
+                print('      regsize', regsize)
                 im_crop = Image.new('RGB', (regsize[0], regsize[1]), (0, 0, 0))
                 im_crop.paste(region, (0, 0, regsize[0], regsize[1]))
                 im_tile = im_crop.resize((1024, 1024))
@@ -588,7 +588,7 @@ class Maps(am.ArrayObjman):
                 im_tile.save(outfilepath, filetype.upper())
 
                 # print '  bb_orig=',bb
-                print '      bb_orig', bb
+                print('      bb_orig', bb)
                 #lon0, lat0 = proj(x_tile-offset[0], y_tile-offset[1])
                 #lon1, lat1 = proj(x_tile+width_tile-offset[0], y_tile+width_tile-offset[1])
 
@@ -777,7 +777,7 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
 
             shapes = nodes.shapes[ids_node]
             for shape, id_node in zip(shapes, ids_node):
-                for coord, i in zip(shape, range(len(shape))):
+                for coord, i in zip(shape, list(range(len(shape)))):
                     # print coord
                     # print np.stack((longitudes, latitudes), axis = -1)
                     quote = self.evaluate_quote(longitudes, latitudes, elevations, coord[0], coord[1])
@@ -794,13 +794,13 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
             for shape, id_edge in zip(shapes, ids_edge):
                 positive_climb = 0.
                 negative_climb = 0.
-                for coord, i in zip(shape, range(len(shape))):
+                for coord, i in zip(shape, list(range(len(shape)))):
                     # print coord
                     # print np.stack((longitudes, latitudes), axis = -1)
                     quote = self.evaluate_quote(longitudes, latitudes, elevations, coord[0], coord[1])
 
                     edges.shapes[id_edge][i] = [coord[0], coord[1], quote]
-                    print edges.shapes[id_edge][i]
+                    print(edges.shapes[id_edge][i])
                     if i > 0 and (quote-quote_pre) > 0:
                         positive_climb += (quote-quote_pre)
                     elif i > 0 and (quote-quote_pre) < 0:
@@ -841,7 +841,7 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
         dists = np.sqrt(np.sum((np.stack((longitudes, latitudes), axis=-1) - [x_point, y_point])**2, 1))
 
         if is_scipy:
-            print 'use scipy to interpolate'
+            print('use scipy to interpolate')
             #tck = interpolate.splrep(x, y, s=0)
             #xnew = np.linspace(np.min(x), np.max(x), 200)
             #ynew = interpolate.splev(xnew, tck, der=0)
@@ -853,7 +853,7 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
 ##            nearest_longitudes = longitudes[(longitudes < x_point + self.interpolation_radius)&(longitudes > x_point - self.interpolation_radius)&(latitudes < y_point + self.interpolation_radius)&(latitudes > y_point - self.interpolation_radius)]
 ##            nearest_latitudes = latitudes[(longitudes < x_point + self.interpolation_radius)&(longitudes > x_point - self.interpolation_radius)&(latitudes < y_point + self.interpolation_radius)&(latitudes > y_point - self.interpolation_radius)]
 ##            nearest_elevations = elevations[(longitudes < x_point + self.interpolation_radius)&(longitudes > x_point - self.interpolation_radius)&(latitudes < y_point + self.interpolation_radius)&(latitudes > y_point - self.interpolation_radius)]
-            print[x_point, y_point], nearest_longitudes, nearest_latitudes, nearest_elevations
+            print([x_point, y_point], nearest_longitudes, nearest_latitudes, nearest_elevations)
             if len(nearest_longitudes) > 15:
 
                 f_inter = interpolate.SmoothBivariateSpline(
@@ -880,7 +880,7 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
                 quote = f_inter(x_point, y_point)
             else:
                 quote = elevations[np.argmin(dists)]
-                print 'nearest quote'
+                print('nearest quote')
         else:
 
             nearest_quotes = elevations[(dists < 100)]
@@ -895,7 +895,7 @@ class CsvElevationsImport(PlotoptionsMixin, CmlMixin, Process):
                 quote = numerator/denominator
             else:
                 quote = elevations[np.argmin(dists)]
-                print 'nearest quote'
+                print('nearest quote')
 
         return quote
 

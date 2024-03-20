@@ -36,7 +36,7 @@ try:
 
 
 except:
-    print 'WARNING: No Exel export possible. Install openpyxl python package.'
+    print('WARNING: No Exel export possible. Install openpyxl python package.')
     IS_EXCEL = False
 
 # if 'Workbook' in dir():
@@ -45,14 +45,14 @@ except:
 # else:
 #    IS_EXCEL = False
 
-print 'IS_EXCEL', IS_EXCEL
+print('IS_EXCEL', IS_EXCEL)
 
 
 def export_excel(filepath, obj, ids=None, attrconfigs=None,  groupnames=None,
                  is_header=True, is_ident=False, is_timestamp=True,
                  show_parentesis=True, name_id='ID', is_export_not_save=True):
 
-    print 'export_excel'  # ,attrconfigs,'groupnames',groupnames,
+    print('export_excel')  # ,attrconfigs,'groupnames',groupnames,
 
     wb = Workbook()
     if (wb.worksheets) >= 1:
@@ -78,7 +78,7 @@ def export_excel(filepath, obj, ids=None, attrconfigs=None,  groupnames=None,
             tv = type(value)
             if tv in cm.NODATATYPES:
                 value = str(value)
-            elif tv in (types.ListType, types.TupleType, np.ndarray):
+            elif tv in (list, tuple, np.ndarray):
                 value = str(value)
 
             cell.value = value
@@ -129,7 +129,7 @@ def export_excel(filepath, obj, ids=None, attrconfigs=None,  groupnames=None,
 
                 elif mt == 'id':
                     value = attrconf.get_linktab().format_ids([value])
-                elif tv in (types.ListType, types.TupleType, np.ndarray):
+                elif tv in (list, tuple, np.ndarray):
                     value = str(value)
                 cell.value = value
                 ind_col += 1
@@ -141,7 +141,7 @@ class CsvExporter(Process):
     def __init__(self,  obj, ident='csvexporter', name='CSV exporter',
                  info='Export data from a CSV file into object',
                  logger=None, **kwargs):
-        print 'CsvExporter.__init__'
+        print('CsvExporter.__init__')
         self._init_common(ident,
                           parent=obj,
                           name=name,
@@ -187,7 +187,7 @@ class CsvExporter(Process):
         #                    ))
 
     def do(self):
-        print 'CsvExporter.do',
+        print('CsvExporter.do', end=' ')
         obj = self.parent
         attrsman = self.get_attrsman()
         sep = self.sep

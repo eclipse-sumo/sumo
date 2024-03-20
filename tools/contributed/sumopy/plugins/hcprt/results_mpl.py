@@ -42,11 +42,11 @@ class StopresultsPlotter(Process):
         self._init_common('stopresultsplotter', parent=results, name=name,
                           info=info, logger=logger)
 
-        print 'StopresultsPlotter.__init__', results, self.parent, len(self.get_stopresults())
+        print('StopresultsPlotter.__init__', results, self.parent, len(self.get_stopresults()))
         attrsman = self.get_attrsman()
 
         stops = self.get_stopresults().get_prtstops()
-        print '  prtstops', stops, len(stops), id(stops), self.get_stopresults().ids_stop.get_linktab(), id(self.get_stopresults().ids_stop.get_linktab())
+        print('  prtstops', stops, len(stops), id(stops), self.get_stopresults().ids_stop.get_linktab(), id(self.get_stopresults().ids_stop.get_linktab()))
         choices_stop = {}
         for id_stop in stops.get_ids():
             choices_stop[str(id_stop)] = id_stop
@@ -131,10 +131,10 @@ class StopresultsPlotter(Process):
 
     def show(self):
         stopresults = self.get_stopresults()
-        print 'show', stopresults
+        print('show', stopresults)
         # print '  dir(vehicleman)',dir(vehicleman)
 
-        print '  len(stopresults)', len(stopresults)
+        print('  len(stopresults)', len(stopresults))
         if len(stopresults) > 0:
             i_fig = 0
             plt.close("all")
@@ -166,7 +166,7 @@ class StopresultsPlotter(Process):
             plt.show()
 
     def plot_flow_stop(self, fig):
-        print 'plot_flow_stop'
+        print('plot_flow_stop')
         id_stop = self.id_stop_plot
         stopresults = self.get_stopresults()
         ax = fig.add_subplot(111)
@@ -224,7 +224,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_waiting_person_time(self, fig):
-        print 'plot_waiting_person_time'
+        print('plot_waiting_person_time')
         stopresults = self.get_stopresults()
         ax = fig.add_subplot(111)
 
@@ -251,7 +251,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_waiting_person_number_stop(self, fig):
-        print 'plot_waiting_person_number_stop'
+        print('plot_waiting_person_number_stop')
         stopresults = self.get_stopresults()
         #ax1 = fig.add_subplot(211)
         #ax2 = fig.add_subplot(212)
@@ -275,7 +275,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_waiting_person_number(self, fig):
-        print 'plot_waiting_person_number'
+        print('plot_waiting_person_number')
         stopresults = self.get_stopresults()
         #ax1 = fig.add_subplot(211)
         #ax2 = fig.add_subplot(212)
@@ -288,7 +288,7 @@ class StopresultsPlotter(Process):
         # works:ax.plot(time.reshape(n_steps,1),numbers_person_wait.reshape(n_steps,-1))
         i = 0
         for id_stop in stopresults.ids_stop.get_value():
-            print '  id_stop', id_stop
+            print('  id_stop', id_stop)
             ax.plot(time, stopresults.numbers_person_wait[id_stop],
                     get_color(i), linewidth=self.width_line,
                     label='PRT Stop ID=%d' % id_stop)
@@ -302,7 +302,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_flows_compare(self, fig):
-        print 'plot_flows_compare'
+        print('plot_flows_compare')
         stopresults = self.get_stopresults()
         #time_update_flows = self.parent.vehicleman.time_update_flows.get_value()
         time_update_flows = 10
@@ -315,7 +315,7 @@ class StopresultsPlotter(Process):
         i = 0
         flowmatrix = np.zeros((10, 10), dtype=np.int32)
         for id_stop in stopresults.ids_stop.get_value():
-            print '    id_stop', id_stop
+            print('    id_stop', id_stop)
             # print '      sched',stopresults.inflows_veh_sched[id_stop]
             # print '      eff  ',stopresults.inflows_veh[id_stop]
             flowmatrix[np.array(time_update_flows*stopresults.inflows_veh_sched[id_stop], dtype=np.int32),
@@ -325,7 +325,7 @@ class StopresultsPlotter(Process):
             #        label = 'PRT Stop ID=%d (effective)'%id_stop)
 
             i += 1
-        print 'flowmatrix', flowmatrix
+        print('flowmatrix', flowmatrix)
         # ax.matshow(flowmatrix)
 
         cax = ax.matshow(flowmatrix, cmap=cmx.get_cmap('PuBu'))
@@ -338,7 +338,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_flows_compare_stop(self, fig):
-        print 'plot_flows_compare_stop'
+        print('plot_flows_compare_stop')
         stopresults = self.get_stopresults()
         id_stop = self.id_stop_plot
         #time_update_flows = self.parent.vehicleman.time_update_flows.get_value()
@@ -358,7 +358,7 @@ class StopresultsPlotter(Process):
 
         time = np.arange(-n_steps+1, n_steps, dtype=np.float32)*t_step
 
-        print '    len(flowcorr),n_steps', len(flowcorr), len(time), n_steps
+        print('    len(flowcorr),n_steps', len(flowcorr), len(time), n_steps)
 
         ax.plot(time, flowcorr,
                 get_color(i), linewidth=self.width_line,
@@ -372,7 +372,7 @@ class StopresultsPlotter(Process):
         ax.tick_params(axis='y', labelsize=int(0.8*self.size_labelfont))
 
     def plot_flows(self, fig):
-        print 'plot_flows'
+        print('plot_flows')
         stopresults = self.get_stopresults()
         ax = fig.add_subplot(111)
 
@@ -408,7 +408,7 @@ class StopresultsPlotter(Process):
         #        ('inflows_person', {'name':'Person in-flows', 'unit':'1/s', 'dtype':np.float32, 'info':'Person flow into the stop over time.'}),
 
     def plot_waiting_person(self, fig):
-        print 'plot_waiting_person'
+        print('plot_waiting_person')
         stopresults = self.get_stopresults()
         ax1 = fig.add_subplot(211)
         ax2 = fig.add_subplot(212)

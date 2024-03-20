@@ -21,37 +21,37 @@ Test for callsman
 Provides test classes and some test functions for plugin.
 """
 
-from classman import *
-from arrayman import *
-import xmlman as xm
+from .classman import *
+from .arrayman import *
+from . import xmlman as xm
 
 
 def on_event_delattr(attrconfig):
-    print 'EVENT: Attribute', attrconfig.attrname, 'will be deleted!!'
+    print('EVENT: Attribute', attrconfig.attrname, 'will be deleted!!')
 
 
 def on_event_setattr(attrconfig):
-    print 'EVENT: Attribute', attrconfig.attrname, 'has been set to a new value', attrconfig.format_value()
+    print('EVENT: Attribute', attrconfig.attrname, 'has been set to a new value', attrconfig.format_value())
 
 
 def on_event_getattr(attrconfig):
-    print 'EVENT: Attribute', attrconfig.attrname, 'has been retrieved the value', attrconfig.format_value()
+    print('EVENT: Attribute', attrconfig.attrname, 'has been retrieved the value', attrconfig.format_value())
 
 
 def on_event_additem(attrconfig, keys):
-    print 'EVENT: Attribute', attrconfig.attrname, ':added keys:', keys
+    print('EVENT: Attribute', attrconfig.attrname, ':added keys:', keys)
 
 
 def on_event_delitem(attrconfig, keys):
-    print 'EVENT: Attribute', attrconfig.attrname, ':delete keys:', keys
+    print('EVENT: Attribute', attrconfig.attrname, ':delete keys:', keys)
 
 
 def on_event_setitem(attrconfig, keys):
-    print 'EVENT: Attribute', attrconfig.attrname, ':set keys:', keys
+    print('EVENT: Attribute', attrconfig.attrname, ':set keys:', keys)
 
 
 def on_event_getitem(attrconfig, keys):
-    print 'EVENT: Attribute', attrconfig.attrname, ':get keys:', keys
+    print('EVENT: Attribute', attrconfig.attrname, ':get keys:', keys)
 
 
 class Segments(ArrayObjman):
@@ -125,15 +125,15 @@ class Polylines (ArrayObjman):
                 ]
         """
         vertices = []
-        print 'draw', self.ident
-        for i in xrange(1, len(pointvertices)):
+        print('draw', self.ident)
+        for i in range(1, len(pointvertices)):
             vertices.append([pointvertices[i-1], pointvertices[i]])
         n_vert = len(vertices)
         _id = self.add_row(ids_osm=id_osm)
         cod = []
         #import string
         clist = np.array(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p'], np.object)
-        print '  ', len(vertices), clist[:len(vertices)]
+        print('  ', len(vertices), clist[:len(vertices)])
         ids = self.segments.value.suggest_ids(len(vertices))
         ids_segs = self.segments.value.add_rows(ids=ids, vertices=vertices, ids_parent=n_vert*[_id], ids_ref=clist[ids])
         self.ids_segments[_id] = list(ids_segs)  # put here list, otherwise numpy thinks it is a numeric array
@@ -300,7 +300,7 @@ class TestClass(BaseObjman):
         """
         True if position greater than thhreshold.
         """
-        print 'on_is_pos_ok', self.x > self.x_thresh
+        print('on_is_pos_ok', self.x > self.x_thresh)
         return self.x > self.x_thresh
 
 
@@ -331,7 +331,7 @@ class TestClass2(BaseObjman):
         self.child1 = attrsman.add(ObjConf(TestClass('child1', self))
                                    )
 
-        print 'TestClass2.child1', self.child1
+        print('TestClass2.child1', self.child1)
 
         self.child3 = attrsman.add(ObjConf(TestClass3('child3', self))
                                    )
@@ -368,7 +368,7 @@ class TestTabman(BaseObjman):
         attrsman.add_rows(5)
         attrsman.streetname[3] = 'ssss'
         attrsman.streetname[[1, 2]] = ['aa', 55]
-        print 'test get', attrsman.streetname[[1, 2]]
+        print('test get', attrsman.streetname[[1, 2]])
         # self.streetname[1]+='zzz'
         attrsman.del_rows([1, 3])
         attrsman.del_row(5)
@@ -485,9 +485,9 @@ class TestTableObjMan(TableObjman):
         """
         True if position greater than thhreshold.
         """
-        print 'on_del_row', id_row
+        print('on_del_row', id_row)
         self.del_row(id_row)
-        print '  ids after del', self.get_ids()
+        print('  ids after del', self.get_ids())
 
 
 class TestTableObjManNocols(TableObjman):

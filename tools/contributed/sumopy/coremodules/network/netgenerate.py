@@ -27,7 +27,7 @@ import agilepy.lib_base.xmlman as xm
 #from coremodules.modules_common import *
 #from coremodules.network.network import SumoIdsConf, MODES
 from agilepy.lib_base.processes import Process, CmlMixin
-import netconvert
+from . import netconvert
 from agilepy.lib_base.geometry import get_length_polypoints, get_dist_point_to_segs, get_diff_angle_clockwise
 
 
@@ -43,7 +43,7 @@ class NetGenerateMixin(netconvert.NetConvertMixin):
                                     logger=logger,
                                     cml='netgenerate')
 
-        print 'init_common_netgen', nettype
+        print('init_common_netgen', nettype)
 
         self.add_option('nettype', '--'+nettype,
                         groupnames=['_private'],
