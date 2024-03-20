@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-19 14:39+0000\n"
+"PO-Revision-Date: 2024-03-21 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -5822,7 +5822,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Mode for creating additional elements. (A)"
-msgstr ""
+msgstr "Modus zum Erstellen weiterer Elemente. (A)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3468
 msgid "Wire mode"
@@ -5888,6 +5888,7 @@ msgstr "Typenmodus"
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3606
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr ""
+"Modus zum Erstellen von Typen (an Fahrzeugen, Personen und Containern). (T)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3611
 msgid "Type distribution mode"
@@ -5907,7 +5908,7 @@ msgstr "Modus zum Erstellen von Halten. (A)"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Person mode"
-msgstr ""
+msgstr "Personenmodus"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3621
 msgid "Mode for creating persons. (P)"
