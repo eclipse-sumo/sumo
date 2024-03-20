@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-19 13:53+0000\n"
+"PO-Revision-Date: 2024-03-20 07:23+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -9685,11 +9685,11 @@ msgstr "Parámetro SKRAUSSX 5"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5942
 msgid "EIDM Look ahead / preview parameter [s]"
-msgstr ""
+msgstr "Parámetro de previsión / avance EIDM [s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5948
 msgid "EIDM AP Reaction Time parameter [s]"
-msgstr ""
+msgstr "Parámetro de tiempo de reacción EIDM AP [s]"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5954
 msgid "EIDM Wiener Process parameter for the Driving Error [s]"
