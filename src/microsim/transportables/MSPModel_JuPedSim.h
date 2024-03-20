@@ -187,7 +187,7 @@ private:
         const Parameterised::Map params;
 
         /// @brief The last time a pedestrian was removed in a vanishing area.
-        SUMOTime lastRemovalTime = 0;
+        SUMOTime lastRemovalTime;
     };
 
     /// @brief Array of special areas.
