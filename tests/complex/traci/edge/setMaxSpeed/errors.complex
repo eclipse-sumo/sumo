@@ -1,7 +1,0 @@
-Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
-Warning: Teleporting vehicle 'v.17'; waited too long, from edge 'A0A1':0, time=476.63.
-Warning: Vehicle 'v.17' ends teleporting on edge 'A2A3':0, time=483.26.
-Warning: Teleporting vehicle 'v.18'; waited too long, from edge 'A0A1':0, time=778.30.
-Warning: Vehicle 'v.18' ends teleporting on edge 'A2A3':0, time=784.93.
-Warning: Teleporting vehicle 'v.19'; waited too long, from edge 'A0A1':0, time=1078.30.
-Warning: Vehicle 'v.19' ends teleporting on edge 'A2A3':0, time=1084.93.
