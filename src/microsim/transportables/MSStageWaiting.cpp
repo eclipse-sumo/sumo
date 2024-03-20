@@ -38,9 +38,10 @@
 MSStageWaiting::MSStageWaiting(const MSEdge* destination, MSStoppingPlace* toStop,
                                SUMOTime duration, SUMOTime until, double pos, const std::string& actType,
                                const bool initial) :
-    MSStage(destination, toStop, SUMOVehicleParameter::interpretEdgePos(
-                pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID()),
-            initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING),
+    MSStage(initial ? MSStageType::WAITING_FOR_DEPART : MSStageType::WAITING, 
+            destination, 
+            toStop, 
+            SUMOVehicleParameter::interpretEdgePos(pos, destination->getLength(), SUMO_ATTR_DEPARTPOS, "stopping at " + destination->getID())),
     myWaitingDuration(duration),
     myWaitingUntil(until),
     myStopWaitPos(Position::INVALID),

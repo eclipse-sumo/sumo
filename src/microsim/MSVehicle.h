@@ -1725,6 +1725,10 @@ public:
                                  double dist, double leaveSpeed);
     //@}
 
+    std::vector<Position>& getUnboardingPositions() const {
+        return *myUnboardingPositions;
+    }
+
 protected:
 
     /// @name Interaction with move reminders
@@ -1935,8 +1939,11 @@ protected:
     SUMOTime myJunctionEntryTimeNeverYield;
     SUMOTime myJunctionConflictEntryTime;
 
-    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting eposide
+    /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting episode
     SUMOTime myTimeSinceStartup;
+
+    /// @brief unboarding positions of passengers if vehicle is a train
+    std::vector<Position>* const myUnboardingPositions;
 
 protected:
 

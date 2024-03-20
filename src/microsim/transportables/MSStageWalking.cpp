@@ -64,7 +64,7 @@ MSStageWalking::MSStageWalking(const std::string& personID,
                                SUMOTime walkingTime, double speed,
                                double departPos, double arrivalPos, double departPosLat, int departLane,
                                const std::string& routeID) :
-    MSStageMoving(route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane, MSStageType::WALKING),
+    MSStageMoving(MSStageType::WALKING, route, routeID, toStop, speed, departPos, arrivalPos, departPosLat, departLane),
     myWalkingTime(walkingTime),
     myExitTimes(nullptr),
     myInternalDistance(0) {
@@ -124,17 +124,24 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
     if (previous->getEdgePos(now) >= 0 && previous->getEdge() == *myRouteStep) {
         // we need to adapt to the arrival position of the vehicle unless we have an explicit access
         myDepartPos = previous->getEdgePos(now);
-        if (previous->getStageType() == MSStageType::ACCESS) {
-            const Position& lastPos = previous->getPosition(now);
-            // making a wild guess on where we actually want to depart laterally
-            const double possibleDepartPosLat = lastPos.distanceTo(previous->getEdgePosition(previous->getEdge(), myDepartPos, 0.));
-            const Position& newPos = previous->getEdgePosition(previous->getEdge(), myDepartPos, -possibleDepartPosLat); // Minus sign is here for legacy reasons.
-            if (lastPos.almostSame(newPos)) {
-                myDepartPosLat = possibleDepartPosLat;
-            } else if (lastPos.almostSame(previous->getEdgePosition(previous->getEdge(), myDepartPos, possibleDepartPosLat))) {
-                // maybe the other side of the street
-                myDepartPosLat = -possibleDepartPosLat;
+        const OptionsCont& oc = OptionsCont::getOptions();
+        const std::string model = oc.getString("pedestrian.model");
+        if (model != "jupedsim") {
+            if (previous->getStageType() == MSStageType::ACCESS) {
+                const Position& lastPos = previous->getPosition(now);
+                // making a wild guess on where we actually want to depart laterally
+                const double possibleDepartPosLat = lastPos.distanceTo(previous->getEdgePosition(previous->getEdge(), myDepartPos, 0.));
+                const Position& newPos = previous->getEdgePosition(previous->getEdge(), myDepartPos, -possibleDepartPosLat); // Minus sign is here for legacy reasons.
+                if (lastPos.almostSame(newPos)) {
+                    myDepartPosLat = possibleDepartPosLat;
+                } else if (lastPos.almostSame(previous->getEdgePosition(previous->getEdge(), myDepartPos, possibleDepartPosLat))) {
+                    // maybe the other side of the street
+                    myDepartPosLat = -possibleDepartPosLat;
+                }
             }
+        }
+        else {
+            myDepartPosLat = previous->getEdgePosLat(now);
         }
         if (myWalkingTime > 0) {
             mySpeed = computeAverageSpeed();

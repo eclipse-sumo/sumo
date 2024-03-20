@@ -34,9 +34,9 @@
 class MSStageMoving : public MSStage {
 public:
     /// constructor
-    MSStageMoving(const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
-                  const double departPos, const double arrivalPos, const double departPosLat, const int departLane, MSStageType type) :
-        MSStage(route.back(), toStop, arrivalPos, type),
+    MSStageMoving(const MSStageType type, const std::vector<const MSEdge*>& route, const std::string& routeID, MSStoppingPlace* toStop, const double speed,
+                  const double departPos, const double arrivalPos, const double departPosLat, const int departLane) :
+        MSStage(type, route.back(), toStop, arrivalPos),
         myPState(nullptr), myRoute(route), myRouteID(routeID), myRouteStep(myRoute.begin()),
         mySpeed(speed), myDepartPos(departPos),
         myDepartPosLat(departPosLat), myDepartLane(departLane) {}
