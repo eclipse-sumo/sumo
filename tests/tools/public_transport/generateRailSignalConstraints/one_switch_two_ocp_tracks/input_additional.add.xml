@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-20 13:15:17 by Eclipse SUMO netedit Version v1_19_0+1418-d339145ec94
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="1@OCP" lane="d_0" startPos="247.56" endPos="347.56"/>
+    <busStop id="2@OCP" lane="e_0" startPos="200.00" endPos="300.00"/>
+    <busStop id="3@OCP" lane="d2_0" startPos="263.22" endPos="363.22"/>
+    <busStop id="bs_3" lane="e2_0" startPos="200.00" endPos="300.00"/>
+</additional>
