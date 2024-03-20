@@ -1343,6 +1343,15 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             if (next != end) {
                 // no connection found, jump to next route edge
                 toLane = (*next)->getLanes()[0];
+                if (toLane->getEdge().getBidiEdge() == current) {
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                    if (gDebugFlag4) {
+                        std::cout << "      abort: turn-around\n";
+                    }
+#endif
+                    myFoundReversal = true;
+                    return;
+                }
             } else {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
                 if (gDebugFlag4) {
