@@ -56,7 +56,8 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const double invalidJamThreshold,
         const std::string& vTypes) :
     MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
-    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
+    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos))
+{
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
 }
@@ -101,13 +102,8 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
         myEdgeMeanData.reset(); // discard collected values
         if (!mySpeedIsDefault) {
             // if not, reset adaptation values
-            mySegment->getEdge().setMaxSpeed(myDefaultSpeed);
-            MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
             const double jamThresh = OptionsCont::getOptions().getFloat("meso-jam-threshold");
-            while (first != nullptr) {
-                first->setSpeed(myDefaultSpeed, currentTime, jamThresh);
-                first = first->getNextSegment();
-            }
+            myEdge->setMaxSpeed(myDefaultSpeed, jamThresh);
             mySpeedIsDefault = true;
         }
         if (myCurrentStateInterval == myIntervals.end()) {
@@ -120,12 +116,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
     const bool calibrateSpeed = myCurrentStateInterval->v >= 0;
     // we are active
     if (!myDidSpeedAdaption && calibrateSpeed && myCurrentStateInterval->v != mySegment->getEdge().getSpeedLimit()) {
-        mySegment->getEdge().setMaxSpeed(myCurrentStateInterval->v);
-        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(mySegment->getEdge());
-        while (first != nullptr) {
-            first->setSpeed(myCurrentStateInterval->v, currentTime, -1);
-            first = first->getNextSegment();
-        }
+        myEdge->setMaxSpeed(myCurrentStateInterval->v);
         mySpeedIsDefault = false;
         myDidSpeedAdaption = true;
     }

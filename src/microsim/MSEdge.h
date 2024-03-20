@@ -672,7 +672,7 @@ public:
     /** @brief Sets a new maximum speed for all lanes (used by TraCI and MSCalibrator)
      * @param[in] val the new speed in m/s
      */
-    void setMaxSpeed(double val) const;
+    void setMaxSpeed(double val, double jamThreshold = -1);
 
     /** @brief Sets a new friction coefficient COF for all lanes [*later to be (used by TraCI and MSCalibrator)*]
     * @param[in] val the new coefficient in [0..1]

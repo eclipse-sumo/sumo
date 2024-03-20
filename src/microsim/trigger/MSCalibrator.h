@@ -284,7 +284,7 @@ protected:
 
 protected:
     /// @brief the edge on which this calibrator lies
-    const MSEdge* const myEdge;
+    MSEdge* const myEdge;
     /// @brief the lane on which this calibrator lies (0 if the whole edge is covered at once)
     MSLane* const myLane;
     /// @brief the position on the edge where this calibrator lies

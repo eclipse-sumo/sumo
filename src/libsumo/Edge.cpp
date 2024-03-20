@@ -348,9 +348,7 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
 
 void
 Edge::setMaxSpeed(const std::string& edgeID, double speed) {
-    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
-        lane->setMaxSpeed(speed);
-    }
+    getEdge(edgeID)->setMaxSpeed(speed);
 }
 
 void

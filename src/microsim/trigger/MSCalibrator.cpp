@@ -85,7 +85,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            bool addLaneMeanData) :
     MSRouteHandler(aXMLFilename, true),
     MSDetectorFileOutput(id, vTypes, "", (int)PersonMode::NONE), // detecting persons not yet supported
-    myEdge(edge),
+    myEdge(const_cast<MSEdge*>(edge)),
     myLane(lane),
     myPos(pos), myProbe(probe),
     myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes, "",
