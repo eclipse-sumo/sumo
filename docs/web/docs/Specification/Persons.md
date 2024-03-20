@@ -247,7 +247,7 @@ The person stops for the maximum of `currentTime` + `duration` and `until`.
 
 ## Access
 
-Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage inserted into the person plan under the following conditions:
+Whenever a person starts or ends a walk at a busStop or trainStop (collectively called *stoppingPlace*), an access stage is inserted into the person plan under the following conditions:
 
 - the walk ends on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the final edge of the walk
 - the walk starts on an edge that is different from the stoppingPlace edge and the stoppingPlace has an `<access>` definition that connects it with the first edge of the walk
