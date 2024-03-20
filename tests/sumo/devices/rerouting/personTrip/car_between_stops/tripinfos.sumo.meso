@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-20 23:55:02 by Eclipse SUMO sumo Version v1_19_0+1436-ce33cf99c4c
+<!-- generated on 2024-03-20 23:55:03 by Eclipse SUMO sumo Version v1_19_0+1436-ce33cf99c4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,21 +16,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
-        <railsignal-block-output value="railsignal_blocks.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
     </output>
 
     <processing>
         <default.speeddev value="0"/>
     </processing>
 
+    <routing>
+        <persontrip.transfer.car-walk value="ptStops"/>
+    </routing>
+
     <report>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -42,5 +46,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="t0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="58.00" arrivalLane="" arrivalPos="200.00" arrivalSpeed="13.89" duration="58.00" routeLength="800.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_t0" vType="train" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <stop duration="0.00" arrival="0.00" arrivalPos="15.00" actType="waiting"/>
+        <stop duration="0.00" arrival="0.00" arrivalPos="15.00" actType="sameStop"/>
+        <walk depart="0.00" departPos="15.00" arrival="1082.00" arrivalPos="15.00" duration="1082.00" routeLength="1500.00" timeLoss="2.00" maxSpeed="1.39"/>
+    </personinfo>
 </tripinfos>
