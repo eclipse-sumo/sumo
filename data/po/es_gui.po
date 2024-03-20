@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-20 14:27+0000\n"
+"PO-Revision-Date: 2024-03-21 08:32+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11269,7 +11269,7 @@ msgstr "añadir % en '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:843
 msgid "invalid combination for ride"
-msgstr ""
+msgstr "combinación no válida de conducción"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:950
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1007
@@ -11505,19 +11505,19 @@ msgstr "No se pudo establecer el atributo '%' (el semáforo no es válido)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:74
 msgid "Crossing's edges don't support pedestrians"
-msgstr ""
+msgstr "Las aristas de cruces no admiten peatones"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:194
 msgid "remove geometry point of %"
-msgstr ""
+msgstr "remover punto geométrico de %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:307
 msgid "Set custom crossing shape"
-msgstr ""
+msgstr "Establecer forma de cruce peatonal personalizada"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:693
 msgid "moving % of %"
-msgstr ""
+msgstr "moviendo % de %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:142
 msgid "Parent junctions are in the same position: %, %"
