@@ -1725,10 +1725,6 @@ public:
                                  double dist, double leaveSpeed);
     //@}
 
-    std::vector<Position>& getUnboardingPositions() const {
-        return *myUnboardingPositions;
-    }
-
 protected:
 
     /// @name Interaction with move reminders
@@ -1942,9 +1938,6 @@ protected:
     /// @brief duration of driving (speed > SUMO_const_haltingSpeed) after the last halting episode
     SUMOTime myTimeSinceStartup;
 
-    /// @brief unboarding positions of passengers if vehicle is a train
-    std::vector<Position>* const myUnboardingPositions;
-
 protected:
 
     /// @brief Drive process items represent bounds on the safe velocity
@@ -2063,7 +2056,7 @@ public:
     inline double accelThresholdForWaiting() const {
         return 0.5 * getCarFollowModel().getMaxAccel();
     }
-    
+
     /* @brief return the previous lane in this vehicles route including internal lanes
      * @param[in] current The lane of which the predecessor should be returned
      * @param[in,out] routeIndex The index of the current or previous non-internal edge in the route
