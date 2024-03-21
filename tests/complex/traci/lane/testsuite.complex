@@ -9,3 +9,6 @@ lane_intermodal
 
 # Tests the lane API with sublane model enabled
 sublane
+
+# see #14552
+setMaxSpeed
