@@ -1082,6 +1082,7 @@ command to get a new image for each new timestep.
         traci.simulationStep()
         traci.gui.screenshot("View #0", "images/"+str(i)+".png")
 ```
+A more sophisticated version of this approach is given in the [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) tool.
 
 Next you have to glue the images together. This job can be done
 graphically with virtualdub [\[2\]](https://www.virtualdub.org) or via
