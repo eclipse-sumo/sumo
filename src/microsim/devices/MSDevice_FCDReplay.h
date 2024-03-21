@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <utils/common/Command.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSVehicleDevice.h"
 
@@ -30,7 +29,7 @@
 // ===========================================================================
 /**
  * @class MSDevice_FCDReplay
- * @brief A device which replays a vehiucle trajectory from an fcd file
+ * @brief A device which replays a vehicle trajectory from an fcd file
  *
  * @see MSDevice
  */
@@ -110,19 +109,8 @@ private:
         std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector > > myRoutes;
     };
 
-    class Removal : public Command {
-    public:
-        SUMOTime execute(SUMOTime currentTime);
-        void schedule(MSVehicle* v);
-    private:
-        std::vector<MSVehicle*> myToRemove;
-        /// @brief Invalidated assignment operator.
-        Removal& operator=(const Removal&) = delete;
-    };
-
 private:
     static FCDHandler myHandler;
-    static Removal* myRemovalCommand;
     Trajectory* myTrajectory = nullptr;
 
 private:

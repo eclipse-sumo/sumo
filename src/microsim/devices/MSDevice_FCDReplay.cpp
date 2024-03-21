@@ -40,7 +40,6 @@
 // static member initializations
 // ===========================================================================
 MSDevice_FCDReplay::FCDHandler MSDevice_FCDReplay::myHandler;
-MSDevice_FCDReplay::Removal* MSDevice_FCDReplay::myRemovalCommand = nullptr;
 
 
 // ===========================================================================
@@ -99,7 +98,8 @@ MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
                                double /*newPos*/,
                                double /*newSpeed*/) {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
-        libsumo::Vehicle::remove(veh.getID());
+        // removal happens via the usual MSVehicle::hasArrived mechanism
+        // TODO we may need to set an arrivalPos
         return false;
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&veh);
@@ -113,14 +113,6 @@ MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
                                std::get<4>(p), 7);
     v->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
-    if (myTrajectory->empty()) {
-        if (myRemovalCommand == nullptr) {
-            myRemovalCommand = new Removal();
-            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myRemovalCommand);
-        }
-        myRemovalCommand->schedule(v);
-        return false;
-    }
     return true;
 }
 
@@ -148,12 +140,14 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
             const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
             myTrajectories[id].push_back(std::make_tuple(Position(x, y), edgeOrLane, pos, speed, angle));
             const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
-            if (myRoutes.count(id) == 0) {
-                myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
-            } else {
-                auto& route = std::get<3>(myRoutes[id]);
-                if (!edge->isInternal() && edge != route.back()) {
-                    route.push_back(edge);
+            if (edge != nullptr) {  // TODO maybe warn for unknown edge?
+                if (myRoutes.count(id) == 0) {
+                    myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
+                } else {
+                    auto& route = std::get<3>(myRoutes[id]);
+                    if (!edge->isInternal() && edge != route.back()) {
+                        route.push_back(edge);
+                    }
                 }
             }
             return;
@@ -189,7 +183,9 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             plan->push_back(new MSStageWalking(id, std::get<3>(desc.second), nullptr, -1, params->departSpeed, params->departPos, 0, 0));
             MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
             person->getSingularType().setVClass(SVC_IGNORING);
-            MSNet::getInstance()->getPersonControl().add(person);
+            if (!MSNet::getInstance()->getPersonControl().add(person)) {
+                throw ProcessError("Duplicate person '" + id + "'.");
+            }
             MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
             if (device == nullptr) {  // Person did not get a replay device
                 // TODO delete person
@@ -205,7 +201,9 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
                 throw ProcessError("Could not add route '" + dummyRouteID + "'.");
             }
             SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
-            MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle);
+            if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
+                throw ProcessError("Duplicate vehicle '" + id + "'.");
+            }
             MSNet::getInstance()->getInsertionControl().add(vehicle);
             MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(vehicle->getDevice(typeid(MSDevice_FCDReplay)));
             if (device == nullptr) {  // Vehicle did not get a replay device
@@ -216,22 +214,6 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             device->setTrajectory(&t);
         }
     }
-}
-
-
-SUMOTime
-MSDevice_FCDReplay::Removal::execute(SUMOTime /* currentTime */) {
-    for (MSVehicle* veh : myToRemove) {
-        libsumo::Vehicle::remove(veh->getID(), libsumo::REMOVE_ARRIVED);
-    }
-    myRemovalCommand = nullptr;
-    return 0;
-}
-
-
-void
-MSDevice_FCDReplay::Removal::schedule(MSVehicle* v) {
-    myToRemove.push_back(v);
 }
 
 
