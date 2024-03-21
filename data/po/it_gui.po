@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-21 11:32+0000\n"
+"PO-Revision-Date: 2024-03-21 14:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -14958,19 +14958,19 @@ msgstr "Salva programma semaforico in file di elementi addizionali"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2968
 msgid " new programs for tlLogic '"
-msgstr ""
+msgstr " programmi nuovi per la logica del semaforo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2973
 msgid "Updated program '"
-msgstr ""
+msgstr "Aggiornato programma '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2973
 msgid "' for tlLogic '"
-msgstr ""
+msgstr "' per la logica di semaforo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2977
 msgid "No programs found for traffic light '"
-msgstr ""
+msgstr "Nessun programma trovato per il semaforo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2996
 msgid "Save TLS Program as"
@@ -15125,15 +15125,15 @@ msgstr "Dinamico"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:116
 msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr ""
+msgstr "Oggetto sconosciuto in GUISelectedStorage::select (id=%)."
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:133
 msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr ""
+msgstr "Oggetto sconosciuto in GUISelectedStorage::deselect (id=%)."
 
 #: C:\Repos\sumo/src\utils\gui\div\GUISelectedStorage.cpp:150
 msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr ""
+msgstr "Oggetto sconosciuto in GUISelectedStorage::toggleSelection (id=%)."
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIVideoEncoder.h:74
 msgid "Unknown format!"
