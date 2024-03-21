@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-20 14:27+0000\n"
+"PO-Revision-Date: 2024-03-21 08:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11252,38 +11252,41 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1185
 msgid "Containers don't support stops at busStops or trainStops"
 msgstr ""
+"Contenitori non possono sostare presso fermate di autobus e fermate "
+"ferroviarie"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1193
 msgid "Persons don't support stops at containerStops"
-msgstr ""
+msgstr "Le persone non possono sostare presso fermate di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1201
 msgid "Persons don't support stops at chargingStations"
-msgstr ""
+msgstr "Le persone non possono sostare presso stazioni di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1204
 msgid "Containers don't support stops at chargingStations"
-msgstr ""
+msgstr "I contenitori non possono sostare presso stazioni di ricarica"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1212
 msgid "Persons don't support stops at parkingAreas"
-msgstr ""
+msgstr "Le persone non possono sostare su dei parcheggi"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1215
 msgid "Containers don't support stops at parkingAreas"
-msgstr ""
+msgstr "I contenitori non possono sostare su dei parcheggi"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1225
 msgid "vehicles don't support stops at edges"
-msgstr ""
+msgstr "I veicoli non permettono fermate su degli archi"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1238
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
 msgstr ""
+"Una fermata deve essere definita sia da un luogo, da un'arco o da una corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1240
 msgid "A stop requires only a stoppingPlace, edge or lane"
-msgstr ""
+msgstr "Una fermata richiede soltanto un luogo, un'arco o una corsia"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1940
 #, c-format
