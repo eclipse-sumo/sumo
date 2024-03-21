@@ -817,11 +817,11 @@ private:
             beforeSplit->transferSuccessors(afterSplit);
             beforeSplit->addSuccessor(afterSplit);
             if (forward) {
-                afterSplit->setLength(beforeSplit->getLength() - relPos);
+                afterSplit->setLength(MAX2(0.0, beforeSplit->getLength() - relPos));
                 beforeSplit->setLength(relPos);
             } else {
                 afterSplit->setLength(relPos);
-                beforeSplit->setLength(beforeSplit->getLength() - relPos);
+                beforeSplit->setLength(MAX2(0.0, beforeSplit->getLength() - relPos));
                 // rename backward edges for easier referencing
                 const std::string newID = beforeSplit->getID();
                 beforeSplit->setID(afterSplit->getID());
