@@ -217,6 +217,11 @@ public:
      */
     void setCurrentScheme(const std::string&);
 
+    void hide() {
+        saveWindowPos();
+        FXTopWindow::hide();
+    }
+
 protected:
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent = nullptr;
