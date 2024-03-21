@@ -50,7 +50,6 @@ public:
     static MSDevice_Transportable* buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, const bool isContainer);
 
 
-
 public:
     /// @brief Destructor.
     ~MSDevice_Transportable();
@@ -149,6 +148,10 @@ public:
         return myTransportables;
     }
 
+    std::vector<Position>& getUnboardingPositions() {
+        return myUnboardingPositions;
+    }
+
     /// @brief check if boardingDuration should be applied
     static bool willTransferAtJoin(const MSTransportable* t, const MSBaseVehicle* joinVeh);
 
@@ -174,7 +177,6 @@ private:
     MSDevice_Transportable(SUMOVehicle& holder, const std::string& id, const bool isContainer);
 
 
-
 private:
     /// @brief Whether it is a container device
     const bool myAmContainer;
@@ -186,6 +188,9 @@ private:
      * true means, all passengers that wish to debord at the current stop have left
      */
     bool myStopped;
+
+    /// @brief unboarding positions of passengers if vehicle is a train
+    std::vector<Position> myUnboardingPositions;
 
 
 private:

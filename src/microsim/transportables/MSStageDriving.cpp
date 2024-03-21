@@ -38,6 +38,7 @@
 #include <microsim/MSVehicleType.h>
 #include <microsim/devices/MSTransportableDevice.h>
 #include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
 #include <microsim/devices/MSDispatch.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -50,7 +51,7 @@
 // method definitions
 // ===========================================================================
 MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
-                               MSStoppingPlace* toStop, const double arrivalPos, const double arrivalPosLat, 
+                               MSStoppingPlace* toStop, const double arrivalPos, const double arrivalPosLat,
                                const std::vector<std::string>& lines, const std::string& group,
                                const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSStage(MSStageType::DRIVING, destination, toStop, arrivalPos, arrivalPosLat, group),
@@ -103,7 +104,7 @@ MSStageDriving::init(MSTransportable* transportable) {
         myReservationCommand = new BookReservation(transportable, earliestPickupTime, this);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myReservationCommand, reservationTime);
     }
-    
+
 
 }
 
@@ -393,7 +394,7 @@ MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
     assert(myLines.size() > 0);
     return (myLines.count(vehicle->getID()) > 0
             || ((myLines.count(vehicle->getParameter().line) > 0
-                    || myLines.count("ANY") > 0) &&
+                 || myLines.count("ANY") > 0) &&
                 // even if the line matches we still have to check for stops (#14526)
                 (myDestinationStop == nullptr
                  ? vehicle->stopsAtEdge(myDestination)
@@ -466,10 +467,8 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                 MSVehicle* train = dynamic_cast<MSVehicle*>(myVehicle);
                 if (train != nullptr) {
                     MSTrainHelper trainHelper = MSTrainHelper(train);
-                    const MSLane* myLane = myVehicle->getLane(); 
-                    const OptionsCont& oc = OptionsCont::getOptions();
-                    const std::string model = oc.getString("pedestrian.model");
-                    if (model != "jupedsim") {
+                    const MSLane* const lane = myVehicle->getLane();
+                    if (OptionsCont::getOptions().getString("pedestrian.model") != "jupedsim") {
                         trainHelper.computeDoorPositions();
                         const std::vector<MSTrainHelper::Carriage*>& carriages = trainHelper.getCarriages();
                         const int randomCarriageIx = RandHelper::rand(trainHelper.getNumCarriages() - trainHelper.getFirstPassengerCarriage()) + trainHelper.getFirstPassengerCarriage();
@@ -481,21 +480,20 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
                         direction.norm2D();
                         randomDoor.add(direction * RandHelper::rand(-0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH, 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH));
                         // Project onto the lane.
-                        myArrivalPos = myLane->getShape().nearest_offset_to_point2D(randomDoor);
-                        myArrivalPos = myLane->interpolateGeometryPosToLanePos(myArrivalPos);
+                        myArrivalPos = lane->getShape().nearest_offset_to_point2D(randomDoor);
+                        myArrivalPos = lane->interpolateGeometryPosToLanePos(myArrivalPos);
                         myArrivalPos = MIN2(MAX2(0., myArrivalPos), myVehicle->getEdge()->getLength());
-                    }
-                    else {
-                        std::vector<Position>& unboardingPositions = train->getUnboardingPositions();
+                    } else {
+                        std::vector<Position>& unboardingPositions = static_cast<MSDevice_Transportable*>(train->getDevice(typeid(MSDevice_Transportable)))->getUnboardingPositions();
                         if (unboardingPositions.empty()) {
-                            const MSVehicleType* defaultPedestrianType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true); 
+                            const MSVehicleType* defaultPedestrianType = MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true);
                             const double defaultPassengerRadius = MAX2(defaultPedestrianType->getLength(), defaultPedestrianType->getWidth()) / 2.;
                             trainHelper.computeUnboardingPositions(defaultPassengerRadius, unboardingPositions);
                         }
                         // Random shuffling of the positions has already been done in the train helper.
                         const Position availableUnboardingPosition = unboardingPositions.back();
                         unboardingPositions.pop_back();
-                        const Position arrivalPos = myLane->getShape().transformToVectorCoordinates(availableUnboardingPosition);
+                        const Position arrivalPos = lane->getShape().transformToVectorCoordinates(availableUnboardingPosition);
                         myArrivalPos = arrivalPos.x();
                         myArrivalPosLat = arrivalPos.y();
                     }
@@ -642,7 +640,7 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
 SUMOTime
 MSStageDriving::BookReservation::execute(SUMOTime currentTime) {
     MSDevice_Taxi::addReservation(myTransportable, myStage->getLines(), currentTime, currentTime, myEarliestPickupTime,
-            myStage->myOrigin, myStage->myWaitingPos, myStage->getDestination(), myStage->getArrivalPos(), myStage->myGroup);
+                                  myStage->myOrigin, myStage->myWaitingPos, myStage->getDestination(), myStage->getArrivalPos(), myStage->myGroup);
     // do not repeat if execution fails
     return 0;
 }

@@ -535,7 +535,7 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
             if DEBUG_COND2(veh) {
                 std::cout <<  "  ---   no refVeh; myGapControlState->addGapCurrent: " << myGapControlState->addGapCurrent << ", brakeGap: " << brakeGap << " in simstep: " << SIMSTEP << std::endl;
             }
-#endif            
+#endif
         } else {
             // Control gap wrt reference vehicle
             const MSVehicle* leader = myGapControlState->referenceVeh;
@@ -991,8 +991,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
     myTimeSinceStartup(TIME2STEPS(3600 * 24)),
-    myInfluencer(nullptr),
-    myUnboardingPositions(new std::vector<Position>()) {
+    myInfluencer(nullptr) {
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
 }
@@ -1006,7 +1005,6 @@ MSVehicle::~MSVehicle() {
     }
     delete myInfluencer;
     delete myCFVariables;
-    delete myUnboardingPositions;
 }
 
 
@@ -1920,7 +1918,7 @@ MSVehicle::boardTransportables(MSStop& stop) {
         stop.containerTriggered = false;
         if (myAmRegisteredAsWaiting) {
             unregister = true;
-            myAmRegisteredAsWaiting = false;    
+            myAmRegisteredAsWaiting = false;
         }
     }
     if (boarded) {

@@ -21,12 +21,14 @@
 /****************************************************************************/
 #pragma once
 #include <config.h>
+
 #include <cassert>
 #include <vector>
 #include <map>
 #include <random>
 #include <sstream>
 #include <iostream>
+#include <algorithm>
 
 
 // ===========================================================================
@@ -235,8 +237,8 @@ public:
     }
 
     template<class T>
-    static void shuffle(std::vector<T>& v) {
-        std::shuffle(v.begin(), v.end(), myRandomNumberGenerator);
+    static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
+        std::shuffle(v.begin(), v.end(), rng == nullptr ? myRandomNumberGenerator : *rng);
     }
 
 protected:
