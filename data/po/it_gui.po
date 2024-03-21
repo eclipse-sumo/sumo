@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-21 08:32+0000\n"
+"PO-Revision-Date: 2024-03-21 11:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12064,15 +12064,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:195
 msgid "Attribute"
-msgstr ""
+msgstr "Attributo"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:196
 msgid "Description"
-msgstr ""
+msgstr "Descrizione"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:197
 msgid "Definition"
-msgstr ""
+msgstr "Definizione"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:237
 msgid "Opening HelpAttributes dialog for tag '"
@@ -12094,13 +12094,13 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:418
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:489
 msgid "Scale: Min -> Max"
-msgstr ""
+msgstr "Scala: Min -> Max"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:217
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:242
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:383
 msgid "change multiple attributes"
-msgstr ""
+msgstr "aggiorna più attributi alla volta"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:386
 msgid "change "
@@ -12787,7 +12787,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
 msgid "GEO Attributes"
-msgstr ""
+msgstr "Attributi geografici"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:466
 #: C:\Repos\sumo/src\netedit\frames\network\GNEShapeFrame.cpp:91
