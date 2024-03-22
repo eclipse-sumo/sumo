@@ -17,18 +17,23 @@ title: ChangeLog
   - chargingstations-output no longer records charging when battery is full #14473
   - Fixed undefined behavior during opposite direction driving #14475
   - Fixed crash when loading NEMA controller with pedestrian crossings. #14474
-  - NEMA controller now warns about missing green phase #14502 
+  - NEMA controller now warns about missing green phase #14502
+  - Fixed bug where person enters the wrong vehicle on looped public transport line #14526
+  - Routes with jumps now support attribute `repeat` #14549
+  - Fixed crash when a person plan contains walks or personTrips where origin equals destination #14558 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
     - fixed collision during portion working when train route continues after join. #14350
     - Rail signals now permit train joins where the front is joined to the rear part. #14349
+    - Fixed invalid rail signal warnings for looped route with jumps #14554 
  
 - netedit
   - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
   - Lane markings are rendered below the junction bubble again #14417 (regression in 1.12.0)
   - The unsupported attribute "lines" is no longer written for a personTrip #14463 (regression in 1.15.0)
   - Fixed invalid "save" dialog after loading additionals from file. #14464 (regression in 1.16.0)
+  - The size and position of the settings dialog are now stored across sessions. #14571 (regression in 1.16.0)
   - Fixed missing connections after adding edge #14391 (regression in 1.19.0)
   - Alt+Hotkeys for menus are working again #14396 (regression in 1.19.0)
   - Fixed superfluous scrollbars in combo boxes #14412 (regression in 1.19.0)
@@ -50,8 +55,10 @@ title: ChangeLog
   - NEMA junctions now stays consistent on recompute #14491
   - NEMA junctions now work correctly with option --tls.group-signals #14440  
   - generated NEMA controller now also gives green to pedestrians #14501
+  - Fixed crash when processing NEMA junctions with pedestrian crossings #14555 
   - Fixed broken junction shapes in 3D network. #10645
-  - Edge parameters are no longer lost when using option **--geometry.remove**. #14517 
+  - Edge parameters are no longer lost when using option **--geometry.remove**. #14517
+  - Fixed invalid route in ptline-output. #14534 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -59,13 +66,17 @@ title: ChangeLog
   - Fixed misleading visualization of single-car vehicle length in draw-rail-carriages mode. #14330
   - Fixed invalid default for edges minSize when loading incomplete gui settings file. #14384
   - Persons are no longer drawn outside the vehicle when drawn as triangle #14433
-  - option **--write-license** from configfile is now respected #14494 
+  - option **--write-license** from configfile is now respected #14494
+  - Fixed visible grid in satellite background image tiles. #14573 
 
 - meso
-  - Fixed bug where taxi fails to pick up person on the current segment. #14500 
+  - Fixed bug where taxi fails to pick up person on the current segment. #14500
+  - traci functions edge.setMaxSpeed and lane.setMaxSpeed now work correctly when increasing speed #14552,  #14566
+  - Fixed invalid error when personTrips require walking before taxi use #14575 
 
 - duarouter
   - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
+  - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343 
  
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
@@ -76,6 +87,7 @@ title: ChangeLog
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
   - xml output from edgeDataDiff can now be loaded in netedit and sumo-gui. #14387
   - tileGet.py is able to use maQuest service again. #14202
+  - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562 
     
 - Activitygen: Fixed wrong working hour fallback times. #14344
  
@@ -101,12 +113,14 @@ title: ChangeLog
   - Improved rendering speed for large networks. #13894
   - Added red contour to moved elements. #14109
   - The maximum number of rows for a combo box can now be configured in the gui settings (persistent across sessions) #14412
+  - Added option for selective hiding of short edges when zoomed out (enabled by default to increase frame rate) #14487 
  
 - sumo-gui
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
   - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
   - The new train visualization param `carriageImages` accepts a comma-separated list of image files to enable distinct images for the different carriages. #14403
-  - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423 
+  - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423
+  - Reduced the number of bike markings being rendered to increase realism and reduce clutter. #14545 
  
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
@@ -114,14 +128,17 @@ title: ChangeLog
   - Option **--output.street-names** is now enabled by default if **--shapefile.name** is set. #14399
   - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476
   - More rail signals are imported from OSM and option **--osm.railsignals** can be used for fine grained control of signal interpretation. #14483
-  - Rail signal direction is now imported from OSM #14512 
+  - Rail signal direction is now imported from OSM #14512
+  - Option **--keep-edges.postload** now applies to permission and speed based edge filters. This is useful when these values are updated with patches or public transport processing. #14528 
  
 - duarouter
   - Added support for loading ride with geo-coordinates #14427
+  - When writing person stops, the stoppling place name is now written as a comment. #14521 
    
 - TraCI / libsumo
   - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
-  - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438 
+  - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438, #14468
+  - inductionloop.getIntervalOccupancy, getIntervalMeanSpeed and getIntervalVehicleNumber are now retrievable in meso #7492
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
