@@ -318,9 +318,11 @@ def openz(fileOrURL, mode="r", **kwargs):
                 return codecs.getreader('utf-8')(gzip.open(fileOrURL))
             return gzip.open(fileOrURL, mode="rt", encoding=encoding)
     except OSError as e:
-        print(e, file=sys.stderr)
+        if kwargs.get("printErrors"):
+            print(e, file=sys.stderr)
     except IOError as e:
-        print(e, file=sys.stderr)
+        if kwargs.get("printErrors"):
+            print(e, file=sys.stderr)
     if "b" in mode:
         return io.open(fileOrURL, mode=mode)
     return io.open(fileOrURL, mode=mode, encoding=encoding)
