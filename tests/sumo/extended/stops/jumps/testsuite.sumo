@@ -33,3 +33,6 @@ jump_same
 
 # define a jump where to next stop is on the same edge and this is the final edge
 jump_same_end
+
+# insertion must be delayed when insertion fails (rather than shifted along the route as for teleporting)
+target_occupied
