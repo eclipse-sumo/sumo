@@ -2177,7 +2177,7 @@ NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
     for (NBEdge* edge : toRemove) {
         // explicit whitelist overrides removal
         if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
-            erase(dc, edge);
+            extract(dc, edge);
             numRemoved++;
         }
     }
@@ -2202,7 +2202,7 @@ NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
     for (NBEdge* edge : toRemove) {
         // explicit whitelist overrides removal
         if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
-            erase(dc, edge);
+            extract(dc, edge);
             numRemoved++;
         }
     }
