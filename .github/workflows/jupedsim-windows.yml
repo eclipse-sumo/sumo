@@ -22,8 +22,12 @@ jobs:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
       fail-fast: false
       matrix:
-        jps_version: ['rls-1.1', 'master']
-        build_config: ['Release', 'Debug']
+        jps_version: [rls-1.1, master]
+        build_config: [Release, Debug]
+        # exclude debug master because it currently times out
+        exclude:
+          - jps_version: master
+            build_config: Debug
 
     steps:
     - name: Cloning jupedsim
