@@ -36,10 +36,10 @@ def run():
     """execute the TraCI control loop"""
     # Keep follower behind the ToC_vehicle
     traci.vehicle.changeLane("follower", 0, 200)
-    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogNewSpaceHeadway", str(4))
-    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogNewTimeHeadway", str(4))
-    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogChangeRate", str(0.5))
-    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogMaxDecel", str(0.5))
+    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogNewSpaceHeadway", str(10))
+    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogNewTimeHeadway", str(5))
+    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogChangeRate", str(1.0))
+    traci.vehicle.setParameter(ToC_vehicle, "device.toc.ogMaxDecel", str(1.0))
 
     step = 0
     while step < 500:
