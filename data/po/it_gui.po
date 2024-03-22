@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-21 14:58+0000\n"
+"PO-Revision-Date: 2024-03-22 14:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9512,7 +9512,7 @@ msgstr "Altezza dell'immagine in metri"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5717
 msgid "A bitmap to use for rendering this POI"
-msgstr ""
+msgstr "Bitmap da usare per disegnare il punto di interesse"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5742
 msgid "This vehicle's color"
@@ -9881,18 +9881,24 @@ msgid ""
 "The eagerness for performing strategic lane changing. Higher values result "
 "in earlier lane-changing."
 msgstr ""
+"Il desiderio di cambiare corsia per motivi strategici. Valori alti provocano "
+"cambi corsia più a monte."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6234
 msgid ""
 "The willingness for performing cooperative lane changing. Lower values "
 "result in reduced cooperation."
 msgstr ""
+"La volontà di cooperare con altri nel cambio corsia. Valori bassi riducono "
+"la cooperazione."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6240
 msgid ""
 "The eagerness for performing lane changing to gain speed. Higher values "
 "result in more lane-changing."
 msgstr ""
+"Il desiderio di cambiare corsia per accelerare. Valori alti provocano cambi "
+"corsia più a monte."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6246
 msgid ""
