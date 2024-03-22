@@ -415,6 +415,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         }
     }
     if (allStoppedTrainIDs != myAllStoppedTrainIDs) {
+        removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
         if (!allStoppedTrainIDs.empty()) {
             std::vector<GEOSGeometry*> carriagePolygons;
             std::vector<GEOSGeometry*> rampPolygons;
@@ -485,7 +486,6 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             }
         } else {
             JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometry, nullptr, nullptr);
-            removePolygonFromDrawing(PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID);
             preparePolygonForDrawing(myGEOSPedestrianNetworkLargestComponent, PEDESTRIAN_NETWORK_ID, PEDESTRIAN_NETWORK_COLOR);
         }
         myAllStoppedTrainIDs = allStoppedTrainIDs;
