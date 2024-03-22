@@ -256,10 +256,6 @@ public:
         return *this;
     }
 
-    inline bool useAttribute(const SumoXMLAttr attr, long long int attributeMask) const {
-        return (attributeMask & ((long long int)1 << attr)) != 0;
-    }
-
     inline bool useAttribute(const SumoXMLAttr attr, SumoXMLAttrMask attributeMask) const {
         return attributeMask.test(attr);
     }
