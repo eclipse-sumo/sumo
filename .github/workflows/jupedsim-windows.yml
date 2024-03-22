@@ -67,19 +67,11 @@ jobs:
         cmake -B sumo/build-${{ matrix.build_config }} -DJUPEDSIM_CUSTOMDIR=jupedsim-install-${{ matrix.build_config }} sumo
         cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
 
-    - name: Running extra tests from the sumo suite
+    - name: Running sumo.extra tests
       run: |
         cd sumo/build-${{ matrix.build_config }}
         $env:TEXTTEST_TMP = "D:/texttest"
-        $env:TEXTTEST_CI_APPS = "-a sumo.extra"
-        ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
-
-    - name: Running more tests for bleeding edge
-      if: matrix.jps_version == 'master'
-      run: |
-        cd sumo/build-${{ matrix.build_config }}
-        $env:TEXTTEST_TMP = "D:/texttest"
-        $env:TEXTTEST_CI_APPS = "-a sumo.extra.jps"
+        $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
         ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
 
     - name: Compressing test results
