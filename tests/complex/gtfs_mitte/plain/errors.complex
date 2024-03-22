@@ -2,7 +2,7 @@ Warning: 10 total messages of type: Ambiguity in turnarounds computation at junc
 Warning: 3 total messages of type: Ambiguous node type for node cluster '%' (%,%), setting to 'priority'.
 Warning: 18 total messages of type: Ambiguous railway kilometrage direction for way '%' (assuming forward)
 Warning: 7 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 3 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 2 total messages of type: Connection '%_%->%_%' is only %m short.
 Warning: 29 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 34 total messages of type: Converting invalid rail_crossing to traffic_light at junction '%'.
 Warning: 1 total messages of type: Could not add bidi-edge '%'.
@@ -10,13 +10,13 @@ Warning: 8 total messages of type: Could not assign stop '%' to pt line '%' (clo
 Warning: 5 total messages of type: Could not find corresponding edge or compatible lane for free-floating pt stop '%' (%). Thus, it will be removed!
 Warning: 2 total messages of type: Could not re-assign PT stop '%', probably broken osm file.
 Warning: 2 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
-Warning: 5 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
-Warning: 16 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
+Warning: 4 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
+Warning: 15 total messages of type: Discarding unusable type '%' (first occurrence for edge '%').
 Warning: 9 total messages of type: Edge '%' already has a dedicated lane for %s. Not adding another one.
 Warning: 9 total messages of type: Edge sequence is not consistent with stop sequence in line '%', not adding bidi edges.
 Warning: 7 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 48 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 49 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Ignoring restriction relation '%' with unknown to-way.
 Warning: 1 total messages of type: Ignoring restriction relation '%' with unknown via.
 Warning: 2 total messages of type: Ignoring restriction relation '%'.
@@ -32,16 +32,19 @@ Warning: 9 total messages of type: PT line '%' in relation % seems to be split, 
 Warning: 16 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 14 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 19 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
-Warning: 3 total messages of type: Reducing junction cluster % (%).
+Warning: 4 total messages of type: Reducing junction cluster % (%).
 Warning: 1 total messages of type: Removed % pt stops because they could not be assigned to the network
 Warning: 8 total messages of type: Removed invalid stop '%' from line '%'.
 Warning: 4 total messages of type: Removing pt stop '%' on non existing edge '%'.
-Warning: 62 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 63 total messages of type: The rail crossing '%' does not have any roads.
 Warning: 4 total messages of type: The traffic light '%' cannot be adapted to a cycle time of %.
 Warning: 14 total messages of type: The traffic light '%' has a high cycle time of %.
 Warning: 1 total messages of type: Value of key '%' is not numeric ('%') in edge '%'.
 Warning: 2 total messages of type: direction of restriction relation could not be determined%
+Warning: Unequal lengths of bidi lane ':2111288337_0_0' and lane ':2111288337_2_0' (19.78 != 19.77).
+Warning: Unequal lengths of bidi lane ':2111288342_1_0' and lane ':2111288342_2_0' (24.22 != 24.21).
 Warning: Unequal lengths of bidi lane ':cluster_10989066143_25954547_29221622_9044259979_#6more_12_0' and lane ':cluster_10989066143_25954547_29221622_9044259979_#6more_32_0' (31.52 != 31.50).
+Warning: Rail signal at junction '30353446' does not control any links
 Warning: At actuated tlLogic 'cluster_10173804193_10561486885_10567768857_10567768859_#7more', actuated phase 0 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_10314479343_10567752800_10567768926_10567768930_#2more', linkIndex 2 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_10314479343_10567752800_10567768926_10567768930_#2more', linkIndex 3 has no controlling detector.
@@ -55,8 +58,9 @@ Warning: Program '0' at tlLogic 'joinedS_cluster_10761998985_10761998986_1076199
   or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
 Warning: At actuated tlLogic 'joinedS_cluster_10763334185_10763334186_11282119652_2341815018_#4more_cluster_1832049011_9820547961', actuated phase 7 has no controlling detector.
 Warning: busStop '3352479244' on lane '458953719#0_1' is too short for vehicle '35_bus_165:0'.
+Warning: busStop '1673526976' on lane '167272512#3_0' is too short for vehicle '43_tram_12:1'.
 Warning: busStop '-3918673879' on lane '-32805741#2_1' is too short for vehicle '60_bus_142:1'.
-Warning: No connection between edge '199847347#1' and edge '272795470#1' found.
+Warning: No connection between edge '199847347#3' and edge '272795470#1' found.
 Warning: No route for vehicle '85_subway_U2:1' found.
 Warning: No connection between edge '384294422#1' and edge '387106270#2' found.
 Warning: No route for vehicle '84_subway_U2:0' found.
@@ -65,14 +69,14 @@ Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '387106272', time=259
 Warning: Teleporting vehicle '84_subway_U2:0'; waited too long (wrong lane), lane='200422335#0_0', time=25997.00.
 Warning: Vehicle '84_subway_U2:0' ends teleporting on edge '200422335#0', time=25997.00.
 Warning: Teleporting vehicle '85_subway_U2:1'; waited too long (wrong lane), lane='387106272_0', time=26268.00.
-Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '199847347#1', time=26268.00.
+Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '199847347#2', time=26268.00.
 Warning: Teleporting vehicle '84_subway_U2:0'; waited too long (wrong lane), lane='200422335#1_0', time=26482.00.
 Warning: Vehicle '84_subway_U2:0' ends teleporting on edge '200422335#1', time=26482.00.
-Warning: Teleporting vehicle '85_subway_U2:1'; waited too long (wrong lane), lane='199847347#1_0', time=26695.00.
-Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '199847347#1', time=26695.00.
+Warning: Teleporting vehicle '85_subway_U2:1'; waited too long (wrong lane), lane='199847347#3_0', time=26692.00.
+Warning: Vehicle '85_subway_U2:1' ends teleporting on edge '272795470#1', time=26692.00.
 Warning: 31 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
-Warning: 7 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
-Warning: 7 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
+Warning: 6 total messages of type: Teleporting vehicle '%'; waited too long (wrong lane), lane='%', time=%.
+Warning: 6 total messages of type: Vehicle '%' ends teleporting on edge '%', time=%.
 Warning: No stops for flow '34_bus_200:1'
 Warning: Ambiguity in turnarounds computation at junction '11165047725'.
 Warning: Found sharp turn with radius 8.90 at the start of edge '-105066743'.
@@ -83,27 +87,27 @@ Warning: The rail crossing '10315385453' does not have any roads.
 Warning: Unused state in tlLogic '10567769017', program '0' at tl-index 3
 Warning: 10 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 4 total messages of type: Found angle of % degrees at edge '%', segment %.
-Warning: 48 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 49 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 3 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
-Warning: 62 total messages of type: The rail crossing '%' does not have any roads.
+Warning: 63 total messages of type: The rail crossing '%' does not have any roads.
 Warning: 97 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Found sharp turn with radius 8.80 at the start of edge '1261128989'.
+Warning: Found sharp turn with radius 8.80 at the start of edge '1264429500'.
 Warning: Shape for junction '29221595' has distance 26.28 to its given position.
 Warning: Converting invalid rail_crossing to priority junction '11204159490'.
-Warning: Lane '1261133270_1' is not connected from any incoming edge at junction '11720027630'.
-Warning: Non-static traffic light '11720027620' does not define variable phase length.
+Warning: Lane '1264433845_1' is not connected from any incoming edge at junction '11747441386'.
+Warning: Non-static traffic light '11747441376' does not define variable phase length.
 Warning: Unused state in tlLogic '10567769017', program '0' at tl-index 3
 Warning: 3 total messages of type: Converting invalid rail_crossing to priority junction '%'.
-Warning: 4 total messages of type: Found sharp turn with radius % at the % of edge '%'.
+Warning: 5 total messages of type: Found sharp turn with radius % at the % of edge '%'.
 Warning: 36 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 2 total messages of type: Shape for junction '%' has distance % to its given position.
 Warning: 96 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
-Warning: Ambiguity in turnarounds computation at junction '11720027952'.
+Warning: Ambiguity in turnarounds computation at junction '11747441708'.
 Warning: Converting invalid rail_crossing to priority junction '10315385453'.
-Warning: Non-static traffic light '11720027620' does not define variable phase length.
-Warning: Unused state in tlLogic '11720027620', program '0' at tl-index 2
-Warning: 65 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: Non-static traffic light '11747441376' does not define variable phase length.
+Warning: Unused state in tlLogic '11747441376', program '0' at tl-index 2
+Warning: 66 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 36 total messages of type: Non-static traffic light '%' does not define variable phase length.
 Warning: 38 total messages of type: Unused state in tlLogic '%', program '%' at tl-index %
 Warning! No mapping library found, falling back to tracemapper.

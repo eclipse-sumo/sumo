@@ -21,12 +21,17 @@ from __future__ import print_function
 import os
 import sys
 import subprocess
+import datetime
 
 TOOLS = os.path.join(os.environ["SUMO_HOME"], "tools")
 
+# the following two lines are basically a hack to save the osm data on the test server for later inspection
+osm_history = os.path.join(os.environ.get("SUMO_REPORT", ""), datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+out_dir = osm_history if os.environ.get("FILEPREFIX") == "gcc4_64" else "test"
 subprocess.call([sys.executable,
                  os.path.join(TOOLS, "osmWebWizard.py"), "-b=7:0:0", "-e=8:0:0",
-                 "--bbox=13.381507,52.511801,13.417790,52.527748",
-                 "--test-output", "test", "-n=--aggregate-warnings=0", "--remote"])
+                 "--bbox=13.381507,52.511801,13.417790,52.527748", "--test-output", out_dir,
+                 "-n=--aggregate-warnings=0", "--remote"])
 subprocess.call([sys.executable,
-                 os.path.join(TOOLS, "import", "gtfs", "gtfs2pt.py")] + sys.argv[1:])
+                 os.path.join(TOOLS, "import", "gtfs", "gtfs2pt.py"),
+                 "-n", os.path.join(out_dir, "osm.net.xml.gz")] + sys.argv[1:])
