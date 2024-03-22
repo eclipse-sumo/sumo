@@ -17,6 +17,7 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
+/// @author  Mirko Barthauer
 /// @date    Mon, 14.04.2008
 ///
 // Importer for networks stored in OpenStreetMap format
@@ -846,7 +847,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
             applyTurnSigns(nbe, e->myTurnSignsBackward);
             nbe->setTurnSignTarget(first->getID());
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
-                nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
+                nbe->addBikeLane(bikeLaneWidth * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
