@@ -335,10 +335,14 @@ def generateTemplate(app, appBin):
     @brief generate template for the given app
     """
     print("Obtaining " + app + " template")
+    env = dict(os.environ)
+    # the *SAN_OPTIONS are only relevant for the clang build but should not hurt others
+    env["LSAN_OPTIONS"] = "suppressions=%s/../../build_config/clang_memleak_suppressions.txt" % dirname(__file__)
+    env["UBSAN_OPTIONS"] = "suppressions=%s/../../build_config/clang_ubsan_suppressions.txt" % dirname(__file__)
     # obtain template piping stdout using check_output
     try:
         template = formatBinTemplate(subprocess.check_output(
-            [appBin, "--save-template", "stdout"], universal_newlines=True))
+            [appBin, "--save-template", "stdout"], env=env, universal_newlines=True))
     except subprocess.CalledProcessError as e:
         sys.stderr.write("Error when generating template for " + app + ": '%s'" % e)
         template = ""

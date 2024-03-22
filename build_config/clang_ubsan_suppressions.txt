@@ -3,3 +3,4 @@ shift-base:fontstash.h
 unsigned-integer-overflow:fontstash.h
 implicit-integer-sign-change:glfontstash.h
 implicit-signed-integer-truncation:stb_truetype.h
+shift-base:bitset
