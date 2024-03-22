@@ -53,6 +53,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::reset(bool) {
     currentTimeN = 0;
     meanNTemp = 0;
     travelledDistance = 0;
+    resetTime = SIMSTEP;
 }
 
 

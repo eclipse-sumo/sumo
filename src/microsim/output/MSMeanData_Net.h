@@ -129,6 +129,8 @@ public:
         /// @brief return attribute value
         double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const;
 
+        double getOccupancy(SUMOTime period, int numLanes) const;
+
     protected:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal

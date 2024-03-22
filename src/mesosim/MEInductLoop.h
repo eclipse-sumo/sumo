@@ -86,6 +86,12 @@ public:
                         SUMOTime startTime, SUMOTime stopTime);
     //@}
 
+    const MSMeanData_Net::MSLaneMeanDataValues& getMeanData() const {
+      return myMeanData;
+    }
+
+    const MSEdge& getEdge() const;
+
 protected:
     /// @brief name
     const std::string myName;

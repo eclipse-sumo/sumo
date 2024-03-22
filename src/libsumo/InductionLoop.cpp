@@ -24,7 +24,9 @@
 
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
+#include <mesosim/MEInductLoop.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSEdge.h>
 #include <libsumo/Helper.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
@@ -123,48 +125,90 @@ InductionLoop::getVehicleData(const std::string& loopID) {
 
 double
 InductionLoop::getIntervalOccupancy(const std::string& loopID) {
-    return getDetector(loopID)->getIntervalOccupancy();
+    if (MSGlobals::gUseMesoSim) {
+        const MEInductLoop* det = getMEDetector(loopID);
+        const auto& meanData = det->getMeanData();
+        return meanData.getOccupancy(SIMSTEP - meanData.getResetTime(), det->getEdge().getNumLanes());
+    } else {
+        return getDetector(loopID)->getIntervalOccupancy();
+    }
 }
 
 
 double
 InductionLoop::getIntervalMeanSpeed(const std::string& loopID) {
-    return getDetector(loopID)->getIntervalMeanSpeed();
+    if (MSGlobals::gUseMesoSim) {
+        const MEInductLoop* det = getMEDetector(loopID);
+        const auto& meanData = det->getMeanData();
+        if (meanData.getSamples() != 0) {
+            return meanData.getTravelledDistance() / meanData.getSamples();
+        } else {
+            const double defaultTravelTime = det->getEdge().getLength() / det->getEdge().getSpeedLimit();
+            return meanData.getLaneLength() / defaultTravelTime;
+        }
+    } else {
+        return getDetector(loopID)->getIntervalMeanSpeed();
+    }
 }
 
 
 int
 InductionLoop::getIntervalVehicleNumber(const std::string& loopID) {
-    return getDetector(loopID)->getIntervalVehicleNumber();
+    if (MSGlobals::gUseMesoSim) {
+        const auto& meanData = getMEDetector(loopID)->getMeanData();
+        return meanData.nVehDeparted + meanData.nVehEntered;
+    } else {
+        return getDetector(loopID)->getIntervalVehicleNumber();
+    }
 }
 
 
 std::vector<std::string>
 InductionLoop::getIntervalVehicleIDs(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("getIntervalVehicleIDs not applicable for meso");
+        return std::vector<std::string>();
+    }
     return getDetector(loopID)->getIntervalVehicleIDs();
 }
 
 
 double
 InductionLoop::getLastIntervalOccupancy(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("getLastIntervalOccupancy not applicable for meso");
+        return INVALID_DOUBLE_VALUE;
+    }
     return getDetector(loopID)->getIntervalOccupancy(true);
 }
 
 
 double
 InductionLoop::getLastIntervalMeanSpeed(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("getLastIntervalMeanSpeed not applicable for meso");
+        return INVALID_DOUBLE_VALUE;
+    }
     return getDetector(loopID)->getIntervalMeanSpeed(true);
 }
 
 
 int
 InductionLoop::getLastIntervalVehicleNumber(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("getLastIntervalVehicleNumber not applicable for meso");
+        return INVALID_DOUBLE_VALUE;
+    }
     return getDetector(loopID)->getIntervalVehicleNumber(true);
 }
 
 
 std::vector<std::string>
 InductionLoop::getLastIntervalVehicleIDs(const std::string& loopID) {
+    if (MSGlobals::gUseMesoSim) {
+        WRITE_ERROR("getLastIntervalVehicleIDs not applicable for meso");
+        return std::vector<std::string>();
+    }
     return getDetector(loopID)->getIntervalVehicleIDs(true);
 }
 
@@ -183,6 +227,17 @@ InductionLoop::getDetector(const std::string& id) {
     }
     return il;
 }
+
+
+MEInductLoop*
+InductionLoop::getMEDetector(const std::string& id) {
+    MEInductLoop* il = dynamic_cast<MEInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(id));
+    if (il == nullptr) {
+        throw TraCIException("Induction loop '" + id + "' is not known");
+    }
+    return il;
+}
+
 
 
 std::string

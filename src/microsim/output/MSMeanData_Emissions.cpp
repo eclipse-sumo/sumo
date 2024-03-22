@@ -54,6 +54,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0.;
     travelledDistance = 0.;
     myEmissions = PollutantsInterface::Emissions();
+    resetTime = SIMSTEP;
 }
 
 

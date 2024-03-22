@@ -90,6 +90,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     vehLengthSum = 0;
     occupationSum = 0;
     minimalVehicleLength = INVALID_DOUBLE;
+    resetTime = SIMSTEP;
 }
 
 
@@ -241,6 +242,10 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
            && nVehLeft == 0 && nVehVaporized == 0 && nVehTeleported == 0 && nVehLaneChangeFrom == 0 && nVehLaneChangeTo == 0;
 }
 
+double
+MSMeanData_Net::MSLaneMeanDataValues::getOccupancy(SUMOTime period, int numLanes) const {
+    return occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
+}
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
@@ -249,9 +254,9 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
     const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
     const double laneDensity = density / numLanes;
+    double occupancy = getOccupancy(period, numLanes);
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
-    double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
     if (occupancy > 100) {
         std::cout << SIMTIME << " Encountered bad occupancy: " << occupancy
                   << ", myLaneLength=" << myLaneLength << ", period=" << STEPS2TIME(period) << ", occupationSum=" << occupationSum
@@ -266,7 +271,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
         if (sampleSeconds > 0) {
             dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
@@ -309,7 +314,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
-            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupancy, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
             dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);

@@ -29,6 +29,7 @@
 #ifndef LIBTRACI
 class NamedRTree;
 class MSInductLoop;
+class MEInductLoop;
 class PositionVector;
 #endif
 
@@ -88,6 +89,7 @@ public:
 
 private:
     static MSInductLoop* getDetector(const std::string& loopID);
+    static MEInductLoop* getMEDetector(const std::string& loopID);
 
 private:
     static SubscriptionResults mySubscriptionResults;

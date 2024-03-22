@@ -71,5 +71,9 @@ MEInductLoop::writeXMLOutput(OutputDevice& dev,
     myMeanData.reset();
 }
 
+const MSEdge&
+MEInductLoop::getEdge() const {
+    return mySegment->getEdge();
+}
 
 /****************************************************************************/

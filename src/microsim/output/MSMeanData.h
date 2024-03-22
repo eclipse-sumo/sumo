@@ -157,6 +157,14 @@ public:
             return travelledDistance;
         }
 
+        SUMOTime getResetTime() const {
+            return resetTime;
+        }
+
+        double getLaneLength() const {
+            return myLaneLength;
+        }
+
         /// @brief return attribute value
         virtual double getAttributeValue(SumoXMLAttr a, const SUMOTime period, const double numLanes, const double speedLimit) const {
             UNUSED_PARAMETER(a);
@@ -182,6 +190,8 @@ public:
         double travelledDistance;
         //@}
 
+        /// @brief time at which collection was reset;
+        SUMOTime resetTime;
     };
 
 

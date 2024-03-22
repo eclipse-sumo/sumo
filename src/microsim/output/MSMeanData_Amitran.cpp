@@ -54,6 +54,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::reset(bool) {
     typedAmount.clear();
     typedSamples.clear();
     typedTravelDistance.clear();
+    resetTime = SIMSTEP;
 }
 
 
