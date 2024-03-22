@@ -7,6 +7,9 @@ spec
 # Test whether parameter values can be specified in the sumocfg
 spec_cfg
 
+# Test whether og parameter values can be specified in the route-file
+spec_rou
+
 # Test whether manual and automated type can be vehType distributions
 spec_vTypeDist
 
@@ -77,17 +80,23 @@ ToC_down_up_reset_color
 # Request only MRM without any ToC
 request_MRMs
 
-# Schedule ToCs during car-following situations
-CF_situation1
-
 # No response time specified in config => random sample at TOR. Also tests truncation of MRM probability parameter to admissible range.
 ToC_with_sampled_responseTime
+
+# Schedule ToCs during car-following situations
+CF_situation1
 
 # Schedule ToC during car-following situation when leader stops. ToC vehicle should not change lanes during the ToC-Preparation/MRM.
 CF_situation2
 
 # Schedule ToC during car-following situation when leader stops and vehicle is overtaking. ToC vehicle should not change lanes during the ToC-Preparation/MRM.
 CF_situation3
+
+# Schedule ToCs during car-following situations with active openGap-function
+CF_situation4
+
+# Schedule ToCs during car-following situations with active openGap-function, but parameters set via traci
+CF_situation5
 
 # disabled because it is taking too long
 #use_cases

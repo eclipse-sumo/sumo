@@ -976,6 +976,22 @@ MSDevice_ToC::setParameter(const std::string& key, const std::string& value) {
         } else {
             myMaxPreparationAccel = newValue;
         }
+    } else if (key == "ogNewTimeHeadway") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.newTimeHeadway = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogNewSpaceHeadway") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.newSpaceHeadway = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogChangeRate") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.changeRate = newValue;
+        myOpenGapParams.active = true;
+    } else if (key == "ogMaxDecel") {
+        const double newValue = StringUtils::toDouble(value);
+        myOpenGapParams.maxDecel = newValue;
+        myOpenGapParams.active = true;
     } else {
         throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
