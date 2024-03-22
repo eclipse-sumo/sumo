@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-22 15:08+0000\n"
+"PO-Revision-Date: 2024-03-22 15:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9919,16 +9919,20 @@ msgid ""
 "Higher values result in increased willingness to sacrifice speed for "
 "alignment."
 msgstr ""
+"Valori alti aumentano la volontà di preferire la posizione laterale su una "
+"velocità maggiore."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6259
 msgid ""
 "The eagerness for overtaking through the opposite-direction lane. Higher "
 "values result in more lane-changing."
 msgstr ""
+"Il desiderio di sorpassare attraverso la corsia opposta. Valori alti "
+"provocano più cambi corsia."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6265
 msgid "Willingness to encroach laterally on other drivers."
-msgstr ""
+msgstr "Volontà di passare avanti di altri conducenti."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6271
 msgid ""
