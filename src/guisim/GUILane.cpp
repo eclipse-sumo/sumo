@@ -746,6 +746,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             drawMarkings(s, exaggeration);
         }
         if (drawDetails && isInternal && s.showBikeMarkings && myPermissions == SVC_BICYCLE && exaggeration == 1.0 && s.showLinkDecals && s.laneShowBorders && !hiddenBidi
+                && MSGlobals::gUsingInternalLanes
                 && getNormalSuccessorLane()->getPermissions() == SVC_BICYCLE && getNormalPredecessorLane()->getPermissions() == SVC_BICYCLE) {
             drawBikeMarkings();
         }
