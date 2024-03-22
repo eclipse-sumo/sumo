@@ -728,11 +728,18 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
 
 bool
 MSBaseVehicle::hasValidRouteStart(std::string& msg) {
+    if (!(*myCurrEdge)->isTazConnector()) {
+        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed() + SPEED_EPS) {
+            msg = TLF("Departure speed for vehicle '%' is too high for the vehicle type '%'.", getID(), myType->getID());
+            myRouteValidity |= ROUTE_START_INVALID_LANE;
+            return false;
+        }
+    }
     if (myRoute->getEdges().size() > 0 && !(*myCurrEdge)->prohibits(this)) {
         myRouteValidity &= ~ROUTE_START_INVALID_PERMISSIONS;
         return true;
     } else {
-        msg = TLF("Vehicle '%' is not allowed to depart on its first edge.", getID());
+        msg = TLF("Vehicle '%' is not allowed to depart on any lane of edge '%'.", getID(), (*myCurrEdge)->getID());
         myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
         return false;
     }

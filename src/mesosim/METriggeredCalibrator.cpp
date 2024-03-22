@@ -183,6 +183,10 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 MEVehicle* vehicle;
                 try {
                     vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
+                    std::string msg;
+                    if (!vehicle->hasValidRouteStart(msg)) {
+                        throw ProcessError(msg);
+                    }
                 } catch (const ProcessError& e) {
                     if (!MSGlobals::gCheckRoutes) {
                         WRITE_WARNING(e.what());

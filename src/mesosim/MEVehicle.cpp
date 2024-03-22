@@ -58,15 +58,6 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myLastEntryTime(SUMOTime_MIN),
     myBlockTime(SUMOTime_MAX),
     myInfluencer(nullptr) {
-    if (!(*myCurrEdge)->isTazConnector()) {
-        if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
-            throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of edge '" + (*myCurrEdge)->getID() + "'.");
-        }
-        if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed() + SPEED_EPS) {
-            throw ProcessError("Departure speed for vehicle '" + pars->id +
-                               "' is too high for the vehicle type '" + type->getID() + "'.");
-        }
-    }
 }
 
 
