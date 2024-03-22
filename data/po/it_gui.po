@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-22 14:00+0000\n"
+"PO-Revision-Date: 2024-03-22 15:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9905,11 +9905,14 @@ msgid ""
 "The eagerness for following the obligation to keep right. Higher values "
 "result in earlier lane-changing."
 msgstr ""
+"Il desiderio di scegliere la corsia di destra. Valori alti provocano cambi "
+"corsia più a monte."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6252
 msgid ""
 "The eagerness for using the configured lateral alignment within the lane."
 msgstr ""
+"Il desiderio di utilizzare la posizione laterale predefinita nella corsia."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6253
 msgid ""
