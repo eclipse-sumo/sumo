@@ -202,7 +202,12 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     const double bonus = roundaboutJunctionsAhead * 7.5;
     const double relativeJam = (occupancyOuter - occupancyInner + bonus) / (maxOccupancy + bonus);
     // no bonus if the inner lane or the left lane entering the roundabout is jammed
-    const double jamFactor = MAX2(0.0, relativeJam);
+    double jamFactor = MAX2(0.0, relativeJam);
+    if (veh.getLane()->getEdge().isRoundabout() && curr.lane->getIndex() > neigh.lane->getIndex()) {
+        // only use jamFactor when deciding to move to the inside lane but prefer
+        // staying inside if the distance allows it
+        jamFactor = 1;
+    }
     const double result = distanceInRoundabout * jamFactor * bonusParam * 9; // the 9 is abitrary and only there for backward compatibility
 #ifdef DEBUG_WANTS_CHANGE
     if (debugVehicle) {
