@@ -209,7 +209,7 @@ Our current clang configuration for additional static code checking
 enables the following CXXFLAGS:
 
 ```
--stdlib=libstdc++ -fsanitize=undefined,address,integer,unsigned-integer-overflow -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build_config/clang_sanitize_blacklist.txt
+-stdlib=libstdc++ -fsanitize=undefined,address,integer -fno-omit-frame-pointer -fsanitize-blacklist=$SUMO_HOME/build_config/clang_sanitize_blacklist.txt
 ```
 
 You may of course leave out all the sanitizer-checks you don't want but
@@ -234,6 +234,11 @@ Indirect leak of 72 byte(s) in 1 object(s) allocated from:
 
 set the following environment variable to point to the llvm-symbolizer executable:
 `export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer` before running the executable.
+
+Please note that the undefined behavior checker is very sensitive and will report
+some false negatives also in system libraries. It is recommended to use
+`export UBSAN_OPTIONS=suppressions=$SUMO_HOME/build_config/clang_ubsan_suppressions.txt`
+before calling the executable.
 
 ## Installing the SUMO binaries
 
