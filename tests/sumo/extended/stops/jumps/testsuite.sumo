@@ -36,3 +36,6 @@ jump_same_end
 
 # insertion must be delayed when insertion fails (rather than shifted along the route as for teleporting)
 target_occupied
+
+# combine jumps with vias
+vias
