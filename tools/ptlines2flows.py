@@ -311,7 +311,7 @@ def createTrips(options):
 
     if options.join:
         joinTrips(options, tripList, trpMap)
-    writeTrips(options, tripList, trpMap)
+    writeTrips(options, tripList, trpMap, stopNames)
     if options.verbose:
         print("Imported %s lines with %s stops and skipped %s lines" % (numLines, numStops, numSkipped))
         for lineType, count in sorted(typeCount.items()):
@@ -328,7 +328,7 @@ def joinTrips(options, tripList, trpMap):
 
     for refOrig, tripIDs in linePairs.items():
         if len(tripIDs) > 2:
-            sys.stderr.write("Warning: Cannot join line '%s' with more %s trips" % (refOrig, len(tripIDs)))
+            sys.stderr.write("Warning: Cannot join line '%s' with %s trips\n" % (refOrig, len(tripIDs)))
         elif len(tripIDs) == 2:
             net = getNet(options)
             ptl1 = trpMap[tripIDs[0]]
@@ -356,7 +356,7 @@ def joinTrips(options, tripList, trpMap):
                     ptl1.jumps[len(ptl1.stop_ids) - 1] = missingPart1 * options.jumpDuration
                 ptl1.terminalIndices.append(len(ptl1.stop_ids) - 1)
                 ptl1.stop_ids += ptl2.stop_ids
-                ptl1.vias += ptl2.vias
+                ptl1.vias += [ptl1.toEdge, ptl2.fromEdge] + ptl2.vias
                 ptl1.toEdge = ptl2.toEdge
 
                 if join2:
@@ -373,7 +373,7 @@ def joinTrips(options, tripList, trpMap):
                     ptl2.jumps[len(ptl2.stop_ids) - 1] = missingPart2 * options.jumpDuration
                 ptl2.terminalIndices.append(len(ptl2.stop_ids) - 1)
                 ptl2.stop_ids += ptl1.stop_ids
-                ptl2.vias += ptl1.vias
+                ptl2.vias += [ptl2.toEdge, ptl1.fromEdge] + ptl1.vias
                 ptl2.toEdge = ptl1.toEdge
 
 
@@ -392,7 +392,7 @@ def distCheck(options, refOrig, eID1, eID2):
         return True
 
 
-def writeTrips(options, tripList, trpMap):
+def writeTrips(options, tripList, trpMap, stopNames):
     with codecs.open(options.trips, 'w', encoding="UTF8") as fouttrips:
         sumolib.writeXMLHeader(
             fouttrips, "$Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $",
@@ -408,11 +408,12 @@ def writeTrips(options, tripList, trpMap):
                     tripID, ptl.typeID, ptl.depart, ptl.fromEdge, ptl.toEdge, via))
             for i, stop in enumerate(ptl.stop_ids):
                 dur = options.stopduration + options.stopdurationSlack
+                comment = "  <!-- %s -->" % stopNames[stop]
                 if i in ptl.jumps:
                     jump = ' jump="%s"' % ptl.jumps[i]
                 else:
                     jump = ""
-                fouttrips.write('        <stop busStop="%s" duration="%s"%s/>\n' % (stop, dur, jump))
+                fouttrips.write('        <stop busStop="%s" duration="%s"%s/>%s\n' % (stop, dur, jump, comment))
             fouttrips.write('    </trip>\n')
         fouttrips.write("</routes>\n")
 
