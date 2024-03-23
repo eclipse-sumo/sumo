@@ -305,6 +305,12 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
         }
     } else {
+        std::set<const MSEdge*> jumpEdges;
+        for (const MSStop& stop : myStops) {
+            if (stop.pars.jump >= 0) {
+                jumpEdges.insert(*stop.edge);
+            }
+        }
         // via takes precedence over stop edges
         // there is a consistency check in MSRouteHandler::addStop that warns when a stop edge is not part of the via edges
         for (std::vector<std::string>::const_iterator it = myParameter->via.begin(); it != myParameter->via.end(); ++it) {
@@ -317,6 +323,9 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
                 throw ProcessError(TLF("Vehicle '%' is not allowed on any lane of via edge '%'.", getID(), viaEdge->getID()));
             }
             stops.push_back(viaEdge);
+            if (jumpEdges.count(viaEdge) != 0) {
+                jumps.insert(stops.size());
+            }
         }
     }
 
