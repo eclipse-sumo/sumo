@@ -1643,11 +1643,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                   << "\n";
                     }
                     gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist2 - foeCrossingWidth;
-                    if (leader->getLaneChangeModel().isStrategicBlocked()) {
-                        // do not encroach on leader when it tries to change lanes
-                        // factor 2 is to give some slack for lane-changing
-                        gap -= leader->getLength() * 2;
-                    }
                 }
                 // if the foe is already moving off the intersection, we may
                 // advance up to the crossing point unless we have the same target or same source
