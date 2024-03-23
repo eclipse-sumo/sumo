@@ -252,7 +252,7 @@ def createTrips(options):
         edges = []
         fromEdge = None
         toEdge = None
-        vias = ''
+        vias = []
         if line.route is not None:
             edges = line.route[0].edges.split()
         if options.osmRoutes and len(edges) == 0 and options.verbose:
@@ -262,7 +262,7 @@ def createTrips(options):
             fromEdge = edges[0]
             toEdge = edges[-1]
             if len(edges) > 2:
-                vias = ' via="%s"' % (' '.join(edges[1:-1]))
+                vias = edges[1:-1]
         else:
             if options.extendFringe and len(edges) > len(stop_ids):
                 fromEdge = edges[0]
@@ -401,10 +401,11 @@ def writeTrips(options, tripList, trpMap):
 
         for tripID in tripList:
             ptl = trpMap[tripID]
+            via = ' via="%s"' % ' '.join(ptl.vias) if ptl.vias else ""
             fouttrips.write(
                 ('    <trip id="%s" type="%s" depart="%s" departLane="best" from="%s" ' +
                  'to="%s"%s>\n') % (
-                    tripID, ptl.typeID, ptl.depart, ptl.fromEdge, ptl.toEdge, ptl.vias))
+                    tripID, ptl.typeID, ptl.depart, ptl.fromEdge, ptl.toEdge, via))
             for i, stop in enumerate(ptl.stop_ids):
                 dur = options.stopduration + options.stopdurationSlack
                 if i in ptl.jumps:
