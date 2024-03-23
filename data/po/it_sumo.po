@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2023-10-26 10:19+0000\n"
+"PO-Revision-Date: 2024-03-23 14:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1.1\n"
+"X-Generator: Weblate 5.5-dev\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -5730,7 +5730,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:319
 msgid "Failure in reading %."
-msgstr ""
+msgstr "Lettura di % fallita."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:348
 msgid "Cannot load GeoTIFF file since SUMO was compiled without GDAL support."
@@ -9257,7 +9257,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:442
 msgid "End of file while reading %."
-msgstr ""
+msgstr "Fine dell'archivio incontrato nella lettura di %."
 
 #: C:\Repos\sumo/src\od\ODMatrix.cpp:469
 msgid "Broken period definition '%'."
