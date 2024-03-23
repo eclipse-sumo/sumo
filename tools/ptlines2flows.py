@@ -356,7 +356,8 @@ def joinTrips(options, tripList, trpMap):
                     ptl1.jumps[len(ptl1.stop_ids) - 1] = missingPart1 * options.jumpDuration
                 ptl1.terminalIndices.append(len(ptl1.stop_ids) - 1)
                 ptl1.stop_ids += ptl2.stop_ids
-                ptl1.vias += [ptl1.toEdge, ptl2.fromEdge] + ptl2.vias
+                if ptl1.vias:
+                    ptl1.vias += [ptl1.toEdge, ptl2.fromEdge] + ptl2.vias
                 ptl1.toEdge = ptl2.toEdge
 
                 if join2:
@@ -373,7 +374,8 @@ def joinTrips(options, tripList, trpMap):
                     ptl2.jumps[len(ptl2.stop_ids) - 1] = missingPart2 * options.jumpDuration
                 ptl2.terminalIndices.append(len(ptl2.stop_ids) - 1)
                 ptl2.stop_ids += ptl1.stop_ids
-                ptl2.vias += [ptl2.toEdge, ptl1.fromEdge] + ptl1.vias
+                if ptl2.vias:
+                    ptl2.vias += [ptl2.toEdge, ptl1.fromEdge] + ptl1.vias
                 ptl2.toEdge = ptl1.toEdge
 
 
