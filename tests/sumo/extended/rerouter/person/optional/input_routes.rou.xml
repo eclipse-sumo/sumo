@@ -5,7 +5,6 @@
     <personFlow id="r" begin="0" end="100" number="10">
         <walk from="beg" to="end">
             <param key="rerouter" value="nearest"/>
-            <param key="pushParam" value="1"/>
         </walk>
     </personFlow>
 </routes>
