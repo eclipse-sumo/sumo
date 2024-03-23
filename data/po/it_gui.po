@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-22 15:14+0000\n"
+"PO-Revision-Date: 2024-03-23 13:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10042,7 +10042,7 @@ msgstr "Durata minima della sosta alla fermata"
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6420
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6741
 msgid "The time step at which the route continues"
-msgstr ""
+msgstr "L'ora quando si continua lungo l'itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6426
 msgid ""
@@ -10055,6 +10055,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6433
 msgid "Whether a person or container or both may end the stop"
 msgstr ""
+"Se una persona, un contenitore o entrambi possono decidere di ripartire in "
+"modo autonomo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6440
 msgid "List of elements that must board the vehicle before it may continue"
@@ -10063,7 +10065,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6445
 msgid "Joins this train to another upon reaching the stop"
-msgstr ""
+msgstr "Questo treno verrà accoppiato con un'altro quando giunge alla fermata"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6451
 msgid "List of elements that can board the vehicle before it may continue"
@@ -11334,101 +11336,101 @@ msgstr "Elemento padre invalido"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:102
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:116
 msgid "transform to"
-msgstr ""
+msgstr "trasforma in"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:91
 msgid "Trip (over junctions)"
-msgstr ""
+msgstr "Corsa (tra incroci)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:95
 msgid "Flow (over junctions)"
-msgstr ""
+msgstr "Flusso (tra incroci)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:105
 msgid "Trip (over TAZs)"
-msgstr ""
+msgstr "Corsa (tra zone di assegnazione del traffico)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:109
 msgid "Flow (over TAZs)"
-msgstr ""
+msgstr "Flusso (tra zone di assegnazione del traffico)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:123
 msgid "Vehicle (embedded route)"
-msgstr ""
+msgstr "Veicolo (itinerario interno)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:127
 msgid "RouteFlow"
-msgstr ""
+msgstr "Flusso lungo un'itinerario"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:131
 msgid "RouteFlow (embedded route)"
-msgstr ""
+msgstr "Flusso lungo un'itinerario (interno)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:135
 msgid "Trip"
-msgstr ""
+msgstr "Corsa"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:139
 msgid "Flow"
-msgstr ""
+msgstr "Flusso"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:220
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:241
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:262
 msgid "transform selected to"
-msgstr ""
+msgstr "trasforma selezionati in"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:223
 msgid "Trips (over junctions) (only %)"
-msgstr ""
+msgstr "Corse (tra incroci) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:226
 msgid "Flows (over junctions) (only %)"
-msgstr ""
+msgstr "Flussi (tra incroci) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:232
 msgid "Trips (over junctions)"
-msgstr ""
+msgstr "Corse (tra incroci)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:235
 msgid "Flows (over junctions)"
-msgstr ""
+msgstr "Flussi (tra incroci)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:244
 msgid "Trips (over TAZs) (only %)"
-msgstr ""
+msgstr "Corse (tra zone di assegnazione del traffico) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:247
 msgid "Flows (over TAZs) (only %)"
-msgstr ""
+msgstr "Flussi (tra zone di assegnazione del traffico) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:253
 msgid "Trips (over TAZs)"
-msgstr ""
+msgstr "Corse (tra zone di assegnazione del traffico)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:256
 msgid "Flows (over TAZs)"
-msgstr ""
+msgstr "Flussi (tra zone di assegnazione del traffico)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:265
 msgid "Vehicles (only %)"
-msgstr ""
+msgstr "Veicoli (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:268
 msgid "Vehicles (embedded route) (only %)"
-msgstr ""
+msgstr "Veicoli (itinerario interno) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:271
 msgid "RouteFlows (only %)"
-msgstr ""
+msgstr "Flussi lungo itinerari (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:274
 msgid "RouteFlows (embedded route) (only %)"
-msgstr ""
+msgstr "Flussi lungo itinerari (interni) (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:277
 msgid "Trips (only %)"
-msgstr ""
+msgstr "Corse (solo %)"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:280
 msgid "Flows (only %)"
