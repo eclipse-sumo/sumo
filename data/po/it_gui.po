@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-23 13:56+0000\n"
+"PO-Revision-Date: 2024-03-25 08:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10302,26 +10302,32 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6914
 msgid "The id of this set of measurements"
-msgstr ""
+msgstr "Il codice identificativo di questo insieme di misure"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6919
 msgid "The path to the output file. The path may be relative"
-msgstr ""
+msgstr "Il percorso al file in uscita. Il percorso può essere relativo"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6929
 msgid ""
 "The time to start writing. If not given, the simulation's begin is used."
 msgstr ""
+"L'ora alla quale iniziare a emettere dati. Se non viene definito coincide "
+"con l'inizio della simulazione."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6934
 msgid "The time to end writing. If not given the simulation's end is used."
 msgstr ""
+"L'ora alla quale finire di emettere dati. Se non viene definito coincide con "
+"la fine della simulazione."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6939
 msgid ""
 "If set to true, edges/lanes which were not used by a vehicle during this "
 "period will not be written"
 msgstr ""
+"Se attivato, archi/corsie usati da nessun veicolo nel periodo in questione "
+"vengono esclusi"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6946
 msgid "If set, junction internal edges/lanes will be written as well"
@@ -13476,32 +13482,33 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 msgid "Clear selection"
-msgstr ""
+msgstr "Svuota selezione"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 msgid "Clear selected TAZs (hotkey <ESC>)"
 msgstr ""
+"Svuota selezione di zone di assegnazione del traffico (scorciatoia <ESC>)"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:122
 msgid "From TAZ"
-msgstr ""
+msgstr "Da zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:128
 msgid "To TAZ"
-msgstr ""
+msgstr "A zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:177
 #, c-format
 msgid "A % must be defined within an interval."
-msgstr ""
+msgstr "Un % deve essere definito dentro un intervallo."
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:179
 msgid "There is already a % defined in TAZ'%'."
-msgstr ""
+msgstr "C'è già un % nella zona di assegnazione del traffico '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:181
 msgid "There is already a % defined between TAZ'%' and '%'."
-msgstr ""
+msgstr "C'è già un % tra le zone di assegnazione del traffico '%' e '%'."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerFrame.cpp:108
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEContainerPlanFrame.cpp:123
