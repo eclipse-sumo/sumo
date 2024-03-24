@@ -52,6 +52,7 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <mesosim/MELoop.h>
 #include "MSNet.h"
 #include "MSVehicleType.h"
 #include "MSEdge.h"
@@ -2635,11 +2636,18 @@ MSLane::getEntryLink() const {
 
 
 void
-MSLane::setMaxSpeed(double val, bool byVSS, bool byTraCI) {
+MSLane::setMaxSpeed(double val, bool byVSS, bool byTraCI, double jamThreshold) {
     myMaxSpeed = val;
     mySpeedByVSS = byVSS;
     mySpeedByTraCI = byTraCI;
     myEdge->recalcCache();
+    if (MSGlobals::gUseMesoSim) {
+        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*myEdge);
+        while (first != nullptr) {
+            first->setSpeed(val, SIMSTEP, jamThreshold, myIndex);
+            first = first->getNextSegment();
+        }
+    }
 }
 
 

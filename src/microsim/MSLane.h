@@ -733,7 +733,7 @@ public:
      * @param[in] whether a variable speed sign (VSS) imposes the speed limit
      * @param[in] whether TraCI imposes the speed limit
      */
-    void setMaxSpeed(double val, bool byVSS = false, bool byTraCI = false);
+    void setMaxSpeed(double val, bool byVSS = false, bool byTraCI = false, double jamThreshold = -1);
 
     /** @brief Sets a new friction coefficient for the lane [*to be later (used by TraCI and MSCalibrator)*]
     * @param[in] val the new friction coefficient [0..1]

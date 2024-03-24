@@ -1080,14 +1080,7 @@ MSEdge::setMaxSpeed(double val, double jamThreshold) {
     assert(val >= 0);
     if (myLanes != nullptr) {
         for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            (*i)->setMaxSpeed(val);
-        }
-    }
-    if (MSGlobals::gUseMesoSim) {
-        MESegment* first = MSGlobals::gMesoNet->getSegmentForEdge(*this);
-        while (first != nullptr) {
-            first->setSpeed(val, SIMSTEP, jamThreshold);
-            first = first->getNextSegment();
+            (*i)->setMaxSpeed(val, false, false, jamThreshold);
         }
     }
 }

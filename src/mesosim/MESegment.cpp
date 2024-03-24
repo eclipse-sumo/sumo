@@ -616,9 +616,9 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     }
     assert(veh->getEdge() == &getEdge());
     // route continues
-    const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
-    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     Queue& q = myQueues[qIdx];
+    const double maxSpeedOnEdge = veh->getEdge()->getLanes()[qIdx]->getVehicleMaxSpeed(veh);
+    const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
     const SUMOTime stopTime = veh->checkStop(time);
@@ -724,13 +724,17 @@ MESegment::newArrival(const MEVehicle* const v, double newSpeed, SUMOTime curren
 
 
 void
-MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh) {
+MESegment::setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh, int qIdx) {
     recomputeJamThreshold(jamThresh);
     //myTau_length = MAX2(MESO_MIN_SPEED, newSpeed) * myEdge.getLanes().size() / TIME2STEPS(1);
+    int i = 0;
     for (const Queue& q : myQueues) {
         if (q.size() != 0) {
-            setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            if (qIdx == -1 || qIdx == i) {
+                setSpeedForQueue(newSpeed, currentTime, q.getBlockTime(), q.getVehicles());
+            }
         }
+        i++;
     }
 }
 

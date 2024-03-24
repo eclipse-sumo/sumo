@@ -365,7 +365,7 @@ public:
      * all vehicles in it. Also set/recompute myJamThreshold
      * @param[in] jamThresh follows the semantic of option meso-jam-threshold
      */
-    void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD);
+    void setSpeed(double newSpeed, SUMOTime currentTime, double jamThresh = DO_NOT_PATCH_JAM_THRESHOLD, int qIdx = -1);
 
     /** @brief Returns the (planned) time at which the next vehicle leaves this segment
      * @return The time the vehicle thinks it leaves

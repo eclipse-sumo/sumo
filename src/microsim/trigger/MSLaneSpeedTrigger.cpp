@@ -115,15 +115,9 @@ MSLaneSpeedTrigger::executeSpeedChange(SUMOTime currentTime) {
 SUMOTime
 MSLaneSpeedTrigger::processCommand(bool move2next, SUMOTime currentTime) {
     const double speed = getCurrentSpeed();
-    if (MSGlobals::gUseMesoSim) {
-        if (myDestLanes.size() > 0 && myDestLanes.front()->getSpeedLimit() != speed) {
-            myDestLanes.front()->getEdge().setMaxSpeed(speed);
-        }
-    } else {
-        const bool altered = speed != myDefaultSpeed;
-        for (MSLane* const lane : myDestLanes) {
-            lane->setMaxSpeed(speed, altered);
-        }
+    const bool altered = speed != myDefaultSpeed;
+    for (MSLane* const lane : myDestLanes) {
+        lane->setMaxSpeed(speed, altered);
     }
     if (!move2next) {
         // changed from the gui
