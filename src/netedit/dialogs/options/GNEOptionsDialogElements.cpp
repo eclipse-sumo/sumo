@@ -421,6 +421,7 @@ GNEOptionsDialogElements::InputFloat::onCmdSetOption(FXObject*, FXSelector, void
     } else {
         myGUIDialogOptions->myOptionsContainer.resetWritable();
         myGUIDialogOptions->myOptionsContainer.set(myName, myFloatTextField->getText().text());
+        myGUIDialogOptions->myOptionsModified = true;
     }
     return 1;
 }
