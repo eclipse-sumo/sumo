@@ -12,3 +12,6 @@ turn-lanes_restricted2
 
 # import turn-lane information
 turn-lanes_lefthand
+
+# one target for the turn-lanes isn't accessible to passenger traffic (by default typemap rules)
+service_target
