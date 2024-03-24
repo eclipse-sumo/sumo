@@ -1474,7 +1474,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 continue;
             }
             // after entering the conflict area, ignore foe vehicles that are not in the way
-            if (distToCrossing < -POSITION_EPS && !inTheWay
+            if ((!MSGlobals::gComputeLC || (ego != nullptr && ego->getLane() == foeLane) || MSGlobals::gSublane)
+                    && distToCrossing < -POSITION_EPS && !inTheWay
                     && (ego == nullptr || !MSGlobals::gComputeLC || distToCrossing < -ego->getVehicleType().getLength())) {
                 if (gDebugFlag1) {
                     std::cout << "   ego entered conflict area\n";
