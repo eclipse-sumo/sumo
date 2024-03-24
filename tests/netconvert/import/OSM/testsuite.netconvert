@@ -4,6 +4,10 @@ railway
 # export public transport stops or lines
 public_transport
 maxspeed
+turn_lanes
+
+# creating opposite-direction edge due to sidewalk information
+sidewalks
 
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
@@ -88,9 +92,6 @@ all-attributes
 # importing selected extra OSM tags
 extra-attributes
 
-# creating opposite-direction edge due to sidewalk information
-sidewalks
-
 # test option edges.join-tram-dist
 join_tram
 
@@ -120,21 +121,6 @@ oneway_bike
 # complex intermodal junction in Brunswick
 tostmannplatz
 
-# import turn-lane information
-turn-lanes
-
-# import turn-lane information merge_to_right
-turn-lanes2
-
-# i.e. turn:bus:lanes
-turn-lanes_restricted
-
-# i.e. turn:bus:lanes
-turn-lanes_restricted2
-
-# import turn-lane information
-turn-lanes_lefthand
-
 # import key junction=circular
 junction_circular
 
@@ -147,6 +133,6 @@ restrictionException_no
 
 # example network from Zuerich
 oerlikon
-bugs
 width_lane
 crossings
+bugs
