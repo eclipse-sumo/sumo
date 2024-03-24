@@ -2,6 +2,3 @@ Warning: PT line in relation 15097874 with no stops ignored. Probably OSM file i
 Warning: PT stop '7096121260' has been moved to edge '-288968955#1'.
 Warning: Found sharp turn with radius 2.74 at the start of edge '-110364720#1'.
 Warning: Found sharp turn with radius 2.74 at the end of edge '110364720#1'.
-Warning: Cannot apply turn sign information for edge '-288968955#0' because the target edge '-29151276#2' has no suitable lanes
-Warning: Cannot apply turn sign information for edge '-664457856#0' because the target edge '-29151276#2' has no suitable lanes
-Warning: Cannot apply turn sign information for edge '288968953#2' because the target edge '-29151276#2' has no suitable lanes
