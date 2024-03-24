@@ -12,3 +12,6 @@ edgeData
 
 # two lanes in a simple net with lane queues	
 laneData
+
+# two lanes in a simple net with lane queues	
+laneData_different_speeds
