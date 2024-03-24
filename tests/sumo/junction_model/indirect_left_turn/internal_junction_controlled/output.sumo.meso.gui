@@ -1,4 +1,4 @@
-Loading net-file from 'net.net.xml' ... done (2ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
 Simulation started with time: 0.00.
 Simulation ended at time: 0.00
@@ -7,9 +7,9 @@ Performance:
  Real time factor: 0
  UPS: 0.000000
 Vehicles: 
- Inserted: 0
+ Inserted: 0 (Loaded: 1)
  Running: 0
- Waiting: 0
+ Waiting: 1
 Statistics (avg of 0):
  RouteLength: 0.00
  Speed: 0.00
