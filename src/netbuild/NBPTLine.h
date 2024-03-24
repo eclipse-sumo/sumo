@@ -107,6 +107,14 @@ public:
         myName = name;
     }
 
+    void setRef(const std::string& line) {
+        myRef = line;
+    }
+
+    void setPeriod(int intervalS) {
+        myInterval = intervalS / 60;
+    }
+
     inline const std::vector<std::string>& getWays() const {
         return myWays;
     }

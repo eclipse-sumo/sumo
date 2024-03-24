@@ -66,6 +66,15 @@ NBPTLineCont::insert(NBPTLine* ptLine) {
 }
 
 
+NBPTLine*
+NBPTLineCont::retrieve(const std::string& lineID) {
+    if (myPTLines.count(lineID) == 0) {
+        return nullptr;
+    } else {
+        return myPTLines[lineID];
+    }
+}
+
 void
 NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc, bool routeOnly) {
     for (auto& item : myPTLines) {

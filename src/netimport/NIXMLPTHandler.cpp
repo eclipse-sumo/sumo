@@ -212,8 +212,8 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
-    const std::string line = attrs.get<std::string>(SUMO_ATTR_LINE, id.c_str(), ok);
-    const std::string type = attrs.get<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok);
+    const std::string line = attrs.getOpt<std::string>(SUMO_ATTR_LINE, id.c_str(), ok, "");
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     SUMOVehicleClass vClass = NIImporter_OpenStreetMap::interpretTransportType(type);
     if (attrs.hasAttribute(SUMO_ATTR_VCLASS)) {
         vClass = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, id.c_str(), ok));
@@ -225,10 +225,22 @@ NIXMLPTHandler::addPTLine(const SUMOSAXAttributes& attrs) {
     myMissingBefore = StringUtils::toInt(attrs.getStringSecure("missingBefore", "0"));
     myMissingAfter = StringUtils::toInt(attrs.getStringSecure("missingAfter", "0"));
     if (ok) {
-        myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
-        if (!myLineCont.insert(myCurrentLine)) {
-            WRITE_WARNINGF(TL("Ignoring duplicate PT line '%'."), id);
-            delete myCurrentLine;
+        // patching existing line?
+        myCurrentLine = myLineCont.retrieve(id);
+        if (myCurrentLine == nullptr) {
+            myCurrentLine = new NBPTLine(id, name, type, line, intervalS / 60, nightService, vClass, color);
+            myLineCont.insert(myCurrentLine);
+        } else {
+            WRITE_MESSAGEF(TL("Duplicate ptLine id occurred ('%'); assuming overwriting is wished."), id);
+            if (name != "") {
+                myCurrentLine->setName(name);
+            }
+            if (line != "") {
+                myCurrentLine->setRef(line);
+            }
+            if (intervalS != -1) {
+                myCurrentLine->setPeriod(intervalS);
+            }
         }
     }
 }
