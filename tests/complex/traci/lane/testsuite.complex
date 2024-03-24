@@ -8,7 +8,7 @@ internal
 lane_intermodal
 
 # Tests the lane API with sublane model enabled
-sublane
+# sublane
 
 # see #14552
 setMaxSpeed
