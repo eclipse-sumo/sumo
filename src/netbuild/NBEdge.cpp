@@ -2642,6 +2642,7 @@ NBEdge::applyTurnSigns() {
         targets.push_back(nullptr); // dead end
     }
 
+    SVCPermissions defaultPermissions = SVC_PASSENGER | SVC_DELIVERY;
     // build a mapping from sign directions to targets
     std::vector<LinkDirection> signedDirs = decodeTurnSigns(allDirs);
     std::map<LinkDirection, const NBEdge*> dirMap;
@@ -2682,7 +2683,7 @@ NBEdge::applyTurnSigns() {
         // remove targets by permissions
         int i = 0;
         while (signedDirs.size() < targets.size() && i < (int)targets.size()) {
-            if (targets[i] != nullptr && (targets[i]->getPermissions() & SVC_PASSENGER) == 0) {
+            if (targets[i] != nullptr && (targets[i]->getPermissions() & defaultPermissions) == 0) {
                 targets.erase(targets.begin() + i);
                 sumoDirs.erase(sumoDirs.begin() + i);
             } else {
@@ -2705,7 +2706,7 @@ NBEdge::applyTurnSigns() {
             continue;
         }
         const NBEdge* to = dirMap[dir];
-        int candidates = to->getNumLanesThatAllow(SVC_PASSENGER);
+        int candidates = to->getNumLanesThatAllow(defaultPermissions, false);
         if (candidates == 0) {
             WRITE_WARNINGF(TL("Cannot apply turn sign information for edge '%' because the target edge '%' has no suitable lanes"), getID(), to->getID());
             return false;
@@ -2732,7 +2733,7 @@ NBEdge::applyTurnSigns() {
                 iEnd = to->getNumLanes();
             }
             while ((int)knownTargets.size() < item.second && i != iEnd) {
-                if ((to->getPermissions(i) & SVC_PASSENGER) != 0) {
+                if ((to->getPermissions(i) & defaultPermissions) != 0) {
                     if (std::find(knownTargets.begin(), knownTargets.end(), i) == knownTargets.end()) {
                         knownTargets.push_back(i);
                     }
@@ -2789,7 +2790,7 @@ NBEdge::applyTurnSigns() {
                             fromP = SVC_PASSENGER;
                         }
                         int toLane = toLaneMap[to][0];
-                        while ((to->getPermissions(toLane) & fromP) == 0) {
+                        while ((to->getPermissions(toLane) & fromP) == 0 && (toLane + 1 < to->getNumLanes())) {
                             toLane++;
                             /*
                             if (toLane == to->getNumLanes()) {
@@ -4400,10 +4401,11 @@ NBEdge::getPermissionVariants(int iStart, int iEnd) const {
 }
 
 int
-NBEdge::getNumLanesThatAllow(SVCPermissions permissions) const {
+NBEdge::getNumLanesThatAllow(SVCPermissions permissions, bool allPermissions) const {
     int result = 0;
     for (const Lane& lane : myLanes) {
-        if ((lane.permissions & permissions) == permissions) {
+        if ((allPermissions && (lane.permissions & permissions) == permissions)
+                || (!allPermissions && (lane.permissions & permissions) != 0)) {
             result++;
         }
     }

@@ -753,8 +753,10 @@ public:
     /// @brief return all permission variants within the specified lane range [iStart, iEnd[
     std::set<SVCPermissions> getPermissionVariants(int iStart, int iEnd) const;
 
-    /// @brief get lane indices that allow the given permissions
-    int getNumLanesThatAllow(SVCPermissions permissions) const;
+    /* @brief get lane indices that allow the given permissions
+     * @param[in] allPermissions: whether all the given permissions must be allowed (or just some of them)
+     */
+    int getNumLanesThatAllow(SVCPermissions permissions, bool allPermissions = true) const;
 
     /** @brief Returns whether the given vehicle class may change left from this lane */
     bool allowsChangingLeft(int lane, SUMOVehicleClass vclass) const;
