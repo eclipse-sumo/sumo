@@ -3,3 +3,4 @@
 --ptline-files input_ptlines.xml
 --ptstop-output additional.xml
 --ptline-output ptlines.xml
+-v
