@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-25 14:58+0000\n"
+"PO-Revision-Date: 2024-03-25 15:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12097,7 +12097,7 @@ msgstr "Definizione"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:237
 msgid "Opening HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Apertura del dialogo di aiuto per '"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:237
 msgid "' showing "
@@ -12623,7 +12623,7 @@ msgstr "Aggiunge una fase di verde preferenziale."
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:910
 msgid "Cannot be parsed to double"
-msgstr ""
+msgstr "Non può essere trasformato in un numero decimale"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:922
 msgid "Tooltips only for TextFields"
@@ -12631,51 +12631,51 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1252
 msgid "Delete phase"
-msgstr ""
+msgstr "Rimuovi fase"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1252
 msgid "Delete this phase."
-msgstr ""
+msgstr "Rimuove questa frase."
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1261
 msgid "Move phase up"
-msgstr ""
+msgstr "Sposta fase in su"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1261
 msgid "Move this phase up."
-msgstr ""
+msgstr "Sposta la fase su."
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1270
 msgid "Move phase down"
-msgstr ""
+msgstr "Sposta fase in giù"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETLSTable.cpp:1270
 msgid "Move this phase down."
-msgstr ""
+msgstr "Sposta la fase in giù."
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:91
 msgid "Element"
-msgstr ""
+msgstr "Elemento"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:155
 msgid "network elements"
-msgstr ""
+msgstr "elementi di rete"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:158
 msgid "Additional elements"
-msgstr ""
+msgstr "Elementi addizionali"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:161
 msgid "Shape elements"
-msgstr ""
+msgstr "Elementi di forme"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:164
 msgid "TAZ elements"
-msgstr ""
+msgstr "Elementi di zone di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:167
 msgid "Wire elements"
-msgstr ""
+msgstr "Elementi di cateneria"
 
 #: C:\Repos\sumo/src\netedit\frames\GNETagSelector.cpp:173
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:123
@@ -12860,7 +12860,7 @@ msgstr "Metti come modello"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:574
 msgid "clear Edge Template"
-msgstr ""
+msgstr "svuota modello di arco"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
 #, c-format
@@ -12873,12 +12873,12 @@ msgstr "Un arco solo deve essere ispezionato"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:733
 msgid "No edge Template Set"
-msgstr ""
+msgstr "Nessun modello di arco definito"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:745
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:748
 msgid "Additional dialog"
-msgstr ""
+msgstr "Dialogo di elementi addizionali"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:764
 msgid "Open rerouter dialog"
@@ -12922,12 +12922,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:455
 msgid "     1. Select an object type from the first input box\n"
-msgstr ""
+msgstr "     1. Seleziona un tipo di oggetto dal primo campo di input\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:275
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:456
 msgid "     2. Select an attribute from the second input box\n"
-msgstr ""
+msgstr "     2. Seleziona un'attributo dal secondo campo di input\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:276
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:457
@@ -12935,11 +12935,13 @@ msgid ""
 "     3. Enter a 'match expression' in the third input box and press "
 "<return>\n"
 msgstr ""
+"     3. Scrivi un 'espressione di ricerca' nel terzo campo di input e premi "
+"<return>\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:278
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:459
 msgid "- The empty expression matches all objects\n"
-msgstr ""
+msgstr "- L'espressione vuota corrisponde a tutti gli oggetti\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:460
@@ -12947,6 +12949,8 @@ msgid ""
 "- For numerical attributes the match expression must consist of a comparison "
 "operator ('<', '>', '=') and a number.\n"
 msgstr ""
+"- Per attributi numerici, l'espressione deve contenere un numero e un "
+"operatore di comparazione ('<', '>', '=').\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
@@ -12954,6 +12958,8 @@ msgid ""
 "- An object matches if the comparison between its attribute and the given "
 "number by the given operator evaluates to 'true'\n"
 msgstr ""
+"- Un'oggetto viene preso in considerazione se il valore dell'attributo "
+"coincide con il numero e l'operatore scelto\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:282
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:463
@@ -12961,6 +12967,9 @@ msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
 msgstr ""
+"- Per attributi di sequenze di caratteri l'espressione deve contenere "
+"un'operatore di comparazione ('', '=', '!', '^') e una sequenza di caratteri."
+"\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:464
