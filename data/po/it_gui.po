@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-25 09:13+0000\n"
+"PO-Revision-Date: 2024-03-25 12:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13769,6 +13769,8 @@ msgid ""
 "-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
+"-Richiede almeno un rivelatore di entrata\n"
+" e uno di uscita"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
@@ -13776,6 +13778,8 @@ msgid ""
 "-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
+"-Richiede elemento padre\n"
+" dal tipo di rivelatore entrata-uscita\n"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:99
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:102
@@ -16113,15 +16117,15 @@ msgstr "Senza dati"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1593
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1638
 msgid "Only for selected"
-msgstr ""
+msgstr "Solo per selezionati"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1595
 msgid "constant text size"
-msgstr ""
+msgstr "grandezza costante dei caratteri"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1598
 msgid "Size"
-msgstr ""
+msgstr "Grandezza"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1603
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1716
@@ -16134,24 +16138,24 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2193
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2256
 msgid "Color"
-msgstr ""
+msgstr "Colore"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1605
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1711
 msgid "Background"
-msgstr ""
+msgstr "Fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1636
 msgid "Draw with constant size when zoomed out"
-msgstr ""
+msgstr "Disegna a grandezza costante nell'allontanandosi"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1641
 msgid "Minimum Size"
-msgstr ""
+msgstr "Grandezza minima"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1645
 msgid "Exaggerate by"
-msgstr ""
+msgstr "Moltiplicatore"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1691
 msgid "Save the setting to registry"
@@ -16187,19 +16191,19 @@ msgstr "Punti di interruzione"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1720
 msgid "Decals:"
-msgstr ""
+msgstr "Immagini di fondo:"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1723
 msgid "&Load XML Decals"
-msgstr ""
+msgstr "&Carica definizione di immagini di fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1724
 msgid "&Save XML Decals"
-msgstr ""
+msgstr "%Salva definizione di immagini di fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1725
 msgid "&Clear Decals"
-msgstr ""
+msgstr "S&vuota immagini di fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1730
 msgid "Toggle grid"
