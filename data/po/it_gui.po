@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-25 12:31+0000\n"
+"PO-Revision-Date: 2024-03-25 14:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12081,7 +12081,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:185
 msgid "Parameters of "
-msgstr ""
+msgstr "Parametri di "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:195
 msgid "Attribute"
@@ -12105,11 +12105,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:237
 msgid " attributes"
-msgstr ""
+msgstr " attributi"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:247
 msgid "Closing HelpAttributes dialog for tag '"
-msgstr ""
+msgstr "Chiusura del dialogo di aiuto per gli attributi di '"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:319
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:418
@@ -14611,19 +14611,19 @@ msgstr "Archi inclusi"
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1189
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1297
 msgid "use"
-msgstr ""
+msgstr "utilizzare"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1299
 msgid "not use"
-msgstr ""
+msgstr "non utilizzare"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1329
 msgid "Non TAZ Edge"
-msgstr ""
+msgstr "Arco fuori zona di assegnazione del traffico"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1333
 msgid "Selected TAZ Edge"
-msgstr ""
+msgstr "Arco di zona di assegnazione del traffico selezionato"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:1338
 msgid "Color by Source"
@@ -14669,16 +14669,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:243
 msgid "tlLogic '%', program '%' could not be built"
-msgstr ""
+msgstr "Logica di semaforo '%' (programma '%') non poteva essere creato"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:256
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2968
 msgid "Loaded "
-msgstr ""
+msgstr "Caricato/i "
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:256
 msgid " programs"
-msgstr ""
+msgstr " programmi"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:417
 msgid "Invalid phase index"
