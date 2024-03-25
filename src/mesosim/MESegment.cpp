@@ -719,7 +719,8 @@ MESegment::newArrival(const MEVehicle* const v, double newSpeed, SUMOTime curren
     // since speed is only an upper bound pos may be to optimistic
     const double pos = MIN2(myLength, STEPS2TIME(currentTime - v->getLastEntryTime()) * v->getSpeed());
     // traveltime may not be 0
-    return currentTime + MAX2(TIME2STEPS((myLength - pos) / newSpeed), SUMOTime(1));
+    double tt = (myLength - pos) / MAX2(newSpeed, MESO_MIN_SPEED);
+    return currentTime + MAX2(TIME2STEPS(tt), SUMOTime(1));
 }
 
 
