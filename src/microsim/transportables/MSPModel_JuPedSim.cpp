@@ -156,6 +156,15 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     assert(person->getCurrentStageType() == MSStageType::WALKING);
     Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
+    if (departureLane == nullptr) {
+        const char* error = TL("Person '%' could not find sidewalk on edge '%', time=%.");
+        if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
+            WRITE_WARNINGF(error, person->getID(), person->getEdge()->getID(), time2string(SIMSTEP));
+            return nullptr;
+        } else {
+            throw ProcessError(TLF(error, person->getID(), person->getEdge()->getID(), time2string(SIMSTEP)));
+        }
+    }
     // First real stage, stage 0 is waiting.
     if (person->getCurrentStageIndex() == 2 && person->getParameter().departPosProcedure == DepartPosDefinition::RANDOM_LOCATION) {
         const MSEdge* const tripOrigin = person->getNextStage(-1)->getEdge();
