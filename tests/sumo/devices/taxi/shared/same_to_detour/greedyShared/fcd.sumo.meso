@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:32:20 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2024-03-25 15:31:11 by Eclipse SUMO sumo Version v1_19_0+1532-29a102e17bf
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,12 +28,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -52,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="taxi" x="-4.20" y="194.80" angle="180.00" type="taxi" speed="13.89" pos="0.00" edge="A2A1" slope="0.00" device.taxi.state="1"/>
+        <vehicle id="taxi" x="-4.20" y="194.80" angle="180.00" type="taxi" speed="0.00" pos="0.00" edge="A2A1" slope="0.00" device.taxi.state="1"/>
         <person id="0" x="7.20" y="92.80" angle="0.00" speed="0.00" pos="0.00" edge="A1B1" slope="0.00"/>
         <person id="1" x="607.20" y="192.80" angle="0.00" speed="0.00" pos="0.00" edge="C2D2" slope="0.00"/>
     </timestep>
