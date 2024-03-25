@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-25 08:31+0000\n"
+"PO-Revision-Date: 2024-03-25 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13597,23 +13597,23 @@ msgstr "Distribuzioni di itinerari"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:95
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:101
 msgid "Shift+Click to select parent"
-msgstr ""
+msgstr "Shift+Clic per selezionare l'elemento padre"
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:72
 msgid "Click over a bus stop to create a stop."
-msgstr ""
+msgstr "Clicca su una fermata di autobus per creare una fermata."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:78
 msgid "Click over a train stop to create a stop."
-msgstr ""
+msgstr "Clicca su una fermata ferroviaria per creare una fermata."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:84
 msgid "Click over a container stop to create a stop."
-msgstr ""
+msgstr "Clicca su una fermata di contenitori per creare una fermata."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:90
 msgid "Click over a charging station to create a stop."
-msgstr ""
+msgstr "Clicca su una stazione di ricarica per creare una fermata."
 
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEStopFrame.cpp:96
 msgid "Click over a parking area to create a stop."
@@ -13801,7 +13801,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:424
 msgid "Attribute '"
-msgstr ""
+msgstr "Attributo '"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:424
 msgid "' cannot be greater than attribute '"
