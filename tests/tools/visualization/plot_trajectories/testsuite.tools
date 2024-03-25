@@ -9,6 +9,9 @@ multiple_files
 
 # plot person trajectories
 persons
+
+# plot meso trajectories
+meso
 kilometrage
 
 # handle missing distance attrs
