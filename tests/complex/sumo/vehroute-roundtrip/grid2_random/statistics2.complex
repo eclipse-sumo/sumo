@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-20 08:04:36 by Eclipse SUMO sumo Version v1_17_0+1033-3845634
+<!-- generated on 2024-03-25 13:45:48 by Eclipse SUMO sumo Version v1_19_0+1525-a01a4bc4749
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,13 +25,13 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1687241076.99" clockEnd="1687241078.45" clockDuration="1.45" traciDuration="1.06" realTimeFactor="914.60" vehicleUpdatesPerSecond="188065.43" personUpdatesPerSecond="0.00" begin="0.00" end="1328.00" duration="1328.00"/>
+    <performance clockBegin="1711370748.40" clockEnd="1711370749.20" clockDuration="0.79" traciDuration="0.00" realTimeFactor="1917.83" vehicleUpdatesPerSecond="466601.77" personUpdatesPerSecond="0.00" begin="0.00" end="1517.00" duration="1517.00"/>
     <vehicles loaded="2000" inserted="2000" running="0" waiting="0"/>
-    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <teleports total="2" jam="0" yield="2" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="2000" routeLength="464.29" speed="4.23" duration="136.53" waitingTime="67.30" timeLoss="100.24" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="273071.00" totalDepartDelay="0.00"/>
+    <vehicleTripStatistics count="2000" routeLength="485.00" speed="3.82" duration="184.54" waitingTime="109.02" timeLoss="146.58" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="369082.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>
