@@ -1013,7 +1013,8 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
 By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
 This reproducibility is often necessary (i.e. for debugging a scenario).
-However, to avoid biases from this "fixed" randomness it is often useful to run the simulation multiple times and perform analysis on the ensemble of results.
+However, to avoid biases from this "fixed" randomness it is often useful to run the simulation multiple times and perform analysis on the ensemble of results. 
+Likewise, in the real world different days have different traffic and it is more reliable to draw conclusions from multiple days rather than a single day.
 
 To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined intialization for the random number generator whereas the other picks a random seed (which will be different on every run).
 
