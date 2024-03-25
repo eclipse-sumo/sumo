@@ -1,6 +1,6 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <variableSpeedSign id="vss0" lanes="end_1">
         <step time="0" speed="10"/>
     </variableSpeedSign>
 
-</routes>
+</additional>
