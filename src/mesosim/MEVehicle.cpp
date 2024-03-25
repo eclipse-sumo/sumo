@@ -108,7 +108,12 @@ MEVehicle::getSpeed() const {
 
 double
 MEVehicle::getAverageSpeed() const {
-    return mySegment != nullptr ? MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime), getEdge()->getVehicleMaxSpeed(this)) : 0;
+    if (mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE ) {
+        return 0;
+    } else {
+        return MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime),
+                    getEdge()->getLanes()[myQueIndex]->getVehicleMaxSpeed(this));
+    }
 }
 
 
