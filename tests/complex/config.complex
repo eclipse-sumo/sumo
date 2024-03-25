@@ -88,6 +88,7 @@ gtfs_routes:gtfs_pt_vehicles.add.xml
 gtfs_additional:gtfs_pt_stops.add.xml
 vtypes:vtypes.xml
 cfg:config.sumocfg
+aggregated:aggregated.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->

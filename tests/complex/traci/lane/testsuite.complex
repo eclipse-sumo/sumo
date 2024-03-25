@@ -12,3 +12,6 @@ lane_intermodal
 
 # see #14552
 setMaxSpeed
+
+# close one lane of a two-lane edge, see #14589
+setMaxSpeed2
