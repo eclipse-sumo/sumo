@@ -65,6 +65,8 @@ def getOptions(args=None):
                          + " Default 'ds' plots Distance vs. Speed")
     optParser.add_option("--persons", category="processing", action="store_true",
                          default=False, help="plot person trajectories")
+    optParser.add_option("--meso", category="processing", action="store_true",
+                         default=False, help="plot meso trajectories")
     optParser.add_option("-s", "--show", category="processing", action="store_true",
                          default=False, help="show plot directly")
     optParser.add_option("--csv-output", category="output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -153,6 +155,8 @@ def main(options):
     if options.persons:
         element = 'person'
         location = 'edge'
+    elif options.meso:
+        location = 'edge'
 
     routes = defaultdict(list)  # vehID -> recorded edges
     # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions, kilometrage)
@@ -175,7 +179,7 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     vehID += "#" + suffix
-            if options.persons:
+            if options.persons or options.meso:
                 edge = vehicle.edge
             else:
                 edge = vehicle.lane[0:vehicle.lane.rfind('_')]
