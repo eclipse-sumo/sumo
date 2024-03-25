@@ -1012,7 +1012,14 @@ Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 ### How to perform repeated simulations with different results
 
 By default, the same configuration will result in the same behavior even though many parts of the simulation are [randomized](Simulation/Randomness.md).
-To change this, either option **--seed** or option **--random** must be used.
+This reproducibility is often necessary (i.e. for debugging a scenario).
+However, to avoid biases from this "fixed" randomness it is often useful to run the simulation multiple times and perform analysis on the ensemble of results.
+
+To change the default randomness, either option **--seed** or option **--random** must be used. The first option sets a user-defined intialization for the random number generator whereas the other picks a random seed (which will be different on every run).
+
+!!! note
+    These options apply to sumo, duarouter and many python tools which employ randomization.
+    
 In order to collect distinct output from multiple runs, it is advisable to set option **--output-prefix**.
 Running a simulation 3 times with different results could be done in a batch file like this:
 
