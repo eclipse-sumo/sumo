@@ -135,6 +135,8 @@ private:
     /// @brief retrieve cartesian coordinate for given node
     static Position convertNodePosition(PCOSMNode* n);
 
+    static double mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets);
+
 protected:
     /**
      * @class NodesHandler

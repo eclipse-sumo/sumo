@@ -171,79 +171,41 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             e->myIsClosed = false;
             e->standalone = true;
 
-            std::set<long long int> remaining(rel->myWays.begin(), rel->myWays.end());
-            PCOSMEdge* minEdge = edges[rel->myWays.front()];
-            e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
-            Position prev(convertNodePosition(nodes[minEdge->myCurrentNodes.back()]));
-            minEdge->standalone = false;
-            remaining.erase(minEdge->id);
+            std::vector<std::vector<long long int> > snippets;
+            for (int wayID : rel->myWays) {
+                PCOSMEdge* edge = edges[wayID];
+                snippets.push_back(edge->myCurrentNodes);
+            }
+            double maxDist = 0;
             bool ok = true;
-            while (!remaining.empty()) {
-                // assemble in an order that greedily reduces jump size
-                double minDist = std::numeric_limits<double>::max();
-                bool minFront = false;
-                for (long long int wayID : remaining) {
-                    PCOSMEdge* part = edges[wayID];
-                    Position frontPos(convertNodePosition(nodes.find(part->myCurrentNodes.front())->second));
-                    const double frontDist = prev.distanceTo2D(frontPos);
-                    Position backPos(convertNodePosition(nodes.find(part->myCurrentNodes.back())->second));
-                    const double backDist = prev.distanceTo2D(backPos);
-                    if (frontDist < minDist) {
-                        minDist = frontDist;
-                        minEdge = part;
-                        minFront = true;
-                    }
-                    if (backDist < minDist) {
-                        minDist = backDist;
-                        minEdge = part;
-                        minFront = false;
-                    }
-                }
-                if (minDist > mergeRelationsThreshold) {
-                    double length = 0.;
-                    for (long long int wayID : remaining) {
-                        PCOSMEdge* part = edges[wayID];
-                        Position last(Position::INVALID);
-                        for (long long int nodeID : part->myCurrentNodes) {
-                            Position nodePos(convertNodePosition(nodes[nodeID]));
-                            if (last != Position::INVALID) {
-                                length += last.distanceTo2D(nodePos);
-                            }
-                            last = nodePos;
-                        }
-                        if (part->myIsClosed) {
-                            length += last.distanceTo2D(convertNodePosition(nodes[part->myCurrentNodes.front()]));
-                        }
-                    }
-                    if (length > mergeRelationsThreshold) {
-                        WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m to way '%')\n Total length of remaining ways: %m."),
-                                       rel->id, e->name, minDist, minEdge->id, length);
-                        ok = false;
-                    }
+            while (snippets.size() > 1) {
+                maxDist = MAX2(maxDist, mergeClosest(nodes, snippets));
+                if (maxDist > mergeRelationsThreshold) {
+                    ok = false;
                     break;
                 }
-                if (minFront) {
-                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.begin(), minEdge->myCurrentNodes.end());
-                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.back()]);
-                } else {
-                    e->myCurrentNodes.insert(e->myCurrentNodes.end(), minEdge->myCurrentNodes.rbegin(), minEdge->myCurrentNodes.rend());
-                    prev = convertNodePosition(nodes[minEdge->myCurrentNodes.front()]);
-                }
-                minEdge->standalone = false;
-                remaining.erase(minEdge->id);
             }
             if (ok) {
+                e->myCurrentNodes = snippets.front();
                 edges[e->id] = e;
+                double frontBackDist = 0;
                 if (e->myCurrentNodes.front() != e->myCurrentNodes.back()) {
                     // should be filled
                     Position posFront = convertNodePosition(nodes[e->myCurrentNodes.front()]);
                     Position posBack = convertNodePosition(nodes[e->myCurrentNodes.back()]);
-                    if (posFront.distanceTo2D(posBack) < mergeRelationsThreshold) {
+                    frontBackDist = posFront.distanceTo2D(posBack);
+                    if (frontBackDist < mergeRelationsThreshold) {
                         e->myCurrentNodes.push_back(e->myCurrentNodes.front());
+                        frontBackDist = 0;
                     }
                 }
-                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)"), toString(rel->id), e->name);
+                std::string frontBackMsg = "";
+                if (frontBackDist > 0 ){
+                    frontBackMsg = TLF(", (front-to-back dist: %)", frontBackDist);
+                }
+                WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)%"), toString(rel->id), e->name, frontBackMsg);
             } else {
+                WRITE_WARNINGF(TL("Could not import polygon from relation '%' (name:% reason: found gap of %m)\n."), rel->id, rel->name, maxDist)
                 delete e;
                 // export ways by themselves
                 for (long long int wayID : rel->myWays) {
@@ -659,5 +621,70 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
     }
 }
 
+
+double
+PCLoaderOSM::mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets) {
+    double best = std::numeric_limits<double>::max();
+    double best_i = 0;
+    double best_j = 1;
+    bool iFW = true;
+    bool jFW = true;
+
+    for (int i = 0; i < (int)snippets.size(); i++) {
+        for (int j = i + 1; j < (int)snippets.size(); j++) {
+            Position front1(convertNodePosition(nodes.find(snippets[i].front())->second));
+            Position back1(convertNodePosition(nodes.find(snippets[i].back())->second));
+            Position front2(convertNodePosition(nodes.find(snippets[j].front())->second));
+            Position back2(convertNodePosition(nodes.find(snippets[j].back())->second));
+            double dist1 = front1.distanceTo2D(front2);
+            double dist2 = front1.distanceTo2D(back2);
+            double dist3 = back1.distanceTo2D(front2);
+            double dist4 = back1.distanceTo2D(back2);
+            if (dist1 < best) {
+                best = dist1;
+                best_i = i;
+                best_j = j;
+                iFW = false;
+                jFW = true;
+            }
+            if (dist2 < best) {
+                best = dist2;
+                best_i = i;
+                best_j = j;
+                iFW = false;
+                jFW = false;
+            }
+            if (dist3 < best) {
+                best = dist3;
+                best_i = i;
+                best_j = j;
+                iFW = true;
+                jFW = true;
+            }
+            if (dist4 < best) {
+                best = dist4;
+                best_i = i;
+                best_j = j;
+                iFW = true;
+                jFW = false;
+            }
+        }
+    }
+    std::vector<long long int> merged;
+    if (iFW) {
+        merged.insert(merged.end(), snippets[best_i].begin(), snippets[best_i].end());
+    } else {
+        merged.insert(merged.end(), snippets[best_i].rbegin(), snippets[best_i].rend());
+    }
+    if (jFW) {
+        merged.insert(merged.end(), snippets[best_j].begin(), snippets[best_j].end());
+    } else {
+        merged.insert(merged.end(), snippets[best_j].rbegin(), snippets[best_j].rend());
+    }
+    snippets.erase(snippets.begin() + best_j);
+    snippets.erase(snippets.begin() + best_i);
+    snippets.push_back(merged);
+    return best;
+}
 
 /****************************************************************************/
