@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-25 15:24+0000\n"
+"PO-Revision-Date: 2024-03-26 09:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11049,12 +11049,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "declared twice."
-msgstr ""
+msgstr "dichiarato due volte."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:264
 msgid "Could not build %"
-msgstr ""
+msgstr "Non ho potuto costruire %"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataInterval.cpp:221
 msgid "GenericData was already inserted"
@@ -11080,7 +11080,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:354
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdgeType.cpp:154
 msgid "Invalid index"
-msgstr ""
+msgstr "Indice invalido"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:64
 msgid "Could not build meanDataEdge; "
@@ -11090,7 +11090,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:93
 #, c-format
 msgid "% already exists"
-msgstr ""
+msgstr "% esiste già"
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:70
 msgid "add meanDataEdge"
@@ -11106,16 +11106,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 msgid "Edge doesn't exist."
-msgstr ""
+msgstr "L'arco non esiste."
 
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
 #, c-format
 msgid "Attribute '%' doesn't exist."
-msgstr ""
+msgstr "L'attributo '%' non esiste."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:749
 msgid "Route length: "
-msgstr ""
+msgstr "Lunghezza d'itinerario: "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:759
 msgid "reverse"
@@ -11132,20 +11132,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1367
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1380
 msgid "Edge '%' is not consecutive with edge '%'"
-msgstr ""
+msgstr "L'arco '%' non segue l'arco '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:281
 msgid "Cannot repeat in routes with only one edge"
-msgstr ""
+msgstr "Itinerari di un solo arco non possono essere ripetuti"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:285
 msgid "Cannot repeat route; front and last edge aren't connected"
 msgstr ""
+"L'itinerario non può essere ripetuto poiché non il primo e l'ultimo arco non "
+"sono connessi tra loro"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERoute.cpp:738
 #: C:\Repos\sumo/src\netedit\elements\demand\GNEVehicle.cpp:1846
 msgid "copy % '%'"
-msgstr ""
+msgstr "copia % '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:71
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:106
@@ -11155,7 +11157,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1952
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1964
 msgid "There is another % with the same ID='%'."
-msgstr ""
+msgstr "C'è già un'altro % con lo stesso codice identificativo '%'."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:81
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:111
@@ -11177,7 +11179,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1257
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1272
 msgid "add "
-msgstr ""
+msgstr "aggiungi "
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:185
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:257
@@ -11193,7 +11195,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:885
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:912
 msgid "Invalid vehicle type '%' used in % '%'."
-msgstr ""
+msgstr "Tipo di veicolo '%' invalido usato in % '%'."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:187
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:261
@@ -11222,14 +11224,14 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:259
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:294
 msgid "Invalid route '%' used in % '%'."
-msgstr ""
+msgstr "Itinerario invalido '%' usato in % '%'."
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:649
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:749
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:841
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1056
 msgid "invalid person parent"
-msgstr ""
+msgstr "Elemento padre invalido per una persona"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:652
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:752
@@ -11246,7 +11248,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1065
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1107
 msgid "add % in '%'"
-msgstr ""
+msgstr "aggiungi % in '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:843
 msgid "invalid combination for ride"
@@ -16308,7 +16310,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1831
 msgid "Secondary shape"
-msgstr ""
+msgstr "Forma secondaria"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1836
 msgid "Exaggerate width by"
@@ -16316,61 +16318,61 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 msgid "Minimum size"
-msgstr ""
+msgstr "Grandezza minima"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1848
 msgid "Show edge id"
-msgstr ""
+msgstr "Mostra codice identificativo dell'arco"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1849
 msgid "Show street name"
-msgstr ""
+msgstr "Mostra nome di via"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1850
 msgid "Show edge color value"
-msgstr ""
+msgstr "Mostra valore di colore dell'arco"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1851
 msgid "Show edge scale value"
-msgstr ""
+msgstr "Mostra valore di grandezza dell'arco"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1862
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1947
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2000
 msgid "Show As"
-msgstr ""
+msgstr "Mostra come"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1865
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1950
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2003
 msgid "'triangles'"
-msgstr ""
+msgstr "'triangoli'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1866
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2004
 msgid "'boxes'"
-msgstr ""
+msgstr "'rettangoli'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1867
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1952
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2005
 msgid "'simple shapes'"
-msgstr ""
+msgstr "'forme semplici'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1868
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1953
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2006
 msgid "'raster images'"
-msgstr ""
+msgstr "'immagini raster'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1869
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1951
 msgid "'circles'"
-msgstr ""
+msgstr "'cerchi'"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1890
 msgid "Scale size"
-msgstr ""
+msgstr "Scala grandezza"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1902
 msgid "Show vehicle id"
