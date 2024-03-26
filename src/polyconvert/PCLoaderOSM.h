@@ -219,6 +219,7 @@ protected:
          */
         RelationsHandler(RelationsMap& additionalWays,
                          Relations& relations,
+                         std::set<long long int>& innerEdges,
                          bool withAttributes,
                          MsgHandler& errorHandler);
 
@@ -257,6 +258,9 @@ protected:
 
         /// @brief the loaded relations
         Relations& myRelations;
+
+        /// @brief the loaded edges
+        std::set<long long int>& myInnerEdges;
 
         /// @brief Whether all attributes shall be stored
         bool myWithAttributes;

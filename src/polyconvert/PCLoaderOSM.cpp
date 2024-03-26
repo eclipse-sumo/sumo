@@ -116,7 +116,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
     // load relations to see which additional ways may be relevant
     Relations relations;
     RelationsMap additionalWays;
-    RelationsHandler relationsHandler(additionalWays, relations, withAttributes, *m);
+    std::set<long long int> innerEdges;
+    RelationsHandler relationsHandler(additionalWays, relations, innerEdges, withAttributes, *m);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // edges
         const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing relations from osm-file '" + *file + "'");
@@ -147,6 +148,12 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             int numNodes = 0;
             for (auto it = rel->myWays.begin(); it != rel->myWays.end();) {
                 if (edges.count(*it) == 0 || edges[*it]->myCurrentNodes.empty()) {
+                    it = rel->myWays.erase(it);
+                } else if (innerEdges.count(*it) > 0) {
+                    // @note: it would be a good idea to merge inner shapes but
+                    // it's difficult since there may be more than one
+                    // independent inner shape
+                    edges[*it]->standalone = true;
                     it = rel->myWays.erase(it);
                 } else {
                     numNodes += (int)edges[*it]->myCurrentNodes.size();
@@ -227,6 +234,14 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             }
             if (ok) {
                 edges[e->id] = e;
+                if (e->myCurrentNodes.front() != e->myCurrentNodes.back()) {
+                    // should be filled
+                    Position posFront = convertNodePosition(nodes[e->myCurrentNodes.front()]);
+                    Position posBack = convertNodePosition(nodes[e->myCurrentNodes.back()]);
+                    if (posFront.distanceTo2D(posBack) < mergeRelationsThreshold) {
+                        e->myCurrentNodes.push_back(e->myCurrentNodes.front());
+                    }
+                }
                 WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)"), toString(rel->id), e->name);
             } else {
                 delete e;
@@ -268,14 +283,17 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
         // add as many polygons as keys match defined types
         int index = 0;
         std::string unknownPolyType = "";
+        bool isInner = mergeRelationsThreshold >= 0 && innerEdges.count(e->id) != 0 && tm.has("inner");
         for (std::map<std::string, std::string>::iterator it = e->myAttributes.begin(); it != e->myAttributes.end(); ++it) {
             const std::string& key = it->first;
             const std::string& value = it->second;
             const std::string fullType = key + "." + value;
             if (tm.has(key + "." + value)) {
-                index = addPolygon(e, vec, tm.get(fullType), fullType, index, useName, toFill, ignorePruning, withAttributes);
+                auto def = tm.get(isInner ? "inner" : fullType);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (tm.has(key)) {
-                index = addPolygon(e, vec, tm.get(key), fullType, index, useName, toFill, ignorePruning, withAttributes);
+                auto def = tm.get(isInner ? "inner" : key);
+                index = addPolygon(e, vec, def, fullType, index, useName, toFill, ignorePruning, withAttributes);
             } else if (MyKeysToInclude.count(key) > 0) {
                 unknownPolyType = fullType;
             }
@@ -460,11 +478,13 @@ PCLoaderOSM::NodesHandler::myEndElement(int element) {
 // ---------------------------------------------------------------------------
 PCLoaderOSM::RelationsHandler::RelationsHandler(RelationsMap& additionalWays,
         Relations& relations,
+        std::set<long long int>& innerEdges,
         bool withAttributes,
         MsgHandler& errorHandler) :
     SUMOSAXHandler("osm - file"),
     myAdditionalWays(additionalWays),
     myRelations(relations),
+    myInnerEdges(innerEdges),
     myWithAttributes(withAttributes),
     myErrorHandler(errorHandler),
     myCurrentRelation(nullptr) {
@@ -504,6 +524,9 @@ PCLoaderOSM::RelationsHandler::myStartElement(int element, const SUMOSAXAttribut
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 myCurrentWays.push_back(ref);
+                if (role == "inner") {
+                    myInnerEdges.insert(ref);
+                }
             }
         }
         return;

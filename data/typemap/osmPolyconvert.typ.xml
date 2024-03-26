@@ -57,4 +57,6 @@
     <polygonType id="railway:position"        name="railway.position"        color="blue"  layer="1" discard="true"/>
     <polygonType id="railway:position:exact"  name="railway.position.exact"  color="green" layer="2" discard="true"/>
 
+    <polygonType id="inner"                   name="inner"    color="1.0,1.0,1.0" layer="0"/>
+
 </polygonTypes>
