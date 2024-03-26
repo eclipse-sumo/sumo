@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-26 09:24+0000\n"
+"PO-Revision-Date: 2024-03-26 11:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12449,14 +12449,16 @@ msgstr "Solamente due archi sono permessi"
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:395
 msgid "Invalid edge (SHIFT + click to add an invalid vClass edge)"
 msgstr ""
+"Arco invalido (SHIFT + clic per aggiungere un'arco incompatibile con la "
+"classe di veicoli)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:402
 msgid "Invalid edge (CONTROL + click to add a disconnected edge)"
-msgstr ""
+msgstr "Arco invalido (CONTROL + clic per aggiungere un'arco sconnesso)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:817
 msgid "- Selected edges: "
-msgstr ""
+msgstr "- Archi selezionati: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:818
 msgid "- Path edges: "
@@ -16568,15 +16570,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2299
 msgid "Show Size Legend"
-msgstr ""
+msgstr "Mostra leggenda di grandezza"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2302
 msgid "Show Edge Color Legend"
-msgstr ""
+msgstr "Mostra leggenda dei colori degli archi"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2305
 msgid "Show Vehicle Color Legend"
-msgstr ""
+msgstr "Mostra leggenda dei colori degli veicoli"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2318
 msgid "Combobox max rows"
@@ -16584,7 +16586,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2322
 msgid "Disable hide by zoom"
-msgstr ""
+msgstr "Disattiva di nascondere elementi secondo il zoom"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2323
 msgid "Disable hiding edges with high zoom out"
