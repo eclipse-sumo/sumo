@@ -1,7 +1,7 @@
  Retrying in 1 seconds
-0.0 timeSinceDet=0.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
-1.0 timeSinceDet=1.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
-2.0 timeSinceDet=2.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+0.0 timeSinceDet=3600.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+1.0 timeSinceDet=3601.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+2.0 timeSinceDet=3602.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
 override 0
 3.0 timeSinceDet=0.0 occupancy=100.0 vehNum=1 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
 4.0 timeSinceDet=0.0 occupancy=100.0 vehNum=1 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
@@ -19,6 +19,6 @@ override 2
 13.0 timeSinceDet=2.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
 14.0 timeSinceDet=2.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
 override -1
-15.0 timeSinceDet=15.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
-16.0 timeSinceDet=16.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
-17.0 timeSinceDet=17.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+15.0 timeSinceDet=3615.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+16.0 timeSinceDet=3616.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]
+17.0 timeSinceDet=3617.0 occupancy=0.0 vehNum=0 vehIDs=() meanLength=-1.0 meanSpeed=-1.0 vehData=[]

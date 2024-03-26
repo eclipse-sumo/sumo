@@ -177,8 +177,10 @@ Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_57472
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
-Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=576.00.
-Warning: Person 'ped154' is jammed on edge ':990017251_w0', time=789.00.
+Warning: Person 'ped3' is jammed on edge ':990017251_w0', time=575.00.
+Warning: Person 'ped99' is jammed on edge ':1472911083_w0', time=767.00.
+Warning: Person 'ped154' is jammed on edge ':990017251_w0', time=785.00.
+Warning: Person 'ped39' is jammed on edge ':1473258664_w0', time=1011.00.
 Warning: Person 'ped94' aborted waiting for M5:3 at busStop '30731508'.
 Warning: Person 'ped116' aborted waiting for U6:1 at busStop '2071423334'.
 Warning: Person 'ped123' aborted waiting for U6:1 at busStop '2071423334'.

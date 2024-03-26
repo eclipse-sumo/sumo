@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -9,7 +10,7 @@ meanSpeed -1.0
 vehIDs ()
 occupancy 0.0
 meanLength -1.0
-timeSinceDet 3.0
+timeSinceDet 3603.0
 vehData []
 position 248.5
 laneID 2fi_0
