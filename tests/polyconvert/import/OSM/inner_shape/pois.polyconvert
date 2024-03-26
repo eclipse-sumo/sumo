@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-26 12:43:44 by Eclipse SUMO polyconvert Version v1_19_0+1546-7ceec8d4be9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+        <osm.keep-full-type value="true"/>
+        <osm.merge-relations value="0"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1.00000"/>
+        <proj.utm value="true"/>
+        <proj.plain-geo value="true"/>
+    </projection>
+
+    <processing>
+        <all-attributes value="true"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="114033003" type="amenity.parking" color="184,184,179" fill="1" layer="-1.000000" geo="1" shape="13.530136,52.428523 13.530055,52.428480 13.529987,52.428443 13.530321,52.428210 13.530391,52.428247 13.530470,52.428289 13.530136,52.428523">
+        <param key="access" value="yes"/>
+        <param key="amenity" value="parking"/>
+        <param key="fee" value="no"/>
+        <param key="parking" value="surface"/>
+        <param key="wheelchair" value="no"/>
+    </poly>
+    <poly id="114033007" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.530192,52.428554 13.530271,52.428597 13.530354,52.428641 13.530692,52.428406 13.530609,52.428361 13.530531,52.428320 13.530192,52.428554">
+        <param key="access" value="yes"/>
+        <param key="amenity" value="parking"/>
+        <param key="fee" value="no"/>
+        <param key="parking" value="surface"/>
+        <param key="wheelchair" value="no"/>
+    </poly>
+    <poly id="114207233" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.530525,52.427470 13.530390,52.427393 13.530644,52.427227 13.530779,52.427305 13.530525,52.427470">
+        <param key="access" value="private"/>
+        <param key="amenity" value="parking"/>
+        <param key="parking" value="surface"/>
+    </poly>
+    <poly id="114692655" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.532948,52.426949 13.533091,52.426968 13.533072,52.427020 13.532929,52.427000 13.532948,52.426949">
+        <param key="building" value="yes"/>
+        <param key="building:levels" value="1"/>
+    </poly>
+    <poly id="115921102" type="waterway.drain" color="181,209,209" fill="0" layer="-4.00" geo="1" shape="13.532209,52.428770 13.531195,52.428215">
+        <param key="layer" value="-1"/>
+        <param key="waterway" value="drain"/>
+    </poly>
+    <poly id="116372813" type="building.government" color="white" fill="0" layer="0.00" geo="1" shape="13.532991,52.427686 13.532965,52.427694 13.532934,52.427701 13.532893,52.427704 13.532859,52.427704 13.532824,52.427699 13.532794,52.427690 13.532763,52.427679 13.532730,52.427655 13.532711,52.427635 13.532701,52.427613 13.532696,52.427595 13.532697,52.427568 13.532711,52.427537 13.532741,52.427509 13.532779,52.427489 13.532819,52.427476 13.532862,52.427470 13.532913,52.427470 13.532970,52.427482 13.533007,52.427494">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Gebäude 14.51"/>
+        <param key="addr:housenumber" value="15"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="government"/>
+        <param key="building:levels" value="4"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="116403010" type="landuse.grass" color="white" fill="1" layer="0.00" geo="1" shape="13.532537,52.428231 13.532728,52.428213 13.532773,52.428367 13.532613,52.428394 13.532628,52.428320 13.532537,52.428231">
+        <param key="landuse" value="grass"/>
+    </poly>
+    <poly id="137482516" type="building.government" color="white" fill="0" layer="0.00" geo="1" shape="13.533007,52.427494 13.533025,52.427530 13.533031,52.427568 13.533030,52.427594 13.533026,52.427623 13.533014,52.427656 13.532991,52.427686">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Gebäude 14.51"/>
+        <param key="addr:housenumber" value="15"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="government"/>
+        <param key="building:levels" value="4"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="137482517" type="building.government" color="white" fill="0" layer="0.00" geo="1" shape="13.532811,52.427792 13.532747,52.427807 13.532687,52.427812 13.532638,52.427813 13.532599,52.427811 13.532535,52.427803 13.532486,52.427791 13.532439,52.427775 13.532395,52.427754 13.532360,52.427733 13.532329,52.427711 13.532298,52.427673 13.532278,52.427637">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Gebäude 14.51"/>
+        <param key="addr:housenumber" value="15"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="government"/>
+        <param key="building:levels" value="4"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="137482518" type="building.government" color="white" fill="0" layer="0.00" geo="1" shape="13.532811,52.427792 13.532798,52.427775 13.532742,52.427760 13.532707,52.427749 13.532675,52.427734 13.532649,52.427718 13.532628,52.427703 13.532600,52.427672 13.532571,52.427621 13.532278,52.427637">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Gebäude 14.51"/>
+        <param key="addr:housenumber" value="15"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="government"/>
+        <param key="building:levels" value="4"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="142575756" type="building.office" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.530914,52.428215 13.530937,52.428200 13.530965,52.428201 13.530984,52.428197 13.530996,52.428188 13.531014,52.428198 13.531024,52.428186 13.531028,52.428171 13.531001,52.428160 13.530982,52.428136 13.530961,52.428123 13.530933,52.428110 13.530901,52.428103 13.530874,52.428103 13.530853,52.428106 13.530838,52.428115 13.530834,52.428125 13.530834,52.428134 13.530838,52.428147 13.530849,52.428161 13.530868,52.428175 13.530895,52.428189 13.530882,52.428198 13.530534,52.428010 13.530422,52.428087 13.531035,52.428419 13.531147,52.428342 13.530914,52.428215">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="16"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="office"/>
+        <param key="building:levels" value="9"/>
+        <param key="name" value="Zentrum für IT und Medien 1"/>
+        <param key="short_name" value="ZIM 1"/>
+    </poly>
+    <poly id="142575794" type="building.university" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.534178,52.428627 13.534149,52.428646 13.534097,52.428618 13.533596,52.428961 13.533412,52.428862 13.533499,52.428802 13.533520,52.428813 13.533580,52.428772 13.533612,52.428790 13.533908,52.428586 13.533966,52.428547 13.534189,52.428394 13.534156,52.428376 13.534246,52.428313 13.533971,52.428164 13.533936,52.428188 13.533901,52.428170 13.533266,52.428607 13.533302,52.428626 13.533242,52.428667 13.533240,52.428666 13.533013,52.428823 13.533118,52.428880 13.533127,52.428873 13.533462,52.429054 13.533458,52.429057 13.533540,52.429102 13.533611,52.429140 13.534250,52.428702 13.534194,52.428672 13.534224,52.428651 13.534178,52.428627">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="4"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Gustav-Kirchhoff-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="university"/>
+        <param key="building:levels" value="2"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="height" value="7"/>
+    </poly>
+    <poly id="142598691" type="building.office" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.531402,52.428378 13.531207,52.428512 13.531769,52.428817 13.531964,52.428683 13.531402,52.428378">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="14"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="office"/>
+        <param key="building:levels" value="8"/>
+        <param key="height" value="28.5"/>
+        <param key="name" value="Zentrum für IT und Medien 2"/>
+        <param key="short_name" value="ZIM 2"/>
+    </poly>
+    <poly id="149488524" type="amenity.research_institute" color="237,199,199" fill="1" layer="-2.00" geo="1" shape="13.531526,52.429199 13.531448,52.429253 13.531627,52.429350 13.532139,52.428998 13.532081,52.428967 13.532111,52.428946 13.532046,52.428911 13.532015,52.428931 13.531960,52.428901 13.531735,52.429056 13.531668,52.429102 13.531537,52.429030 13.531547,52.429023 13.531285,52.428880 13.531354,52.428833 13.531088,52.428688 13.531159,52.428639 13.531095,52.428604 13.530936,52.428518 13.530848,52.428470 13.530617,52.428628 13.531039,52.428858 13.530970,52.428905 13.531386,52.429133 13.531395,52.429127 13.531411,52.429136 13.531344,52.429182 13.531396,52.429209 13.531462,52.429164 13.531526,52.429199">
+        <param key="amenity" value="research_institute"/>
+        <param key="building" value="office"/>
+        <param key="contact:website" value="https://www.picoquant.com/"/>
+        <param key="name" value="PicoQuant"/>
+    </poly>
+    <poly id="149488524#1" type="building.office" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.531526,52.429199 13.531448,52.429253 13.531627,52.429350 13.532139,52.428998 13.532081,52.428967 13.532111,52.428946 13.532046,52.428911 13.532015,52.428931 13.531960,52.428901 13.531735,52.429056 13.531668,52.429102 13.531537,52.429030 13.531547,52.429023 13.531285,52.428880 13.531354,52.428833 13.531088,52.428688 13.531159,52.428639 13.531095,52.428604 13.530936,52.428518 13.530848,52.428470 13.530617,52.428628 13.531039,52.428858 13.530970,52.428905 13.531386,52.429133 13.531395,52.429127 13.531411,52.429136 13.531344,52.429182 13.531396,52.429209 13.531462,52.429164 13.531526,52.429199">
+        <param key="amenity" value="research_institute"/>
+        <param key="building" value="office"/>
+        <param key="contact:website" value="https://www.picoquant.com/"/>
+        <param key="name" value="PicoQuant"/>
+    </poly>
+    <poly id="1929492" type="amenity.research_institute" color="237,199,199" fill="0" layer="-2.00" geo="1" shape="13.534835,52.427172 13.533776,52.427853 13.533319,52.428166 13.533283,52.428149 13.533135,52.428249 13.532553,52.428653 13.531970,52.428336 13.530206,52.427375">
+        <param key="amenity" value="research_institute"/>
+        <param key="name" value="Berliner Elektronenspeicherring"/>
+        <param key="operator" value="Helmholtz-Gemeinschaft"/>
+        <param key="type" value="multipolygon"/>
+        <param key="website" value="https://www.helmholtz-berlin.de/quellen/bessy/index_de.html"/>
+    </poly>
+    <poly id="1995405" type="building.government" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.532330,52.428289 13.531993,52.428098 13.532045,52.428071 13.532144,52.428025 13.532231,52.428060 13.532303,52.428081 13.532380,52.428098 13.532475,52.428114 13.532558,52.428121 13.532627,52.428124 13.532733,52.428121 13.532786,52.428119 13.532875,52.428108 13.532960,52.428092 13.533049,52.428069 13.533135,52.428249 13.533283,52.428149 13.533319,52.428166 13.533776,52.427853 13.533482,52.427785 13.533507,52.427741 13.533528,52.427689 13.533543,52.427612 13.533544,52.427562 13.533536,52.427512 13.533521,52.427463 13.533501,52.427419 13.533467,52.427366 13.533457,52.427350 13.533533,52.427330 13.533515,52.427307 13.533440,52.427329 13.533425,52.427312 13.533425,52.427309 13.533409,52.427295 13.533401,52.427287 13.533387,52.427274 13.533360,52.427251 13.533369,52.427247 13.533374,52.427251 13.533444,52.427220 13.533363,52.427155 13.533320,52.427116 13.533372,52.427079 13.533234,52.427017 13.533177,52.427075 13.533294,52.427127 13.533246,52.427160 13.533251,52.427165 13.533239,52.427172 13.533164,52.427132 13.533058,52.427095 13.532985,52.427076 13.532913,52.427060 13.532821,52.427045 13.532718,52.427037 13.532645,52.427036 13.532564,52.427038 13.532476,52.427046 13.532372,52.427064 13.532282,52.427085 13.532197,52.427111 13.532133,52.427138 13.532064,52.427170 13.531996,52.427213 13.531935,52.427258 13.531895,52.427293 13.531851,52.427341 13.531821,52.427386 13.531795,52.427432 13.531769,52.427501 13.531760,52.427569 13.531317,52.427714 13.531288,52.427723 13.531208,52.427750 13.531069,52.427669 13.531119,52.427643 13.531104,52.427635 13.531152,52.427603 13.531164,52.427609 13.531254,52.427548 13.531120,52.427475 13.531109,52.427482 13.531060,52.427454 13.531073,52.427446 13.530921,52.427361 13.530828,52.427423 13.530864,52.427444 13.530817,52.427475 13.530789,52.427459 13.530693,52.427523 13.530669,52.427510 13.530615,52.427546 13.530675,52.427579 13.530980,52.427727 13.531011,52.427743 13.531093,52.427788 13.531050,52.427804 13.531495,52.428045 13.531659,52.428135 13.531689,52.428114 13.532029,52.428296 13.532290,52.428438 13.532460,52.428530 13.532512,52.428557 13.532568,52.428517 13.532508,52.428485 13.532524,52.428473 13.532539,52.428481 13.532580,52.428433 13.532494,52.428383 13.532434,52.428348 13.532330,52.428289">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housename" value="Gebäude 14.51"/>
+        <param key="addr:housenumber" value="15"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Albert-Einstein-Straße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="building" value="government"/>
+        <param key="building:levels" value="4"/>
+        <param key="building:parts" value="vertical"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="1995416" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.534016,52.427101 13.533957,52.427141 13.533930,52.427128 13.533827,52.427168 13.533574,52.427265 13.533453,52.427311 13.533446,52.427305 13.533425,52.427312 13.533425,52.427309 13.533409,52.427295 13.533428,52.427288 13.533425,52.427285 13.533534,52.427241 13.533796,52.427137 13.533826,52.427125 13.533866,52.427096 13.533850,52.427085 13.533911,52.427046 13.533961,52.427072 13.534016,52.427101">
+        <param key="building" value="yes"/>
+        <param key="building:levels" value="1"/>
+        <param key="building:part" value="yes"/>
+        <param key="surveillance" value="outdoor"/>
+        <param key="type" value="multipolygon"/>
+    </poly>
+    <poly id="377736430" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.533911,52.427046 13.533961,52.427072 13.534016,52.427101 13.533957,52.427141 13.533930,52.427128 13.533827,52.427168 13.533574,52.427265 13.533453,52.427311 13.533446,52.427305 13.533425,52.427312 13.533425,52.427309 13.533409,52.427295 13.533428,52.427288 13.533425,52.427285 13.533534,52.427241 13.533796,52.427137 13.533826,52.427125 13.533866,52.427096 13.533850,52.427085 13.533911,52.427046">
+        <param key="building" value="yes"/>
+        <param key="building:levels" value="1"/>
+        <param key="office" value="research"/>
+    </poly>
+    <poly id="377736431" type="building.service" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.533828,52.427439 13.533918,52.427488 13.534051,52.427560 13.534246,52.427425 13.534158,52.427376 13.534023,52.427305 13.533828,52.427439">
+        <param key="addr:housename" value="Gebäude 14.52"/>
+        <param key="building" value="service"/>
+        <param key="building:levels" value="2"/>
+        <param key="power" value="substation"/>
+    </poly>
+    <poly id="397678448" type="building.yes" color="255,230,230" fill="1" layer="-1.00" geo="1" shape="13.531317,52.426832 13.531355,52.427071 13.531981,52.427030 13.531944,52.426802 13.531317,52.426832">
+        <param key="building" value="yes"/>
+    </poly>
+    <poly id="617755664" type="amenity.parking" color="184,184,179" fill="1" layer="-1.00" geo="1" shape="13.530729,52.427101 13.531103,52.426846 13.530939,52.426756 13.530511,52.427056 13.530729,52.427101">
+        <param key="access" value="private"/>
+        <param key="amenity" value="parking"/>
+        <param key="parking" value="surface"/>
+    </poly>
+    <poly id="773647077" type="amenity.research_institute" color="237,199,199" fill="1" layer="-2.00" geo="1" shape="13.528971,52.428740 13.529738,52.428403 13.530560,52.427830 13.529257,52.427134 13.527819,52.428137 13.528971,52.428740">
+        <param key="addr:city" value="Berlin"/>
+        <param key="addr:country" value="DE"/>
+        <param key="addr:housenumber" value="2"/>
+        <param key="addr:postcode" value="12489"/>
+        <param key="addr:street" value="Rutherfordstraße"/>
+        <param key="addr:suburb" value="Adlershof"/>
+        <param key="alt_name" value="DLR Berlin-Adlershof"/>
+        <param key="amenity" value="research_institute"/>
+        <param key="check_date" value="2023-11-06"/>
+        <param key="name" value="Deutsches Zentrum für Luft- und Raumfahrt"/>
+        <param key="office" value="research"/>
+        <param key="phone" value="+49 30 67055-0"/>
+        <param key="ref:gerit" value="10424"/>
+        <param key="research" value="aerospace"/>
+        <param key="short_name" value="DLR"/>
+        <param key="website" value="https://www.dlr.de/content/de/artikel/standorte/berlin/anreise-berlin-adlershof.html"/>
+    </poly>
+    <poi id="1299614073" type="amenity.recycling" color="237,199,199" layer="4.00" lon="13.531202" lat="52.428362">
+        <param key="amenity" value="recycling"/>
+        <param key="location" value="overground"/>
+        <param key="recycling:cans" value="yes"/>
+        <param key="recycling:paper" value="yes"/>
+        <param key="recycling:plastic" value="no"/>
+        <param key="recycling:plastic_packaging" value="yes"/>
+        <param key="recycling_type" value="container"/>
+    </poi>
+    <poi id="1302771004" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" lon="13.532416" lat="52.428445">
+        <param key="amenity" value="bicycle_parking"/>
+        <param key="bicycle_parking" value="stands"/>
+        <param key="capacity" value="76"/>
+        <param key="covered" value="yes"/>
+    </poi>
+    <poi id="1308298983" type="amenity.bicycle_parking" color="237,199,199" layer="4.00" lon="13.531127" lat="52.428413">
+        <param key="amenity" value="bicycle_parking"/>
+        <param key="bicycle_parking" value="stands"/>
+        <param key="capacity" value="28"/>
+        <param key="covered" value="no"/>
+    </poi>
+    <poi id="5539752612" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533096" lat="52.428594">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752613" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533212" lat="52.428514">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752614" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533314" lat="52.428443">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752615" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533426" lat="52.428373">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752616" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533534" lat="52.428294">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752617" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533648" lat="52.428219">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752618" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533741" lat="52.428149">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752619" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533851" lat="52.428069">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752923" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533939" lat="52.427837">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752926" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533620" lat="52.427499">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752927" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533754" lat="52.427674">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5539752928" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533644" lat="52.427650">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255279" type="natural.tree" color="140,196,107" layer="1.00" lon="13.532040" lat="52.428595">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255280" type="natural.tree" color="140,196,107" layer="1.00" lon="13.531910" lat="52.428522">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255318" type="natural.tree" color="140,196,107" layer="1.00" lon="13.532611" lat="52.428347">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255319" type="natural.tree" color="140,196,107" layer="1.00" lon="13.532881" lat="52.428370">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255320" type="natural.tree" color="140,196,107" layer="1.00" lon="13.532931" lat="52.428546">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255321" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533058" lat="52.428447">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255322" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533125" lat="52.428400">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255323" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533302" lat="52.428282">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255324" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533532" lat="52.428115">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255325" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533651" lat="52.428040">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255326" type="natural.tree" color="140,196,107" layer="1.00" lon="13.533761" lat="52.427967">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255446" type="natural.tree" color="140,196,107" layer="1.00" lon="13.530476" lat="52.427582">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255447" type="natural.tree" color="140,196,107" layer="1.00" lon="13.530688" lat="52.428047">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255448" type="natural.tree" color="140,196,107" layer="1.00" lon="13.531118" lat="52.428098">
+        <param key="natural" value="tree"/>
+    </poi>
+    <poi id="5546255458" type="natural.tree" color="140,196,107" layer="1.00" lon="13.530664" lat="52.427411">
+        <param key="natural" value="tree"/>
+    </poi>
+</additional>

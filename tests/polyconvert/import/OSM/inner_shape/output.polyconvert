@@ -1,0 +1,7 @@
+Parsing nodes from osm-file 'osm.xml' ... done (8ms).
+Parsing relations from osm-file 'osm.xml' ... done (5ms).
+Parsing edges from osm-file 'osm.xml' ... done (6ms).
+Assembled polygon from relation '1929492' (name:Berliner Elektronenspeicherring)
+Assembled polygon from relation '1995405' (name:)
+Assembled polygon from relation '1995416' (name:)
+Success.

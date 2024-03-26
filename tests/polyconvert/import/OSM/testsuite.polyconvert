@@ -23,3 +23,4 @@ geo-output
 # output in dlr-tdp format (formerly known as dlr-navteq)
 dlr-tdp-output
 buildings_from_relation
+inner_shape
