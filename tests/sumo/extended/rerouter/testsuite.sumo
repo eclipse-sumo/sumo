@@ -67,6 +67,12 @@ closing_disconnects_dest_disallow_destProb
 # a vehicle on an internal edge suddenly has its follower edge disallowed
 disallowed_while_on_internal
 
+# vehicle should keep stop after reroute
+closing_keep_vehicle_stop
+
+# vehicle should keep stop after reroute
+closing_keep_route_stop
+
 # the route is terminated on an edge, which the vehicle already passed
 terminateRoute_on_jumped_edge
 terminateRoute_on_depart
