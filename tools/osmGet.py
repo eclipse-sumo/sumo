@@ -48,7 +48,7 @@ THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 TYPEMAP_DIR = os.path.join(THIS_DIR, "..", "data", "typemap")
 
 
-def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
+def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, filename):
     # generate query string for each road-type category
     queryStringNode = []
 
@@ -116,10 +116,16 @@ def readCompressed(conn, urlpath, query, roadTypesJSON, getShapes, filename):
     print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
+            lines = gzip.decompress(response.read())
+            declClose = lines.find(b'>') + 1
+            lines = (lines[:declClose]
+                     + b"\n"
+                     + sumolib.xml.buildHeader(options=options).encode()
+                     + lines[declClose:])
             if filename.endswith(".gz"):
-                out.write(response.read())
+                out.write(gzip.compress(lines))
             else:
-                out.write(gzip.decompress(response.read()))
+                out.write(lines)
 
 
 def get_options(args):
@@ -203,11 +209,11 @@ def get(args=None):
     if options.area:
         if options.area < 3600000000:
             options.area += 3600000000
-        readCompressed(conn, url.path, '<area-query ref="%s"/>' %
+        readCompressed(options, conn, url.path, '<area-query ref="%s"/>' %
                        options.area, roadTypesJSON, options.shapes, options.prefix + "_city" + suffix)
     if options.bbox or options.polygon:
         if options.tiles == 1:
-            readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
+            readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' %
                            (north, south, west, east), roadTypesJSON,
                            options.shapes,
                            options.prefix + "_bbox" + suffix)
@@ -216,7 +222,7 @@ def get(args=None):
             b = west
             for i in range(num):
                 e = b + (east - west) / float(num)
-                readCompressed(conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
+                readCompressed(options, conn, url.path, '<bbox-query n="%s" s="%s" w="%s" e="%s"/>' % (
                     north, south, b, e), roadTypesJSON, options.shapes,
                     "%s%s_%s%s" % (options.prefix, i, num, suffix))
                 b = e
