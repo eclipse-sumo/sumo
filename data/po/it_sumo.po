@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-23 14:08+0000\n"
+"PO-Revision-Date: 2024-03-27 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -488,7 +488,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:88
 msgid "No detectors found."
-msgstr ""
+msgstr "Nessun rivelatore trovato."
 
 #: C:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:103
 #, c-format
@@ -836,7 +836,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1403
 #, c-format
 msgid "The edge '%' is not known."
-msgstr ""
+msgstr "L'arco '%' è sconosciuto."
 
 #: C:\Repos\sumo/src\jtrrouter\ROJTRTurnDefLoader.cpp:210
 msgid "'probability' must be positive (in edgeRelation from '%' to '%'."
@@ -874,6 +874,8 @@ msgid ""
 "Lanes filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"Il filtro di corsie è applicabile unicamente nel contesto 'vehicle' (quello "
+"attuale è '%'); perciò il filtro viene ignorato..."
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1164
 msgid ""
@@ -886,6 +888,8 @@ msgid ""
 "Field of vision opening angle ('%') should be within interval (0, 360), "
 "ignoring filter..."
 msgstr ""
+"L'angolo del campo di visione ('%') deve essere contenuto nell'intervallo ("
+"0, 360); perciò il filtro viene ignorato..."
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1341
 msgid ""
@@ -896,25 +900,31 @@ msgstr ""
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1399
 msgid "Vehicle '%' was removed though being controlled by TraCI"
 msgstr ""
+"Il veicolo '%' è stato rimosso nonostante fosse controllato attraverso TraCI"
 
 #: C:\Repos\sumo/src\libsumo\Helper.cpp:1408
 msgid "Person '%' was removed though being controlled by TraCI"
 msgstr ""
+"La persona '%' è stata rimossa nonostante fosse controllata attraverso TraCI"
 
 #: C:\Repos\sumo/src\libsumo\MeanData.cpp:83
 msgid "Found % meanData definitions with id '%'."
-msgstr ""
+msgstr "Trovate % definizioni meanData con il codice identificativo '%'."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:542
 #, c-format
 msgid ""
 "Departure time=% for person '%' is in the past; using current time=% instead."
 msgstr ""
+"L'ora di partenza % della persona '%' è già passata; invece utilizzo l'ora "
+"attuale %."
 
 #: C:\Repos\sumo/src\libsumo\Person.cpp:941
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1745
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr ""
+"Non ho potuto determinare la posizione sulla corsia '%' alla posizione "
+"laterale %."
 
 #: C:\Repos\sumo/src\libsumo\Simulation.cpp:105
 msgid "Simulation version % started via libsumo with time: %."
@@ -995,11 +1005,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\marouter\ROMAAssignments.cpp:190
 msgid "Unknown origin '%'."
-msgstr ""
+msgstr "Origine '%' sconosciuta."
 
 #: C:\Repos\sumo/src\marouter\ROMAAssignments.cpp:194
 msgid "Unknown destination '%'."
-msgstr ""
+msgstr "Destinazione '%' sconosciuta."
 
 #: C:\Repos\sumo/src\marouter\ROMAFrame.cpp:71
 #: C:\Repos\sumo/src\od2trips_main.cpp:121
