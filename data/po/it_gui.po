@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-27 09:49+0000\n"
+"PO-Revision-Date: 2024-03-27 12:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -12902,11 +12902,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
-msgstr ""
+msgstr "Attributo di ricerca"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:60
 msgid "Apply selection"
-msgstr ""
+msgstr "Aggiorna selezione"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:114
 msgid "Unknown set"
@@ -12917,11 +12917,13 @@ msgid ""
 "- The 'Match Attribute' controls allow to specify a set of objects which are "
 "then applied to the current selection\n"
 msgstr ""
+"- L'attributo di ricerca permette di raccogliere un numero di oggetti da "
+"aggiungere alla selezione attuale\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
 msgid "  according to the current 'Modification Mode'.\n"
-msgstr ""
+msgstr "  in accordo con il modo di modifica attuale.\n"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:274
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:455
@@ -16192,11 +16194,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1698
 msgid "Viewport"
-msgstr ""
+msgstr "Veduta"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1699
 msgid "Delay"
-msgstr ""
+msgstr "Rallentamento"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1701
 msgid "Breakpoints"
@@ -16255,15 +16257,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1771
 msgid "hide below"
-msgstr ""
+msgstr "nascondi quelli sotto"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1775
 msgid "hide above"
-msgstr ""
+msgstr "nascondi quelli sopra"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1784
 msgid "Scale width"
-msgstr ""
+msgstr "Scala larghezza"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 msgid "Show bike markings"
@@ -16295,7 +16297,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1821
 msgid "Show sublanes"
-msgstr ""
+msgstr "Mostra corsie subordinate"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1824
 msgid "Show rails"
@@ -16316,7 +16318,7 @@ msgstr "Forma secondaria"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1836
 msgid "Exaggerate width by"
-msgstr ""
+msgstr "Scala larghezza con"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1842
 msgid "Minimum size"
