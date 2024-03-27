@@ -87,6 +87,7 @@ private:
 
     class FCDHandler : public SUMOSAXHandler {
     public:
+        void reset();
         void addTrafficObjects();
 
     protected:

@@ -70,6 +70,7 @@ MSDevice_FCDReplay::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 
 void
 MSDevice_FCDReplay::init() {
+    myHandler.reset();
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("device.fcd-replay.file")) {
         if (!XMLSubSys::runParser(myHandler, oc.getString("device.fcd-replay.file"))) {
@@ -155,6 +156,13 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
         default:
             break;
     }
+}
+
+
+void
+MSDevice_FCDReplay::FCDHandler::reset() {
+    myTrajectories.clear();
+    myRoutes.clear();
 }
 
 
