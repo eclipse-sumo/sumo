@@ -258,7 +258,7 @@ class Builder(object):
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
-        #options += ["--polyconvert-options", " -v,--osm.keep-full-type,--osm.merge-relations,10"]
+        # options += ["--polyconvert-options", " -v,--osm.keep-full-type,--osm.merge-relations,10"]
 
         self.report("Converting map data")
         osmBuild.build(options)

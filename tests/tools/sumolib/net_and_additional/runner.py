@@ -38,4 +38,3 @@ net = sumolib.net.readNet(sys.argv[2], withPrograms=True, net=net)
 
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
 print("tlsExtraParams", printSorted(net.getTLS("C").getPrograms()["extra"].getParams()))
-
