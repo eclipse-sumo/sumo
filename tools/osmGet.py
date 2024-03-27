@@ -64,7 +64,7 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
             regvQueryString = '<has-kv k="%s" modv="" regv="%s"/>' % (category, typeList)
             queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
-    if getShapes:
+    if getShapes and roadTypesJSON:
         keyValueDict = collections.defaultdict(set)
         for typemap in ["osmPolyconvert.typ.xml", "osmPolyconvertRail.typ.xml"]:
             with open(os.path.join(TYPEMAP_DIR, typemap), 'r') as osmPolyconvert:
@@ -82,7 +82,43 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
                 regvQueryString = '<has-kv k="%s" modv="" regv="%s"/>' % (category, typeList)
             queryStringNode.append(commonQueryStringNode % (regvQueryString, query))
 
-    if queryStringNode:
+    if queryStringNode and getShapes:
+        unionQueryString = """
+    <union into="nodesBB">
+      %s
+    </union>
+    <union into="waysBB">
+       %s
+    </union>
+    <union into="waysBB2">
+       <item from="waysBB"/>
+       <recurse type="way-node"/>
+       <recurse type="node-relation"/>
+       <recurse type="way-relation"/>
+     </union>
+     <union into="waysBB3">
+       <item from="waysBB2"/>
+       <recurse type="relation-way"/>
+       <recurse type="way-node"/>
+    </union>
+    <query type="node">
+       <item from="nodesBB"/>
+       <item from="waysBB3"/>
+    </query>
+    <query type="way" into="waysBB4">
+       <item from="waysBB3"/>
+    </query>
+    <query type="relation" into="relsBB4">
+       <item from="waysBB3"/>
+    </query>
+   <union>
+     <item/>
+     <item from="waysBB4"/>
+     <item from="relsBB4"/>
+   </union>
+    """ % (query, "\n".join(queryStringNode))
+
+    elif queryStringNode:
         unionQueryString = """
     <union>
        %s
@@ -93,6 +129,7 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
        <recurse type="node-relation"/>
        <recurse type="way-relation"/>
     </union>""" % "\n".join(queryStringNode)
+
     else:
         unionQueryString = """
     <union>
@@ -106,11 +143,17 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
         <recurse type="way-node"/>
      </union>""" % query
 
-    conn.request("POST", "/" + urlpath, """
+    finalQuery = """
     <osm-script timeout="240" element-limit="1073741824">
        %s
     <print mode="body"/>
-    </osm-script>""" % unionQueryString, headers={'Accept-Encoding': 'gzip'})
+    </osm-script>""" % unionQueryString
+
+    if options.query_output:
+        with open(options.query_output, "w") as outf:
+            outf.write(finalQuery)
+
+    conn.request("POST", "/" + urlpath, finalQuery, headers={'Accept-Encoding': 'gzip'})
 
     response = conn.getresponse()
     print(response.status, response.reason)
@@ -151,6 +194,8 @@ def get_options(args):
                            help="determines if polygon data (buildings, areas , etc.) is downloaded")
     optParser.add_argument("-z", "--gzip", category="processing", action="store_true",
                            default=False, help="save gzipped output")
+    optParser.add_argument("-q", "--query-output", category="output",
+                           help="write query to the given FILE")
     options = optParser.parse_args(args=args)
     if not options.bbox and not options.area and not options.polygon:
         optParser.error("At least one of 'bbox' and 'area' and 'polygon' has to be set.")
