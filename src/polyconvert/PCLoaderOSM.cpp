@@ -228,7 +228,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             continue;
         }
         if (e->myCurrentNodes.size() == 0) {
-            WRITE_ERRORF(TL("Polygon '%' has no shape."), toString(e->id));
+            WRITE_WARNINGF(TL("Polygon '%' has no shape."), toString(e->id));
             continue;
         }
         // compute shape
