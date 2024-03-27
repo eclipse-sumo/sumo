@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-20 14:27+0000\n"
+"PO-Revision-Date: 2024-03-28 15:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5747,8 +5747,8 @@ msgstr "Kante % erlaubt Fußgänger auf allen Fahrstreifen"
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
-"Kante '%' hat bereits einen zugehörigen Fahrstreifen für %s. Kein weiterer "
-"wird hinzugefügt."
+"Kante '%' hat bereits einen exklusiven Fahrstreifen für %. Es wird kein "
+"weiterer hinzugefügt."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:4543
 #, c-format
