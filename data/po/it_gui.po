@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-26 16:03+0000\n"
+"PO-Revision-Date: 2024-03-27 09:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16506,23 +16506,23 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2087
 msgid "body"
-msgstr ""
+msgstr "corpo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2088
 msgid "sign"
-msgstr ""
+msgstr "segno"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2111
 msgid "element"
-msgstr ""
+msgstr "elemento"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2112
 msgid "color"
-msgstr ""
+msgstr "colore"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2169
 msgid "POI detail"
-msgstr ""
+msgstr "Grado di dettaglio dei punti di interesse"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2174
 msgid "Show poi id"
@@ -16566,7 +16566,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2288
 msgid "Show data color value"
-msgstr ""
+msgstr "Mostra valore di colore dei dati"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2299
 msgid "Show Size Legend"
@@ -16582,7 +16582,7 @@ msgstr "Mostra leggenda dei colori degli veicoli"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2318
 msgid "Combobox max rows"
-msgstr ""
+msgstr "Massimo numero di righe nelle caselle combinate"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2322
 msgid "Disable hide by zoom"
@@ -16610,11 +16610,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2341
 msgid "Recalculate boundaries"
-msgstr ""
+msgstr "Ricalcola contorni"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2344
 msgid "Show geometry point indices"
-msgstr ""
+msgstr "Mostra indici dei punti geometrici"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2350
 msgid "3D view"
@@ -16642,7 +16642,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2381
 msgid "Sky color"
-msgstr ""
+msgstr "Colore del cielo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIGlChildWindow.cpp:119
 msgid "Recenter View"
