@@ -76,6 +76,7 @@ public:
     /// @brief Destructor
     ~MSCFModel_CC();
 
+    virtual double getSecureGap(const MSVehicle* const veh, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
 
     /// @name Implementations of the MSCFModel interface
     /// @{
