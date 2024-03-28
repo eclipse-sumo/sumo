@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-27 12:45+0000\n"
+"PO-Revision-Date: 2024-03-28 15:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11252,25 +11252,25 @@ msgstr "aggiungi % in '%'"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:843
 msgid "invalid combination for ride"
-msgstr ""
+msgstr "combinazione invalida per un passaggio"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:950
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1007
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1098
 msgid "invalid container parent"
-msgstr ""
+msgstr "elemento padre invalido per un contenitore"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1058
 msgid "invalid combination for person stop"
-msgstr ""
+msgstr "combinazione invalida per una fermata di persone"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1100
 msgid "invalid combination for containerStop"
-msgstr ""
+msgstr "combinazione invalida per una fermata di contenitori"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1133
 msgid "Stops needs a parent"
-msgstr ""
+msgstr "La fermata necessita un'elemento padre"
 
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1185
 msgid "Containers don't support stops at busStops or trainStops"
@@ -11490,23 +11490,23 @@ msgstr "Non ho potuto impostare l'attributo '%' (il semaforo è invalido)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:74
 msgid "Crossing's edges don't support pedestrians"
-msgstr ""
+msgstr "Pedoni non sono autorizzati sugli archi del passaggio pedonale"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:194
 msgid "remove geometry point of %"
-msgstr ""
+msgstr "rimuovi punto geometrico di %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:307
 msgid "Set custom crossing shape"
-msgstr ""
+msgstr "Metti una forma di passaggio pedonale personalizzata"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNECrossing.cpp:693
 msgid "moving % of %"
-msgstr ""
+msgstr "spostando % di %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:142
 msgid "Parent junctions are in the same position: %, %"
-msgstr ""
+msgstr "Gli incroci padri sono alla stessa posizione: %, %"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2344
 msgid "Could not compute smooth shape for edge '%'"
@@ -11691,15 +11691,15 @@ msgstr "Metti il punto geometrico terminale qui (shift-clic)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2014
 msgid "Restore both geometry endpoints"
-msgstr ""
+msgstr "Ristabilisci entrambi punti geometrici terminali"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2016
 msgid "Restore geometry endpoints of all selected edges"
-msgstr ""
+msgstr "Ristabilisci punti geometrici terminale di tutti gli archi selezionati"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2019
 msgid "Restore geometry endpoint (shift-click)"
-msgstr ""
+msgstr "Ristabilisci punto geometrico terminale (shift-clic)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2021
 msgid "Reverse %"
@@ -11792,36 +11792,36 @@ msgstr "Bordo verde (a destra)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2125
 msgid "Add restricted %"
-msgstr ""
+msgstr "Aggiungi % limitato/a"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2126
 msgid "Remove restricted %"
-msgstr ""
+msgstr "Rimuovi % limitato/a"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2127
 msgid "Transform to restricted %"
-msgstr ""
+msgstr "Trasforma in % limitato/a"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2168
 #, c-format
 msgid "Template operations (% selected)"
-msgstr ""
+msgstr "Operazioni modello (% selezionato)"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2170
 msgid "Template operations"
-msgstr ""
+msgstr "Operazioni modello"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2173
 msgid "Use edge as template"
-msgstr ""
+msgstr "utilizza arco come modello"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2174
 msgid "Apply template"
-msgstr ""
+msgstr "Applica modello"
 
 #: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2194
 msgid "Select reachable (compute junctions)"
-msgstr ""
+msgstr "Seleziona raggiungibili (computa incroci)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:50
 #: C:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:813
@@ -11831,7 +11831,7 @@ msgstr "Attributi interni"
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:176
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreator.cpp:178
 msgid "Invalid input parameter of "
-msgstr ""
+msgstr "Parametro input invalido di "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEAttributesCreatorRow.cpp:74
 msgid "Disabled"
@@ -11843,7 +11843,7 @@ msgstr "Codice identificativo dell'elemento addizionale non supportato"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:55
 msgid "Consecutive lane selector"
-msgstr ""
+msgstr "Selezione di corsie consecutive"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:59
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:413
@@ -11864,7 +11864,7 @@ msgstr "Rimuovi l'ultima corsia"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:70
 msgid "Show candidate lanes"
-msgstr "Mostri le corsie candidate"
+msgstr "Mostra le corsie candidate"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:73
 msgid "-BACKSPACE: undo click"
@@ -12466,7 +12466,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathCreator.cpp:820
 msgid "- Average speed: "
-msgstr ""
+msgstr "- Velocità media: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:34
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreatorLegend.cpp:34
@@ -12478,39 +12478,39 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:536
 #: C:\Repos\sumo/src\netedit\frames\network\GNEProhibitionFrame.cpp:85
 msgid "Information"
-msgstr ""
+msgstr "Informazione"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:38
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:45
 msgid " edge candidate"
-msgstr ""
+msgstr " arco candidato"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:42
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:49
 msgid " last edge selected"
-msgstr ""
+msgstr " ultimo arco selezionato"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:45
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:52
 msgid " edge selected"
-msgstr ""
+msgstr " arco selezionato"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:48
 msgid " edge conflict (vClass)"
-msgstr ""
+msgstr " arco in conflitto (classe di veicoli)"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPathLegendModule.cpp:51
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:55
 msgid " edge disconnected"
-msgstr ""
+msgstr " arco sconnesso"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:169
 msgid "Remove last element"
-msgstr ""
+msgstr "Rimuovi l'ultimo elemento"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:881
 msgid "Click over:"
-msgstr ""
+msgstr "Clicca su:"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:955
 #: C:\Repos\sumo/src\netedit\frames\GNEPlanCreator.cpp:989
@@ -13453,31 +13453,31 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
-msgstr ""
+msgstr "Attributi di dati"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
-msgstr ""
+msgstr "Tipo MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:160
 msgid "MeanData Editor"
-msgstr ""
+msgstr "Editore di MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:163
 msgid "Create MeanData"
-msgstr ""
+msgstr "Crea MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:166
 msgid "Delete MeanData"
-msgstr ""
+msgstr "Rimuovi MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:169
 msgid "Copy MeanData"
-msgstr ""
+msgstr "Copia MeanData"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:275
 msgid "Current MeanData"
-msgstr ""
+msgstr "MeanData attuale"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:439
 msgid "MeanData"
