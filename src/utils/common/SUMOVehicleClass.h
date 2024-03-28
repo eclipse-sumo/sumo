@@ -198,10 +198,18 @@ enum SUMOVehicleClass {
     /// @brief is an arbitrary ship
     SVC_SHIP = 1 << 23,
 
+    SVC_CONTAINER = 1 << 24,
+    SVC_CABLE_CAR = 1 << 25,
+    SVC_SUBWAY = 1 << 26,
+    SVC_AIRCRAFT = 1 << 27,
+    SVC_WHEELCHAIR = 1 << 28,
+    SVC_SCOOTER = 1 << 29,
+    SVC_DRONE = 1 << 30,
+
     /// @brief is a user-defined type
-    SVC_CUSTOM1 = 1 << 24,
+    SVC_CUSTOM1 = (long long int)1 << 31,
     /// @brief is a user-defined type
-    SVC_CUSTOM2 = 1 << 25,
+    SVC_CUSTOM2 = (long long int)1 << 32,
     //@}
 
     /// @brief classes which drive on tracks
@@ -221,7 +229,7 @@ extern std::set<std::string> deprecatedVehicleClassesSeen;
 extern StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings;
 
 /// @brief bitset where each bit declares whether a certain SVC may use this edge/lane
-typedef int SVCPermissions;
+typedef long long int SVCPermissions;
 
 /// @brief all VClasses are allowed
 extern const SVCPermissions SVCAll;
@@ -237,7 +245,7 @@ extern const SVCPermissions SVC_UNSPECIFIED;
 typedef int SUMOEmissionClass;
 
 /// @brief emission class not specified
-extern const SVCPermissions EMISSION_CLASS_UNSPECIFIED;
+extern const SUMOEmissionClass EMISSION_CLASS_UNSPECIFIED;
 
 // ===========================================================================
 // Stop Offsets
@@ -323,7 +331,7 @@ extern SUMOVehicleClass getVehicleClassID(const std::string& name);
  * @param[in] name The name of the abstract vehicle class
  * @return The OR'ed combination of base enum values
  */
-extern int getVehicleClassCompoundID(const std::string& name);
+extern SVCPermissions getVehicleClassCompoundID(const std::string& name);
 
 /** @brief Parses the given definition of allowed vehicle classes into the given containers
  * Deprecated classes go into a separate container.

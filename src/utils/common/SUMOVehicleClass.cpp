@@ -72,6 +72,13 @@ static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitialize
     {"pedestrian",        SVC_PEDESTRIAN},
     {"evehicle",          SVC_E_VEHICLE},
     {"ship",              SVC_SHIP},
+    {"container",         SVC_CONTAINER},
+    {"cable_car",         SVC_CABLE_CAR},
+    {"subway",            SVC_SUBWAY},
+    {"aircraft",          SVC_AIRCRAFT},
+    {"wheelchair",        SVC_WHEELCHAIR},
+    {"scooter",           SVC_SCOOTER},
+    {"drone",             SVC_DRONE},
     {"custom1",           SVC_CUSTOM1},
     {"custom2",           SVC_CUSTOM2}
 };
@@ -148,7 +155,7 @@ static std::string VehicleClassNameAll = "all";
 
 const SUMOVehicleClass SUMOVehicleClass_MAX = SVC_CUSTOM2;
 
-const SVCPermissions SVCAll = 2 * (int)SUMOVehicleClass_MAX - 1; // all relevant bits set to 1
+const SVCPermissions SVCAll = 2 * (long long int)SUMOVehicleClass_MAX - 1; // all relevant bits set to 1
 
 const SVCPermissions SVC_UNSPECIFIED = -1;
 
@@ -318,13 +325,13 @@ getVehicleClassID(const std::string& name) {
 }
 
 
-int
+SVCPermissions
 getVehicleClassCompoundID(const std::string& name) {
-    int ret = SVC_IGNORING;
+    SVCPermissions ret = SVC_IGNORING;
     const std::vector<std::string> names = SumoVehicleClassStrings.getStrings();
     for (std::vector<std::string>::const_iterator it = names.begin(); it != names.end(); it++) {
         if (name.find(*it) != std::string::npos) {
-            ret = ret | (int) SumoVehicleClassStrings.get(*it);
+            ret = ret | (SVCPermissions) SumoVehicleClassStrings.get(*it);
         }
     }
     return ret;
@@ -389,7 +396,7 @@ parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS,
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < MMVersion(1, 3) ? SVC_RAIL_FAST : 0));
+        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < MMVersion(1, 3) ? SVC_RAIL_FAST : SVC_IGNORING));
     }
 }
 

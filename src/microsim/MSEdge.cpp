@@ -315,7 +315,7 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
     myAllowed.clear();
     if (myCombinedPermissions != myMinimumPermissions) {
         myAllowed.push_back(std::make_pair(SVC_IGNORING, myLanes));
-        for (int vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass *= 2) {
+        for (SVCPermissions vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass *= 2) {
             if ((myCombinedPermissions & vclass) == vclass) {
                 std::shared_ptr<std::vector<MSLane*> > allowedLanes = std::make_shared<std::vector<MSLane*> >();
                 for (MSLane* const lane : *myLanes) {
@@ -377,7 +377,7 @@ MSEdge::rebuildAllowedTargets(const bool updateVehicles) {
         } else {
             addToAllowed(SVC_IGNORING, allLanes, myAllowedTargets[target]);
             // compute the vclass specific mapping
-            for (int vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass *= 2) {
+            for (SVCPermissions vclass = SVC_PRIVATE; vclass <= SUMOVehicleClass_MAX; vclass *= 2) {
                 if ((myCombinedPermissions & vclass) == vclass) {
                     std::shared_ptr<std::vector<MSLane*> > allowedLanes = std::make_shared<std::vector<MSLane*> >();
                     for (MSLane* const lane : *myLanes) {
