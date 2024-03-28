@@ -249,6 +249,8 @@ public:
      */
     double getACCAcceleration(const MSVehicle* veh) const;
 
+    bool isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const;
+
     /**
      * @brief returns the number of lanes set in the configuration file
      */
@@ -269,7 +271,6 @@ private:
     void resetConsensus(const MSVehicle* veh) const;
 
 private:
-    bool isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const;
     void changeWholePlatoonLane(MSVehicle* const veh, int direction) const;
     void performAutoLaneChange(MSVehicle* const veh) const;
     void performPlatoonLaneChange(MSVehicle* const veh) const;
