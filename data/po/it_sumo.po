@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-27 12:45+0000\n"
+"PO-Revision-Date: 2024-03-28 15:54+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4982,24 +4982,28 @@ msgstr ""
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
+"L'arco '%' contiene già una corsia esclusiva per %. Nessuna corsia verrà "
+"aggiunta."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:4543
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
+"L'arco '%' non contiene una corsia esclusiva per % e quindi non può essere "
+"ricostruito."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:4591
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
-msgstr ""
+msgstr "Non ho potuto evitare forme sovrapposte tra nodo '%' e arco '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:121
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:140
 msgid "Invalid boundary: need at least 2 coordinates"
-msgstr ""
+msgstr "Contorno invalido: ha bisogno di almeno due coordinate"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:142
 msgid "Invalid boundary: malformed coordinate"
-msgstr ""
+msgstr "Contorno invalido: coordinata malformata"
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:261
 msgid ""
@@ -5065,39 +5069,41 @@ msgstr ""
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
+"Limite di velocità negativo (%) sulla corsia '%'; usa --speed.minimum per "
+"evitarlo."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:939
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
-msgstr ""
+msgstr "La corsia '%' ha un limite di velocità di 0."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1445
 msgid "Replacing loaded roundabout '%' with '%'."
-msgstr ""
+msgstr "Sostuisco la rotatoria caricata '%' con '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1810
 msgid "Edge '%' overlaps with edge '%' by %."
-msgstr ""
+msgstr "L'arco '%' si sovrappone all'arco '%' per %."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1826
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
-msgstr ""
+msgstr "L'arco '%' contiene un salto verticale de %m."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1828
 #, c-format
 msgid "Edge '%' has a grade of %%."
-msgstr ""
+msgstr "L'arco '%' ha un'inclinazione di %%."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1838
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
-msgstr ""
+msgstr "Il collegamento '%' ha un salto verticale di %m."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1840
 #, c-format
 msgid "Connection '%' has a grade of %%."
-msgstr ""
+msgstr "Il collegamento '%' ha un'inclinazione di %%."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1880
 msgid "Not joining tram edge '%' with % lanes."
