@@ -108,6 +108,12 @@ MSCFModel_CC::createVehicleVariables() const {
     return (VehicleVariables*)vars;
 }
 
+void
+MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader) const {
+    auto* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    vars->leaderVehicle = leader;
+}
+
 bool
 MSCFModel_CC::isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
@@ -758,11 +764,25 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             int position;
             buf >> id >> position;
             vars->members[position] = id;
+
+            auto vehicle = dynamic_cast<MSVehicle*>(libsumo::Helper::getVehicle(id));
+            auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
+            if (!cfm) {
+                throw libsumo::TraCIException("Adding " + id + " as member but " + id + " is not using MSCFModel_CC");
+            }
+            cfm->setLeader(vehicle, veh);
             return;
         }
         if (key.compare(PAR_REMOVE_MEMBER) == 0) {
             for (auto item = vars->members.begin(); item != vars->members.end(); item++)
                 if (item->second.compare(value) == 0) {
+                    auto vehicle = dynamic_cast<MSVehicle*>(libsumo::Helper::getVehicle(value));
+                    auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
+                    if (!cfm) {
+                        throw libsumo::TraCIException("Removing " + value + " from members but " + value + " is not using MSCFModel_CC");
+                    }
+                    cfm->setLeader(vehicle, nullptr);
+
                     vars->members.erase(item);
                     break;
                 }
