@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-28 15:54+0000\n"
+"PO-Revision-Date: 2024-03-29 17:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -13036,7 +13036,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:66
 msgid "Interval [begin, end]"
-msgstr ""
+msgstr "intervallo [inizio, fine]"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:453
 msgid ""
@@ -13078,7 +13078,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:199
 msgid "Shift selected edges geometry"
-msgstr ""
+msgstr "Sposta geometrie degli archi selezionati"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:208
 msgid "Apply shift value"
@@ -13441,15 +13441,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:197
 msgid "Interval"
-msgstr ""
+msgstr "Intervallo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:200
 msgid "Create new interval"
-msgstr ""
+msgstr "Crea nuovo intervallo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:218
 msgid "create interval"
-msgstr ""
+msgstr "crea intervallo"
 
 #: C:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:392
 msgid "Data attributes"
