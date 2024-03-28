@@ -14,6 +14,7 @@
 /// @file    MSDevice_Battery.cpp
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @author  Mirko Barthauer
 /// @date    20.12.2013
 ///
 // The Battery parameters for the vehicle
@@ -26,6 +27,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/emissions/HelpersEnergy.h>
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -281,6 +283,40 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
 
     // Always return true.
     return true;
+}
+
+
+void
+MSDevice_Battery::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myActualBatteryCapacity));
+    internals.push_back(toString(myLastAngle));
+    internals.push_back(toString(myChargingStopped));
+    internals.push_back(toString(myChargingInTransit));
+    internals.push_back(toString(myChargingStartTime));
+    internals.push_back(toString(myTotalConsumption));
+    internals.push_back(toString(myTotalRegenerated));
+    internals.push_back(toString(myEnergyCharged));
+    internals.push_back(toString(myVehicleStopped));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_Battery::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myActualBatteryCapacity;
+    bis >> myLastAngle;
+    bis >> myChargingStopped;
+    bis >> myChargingInTransit;
+    bis >> myChargingStartTime;
+    bis >> myTotalConsumption;
+    bis >> myTotalRegenerated;
+    bis >> myEnergyCharged;
+    bis >> myVehicleStopped;
 }
 
 
