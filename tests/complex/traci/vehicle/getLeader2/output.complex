@@ -5,8 +5,8 @@
 3.0: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 4.0: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
 5.0: egoLane=A1B1_0 leaderAuto=None leaderHigh=None leaderLane=None
-6.0: egoLane=A1B1_0 leaderAuto=('lead', 0.0) leaderHigh=('lead', 0.0) leaderLane=:B1_2_0
-7.0: egoLane=A1B1_0 leaderAuto=('lead', 0.0) leaderHigh=('lead', 0.0) leaderLane=:B1_2_0
+6.0: egoLane=A1B1_0 leaderAuto=('lead', 46.49999999999999) leaderHigh=('lead', 46.49999999999999) leaderLane=:B1_2_0
+7.0: egoLane=A1B1_0 leaderAuto=('lead', 31.776599999999988) leaderHigh=('lead', 31.776599999999988) leaderLane=:B1_2_0
 8.0: egoLane=A1B1_0 leaderAuto=('lead', 20.900225999999982) leaderHigh=('lead', 20.900225999999982) leaderLane=B1C1_0
 9.0: egoLane=A1B1_0 leaderAuto=('lead', 20.404851999999984) leaderHigh=('lead', 20.404851999999984) leaderLane=B1C1_0
 10.0: egoLane=A1B1_0 leaderAuto=('lead', 27.009477999999987) leaderHigh=('lead', 27.009477999999987) leaderLane=B1C1_0
