@@ -52,3 +52,6 @@ ticket11564
 
 # right of way violation due to imprecise stopping on minor link
 ticket13369
+
+# emergency braking at yellow
+ticket14620
