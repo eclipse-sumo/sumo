@@ -137,6 +137,16 @@ public:
      */
     double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
+    /** @brief Computes the vehicle's safe speed for approaching an obstacle at insertion without constraints
+     *         due to acceleration capabilities and previous speeds.
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap The (netto) distance to the the obstacle
+     * @return EGO's safe speed for approaching a non-moving obstacle at insertion
+     * @see stopSpeed() and insertionFollowSpeed()
+     *
+     */
+    double insertionStopSpeed(const MSVehicle* const veh, double speed, double gap) const;
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
      * @param[in] veh The vehicle itself, for obtaining other values
