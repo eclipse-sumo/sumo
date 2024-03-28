@@ -182,6 +182,29 @@ MSCFModel_CC::performPlatoonLaneChange(MSVehicle* const veh) const {
 }
 
 double
+MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const
+{
+    CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+
+    const double tolerance = 0.8;
+    switch (vars->activeController) {
+        case Plexe::CACC:
+        case Plexe::FAKED_CACC:
+            return vars->caccSpacing * tolerance;
+        case Plexe::ACC:
+            return (vars->accHeadwayTime * speed + 2) * tolerance;
+        case Plexe::PLOEG:
+            return (vars->ploegH * speed + 2) * tolerance;
+        case Plexe::CONSENSUS:
+            return d_i_j(vars->vehicles, vars->h, 1, 0) * tolerance;
+        case Plexe::FLATBED:
+            return (vars->flatbedD - vars->flatbedH * (speed - leaderSpeed)) * tolerance;
+        case Plexe::DRIVER:
+            return myHumanDriver->getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
+    }
+}
+
+double
 MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     double vNext;
     //acceleration computed by the controller
