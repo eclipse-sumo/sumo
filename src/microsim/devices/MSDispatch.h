@@ -31,6 +31,7 @@
 // class declarations
 // ===========================================================================
 class MSTransportable;
+class MSStoppingPlace;
 
 // ===========================================================================
 // class definitions
@@ -50,7 +51,9 @@ struct Reservation {
                 SUMOTime _pickupTime,
                 SUMOTime _earliestPickupTime,
                 const MSEdge* _from, double _fromPos,
+                const MSStoppingPlace* _fromStop,
                 const MSEdge* _to, double _toPos,
+                const MSStoppingPlace* _toStop,
                 const std::string& _group,
                 const std::string& _line) :
         id(_id),
@@ -60,8 +63,10 @@ struct Reservation {
         earliestPickupTime(_earliestPickupTime),
         from(_from),
         fromPos(_fromPos),
+        fromStop(_fromStop),
         to(_to),
         toPos(_toPos),
+        toStop(_toStop),
         group(_group),
         line(_line),
         recheck(_reservationTime),
@@ -75,8 +80,10 @@ struct Reservation {
     SUMOTime earliestPickupTime;
     const MSEdge* from;
     double fromPos;
+    const MSStoppingPlace* fromStop;
     const MSEdge* to;
     double toPos;
+    const MSStoppingPlace* toStop;
     std::string group;
     std::string line;
     SUMOTime recheck;
@@ -129,7 +136,9 @@ public:
                                         SUMOTime pickupTime,
                                         SUMOTime earliestPickupTime,
                                         const MSEdge* from, double fromPos,
+                                        const MSStoppingPlace* fromStop,
                                         const MSEdge* to, double toPos,
+                                        const MSStoppingPlace* tostop,
                                         std::string group,
                                         const std::string& line,
                                         int maxCapacity,

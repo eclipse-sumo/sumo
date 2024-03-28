@@ -83,7 +83,9 @@ public:
                                SUMOTime pickupTime,
                                SUMOTime earliestPickupTime,
                                const MSEdge* from, double fromPos,
+                               const MSStoppingPlace* fromStop,
                                const MSEdge* to, double toPos,
+                               const MSStoppingPlace* toStop,
                                const std::string& group);
 
     /// @brief retract reservation
@@ -231,6 +233,7 @@ private:
     void prepareStop(ConstMSEdgeVector& edges,
                      std::vector<SUMOVehicleParameter::Stop>& stops,
                      double& lastPos, const MSEdge* stopEdge, double stopPos,
+                     const MSStoppingPlace* stopPlace,
                      const std::string& action, const Reservation* res, const bool isPickup);
 
     /// @brief determine stopping lane for taxi

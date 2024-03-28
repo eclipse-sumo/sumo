@@ -41,12 +41,14 @@ MSDispatch_TraCI::addReservation(MSTransportable* person,
                                  SUMOTime pickupTime,
                                  SUMOTime earliestPickupTime,
                                  const MSEdge* from, double fromPos,
+                                 const MSStoppingPlace* fromStop,
                                  const MSEdge* to, double toPos,
+                                 const MSStoppingPlace* toStop,
                                  std::string group,
                                  const std::string& line,
                                  int maxCapacity,
                                  int maxContainerCapacity) {
-    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, to, toPos, group, line, maxCapacity, maxContainerCapacity);
+    Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, line, maxCapacity, maxContainerCapacity);
     if (!myReservationLookup.has(res)) {
         myReservationLookup.insert(res->id, res);
     }
@@ -132,8 +134,10 @@ MSDispatch_TraCI::splitReservation(std::string resID, std::vector<std::string> p
         }
         Reservation* newRes = new Reservation(toString(myReservationCount++), split,
                                               res->reservationTime, res->pickupTime,
-                                              res->earliestPickupTime, res->from, res->fromPos,
-                                              res->to, res->toPos, res->group, res->line);
+                                              res->earliestPickupTime,
+                                              res->from, res->fromPos, res->fromStop,
+                                              res->to, res->toPos, res->toStop,
+                                              res->group, res->line);
         myGroupReservations[res->group].push_back(newRes);
         myReservationLookup.insert(newRes->id, newRes);
         return newRes->id;

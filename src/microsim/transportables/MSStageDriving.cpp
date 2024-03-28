@@ -316,7 +316,7 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
         }
         // Create reservation only if not already created by previous reservationTime
         if (myReservationCommand == nullptr) {
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, -1, myWaitingEdge, myWaitingPos, to, toPos, myGroup);
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, -1, myWaitingEdge, myWaitingPos, myOriginStop, to, toPos, myDestinationStop, myGroup);
         } else {
             // update "fromPos" with current (new) value of myWaitingPos
             MSDevice_Taxi::updateReservationFromPos(transportable, getLines(), myWaitingEdge, myReservationCommand->myWaitingPos, to, toPos, myGroup, myWaitingPos);
@@ -640,7 +640,7 @@ MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& st
 SUMOTime
 MSStageDriving::BookReservation::execute(SUMOTime currentTime) {
     MSDevice_Taxi::addReservation(myTransportable, myStage->getLines(), currentTime, currentTime, myEarliestPickupTime,
-                                  myStage->myOrigin, myStage->myWaitingPos, myStage->getDestination(), myStage->getArrivalPos(), myStage->myGroup);
+                                  myStage->myOrigin, myStage->myWaitingPos, myStage->myOriginStop, myStage->getDestination(), myStage->getArrivalPos(), myStage->myDestinationStop, myStage->myGroup);
     // do not repeat if execution fails
     return 0;
 }
