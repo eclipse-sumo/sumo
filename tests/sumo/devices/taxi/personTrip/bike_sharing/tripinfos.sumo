@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-08 23:25:55 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
+<!-- generated on 2024-03-28 09:43:51 by Eclipse SUMO sumo Version v1_19_0+1563-350e99a6e1b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,13 +49,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </personinfo>
     <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
         <walk depart="0.00" departPos="0.00" arrival="318.00" arrivalPos="92.23" duration="318.00" routeLength="392.72" timeLoss="35.25" maxSpeed="1.39"/>
-        <ride waitingTime="147.00" vehicle="bikeA" depart="465.00" arrival="668.00" arrivalPos="220.98" duration="203.00" routeLength="724.15" timeLoss="13.65"/>
-        <walk depart="668.00" departPos="220.98" arrival="846.00" arrivalPos="142.80" duration="178.00" routeLength="222.31" timeLoss="17.94" maxSpeed="1.39"/>
+        <ride waitingTime="143.00" vehicle="bikeA" depart="461.00" arrival="663.00" arrivalPos="225.98" duration="202.00" routeLength="728.80" timeLoss="11.83"/>
+        <walk depart="663.00" departPos="225.98" arrival="837.00" arrivalPos="142.80" duration="174.00" routeLength="217.31" timeLoss="17.54" maxSpeed="1.39"/>
     </personinfo>
-    <tripinfo id="bikeA" depart="0.00" departLane="A0B0_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="847.00" routeLength="1215.71" waitingTime="6.00" waitingCount="2" stopTime="601.00" timeLoss="27.18" rerouteNo="2" devices="tripinfo_bikeA routing_bikeA taxi_bikeA person_bikeA" vType="shared_bike" speedFactor="1.00" vaporized="">
-        <taxi customers="1" occupiedDistance="724.15" occupiedTime="146.00"/>
+    <tripinfo id="bikeA" depart="0.00" departLane="A0B0_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="838.00" routeLength="1220.71" waitingTime="0.00" waitingCount="0" stopTime="597.00" timeLoss="21.30" rerouteNo="2" devices="tripinfo_bikeA routing_bikeA taxi_bikeA person_bikeA" vType="shared_bike" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="728.80" occupiedTime="145.00"/>
     </tripinfo>
-    <tripinfo id="bikeB" depart="0.00" departLane="A2B2_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="847.00" routeLength="0.10" waitingTime="0.00" waitingCount="0" stopTime="847.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_bikeB routing_bikeB taxi_bikeB" vType="shared_bike" speedFactor="1.00" vaporized="">
+    <tripinfo id="bikeB" depart="0.00" departLane="A2B2_1" departPos="1.70" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="838.00" routeLength="0.10" waitingTime="0.00" waitingCount="0" stopTime="838.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_bikeB routing_bikeB taxi_bikeB" vType="shared_bike" speedFactor="1.00" vaporized="">
         <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
     </tripinfo>
 </tripinfos>

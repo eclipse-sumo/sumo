@@ -1,14 +1,14 @@
-Loading net-file from 'net3.net.xml' ... done (30ms).
+Loading net-file from 'net3.net.xml' ... done (7ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_15_0+0056-02dd159 started with time: 0.00.
-Simulation ended at time: 847.00
+Simulation version v1_19_0+1563-350e99a6e1b started with time: 0.00.
+Simulation ended at time: 838.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.03s
- Real time factor: 31370.4
- UPS: 62740.740741
- UPS-Persons: 53296.296296
+ Duration: 0.00s
+ Real time factor: 209500
+ UPS: 419000.000000
+ UPS-Persons: 357500.000000
 Vehicles: 
  Inserted: 2 (Loaded: 4)
  Running: 2
@@ -17,21 +17,21 @@ Persons:
  Inserted: 2
  Running: 0
 Bike Statistics (avg of 2):
- RouteLength: 607.90
- Speed: 0.72
- Duration: 847.00
- WaitingTime: 3.00
- TimeLoss: 13.59
+ RouteLength: 610.40
+ Speed: 0.73
+ Duration: 838.00
+ WaitingTime: 0.00
+ TimeLoss: 10.65
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Pedestrian Statistics (avg of 3 walks):
- RouteLength: 452.93
- Duration: 363.00
- TimeLoss: 36.89
+ RouteLength: 451.27
+ Duration: 361.67
+ TimeLoss: 36.76
 Ride Statistics (avg of 1 rides):
- WaitingTime: 147.00
- RouteLength: 724.15
- Duration: 203.00
+ WaitingTime: 143.00
+ RouteLength: 728.80
+ Duration: 202.00
  Bike: 1
 
 DijkstraRouter answered 8 queries and explored 22.50 edges on average.
