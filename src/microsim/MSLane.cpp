@@ -2916,6 +2916,11 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                 }
                 if (gap < shortestGap) {
                     shortestGap = gap;
+                    if (ll.vehAndGap.second < 0 && !MSGlobals::gComputeLC) {
+                        // can always continue up to the stop line or crossing point
+                        // @todo: figure out whether this should also impact lane changing 
+                        ll.vehAndGap.second = MAX2(seen - nextLane->getLength(), ll.distToCrossing);
+                    }
                     result = ll.vehAndGap;
                 }
             }
