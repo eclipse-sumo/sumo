@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-16 16:29:33.602663 by generateRailSignalConstraints.py v1_15_0+1654-d6ee980
+<!-- generated on 2024-03-28 07:57:40.882269 by generateRailSignalConstraints.py v1_19_0+1561-1afbc3013fa
 <configuration>
-    <abort-unordered value="True"/>
-    <additional-file value="input_additional.add.xml"/>
     <net-file value="net.net.xml"/>
-    <output-file value="out.add.xml"/>
+    <additional-file value="input_additional.add.xml"/>
     <route-file value="input_routes.rou.xml"/>
+    <output-file value="out.add.xml"/>
+    <abort-unordered value="True"/>
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <railSignalConstraints id="2A">
         <insertionPredecessor tripId="t2" tl="2A" foes="t1"/>
+    </railSignalConstraints>
+    <railSignalConstraints id="A">
+        <foeInsertion tripId="t1" tl="2A" foes="t0" active="false"/>   <!-- (foeParking)  -->
     </railSignalConstraints>
 </additional>
