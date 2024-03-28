@@ -34,6 +34,7 @@
 #include <microsim/engine/RealisticEngineModel.h>
 
 #include "CC_VehicleVariables.h"
+#include <libsumo/Helper.h>
 
 
 // ===========================================================================
@@ -250,6 +251,8 @@ public:
     double getACCAcceleration(const MSVehicle* veh) const;
 
     bool isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const;
+
+    void setLeader(MSVehicle* veh, MSVehicle* const leader) const;
 
     /**
      * @brief returns the number of lanes set in the configuration file
