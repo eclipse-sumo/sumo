@@ -106,6 +106,9 @@ setSpeedFactor_IDM
 getFollower
 getLeader
 
+# different setup w.r.t. junction leader
+getLeader2
+
 # test access to driverstate parameters
 driverstate
 
