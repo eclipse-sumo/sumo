@@ -254,6 +254,8 @@ public:
 
     void setLeader(MSVehicle* veh, MSVehicle* const leader) const;
 
+    bool isLeader(const MSVehicle* veh) const;
+
     /**
      * @brief returns the number of lanes set in the configuration file
      */

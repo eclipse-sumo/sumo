@@ -1119,3 +1119,10 @@ MSCFModel*
 MSCFModel_CC::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_CC(vtype);
 }
+
+bool
+MSCFModel_CC::isLeader(const MSVehicle *veh) const {
+    auto vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+    // TODO: this condition might not be enough
+    return vars->activeController == Plexe::ACC;
+}
