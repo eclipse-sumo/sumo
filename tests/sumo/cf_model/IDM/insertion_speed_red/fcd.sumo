@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-28 12:38:04 by Eclipse SUMO sumo Version v1_19_0+1576-dcc0857a30f
+<!-- generated on 2024-03-28 15:07:00 by Eclipse SUMO sumo Version v1_19_0+1577-f92eb462ced
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,211 +44,211 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="v_0" speed="11.84" acceleration="0.00"/>
+        <vehicle id="v_0" speed="9.12" acceleration="0.00"/>
     </timestep>
     <timestep time="0.10">
-        <vehicle id="v_0" speed="10.94" acceleration="-9.00"/>
+        <vehicle id="v_0" speed="8.73" acceleration="-3.89"/>
     </timestep>
     <timestep time="0.20">
-        <vehicle id="v_0" speed="10.04" acceleration="-9.00"/>
+        <vehicle id="v_0" speed="8.36" acceleration="-3.77"/>
     </timestep>
     <timestep time="0.30">
-        <vehicle id="v_0" speed="9.14" acceleration="-9.00"/>
+        <vehicle id="v_0" speed="7.99" acceleration="-3.67"/>
     </timestep>
     <timestep time="0.40">
-        <vehicle id="v_0" speed="8.37" acceleration="-7.72"/>
+        <vehicle id="v_0" speed="7.63" acceleration="-3.59"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="v_0" speed="7.72" acceleration="-6.49"/>
+        <vehicle id="v_0" speed="7.28" acceleration="-3.52"/>
     </timestep>
     <timestep time="0.60">
-        <vehicle id="v_0" speed="7.16" acceleration="-5.64"/>
+        <vehicle id="v_0" speed="6.93" acceleration="-3.46"/>
     </timestep>
     <timestep time="0.70">
-        <vehicle id="v_0" speed="6.66" acceleration="-5.02"/>
+        <vehicle id="v_0" speed="6.59" acceleration="-3.41"/>
     </timestep>
     <timestep time="0.80">
-        <vehicle id="v_0" speed="6.20" acceleration="-4.55"/>
+        <vehicle id="v_0" speed="6.26" acceleration="-3.35"/>
     </timestep>
     <timestep time="0.90">
-        <vehicle id="v_0" speed="5.78" acceleration="-4.18"/>
+        <vehicle id="v_0" speed="5.93" acceleration="-3.30"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="v_0" speed="5.39" acceleration="-3.89"/>
+        <vehicle id="v_0" speed="5.60" acceleration="-3.24"/>
     </timestep>
     <timestep time="1.10">
-        <vehicle id="v_0" speed="5.03" acceleration="-3.64"/>
+        <vehicle id="v_0" speed="5.28" acceleration="-3.19"/>
     </timestep>
     <timestep time="1.20">
-        <vehicle id="v_0" speed="4.69" acceleration="-3.43"/>
+        <vehicle id="v_0" speed="4.97" acceleration="-3.12"/>
     </timestep>
     <timestep time="1.30">
-        <vehicle id="v_0" speed="4.36" acceleration="-3.24"/>
+        <vehicle id="v_0" speed="4.67" acceleration="-3.05"/>
     </timestep>
     <timestep time="1.40">
-        <vehicle id="v_0" speed="4.06" acceleration="-3.07"/>
+        <vehicle id="v_0" speed="4.37" acceleration="-2.97"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="v_0" speed="3.77" acceleration="-2.92"/>
+        <vehicle id="v_0" speed="4.08" acceleration="-2.88"/>
     </timestep>
     <timestep time="1.60">
-        <vehicle id="v_0" speed="3.49" acceleration="-2.77"/>
+        <vehicle id="v_0" speed="3.80" acceleration="-2.79"/>
     </timestep>
     <timestep time="1.70">
-        <vehicle id="v_0" speed="3.23" acceleration="-2.63"/>
+        <vehicle id="v_0" speed="3.53" acceleration="-2.69"/>
     </timestep>
     <timestep time="1.80">
-        <vehicle id="v_0" speed="2.98" acceleration="-2.49"/>
+        <vehicle id="v_0" speed="3.28" acceleration="-2.58"/>
     </timestep>
     <timestep time="1.90">
-        <vehicle id="v_0" speed="2.74" acceleration="-2.35"/>
+        <vehicle id="v_0" speed="3.03" acceleration="-2.47"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="v_0" speed="2.52" acceleration="-2.21"/>
+        <vehicle id="v_0" speed="2.79" acceleration="-2.35"/>
     </timestep>
     <timestep time="2.10">
-        <vehicle id="v_0" speed="2.31" acceleration="-2.08"/>
+        <vehicle id="v_0" speed="2.57" acceleration="-2.22"/>
     </timestep>
     <timestep time="2.20">
-        <vehicle id="v_0" speed="2.12" acceleration="-1.95"/>
+        <vehicle id="v_0" speed="2.36" acceleration="-2.10"/>
     </timestep>
     <timestep time="2.30">
-        <vehicle id="v_0" speed="1.94" acceleration="-1.82"/>
+        <vehicle id="v_0" speed="2.16" acceleration="-1.97"/>
     </timestep>
     <timestep time="2.40">
-        <vehicle id="v_0" speed="1.77" acceleration="-1.69"/>
+        <vehicle id="v_0" speed="1.98" acceleration="-1.84"/>
     </timestep>
     <timestep time="2.50">
-        <vehicle id="v_0" speed="1.61" acceleration="-1.56"/>
+        <vehicle id="v_0" speed="1.81" acceleration="-1.72"/>
     </timestep>
     <timestep time="2.60">
-        <vehicle id="v_0" speed="1.47" acceleration="-1.44"/>
+        <vehicle id="v_0" speed="1.65" acceleration="-1.59"/>
     </timestep>
     <timestep time="2.70">
-        <vehicle id="v_0" speed="1.34" acceleration="-1.33"/>
+        <vehicle id="v_0" speed="1.50" acceleration="-1.47"/>
     </timestep>
     <timestep time="2.80">
-        <vehicle id="v_0" speed="1.21" acceleration="-1.22"/>
+        <vehicle id="v_0" speed="1.37" acceleration="-1.35"/>
     </timestep>
     <timestep time="2.90">
-        <vehicle id="v_0" speed="1.10" acceleration="-1.11"/>
+        <vehicle id="v_0" speed="1.24" acceleration="-1.24"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v_0" speed="1.00" acceleration="-1.01"/>
+        <vehicle id="v_0" speed="1.13" acceleration="-1.14"/>
     </timestep>
     <timestep time="3.10">
-        <vehicle id="v_0" speed="0.91" acceleration="-0.92"/>
+        <vehicle id="v_0" speed="1.03" acceleration="-1.04"/>
     </timestep>
     <timestep time="3.20">
-        <vehicle id="v_0" speed="0.82" acceleration="-0.84"/>
+        <vehicle id="v_0" speed="0.93" acceleration="-0.95"/>
     </timestep>
     <timestep time="3.30">
-        <vehicle id="v_0" speed="0.75" acceleration="-0.76"/>
+        <vehicle id="v_0" speed="0.84" acceleration="-0.86"/>
     </timestep>
     <timestep time="3.40">
-        <vehicle id="v_0" speed="0.68" acceleration="-0.69"/>
+        <vehicle id="v_0" speed="0.77" acceleration="-0.78"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="v_0" speed="0.62" acceleration="-0.63"/>
+        <vehicle id="v_0" speed="0.70" acceleration="-0.71"/>
     </timestep>
     <timestep time="3.60">
-        <vehicle id="v_0" speed="0.56" acceleration="-0.57"/>
+        <vehicle id="v_0" speed="0.63" acceleration="-0.64"/>
     </timestep>
     <timestep time="3.70">
-        <vehicle id="v_0" speed="0.51" acceleration="-0.52"/>
+        <vehicle id="v_0" speed="0.57" acceleration="-0.58"/>
     </timestep>
     <timestep time="3.80">
-        <vehicle id="v_0" speed="0.46" acceleration="-0.47"/>
+        <vehicle id="v_0" speed="0.52" acceleration="-0.53"/>
     </timestep>
     <timestep time="3.90">
-        <vehicle id="v_0" speed="0.42" acceleration="-0.43"/>
+        <vehicle id="v_0" speed="0.47" acceleration="-0.48"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="v_0" speed="0.38" acceleration="-0.39"/>
+        <vehicle id="v_0" speed="0.43" acceleration="-0.44"/>
     </timestep>
     <timestep time="4.10">
-        <vehicle id="v_0" speed="0.34" acceleration="-0.35"/>
+        <vehicle id="v_0" speed="0.39" acceleration="-0.40"/>
     </timestep>
     <timestep time="4.20">
-        <vehicle id="v_0" speed="0.31" acceleration="-0.32"/>
+        <vehicle id="v_0" speed="0.35" acceleration="-0.36"/>
     </timestep>
     <timestep time="4.30">
-        <vehicle id="v_0" speed="0.28" acceleration="-0.29"/>
+        <vehicle id="v_0" speed="0.32" acceleration="-0.33"/>
     </timestep>
     <timestep time="4.40">
-        <vehicle id="v_0" speed="0.26" acceleration="-0.26"/>
+        <vehicle id="v_0" speed="0.29" acceleration="-0.29"/>
     </timestep>
     <timestep time="4.50">
-        <vehicle id="v_0" speed="0.23" acceleration="-0.24"/>
+        <vehicle id="v_0" speed="0.26" acceleration="-0.27"/>
     </timestep>
     <timestep time="4.60">
-        <vehicle id="v_0" speed="0.21" acceleration="-0.21"/>
+        <vehicle id="v_0" speed="0.24" acceleration="-0.24"/>
     </timestep>
     <timestep time="4.70">
-        <vehicle id="v_0" speed="0.19" acceleration="-0.19"/>
+        <vehicle id="v_0" speed="0.22" acceleration="-0.22"/>
     </timestep>
     <timestep time="4.80">
-        <vehicle id="v_0" speed="0.18" acceleration="-0.18"/>
+        <vehicle id="v_0" speed="0.20" acceleration="-0.20"/>
     </timestep>
     <timestep time="4.90">
-        <vehicle id="v_0" speed="0.16" acceleration="-0.16"/>
+        <vehicle id="v_0" speed="0.18" acceleration="-0.18"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="v_0" speed="0.14" acceleration="-0.15"/>
+        <vehicle id="v_0" speed="0.16" acceleration="-0.16"/>
     </timestep>
     <timestep time="5.10">
-        <vehicle id="v_0" speed="0.13" acceleration="-0.13"/>
+        <vehicle id="v_0" speed="0.15" acceleration="-0.15"/>
     </timestep>
     <timestep time="5.20">
-        <vehicle id="v_0" speed="0.12" acceleration="-0.12"/>
+        <vehicle id="v_0" speed="0.13" acceleration="-0.14"/>
     </timestep>
     <timestep time="5.30">
-        <vehicle id="v_0" speed="0.11" acceleration="-0.11"/>
+        <vehicle id="v_0" speed="0.12" acceleration="-0.12"/>
     </timestep>
     <timestep time="5.40">
-        <vehicle id="v_0" speed="0.10" acceleration="-0.10"/>
+        <vehicle id="v_0" speed="0.11" acceleration="-0.11"/>
     </timestep>
     <timestep time="5.50">
-        <vehicle id="v_0" speed="0.09" acceleration="-0.09"/>
+        <vehicle id="v_0" speed="0.10" acceleration="-0.10"/>
     </timestep>
     <timestep time="5.60">
-        <vehicle id="v_0" speed="0.08" acceleration="-0.08"/>
+        <vehicle id="v_0" speed="0.09" acceleration="-0.09"/>
     </timestep>
     <timestep time="5.70">
-        <vehicle id="v_0" speed="0.07" acceleration="-0.07"/>
+        <vehicle id="v_0" speed="0.08" acceleration="-0.08"/>
     </timestep>
     <timestep time="5.80">
-        <vehicle id="v_0" speed="0.07" acceleration="-0.07"/>
+        <vehicle id="v_0" speed="0.08" acceleration="-0.08"/>
     </timestep>
     <timestep time="5.90">
-        <vehicle id="v_0" speed="0.06" acceleration="-0.06"/>
+        <vehicle id="v_0" speed="0.07" acceleration="-0.07"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="v_0" speed="0.06" acceleration="-0.05"/>
+        <vehicle id="v_0" speed="0.06" acceleration="-0.06"/>
     </timestep>
     <timestep time="6.10">
-        <vehicle id="v_0" speed="0.05" acceleration="-0.07"/>
+        <vehicle id="v_0" speed="0.06" acceleration="-0.06"/>
     </timestep>
     <timestep time="6.20">
-        <vehicle id="v_0" speed="0.06" acceleration="0.12"/>
+        <vehicle id="v_0" speed="0.05" acceleration="-0.06"/>
     </timestep>
     <timestep time="6.30">
-        <vehicle id="v_0" speed="0.00" acceleration="-0.61"/>
+        <vehicle id="v_0" speed="0.05" acceleration="0.03"/>
     </timestep>
     <timestep time="6.40">
-        <vehicle id="v_0" speed="0.26" acceleration="2.60"/>
+        <vehicle id="v_0" speed="0.00" acceleration="-0.54"/>
     </timestep>
     <timestep time="6.50">
-        <vehicle id="v_0" speed="0.00" acceleration="-2.60"/>
+        <vehicle id="v_0" speed="0.26" acceleration="2.60"/>
     </timestep>
     <timestep time="6.60">
-        <vehicle id="v_0" speed="0.18" acceleration="1.84"/>
+        <vehicle id="v_0" speed="0.00" acceleration="-2.60"/>
     </timestep>
     <timestep time="6.70">
-        <vehicle id="v_0" speed="0.00" acceleration="-1.84"/>
+        <vehicle id="v_0" speed="0.20" acceleration="2.03"/>
     </timestep>
     <timestep time="6.80">
-        <vehicle id="v_0" speed="0.00" acceleration="0.00"/>
+        <vehicle id="v_0" speed="0.00" acceleration="-2.03"/>
     </timestep>
     <timestep time="6.90">
         <vehicle id="v_0" speed="0.00" acceleration="0.00"/>
