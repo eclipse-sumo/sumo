@@ -115,6 +115,16 @@ Warning: 17 total messages of type: PT line in relation % with no stops ignored.
 Warning: 13 total messages of type: PT stop '%' has been moved to edge '%'.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 26 total messages of type: The rail crossing '%' does not have any roads.
+Warning: Could not import polygon from relation '16566' (missing ways)
+Warning: Could not import polygon from relation '51477' (missing ways)
+Warning: Could not import polygon from relation '62422' (missing ways)
+Warning: Could not import polygon from relation '957719' (name:Molkenmarkt reason: found gap of 23.40m)
+.
+Warning: Could not import polygon from relation '2678660' (name: reason: found gap of 109.98m)
+.
+Warning: Could not import polygon from relation '4065109' (missing ways)
+Warning: Could not import polygon from relation '8178851' (missing ways)
+Warning: 7 total messages of type: Could not import polygon from relation '%' (missing ways)
 Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
 Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
 Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).

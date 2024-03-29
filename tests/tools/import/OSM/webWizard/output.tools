@@ -1,11 +1,147 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (16ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (249ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (168ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (184ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (20ms).
+Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (308ms).
+Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (206ms).
+Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (235ms).
+Assembled polygon from relation '3619' (name:Altes Museum)
+Assembled polygon from relation '6647' (name:Humboldt-Universität zu Berlin)
+Assembled polygon from relation '23745' (name:Altes Stadthaus)
+Assembled polygon from relation '23748' (name:Berliner Wasserbetriebe)
+Assembled polygon from relation '28126' (name:)
+Assembled polygon from relation '28129' (name:Gasag Geschäftshaus)
+Assembled polygon from relation '28130' (name:Senatsverwaltung für Finanzen und Technisches Finanzamt)
+Assembled polygon from relation '28797' (name:Lindencorso)
+Assembled polygon from relation '28798' (name:Zollernhof)
+Assembled polygon from relation '57388' (name:AOK-Bundesverband)
+Assembled polygon from relation '57390' (name:Haus am Werderschen Markt)
+Assembled polygon from relation '131761' (name:Alexanderplatz)
+Assembled polygon from relation '180594' (name:Staatsbibliothek zu Berlin)
+Assembled polygon from relation '180595' (name:Deutsche Bank Kunsthalle)
+Assembled polygon from relation '184493' (name:Börgelhaus)
+Assembled polygon from relation '304166' (name:)
+Assembled polygon from relation '304168' (name:)
+Assembled polygon from relation '304171' (name:Landgericht Berlin / Amtsgericht Mitte)
+Assembled polygon from relation '304172' (name:Schicklerhaus)
+Assembled polygon from relation '304174' (name:Berliner Wasserbetriebe)
+Assembled polygon from relation '304175' (name:)
+Assembled polygon from relation '334300' (name:Prinz-Albrecht-Karree)
+Assembled polygon from relation '349277' (name:)
+Assembled polygon from relation '393392' (name:)
+Assembled polygon from relation '546243' (name:)
+Assembled polygon from relation '546258' (name:)
+Assembled polygon from relation '915443' (name:Hof III)
+Assembled polygon from relation '1402128' (name:), (front-to-back dist: 1189.25)
+Assembled polygon from relation '1402129' (name:), (front-to-back dist: 1699.75)
+Assembled polygon from relation '1402156' (name:), (front-to-back dist: 1724.39)
+Assembled polygon from relation '1402157' (name:), (front-to-back dist: 1149.17)
+Assembled polygon from relation '1402158' (name:), (front-to-back dist: 2647.58)
+Assembled polygon from relation '1403208' (name:)
+Assembled polygon from relation '1403271' (name:)
+Assembled polygon from relation '1404495' (name:)
+Assembled polygon from relation '1405662' (name:)
+Assembled polygon from relation '1410828' (name:)
+Assembled polygon from relation '1414330' (name:)
+Assembled polygon from relation '1440588' (name:)
+Assembled polygon from relation '1440589' (name:)
+Assembled polygon from relation '1493976' (name:)
+Assembled polygon from relation '1494044' (name:)
+Assembled polygon from relation '1505129' (name:)
+Assembled polygon from relation '1505139' (name:Kalkscheune)
+Assembled polygon from relation '1505141' (name:)
+Assembled polygon from relation '1547630' (name:)
+Assembled polygon from relation '1652105' (name:Märkisches Museum)
+Assembled polygon from relation '1722769' (name:)
+Assembled polygon from relation '1734778' (name:)
+Assembled polygon from relation '1734790' (name:)
+Assembled polygon from relation '1746783' (name:)
+Assembled polygon from relation '1846133' (name:)
+Assembled polygon from relation '1846159' (name:)
+Assembled polygon from relation '1846160' (name:)
+Assembled polygon from relation '2102312' (name:)
+Assembled polygon from relation '2169369' (name:)
+Assembled polygon from relation '2271921' (name:)
+Assembled polygon from relation '2271922' (name:)
+Assembled polygon from relation '2533890' (name:)
+Assembled polygon from relation '2625455' (name:)
+Assembled polygon from relation '2629592' (name:)
+Assembled polygon from relation '2668473' (name:)
+Assembled polygon from relation '2714529' (name:Dom Aquarée)
+Assembled polygon from relation '2714530' (name:Nikolaikirchplatz)
+Assembled polygon from relation '2990531' (name:)
+Assembled polygon from relation '2991593' (name:)
+Assembled polygon from relation '2991594' (name:)
+Assembled polygon from relation '3007958' (name:Baustelle Berliner Schloss / Humboldtforum)
+Assembled polygon from relation '3074075' (name:Der Wehrbeauftragte des Deutschen Bundestages)
+Assembled polygon from relation '3170250' (name:Institut für Sozialwissenschaften)
+Assembled polygon from relation '3297488' (name:)
+Assembled polygon from relation '3297489' (name:)
+Assembled polygon from relation '3297533' (name:Krausnickpark)
+Assembled polygon from relation '3361471' (name:)
+Assembled polygon from relation '3361472' (name:)
+Assembled polygon from relation '3372053' (name:)
+Assembled polygon from relation '3372054' (name:)
+Assembled polygon from relation '3407405' (name:)
+Assembled polygon from relation '3407406' (name:Berlin Friedrichstraße)
+Assembled polygon from relation '3409969' (name:)
+Assembled polygon from relation '3573535' (name:Gendarmenmarkt)
+Assembled polygon from relation '3624693' (name:)
+Assembled polygon from relation '3637412' (name:S Alexanderplatz)
+Assembled polygon from relation '3637413' (name:Berlin Alexanderplatz)
+Assembled polygon from relation '3637415' (name:)
+Assembled polygon from relation '3637944' (name:U Alexanderplatz)
+Assembled polygon from relation '3680083' (name:Senatsverwaltung für Bildung, Jugend und Familie)
+Assembled polygon from relation '3724111' (name:)
+Assembled polygon from relation '3767130' (name:)
+Assembled polygon from relation '4211594' (name:Bode-Museum)
+Assembled polygon from relation '4211905' (name:Rotes Rathaus)
+Assembled polygon from relation '4240425' (name:)
+Assembled polygon from relation '4283129' (name:)
+Assembled polygon from relation '4284350' (name:Kronprinzenpalais)
+Assembled polygon from relation '4593870' (name:), (front-to-back dist: 453.17)
+Assembled polygon from relation '4595741' (name:Domkandidatenstift)
+Assembled polygon from relation '4639501' (name:Zeughaus)
+Assembled polygon from relation '4642351' (name:)
+Assembled polygon from relation '5130501' (name:)
+Assembled polygon from relation '5559090' (name:)
+Assembled polygon from relation '5559091' (name:)
+Assembled polygon from relation '5759915' (name:)
+Assembled polygon from relation '5759947' (name:)
+Assembled polygon from relation '5812669' (name:)
+Assembled polygon from relation '5886324' (name:Palais Behrens)
+Assembled polygon from relation '5886325' (name:)
+Assembled polygon from relation '5886327' (name:)
+Assembled polygon from relation '5886330' (name:)
+Assembled polygon from relation '6033362' (name:Baustelle Schlossplatz)
+Assembled polygon from relation '6137529' (name:Hackescher Markt)
+Assembled polygon from relation '6214789' (name:)
+Assembled polygon from relation '6214790' (name:)
+Assembled polygon from relation '6288425' (name:)
+Assembled polygon from relation '6288426' (name:)
+Assembled polygon from relation '6288427' (name:)
+Assembled polygon from relation '6288428' (name:yoo Berlin)
+Assembled polygon from relation '6306415' (name:), (front-to-back dist: 1081.23)
+Assembled polygon from relation '6319647' (name:)
+Assembled polygon from relation '6529251' (name:)
+Assembled polygon from relation '6670113' (name:Humboldt-Universität Campus Nord)
+Assembled polygon from relation '7378121' (name:Fischerinsel)
+Assembled polygon from relation '7378200' (name:)
+Assembled polygon from relation '7378232' (name:)
+Assembled polygon from relation '7378355' (name:Spandauer Vorstadt)
+Assembled polygon from relation '7378465' (name:Luisenstadt)
+Assembled polygon from relation '7388655' (name:Spreeinsel)
+Assembled polygon from relation '7388656' (name:Kupfergraben), (front-to-back dist: 1530.83)
+Assembled polygon from relation '7507836' (name:)
+Assembled polygon from relation '7507837' (name:)
+Assembled polygon from relation '7670015' (name:Scheunenviertel)
+Assembled polygon from relation '7782299' (name:SAP)
+Assembled polygon from relation '7944385' (name:)
+Assembled polygon from relation '8165361' (name:)
+Assembled polygon from relation '8249214' (name:Hof V)
+Assembled polygon from relation '8249215' (name:)
+Assembled polygon from relation '8249216' (name:)
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/test'.
 generating trips...
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
@@ -36,18 +172,18 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (256ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (100ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.26Mar081651.2838567/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (8ms).
+Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (432ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (105ms).
+Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.29Mar085755.731363/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (13ms).
 Loading done.
-Simulation version v1_19_0+1536-0ceca17c3ed started with time: 0.00.
+Simulation version v1_19_0+1584-f4acdb10a47 started with time: 0.00.
 Simulation ended at time: 2636.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 1.11s
- Real time factor: 2372.64
- UPS: 131469.846985
- UPS-Persons: 126458.145815
+ Duration: 3.36s
+ Real time factor: 784.991
+ UPS: 43497.022037
+ UPS-Persons: 41838.892198
 Vehicles: 
  Inserted: 416
  Running: 0
@@ -84,6 +220,6 @@ Ride Statistics (avg of 171 rides):
  Aborted: 7
 
 DijkstraRouter answered 7087 queries and explored 11.31 edges on average.
-DijkstraRouter spent 0.01s answering queries (0.00ms on average).
+DijkstraRouter spent 0.03s answering queries (0.00ms on average).
 DijkstraRouter answered 261 queries and explored 612.00 edges on average.
-DijkstraRouter spent 0.04s answering queries (0.15ms on average).
+DijkstraRouter spent 0.13s answering queries (0.49ms on average).
