@@ -836,16 +836,16 @@ def updateStartedEnded(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
                             # marked as inactive because they are causing more
                             # deadlocks than they solve but might already be usefully (i.e. via TraCI)
                             fpiConflicts[nSignal].append(Conflict(nTripID, pSignal, pTripID, limit,
-                                                               # attributes for adding comments
-                                                               nStopBefore.line,
-                                                               pStop.line,
-                                                               nStopBefore.vehID,
-                                                               pStop.vehID,
-                                                               "foeEnded=%s " % humanReadableTime(ended),
-                                                               None,  # switch
-                                                               stop.busStop,
-                                                               "foeParking",
-                                                               active=False))
+                                                         # attributes for adding comments
+                                                         nStopBefore.line,
+                                                         pStop.line,
+                                                         nStopBefore.vehID,
+                                                         pStop.vehID,
+                                                         "foeEnded=%s " % humanReadableTime(ended),
+                                                         None,  # switch
+                                                         stop.busStop,
+                                                         "foeParking",
+                                                         active=False))
                             numConflicts2 += 1
 
         if busStop == options.debugStop and shift > 0:
@@ -1886,7 +1886,8 @@ def main(options):
             net, options, stopEdges, stopEnds, bidiStops)  # noqa
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
-    parkingConflicts, foeParkingInsertionConflicts = updateStartedEnded(options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
+    parkingConflicts, foeParkingInsertionConflicts = updateStartedEnded(
+            options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
 
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
