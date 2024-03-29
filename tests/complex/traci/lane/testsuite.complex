@@ -15,3 +15,6 @@ setMaxSpeed
 
 # close one lane of a two-lane edge, see #14589
 setMaxSpeed2
+
+
+sublane

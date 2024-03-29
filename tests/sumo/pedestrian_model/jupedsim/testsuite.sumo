@@ -31,3 +31,6 @@ speed_factor
 
 # rerouting with optional rerouters
 rerouter
+
+
+geometry_switching
