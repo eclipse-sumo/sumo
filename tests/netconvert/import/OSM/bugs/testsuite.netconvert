@@ -76,6 +76,15 @@ ticket9062
 # faulty permissions leading to a faulty network (triggered by ptlines)
 ticket9701
 
+# junction shape
+ticket10589
+
+# invalid rail crossing
+ticket10777
+
+# join looses tram connection
+ticket10826
+
 # crash when (always) processing pt stuff 
 ticket11803
 
