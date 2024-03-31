@@ -172,11 +172,11 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
             e->standalone = true;
 
             std::vector<std::vector<long long int> > snippets;
-            for (int wayID : rel->myWays) {
+            for (const long long int wayID : rel->myWays) {
                 PCOSMEdge* edge = edges[wayID];
                 snippets.push_back(edge->myCurrentNodes);
             }
-            double maxDist = 0;
+            double maxDist = 0.;
             bool ok = true;
             while (snippets.size() > 1) {
                 maxDist = MAX2(maxDist, mergeClosest(nodes, snippets));
@@ -191,8 +191,8 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                 double frontBackDist = 0;
                 if (e->myCurrentNodes.front() != e->myCurrentNodes.back()) {
                     // should be filled
-                    Position posFront = convertNodePosition(nodes[e->myCurrentNodes.front()]);
-                    Position posBack = convertNodePosition(nodes[e->myCurrentNodes.back()]);
+                    const Position posFront = convertNodePosition(nodes[e->myCurrentNodes.front()]);
+                    const Position posBack = convertNodePosition(nodes[e->myCurrentNodes.back()]);
                     frontBackDist = posFront.distanceTo2D(posBack);
                     if (frontBackDist < mergeRelationsThreshold) {
                         e->myCurrentNodes.push_back(e->myCurrentNodes.front());
@@ -200,7 +200,7 @@ PCLoaderOSM::loadIfSet(OptionsCont& oc, PCPolyContainer& toFill, PCTypeMap& tm) 
                     }
                 }
                 std::string frontBackMsg = "";
-                if (frontBackDist > 0 ){
+                if (frontBackDist > 0) {
                     frontBackMsg = TLF(", (front-to-back dist: %)", frontBackDist);
                 }
                 WRITE_MESSAGEF(TL("Assembled polygon from relation '%' (name:%)%"), toString(rel->id), e->name, frontBackMsg);
@@ -625,8 +625,8 @@ PCLoaderOSM::EdgesHandler::myEndElement(int element) {
 double
 PCLoaderOSM::mergeClosest(const std::map<long long int, PCOSMNode*>& nodes, std::vector<std::vector<long long int> >& snippets) {
     double best = std::numeric_limits<double>::max();
-    double best_i = 0;
-    double best_j = 1;
+    int best_i = 0;
+    int best_j = 1;
     bool iFW = true;
     bool jFW = true;
 
