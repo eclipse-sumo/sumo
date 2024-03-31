@@ -658,7 +658,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // draw lock icon
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
                 // draw junction name
-                drawJunctionName(s, d);
+                drawJunctionName(s);
                 // draw dotted contour for shape
                 myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
                 // draw dotted contour for bubble
@@ -1713,13 +1713,10 @@ GNEJunction::drawElevation(const GUIVisualizationSettings& s, const GUIVisualiza
 
 
 void
-GNEJunction::drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
-    // draw name and ID
-    if (d <= GUIVisualizationSettings::Detail::Names) {
-        drawName(myNBNode->getPosition(), s.scale, s.junctionID);
-        if (s.junctionName.show(this) && myNBNode->getName() != "") {
-            GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
-        }
+GNEJunction::drawJunctionName(const GUIVisualizationSettings& s) const {
+    drawName(myNBNode->getPosition(), s.scale, s.junctionID);
+    if (s.junctionName.show(this) && myNBNode->getName() != "") {
+        GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
     }
 }
 

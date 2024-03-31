@@ -480,7 +480,7 @@ private:
                               const double geometryPointRadius, const double exaggeration) const;
 
     /// @brief draw edge name
-    void drawEdgeName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawEdgeName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edgeStopOffset
     void drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;

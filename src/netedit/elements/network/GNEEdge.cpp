@@ -643,7 +643,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
             // draw edge stopOffset
             drawLaneStopOffset(s, d);
             // draw edge name
-            drawEdgeName(s, d);
+            drawEdgeName(s);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
             // draw dotted contour
@@ -2687,65 +2687,62 @@ GNEEdge::drawEndGeometryPoint(const GUIVisualizationSettings& s, const GUIVisual
 
 
 void
-GNEEdge::drawEdgeName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
-    // check  if we can draw it
-    if (d <= GUIVisualizationSettings::Detail::Names) {
-        // draw the name and/or the street name
-        const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
-        const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
-        // check conditions
-        if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
-            // get first and last lanes
-            const GNELane* firstLane = myLanes[0];
-            const GNELane* lastLane = myLanes[myLanes.size() - 1];
-            // calculate draw position
-            Position drawPosition = firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length() / (double) 2.);
-            drawPosition.add(lastLane->getLaneShape().positionAtOffset(lastLane->getLaneShape().length() / (double) 2.));
-            drawPosition.mul(.5);
-            if (spreadSuperposed) {
-                // move name to the right of the edge and towards its beginning
-                const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
-                const double shiftA = firstLane->getLaneShape().rotationAtOffset(firstLane->getLaneShape().length() / (double) 2.) - DEG2RAD(135);
-                const Position shift(dist * cos(shiftA), dist * sin(shiftA));
-                drawPosition.add(shift);
+GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
+    // draw the name and/or the street name
+    const bool drawStreetName = s.streetName.show(this) && (myNBEdge->getStreetName() != "");
+    const bool spreadSuperposed = s.spreadSuperposed && myNBEdge->getBidiEdge() != nullptr;
+    // check conditions
+    if (s.edgeName.show(this) || drawStreetName || s.edgeValue.show(this)) {
+        // get first and last lanes
+        const GNELane* firstLane = myLanes[0];
+        const GNELane* lastLane = myLanes[myLanes.size() - 1];
+        // calculate draw position
+        Position drawPosition = firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length() / (double) 2.);
+        drawPosition.add(lastLane->getLaneShape().positionAtOffset(lastLane->getLaneShape().length() / (double) 2.));
+        drawPosition.mul(.5);
+        if (spreadSuperposed) {
+            // move name to the right of the edge and towards its beginning
+            const double dist = 0.6 * s.edgeName.scaledSize(s.scale);
+            const double shiftA = firstLane->getLaneShape().rotationAtOffset(firstLane->getLaneShape().length() / (double) 2.) - DEG2RAD(135);
+            const Position shift(dist * cos(shiftA), dist * sin(shiftA));
+            drawPosition.add(shift);
+        }
+        // calculate drawing angle
+        double drawAngle = firstLane->getLaneShape().rotationDegreeAtOffset(firstLane->getLaneShape().length() / (double) 2.);
+        drawAngle += 90;
+        // avoid draw inverted text
+        if (drawAngle > 90 && drawAngle < 270) {
+            drawAngle -= 180;
+        }
+        // draw edge name
+        if (s.edgeName.show(this)) {
+            drawName(drawPosition, s.scale, s.edgeName, drawAngle);
+        }
+        // draw street name
+        if (drawStreetName) {
+            GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
+        }
+        // draw edge values
+        if (s.edgeValue.show(this)) {
+            // get current scheme
+            const int activeScheme = s.laneColorer.getActive();
+            // calculate value depending of active scheme
+            std::string value;
+            if (activeScheme == 12) {
+                // edge param, could be non-numerical
+                value = getNBEdge()->getParameter(s.edgeParam, "");
+            } else if (activeScheme == 13) {
+                // lane param, could be non-numerical
+                value = getNBEdge()->getLaneStruct(lastLane->getIndex()).getParameter(s.laneParam, "");
+            } else {
+                // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
+                const double doubleValue = lastLane->getColorValue(s, activeScheme);
+                const RGBColor color = s.laneColorer.getScheme().getColor(doubleValue);
+                value = color.alpha() == 0 ? "" : toString(doubleValue);
             }
-            // calculate drawing angle
-            double drawAngle = firstLane->getLaneShape().rotationDegreeAtOffset(firstLane->getLaneShape().length() / (double) 2.);
-            drawAngle += 90;
-            // avoid draw inverted text
-            if (drawAngle > 90 && drawAngle < 270) {
-                drawAngle -= 180;
-            }
-            // draw edge name
-            if (s.edgeName.show(this)) {
-                drawName(drawPosition, s.scale, s.edgeName, drawAngle);
-            }
-            // draw street name
-            if (drawStreetName) {
-                GLHelper::drawTextSettings(s.streetName, myNBEdge->getStreetName(), drawPosition, s.scale, drawAngle);
-            }
-            // draw edge values
-            if (s.edgeValue.show(this)) {
-                // get current scheme
-                const int activeScheme = s.laneColorer.getActive();
-                // calculate value depending of active scheme
-                std::string value;
-                if (activeScheme == 12) {
-                    // edge param, could be non-numerical
-                    value = getNBEdge()->getParameter(s.edgeParam, "");
-                } else if (activeScheme == 13) {
-                    // lane param, could be non-numerical
-                    value = getNBEdge()->getLaneStruct(lastLane->getIndex()).getParameter(s.laneParam, "");
-                } else {
-                    // use numerical value value of leftmost lane to hopefully avoid sidewalks, bikelanes etc
-                    const double doubleValue = lastLane->getColorValue(s, activeScheme);
-                    const RGBColor color = s.laneColorer.getScheme().getColor(doubleValue);
-                    value = color.alpha() == 0 ? "" : toString(doubleValue);
-                }
-                // check if value is empty
-                if (value != "") {
-                    GLHelper::drawTextSettings(s.edgeValue, value, drawPosition, s.scale, drawAngle);
-                }
+            // check if value is empty
+            if (value != "") {
+                GLHelper::drawTextSettings(s.edgeValue, value, drawPosition, s.scale, drawAngle);
             }
         }
     }

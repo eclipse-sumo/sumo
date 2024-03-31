@@ -563,7 +563,6 @@ public:
         CircleResolution8 = 2,  // circle resolution = 8
         DrawPolygonSquare = 2,  // draw polygons as squares
         VehicleTriangle = 2,    // draw vehicles as triangles
-        Names = 2,              // draw element names
         Additionals = 2,        // draw additional elements
         DottedContours = 2,     // draw dotted contours
         GeometryBoxLines = 2,   // draw lines instead boxes in GUIGeometry::drawGeometry

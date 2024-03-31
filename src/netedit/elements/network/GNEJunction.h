@@ -373,7 +373,7 @@ private:
     void drawElevation(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw junction name
-    void drawJunctionName(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawJunctionName(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
     void drawJunctionChildren(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
