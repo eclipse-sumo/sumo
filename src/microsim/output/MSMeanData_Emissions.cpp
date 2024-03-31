@@ -96,7 +96,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-        const double /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
+        const int /*numLanes*/, const double /*speedLimit*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
     dev.writeOptionalAttr(SUMO_ATTR_CO_ABS,          OutputDevice::realString(myEmissions.CO, 6), attributeMask);
     dev.writeOptionalAttr(SUMO_ATTR_CO2_ABS,         OutputDevice::realString(myEmissions.CO2, 6), attributeMask);

@@ -324,7 +324,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             }
             stops.push_back(viaEdge);
             if (jumpEdges.count(viaEdge) != 0) {
-                jumps.insert(stops.size());
+                jumps.insert((int)stops.size());
             }
         }
     }

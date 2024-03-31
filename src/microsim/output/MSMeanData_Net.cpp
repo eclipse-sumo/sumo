@@ -244,17 +244,17 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
 
 double
 MSMeanData_Net::MSLaneMeanDataValues::getOccupancy(SUMOTime period, int numLanes) const {
-    return occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
+    return occupationSum / STEPS2TIME(period) / myLaneLength / (double)numLanes * 100.;
 }
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
-        const double numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
+        const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
-    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
-                                1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
-    const double laneDensity = density / numLanes;
-    double occupancy = getOccupancy(period, numLanes);
+    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength,
+                                1000. * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    const double laneDensity = density / (double)numLanes;
+    const double occupancy = getOccupancy(period, numLanes);
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
     if (occupancy > 100) {

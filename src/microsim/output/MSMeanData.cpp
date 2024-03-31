@@ -377,7 +377,7 @@ void
 MSMeanData::MeanDataValueTracker::write(OutputDevice& dev,
                                         long long int attributeMask,
                                         const SUMOTime period,
-                                        const double numLanes,
+                                        const int numLanes,
                                         const double speedLimit,
                                         const double defaultTravelTime,
                                         const int /*numVehicles*/) const {
@@ -585,7 +585,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
 
     if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, "AGGREGATED")) {
         dev.writeAttr(SUMO_ATTR_NUMEDGES, myEdges.size());
-        sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)laneNumber, speedSum / (double)myEdges.size(),
+        sumData->write(dev, myWrittenAttributes, stopTime - startTime, laneNumber, speedSum / (double)myEdges.size(),
                        myPrintDefaults ? totalTT : -1.);
     }
     delete sumData;
@@ -610,7 +610,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues* data = edgeValues.front();
             if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime,
-                            (double)edge->getLanes().size(),
+                            (int)edge->getLanes().size(),
                             edge->getSpeedLimit(),
                             myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
@@ -637,7 +637,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         for (lane = edgeValues.begin(); lane != edgeValues.end(); ++lane) {
             MeanDataValues& meanData = **lane;
             if (writePrefix(dev, meanData, SUMO_TAG_LANE, meanData.getLane()->getID())) {
-                meanData.write(dev, myWrittenAttributes, stopTime - startTime, 1.f, meanData.getLane()->getSpeedLimit(),
+                meanData.write(dev, myWrittenAttributes, stopTime - startTime, 1, meanData.getLane()->getSpeedLimit(),
                                myPrintDefaults ? meanData.getLane()->getLength() / meanData.getLane()->getSpeedLimit() : -1.);
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
@@ -651,7 +651,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID())) {
-                meanData.write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),
+                meanData.write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
@@ -667,7 +667,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 }
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
-                sumData->write(dev, myWrittenAttributes, stopTime - startTime, (double)edge->getLanes().size(), edge->getSpeedLimit(),
+                sumData->write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;

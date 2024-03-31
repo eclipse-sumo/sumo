@@ -197,7 +197,7 @@ int
 InductionLoop::getLastIntervalVehicleNumber(const std::string& loopID) {
     if (MSGlobals::gUseMesoSim) {
         WRITE_ERROR("getLastIntervalVehicleNumber not applicable for meso");
-        return INVALID_DOUBLE_VALUE;
+        return INVALID_INT_VALUE;
     }
     return getDetector(loopID)->getIntervalVehicleNumber(true);
 }
