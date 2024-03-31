@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-03-31 18:26:44 by Eclipse SUMO netconvert Version v1_19_0+1593-2ec46704fe5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -795,7 +795,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":1504204913_1" function="internal">
         <lane id=":1504204913_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="16.16" shape="409.76,177.28 407.49,173.13 405.76,170.39 403.85,167.76 401.09,163.92"/>
-        <lane id=":1504204913_1_1" index="1" allow="emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle custom1 custom2" speed="13.89" length="16.16" shape="412.60,175.79 410.27,171.53 408.49,168.73 406.54,166.02 403.70,162.08"/>
+        <lane id=":1504204913_1_1" index="1" disallow="private pedestrian passenger tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="16.16" shape="412.60,175.79 410.27,171.53 408.49,168.73 406.54,166.02 403.70,162.08"/>
     </edge>
     <edge id=":1504204913_3" function="internal">
         <lane id=":1504204913_3_0" index="0" allow="tram" speed="13.89" length="13.31" shape="412.60,175.79 410.70,172.06 409.33,169.28 408.02,166.83 406.28,164.08"/>
@@ -1505,7 +1505,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id=":292142091_1" function="internal">
         <lane id=":292142091_1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.18" length="9.17" shape="449.84,236.85 444.12,241.95 442.66,242.33"/>
-        <lane id=":292142091_1_1" index="1" allow="emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle custom1 custom2" speed="7.40" length="7.58" shape="449.84,236.85 445.40,240.73 443.75,241.06"/>
+        <lane id=":292142091_1_1" index="1" disallow="private pedestrian passenger tram rail_urban rail rail_electric rail_fast ship" speed="7.40" length="7.58" shape="449.84,236.85 445.40,240.73 443.75,241.06"/>
     </edge>
     <edge id=":292142091_3" function="internal">
         <lane id=":292142091_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="449.84,236.85 448.44,237.20"/>
@@ -1514,7 +1514,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":292142091_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.18" length="14.07" shape="442.66,242.33 439.78,243.09 436.82,240.25 435.22,233.44"/>
     </edge>
     <edge id=":292142091_11" function="internal">
-        <lane id=":292142091_11_0" index="0" allow="emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle custom1 custom2" speed="7.40" length="11.11" shape="443.75,241.06 442.02,241.41 439.69,238.87 438.41,233.11"/>
+        <lane id=":292142091_11_0" index="0" disallow="private pedestrian passenger tram rail_urban rail rail_electric rail_fast ship" speed="7.40" length="11.11" shape="443.75,241.06 442.02,241.41 439.69,238.87 438.41,233.11"/>
     </edge>
     <edge id=":292142091_12" function="internal">
         <lane id=":292142091_12_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="448.44,237.20 447.58,236.96 447.25,236.13 447.46,234.70"/>
@@ -5083,7 +5083,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="28235821#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.37" shape="401.09,163.92 400.61,163.24 393.70,154.06">
             <param key="origId" value="28235821"/>
         </lane>
-        <lane id="28235821#1_1" index="1" allow="emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle custom1 custom2" speed="13.89" length="12.37" shape="403.70,162.08 403.20,161.35 396.26,152.13">
+        <lane id="28235821#1_1" index="1" disallow="private pedestrian passenger tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.37" shape="403.70,162.08 403.20,161.35 396.26,152.13">
             <param key="origId" value="28235821"/>
         </lane>
     </edge>
