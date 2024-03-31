@@ -80,6 +80,8 @@ static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitialize
 StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
+// count only non-deprecated classes
+const int NUM_VCLASSES = SumoVehicleClassStrings.size() - 7;
 
 std::set<std::string> deprecatedVehicleClassesSeen;
 
@@ -168,6 +170,7 @@ const double DEFAULT_PEDESTRIAN_SPEED(5. / 3.6);
 const double DEFAULT_BICYCLE_SPEED(20. / 3.6);
 
 const double DEFAULT_CONTAINER_TRANSHIP_SPEED(5. / 3.6);
+
 
 // ===========================================================================
 // method definitions
@@ -294,7 +297,7 @@ getVehicleClassNamesList(SVCPermissions permissions) {
         const std::vector<std::string> classNames = SumoVehicleClassStrings.getStrings();
         std::vector<std::string> result;
         for (std::vector<std::string>::const_iterator it = classNames.begin(); it != classNames.end(); it++) {
-            const int svc = (int)SumoVehicleClassStrings.get(*it);
+            const SVCPermissions svc = (SVCPermissions)SumoVehicleClassStrings.get(*it);
             if ((svc & permissions) == svc && svc != SVC_IGNORING) {
                 result.push_back(*it);
             }
@@ -424,12 +427,12 @@ writePermissions(OutputDevice& into, SVCPermissions permissions) {
         return;
     } else {
         int num_allowed = 0;
-        for (int mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
+        for (SVCPermissions mask = 1; mask <= SUMOVehicleClass_MAX; mask = mask << 1) {
             if ((mask & permissions) == mask) {
                 ++num_allowed;
             }
         }
-        if (num_allowed <= (SumoVehicleClassStrings.size() - num_allowed) && num_allowed > 0) {
+        if (num_allowed <= (NUM_VCLASSES - num_allowed) && num_allowed > 0) {
             into.writeAttr(SUMO_ATTR_ALLOW, getVehicleClassNames(permissions));
         } else {
             into.writeAttr(SUMO_ATTR_DISALLOW, getVehicleClassNames(~permissions));
