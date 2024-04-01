@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:28 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-04-01 19:56:11 by Eclipse SUMO netconvert Version v1_19_0+1610-2a1a5aef286
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -231,7 +231,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="319539204#0" from="220572842" to="2032008711" priority="11" type="highway.secondary" spreadType="center" shape="1514.35,2568.82 1516.64,2575.44 1529.46,2615.88 1530.43,2620.23">
         <lane id="319539204#0_0" index="0" allow="bus bicycle" speed="13.89" length="50.23" shape="1515.87,2568.30 1518.16,2574.94 1531.01,2615.46 1531.20,2616.32"/>
-        <lane id="319539204#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.23" shape="1512.84,2569.35 1515.12,2575.95 1527.91,2616.30 1528.07,2617.02"/>
+        <lane id="319539204#0_1" index="1" speed="13.89" length="50.23" shape="1512.84,2569.35 1515.12,2575.95 1527.91,2616.30 1528.07,2617.02"/>
         <param key="busway" value="lane"/>
         <param key="highway" value="secondary"/>
         <param key="lanes" value="2"/>
@@ -250,7 +250,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="319539204#1" from="2032008711" to="833044434" priority="11" type="highway.secondary" spreadType="center">
         <lane id="319539204#1_0" index="0" allow="bus bicycle" speed="13.89" length="59.51" shape="1532.72,2623.16 1545.61,2681.25"/>
-        <lane id="319539204#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="59.51" shape="1529.59,2623.86 1542.49,2681.95"/>
+        <lane id="319539204#1_1" index="1" speed="13.89" length="59.51" shape="1529.59,2623.86 1542.49,2681.95"/>
         <param key="busway" value="lane"/>
         <param key="highway" value="secondary"/>
         <param key="lanes" value="2"/>
@@ -269,7 +269,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="319539204#2" from="833044434" to="3663247364" priority="11" type="highway.secondary" spreadType="center" shape="1545.03,2686.02 1554.83,2730.19 1558.89,2748.46 1587.91,2879.23 1589.51,2886.45 1590.98,2892.57 1598.04,2923.31 1604.93,2957.21 1621.79,3032.83">
         <lane id="319539204#2_0" index="0" allow="bus bicycle" speed="13.89" length="350.33" shape="1547.65,2690.44 1556.39,2729.84 1560.45,2748.11 1589.47,2878.88 1591.07,2886.09 1592.53,2892.21 1599.60,2922.97 1606.49,2956.87 1623.35,3032.49"/>
-        <lane id="319539204#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="350.33" shape="1544.52,2691.13 1553.27,2730.53 1557.33,2748.81 1586.34,2879.57 1587.95,2886.81 1589.42,2892.94 1596.47,2923.65 1603.36,2957.54 1620.23,3033.18"/>
+        <lane id="319539204#2_1" index="1" speed="13.89" length="350.33" shape="1544.52,2691.13 1553.27,2730.53 1557.33,2748.81 1586.34,2879.57 1587.95,2886.81 1589.42,2892.94 1596.47,2923.65 1603.36,2957.54 1620.23,3033.18"/>
         <param key="busway" value="lane"/>
         <param key="highway" value="secondary"/>
         <param key="lanes" value="2"/>

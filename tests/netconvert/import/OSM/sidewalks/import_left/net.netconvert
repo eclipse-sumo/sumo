@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:27 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-04-01 19:56:10 by Eclipse SUMO netconvert Version v1_19_0+1610-2a1a5aef286
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -408,7 +408,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-9485559#0_0" index="0" allow="pedestrian" speed="8.33" length="52.34" width="2.00" shape="55.83,239.71 13.97,253.77 5.37,253.83">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="-9485559#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="52.34" shape="55.00,237.25 13.54,251.17 5.35,251.23">
+        <lane id="-9485559#0_1" index="1" speed="8.33" length="52.34" shape="55.00,237.25 13.54,251.17 5.35,251.23">
             <param key="origId" value="9485559"/>
         </lane>
     </edge>
@@ -416,7 +416,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-9485559#1_0" index="0" allow="pedestrian" speed="8.33" length="66.84" width="2.00" shape="132.97,214.03 69.55,235.13">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="-9485559#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="66.84" shape="132.15,211.56 68.73,232.66">
+        <lane id="-9485559#1_1" index="1" speed="8.33" length="66.84" shape="132.15,211.56 68.73,232.66">
             <param key="origId" value="9485559"/>
         </lane>
         <param key="origFrom" value="8453482056"/>
@@ -425,7 +425,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-9485559#3_0" index="0" allow="pedestrian" speed="8.33" length="131.74" width="2.00" shape="286.72,174.10 281.70,178.90 159.23,205.37">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="-9485559#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="131.74" shape="284.92,172.22 280.43,176.52 158.23,202.93">
+        <lane id="-9485559#3_1" index="1" speed="8.33" length="131.74" shape="284.92,172.22 280.43,176.52 158.23,202.93">
             <param key="origId" value="9485559"/>
         </lane>
         <param key="origTo" value="72859928"/>
@@ -434,7 +434,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-9485797_0" index="0" allow="pedestrian" speed="8.33" length="271.74" width="2.00" shape="146.72,498.42 109.99,348.00 105.49,339.59 60.29,242.49">
             <param key="origId" value="9485797"/>
         </lane>
-        <lane id="-9485797_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="271.74" shape="149.25,497.80 112.43,347.07 107.82,338.43 62.65,241.39">
+        <lane id="-9485797_1" index="1" speed="8.33" length="271.74" shape="149.25,497.80 112.43,347.07 107.82,338.43 62.65,241.39">
             <param key="origId" value="9485797"/>
         </lane>
     </edge>
@@ -442,7 +442,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-9620794_0" index="0" allow="pedestrian" speed="8.33" length="76.07" width="2.00" shape="2.03,153.18 71.71,122.68">
             <param key="origId" value="9620794"/>
         </lane>
-        <lane id="-9620794_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.07" width="3.25" shape="3.08,155.59 72.77,125.08">
+        <lane id="-9620794_1" index="1" speed="8.33" length="76.07" width="3.25" shape="3.08,155.59 72.77,125.08">
             <param key="origId" value="9620794"/>
         </lane>
         <param key="origTo" value="8453482059"/>
@@ -548,7 +548,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9485559#0_0" index="0" allow="pedestrian" speed="8.33" length="50.49" width="2.00" shape="5.31,245.43 12.57,245.38 53.16,231.75">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="9485559#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="50.49" shape="5.33,248.03 13.00,247.97 53.98,234.21">
+        <lane id="9485559#0_1" index="1" speed="8.33" length="50.49" shape="5.33,248.03 13.00,247.97 53.98,234.21">
             <param key="origId" value="9485559"/>
         </lane>
     </edge>
@@ -556,7 +556,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9485559#1_0" index="0" allow="pedestrian" speed="8.33" length="66.84" width="2.00" shape="66.90,227.16 130.32,206.06">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="9485559#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="66.84" shape="67.72,229.62 131.14,208.52">
+        <lane id="9485559#1_1" index="1" speed="8.33" length="66.84" shape="67.72,229.62 131.14,208.52">
             <param key="origId" value="9485559"/>
         </lane>
         <param key="origTo" value="8453482056"/>
@@ -565,7 +565,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9485559#3_0" index="0" allow="pedestrian" speed="8.33" length="129.50" width="2.00" shape="155.99,197.48 277.60,171.19 280.91,168.03">
             <param key="origId" value="9485559"/>
         </lane>
-        <lane id="9485559#3_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="129.50" shape="157.00,199.92 278.87,173.58 282.70,169.91">
+        <lane id="9485559#3_1" index="1" speed="8.33" length="129.50" shape="157.00,199.92 278.87,173.58 282.70,169.91">
             <param key="origId" value="9485559"/>
         </lane>
         <param key="origFrom" value="72859928"/>
@@ -574,7 +574,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9485797_0" index="0" allow="pedestrian" speed="8.33" length="272.88" width="2.00" shape="67.91,238.94 113.01,335.84 117.90,344.98 154.88,496.42">
             <param key="origId" value="9485797"/>
         </lane>
-        <lane id="9485797_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="272.88" shape="65.55,240.04 110.68,337.00 115.45,345.92 152.35,497.04">
+        <lane id="9485797_1" index="1" speed="8.33" length="272.88" shape="65.55,240.04 110.68,337.00 115.45,345.92 152.35,497.04">
             <param key="origId" value="9485797"/>
         </lane>
     </edge>
@@ -582,7 +582,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="9620794_0" index="0" allow="pedestrian" speed="8.33" length="76.08" width="2.00" shape="75.13,130.46 5.44,160.97">
             <param key="origId" value="9620794"/>
         </lane>
-        <lane id="9620794_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="76.08" width="3.25" shape="74.07,128.06 4.38,158.56">
+        <lane id="9620794_1" index="1" speed="8.33" length="76.08" width="3.25" shape="74.07,128.06 4.38,158.56">
             <param key="origId" value="9620794"/>
         </lane>
         <param key="origFrom" value="8453482059"/>

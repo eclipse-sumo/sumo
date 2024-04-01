@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:29 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-04-01 19:56:13 by Eclipse SUMO netconvert Version v1_19_0+1610-2a1a5aef286
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -927,7 +927,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="170032512_0" index="0" speed="8.33" length="0.20" shape="797.44,35.98 797.33,35.82"/>
     </edge>
     <edge id="170032520#1" from="1811884638" to="1811884656" priority="10" type="highway.tertiary" spreadType="center" shape="480.69,324.92 477.12,330.02 471.32,337.02">
-        <lane id="170032520#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="11.49" shape="481.94,325.93 478.39,330.99 474.92,335.18"/>
+        <lane id="170032520#1_0" index="0" speed="13.89" length="11.49" shape="481.94,325.93 478.39,330.99 474.92,335.18"/>
         <lane id="170032520#1_1" index="1" allow="bus" prefer="bus" speed="13.89" length="11.49" shape="479.32,324.10 475.84,329.05 472.46,333.14"/>
     </edge>
     <edge id="170032532#1" from="1811884626" to="2884057683" priority="12" type="highway.primary" spreadType="center" shape="797.95,57.96 785.53,63.97 706.05,111.31 701.45,114.01">
@@ -1048,7 +1048,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="3;4"/>
     </edge>
     <edge id="371348311" from="2923898717" to="1811884638" priority="10" type="highway.tertiary" spreadType="center" shape="529.13,232.22 524.57,237.72 516.93,249.48 509.95,263.02 496.22,294.23 490.49,307.45 486.58,315.07 480.69,324.92">
-        <lane id="371348311_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="101.12" shape="528.00,236.09 525.87,238.67 518.32,250.28 511.40,263.71 497.68,294.87 491.94,308.14 487.98,315.85 482.13,325.64"/>
+        <lane id="371348311_0" index="0" speed="13.89" length="101.12" shape="528.00,236.09 525.87,238.67 518.32,250.28 511.40,263.71 497.68,294.87 491.94,308.14 487.98,315.85 482.13,325.64"/>
         <lane id="371348311_1" index="1" allow="bus" prefer="bus" speed="13.89" length="101.12" shape="525.53,234.05 523.28,236.78 515.55,248.67 508.51,262.33 494.75,293.58 489.04,306.77 485.18,314.29 479.38,324.00"/>
     </edge>
     <edge id="371727494#2" from="3431777509" to="453816" priority="11" type="highway.secondary">

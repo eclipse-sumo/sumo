@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:28 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-04-01 19:56:12 by Eclipse SUMO netconvert Version v1_19_0+1610-2a1a5aef286
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -4259,7 +4259,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-432427267#0_1" index="1" speed="13.89" length="33.41" shape="2638.96,910.56 2605.60,912.43"/>
     </edge>
     <edge id="-432427267#1" from="4314838338" to="4693579480" priority="3" type="highway.residential">
-        <lane id="-432427267#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.19" shape="2662.70,912.43 2648.53,913.23"/>
+        <lane id="-432427267#1_0" index="0" speed="13.89" length="14.19" shape="2662.70,912.43 2648.53,913.23"/>
         <lane id="-432427267#1_1" index="1" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.19" shape="2662.52,909.23 2648.35,910.03"/>
     </edge>
     <edge id="-432427279" from="4314838339" to="49545308" priority="10" type="highway.tertiary" shape="2599.93,1005.70 2599.50,997.14 2595.14,911.42">
@@ -5476,7 +5476,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="432427279_0" index="0" speed="13.89" length="84.02" shape="2597.27,921.71 2601.10,997.06 2601.53,1005.62"/>
     </edge>
     <edge id="432427280#0" from="4314838337" to="4693579478" priority="10" type="highway.tertiary" shape="2588.64,805.45 2589.90,825.41 2590.20,829.56">
-        <lane id="432427280#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.65" shape="2593.68,809.13 2594.67,824.74"/>
+        <lane id="432427280#0_0" index="0" speed="13.89" length="15.65" shape="2593.68,809.13 2594.67,824.74"/>
         <lane id="432427280#0_1" index="1" disallow="rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.65" shape="2590.49,809.33 2591.48,824.97"/>
     </edge>
     <edge id="432427280#1" from="4693579478" to="49545308" priority="10" type="highway.tertiary">

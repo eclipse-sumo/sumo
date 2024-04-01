@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:28 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-04-01 19:56:11 by Eclipse SUMO netconvert Version v1_19_0+1610-2a1a5aef286
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -454,7 +454,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#0" from="1511503849" to="371188594" priority="1" type="highway.footway">
-        <lane id="-496730533#0_0" index="0" allow="pedestrian" speed="2.78" length="16.57" width="2.00" shape="546.51,164.13 552.97,179.38"/>
+        <lane id="-496730533#0_0" index="0" speed="2.78" length="16.57" width="2.00" shape="546.51,164.13 552.97,179.38"/>
         <lane id="-496730533#0_1" index="1" allow="bicycle" speed="2.78" length="16.57" width="1.00" shape="545.13,164.71 551.59,179.97"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -464,7 +464,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#1" from="371188597" to="1511503849" priority="1" type="highway.footway">
-        <lane id="-496730533#1_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="545.68,160.15 545.70,160.35"/>
+        <lane id="-496730533#1_0" index="0" speed="2.78" length="0.20" width="2.00" shape="545.68,160.15 545.70,160.35"/>
         <lane id="-496730533#1_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="544.19,160.26 544.20,160.46"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -474,7 +474,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#2" from="923228108" to="371188597" priority="1" type="highway.footway">
-        <lane id="-496730533#2_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="544.44,149.56 544.47,149.76"/>
+        <lane id="-496730533#2_0" index="0" speed="2.78" length="0.20" width="2.00" shape="544.44,149.56 544.47,149.76"/>
         <lane id="-496730533#2_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="542.96,149.81 542.99,150.01"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -484,7 +484,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#3" from="923227909" to="923228108" priority="1" type="highway.footway">
-        <lane id="-496730533#3_0" index="0" allow="pedestrian" speed="2.78" length="13.69" width="2.00" shape="543.57,131.40 544.12,145.08"/>
+        <lane id="-496730533#3_0" index="0" speed="2.78" length="13.69" width="2.00" shape="543.57,131.40 544.12,145.08"/>
         <lane id="-496730533#3_1" index="1" allow="bicycle" speed="2.78" length="13.69" width="1.00" shape="542.07,131.46 542.62,145.14"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -494,7 +494,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#4" from="371188599" to="923227909" priority="1" type="highway.footway">
-        <lane id="-496730533#4_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="543.37,127.22 543.39,127.42"/>
+        <lane id="-496730533#4_0" index="0" speed="2.78" length="0.20" width="2.00" shape="543.37,127.22 543.39,127.42"/>
         <lane id="-496730533#4_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="541.87,127.36 541.89,127.56"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -504,7 +504,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#5" from="923228375" to="371188599" priority="1" type="highway.footway">
-        <lane id="-496730533#5_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="542.72,118.41 542.73,118.61"/>
+        <lane id="-496730533#5_0" index="0" speed="2.78" length="0.20" width="2.00" shape="542.72,118.41 542.73,118.61"/>
         <lane id="-496730533#5_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="541.22,118.49 541.23,118.69"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -514,7 +514,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-496730533#6" from="371188601" to="923228375" priority="1" type="highway.footway">
-        <lane id="-496730533#6_0" index="0" allow="pedestrian" speed="2.78" length="1.43" width="2.00" shape="544.82,115.15 544.11,116.38"/>
+        <lane id="-496730533#6_0" index="0" speed="2.78" length="1.43" width="2.00" shape="544.82,115.15 544.11,116.38"/>
         <lane id="-496730533#6_1" index="1" allow="bicycle" speed="2.78" length="1.43" width="1.00" shape="543.53,114.39 542.81,115.63"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1019,7 +1019,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="32958564#0" from="1511503849" to="4092335195" priority="1" type="highway.cycleway" spreadType="center" shape="543.75,163.55 532.31,159.95">
         <lane id="32958564#0_0" index="0" allow="pedestrian" speed="5.56" length="3.90" width="2.00" shape="538.70,162.49 534.98,161.31"/>
-        <lane id="32958564#0_1" index="1" allow="bicycle" speed="5.56" length="3.90" width="1.00" shape="539.15,161.05 535.43,159.88"/>
+        <lane id="32958564#0_1" index="1" speed="5.56" length="3.90" width="1.00" shape="539.15,161.05 535.43,159.88"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="cycleway"/>
         <param key="lit" value="yes"/>
@@ -1029,7 +1029,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="32958564#1" from="4092335195" to="371188532" priority="1" type="highway.cycleway" spreadType="center" shape="532.33,159.95 471.33,142.79 443.20,134.75 435.47,132.55 428.70,130.62 414.68,128.28 390.52,127.52 370.74,132.52 364.26,134.14 345.31,139.62 342.27,143.21 334.75,145.60 285.11,148.52">
         <lane id="32958564#1_0" index="0" allow="pedestrian" speed="5.56" length="253.02" width="2.00" shape="530.12,159.85 471.19,143.27 443.06,135.23 435.33,133.03 428.59,131.10 414.63,128.78 390.57,128.02 370.86,133.00 364.39,134.62 345.59,140.06 342.56,143.65 334.84,146.09 285.27,149.01"/>
-        <lane id="32958564#1_1" index="1" allow="bicycle" speed="5.56" length="253.02" width="1.00" shape="530.53,158.41 471.60,141.83 443.47,133.79 435.74,131.59 428.92,129.64 414.78,127.28 390.41,126.52 370.50,131.55 364.00,133.17 344.74,138.75 341.70,142.35 334.56,144.61 285.19,147.52"/>
+        <lane id="32958564#1_1" index="1" speed="5.56" length="253.02" width="1.00" shape="530.53,158.41 471.60,141.83 443.47,133.79 435.74,131.59 428.92,129.64 414.78,127.28 390.41,126.52 370.50,131.55 364.00,133.17 344.74,138.75 341.70,142.35 334.56,144.61 285.19,147.52"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="cycleway"/>
         <param key="lit" value="yes"/>
@@ -1039,7 +1039,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="32958564#2" from="371188532" to="6451192466" priority="1" type="highway.cycleway" spreadType="center" shape="285.13,148.52 265.13,150.39 248.41,150.96 212.75,152.59 205.38,154.63 200.91,156.55 187.11,155.98 156.14,154.62 117.04,146.31 47.42,140.10 38.69,136.32 28.33,134.84 23.40,134.25">
         <lane id="32958564#2_0" index="0" allow="pedestrian" speed="5.56" length="264.33" width="2.00" shape="285.05,149.03 265.16,150.89 248.43,151.45 212.83,153.08 205.54,155.10 201.00,157.05 187.09,156.48 156.08,155.12 116.96,146.80 47.29,140.59 38.55,136.80 28.27,135.33 23.48,134.76"/>
-        <lane id="32958564#2_1" index="1" allow="bicycle" speed="5.56" length="264.33" width="1.00" shape="284.91,147.54 265.07,149.39 248.37,149.96 212.59,151.59 205.05,153.68 200.72,155.54 187.15,154.98 156.27,153.63 117.19,145.31 47.66,139.11 38.96,135.35 28.46,133.85 23.66,133.27"/>
+        <lane id="32958564#2_1" index="1" speed="5.56" length="264.33" width="1.00" shape="284.91,147.54 265.07,149.39 248.37,149.96 212.59,151.59 205.05,153.68 200.72,155.54 187.15,154.98 156.27,153.63 117.19,145.31 47.66,139.11 38.96,135.35 28.46,133.85 23.66,133.27"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="cycleway"/>
         <param key="lit" value="yes"/>
@@ -1049,7 +1049,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="32958564#3" from="6451192466" to="6451192809" priority="1" type="highway.cycleway" spreadType="center" shape="23.39,134.24 15.81,133.19">
         <lane id="32958564#3_0" index="0" allow="pedestrian" speed="5.56" length="7.36" width="2.00" shape="23.19,134.72 15.89,133.71"/>
-        <lane id="32958564#3_1" index="1" allow="bicycle" speed="5.56" length="7.36" width="1.00" shape="23.39,133.24 16.10,132.22"/>
+        <lane id="32958564#3_1" index="1" speed="5.56" length="7.36" width="1.00" shape="23.39,133.24 16.10,132.22"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="cycleway"/>
         <param key="lit" value="yes"/>
@@ -1059,7 +1059,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="32958564#4" from="6451192809" to="3673432861" priority="1" type="highway.cycleway" spreadType="center" shape="15.82,133.19 0.00,131.11">
         <lane id="32958564#4_0" index="0" allow="pedestrian" speed="5.56" length="15.80" width="2.00" shape="15.60,133.67 -0.07,131.61"/>
-        <lane id="32958564#4_1" index="1" allow="bicycle" speed="5.56" length="15.80" width="1.00" shape="15.80,132.18 0.13,130.12"/>
+        <lane id="32958564#4_1" index="1" speed="5.56" length="15.80" width="1.00" shape="15.80,132.18 0.13,130.12"/>
         <param key="foot" value="yes"/>
         <param key="highway" value="cycleway"/>
         <param key="lit" value="yes"/>
@@ -1132,7 +1132,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="496730533#0" from="371188594" to="1511503849" priority="1" type="highway.footway">
-        <lane id="496730533#0_0" index="0" allow="pedestrian" speed="2.78" length="16.57" width="2.00" shape="549.29,180.94 542.83,165.69"/>
+        <lane id="496730533#0_0" index="0" speed="2.78" length="16.57" width="2.00" shape="549.29,180.94 542.83,165.69"/>
         <lane id="496730533#0_1" index="1" allow="bicycle" speed="2.78" length="16.57" width="1.00" shape="550.67,180.36 544.21,165.10"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1142,7 +1142,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#1" from="1511503849" to="371188597" priority="1" type="highway.footway">
-        <lane id="496730533#1_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="541.71,160.65 541.70,160.45"/>
+        <lane id="496730533#1_0" index="0" speed="2.78" length="0.20" width="2.00" shape="541.71,160.65 541.70,160.45"/>
         <lane id="496730533#1_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="543.21,160.54 543.19,160.34"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1152,7 +1152,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#2" from="371188597" to="923228108" priority="1" type="highway.footway">
-        <lane id="496730533#2_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="540.53,150.43 540.50,150.23"/>
+        <lane id="496730533#2_0" index="0" speed="2.78" length="0.20" width="2.00" shape="540.53,150.43 540.50,150.23"/>
         <lane id="496730533#2_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="542.01,150.18 541.97,149.98"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1162,7 +1162,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#3" from="923228108" to="923227909" priority="1" type="highway.footway">
-        <lane id="496730533#3_0" index="0" allow="pedestrian" speed="2.78" length="13.69" width="2.00" shape="540.12,145.24 539.58,131.56"/>
+        <lane id="496730533#3_0" index="0" speed="2.78" length="13.69" width="2.00" shape="540.12,145.24 539.58,131.56"/>
         <lane id="496730533#3_1" index="1" allow="bicycle" speed="2.78" length="13.69" width="1.00" shape="541.62,145.18 541.08,131.50"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1172,7 +1172,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#4" from="923227909" to="371188599" priority="1" type="highway.footway">
-        <lane id="496730533#4_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="539.40,127.79 539.39,127.59"/>
+        <lane id="496730533#4_0" index="0" speed="2.78" length="0.20" width="2.00" shape="539.40,127.79 539.39,127.59"/>
         <lane id="496730533#4_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="540.90,127.65 540.88,127.45"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1182,7 +1182,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#5" from="371188599" to="923228375" priority="1" type="highway.footway">
-        <lane id="496730533#5_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="538.73,118.83 538.72,118.63"/>
+        <lane id="496730533#5_0" index="0" speed="2.78" length="0.20" width="2.00" shape="538.73,118.83 538.72,118.63"/>
         <lane id="496730533#5_1" index="1" allow="bicycle" speed="2.78" length="0.20" width="1.00" shape="540.23,118.75 540.22,118.55"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
@@ -1192,7 +1192,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="496730533#6" from="923228375" to="371188601" priority="1" type="highway.footway">
-        <lane id="496730533#6_0" index="0" allow="pedestrian" speed="2.78" length="1.43" width="2.00" shape="540.65,114.37 541.37,113.14"/>
+        <lane id="496730533#6_0" index="0" speed="2.78" length="1.43" width="2.00" shape="540.65,114.37 541.37,113.14"/>
         <lane id="496730533#6_1" index="1" allow="bicycle" speed="2.78" length="1.43" width="1.00" shape="541.94,115.13 542.66,113.89"/>
         <param key="bicycle" value="yes"/>
         <param key="cycleway:width" value="1.5"/>
