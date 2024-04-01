@@ -154,6 +154,12 @@ class TLSProgram:
         return self._params
 
 
+class EdgeType:
+    def __init__(self, id, allow, disallow):
+        self.id = id
+        self.allow = allow
+        self.disallow = disallow
+
 class Net:
 
     """The whole sumo network."""
@@ -179,9 +185,13 @@ class Net:
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None
         self._version = None
+        self._edgeTypes = defaultdict(lambda : EdgeType("DEFAULT_EDGETYPE", "", ""))
 
     def getVersion(self):
         return self._version
+
+    def getEdgeType(self, typeID):
+        return self._edgeTypes[typeID]
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -246,6 +256,10 @@ class Net:
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None):
+        if self.getVersion() >= (1,20) and allow is None and disallow is None:
+            edgeType = self.getEdgeType(edge.getType())
+            allow = edgeType.allow
+            disallow = edgeType.disallow
         return lane.Lane(edge, speed, length, width, allow, disallow)
 
     def addRoundabout(self, nodes, edges=None):
@@ -699,10 +713,13 @@ class NetReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'net':
-            self._net._version = tuple(attrs["version"].split('.'))
+            parts = attrs["version"].split('.', 1)
+            self._net._version = (int(parts[0]), float(parts[1]))
         elif name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs[
                                   "origBoundary"], attrs["projParameter"])
+        elif name == 'type':
+            self._net._edgeTypes[attrs['id']] = EdgeType(attrs['id'], attrs.get('allow'), attrs.get('disallow'))
         elif name == 'edge':
             function = attrs.get('function', '')
             if (function == ''
