@@ -42,3 +42,6 @@ cross_default_invalid
 
 # load two type files, values from the second file should overwrite the first
 overwrite_type
+
+# make sure that allow="all" is written when this is not the edge type default (#14625)
+allow_all_type_disallows

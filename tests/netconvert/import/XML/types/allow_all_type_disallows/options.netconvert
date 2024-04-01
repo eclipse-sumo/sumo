@@ -1,0 +1,4 @@
+--edge-files=input_plain.edg.xml --node-files=input_plain.nod.xml
+--type-files=input_plain.typ.xml --output=net.net.xml
+--no-turnarounds
+--no-internal-links
