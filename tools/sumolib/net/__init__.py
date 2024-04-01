@@ -178,6 +178,10 @@ class Net:
         self.hasInternal = False
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None
+        self._version = None
+
+    def getVersion(self):
+        return self._version
 
     def setLocation(self, netOffset, convBoundary, origBoundary, projParameter):
         self._location["netOffset"] = netOffset
@@ -694,6 +698,8 @@ class NetReader(handler.ContentHandler):
         self._bidiEdgeIDs = {}
 
     def startElement(self, name, attrs):
+        if name == 'net':
+            self._net._version = tuple(attrs["version"].split('.'))
         if name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs[
                                   "origBoundary"], attrs["projParameter"])
