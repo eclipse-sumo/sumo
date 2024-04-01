@@ -419,8 +419,11 @@ parseVehicleClasses(const std::vector<std::string>& allowedS) {
 
 
 void
-writePermissions(OutputDevice& into, SVCPermissions permissions) {
+writePermissions(OutputDevice& into, SVCPermissions permissions, bool explicitAll) {
     if (permissions == SVCAll) {
+        if (explicitAll) {
+            into.writeAttr(SUMO_ATTR_ALLOW, VehicleClassNameAll);
+        }
         return;
     } else if (permissions == 0) {
         into.writeAttr(SUMO_ATTR_DISALLOW, VehicleClassNameAll);

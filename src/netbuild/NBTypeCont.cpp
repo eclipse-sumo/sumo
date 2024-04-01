@@ -80,7 +80,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(const LaneTypeDefinition* lan
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
     speed(13.89), friction(NBEdge::UNSPECIFIED_FRICTION), priority(-1),
-    permissions(SVC_UNSPECIFIED),
+    permissions(SVCAll),
     spreadType(LaneSpreadFunction::RIGHT),
     oneWay(true), discard(false),
     width(NBEdge::UNSPECIFIED_WIDTH),

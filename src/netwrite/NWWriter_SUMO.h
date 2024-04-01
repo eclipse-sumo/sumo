@@ -151,7 +151,8 @@ private:
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,
-                          bool customShape = false);
+                          bool customShape = false,
+                          bool explicitAll = false);
 
 
     /** @brief Writes a junction (<junction ...)

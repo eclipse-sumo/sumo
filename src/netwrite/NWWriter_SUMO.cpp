@@ -516,6 +516,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, cons
     }
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
     const bool defaultPermissions = !e.hasLaneSpecificPermissions() && e.getPermissions() == tc.getEdgeTypePermissions(e.getTypeID());
+    const bool explicitAll = e.getPermissions() == SVCAll && e.getPermissions() != tc.getEdgeTypePermissions(e.getTypeID());
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         StopOffset stopOffset;
@@ -528,7 +529,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, cons
                   l.changeLeft, l.changeRight,
                   startOffset, l.endOffset,
                   stopOffset, l.width, l.shape, &l,
-                  length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0);
+                  length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0,
+                  explicitAll);
     }
     // close the edge
     e.writeParams(into);
@@ -546,14 +548,15 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID,
                          const std::string& type,
-                         bool accelRamp, bool customShape) {
+                         bool accelRamp, bool customShape,
+                         bool explicitAll) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
     into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
     if (permissions != SVC_UNSPECIFIED) {
-        writePermissions(into, permissions);
+        writePermissions(into, permissions, explicitAll);
     }
     writePreferences(into, preferred);
     // some further information
