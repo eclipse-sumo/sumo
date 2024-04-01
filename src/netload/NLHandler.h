@@ -236,6 +236,9 @@ private:
     /// adds a phase to the traffic lights logic currently build
     void addPhase(const SUMOSAXAttributes& attrs);
 
+    /// adds an edge type
+    void addEdgeType(const SUMOSAXAttributes& attrs);
+
     /// adds a switching condition to the traffic lights logic currently build
     void addCondition(const SUMOSAXAttributes& attrs);
 
@@ -338,6 +341,9 @@ protected:
     /// The id of the currently processed edge type
     std::string myCurrentTypeID;
 
+    /// The type id of the currently processed edge
+    std::string myCurrentEdgeType;
+
     /// The network offset
     Position myNetworkOffset;
 
@@ -386,6 +392,9 @@ protected:
     JunctionGraph myJunctionGraph;
 
     int myPreviousEdgeIdx = 0;
+
+    /// @brief the permissions for each loaded edge type
+    std::map<std::string, SVCPermissions> myEdgeTypePermissions;
 
 private:
     /** invalid copy constructor */

@@ -240,8 +240,7 @@ NLHandler::myStartElement(int element,
                 addRoundabout(attrs);
                 break;
             case SUMO_TAG_TYPE: {
-                bool ok = true;
-                myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+                addEdgeType(attrs);
                 break;
             }
             case SUMO_TAG_RESTRICTION: {
@@ -451,7 +450,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // get the edge type
-    const std::string edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+    myCurrentEdgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     // get the edge priority (only for visualization)
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
     // get the bidi-edge
@@ -465,7 +464,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi, distance);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, myCurrentEdgeType, priority, bidi, distance);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
@@ -536,7 +535,13 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    const SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    if (allow == "" && disallow == "" && myNetworkVersion >= MMVersion(1, 20)) {
+        auto it = myEdgeTypePermissions.find(myCurrentEdgeType);
+        if (it != myEdgeTypePermissions.end()) {
+            permissions = it->second;
+        }
+    }
     SVCPermissions changeLeft = parseVehicleClasses(changeLeftS, "", myNetworkVersion);
     SVCPermissions changeRight = parseVehicleClasses(changeRightS, "", myNetworkVersion);
     if (MSGlobals::gLefthand) {
@@ -1820,5 +1825,14 @@ NLHandler::addPredecessorConstraint(int element, const SUMOSAXAttributes& attrs,
     return result;
 }
 
+void
+NLHandler::addEdgeType(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, myCurrentTypeID.c_str(), ok, "", false);
+    const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, myCurrentTypeID.c_str(), ok, "");
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    myEdgeTypePermissions[myCurrentTypeID] = permissions;
+}
 
 /****************************************************************************/

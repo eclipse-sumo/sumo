@@ -106,8 +106,7 @@ RONetHandler::myStartElement(int element,
             parseDistrictEdge(attrs, false);
             break;
         case SUMO_TAG_TYPE: {
-            bool ok = true;
-            myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            parseEdgeType(attrs);
             break;
         }
         case SUMO_TAG_RESTRICTION: {
@@ -204,6 +203,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // set the type
     myCurrentEdge->setRestrictions(myNet.getRestrictions(attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "")));
     myCurrentEdge->setFunction(func);
+    myCurrentEdgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, myCurrentName.c_str(), ok, "");
 
     if (myNet.addEdge(myCurrentEdge)) {
         fromNode->addOutgoing(myCurrentEdge);
@@ -246,6 +246,12 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     // get the length
     // get the vehicle classes
     SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    if (allow == "" && disallow == "" && myNetworkVersion >= MMVersion(1, 20)) {
+        auto it = myEdgeTypePermissions.find(myCurrentEdgeType);
+        if (it != myEdgeTypePermissions.end()) {
+            permissions = it->second;
+        }
+    }
     if (permissions != SVCAll) {
         myNet.setPermissionsFound();
     }
@@ -429,5 +435,14 @@ RONetHandler::setLocation(const SUMOSAXAttributes& attrs) {
     }
 }
 
+void
+RONetHandler::parseEdgeType(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+    const std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, myCurrentTypeID.c_str(), ok, "", false);
+    const std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, myCurrentTypeID.c_str(), ok, "");
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
+    myEdgeTypePermissions[myCurrentTypeID] = permissions;
+}
 
 /****************************************************************************/
