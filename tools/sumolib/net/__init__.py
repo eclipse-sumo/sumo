@@ -700,10 +700,10 @@ class NetReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'net':
             self._net._version = tuple(attrs["version"].split('.'))
-        if name == 'location':
+        elif name == 'location':
             self._net.setLocation(attrs["netOffset"], attrs["convBoundary"], attrs[
                                   "origBoundary"], attrs["projParameter"])
-        if name == 'edge':
+        elif name == 'edge':
             function = attrs.get('function', '')
             if (function == ''
                     or (self._withInternal and function in ['internal', 'crossing', 'walkingarea'])
@@ -739,7 +739,7 @@ class NetReader(handler.ContentHandler):
                 elif function == 'connector':
                     self._net._macroConnectors.add(attrs['id'])
                 self._currentEdge = None
-        if name == 'lane' and self._currentEdge is not None:
+        elif name == 'lane' and self._currentEdge is not None:
             self._currentLane = self._net.addLane(
                 self._currentEdge,
                 float(attrs['speed']),
@@ -748,9 +748,9 @@ class NetReader(handler.ContentHandler):
                 attrs.get('allow'),
                 attrs.get('disallow'))
             self._currentLane.setShape(convertShape(attrs.get('shape', '')))
-        if name == 'neigh' and self._currentLane is not None:
+        elif name == 'neigh' and self._currentLane is not None:
             self._currentLane.setNeigh(attrs['lane'])
-        if name == 'junction':
+        elif name == 'junction':
             if attrs['id'][0] != ':':
                 intLanes = None
                 if self._withInternal:
@@ -765,7 +765,7 @@ class NetReader(handler.ContentHandler):
                 if 'fringe' in attrs:
                     self._currentNode._fringe = attrs['fringe']
 
-        if name == 'succ' and self._withConnections:  # deprecated
+        elif name == 'succ' and self._withConnections:  # deprecated
             if attrs['edge'][0] != ':':
                 self._currentEdge = self._net.getEdge(attrs['edge'])
                 self._currentLane = attrs['lane']
@@ -773,7 +773,7 @@ class NetReader(handler.ContentHandler):
                     self._currentLane[self._currentLane.rfind('_') + 1:])
             else:
                 self._currentEdge = None
-        if name == 'succlane' and self._withConnections:  # deprecated
+        elif name == 'succlane' and self._withConnections:  # deprecated
             lid = attrs['lane']
             if lid[0] != ':' and lid != "SUMO_NO_DESTINATION" and self._currentEdge:
                 connected = self._net.getEdge(lid[:lid.rfind('_')])
@@ -796,7 +796,7 @@ class NetReader(handler.ContentHandler):
                 self._net.addConnection(self._currentEdge, connected, self._currentEdge._lanes[
                                         self._currentLane], tolane,
                                         attrs['dir'], tl, tllink, attrs['state'], viaLaneID)
-        if name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
+        elif name == 'connection' and self._withConnections and (attrs['from'][0] != ":" or self._withInternal):
             fromEdgeID = attrs['from']
             toEdgeID = attrs['to']
             if ((self._withPedestrianConnections or not (fromEdgeID in self._net._crossings_and_walkingAreas or
@@ -825,20 +825,20 @@ class NetReader(handler.ContentHandler):
                     tllink, attrs['state'], viaLaneID)
 
         # 'row-logic' is deprecated!!!
-        if self._withFoes and name == 'ROWLogic':
+        elif self._withFoes and name == 'ROWLogic':
             self._currentNode = attrs['id']
-        if name == 'logicitem' and self._withFoes:  # deprecated
+        elif name == 'logicitem' and self._withFoes:  # deprecated
             self._net.setFoes(
                 self._currentNode, int(attrs['request']), attrs["foes"], attrs["response"])
-        if name == 'request' and self._withFoes:
+        elif name == 'request' and self._withFoes:
             self._currentNode.setFoes(
                 int(attrs['index']), attrs["foes"], attrs["response"])
         # tl-logic is deprecated!!! NOTE: nevertheless, this is still used by
         # netconvert... (Leo)
-        if self._withPhases and name == 'tlLogic':
+        elif self._withPhases and name == 'tlLogic':
             self._currentProgram = self._net.addTLSProgram(
                 attrs['id'], attrs['programID'], float(attrs['offset']), attrs['type'], self._latestProgram)
-        if self._withPhases and name == 'phase':
+        elif self._withPhases and name == 'phase':
             self._currentProgram.addPhase(
                 attrs['state'], int(attrs['duration']),
                 int(attrs['minDur']) if 'minDur' in attrs else -1,
@@ -846,10 +846,10 @@ class NetReader(handler.ContentHandler):
                 list(map(int, attrs['next'].split())) if 'next' in attrs else [],
                 attrs['name'] if 'name' in attrs else ""
             )
-        if name == 'roundabout':
+        elif name == 'roundabout':
             self._net.addRoundabout(
                 attrs['nodes'].split(), attrs['edges'].split())
-        if name == 'param':
+        elif name == 'param':
             if self._currentLane is not None:
                 self._currentLane.setParam(attrs['key'], attrs['value'])
             elif self._currentEdge is not None:
@@ -864,19 +864,19 @@ class NetReader(handler.ContentHandler):
     def endElement(self, name):
         if name == 'lane':
             self._currentLane = None
-        if name == 'edge':
+        elif name == 'edge':
             self._currentEdge = None
-        if name == 'junction':
+        elif name == 'junction':
             self._currentNode = None
-        if name == 'connection':
+        elif name == 'connection':
             self._currentConnection = None
         # 'row-logic' is deprecated!!!
-        if name == 'ROWLogic' or name == 'row-logic':
+        elif name == 'ROWLogic' or name == 'row-logic':
             self._haveROWLogic = False
         # tl-logic is deprecated!!!
-        if self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
+        elif self._withPhases and (name == 'tlLogic' or name == 'tl-logic'):
             self._currentProgram = None
-        if name == 'net':
+        elif name == 'net':
             for edgeID, bidiID in self._bidiEdgeIDs.items():
                 self._net.getEdge(edgeID)._bidi = self._net.getEdge(bidiID)
 
