@@ -515,14 +515,15 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, cons
         length = (length + e.getBidiEdge()->getFinalLength()) / 2;
     }
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
-    const bool defaultPermissions = !e.hasLaneSpecificPermissions() && e.getPermissions() == tc.getEdgeTypePermissions(e.getTypeID());
-    const bool explicitAll = e.getPermissions() == SVCAll && e.getPermissions() != tc.getEdgeTypePermissions(e.getTypeID());
+    SVCPermissions edgeTypePermissions = tc.getEdgeTypePermissions(e.getTypeID());
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         StopOffset stopOffset;
         if (l.laneStopOffset != e.getEdgeStopOffset()) {
             stopOffset = l.laneStopOffset;
         }
+        const bool defaultPermissions = l.permissions == edgeTypePermissions;
+        const bool explicitAll = !defaultPermissions && l.permissions == SVCAll;
         writeLane(into, e.getLaneID(i), l.speed, l.friction,
                   defaultPermissions ? SVC_UNSPECIFIED : l.permissions,
                   l.preferred,
