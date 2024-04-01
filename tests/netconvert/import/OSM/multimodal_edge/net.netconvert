@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:27 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -65,10 +65,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="0.76,-1.41 651.95,351.48"/>
     </edge>
     <edge id="10860202" from="2" to="3" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
+        <lane id="10860202_0" index="0" speed="13.89" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
     </edge>
     <edge id="10860203" from="2" to="4" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
+        <lane id="10860203_0" index="0" speed="13.89" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
     </edge>
 
     <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="0.00,0.00 -2.48,4.57 0.00,0.00">

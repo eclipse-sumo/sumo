@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:29 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -134,42 +134,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-477680253#1" from="35651826" to="56456270" name="Kaiserstraße" priority="3" type="highway.residential" shape="141.36,151.19 149.42,156.42 152.03,158.08 158.56,161.10">
-        <lane id="-477680253#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="7.90" shape="145.70,152.10 150.29,155.08 152.34,156.38">
+        <lane id="-477680253#1_0" index="0" speed="8.33" length="7.90" shape="145.70,152.10 150.29,155.08 152.34,156.38">
             <param key="origId" value="477680253 5137650"/>
         </lane>
     </edge>
     <edge id="-477680253#3" from="35651828" to="35651826" name="Kaiserstraße" priority="3" type="highway.residential" shape="49.80,91.03 79.56,110.58 141.36,151.19">
-        <lane id="-477680253#3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="94.78" shape="56.75,93.69 80.44,109.25 135.97,145.73">
+        <lane id="-477680253#3_0" index="0" speed="8.33" length="94.78" shape="56.75,93.69 80.44,109.25 135.97,145.73">
             <param key="origId" value="477680253"/>
         </lane>
     </edge>
     <edge id="-477680253#4" from="35644756" to="35651828" name="Kaiserstraße" priority="3" type="highway.residential">
-        <lane id="-477680253#4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="52.45" shape="0.88,56.98 44.72,85.78">
+        <lane id="-477680253#4_0" index="0" speed="8.33" length="52.45" shape="0.88,56.98 44.72,85.78">
             <param key="origId" value="477680253"/>
         </lane>
     </edge>
     <edge id="-5139887#1" from="27557093" to="35651828" name="Großer Hof" priority="3" type="highway.residential" shape="92.57,0.00 91.94,3.65 91.02,8.84 90.89,9.53 88.81,21.40 86.86,32.24 86.12,36.39 82.79,41.86 76.95,51.44 72.11,58.56 52.40,87.26 49.80,91.03">
-        <lane id="-5139887#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="96.02" shape="94.14,0.27 93.51,3.92 92.59,9.12 92.47,9.81 90.38,21.68 88.43,32.52 87.65,36.97 84.15,42.70 78.29,52.31 73.44,59.47 55.24,85.95">
+        <lane id="-5139887#1_0" index="0" speed="8.33" length="96.02" shape="94.14,0.27 93.51,3.92 92.59,9.12 92.47,9.81 90.38,21.68 88.43,32.52 87.65,36.97 84.15,42.70 78.29,52.31 73.44,59.47 55.24,85.95">
             <param key="origId" value="5139887"/>
         </lane>
     </edge>
     <edge id="477680253#2" from="35651826" to="35651828" name="Kaiserstraße" priority="3" type="highway.residential" shape="141.36,151.19 79.56,110.58 49.80,91.03">
-        <lane id="477680253#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="94.78" shape="134.21,148.41 78.68,111.92 55.00,96.36">
+        <lane id="477680253#2_0" index="0" speed="8.33" length="94.78" shape="134.21,148.41 78.68,111.92 55.00,96.36">
             <param key="origId" value="477680253"/>
         </lane>
     </edge>
     <edge id="477680253#4" from="35651828" to="35644756" name="Kaiserstraße" priority="3" type="highway.residential">
-        <lane id="477680253#4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="52.45" shape="42.96,88.45 -0.88,59.65">
+        <lane id="477680253#4_0" index="0" speed="8.33" length="52.45" shape="42.96,88.45 -0.88,59.65">
             <param key="origId" value="477680253"/>
         </lane>
     </edge>
     <edge id="5137650" from="56456270" to="35651826" name="Kaiserstraße" priority="3" type="highway.residential" shape="158.56,161.10 152.03,158.08 149.42,156.42 141.36,151.19">
-        <lane id="5137650_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="8.36" shape="150.98,159.31 148.55,157.77 143.95,154.79">
+        <lane id="5137650_0" index="0" speed="8.33" length="8.36" shape="150.98,159.31 148.55,157.77 143.95,154.79">
             <param key="origId" value="5137650 477680253"/>
         </lane>
     </edge>
     <edge id="5139887#0" from="35651828" to="27557093" name="Großer Hof" priority="3" type="highway.residential" shape="49.80,91.03 52.40,87.26 72.11,58.56 76.95,51.44 82.79,41.86 86.12,36.39 86.86,32.24 88.81,21.40 90.89,9.53 91.02,8.84 91.94,3.65 92.57,0.00">
-        <lane id="5139887#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="94.62" shape="52.60,84.13 70.79,57.66 75.60,50.58 81.42,41.03 84.60,35.82 85.28,31.95 87.23,21.12 89.32,9.26 89.44,8.56 90.36,3.37 90.99,-0.27">
+        <lane id="5139887#0_0" index="0" speed="8.33" length="94.62" shape="52.60,84.13 70.79,57.66 75.60,50.58 81.42,41.03 84.60,35.82 85.28,31.95 87.23,21.12 89.32,9.26 89.44,8.56 90.36,3.37 90.99,-0.27">
             <param key="origId" value="5139887"/>
         </lane>
     </edge>
@@ -190,7 +190,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="7745712#0" from="35651826" to="27557095" name="Werder" priority="3" type="highway.residential" spreadType="center" shape="141.36,151.19 141.74,147.15 144.59,117.11 146.57,96.18 151.01,77.46 154.79,61.50 158.38,46.37 162.24,30.10 165.70,15.69">
-        <lane id="7745712#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="129.52" shape="142.16,142.76 144.59,117.11 146.57,96.18 151.01,77.46 154.79,61.50 158.38,46.37 162.24,30.10 165.70,15.69">
+        <lane id="7745712#0_0" index="0" speed="8.33" length="129.52" shape="142.16,142.76 144.59,117.11 146.57,96.18 151.01,77.46 154.79,61.50 158.38,46.37 162.24,30.10 165.70,15.69">
             <param key="origId" value="7745712"/>
         </lane>
     </edge>

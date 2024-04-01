@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:36:51 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 16:52:18 by Eclipse SUMO netgenerate Version v1_19_0+1599-58f973b97ec
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -178,76 +178,76 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="A0A1" from="A0" to="A1" priority="3" type="a" spreadType="center" bidi="A1A0">
-        <lane id="A0A1_0" index="0" allow="rail" speed="13.89" length="95.30" shape="0.00,1.60 0.00,96.90"/>
+        <lane id="A0A1_0" index="0" speed="13.89" length="95.30" shape="0.00,1.60 0.00,96.90"/>
     </edge>
     <edge id="A0B0" from="A0" to="B0" priority="3" type="a" spreadType="center" bidi="B0A0">
-        <lane id="A0B0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="1.60,0.00 96.90,0.00"/>
+        <lane id="A0B0_0" index="0" speed="13.89" length="95.30" shape="1.60,0.00 96.90,0.00"/>
     </edge>
     <edge id="A1A0" from="A1" to="A0" priority="3" type="a" spreadType="center" bidi="A0A1">
-        <lane id="A1A0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="0.00,96.90 0.00,1.60"/>
+        <lane id="A1A0_0" index="0" speed="13.89" length="95.30" shape="0.00,96.90 0.00,1.60"/>
     </edge>
     <edge id="A1A2" from="A1" to="A2" priority="3" type="a" spreadType="center" bidi="A2A1">
-        <lane id="A1A2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="0.00,103.10 0.00,198.40"/>
+        <lane id="A1A2_0" index="0" speed="13.89" length="95.30" shape="0.00,103.10 0.00,198.40"/>
     </edge>
     <edge id="A1B1" from="A1" to="B1" priority="3" type="a" spreadType="center" bidi="B1A1">
-        <lane id="A1B1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="3.10,100.00 96.90,100.00"/>
+        <lane id="A1B1_0" index="0" speed="13.89" length="93.80" shape="3.10,100.00 96.90,100.00"/>
     </edge>
     <edge id="A2A1" from="A2" to="A1" priority="3" type="a" spreadType="center" bidi="A1A2">
-        <lane id="A2A1_0" index="0" allow="rail" speed="13.89" length="95.30" shape="0.00,198.40 0.00,103.10"/>
+        <lane id="A2A1_0" index="0" speed="13.89" length="95.30" shape="0.00,198.40 0.00,103.10"/>
     </edge>
     <edge id="A2B2" from="A2" to="B2" priority="3" type="a" spreadType="center" bidi="B2A2">
-        <lane id="A2B2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="1.60,200.00 96.90,200.00"/>
+        <lane id="A2B2_0" index="0" speed="13.89" length="95.30" shape="1.60,200.00 96.90,200.00"/>
     </edge>
     <edge id="B0A0" from="B0" to="A0" priority="3" type="a" spreadType="center" bidi="A0B0">
-        <lane id="B0A0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="96.90,0.00 1.60,0.00"/>
+        <lane id="B0A0_0" index="0" speed="13.89" length="95.30" shape="96.90,0.00 1.60,0.00"/>
     </edge>
     <edge id="B0B1" from="B0" to="B1" priority="3" type="a" spreadType="center" bidi="B1B0">
-        <lane id="B0B1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="100.00,3.10 100.00,96.90"/>
+        <lane id="B0B1_0" index="0" speed="13.89" length="93.80" shape="100.00,3.10 100.00,96.90"/>
     </edge>
     <edge id="B0C0" from="B0" to="C0" priority="3" type="a" spreadType="center" bidi="C0B0">
-        <lane id="B0C0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="103.10,0.00 198.40,0.00"/>
+        <lane id="B0C0_0" index="0" speed="13.89" length="95.30" shape="103.10,0.00 198.40,0.00"/>
     </edge>
     <edge id="B1A1" from="B1" to="A1" priority="3" type="a" spreadType="center" bidi="A1B1">
-        <lane id="B1A1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="96.90,100.00 3.10,100.00"/>
+        <lane id="B1A1_0" index="0" speed="13.89" length="93.80" shape="96.90,100.00 3.10,100.00"/>
     </edge>
     <edge id="B1B0" from="B1" to="B0" priority="3" type="a" spreadType="center" bidi="B0B1">
-        <lane id="B1B0_0" index="0" allow="rail" speed="13.89" length="93.80" shape="100.00,96.90 100.00,3.10"/>
+        <lane id="B1B0_0" index="0" speed="13.89" length="93.80" shape="100.00,96.90 100.00,3.10"/>
     </edge>
     <edge id="B1B2" from="B1" to="B2" priority="3" type="a" spreadType="center" bidi="B2B1">
-        <lane id="B1B2_0" index="0" allow="rail" speed="13.89" length="93.80" shape="100.00,103.10 100.00,196.90"/>
+        <lane id="B1B2_0" index="0" speed="13.89" length="93.80" shape="100.00,103.10 100.00,196.90"/>
     </edge>
     <edge id="B1C1" from="B1" to="C1" priority="3" type="a" spreadType="center" bidi="C1B1">
-        <lane id="B1C1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="103.10,100.00 196.90,100.00"/>
+        <lane id="B1C1_0" index="0" speed="13.89" length="93.80" shape="103.10,100.00 196.90,100.00"/>
     </edge>
     <edge id="B2A2" from="B2" to="A2" priority="3" type="a" spreadType="center" bidi="A2B2">
-        <lane id="B2A2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="96.90,200.00 1.60,200.00"/>
+        <lane id="B2A2_0" index="0" speed="13.89" length="95.30" shape="96.90,200.00 1.60,200.00"/>
     </edge>
     <edge id="B2B1" from="B2" to="B1" priority="3" type="a" spreadType="center" bidi="B1B2">
-        <lane id="B2B1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="100.00,196.90 100.00,103.10"/>
+        <lane id="B2B1_0" index="0" speed="13.89" length="93.80" shape="100.00,196.90 100.00,103.10"/>
     </edge>
     <edge id="B2C2" from="B2" to="C2" priority="3" type="a" spreadType="center" bidi="C2B2">
-        <lane id="B2C2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="103.10,200.00 198.40,200.00"/>
+        <lane id="B2C2_0" index="0" speed="13.89" length="95.30" shape="103.10,200.00 198.40,200.00"/>
     </edge>
     <edge id="C0B0" from="C0" to="B0" priority="3" type="a" spreadType="center" bidi="B0C0">
-        <lane id="C0B0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="198.40,0.00 103.10,0.00"/>
+        <lane id="C0B0_0" index="0" speed="13.89" length="95.30" shape="198.40,0.00 103.10,0.00"/>
     </edge>
     <edge id="C0C1" from="C0" to="C1" priority="3" type="a" spreadType="center" bidi="C1C0">
-        <lane id="C0C1_0" index="0" allow="rail" speed="13.89" length="95.30" shape="200.00,1.60 200.00,96.90"/>
+        <lane id="C0C1_0" index="0" speed="13.89" length="95.30" shape="200.00,1.60 200.00,96.90"/>
     </edge>
     <edge id="C1B1" from="C1" to="B1" priority="3" type="a" spreadType="center" bidi="B1C1">
-        <lane id="C1B1_0" index="0" allow="rail" speed="13.89" length="93.80" shape="196.90,100.00 103.10,100.00"/>
+        <lane id="C1B1_0" index="0" speed="13.89" length="93.80" shape="196.90,100.00 103.10,100.00"/>
     </edge>
     <edge id="C1C0" from="C1" to="C0" priority="3" type="a" spreadType="center" bidi="C0C1">
-        <lane id="C1C0_0" index="0" allow="rail" speed="13.89" length="95.30" shape="200.00,96.90 200.00,1.60"/>
+        <lane id="C1C0_0" index="0" speed="13.89" length="95.30" shape="200.00,96.90 200.00,1.60"/>
     </edge>
     <edge id="C1C2" from="C1" to="C2" priority="3" type="a" spreadType="center" bidi="C2C1">
-        <lane id="C1C2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="200.00,103.10 200.00,198.40"/>
+        <lane id="C1C2_0" index="0" speed="13.89" length="95.30" shape="200.00,103.10 200.00,198.40"/>
     </edge>
     <edge id="C2B2" from="C2" to="B2" priority="3" type="a" spreadType="center" bidi="B2C2">
-        <lane id="C2B2_0" index="0" allow="rail" speed="13.89" length="95.30" shape="198.40,200.00 103.10,200.00"/>
+        <lane id="C2B2_0" index="0" speed="13.89" length="95.30" shape="198.40,200.00 103.10,200.00"/>
     </edge>
     <edge id="C2C1" from="C2" to="C1" priority="3" type="a" spreadType="center" bidi="C1C2">
-        <lane id="C2C1_0" index="0" allow="rail" speed="13.89" length="95.30" shape="200.00,198.40 200.00,103.10"/>
+        <lane id="C2C1_0" index="0" speed="13.89" length="95.30" shape="200.00,198.40 200.00,103.10"/>
     </edge>
 
     <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="A1A0_0 B0A0_0" intLanes=":A0_0_0 :A0_1_0" shape="-1.60,1.60 1.60,1.60 1.60,-1.60 -0.18,-1.24 -0.80,-0.80 -1.24,-0.18 -1.51,0.62">

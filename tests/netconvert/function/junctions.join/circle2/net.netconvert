@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:10 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:33 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,10 +57,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="pedestrian delivery" oneway="0"/>
 
     <edge id="-143308673#0" from="1853142973" to="cluster_1568241232_1654992651" priority="2" type="highway.service" shape="4469.43,188.80 4466.76,175.12 4460.99,161.71">
-        <lane id="-143308673#0_0" index="0" allow="pedestrian delivery" speed="2.78" length="29.55" shape="4467.86,189.11 4465.22,175.59 4462.19,168.54"/>
+        <lane id="-143308673#0_0" index="0" speed="2.78" length="29.55" shape="4467.86,189.11 4465.22,175.59 4462.19,168.54"/>
     </edge>
     <edge id="-152709214" from="1654992589" to="cluster_1568241232_1654992651" priority="2" type="highway.service" shape="4379.95,106.53 4395.69,94.72 4412.32,91.23 4428.49,90.90 4444.32,153.14 4454.47,164.08">
-        <lane id="-152709214_0" index="0" allow="pedestrian delivery" speed="5.56" length="133.84" shape="4378.99,105.25 4395.01,93.23 4412.14,89.63 4429.73,89.27 4445.77,152.35 4449.86,156.76"/>
+        <lane id="-152709214_0" index="0" speed="5.56" length="133.84" shape="4378.99,105.25 4395.01,93.23 4412.14,89.63 4429.73,89.27 4445.77,152.35 4449.86,156.76"/>
     </edge>
     <edge id="-169076556#0" from="cluster_1568241232_1654992651" to="1568241231" priority="4" type="highway.residential" shape="4460.99,161.71 4488.29,150.43">
         <lane id="-169076556#0_0" index="0" allow="pedestrian" speed="13.89" length="33.01" width="2.00" shape="4463.80,156.00 4486.69,146.55"/>
@@ -75,13 +75,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-169076556#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="42.36" shape="4394.09,172.81 4419.08,172.31 4430.86,170.09"/>
     </edge>
     <edge id="-25944536" from="283018514" to="283018497" priority="2" type="highway.service" shape="4436.40,194.06 4438.12,188.51 4436.18,170.72">
-        <lane id="-25944536_0" index="0" allow="pedestrian delivery" speed="5.56" length="23.71" shape="4434.87,193.59 4436.49,188.35 4435.34,177.82"/>
+        <lane id="-25944536_0" index="0" speed="5.56" length="23.71" shape="4434.87,193.59 4436.49,188.35 4435.34,177.82"/>
     </edge>
     <edge id="143308673#0" from="cluster_1568241232_1654992651" to="1853142973" priority="2" type="highway.service" shape="4460.99,161.71 4466.76,175.12 4469.43,188.80">
-        <lane id="143308673#0_0" index="0" allow="pedestrian delivery" speed="2.78" length="29.55" shape="4465.13,167.28 4468.30,174.65 4471.00,188.49"/>
+        <lane id="143308673#0_0" index="0" speed="2.78" length="29.55" shape="4465.13,167.28 4468.30,174.65 4471.00,188.49"/>
     </edge>
     <edge id="152709214" from="cluster_1568241232_1654992651" to="1654992589" priority="2" type="highway.service" shape="4454.47,164.08 4444.32,153.14 4428.49,90.90 4412.32,91.23 4395.69,94.72 4379.95,106.53">
-        <lane id="152709214_0" index="0" allow="pedestrian delivery" speed="5.56" length="133.84" shape="4447.52,158.94 4442.87,153.93 4427.25,92.53 4412.50,92.83 4396.37,96.21 4380.91,107.81"/>
+        <lane id="152709214_0" index="0" speed="5.56" length="133.84" shape="4447.52,158.94 4442.87,153.93 4427.25,92.53 4412.50,92.83 4396.37,96.21 4380.91,107.81"/>
     </edge>
     <edge id="169076556#0" from="1568241231" to="cluster_1568241232_1654992651" priority="4" type="highway.residential" shape="4488.29,150.43 4460.99,161.71">
         <lane id="169076556#0_0" index="0" allow="pedestrian" speed="13.89" length="33.01" width="2.00" shape="4489.89,154.31 4467.01,163.77"/>
@@ -96,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="169076556#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="42.36" shape="4431.45,173.24 4419.42,175.51 4394.15,176.01"/>
     </edge>
     <edge id="25944536" from="283018497" to="283018514" priority="2" type="highway.service" shape="4436.18,170.72 4438.12,188.51 4436.40,194.06">
-        <lane id="25944536_0" index="0" allow="pedestrian delivery" speed="5.56" length="23.71" shape="4438.53,177.47 4439.75,188.67 4437.93,194.53"/>
+        <lane id="25944536_0" index="0" speed="5.56" length="23.71" shape="4438.53,177.47 4439.75,188.67 4437.93,194.53"/>
     </edge>
 
     <junction id="1568241231" type="priority" x="4488.29" y="150.43" incLanes="-169076556#0_0 -169076556#0_1" intLanes="" shape="4488.29,150.43 4486.30,145.62 4488.29,150.43">

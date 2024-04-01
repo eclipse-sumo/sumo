@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:04 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:25 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -55,22 +55,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-1#0" from="1.begin" to="1#1" priority="1" type="driving">
-        <lane id="-1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.85" width="3.00" shape="0.00,-1.50 9.85,-1.50" type="driving"/>
+        <lane id="-1#0_0" index="0" speed="13.89" length="9.85" width="3.00" shape="0.00,-1.50 9.85,-1.50" type="driving"/>
     </edge>
     <edge id="-1#1" from="1#1" to="1#2" priority="1" type="driving">
         <lane id="-1#1_0" index="0" allow="bus" speed="13.89" length="19.70" width="3.00" shape="10.15,-1.50 29.85,-1.50" type="driving"/>
     </edge>
     <edge id="-1#2" from="1#2" to="1.end" priority="1" type="driving">
-        <lane id="-1#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.85" width="3.00" shape="30.15,-1.50 50.00,-1.50" type="driving"/>
+        <lane id="-1#2_0" index="0" speed="13.89" length="19.85" width="3.00" shape="30.15,-1.50 50.00,-1.50" type="driving"/>
     </edge>
     <edge id="1#0" from="1#1" to="1.begin" priority="1" type="driving">
-        <lane id="1#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.85" width="3.00" shape="9.85,1.50 0.00,1.50" type="driving"/>
+        <lane id="1#0_0" index="0" speed="13.89" length="9.85" width="3.00" shape="9.85,1.50 0.00,1.50" type="driving"/>
     </edge>
     <edge id="1#1" from="1#2" to="1#1" priority="1" type="driving">
         <lane id="1#1_0" index="0" allow="bus" speed="13.89" length="19.70" width="3.00" shape="29.85,1.50 10.15,1.50" type="driving"/>
     </edge>
     <edge id="1#2" from="1.end" to="1#2" priority="1" type="driving">
-        <lane id="1#2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.85" width="3.00" shape="50.00,1.50 30.15,1.50" type="driving"/>
+        <lane id="1#2_0" index="0" speed="13.89" length="19.85" width="3.00" shape="50.00,1.50 30.15,1.50" type="driving"/>
     </edge>
 
     <junction id="1#1" type="priority" x="10.00" y="0.00" incLanes="1#1_0 -1#0_0" intLanes=":1#1_0_0 :1#1_1_0" shape="10.15,3.00 10.15,-3.00 9.85,-3.00 9.85,3.00">

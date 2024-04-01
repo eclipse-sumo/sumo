@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:37 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -358,148 +358,148 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-gneE107" from="gneJ65" to="gneJ93" priority="-1" type="highway.prt">
-        <lane id="-gneE107_0" index="0" allow="custom1" speed="13.89" length="11.33" width="1.50" shape="45.22,50.22 47.78,39.18"/>
+        <lane id="-gneE107_0" index="0" speed="13.89" length="11.33" width="1.50" shape="45.22,50.22 47.78,39.18"/>
     </edge>
     <edge id="-gneE185" from="sz_7" to="gneJ6" priority="-1" type="highway.prt">
-        <lane id="-gneE185_0" index="0" allow="custom1" speed="13.89" length="44.00" width="1.50" shape="547.90,105.03 586.15,83.30"/>
+        <lane id="-gneE185_0" index="0" speed="13.89" length="44.00" width="1.50" shape="547.90,105.03 586.15,83.30"/>
     </edge>
     <edge id="-gneE4" from="gneJ4" to="gneJ0" priority="-1" type="highway.prt">
-        <lane id="-gneE4_0" index="0" allow="custom1" speed="13.89" length="26.64" width="1.50" shape="623.32,111.38 631.28,136.80"/>
+        <lane id="-gneE4_0" index="0" speed="13.89" length="26.64" width="1.50" shape="623.32,111.38 631.28,136.80"/>
     </edge>
     <edge id="-gneE5" from="gneJ5" to="gneJ4" priority="-1" type="highway.prt">
-        <lane id="-gneE5_0" index="0" allow="custom1" speed="13.89" length="19.52" width="1.50" shape="608.83,93.15 621.47,108.02"/>
+        <lane id="-gneE5_0" index="0" speed="13.89" length="19.52" width="1.50" shape="608.83,93.15 621.47,108.02"/>
     </edge>
     <edge id="-gneE52" from="gneJ52" to="gneJ33" priority="-1" type="highway.prt" shape="566.66,809.97 569.81,826.01 658.62,816.98 664.42,777.44 663.81,761.42 658.64,735.68 643.71,707.85 625.36,684.20 581.85,635.96 546.98,611.82 492.68,594.95 482.67,538.47 474.05,476.78 468.01,416.89 404.29,392.14 391.46,386.90 349.20,377.15 345.39,363.77 339.26,349.25 316.84,303.11">
-        <lane id="-gneE52_0" index="0" allow="custom1" speed="13.89" length="792.36" width="1.50" shape="567.83,812.04 570.41,825.20 657.97,816.29 663.67,777.40 663.06,761.51 657.92,735.94 643.08,708.26 624.79,684.68 581.36,636.53 546.65,612.51 492.02,595.53 481.93,538.59 473.31,476.87 467.31,417.42 404.01,392.84 391.24,387.62 348.60,377.78 344.68,364.02 338.58,349.56 317.26,305.69"/>
+        <lane id="-gneE52_0" index="0" speed="13.89" length="792.36" width="1.50" shape="567.83,812.04 570.41,825.20 657.97,816.29 663.67,777.40 663.06,761.51 657.92,735.94 643.08,708.26 624.79,684.68 581.36,636.53 546.65,612.51 492.02,595.53 481.93,538.59 473.31,476.87 467.31,417.42 404.01,392.84 391.24,387.62 348.60,377.78 344.68,364.02 338.58,349.56 317.26,305.69"/>
     </edge>
     <edge id="-gneE6" from="gneJ6" to="gneJ5" priority="-1" type="highway.prt">
-        <lane id="-gneE6_0" index="0" allow="custom1" speed="13.89" length="15.60" width="1.50" shape="592.25,83.25 605.91,90.76"/>
+        <lane id="-gneE6_0" index="0" speed="13.89" length="15.60" width="1.50" shape="592.25,83.25 605.91,90.76"/>
     </edge>
     <edge id="Hotel" from="gneJ126" to="gneJ127" priority="-1" shape="0.00,72.64 0.66,62.08 2.61,49.64">
         <lane id="Hotel_0" index="0" speed="13.89" length="15.66" shape="-1.37,68.89 -0.93,61.90 0.41,53.35"/>
     </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ2" priority="-1" type="highway.prt" shape="631.28,139.33 638.13,158.41 631.75,170.70">
-        <lane id="gneE0_0" index="0" allow="custom1" speed="13.89" length="28.99" width="1.50" shape="632.59,140.76 638.95,158.47 634.26,167.49"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="28.99" width="1.50" shape="632.59,140.76 638.95,158.47 634.26,167.49"/>
     </edge>
     <edge id="gneE107" from="gneJ93" to="gneJ65" priority="-1" type="highway.prt">
-        <lane id="gneE107_0" index="0" allow="custom1" speed="13.89" length="11.33" width="1.50" shape="49.24,39.52 46.68,50.56"/>
+        <lane id="gneE107_0" index="0" speed="13.89" length="11.33" width="1.50" shape="49.24,39.52 46.68,50.56"/>
     </edge>
     <edge id="gneE114" from="gneJ96" to="sz_7" priority="-1" type="highway.prt" shape="501.29,105.38 512.86,108.82 546.66,106.59">
-        <lane id="gneE114_0" index="0" allow="custom1" speed="13.89" length="40.84" width="1.50" shape="504.38,105.51 512.95,108.07 544.77,105.97"/>
+        <lane id="gneE114_0" index="0" speed="13.89" length="40.84" width="1.50" shape="504.38,105.51 512.95,108.07 544.77,105.97"/>
     </edge>
     <edge id="gneE117" from="gneJ96" to="sz_1" priority="-1" type="highway.prt">
-        <lane id="gneE117_0" index="0" allow="custom1" speed="13.89" length="60.07" width="1.50" shape="501.58,107.03 484.77,164.71"/>
+        <lane id="gneE117_0" index="0" speed="13.89" length="60.07" width="1.50" shape="501.58,107.03 484.77,164.71"/>
     </edge>
     <edge id="gneE119" from="sz_7" to="sz_1" priority="-1" type="highway.prt" shape="546.66,106.59 518.39,119.89 482.43,170.03">
-        <lane id="gneE119_0" index="0" allow="custom1" speed="13.89" length="85.03" width="1.50" shape="545.62,107.91 518.88,120.48 486.55,165.57"/>
+        <lane id="gneE119_0" index="0" speed="13.89" length="85.03" width="1.50" shape="545.62,107.91 518.88,120.48 486.55,165.57"/>
     </edge>
     <edge id="gneE13" from="sz_14" to="gneJ96" priority="-1" type="highway.prt" shape="415.84,70.63 440.85,74.99 467.06,86.25 479.59,92.93 489.45,99.59 501.29,105.38">
-        <lane id="gneE13_0" index="0" allow="custom1" speed="13.89" length="90.27" width="1.50" shape="417.45,70.15 441.07,74.26 467.38,85.57 479.98,92.29 489.83,98.94 500.16,103.99"/>
+        <lane id="gneE13_0" index="0" speed="13.89" length="90.27" width="1.50" shape="417.45,70.15 441.07,74.26 467.38,85.57 479.98,92.29 489.83,98.94 500.16,103.99"/>
     </edge>
     <edge id="gneE152" from="gneJ65" to="gneJ118" priority="-1" type="highway.prt" shape="45.07,54.16 36.59,80.22 19.25,75.60">
-        <lane id="gneE152_0" index="0" allow="custom1" speed="13.89" length="42.36" width="1.50" shape="44.91,57.07 37.08,81.12 20.59,76.73"/>
+        <lane id="gneE152_0" index="0" speed="13.89" length="42.36" width="1.50" shape="44.91,57.07 37.08,81.12 20.59,76.73"/>
     </edge>
     <edge id="gneE154" from="gneJ118" to="gneJ119" priority="-1" type="highway.prt">
-        <lane id="gneE154_0" index="0" allow="custom1" speed="13.89" length="16.23" width="1.50" shape="18.81,73.99 21.93,58.06"/>
+        <lane id="gneE154_0" index="0" speed="13.89" length="16.23" width="1.50" shape="18.81,73.99 21.93,58.06"/>
     </edge>
     <edge id="gneE155" from="gneJ119" to="gneJ65" priority="-1" type="highway.prt">
-        <lane id="gneE155_0" index="0" allow="custom1" speed="13.89" length="16.55" width="1.50" shape="24.70,55.77 41.14,53.86"/>
+        <lane id="gneE155_0" index="0" speed="13.89" length="16.55" width="1.50" shape="24.70,55.77 41.14,53.86"/>
     </edge>
     <edge id="gneE158" from="gneJ121" to="sz_135" priority="-1" type="highway.prt" shape="39.18,29.86 33.91,14.47 44.68,0.00 56.28,8.34">
-        <lane id="gneE158_0" index="0" allow="custom1" speed="13.89" length="39.58" width="1.50" shape="36.60,24.64 33.08,14.33 44.52,-1.04 52.25,4.52"/>
+        <lane id="gneE158_0" index="0" speed="13.89" length="39.58" width="1.50" shape="36.60,24.64 33.08,14.33 44.52,-1.04 52.25,4.52"/>
     </edge>
     <edge id="gneE162" from="gneJ15" to="sz_14" priority="-1" type="highway.prt" shape="363.09,53.22 387.80,59.57 415.84,70.63">
-        <lane id="gneE162_0" index="0" allow="custom1" speed="13.89" length="50.12" width="1.50" shape="364.73,52.87 388.03,58.86 412.28,68.42"/>
+        <lane id="gneE162_0" index="0" speed="13.89" length="50.12" width="1.50" shape="364.73,52.87 388.03,58.86 412.28,68.42"/>
     </edge>
     <edge id="gneE168" from="gneJ118" to="gneJ126" priority="-1" type="highway.prt">
-        <lane id="gneE168_0" index="0" allow="custom1" speed="13.89" length="12.82" width="1.50" shape="16.17,75.89 3.50,73.93"/>
+        <lane id="gneE168_0" index="0" speed="13.89" length="12.82" width="1.50" shape="16.17,75.89 3.50,73.93"/>
     </edge>
     <edge id="gneE170" from="gneJ127" to="gneJ119" priority="-1" type="highway.prt">
-        <lane id="gneE170_0" index="0" allow="custom1" speed="13.89" length="14.52" width="1.50" shape="6.64,50.25 20.35,55.03"/>
+        <lane id="gneE170_0" index="0" speed="13.89" length="14.52" width="1.50" shape="6.64,50.25 20.35,55.03"/>
     </edge>
     <edge id="gneE174" from="gneJ78" to="sz_14" priority="-1" type="highway.prt" shape="374.93,87.36 380.22,79.07 415.84,70.63">
-        <lane id="gneE174_0" index="0" allow="custom1" speed="13.89" length="39.94" width="1.50" shape="376.16,84.04 379.75,78.41 412.11,70.74"/>
+        <lane id="gneE174_0" index="0" speed="13.89" length="39.94" width="1.50" shape="376.16,84.04 379.75,78.41 412.11,70.74"/>
     </edge>
     <edge id="gneE177" from="gneJ78" to="gneJ15" priority="-1" type="highway.prt" shape="374.93,87.36 372.66,60.98 363.09,53.22">
-        <lane id="gneE177_0" index="0" allow="custom1" speed="13.89" length="32.30" width="1.50" shape="373.85,83.48 371.94,61.37 364.09,54.99"/>
+        <lane id="gneE177_0" index="0" speed="13.89" length="32.30" width="1.50" shape="373.85,83.48 371.94,61.37 364.09,54.99"/>
     </edge>
     <edge id="gneE179" from="gneJ93" to="gneJ121" priority="-1" type="highway.prt">
-        <lane id="gneE179_0" index="0" allow="custom1" speed="13.89" length="1.48" width="1.50" shape="43.71,33.05 42.39,32.37"/>
+        <lane id="gneE179_0" index="0" speed="13.89" length="1.48" width="1.50" shape="43.71,33.05 42.39,32.37"/>
     </edge>
     <edge id="gneE180" from="gneJ33" to="sz_25" priority="-1" type="highway.prt">
-        <lane id="gneE180_0" index="0" allow="custom1" speed="13.89" length="71.10" width="1.50" shape="315.30,301.82 281.79,239.12"/>
+        <lane id="gneE180_0" index="0" speed="13.89" length="71.10" width="1.50" shape="315.30,301.82 281.79,239.12"/>
     </edge>
     <edge id="gneE181" from="gneJ101" to="gneJ33" priority="-1" type="highway.prt">
-        <lane id="gneE181_0" index="0" allow="custom1" speed="13.89" length="22.93" width="1.50" shape="327.52,280.01 318.51,301.09"/>
+        <lane id="gneE181_0" index="0" speed="13.89" length="22.93" width="1.50" shape="327.52,280.01 318.51,301.09"/>
     </edge>
     <edge id="gneE182" from="gneJ101" to="sz_25" priority="-1" type="highway.prt">
-        <lane id="gneE182_0" index="0" allow="custom1" speed="13.89" length="56.05" width="1.50" shape="325.91,274.35 283.37,237.85"/>
+        <lane id="gneE182_0" index="0" speed="13.89" length="56.05" width="1.50" shape="325.91,274.35 283.37,237.85"/>
     </edge>
     <edge id="gneE183" from="sz_1" to="gneJ101" priority="-1" type="highway.prt" shape="482.43,170.03 468.61,223.83 453.24,286.07 452.37,288.07 451.44,289.95 450.44,291.61 449.37,293.04 448.16,294.36 446.95,295.46 445.61,296.45 444.19,297.22 442.71,297.76 441.16,298.19 439.47,298.39 437.71,298.49 435.95,298.36 434.05,298.12 432.08,297.66 401.44,286.24 378.01,279.01 345.66,276.92 328.57,275.64">
-        <lane id="gneE183_0" index="0" allow="custom1" speed="13.89" length="248.82" width="1.50" shape="482.72,171.94 469.34,224.02 453.95,286.31 453.05,288.38 452.10,290.31 451.06,292.02 449.95,293.52 448.69,294.90 447.43,296.05 446.01,297.09 444.50,297.90 442.94,298.47 441.30,298.93 439.53,299.14 437.70,299.24 435.87,299.11 433.92,298.86 431.87,298.38 401.20,286.95 377.87,279.75 345.61,277.66 332.44,276.68"/>
+        <lane id="gneE183_0" index="0" speed="13.89" length="248.82" width="1.50" shape="482.72,171.94 469.34,224.02 453.95,286.31 453.05,288.38 452.10,290.31 451.06,292.02 449.95,293.52 448.69,294.90 447.43,296.05 446.01,297.09 444.50,297.90 442.94,298.47 441.30,298.93 439.53,299.14 437.70,299.24 435.87,299.11 433.92,298.86 431.87,298.38 401.20,286.95 377.87,279.75 345.61,277.66 332.44,276.68"/>
     </edge>
     <edge id="gneE186" from="gneJ121" to="sz_135" priority="-1" type="highway.prt">
-        <lane id="gneE186_0" index="0" allow="custom1" speed="13.89" length="18.45" width="1.50" shape="41.68,25.51 53.16,11.06"/>
+        <lane id="gneE186_0" index="0" speed="13.89" length="18.45" width="1.50" shape="41.68,25.51 53.16,11.06"/>
     </edge>
     <edge id="gneE187" from="sz_135" to="sz_5" priority="-1" type="highway.prt" shape="56.28,8.34 63.92,19.31 78.98,33.80">
-        <lane id="gneE187_0" index="0" allow="custom1" speed="13.89" length="26.55" width="1.50" shape="59.18,11.20 64.49,18.82 76.93,30.79"/>
+        <lane id="gneE187_0" index="0" speed="13.89" length="26.55" width="1.50" shape="59.18,11.20 64.49,18.82 76.93,30.79"/>
     </edge>
     <edge id="gneE193" from="gneJ93" to="sz_5" priority="-1" type="highway.prt">
-        <lane id="gneE193_0" index="0" allow="custom1" speed="13.89" length="22.37" width="1.50" shape="53.68,34.24 76.03,33.19"/>
+        <lane id="gneE193_0" index="0" speed="13.89" length="22.37" width="1.50" shape="53.68,34.24 76.03,33.19"/>
     </edge>
     <edge id="gneE194" from="sz_5" to="gneJ15" priority="-1" type="highway.prt" shape="78.98,33.80 95.57,43.08 141.13,61.20 143.94,62.34 146.46,63.03 148.78,63.83 150.95,64.63 152.91,65.43 154.74,66.34 156.34,67.35 157.81,68.37 159.14,69.49 160.25,70.73 161.23,71.85 161.99,73.19 162.54,74.53 163.02,75.87 164.77,90.90 206.82,87.63 236.40,77.35 260.49,67.24 282.68,58.34 330.98,47.68 363.09,53.22">
-        <lane id="gneE194_0" index="0" allow="custom1" speed="13.89" length="312.36" width="1.50" shape="80.65,33.88 95.89,42.40 141.41,60.50 144.18,61.63 146.69,62.32 149.03,63.13 151.22,63.93 153.22,64.75 155.10,65.68 156.76,66.73 158.27,67.77 159.66,68.95 160.81,70.23 161.84,71.41 162.66,72.86 163.24,74.26 163.75,75.70 165.43,90.10 206.66,86.89 236.13,76.65 260.21,66.55 282.45,57.62 330.97,46.92 361.35,52.16"/>
+        <lane id="gneE194_0" index="0" speed="13.89" length="312.36" width="1.50" shape="80.65,33.88 95.89,42.40 141.41,60.50 144.18,61.63 146.69,62.32 149.03,63.13 151.22,63.93 153.22,64.75 155.10,65.68 156.76,66.73 158.27,67.77 159.66,68.95 160.81,70.23 161.84,71.41 162.66,72.86 163.24,74.26 163.75,75.70 165.43,90.10 206.66,86.89 236.13,76.65 260.21,66.55 282.45,57.62 330.97,46.92 361.35,52.16"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="sz_3" priority="-1" type="highway.prt">
-        <lane id="gneE2_0" index="0" allow="custom1" speed="13.89" length="10.65" width="1.50" shape="628.11,168.06 620.64,160.47"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="10.65" width="1.50" shape="628.11,168.06 620.64,160.47"/>
     </edge>
     <edge id="gneE24" from="sz_25" to="gneJ78" priority="-1" type="highway.prt" shape="279.79,233.80 271.35,218.48 259.54,195.35 259.43,192.79 259.45,190.45 259.75,188.23 260.19,186.01 260.92,184.02 261.78,182.02 262.85,180.25 264.14,178.49 279.09,167.40 322.06,148.24 375.30,136.97 374.93,87.36">
-        <lane id="gneE24_0" index="0" allow="custom1" speed="13.89" length="228.28" width="1.50" shape="278.41,232.85 270.69,218.83 258.80,195.54 258.68,192.80 258.70,190.40 259.01,188.11 259.47,185.81 260.22,183.74 261.11,181.68 262.23,179.84 263.60,177.95 278.71,166.75 321.83,147.52 374.55,136.36 374.19,88.87"/>
+        <lane id="gneE24_0" index="0" speed="13.89" length="228.28" width="1.50" shape="278.41,232.85 270.69,218.83 258.80,195.54 258.68,192.80 258.70,190.40 259.01,188.11 259.47,185.81 260.22,183.74 261.11,181.68 262.23,179.84 263.60,177.95 278.71,166.75 321.83,147.52 374.55,136.36 374.19,88.87"/>
     </edge>
     <edge id="gneE3" from="sz_3" to="gneJ0" priority="-1" type="highway.prt">
-        <lane id="gneE3_0" index="0" allow="custom1" speed="13.89" length="18.41" width="1.50" shape="620.22,156.99 629.43,141.05"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="18.41" width="1.50" shape="620.22,156.99 629.43,141.05"/>
     </edge>
     <edge id="gneE34" from="gneJ33" to="gneJ52" priority="-1" type="highway.prt" shape="316.84,303.11 339.26,349.25 345.39,363.77 349.20,377.15 391.46,386.90 404.29,392.14 468.01,416.89 474.05,476.78 482.67,538.47 492.68,594.95 546.98,611.82 581.85,635.96 625.36,684.20 643.71,707.85 658.64,735.68 663.81,761.42 664.42,777.44 658.62,816.98 569.81,826.01 566.66,809.97">
-        <lane id="gneE34_0" index="0" allow="custom1" speed="13.89" length="798.17" width="1.50" shape="318.61,305.03 339.95,348.94 346.10,363.52 349.80,376.52 391.69,386.18 404.57,391.44 468.71,416.35 474.79,476.69 483.41,538.35 493.34,594.37 547.31,611.14 582.35,635.39 625.94,683.72 644.34,707.44 659.35,735.43 664.55,761.33 665.18,777.48 659.28,817.66 569.21,826.83 566.36,812.33"/>
+        <lane id="gneE34_0" index="0" speed="13.89" length="798.17" width="1.50" shape="318.61,305.03 339.95,348.94 346.10,363.52 349.80,376.52 391.69,386.18 404.57,391.44 468.71,416.35 474.79,476.69 483.41,538.35 493.34,594.37 547.31,611.14 582.35,635.39 625.94,683.72 644.34,707.44 659.35,735.43 664.55,761.33 665.18,777.48 659.28,817.66 569.21,826.83 566.36,812.33"/>
     </edge>
     <edge id="gneE4" from="gneJ0" to="gneJ4" priority="-1" type="highway.prt">
-        <lane id="gneE4_0" index="0" allow="custom1" speed="13.89" length="26.64" width="1.50" shape="629.85,137.25 621.89,111.83"/>
+        <lane id="gneE4_0" index="0" speed="13.89" length="26.64" width="1.50" shape="629.85,137.25 621.89,111.83"/>
     </edge>
     <edge id="gneE5" from="gneJ4" to="gneJ5" priority="-1" type="highway.prt">
-        <lane id="gneE5_0" index="0" allow="custom1" speed="13.89" length="19.52" width="1.50" shape="620.33,108.99 607.69,94.12"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="19.52" width="1.50" shape="620.33,108.99 607.69,94.12"/>
     </edge>
     <edge id="gneE53" from="gneJ52" to="gneJ53" priority="-1" type="highway.prt">
-        <lane id="gneE53_0" index="0" allow="custom1" speed="13.89" length="8.38" width="1.50" shape="564.71,808.95 559.06,802.77"/>
+        <lane id="gneE53_0" index="0" speed="13.89" length="8.38" width="1.50" shape="564.71,808.95 559.06,802.77"/>
     </edge>
     <edge id="gneE54" from="gneJ53" to="sz_55" priority="-1" type="highway.prt" shape="556.91,799.31 557.12,785.41 574.01,784.57 575.16,797.15">
-        <lane id="gneE54_0" index="0" allow="custom1" speed="13.89" length="35.28" width="1.50" shape="556.24,793.79 556.38,784.70 574.69,783.79 575.40,791.60"/>
+        <lane id="gneE54_0" index="0" speed="13.89" length="35.28" width="1.50" shape="556.24,793.79 556.38,784.70 574.69,783.79 575.40,791.60"/>
     </edge>
     <edge id="gneE56" from="sz_55" to="gneJ52" priority="-1" type="highway.prt">
-        <lane id="gneE56_0" index="0" allow="custom1" speed="13.89" length="9.12" width="1.50" shape="573.57,800.90 568.53,808.50"/>
+        <lane id="gneE56_0" index="0" speed="13.89" length="9.12" width="1.50" shape="573.57,800.90 568.53,808.50"/>
     </edge>
     <edge id="gneE58" from="gneJ4" to="gneJ0" priority="-1" type="highway.prt">
-        <lane id="gneE58_0" index="0" allow="custom1" speed="13.89" length="26.64" width="1.50" shape="623.32,111.38 631.28,136.80"/>
+        <lane id="gneE58_0" index="0" speed="13.89" length="26.64" width="1.50" shape="623.32,111.38 631.28,136.80"/>
     </edge>
     <edge id="gneE59" from="gneJ5" to="gneJ4" priority="-1" type="highway.prt">
-        <lane id="gneE59_0" index="0" allow="custom1" speed="13.89" length="19.52" width="1.50" shape="608.83,93.15 621.47,108.02"/>
+        <lane id="gneE59_0" index="0" speed="13.89" length="19.52" width="1.50" shape="608.83,93.15 621.47,108.02"/>
     </edge>
     <edge id="gneE6" from="gneJ5" to="gneJ6" priority="-1" type="highway.prt">
-        <lane id="gneE6_0" index="0" allow="custom1" speed="13.89" length="15.60" width="1.50" shape="605.19,92.08 591.52,84.57"/>
+        <lane id="gneE6_0" index="0" speed="13.89" length="15.60" width="1.50" shape="605.19,92.08 591.52,84.57"/>
     </edge>
     <edge id="gneE60" from="gneJ6" to="gneJ5" priority="-1" type="highway.prt">
-        <lane id="gneE60_0" index="0" allow="custom1" speed="13.89" length="15.60" width="1.50" shape="592.25,83.25 605.91,90.76"/>
+        <lane id="gneE60_0" index="0" speed="13.89" length="15.60" width="1.50" shape="592.25,83.25 605.91,90.76"/>
     </edge>
     <edge id="gneE62" from="gneJ15" to="gneJ93" priority="-1" type="highway.prt" shape="363.09,53.22 330.98,47.68 282.68,58.34 260.49,67.24 236.40,77.35 206.82,87.63 164.77,90.90 163.02,75.87 162.54,74.53 161.99,73.19 161.23,71.85 160.25,70.73 159.14,69.49 157.81,68.37 156.34,67.35 154.74,66.34 152.91,65.43 150.95,64.63 148.78,63.83 146.46,63.03 143.94,62.34 141.13,61.20 95.57,43.08 79.18,34.25 49.48,35.19">
-        <lane id="gneE62_0" index="0" allow="custom1" speed="13.89" length="339.61" width="1.50" shape="361.10,53.64 331.00,48.45 282.90,59.06 260.78,67.94 236.67,78.05 206.97,88.37 164.11,91.70 162.28,76.04 161.84,74.80 161.31,73.52 160.61,72.28 159.69,71.22 158.62,70.03 157.36,68.96 155.93,67.98 154.37,66.99 152.61,66.11 150.68,65.33 148.53,64.54 146.24,63.75 143.70,63.05 140.85,61.90 95.25,43.76 79.01,35.01 53.75,35.80"/>
+        <lane id="gneE62_0" index="0" speed="13.89" length="339.61" width="1.50" shape="361.10,53.64 331.00,48.45 282.90,59.06 260.78,67.94 236.67,78.05 206.97,88.37 164.11,91.70 162.28,76.04 161.84,74.80 161.31,73.52 160.61,72.28 159.69,71.22 158.62,70.03 157.36,68.96 155.93,67.98 154.37,66.99 152.61,66.11 150.68,65.33 148.53,64.54 146.24,63.75 143.70,63.05 140.85,61.90 95.25,43.76 79.01,35.01 53.75,35.80"/>
     </edge>
     <edge id="gneE7" from="gneJ6" to="sz_7" priority="-1" type="highway.prt">
-        <lane id="gneE7_0" index="0" allow="custom1" speed="13.89" length="44.00" width="1.50" shape="586.89,84.60 548.64,106.33"/>
+        <lane id="gneE7_0" index="0" speed="13.89" length="44.00" width="1.50" shape="586.89,84.60 548.64,106.33"/>
     </edge>
     <edge id="gneE94" from="gneJ2" to="sz_3" priority="-1" type="highway.prt" shape="631.75,170.70 620.50,176.82 610.87,169.27 620.05,158.80">
-        <lane id="gneE94_0" index="0" allow="custom1" speed="13.89" length="32.98" width="1.50" shape="627.23,174.01 620.43,177.71 609.78,169.37 617.50,160.56"/>
+        <lane id="gneE94_0" index="0" speed="13.89" length="32.98" width="1.50" shape="627.23,174.01 620.43,177.71 609.78,169.37 617.50,160.56"/>
     </edge>
     <edge id="gneE97" from="gneJ53" to="sz_55" priority="-1" type="highway.prt">
-        <lane id="gneE97_0" index="0" allow="custom1" speed="13.89" length="10.17" width="1.50" shape="560.99,798.07 571.10,796.88"/>
+        <lane id="gneE97_0" index="0" speed="13.89" length="10.17" width="1.50" shape="560.99,798.07 571.10,796.88"/>
     </edge>
 
     <tlLogic id="gneJ55" type="static" programID="0" offset="0">

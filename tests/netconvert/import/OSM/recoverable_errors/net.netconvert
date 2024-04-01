@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:27 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,14 +60,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="726.70" shape="638.16,347.64 -0.76,1.41"/>
     </edge>
     <edge id="-10860203" from="3" to="2" priority="11" type="highway.secondary">
-        <lane id="-10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="700.04" shape="12.20,669.54 637.13,354.09"/>
+        <lane id="-10860203_0" index="0" speed="27.78" length="700.04" shape="12.20,669.54 637.13,354.09"/>
     </edge>
     <edge id="10860201" from="1" to="2" priority="17" type="highway.secondary|railway.tram">
         <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="726.70" width="2.00" shape="2.00,-3.69 640.92,342.54"/>
         <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="726.70" shape="0.76,-1.41 639.68,344.83"/>
     </edge>
     <edge id="10860203" from="2" to="3" priority="11" type="highway.secondary">
-        <lane id="10860203_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="700.04" shape="638.58,356.95 13.64,672.40"/>
+        <lane id="10860203_0" index="0" speed="27.78" length="700.04" shape="638.58,356.95 13.64,672.40"/>
     </edge>
 
     <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="0.00,0.00 -2.48,4.57 0.00,0.00">

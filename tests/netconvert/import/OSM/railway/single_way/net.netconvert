@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:26 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
 
     <edge id="512071975" from="4580786870" to="4571373805" priority="18" type="railway.subway" spreadType="center" shape="0.00,0.00 268.01,29.89 593.87,73.30 754.57,97.53 905.46,122.98 1081.16,158.17 1888.36,319.87 2055.90,349.31 2141.34,366.54 2223.00,386.13 2324.26,426.92 2348.44,434.78 2371.29,440.14 2528.76,472.99 2634.21,489.51 2897.31,550.62">
-        <lane id="512071975_0" index="0" allow="rail_urban" speed="27.78" length="2953.38" shape="-0.00,-0.00 268.01,29.89 593.87,73.30 754.57,97.53 905.46,122.98 1081.16,158.17 1888.36,319.87 2055.90,349.31 2141.34,366.54 2223.00,386.13 2324.26,426.92 2348.44,434.78 2371.29,440.14 2528.76,472.99 2634.21,489.51 2897.31,550.62"/>
+        <lane id="512071975_0" index="0" speed="27.78" length="2953.38" shape="-0.00,-0.00 268.01,29.89 593.87,73.30 754.57,97.53 905.46,122.98 1081.16,158.17 1888.36,319.87 2055.90,349.31 2141.34,366.54 2223.00,386.13 2324.26,426.92 2348.44,434.78 2371.29,440.14 2528.76,472.99 2634.21,489.51 2897.31,550.62"/>
     </edge>
 
     <junction id="4571373805" type="dead_end" x="2897.31" y="550.62" incLanes="512071975_0" intLanes="" shape="2897.68,549.06 2896.95,552.18"/>

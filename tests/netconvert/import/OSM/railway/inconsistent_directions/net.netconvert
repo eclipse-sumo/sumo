@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-15 11:53:49 by Eclipse SUMO netconvert Version v1_19_0+1309-44a02eea0cc
+<!-- generated on 2024-04-01 17:38:26 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -148,108 +148,108 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-118641069" from="59292841" to="1333934523" priority="19" type="railway.light_rail" spreadType="center" bidi="118641069">
-        <lane id="-118641069_0" index="0" allow="rail_urban" speed="27.78" length="30.41" shape="852.95,279.95 836.54,305.55"/>
+        <lane id="-118641069_0" index="0" speed="27.78" length="30.41" shape="852.95,279.95 836.54,305.55"/>
     </edge>
     <edge id="-118755311" from="1334919908" to="59294705" priority="19" type="railway.light_rail" spreadType="center" bidi="118755311">
-        <lane id="-118755311_0" index="0" allow="rail_urban" speed="27.78" length="22.18" shape="201.41,1166.45 191.15,1186.12"/>
+        <lane id="-118755311_0" index="0" speed="27.78" length="22.18" shape="201.41,1166.45 191.15,1186.12"/>
     </edge>
     <edge id="-118755348" from="59294707" to="1334919908" priority="19" type="railway.light_rail" spreadType="center" shape="441.45,776.34 371.65,874.78 201.41,1166.45" bidi="118755348">
-        <lane id="-118755348_0" index="0" allow="rail_urban" speed="27.78" length="458.28" shape="441.38,776.43 371.65,874.78 201.41,1166.45"/>
+        <lane id="-118755348_0" index="0" speed="27.78" length="458.28" shape="441.38,776.43 371.65,874.78 201.41,1166.45"/>
     </edge>
     <edge id="-142541378" from="294061705" to="1333934543" priority="19" type="railway.light_rail" spreadType="center" bidi="142541378">
-        <lane id="-142541378_0" index="0" allow="rail_urban" speed="27.78" length="112.72" shape="631.04,552.36 554.31,634.93"/>
+        <lane id="-142541378_0" index="0" speed="27.78" length="112.72" shape="631.04,552.36 554.31,634.93"/>
     </edge>
     <edge id="-231223355" from="2396301421" to="610830379" priority="19" type="railway.light_rail" spreadType="center" shape="44.27,1453.49 21.87,1507.48 0.00,1562.76" bidi="231223355">
-        <lane id="-231223355_0" index="0" allow="rail_urban" speed="27.78" length="117.77" shape="44.22,1453.62 21.87,1507.48 -0.00,1562.76"/>
+        <lane id="-231223355_0" index="0" speed="27.78" length="117.77" shape="44.22,1453.62 21.87,1507.48 -0.00,1562.76"/>
         <param key="railway:track_ref" value="30"/>
     </edge>
     <edge id="-231223363" from="59294705" to="2396301421" priority="19" type="railway.light_rail" spreadType="center" shape="191.09,1186.22 160.00,1240.95 138.84,1277.48 133.57,1286.58 107.26,1333.33 90.76,1360.40 75.57,1388.48 64.56,1409.21 58.29,1421.82 44.27,1453.49" bidi="231223363">
-        <lane id="-231223363_0" index="0" allow="rail_urban" speed="27.78" length="304.88" shape="191.03,1186.33 160.00,1240.95 138.84,1277.48 133.57,1286.58 107.26,1333.33 90.76,1360.40 75.57,1388.48 64.56,1409.21 58.29,1421.82 44.33,1453.37"/>
+        <lane id="-231223363_0" index="0" speed="27.78" length="304.88" shape="191.03,1186.33 160.00,1240.95 138.84,1277.48 133.57,1286.58 107.26,1333.33 90.76,1360.40 75.57,1388.48 64.56,1409.21 58.29,1421.82 44.33,1453.37"/>
     </edge>
     <edge id="-231224788" from="3086164685" to="2396316667" priority="19" type="railway.light_rail" spreadType="center" bidi="231224788">
-        <lane id="-231224788_0" index="0" allow="rail_urban" speed="27.78" length="11.59" shape="892.53,209.62 898.04,199.42"/>
+        <lane id="-231224788_0" index="0" speed="27.78" length="11.59" shape="892.53,209.62 898.04,199.42"/>
     </edge>
     <edge id="-231224789" from="1921502460" to="1871829683" priority="19" type="railway.light_rail" spreadType="center" bidi="231224789">
-        <lane id="-231224789_0" index="0" allow="rail_urban" speed="27.78" length="55.60" shape="912.27,172.59 938.24,123.42"/>
+        <lane id="-231224789_0" index="0" speed="27.78" length="55.60" shape="912.27,172.59 938.24,123.42"/>
     </edge>
     <edge id="-231224790#0" from="5221601527" to="1921502460" priority="19" type="railway.light_rail" spreadType="center" bidi="231224790#0">
-        <lane id="-231224790#0_0" index="0" allow="rail_urban" speed="27.78" length="24.17" shape="900.82,194.22 912.13,172.85"/>
+        <lane id="-231224790#0_0" index="0" speed="27.78" length="24.17" shape="900.82,194.22 912.13,172.85"/>
     </edge>
     <edge id="-231224790#1" from="2396316667" to="5221601527" priority="19" type="railway.light_rail" spreadType="center" bidi="231224790#1">
-        <lane id="-231224790#1_0" index="0" allow="rail_urban" speed="27.78" length="5.30" shape="898.18,199.16 900.68,194.49"/>
+        <lane id="-231224790#1_0" index="0" speed="27.78" length="5.30" shape="898.18,199.16 900.68,194.49"/>
     </edge>
     <edge id="-231225970" from="59292842" to="4087943590" priority="19" type="railway.light_rail" spreadType="center" shape="980.62,43.04 995.31,14.27 1002.23,0.00" bidi="231225970">
-        <lane id="-231225970_0" index="0" allow="rail_urban" speed="27.78" length="48.02" shape="980.68,42.91 995.31,14.27 1002.23,-0.00"/>
+        <lane id="-231225970_0" index="0" speed="27.78" length="48.02" shape="980.68,42.91 995.31,14.27 1002.23,-0.00"/>
     </edge>
     <edge id="-26806067" from="1333934523" to="294061704" priority="19" type="railway.light_rail" spreadType="center" shape="836.47,305.67 812.16,341.86 786.50,377.04 760.04,410.67 720.08,458.46 709.22,470.04 673.51,508.10" bidi="26806067">
-        <lane id="-26806067_0" index="0" allow="rail_urban" speed="27.78" length="260.01" shape="836.39,305.78 812.16,341.86 786.50,377.04 760.04,410.67 720.08,458.46 709.22,470.04 673.61,507.99"/>
+        <lane id="-26806067_0" index="0" speed="27.78" length="260.01" shape="836.39,305.78 812.16,341.86 786.50,377.04 760.04,410.67 720.08,458.46 709.22,470.04 673.61,507.99"/>
     </edge>
     <edge id="-26806068" from="294061704" to="294061705" priority="19" type="railway.light_rail" spreadType="center" bidi="26806068">
-        <lane id="-26806068_0" index="0" allow="rail_urban" speed="27.78" length="60.90" shape="673.40,508.21 631.24,552.15"/>
+        <lane id="-26806068_0" index="0" speed="27.78" length="60.90" shape="673.40,508.21 631.24,552.15"/>
     </edge>
     <edge id="-27147948" from="59292839" to="59294707" priority="19" type="railway.light_rail" spreadType="center" bidi="27147948">
-        <lane id="-27147948_0" index="0" allow="rail_urban" speed="27.78" length="47.82" shape="470.73,738.40 441.51,776.25"/>
+        <lane id="-27147948_0" index="0" speed="27.78" length="47.82" shape="470.73,738.40 441.51,776.25"/>
     </edge>
     <edge id="-27147949" from="1333934543" to="59292839" priority="19" type="railway.light_rail" spreadType="center" bidi="27147949">
-        <lane id="-27147949_0" index="0" allow="rail_urban" speed="27.78" length="132.73" shape="554.31,634.93 470.90,738.18"/>
+        <lane id="-27147949_0" index="0" speed="27.78" length="132.73" shape="554.31,634.93 470.90,738.18"/>
     </edge>
     <edge id="-304099840" from="59292841" to="3086164685" priority="19" type="railway.light_rail" spreadType="center" bidi="304099840">
-        <lane id="-304099840_0" index="0" allow="rail_urban" speed="27.78" length="80.42" shape="852.95,279.95 892.40,209.87"/>
+        <lane id="-304099840_0" index="0" speed="27.78" length="80.42" shape="852.95,279.95 892.40,209.87"/>
     </edge>
     <edge id="-304099841" from="1871829683" to="59292842" priority="19" type="railway.light_rail" spreadType="center" shape="938.31,123.29 941.84,116.72 980.62,43.04" bidi="304099841">
-        <lane id="-304099841_0" index="0" allow="rail_urban" speed="27.78" length="90.42" shape="938.38,123.16 941.84,116.72 980.55,43.17"/>
+        <lane id="-304099841_0" index="0" speed="27.78" length="90.42" shape="938.38,123.16 941.84,116.72 980.55,43.17"/>
     </edge>
     <edge id="118641069" from="1333934523" to="59292841" priority="19" type="railway.light_rail" spreadType="center" bidi="-118641069">
-        <lane id="118641069_0" index="0" allow="rail_urban" speed="27.78" length="30.41" shape="836.54,305.55 852.95,279.95"/>
+        <lane id="118641069_0" index="0" speed="27.78" length="30.41" shape="836.54,305.55 852.95,279.95"/>
     </edge>
     <edge id="118755311" from="59294705" to="1334919908" priority="19" type="railway.light_rail" spreadType="center" bidi="-118755311">
-        <lane id="118755311_0" index="0" allow="rail_urban" speed="27.78" length="22.18" shape="191.15,1186.12 201.41,1166.45"/>
+        <lane id="118755311_0" index="0" speed="27.78" length="22.18" shape="191.15,1186.12 201.41,1166.45"/>
     </edge>
     <edge id="118755348" from="1334919908" to="59294707" priority="19" type="railway.light_rail" spreadType="center" shape="201.41,1166.45 371.65,874.78 441.45,776.34" bidi="-118755348">
-        <lane id="118755348_0" index="0" allow="rail_urban" speed="27.78" length="458.28" shape="201.41,1166.45 371.65,874.78 441.38,776.43"/>
+        <lane id="118755348_0" index="0" speed="27.78" length="458.28" shape="201.41,1166.45 371.65,874.78 441.38,776.43"/>
     </edge>
     <edge id="142541378" from="1333934543" to="294061705" priority="19" type="railway.light_rail" spreadType="center" bidi="-142541378">
-        <lane id="142541378_0" index="0" allow="rail_urban" speed="27.78" length="112.72" shape="554.31,634.93 631.04,552.36"/>
+        <lane id="142541378_0" index="0" speed="27.78" length="112.72" shape="554.31,634.93 631.04,552.36"/>
     </edge>
     <edge id="231223355" from="610830379" to="2396301421" priority="19" type="railway.light_rail" spreadType="center" shape="0.00,1562.76 21.87,1507.48 44.27,1453.49" bidi="-231223355">
-        <lane id="231223355_0" index="0" allow="rail_urban" speed="27.78" length="117.77" shape="-0.00,1562.76 21.87,1507.48 44.22,1453.62"/>
+        <lane id="231223355_0" index="0" speed="27.78" length="117.77" shape="-0.00,1562.76 21.87,1507.48 44.22,1453.62"/>
         <param key="railway:track_ref" value="30"/>
     </edge>
     <edge id="231223363" from="2396301421" to="59294705" priority="19" type="railway.light_rail" spreadType="center" shape="44.27,1453.49 58.29,1421.82 64.56,1409.21 75.57,1388.48 90.76,1360.40 107.26,1333.33 133.57,1286.58 138.84,1277.48 160.00,1240.95 191.09,1186.22" bidi="-231223363" distance="-26800.02">
-        <lane id="231223363_0" index="0" allow="rail_urban" speed="27.78" length="304.88" shape="44.33,1453.37 58.29,1421.82 64.56,1409.21 75.57,1388.48 90.76,1360.40 107.26,1333.33 133.57,1286.58 138.84,1277.48 160.00,1240.95 191.03,1186.33"/>
+        <lane id="231223363_0" index="0" speed="27.78" length="304.88" shape="44.33,1453.37 58.29,1421.82 64.56,1409.21 75.57,1388.48 90.76,1360.40 107.26,1333.33 133.57,1286.58 138.84,1277.48 160.00,1240.95 191.03,1186.33"/>
     </edge>
     <edge id="231224788" from="2396316667" to="3086164685" priority="19" type="railway.light_rail" spreadType="center" bidi="-231224788">
-        <lane id="231224788_0" index="0" allow="rail_urban" speed="27.78" length="11.59" shape="898.04,199.42 892.53,209.62"/>
+        <lane id="231224788_0" index="0" speed="27.78" length="11.59" shape="898.04,199.42 892.53,209.62"/>
     </edge>
     <edge id="231224789" from="1871829683" to="1921502460" priority="19" type="railway.light_rail" spreadType="center" bidi="-231224789">
-        <lane id="231224789_0" index="0" allow="rail_urban" speed="27.78" length="55.60" shape="938.24,123.42 912.27,172.59"/>
+        <lane id="231224789_0" index="0" speed="27.78" length="55.60" shape="938.24,123.42 912.27,172.59"/>
     </edge>
     <edge id="231224790#0" from="1921502460" to="5221601527" priority="19" type="railway.light_rail" spreadType="center" bidi="-231224790#0">
-        <lane id="231224790#0_0" index="0" allow="rail_urban" speed="27.78" length="24.17" shape="912.13,172.85 900.82,194.22"/>
+        <lane id="231224790#0_0" index="0" speed="27.78" length="24.17" shape="912.13,172.85 900.82,194.22"/>
     </edge>
     <edge id="231224790#1" from="5221601527" to="2396316667" priority="19" type="railway.light_rail" spreadType="center" bidi="-231224790#1">
-        <lane id="231224790#1_0" index="0" allow="rail_urban" speed="27.78" length="5.30" shape="900.68,194.49 898.18,199.16"/>
+        <lane id="231224790#1_0" index="0" speed="27.78" length="5.30" shape="900.68,194.49 898.18,199.16"/>
     </edge>
     <edge id="231225970" from="4087943590" to="59292842" priority="19" type="railway.light_rail" spreadType="center" shape="1002.23,0.00 995.31,14.27 980.62,43.04" bidi="-231225970">
-        <lane id="231225970_0" index="0" allow="rail_urban" speed="27.78" length="48.02" shape="1002.23,-0.00 995.31,14.27 980.68,42.91"/>
+        <lane id="231225970_0" index="0" speed="27.78" length="48.02" shape="1002.23,-0.00 995.31,14.27 980.68,42.91"/>
     </edge>
     <edge id="26806067" from="294061704" to="1333934523" priority="19" type="railway.light_rail" spreadType="center" shape="673.51,508.10 709.22,470.04 720.08,458.46 760.04,410.67 786.50,377.04 812.16,341.86 836.47,305.67" bidi="-26806067" distance="-25947.81">
-        <lane id="26806067_0" index="0" allow="rail_urban" speed="27.78" length="260.01" shape="673.61,507.99 709.22,470.04 720.08,458.46 760.04,410.67 786.50,377.04 812.16,341.86 836.39,305.78"/>
+        <lane id="26806067_0" index="0" speed="27.78" length="260.01" shape="673.61,507.99 709.22,470.04 720.08,458.46 760.04,410.67 786.50,377.04 812.16,341.86 836.39,305.78"/>
     </edge>
     <edge id="26806068" from="294061705" to="294061704" priority="19" type="railway.light_rail" spreadType="center" bidi="-26806068">
-        <lane id="26806068_0" index="0" allow="rail_urban" speed="27.78" length="60.90" shape="631.24,552.15 673.40,508.21"/>
+        <lane id="26806068_0" index="0" speed="27.78" length="60.90" shape="631.24,552.15 673.40,508.21"/>
     </edge>
     <edge id="27147948" from="59294707" to="59292839" priority="19" type="railway.light_rail" spreadType="center" bidi="-27147948">
-        <lane id="27147948_0" index="0" allow="rail_urban" speed="27.78" length="47.82" shape="441.51,776.25 470.73,738.40"/>
+        <lane id="27147948_0" index="0" speed="27.78" length="47.82" shape="441.51,776.25 470.73,738.40"/>
     </edge>
     <edge id="27147949" from="59292839" to="1333934543" priority="19" type="railway.light_rail" spreadType="center" bidi="-27147949">
-        <lane id="27147949_0" index="0" allow="rail_urban" speed="27.78" length="132.73" shape="470.90,738.18 554.31,634.93"/>
+        <lane id="27147949_0" index="0" speed="27.78" length="132.73" shape="470.90,738.18 554.31,634.93"/>
     </edge>
     <edge id="304099840" from="3086164685" to="59292841" priority="19" type="railway.light_rail" spreadType="center" bidi="-304099840">
-        <lane id="304099840_0" index="0" allow="rail_urban" speed="27.78" length="80.42" shape="892.40,209.87 852.95,279.95"/>
+        <lane id="304099840_0" index="0" speed="27.78" length="80.42" shape="892.40,209.87 852.95,279.95"/>
     </edge>
     <edge id="304099841" from="59292842" to="1871829683" priority="19" type="railway.light_rail" spreadType="center" shape="980.62,43.04 941.84,116.72 938.31,123.29" bidi="-304099841">
-        <lane id="304099841_0" index="0" allow="rail_urban" speed="27.78" length="90.42" shape="980.55,43.17 941.84,116.72 938.38,123.16"/>
+        <lane id="304099841_0" index="0" speed="27.78" length="90.42" shape="980.55,43.17 941.84,116.72 938.38,123.16"/>
     </edge>
 
     <junction id="1333934523" type="priority" x="836.47" y="305.67" incLanes="-118641069_0 26806067_0" intLanes=":1333934523_0_0 :1333934523_1_0" shape="837.89,306.42 835.19,304.69 835.06,304.89 837.72,306.68">

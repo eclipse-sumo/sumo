@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-01 17:38:37 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,119 +57,119 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="1110111100_3" disallow="tram rail_urban rail rail_electric ship"/>
 
     <edge id="-53475491" from="cluster_61034039_61034040_61034041_61034042" to="61034044" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38274.24,33914.28 38288.37,33908.39 38302.55,33904.72">
-        <lane id="-53475491_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="54.72" shape="38274.24,33914.28 38288.37,33908.39 38302.28,33904.79">
+        <lane id="-53475491_0" index="0" speed="8.33" length="54.72" shape="38274.24,33914.28 38288.37,33908.39 38302.28,33904.79">
             <param key="origId" value="-53475491"/>
         </lane>
         <param key="origFrom" value="61034042"/>
     </edge>
     <edge id="-53595054" from="cluster_61034039_61034040_61034041_61034042" to="61034038" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38257.28,33944.71 38227.25,33938.73">
-        <lane id="-53595054_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="37.53" shape="38251.47,33945.18 38232.22,33941.35"/>
-        <lane id="-53595054_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="37.53" shape="38252.10,33942.05 38232.84,33938.21"/>
+        <lane id="-53595054_0" index="0" speed="13.89" length="37.53" shape="38251.47,33945.18 38232.22,33941.35"/>
+        <lane id="-53595054_1" index="1" speed="13.89" length="37.53" shape="38252.10,33942.05 38232.84,33938.21"/>
         <param key="origFrom" value="61034039"/>
     </edge>
     <edge id="-77270049" from="61034038" to="cluster_61034010_61034011" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38227.25,33938.73 38176.80,33930.98 38097.03,33918.35">
-        <lane id="-77270049_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="135.40" shape="38221.39,33939.45 38176.55,33932.56 38096.53,33919.89">
+        <lane id="-77270049_0" index="0" speed="13.89" length="135.40" shape="38221.39,33939.45 38176.55,33932.56 38096.53,33919.89">
             <param key="origId" value="-77270049 -77270048"/>
         </lane>
-        <lane id="-77270049_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="135.40" shape="38221.88,33936.29 38177.05,33929.40 38097.03,33916.73">
+        <lane id="-77270049_1" index="1" speed="13.89" length="135.40" shape="38221.88,33936.29 38177.05,33929.40 38097.03,33916.73">
             <param key="origId" value="-77270049 -77270048"/>
         </lane>
         <param key="origTo" value="61034011"/>
     </edge>
     <edge id="-77270050" from="cluster_61034498_61046170" to="cluster_61034051_61034052_61034053" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38555.12,33987.95 38501.23,33978.05 38460.31,33971.20 38395.58,33962.68 38337.72,33957.33">
-        <lane id="-77270050_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="232.29" shape="38554.56,33989.47 38500.95,33979.63 38460.07,33972.78 38395.40,33964.27 38345.51,33959.66">
+        <lane id="-77270050_0" index="0" speed="13.89" length="232.29" shape="38554.56,33989.47 38500.95,33979.63 38460.07,33972.78 38395.40,33964.27 38345.51,33959.66">
             <param key="origId" value="-77270050 -77270051"/>
         </lane>
-        <lane id="-77270050_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="232.29" shape="38555.07,33986.31 38501.51,33976.47 38460.55,33969.62 38395.76,33961.09 38345.97,33956.49">
+        <lane id="-77270050_1" index="1" speed="13.89" length="232.29" shape="38555.07,33986.31 38501.51,33976.47 38460.55,33969.62 38395.76,33961.09 38345.97,33956.49">
             <param key="origId" value="-77270050 -77270051"/>
         </lane>
         <param key="origFrom" value="61046170"/>
         <param key="origTo" value="61034053"/>
     </edge>
     <edge id="-821622631" from="cluster_61034051_61034052_61034053" to="cluster_61034039_61034040_61034041_61034042" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38337.72,33957.33 38277.75,33948.69 38257.28,33944.71">
-        <lane id="-821622631_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="95.04" shape="38332.12,33958.14 38277.48,33950.27 38262.36,33947.33">
+        <lane id="-821622631_0" index="0" speed="13.89" length="95.04" shape="38332.12,33958.14 38277.48,33950.27 38262.36,33947.33">
             <param key="origId" value="-821622631 -821622630"/>
         </lane>
-        <lane id="-821622631_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="95.04" shape="38332.58,33954.97 38278.02,33947.11 38262.79,33944.15">
+        <lane id="-821622631_1" index="1" speed="13.89" length="95.04" shape="38332.58,33954.97 38278.02,33947.11 38262.79,33944.15">
             <param key="origId" value="-821622631 -821622630"/>
         </lane>
         <param key="origFrom" value="61034053"/>
         <param key="origTo" value="61034039"/>
     </edge>
     <edge id="-842211875" from="61045867" to="cluster_61034039_61034040_61034041_61034042" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38250.83,34048.35 38247.93,34040.63 38246.42,34033.98 38245.56,34026.21 38247.19,34008.37 38253.01,33965.95 38257.28,33944.71">
-        <lane id="-842211875_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="115.39" shape="38250.83,34048.35 38247.93,34040.63 38246.42,34033.98 38245.56,34026.21 38247.19,34008.37 38253.01,33965.95 38255.86,33951.77">
+        <lane id="-842211875_0" index="0" speed="8.33" length="115.39" shape="38250.83,34048.35 38247.93,34040.63 38246.42,34033.98 38245.56,34026.21 38247.19,34008.37 38253.01,33965.95 38255.86,33951.77">
             <param key="origId" value="-842211875 -842211874"/>
         </lane>
         <param key="origTo" value="61034039"/>
     </edge>
     <edge id="53475361" from="cluster_61034051_61034052_61034053" to="61045873" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38337.72,33957.33 38327.12,34057.72">
-        <lane id="53475361_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="113.72" shape="38336.97,33964.42 38327.12,34057.72"/>
+        <lane id="53475361_0" index="0" speed="8.33" length="113.72" shape="38336.97,33964.42 38327.12,34057.72"/>
         <param key="origFrom" value="61034053"/>
     </edge>
     <edge id="53475454" from="61034013" to="61034037" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center">
-        <lane id="53475454_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="51.70" shape="38177.66,33920.51 38223.26,33927.40"/>
-        <lane id="53475454_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="51.70" shape="38177.18,33923.67 38222.78,33930.57"/>
+        <lane id="53475454_0" index="0" speed="13.89" length="51.70" shape="38177.66,33920.51 38223.26,33927.40"/>
+        <lane id="53475454_1" index="1" speed="13.89" length="51.70" shape="38177.18,33923.67 38222.78,33930.57"/>
     </edge>
     <edge id="53475480" from="61034049" to="cluster_61034051_61034052_61034053" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38320.96,33907.64 38327.85,33911.93 38333.36,33915.14 38337.53,33919.50 38340.35,33923.88 38341.21,33931.65">
-        <lane id="53475480_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="46.70" shape="38321.19,33907.78 38327.85,33911.93 38333.36,33915.14 38337.53,33919.50 38340.35,33923.88 38341.21,33931.65">
+        <lane id="53475480_0" index="0" speed="8.33" length="46.70" shape="38321.19,33907.78 38327.85,33911.93 38333.36,33915.14 38337.53,33919.50 38340.35,33923.88 38341.21,33931.65">
             <param key="origId" value="53475480"/>
         </lane>
         <param key="origTo" value="61034051"/>
     </edge>
     <edge id="53475490" from="61034044" to="61034049" name="Bayerischer Platz" priority="-4" type="1110111100_3" spreadType="center" shape="38302.55,33904.72 38312.08,33905.62 38320.96,33907.64">
-        <lane id="53475490_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.33" length="18.68" shape="38302.83,33904.75 38312.08,33905.62 38320.70,33907.58">
+        <lane id="53475490_0" index="0" speed="8.33" length="18.68" shape="38302.83,33904.75 38312.08,33905.62 38320.70,33907.58">
             <param key="origId" value="53475490"/>
         </lane>
     </edge>
     <edge id="53475492" from="cluster_61034010_61034011" to="61034013" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38097.56,33911.67 38177.28,33922.07">
-        <lane id="53475492_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="83.57" shape="38097.94,33910.11 38177.35,33920.47"/>
-        <lane id="53475492_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="83.57" shape="38097.53,33913.28 38176.93,33923.64"/>
+        <lane id="53475492_0" index="0" speed="13.89" length="83.57" shape="38097.94,33910.11 38177.35,33920.47"/>
+        <lane id="53475492_1" index="1" speed="13.89" length="83.57" shape="38097.53,33913.28 38176.93,33923.64"/>
         <param key="origFrom" value="61034010"/>
     </edge>
     <edge id="53496442" from="61034494" to="cluster_61034498_61046170" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38460.79,33962.29 38556.87,33975.67">
-        <lane id="53496442_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="103.21" shape="38461.16,33960.73 38557.09,33974.09"/>
-        <lane id="53496442_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="103.21" shape="38460.72,33963.90 38556.53,33977.24"/>
+        <lane id="53496442_0" index="0" speed="13.89" length="103.21" shape="38461.16,33960.73 38557.09,33974.09"/>
+        <lane id="53496442_1" index="1" speed="13.89" length="103.21" shape="38460.72,33963.90 38556.53,33977.24"/>
         <param key="origTo" value="61034498"/>
     </edge>
     <edge id="53595055" from="61034037" to="cluster_61034039_61034040_61034041_61034042" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38228.40,33929.80 38259.74,33933.53">
-        <lane id="53595055_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.28" shape="38234.03,33928.86 38254.26,33931.27"/>
-        <lane id="53595055_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="33.28" shape="38233.65,33932.04 38253.63,33934.41"/>
+        <lane id="53595055_0" index="0" speed="13.89" length="33.28" shape="38234.03,33928.86 38254.26,33931.27"/>
+        <lane id="53595055_1" index="1" speed="13.89" length="33.28" shape="38233.65,33932.04 38253.63,33934.41"/>
         <param key="origTo" value="61034040"/>
     </edge>
     <edge id="53595056" from="61034037" to="61034038" priority="-4" type="1110111100_3" spreadType="center">
-        <lane id="53595056_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="9.00" shape="38227.85,33934.10 38227.82,33934.29"/>
+        <lane id="53595056_0" index="0" speed="13.89" length="9.00" shape="38227.85,33934.10 38227.82,33934.29"/>
     </edge>
     <edge id="835919103" from="cluster_61034051_61034052_61034053" to="61034494" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38339.48,33945.05 38412.40,33955.61 38460.79,33962.29">
-        <lane id="835919103_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.60" shape="38347.70,33944.62 38412.62,33954.03 38460.86,33960.68">
+        <lane id="835919103_0" index="0" speed="13.89" length="122.60" shape="38347.70,33944.62 38412.62,33954.03 38460.86,33960.68">
             <param key="origId" value="835919103 835919104"/>
         </lane>
-        <lane id="835919103_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.60" shape="38347.23,33947.79 38412.18,33957.19 38460.42,33963.85">
+        <lane id="835919103_1" index="1" speed="13.89" length="122.60" shape="38347.23,33947.79 38412.18,33957.19 38460.42,33963.85">
             <param key="origId" value="835919103 835919104"/>
         </lane>
         <param key="origFrom" value="61034052"/>
     </edge>
     <edge id="845531522" from="845531522.20" to="845531522.-20" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38279.35,33937.79 38280.64,33937.96 38319.46,33943.71">
-        <lane id="845531522_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="41.18" shape="38283.31,33938.36 38315.50,33943.12">
+        <lane id="845531522_0" index="0" speed="13.89" length="41.18" shape="38283.31,33938.36 38315.50,33943.12">
             <param key="origId" value="845531522 845531523"/>
         </lane>
         <param key="origFrom" value="61034040"/>
         <param key="origTo" value="61034052"/>
     </edge>
     <edge id="845531522.after" from="845531522.-20" to="cluster_61034051_61034052_61034053" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38319.70,33942.12 38339.48,33945.05">
-        <lane id="845531522.after_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="19.95" shape="38323.89,33941.13 38334.35,33942.67">
+        <lane id="845531522.after_0" index="0" speed="13.89" length="19.95" shape="38323.89,33941.13 38334.35,33942.67">
             <param key="origId" value="845531522 845531523"/>
         </lane>
-        <lane id="845531522.after_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="19.95" shape="38323.42,33944.29 38333.89,33945.84">
+        <lane id="845531522.after_1" index="1" speed="13.89" length="19.95" shape="38323.42,33944.29 38333.89,33945.84">
             <param key="origId" value="845531522 845531523"/>
         </lane>
         <param key="origFrom" value="61034040"/>
         <param key="origTo" value="61034052"/>
     </edge>
     <edge id="845531522.before" from="cluster_61034039_61034040_61034041_61034042" to="845531522.20" name="Grunewaldstrasse" priority="-2" type="1110111100_2" spreadType="center" shape="38259.74,33933.53 38279.56,33936.20">
-        <lane id="845531522.before_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="18.81" shape="38264.36,33932.54 38275.81,33934.08">
+        <lane id="845531522.before_0" index="0" speed="13.89" length="18.81" shape="38264.36,33932.54 38275.81,33934.08">
             <param key="origId" value="845531522 845531523"/>
         </lane>
-        <lane id="845531522.before_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="18.81" shape="38263.93,33935.71 38275.38,33937.26">
+        <lane id="845531522.before_1" index="1" speed="13.89" length="18.81" shape="38263.93,33935.71 38275.38,33937.26">
             <param key="origId" value="845531522 845531523"/>
         </lane>
         <param key="origFrom" value="61034040"/>
