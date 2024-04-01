@@ -119,6 +119,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const NBDistrictCont& dc = nb.getDistrictCont();
+    const NBTypeCont& tc = nb.getTypeCont();
 
     // write network offsets and projection
     GeoConvHelper::writeLocation(device);
@@ -141,7 +142,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write edges with lanes and connected edges
     bool noNames = !oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        writeEdge(device, *(*i).second, noNames);
+        writeEdge(device, *(*i).second, noNames, tc);
     }
     device.lf();
 
@@ -471,7 +472,7 @@ NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, dou
 }
 
 void
-NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
+NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, const NBTypeCont& tc) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
     into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
@@ -514,6 +515,7 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
         length = (length + e.getBidiEdge()->getFinalLength()) / 2;
     }
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
+    const bool defaultPermissions = !e.hasLaneSpecificPermissions() && e.getPermissions() == tc.getEdgeTypePermissions(e.getTypeID());
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         StopOffset stopOffset;
@@ -521,7 +523,8 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
             stopOffset = l.laneStopOffset;
         }
         writeLane(into, e.getLaneID(i), l.speed, l.friction,
-                  l.permissions, l.preferred,
+                  defaultPermissions ? SVC_UNSPECIFIED : l.permissions,
+                  l.preferred,
                   l.changeLeft, l.changeRight,
                   startOffset, l.endOffset,
                   stopOffset, l.width, l.shape, &l,

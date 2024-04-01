@@ -55,7 +55,7 @@ NWWriter_XML::writeNetwork(const OptionsCont& oc, const std::string& prefix, NBN
         if (nb.getTypeCont().size() > 0) {
             writeTypes(prefix, nb.getEdgeCont(), nb.getTypeCont());
         }
-        writeEdgesAndConnections(oc, prefix, nb.getNodeCont(), nb.getEdgeCont());
+        writeEdgesAndConnections(oc, prefix, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont());
         writeTrafficLights(prefix, nb.getTLLogicCont(), nb.getEdgeCont());
     }
     if (oc.isSet("junctions.join-output")) {
@@ -184,7 +184,7 @@ NWWriter_XML::writeTypes(const std::string& prefix, NBEdgeCont& ec, NBTypeCont& 
 
 
 void
-NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec) {
+NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec, const NBTypeCont& tc) {
     const GeoConvHelper& gch = GeoConvHelper::getFinal();
     bool useGeo = oc.exists("proj.plain-geo") && oc.getBool("proj.plain-geo");
     const bool geoAccuracy = useGeo || gch.usingInverseGeoProjection();
@@ -247,6 +247,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, const std::string&
             edevice.writeAttr(SUMO_ATTR_ENDOFFSET, e->getEndOffset());
         }
         if (!e->hasLaneSpecificPermissions()) {
+            // always write permissions because we don't know whether the types file will be available
             writePermissions(edevice, e->getPermissions(0));
         }
         if (!e->hasLaneSpecificStopOffsets() && e->getEdgeStopOffset().isDefined()) {
@@ -508,6 +509,5 @@ NWWriter_XML::writeShape(OutputDevice& out, const GeoConvHelper& gch, PositionVe
         out.setPrecision();
     }
 }
-
 
 /****************************************************************************/

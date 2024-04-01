@@ -426,6 +426,7 @@ StringUtils::toBool(const std::string& sData) {
 MMVersion
 StringUtils::toVersion(const std::string& sData) {
     std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
+    assert(parts.size() == 2);
     return MMVersion(toInt(parts.front()), toDouble(parts.back()));
 }
 

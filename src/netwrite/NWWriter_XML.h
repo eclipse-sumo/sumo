@@ -90,7 +90,7 @@ private:
      * @param[in] oc The options to use
      * @param[in] nb The network build from which to read data
      */
-    static void writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec);
+    static void writeEdgesAndConnections(const OptionsCont& oc, const std::string& prefix, NBNodeCont& nc, NBEdgeCont& ec, const NBTypeCont& tc);
 
 
     /** @brief Writes the traffic lights file
