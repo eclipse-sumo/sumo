@@ -2636,8 +2636,8 @@ NIImporter_OpenStreetMap::applyChangeProhibition(NBEdge* e, int changeProhibitio
     //std::cout << "applyChangeProhibition e=" << e->getID() << " changeProhibition=" << std::bitset<32>(changeProhibition) << " val=" << changeProhibition << "\n";
     for (int lane = 0; changeProhibition > 0 && lane < e->getNumLanes(); lane++) {
         int code = changeProhibition % 4; // only look at the last 2 bits
-        SVCPermissions changeLeft = (code & CHANGE_NO_LEFT) == 0 ? SVCAll : SVC_AUTHORITY;
-        SVCPermissions changeRight = (code & CHANGE_NO_RIGHT) == 0 ? SVCAll : SVC_AUTHORITY;
+        SVCPermissions changeLeft = (code & CHANGE_NO_LEFT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
+        SVCPermissions changeRight = (code & CHANGE_NO_RIGHT) == 0 ? SVCAll : (SVCPermissions)SVC_AUTHORITY;
         e->setPermittedChanging(lane, changeLeft, changeRight);
         if (multiLane) {
             changeProhibition = changeProhibition >> 2;
@@ -2658,9 +2658,9 @@ NIImporter_OpenStreetMap::applyLaneUse(NBEdge* e, NIImporter_OpenStreetMap::Edge
             // laneUse stores from left to right
             const int i = lefthand ? lane : numLanes - 1 - lane;
             // Extra allowed SVCs for this lane or none if no info was present for the lane
-            const SVCPermissions extraAllowed = i < (int)allowed.size() ? allowed[i] : SVC_IGNORING;
+            const SVCPermissions extraAllowed = i < (int)allowed.size() ? allowed[i] : (SVCPermissions)SVC_IGNORING;
             // Extra disallowed SVCs for this lane or none if no info was present for the lane
-            const SVCPermissions extraDisallowed = i < (int)disallowed.size() ? disallowed[i] : SVC_IGNORING;
+            const SVCPermissions extraDisallowed = i < (int)disallowed.size() ? disallowed[i] : (SVCPermissions)SVC_IGNORING;
             if (i < (int)designated.size() && designated[i]) {
                 // if designated, delete all permissions
                 e->setPermissions(SVC_IGNORING, lane);
