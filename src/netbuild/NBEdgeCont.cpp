@@ -1516,6 +1516,7 @@ NBEdgeCont::extractRoundabouts() {
 
 double
 NBEdgeCont::formFactor(const EdgeVector& loopEdges) {
+    // A circle (which maximizes area per circumference) has a formfactor of 1, non-circular shapes have a smaller value
     PositionVector points;
     for (EdgeVector::const_iterator it = loopEdges.begin(); it != loopEdges.end(); ++it) {
         points.append((*it)->getGeometry());
