@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_19_0+0910-7ddfc6d
+Eclipse SUMO netgenerate Version v1_19_0+1644-497bdaaec19
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -192,6 +192,9 @@ Processing Options:
   --offset.z FLOAT                     Adds FLOAT to net z-positions
   --flip-y-axis                        Flips the y-coordinate along zero
   --roundabouts.guess                  Enable roundabout-guessing
+  --roundabouts.guess.max-length FLOAT  Structures with a circumference above
+                                        FLOAT threshold are not classified as
+                                        roundabout
   --roundabouts.visibility-distance FLOAT  Default visibility when approaching
                                         a roundabout
   --opposites.guess                    Enable guessing of opposite direction
