@@ -57,6 +57,13 @@ SUMO_VEHICLE_CLASSES = set([
     "pedestrian",
     "evehicle",
     "ship",
+    "container",
+    "cable_car",
+    "subway",
+    "aircraft",
+    "wheelchair",
+    "scooter",
+    "drone",
     "custom1",
     "custom2"])
 
