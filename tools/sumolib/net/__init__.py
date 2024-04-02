@@ -256,10 +256,6 @@ class Net:
         return self._id2edge[id]
 
     def addLane(self, edge, speed, length, width, allow=None, disallow=None):
-        if self.getVersion() >= (1,20) and allow is None and disallow is None:
-            edgeType = self.getEdgeType(edge.getType())
-            allow = edgeType.allow
-            disallow = edgeType.disallow
         return lane.Lane(edge, speed, length, width, allow, disallow)
 
     def addRoundabout(self, nodes, edges=None):
