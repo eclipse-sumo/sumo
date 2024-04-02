@@ -63,7 +63,8 @@ CC_VehicleVariables::CC_VehicleVariables() :
     engine(0), engineModel(CC_ENGINE_MODEL_FOLM),
     usePrediction(false),
     autoLaneChange(false),
-    platoonFixedLane(-1) {
+    platoonFixedLane(-1),
+    commitToLaneChange(true), noCommitReason(0), laneChangeCommitTime(-1) {
     fakeData.frontAcceleration = 0;
     fakeData.frontControllerAcceleration = 0;
     fakeData.frontDistance = 0;

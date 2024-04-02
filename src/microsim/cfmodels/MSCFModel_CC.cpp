@@ -117,6 +117,9 @@ MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader) const {
 int
 MSCFModel_CC::isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
+    if (!vars->isLeader) {
+        return isPlatoonLaneChangeSafe(vars->leaderVehicle, left);
+    }
     int result = 0;
     std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), left ? +1 : -1);
     // bit 1: query lateral direction (left:0, right:1)
@@ -226,6 +229,31 @@ MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pr
             return (vars->flatbedD - vars->flatbedH * (speed - leaderSpeed)) * tolerance;
         case Plexe::DRIVER:
             return myHumanDriver->getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
+    }
+}
+
+int
+MSCFModel_CC::commitToLaneChange(const MSVehicle* veh, bool left) const {
+    auto vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
+    if (isLeader(veh)) {
+        SUMOTime timestep = MSNet::getInstance()->getCurrentTimeStep();
+        if (vars->laneChangeCommitTime == timestep) {
+            if (vars->commitToLaneChange)
+                return 0;
+            else
+                return vars->noCommitReason;
+        }
+        else {
+            int blocked = isPlatoonLaneChangeSafe(veh, left);
+            if (blocked == 0) {
+                vars->commitToLaneChange = true;
+                vars->laneChangeCommitTime = timestep;
+            }
+            return blocked;
+        }
+    }
+    else {
+        return commitToLaneChange(vars->leaderVehicle, left);
     }
 }
 

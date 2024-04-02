@@ -47,6 +47,7 @@
 #include <microsim/devices/MSDevice_Bluelight.h>
 #include "MSLCM_DK2008.h"
 #include "MSLCM_LC2013.h"
+#include "MSLCM_LC2013_CC.h"
 #include "MSLCM_SL2015.h"
 #include "MSAbstractLaneChangeModel.h"
 
@@ -86,6 +87,8 @@ MSAbstractLaneChangeModel::build(LaneChangeModel lcm, MSVehicle& v) {
             return new MSLCM_DK2008(v);
         case LaneChangeModel::LC2013:
             return new MSLCM_LC2013(v);
+        case LaneChangeModel::LC2013_CC:
+            return new MSLCM_LC2013_CC(v);
         case LaneChangeModel::SL2015:
             return new MSLCM_SL2015(v);
         case LaneChangeModel::DEFAULT:

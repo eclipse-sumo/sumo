@@ -256,6 +256,8 @@ public:
 
     bool isLeader(const MSVehicle* veh) const;
 
+    int commitToLaneChange(const MSVehicle* veh, bool left) const;
+
     /**
      * @brief returns the number of lanes set in the configuration file
      */
