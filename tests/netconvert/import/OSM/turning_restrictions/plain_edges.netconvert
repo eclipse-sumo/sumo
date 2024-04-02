@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-02 14:11:33 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,28 +37,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <location netOffset="-362705.63,-5761721.48" convBoundary="0.00,0.00,4118.45,2224.15" origBoundary="13.000000,51.990000,13.060000,52.010000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <edge id="-101" from="6" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-102" from="7" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-103" from="8" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-104" from="9" to="4" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-105" from="11" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-106" from="12" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-200" from="1" to="0" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-201" from="2" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-202" from="3" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-203" from="4" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-204" from="5" to="4" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="-205" from="10" to="5" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="101" from="1" to="6" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="102" from="2" to="7" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="103" from="3" to="8" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="104" from="4" to="9" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="105" from="5" to="11" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="106" from="5" to="12" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="200" from="0" to="1" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="201" from="1" to="2" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="202" from="2" to="3" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="203" from="3" to="4" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="204" from="4" to="5" priority="11" type="highway.secondary" numLanes="4" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
-    <edge id="205" from="5" to="10" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-101" from="6" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-102" from="7" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-103" from="8" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-104" from="9" to="4" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-105" from="11" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-106" from="12" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-200" from="1" to="0" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-201" from="2" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-202" from="3" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-203" from="4" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-204" from="5" to="4" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="-205" from="10" to="5" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="101" from="1" to="6" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="102" from="2" to="7" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="103" from="3" to="8" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="104" from="4" to="9" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="105" from="5" to="11" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="106" from="5" to="12" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="200" from="0" to="1" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="201" from="1" to="2" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="202" from="2" to="3" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="203" from="3" to="4" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="204" from="4" to="5" priority="11" type="highway.secondary" numLanes="4" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
+    <edge id="205" from="5" to="10" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone"/>
 </edges>

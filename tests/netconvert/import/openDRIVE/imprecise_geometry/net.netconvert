@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:04 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-02 14:11:32 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,11 +36,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
 
-    <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" width="3.65"/>
 
     <edge id="-190" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
-        <lane id="-190_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42" type="driving"/>
-        <lane id="-190_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40" type="driving"/>
+        <lane id="-190_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42" type="driving"/>
+        <lane id="-190_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40" type="driving"/>
     </edge>
 
     <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,0.00 174.89,6.23"/>

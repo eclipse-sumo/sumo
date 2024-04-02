@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:06 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-02 14:11:34 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,265 +44,265 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <location netOffset="-359895.89,-5647600.48" convBoundary="0.00,0.00,219.85,184.90" origBoundary="6.993587,50.948780,7.021380,50.979461" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
 
     <edge id=":1595145557_0" function="internal">
-        <lane id=":1595145557_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="6.52" shape="136.23,59.76 134.47,60.22 133.31,60.67 132.19,61.25 130.56,62.08"/>
-        <lane id=":1595145557_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="6.52" shape="135.54,56.64 133.56,57.15 132.26,57.64 131.00,58.27 129.17,59.19"/>
+        <lane id=":1595145557_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="6.52" shape="136.23,59.76 134.47,60.22 133.31,60.67 132.19,61.25 130.56,62.08"/>
+        <lane id=":1595145557_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="6.52" shape="135.54,56.64 133.56,57.15 132.26,57.64 131.00,58.27 129.17,59.19"/>
     </edge>
     <edge id=":1595145557_2" function="internal">
-        <lane id=":1595145557_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="25.00" length="11.20" shape="134.84,53.52 131.53,54.34 129.19,54.97 126.93,55.40 123.87,55.65"/>
+        <lane id=":1595145557_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="25.00" length="11.20" shape="134.84,53.52 131.53,54.34 129.19,54.97 126.93,55.40 123.87,55.65"/>
     </edge>
     <edge id=":1595145561_0" function="internal">
-        <lane id=":1595145561_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.29" shape="105.51,49.44 105.61,49.72"/>
+        <lane id=":1595145561_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.29" shape="105.51,49.44 105.61,49.72"/>
     </edge>
     <edge id=":1595145561_1" function="internal">
-        <lane id=":1595145561_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.25" shape="111.59,47.46 111.52,47.24"/>
-        <lane id=":1595145561_1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.25" shape="108.60,48.59 108.51,48.34"/>
+        <lane id=":1595145561_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.25" shape="111.59,47.46 111.52,47.24"/>
+        <lane id=":1595145561_1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.25" shape="108.60,48.59 108.51,48.34"/>
     </edge>
     <edge id=":1670775099_0" function="internal">
-        <lane id=":1670775099_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.31" shape="118.08,50.47 117.74,50.59"/>
-        <lane id=":1670775099_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.31" shape="119.06,53.52 118.83,53.60"/>
+        <lane id=":1670775099_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.31" shape="118.08,50.47 117.74,50.59"/>
+        <lane id=":1670775099_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.31" shape="119.06,53.52 118.83,53.60"/>
     </edge>
     <edge id=":1670775102_0" function="internal">
-        <lane id=":1670775102_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.81" shape="130.46,62.12 130.35,62.18 130.28,62.22 130.22,62.26 130.13,62.34"/>
-        <lane id=":1670775102_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.81" shape="129.07,59.24 128.75,59.40 128.54,59.52 128.34,59.67 128.06,59.89"/>
+        <lane id=":1670775102_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.81" shape="130.46,62.12 130.35,62.18 130.28,62.22 130.22,62.26 130.13,62.34"/>
+        <lane id=":1670775102_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.81" shape="129.07,59.24 128.75,59.40 128.54,59.52 128.34,59.67 128.06,59.89"/>
     </edge>
     <edge id=":1670775125_0" function="internal">
-        <lane id=":1670775125_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.77" shape="126.56,65.35 126.47,65.42 126.42,65.48 126.37,65.54 126.30,65.63"/>
-        <lane id=":1670775125_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.77" shape="124.50,62.90 124.24,63.13 124.07,63.29 123.92,63.47 123.71,63.74"/>
+        <lane id=":1670775125_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.77" shape="126.56,65.35 126.47,65.42 126.42,65.48 126.37,65.54 126.30,65.63"/>
+        <lane id=":1670775125_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.77" shape="124.50,62.90 124.24,63.13 124.07,63.29 123.92,63.47 123.71,63.74"/>
     </edge>
     <edge id=":1670775131_0" function="internal">
-        <lane id=":1670775131_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.34" shape="83.48,66.06 91.94,62.11"/>
-        <lane id=":1670775131_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.34" shape="84.83,68.96 93.30,65.01"/>
+        <lane id=":1670775131_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.34" shape="83.48,66.06 91.94,62.11"/>
+        <lane id=":1670775131_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.34" shape="84.83,68.96 93.30,65.01"/>
     </edge>
     <edge id=":1670775131_2" function="internal">
-        <lane id=":1670775131_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.35" shape="84.83,68.96 87.37,68.07 89.25,68.01 91.20,68.40 93.96,68.82"/>
+        <lane id=":1670775131_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.35" shape="84.83,68.96 87.37,68.07 89.25,68.01 91.20,68.40 93.96,68.82"/>
     </edge>
     <edge id=":1670775149_0" function="internal">
-        <lane id=":1670775149_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.29" shape="102.08,70.29 102.37,70.36"/>
+        <lane id=":1670775149_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.29" shape="102.08,70.29 102.37,70.36"/>
     </edge>
     <edge id=":1670775173_0" function="internal">
-        <lane id=":1670775173_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="11.75" length="14.27" shape="123.54,69.53 121.76,73.48 120.71,76.93 120.39,79.88 120.80,82.33"/>
-        <lane id=":1670775173_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.48" length="14.27" shape="120.31,68.83 118.45,73.07 117.41,76.91 117.19,80.35 117.78,83.39"/>
+        <lane id=":1670775173_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.75" length="14.27" shape="123.54,69.53 121.76,73.48 120.71,76.93 120.39,79.88 120.80,82.33"/>
+        <lane id=":1670775173_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.48" length="14.27" shape="120.31,68.83 118.45,73.07 117.41,76.91 117.19,80.35 117.78,83.39"/>
     </edge>
     <edge id=":1670775173_2" function="internal">
-        <lane id=":1670775173_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="14.22" shape="116.00,68.94 120.80,82.33"/>
-        <lane id=":1670775173_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="14.22" shape="112.99,70.02 117.78,83.39"/>
+        <lane id=":1670775173_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="14.22" shape="116.00,68.94 120.80,82.33"/>
+        <lane id=":1670775173_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="14.22" shape="112.99,70.02 117.78,83.39"/>
     </edge>
     <edge id=":1670775173_4" function="internal">
-        <lane id=":1670775173_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.25" length="12.89" shape="109.99,73.67 112.78,75.34 114.77,77.20 116.31,79.72 117.78,83.39"/>
+        <lane id=":1670775173_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="12.25" length="12.89" shape="109.99,73.67 112.78,75.34 114.77,77.20 116.31,79.72 117.78,83.39"/>
     </edge>
     <edge id=":1863107996_0" function="internal">
-        <lane id=":1863107996_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="89.71,7.56 90.03,6.16 90.64,5.50 91.53,5.60 92.70,6.44"/>
+        <lane id=":1863107996_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="4.67" shape="89.71,7.56 90.03,6.16 90.64,5.50 91.53,5.60 92.70,6.44"/>
     </edge>
     <edge id=":1958506073_0" function="internal">
-        <lane id=":1958506073_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.21" shape="21.50,33.79 22.69,35.87 23.84,37.11 24.99,38.35 26.20,40.43"/>
-        <lane id=":1958506073_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.21" shape="18.57,35.08 19.76,37.17 20.91,38.41 22.07,39.65 23.28,41.74"/>
-        <lane id=":1958506073_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.21" shape="18.57,35.08 19.31,37.37 19.45,39.07 19.61,40.76 20.36,43.05"/>
+        <lane id=":1958506073_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.21" shape="21.50,33.79 22.69,35.87 23.84,37.11 24.99,38.35 26.20,40.43"/>
+        <lane id=":1958506073_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.21" shape="18.57,35.08 19.76,37.17 20.91,38.41 22.07,39.65 23.28,41.74"/>
+        <lane id=":1958506073_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.21" shape="18.57,35.08 19.31,37.37 19.45,39.07 19.61,40.76 20.36,43.05"/>
     </edge>
     <edge id=":1958506086_0" function="internal">
-        <lane id=":1958506086_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.11" shape="27.29,89.96 26.01,87.91 24.82,86.69 23.67,85.46 22.47,83.36"/>
-        <lane id=":1958506086_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.11" shape="30.17,88.55 28.91,86.54 27.73,85.34 26.58,84.14 25.41,82.08"/>
-        <lane id=":1958506086_0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.11" shape="30.17,88.55 29.37,86.34 29.20,84.70 29.05,83.04 28.34,80.80"/>
+        <lane id=":1958506086_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.11" shape="27.29,89.96 26.01,87.91 24.82,86.69 23.67,85.46 22.47,83.36"/>
+        <lane id=":1958506086_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.11" shape="30.17,88.55 28.91,86.54 27.73,85.34 26.58,84.14 25.41,82.08"/>
+        <lane id=":1958506086_0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.11" shape="30.17,88.55 29.37,86.34 29.20,84.70 29.05,83.04 28.34,80.80"/>
     </edge>
     <edge id=":2546740040_0" function="internal">
-        <lane id=":2546740040_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.20" shape="55.43,76.88 54.43,76.32"/>
-        <lane id=":2546740040_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="1.20" shape="53.98,79.73 52.88,79.12"/>
+        <lane id=":2546740040_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.20" shape="55.43,76.88 54.43,76.32"/>
+        <lane id=":2546740040_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="1.20" shape="53.98,79.73 52.88,79.12"/>
     </edge>
     <edge id=":359935363_0" function="internal">
-        <lane id=":359935363_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.76" shape="25.69,32.25 27.14,34.05 28.41,35.07 29.62,36.13 30.89,38.04"/>
-        <lane id=":359935363_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="7.76" shape="25.69,32.25 26.68,34.26 26.98,35.81 27.23,37.40 28.05,39.51"/>
+        <lane id=":359935363_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="7.76" shape="25.69,32.25 27.14,34.05 28.41,35.07 29.62,36.13 30.89,38.04"/>
+        <lane id=":359935363_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="7.76" shape="25.69,32.25 26.68,34.26 26.98,35.81 27.23,37.40 28.05,39.51"/>
     </edge>
     <edge id=":359935364_0" function="internal">
-        <lane id=":359935364_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="43.80,62.97 43.94,63.24"/>
-        <lane id=":359935364_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="40.96,64.45 41.10,64.71"/>
+        <lane id=":359935364_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="43.80,62.97 43.94,63.24"/>
+        <lane id=":359935364_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="40.96,64.45 41.10,64.71"/>
     </edge>
     <edge id=":359935365_0" function="internal">
-        <lane id=":359935365_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="37.98,66.70 38.10,66.96"/>
-        <lane id=":359935365_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="35.06,68.01 35.19,68.28"/>
-        <lane id=":359935365_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" shape="32.14,69.32 32.27,69.60"/>
+        <lane id=":359935365_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="37.98,66.70 38.10,66.96"/>
+        <lane id=":359935365_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="35.06,68.01 35.19,68.28"/>
+        <lane id=":359935365_0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="32.14,69.32 32.27,69.60"/>
     </edge>
     <edge id=":cluster_1595145584_2546740042_259566585_320356071_#4more_0" function="internal">
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="9.32" shape="34.11,110.53 33.46,107.91 33.60,105.95 33.70,104.02 32.91,101.46"/>
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="9.32" shape="37.03,109.21 36.37,106.57 36.50,104.59 36.59,102.64 35.79,100.05"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="9.32" shape="34.11,110.53 33.46,107.91 33.60,105.95 33.70,104.02 32.91,101.46"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="9.32" shape="37.03,109.21 36.37,106.57 36.50,104.59 36.59,102.64 35.79,100.05"/>
     </edge>
     <edge id=":cluster_1595145584_2546740042_259566585_320356071_#4more_2" function="internal">
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.92" length="43.89" shape="39.93,107.87 38.51,99.01 41.83,90.69 49.91,82.91 62.75,75.67"/>
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.12" length="8.87" shape="42.87,106.59 41.79,99.08 42.31,97.90"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.92" length="43.89" shape="39.93,107.87 38.51,99.01 41.83,90.69 49.91,82.91 62.75,75.67"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.12" length="8.87" shape="42.87,106.59 41.79,99.08 42.31,97.90"/>
     </edge>
     <edge id=":cluster_1595145584_2546740042_259566585_320356071_#4more_9" function="internal">
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.12" length="30.02" shape="42.31,97.90 44.97,91.91 52.40,85.08 64.08,78.58"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.12" length="30.02" shape="42.31,97.90 44.97,91.91 52.40,85.08 64.08,78.58"/>
     </edge>
     <edge id=":cluster_1595145584_2546740042_259566585_320356071_#4more_4" function="internal">
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.56" length="8.46" shape="54.61,76.42 56.22,76.99 58.11,77.05 60.29,76.61 62.75,75.67"/>
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_4_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="9.88" length="11.45" shape="53.05,79.22 55.37,80.09 57.99,80.27 60.89,79.77 64.08,78.58"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.56" length="8.46" shape="54.61,76.42 56.22,76.99 58.11,77.05 60.29,76.61 62.75,75.67"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_4_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="9.88" length="11.45" shape="53.05,79.22 55.37,80.09 57.99,80.27 60.89,79.77 64.08,78.58"/>
     </edge>
     <edge id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6" function="internal">
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="9.32" shape="49.95,93.13 51.22,95.62 52.26,97.23 53.31,98.84 54.57,101.33"/>
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="9.32" shape="47.07,94.54 48.33,97.00 49.37,98.59 50.40,100.18 51.65,102.64"/>
-        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="9.32" shape="44.20,95.94 45.44,98.37 46.47,99.95 47.49,101.52 48.73,103.95"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="9.32" shape="49.95,93.13 51.22,95.62 52.26,97.23 53.31,98.84 54.57,101.33"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="9.32" shape="47.07,94.54 48.33,97.00 49.37,98.59 50.40,100.18 51.65,102.64"/>
+        <lane id=":cluster_1595145584_2546740042_259566585_320356071_#4more_6_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="9.32" shape="44.20,95.94 45.44,98.37 46.47,99.95 47.49,101.52 48.73,103.95"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_0" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="9.87" length="16.84" shape="120.10,55.79 114.66,55.58 110.42,54.48 107.39,52.50 105.57,49.63"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="9.87" length="16.84" shape="120.10,55.79 114.66,55.58 110.42,54.48 107.39,52.50 105.57,49.63"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_1" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.19" length="7.99" shape="111.58,47.43 112.63,49.39 114.02,50.57 115.78,50.95 117.89,50.54"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.19" length="7.99" shape="111.58,47.43 112.63,49.39 114.02,50.57 115.78,50.95 117.89,50.54"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_2" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="14.98" shape="111.58,47.43 112.62,51.70 112.59,54.80 112.56,57.90 113.57,62.18"/>
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="14.98" shape="108.58,48.53 109.61,52.79 109.59,55.89 109.55,58.99 110.56,63.26"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="14.98" shape="111.58,47.43 112.62,51.70 112.59,54.80 112.56,57.90 113.57,62.18"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="14.98" shape="108.58,48.53 109.61,52.79 109.59,55.89 109.55,58.99 110.56,63.26"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_4" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="1.44" shape="108.58,48.53 108.24,49.93"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="1.44" shape="108.58,48.53 108.24,49.93"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_9" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="3.23" shape="108.24,49.93 107.63,50.58 106.74,50.48 105.57,49.63"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_9_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="3.23" shape="108.24,49.93 107.63,50.58 106.74,50.48 105.57,49.63"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_5" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="7.39" length="11.15" shape="100.34,58.18 103.35,56.40 105.22,54.38 105.96,52.12 105.57,49.63"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_5_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.39" length="11.15" shape="100.34,58.18 103.35,56.40 105.22,54.38 105.96,52.12 105.57,49.63"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_6" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_6_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="18.96" shape="100.34,58.18 105.47,55.73 108.98,54.03 112.56,52.50 117.89,50.54"/>
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_6_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.83" length="18.96" shape="101.69,61.08 106.72,58.67 110.15,57.01 113.65,55.51 118.87,53.59"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_6_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="18.96" shape="100.34,58.18 105.47,55.73 108.98,54.03 112.56,52.50 117.89,50.54"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_6_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.83" length="18.96" shape="101.69,61.08 106.72,58.67 110.15,57.01 113.65,55.51 118.87,53.59"/>
     </edge>
     <edge id=":cluster_1670775121_2203517104_2362397358_585156_8" function="internal">
-        <lane id=":cluster_1670775121_2203517104_2362397358_585156_8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="6.77" length="10.57" shape="101.69,61.08 104.84,60.01 107.37,60.01 109.28,61.10 110.56,63.26"/>
+        <lane id=":cluster_1670775121_2203517104_2362397358_585156_8_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.77" length="10.57" shape="101.69,61.08 104.84,60.01 107.37,60.01 109.28,61.10 110.56,63.26"/>
     </edge>
 
     <edge id="-288192131#0" from="1595145561" to="1863107996" priority="12" type="highway.primary">
-        <lane id="-288192131#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="45.05" shape="105.61,49.72 89.71,7.56"/>
+        <lane id="-288192131#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="45.05" shape="105.61,49.72 89.71,7.56"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="-288192131#1" from="cluster_1670775121_2203517104_2362397358_585156" to="1595145561" priority="12" type="highway.primary" shape="109.57,55.90 107.15,49.29">
-        <lane id="-288192131#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.20" shape="105.57,49.63 105.51,49.44"/>
+        <lane id="-288192131#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.20" shape="105.57,49.63 105.51,49.44"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="154546883#0" from="1670775131" to="1670775149" priority="7" type="highway.primary_link" spreadType="center" shape="83.43,67.85 98.21,69.21 102.23,70.33">
-        <lane id="154546883#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.29" shape="93.96,68.82 98.21,69.21 102.08,70.29"/>
+        <lane id="154546883#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.29" shape="93.96,68.82 98.21,69.21 102.08,70.29"/>
     </edge>
     <edge id="154546883#1" from="1670775149" to="1670775173" priority="7" type="highway.primary_link" spreadType="center" shape="102.23,70.33 105.01,71.06 111.72,74.58 118.49,80.59">
-        <lane id="154546883#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="8.35" shape="102.37,70.36 105.01,71.06 109.99,73.67"/>
+        <lane id="154546883#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.35" shape="102.37,70.36 105.01,71.06 109.99,73.67"/>
     </edge>
     <edge id="185283362" from="61794247" to="1595145557" priority="12" type="highway.primary" spreadType="center">
-        <lane id="185283362_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="30.68" shape="166.18,53.09 136.23,59.76"/>
-        <lane id="185283362_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="30.68" shape="165.49,49.97 135.54,56.64"/>
-        <lane id="185283362_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="30.68" shape="164.79,46.84 134.84,53.52"/>
+        <lane id="185283362_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="30.68" shape="166.18,53.09 136.23,59.76"/>
+        <lane id="185283362_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="30.68" shape="165.49,49.97 135.54,56.64"/>
+        <lane id="185283362_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="30.68" shape="164.79,46.84 134.84,53.52"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="185283363#0" from="1670775131" to="cluster_1670775121_2203517104_2362397358_585156" priority="12" type="highway.primary" spreadType="center" shape="83.43,67.85 101.02,59.63">
-        <lane id="185283363#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.27" shape="91.94,62.11 100.34,58.18"/>
-        <lane id="185283363#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="9.27" shape="93.30,65.01 101.69,61.08"/>
+        <lane id="185283363#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.27" shape="91.94,62.11 100.34,58.18"/>
+        <lane id="185283363#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="9.27" shape="93.30,65.01 101.69,61.08"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="185283364#0" from="1595145557" to="1670775102" priority="12" type="highway.primary" spreadType="center">
-        <lane id="185283364#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.11" shape="130.56,62.08 130.46,62.12"/>
-        <lane id="185283364#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.11" shape="129.17,59.19 129.07,59.24"/>
+        <lane id="185283364#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.11" shape="130.56,62.08 130.46,62.12"/>
+        <lane id="185283364#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.11" shape="129.17,59.19 129.07,59.24"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="185283364#1" from="1670775102" to="1670775125" priority="12" type="highway.primary" spreadType="center">
-        <lane id="185283364#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="4.67" shape="130.13,62.34 126.56,65.35"/>
-        <lane id="185283364#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="4.67" shape="128.06,59.89 124.50,62.90"/>
+        <lane id="185283364#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="4.67" shape="130.13,62.34 126.56,65.35"/>
+        <lane id="185283364#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="4.67" shape="128.06,59.89 124.50,62.90"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="185283364#2" from="1670775125" to="1670775173" priority="12" type="highway.primary" spreadType="center" shape="125.23,64.37 122.40,68.26 120.22,72.51 118.49,80.59">
-        <lane id="185283364#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="5.46" shape="126.30,65.63 123.77,69.10 123.54,69.53"/>
-        <lane id="185283364#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="5.46" shape="123.71,63.74 121.03,67.42 120.31,68.83"/>
+        <lane id="185283364#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="5.46" shape="126.30,65.63 123.77,69.10 123.54,69.53"/>
+        <lane id="185283364#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="5.46" shape="123.71,63.74 121.03,67.42 120.31,68.83"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="185283366" from="1958506086" to="259565937" priority="12" type="highway.primary" spreadType="center">
-        <lane id="185283366_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="63.34" shape="22.47,83.36 -2.93,25.34"/>
-        <lane id="185283366_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="63.34" shape="25.41,82.08 -0.00,24.05"/>
-        <lane id="185283366_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="63.34" shape="28.34,80.80 2.93,22.77"/>
+        <lane id="185283366_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="63.34" shape="22.47,83.36 -2.93,25.34"/>
+        <lane id="185283366_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="63.34" shape="25.41,82.08 -0.00,24.05"/>
+        <lane id="185283366_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="63.34" shape="28.34,80.80 2.93,22.77"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="185283376#0" from="1958506073" to="359935365" priority="12" type="highway.primary" spreadType="center">
-        <lane id="185283376#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.79" shape="26.20,40.43 37.98,66.70"/>
-        <lane id="185283376#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.79" shape="23.28,41.74 35.06,68.01"/>
-        <lane id="185283376#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.79" shape="20.36,43.05 32.14,69.32"/>
+        <lane id="185283376#0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.79" shape="26.20,40.43 37.98,66.70"/>
+        <lane id="185283376#0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.79" shape="23.28,41.74 35.06,68.01"/>
+        <lane id="185283376#0_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.79" shape="20.36,43.05 32.14,69.32"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="185283376#1" from="359935365" to="cluster_1595145584_2546740042_259566585_320356071_#4more" priority="12" type="highway.primary" spreadType="center" shape="35.13,68.15 44.29,88.38">
-        <lane id="185283376#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.82" shape="38.10,66.96 49.95,93.13"/>
-        <lane id="185283376#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.82" shape="35.19,68.28 47.07,94.54"/>
-        <lane id="185283376#1_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.82" shape="32.27,69.60 44.20,95.94"/>
+        <lane id="185283376#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.82" shape="38.10,66.96 49.95,93.13"/>
+        <lane id="185283376#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.82" shape="35.19,68.28 47.07,94.54"/>
+        <lane id="185283376#1_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.82" shape="32.27,69.60 44.20,95.94"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="185283378#0" from="1595145557" to="cluster_1670775121_2203517104_2362397358_585156" priority="7" type="highway.primary_link" spreadType="center" shape="140.37,55.56 127.94,55.49 118.29,55.86">
-        <lane id="185283378#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="3.77" shape="123.87,55.65 120.10,55.79"/>
+        <lane id="185283378#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="3.77" shape="123.87,55.65 120.10,55.79"/>
     </edge>
     <edge id="206154376#1" from="cluster_1595145584_2546740042_259566585_320356071_#4more" to="290370849" priority="12" type="highway.primary" spreadType="center" shape="51.65,102.64 72.65,149.33 86.02,184.90">
-        <lane id="206154376#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="89.19" shape="54.57,101.33 75.61,148.11 89.02,183.77"/>
-        <lane id="206154376#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="89.19" shape="51.65,102.64 72.65,149.33 86.02,184.90"/>
-        <lane id="206154376#1_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="89.19" shape="48.73,103.95 69.69,150.55 83.03,186.02"/>
+        <lane id="206154376#1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="89.19" shape="54.57,101.33 75.61,148.11 89.02,183.77"/>
+        <lane id="206154376#1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="89.19" shape="51.65,102.64 72.65,149.33 86.02,184.90"/>
+        <lane id="206154376#1_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="89.19" shape="48.73,103.95 69.69,150.55 83.03,186.02"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="206442705#0" from="cluster_1670775121_2203517104_2362397358_585156" to="1670775099" priority="12" type="highway.primary" spreadType="center" shape="109.29,55.25 118.14,52.15">
-        <lane id="206442705#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.20" shape="117.89,50.54 118.08,50.47"/>
-        <lane id="206442705#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.20" shape="118.87,53.59 119.06,53.52"/>
+        <lane id="206442705#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.20" shape="117.89,50.54 118.08,50.47"/>
+        <lane id="206442705#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.20" shape="118.87,53.59 119.06,53.52"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="206442705#1" from="1670775099" to="586402" priority="12" type="highway.primary" spreadType="center" shape="118.14,52.15 138.43,44.80 159.68,39.58 176.76,36.04 187.98,32.54 203.47,26.44 219.85,21.14">
-        <lane id="206442705#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="106.38" shape="117.74,50.59 137.96,43.27 159.33,38.02 176.36,34.49 187.45,31.03 202.93,24.94 219.36,19.61"/>
-        <lane id="206442705#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="106.38" shape="118.83,53.60 138.89,46.34 160.03,41.14 177.16,37.59 188.52,34.05 204.01,27.95 220.34,22.66"/>
+        <lane id="206442705#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="106.38" shape="117.74,50.59 137.96,43.27 159.33,38.02 176.36,34.49 187.45,31.03 202.93,24.94 219.36,19.61"/>
+        <lane id="206442705#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="106.38" shape="118.83,53.60 138.89,46.34 160.03,41.14 177.16,37.59 188.52,34.05 204.01,27.95 220.34,22.66"/>
         <param key="ref" value="B 506"/>
     </edge>
     <edge id="26493958" from="cluster_1595145584_2546740042_259566585_320356071_#4more" to="1958506086" priority="12" type="highway.primary" spreadType="center" shape="36.10,104.35 26.99,85.70">
-        <lane id="26493958_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.80" shape="32.91,101.46 27.29,89.96"/>
-        <lane id="26493958_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="12.80" shape="35.79,100.05 30.17,88.55"/>
+        <lane id="26493958_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="12.80" shape="32.91,101.46 27.29,89.96"/>
+        <lane id="26493958_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="12.80" shape="35.79,100.05 30.17,88.55"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="26493960" from="442659" to="1958506073" priority="12" type="highway.primary" spreadType="center">
-        <lane id="26493960_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="5.94" shape="19.10,28.35 21.50,33.79"/>
-        <lane id="26493960_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="5.94" shape="16.17,29.64 18.57,35.08"/>
+        <lane id="26493960_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="5.94" shape="19.10,28.35 21.50,33.79"/>
+        <lane id="26493960_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="5.94" shape="16.17,29.64 18.57,35.08"/>
         <param key="ref" value="B 51"/>
     </edge>
     <edge id="288192128#2" from="cluster_1595145584_2546740042_259566585_320356071_#4more" to="1670775131" priority="12" type="highway.primary" spreadType="center" shape="63.42,77.13 70.83,73.73 83.43,67.85">
-        <lane id="288192128#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.86" shape="62.75,75.67 70.16,72.28 83.48,66.06"/>
-        <lane id="288192128#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.86" shape="64.08,78.58 71.50,75.19 84.83,68.96"/>
+        <lane id="288192128#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="22.86" shape="62.75,75.67 70.16,72.28 83.48,66.06"/>
+        <lane id="288192128#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="22.86" shape="64.08,78.58 71.50,75.19 84.83,68.96"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="288192130" from="1670775173" to="585159" priority="12" type="highway.primary" spreadType="center">
-        <lane id="288192130_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="72.57" shape="120.80,82.33 145.00,150.74"/>
-        <lane id="288192130_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="72.57" shape="117.78,83.39 141.99,151.81"/>
+        <lane id="288192130_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="72.57" shape="120.80,82.33 145.00,150.74"/>
+        <lane id="288192130_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="72.57" shape="117.78,83.39 141.99,151.81"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="288192131#0" from="1863107996" to="1595145561" priority="12" type="highway.primary">
-        <lane id="288192131#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="45.05" shape="95.69,5.31 111.59,47.46"/>
-        <lane id="288192131#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="45.05" shape="92.70,6.44 108.60,48.59"/>
+        <lane id="288192131#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="45.05" shape="95.69,5.31 111.59,47.46"/>
+        <lane id="288192131#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="45.05" shape="92.70,6.44 108.60,48.59"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="288192131#1" from="1595145561" to="cluster_1670775121_2203517104_2362397358_585156" priority="12" type="highway.primary" shape="107.15,49.29 109.57,55.90">
-        <lane id="288192131#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.20" shape="111.52,47.24 111.58,47.43"/>
-        <lane id="288192131#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="0.20" shape="108.51,48.34 108.58,48.53"/>
+        <lane id="288192131#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.20" shape="111.52,47.24 111.58,47.43"/>
+        <lane id="288192131#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="0.20" shape="108.51,48.34 108.58,48.53"/>
         <param key="ref" value="B 8"/>
     </edge>
     <edge id="291431909#0" from="359935363" to="359935364" priority="7" type="highway.primary_link" spreadType="center">
-        <lane id="291431909#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.08" shape="30.89,38.04 43.80,62.97"/>
-        <lane id="291431909#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="28.08" shape="28.05,39.51 40.96,64.45"/>
+        <lane id="291431909#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.08" shape="30.89,38.04 43.80,62.97"/>
+        <lane id="291431909#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="28.08" shape="28.05,39.51 40.96,64.45"/>
     </edge>
     <edge id="291431909#1" from="359935364" to="2546740040" priority="7" type="highway.primary_link" spreadType="center" shape="42.45,63.84 46.80,72.24 51.33,76.59 54.81,78.36">
-        <lane id="291431909#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.37" shape="43.94,63.24 48.10,71.27 52.27,75.27 55.43,76.88"/>
-        <lane id="291431909#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="19.37" shape="41.10,64.71 45.50,73.21 50.39,77.91 53.98,79.73"/>
+        <lane id="291431909#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.37" shape="43.94,63.24 48.10,71.27 52.27,75.27 55.43,76.88"/>
+        <lane id="291431909#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="19.37" shape="41.10,64.71 45.50,73.21 50.39,77.91 53.98,79.73"/>
     </edge>
     <edge id="291431909#2" from="2546740040" to="cluster_1595145584_2546740042_259566585_320356071_#4more" priority="7" type="highway.primary_link" spreadType="center" shape="54.81,78.36 57.33,79.76">
-        <lane id="291431909#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="54.43,76.32 54.61,76.42"/>
-        <lane id="291431909#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" shape="52.88,79.12 53.05,79.22"/>
+        <lane id="291431909#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.20" shape="54.43,76.32 54.61,76.42"/>
+        <lane id="291431909#2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.20" shape="52.88,79.12 53.05,79.22"/>
     </edge>
     <edge id="32061019" from="442659" to="359935363" priority="7" type="highway.primary_link" spreadType="center">
-        <lane id="32061019_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6.58" shape="22.12,26.72 25.69,32.25"/>
+        <lane id="32061019_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="6.58" shape="22.12,26.72 25.69,32.25"/>
     </edge>
     <edge id="42739994#0" from="258342311" to="cluster_1595145584_2546740042_259566585_320356071_#4more" priority="12" type="highway.primary" spreadType="center" shape="58.29,156.05 38.46,108.48">
-        <lane id="42739994#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="51.46" shape="53.86,157.89 34.11,110.53"/>
-        <lane id="42739994#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="51.46" shape="56.82,156.66 37.03,109.21"/>
-        <lane id="42739994#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="51.46" shape="59.77,155.43 39.93,107.87"/>
-        <lane id="42739994#0_3" index="3" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="51.46" shape="62.72,154.20 42.87,106.59"/>
+        <lane id="42739994#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="51.46" shape="53.86,157.89 34.11,110.53"/>
+        <lane id="42739994#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="51.46" shape="56.82,156.66 37.03,109.21"/>
+        <lane id="42739994#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="51.46" shape="59.77,155.43 39.93,107.87"/>
+        <lane id="42739994#0_3" index="3" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="51.46" shape="62.72,154.20 42.87,106.59"/>
         <param key="ref" value="B 8;B 51"/>
     </edge>
     <edge id="8659472#1" from="cluster_1670775121_2203517104_2362397358_585156" to="1670775173" priority="12" type="highway.primary" spreadType="center" shape="111.77,61.90 118.49,80.59">
-        <lane id="8659472#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="7.18" shape="113.57,62.18 116.00,68.94"/>
-        <lane id="8659472#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="7.18" shape="110.56,63.26 112.99,70.02"/>
+        <lane id="8659472#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="7.18" shape="113.57,62.18 116.00,68.94"/>
+        <lane id="8659472#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="7.18" shape="110.56,63.26 112.99,70.02"/>
         <param key="ref" value="B 8"/>
     </edge>
 

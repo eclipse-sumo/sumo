@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:12 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-02 14:11:40 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="0.00,0.00,100.00,0.00" projParameter="!"/>
 
     <edge id="allows_now" from="1" to="2" priority="-1">
-        <lane id="allows_now_0" index="0" allow="rail_fast ship custom1 custom2" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
+        <lane id="allows_now_0" index="0" allow="rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
