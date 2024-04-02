@@ -268,6 +268,12 @@ GNEAllowVClassesDialog::constructor() {
     buildVClass(myContentRightFrame, SVC_AUTHORITY, GUIIcon::VCLASS_AUTHORITY, TL("Vehicle of a governmental security agency"));
     buildVClass(myContentRightFrame, SVC_VIP, GUIIcon::VCLASS_VIP, TL("A civilian security armored car used by VIPs"));
     buildVClass(myContentRightFrame, SVC_HOV, GUIIcon::VCLASS_HOV, TL("High-Occupancy Vehicle (two or more passengers)"));
+    buildVClass(myContentRightFrame, SVC_CONTAINER, GUIIcon::VCLASS_CUSTOM1, TL("A transport container"));
+    buildVClass(myContentRightFrame, SVC_CABLE_CAR, GUIIcon::VCLASS_CUSTOM1, TL("A conveyance suspended on a cable"));
+    buildVClass(myContentRightFrame, SVC_SUBWAY, GUIIcon::VCLASS_CUSTOM1, TL("A railway that mostly runs underground"));
+    buildVClass(myContentRightFrame, SVC_AIRCRAFT, GUIIcon::VCLASS_CUSTOM1, TL("A airplane"));
+    buildVClass(myContentRightFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_CUSTOM1, TL("A mobility impaired person"));
+    buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_CUSTOM1, TL("A small unmanned robot"));
     buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
     // create dialog buttons bot centered
