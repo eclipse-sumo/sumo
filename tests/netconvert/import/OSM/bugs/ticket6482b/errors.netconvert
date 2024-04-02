@@ -1,7 +1,5 @@
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurrence for edge '4380937').
 Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurrence for edge '167324659').
-Warning: Removing pt stop '2654726947' on non existing edge '260019022'.
-Warning: Removing pt stop '4040475723' on non existing edge '154743408'.
 Warning: No way found for reference '150031205' in relation '1967696'
 Warning: Ignoring restriction relation '1967696' with unknown from-way.
 Warning: No way found for reference '219098055' in relation '2661670'

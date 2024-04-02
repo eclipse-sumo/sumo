@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:31 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-04-02 15:07:53 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </projection>
 
     <building_defaults>
-        <default.disallow value="rail rail_urban rail_electric rail_fast tram ship"/>
+        <default.disallow value="rail rail_urban rail_electric rail_fast tram container cable_car subway aircraft drone ship"/>
     </building_defaults>
 
     <junctions>
@@ -51,42 +51,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-1" from="0" to="1" priority="0">
-        <lane id="-1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="17020.72,13397.34 39849.91,12735.85"/>
-        <lane id="-1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="17020.82,13400.53 39850.00,12739.05"/>
-        <lane id="-1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="17020.91,13403.73 39850.09,12742.24"/>
+        <lane id="-1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="17020.72,13397.34 39849.91,12735.85"/>
+        <lane id="-1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="17020.82,13400.53 39850.00,12739.05"/>
+        <lane id="-1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="17020.91,13403.73 39850.09,12742.24"/>
     </edge>
     <edge id="-2" from="0" to="2" priority="0">
-        <lane id="-2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="16994.03,13414.17 0.26,13975.11"/>
-        <lane id="-2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="16993.92,13410.97 0.16,13971.92"/>
-        <lane id="-2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="16993.82,13407.77 0.05,13968.72"/>
+        <lane id="-2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="16994.03,13414.17 0.26,13975.11"/>
+        <lane id="-2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="16993.92,13410.97 0.16,13971.92"/>
+        <lane id="-2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="16993.82,13407.77 0.05,13968.72"/>
     </edge>
     <edge id="-3" from="0" to="3" priority="0">
-        <lane id="-3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13115.46" shape="17015.76,13419.09 17425.81,26514.51"/>
-        <lane id="-3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13115.46" shape="17012.56,13419.19 17422.61,26514.61"/>
-        <lane id="-3_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13115.46" shape="17009.37,13419.29 17419.41,26514.71"/>
+        <lane id="-3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13115.46" shape="17015.76,13419.09 17425.81,26514.51"/>
+        <lane id="-3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13115.46" shape="17012.56,13419.19 17422.61,26514.61"/>
+        <lane id="-3_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13115.46" shape="17009.37,13419.29 17419.41,26514.71"/>
     </edge>
     <edge id="-4" from="0" to="4" priority="0">
-        <lane id="-4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13412.28" shape="16998.92,13392.40 16580.26,0.25"/>
-        <lane id="-4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13412.28" shape="17002.12,13392.30 16583.46,0.15"/>
-        <lane id="-4_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="13412.28" shape="17005.32,13392.20 16586.65,0.05"/>
+        <lane id="-4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13412.28" shape="16998.92,13392.40 16580.26,0.25"/>
+        <lane id="-4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13412.28" shape="17002.12,13392.30 16583.46,0.15"/>
+        <lane id="-4_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="13412.28" shape="17005.32,13392.20 16586.65,0.05"/>
     </edge>
     <edge id="1" from="1" to="0" priority="0">
-        <lane id="1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="39850.37,12751.84 17021.19,13413.33"/>
-        <lane id="1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="39850.28,12748.64 17021.10,13410.13"/>
-        <lane id="1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="22852.39" shape="39850.19,12745.44 17021.00,13406.93"/>
+        <lane id="1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="39850.37,12751.84 17021.19,13413.33"/>
+        <lane id="1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="39850.28,12748.64 17021.10,13410.13"/>
+        <lane id="1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="22852.39" shape="39850.19,12745.44 17021.00,13406.93"/>
     </edge>
     <edge id="2" from="2" to="0" priority="0">
-        <lane id="2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="-0.26,13959.12 16993.50,13398.18"/>
-        <lane id="2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="-0.16,13962.32 16993.61,13401.38"/>
-        <lane id="2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="55.56" length="17016.60" shape="-0.05,13965.52 16993.71,13404.58"/>
+        <lane id="2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="-0.26,13959.12 16993.50,13398.18"/>
+        <lane id="2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="-0.16,13962.32 16993.61,13401.38"/>
+        <lane id="2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="55.56" length="17016.60" shape="-0.05,13965.52 16993.71,13404.58"/>
     </edge>
     <edge id="3" from="3" to="0" priority="0">
-        <lane id="3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.97,13419.49"/>
-        <lane id="3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.17,13419.39"/>
+        <lane id="3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.97,13419.49"/>
+        <lane id="3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.17,13419.39"/>
     </edge>
     <edge id="4" from="4" to="0" priority="0">
-        <lane id="4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.71,13392.00"/>
-        <lane id="4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle container cable_car subway aircraft wheelchair scooter drone custom1 custom2" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.51,13392.10"/>
+        <lane id="4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.71,13392.00"/>
+        <lane id="4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle wheelchair scooter custom1 custom2" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.51,13392.10"/>
     </edge>
 
     <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.37,13419.54 17017.36,13419.04 17017.74,13416.81 17018.27,13416.02 17019.03,13415.44 17020.02,13415.08 17021.23,13414.93 17020.68,13395.74 17018.46,13395.69 17016.64,13395.41 17015.22,13394.89 17014.19,13394.15 17013.55,13393.16 17013.31,13391.95 16997.32,13392.45 16996.95,13394.69 16996.41,13395.48 16995.65,13396.06 16994.67,13396.43 16993.45,13396.58 16994.08,13415.77 16996.27,13415.81 16998.07,13416.08 16999.48,13416.60 17000.50,13417.34 17001.13,13418.32">

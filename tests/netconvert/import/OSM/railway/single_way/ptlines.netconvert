@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-09-17 10:22:04 by Eclipse SUMO netconvert Version v1_10_0+0759-0b3a782ef3e
+<!-- generated on 2024-04-02 14:44:23 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -24,21 +29,20 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
 <ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
-    <ptLine id="7889176" name="苏州轨道交通一号线" line="1" type="subway" vClass="rail_urban" color="green" completeness="1.00">
+    <ptLine id="7889176" name="苏州轨道交通一号线" line="1" type="subway" vClass="subway" color="green" completeness="1.00">
         <route edges="512071975"/>
         <busStop id="2099903865" name="相门"/>
         <busStop id="2099899884" name="临顿路"/>
         <busStop id="7152453358" name="乐桥"/>
         <busStop id="2101696074" name="养育巷"/>
     </ptLine>
-    <ptLine id="7889177" name="苏州轨道交通一号线" line="1" type="subway" vClass="rail_urban" color="green" completeness="1.00">
+    <ptLine id="7889177" name="苏州轨道交通一号线" line="1" type="subway" vClass="subway" color="green" completeness="1.00">
         <route edges="512071975"/>
         <busStop id="2101696074" name="养育巷"/>
         <busStop id="7152453358" name="乐桥"/>

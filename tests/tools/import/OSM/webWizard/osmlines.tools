@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 19:31:18 by Eclipse SUMO netconvert Version v1_19_0+1380-39d533f191b
+<!-- generated on 2024-04-02 15:09:14 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.18Mar193112.906540/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.02Apr150908.3666360/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -467,19 +467,19 @@
         <busStop id="3419694885" name="Berlin Alexanderplatz"/>
         <busStop id="2603331683" name="Berlin Friedrichstraße"/>
     </ptLine>
-    <ptLine id="2669183" name="U-Bahnlinie U2: S+U Pankow =&gt; U Ruhleben" line="U2" type="subway" vClass="rail_urban" period="240" color="255,51,0" completeness="0.10" missingBefore="5" missingAfter="21">
+    <ptLine id="2669183" name="U-Bahnlinie U2: S+U Pankow =&gt; U Ruhleben" line="U2" type="subway" vClass="subway" period="240" color="255,51,0" completeness="0.10" missingBefore="5" missingAfter="21">
         <route edges="200422335#0 200422335#1"/>
         <busStop id="2094266782" name="U Rosa-Luxemburg-Platz"/>
         <busStop id="2094266778" name="U Alexanderplatz"/>
         <busStop id="2094266781" name="U Klosterstraße"/>
     </ptLine>
-    <ptLine id="2669184" name="U-Bahnlinie U2: U Ruhleben =&gt; S+U Pankow" line="U2" type="subway" vClass="rail_urban" period="240" color="255,51,0" completeness="0.10" missingBefore="21" missingAfter="5">
+    <ptLine id="2669184" name="U-Bahnlinie U2: U Ruhleben =&gt; S+U Pankow" line="U2" type="subway" vClass="subway" period="240" color="255,51,0" completeness="0.10" missingBefore="21" missingAfter="5">
         <route edges="384294423 177195505#1 272795470#1"/>
         <busStop id="29495029" name="U Klosterstraße"/>
         <busStop id="2094266780" name="U Alexanderplatz"/>
         <busStop id="4961125734" name="U Rosa-Luxemburg-Platz"/>
     </ptLine>
-    <ptLine id="2679013" name="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau" line="U8" type="subway" vClass="rail_urban" period="300" color="5,90,153" completeness="0.22" missingBefore="8" missingAfter="10">
+    <ptLine id="2679013" name="U-Bahnlinie U8: S+U Hermannstraße =&gt; S+U Wittenau" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.22" missingBefore="8" missingAfter="10">
         <route edges="379102293#0 379102293#1"/>
         <busStop id="3824719830" name="S+U Jannowitzbrücke"/>
         <busStop id="2094266983" name="U Alexanderplatz"/>
@@ -487,20 +487,20 @@
         <busStop id="5227235607" name="U Rosenthaler Platz"/>
         <busStop id="29190909" name="U Bernauer Straße"/>
     </ptLine>
-    <ptLine id="2679014" name="U-Bahnlinie U8: S+U Wittenau =&gt; S+U Hermannstraße" line="U8" type="subway" vClass="rail_urban" period="300" color="5,90,153" completeness="0.17" missingBefore="11" missingAfter="8">
+    <ptLine id="2679014" name="U-Bahnlinie U8: S+U Wittenau =&gt; S+U Hermannstraße" line="U8" type="subway" vClass="subway" period="300" color="5,90,153" completeness="0.17" missingBefore="11" missingAfter="8">
         <route edges="381201610"/>
         <busStop id="5227235608" name="U Rosenthaler Platz"/>
         <busStop id="4655287360" name="U Weinmeisterstraße"/>
         <busStop id="2094266775" name="U Alexanderplatz"/>
         <busStop id="3834324122" name="S+U Jannowitzbrücke"/>
     </ptLine>
-    <ptLine id="2679163" name="U-Bahnlinie U6: U Alt-Mariendorf =&gt; U Alt-Tegel" line="U6" type="subway" vClass="rail_urban" period="300" color="128,112,183" completeness="0.10" missingBefore="12" missingAfter="14">
+    <ptLine id="2679163" name="U-Bahnlinie U6: U Alt-Mariendorf =&gt; U Alt-Tegel" line="U6" type="subway" vClass="subway" period="300" color="128,112,183" completeness="0.10" missingBefore="12" missingAfter="14">
         <route edges="169724406 295250353#1 295250353#2 295376548"/>
         <busStop id="2071423352" name="U Französische Straße"/>
         <busStop id="3869306769" name="S+U Friedrichstraße"/>
         <busStop id="3043709616" name="U Oranienburger Tor"/>
     </ptLine>
-    <ptLine id="2679164" name="U-Bahnlinie U6: U Alt-Tegel =&gt; U Alt-Mariendorf" line="U6" type="subway" vClass="rail_urban" period="300" color="128,112,183" completeness="0.10" missingBefore="14" missingAfter="12">
+    <ptLine id="2679164" name="U-Bahnlinie U6: U Alt-Tegel =&gt; U Alt-Mariendorf" line="U6" type="subway" vClass="subway" period="300" color="128,112,183" completeness="0.10" missingBefore="14" missingAfter="12">
         <route edges="378664954 335043673#0 335043673#1 335043673#2 387125527 295255789"/>
         <busStop id="29058100" name="U Oranienburger Tor"/>
         <busStop id="2792364395" name="S+U Friedrichstraße"/>

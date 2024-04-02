@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:34 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-04-02 14:44:25 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
     <type id="highway.secondary" priority="11" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" oneway="0"/>
-    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.subway" priority="18" numLanes="1" speed="27.78" allow="subway" oneway="1"/>
 
     <edge id=":122343_0" function="internal">
         <lane id=":122343_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="536.39,131.05 536.68,131.13"/>
@@ -1075,7 +1075,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="332563324" from="3021114115" to="2657527583" priority="18" type="railway.subway" spreadType="center" shape="614.21,235.50 605.85,216.81 595.24,200.47 587.14,189.63 574.27,175.35 560.09,161.79 545.31,151.29 535.05,145.18 516.77,136.63 501.25,130.47 492.18,127.48 478.64,124.34 466.15,122.41 446.57,121.25 432.86,121.69 415.25,124.23 383.14,129.40">
-        <lane id="332563324_0" index="0" allow="rail_urban" speed="27.78" length="279.02" shape="614.21,235.50 605.85,216.81 595.24,200.47 587.14,189.63 574.27,175.35 560.09,161.79 545.31,151.29 535.05,145.18 516.77,136.63 501.25,130.47 492.18,127.48 478.64,124.34 466.15,122.41 446.57,121.25 432.86,121.69 415.25,124.23 383.14,129.40"/>
+        <lane id="332563324_0" index="0" allow="subway" speed="27.78" length="279.02" shape="614.21,235.50 605.85,216.81 595.24,200.47 587.14,189.63 574.27,175.35 560.09,161.79 545.31,151.29 535.05,145.18 516.77,136.63 501.25,130.47 492.18,127.48 478.64,124.34 466.15,122.41 446.57,121.25 432.86,121.69 415.25,124.23 383.14,129.40"/>
         <param key="electrified" value="rail"/>
         <param key="frequency" value="0"/>
         <param key="gauge" value="1435"/>
@@ -1109,7 +1109,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="42555479" from="371189620" to="301641690" priority="18" type="railway.subway" spreadType="center" shape="383.53,123.01 416.49,117.81 431.52,115.67 443.19,114.62 456.80,115.20 472.38,116.72 485.69,119.26 501.71,123.78 517.32,129.37 539.25,140.64 548.84,145.98 565.34,158.09 579.70,171.53 592.70,186.29 603.27,199.48 613.33,214.62 622.43,230.90 627.65,243.12">
-        <lane id="42555479_0" index="0" allow="rail_urban" speed="27.78" length="298.78" shape="383.53,123.01 416.49,117.81 431.52,115.67 443.19,114.62 456.80,115.20 472.38,116.72 485.69,119.26 501.71,123.78 517.32,129.37 539.25,140.64 548.84,145.98 565.34,158.09 579.70,171.53 592.70,186.29 603.27,199.48 613.33,214.62 622.43,230.90 627.65,243.12"/>
+        <lane id="42555479_0" index="0" allow="subway" speed="27.78" length="298.78" shape="383.53,123.01 416.49,117.81 431.52,115.67 443.19,114.62 456.80,115.20 472.38,116.72 485.69,119.26 501.71,123.78 517.32,129.37 539.25,140.64 548.84,145.98 565.34,158.09 579.70,171.53 592.70,186.29 603.27,199.48 613.33,214.62 622.43,230.90 627.65,243.12"/>
         <param key="electrified" value="rail"/>
         <param key="frequency" value="0"/>
         <param key="gauge" value="1435"/>
