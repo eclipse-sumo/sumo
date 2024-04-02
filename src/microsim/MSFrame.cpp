@@ -565,6 +565,10 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.jupedsim.strength-geometry-repulsion", "Processing", TL("The geometry repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-geometry-repulsion", new Option_Float(.02));
     oc.addDescription("pedestrian.jupedsim.range-geometry-repulsion", "Processing", TL("The geometry repulsion range of the JuPedSim model (in meters)"));
+    oc.doRegister("pedestrian.jupedsim.wkt", new Option_FileName());
+    oc.addDescription("pedestrian.jupedsim.wkt", "Output", TL("The filename to output the pedestrian network as WKT"));
+    oc.doRegister("pedestrian.jupedsim.wkt.geo", new Option_Bool(false));
+    oc.addDescription("pedestrian.jupedsim.wkt.geo", "Output", TL("Whether to output pedestrian network as WKT using geo-coordinates (lon/lat)"));
 #endif
 
     oc.doRegister("ride.stop-tolerance", new Option_Float(10.));

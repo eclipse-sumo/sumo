@@ -217,8 +217,9 @@ private:
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape = false);
     static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
-    static PositionVector getCoordinates(const GEOSGeometry* geometry);
+    static GEOSCoordSequence* convertToGEOSPoints(PositionVector shape);
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
+    static PositionVector convertToSUMOPoints(const GEOSGeometry* geometry);
     static double getHoleArea(const GEOSGeometry* hole);
     void removePolygonFromDrawing(const std::string& polygonId);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
