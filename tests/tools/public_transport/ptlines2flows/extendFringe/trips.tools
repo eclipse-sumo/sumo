@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-23 14:38:46.076449 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_19_0+1490-762ea3fab21
+<!-- generated on 2024-04-03 00:58:52.435824 by $Id: ptlines2flows.py v1_3_1+0313-ccb31df3eb jakob.erdmann@dlr.de 2019-09-02 13:26:32 +0200 $ v1_19_0+1649-d62985f5c41
 <configuration>
     <net-file value="net.net.xml"/>
     <ptlines-file value="ptlines.xml"/>
@@ -16,13 +16,13 @@
     <vType id="bus" vClass="bus" speedFactor="0.95"/>
     <vType id="tram" vClass="tram" speedFactor="1.0"/>
     <vType id="train" vClass="rail"/>
-    <vType id="subway" vClass="rail_urban"/>
+    <vType id="subway" vClass="subway"/>
     <vType id="light_rail" vClass="rail_urban"/>
     <vType id="monorail" vClass="rail_urban"/>
     <vType id="trolleybus" vClass="bus" speedFactor="0.95"/>
     <vType id="minibus" vClass="bus" speedFactor="0.95"/>
     <vType id="share_taxi" vClass="taxi" speedFactor="0.95"/>
-    <vType id="aerialway" vClass="rail_urban" length="2.5" width="2" personCapacity="4"/>
+    <vType id="aerialway" vClass="cable_car" length="2.5" width="2" personCapacity="4"/>
     <vType id="ferry" vClass="ship"/>
     <trip id="0_bus_0:0" type="bus" depart="0" departLane="best" from="-391493954#3" to="-110450334#1">
     </trip>
