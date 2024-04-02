@@ -118,6 +118,25 @@ The following example restricts fcd-output to a single flow out of the whole sim
 </flow>
 ```
 
+### Restricting the set of persons and containers that generate output
+Output can be restricted to specific person or container types or person/container ids by [controlling the set of persons that are equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)   with the **fcd**-(person)-device. The following example restricts output to a
+  single person called *ego*:
+```
+--person-device.fcd.explicit ego
+```
+
+The following example restricts fcd-output to a single personFlow out of the whole simulation
+
+```
+--person-device.fcd.probability 0 ...
+```
+
+```xml
+<personFlow ...>
+   <param key="has.fcd.device" value="true"/>
+</personFlow>
+```
+
 ### Restricting the locations
 Output can be restricted to a specific set of edges by loading a list of edges from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format for
 this is the same as the one when saving selections in  [netedit](../../Netedit/index.md):
