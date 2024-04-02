@@ -101,6 +101,7 @@ ssm:ssm.xml
 ssm2:ssm_ego.xml
 png:out.png
 png2:out2.png
+wkt:wkt.txt
 
 [run_dependent_text]
 output:^Performance:{->}^Vehicles:

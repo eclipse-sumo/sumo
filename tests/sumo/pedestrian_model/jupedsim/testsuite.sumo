@@ -32,5 +32,5 @@ speed_factor
 # rerouting with optional rerouters
 rerouter
 
-
-geometry_switching
+# geometry generation and WKT output
+geometry_generation

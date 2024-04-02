@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-03-30 11:15:32 by Eclipse SUMO netedit Version v1_16_0+1721-43f7b7c6ec2
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <vType id="pt_ped0" vClass="pedestrian" desiredMaxSpeed="0.5" length="2.0"/>
+    <person id="p_0" type="pt_ped0" depart="0.00">
+        <personTrip from="533" to="1464" lines="ANY"/>
+    </person>
+</routes>
