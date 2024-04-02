@@ -129,7 +129,7 @@ private:
      * @param[in] noNames Whether names shall be ignored
      * @see writeLane()
      */
-    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, const NBTypeCont& tc);
+    static void writeEdge(OutputDevice& into, const NBEdge& e, bool noNames);
 
 
     /** @brief Writes a lane (<lane ...) of an edge
@@ -151,8 +151,7 @@ private:
                           const Parameterised* params, double length, int index,
                           const std::string& oppositeID, const std::string& type,
                           bool accelRamp = false,
-                          bool customShape = false,
-                          bool explicitAll = false);
+                          bool customShape = false);
 
 
     /** @brief Writes a junction (<junction ...)

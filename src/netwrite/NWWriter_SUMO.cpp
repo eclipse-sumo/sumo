@@ -119,7 +119,6 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     const NBNodeCont& nc = nb.getNodeCont();
     const NBEdgeCont& ec = nb.getEdgeCont();
     const NBDistrictCont& dc = nb.getDistrictCont();
-    const NBTypeCont& tc = nb.getTypeCont();
 
     // write network offsets and projection
     GeoConvHelper::writeLocation(device);
@@ -142,7 +141,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // write edges with lanes and connected edges
     bool noNames = !oc.getBool("output.street-names");
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
-        writeEdge(device, *(*i).second, noNames, tc);
+        writeEdge(device, *(*i).second, noNames);
     }
     device.lf();
 
@@ -472,7 +471,7 @@ NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, dou
 }
 
 void
-NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, const NBTypeCont& tc) {
+NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames) {
     // write the edge's begin
     into.openTag(SUMO_TAG_EDGE).writeAttr(SUMO_ATTR_ID, e.getID());
     into.writeAttr(SUMO_ATTR_FROM, e.getFromNode()->getID());
@@ -515,23 +514,18 @@ NWWriter_SUMO::writeEdge(OutputDevice& into, const NBEdge& e, bool noNames, cons
         length = (length + e.getBidiEdge()->getFinalLength()) / 2;
     }
     double startOffset = e.isBidiRail() ? e.getTurnDestination(true)->getEndOffset() : 0;
-    SVCPermissions edgeTypePermissions = tc.getEdgeTypePermissions(e.getTypeID());
     for (int i = 0; i < (int) lanes.size(); i++) {
         const NBEdge::Lane& l = lanes[i];
         StopOffset stopOffset;
         if (l.laneStopOffset != e.getEdgeStopOffset()) {
             stopOffset = l.laneStopOffset;
         }
-        const bool defaultPermissions = l.permissions == edgeTypePermissions;
-        const bool explicitAll = !defaultPermissions && l.permissions == SVCAll;
         writeLane(into, e.getLaneID(i), l.speed, l.friction,
-                  defaultPermissions ? SVC_UNSPECIFIED : l.permissions,
-                  l.preferred,
+                  l.permissions, l.preferred,
                   l.changeLeft, l.changeRight,
                   startOffset, l.endOffset,
                   stopOffset, l.width, l.shape, &l,
-                  length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0,
-                  explicitAll);
+                  length, i, l.oppositeID, l.type, l.accelRamp, l.customShape.size() > 0);
     }
     // close the edge
     e.writeParams(into);
@@ -549,15 +543,14 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID,
                          const std::string& type,
-                         bool accelRamp, bool customShape,
-                         bool explicitAll) {
+                         bool accelRamp, bool customShape) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
     into.writeAttr(SUMO_ATTR_INDEX, index);
     // write the list of allowed/disallowed vehicle classes
     if (permissions != SVC_UNSPECIFIED) {
-        writePermissions(into, permissions, explicitAll);
+        writePermissions(into, permissions);
     }
     writePreferences(into, preferred);
     // some further information

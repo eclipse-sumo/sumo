@@ -118,8 +118,6 @@ protected:
      */
     virtual void parseLane(const SUMOSAXAttributes& attrs);
 
-    /// adds an edge type
-    void parseEdgeType(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses a junction's position
      *
@@ -206,9 +204,6 @@ protected:
     /// @brief The currently built edge
     ROEdge* myCurrentEdge;
 
-    /// The type id of the currently processed edge
-    std::string myCurrentEdgeType;
-
     /// @brief The currently built stopping place
     SUMOVehicleParameter::Stop* myCurrentStoppingPlace;
 
@@ -220,9 +215,6 @@ protected:
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<ROEdge*, std::string> myBidiEdges;
-
-    /// @brief the permissions for each loaded edge type
-    std::map<std::string, SVCPermissions> myEdgeTypePermissions;
 
 private:
     /// @brief Invalidated copy constructor

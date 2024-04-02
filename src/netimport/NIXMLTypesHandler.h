@@ -69,10 +69,6 @@ public:
 
     //@}
 
-    const NBTypeCont& getTypeCont() {
-        return myTypeCont;
-    }
-
 private:
     /// @brief The type container to fill
     NBTypeCont& myTypeCont;
