@@ -144,6 +144,20 @@ public:
      */
     virtual LaneChangeModel getModelID() const = 0;
 
+    /** @brief Informs the vehicle that it is about to be moved on an adjacent lane.
+     * The method can be used to re-evaluate the state of the vehicle and potentially abort the lane change.
+     * By default, if the method is not overridden by the lane change model implementation, nothing is altered and the vehicle will perform the lane change.
+     * @param veh the lane changing vehicle
+     * @param state current lane change state
+     * @return the blocked status of the vehicle. If the vehicle should perform the lane change, the method should return 0, corresponding to non-blocked.
+     * Otherwise the method should return a non-zero state, corresponding to the type of blockage.
+     */
+    virtual int checkChangeBeforeCommitting(const MSVehicle* veh, int state) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(state);
+        return 0;
+    }
+
     /** @brief Save the state of the laneChangeModel
      * @param[in] out The OutputDevice to write the information into
      */
