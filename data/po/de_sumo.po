@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-28 15:54+0000\n"
+"PO-Revision-Date: 2024-04-02 17:59+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3052,7 +3052,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:366
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " für Fahrzeug '%' mit der Fahrzeugklasse %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:370
 msgid ""
@@ -3556,41 +3556,51 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:136
 msgid "Undefined maxPower for vType '%'."
-msgstr ""
+msgstr "Im Fahrzeugtyp '%' ist maxPower nicht definiert."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:138
 msgid "Undefined maxTraction for vType '%'."
-msgstr ""
+msgstr "Im Fahrzeugtyp '%' ist maxTraction nicht definiert."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:141
 msgid ""
 "Ignoring tractionTable because maxPower and maxTraction are set for vType "
 "'%'."
 msgstr ""
+"Die Werte aus tractionTable werden beim Fahrzeugtyp '%' ignoriert, da "
+"maxPower und maxTraction gesetzt wurden."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:150
 msgid ""
 "Some undefined resistance coefficients for vType '%' (requires "
 "resCoef_constant, resCoef_linear and resCoef_quadratic)"
 msgstr ""
+"Einige nicht definierte Widerstandskoeffizienten im Fahrzeugtyp '%' ("
+"benötigt resCoef_constant, resCoef_linear and resCoef_quadratic)"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:153
 msgid ""
 "Ignoring resistanceTable because resistance coefficents are set for vType "
 "'%'."
 msgstr ""
+"Die Werte aus resistenceTable werden beim Fahrzeugtyp '%' ignoriert, da "
+"Widerstandskoeffizienten gesetzt wurden."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:157
 msgid ""
 "Either tractionTable or maxPower must be defined for vType '%' with Rail "
 "model type '%'."
 msgstr ""
+"Entweder tractionTable oder maxPower müssen im Fahrzeugtyp '%' mit "
+"Bahntriebfahrzeugtyp '%' definiert werden."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:160
 msgid ""
 "Either resistanceTable or resCoef_constant must be defined for vType '%' "
 "with Rail model type '%'."
 msgstr ""
+"Entweder resistanceTable oder resCoef_constant müssen im Fahrzeugtyp '%' mit "
+"Bahntriebfahrzeugtyp '%' definiert werden."
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_Rail.cpp:360
 msgid ""
