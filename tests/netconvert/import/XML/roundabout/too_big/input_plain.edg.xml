@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-02 19:46:06 by Eclipse SUMO netconvert Version v1_19_0+1642-d53676a8152
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="input_plain"/>
+    </output>
+
+    <projection>
+        <proj.scale value="20"/>
+    </projection>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-5634" from="10708" to="13448" priority="-1" numLanes="1" speed="13.90" shape="1579.20,3152.80 1728.20,3003.80 1882.60,2786.00 1998.00,2525.80 2023.80,2334.20 2026.00,2121.80 1941.40,1663.20 1650.60,50.00" spreadType="center"/>
+    <edge id="-9887" from="14304" to="17199" priority="-1" numLanes="1" speed="13.90" shape="43.40,2633.40 268.20,2828.80 493.60,3034.20 605.40,3149.20" spreadType="center"/>
+    <edge id="-9889" from="14305" to="17200" priority="-1" numLanes="1" speed="13.90" shape="2808.60,5523.60 1556.00,4201.80" spreadType="center"/>
+    <edge id="-9890" from="17200" to="17199" priority="-1" numLanes="1" speed="13.90" shape="1467.00,4195.60 1432.00,4218.60 1354.20,4260.40 1256.80,4292.40 1149.60,4314.00 1058.80,4314.00 973.00,4305.00 886.80,4283.00 808.20,4248.80 738.20,4211.40 676.00,4162.00 605.40,4097.00 550.00,4023.60 494.80,3920.60 456.40,3800.20 446.00,3700.60 447.20,3613.20 460.20,3530.80 484.60,3442.20 514.40,3367.00 566.80,3286.80" spreadType="center"/>
+    <edge id="-9891" from="10708" to="17200" priority="-1" numLanes="1" speed="13.90" shape="1617.80,3290.60 1638.80,3321.20 1668.80,3375.00 1697.80,3438.60 1720.80,3522.40 1734.20,3614.00 1737.00,3712.40 1724.00,3785.60 1703.60,3867.80 1675.40,3934.20 1640.00,4009.20 1599.00,4066.00" spreadType="center"/>
+    <edge id="-9892" from="17199" to="10708" priority="-1" numLanes="1" speed="13.90" shape="695.00,3154.20 752.60,3114.00 852.80,3062.80 935.60,3038.20 1031.20,3022.40 1136.80,3016.80 1223.20,3031.00 1287.80,3046.60 1351.60,3070.20 1409.40,3100.80 1463.20,3132.80 1490.00,3155.20" spreadType="center"/>
+    <edge id="5634" from="13448" to="10708" priority="-1" numLanes="1" speed="13.90" shape="1715.60,38.20 2006.40,1651.40 2091.80,2115.60 2089.40,2339.00 2062.20,2543.80 1940.20,2818.80 1778.40,3046.40 1625.80,3199.40" spreadType="center"/>
+    <edge id="9887" from="17199" to="14304" priority="-1" numLanes="1" speed="13.90" shape="558.20,3195.20 447.80,3081.60 224.20,2878.00 0.00,2683.20" spreadType="center"/>
+    <edge id="9889" from="17200" to="14305" priority="-1" numLanes="1" speed="13.90" shape="1603.80,4156.40 2856.00,5477.60" spreadType="center"/>
+
+    <roundabout nodes="10708 17199 17200" edges="-9890 -9891 -9892"/>
+
+</edges>
