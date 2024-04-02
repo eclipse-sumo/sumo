@@ -515,7 +515,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
         }
         // consider edges beyond bestLanes
         const int remainingEdges = (int)(veh->getRoute().end() - veh->getCurrentRouteEdge()) - view;
-        //std::cout << SIMTIME << "remainingEdges=" << remainingEdges << " seen=" << seen << " view=" << view << " best=" << toString(bestLaneConts) << "\n";
+        //std::cout << SIMTIME << " remainingEdges=" << remainingEdges << " seen=" << seen << " view=" << view << " best=" << toString(bestLaneConts) << "\n";
         for (int i = 0; i < remainingEdges; i++) {
             const MSEdge* prev = *(veh->getCurrentRouteEdge() + view + i - 1);
             const MSEdge* next = *(veh->getCurrentRouteEdge() + view + i);
@@ -531,7 +531,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
                             ntd.state = (char)link->getState();
                             result.push_back(ntd);
                         }
-                        seen += allowed->front()->getLength() + link->getInternalLengthsAfter();
+                        seen += next->getLength() + link->getInternalLengthsAfter();
                         break;
                     }
                 }
@@ -540,6 +540,7 @@ Vehicle::getNextTLS(const std::string& vehID) {
                 break;
             }
         }
+
     } else {
         WRITE_WARNING("getNextTLS not yet implemented for meso");
     }
