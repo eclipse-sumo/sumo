@@ -1045,16 +1045,16 @@ i.e. if simulations where run with the option `<statistic-output value="stats.xm
 The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simplest solution to obtain a scenario with background images.
 Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
 
-It is important to know that the network projection will be changed from UTM to Mercator if you want to generate a sumo network with a satellite background. Accordingly, the length of most edges will be enlarged (almost doubled), although each node coordinate remains unchanged. The respective network can be corrected by using the following way:
-- netconvert -s *.net.xml -p plain --proj.plain-geo
-- netconvert -e plain.edg.xml -n plain.nod.xml -x plain.con.xml -i plain.tll.xml --proj.utm
+It is important to know that the network projection will be changed from UTM to [Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) if the checkbox "satellite background" is enabled. This is necessary to match the projection of popular satellite image providers. However, this projection has the unwelcome propertie of distorting lengths much more strongly than the default project. Depending on the area being imported, distances could be doubled (or worse). 
 
-The above prefix "plain" can be specified by users.
+The revert such a projection to UTM, the following commands may be used:
 
-Once the network is corrected, it no longer matches
-- the respective satellite background,
-- the respective OSM background
-- the locations of the public transport stops extracted from the OSM. It is therefore necessary to recheck and correct the location information not only for stops but also for the corresponding access lanes. If the locations of stops do not have to be precise, simply enter friendlyPos="true" in the respective line for each stop in the file. But then they are always at the end of the edge.
+```
+netconvert -s *.net.xml -p plain --proj.plain-geo
+netconvert -e plain.edg.xml -n plain.nod.xml -x plain.con.xml -i plain.tll.xml --proj.utm
+```
+
+When changing the projection, the satellite background can no longer be used. Any polygons must be recomputed with [polyconvert](polyconvert.md) and the locations of the public transport stops extracted from the OSM must be adapted as well. (the easiest solution is the add `friendlyPos="true"` to all stopping places but this may distort their desired position).
 
 ### sumo-gui breaks
 
