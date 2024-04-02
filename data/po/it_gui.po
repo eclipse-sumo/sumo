@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-03-29 17:02+0000\n"
+"PO-Revision-Date: 2024-04-02 14:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9939,24 +9939,31 @@ msgid ""
 "Minimum lateral gap when encroaching laterally on other drives (alternative "
 "way to define lcPushy)"
 msgstr ""
+"Distanza laterale minima nel violare altri conduttori lateralmente (modo "
+"alternativo per definire lcPushy)"
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6277
 msgid "Willingness to accept lower front and rear gaps on the target lane."
 msgstr ""
+"La volontà di accettare distanze longitudinali più basse sulla corsia di "
+"destinazione."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6283
 msgid "Dynamic factor for modifying lcAssertive and lcPushy."
-msgstr ""
+msgstr "Fattore dinamico per modificare lcAssertive e lcPushy."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6289
 msgid ""
 "Time to reach maximum impatience (of 1). Impatience grows whenever a lane-"
 "change manoeuvre is blocked."
 msgstr ""
+"Tempo necessario per raggiungere la massima impazienza (di 1). L'impazienza "
+"cresce sempre quando non si deve abortire un cambio corsia per colpa di "
+"altri."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6295
 msgid "Maximum lateral acceleration per second."
-msgstr ""
+msgstr "Accelerazione laterale massima per secondo."
 
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6301
 msgid ""
