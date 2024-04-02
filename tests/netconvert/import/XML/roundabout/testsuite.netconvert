@@ -6,3 +6,6 @@ multi_lane
 
 # structure is too big to be a roundabout
 too_big
+
+# structure is too big to be a roundabout but we change the threshold
+too_big_allow

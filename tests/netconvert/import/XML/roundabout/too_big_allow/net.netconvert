@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 19:57:18 by Eclipse SUMO netconvert Version v1_19_0+1644-497bdaaec19
+<!-- generated on 2024-04-02 19:58:11 by Eclipse SUMO netconvert Version v1_19_0+1644-497bdaaec19
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
+
+    <processing>
+        <roundabouts.guess.max-length value="4000"/>
+    </processing>
 
     <junctions>
         <no-internal-links value="true"/>
@@ -67,10 +71,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="10708" type="priority" x="1536.40" y="3242.20" incLanes="5634_0 -9892_0" intLanes="" shape="1616.48,3291.51 1619.12,3289.69 1610.15,3273.83 1605.29,3258.37 1604.54,3243.31 1607.90,3228.65 1615.36,3214.39 1626.93,3200.53 1578.07,3151.67 1564.29,3163.09 1550.23,3170.10 1535.87,3172.69 1521.21,3170.86 1506.27,3164.63 1491.03,3153.97 1488.97,3156.43 1504.10,3170.57 1527.41,3193.99 1554.62,3222.25 1581.40,3250.89 1603.46,3275.46">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="13448" type="priority" x="1675.00" y="0.00" incLanes="-5634_0" intLanes="" shape="1706.08,-5.60 1641.06,6.12 1644.21,5.55">
         <request index="0" response="0" foes="0"/>
@@ -82,32 +85,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="17199" type="priority" x="646.40" y="3238.60" incLanes="-9887_0 -9890_0" intLanes="" shape="695.92,3155.51 694.08,3152.89 677.94,3162.33 662.42,3167.68 647.53,3168.93 633.27,3166.10 619.63,3159.17 606.61,3148.15 557.05,3196.32 568.41,3210.25 575.78,3224.58 579.17,3239.32 578.58,3254.45 574.01,3269.99 565.46,3285.92 568.14,3287.68 580.93,3271.61 602.79,3247.29 629.47,3219.11 656.72,3191.48 680.28,3168.82">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
     <junction id="17200" type="priority" x="1516.40" y="4112.20" incLanes="-9889_0 -9891_0" intLanes="" shape="1554.79,4202.85 1604.96,4155.30 1594.04,4141.46 1587.17,4127.26 1584.37,4112.71 1585.62,4097.81 1590.93,4082.55 1600.30,4066.94 1597.70,4065.06 1584.33,4080.72 1561.73,4104.52 1534.26,4132.12 1506.27,4159.17 1482.11,4181.33 1466.12,4194.26 1467.88,4196.94 1484.21,4187.96 1499.80,4182.96 1514.66,4181.95 1528.78,4184.93 1542.15,4191.90">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="100" foes="100"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="001"/>
     </junction>
 
     <connection from="-5634" to="5634" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="-9887" to="-9892" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-9887" to="9887" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="-9889" to="-9890" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-9889" to="9889" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-9887" to="-9892" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="-9889" to="-9890" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="-9890" to="9887" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-9890" to="-9892" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="-9890" to="-9892" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-9891" to="9889" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-9891" to="-9890" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="-9891" to="-9890" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-9892" to="-5634" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="-9892" to="-9891" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="5634" to="-9891" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="5634" to="-5634" fromLane="0" toLane="0" dir="t" state="m"/>
+    <connection from="-9892" to="-9891" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="5634" to="-9891" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="9887" to="-9887" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="9889" to="-9889" fromLane="0" toLane="0" dir="t" state="M"/>
+
+    <roundabout nodes="10708 17199 17200" edges="-9890 -9891 -9892"/>
 
 </net>
