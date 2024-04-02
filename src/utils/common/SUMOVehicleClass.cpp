@@ -55,7 +55,7 @@ static StringBijection<SUMOVehicleClass>::Entry sumoVehicleClassStringInitialize
     {"bus",               SVC_BUS},
     {"coach",             SVC_COACH},
     {"delivery",          SVC_DELIVERY},
-    {"transport",         SVC_TRUCK},
+    {"transport",         SVC_TRUCK}, // !!! deprecated
     {"truck",             SVC_TRUCK},
     {"trailer",           SVC_TRAILER},
     {"lightrail",         SVC_TRAM}, // !!! deprecated
@@ -81,7 +81,7 @@ StringBijection<SUMOVehicleClass> SumoVehicleClassStrings(
     sumoVehicleClassStringInitializer, SVC_CUSTOM2, false);
 
 // count only non-deprecated classes
-const int NUM_VCLASSES = SumoVehicleClassStrings.size() - 7;
+const int NUM_VCLASSES = SumoVehicleClassStrings.size() - 8;
 
 std::set<std::string> deprecatedVehicleClassesSeen;
 
