@@ -301,6 +301,10 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", TL("Enable roundabout-guessing"));
 
+    // The Putrajaya Roundabout (Malaysia) holds the Guinness record for the world’s largest roundabout with 3.4km.
+    oc.doRegister("roundabouts.guess.max-length", new Option_Float(3500));
+    oc.addDescription("roundabouts.guess.max-length", "Processing", TL("Structures with a circumference above FLOAT threshold are not classified as roundabout"));
+
     oc.doRegister("roundabouts.visibility-distance", new Option_Float(9));
     oc.addDescription("roundabouts.visibility-distance", "Processing", TL("Default visibility when approaching a roundabout"));
 

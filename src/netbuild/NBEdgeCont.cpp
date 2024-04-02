@@ -1435,7 +1435,12 @@ NBEdgeCont::guessRoundabouts() {
                 std::cout << " formFactor=" << formFactor(loopEdges) << "\n";
             }
 #endif
-            if (formFactor(loopEdges) > 0.6) {
+            double loopLength = 0;
+            for (NBEdge* e : loopEdges) {
+                loopLength += e->getLoadedLength();
+            }
+            if (formFactor(loopEdges) > 0.6
+                    && loopLength < OptionsCont::getOptions().getFloat("roundabouts.guess.max-length")) {
                 // collected edges are marked in markRoundabouts
                 EdgeSet guessed(loopEdges.begin(), loopEdges.end());
                 if (loadedRoundaboutEdges.count(loopEdges.front()) != 0) {
