@@ -133,8 +133,11 @@ enum class SUMOVehicleShape {
  * @arg [7] Transport Truck
  * @arg [8] Bicycle
  * @arg [9] Pedestrian
+ *
+ * enum type decleration to work around visual studio non-compliance
+ * see https://gist.github.com/NTimmons/a7229b1dacf8280be2292ebd6b2b8b5d#file-enum-h
  */
-enum SUMOVehicleClass {
+enum SUMOVehicleClass : int64_t {
     /// @brief vehicles ignoring classes
     SVC_IGNORING = 0,
 
