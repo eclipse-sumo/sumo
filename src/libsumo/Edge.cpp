@@ -325,7 +325,7 @@ Edge::setDisallowed(const std::string& edgeID, std::vector<std::string> disallow
 
 
 void
-Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
+Edge::setAllowedSVCPermissions(const std::string& edgeID, long long int permissions) {
     MSEdge* e = getEdge(edgeID);
     for (MSLane* lane : e->getLanes()) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);

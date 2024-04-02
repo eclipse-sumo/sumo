@@ -95,7 +95,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper, tcpip::Storage* paramData);
 
 private:
-    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
+    static void setAllowedSVCPermissions(const std::string& edgeID, long long int permissions);
 
     static MSEdge* getEdge(const std::string& edgeID);
 
