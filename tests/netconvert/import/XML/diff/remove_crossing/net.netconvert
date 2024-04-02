@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:21 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:56:01 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -491,19 +491,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="206889079#11" from="C" to="945141621" priority="16" type="railway.tram" spreadType="center" shape="3840.01,1119.70 3807.13,1099.36 3760.16,1071.66 3732.52,1054.20 3709.65,1037.23 3707.17,1035.21">
-        <lane id="206889079#11_0" index="0" speed="13.89" length="147.82" shape="3831.73,1114.57 3807.13,1099.36 3760.16,1071.66 3732.52,1054.20 3709.65,1037.23 3707.17,1035.21">
+        <lane id="206889079#11_0" index="0" allow="tram" speed="13.89" length="147.82" shape="3831.73,1114.57 3807.13,1099.36 3760.16,1071.66 3732.52,1054.20 3709.65,1037.23 3707.17,1035.21">
             <param key="origId" value="206889079"/>
         </lane>
         <param key="origFrom" value="1866350919"/>
     </edge>
     <edge id="220198808#1" from="2697454309" to="C" priority="16" type="railway.tram" spreadType="center" shape="3709.30,1032.69 3712.68,1035.57 3734.34,1051.51 3761.78,1069.98 3828.41,1108.84 3842.74,1116.63">
-        <lane id="220198808#1_0" index="0" speed="13.89" length="147.34" shape="3709.30,1032.69 3712.68,1035.57 3734.34,1051.51 3761.78,1069.98 3828.41,1108.84 3833.50,1111.61">
+        <lane id="220198808#1_0" index="0" allow="tram" speed="13.89" length="147.34" shape="3709.30,1032.69 3712.68,1035.57 3734.34,1051.51 3761.78,1069.98 3828.41,1108.84 3833.50,1111.61">
             <param key="origId" value="220198808"/>
         </lane>
         <param key="origTo" value="1704693650"/>
     </edge>
     <edge id="220198808#2" from="C" to="2697454313" priority="16" type="railway.tram" spreadType="center" shape="3842.74,1116.63 3857.43,1126.29 3869.05,1133.74 3877.73,1140.15 3890.73,1151.41 3901.90,1162.21 3928.65,1189.08">
-        <lane id="220198808#2_0" index="0" speed="13.89" length="103.54" shape="3850.50,1121.73 3857.43,1126.29 3869.05,1133.74 3877.73,1140.15 3890.73,1151.41 3901.90,1162.21 3928.65,1189.08">
+        <lane id="220198808#2_0" index="0" allow="tram" speed="13.89" length="103.54" shape="3850.50,1121.73 3857.43,1126.29 3869.05,1133.74 3877.73,1140.15 3890.73,1151.41 3901.90,1162.21 3928.65,1189.08">
             <param key="origId" value="220198808"/>
         </lane>
         <param key="origFrom" value="1704693650"/>
@@ -532,7 +532,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="renamed" from="101343850" to="C" priority="16" type="railway.tram" spreadType="center" shape="3927.37,1192.34 3912.29,1177.18 3895.64,1160.57 3876.84,1143.49 3861.86,1132.33 3840.01,1119.70">
-        <lane id="renamed_0" index="0" speed="13.89" length="104.15" shape="3927.37,1192.34 3912.29,1177.18 3895.64,1160.57 3876.84,1143.49 3861.86,1132.33 3848.73,1124.74">
+        <lane id="renamed_0" index="0" allow="tram" speed="13.89" length="104.15" shape="3927.37,1192.34 3912.29,1177.18 3895.64,1160.57 3876.84,1143.49 3861.86,1132.33 3848.73,1124.74">
             <param key="origId" value="206889079"/>
         </lane>
         <param key="origTo" value="1866350919"/>

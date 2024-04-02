@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:26 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,22 +60,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-10860201" from="2" to="1" priority="11" type="highway.secondary">
-        <lane id="-10860201_0" index="0" speed="8.33" length="735.36" shape="645.77,351.77 -0.76,1.41"/>
+        <lane id="-10860201_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="735.36" shape="645.77,351.77 -0.76,1.41"/>
     </edge>
     <edge id="-10860202" from="3" to="2" priority="11" type="highway.secondary">
-        <lane id="-10860202_0" index="0" speed="13.89" length="6806.90" shape="7453.89,226.92 648.15,352.35"/>
+        <lane id="-10860202_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6806.90" shape="7453.89,226.92 648.15,352.35"/>
     </edge>
     <edge id="-10860204" from="4" to="3" priority="11" type="highway.secondary">
-        <lane id="-10860204_0" index="0" speed="5.56" length="6807.64" shape="14260.83,110.88 7454.18,226.91"/>
+        <lane id="-10860204_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="5.56" length="6807.64" shape="14260.83,110.88 7454.18,226.91"/>
     </edge>
     <edge id="10860201" from="1" to="2" priority="11" type="highway.secondary">
-        <lane id="10860201_0" index="0" speed="8.33" length="735.36" shape="0.76,-1.41 647.30,348.96"/>
+        <lane id="10860201_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="735.36" shape="0.76,-1.41 647.30,348.96"/>
     </edge>
     <edge id="10860202" from="2" to="3" priority="11" type="highway.secondary">
-        <lane id="10860202_0" index="0" speed="13.89" length="6806.90" shape="648.09,349.15 7453.83,223.72"/>
+        <lane id="10860202_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="6806.90" shape="648.09,349.15 7453.83,223.72"/>
     </edge>
     <edge id="10860204" from="3" to="4" priority="11" type="highway.secondary">
-        <lane id="10860204_0" index="0" speed="5.56" length="6807.64" shape="7454.13,223.71 14260.78,107.68"/>
+        <lane id="10860204_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="5.56" length="6807.64" shape="7454.13,223.71 14260.78,107.68"/>
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="-10860201_0" intLanes="" shape="0.00,0.00 -1.52,2.81 0.00,0.00"/>

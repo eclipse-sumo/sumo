@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:17 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:55:54 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -144,52 +144,52 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="1fi" from="1" to="m1" priority="2">
-        <lane id="1fi_0" index="0" speed="11.11" length="246.00" shape="0.00,495.20 246.00,495.20"/>
-        <lane id="1fi_1" index="1" speed="11.11" length="246.00" shape="0.00,498.40 246.00,498.40"/>
+        <lane id="1fi_0" index="0" disallow="ship" speed="11.11" length="246.00" shape="0.00,495.20 246.00,495.20"/>
+        <lane id="1fi_1" index="1" disallow="ship" speed="11.11" length="246.00" shape="0.00,498.40 246.00,498.40"/>
     </edge>
     <edge id="1o" from="0" to="1" priority="1">
-        <lane id="1o_0" index="0" speed="11.11" length="486.40" shape="486.40,501.60 0.00,501.60"/>
+        <lane id="1o_0" index="0" disallow="ship" speed="11.11" length="486.40" shape="486.40,501.60 0.00,501.60"/>
     </edge>
     <edge id="1si" from="m1" to="0" priority="3">
-        <lane id="1si_0" index="0" speed="13.89" length="232.40" shape="254.00,492.00 486.40,492.00"/>
-        <lane id="1si_1" index="1" speed="13.89" length="232.40" shape="254.00,495.20 486.40,495.20"/>
-        <lane id="1si_2" index="2" speed="13.89" length="232.40" shape="254.00,498.40 486.40,498.40"/>
+        <lane id="1si_0" index="0" disallow="ship" speed="13.89" length="232.40" shape="254.00,492.00 486.40,492.00"/>
+        <lane id="1si_1" index="1" disallow="ship" speed="13.89" length="232.40" shape="254.00,495.20 486.40,495.20"/>
+        <lane id="1si_2" index="2" disallow="ship" speed="13.89" length="232.40" shape="254.00,498.40 486.40,498.40"/>
     </edge>
     <edge id="2fi" from="2" to="m2" priority="2">
-        <lane id="2fi_0" index="0" speed="11.11" length="246.00" shape="1000.00,504.80 754.00,504.80"/>
-        <lane id="2fi_1" index="1" speed="11.11" length="246.00" shape="1000.00,501.60 754.00,501.60"/>
+        <lane id="2fi_0" index="0" disallow="ship" speed="11.11" length="246.00" shape="1000.00,504.80 754.00,504.80"/>
+        <lane id="2fi_1" index="1" disallow="ship" speed="11.11" length="246.00" shape="1000.00,501.60 754.00,501.60"/>
     </edge>
     <edge id="2o" from="0" to="2" priority="1">
-        <lane id="2o_0" index="0" speed="11.11" length="486.40" shape="513.60,498.40 1000.00,498.40"/>
+        <lane id="2o_0" index="0" disallow="ship" speed="11.11" length="486.40" shape="513.60,498.40 1000.00,498.40"/>
     </edge>
     <edge id="2si" from="m2" to="0" priority="3">
-        <lane id="2si_0" index="0" speed="13.89" length="232.40" shape="746.00,508.00 513.60,508.00"/>
-        <lane id="2si_1" index="1" speed="13.89" length="232.40" shape="746.00,504.80 513.60,504.80"/>
-        <lane id="2si_2" index="2" speed="13.89" length="232.40" shape="746.00,501.60 513.60,501.60"/>
+        <lane id="2si_0" index="0" disallow="ship" speed="13.89" length="232.40" shape="746.00,508.00 513.60,508.00"/>
+        <lane id="2si_1" index="1" disallow="ship" speed="13.89" length="232.40" shape="746.00,504.80 513.60,504.80"/>
+        <lane id="2si_2" index="2" disallow="ship" speed="13.89" length="232.40" shape="746.00,501.60 513.60,501.60"/>
     </edge>
     <edge id="3fi" from="3" to="m3" priority="2">
-        <lane id="3fi_0" index="0" speed="11.11" length="246.00" shape="504.80,0.00 504.80,246.00"/>
-        <lane id="3fi_1" index="1" speed="11.11" length="246.00" shape="501.60,0.00 501.60,246.00"/>
+        <lane id="3fi_0" index="0" disallow="ship" speed="11.11" length="246.00" shape="504.80,0.00 504.80,246.00"/>
+        <lane id="3fi_1" index="1" disallow="ship" speed="11.11" length="246.00" shape="501.60,0.00 501.60,246.00"/>
     </edge>
     <edge id="3o" from="0" to="3" priority="1">
-        <lane id="3o_0" index="0" speed="11.11" length="486.40" shape="498.40,486.40 498.40,0.00"/>
+        <lane id="3o_0" index="0" disallow="ship" speed="11.11" length="486.40" shape="498.40,486.40 498.40,0.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3">
-        <lane id="3si_0" index="0" speed="13.89" length="232.40" shape="508.00,254.00 508.00,486.40"/>
-        <lane id="3si_1" index="1" speed="13.89" length="232.40" shape="504.80,254.00 504.80,486.40"/>
-        <lane id="3si_2" index="2" speed="13.89" length="232.40" shape="501.60,254.00 501.60,486.40"/>
+        <lane id="3si_0" index="0" disallow="ship" speed="13.89" length="232.40" shape="508.00,254.00 508.00,486.40"/>
+        <lane id="3si_1" index="1" disallow="ship" speed="13.89" length="232.40" shape="504.80,254.00 504.80,486.40"/>
+        <lane id="3si_2" index="2" disallow="ship" speed="13.89" length="232.40" shape="501.60,254.00 501.60,486.40"/>
     </edge>
     <edge id="4fi" from="4" to="m4" priority="2">
-        <lane id="4fi_0" index="0" speed="11.11" length="246.00" shape="495.20,1000.00 495.20,754.00"/>
-        <lane id="4fi_1" index="1" speed="11.11" length="246.00" shape="498.40,1000.00 498.40,754.00"/>
+        <lane id="4fi_0" index="0" disallow="ship" speed="11.11" length="246.00" shape="495.20,1000.00 495.20,754.00"/>
+        <lane id="4fi_1" index="1" disallow="ship" speed="11.11" length="246.00" shape="498.40,1000.00 498.40,754.00"/>
     </edge>
     <edge id="4o" from="0" to="4" priority="1">
-        <lane id="4o_0" index="0" speed="11.11" length="486.40" shape="501.60,513.60 501.60,1000.00"/>
+        <lane id="4o_0" index="0" disallow="ship" speed="11.11" length="486.40" shape="501.60,513.60 501.60,1000.00"/>
     </edge>
     <edge id="4si" from="m4" to="0" priority="3">
-        <lane id="4si_0" index="0" speed="13.89" length="232.40" shape="492.00,746.00 492.00,513.60"/>
-        <lane id="4si_1" index="1" speed="13.89" length="232.40" shape="495.20,746.00 495.20,513.60"/>
-        <lane id="4si_2" index="2" speed="13.89" length="232.40" shape="498.40,746.00 498.40,513.60"/>
+        <lane id="4si_0" index="0" disallow="ship" speed="13.89" length="232.40" shape="492.00,746.00 492.00,513.60"/>
+        <lane id="4si_1" index="1" disallow="ship" speed="13.89" length="232.40" shape="495.20,746.00 495.20,513.60"/>
+        <lane id="4si_2" index="2" disallow="ship" speed="13.89" length="232.40" shape="498.40,746.00 498.40,513.60"/>
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">

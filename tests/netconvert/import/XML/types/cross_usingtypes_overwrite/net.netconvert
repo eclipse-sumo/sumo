@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:18 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:55:54 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -161,7 +161,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="2fi_1" index="1" speed="11.11" length="246.00" shape="1000.00,501.60 754.00,501.60"/>
     </edge>
     <edge id="2o" from="0" to="2" priority="1" type="c">
-        <lane id="2o_0" index="0" speed="11.11" length="488.90" shape="511.10,498.40 1000.00,498.40"/>
+        <lane id="2o_0" index="0" allow="bicycle" speed="11.11" length="488.90" shape="511.10,498.40 1000.00,498.40"/>
     </edge>
     <edge id="2si" from="m2" to="0" priority="3" type="a">
         <lane id="2si_0" index="0" speed="13.89" length="234.90" shape="746.00,508.00 511.10,508.00"/>
@@ -173,7 +173,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="3fi_1" index="1" speed="11.11" length="246.00" shape="501.60,0.00 501.60,246.00"/>
     </edge>
     <edge id="3o" from="0" to="3" priority="1" type="c">
-        <lane id="3o_0" index="0" speed="11.11" length="488.90" shape="498.40,488.90 498.40,0.00"/>
+        <lane id="3o_0" index="0" allow="bicycle" speed="11.11" length="488.90" shape="498.40,488.90 498.40,0.00"/>
     </edge>
     <edge id="3si" from="m3" to="0" priority="3" type="a">
         <lane id="3si_0" index="0" speed="13.89" length="234.90" shape="508.00,254.00 508.00,488.90"/>
@@ -185,7 +185,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="4fi_1" index="1" speed="11.11" length="246.00" shape="498.40,1000.00 498.40,754.00"/>
     </edge>
     <edge id="4o" from="0" to="4" priority="1" type="c">
-        <lane id="4o_0" index="0" speed="11.11" length="488.90" shape="501.60,511.10 501.60,1000.00"/>
+        <lane id="4o_0" index="0" allow="bicycle" speed="11.11" length="488.90" shape="501.60,511.10 501.60,1000.00"/>
     </edge>
     <edge id="4si" from="m4" to="0" priority="3" type="a">
         <lane id="4si_0" index="0" speed="13.89" length="234.90" shape="492.00,746.00 492.00,511.10"/>

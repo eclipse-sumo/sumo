@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:28 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-03-31 18:26:43 by Eclipse SUMO netconvert Version v1_19_0+1593-2ec46704fe5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2304,19 +2304,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-115227682" from="294830953" to="1302814166" priority="1" type="highway.service" shape="1702.87,416.99 1693.70,427.11 1684.40,437.63 1680.93,438.86 1676.78,438.02 1630.57,401.76 1612.62,424.81 1557.69,489.66 1554.04,490.89">
-        <lane id="-115227682_0" index="0" speed="5.56" length="206.02" shape="1704.06,418.07 1694.89,428.18 1685.33,439.00 1681.04,440.51 1676.09,439.51 1630.85,404.01 1613.86,425.82 1560.10,489.29">
+        <lane id="-115227682_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="206.02" shape="1704.06,418.07 1694.89,428.18 1685.33,439.00 1681.04,440.51 1676.09,439.51 1630.85,404.01 1613.86,425.82 1560.10,489.29">
             <param key="origId" value="115227682 26816553"/>
         </lane>
     </edge>
     <edge id="-135777011" from="2165987556" to="456893959" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="984.09,591.98 977.39,630.75 976.50,635.63 965.31,696.14 963.66,705.89 961.74,716.40 944.21,812.39 936.60,854.05">
-        <lane id="-135777011_0" index="0" speed="13.89" length="262.44" width="5.25" shape="986.00,596.29 979.98,631.20 979.08,636.10 967.90,696.60 966.25,706.35 964.32,716.87 946.79,812.87 939.18,854.53">
+        <lane id="-135777011_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="262.44" width="5.25" shape="986.00,596.29 979.98,631.20 979.08,636.10 967.90,696.60 966.25,706.35 964.32,716.87 946.79,812.87 939.18,854.53">
             <param key="origId" value="135777011"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-141968853" from="301292499" to="473482356" name="Eisenhutweg" priority="10" type="highway.tertiary" shape="900.17,544.14 787.65,578.63 722.36,598.64 712.29,601.73 659.57,617.65 615.07,631.53">
-        <lane id="-141968853_0" index="0" speed="13.89" length="293.85" width="4.25" shape="896.64,547.44 788.27,580.66 722.99,600.67 712.91,603.76 660.19,619.68 615.70,633.56">
+        <lane id="-141968853_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="293.85" width="4.25" shape="896.64,547.44 788.27,580.66 722.99,600.67 712.91,603.76 660.19,619.68 615.70,633.56">
             <param key="origId" value="141968853"/>
         </lane>
         <param key="postal_code" value="12487"/>
@@ -2324,20 +2324,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-142575745" from="851572317" to="1560223575" priority="1" type="highway.path" shape="1462.20,462.13 1459.56,457.84 1455.97,451.81 1453.28,444.84 1453.39,440.10 1456.09,429.66 1458.47,424.02">
-        <lane id="-142575745_0" index="0" speed="5.56" length="31.28" width="2.00" shape="1457.88,456.96 1455.07,452.24 1452.28,445.02 1452.39,439.96 1455.14,429.34 1455.92,427.49">
+        <lane id="-142575745_0" index="0" allow="pedestrian bicycle" speed="5.56" length="31.28" width="2.00" shape="1457.88,456.96 1455.07,452.24 1452.28,445.02 1452.39,439.96 1455.14,429.34 1455.92,427.49">
             <param key="origId" value="142575745"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="-143308484" from="1568241276" to="1568241303" name="Am Glinigk" priority="3" type="highway.residential">
-        <lane id="-143308484_0" index="0" speed="8.33" length="44.68" shape="1274.30,151.61 1278.93,196.05">
+        <lane id="-143308484_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="44.68" shape="1274.30,151.61 1278.93,196.05">
             <param key="origId" value="143308484"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-143308570" from="32266938" to="1568241305" name="Wegedornbrücke" priority="10" type="highway.tertiary">
-        <lane id="-143308570_0" index="0" speed="13.89" length="45.47" shape="1470.11,286.62 1465.61,241.38" changeLeft="authority">
+        <lane id="-143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1470.11,286.62 1465.61,241.38" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -2346,13 +2346,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-174657432" from="1853142980" to="4167993272" priority="1" type="highway.service" shape="1505.73,189.02 1503.16,189.11">
-        <lane id="-174657432_0" index="0" speed="5.56" length="0.20" shape="1506.83,190.59 1506.63,190.59">
+        <lane id="-174657432_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="0.20" shape="1506.83,190.59 1506.63,190.59">
             <param key="origId" value="174657432"/>
         </lane>
         <param key="origTo" value="283018648"/>
     </edge>
     <edge id="-180239835" from="1906766897" to="175648134" priority="1" type="highway.path">
-        <lane id="-180239835_0" index="0" speed="5.56" length="25.42" width="2.25" shape="1035.48,335.17 1010.18,337.64">
+        <lane id="-180239835_0" index="0" allow="pedestrian bicycle" speed="5.56" length="25.42" width="2.25" shape="1035.48,335.17 1010.18,337.64">
             <param key="origId" value="180239835"/>
         </lane>
         <param key="surface" value="asphalt"/>
@@ -2368,79 +2368,79 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-183076346" from="175648134" to="175649033" name="Berliner Mauerweg" priority="1" type="highway.path" shape="1006.79,336.84 989.19,338.94 959.88,347.91 887.15,359.94 762.86,380.52 597.14,417.55">
-        <lane id="-183076346_0" index="0" speed="5.56" length="414.00" width="2.25" shape="1003.18,338.41 989.42,340.04 960.14,349.00 887.34,361.04 763.08,381.63 597.38,418.65">
+        <lane id="-183076346_0" index="0" allow="pedestrian bicycle" speed="5.56" length="414.00" width="2.25" shape="1003.18,338.41 989.42,340.04 960.14,349.00 887.34,361.04 763.08,381.63 597.38,418.65">
             <param key="origId" value="183076346"/>
         </lane>
         <param key="postal_code" value="12487"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-183156389" from="1935182227" to="1935182239" priority="1" type="highway.path" shape="1106.50,6.07 1100.42,11.40 1099.41,29.17 1094.51,52.79 1088.47,106.52 1080.27,142.14 1060.75,198.92 1043.66,238.06 1033.75,252.50 1025.51,266.32 1024.97,272.04">
-        <lane id="-183156389_0" index="0" speed="5.56" length="270.54" width="2.00" shape="1103.18,10.32 1101.40,11.88 1100.40,29.30 1095.50,52.95 1089.46,106.68 1081.23,142.42 1061.69,199.29 1044.54,238.55 1034.59,253.03 1026.77,266.16">
+        <lane id="-183156389_0" index="0" allow="pedestrian bicycle" speed="5.56" length="270.54" width="2.00" shape="1103.18,10.32 1101.40,11.88 1100.40,29.30 1095.50,52.95 1089.46,106.68 1081.23,142.42 1061.69,199.29 1044.54,238.55 1034.59,253.03 1026.77,266.16">
             <param key="origId" value="183156389"/>
         </lane>
     </edge>
     <edge id="-190083616" from="3246050909" to="280095054" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1463.51,193.89 1459.28,151.33 1456.66,120.46 1454.23,99.85">
-        <lane id="-190083616_0" index="0" speed="13.89" length="92.94" shape="1461.76,192.52 1457.69,151.47 1455.07,120.62 1452.64,100.03">
+        <lane id="-190083616_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="92.94" shape="1461.76,192.52 1457.69,151.47 1455.07,120.62 1452.64,100.03">
             <param key="origId" value="190083616"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="concrete:plates"/>
     </edge>
     <edge id="-190083622" from="2007005093" to="2007005089" priority="1" type="highway.service">
-        <lane id="-190083622_0" index="0" speed="5.56" length="26.84" shape="1033.31,497.79 1034.60,470.98">
+        <lane id="-190083622_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.84" shape="1033.31,497.79 1034.60,470.98">
             <param key="origId" value="190083622"/>
         </lane>
     </edge>
     <edge id="-206579061" from="2165987550" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="-206579061_0" index="0" speed="13.89" length="20.51" width="5.25" shape="1006.53,453.86 1010.23,433.69" changeLeft="authority" changeRight="authority">
+        <lane id="-206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.51" width="5.25" shape="1006.53,453.86 1010.23,433.69" changeLeft="authority" changeRight="authority">
             <param key="origId" value="206579061"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-212458170" from="4167993271" to="2223042915" priority="1" type="highway.service" shape="985.38,190.78 996.76,188.71">
-        <lane id="-212458170_0" index="0" speed="5.56" length="2.17" shape="989.74,188.36 991.88,187.97">
+        <lane id="-212458170_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="2.17" shape="989.74,188.36 991.88,187.97">
             <param key="origId" value="212458170"/>
         </lane>
         <param key="origFrom" value="2223009095"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-224769566" from="4167993265" to="1906766897" priority="1" type="highway.path" shape="1472.08,293.27 1059.97,337.40 1039.14,333.68">
-        <lane id="-224769566_0" index="0" speed="5.56" length="417.69" width="2.25" shape="1458.44,295.86 1059.93,338.54 1043.29,335.56">
+        <lane id="-224769566_0" index="0" allow="pedestrian bicycle" speed="5.56" length="417.69" width="2.25" shape="1458.44,295.86 1059.93,338.54 1043.29,335.56">
             <param key="origId" value="224769566 224769565"/>
         </lane>
         <param key="origFrom" value="2335739502"/>
         <param key="surface" value="paving_stones asphalt"/>
     </edge>
     <edge id="-225232900" from="2340420372" to="2340420373" priority="1" type="highway.service">
-        <lane id="-225232900_0" index="0" speed="5.56" length="7.86" shape="1052.64,419.94 1052.14,427.79">
+        <lane id="-225232900_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.86" shape="1052.64,419.94 1052.14,427.79">
             <param key="origId" value="225232900"/>
         </lane>
     </edge>
     <edge id="-257131031" from="2627346864" to="2627346865" priority="1" type="highway.service">
-        <lane id="-257131031_0" index="0" speed="5.56" length="31.26" shape="1113.44,436.56 1111.26,467.74">
+        <lane id="-257131031_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="31.26" shape="1113.44,436.56 1111.26,467.74">
             <param key="origId" value="257131031"/>
         </lane>
     </edge>
     <edge id="-26816553" from="1302814166" to="294830953" priority="1" type="highway.service" shape="1554.04,490.89 1557.69,489.66 1612.62,424.81 1630.57,401.76 1676.78,438.02 1680.93,438.86 1684.40,437.63 1693.70,427.11 1702.87,416.99">
-        <lane id="-26816553_0" index="0" speed="5.56" length="205.62" shape="1558.81,485.86 1611.37,423.81 1630.30,399.51 1677.47,436.52 1680.81,437.20 1683.48,436.26 1692.51,426.05 1701.69,415.92">
+        <lane id="-26816553_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="205.62" shape="1558.81,485.86 1611.37,423.81 1630.30,399.51 1677.47,436.52 1680.81,437.20 1683.48,436.26 1692.51,426.05 1701.69,415.92">
             <param key="origId" value="26816553 115227682"/>
         </lane>
     </edge>
     <edge id="-26843133" from="1560223633" to="294169339" priority="1" type="highway.service">
-        <lane id="-26843133_0" index="0" speed="5.56" length="7.00" shape="1538.21,471.03 1539.19,477.96">
+        <lane id="-26843133_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.00" shape="1538.21,471.03 1539.19,477.96">
             <param key="origId" value="26843133"/>
         </lane>
     </edge>
     <edge id="-283307506" from="175648134" to="4167993266" priority="1" type="highway.path" shape="1006.79,336.84 1006.85,350.08">
-        <lane id="-283307506_0" index="0" speed="5.56" length="0.78" width="2.00" shape="1007.81,340.83 1007.81,341.61">
+        <lane id="-283307506_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.78" width="2.00" shape="1007.81,340.83 1007.81,341.61">
             <param key="origId" value="283307506"/>
         </lane>
         <param key="origTo" value="57343510"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-283317455" from="4167993265" to="32266938" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1472.08,293.27 1471.71,286.56">
-        <lane id="-283317455_0" index="0" speed="13.89" length="0.52" shape="1470.15,287.28 1470.12,286.75">
+        <lane id="-283317455_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.52" shape="1470.15,287.28 1470.12,286.75">
             <param key="origId" value="283317455"/>
         </lane>
         <param key="origFrom" value="2335739502"/>
@@ -2448,109 +2448,109 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-318210395" from="1568241305" to="3246050909" name="Wegedornstraße" priority="10" type="highway.tertiary">
-        <lane id="-318210395_0" index="0" speed="13.89" length="42.89" shape="1465.58,241.07 1462.25,198.31" changeLeft="authority">
+        <lane id="-318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.58,241.07 1462.25,198.31" changeLeft="authority">
             <param key="origId" value="318210395"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="concrete:plates"/>
     </edge>
     <edge id="-319580807" from="3260077364" to="1906766917" priority="1" type="highway.path" shape="1016.46,412.47 1006.66,397.98 994.20,388.65 981.50,384.28">
-        <lane id="-319580807_0" index="0" speed="5.56" length="26.98" width="2.00" shape="1008.00,401.75 1005.92,398.68 993.73,389.55 986.13,386.93">
+        <lane id="-319580807_0" index="0" allow="pedestrian bicycle" speed="5.56" length="26.98" width="2.00" shape="1008.00,401.75 1005.92,398.68 993.73,389.55 986.13,386.93">
             <param key="origId" value="319580807"/>
         </lane>
     </edge>
     <edge id="-334170244" from="1568241285" to="3412579225" name="Iselersteig" priority="3" type="highway.residential">
-        <lane id="-334170244_0" index="0" speed="8.33" length="68.44" shape="1383.37,185.25 1376.74,117.13">
+        <lane id="-334170244_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="68.44" shape="1383.37,185.25 1376.74,117.13">
             <param key="origId" value="334170244"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-412814181" from="2223009465" to="2223009099" priority="1" type="highway.service">
-        <lane id="-412814181_0" index="0" speed="5.56" length="26.37" shape="990.41,265.17 964.17,267.79">
+        <lane id="-412814181_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.37" shape="990.41,265.17 964.17,267.79">
             <param key="origId" value="412814181"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-47765615" from="607601659" to="607601623" priority="1" type="highway.service" shape="1234.71,764.33 1239.14,704.97 1232.78,704.46 1239.30,623.59">
-        <lane id="-47765615_0" index="0" speed="5.56" length="142.33" shape="1233.12,764.22 1237.42,706.44 1231.06,705.92 1237.32,628.17">
+        <lane id="-47765615_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="142.33" shape="1233.12,764.22 1237.42,706.44 1231.06,705.92 1237.32,628.17">
             <param key="origId" value="47765615"/>
         </lane>
     </edge>
     <edge id="-47770431" from="607637982" to="607638014" priority="1" type="highway.service" shape="1425.69,603.38 1416.56,647.21 1414.98,654.08">
-        <lane id="-47770431_0" index="0" speed="5.56" length="50.36" shape="1426.95,605.17 1418.13,647.55 1416.54,654.44">
+        <lane id="-47770431_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="50.36" shape="1426.95,605.17 1418.13,647.55 1416.54,654.44">
             <param key="origId" value="47770431"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="-47770433" from="1392924660" to="607637982" priority="1" type="highway.path" shape="1436.10,564.68 1434.24,569.17 1431.93,575.00 1425.69,603.38">
-        <lane id="-47770433_0" index="0" speed="5.56" length="33.75" width="2.00" shape="1435.20,569.47 1432.89,575.30 1426.99,602.13">
+        <lane id="-47770433_0" index="0" allow="pedestrian bicycle" speed="5.56" length="33.75" width="2.00" shape="1435.20,569.47 1432.89,575.30 1426.99,602.13">
             <param key="origId" value="47770433"/>
         </lane>
         <param key="surface" value="paved"/>
     </edge>
     <edge id="-69923147" from="2008877431" to="835806371" priority="1" type="highway.track" shape="991.26,392.65 990.83,403.82 983.56,413.16 944.85,440.88 852.69,494.86 803.82,514.04 753.40,527.55 716.46,534.55 573.48,554.92 492.47,569.91 367.47,599.16 319.55,612.30 268.56,631.50 196.84,668.69 158.83,689.88 81.83,740.40 17.79,790.72 0.00,805.89">
-        <lane id="-69923147_0" index="0" speed="5.56" length="1101.67" shape="992.86,392.71 992.41,404.40 984.68,414.33 945.72,442.22 853.39,496.31 804.32,515.56 753.76,529.11 716.72,536.13 573.73,556.50 492.80,571.47 367.86,600.72 320.05,613.83 269.21,632.97 197.60,670.10 159.66,691.25 82.76,741.70 18.81,791.96 1.04,807.11">
+        <lane id="-69923147_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="1101.67" shape="992.86,392.71 992.41,404.40 984.68,414.33 945.72,442.22 853.39,496.31 804.32,515.56 753.76,529.11 716.72,536.13 573.73,556.50 492.80,571.47 367.86,600.72 320.05,613.83 269.21,632.97 197.60,670.10 159.66,691.25 82.76,741.70 18.81,791.96 1.04,807.11">
             <param key="origId" value="69923147"/>
         </lane>
         <param key="surface" value="gravel"/>
     </edge>
     <edge id="-70139065" from="846231372" to="837777441" priority="1" type="highway.path" shape="1546.97,593.18 1555.42,608.24 1557.61,616.20 1557.80,624.50">
-        <lane id="-70139065_0" index="0" speed="5.56" length="26.52" width="2.00" shape="1551.66,599.48 1556.35,607.85 1558.61,616.06 1558.80,624.48">
+        <lane id="-70139065_0" index="0" allow="pedestrian bicycle" speed="5.56" length="26.52" width="2.00" shape="1551.66,599.48 1556.35,607.85 1558.61,616.06 1558.80,624.48">
             <param key="origId" value="70139065"/>
         </lane>
         <param key="surface" value="grass"/>
     </edge>
     <edge id="-71595976" from="851572712" to="1560223615" name="Schwarzschildstraße" priority="1" type="highway.service" shape="1309.55,390.51 1304.93,453.42 1304.62,459.07">
-        <lane id="-71595976_0" index="0" speed="5.56" length="64.21" shape="1311.13,390.78 1306.52,453.52 1306.45,454.82">
+        <lane id="-71595976_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="64.21" shape="1311.13,390.78 1306.52,453.52 1306.45,454.82">
             <param key="origId" value="71595976"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-71595991" from="851572712" to="851572782" priority="1" type="highway.track">
-        <lane id="-71595991_0" index="0" speed="5.56" length="30.02" shape="1307.96,390.25 1310.10,360.30">
+        <lane id="-71595991_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="30.02" shape="1307.96,390.25 1310.10,360.30">
             <param key="origId" value="71595991"/>
         </lane>
         <param key="surface" value="gravel"/>
     </edge>
     <edge id="-71596031" from="851572523" to="851572284" priority="1" type="highway.path" shape="1436.27,457.75 1436.23,463.39 1435.44,468.80">
-        <lane id="-71596031_0" index="0" speed="5.56" length="3.38" width="2.00" shape="1437.24,461.21 1437.22,463.47 1437.06,464.58">
+        <lane id="-71596031_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.38" width="2.00" shape="1437.24,461.21 1437.22,463.47 1437.06,464.58">
             <param key="origId" value="71596031"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="-71960748" from="1935182239" to="855359022" priority="1" type="highway.service" shape="1024.97,272.04 1022.17,279.13 1029.36,283.76 1091.39,276.46 1098.61,274.44 1105.82,271.34 1112.03,267.22 1116.38,262.64 1118.87,258.29 1120.45,250.87 1119.61,239.93 1120.09,233.28 1145.63,161.91 1157.83,118.39">
-        <lane id="-71960748_0" index="0" speed="5.56" length="255.65" shape="1027.32,270.46 1024.14,278.49 1029.75,282.11 1091.08,274.89 1098.07,272.93 1105.06,269.92 1110.99,265.98 1115.09,261.68 1117.36,257.71 1118.84,250.76 1118.01,239.94 1118.51,232.95 1144.10,161.43 1156.29,117.96">
+        <lane id="-71960748_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="255.65" shape="1027.32,270.46 1024.14,278.49 1029.75,282.11 1091.08,274.89 1098.07,272.93 1105.06,269.92 1110.99,265.98 1115.09,261.68 1117.36,257.71 1118.84,250.76 1118.01,239.94 1118.51,232.95 1144.10,161.43 1156.29,117.96">
             <param key="origId" value="71960748"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="-71960756" from="855356052" to="855357265" priority="1" type="highway.path" shape="1238.48,254.52 1226.71,252.09 1222.91,240.56">
-        <lane id="-71960756_0" index="0" speed="5.56" length="21.83" width="2.00" shape="1238.28,255.50 1225.95,252.95 1223.06,244.18">
+        <lane id="-71960756_0" index="0" allow="pedestrian bicycle" speed="5.56" length="21.83" width="2.00" shape="1238.28,255.50 1225.95,252.95 1223.06,244.18">
             <param key="origId" value="71960756 71960707"/>
         </lane>
         <param key="surface" value="sand pebblestone"/>
     </edge>
     <edge id="114024900" from="4167993264" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1483.10,434.74 1496.26,433.14 1546.34,427.02">
-        <lane id="114024900_0" index="0" speed="8.33" length="54.24" shape="1487.66,432.57 1496.07,431.55 1541.49,426.00">
+        <lane id="114024900_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="54.24" shape="1487.66,432.57 1496.07,431.55 1541.49,426.00">
             <param key="origId" value="114024900 114949101"/>
         </lane>
     </edge>
     <edge id="114024901" from="1292264836" to="1292264851" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1536.23,340.75 1539.05,334.82 1544.63,330.71 1588.41,325.04">
-        <lane id="114024901_0" index="0" speed="8.33" length="142.34" shape="1544.20,422.52 1534.58,340.48 1537.78,333.77 1544.02,329.18 1588.21,323.46">
+        <lane id="114024901_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="142.34" shape="1544.20,422.52 1534.58,340.48 1537.78,333.77 1544.02,329.18 1588.21,323.46">
             <param key="origId" value="114024901"/>
         </lane>
     </edge>
     <edge id="135777011" from="456893959" to="2165987556" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="936.60,854.05 944.21,812.39 961.74,716.40 963.66,705.89 965.31,696.14 976.50,635.63 977.39,630.75 984.09,591.98">
-        <lane id="135777011_0" index="0" speed="13.89" length="262.39" width="5.25" shape="934.01,853.58 941.63,811.92 959.16,715.93 961.08,705.44 962.73,695.69 973.92,635.15 974.81,630.29 980.83,595.40">
+        <lane id="135777011_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="262.39" width="5.25" shape="934.01,853.58 941.63,811.92 959.16,715.93 961.08,705.44 962.73,695.69 973.92,635.15 974.81,630.29 980.83,595.40">
             <param key="origId" value="135777011"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="141968853" from="473482356" to="301292499" name="Eisenhutweg" priority="10" type="highway.tertiary" shape="615.07,631.53 659.57,617.65 712.29,601.73 722.36,598.64 787.65,578.63 900.17,544.14">
-        <lane id="141968853_0" index="0" speed="13.89" length="293.87" width="4.25" shape="614.43,629.50 658.94,615.62 711.68,599.69 721.74,596.61 787.03,576.60 895.40,543.38">
+        <lane id="141968853_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="293.87" width="4.25" shape="614.43,629.50 658.94,615.62 711.68,599.69 721.74,596.61 787.03,576.60 895.40,543.38">
             <param key="origId" value="141968853"/>
         </lane>
         <param key="postal_code" value="12487"/>
@@ -2558,20 +2558,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="142575745" from="1560223575" to="851572317" priority="1" type="highway.path" shape="1458.47,424.02 1456.09,429.66 1453.39,440.10 1453.28,444.84 1455.97,451.81 1459.56,457.84 1462.20,462.13">
-        <lane id="142575745_0" index="0" speed="5.56" length="29.37" width="2.00" shape="1457.76,428.26 1457.04,429.98 1454.38,440.24 1454.28,444.66 1456.87,451.37 1459.58,455.92">
+        <lane id="142575745_0" index="0" allow="pedestrian bicycle" speed="5.56" length="29.37" width="2.00" shape="1457.76,428.26 1457.04,429.98 1454.38,440.24 1454.28,444.66 1456.87,451.37 1459.58,455.92">
             <param key="origId" value="142575745"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="143308484" from="1568241303" to="1568241276" name="Am Glinigk" priority="3" type="highway.residential">
-        <lane id="143308484_0" index="0" speed="8.33" length="44.68" shape="1275.74,196.38 1271.12,151.94">
+        <lane id="143308484_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="44.68" shape="1275.74,196.38 1271.12,151.94">
             <param key="origId" value="143308484"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="143308570" from="1568241305" to="32266938" name="Wegedornbrücke" priority="10" type="highway.tertiary">
-        <lane id="143308570_0" index="0" speed="13.89" length="45.47" shape="1468.79,241.06 1473.29,286.31" changeLeft="authority">
+        <lane id="143308570_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="45.47" shape="1468.79,241.06 1473.29,286.31" changeLeft="authority">
             <param key="origId" value="143308570"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -2580,13 +2580,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="144909695" from="32266902" to="267282985" name="Teltowkanalbrücke" priority="14" type="highway.motorway" spreadType="center" shape="1069.81,275.09 1057.34,294.71 1053.13,300.91 1042.37,316.22 1009.01,353.89 969.93,390.52">
-        <lane id="144909695_0" index="0" speed="22.22" length="149.22" shape="1072.41,276.97 1060.01,296.46 1055.76,302.73 1044.89,318.21 1011.30,356.12 974.98,390.17">
+        <lane id="144909695_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="149.22" shape="1072.41,276.97 1060.01,296.46 1055.76,302.73 1044.89,318.21 1011.30,356.12 974.98,390.17">
             <param key="origId" value="144909695"/>
         </lane>
-        <lane id="144909695_1" index="1" speed="22.22" length="149.22" shape="1069.71,275.26 1057.34,294.71 1053.13,300.91 1042.37,316.22 1009.01,353.89 972.79,387.84">
+        <lane id="144909695_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="149.22" shape="1069.71,275.26 1057.34,294.71 1053.13,300.91 1042.37,316.22 1009.01,353.89 972.79,387.84">
             <param key="origId" value="144909695"/>
         </lane>
-        <lane id="144909695_2" index="2" speed="22.22" length="149.22" shape="1067.01,273.54 1054.67,292.95 1050.49,299.09 1039.86,314.23 1006.71,351.66 970.60,385.50">
+        <lane id="144909695_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="149.22" shape="1067.01,273.54 1054.67,292.95 1050.49,299.09 1039.86,314.23 1006.71,351.66 970.60,385.50">
             <param key="origId" value="144909695"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -2595,22 +2595,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="146511467" from="260479469" to="2165987553" priority="9" type="highway.motorway_link" spreadType="center" shape="901.67,448.37 868.84,464.31 818.42,490.92 763.51,509.90 719.24,520.59 674.44,529.76 636.80,536.33">
-        <lane id="146511467_0" index="0" speed="16.67" length="279.62" shape="901.05,450.45 869.56,465.74 819.06,492.39 763.96,511.44 719.59,522.15 674.74,531.33 637.07,537.90">
+        <lane id="146511467_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="16.67" length="279.62" shape="901.05,450.45 869.56,465.74 819.06,492.39 763.96,511.44 719.59,522.15 674.74,531.33 637.07,537.90">
             <param key="origId" value="146511467"/>
         </lane>
-        <lane id="146511467_1" index="1" speed="16.67" length="279.62" shape="899.66,447.57 868.12,462.89 817.78,489.44 763.06,508.37 718.90,519.03 674.14,528.19 636.52,534.75">
+        <lane id="146511467_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="16.67" length="279.62" shape="899.66,447.57 868.12,462.89 817.78,489.44 763.06,508.37 718.90,519.03 674.14,528.19 636.52,534.75">
             <param key="origId" value="146511467"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="152466382" from="32266898" to="32266899" priority="14" type="highway.motorway" spreadType="center" shape="1051.28,277.33 1075.28,234.52 1078.93,226.56 1097.68,185.67 1111.01,143.15 1121.41,100.17 1129.44,59.93 1134.11,5.30">
-        <lane id="152466382_0" index="0" speed="22.22" length="287.19" shape="1048.63,275.52 1072.42,233.07 1076.02,225.22 1094.68,184.52 1107.92,142.29 1118.29,99.48 1126.27,59.48 1130.92,5.02">
+        <lane id="152466382_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="287.19" shape="1048.63,275.52 1072.42,233.07 1076.02,225.22 1094.68,184.52 1107.92,142.29 1118.29,99.48 1126.27,59.48 1130.92,5.02">
             <param key="origId" value="152466382"/>
         </lane>
-        <lane id="152466382_1" index="1" speed="22.22" length="287.19" shape="1051.42,277.09 1075.28,234.52 1078.93,226.56 1097.68,185.67 1111.01,143.15 1121.41,100.17 1129.44,59.93 1134.11,5.30">
+        <lane id="152466382_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="287.19" shape="1051.42,277.09 1075.28,234.52 1078.93,226.56 1097.68,185.67 1111.01,143.15 1121.41,100.17 1129.44,59.93 1134.11,5.30">
             <param key="origId" value="152466382"/>
         </lane>
-        <lane id="152466382_2" index="2" speed="22.22" length="287.19" shape="1054.21,278.65 1078.13,235.97 1081.84,227.89 1100.67,186.82 1114.09,144.01 1124.54,100.86 1132.61,60.39 1137.30,5.57">
+        <lane id="152466382_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="287.19" shape="1054.21,278.65 1078.13,235.97 1081.84,227.89 1100.67,186.82 1114.09,144.01 1124.54,100.86 1132.61,60.39 1137.30,5.57">
             <param key="origId" value="152466382"/>
         </lane>
         <param key="ref" value="A 113"/>
@@ -2631,13 +2631,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="174657432" from="4167993272" to="1853142980" priority="1" type="highway.service" shape="1503.16,189.11 1505.73,189.02">
-        <lane id="174657432_0" index="0" speed="5.56" length="0.20" shape="1506.53,187.40 1506.73,187.39">
+        <lane id="174657432_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="0.20" shape="1506.53,187.40 1506.73,187.39">
             <param key="origId" value="174657432"/>
         </lane>
         <param key="origFrom" value="283018648"/>
     </edge>
     <edge id="180239835" from="175648134" to="1906766897" priority="1" type="highway.path">
-        <lane id="180239835_0" index="0" speed="5.56" length="25.42" width="2.25" shape="1009.96,335.40 1035.26,332.93">
+        <lane id="180239835_0" index="0" allow="pedestrian bicycle" speed="5.56" length="25.42" width="2.25" shape="1009.96,335.40 1035.26,332.93">
             <param key="origId" value="180239835"/>
         </lane>
         <param key="surface" value="asphalt"/>
@@ -2664,37 +2664,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="183076346" from="175649033" to="175648134" name="Berliner Mauerweg" priority="1" type="highway.path" shape="597.14,417.55 762.86,380.52 887.15,359.94 959.88,347.91 989.19,338.94 1006.79,336.84">
-        <lane id="183076346_0" index="0" speed="5.56" length="414.23" width="2.25" shape="596.89,416.45 762.65,379.42 886.97,358.83 959.63,346.81 988.95,337.83 1002.91,336.17">
+        <lane id="183076346_0" index="0" allow="pedestrian bicycle" speed="5.56" length="414.23" width="2.25" shape="596.89,416.45 762.65,379.42 886.97,358.83 959.63,346.81 988.95,337.83 1002.91,336.17">
             <param key="origId" value="183076346"/>
         </lane>
         <param key="postal_code" value="12487"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="183156389" from="1935182239" to="1935182227" priority="1" type="highway.path" shape="1024.97,272.04 1025.51,266.32 1033.75,252.50 1043.66,238.06 1060.75,198.92 1080.27,142.14 1088.47,106.52 1094.51,52.79 1099.41,29.17 1100.42,11.40 1106.50,6.07">
-        <lane id="183156389_0" index="0" speed="5.56" length="272.16" width="2.00" shape="1024.59,265.92 1032.91,251.96 1042.79,237.57 1059.82,198.56 1079.31,141.87 1087.48,106.35 1093.52,52.64 1098.41,29.04 1099.45,10.93 1101.86,8.82">
+        <lane id="183156389_0" index="0" allow="pedestrian bicycle" speed="5.56" length="272.16" width="2.00" shape="1024.59,265.92 1032.91,251.96 1042.79,237.57 1059.82,198.56 1079.31,141.87 1087.48,106.35 1093.52,52.64 1098.41,29.04 1099.45,10.93 1101.86,8.82">
             <param key="origId" value="183156389"/>
         </lane>
     </edge>
     <edge id="190083616" from="280095054" to="3246050909" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1454.23,99.85 1456.66,120.46 1459.28,151.33 1463.51,193.89">
-        <lane id="190083616_0" index="0" speed="13.89" length="93.00" shape="1455.82,99.66 1458.25,120.30 1460.87,151.18 1464.95,192.20">
+        <lane id="190083616_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.00" shape="1455.82,99.66 1458.25,120.30 1460.87,151.18 1464.95,192.20">
             <param key="origId" value="190083616"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="concrete:plates"/>
     </edge>
     <edge id="190083622" from="2007005089" to="2007005093" priority="1" type="highway.service">
-        <lane id="190083622_0" index="0" speed="5.56" length="26.84" shape="1037.79,471.13 1036.51,497.94">
+        <lane id="190083622_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.84" shape="1037.79,471.13 1036.51,497.94">
             <param key="origId" value="190083622"/>
         </lane>
     </edge>
     <edge id="206579057" from="2165987554" to="4167993273" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="925.09,532.70 943.28,524.77 980.16,514.38 997.39,513.05">
-        <lane id="206579057_0" index="0" speed="13.89" length="58.42" width="3.00" shape="924.80,529.56 942.27,521.94 979.63,511.41 981.03,511.31">
+        <lane id="206579057_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="58.42" width="3.00" shape="924.80,529.56 942.27,521.94 979.63,511.41 981.03,511.31">
             <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
-        <lane id="206579057_1" index="1" speed="13.89" length="58.42" width="3.00" shape="926.00,532.31 943.28,524.77 980.16,514.38 981.40,514.29">
+        <lane id="206579057_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="58.42" width="3.00" shape="926.00,532.31 943.28,524.77 980.16,514.38 981.40,514.29">
             <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
-        <lane id="206579057_2" index="2" speed="13.89" length="58.42" width="3.00" shape="927.19,535.06 944.29,527.61 980.68,517.35 981.78,517.27">
+        <lane id="206579057_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="58.42" width="3.00" shape="927.19,535.06 944.29,527.61 980.68,517.35 981.78,517.27">
             <param key="origId" value="206579057 206579058 206579058"/>
         </lane>
         <param key="origTo" value="492462300"/>
@@ -2703,42 +2703,42 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="206579061" from="2007005083" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="206579061_0" index="0" speed="13.89" length="20.51" width="5.25" shape="1015.40,434.64 1011.69,454.81" changeLeft="authority" changeRight="authority">
+        <lane id="206579061_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20.51" width="5.25" shape="1015.40,434.64 1011.69,454.81" changeLeft="authority" changeRight="authority">
             <param key="origId" value="206579061"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="212458170" from="2223042915" to="4167993271" priority="1" type="highway.service" shape="996.76,188.71 985.38,190.78">
-        <lane id="212458170_0" index="0" speed="5.56" length="2.17" shape="992.45,191.12 990.31,191.50">
+        <lane id="212458170_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="2.17" shape="992.45,191.12 990.31,191.50">
             <param key="origId" value="212458170"/>
         </lane>
         <param key="origTo" value="2223009095"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="213883651" from="2235207713" to="2235207704" priority="1" type="highway.steps" spreadType="center">
-        <lane id="213883651_0" index="0" speed="1.39" length="3.71" width="2.00" shape="1067.12,228.93 1068.67,225.55">
+        <lane id="213883651_0" index="0" allow="pedestrian" speed="1.39" length="3.71" width="2.00" shape="1067.12,228.93 1068.67,225.55">
             <param key="origId" value="213883651"/>
         </lane>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="213883655" from="2235207704" to="2437417326" priority="1" type="highway.footway" spreadType="center" shape="1068.67,225.55 1070.18,223.19 1071.26,223.58">
-        <lane id="213883655_0" index="0" speed="2.78" length="3.96" width="2.00" shape="1068.67,225.55 1070.18,223.19 1071.26,223.58">
+        <lane id="213883655_0" index="0" allow="pedestrian" speed="2.78" length="3.96" width="2.00" shape="1068.67,225.55 1070.18,223.19 1071.26,223.58">
             <param key="origId" value="213883655"/>
         </lane>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="213883661" from="2235207711" to="2235207713" priority="1" type="highway.footway" spreadType="center">
-        <lane id="213883661_0" index="0" speed="2.78" length="0.20" width="2.00" shape="1064.51,229.23 1064.71,229.26">
+        <lane id="213883661_0" index="0" allow="pedestrian" speed="2.78" length="0.20" width="2.00" shape="1064.51,229.23 1064.71,229.26">
             <param key="origId" value="213883661"/>
         </lane>
         <param key="surface" value="sand"/>
     </edge>
     <edge id="224769559" from="4167993266" to="1906766898" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1040.17,346.45 1106.33,337.91">
-        <lane id="224769559_0" index="0" speed="13.89" length="62.03" shape="1043.84,344.36 1105.27,336.43">
+        <lane id="224769559_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.03" shape="1043.84,344.36 1105.27,336.43">
             <param key="origId" value="224769559"/>
         </lane>
-        <lane id="224769559_1" index="1" speed="13.89" length="62.03" shape="1044.25,347.54 1105.87,339.58">
+        <lane id="224769559_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.03" shape="1044.25,347.54 1105.87,339.58">
             <param key="origId" value="224769559"/>
         </lane>
         <param key="origFrom" value="493585714"/>
@@ -2746,73 +2746,73 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="224769565" from="1906766897" to="4167993265" priority="1" type="highway.path" shape="1039.14,333.68 1059.97,337.40 1472.08,293.27">
-        <lane id="224769565_0" index="0" speed="5.56" length="417.14" width="2.25" shape="1043.69,333.35 1060.01,336.27 1458.29,293.61">
+        <lane id="224769565_0" index="0" allow="pedestrian bicycle" speed="5.56" length="417.14" width="2.25" shape="1043.69,333.35 1060.01,336.27 1458.29,293.61">
             <param key="origId" value="224769565 224769566"/>
         </lane>
         <param key="origTo" value="2335739502"/>
         <param key="surface" value="asphalt paving_stones"/>
     </edge>
     <edge id="225232900" from="2340420373" to="2340420372" priority="1" type="highway.service">
-        <lane id="225232900_0" index="0" speed="5.56" length="7.86" shape="1048.95,427.59 1049.44,419.74">
+        <lane id="225232900_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.86" shape="1048.95,427.59 1049.44,419.74">
             <param key="origId" value="225232900"/>
         </lane>
     </edge>
     <edge id="22762377" from="267282985" to="260479469" priority="14" type="highway.motorway" spreadType="center" shape="970.97,391.73 954.40,405.96 926.24,427.04 899.09,444.32">
-        <lane id="22762377_0" index="0" speed="22.22" length="83.97" shape="972.14,399.16 958.40,410.95 929.89,432.31 903.61,449.04">
+        <lane id="22762377_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="83.97" shape="972.14,399.16 958.40,410.95 929.89,432.31 903.61,449.04">
             <param key="origId" value="22762377"/>
         </lane>
-        <lane id="22762377_1" index="1" speed="22.22" length="83.97" shape="970.06,396.73 956.40,408.46 928.06,429.68 901.89,446.34">
+        <lane id="22762377_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="83.97" shape="970.06,396.73 956.40,408.46 928.06,429.68 901.89,446.34">
             <param key="origId" value="22762377"/>
         </lane>
-        <lane id="22762377_2" index="2" speed="22.22" length="83.97" shape="967.98,394.31 954.40,405.96 926.24,427.04 900.17,443.64">
+        <lane id="22762377_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="83.97" shape="967.98,394.31 954.40,405.96 926.24,427.04 900.17,443.64">
             <param key="origId" value="22762377"/>
         </lane>
-        <lane id="22762377_3" index="3" speed="22.22" length="83.97" shape="965.89,391.88 952.39,403.46 924.42,424.41 898.45,440.94">
+        <lane id="22762377_3" index="3" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="83.97" shape="965.89,391.88 952.39,403.46 924.42,424.41 898.45,440.94">
             <param key="origId" value="22762377"/>
         </lane>
-        <lane id="22762377_4" index="4" speed="22.22" length="83.97" shape="963.81,389.45 950.39,400.96 922.60,421.77 896.73,438.24">
+        <lane id="22762377_4" index="4" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="83.97" shape="963.81,389.45 950.39,400.96 922.60,421.77 896.73,438.24">
             <param key="origId" value="22762377"/>
         </lane>
         <param key="ref" value="A 113"/>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="25382187" from="32266901" to="32266902" priority="14" type="highway.motorway" spreadType="center" shape="1147.77,2.02 1141.44,66.70 1134.97,105.25 1125.07,144.11 1114.08,178.89 1095.53,226.14 1069.81,275.09">
-        <lane id="25382187_0" index="0" speed="22.22" length="286.51" shape="1150.95,2.33 1144.62,67.12 1138.11,105.91 1128.15,144.99 1117.10,179.96 1098.45,227.47 1072.74,276.40">
+        <lane id="25382187_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="286.51" shape="1150.95,2.33 1144.62,67.12 1138.11,105.91 1128.15,144.99 1117.10,179.96 1098.45,227.47 1072.74,276.40">
             <param key="origId" value="25382187"/>
         </lane>
-        <lane id="25382187_1" index="1" speed="22.22" length="286.51" shape="1147.77,2.02 1141.44,66.70 1134.97,105.25 1125.07,144.11 1114.08,178.89 1095.53,226.14 1069.91,274.91">
+        <lane id="25382187_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="286.51" shape="1147.77,2.02 1141.44,66.70 1134.97,105.25 1125.07,144.11 1114.08,178.89 1095.53,226.14 1069.91,274.91">
             <param key="origId" value="25382187"/>
         </lane>
-        <lane id="25382187_2" index="2" speed="22.22" length="286.51" shape="1144.58,1.71 1138.27,66.28 1131.84,104.59 1122.00,143.23 1111.06,177.83 1092.62,224.81 1067.07,273.43">
+        <lane id="25382187_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="286.51" shape="1144.58,1.71 1138.27,66.28 1131.84,104.59 1122.00,143.23 1111.06,177.83 1092.62,224.81 1067.07,273.43">
             <param key="origId" value="25382187"/>
         </lane>
         <param key="ref" value="A 113"/>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="257131031" from="2627346865" to="2627346864" priority="1" type="highway.service">
-        <lane id="257131031_0" index="0" speed="5.56" length="31.26" shape="1108.07,467.52 1110.25,436.34">
+        <lane id="257131031_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="31.26" shape="1108.07,467.52 1110.25,436.34">
             <param key="origId" value="257131031"/>
         </lane>
     </edge>
     <edge id="26816541" from="294168710" to="294168098" priority="1" type="highway.service" spreadType="center" shape="1585.09,519.54 1563.09,545.34 1534.94,539.27 1528.06,506.74 1563.29,500.27">
-        <lane id="26816541_0" index="0" speed="5.56" length="120.57" shape="1582.01,523.15 1563.09,545.34 1534.94,539.27 1528.06,506.74 1556.94,501.43">
+        <lane id="26816541_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="120.57" shape="1582.01,523.15 1563.09,545.34 1534.94,539.27 1528.06,506.74 1556.94,501.43">
             <param key="origId" value="26816541"/>
         </lane>
     </edge>
     <edge id="26843133" from="294169339" to="1560223633" priority="1" type="highway.service">
-        <lane id="26843133_0" index="0" speed="5.56" length="7.00" shape="1536.03,478.41 1535.04,471.48">
+        <lane id="26843133_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="7.00" shape="1536.03,478.41 1535.04,471.48">
             <param key="origId" value="26843133"/>
         </lane>
     </edge>
     <edge id="283307506" from="4167993266" to="175648134" priority="1" type="highway.path" shape="1006.85,350.08 1006.79,336.84">
-        <lane id="283307506_0" index="0" speed="5.56" length="0.77" width="2.00" shape="1005.81,341.62 1005.81,340.84">
+        <lane id="283307506_0" index="0" allow="pedestrian bicycle" speed="5.56" length="0.77" width="2.00" shape="1005.81,341.62 1005.81,340.84">
             <param key="origId" value="283307506"/>
         </lane>
         <param key="origFrom" value="57343510"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="283317455" from="32266938" to="4167993265" name="Wegedornstraße" priority="10" type="highway.tertiary" shape="1471.71,286.56 1472.08,293.27">
-        <lane id="283317455_0" index="0" speed="13.89" length="0.52" shape="1473.31,286.58 1473.34,287.10">
+        <lane id="283317455_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.52" shape="1473.31,286.58 1473.34,287.10">
             <param key="origId" value="283317455"/>
         </lane>
         <param key="origTo" value="2335739502"/>
@@ -2820,13 +2820,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="292525973" from="2960840891" to="32266898" name="Teltowkanalbrücke" priority="14" type="highway.motorway" spreadType="center" shape="925.77,405.66 936.55,397.34 948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.28,277.33">
-        <lane id="292525973_0" index="0" speed="22.22" length="176.53" shape="926.95,400.72 934.62,394.79 946.97,385.76 966.85,370.88 993.37,345.19 1018.82,316.77 1048.53,275.68">
+        <lane id="292525973_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="176.53" shape="926.95,400.72 934.62,394.79 946.97,385.76 966.85,370.88 993.37,345.19 1018.82,316.77 1048.53,275.68">
             <param key="origId" value="292525973 22762378"/>
         </lane>
-        <lane id="292525973_1" index="1" speed="22.22" length="176.53" shape="928.90,403.25 936.55,397.34 948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.12,277.55">
+        <lane id="292525973_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="176.53" shape="928.90,403.25 936.55,397.34 948.87,388.33 968.93,373.32 995.68,347.41 1021.32,318.78 1051.12,277.55">
             <param key="origId" value="292525973 22762378"/>
         </lane>
-        <lane id="292525973_2" index="2" speed="22.22" length="176.53" shape="930.86,405.78 938.47,399.90 950.77,390.91 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
+        <lane id="292525973_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="176.53" shape="930.86,405.78 938.47,399.90 950.77,390.91 971.01,375.76 997.99,349.63 1023.82,320.79 1053.72,279.43">
             <param key="origId" value="292525973 22762378"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -2835,110 +2835,110 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="concrete asphalt"/>
     </edge>
     <edge id="292525975" from="1597984543" to="2960840891" priority="14" type="highway.motorway" spreadType="center" shape="819.06,460.69 880.91,432.71 915.29,413.06 925.77,405.66">
-        <lane id="292525975_0" index="0" speed="22.22" length="116.36" shape="817.08,456.32 878.73,428.43 912.71,409.00 919.78,404.02">
+        <lane id="292525975_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="116.36" shape="817.08,456.32 878.73,428.43 912.71,409.00 919.78,404.02">
             <param key="origId" value="292525975"/>
         </lane>
-        <lane id="292525975_1" index="1" speed="22.22" length="116.36" shape="818.40,459.24 880.18,431.28 914.43,411.70 921.62,406.64">
+        <lane id="292525975_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="116.36" shape="818.40,459.24 880.18,431.28 914.43,411.70 921.62,406.64">
             <param key="origId" value="292525975"/>
         </lane>
-        <lane id="292525975_2" index="2" speed="22.22" length="116.36" shape="819.72,462.15 881.64,434.14 916.15,414.41 923.46,409.25">
+        <lane id="292525975_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="116.36" shape="819.72,462.15 881.64,434.14 916.15,414.41 923.46,409.25">
             <param key="origId" value="292525975"/>
         </lane>
-        <lane id="292525975_3" index="3" speed="22.22" length="116.36" shape="821.04,465.07 883.10,436.99 917.87,417.11 925.31,411.87">
+        <lane id="292525975_3" index="3" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="116.36" shape="821.04,465.07 883.10,436.99 917.87,417.11 925.31,411.87">
             <param key="origId" value="292525975"/>
         </lane>
         <param key="ref" value="A 113"/>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="292525978" from="260479469" to="32266926" priority="14" type="highway.motorway" spreadType="center" shape="898.24,442.97 854.58,462.18 799.90,483.90 758.44,497.32 671.89,517.67 584.60,532.02">
-        <lane id="292525978_0" index="0" speed="22.22" length="326.75" shape="898.96,446.14 855.82,465.13 800.98,486.91 759.30,500.41 672.51,520.81 585.12,535.17">
+        <lane id="292525978_0" index="0" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="326.75" shape="898.96,446.14 855.82,465.13 800.98,486.91 759.30,500.41 672.51,520.81 585.12,535.17">
             <param key="origId" value="292525978"/>
         </lane>
-        <lane id="292525978_1" index="1" speed="22.22" length="326.75" shape="897.57,443.26 854.58,462.18 799.90,483.90 758.44,497.32 671.89,517.67 584.60,532.02">
+        <lane id="292525978_1" index="1" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="326.75" shape="897.57,443.26 854.58,462.18 799.90,483.90 758.44,497.32 671.89,517.67 584.60,532.02">
             <param key="origId" value="292525978"/>
         </lane>
-        <lane id="292525978_2" index="2" speed="22.22" length="326.75" shape="896.17,440.38 853.35,459.23 798.81,480.89 757.58,494.24 671.26,514.53 584.08,528.86">
+        <lane id="292525978_2" index="2" disallow="pedestrian moped bicycle tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="326.75" shape="896.17,440.38 853.35,459.23 798.81,480.89 757.58,494.24 671.26,514.53 584.08,528.86">
             <param key="origId" value="292525978"/>
         </lane>
         <param key="ref" value="A 113"/>
         <param key="surface" value="concrete"/>
     </edge>
     <edge id="318210395" from="3246050909" to="1568241305" name="Wegedornstraße" priority="10" type="highway.tertiary">
-        <lane id="318210395_0" index="0" speed="13.89" length="42.89" shape="1465.44,198.06 1468.77,240.82" changeLeft="authority">
+        <lane id="318210395_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="42.89" shape="1465.44,198.06 1468.77,240.82" changeLeft="authority">
             <param key="origId" value="318210395"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="concrete:plates"/>
     </edge>
     <edge id="319580807" from="1906766917" to="3260077364" priority="1" type="highway.path" shape="981.50,384.28 994.20,388.65 1006.66,397.98 1016.46,412.47">
-        <lane id="319580807_0" index="0" speed="5.56" length="28.28" width="2.00" shape="986.78,385.04 994.68,387.76 1007.39,397.28 1009.66,400.63">
+        <lane id="319580807_0" index="0" allow="pedestrian bicycle" speed="5.56" length="28.28" width="2.00" shape="986.78,385.04 994.68,387.76 1007.39,397.28 1009.66,400.63">
             <param key="origId" value="319580807"/>
         </lane>
     </edge>
     <edge id="334170244" from="3412579225" to="1568241285" name="Iselersteig" priority="3" type="highway.residential">
-        <lane id="334170244_0" index="0" speed="8.33" length="68.44" shape="1379.92,116.82 1386.56,184.94">
+        <lane id="334170244_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="68.44" shape="1379.92,116.82 1386.56,184.94">
             <param key="origId" value="334170244"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="412814181" from="2223009099" to="2223009465" priority="1" type="highway.service">
-        <lane id="412814181_0" index="0" speed="5.56" length="26.37" shape="963.85,264.61 990.09,261.98">
+        <lane id="412814181_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.37" shape="963.85,264.61 990.09,261.98">
             <param key="origId" value="412814181"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415693098" from="3246050909" to="4167993261" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415693098_0" index="0" speed="2.78" length="3.99" width="2.00" shape="1468.69,196.11 1472.35,197.68">
+        <lane id="415693098_0" index="0" allow="pedestrian" speed="2.78" length="3.99" width="2.00" shape="1468.69,196.11 1472.35,197.68">
             <param key="origId" value="415693098"/>
         </lane>
     </edge>
     <edge id="415852811" from="4167993263" to="4166809524" priority="1" type="highway.steps" spreadType="center">
-        <lane id="415852811_0" index="0" speed="1.39" length="3.54" width="2.00" shape="1479.28,200.60 1482.52,202.03">
+        <lane id="415852811_0" index="0" allow="pedestrian" speed="1.39" length="3.54" width="2.00" shape="1479.28,200.60 1482.52,202.03">
             <param key="origId" value="415852811"/>
         </lane>
     </edge>
     <edge id="415852812" from="4167993262" to="4167993263" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415852812_0" index="0" speed="2.78" length="1.19" width="2.00" shape="1478.17,200.17 1479.28,200.60">
+        <lane id="415852812_0" index="0" allow="pedestrian" speed="2.78" length="1.19" width="2.00" shape="1478.17,200.17 1479.28,200.60">
             <param key="origId" value="415852812"/>
         </lane>
     </edge>
     <edge id="415852813" from="4167993261" to="4167993262" priority="1" type="highway.steps" spreadType="center">
-        <lane id="415852813_0" index="0" speed="1.39" length="6.08" width="2.00" shape="1472.35,197.68 1477.94,200.08">
+        <lane id="415852813_0" index="0" allow="pedestrian" speed="1.39" length="6.08" width="2.00" shape="1472.35,197.68 1477.94,200.08">
             <param key="origId" value="415852813"/>
         </lane>
     </edge>
     <edge id="415852814" from="1292264851" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1588.41,325.04 1544.63,330.71 1539.05,334.82 1536.23,340.75 1546.34,427.02">
-        <lane id="415852814_0" index="0" speed="8.33" length="137.24" shape="1588.62,326.63 1545.25,332.24 1540.32,335.87 1537.87,341.02 1547.38,422.15">
+        <lane id="415852814_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="137.24" shape="1588.62,326.63 1545.25,332.24 1540.32,335.87 1537.87,341.02 1547.38,422.15">
             <param key="origId" value="-114024901"/>
         </lane>
     </edge>
     <edge id="415852815" from="1292264836" to="4167993264" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1496.26,433.14 1483.10,434.74">
-        <lane id="415852815_0" index="0" speed="8.33" length="54.24" shape="1541.88,429.18 1496.45,434.73 1488.04,435.75">
+        <lane id="415852815_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="54.24" shape="1541.88,429.18 1496.45,434.73 1488.04,435.75">
             <param key="origId" value="-114949101#0"/>
         </lane>
     </edge>
     <edge id="415852816" from="1292264842" to="1292264836" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1627.09,372.13 1590.54,415.45 1581.05,422.78 1546.34,427.02">
-        <lane id="415852816_0" index="0" speed="8.33" length="100.14" shape="1628.31,373.17 1591.66,416.61 1581.68,424.31 1551.21,428.04">
+        <lane id="415852816_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="100.14" shape="1628.31,373.17 1591.66,416.61 1581.68,424.31 1551.21,428.04">
             <param key="origId" value="-114949101#1"/>
         </lane>
     </edge>
     <edge id="415852817" from="1560223615" to="1560223591" name="Bendemannstraße" priority="4" type="highway.unclassified">
-        <lane id="415852817_0" index="0" speed="13.89" length="99.41" width="2.75" shape="1297.33,459.84 1198.27,451.59">
+        <lane id="415852817_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="99.41" width="2.75" shape="1297.33,459.84 1198.27,451.59">
             <param key="origId" value="-142575658#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852818" from="851572284" to="1560223615" name="Bendemannstraße" priority="4" type="highway.unclassified">
-        <lane id="415852818_0" index="0" speed="13.89" length="120.59" width="2.75" shape="1432.03,469.93 1311.77,460.98">
+        <lane id="415852818_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="120.59" width="2.75" shape="1432.03,469.93 1311.77,460.98">
             <param key="origId" value="-142575658#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852819" from="4167993267" to="851572284" name="Bendemannstraße" priority="4" type="highway.unclassified" shape="1486.72,472.28 1435.44,468.80">
-        <lane id="415852819_0" index="0" speed="13.89" length="39.99" width="2.75" shape="1478.95,473.13 1439.05,470.43">
+        <lane id="415852819_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.99" width="2.75" shape="1478.95,473.13 1439.05,470.43">
             <param key="origId" value="-142575658#2"/>
         </lane>
         <param key="origFrom" value="1560223635"/>
@@ -2946,49 +2946,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852820" from="607601623" to="1560223905" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852820_0" index="0" speed="13.89" length="48.37" shape="1234.47,624.84 1186.23,621.31">
+        <lane id="415852820_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.37" shape="1234.47,624.84 1186.23,621.31">
             <param key="origId" value="-142575673#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852821" from="1560223943" to="607601623" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.22,627.28 1239.30,623.59">
-        <lane id="415852821_0" index="0" speed="13.89" length="41.61" shape="1285.30,629.12 1284.00,628.86 1243.86,625.57">
+        <lane id="415852821_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="41.61" shape="1285.30,629.12 1284.00,628.86 1243.86,625.57">
             <param key="origId" value="-142575673#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852822" from="1560224080" to="1560224322" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1171.28,707.38 1170.59,716.60 1169.83,726.44 1169.02,736.81 1167.34,758.39 1161.76,842.53">
-        <lane id="415852822_0" index="0" speed="13.89" length="130.88" width="3.25" shape="1172.56,712.09 1172.21,716.72 1171.45,726.56 1170.64,736.94 1168.96,758.51 1163.39,842.64">
+        <lane id="415852822_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="130.88" width="3.25" shape="1172.56,712.09 1172.21,716.72 1171.45,726.56 1170.64,736.94 1168.96,758.51 1163.39,842.64">
             <param key="origId" value="-142575679#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852823" from="1560223905" to="1560224080" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1179.14,619.19 1176.70,646.27 1171.95,699.02 1171.28,707.38">
-        <lane id="415852823_0" index="0" speed="13.89" length="76.61" width="3.25" shape="1180.12,626.44 1178.32,646.42 1173.57,699.17 1173.28,702.74">
+        <lane id="415852823_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="76.61" width="3.25" shape="1180.12,626.44 1178.32,646.42 1173.57,699.17 1173.28,702.74">
             <param key="origId" value="-142575679#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852824" from="1599958752" to="1560223905" name="James-Franck-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852824_0" index="0" speed="13.89" length="0.30" width="3.25" shape="1181.26,612.14 1181.24,612.44">
+        <lane id="415852824_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" width="3.25" shape="1181.26,612.14 1181.24,612.44">
             <param key="origId" value="-142575679#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852825" from="1560223834" to="1599958752" name="James-Franck-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852825_0" index="0" speed="13.89" length="23.16" width="3.25" shape="1183.17,584.33 1181.59,607.44">
+        <lane id="415852825_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.16" width="3.25" shape="1183.17,584.33 1181.59,607.44">
             <param key="origId" value="-142575679#3"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852826" from="4167993268" to="1560223834" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1184.73,534.91 1184.05,544.98 1181.86,579.55">
-        <lane id="415852826_0" index="0" speed="13.89" length="32.86" width="3.25" shape="1185.87,542.14 1185.68,545.09 1183.79,574.93">
+        <lane id="415852826_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.86" width="3.25" shape="1185.87,542.14 1185.68,545.09 1183.79,574.93">
             <param key="origId" value="-142575679#4"/>
         </lane>
         <param key="origFrom" value="1560223744"/>
@@ -2996,28 +2996,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852827" from="2007005081" to="1560223484" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852827_0" index="0" speed="13.89" length="75.80" width="3.25" shape="1191.22,419.47 1197.16,343.91">
+        <lane id="415852827_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="75.80" width="3.25" shape="1191.22,419.47 1197.16,343.91">
             <param key="origId" value="-142575699#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852828" from="1560223591" to="2007005081" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852828_0" index="0" speed="13.89" length="14.10" width="3.25" shape="1189.87,442.89 1190.61,428.81">
+        <lane id="415852828_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.10" width="3.25" shape="1189.87,442.89 1190.61,428.81">
             <param key="origId" value="-142575699#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852829" from="2007005091" to="1560223591" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852829_0" index="0" speed="13.89" length="18.02" width="3.25" shape="1187.51,474.17 1188.98,456.21">
+        <lane id="415852829_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="18.02" width="3.25" shape="1187.51,474.17 1188.98,456.21">
             <param key="origId" value="-142575699#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852830" from="4167993268" to="2007005091" name="North-Willys-Straße" priority="3" type="highway.residential" shape="1185.43,525.48 1186.20,515.33 1188.75,478.99">
-        <lane id="415852830_0" index="0" speed="13.89" length="34.83" width="3.25" shape="1184.35,518.27 1184.58,515.21 1186.80,483.52">
+        <lane id="415852830_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="34.83" width="3.25" shape="1184.35,518.27 1184.58,515.21 1186.80,483.52">
             <param key="origId" value="-142575699#3"/>
         </lane>
         <param key="origFrom" value="1560223721"/>
@@ -3025,39 +3025,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852831" from="1599958758" to="1560224080" priority="1" type="highway.service">
-        <lane id="415852831_0" index="0" speed="5.56" length="5.84" shape="1160.83,704.66 1166.64,705.28">
+        <lane id="415852831_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="5.84" shape="1160.83,704.66 1166.64,705.28">
             <param key="origId" value="-142575720#0"/>
         </lane>
     </edge>
     <edge id="415852832" from="1560223809" to="1599958758" priority="1" type="highway.service" shape="1037.84,568.77 1033.22,640.95 1029.35,695.50 1156.04,705.76">
-        <lane id="415852832_0" index="0" speed="5.56" length="241.56" shape="1039.13,573.60 1034.82,641.06 1031.06,694.03 1151.51,703.79">
+        <lane id="415852832_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="241.56" shape="1039.13,573.60 1034.82,641.06 1031.06,694.03 1151.51,703.79">
             <param key="origId" value="-142575720#1"/>
         </lane>
     </edge>
     <edge id="415852833" from="1599958746" to="1560223834" priority="1" type="highway.service">
-        <lane id="415852833_0" index="0" speed="5.56" length="5.11" shape="1172.12,577.22 1177.21,577.60">
+        <lane id="415852833_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="5.11" shape="1172.12,577.22 1177.21,577.60">
             <param key="origId" value="-142575725#0"/>
         </lane>
     </edge>
     <edge id="415852834" from="1560223809" to="1599958746" priority="1" type="highway.service">
-        <lane id="415852834_0" index="0" speed="5.56" length="120.40" shape="1042.68,567.53 1162.75,576.52">
+        <lane id="415852834_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="120.40" shape="1042.68,567.53 1162.75,576.52">
             <param key="origId" value="-142575725#1"/>
         </lane>
     </edge>
     <edge id="415852835" from="1560223789" to="1560223809" priority="1" type="highway.service">
-        <lane id="415852835_0" index="0" speed="5.56" length="38.32" shape="995.64,561.44 1033.61,566.58">
+        <lane id="415852835_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="38.32" shape="995.64,561.44 1033.61,566.58">
             <param key="origId" value="-142575725#2"/>
         </lane>
     </edge>
     <edge id="415852836" from="1560223943" to="664166095" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1284.53,749.09 1282.46,767.46 1276.93,835.11">
-        <lane id="415852836_0" index="0" speed="13.89" length="199.93" width="3.25" shape="1294.27,635.94 1286.15,749.23 1284.08,767.62 1278.55,835.24">
+        <lane id="415852836_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="199.93" width="3.25" shape="1294.27,635.94 1286.15,749.23 1284.08,767.62 1278.55,835.24">
             <param key="origId" value="-143308562#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852837" from="4167993269" to="1560223943" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1299.13,543.02 1293.14,629.02">
-        <lane id="415852837_0" index="0" speed="13.89" length="71.51" width="3.25" shape="1300.26,550.18 1295.29,621.52">
+        <lane id="415852837_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.51" width="3.25" shape="1300.26,550.18 1295.29,621.52">
             <param key="origId" value="-143308562#1"/>
         </lane>
         <param key="origFrom" value="671564302"/>
@@ -3065,7 +3065,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852838" from="1560223615" to="4167993269" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1304.62,459.07 1299.78,533.73">
-        <lane id="415852838_0" index="0" speed="13.89" length="60.97" width="3.25" shape="1305.80,465.94 1301.86,526.78">
+        <lane id="415852838_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.97" width="3.25" shape="1305.80,465.94 1301.86,526.78">
             <param key="origId" value="-143308562#3"/>
         </lane>
         <param key="origTo" value="1560223745"/>
@@ -3073,70 +3073,70 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852839" from="1568241285" to="1568241281" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852839_0" index="0" speed="8.33" length="50.95" shape="1392.68,189.95 1443.37,184.76">
+        <lane id="415852839_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="50.95" shape="1392.68,189.95 1443.37,184.76">
             <param key="origId" value="-143308601#0"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852840" from="1568241303" to="1568241285" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852840_0" index="0" speed="8.33" length="93.78" shape="1285.07,201.04 1378.36,191.42">
+        <lane id="415852840_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="93.78" shape="1285.07,201.04 1378.36,191.42">
             <param key="origId" value="-143308601#1"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852841" from="260702833" to="1568241303" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852841_0" index="0" speed="8.33" length="22.59" shape="1248.48,205.97 1270.85,202.78">
+        <lane id="415852841_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="22.59" shape="1248.48,205.97 1270.85,202.78">
             <param key="origId" value="-143308601#2"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852842" from="1568241289" to="1568241232" priority="1" type="highway.service" shape="1545.83,194.90 1533.71,134.49 1529.08,111.45 1526.88,100.56 1521.10,87.14">
-        <lane id="415852842_0" index="0" speed="2.78" length="105.53" shape="1543.29,190.35 1532.14,134.80 1527.51,111.77 1525.34,101.04 1519.63,87.78">
+        <lane id="415852842_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="105.53" shape="1543.29,190.35 1532.14,134.80 1527.51,111.77 1525.34,101.04 1519.63,87.78">
             <param key="origId" value="-143308673#0"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852843" from="1653119660" to="1568241289" priority="1" type="highway.service" shape="1576.24,169.82 1578.79,192.07 1545.83,194.90">
-        <lane id="415852843_0" index="0" speed="2.78" length="54.41" shape="1577.83,169.64 1580.56,193.53 1550.31,196.13">
+        <lane id="415852843_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="54.41" shape="1577.83,169.64 1580.56,193.53 1550.31,196.13">
             <param key="origId" value="-143308673#1"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852844" from="1599958749" to="1599958758" priority="1" type="highway.service" shape="1164.86,608.75 1161.86,642.06 1156.04,705.76">
-        <lane id="415852844_0" index="0" speed="5.56" length="90.28" shape="1166.23,611.35 1163.45,642.21 1158.05,701.26">
+        <lane id="415852844_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="90.28" shape="1166.23,611.35 1163.45,642.21 1158.05,701.26">
             <param key="origId" value="-146738852#0"/>
         </lane>
     </edge>
     <edge id="415852845" from="1599958746" to="1599958749" priority="1" type="highway.service">
-        <lane id="415852845_0" index="0" speed="5.56" length="23.10" shape="1168.54,583.31 1166.66,606.33">
+        <lane id="415852845_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="23.10" shape="1168.54,583.31 1166.66,606.33">
             <param key="origId" value="-146738852#1"/>
         </lane>
     </edge>
     <edge id="415852846" from="1560223484" to="1906766898" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary">
-        <lane id="415852846_0" index="0" speed="13.89" length="84.82" shape="1191.73,338.54 1107.23,345.86">
+        <lane id="415852846_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.82" shape="1191.73,338.54 1107.23,345.86">
             <param key="origId" value="-190083610#0"/>
         </lane>
-        <lane id="415852846_1" index="1" speed="13.89" length="84.82" shape="1191.45,335.36 1106.95,342.67">
+        <lane id="415852846_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.82" shape="1191.45,335.36 1106.95,342.67">
             <param key="origId" value="-190083610#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852847" from="1560223468" to="1560223484" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="1387.92,311.95 1354.23,315.44 1199.64,333.04">
-        <lane id="415852847_0" index="0" speed="13.89" length="179.23" shape="1384.31,317.15 1354.75,320.21 1206.22,337.12">
+        <lane id="415852847_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.23" shape="1384.31,317.15 1354.75,320.21 1206.22,337.12">
             <param key="origId" value="-190083610#1"/>
         </lane>
-        <lane id="415852847_1" index="1" speed="13.89" length="179.23" shape="1383.98,313.97 1354.40,317.03 1205.85,333.95">
+        <lane id="415852847_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.23" shape="1383.98,313.97 1354.40,317.03 1205.85,333.95">
             <param key="origId" value="-190083610#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852848" from="4167993265" to="59992997" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1473.33,313.48 1473.93,324.19 1474.08,329.29 1477.43,375.85">
-        <lane id="415852848_0" index="0" speed="13.89" length="50.03" shape="1475.40,321.84 1475.52,324.12 1475.68,329.20 1478.74,371.76" changeLeft="authority">
+        <lane id="415852848_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.03" shape="1475.40,321.84 1475.52,324.12 1475.68,329.20 1478.74,371.76" changeLeft="authority">
             <param key="origId" value="-190083618#2"/>
         </lane>
         <param key="origFrom" value="3273797701"/>
@@ -3144,39 +3144,39 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852849" from="2007005089" to="2007005087" priority="1" type="highway.service">
-        <lane id="415852849_0" index="0" speed="5.56" length="15.55" shape="1031.64,467.66 1016.10,467.09">
+        <lane id="415852849_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="15.55" shape="1031.64,467.66 1016.10,467.09">
             <param key="origId" value="-190083623#0"/>
         </lane>
     </edge>
     <edge id="415852850" from="2627346865" to="2007005089" priority="1" type="highway.service">
-        <lane id="415852850_0" index="0" speed="5.56" length="63.60" shape="1104.47,473.56 1041.09,468.24">
+        <lane id="415852850_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="63.60" shape="1104.47,473.56 1041.09,468.24">
             <param key="origId" value="-190083623#1"/>
         </lane>
     </edge>
     <edge id="415852851" from="2007005091" to="2627346865" priority="1" type="highway.service">
-        <lane id="415852851_0" index="0" speed="5.56" length="70.27" shape="1183.87,480.19 1113.84,474.34">
+        <lane id="415852851_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="70.27" shape="1183.87,480.19 1113.84,474.34">
             <param key="origId" value="-190083623#2"/>
         </lane>
     </edge>
     <edge id="415852852" from="2340420373" to="2007005083" priority="1" type="highway.service">
-        <lane id="415852852_0" index="0" speed="5.56" length="25.67" shape="1045.47,433.69 1019.84,432.13">
+        <lane id="415852852_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="25.67" shape="1045.47,433.69 1019.84,432.13">
             <param key="origId" value="-190083625#0"/>
         </lane>
     </edge>
     <edge id="415852853" from="2007005081" to="2340420373" priority="1" type="highway.service" shape="1192.47,424.26 1126.42,419.57 1127.96,402.10 1078.67,399.56 1077.82,434.42 1050.25,432.38">
-        <lane id="415852853_0" index="0" speed="5.56" length="186.24" shape="1187.64,425.52 1124.68,421.05 1126.22,403.62 1080.23,401.24 1079.38,436.14 1054.79,434.32">
+        <lane id="415852853_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="186.24" shape="1187.64,425.52 1124.68,421.05 1126.22,403.62 1080.23,401.24 1079.38,436.14 1054.79,434.32">
             <param key="origId" value="-190083625#1"/>
         </lane>
     </edge>
     <edge id="415852854" from="2007005087" to="2165987550" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852854_0" index="0" speed="13.89" length="0.20" width="3.50" shape="1006.17,460.64 1006.21,460.44" changeLeft="authority">
+        <lane id="415852854_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" width="3.50" shape="1006.17,460.64 1006.21,460.44" changeLeft="authority">
             <param key="origId" value="-206579062#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852855" from="4167993273" to="2007005087" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="997.39,513.05 999.93,501.36 1007.13,465.15">
-        <lane id="415852855_0" index="0" speed="13.89" length="36.80" width="3.50" shape="997.47,504.44 998.21,501.00 1004.71,468.36" changeLeft="authority">
+        <lane id="415852855_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.80" width="3.50" shape="997.47,504.44 998.21,501.00 1004.71,468.36" changeLeft="authority">
             <param key="origId" value="-206579062#2"/>
         </lane>
         <param key="origFrom" value="492462300"/>
@@ -3184,24 +3184,24 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852856" from="1560223789" to="2165987556" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852856_0" index="0" speed="13.89" length="21.89" width="3.50" shape="991.20,567.06 986.62,588.47">
+        <lane id="415852856_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.89" width="3.50" shape="991.20,567.06 986.62,588.47">
             <param key="origId" value="-206579063#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852857" from="3246050915" to="1560223789" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852857_0" index="0" speed="13.89" length="0.23" width="3.50" shape="992.90,557.69 992.86,557.91">
+        <lane id="415852857_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.23" width="3.50" shape="992.90,557.69 992.86,557.91">
             <param key="origId" value="-206579063#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852858" from="3260077364" to="4167993266" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1016.46,412.47 1024.12,369.30 1024.18,366.64 1024.90,357.81">
-        <lane id="415852858_0" index="0" speed="13.89" length="36.85" width="3.50" shape="1013.31,400.14 1018.88,368.78 1018.93,366.37 1019.13,363.95">
+        <lane id="415852858_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.85" width="3.50" shape="1013.31,400.14 1018.88,368.78 1018.93,366.37 1019.13,363.95">
             <param key="origId" value="-206579064#1"/>
         </lane>
-        <lane id="415852858_1" index="1" speed="13.89" length="36.85" width="3.50" shape="1016.76,400.75 1022.37,369.13 1022.43,366.55 1022.62,364.24" changeLeft="authority">
+        <lane id="415852858_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.85" width="3.50" shape="1016.76,400.75 1022.37,369.13 1022.43,366.55 1022.62,364.24" changeLeft="authority">
             <param key="origId" value="-206579064#1"/>
         </lane>
         <param key="origTo" value="1906766907"/>
@@ -3209,62 +3209,62 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852859" from="2007005083" to="3260077364" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852859_0" index="0" speed="13.89" length="15.83" width="3.50" shape="1009.20,424.29 1011.76,408.67">
+        <lane id="415852859_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.83" width="3.50" shape="1009.20,424.29 1011.76,408.67">
             <param key="origId" value="-206579064#2"/>
         </lane>
-        <lane id="415852859_1" index="1" speed="13.89" length="15.83" width="3.50" shape="1012.65,424.86 1015.22,409.24" changeLeft="authority">
+        <lane id="415852859_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.83" width="3.50" shape="1012.65,424.86 1015.22,409.24" changeLeft="authority">
             <param key="origId" value="-206579064#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852860" from="2223009099" to="2223009101" priority="1" type="highway.service" shape="959.57,266.64 908.35,271.78 899.47,217.62">
-        <lane id="415852860_0" index="0" speed="5.56" length="104.41" shape="954.80,268.73 907.01,273.52 897.89,217.87">
+        <lane id="415852860_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="104.41" shape="954.80,268.73 907.01,273.52 897.89,217.87">
             <param key="origId" value="-212453791#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852861" from="4167993271" to="2223009099" priority="1" type="highway.service" shape="980.84,191.60 976.67,192.36 947.23,197.71 959.57,266.64">
-        <lane id="415852861_0" index="0" speed="5.56" length="91.41" shape="976.56,194.00 949.09,199.00 960.27,261.48">
+        <lane id="415852861_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="91.41" shape="976.56,194.00 949.09,199.00 960.27,261.48">
             <param key="origId" value="-212453791#1"/>
         </lane>
         <param key="origFrom" value="2223009466"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852862" from="2223041260" to="4167993271" priority="1" type="highway.service" shape="979.11,154.43 985.38,190.78">
-        <lane id="415852862_0" index="0" speed="5.56" length="26.02" shape="981.73,160.20 986.15,185.84">
+        <lane id="415852862_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.02" shape="981.73,160.20 986.15,185.84">
             <param key="origId" value="-212453791#3"/>
         </lane>
         <param key="origTo" value="2223009095"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852863" from="2223007259" to="2223041260" priority="1" type="highway.service" shape="954.19,133.18 964.98,137.65 975.87,135.25 979.11,154.43">
-        <lane id="415852863_0" index="0" speed="5.56" length="40.92" shape="954.80,131.70 965.12,135.98 977.17,133.32 980.07,150.49">
+        <lane id="415852863_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="40.92" shape="954.80,131.70 965.12,135.98 977.17,133.32 980.07,150.49">
             <param key="origId" value="-212453791#4"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852864" from="2223042915" to="2223041260" priority="1" type="highway.service" shape="996.76,188.71 991.28,156.77 979.11,154.43">
-        <lane id="415852864_0" index="0" speed="5.56" length="31.78" shape="994.39,184.38 989.89,158.13 984.82,157.16">
+        <lane id="415852864_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="31.78" shape="994.39,184.38 989.89,158.13 984.82,157.16">
             <param key="origId" value="-212453974#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852865" from="2223009465" to="2223042915" priority="1" type="highway.service" shape="995.26,263.07 1011.17,261.48 996.76,188.71">
-        <lane id="415852865_0" index="0" speed="5.56" length="77.61" shape="999.47,261.04 1009.26,260.06 996.09,193.58">
+        <lane id="415852865_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="77.61" shape="999.47,261.04 1009.26,260.06 996.09,193.58">
             <param key="origId" value="-212453974#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852866" from="4167993271" to="2223009465" priority="1" type="highway.service" shape="980.84,191.60 995.26,263.07">
-        <lane id="415852866_0" index="0" speed="5.56" length="63.12" shape="983.35,195.95 995.83,257.82">
+        <lane id="415852866_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="63.12" shape="983.35,195.95 995.83,257.82">
             <param key="origId" value="-212453974#2"/>
         </lane>
         <param key="origFrom" value="2223009466"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852867" from="4167993264" to="4167993267" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1483.10,434.74 1486.00,464.73 1486.72,472.28">
-        <lane id="415852867_0" index="0" speed="13.89" length="25.77" shape="1485.14,439.19 1487.59,464.58 1487.62,464.84">
+        <lane id="415852867_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="25.77" shape="1485.14,439.19 1487.59,464.58 1487.62,464.84">
             <param key="origId" value="-24214694#2"/>
         </lane>
         <param key="origTo" value="1560223635"/>
@@ -3272,21 +3272,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852868" from="59992997" to="4167993264" name="Wegedornstraße" priority="11" type="highway.secondary">
-        <lane id="415852868_0" index="0" speed="13.89" length="50.43" shape="1479.40,379.63 1484.24,429.83">
+        <lane id="415852868_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.43" shape="1479.40,379.63 1484.24,429.83">
             <param key="origId" value="-24214694#3"/>
         </lane>
         <param key="postal_code" value="12489;12345"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852869" from="4167993266" to="1906766897" priority="1" type="highway.path" shape="1040.17,346.45 1039.14,333.68">
-        <lane id="415852869_0" index="0" speed="5.56" length="3.33" width="2.25" shape="1038.64,341.49 1038.37,338.17">
+        <lane id="415852869_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.33" width="2.25" shape="1038.64,341.49 1038.37,338.17">
             <param key="origId" value="-245105008#0"/>
         </lane>
         <param key="origFrom" value="493585714"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852870" from="1906766917" to="2235207711" priority="1" type="highway.path" shape="981.50,384.28 978.42,386.62 927.62,383.90 886.89,411.16 889.53,414.70 930.91,387.00 951.38,371.27 968.91,355.08 984.39,340.40 999.20,324.02 1024.33,293.49 1034.82,279.38 1049.06,257.12 1058.20,239.76 1062.41,228.85">
-        <lane id="415852870_0" index="0" speed="5.56" length="356.66" width="2.00" shape="980.06,386.63 978.74,387.63 927.90,384.91 888.32,411.40 889.77,413.34 930.32,386.19 950.74,370.50 968.22,354.35 983.68,339.70 998.44,323.37 1023.54,292.87 1033.99,278.81 1048.20,256.62 1057.29,239.34 1060.71,230.48">
+        <lane id="415852870_0" index="0" allow="pedestrian bicycle" speed="5.56" length="356.66" width="2.00" shape="980.06,386.63 978.74,387.63 927.90,384.91 888.32,411.40 889.77,413.34 930.32,386.19 950.74,370.50 968.22,354.35 983.68,339.70 998.44,323.37 1023.54,292.87 1033.99,278.81 1048.20,256.62 1057.29,239.34 1060.71,230.48">
             <param key="origId" value="-245105014#0"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -3294,69 +3294,69 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852871" from="4167993266" to="1906766917" priority="1" type="highway.path" shape="1006.26,359.80 998.23,371.56 981.50,384.28">
-        <lane id="415852871_0" index="0" speed="5.56" length="22.98" width="2.00" shape="1002.94,366.44 998.97,372.25 986.28,381.90">
+        <lane id="415852871_0" index="0" allow="pedestrian bicycle" speed="5.56" length="22.98" width="2.00" shape="1002.94,366.44 998.97,372.25 986.28,381.90">
             <param key="origId" value="-245105014#1"/>
         </lane>
         <param key="origFrom" value="1906766908"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852872" from="1935182227" to="1645798498" priority="1" type="highway.path">
-        <lane id="415852872_0" index="0" speed="5.56" length="3.56" width="2.00" shape="1105.21,3.65 1104.80,0.12">
+        <lane id="415852872_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.56" width="2.00" shape="1105.21,3.65 1104.80,0.12">
             <param key="origId" value="-25944450#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852873" from="2235207711" to="1935182227" priority="1" type="highway.path" shape="1062.41,228.85 1074.97,196.38 1091.12,136.63 1102.87,60.87 1108.04,22.56 1107.06,10.82 1106.50,6.07">
-        <lane id="415852873_0" index="0" speed="5.56" length="219.89" width="2.00" shape="1062.53,225.78 1074.01,196.07 1090.14,136.42 1101.88,60.72 1107.04,22.54 1106.11,11.46">
+        <lane id="415852873_0" index="0" allow="pedestrian bicycle" speed="5.56" length="219.89" width="2.00" shape="1062.53,225.78 1074.01,196.07 1090.14,136.42 1101.88,60.72 1107.04,22.54 1106.11,11.46">
             <param key="origId" value="-25944450#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852874" from="4167993272" to="283018514" priority="1" type="highway.service" shape="1503.16,189.11 1495.66,119.94">
-        <lane id="415852874_0" index="0" speed="5.56" length="61.21" shape="1501.05,184.48 1494.45,123.63">
+        <lane id="415852874_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="61.21" shape="1501.05,184.48 1494.45,123.63">
             <param key="origId" value="-25951597#0"/>
         </lane>
         <param key="origFrom" value="283018648"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852875" from="283018514" to="4167993272" priority="1" type="highway.service" shape="1495.66,119.94 1480.44,123.13 1491.02,190.30 1497.25,189.62">
-        <lane id="415852875_0" index="0" speed="5.56" length="76.37" shape="1492.54,122.23 1482.26,124.39 1492.37,188.54 1493.28,188.44">
+        <lane id="415852875_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="76.37" shape="1492.54,122.23 1482.26,124.39 1492.37,188.54 1493.28,188.44">
             <param key="origId" value="-25951597#2"/>
         </lane>
         <param key="origTo" value="4057899371"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852876" from="294168710" to="56231597" priority="1" type="highway.service" shape="1585.09,519.54 1625.43,556.04 1631.62,561.64">
-        <lane id="415852876_0" index="0" speed="5.56" length="59.56" shape="1588.54,520.50 1626.50,554.85 1632.70,560.46">
+        <lane id="415852876_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="59.56" shape="1588.54,520.50 1626.50,554.85 1632.70,560.46">
             <param key="origId" value="-26816413#0"/>
         </lane>
     </edge>
     <edge id="415852877" from="294168098" to="294168710" priority="1" type="highway.service">
-        <lane id="415852877_0" index="0" speed="5.56" length="24.45" shape="1565.56,500.14 1583.87,516.33">
+        <lane id="415852877_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="24.45" shape="1565.56,500.14 1583.87,516.33">
             <param key="origId" value="-26816413#1"/>
         </lane>
     </edge>
     <edge id="415852878" from="1302814166" to="294168098" priority="1" type="highway.service">
-        <lane id="415852878_0" index="0" speed="5.56" length="1.15" shape="1559.69,494.34 1560.49,495.15">
+        <lane id="415852878_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="1.15" shape="1559.69,494.34 1560.49,495.15">
             <param key="origId" value="-26816590#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852879" from="294169339" to="1302814166" priority="1" type="highway.service" shape="1538.29,482.95 1546.74,486.10 1554.04,490.89">
-        <lane id="415852879_0" index="0" speed="5.56" length="11.65" shape="1542.04,482.64 1547.47,484.66 1552.36,487.87">
+        <lane id="415852879_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="11.65" shape="1542.04,482.64 1547.47,484.66 1552.36,487.87">
             <param key="origId" value="-26816590#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852880" from="4167993267" to="294169339" priority="1" type="highway.service" shape="1488.28,488.34 1538.29,482.95">
-        <lane id="415852880_0" index="0" speed="5.56" length="40.76" shape="1492.81,486.25 1533.33,481.88">
+        <lane id="415852880_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="40.76" shape="1492.81,486.25 1533.33,481.88">
             <param key="origId" value="-26816590#2"/>
         </lane>
         <param key="origFrom" value="294169342"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852881" from="4167993273" to="3246050915" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="995.08,526.59 992.89,546.76 991.19,557.28">
-        <lane id="415852881_0" index="0" speed="13.89" length="21.63" width="3.50" shape="995.82,536.00 994.63,546.99 992.94,557.43" changeLeft="authority">
+        <lane id="415852881_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.63" width="3.50" shape="995.82,536.00 994.63,546.99 992.94,557.43" changeLeft="authority">
             <param key="origId" value="-318210380#1"/>
         </lane>
         <param key="origFrom" value="671564296"/>
@@ -3364,93 +3364,93 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852882" from="4057899374" to="1568241289" priority="1" type="highway.service">
-        <lane id="415852882_0" index="0" speed="2.78" length="37.93" shape="1503.04,198.35 1540.71,193.90">
+        <lane id="415852882_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="37.93" shape="1503.04,198.35 1540.71,193.90">
             <param key="origId" value="-403442277#0"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852883" from="4167993272" to="4057899374" priority="1" type="highway.service" shape="1497.25,189.62 1498.58,200.48">
-        <lane id="415852883_0" index="0" speed="2.78" length="1.58" shape="1499.40,194.07 1499.60,195.64">
+        <lane id="415852883_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="1.58" shape="1499.40,194.07 1499.60,195.64">
             <param key="origId" value="-403442277#1"/>
         </lane>
         <param key="origFrom" value="4057899371"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852884" from="737286282" to="385208394" priority="1" type="highway.path" shape="1181.17,171.24 1163.70,116.37 1159.48,112.01">
-        <lane id="415852884_0" index="0" speed="5.56" length="59.70" width="2.00" shape="1179.16,168.22 1162.82,116.90 1158.76,112.70">
+        <lane id="415852884_0" index="0" allow="pedestrian bicycle" speed="5.56" length="59.70" width="2.00" shape="1179.16,168.22 1162.82,116.90 1158.76,112.70">
             <param key="origId" value="-59461375#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852885" from="737286286" to="737286282" priority="1" type="highway.path">
-        <lane id="415852885_0" index="0" speed="5.56" length="10.81" width="2.00" shape="1195.18,167.94 1184.85,171.14">
+        <lane id="415852885_0" index="0" allow="pedestrian bicycle" speed="5.56" length="10.81" width="2.00" shape="1195.18,167.94 1184.85,171.14">
             <param key="origId" value="-59461375#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852886" from="260702781" to="737286286" priority="1" type="highway.path">
-        <lane id="415852886_0" index="0" speed="5.56" length="35.82" width="2.00" shape="1235.86,154.63 1201.83,165.81">
+        <lane id="415852886_0" index="0" allow="pedestrian bicycle" speed="5.56" length="35.82" width="2.00" shape="1235.86,154.63 1201.83,165.81">
             <param key="origId" value="-59461375#2"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852887" from="851572317" to="851572740" priority="1" type="highway.path" shape="1462.20,462.13 1466.50,463.92 1472.41,464.90">
-        <lane id="415852887_0" index="0" speed="5.56" length="8.27" width="2.00" shape="1464.56,462.03 1466.77,462.95 1472.57,463.91">
+        <lane id="415852887_0" index="0" allow="pedestrian bicycle" speed="5.56" length="8.27" width="2.00" shape="1464.56,462.03 1466.77,462.95 1472.57,463.91">
             <param key="origId" value="-71596029#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852888" from="851572523" to="851572317" priority="1" type="highway.path" shape="1436.27,457.75 1444.66,457.63 1456.72,460.55 1462.20,462.13">
-        <lane id="415852888_0" index="0" speed="5.56" length="16.68" width="2.00" shape="1439.72,456.70 1444.78,456.63 1456.07,459.36">
+        <lane id="415852888_0" index="0" allow="pedestrian bicycle" speed="5.56" length="16.68" width="2.00" shape="1439.72,456.70 1444.78,456.63 1456.07,459.36">
             <param key="origId" value="-71596029#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852889" from="1560223575" to="851572523" priority="1" type="highway.path" shape="1458.47,424.02 1432.75,421.24 1430.20,421.84 1428.87,423.75 1427.72,427.75 1427.66,432.23 1427.62,437.67 1429.49,442.06 1430.13,445.57 1429.64,449.44 1430.13,453.10 1432.22,455.75 1436.27,457.75">
-        <lane id="415852889_0" index="0" speed="5.56" length="58.92" width="2.00" shape="1454.20,424.56 1432.81,422.25 1430.80,422.73 1429.78,424.19 1428.72,427.89 1428.66,432.24 1428.62,437.47 1430.46,441.78 1431.14,445.54 1430.65,449.44 1431.08,452.70 1432.86,454.95 1434.24,455.63">
+        <lane id="415852889_0" index="0" allow="pedestrian bicycle" speed="5.56" length="58.92" width="2.00" shape="1454.20,424.56 1432.81,422.25 1430.80,422.73 1429.78,424.19 1428.72,427.89 1428.66,432.24 1428.62,437.47 1430.46,441.78 1431.14,445.54 1430.65,449.44 1431.08,452.70 1432.86,454.95 1434.24,455.63">
             <param key="origId" value="-71596029#2"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852890" from="1560223576" to="1560223575" priority="1" type="highway.path">
-        <lane id="415852890_0" index="0" speed="5.56" length="6.76" width="2.00" shape="1468.05,424.97 1461.29,425.00">
+        <lane id="415852890_0" index="0" allow="pedestrian bicycle" speed="5.56" length="6.76" width="2.00" shape="1468.05,424.97 1461.29,425.00">
             <param key="origId" value="-71596029#3"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852891" from="855357265" to="737286282" priority="1" type="highway.path" shape="1222.91,240.56 1170.48,257.46 1178.98,243.06 1183.68,232.58 1186.09,213.82 1186.75,194.73 1185.35,183.69 1181.17,171.24">
-        <lane id="415852891_0" index="0" speed="5.56" length="142.94" width="2.00" shape="1219.87,242.59 1168.28,259.22 1178.09,242.60 1182.71,232.31 1185.10,213.74 1185.75,194.78 1184.37,183.91 1181.35,174.92">
+        <lane id="415852891_0" index="0" allow="pedestrian bicycle" speed="5.56" length="142.94" width="2.00" shape="1219.87,242.59 1168.28,259.22 1178.09,242.60 1182.71,232.31 1185.10,213.74 1185.75,194.78 1184.37,183.91 1181.35,174.92">
             <param key="origId" value="-71960638#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852892" from="737286286" to="855357265" priority="1" type="highway.path">
-        <lane id="415852892_0" index="0" speed="5.56" length="71.57" width="2.00" shape="1200.24,168.97 1222.76,236.91">
+        <lane id="415852892_0" index="0" allow="pedestrian bicycle" speed="5.56" length="71.57" width="2.00" shape="1200.24,168.97 1222.76,236.91">
             <param key="origId" value="-71960638#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852893" from="1292264836" to="1292264842" name="Albert-Einstein-Straße" priority="1" type="highway.service" shape="1546.34,427.02 1581.05,422.78 1590.54,415.45 1627.09,372.13">
-        <lane id="415852893_0" index="0" speed="8.33" length="97.70" shape="1550.82,424.86 1580.42,421.24 1589.43,414.29 1625.86,371.10">
+        <lane id="415852893_0" index="0" allow="pedestrian delivery bicycle" speed="8.33" length="97.70" shape="1550.82,424.86 1580.42,421.24 1589.43,414.29 1625.86,371.10">
             <param key="origId" value="114949101#1"/>
         </lane>
     </edge>
     <edge id="415852894" from="1560223591" to="1560223615" name="Bendemannstraße" priority="4" type="highway.unclassified">
-        <lane id="415852894_0" index="0" speed="13.89" length="99.41" width="2.75" shape="1198.49,448.84 1297.56,457.10">
+        <lane id="415852894_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="99.41" width="2.75" shape="1198.49,448.84 1297.56,457.10">
             <param key="origId" value="142575658#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852895" from="1560223615" to="851572284" name="Bendemannstraße" priority="4" type="highway.unclassified">
-        <lane id="415852895_0" index="0" speed="13.89" length="120.59" width="2.75" shape="1311.98,458.24 1432.24,467.19">
+        <lane id="415852895_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="120.59" width="2.75" shape="1311.98,458.24 1432.24,467.19">
             <param key="origId" value="142575658#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852896" from="851572284" to="4167993267" name="Bendemannstraße" priority="4" type="highway.unclassified" shape="1435.44,468.80 1486.72,472.28">
-        <lane id="415852896_0" index="0" speed="13.89" length="39.99" width="2.75" shape="1439.24,467.68 1479.14,470.38">
+        <lane id="415852896_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.99" width="2.75" shape="1439.24,467.68 1479.14,470.38">
             <param key="origId" value="142575658#2"/>
         </lane>
         <param key="origTo" value="1560223635"/>
@@ -3458,49 +3458,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852897" from="1560223905" to="607601623" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852897_0" index="0" speed="13.89" length="48.37" shape="1186.47,618.12 1234.70,621.65">
+        <lane id="415852897_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="48.37" shape="1186.47,618.12 1234.70,621.65">
             <param key="origId" value="142575673#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852898" from="607601623" to="1560223943" name="Friedrich-Wöhler-Straße" priority="4" type="highway.unclassified" shape="1239.30,623.59 1284.22,627.28 1293.14,629.02">
-        <lane id="415852898_0" index="0" speed="13.89" length="41.96" shape="1244.12,622.38 1284.44,625.69 1285.92,625.98">
+        <lane id="415852898_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="41.96" shape="1244.12,622.38 1284.44,625.69 1285.92,625.98">
             <param key="origId" value="142575673#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852899" from="1560224322" to="1560224080" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1161.76,842.53 1167.34,758.39 1169.02,736.81 1169.83,726.44 1170.59,716.60 1171.28,707.38">
-        <lane id="415852899_0" index="0" speed="13.89" length="130.90" width="3.25" shape="1160.14,842.43 1165.72,758.27 1167.40,736.69 1168.21,726.31 1168.97,716.48 1169.32,711.85">
+        <lane id="415852899_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="130.90" width="3.25" shape="1160.14,842.43 1165.72,758.27 1167.40,736.69 1168.21,726.31 1168.97,716.48 1169.32,711.85">
             <param key="origId" value="142575679#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852900" from="1560224080" to="1560223905" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1171.28,707.38 1171.95,699.02 1176.70,646.27 1179.14,619.19">
-        <lane id="415852900_0" index="0" speed="13.89" length="76.64" width="3.25" shape="1170.04,702.48 1170.33,698.89 1175.08,646.13 1176.88,626.15">
+        <lane id="415852900_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="76.64" width="3.25" shape="1170.04,702.48 1170.33,698.89 1175.08,646.13 1176.88,626.15">
             <param key="origId" value="142575679#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852901" from="1560223905" to="1599958752" name="James-Franck-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852901_0" index="0" speed="13.89" length="0.30" width="3.25" shape="1178.00,612.21 1178.02,611.91">
+        <lane id="415852901_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.30" width="3.25" shape="1178.00,612.21 1178.02,611.91">
             <param key="origId" value="142575679#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852902" from="1599958752" to="1560223834" name="James-Franck-Straße" priority="4" type="highway.unclassified">
-        <lane id="415852902_0" index="0" speed="13.89" length="23.16" width="3.25" shape="1178.35,607.22 1179.92,584.11">
+        <lane id="415852902_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.16" width="3.25" shape="1178.35,607.22 1179.92,584.11">
             <param key="origId" value="142575679#3"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852903" from="1560223834" to="4167993268" name="James-Franck-Straße" priority="4" type="highway.unclassified" shape="1181.86,579.55 1184.05,544.98 1184.73,534.91">
-        <lane id="415852903_0" index="0" speed="13.89" length="32.87" width="3.25" shape="1180.54,574.72 1182.43,544.88 1182.63,541.92">
+        <lane id="415852903_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="32.87" width="3.25" shape="1180.54,574.72 1182.43,544.88 1182.63,541.92">
             <param key="origId" value="142575679#4"/>
         </lane>
         <param key="origTo" value="1560223744"/>
@@ -3508,28 +3508,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852904" from="1560223484" to="2007005081" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852904_0" index="0" speed="13.89" length="75.80" width="3.25" shape="1200.40,344.16 1194.46,419.73">
+        <lane id="415852904_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="75.80" width="3.25" shape="1200.40,344.16 1194.46,419.73">
             <param key="origId" value="142575699#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852905" from="2007005081" to="1560223591" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852905_0" index="0" speed="13.89" length="14.10" width="3.25" shape="1193.85,428.98 1193.12,443.06">
+        <lane id="415852905_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="14.10" width="3.25" shape="1193.85,428.98 1193.12,443.06">
             <param key="origId" value="142575699#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852906" from="1560223591" to="2007005091" name="North-Willys-Straße" priority="3" type="highway.residential">
-        <lane id="415852906_0" index="0" speed="13.89" length="18.02" width="3.25" shape="1192.22,456.48 1190.75,474.44">
+        <lane id="415852906_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="18.02" width="3.25" shape="1192.22,456.48 1190.75,474.44">
             <param key="origId" value="142575699#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852907" from="2007005091" to="4167993268" name="North-Willys-Straße" priority="3" type="highway.residential" shape="1188.75,478.99 1186.20,515.33 1185.43,525.48">
-        <lane id="415852907_0" index="0" speed="13.89" length="34.85" width="3.25" shape="1190.04,483.75 1187.82,515.44 1187.59,518.51">
+        <lane id="415852907_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="34.85" width="3.25" shape="1190.04,483.75 1187.82,515.44 1187.59,518.51">
             <param key="origId" value="142575699#3"/>
         </lane>
         <param key="origTo" value="1560223721"/>
@@ -3537,35 +3537,35 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852908" from="1560224080" to="1599958758" priority="1" type="highway.service">
-        <lane id="415852908_0" index="0" speed="5.56" length="5.84" shape="1166.30,708.46 1160.49,707.84">
+        <lane id="415852908_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="5.84" shape="1166.30,708.46 1160.49,707.84">
             <param key="origId" value="142575720#0"/>
         </lane>
     </edge>
     <edge id="415852909" from="1599958758" to="1560223809" priority="1" type="highway.service" shape="1156.04,705.76 1029.35,695.50 1033.22,640.95 1037.84,568.77">
-        <lane id="415852909_0" index="0" speed="5.56" length="247.87" shape="1151.25,706.98 1027.64,696.97 1031.63,640.85 1035.94,573.39">
+        <lane id="415852909_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="247.87" shape="1151.25,706.98 1027.64,696.97 1031.63,640.85 1035.94,573.39">
             <param key="origId" value="142575720#1"/>
         </lane>
     </edge>
     <edge id="415852910" from="1560223834" to="1599958746" priority="1" type="highway.service">
-        <lane id="415852910_0" index="0" speed="5.56" length="5.11" shape="1176.97,580.79 1171.88,580.41">
+        <lane id="415852910_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="5.11" shape="1176.97,580.79 1171.88,580.41">
             <param key="origId" value="142575725#0"/>
         </lane>
     </edge>
     <edge id="415852911" from="1599958746" to="1560223809" priority="1" type="highway.service">
-        <lane id="415852911_0" index="0" speed="5.56" length="120.40" shape="1162.51,579.71 1042.44,570.72">
+        <lane id="415852911_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="120.40" shape="1162.51,579.71 1042.44,570.72">
             <param key="origId" value="142575725#1"/>
         </lane>
     </edge>
     <edge id="415852912" from="1560223809" to="1560223789" priority="1" type="highway.service">
-        <lane id="415852912_0" index="0" speed="5.56" length="38.32" shape="1033.18,569.75 995.21,564.62">
+        <lane id="415852912_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="38.32" shape="1033.18,569.75 995.21,564.62">
             <param key="origId" value="142575725#2"/>
         </lane>
     </edge>
     <edge id="415852913" from="4167993270" to="1392924660" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1480.09,576.02 1463.90,572.29 1436.10,564.68">
-        <lane id="415852913_0" index="0" speed="13.89" length="33.35" width="3.00" shape="1471.03,575.47 1463.54,573.75 1438.73,566.96">
+        <lane id="415852913_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="33.35" width="3.00" shape="1471.03,575.47 1463.54,573.75 1438.73,566.96">
             <param key="origId" value="143308532#0"/>
         </lane>
-        <lane id="415852913_1" index="1" speed="13.89" length="33.35" width="3.00" shape="1471.70,572.55 1464.27,570.84 1439.52,564.06">
+        <lane id="415852913_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="33.35" width="3.00" shape="1471.70,572.55 1464.27,570.84 1439.52,564.06">
             <param key="origId" value="143308532#0"/>
         </lane>
         <param key="origFrom" value="1560223847"/>
@@ -3574,10 +3574,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852914" from="1392924660" to="4167993269" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1436.10,564.68 1430.33,563.08 1394.10,555.00 1356.51,548.18 1308.10,543.83">
-        <lane id="415852914_0" index="0" speed="13.89" length="125.74" width="3.00" shape="1431.95,565.09 1429.96,564.54 1393.80,556.47 1356.31,549.67 1308.28,545.35">
+        <lane id="415852914_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="125.74" width="3.00" shape="1431.95,565.09 1429.96,564.54 1393.80,556.47 1356.31,549.67 1308.28,545.35">
             <param key="origId" value="143308532#2"/>
         </lane>
-        <lane id="415852914_1" index="1" speed="13.89" length="125.74" width="3.00" shape="1432.75,562.20 1430.69,561.63 1394.40,553.53 1356.71,546.69 1308.51,542.36">
+        <lane id="415852914_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="125.74" width="3.00" shape="1432.75,562.20 1430.69,561.63 1394.40,553.53 1356.71,546.69 1308.51,542.36">
             <param key="origId" value="143308532#2"/>
         </lane>
         <param key="origTo" value="1568241369"/>
@@ -3586,10 +3586,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852915" from="4167993269" to="4167993268" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1288.40,542.25 1195.35,535.54">
-        <lane id="415852915_0" index="0" speed="13.89" length="93.08" width="3.00" shape="1288.29,543.74 1195.46,537.05">
+        <lane id="415852915_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.08" width="3.00" shape="1288.29,543.74 1195.46,537.05">
             <param key="origId" value="143308532#5"/>
         </lane>
-        <lane id="415852915_1" index="1" speed="13.89" length="93.08" width="3.00" shape="1288.50,540.75 1195.65,534.06">
+        <lane id="415852915_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.08" width="3.00" shape="1288.50,540.75 1195.65,534.06">
             <param key="origId" value="143308532#5"/>
         </lane>
         <param key="origFrom" value="1568241362"/>
@@ -3599,10 +3599,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852916" from="4167993268" to="4167993273" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1174.43,534.31 1139.99,531.75 1058.41,526.05 1037.56,525.21 1014.11,525.25 995.08,526.59">
-        <lane id="415852916_0" index="0" speed="13.89" length="165.93" width="3.00" shape="1174.32,535.80 1139.88,533.25 1058.33,527.55 1037.53,526.71 1014.17,526.75 1008.79,527.13">
+        <lane id="415852916_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="165.93" width="3.00" shape="1174.32,535.80 1139.88,533.25 1058.33,527.55 1037.53,526.71 1014.17,526.75 1008.79,527.13">
             <param key="origId" value="143308532#8"/>
         </lane>
-        <lane id="415852916_1" index="1" speed="13.89" length="165.93" width="3.00" shape="1174.54,532.81 1140.10,530.26 1058.49,524.56 1037.59,523.71 1014.06,523.75 1008.86,524.12">
+        <lane id="415852916_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="165.93" width="3.00" shape="1174.54,532.81 1140.10,530.26 1058.49,524.56 1037.59,523.71 1014.06,523.75 1008.86,524.12">
             <param key="origId" value="143308532#8"/>
         </lane>
         <param key="origFrom" value="851573004"/>
@@ -3612,10 +3612,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852917" from="4167993270" to="57343487" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="1491.58,567.89 1502.45,570.52 1538.16,579.94 1568.88,587.67 1596.85,595.96 1608.25,600.13 1635.96,610.98 1655.55,619.28 1677.49,630.18 1697.79,641.88 1713.49,652.06 1731.19,664.60 1764.72,689.57 1770.79,693.90 1814.91,726.44 1836.57,739.81 1884.31,766.21 1898.10,773.83 1908.12,779.70 1923.77,788.85 1940.21,800.56 1959.25,818.41 1992.41,851.53 1996.47,855.44 2028.95,887.64 2046.83,905.37 2052.94,911.42 2067.09,925.46 2075.68,933.97">
-        <lane id="415852917_0" index="0" speed="13.89" length="693.39" shape="1498.76,567.98 1502.84,568.96 1538.56,578.39 1569.30,586.12 1597.35,594.44 1608.81,598.63 1636.56,609.50 1656.22,617.83 1678.24,628.77 1698.62,640.51 1714.39,650.74 1732.13,663.30 1765.66,688.28 1771.73,692.61 1815.81,725.11 1837.38,738.43 1885.08,764.81 1898.89,772.44 1908.93,778.32 1924.64,787.51 1941.22,799.32 1960.36,817.26 1993.54,850.40 1997.59,854.30 2030.08,886.50 2047.96,904.23 2054.06,910.29 2068.22,924.32 2076.81,932.83">
+        <lane id="415852917_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="693.39" shape="1498.76,567.98 1502.84,568.96 1538.56,578.39 1569.30,586.12 1597.35,594.44 1608.81,598.63 1636.56,609.50 1656.22,617.83 1678.24,628.77 1698.62,640.51 1714.39,650.74 1732.13,663.30 1765.66,688.28 1771.73,692.61 1815.81,725.11 1837.38,738.43 1885.08,764.81 1898.89,772.44 1908.93,778.32 1924.64,787.51 1941.22,799.32 1960.36,817.26 1993.54,850.40 1997.59,854.30 2030.08,886.50 2047.96,904.23 2054.06,910.29 2068.22,924.32 2076.81,932.83">
             <param key="origId" value="143308542#0"/>
         </lane>
-        <lane id="415852917_1" index="1" speed="13.89" length="693.39" shape="1498.01,571.09 1502.05,572.07 1537.76,581.49 1568.46,589.21 1596.35,597.48 1607.68,601.62 1635.36,612.46 1654.89,620.74 1676.73,631.60 1696.95,643.24 1712.59,653.39 1730.25,665.89 1763.78,690.87 1769.85,695.20 1814.02,727.77 1835.77,741.19 1883.54,767.61 1897.31,775.22 1907.32,781.08 1922.90,790.20 1939.19,801.80 1958.14,819.56 1991.28,852.66 1995.35,856.59 2027.83,888.78 2045.70,906.51 2051.81,912.56 2065.96,926.59 2074.56,935.11">
+        <lane id="415852917_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="693.39" shape="1498.01,571.09 1502.05,572.07 1537.76,581.49 1568.46,589.21 1596.35,597.48 1607.68,601.62 1635.36,612.46 1654.89,620.74 1676.73,631.60 1696.95,643.24 1712.59,653.39 1730.25,665.89 1763.78,690.87 1769.85,695.20 1814.02,727.77 1835.77,741.19 1883.54,767.61 1897.31,775.22 1907.32,781.08 1922.90,790.20 1939.19,801.80 1958.14,819.56 1991.28,852.66 1995.35,856.59 2027.83,888.78 2045.70,906.51 2051.81,912.56 2065.96,926.59 2074.56,935.11">
             <param key="origId" value="143308542#0"/>
         </lane>
         <param key="origFrom" value="56231397"/>
@@ -3624,10 +3624,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852918" from="38918157" to="846231372" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="2061.71,948.77 2053.08,940.44 2038.49,925.11 2031.52,918.41 2025.00,911.68 2014.32,901.31 1974.60,862.39 1968.66,856.25 1948.47,835.70 1933.47,821.05 1920.63,809.37 1907.44,799.80 1896.02,792.82 1886.43,786.96 1876.30,780.89 1851.90,766.27 1794.85,731.77 1777.03,720.23 1753.59,702.79 1715.82,674.95 1702.98,665.77 1681.79,650.31 1675.23,645.45 1672.09,642.81 1655.78,631.56 1649.30,627.34 1645.72,625.69 1632.83,619.72 1605.33,609.20 1593.96,605.67 1574.85,600.18 1546.97,593.18">
-        <lane id="415852918_0" index="0" speed="13.89" length="626.25" shape="2060.59,949.92 2051.95,941.56 2037.36,926.24 2030.39,919.54 2023.87,912.81 2013.20,902.46 1973.46,863.52 1967.51,857.37 1947.34,836.83 1932.37,822.21 1919.62,810.61 1906.55,801.13 1895.18,794.19 1885.60,788.33 1875.48,782.27 1851.08,767.64 1794.01,733.12 1776.12,721.55 1752.63,704.07 1714.88,676.24 1702.04,667.07 1680.85,651.61 1674.23,646.71 1671.12,644.09 1654.89,632.89 1648.52,628.75 1645.05,627.14 1632.21,621.20 1604.81,610.71 1593.50,607.20 1574.43,601.73 1553.64,596.50">
+        <lane id="415852918_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="626.25" shape="2060.59,949.92 2051.95,941.56 2037.36,926.24 2030.39,919.54 2023.87,912.81 2013.20,902.46 1973.46,863.52 1967.51,857.37 1947.34,836.83 1932.37,822.21 1919.62,810.61 1906.55,801.13 1895.18,794.19 1885.60,788.33 1875.48,782.27 1851.08,767.64 1794.01,733.12 1776.12,721.55 1752.63,704.07 1714.88,676.24 1702.04,667.07 1680.85,651.61 1674.23,646.71 1671.12,644.09 1654.89,632.89 1648.52,628.75 1645.05,627.14 1632.21,621.20 1604.81,610.71 1593.50,607.20 1574.43,601.73 1553.64,596.50">
             <param key="origId" value="143308546#0"/>
         </lane>
-        <lane id="415852918_1" index="1" speed="13.89" length="626.25" shape="2062.82,947.62 2054.22,939.31 2039.63,923.98 2032.65,917.28 2026.13,910.55 2015.44,900.17 1975.73,861.27 1969.80,855.13 1949.60,834.56 1934.56,819.88 1921.64,808.13 1908.32,798.47 1896.85,791.46 1887.26,785.60 1877.12,779.52 1852.73,764.90 1795.70,730.41 1777.95,718.92 1754.54,701.50 1716.76,673.65 1703.92,664.48 1682.74,649.02 1676.22,644.20 1673.06,641.54 1656.67,630.23 1650.07,625.94 1646.39,624.24 1633.46,618.25 1605.85,607.69 1594.42,604.14 1575.26,598.64 1554.42,593.40">
+        <lane id="415852918_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="626.25" shape="2062.82,947.62 2054.22,939.31 2039.63,923.98 2032.65,917.28 2026.13,910.55 2015.44,900.17 1975.73,861.27 1969.80,855.13 1949.60,834.56 1934.56,819.88 1921.64,808.13 1908.32,798.47 1896.85,791.46 1887.26,785.60 1877.12,779.52 1852.73,764.90 1795.70,730.41 1777.95,718.92 1754.54,701.50 1716.76,673.65 1703.92,664.48 1682.74,649.02 1676.22,644.20 1673.06,641.54 1656.67,630.23 1650.07,625.94 1646.39,624.24 1633.46,618.25 1605.85,607.69 1594.42,604.14 1575.26,598.64 1554.42,593.40">
             <param key="origId" value="143308546#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
@@ -3635,10 +3635,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852919" from="846231372" to="4167993270" name="Rudower Chaussee" priority="11" type="highway.secondary" spreadType="center" shape="1546.97,593.18 1498.80,580.95 1488.91,578.32">
-        <lane id="415852919_0" index="0" speed="13.89" length="51.57" shape="1545.40,594.43 1498.40,582.50 1495.44,581.71">
+        <lane id="415852919_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="51.57" shape="1545.40,594.43 1498.40,582.50 1495.44,581.71">
             <param key="origId" value="143308546#5"/>
         </lane>
-        <lane id="415852919_1" index="1" speed="13.89" length="51.57" shape="1546.19,591.32 1499.20,579.40 1496.19,578.60">
+        <lane id="415852919_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="51.57" shape="1546.19,591.32 1499.20,579.40 1496.19,578.60">
             <param key="origId" value="143308546#5"/>
         </lane>
         <param key="origTo" value="301292612"/>
@@ -3647,14 +3647,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852920" from="664166095" to="1560223943" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1276.93,835.11 1282.46,767.46 1284.53,749.09 1293.14,629.02">
-        <lane id="415852920_0" index="0" speed="13.89" length="199.89" width="3.25" shape="1275.31,834.97 1280.84,767.31 1282.92,748.94 1291.03,635.71">
+        <lane id="415852920_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="199.89" width="3.25" shape="1275.31,834.97 1280.84,767.31 1282.92,748.94 1291.03,635.71">
             <param key="origId" value="143308562#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852921" from="1560223943" to="4167993269" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1293.14,629.02 1299.13,543.02">
-        <lane id="415852921_0" index="0" speed="13.89" length="71.51" width="3.25" shape="1292.05,621.30 1297.02,549.96">
+        <lane id="415852921_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="71.51" width="3.25" shape="1292.05,621.30 1297.02,549.96">
             <param key="origId" value="143308562#1"/>
         </lane>
         <param key="origTo" value="671564302"/>
@@ -3662,7 +3662,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852922" from="4167993269" to="1560223615" name="Schwarzschildstraße" priority="4" type="highway.unclassified" shape="1299.78,533.73 1304.62,459.07">
-        <lane id="415852922_0" index="0" speed="13.89" length="60.97" width="3.25" shape="1298.61,526.57 1302.56,465.73">
+        <lane id="415852922_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.97" width="3.25" shape="1298.61,526.57 1302.56,465.73">
             <param key="origId" value="143308562#3"/>
         </lane>
         <param key="origFrom" value="1560223745"/>
@@ -3670,10 +3670,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852923" from="4167993270" to="4167993267" name="Wegedornstraße" priority="11" type="highway.secondary" spreadType="center" shape="1481.99,565.29 1483.77,555.37 1486.53,516.06 1489.36,499.55">
-        <lane id="415852923_0" index="0" speed="13.89" length="37.68" shape="1481.68,557.94 1482.18,555.18 1484.62,520.40">
+        <lane id="415852923_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.68" shape="1481.68,557.94 1482.18,555.18 1484.62,520.40">
             <param key="origId" value="143308587#0"/>
         </lane>
-        <lane id="415852923_1" index="1" speed="13.89" length="37.68" shape="1484.83,558.51 1485.36,555.57 1487.79,520.94">
+        <lane id="415852923_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.68" shape="1484.83,558.51 1485.36,555.57 1487.79,520.94">
             <param key="origId" value="143308587#0"/>
         </lane>
         <param key="origFrom" value="1560223815"/>
@@ -3682,10 +3682,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852924" from="4167993267" to="4167993270" name="Wegedornstraße" priority="11" type="highway.secondary" spreadType="center" shape="1489.36,499.55 1493.18,518.53 1493.96,542.40 1493.52,556.79 1491.58,567.89">
-        <lane id="415852924_0" index="0" speed="13.89" length="39.48" shape="1494.84,520.23 1495.56,542.40 1495.12,556.95 1494.54,560.25">
+        <lane id="415852924_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.48" shape="1494.84,520.23 1495.56,542.40 1495.12,556.95 1494.54,560.25">
             <param key="origId" value="143308590#0"/>
         </lane>
-        <lane id="415852924_1" index="1" speed="13.89" length="39.48" shape="1491.66,520.87 1492.36,542.41 1491.93,556.63 1491.39,559.68">
+        <lane id="415852924_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="39.48" shape="1491.66,520.87 1492.36,542.41 1491.93,556.63 1491.39,559.68">
             <param key="origId" value="143308590#0"/>
         </lane>
         <param key="origFrom" value="1560223686"/>
@@ -3694,63 +3694,63 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852925" from="1568241281" to="1568241285" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852925_0" index="0" speed="8.33" length="50.95" shape="1443.70,187.94 1393.01,193.13">
+        <lane id="415852925_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="50.95" shape="1443.70,187.94 1393.01,193.13">
             <param key="origId" value="143308601#0"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852926" from="1568241285" to="1568241303" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852926_0" index="0" speed="8.33" length="93.78" shape="1378.69,194.60 1285.40,204.22">
+        <lane id="415852926_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="93.78" shape="1378.69,194.60 1285.40,204.22">
             <param key="origId" value="143308601#1"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852927" from="1568241303" to="260702833" name="Zur Rothen Laake" priority="3" type="highway.residential">
-        <lane id="415852927_0" index="0" speed="8.33" length="22.59" shape="1271.30,205.95 1248.93,209.14">
+        <lane id="415852927_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="22.59" shape="1271.30,205.95 1248.93,209.14">
             <param key="origId" value="143308601#2"/>
         </lane>
         <param key="postal_code" value="12524"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852928" from="1568241232" to="1568241289" priority="1" type="highway.service" shape="1521.10,87.14 1526.88,100.56 1529.08,111.45 1533.71,134.49 1545.83,194.90">
-        <lane id="415852928_0" index="0" speed="2.78" length="106.20" shape="1522.57,86.51 1528.41,100.08 1530.65,111.13 1535.27,134.17 1546.42,189.72">
+        <lane id="415852928_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="106.20" shape="1522.57,86.51 1528.41,100.08 1530.65,111.13 1535.27,134.17 1546.42,189.72">
             <param key="origId" value="143308673#0"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852929" from="1568241289" to="1653119660" priority="1" type="highway.service" shape="1545.83,194.90 1578.79,192.07 1576.24,169.82">
-        <lane id="415852929_0" index="0" speed="2.78" length="47.83" shape="1550.04,192.94 1577.01,190.62 1574.65,170.00">
+        <lane id="415852929_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="47.83" shape="1550.04,192.94 1577.01,190.62 1574.65,170.00">
             <param key="origId" value="143308673#1"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852930" from="1599958752" to="1599958749" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415852930_0" index="0" speed="2.78" length="5.51" width="2.00" shape="1175.05,609.49 1169.56,609.09">
+        <lane id="415852930_0" index="0" allow="pedestrian" speed="2.78" length="5.51" width="2.00" shape="1175.05,609.49 1169.56,609.09">
             <param key="origId" value="146738851#0"/>
         </lane>
     </edge>
     <edge id="415852931" from="1599958749" to="1560223224" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415852931_0" index="0" speed="2.78" length="5.69" width="2.00" shape="1160.16,608.28 1154.50,607.71">
+        <lane id="415852931_0" index="0" allow="pedestrian" speed="2.78" length="5.69" width="2.00" shape="1160.16,608.28 1154.50,607.71">
             <param key="origId" value="146738851#1"/>
         </lane>
     </edge>
     <edge id="415852932" from="1599958758" to="1599958749" priority="1" type="highway.service" shape="1156.04,705.76 1161.86,642.06 1164.86,608.75">
-        <lane id="415852932_0" index="0" speed="5.56" length="90.27" shape="1154.87,700.96 1160.27,641.92 1163.04,611.06">
+        <lane id="415852932_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="90.27" shape="1154.87,700.96 1160.27,641.92 1163.04,611.06">
             <param key="origId" value="146738852#0"/>
         </lane>
     </edge>
     <edge id="415852933" from="1599958749" to="1599958746" priority="1" type="highway.service">
-        <lane id="415852933_0" index="0" speed="5.56" length="23.10" shape="1163.47,606.07 1165.36,583.05">
+        <lane id="415852933_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="23.10" shape="1163.47,606.07 1165.36,583.05">
             <param key="origId" value="146738852#1"/>
         </lane>
     </edge>
     <edge id="415852934" from="1906766898" to="4167993266" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1107.42,344.19 1066.53,351.99 1041.35,355.57">
-        <lane id="415852934_0" index="0" speed="13.89" length="62.49" shape="1107.07,345.88 1066.79,353.57 1045.42,356.61">
+        <lane id="415852934_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.49" shape="1107.07,345.88 1066.79,353.57 1045.42,356.61">
             <param key="origId" value="180239858#0"/>
         </lane>
-        <lane id="415852934_1" index="1" speed="13.89" length="62.49" shape="1106.47,342.74 1066.27,350.41 1045.01,353.44">
+        <lane id="415852934_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="62.49" shape="1106.47,342.74 1066.27,350.41 1045.01,353.44">
             <param key="origId" value="180239858#0"/>
         </lane>
         <param key="origTo" value="1906766906"/>
@@ -3758,33 +3758,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852935" from="1906766898" to="1560223484" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary">
-        <lane id="415852935_0" index="0" speed="13.89" length="84.82" shape="1106.40,336.30 1190.90,328.98">
+        <lane id="415852935_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.82" shape="1106.40,336.30 1190.90,328.98">
             <param key="origId" value="190083610#0"/>
         </lane>
-        <lane id="415852935_1" index="1" speed="13.89" length="84.82" shape="1106.68,339.48 1191.18,332.17">
+        <lane id="415852935_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="84.82" shape="1106.68,339.48 1191.18,332.17">
             <param key="origId" value="190083610#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852936" from="1560223484" to="1560223468" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" shape="1199.64,333.04 1354.23,315.44 1387.92,311.95">
-        <lane id="415852936_0" index="0" speed="13.89" length="179.29" shape="1205.13,327.59 1353.71,310.67 1383.32,307.60">
+        <lane id="415852936_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.29" shape="1205.13,327.59 1353.71,310.67 1383.32,307.60">
             <param key="origId" value="190083610#1"/>
         </lane>
-        <lane id="415852936_1" index="1" speed="13.89" length="179.29" shape="1205.49,330.77 1354.06,313.85 1383.65,310.78">
+        <lane id="415852936_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="179.29" shape="1205.49,330.77 1354.06,313.85 1383.65,310.78">
             <param key="origId" value="190083610#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852937" from="59992997" to="4167993265" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1477.43,375.85 1474.08,329.29 1473.93,324.19 1473.33,313.48">
-        <lane id="415852937_0" index="0" speed="13.89" length="50.14" shape="1469.16,372.45 1466.09,329.70 1465.93,324.54 1465.81,322.37">
+        <lane id="415852937_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1469.16,372.45 1466.09,329.70 1465.93,324.54 1465.81,322.37">
             <param key="origId" value="190083618#0"/>
         </lane>
-        <lane id="415852937_1" index="1" speed="13.89" length="50.14" shape="1472.35,372.22 1469.29,329.53 1469.13,324.40 1469.01,322.20">
+        <lane id="415852937_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1472.35,372.22 1469.29,329.53 1469.13,324.40 1469.01,322.20">
             <param key="origId" value="190083618#0"/>
         </lane>
-        <lane id="415852937_2" index="2" speed="13.89" length="50.14" shape="1475.55,371.99 1472.49,329.37 1472.33,324.26 1472.20,322.02" changeLeft="authority">
+        <lane id="415852937_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.14" shape="1475.55,371.99 1472.49,329.37 1472.33,324.26 1472.20,322.02" changeLeft="authority">
             <param key="origId" value="190083618#0"/>
         </lane>
         <param key="origTo" value="3273797701"/>
@@ -3792,45 +3792,45 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852938" from="2007005087" to="2007005089" priority="1" type="highway.service">
-        <lane id="415852938_0" index="0" speed="5.56" length="15.55" shape="1016.22,463.89 1031.76,464.47">
+        <lane id="415852938_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="15.55" shape="1016.22,463.89 1031.76,464.47">
             <param key="origId" value="190083623#0"/>
         </lane>
     </edge>
     <edge id="415852939" from="2007005089" to="2627346865" priority="1" type="highway.service">
-        <lane id="415852939_0" index="0" speed="5.56" length="63.60" shape="1041.36,465.05 1104.74,470.37">
+        <lane id="415852939_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="63.60" shape="1041.36,465.05 1104.74,470.37">
             <param key="origId" value="190083623#1"/>
         </lane>
     </edge>
     <edge id="415852940" from="2627346865" to="2007005091" priority="1" type="highway.service">
-        <lane id="415852940_0" index="0" speed="5.56" length="70.27" shape="1114.11,471.15 1184.14,477.00">
+        <lane id="415852940_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="70.27" shape="1114.11,471.15 1184.14,477.00">
             <param key="origId" value="190083623#2"/>
         </lane>
     </edge>
     <edge id="415852941" from="2007005083" to="2340420373" priority="1" type="highway.service">
-        <lane id="415852941_0" index="0" speed="5.56" length="25.67" shape="1020.04,428.94 1045.67,430.50">
+        <lane id="415852941_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="25.67" shape="1020.04,428.94 1045.67,430.50">
             <param key="origId" value="190083625#0"/>
         </lane>
     </edge>
     <edge id="415852942" from="2340420373" to="2007005081" priority="1" type="highway.service" shape="1050.25,432.38 1077.82,434.42 1078.67,399.56 1127.96,402.10 1126.42,419.57 1192.47,424.26">
-        <lane id="415852942_0" index="0" speed="5.56" length="186.22" shape="1055.02,431.13 1076.26,432.70 1077.11,397.88 1129.70,400.59 1128.15,418.09 1187.87,422.33">
+        <lane id="415852942_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="186.22" shape="1055.02,431.13 1076.26,432.70 1077.11,397.88 1129.70,400.59 1128.15,418.09 1187.87,422.33">
             <param key="origId" value="190083625#1"/>
         </lane>
     </edge>
     <edge id="415852943" from="2165987550" to="2007005087" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852943_0" index="0" speed="13.89" length="0.20" width="3.50" shape="1013.10,461.70 1013.06,461.89">
+        <lane id="415852943_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" width="3.50" shape="1013.10,461.70 1013.06,461.89">
             <param key="origId" value="206579062#0"/>
         </lane>
-        <lane id="415852943_1" index="1" speed="13.89" length="0.20" width="3.50" shape="1009.65,461.07 1009.62,461.27" changeLeft="authority">
+        <lane id="415852943_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.20" width="3.50" shape="1009.65,461.07 1009.62,461.27" changeLeft="authority">
             <param key="origId" value="206579062#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852944" from="2007005087" to="4167993273" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1007.13,465.15 999.93,501.36 997.39,513.05">
-        <lane id="415852944_0" index="0" speed="13.89" length="36.89" width="3.50" shape="1011.57,469.72 1005.07,502.43 1004.31,505.92">
+        <lane id="415852944_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.89" width="3.50" shape="1011.57,469.72 1005.07,502.43 1004.31,505.92">
             <param key="origId" value="206579062#1"/>
         </lane>
-        <lane id="415852944_1" index="1" speed="13.89" length="36.89" width="3.50" shape="1008.14,469.04 1001.64,501.72 1000.89,505.18" changeLeft="authority">
+        <lane id="415852944_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="36.89" width="3.50" shape="1008.14,469.04 1001.64,501.72 1000.89,505.18" changeLeft="authority">
             <param key="origId" value="206579062#1"/>
         </lane>
         <param key="origTo" value="492462300"/>
@@ -3838,27 +3838,27 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852945" from="2165987556" to="1560223789" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852945_0" index="0" speed="13.89" length="21.89" width="3.50" shape="979.78,587.01 984.35,565.60">
+        <lane id="415852945_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.89" width="3.50" shape="979.78,587.01 984.35,565.60">
             <param key="origId" value="206579063#0"/>
         </lane>
-        <lane id="415852945_1" index="1" speed="13.89" length="21.89" width="3.50" shape="983.20,587.74 987.78,566.33">
+        <lane id="415852945_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.89" width="3.50" shape="983.20,587.74 987.78,566.33">
             <param key="origId" value="206579063#0"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852946" from="1560223789" to="3246050915" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852946_0" index="0" speed="13.89" length="0.23" width="3.50" shape="985.94,556.85 985.98,556.63">
+        <lane id="415852946_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.23" width="3.50" shape="985.94,556.85 985.98,556.63">
             <param key="origId" value="206579063#1"/>
         </lane>
-        <lane id="415852946_1" index="1" speed="13.89" length="0.23" width="3.50" shape="989.40,557.38 989.44,557.16">
+        <lane id="415852946_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="0.23" width="3.50" shape="989.40,557.38 989.44,557.16">
             <param key="origId" value="206579063#1"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852947" from="4167993266" to="3260077364" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="1024.90,357.81 1024.18,366.64 1024.12,369.30 1016.46,412.47">
-        <lane id="415852947_0" index="0" speed="13.89" length="37.35" width="3.50" shape="1026.11,364.53 1025.93,366.73 1025.86,369.48 1020.21,401.37" changeLeft="authority">
+        <lane id="415852947_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="37.35" width="3.50" shape="1026.11,364.53 1025.93,366.73 1025.86,369.48 1020.21,401.37" changeLeft="authority">
             <param key="origId" value="206579064#0"/>
         </lane>
         <param key="origFrom" value="1906766907"/>
@@ -3866,59 +3866,59 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852948" from="3260077364" to="2007005083" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary">
-        <lane id="415852948_0" index="0" speed="13.89" length="15.83" width="3.50" shape="1018.67,409.80 1016.10,425.42" changeLeft="authority">
+        <lane id="415852948_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="15.83" width="3.50" shape="1018.67,409.80 1016.10,425.42" changeLeft="authority">
             <param key="origId" value="206579064#2"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852949" from="2223009101" to="2223009099" priority="1" type="highway.service" shape="899.47,217.62 908.35,271.78 959.57,266.64">
-        <lane id="415852949_0" index="0" speed="5.56" length="98.40" shape="901.05,217.36 909.69,270.03 954.48,265.55">
+        <lane id="415852949_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="98.40" shape="901.05,217.36 909.69,270.03 954.48,265.55">
             <param key="origId" value="212453791#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852950" from="2223009099" to="4167993271" priority="1" type="highway.service" shape="959.57,266.64 947.23,197.71 976.67,192.36 980.84,191.60">
-        <lane id="415852950_0" index="0" speed="5.56" length="97.79" shape="957.12,262.05 945.37,196.42 976.00,190.85">
+        <lane id="415852950_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="97.79" shape="957.12,262.05 945.37,196.42 976.00,190.85">
             <param key="origId" value="212453791#1"/>
         </lane>
         <param key="origTo" value="2223009466"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852951" from="4167993271" to="2223041260" priority="1" type="highway.service" shape="985.38,190.78 979.11,154.43">
-        <lane id="415852951_0" index="0" speed="5.56" length="26.02" shape="983.00,186.39 978.57,160.74">
+        <lane id="415852951_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="26.02" shape="983.00,186.39 978.57,160.74">
             <param key="origId" value="212453791#3"/>
         </lane>
         <param key="origFrom" value="2223009095"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852952" from="2223041260" to="2223007259" priority="1" type="highway.service" shape="979.11,154.43 975.87,135.25 964.98,137.65 954.19,133.18">
-        <lane id="415852952_0" index="0" speed="5.56" length="36.21" shape="976.91,151.03 974.57,137.17 964.83,139.32 953.58,134.65">
+        <lane id="415852952_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="36.21" shape="976.91,151.03 974.57,137.17 964.83,139.32 953.58,134.65">
             <param key="origId" value="212453791#4"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852953" from="2223041260" to="2223042915" priority="1" type="highway.service" shape="979.11,154.43 991.28,156.77 996.76,188.71">
-        <lane id="415852953_0" index="0" speed="5.56" length="36.21" shape="985.43,154.02 992.67,155.41 997.55,183.83">
+        <lane id="415852953_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="36.21" shape="985.43,154.02 992.67,155.41 997.55,183.83">
             <param key="origId" value="212453974#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852954" from="2223042915" to="2223009465" priority="1" type="highway.service" shape="996.76,188.71 1011.17,261.48 995.26,263.07">
-        <lane id="415852954_0" index="0" speed="5.56" length="84.65" shape="999.23,192.96 1013.08,262.90 999.79,264.23">
+        <lane id="415852954_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="84.65" shape="999.23,192.96 1013.08,262.90 999.79,264.23">
             <param key="origId" value="212453974#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852955" from="2223009465" to="4167993271" priority="1" type="highway.service" shape="995.26,263.07 980.84,191.60">
-        <lane id="415852955_0" index="0" speed="5.56" length="63.12" shape="992.69,258.46 980.21,196.58">
+        <lane id="415852955_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="63.12" shape="992.69,258.46 980.21,196.58">
             <param key="origId" value="212453974#2"/>
         </lane>
         <param key="origTo" value="2223009466"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852956" from="4167993267" to="4167993264" name="Wegedornstraße" priority="11" type="highway.secondary" shape="1486.72,472.28 1486.00,464.73 1483.10,434.74">
-        <lane id="415852956_0" index="0" speed="13.89" length="25.77" shape="1484.43,465.15 1484.41,464.89 1481.95,439.49">
+        <lane id="415852956_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="25.77" shape="1484.43,465.15 1484.41,464.89 1481.95,439.49">
             <param key="origId" value="24214694#2"/>
         </lane>
         <param key="origFrom" value="1560223635"/>
@@ -3926,40 +3926,40 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852957" from="4167993264" to="59992997" name="Wegedornstraße" priority="11" type="highway.secondary">
-        <lane id="415852957_0" index="0" speed="13.89" length="50.43" shape="1481.05,430.13 1476.21,379.93">
+        <lane id="415852957_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="50.43" shape="1481.05,430.13 1476.21,379.93">
             <param key="origId" value="24214694#3"/>
         </lane>
         <param key="postal_code" value="12489;12345"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852958" from="1906766897" to="4167993266" priority="1" type="highway.path" shape="1039.14,333.68 1040.17,346.45">
-        <lane id="415852958_0" index="0" speed="5.56" length="3.50" width="2.25" shape="1040.62,337.99 1040.90,341.48">
+        <lane id="415852958_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.50" width="2.25" shape="1040.62,337.99 1040.90,341.48">
             <param key="origId" value="245105008#0"/>
         </lane>
         <param key="origTo" value="493585714"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852959" from="1906766917" to="4167993266" priority="1" type="highway.path" shape="981.50,384.28 998.23,371.56 1006.26,359.80">
-        <lane id="415852959_0" index="0" speed="5.56" length="22.33" width="2.00" shape="985.07,380.31 997.50,370.86 1001.28,365.31">
+        <lane id="415852959_0" index="0" allow="pedestrian bicycle" speed="5.56" length="22.33" width="2.00" shape="985.07,380.31 997.50,370.86 1001.28,365.31">
             <param key="origId" value="245105014#1"/>
         </lane>
         <param key="origTo" value="1906766908"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852960" from="1645798498" to="1935182227" priority="1" type="highway.path">
-        <lane id="415852960_0" index="0" speed="5.56" length="3.56" width="2.00" shape="1106.79,-0.12 1107.20,3.42">
+        <lane id="415852960_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.56" width="2.00" shape="1106.79,-0.12 1107.20,3.42">
             <param key="origId" value="25944450#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852961" from="1935182227" to="2235207711" priority="1" type="highway.path" shape="1106.50,6.07 1107.06,10.82 1108.04,22.56 1102.87,60.87 1091.12,136.63 1074.97,196.38 1062.41,228.85">
-        <lane id="415852961_0" index="0" speed="5.56" length="220.87" width="2.00" shape="1108.10,11.22 1109.05,22.59 1103.86,61.01 1092.10,136.83 1075.92,196.70 1064.40,226.50">
+        <lane id="415852961_0" index="0" allow="pedestrian bicycle" speed="5.56" length="220.87" width="2.00" shape="1108.10,11.22 1109.05,22.59 1103.86,61.01 1092.10,136.83 1075.92,196.70 1064.40,226.50">
             <param key="origId" value="25944450#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852962" from="2235207711" to="1906766917" priority="1" type="highway.path" shape="1062.41,228.85 1058.20,239.76 1049.06,257.12 1034.82,279.38 1024.33,293.49 999.20,324.02 984.39,340.40 968.91,355.08 951.38,371.27 930.91,387.00 889.53,414.70 886.89,411.16 927.62,383.90 978.42,386.62 981.50,384.28">
-        <lane id="415852962_0" index="0" speed="5.56" length="365.77" width="2.00" shape="1062.58,231.20 1059.11,240.17 1049.93,257.63 1035.64,279.95 1025.11,294.11 999.96,324.68 985.11,341.09 969.59,355.81 952.03,372.03 931.49,387.81 889.30,416.06 885.46,410.91 927.34,382.88 978.11,385.60 978.85,385.04">
+        <lane id="415852962_0" index="0" allow="pedestrian bicycle" speed="5.56" length="365.77" width="2.00" shape="1062.58,231.20 1059.11,240.17 1049.93,257.63 1035.64,279.95 1025.11,294.11 999.96,324.68 985.11,341.09 969.59,355.81 952.03,372.03 931.49,387.81 889.30,416.06 885.46,410.91 927.34,382.88 978.11,385.60 978.85,385.04">
             <param key="origId" value="25944450#2"/>
         </lane>
         <param key="bridge" value="yes"/>
@@ -3967,56 +3967,56 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852963" from="283018514" to="4167993272" priority="1" type="highway.service" shape="1495.66,119.94 1503.16,189.11">
-        <lane id="415852963_0" index="0" speed="5.56" length="61.21" shape="1497.64,123.28 1504.23,184.13">
+        <lane id="415852963_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="61.21" shape="1497.64,123.28 1504.23,184.13">
             <param key="origId" value="25951597#0"/>
         </lane>
         <param key="origTo" value="283018648"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852964" from="4167993272" to="283018514" priority="1" type="highway.service" shape="1497.25,189.62 1491.02,190.30 1480.44,123.13 1495.66,119.94">
-        <lane id="415852964_0" index="0" speed="5.56" length="88.00" shape="1493.07,191.69 1489.68,192.06 1478.62,121.88 1491.88,119.10">
+        <lane id="415852964_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="88.00" shape="1493.07,191.69 1489.68,192.06 1478.62,121.88 1491.88,119.10">
             <param key="origId" value="25951597#2"/>
         </lane>
         <param key="origFrom" value="4057899371"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852965" from="56231597" to="294168710" priority="1" type="highway.service" shape="1631.62,561.64 1625.43,556.04 1585.09,519.54">
-        <lane id="415852965_0" index="0" speed="5.56" length="59.56" shape="1630.55,562.83 1624.36,557.22 1586.39,522.87">
+        <lane id="415852965_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="59.56" shape="1630.55,562.83 1624.36,557.22 1586.39,522.87">
             <param key="origId" value="26816413#0"/>
         </lane>
     </edge>
     <edge id="415852966" from="294168710" to="294168098" priority="1" type="highway.service">
-        <lane id="415852966_0" index="0" speed="5.56" length="24.45" shape="1581.75,518.72 1563.44,502.53">
+        <lane id="415852966_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="24.45" shape="1581.75,518.72 1563.44,502.53">
             <param key="origId" value="26816413#1"/>
         </lane>
     </edge>
     <edge id="415852967" from="294168098" to="1302814166" priority="1" type="highway.service">
-        <lane id="415852967_0" index="0" speed="5.56" length="1.15" shape="1558.21,497.40 1557.41,496.58">
+        <lane id="415852967_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="1.15" shape="1558.21,497.40 1557.41,496.58">
             <param key="origId" value="26816590#0"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852968" from="1302814166" to="294169339" priority="1" type="highway.service" shape="1554.04,490.89 1546.74,486.10 1538.29,482.95">
-        <lane id="415852968_0" index="0" speed="5.56" length="10.93" shape="1550.60,490.55 1546.01,487.53 1540.92,485.64">
+        <lane id="415852968_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="10.93" shape="1550.60,490.55 1546.01,487.53 1540.92,485.64">
             <param key="origId" value="26816590#1"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852969" from="294169339" to="4167993267" priority="1" type="highway.service" shape="1538.29,482.95 1488.28,488.34">
-        <lane id="415852969_0" index="0" speed="5.56" length="40.76" shape="1533.68,485.06 1493.15,489.43">
+        <lane id="415852969_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="40.76" shape="1533.68,485.06 1493.15,489.43">
             <param key="origId" value="26816590#2"/>
         </lane>
         <param key="origTo" value="294169342"/>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852970" from="1560223468" to="4167993265" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1387.05,307.23 1411.25,307.66 1449.92,304.83 1457.59,303.65 1472.79,301.73">
-        <lane id="415852970_0" index="0" speed="13.89" length="67.43" shape="1391.80,304.11 1411.16,304.46 1449.56,301.65 1457.15,300.48 1458.75,300.28">
+        <lane id="415852970_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="67.43" shape="1391.80,304.11 1411.16,304.46 1449.56,301.65 1457.15,300.48 1458.75,300.28">
             <param key="origId" value="318210363#0"/>
         </lane>
-        <lane id="415852970_1" index="1" speed="13.89" length="67.43" shape="1391.74,307.31 1411.25,307.66 1449.92,304.83 1457.59,303.65 1458.97,303.48">
+        <lane id="415852970_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="67.43" shape="1391.74,307.31 1411.25,307.66 1449.92,304.83 1457.59,303.65 1458.97,303.48">
             <param key="origId" value="318210363#0"/>
         </lane>
-        <lane id="415852970_2" index="2" speed="13.89" length="67.43" shape="1391.68,310.51 1411.34,310.86 1450.28,308.02 1458.03,306.82 1459.19,306.68">
+        <lane id="415852970_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="67.43" shape="1391.68,310.51 1411.34,310.86 1450.28,308.02 1458.03,306.82 1459.19,306.68">
             <param key="origId" value="318210363#0"/>
         </lane>
         <param key="origTo" value="1560223404"/>
@@ -4024,10 +4024,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852971" from="3246050915" to="4167993273" name="Hermann-Dorner-Allee" priority="10" type="highway.tertiary" shape="991.19,557.28 992.89,546.76 995.08,526.59">
-        <lane id="415852971_0" index="0" speed="13.89" length="21.35" width="3.50" shape="986.03,556.31 987.69,546.05 988.86,535.24">
+        <lane id="415852971_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.35" width="3.50" shape="986.03,556.31 987.69,546.05 988.86,535.24">
             <param key="origId" value="318210380#0"/>
         </lane>
-        <lane id="415852971_1" index="1" speed="13.89" length="21.35" width="3.50" shape="989.48,556.87 991.16,546.52 992.34,535.62" changeLeft="authority">
+        <lane id="415852971_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="21.35" width="3.50" shape="989.48,556.87 991.16,546.52 992.34,535.62" changeLeft="authority">
             <param key="origId" value="318210380#0"/>
         </lane>
         <param key="origTo" value="671564296"/>
@@ -4035,10 +4035,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852972" from="4167993265" to="3273797696" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1472.79,301.73 1487.18,300.78 1536.94,296.39 1597.23,291.62">
-        <lane id="415852972_0" index="0" speed="13.89" length="117.71" shape="1479.65,299.67 1487.06,299.18 1536.80,294.80 1596.94,290.04">
+        <lane id="415852972_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="117.71" shape="1479.65,299.67 1487.06,299.18 1536.80,294.80 1596.94,290.04">
             <param key="origId" value="320741894#0"/>
         </lane>
-        <lane id="415852972_1" index="1" speed="13.89" length="117.71" shape="1479.86,302.87 1487.30,302.38 1537.07,297.99 1597.19,293.23">
+        <lane id="415852972_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="117.71" shape="1479.86,302.87 1487.30,302.38 1537.07,297.99 1597.19,293.23">
             <param key="origId" value="320741894#0"/>
         </lane>
         <param key="origFrom" value="1560223404"/>
@@ -4046,13 +4046,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852973" from="3273797696" to="4167993265" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1598.07,299.56 1515.00,307.89 1491.52,310.53 1487.26,311.10 1473.33,313.48">
-        <lane id="415852973_0" index="0" speed="13.89" length="118.04" shape="1598.12,302.77 1515.33,311.07 1491.89,313.71 1487.75,314.27 1480.67,315.48">
+        <lane id="415852973_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="118.04" shape="1598.12,302.77 1515.33,311.07 1491.89,313.71 1487.75,314.27 1480.67,315.48">
             <param key="origId" value="320741895#0"/>
         </lane>
-        <lane id="415852973_1" index="1" speed="13.89" length="118.04" shape="1597.80,299.59 1515.00,307.89 1491.52,310.53 1487.26,311.10 1480.46,312.26">
+        <lane id="415852973_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="118.04" shape="1597.80,299.59 1515.00,307.89 1491.52,310.53 1487.26,311.10 1480.46,312.26">
             <param key="origId" value="320741895#0"/>
         </lane>
-        <lane id="415852973_2" index="2" speed="13.89" length="118.04" shape="1597.48,296.40 1514.66,304.71 1491.15,307.35 1486.78,307.94 1480.26,309.05">
+        <lane id="415852973_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="118.04" shape="1597.48,296.40 1514.66,304.71 1491.15,307.35 1486.78,307.94 1480.26,309.05">
             <param key="origId" value="320741895#0"/>
         </lane>
         <param key="origTo" value="3273797701"/>
@@ -4060,10 +4060,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852974" from="4167993265" to="1560223468" name="Ernst-Ruska-Ufer" priority="12" type="highway.primary" spreadType="center" shape="1473.33,313.48 1457.86,314.55 1452.71,314.90 1417.38,314.30 1387.66,315.14">
-        <lane id="415852974_0" index="0" speed="13.89" length="68.15" shape="1459.83,316.02 1457.97,316.15 1452.75,316.50 1417.39,315.90 1391.57,316.63">
+        <lane id="415852974_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="68.15" shape="1459.83,316.02 1457.97,316.15 1452.75,316.50 1417.39,315.90 1391.57,316.63">
             <param key="origId" value="326994261#0"/>
         </lane>
-        <lane id="415852974_1" index="1" speed="13.89" length="68.15" shape="1459.61,312.83 1457.75,312.96 1452.67,313.30 1417.37,312.70 1391.63,313.43">
+        <lane id="415852974_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="68.15" shape="1459.61,312.83 1457.75,312.96 1452.67,313.30 1417.37,312.70 1391.63,313.43">
             <param key="origId" value="326994261#0"/>
         </lane>
         <param key="origFrom" value="3273797701"/>
@@ -4071,33 +4071,33 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852975" from="1568241289" to="4057899374" priority="1" type="highway.service">
-        <lane id="415852975_0" index="0" speed="2.78" length="37.93" shape="1541.09,197.08 1503.42,201.52">
+        <lane id="415852975_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="37.93" shape="1541.09,197.08 1503.42,201.52">
             <param key="origId" value="403442277#0"/>
         </lane>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852976" from="4057899374" to="4167993272" priority="1" type="highway.service" shape="1498.58,200.48 1497.25,189.62">
-        <lane id="415852976_0" index="0" speed="2.78" length="1.58" shape="1496.42,196.03 1496.23,194.46">
+        <lane id="415852976_0" index="0" allow="pedestrian delivery bicycle" speed="2.78" length="1.58" shape="1496.42,196.03 1496.23,194.46">
             <param key="origId" value="403442277#1"/>
         </lane>
         <param key="origTo" value="4057899371"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="415852977" from="4166809525" to="4057899374" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415852977_0" index="0" speed="2.78" length="6.18" width="2.00" shape="1499.97,211.28 1499.18,205.16">
+        <lane id="415852977_0" index="0" allow="pedestrian" speed="2.78" length="6.18" width="2.00" shape="1499.97,211.28 1499.18,205.16">
             <param key="origId" value="415693099#0"/>
         </lane>
     </edge>
     <edge id="415852978" from="4057899374" to="4166809524" priority="1" type="highway.footway" spreadType="center">
-        <lane id="415852978_0" index="0" speed="2.78" length="8.14" width="2.00" shape="1493.97,201.21 1485.93,202.48">
+        <lane id="415852978_0" index="0" allow="pedestrian" speed="2.78" length="8.14" width="2.00" shape="1493.97,201.21 1485.93,202.48">
             <param key="origId" value="415693099#1"/>
         </lane>
     </edge>
     <edge id="415852979" from="4167993273" to="4167993268" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="997.39,513.05 1012.57,513.35 1175.27,524.64">
-        <lane id="415852979_0" index="0" speed="13.89" length="166.44" width="3.00" shape="1009.14,511.78 1012.63,511.85 1175.26,523.14">
+        <lane id="415852979_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="166.44" width="3.00" shape="1009.14,511.78 1012.63,511.85 1175.26,523.14">
             <param key="origId" value="46039050#0"/>
         </lane>
-        <lane id="415852979_1" index="1" speed="13.89" length="166.44" width="3.00" shape="1009.07,514.78 1012.50,514.85 1175.04,526.13">
+        <lane id="415852979_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="166.44" width="3.00" shape="1009.07,514.78 1012.50,514.85 1175.04,526.13">
             <param key="origId" value="46039050#0"/>
         </lane>
         <param key="origFrom" value="492462300"/>
@@ -4107,10 +4107,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852980" from="4167993268" to="4167993269" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1196.14,526.36 1230.89,528.57 1289.25,532.91">
-        <lane id="415852980_0" index="0" speed="13.89" length="93.16" width="3.00" shape="1196.24,524.87 1230.99,527.07 1289.18,531.40">
+        <lane id="415852980_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.16" width="3.00" shape="1196.24,524.87 1230.99,527.07 1289.18,531.40">
             <param key="origId" value="46039050#4"/>
         </lane>
-        <lane id="415852980_1" index="1" speed="13.89" length="93.16" width="3.00" shape="1196.05,527.86 1230.79,530.07 1288.96,534.39">
+        <lane id="415852980_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="93.16" width="3.00" shape="1196.05,527.86 1230.79,530.07 1288.96,534.39">
             <param key="origId" value="46039050#4"/>
         </lane>
         <param key="origFrom" value="851572547"/>
@@ -4120,10 +4120,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852981" from="4167993269" to="4167993270" name="Rudower Chaussee" priority="10" type="highway.tertiary" spreadType="center" shape="1309.11,534.35 1342.04,536.82 1387.50,543.70 1466.58,561.64 1481.99,565.29">
-        <lane id="415852981_0" index="0" speed="13.89" length="167.53" width="3.00" shape="1309.22,532.85 1342.21,535.33 1387.78,542.22 1466.92,560.18 1474.16,561.90">
+        <lane id="415852981_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="167.53" width="3.00" shape="1309.22,532.85 1342.21,535.33 1387.78,542.22 1466.92,560.18 1474.16,561.90">
             <param key="origId" value="46039050#7"/>
         </lane>
-        <lane id="415852981_1" index="1" speed="13.89" length="167.53" width="3.00" shape="1309.00,535.84 1341.87,538.32 1387.23,545.17 1466.24,563.11 1473.48,564.82">
+        <lane id="415852981_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="167.53" width="3.00" shape="1309.00,535.84 1341.87,538.32 1387.23,545.17 1466.24,563.11 1473.48,564.82">
             <param key="origId" value="46039050#7"/>
         </lane>
         <param key="origFrom" value="1568241357"/>
@@ -4133,10 +4133,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852982" from="4167993273" to="301292499" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="995.08,526.59 981.88,528.27 960.57,530.13 900.96,547.55">
-        <lane id="415852982_0" index="0" speed="13.89" length="80.87" width="3.50" shape="983.36,529.84 982.07,530.01 960.90,531.86 905.16,548.14">
+        <lane id="415852982_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="80.87" width="3.50" shape="983.36,529.84 982.07,530.01 960.90,531.86 905.16,548.14">
             <param key="origId" value="46039051#0"/>
         </lane>
-        <lane id="415852982_1" index="1" speed="13.89" length="80.87" width="3.50" shape="982.93,526.37 981.70,526.53 960.25,528.40 904.24,544.77">
+        <lane id="415852982_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="80.87" width="3.50" shape="982.93,526.37 981.70,526.53 960.25,528.40 904.24,544.77">
             <param key="origId" value="46039051#0"/>
         </lane>
         <param key="origFrom" value="671564296"/>
@@ -4145,64 +4145,64 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="415852983" from="385208394" to="737286282" priority="1" type="highway.path" shape="1159.48,112.01 1163.70,116.37 1181.17,171.24">
-        <lane id="415852983_0" index="0" speed="5.56" length="60.64" width="2.00" shape="1160.19,111.31 1164.58,115.84 1181.06,167.61">
+        <lane id="415852983_0" index="0" allow="pedestrian bicycle" speed="5.56" length="60.64" width="2.00" shape="1160.19,111.31 1164.58,115.84 1181.06,167.61">
             <param key="origId" value="59461375#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852984" from="737286282" to="737286286" priority="1" type="highway.path">
-        <lane id="415852984_0" index="0" speed="5.56" length="10.81" width="2.00" shape="1184.26,169.23 1194.59,166.03">
+        <lane id="415852984_0" index="0" allow="pedestrian bicycle" speed="5.56" length="10.81" width="2.00" shape="1184.26,169.23 1194.59,166.03">
             <param key="origId" value="59461375#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852985" from="737286286" to="260702781" priority="1" type="highway.path">
-        <lane id="415852985_0" index="0" speed="5.56" length="35.82" width="2.00" shape="1201.21,163.91 1235.23,152.73">
+        <lane id="415852985_0" index="0" allow="pedestrian bicycle" speed="5.56" length="35.82" width="2.00" shape="1201.21,163.91 1235.23,152.73">
             <param key="origId" value="59461375#2"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852986" from="851572740" to="851572317" priority="1" type="highway.path" shape="1472.41,464.90 1466.50,463.92 1462.20,462.13">
-        <lane id="415852986_0" index="0" speed="5.56" length="8.74" width="2.00" shape="1472.24,465.89 1466.22,464.89 1463.79,463.88">
+        <lane id="415852986_0" index="0" allow="pedestrian bicycle" speed="5.56" length="8.74" width="2.00" shape="1472.24,465.89 1466.22,464.89 1463.79,463.88">
             <param key="origId" value="71596029#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852987" from="851572317" to="851572523" priority="1" type="highway.path" shape="1462.20,462.13 1456.72,460.55 1444.66,457.63 1436.27,457.75">
-        <lane id="415852987_0" index="0" speed="5.56" length="16.08" width="2.00" shape="1455.51,461.29 1444.55,458.63 1439.74,458.70">
+        <lane id="415852987_0" index="0" allow="pedestrian bicycle" speed="5.56" length="16.08" width="2.00" shape="1455.51,461.29 1444.55,458.63 1439.74,458.70">
             <param key="origId" value="71596029#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852988" from="851572523" to="1560223575" priority="1" type="highway.path" shape="1436.27,457.75 1432.22,455.75 1430.13,453.10 1429.64,449.44 1430.13,445.57 1429.49,442.06 1427.62,437.67 1427.66,432.23 1427.72,427.75 1428.87,423.75 1430.20,421.84 1432.75,421.24 1458.47,424.02">
-        <lane id="415852988_0" index="0" speed="5.56" length="64.64" width="2.00" shape="1433.36,457.43 1431.58,456.55 1429.17,453.50 1428.63,449.44 1429.12,445.60 1428.53,442.35 1426.62,437.88 1426.66,432.22 1426.73,427.60 1427.95,423.32 1429.60,420.96 1432.68,420.22 1454.41,422.57">
+        <lane id="415852988_0" index="0" allow="pedestrian bicycle" speed="5.56" length="64.64" width="2.00" shape="1433.36,457.43 1431.58,456.55 1429.17,453.50 1428.63,449.44 1429.12,445.60 1428.53,442.35 1426.62,437.88 1426.66,432.22 1426.73,427.60 1427.95,423.32 1429.60,420.96 1432.68,420.22 1454.41,422.57">
             <param key="origId" value="71596029#2"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852989" from="1560223575" to="1560223576" priority="1" type="highway.path">
-        <lane id="415852989_0" index="0" speed="5.56" length="6.76" width="2.00" shape="1461.28,423.00 1468.04,422.97">
+        <lane id="415852989_0" index="0" allow="pedestrian bicycle" speed="5.56" length="6.76" width="2.00" shape="1461.28,423.00 1468.04,422.97">
             <param key="origId" value="71596029#3"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852990" from="737286282" to="855357265" priority="1" type="highway.path" shape="1181.17,171.24 1185.35,183.69 1186.75,194.73 1186.09,213.82 1183.68,232.58 1178.98,243.06 1170.48,257.46 1222.91,240.56">
-        <lane id="415852990_0" index="0" speed="5.56" length="134.12" width="2.00" shape="1183.25,174.28 1186.33,183.47 1187.75,194.69 1187.09,213.90 1184.65,232.86 1179.87,243.52 1172.68,255.70 1219.26,240.69">
+        <lane id="415852990_0" index="0" allow="pedestrian bicycle" speed="5.56" length="134.12" width="2.00" shape="1183.25,174.28 1186.33,183.47 1187.75,194.69 1187.09,213.90 1184.65,232.86 1179.87,243.52 1172.68,255.70 1219.26,240.69">
             <param key="origId" value="71960638#0"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="415852991" from="855357265" to="737286286" priority="1" type="highway.path">
-        <lane id="415852991_0" index="0" speed="5.56" length="71.57" width="2.00" shape="1220.86,237.54 1198.34,169.60">
+        <lane id="415852991_0" index="0" allow="pedestrian bicycle" speed="5.56" length="71.57" width="2.00" shape="1220.86,237.54 1198.34,169.60">
             <param key="origId" value="71960638#1"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="46150483" from="301292499" to="2165987554" name="Eisenhutweg" priority="10" type="highway.tertiary" spreadType="center" shape="898.29,540.05 925.09,532.70">
-        <lane id="46150483_0" index="0" speed="13.89" length="22.32" width="4.50" shape="902.02,536.69 923.55,530.79">
+        <lane id="46150483_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.32" width="4.50" shape="902.02,536.69 923.55,530.79">
             <param key="origId" value="46150483"/>
         </lane>
-        <lane id="46150483_1" index="1" speed="13.89" length="22.32" width="4.50" shape="903.21,541.03 924.74,535.13">
+        <lane id="46150483_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="22.32" width="4.50" shape="903.21,541.03 924.74,535.13">
             <param key="origId" value="46150483"/>
         </lane>
         <param key="postal_code" value="12487"/>
@@ -4210,61 +4210,61 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="47765615" from="607601623" to="607601659" priority="1" type="highway.service" shape="1239.30,623.59 1232.78,704.46 1239.14,704.97 1234.71,764.33">
-        <lane id="47765615_0" index="0" speed="5.56" length="142.29" shape="1240.51,628.42 1234.51,702.99 1240.85,703.51 1236.31,764.45">
+        <lane id="47765615_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="142.29" shape="1240.51,628.42 1234.51,702.99 1240.85,703.51 1236.31,764.45">
             <param key="origId" value="47765615"/>
         </lane>
     </edge>
     <edge id="47770431" from="607638014" to="607637982" priority="1" type="highway.service" shape="1414.98,654.08 1416.56,647.21 1425.69,603.38">
-        <lane id="47770431_0" index="0" speed="5.56" length="50.29" shape="1413.42,653.72 1415.00,646.86 1423.82,604.52">
+        <lane id="47770431_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="50.29" shape="1413.42,653.72 1415.00,646.86 1423.82,604.52">
             <param key="origId" value="47770431"/>
         </lane>
         <param key="surface" value="asphalt"/>
     </edge>
     <edge id="47770433" from="607637982" to="1392924660" priority="1" type="highway.path" shape="1425.69,603.38 1431.93,575.00 1434.24,569.17 1436.10,564.68">
-        <lane id="47770433_0" index="0" speed="5.56" length="34.10" width="2.00" shape="1425.03,601.70 1430.97,574.71 1433.35,568.70">
+        <lane id="47770433_0" index="0" allow="pedestrian bicycle" speed="5.56" length="34.10" width="2.00" shape="1425.03,601.70 1430.97,574.71 1433.35,568.70">
             <param key="origId" value="47770433"/>
         </lane>
         <param key="surface" value="paved"/>
     </edge>
     <edge id="69923147" from="835806371" to="2008877431" priority="1" type="highway.track" shape="0.00,805.89 17.79,790.72 81.83,740.40 158.83,689.88 196.84,668.69 268.56,631.50 319.55,612.30 367.47,599.16 492.47,569.91 573.48,554.92 716.46,534.55 753.40,527.55 803.82,514.04 852.69,494.86 944.85,440.88 983.56,413.16 990.83,403.82 991.26,392.65">
-        <lane id="69923147_0" index="0" speed="5.56" length="1098.95" shape="-1.04,804.67 16.78,789.49 80.89,739.10 158.00,688.51 196.08,667.28 267.91,630.04 319.06,610.78 367.08,597.61 492.14,568.34 573.22,553.34 716.19,532.97 753.04,525.98 803.32,512.52 851.99,493.42 943.97,439.54 982.44,411.99 989.25,403.24 989.66,392.59">
+        <lane id="69923147_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="1098.95" shape="-1.04,804.67 16.78,789.49 80.89,739.10 158.00,688.51 196.08,667.28 267.91,630.04 319.06,610.78 367.08,597.61 492.14,568.34 573.22,553.34 716.19,532.97 753.04,525.98 803.32,512.52 851.99,493.42 943.97,439.54 982.44,411.99 989.25,403.24 989.66,392.59">
             <param key="origId" value="69923147"/>
         </lane>
         <param key="surface" value="gravel"/>
     </edge>
     <edge id="70139065" from="837777441" to="846231372" priority="1" type="highway.path" shape="1557.80,624.50 1557.61,616.20 1555.42,608.24 1546.97,593.18">
-        <lane id="70139065_0" index="0" speed="5.56" length="25.54" width="2.00" shape="1556.80,624.52 1556.62,616.35 1554.48,608.62 1549.91,600.46">
+        <lane id="70139065_0" index="0" allow="pedestrian bicycle" speed="5.56" length="25.54" width="2.00" shape="1556.80,624.52 1556.62,616.35 1554.48,608.62 1549.91,600.46">
             <param key="origId" value="70139065"/>
         </lane>
         <param key="surface" value="grass"/>
     </edge>
     <edge id="71595976" from="1560223615" to="851572712" name="Schwarzschildstraße" priority="1" type="highway.service" shape="1304.62,459.07 1304.93,453.42 1309.55,390.51">
-        <lane id="71595976_0" index="0" speed="5.56" length="64.27" shape="1303.26,454.64 1303.33,453.32 1307.94,390.55">
+        <lane id="71595976_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="64.27" shape="1303.26,454.64 1303.33,453.32 1307.94,390.55">
             <param key="origId" value="71595976"/>
         </lane>
         <param key="postal_code" value="12489"/>
         <param key="surface" value="paving_stones"/>
     </edge>
     <edge id="71595991" from="851572782" to="851572712" priority="1" type="highway.track">
-        <lane id="71595991_0" index="0" speed="5.56" length="30.02" shape="1313.29,360.53 1311.15,390.48">
+        <lane id="71595991_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="30.02" shape="1313.29,360.53 1311.15,390.48">
             <param key="origId" value="71595991"/>
         </lane>
         <param key="surface" value="gravel"/>
     </edge>
     <edge id="71596031" from="851572284" to="851572523" priority="1" type="highway.path" shape="1435.44,468.80 1436.23,463.39 1436.27,457.75">
-        <lane id="71596031_0" index="0" speed="5.56" length="3.11" width="2.00" shape="1435.08,464.29 1435.23,463.31 1435.24,461.20">
+        <lane id="71596031_0" index="0" allow="pedestrian bicycle" speed="5.56" length="3.11" width="2.00" shape="1435.08,464.29 1435.23,463.31 1435.24,461.20">
             <param key="origId" value="71596031"/>
         </lane>
         <param key="surface" value="pebblestone"/>
     </edge>
     <edge id="71960707" from="855357265" to="855356052" priority="1" type="highway.path" shape="1222.91,240.56 1226.71,252.09 1238.48,254.52">
-        <lane id="71960707_0" index="0" speed="5.56" length="19.51" width="2.00" shape="1224.96,243.56 1227.48,251.22 1238.69,253.54">
+        <lane id="71960707_0" index="0" allow="pedestrian bicycle" speed="5.56" length="19.51" width="2.00" shape="1224.96,243.56 1227.48,251.22 1238.69,253.54">
             <param key="origId" value="71960707 71960756"/>
         </lane>
         <param key="surface" value="pebblestone sand"/>
     </edge>
     <edge id="71960748" from="855359022" to="1935182239" priority="1" type="highway.service" shape="1157.83,118.39 1145.63,161.91 1120.09,233.28 1119.61,239.93 1120.45,250.87 1118.87,258.29 1116.38,262.64 1112.03,267.22 1105.82,271.34 1098.61,274.44 1091.39,276.46 1029.36,283.76 1022.17,279.13 1024.97,272.04">
-        <lane id="71960748_0" index="0" speed="5.56" length="267.00" shape="1159.37,118.82 1147.15,162.40 1121.67,233.61 1121.22,239.93 1122.06,250.97 1120.39,258.86 1117.67,263.61 1113.06,268.45 1106.59,272.75 1099.14,275.96 1091.70,278.04 1028.98,285.42 1020.20,279.76 1024.35,269.28">
+        <lane id="71960748_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="267.00" shape="1159.37,118.82 1147.15,162.40 1121.67,233.61 1121.22,239.93 1122.06,250.97 1120.39,258.86 1117.67,263.61 1113.06,268.45 1106.59,272.75 1099.14,275.96 1091.70,278.04 1028.98,285.42 1020.20,279.76 1024.35,269.28">
             <param key="origId" value="71960748"/>
         </lane>
         <param key="surface" value="paving_stones"/>

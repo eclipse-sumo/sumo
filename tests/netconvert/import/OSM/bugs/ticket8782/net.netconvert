@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:29 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumoD/data/typemap/osmNetconvert.typ.xml,/scr1/sumoD/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/erdm_ja/sumo/data/typemap/osmNetconvert.typ.xml,/home/erdm_ja/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -87,7 +87,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-37551440" from="439912279" to="439912254" priority="1" type="highway.track" shape="165.86,65.99 160.43,73.52 156.47,80.02 149.03,88.91 141.56,96.05 116.69,111.70 80.27,134.57 56.61,151.95 38.17,166.88 19.34,187.36 0.00,202.88">
-        <lane id="-37551440_0" index="0" speed="5.56" length="208.21" shape="161.82,74.33 157.77,80.95 150.20,90.01 142.54,97.32 117.54,113.06 81.17,135.89 57.59,153.22 39.26,168.05 20.43,188.53 1.00,204.13"/>
+        <lane id="-37551440_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="208.21" shape="161.82,74.33 157.77,80.95 150.20,90.01 142.54,97.32 117.54,113.06 81.17,135.89 57.59,153.22 39.26,168.05 20.43,188.53 1.00,204.13"/>
     </edge>
     <edge id="-5197062#0" from="439912279" to="36247736" priority="3" type="highway.residential" shape="165.86,65.99 154.49,64.05 136.14,59.91 33.71,36.73">
         <lane id="-5197062#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="126.32" shape="156.59,66.03 154.18,65.63 135.79,61.47 33.36,38.29"/>
@@ -96,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-5197062#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="157.41" shape="295.83,0.84 291.49,7.87 288.75,16.80 286.49,27.09 268.51,50.66 254.04,58.86 244.58,59.93 236.88,60.78 191.61,65.41 171.49,67.36"/>
     </edge>
     <edge id="37551440" from="439912254" to="439912279" priority="1" type="highway.track" shape="0.00,202.88 19.34,187.36 38.17,166.88 56.61,151.95 80.27,134.57 116.69,111.70 141.56,96.05 149.03,88.91 156.47,80.02 160.43,73.52 165.86,65.99">
-        <lane id="37551440_0" index="0" speed="5.56" length="207.35" shape="-1.00,201.63 18.24,186.19 37.07,165.72 55.63,150.68 79.37,133.24 115.84,110.35 140.57,94.79 147.86,87.82 155.16,79.08 159.10,72.64 159.23,72.46"/>
+        <lane id="37551440_0" index="0" allow="pedestrian motorcycle moped bicycle" speed="5.56" length="207.35" shape="-1.00,201.63 18.24,186.19 37.07,165.72 55.63,150.68 79.37,133.24 115.84,110.35 140.57,94.79 147.86,87.82 155.16,79.08 159.10,72.64 159.23,72.46"/>
     </edge>
     <edge id="5197062#0" from="36247736" to="439912279" priority="3" type="highway.residential" shape="33.71,36.73 136.14,59.91 154.49,64.05 165.86,65.99">
         <lane id="5197062#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="126.14" shape="34.07,35.17 136.49,58.35 154.80,62.48 157.13,62.88"/>

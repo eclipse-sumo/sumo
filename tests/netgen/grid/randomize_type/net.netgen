@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 16:52:18 by Eclipse SUMO netgenerate Version v1_19_0+1599-58f973b97ec
+<!-- generated on 2024-02-29 13:36:51 by Eclipse SUMO netgenerate Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -308,7 +308,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="A1A0_2" index="2" speed="27.78" length="79.20" shape="-1.60,89.60 -1.60,10.40"/>
     </edge>
     <edge id="A1A2" from="A1" to="A2" priority="-1" type="a">
-        <lane id="A1A2_0" index="0" speed="13.89" length="79.20" shape="1.60,113.60 1.60,192.80"/>
+        <lane id="A1A2_0" index="0" allow="bus" speed="13.89" length="79.20" shape="1.60,113.60 1.60,192.80"/>
     </edge>
     <edge id="A1B1" from="A1" to="B1" priority="-1" type="b">
         <lane id="A1B1_0" index="0" speed="13.89" length="79.20" shape="13.60,95.20 92.80,95.20"/>
@@ -319,14 +319,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="A2A1_1" index="1" speed="13.89" length="79.20" shape="-1.60,192.80 -1.60,113.60"/>
     </edge>
     <edge id="A2B2" from="A2" to="B2" priority="-1" type="a">
-        <lane id="A2B2_0" index="0" speed="13.89" length="85.60" shape="7.20,198.40 92.80,198.40"/>
+        <lane id="A2B2_0" index="0" allow="bus" speed="13.89" length="85.60" shape="7.20,198.40 92.80,198.40"/>
     </edge>
     <edge id="B0A0" from="B0" to="A0" priority="-1" type="b">
         <lane id="B0A0_0" index="0" speed="13.89" length="79.20" shape="92.80,4.80 13.60,4.80"/>
         <lane id="B0A0_1" index="1" speed="13.89" length="79.20" shape="92.80,1.60 13.60,1.60"/>
     </edge>
     <edge id="B0B1" from="B0" to="B1" priority="-1" type="a">
-        <lane id="B0B1_0" index="0" speed="13.89" length="76.00" shape="101.60,13.60 101.60,89.60"/>
+        <lane id="B0B1_0" index="0" allow="bus" speed="13.89" length="76.00" shape="101.60,13.60 101.60,89.60"/>
     </edge>
     <edge id="B0C0" from="B0" to="C0" priority="-1" type="b">
         <lane id="B0C0_0" index="0" speed="13.89" length="82.40" shape="107.20,-4.80 189.60,-4.80"/>
@@ -338,20 +338,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="B1A1_2" index="2" speed="27.78" length="79.20" shape="92.80,101.60 13.60,101.60"/>
     </edge>
     <edge id="B1B0" from="B1" to="B0" priority="-1" type="a">
-        <lane id="B1B0_0" index="0" speed="13.89" length="76.00" shape="98.40,89.60 98.40,13.60"/>
+        <lane id="B1B0_0" index="0" allow="bus" speed="13.89" length="76.00" shape="98.40,89.60 98.40,13.60"/>
     </edge>
     <edge id="B1B2" from="B1" to="B2" priority="-1" type="b">
         <lane id="B1B2_0" index="0" speed="13.89" length="72.80" shape="104.80,113.60 104.80,186.40"/>
         <lane id="B1B2_1" index="1" speed="13.89" length="72.80" shape="101.60,113.60 101.60,186.40"/>
     </edge>
     <edge id="B1C1" from="B1" to="C1" priority="-1" type="a">
-        <lane id="B1C1_0" index="0" speed="13.89" length="79.20" shape="110.40,98.40 189.60,98.40"/>
+        <lane id="B1C1_0" index="0" allow="bus" speed="13.89" length="79.20" shape="110.40,98.40 189.60,98.40"/>
     </edge>
     <edge id="B2A2" from="B2" to="A2" priority="-1" type="a">
-        <lane id="B2A2_0" index="0" speed="13.89" length="85.60" shape="92.80,201.60 7.20,201.60"/>
+        <lane id="B2A2_0" index="0" allow="bus" speed="13.89" length="85.60" shape="92.80,201.60 7.20,201.60"/>
     </edge>
     <edge id="B2B1" from="B2" to="B1" priority="-1" type="a">
-        <lane id="B2B1_0" index="0" speed="13.89" length="72.80" shape="98.40,186.40 98.40,113.60"/>
+        <lane id="B2B1_0" index="0" allow="bus" speed="13.89" length="72.80" shape="98.40,186.40 98.40,113.60"/>
     </edge>
     <edge id="B2C2" from="B2" to="C2" priority="-1" type="c">
         <lane id="B2C2_0" index="0" speed="27.78" length="82.40" shape="110.40,192.00 192.80,192.00"/>
@@ -369,21 +369,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="C0C1_2" index="2" speed="27.78" length="79.20" shape="201.60,13.60 201.60,92.80"/>
     </edge>
     <edge id="C1B1" from="C1" to="B1" priority="-1" type="a">
-        <lane id="C1B1_0" index="0" speed="13.89" length="79.20" shape="189.60,101.60 110.40,101.60"/>
+        <lane id="C1B1_0" index="0" allow="bus" speed="13.89" length="79.20" shape="189.60,101.60 110.40,101.60"/>
     </edge>
     <edge id="C1C0" from="C1" to="C0" priority="-1" type="b">
         <lane id="C1C0_0" index="0" speed="13.89" length="79.20" shape="195.20,92.80 195.20,13.60"/>
         <lane id="C1C0_1" index="1" speed="13.89" length="79.20" shape="198.40,92.80 198.40,13.60"/>
     </edge>
     <edge id="C1C2" from="C1" to="C2" priority="-1" type="a">
-        <lane id="C1C2_0" index="0" speed="13.89" length="79.20" shape="201.60,107.20 201.60,186.40"/>
+        <lane id="C1C2_0" index="0" allow="bus" speed="13.89" length="79.20" shape="201.60,107.20 201.60,186.40"/>
     </edge>
     <edge id="C2B2" from="C2" to="B2" priority="-1" type="b">
         <lane id="C2B2_0" index="0" speed="13.89" length="82.40" shape="192.80,204.80 110.40,204.80"/>
         <lane id="C2B2_1" index="1" speed="13.89" length="82.40" shape="192.80,201.60 110.40,201.60"/>
     </edge>
     <edge id="C2C1" from="C2" to="C1" priority="-1" type="a">
-        <lane id="C2C1_0" index="0" speed="13.89" length="79.20" shape="198.40,186.40 198.40,107.20"/>
+        <lane id="C2C1_0" index="0" allow="bus" speed="13.89" length="79.20" shape="198.40,186.40 198.40,107.20"/>
     </edge>
 
     <junction id="A0" type="priority" x="0.00" y="0.00" incLanes="A1A0_0 A1A0_1 A1A0_2 B0A0_0 B0A0_1" intLanes=":A0_0_0 :A0_0_1 :A0_2_0 :A0_2_1 :A0_2_2" shape="-9.60,10.40 9.60,10.40 10.04,8.18 10.60,7.40 11.38,6.84 12.38,6.51 13.60,6.40 13.60,-6.40 6.51,-5.93 0.71,-4.53 -3.80,-2.20 -7.02,1.07 -8.96,5.27">

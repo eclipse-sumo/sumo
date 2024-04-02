@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 09:10:15 by Eclipse SUMO netconvert Version v1_19_0+1613-11c8f64733e
+<!-- generated on 2024-02-29 13:55:59 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -333,7 +333,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="-124262124" from="3269669673" to="1383487095" priority="20" type="railway.rail" spreadType="center" length="520.90" shape="-20.00,0.00 -302.64,0.00 -341.63,60.00" bidi="124262124">
-        <lane id="-124262124_0" index="0" speed="44.44" length="520.90" shape="-20.00,0.00 -302.64,0.00 -339.21,56.27">
+        <lane id="-124262124_0" index="0" allow="rail" speed="44.44" length="520.90" shape="-20.00,0.00 -302.64,0.00 -339.21,56.27">
             <param key="origId" value="124262124"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -348,7 +348,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="-124264571" from="1383506183" to="1383506147" priority="20" type="railway.rail" spreadType="center" length="211.22" shape="13.46,280.00 -60.37,280.00 -80.37,260.00" bidi="124264571">
-        <lane id="-124264571_0" index="0" speed="44.44" length="211.22" shape="13.46,280.00 -60.37,280.00 -76.58,263.79">
+        <lane id="-124264571_0" index="0" allow="rail" speed="44.44" length="211.22" shape="13.46,280.00 -60.37,280.00 -76.58,263.79">
             <param key="origId" value="124264571"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -363,7 +363,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="-365185118#0" from="3692318838" to="3692318844" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="81.42" bidi="365185118#0">
-        <lane id="-365185118#0_0" index="0" speed="44.44" length="81.42" shape="-706.83,220.00 -724.67,220.00">
+        <lane id="-365185118#0_0" index="0" allow="rail" speed="44.44" length="81.42" shape="-706.83,220.00 -724.67,220.00">
             <param key="origId" value="365185118"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -377,7 +377,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="-405704951" from="258059584" to="3692318843" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="159.53" bidi="405704951">
-        <lane id="-405704951_0" index="0" speed="44.44" length="159.53" shape="-599.83,260.00 -644.67,260.00">
+        <lane id="-405704951_0" index="0" allow="rail" speed="44.44" length="159.53" shape="-599.83,260.00 -644.67,260.00">
             <param key="origId" value="405704951"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -860,7 +860,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="124262124" from="1383487095" to="3269669673" priority="20" type="railway.rail" spreadType="center" length="520.90" shape="-341.63,60.00 -302.64,0.00 -20.00,0.00" bidi="-124262124">
-        <lane id="124262124_0" index="0" speed="44.44" length="520.90" shape="-339.21,56.27 -302.64,0.00 -20.00,0.00">
+        <lane id="124262124_0" index="0" allow="rail" speed="44.44" length="520.90" shape="-339.21,56.27 -302.64,0.00 -20.00,0.00">
             <param key="origId" value="124262124"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -968,7 +968,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="124262128" from="1383487016" to="258060296" priority="20" type="railway.rail" spreadType="center" length="286.75">
-        <lane id="124262128_0" index="0" speed="44.44" length="286.75" shape="-536.01,40.00 -375.05,40.00">
+        <lane id="124262128_0" index="0" allow="rail" speed="44.44" length="286.75" shape="-536.01,40.00 -375.05,40.00">
             <param key="origId" value="124262128"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1039,7 +1039,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="124264570" from="258060309" to="1383506146" priority="20" type="railway.rail" spreadType="center" length="263.85">
-        <lane id="124264570_0" index="0" speed="44.44" length="263.85" shape="14.64,240.00 -108.10,240.00">
+        <lane id="124264570_0" index="0" allow="rail" speed="44.44" length="263.85" shape="14.64,240.00 -108.10,240.00">
             <param key="origId" value="124264570"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1054,7 +1054,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="124264571" from="1383506147" to="1383506183" priority="20" type="railway.rail" spreadType="center" length="211.22" shape="-80.37,260.00 -60.37,280.00 13.46,280.00" bidi="-124264571">
-        <lane id="124264571_0" index="0" speed="44.44" length="211.22" shape="-76.58,263.79 -60.37,280.00 13.46,280.00">
+        <lane id="124264571_0" index="0" allow="rail" speed="44.44" length="211.22" shape="-76.58,263.79 -60.37,280.00 13.46,280.00">
             <param key="origId" value="124264571"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1069,7 +1069,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="23814154#1" from="4078624345" to="258059584" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="62.59">
-        <lane id="23814154#1_0" index="0" speed="44.44" length="62.59" shape="-570.03,260.00 -596.83,260.00">
+        <lane id="23814154#1_0" index="0" allow="rail" speed="44.44" length="62.59" shape="-570.03,260.00 -596.83,260.00">
             <param key="origId" value="23814154"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1083,7 +1083,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="23814209#0" from="1383506187" to="258060309" priority="20" type="railway.rail" spreadType="center" length="46.29">
-        <lane id="23814209#0_0" index="0" speed="44.44" length="46.29" shape="45.89,240.00 22.16,240.00">
+        <lane id="23814209#0_0" index="0" allow="rail" speed="44.44" length="46.29" shape="45.89,240.00 22.16,240.00">
             <param key="origId" value="23814209"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1098,7 +1098,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="23814209#1" from="258060309" to="1383506147" priority="20" type="railway.rail" spreadType="center" length="187.20" shape="20.00,240.00 0.00,260.00 -80.37,260.00">
-        <lane id="23814209#1_0" index="0" speed="44.44" length="187.20" shape="16.21,243.79 0.00,260.00 -75.01,260.00">
+        <lane id="23814209#1_0" index="0" allow="rail" speed="44.44" length="187.20" shape="16.21,243.79 0.00,260.00 -75.01,260.00">
             <param key="origId" value="23814209"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1113,7 +1113,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="23814209#2" from="1383506147" to="1383506146" priority="20" type="railway.rail" spreadType="center" length="29.55" shape="-80.37,260.00 -96.67,260.00 -112.97,240.00">
-        <lane id="23814209#2_0" index="0" speed="44.44" length="29.55" shape="-82.53,260.00 -96.67,260.00 -109.89,243.77">
+        <lane id="23814209#2_0" index="0" allow="rail" speed="44.44" length="29.55" shape="-82.53,260.00 -96.67,260.00 -109.89,243.77">
             <param key="origId" value="23814209"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1128,7 +1128,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="23814209#3" from="1383506146" to="258058797" priority="20" type="railway.rail" spreadType="center" length="38.21">
-        <lane id="23814209#3_0" index="0" speed="44.44" length="38.21" shape="-115.23,240.00 -151.96,240.00">
+        <lane id="23814209#3_0" index="0" allow="rail" speed="44.44" length="38.21" shape="-115.23,240.00 -151.96,240.00">
             <param key="origId" value="23814209"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1268,7 +1268,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="365185118#0" from="3692318844" to="3692318838" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="81.42" bidi="-365185118#0">
-        <lane id="365185118#0_0" index="0" speed="44.44" length="81.42" shape="-724.67,220.00 -706.83,220.00">
+        <lane id="365185118#0_0" index="0" allow="rail" speed="44.44" length="81.42" shape="-724.67,220.00 -706.83,220.00">
             <param key="origId" value="365185118"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1282,7 +1282,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="365185118#1" from="3692318838" to="4078624344" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="293.40" shape="-704.67,220.00 -684.67,240.00 -584.67,240.00">
-        <lane id="365185118#1_0" index="0" speed="44.44" length="293.40" shape="-700.88,223.79 -684.67,240.00 -590.03,240.00">
+        <lane id="365185118#1_0" index="0" allow="rail" speed="44.44" length="293.40" shape="-700.88,223.79 -684.67,240.00 -590.03,240.00">
             <param key="origId" value="365185118"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1296,7 +1296,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="365185118#2" from="4078624344" to="4078624345" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="49.57">
-        <lane id="365185118#2_0" index="0" speed="44.44" length="49.57" shape="-583.14,241.53 -568.46,256.21">
+        <lane id="365185118#2_0" index="0" allow="rail" speed="44.44" length="49.57" shape="-583.14,241.53 -568.46,256.21">
             <param key="origId" value="365185118"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1310,7 +1310,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="365185120" from="258058797" to="4078624345" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="1289.46" shape="-154.12,240.00 -174.12,260.00 -564.67,260.00">
-        <lane id="365185120_0" index="0" speed="44.44" length="1289.46" shape="-157.91,243.79 -174.12,260.00 -562.51,260.00">
+        <lane id="365185120_0" index="0" allow="rail" speed="44.44" length="1289.46" shape="-157.91,243.79 -174.12,260.00 -562.51,260.00">
             <param key="origId" value="365185120 23814154"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1324,7 +1324,7 @@
         <param key="usage" value="industrial"/>
     </edge>
     <edge id="405704940" from="3692318838" to="4078624344" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="293.60" shape="-704.67,220.00 -604.67,220.00 -584.67,240.00">
-        <lane id="405704940_0" index="0" speed="44.44" length="293.60" shape="-699.31,220.00 -604.67,220.00 -588.46,236.21">
+        <lane id="405704940_0" index="0" allow="rail" speed="44.44" length="293.60" shape="-699.31,220.00 -604.67,220.00 -588.46,236.21">
             <param key="origId" value="405704940"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1357,7 +1357,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="405704951" from="3692318843" to="258059584" priority="20" type="railway.rail|usage.industrial" spreadType="center" length="159.53" bidi="-405704951">
-        <lane id="405704951_0" index="0" speed="44.44" length="159.53" shape="-644.67,260.00 -599.83,260.00">
+        <lane id="405704951_0" index="0" allow="rail" speed="44.44" length="159.53" shape="-644.67,260.00 -599.83,260.00">
             <param key="origId" value="405704951"/>
         </lane>
         <param key="electrified" value="no"/>
@@ -1595,7 +1595,7 @@
         <param key="workrules" value="DE:EBO"/>
     </edge>
     <edge id="967048310" from="258058797" to="258060296" priority="20" type="railway.rail" spreadType="center" length="303.56" shape="-154.12,240.00 -270.59,240.00 -372.57,40.00">
-        <lane id="967048310_0" index="0" speed="44.44" length="303.56" shape="-159.48,240.00 -270.59,240.00 -371.44,42.21">
+        <lane id="967048310_0" index="0" allow="rail" speed="44.44" length="303.56" shape="-159.48,240.00 -270.59,240.00 -371.44,42.21">
             <param key="origId" value="967048310 23814213"/>
         </lane>
         <param key="electrified" value="no"/>

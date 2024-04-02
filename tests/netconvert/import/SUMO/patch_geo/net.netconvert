@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:25 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:56:04 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -98,54 +98,54 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-239924883" from="56455689" to="cluster_32444587_6273887394" name="Stadionstraße" priority="10" type="highway.tertiary" shape="1919.04,842.50 1914.09,847.05 1906.75,847.86 1898.69,846.45 1891.36,844.15 1797.59,816.57">
-        <lane id="-239924883_0" index="0" speed="13.89" length="120.21" shape="1918.28,845.37 1914.79,848.58 1906.70,849.47 1898.31,848.01 1890.89,845.68 1803.56,819.99">
+        <lane id="-239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="120.21" shape="1918.28,845.37 1914.79,848.58 1906.70,849.47 1898.31,848.01 1890.89,845.68 1803.56,819.99">
             <param key="origId" value="239924883"/>
         </lane>
         <param key="origTo" value="32444587"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="-304426109#0" from="cluster_32444587_6273887394" to="32444585" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" shape="1797.59,816.57 1723.51,1012.92">
-        <lane id="-304426109#0_0" index="0" speed="8.33" length="203.18" shape="1796.73,823.38 1725.00,1013.48">
+        <lane id="-304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="203.18" shape="1796.73,823.38 1725.00,1013.48">
             <param key="origId" value="304426109"/>
         </lane>
         <param key="origFrom" value="32444587"/>
     </edge>
     <edge id="-4930543#0" from="cluster_32444589_4396212913" to="56455689" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1953.74,776.42 1944.60,786.38 1936.39,798.45 1929.34,814.82 1919.04,842.50">
-        <lane id="-4930543#0_0" index="0" speed="13.89" length="72.59" shape="1954.92,777.50 1945.86,787.38 1937.79,799.22 1930.83,815.42 1921.33,840.93">
+        <lane id="-4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.59" shape="1954.92,777.50 1945.86,787.38 1937.79,799.22 1930.83,815.42 1921.33,840.93">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origFrom" value="32444589"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="239924883" from="cluster_32444587_6273887394" to="56455689" name="Stadionstraße" priority="10" type="highway.tertiary" shape="1797.59,816.57 1891.36,844.15 1898.69,846.45 1906.75,847.86 1914.09,847.05 1919.04,842.50">
-        <lane id="239924883_0" index="0" speed="13.89" length="116.83" shape="1804.48,816.92 1891.82,842.61 1899.07,844.89 1906.80,846.24 1913.39,845.52 1916.12,843.01">
+        <lane id="239924883_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="116.83" shape="1804.48,816.92 1891.82,842.61 1899.07,844.89 1906.80,846.24 1913.39,845.52 1916.12,843.01">
             <param key="origId" value="239924883"/>
         </lane>
         <param key="origFrom" value="32444587"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="239924889#3" from="cluster_32444587_6273887394" to="cluster_32444589_4396212913" priority="1" type="highway.footway" spreadType="center" shape="1801.13,809.16 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1948.90,772.39">
-        <lane id="239924889#3_0" index="0" speed="2.78" length="189.39" width="2.00" shape="1806.34,810.72 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1948.90,772.39">
+        <lane id="239924889#3_0" index="0" allow="pedestrian" speed="2.78" length="189.39" width="2.00" shape="1806.34,810.72 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1948.90,772.39">
             <param key="origId" value="239924889"/>
         </lane>
         <param key="origFrom" value="6273887394"/>
         <param key="origTo" value="4396212913"/>
     </edge>
     <edge id="304426109#0" from="32444585" to="cluster_32444587_6273887394" name="Gerhart-Hauptmann-Allee" priority="3" type="highway.residential" shape="1723.51,1012.92 1797.59,816.57">
-        <lane id="304426109#0_0" index="0" speed="8.33" length="203.18" shape="1722.01,1012.35 1793.73,822.25">
+        <lane id="304426109#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="8.33" length="203.18" shape="1722.01,1012.35 1793.73,822.25">
             <param key="origId" value="304426109"/>
         </lane>
         <param key="origTo" value="32444587"/>
     </edge>
     <edge id="4930543#0" from="56455689" to="cluster_32444589_4396212913" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1919.04,842.50 1929.34,814.82 1936.39,798.45 1944.60,786.38 1953.74,776.42">
-        <lane id="4930543#0_0" index="0" speed="13.89" length="73.83" shape="1918.34,839.82 1927.86,814.23 1934.98,797.67 1943.34,785.39 1952.56,775.34">
+        <lane id="4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="73.83" shape="1918.34,839.82 1927.86,814.23 1934.98,797.67 1943.34,785.39 1952.56,775.34">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origTo" value="32444589"/>
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="4935158#0" from="56455689" to="262875036" name="Heinrich-Heine-Allee" priority="1" type="highway.footway" spreadType="center" shape="1919.04,842.50 1938.93,864.16 1876.49,1059.88">
-        <lane id="4935158#0_0" index="0" speed="2.78" length="230.14" width="2.00" shape="1922.22,845.96 1938.93,864.16 1876.49,1059.88">
+        <lane id="4935158#0_0" index="0" allow="pedestrian" speed="2.78" length="230.14" width="2.00" shape="1922.22,845.96 1938.93,864.16 1876.49,1059.88">
             <param key="origId" value="4935158"/>
         </lane>
     </edge>

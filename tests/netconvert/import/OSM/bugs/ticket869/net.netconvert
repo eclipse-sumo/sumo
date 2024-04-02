@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-01 17:38:28 by Eclipse SUMO netconvert Version v1_19_0+1605-f03351e016f
+<!-- generated on 2024-02-29 13:56:07 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,14 +48,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-157562752" from="1697931355" to="1697931360" priority="3" type="highway.residential">
-        <lane id="-157562752_0" index="0" speed="13.89" length="20216614.24" shape="1.51,-0.53 6657139.10,19089106.59"/>
+        <lane id="-157562752_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20216614.24" shape="1.51,-0.53 6657139.10,19089106.59"/>
     </edge>
     <edge id="157562752" from="1697931360" to="1697931355" priority="3" type="highway.residential">
-        <lane id="157562752_0" index="0" speed="13.89" length="20216614.24" shape="6657136.08,19089107.64 -1.51,0.53"/>
+        <lane id="157562752_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="20216614.24" shape="6657136.08,19089107.64 -1.51,0.53"/>
     </edge>
     <edge id="8614778" from="61330091" to="61321502" priority="3" type="highway.residential" spreadType="center" shape="574138.68,13718947.37 574165.80,13718990.57 574191.62,13719031.59 574221.78,13719077.72">
-        <lane id="8614778_0" index="0" speed="13.89" length="154.60" width="6.70" shape="574141.52,13718945.59 574168.63,13718988.79 574194.44,13719029.78 574224.58,13719075.89"/>
-        <lane id="8614778_1" index="1" speed="13.89" length="154.60" width="6.70" shape="574135.84,13718949.15 574162.96,13718992.36 574188.81,13719033.40 574218.98,13719079.56"/>
+        <lane id="8614778_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" width="6.70" shape="574141.52,13718945.59 574168.63,13718988.79 574194.44,13719029.78 574224.58,13719075.89"/>
+        <lane id="8614778_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="154.60" width="6.70" shape="574135.84,13718949.15 574162.96,13718992.36 574188.81,13719033.40 574218.98,13719079.56"/>
     </edge>
 
     <junction id="1697931355" type="priority" x="0.00" y="0.00" incLanes="157562752_0" intLanes=":1697931355_0_0" shape="0.00,-0.00 -3.02,1.05 0.00,0.00">
