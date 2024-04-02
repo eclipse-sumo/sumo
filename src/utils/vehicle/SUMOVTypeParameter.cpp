@@ -89,6 +89,18 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             mass = 70.; // https://en.wikipedia.org/wiki/Human_body_weight for Europe
             speedFactor.getParameter()[1] = 0.1;
             break;
+        case SVC_WHEELCHAIR:
+            minGap = 0.5;
+            maxSpeed = 30.0 / 3.6; // https://en.wikipedia.org/wiki/Wheelchair_racing
+            desiredMaxSpeed = DEFAULT_PEDESTRIAN_SPEED;
+            width = 0.8;
+            height = 1.5;
+            shape = SUMOVehicleShape::PEDESTRIAN;
+            osgFile = "humanResting.obj";
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            mass = 90.; //
+            speedFactor.getParameter()[1] = 0.1;
+            break;
         case SVC_BICYCLE:
             minGap = 0.5;
             minGapLat = 0.35;
@@ -97,6 +109,20 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 0.65;
             height = 1.7;
             shape = SUMOVehicleShape::BICYCLE;
+            personCapacity = 1;
+            emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
+            mass = 10.;
+            speedFactor.getParameter()[1] = 0.1;
+            latAlignmentProcedure = LatAlignmentDefinition::RIGHT;
+            break;
+        case SVC_SCOOTER:
+            minGap = 0.5;
+            minGapLat = 0.35;
+            maxSpeed = 25 / 3.6;
+            desiredMaxSpeed = DEFAULT_BICYCLE_SPEED;
+            width = 0.5;
+            height = 1.7;
+            shape = SUMOVehicleShape::SCOOTER;
             personCapacity = 1;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             mass = 10.;
@@ -178,6 +204,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             mass = 37900.;
             break;
         case SVC_RAIL_URBAN:
+        case SVC_SUBWAY:
             maxSpeed = 100. / 3.6;
             minGap = 5;
             width = 3.0;
@@ -252,6 +279,17 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             shape = SUMOVehicleShape::E_VEHICLE;
             emissionClass = PollutantsInterface::getClassByName(EMPREFIX + "zero", vclass);
             speedFactor.getParameter()[1] = 0.1;
+            break;
+        case SVC_CONTAINER:
+            width = 2.5908;
+            break;
+        case SVC_DRONE:
+            width = 0.5;
+            break;
+        case SVC_AIRCRAFT:
+            // Airbus A380
+            shape = SUMOVehicleShape::AIRCRAFT;
+            width = 79.8;
             break;
         case SVC_SHIP:
             width = 4;
@@ -796,8 +834,10 @@ double
 SUMOVTypeParameter::getDefaultAccel(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
+        case SVC_WHEELCHAIR:
             return 1.5;
         case SVC_BICYCLE:
+        case SVC_SCOOTER:
             return 1.2;
         case SVC_MOTORCYCLE:
             return 6.;
@@ -832,8 +872,10 @@ double
 SUMOVTypeParameter::getDefaultDecel(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
+        case SVC_WHEELCHAIR:
             return 2.;
         case SVC_BICYCLE:
+        case SVC_SCOOTER:
             return 3.;
         case SVC_MOPED:
             return 7.;
@@ -865,9 +907,11 @@ SUMOVTypeParameter::getDefaultEmergencyDecel(const SUMOVehicleClass vc, double d
         double vcDecel;
         switch (vc) {
             case SVC_PEDESTRIAN:
+            case SVC_WHEELCHAIR:
                 vcDecel = 5.;
                 break;
             case SVC_BICYCLE:
+            case SVC_SCOOTER:
                 vcDecel = 7.;
                 break;
             case SVC_MOPED:

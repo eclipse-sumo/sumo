@@ -522,8 +522,12 @@ getDefaultVehicleLength(const SUMOVehicleClass vc) {
     switch (vc) {
         case SVC_PEDESTRIAN:
             return 0.215;
+        case SVC_WHEELCHAIR:
+            return 0.5;
         case SVC_BICYCLE:
             return 1.6;
+        case SVC_SCOOTER:
+            return 1.2;
         case SVC_MOPED:
             return 2.1;
         case SVC_MOTORCYCLE:
@@ -539,6 +543,7 @@ getDefaultVehicleLength(const SUMOVehicleClass vc) {
         case SVC_TRAM:
             return 22.;
         case SVC_RAIL_URBAN:
+        case SVC_SUBWAY:
             return 36.5 * 3;
         case SVC_RAIL:
             return 67.5 * 2;
@@ -550,6 +555,12 @@ getDefaultVehicleLength(const SUMOVehicleClass vc) {
             return 6.5;
         case SVC_SHIP:
             return 17;
+        case SVC_CONTAINER:
+            return 6.096;
+        case SVC_DRONE:
+            return 0.5;
+        case SVC_AIRCRAFT:
+            return 72.7;
         default:
             return 5; /*4.3*/
     }
