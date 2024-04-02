@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-03-28 15:54+0000\n"
+"PO-Revision-Date: 2024-04-02 14:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -29,36 +29,36 @@ msgstr "Consolidando le statistiche"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:58
 msgid "Building street representation"
-msgstr ""
+msgstr "Costruzione della rappresentazione delle strade"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:62
 msgid "Generating work positions"
-msgstr ""
+msgstr "Generazione dei posti di lavoro"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:66
 msgid "Building bus lines"
-msgstr ""
+msgstr "Costruzione delle linee di autobus"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:71
 msgid "Generating population"
-msgstr ""
+msgstr "Generazione della popolazione"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:75
 msgid "Allocating schools"
-msgstr ""
+msgstr "Assegnazione delle scuole"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:79
 msgid "Allocating work places"
-msgstr ""
+msgstr "Assegnazione dei posti di lavoro"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:83
 msgid "Allocating car places"
-msgstr ""
+msgstr "Assegnazione dei posti auto"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:174
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:181
 msgid "Invalid % value of edge % is treated as zero."
-msgstr ""
+msgstr "Il valore invalido % dell'arco % viene assunto come zero."
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGenHandler.cpp:186
 #, c-format
@@ -144,24 +144,26 @@ msgstr ""
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetFlowLoader.cpp:76
 msgid "At least one value lies beyond given time boundaries."
-msgstr ""
+msgstr "Almeno un valore si trova fuori dei periodi prestabiliti."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetFlowLoader.cpp:104
 msgid "At least one line does not contain the correct number of columns."
-msgstr ""
+msgstr "Almeno una riga contiene un numero di colonne sbagliato."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetector.cpp:171
 msgid "Missing routes for detector '%'."
-msgstr ""
+msgstr "Itinerari mancanti per il rivelatore '%'."
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetector.cpp:305
 #, c-format
 msgid "Detector '%' has no routes!?"
-msgstr ""
+msgstr "Il rivelatore '%' non tiene itinerari!?"
 
 #: C:\Repos\sumo/src\dfrouter\RODFDetectorHandler.cpp:86
 msgid "Could not add detector '%' (probably the id is already used)."
 msgstr ""
+"Non ho potuto aggiungere il rivelatore '%' (probabilmente il codice "
+"identificativo è già in uso)."
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
