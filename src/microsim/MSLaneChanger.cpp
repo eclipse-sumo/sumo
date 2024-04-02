@@ -1060,6 +1060,11 @@ MSLaneChanger::checkChange(
                   << "\n";
     }
 #endif
+
+    if (state & LCA_WANTS_LANECHANGE && blocked == 0) {
+        blocked = vehicle->getLaneChangeModel().checkChangeBeforeCommitting(vehicle, state);
+        state |= blocked;
+    }
     vehicle->getLaneChangeModel().saveLCState(laneOffset, oldstate, state);
     if (blocked == 0 && (state & LCA_WANTS_LANECHANGE)) {
         // this lane change will be executed, save gaps
