@@ -213,14 +213,15 @@ enum SUMOVehicleClass {
     //@}
 
     /// @brief classes which drive on tracks
-    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM,
+    SVC_RAIL_CLASSES = SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL | SVC_RAIL_URBAN | SVC_TRAM | SVC_SUBWAY | SVC_CABLE_CAR,
     /// @brief public transport
-    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES,
+    SVC_PUBLIC_CLASSES = SVC_BUS | SVC_RAIL_CLASSES | SVC_CABLE_CAR | SVC_AIRCRAFT,
     /// @brief classes which drive on roads
     SVC_ROAD_CLASSES = (SVC_PEDESTRIAN | SVC_PASSENGER | SVC_HOV | SVC_TAXI | SVC_BUS | SVC_COACH | SVC_DELIVERY
-                        | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE),
+                        | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE
+                        | SVC_WHEELCHAIR | SVC_SCOOTER),
     /// @brief classes which (normally) do not drive on normal roads
-    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP
+    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER
 };
 
 extern const SUMOVehicleClass SUMOVehicleClass_MAX;
