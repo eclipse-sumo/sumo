@@ -32,7 +32,7 @@
 
     <type id="railway.preserved"      numLanes="1" speed="27.78" priority="16" oneway="true"  allow="rail"/>
     <type id="railway.tram"           numLanes="1" speed="13.89" priority="17" oneway="true"  allow="tram"/>
-    <type id="railway.subway"         numLanes="1" speed="27.78" priority="18" oneway="true"  allow="rail_urban"/>
+    <type id="railway.subway"         numLanes="1" speed="27.78" priority="18" oneway="true"  allow="subway"/>
     <type id="railway.light_rail"     numLanes="1" speed="27.78" priority="19" oneway="true"  allow="rail_urban"/>
     <type id="railway.rail"           numLanes="1" speed="44.44" priority="20" oneway="true"  allow="rail"/>
     <type id="railway.highspeed"      numLanes="1" speed="69.44" priority="21" oneway="true"  allow="rail_fast"/>
