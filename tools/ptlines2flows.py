@@ -151,13 +151,13 @@ def writeTypes(fout, prefix, options):
     print("""    <vType id="%sbus" vClass="bus"%s/>
     <vType id="%stram" vClass="tram"%s/>
     <vType id="%strain" vClass="rail"%s/>
-    <vType id="%ssubway" vClass="rail_urban"%s/>
+    <vType id="%ssubway" vClass="subway"%s/>
     <vType id="%slight_rail" vClass="rail_urban"%s/>
     <vType id="%smonorail" vClass="rail_urban"%s/>
     <vType id="%strolleybus" vClass="bus"%s/>
     <vType id="%sminibus" vClass="bus"%s/>
     <vType id="%sshare_taxi" vClass="taxi"%s/>
-    <vType id="%saerialway" vClass="rail_urban"%s length="2.5" width="2" personCapacity="4"/>
+    <vType id="%saerialway" vClass="cable_car"%s length="2.5" width="2" personCapacity="4"/>
     <vType id="%sferry" vClass="ship"%s/>""" % tuple(prefixes_and_sf), file=fout)
 
 

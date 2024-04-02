@@ -2605,7 +2605,11 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
     SUMOVehicleClass result = SVC_IGNORING;
     if (type == "train") {
         result = SVC_RAIL;
-    } else if (type == "subway" || type == "light_rail" || type == "monorail" || type == "aerialway") {
+    } else if (type == "subway") {
+        result = SVC_SUBWAY;
+    } else if (type == "aerialway") {
+        result = SVC_CABLE_CAR;
+    } else if (type == "light_rail" || type == "monorail") {
         result = SVC_RAIL_URBAN;
     } else if (type == "share_taxi") {
         result = SVC_TAXI;
