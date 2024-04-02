@@ -250,7 +250,7 @@ public:
      */
     double getACCAcceleration(const MSVehicle* veh) const;
 
-    bool isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const;
+    int isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const;
 
     void setLeader(MSVehicle* veh, MSVehicle* const leader) const;
 
