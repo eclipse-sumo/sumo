@@ -94,6 +94,8 @@ VClassIcons::getVClassIcon(const SUMOVehicleClass vc) {
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
         case SVC_WHEELCHAIR:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+        case SVC_SCOOTER:
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
         case SVC_DRONE:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
         case SVC_CUSTOM1:

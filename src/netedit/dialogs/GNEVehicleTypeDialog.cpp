@@ -258,6 +258,9 @@ GNEVehicleTypeDialog::VTypeAttributes::VClassRow::setVClassLabelImage() {
             case SVC_WHEELCHAIR:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM1));
                 break;
+            case SVC_SCOOTER:
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM1));
+                break;
             case SVC_DRONE:
                 myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM1));
                 break;

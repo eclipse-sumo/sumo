@@ -273,6 +273,7 @@ GNEAllowVClassesDialog::constructor() {
     buildVClass(myContentRightFrame, SVC_SUBWAY, GUIIcon::VCLASS_CUSTOM1, TL("A railway that mostly runs underground"));
     buildVClass(myContentRightFrame, SVC_AIRCRAFT, GUIIcon::VCLASS_CUSTOM1, TL("A airplane"));
     buildVClass(myContentRightFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_CUSTOM1, TL("A mobility impaired person"));
+    buildVClass(myContentRightFrame, SVC_SCOOTER, GUIIcon::VCLASS_CUSTOM1, TL("An electric scooter or a kick scooter"));
     buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_CUSTOM1, TL("A small unmanned robot"));
     buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
