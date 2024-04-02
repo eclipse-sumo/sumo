@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -6,7 +7,7 @@ length 27.7
 maxSpeed 13.89
 width 3.2
 allowed ('passenger',)
-disallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2')
+disallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'hov', 'taxi', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2')
 linkNum 1
 links [('CN_3', True, True, False)]
 linksExtended [('CN_3', True, True, False, '', 'M', 's', 0.0)]
@@ -28,8 +29,8 @@ numVeh 0
 haltVeh 0
 vehIds ()
 waiting time 0.0
-after setAllowed ('taxi',) ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2')
-after setDisallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'custom1', 'custom2') ('bus',)
+after setAllowed ('taxi',) ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'bus', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2')
+after setDisallowed ('private', 'emergency', 'authority', 'army', 'vip', 'pedestrian', 'passenger', 'hov', 'taxi', 'coach', 'delivery', 'truck', 'trailer', 'motorcycle', 'moped', 'bicycle', 'evehicle', 'tram', 'rail_urban', 'rail', 'rail_electric', 'rail_fast', 'ship', 'container', 'cable_car', 'subway', 'aircraft', 'wheelchair', 'scooter', 'drone', 'custom1', 'custom2') ('bus',)
 after setMaxSpeed 42.0
 after setLength 123.0
 {16: 0}
