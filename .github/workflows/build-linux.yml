@@ -61,7 +61,7 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1.2
 
     - name: Cloning jupedsim
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       uses: actions/checkout@v4
       with:
         repository: PedestrianDynamics/jupedsim
@@ -69,7 +69,7 @@ jobs:
         path: jupedsim
 
     - name: Building libjupedsim
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
         sudo apt-get install libgeos-dev
         cmake -B jupedsim-build -DCMAKE_INSTALL_PREFIX=jupedsim-install jupedsim
@@ -121,7 +121,7 @@ jobs:
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
     - name: Extra tests
-      if: matrix.build_type == 'full' && github.repository == 'DLR-TS/sumo'
+      if: matrix.build_type == 'full' && matrix.compiler == 'gcc'
       run: |
         sudo apt-get install python2
         sumo/tests/runTests.sh -b ci -a sumo.meso.ci,sumo.extra.ci
