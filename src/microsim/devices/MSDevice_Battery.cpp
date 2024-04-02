@@ -300,6 +300,9 @@ MSDevice_Battery::saveState(OutputDevice& out) const {
     internals.push_back(toString(myTotalRegenerated));
     internals.push_back(toString(myEnergyCharged));
     internals.push_back(toString(myVehicleStopped));
+    internals.push_back(getChargingStationID());
+    std::string prevChargingID = (myPreviousNeighbouringChargingStation == nullptr) ? "NULL" : myPreviousNeighbouringChargingStation->getID();
+    internals.push_back(prevChargingID);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
     out.closeTag();
 }
@@ -317,6 +320,16 @@ MSDevice_Battery::loadState(const SUMOSAXAttributes& attrs) {
     bis >> myTotalRegenerated;
     bis >> myEnergyCharged;
     bis >> myVehicleStopped;
+    std::string chargingID;
+    bis >> chargingID;
+    if (chargingID != "NULL") {
+        myActChargingStation = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(chargingID, SUMO_TAG_CHARGING_STATION));
+    }
+    std::string prevChargingID;
+    bis >> prevChargingID;
+    if (prevChargingID != "NULL") {
+        myPreviousNeighbouringChargingStation = dynamic_cast<MSChargingStation*>(MSNet::getInstance()->getStoppingPlace(prevChargingID, SUMO_TAG_CHARGING_STATION));
+    }
 }
 
 
