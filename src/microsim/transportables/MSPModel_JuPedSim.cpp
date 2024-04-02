@@ -565,11 +565,7 @@ MSPModel_JuPedSim::getWalkingAreaInbetween(const MSEdge* const edge, const MSEdg
 
 GEOSGeometry*
 MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle) {
-    const unsigned int size = (unsigned int)centerLine.size();
-    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create(size, 2);
-    for (unsigned int i = 0; i < size; i++) {
-        GEOSCoordSeq_setXY(coordinateSequence, i, centerLine[i].x(), centerLine[i].y());
-    }
+    GEOSCoordSequence* coordinateSequence = convertToGEOSPoints(centerLine);
     GEOSGeometry* lineString = GEOSGeom_createLineString(coordinateSequence);
     GEOSGeometry* dilatedLineString = GEOSBufferWithStyle(lineString, width, GEOS_QUADRANT_SEGMENTS, capStyle, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
     GEOSGeom_destroy(lineString);
@@ -602,10 +598,7 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
     if (cleanShape.size() < shape.size()) {
         WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed: %"), shapeID, toString(duplicates, 9));
     }
-    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)cleanShape.size(), 2);
-    for (int i = 0; i < (int)cleanShape.size(); i++) {
-        GEOSCoordSeq_setXY(coordinateSequence, i, cleanShape[i].x(), cleanShape[i].y());
-    }
+    GEOSCoordSequence* coordinateSequence = convertToGEOSPoints(cleanShape);
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordinateSequence);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
     if (!GEOSisSimple(polygon)) {
@@ -787,8 +780,18 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
 }
 
 
+GEOSCoordSequence*
+MSPModel_JuPedSim::convertToGEOSPoints(PositionVector shape) {
+    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)shape.size(), 2);
+    for (int i = 0; i < (int)shape.size(); i++) {
+        GEOSCoordSeq_setXY(coordinateSequence, i, shape[i].x(), shape[i].y());
+    }
+    return coordinateSequence;
+}
+
+
 PositionVector
-MSPModel_JuPedSim::getCoordinates(const GEOSGeometry* geometry) {
+MSPModel_JuPedSim::convertToSUMOPoints(const GEOSGeometry* geometry) {
     PositionVector coordinateVector;
     const GEOSCoordSequence* coordinateSequence = GEOSGeom_getCoordSeq(geometry);
     unsigned int coordinateSequenceSize;
@@ -841,7 +844,7 @@ MSPModel_JuPedSim::removePolygonFromDrawing(const std::string& polygonId) {
 void
 MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
-    PositionVector shape = getCoordinates(exterior);
+    PositionVector shape = convertToSUMOPoints(exterior);
     bool added = myShapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), color, 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
     if (added) {
         std::vector<PositionVector> holes;
@@ -851,7 +854,7 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
                 const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
                 double area = getHoleArea(linearRing);
                 if (area > GEOS_MIN_AREA) {
-                    PositionVector hole = getCoordinates(linearRing);
+                    PositionVector hole = convertToSUMOPoints(linearRing);
                     holes.push_back(hole);
                 }
             }
@@ -944,6 +947,41 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(myGEOSPedestrianNetworkLargestComponent, "pedestrianNetwork.wkt");
 #endif
+    std::string filename = oc.getString("pedestrian.jupedsim.wkt");
+    if (!filename.empty()) {
+        if (oc.getBool("pedestrian.jupedsim.wkt.geo")) {
+            const GEOSGeometry* exterior =  GEOSGetExteriorRing(myGEOSPedestrianNetworkLargestComponent);
+            PositionVector exteriorPoints = convertToSUMOPoints(exterior);
+            for (Position& position : exteriorPoints) {
+                GeoConvHelper::getFinal().cartesian2geo(position);
+            }
+            const int nbrInteriorRings = GEOSGetNumInteriorRings(myGEOSPedestrianNetworkLargestComponent);
+            std::vector<GEOSGeometry*> holeRings;
+            if (nbrInteriorRings != -1) {
+                for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+                    const GEOSGeometry* linearRing = GEOSGetInteriorRingN(myGEOSPedestrianNetworkLargestComponent, k);
+                    const double area = getHoleArea(linearRing);
+                    if (area > GEOS_MIN_AREA) {
+                        PositionVector holePoints = convertToSUMOPoints(linearRing);
+                        for (Position& position : holePoints) {
+                            GeoConvHelper::getFinal().cartesian2geo(position);
+                        }
+                        GEOSCoordSequence* holeRingCoords = convertToGEOSPoints(holePoints);
+                        GEOSGeometry* holeRing = GEOSGeom_createLinearRing(holeRingCoords);
+                        holeRings.push_back(holeRing);
+                    }
+                }
+            }
+            GEOSCoordSequence* exteriorRingCoords = convertToGEOSPoints(exteriorPoints);
+            GEOSGeometry* exteriorRing = GEOSGeom_createLinearRing(exteriorRingCoords);
+            GEOSGeometry* polygon = GEOSGeom_createPolygon(exteriorRing, holeRings.data(), nbrInteriorRings);
+            dumpGeometry(polygon, filename);
+            GEOSGeom_destroy(polygon);
+        }
+        else {
+            dumpGeometry(myGEOSPedestrianNetworkLargestComponent, filename);
+        }
+    }
     // For the moment, only one connected component is supported.
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetworkLargestComponent);
     myJPSGeometryWithTrainsAndRamps = nullptr;
