@@ -134,7 +134,7 @@ long
 GNEAllowVClassesDialog::onCmdSelectOnlyRail(FXObject*, FXSelector, void*) {
     // change all non-road icons to disallow, and allow for the rest
     for (const auto& vClass : myVClassMap) {
-        if ((vClass.first & (SVC_TRAM | SVC_RAIL_URBAN | SVC_RAIL | SVC_RAIL_ELECTRIC | SVC_RAIL_FAST)) != 0) {
+        if ((vClass.first & SVC_RAIL_CLASSES) != 0) {
             vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
         } else {
             vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
@@ -249,17 +249,21 @@ GNEAllowVClassesDialog::constructor() {
     buildVClass(myContentLeftFrame, SVC_TRUCK, GUIIcon::VCLASS_TRUCK, TL("Vehicle designed to transport cargo"));
     buildVClass(myContentLeftFrame, SVC_TRAILER, GUIIcon::VCLASS_TRAILER, TL("Truck with trailer"));
     buildVClass(myContentLeftFrame, SVC_EMERGENCY, GUIIcon::VCLASS_EMERGENCY, TL("Vehicle designated to respond to an emergency"));
+    buildVClass(myContentLeftFrame, SVC_MOTORCYCLE, GUIIcon::VCLASS_MOTORCYCLE, TL("Two- or three-wheeled motor vehicle"));
+    buildVClass(myContentLeftFrame, SVC_MOPED, GUIIcon::VCLASS_MOPED, TL("Motorcycle not allowed in motorways"));
     // create center frame and fill it
     FXVerticalFrame* myContentCenterFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
-    buildVClass(myContentCenterFrame, SVC_MOTORCYCLE, GUIIcon::VCLASS_MOTORCYCLE, TL("Two- or three-wheeled motor vehicle"));
-    buildVClass(myContentCenterFrame, SVC_MOPED, GUIIcon::VCLASS_MOPED, TL("Motorcycle not allowed in motorways"));
     buildVClass(myContentCenterFrame, SVC_BICYCLE, GUIIcon::VCLASS_BICYCLE, TL("Human-powered, pedal-driven vehicle"));
+    buildVClass(myContentCenterFrame, SVC_SCOOTER, GUIIcon::VCLASS_CUSTOM1, TL("An electric scooter or a kick scooter"));
     buildVClass(myContentCenterFrame, SVC_PEDESTRIAN, GUIIcon::VCLASS_PEDESTRIAN, TL("Person traveling on foot"));
+    buildVClass(myContentCenterFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_CUSTOM1, TL("A mobility impaired person"));
     buildVClass(myContentCenterFrame, SVC_TRAM, GUIIcon::VCLASS_TRAM, TL("Rail vehicle which runs on tracks"));
     buildVClass(myContentCenterFrame, SVC_RAIL_ELECTRIC, GUIIcon::VCLASS_RAIL_ELECTRIC, TL("Rail electric vehicle"));
     buildVClass(myContentCenterFrame, SVC_RAIL_FAST, GUIIcon::VCLASS_RAIL_FAST, TL("High-speed rail vehicle"));
     buildVClass(myContentCenterFrame, SVC_RAIL_URBAN, GUIIcon::VCLASS_RAIL_URBAN, TL("Heavier than tram"));
     buildVClass(myContentCenterFrame, SVC_RAIL, GUIIcon::VCLASS_RAIL, TL("Heavy rail vehicle"));
+    buildVClass(myContentCenterFrame, SVC_CABLE_CAR, GUIIcon::VCLASS_CUSTOM1, TL("A conveyance suspended on a cable"));
+    buildVClass(myContentCenterFrame, SVC_SUBWAY, GUIIcon::VCLASS_CUSTOM1, TL("A railway that mostly runs underground"));
     // create right frame and fill it  (8 vehicles)
     FXVerticalFrame* myContentRightFrame = new FXVerticalFrame(myVehiclesFrame, GUIDesignAuxiliarFrame);
     buildVClass(myContentRightFrame, SVC_E_VEHICLE, GUIIcon::VCLASS_EVEHICLE, TL("Future electric mobility vehicles"));
@@ -269,11 +273,7 @@ GNEAllowVClassesDialog::constructor() {
     buildVClass(myContentRightFrame, SVC_VIP, GUIIcon::VCLASS_VIP, TL("A civilian security armored car used by VIPs"));
     buildVClass(myContentRightFrame, SVC_HOV, GUIIcon::VCLASS_HOV, TL("High-Occupancy Vehicle (two or more passengers)"));
     buildVClass(myContentRightFrame, SVC_CONTAINER, GUIIcon::VCLASS_CUSTOM1, TL("A transport container"));
-    buildVClass(myContentRightFrame, SVC_CABLE_CAR, GUIIcon::VCLASS_CUSTOM1, TL("A conveyance suspended on a cable"));
-    buildVClass(myContentRightFrame, SVC_SUBWAY, GUIIcon::VCLASS_CUSTOM1, TL("A railway that mostly runs underground"));
     buildVClass(myContentRightFrame, SVC_AIRCRAFT, GUIIcon::VCLASS_CUSTOM1, TL("A airplane"));
-    buildVClass(myContentRightFrame, SVC_WHEELCHAIR, GUIIcon::VCLASS_CUSTOM1, TL("A mobility impaired person"));
-    buildVClass(myContentRightFrame, SVC_SCOOTER, GUIIcon::VCLASS_CUSTOM1, TL("An electric scooter or a kick scooter"));
     buildVClass(myContentRightFrame, SVC_DRONE, GUIIcon::VCLASS_CUSTOM1, TL("A small unmanned robot"));
     buildVClass(myContentRightFrame, SVC_CUSTOM1, GUIIcon::VCLASS_CUSTOM1, TL("Reserved for user-defined semantics"));
     buildVClass(myContentRightFrame, SVC_CUSTOM2, GUIIcon::VCLASS_CUSTOM2, TL("Reserved for user-defined semantics"));
