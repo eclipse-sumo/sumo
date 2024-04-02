@@ -7,6 +7,8 @@ set(microsim_lcmodels_STAT_SRCS
    MSLCM_DK2008.h
    MSLCM_LC2013.cpp
    MSLCM_LC2013.h
+   MSLCM_LC2013_CC.cpp
+   MSLCM_LC2013_CC.h
    MSLCM_SL2015.cpp
    MSLCM_SL2015.h
 )

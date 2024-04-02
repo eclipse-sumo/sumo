@@ -1270,6 +1270,7 @@ StringBijection<InsertionCheck>::Entry SUMOXMLDefinitions::insertionCheckValues[
 StringBijection<LaneChangeModel>::Entry SUMOXMLDefinitions::laneChangeModelValues[] = {
     { "DK2008",     LaneChangeModel::DK2008 },
     { "LC2013",     LaneChangeModel::LC2013 },
+    { "LC2013_CC",  LaneChangeModel::LC2013_CC },
     { "SL2015",     LaneChangeModel::SL2015 },
     { "default",    LaneChangeModel::DEFAULT } //< must be the last one
 };

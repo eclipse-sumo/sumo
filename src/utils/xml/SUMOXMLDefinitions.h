@@ -1882,6 +1882,7 @@ enum LaneChangeAction {
 enum class LaneChangeModel {
     DK2008,
     LC2013,
+    LC2013_CC,
     SL2015,
     DEFAULT
 };
