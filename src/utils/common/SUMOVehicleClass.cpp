@@ -144,7 +144,7 @@ StringBijection<SUMOVehicleShape> SumoVehicleShapeStrings(
 // static values used for cached
 // ===========================================================================
 
-static std::map<int, std::vector<std::string> > vehicleClassNamesListCached;
+static std::map<SVCPermissions, std::vector<std::string> > vehicleClassNamesListCached;
 static std::map<std::string, SVCPermissions> parseVehicleClassesCached;
 static std::map<SVCPermissions, std::string> getVehicleClassNamesCached;
 static std::string VehicleClassNameAll = "all";

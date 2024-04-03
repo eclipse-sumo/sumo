@@ -166,7 +166,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
     NBContHelper::edge_similar_direction_sorter sorter(parent);
     const NBEdge* straight = nullptr;
     for (const NBEdge* const out : outgoing) {
-        const int outPerms = out->getPermissions();
+        const SVCPermissions outPerms = out->getPermissions();
         for (const int l : availableLanes) {
             if ((parent->myLanes[l].permissions & outPerms) != 0) {
                 if (straight == nullptr || sorter(out, straight)) {
@@ -2762,9 +2762,9 @@ NBEdge::applyTurnSigns() {
             }
             // add new connections
             int allSigns = (turnSigns
-                    | turnSigns >> TURN_SIGN_SHIFT_BUS
-                    | turnSigns >> TURN_SIGN_SHIFT_TAXI
-                    | turnSigns >> TURN_SIGN_SHIFT_BICYCLE);
+                            | turnSigns >> TURN_SIGN_SHIFT_BUS
+                            | turnSigns >> TURN_SIGN_SHIFT_TAXI
+                            | turnSigns >> TURN_SIGN_SHIFT_BICYCLE);
             std::vector<LinkDirection> all = decodeTurnSigns(turnSigns);
             std::vector<LinkDirection> bus = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_BUS);
             std::vector<LinkDirection> taxi = decodeTurnSigns(turnSigns, TURN_SIGN_SHIFT_TAXI);
@@ -2808,11 +2808,11 @@ NBEdge::applyTurnSigns() {
                         toLaneIndex[to] = toLane;
                     }
                     setConnection(i, to, toLaneIndex[to], Lane2LaneInfoType::VALIDATED, true,
-                            false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
-                            UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
-                            myDefaultConnectionLength, PositionVector::EMPTY,
-                            UNSPECIFIED_CONNECTION_UNCONTROLLED,
-                            perm);
+                                  false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS,
+                                  UNSPECIFIED_VISIBILITY_DISTANCE, UNSPECIFIED_SPEED, UNSPECIFIED_FRICTION,
+                                  myDefaultConnectionLength, PositionVector::EMPTY,
+                                  UNSPECIFIED_CONNECTION_UNCONTROLLED,
+                                  perm);
                     if (toLaneIndex[to] < to->getNumLanes() - 1) {
                         toLaneIndex[to]++;
                     }
