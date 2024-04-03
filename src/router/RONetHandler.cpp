@@ -294,6 +294,7 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     const int toLane = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
     std::string dir = attrs.get<std::string>(SUMO_ATTR_DIR, nullptr, ok);
     std::string viaID = attrs.getOpt<std::string>(SUMO_ATTR_VIA, nullptr, ok, "");
+    std::string tlID = attrs.getOpt<std::string>(SUMO_ATTR_TLID, nullptr, ok, "");
     ROEdge* from = myNet.getEdge(fromID);
     ROEdge* to = myNet.getEdge(toID);
     if (from == nullptr) {
@@ -311,6 +312,9 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
     if (myIgnoreInternal || viaID == "") {
         from->getLanes()[fromLane]->addOutgoingLane(to->getLanes()[toLane]);
         from->addSuccessor(to, nullptr, dir);
+        if (to->isCrossing()) {
+            to->setTimePenalty(myTLSPenalty);
+        }
     }  else {
         ROEdge* const via = myNet.getEdge(SUMOXMLDefinitions::getEdgeIDFromLane(viaID));
         if (via == nullptr) {
@@ -322,6 +326,12 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
         if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
             via->setTimePenalty(myMinorPenalty);
+        }
+        if (tlID != "") {
+            via->setTimePenalty(myTLSPenalty);
+            if (to->isCrossing()) {
+                to->setTimePenalty(myTLSPenalty);
+            }
         }
     }
 }
