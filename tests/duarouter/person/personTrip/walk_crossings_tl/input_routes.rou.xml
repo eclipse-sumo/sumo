@@ -1,0 +1,13 @@
+<routes>
+    <person id="pFwd" depart="0">
+        <personTrip from="SC" to="CN"/>
+    </person>
+
+    <person id="pBwd" depart="0">
+        <personTrip from="CN" to="SC"/>
+    </person>
+
+    <person id="pDiag" depart="0">
+        <personTrip from="SC" to="CW"/>
+    </person>
+</routes>

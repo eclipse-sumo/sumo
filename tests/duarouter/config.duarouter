@@ -8,6 +8,7 @@ copy_test_path:input_weights.dump.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
 copy_test_path:input_net3.net.xml
+copy_test_path:input_net4.net.xml
 copy_test_path:input_districts.taz.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml

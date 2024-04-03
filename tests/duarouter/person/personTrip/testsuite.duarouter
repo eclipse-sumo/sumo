@@ -149,6 +149,7 @@ bike_public_walk
 
 # back and forth using walkingarea
 walk_walkingareas
+walk_crossings_tl
 
 # back and forth using normal vehicle connections
 walk_normal_connections
