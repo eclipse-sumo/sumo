@@ -134,7 +134,7 @@ void MSEdge::recalcCache() {
             SUMOTime minPenalty = -1;
             for (const MSLane* const l : *myLanes) {
                 for (const MSLink* const link : l->getLinkCont()) {
-                    if (link->getLane()->isWalkingArea()) {
+                    if (link->getLane()->isWalkingArea() && link->getLaneBefore()->isNormal()) {
                         continue;
                     }
                     SUMOTime linkPenalty = link->isTLSControlled() ? link->getMesoTLSPenalty() : (link->havePriority() ? 0 : minorPenalty);
@@ -150,8 +150,19 @@ void MSEdge::recalcCache() {
                 myTimePenalty = STEPS2TIME(minPenalty);
             }
         }
-    }
-    if (isInternal() && MSGlobals::gUsingInternalLanes) {
+    } else if (isCrossing() && MSGlobals::gTLSPenalty > 0) {
+        // penalties are recorded for the entering link
+        for (const auto& ili : myLanes->front()->getIncomingLanes()) {
+            double penalty = STEPS2TIME(ili.viaLink->getMesoTLSPenalty());
+            if (!ili.viaLink->haveOffPriority()) {
+                penalty = MAX2(penalty, MSGlobals::gMinorPenalty);
+            }
+            if (penalty > 0) {
+                myEmptyTraveltime += penalty;
+                myTimePenalty = penalty;
+            }
+        }
+    } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
             myEmptyTraveltime += MSGlobals::gMinorPenalty;

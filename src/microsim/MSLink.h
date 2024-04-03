@@ -438,6 +438,10 @@ public:
         return myState >= 'A' && myState <= 'Z';
     }
 
+    inline bool haveOffPriority() const {
+        return myOffState >= 'A' && myOffState <= 'Z';
+    }
+
     /** @brief Returns whether this link is blocked by a red (or redyellow) traffic light
      * @return Whether the link has a red light
      */
