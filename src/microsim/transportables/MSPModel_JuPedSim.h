@@ -221,9 +221,10 @@ private:
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
     static PositionVector convertToSUMOPoints(const GEOSGeometry* geometry);
     static double getHoleArea(const GEOSGeometry* hole);
+    static void filterHoles(const GEOSGeometry* geometry, double minAreaThreshold);
     void removePolygonFromDrawing(const std::string& polygonId);
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
     static const GEOSGeometry* getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea);
     static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
-    static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename);
+    static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates=false);
 };
