@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-04-03 14:13+0000\n"
+"PO-Revision-Date: 2024-04-03 15:50+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4378,13 +4378,15 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:46
 msgid ""
 "Time to wait for a rescue vehicle on the road side when the battery is empty"
-msgstr ""
+msgstr "Wartezeit am Straßenrand auf ein Abschleppfahrzeug bei leerer Batterie"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:48
 msgid ""
 "Additional battery buffer for unexpected traffic situation when estimating "
 "the battery need"
 msgstr ""
+"Zusätzlicher Batteriezuschlag auf die geschätzte benötigte Batteriekapazität "
+"für unerwartete Verkehrssituationen"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:50
 msgid "Battery percentage to go into rescue mode"
@@ -4392,15 +4394,17 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:52
 msgid "Search radius in travel time seconds"
-msgstr ""
+msgstr "Suchradius in Form der Reisezeit in Sekunden"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:54
 msgid "When to trigger a new search if no station has been found"
 msgstr ""
+"Wann nach einer erfolglosen Suche erneut nach einer Ladestation gesucht "
+"werden soll"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:56
 msgid "The maximum charging speed of the vehicle battery"
-msgstr ""
+msgstr "Die maximale Ladegeschwindigkeit der Fahrzeugbatterie"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:58
 msgid "Type of energy transfer"
@@ -4411,6 +4415,8 @@ msgid ""
 "After this waiting time vehicle searches for a new station when the initial "
 "one is blocked"
 msgstr ""
+"Nach dieser Wartezeit sucht das Fahrzeug erneut nach einer Ladestation, wenn "
+"die ursprüngliche blockiert ist"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:124
 msgid ""
@@ -4719,7 +4725,7 @@ msgstr "Fahrzeug '%' endet im Leerlauf in einer Sackgasse"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:184
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
-msgstr ""
+msgstr "Konnte den Taxistand von Fahrzeug '%' zur Zeit=% nicht ermitteln"
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:96
 msgid "Rerouting is useless if the edge weights do not get updated!"
@@ -5066,15 +5072,15 @@ msgstr "moveToXY wird vom aktuellen Bewegungsmodel ignoriert"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:116
 msgid "Error while adding person '%' as JuPedSim agent: %"
-msgstr ""
+msgstr "Fehler beim Hinzufügen der Person '%' als JuPedSim-Agent: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:129
 msgid "Error while adding waypoint for person '%': %"
-msgstr ""
+msgstr "Fehler beim HInzufügen eines Wegpunkts für Person '%': %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:136
 msgid "Error while creating fixed transition for person '%': %"
-msgstr ""
+msgstr "Fehler bei der Erstellung einer fixen Transition für Person '%': %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:142
 msgid "Error while setting transition for person '%': %"
@@ -5116,20 +5122,25 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:574
 msgid "Polygon '%' will be skipped as it is just a point."
 msgstr ""
+"Das Polygon '%' wird übergangen, da es aus einem einzigen Punkt besteht."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:593
 msgid "Polygon '%' had some equal consecutive points removed: %"
 msgstr ""
+"Aus dem Polygon '%' wurden einige identische und aufeinander folgende Punkte "
+"entfernt: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:604
 #, c-format
 msgid "Polygon for junction '%' has been dilated as it is just a segment."
 msgstr ""
+"Das Polygon des Knotenpunkts '%' wurde erweitert, da es sich nur um ein "
+"Segment handelt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:606
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
-msgstr ""
+msgstr "Das Polygon '%' wurde erweitert, da es sich nur um ein Segment handelt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:614
 #, c-format
@@ -5137,19 +5148,25 @@ msgid ""
 "Polygon on junction '%' has been replaced by its convex hull as it is not "
 "simple."
 msgstr ""
+"Das Polygon des Knotenpunkts '%' wurde durch seine konvexe Hülle ersetzt, da "
+"es selbst kein einfaches Polygon darstellt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:619
 msgid "Polygon '%' will be skipped as it is not simple."
 msgstr ""
+"Polygon '%' wird übergangen, da es sich nicht um ein einfaches Polygon "
+"handelt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:773
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
+"Die Vereinigung der Fußgängerflächen abzüglich der Hindernisse stellt kein "
+"einfaches Polygon dar."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:899
 msgid "Error while generating geometry: %"
-msgstr ""
+msgstr "Fehler bei der Generierung der Geometrie: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:948
 msgid ""
@@ -5158,15 +5175,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:960
 msgid "Unknown JuPedSim model: %"
-msgstr ""
+msgstr "Unbekanntes JuPedSim-Modell: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:964
 msgid "Error creating the pedestrian model: %"
-msgstr ""
+msgstr "Fehler bei der Erstellung des Fußgängermodells: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:970
 msgid "Error creating the simulation: %"
-msgstr ""
+msgstr "Fehler bei der Erstellung der Simulation: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:124
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:887
@@ -5174,13 +5191,12 @@ msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
 msgstr ""
-"Fußgänger vType '%' mit % ist größer alspedestrian.striping.stripe-width und "
-"dies kann zu Kollisionen mit Fahrzeugen führen."
+"Fußgänger vType '%' mit % ist größer als pedestrian.striping.stripe-width "
+"und dies kann zu Kollisionen mit Fahrzeugen führen."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:179
 msgid "Person '%' could not find sidewalk on edge '%', time=%."
-msgstr ""
-"Person '%' wurde nicht am Seitenweg von der Kante '%' gefunden, zur Zeit=%."
+msgstr "Person '%' konnte auf der Kante '%' keinen Fußweg finden, zur Zeit=%."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:471
 #, c-format
