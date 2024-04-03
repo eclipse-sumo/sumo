@@ -23,7 +23,7 @@
 -->
 
 <routes>
-    <vType actionStepLength="1.0" color="blue" emissionClass="MMPEVEM" id="Citroen_e-C4" vClass="passenger" mass="1684.85">
+    <vType emissionClass="MMPEVEM" id="Citroen_e-C4" vClass="passenger" mass="1684.85">
         <param key="has.battery.device" value="true"/>
         <param key="device.battery.capacity" value="50000"/>
         <param key="device.battery.maxPower" value="100000"/>
