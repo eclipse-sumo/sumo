@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-15 10:19:08 by Eclipse SUMO netconvert Version v1_19_0+1305-3dcf69d3212
+<!-- generated on 2024-04-03 10:04:15 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertShips.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertAerialway.typ.xml"/>
-        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.15Mar101906.2495433/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
+        <osm-files value="/home/erdm_ja/.texttest/tmp/tools.03Apr100413.81858/tools/import/OSM/webWizard/osm_bbox.osm.xml"/>
     </input>
 
     <output>
@@ -193,10 +193,10 @@
         <access lane="541864434#0_0" pos="0.00" length="2.11" friendlyPos="1"/>
     </busStop>
     <busStop id="-30731700" name="U Oranienburger Tor" lane="-167272531#9_0" startPos="0.00" endPos="0.70" friendlyPos="true">
+        <access lane="35269774#3_0" pos="0.60" length="12.07" friendlyPos="1"/>
+        <access lane="374734393#7_0" pos="109.69" length="13.61" friendlyPos="1"/>
         <access lane="378658639_0" pos="0.00" length="11.09" friendlyPos="1"/>
-        <access lane="388702041#10_0" pos="52.03" length="7.80" friendlyPos="1"/>
-        <access lane="388702041#11_0" pos="0.70" length="2.25" friendlyPos="1"/>
-        <access lane="388702041#12_0" pos="0.00" length="2.25" friendlyPos="1"/>
+        <access lane="521729368#0_0" pos="0.29" length="11.33" friendlyPos="1"/>
         <access lane="521729368#1_0" pos="0.26" length="5.84" friendlyPos="1"/>
     </busStop>
     <busStop id="-3419694885" name="Berlin Alexanderplatz" lane="-32590644#0_0" startPos="280.10" endPos="480.10" friendlyPos="true">
@@ -271,7 +271,13 @@
         <access lane="533594857_0" pos="74.51" length="18.00" friendlyPos="1"/>
         <access lane="533594858#1_0" pos="6.17" length="30.49" friendlyPos="1"/>
     </busStop>
-    <busStop id="-990017251" name="U Oranienburger Tor" lane="-388702047#2_0" startPos="0.00" endPos="25.00" friendlyPos="true"/>
+    <busStop id="-990017251" name="U Oranienburger Tor" lane="-388702047#2_0" startPos="0.00" endPos="25.00" friendlyPos="true">
+        <access lane="374734389#2_0" pos="54.09" length="21.13" friendlyPos="1"/>
+        <access lane="374734394#10_0" pos="23.66" length="20.62" friendlyPos="1"/>
+        <access lane="374734394#1_0" pos="13.10" length="14.75" friendlyPos="1"/>
+        <access lane="478432725_0" pos="22.05" length="14.93" friendlyPos="1"/>
+        <access lane="6227658#1_0" pos="0.00" length="32.19" friendlyPos="1"/>
+    </busStop>
     <busStop id="1267954699" name="S+U Friedrichstraße" lane="422000256_0" startPos="16.86" endPos="41.86" friendlyPos="true"/>
     <busStop id="1615531689" name="S+U Alexanderplatz/Dircksenstraße" lane="148458500#1_0" startPos="30.65" endPos="55.65" friendlyPos="true" lines="M2">
         <access lane="-72157168#4_0" pos="0.00" length="18.72" friendlyPos="1"/>
@@ -523,7 +529,13 @@
     <busStop id="271373068" name="S+U Brandenburger Tor" lane="24913304#1_1" startPos="168.49" endPos="183.49" friendlyPos="true" lines="TXL 100"/>
     <busStop id="271430924" name="Berliner Rathaus" lane="606078065_2" startPos="33.97" endPos="48.97" friendlyPos="true" lines="M48 N8 N40 N42"/>
     <busStop id="271670135" name="U Alexanderplatz" lane="305093247#2_2" startPos="56.16" endPos="71.16" friendlyPos="true" lines="N5"/>
-    <busStop id="271884565" name="Memhardstraße" lane="523630412_0" startPos="8.71" endPos="23.71" friendlyPos="true" lines="N65"/>
+    <busStop id="271884565" name="Memhardstraße" lane="523630412_0" startPos="8.71" endPos="23.71" friendlyPos="true" lines="N65">
+        <access lane="-24993933#4_0" pos="14.36" length="50.94" friendlyPos="1"/>
+        <access lane="4613308#1_0" pos="0.20" length="34.60" friendlyPos="1"/>
+        <access lane="4613308#2_0" pos="8.33" length="27.65" friendlyPos="1"/>
+        <access lane="473149638#0_0" pos="0.00" length="30.83" friendlyPos="1"/>
+        <access lane="503549461_0" pos="71.04" length="35.30" friendlyPos="1"/>
+    </busStop>
     <busStop id="272408975" name="Unter den Linden/Friedrichstraße" lane="188386313#0_1" startPos="15.63" endPos="30.63" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="27411231" name="S Alexanderplatz" lane="32590496#1_0" startPos="0.00" endPos="188.32" friendlyPos="true" lines="S5 S7 S3 S9">
         <access lane="272757274_0" pos="0.00" length="11.26" friendlyPos="1"/>
@@ -561,8 +573,8 @@
         <access lane="465376259#1_0" pos="11.36" length="6.91" friendlyPos="1"/>
     </busStop>
     <busStop id="29058100" name="U Oranienburger Tor" lane="378664954_0" startPos="567.72" endPos="767.72" friendlyPos="true" lines="U6">
-        <access lane="388702039#0_0" pos="4.26" length="2.89" friendlyPos="1"/>
-        <access lane="388702039#1_0" pos="0.00" length="5.76" friendlyPos="1"/>
+        <access lane="35269774#2_0" pos="78.44" length="26.11" friendlyPos="1"/>
+        <access lane="374734393#7_0" pos="79.54" length="27.65" friendlyPos="1"/>
         <access lane="389705411_0" pos="4.58" length="5.02" friendlyPos="1"/>
         <access lane="465376252_0" pos="36.53" length="12.43" friendlyPos="1"/>
         <access lane="518508119#0_0" pos="48.70" length="5.89" friendlyPos="1"/>
@@ -596,9 +608,9 @@
     <busStop id="3043709616" name="U Oranienburger Tor" lane="295376548_0" startPos="679.45" endPos="879.45" friendlyPos="true" lines="U6">
         <access lane="35269774#2_0" pos="78.43" length="11.29" friendlyPos="1"/>
         <access lane="374734393#7_0" pos="79.53" length="12.83" friendlyPos="1"/>
-        <access lane="388702039#0_0" pos="4.59" length="11.92" friendlyPos="1"/>
-        <access lane="388702039#1_0" pos="0.00" length="11.69" friendlyPos="1"/>
-        <access lane="388702041#10_0" pos="27.07" length="1.13" friendlyPos="1"/>
+        <access lane="389705411_0" pos="4.50" length="19.84" friendlyPos="1"/>
+        <access lane="465376252_0" pos="36.53" length="22.82" friendlyPos="1"/>
+        <access lane="518508119#0_0" pos="48.66" length="20.72" friendlyPos="1"/>
     </busStop>
     <busStop id="30731481" name="Spandauer Straße/Marienkirche" lane="144014234#1_0" startPos="36.21" endPos="61.21" friendlyPos="true" lines="M4 M5 M6">
         <access lane="202157002#2_0" pos="32.44" length="18.76" friendlyPos="1"/>
@@ -622,10 +634,10 @@
         <access lane="175499828#2_0" pos="0.00" length="12.13" friendlyPos="1"/>
     </busStop>
     <busStop id="30731700" name="U Oranienburger Tor" lane="167272531#9_0" startPos="0.00" endPos="0.70" friendlyPos="true" lines="12 M1">
+        <access lane="35269774#3_0" pos="0.60" length="12.07" friendlyPos="1"/>
+        <access lane="374734393#7_0" pos="109.69" length="13.61" friendlyPos="1"/>
         <access lane="378658639_0" pos="0.00" length="11.09" friendlyPos="1"/>
-        <access lane="388702041#10_0" pos="52.03" length="7.80" friendlyPos="1"/>
-        <access lane="388702041#11_0" pos="0.70" length="2.25" friendlyPos="1"/>
-        <access lane="388702041#12_0" pos="0.00" length="2.25" friendlyPos="1"/>
+        <access lane="521729368#0_0" pos="0.29" length="11.33" friendlyPos="1"/>
         <access lane="521729368#1_0" pos="0.26" length="5.84" friendlyPos="1"/>
     </busStop>
     <busStop id="30732068" name="Memhardstraße" lane="4791000#1_0" startPos="46.47" endPos="71.47" friendlyPos="true" lines="M2">
@@ -736,7 +748,13 @@
     <busStop id="3870475228" name="Staatsoper" lane="340498982#3_1" startPos="20.90" endPos="35.90" friendlyPos="true" lines="TXL 100 200 N2"/>
     <busStop id="3907105048" name="Littenstraße" lane="289966845_2" startPos="4.61" endPos="19.61" friendlyPos="true" lines="248"/>
     <busStop id="3907105049" name="U Alexanderplatz" lane="301241681#0_2" startPos="23.20" endPos="38.20" friendlyPos="true" lines="N65 N5"/>
-    <busStop id="3918673888" name="U Oranienburger Tor" lane="388702039#10_0" startPos="0.00" endPos="12.20" friendlyPos="true" lines="N6"/>
+    <busStop id="3918673888" name="U Oranienburger Tor" lane="388702039#10_0" startPos="0.00" endPos="12.20" friendlyPos="true" lines="N6">
+        <access lane="374734394#1_0" pos="28.26" length="14.96" friendlyPos="1"/>
+        <access lane="374734394#8_0" pos="0.00" length="15.66" friendlyPos="1"/>
+        <access lane="442577417#2_0" pos="0.17" length="12.92" friendlyPos="1"/>
+        <access lane="442577419_0" pos="0.20" length="15.81" friendlyPos="1"/>
+        <access lane="478432725_0" pos="7.07" length="12.41" friendlyPos="1"/>
+    </busStop>
     <busStop id="3922258748" name="Universitätsstraße" lane="144014237#2_0" startPos="60.29" endPos="85.29" friendlyPos="true" lines="12 M1">
         <access lane="-340498976#0_0" pos="24.21" length="4.43" friendlyPos="1"/>
         <access lane="15977422#0_0" pos="97.23" length="41.19" friendlyPos="1"/>
@@ -744,7 +762,13 @@
         <access lane="463829477#0_0" pos="0.00" length="10.06" friendlyPos="1"/>
         <access lane="83517336#3_0" pos="79.43" length="3.37" friendlyPos="1"/>
     </busStop>
-    <busStop id="3928759794" name="U Oranienburger Tor" lane="388702041#10_0" startPos="37.03" endPos="52.03" friendlyPos="true" lines="N6"/>
+    <busStop id="3928759794" name="U Oranienburger Tor" lane="388702041#10_0" startPos="37.03" endPos="52.03" friendlyPos="true" lines="N6">
+        <access lane="35269774#2_0" pos="98.57" length="15.41" friendlyPos="1"/>
+        <access lane="35269774#3_0" pos="0.00" length="13.00" friendlyPos="1"/>
+        <access lane="374734393#7_0" pos="105.99" length="13.69" friendlyPos="1"/>
+        <access lane="521729368#0_0" pos="0.29" length="14.80" friendlyPos="1"/>
+        <access lane="521729368#1_0" pos="0.26" length="11.20" friendlyPos="1"/>
+    </busStop>
     <busStop id="3980157313" name="S+U Brandenburger Tor/Glinkastraße" lane="236092221#0_1" startPos="91.09" endPos="106.09" friendlyPos="true"/>
     <busStop id="4163212867" name="S+U Alexanderplatz/Memhardstraße" lane="112128419#2_1" startPos="71.04" endPos="86.04" friendlyPos="true" lines="N42"/>
     <busStop id="4655287360" name="U Weinmeisterstraße" lane="381201610_0" startPos="1301.29" endPos="1501.29" friendlyPos="true" lines="U8">
@@ -795,5 +819,11 @@
         <access lane="533594857_0" pos="74.51" length="18.00" friendlyPos="1"/>
         <access lane="533594858#1_0" pos="6.17" length="30.49" friendlyPos="1"/>
     </busStop>
-    <busStop id="990017251" name="U Oranienburger Tor" lane="388702047#2_0" startPos="27.81" endPos="52.81" friendlyPos="true" lines="12 M1"/>
+    <busStop id="990017251" name="U Oranienburger Tor" lane="388702047#2_0" startPos="27.81" endPos="52.81" friendlyPos="true" lines="12 M1">
+        <access lane="374734389#2_0" pos="54.09" length="21.13" friendlyPos="1"/>
+        <access lane="374734394#10_0" pos="23.66" length="20.62" friendlyPos="1"/>
+        <access lane="374734394#1_0" pos="13.10" length="14.75" friendlyPos="1"/>
+        <access lane="478432725_0" pos="22.05" length="14.93" friendlyPos="1"/>
+        <access lane="6227658#1_0" pos="0.00" length="32.19" friendlyPos="1"/>
+    </busStop>
 </additional>

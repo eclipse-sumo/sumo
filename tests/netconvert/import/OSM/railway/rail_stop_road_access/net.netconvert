@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:05 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-03 10:18:30 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -3458,10 +3458,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3878576193_5_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="3.23" shape="1082.52,2873.75 1081.75,2874.19 1080.92,2873.84 1080.05,2872.69"/>
     </edge>
     <edge id=":3878576198_0" function="internal">
-        <lane id=":3878576198_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="0.30" shape="1183.40,2875.11 1183.70,2875.09"/>
+        <lane id=":3878576198_0_0" index="0" allow="emergency authority pedestrian delivery bicycle" speed="5.56" length="0.30" shape="1183.40,2875.11 1183.70,2875.09"/>
     </edge>
     <edge id=":3878576199_0" function="internal">
-        <lane id=":3878576199_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="0.26" shape="1166.12,2875.95 1166.38,2875.93"/>
+        <lane id=":3878576199_0_0" index="0" allow="emergency authority pedestrian delivery bicycle" speed="5.56" length="0.26" shape="1166.12,2875.95 1166.38,2875.93"/>
     </edge>
     <edge id=":3878576203_0" function="internal">
         <lane id=":3878576203_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="4.61" shape="1080.60,2882.09 1080.33,2877.49"/>
@@ -7515,10 +7515,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="384545655_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="2.88" shape="1158.05,2882.67 1157.77,2879.81"/>
     </edge>
     <edge id="384545659" from="296940627" to="3878576199" priority="2" type="highway.service" spreadType="center">
-        <lane id="384545659_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="2.36" shape="1163.77,2876.13 1166.12,2875.95"/>
+        <lane id="384545659_0" index="0" allow="emergency authority pedestrian delivery bicycle" speed="5.56" length="2.36" shape="1163.77,2876.13 1166.12,2875.95"/>
     </edge>
     <edge id="384545662" from="3878576199" to="3878576198" priority="2" type="highway.service" spreadType="center">
-        <lane id="384545662_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="17.05" shape="1166.38,2875.93 1183.40,2875.11"/>
+        <lane id="384545662_0" index="0" allow="emergency authority pedestrian delivery bicycle" speed="5.56" length="17.05" shape="1166.38,2875.93 1183.40,2875.11"/>
     </edge>
     <edge id="384545665" from="3878576194" to="3878576193" priority="1" type="highway.footway" spreadType="center">
         <lane id="384545665_0" index="0" allow="pedestrian" speed="2.78" length="3.34" width="2.00" shape="1073.77,2875.56 1077.11,2875.37"/>
@@ -7527,7 +7527,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="384545668_0" index="0" allow="pedestrian" speed="2.78" length="10.29" width="2.00" shape="1151.16,2855.80 1161.45,2855.75"/>
     </edge>
     <edge id="384545670" from="3878576198" to="281568110" priority="2" type="highway.service" spreadType="center" shape="1183.55,2875.10 1192.05,2874.61 1192.40,2885.16">
-        <lane id="384545670_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="14.15" shape="1183.70,2875.09 1192.05,2874.61 1192.24,2880.40"/>
+        <lane id="384545670_0" index="0" allow="emergency authority pedestrian delivery bicycle" speed="5.56" length="14.15" shape="1183.70,2875.09 1192.05,2874.61 1192.24,2880.40"/>
     </edge>
     <edge id="384545674" from="3878576224" to="3878576231" priority="1" type="highway.footway" spreadType="center" shape="1163.34,2932.72 1158.34,2935.07 1155.13,2937.89 1153.54,2942.60 1151.19,2962.15">
         <lane id="384545674_0" index="0" allow="pedestrian" speed="2.78" length="22.43" width="2.00" shape="1158.57,2934.96 1158.34,2935.07 1155.13,2937.89 1153.54,2942.60 1151.99,2955.45"/>

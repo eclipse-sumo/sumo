@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-22 13:27:19 by Eclipse SUMO netconvert Version v1_19_0+0956-34b9252
+<!-- generated on 2024-04-03 10:18:32 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="-7307151972" name="Albertusstraße" lane="-5067106#3_0" startPos="9.35" endPos="24.35" friendlyPos="true" lines="737"/>
     <busStop id="1234643991" name="Chausseestraße" lane="26216780#2_0" startPos="87.51" endPos="102.51" friendlyPos="true" lines="737 738"/>
-    <busStop id="1643085195" name="A10 Center" lane="782661618#3_0" startPos="44.41" endPos="59.41" friendlyPos="true" lines="737 738"/>
+    <busStop id="1643085195" name="A10 Center" lane="782661618#3_0" startPos="44.06" endPos="59.06" friendlyPos="true" lines="737 738"/>
     <busStop id="32500319" name="Chausseestraße" lane="4935299#0_0" startPos="172.98" endPos="187.98" friendlyPos="true"/>
     <busStop id="7307151973" name="Albertusstraße" lane="5067106#4_0" startPos="20.50" endPos="35.50" friendlyPos="true"/>
 </additional>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 15:04:36 by Eclipse SUMO netconvert Version v1_19_0+1626-0c981d77e86
+<!-- generated on 2024-04-03 10:18:30 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -347,7 +347,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-402430538#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="52.28" shape="3290.07,310.03 3263.14,280.34"/>
     </edge>
     <edge id="-402430539" from="4048452407" to="4048452401" priority="3" type="highway.residential">
-        <lane id="-402430539_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="71.56" shape="3337.00,374.51 3302.00,325.27"/>
+        <lane id="-402430539_0" index="0" allow="emergency authority pedestrian bus bicycle" speed="13.89" length="71.56" shape="3337.00,374.51 3302.00,325.27"/>
     </edge>
     <edge id="-402430540#0" from="4048452401" to="4048452400" priority="3" type="highway.residential">
         <lane id="-402430540#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.27" shape="3291.01,311.08 3290.26,310.24"/>
@@ -911,7 +911,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="402430538#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="52.28" shape="3265.51,278.19 3292.44,307.88"/>
     </edge>
     <edge id="402430539" from="4048452401" to="4048452407" priority="3" type="highway.residential">
-        <lane id="402430539_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="71.56" shape="3304.61,323.41 3339.61,372.65"/>
+        <lane id="402430539_0" index="0" allow="emergency authority pedestrian bus bicycle" speed="13.89" length="71.56" shape="3304.61,323.41 3339.61,372.65"/>
     </edge>
     <edge id="402430540#0" from="4048452400" to="4048452401" priority="3" type="highway.residential">
         <lane id="402430540#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.27" shape="3292.65,308.11 3293.40,308.96"/>

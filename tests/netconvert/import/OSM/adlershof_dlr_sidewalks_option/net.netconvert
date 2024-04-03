@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:34 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-04-03 10:18:31 by Eclipse SUMO netconvert Version v1_19_0+1653-1011da01c71
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2149,7 +2149,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="213883651_0" index="0" allow="pedestrian" speed="1.39" length="4.49" width="2.00" shape="4007.01,303.50 4008.56,300.12"/>
     </edge>
     <edge id="213883652" from="2235207739" to="2235207740" priority="1" type="highway.footway" spreadType="center">
-        <lane id="213883652_0" index="0" allow="pedestrian" speed="2.78" length="2.07" width="2.00" shape="3818.58,497.02 3816.73,497.94"/>
+        <lane id="213883652_0" index="0" disallow="all" speed="2.78" length="2.07" width="2.00" shape="3818.58,497.02 3816.73,497.94"/>
     </edge>
     <edge id="213883654" from="283017899" to="2235207735" priority="1" type="highway.footway" spreadType="center">
         <lane id="213883654_0" index="0" allow="pedestrian" speed="2.78" length="4.02" width="2.00" shape="3827.76,492.02 3827.65,492.19"/>
@@ -2158,7 +2158,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="213883655_0" index="0" allow="pedestrian" speed="2.78" length="3.96" width="2.00" shape="4008.56,300.12 4010.07,297.75 4011.15,298.14"/>
     </edge>
     <edge id="213883657" from="2235207735" to="2235207739" priority="1" type="highway.steps" spreadType="center">
-        <lane id="213883657_0" index="0" allow="pedestrian" speed="1.39" length="10.80" width="2.00" shape="3827.74,491.80 3818.58,497.02"/>
+        <lane id="213883657_0" index="0" disallow="all" speed="1.39" length="10.80" width="2.00" shape="3827.74,491.80 3818.58,497.02"/>
     </edge>
     <edge id="213883661" from="2235207711" to="2235207713" priority="1" type="highway.footway" spreadType="center">
         <lane id="213883661_0" index="0" allow="pedestrian" speed="2.78" length="4.46" width="2.00" shape="4004.39,303.79 4004.59,303.83"/>
