@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-04-02 17:59+0000\n"
+"PO-Revision-Date: 2024-04-03 14:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3434,7 +3434,7 @@ msgstr "Fehler: Ungültige Fahrzeuge im Zustand (kann ein Meso-Zustand sein)!"
 
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7545
 msgid "Action steps are out of sync for loaded vehicle '%'."
-msgstr ""
+msgstr "Aktionsschritte sind im geladenen Fahrzeug '%' nicht synchronisiert."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleControl.cpp:510
 msgid "Vehicle '%' aborted waiting %."
@@ -3692,6 +3692,8 @@ msgid ""
 "Battery builder: Vehicle '%' has a % (%) greater than its % (%). A max "
 "battery capacity value will be assigned."
 msgstr ""
+"Batterieinitialisierung: Fahrzeug '%' hat größeres % (%) als sein % (%). Es "
+"wird eine maximale Batteriekapazität zugewiesen."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:137
 msgid ""
@@ -3722,6 +3724,8 @@ msgid ""
 "Getting the vehicle mass via parameters is deprecated, please use getMass "
 "for the vehicle or its type."
 msgstr ""
+"Über Parameter auf die Fahrzeugmasse zuzugreifen ist veraltet. Bitte nutze "
+"getMass für das Fahrzeug oder seinen Typ."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:454
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:935
@@ -3729,6 +3733,8 @@ msgid ""
 "Setting the vehicle mass via parameters is deprecated, please use setMass "
 "for the vehicle or its type."
 msgstr ""
+"Über Parameter die Fahrzeugmasse zu setzen ist veraltet. Bitte nutze setMass "
+"für das Fahrzeug oder seinen Typ."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:59
 msgid ""
@@ -3740,7 +3746,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
-msgstr ""
+msgstr "Senkt minGap der reagierenden Fahrzeuge um den gegebenen Faktor"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:70
 msgid ""
@@ -3911,7 +3917,7 @@ msgstr "Unbekanntes Attribut '%' für die fcd-Ausgabe."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCDReplay.cpp:58
 msgid "FCD file to read"
-msgstr ""
+msgstr "Zu lesende FCD-Datei"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Friction.cpp:48
 msgid ""
@@ -4044,6 +4050,9 @@ msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
 msgstr ""
+"Gibt an, welche Maße geschrieben werden (als durch Leerzeichen oder Kommata "
+"getrennte Abfolge von IDs aus der Menge ('TTC', 'DRAC', 'PET', "
+"'PPET','MDRAC'))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""
@@ -4082,7 +4091,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:248
 msgid "Specifies the perception reaction time for MDRAC computation."
-msgstr ""
+msgstr "Gibt die Dauer der \"Schrecksekunde\" für die MDRAC-Berechnung an."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:250
 msgid "Give a global default filename for the SSM output"
@@ -4112,6 +4121,10 @@ msgid ""
 "numerical valid conflict type code). An empty value will log all and "
 "'ego'/'foe' refer to a certain conflict type subset."
 msgstr ""
+"Schließt Konflikte anhand ihres Konfliktttyps von der Ausgabe aus (möglich "
+"sind Kombinationen aus 'ego', 'foe', '' sowie jeglichem numerischen "
+"Konflikttypcode). Bei einem leeren Wert werden alle Konflikte ausgegeben, "
+"während 'ego'/'foe' sich auf feste Teilmengen an Konflikttypen beziehen."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:269
 msgid "Could not load names of edges for filtering SSM device output from '%'."
@@ -4215,24 +4228,28 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3988
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "Ungültiger Wert '%' im Fahrzeugparameter 'ssm.conflict-order'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3994
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "Ungültiger Wert '%' im Fahrzeugtypparameter 'ssm.conflict-order'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3999
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.exclude-"
+"conflict-types' nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4017
 msgid ""
 "SSM order filter '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr ""
+"Der SSM-Reihenfolgefilter '%' wird nicht unterstützt. Die SSM-Einrichtung "
+"'%' kann nicht erstellt werden."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4034
 #, c-format
@@ -4255,36 +4272,38 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4061
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "Ungültiger Wert '%' im Fahrzeugparameter 'ssm.mdrac.prt'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4067
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
-msgstr ""
+msgstr "Ungültiger Wert '%' im Fahrzeugtypparameter 'ssm.mdrac.prt'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4072
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr ""
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.mdrac.prt' "
+"nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4090
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
-msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.extratime'."
+msgstr "Ungültiger Wert '%' für Fahrzeugparameter 'ssm.extratime'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4096
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
-msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.extratime'."
+msgstr "Ungültiger Wert '%' für Fahrzeugtypparameter 'ssm.extratime'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4101
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr ""
-"Fahrzeug '%' liefert den Fahrzeugparameter 'device.ssm.extratime' nicht. "
-"Verwende den Standardwert '%'."
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.extratime' "
+"nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4107
 #, c-format
@@ -4298,28 +4317,28 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4121
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
-msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.trajectories'."
+msgstr "Ungültiger Wert '%' für Fahrzeugparameter 'ssm.trajectories'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4127
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
-msgstr "Ungültiger Wert '%'für Fahrzeugtypparameter 'ssm.trajectories'."
+msgstr "Ungültiger Wert '%' für Fahrzeugtypparameter 'ssm.trajectories'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr ""
-"Fahrzeug '%' liefert den Fahrzeugparameter 'device.ssm.trajectories' nicht. "
-"Verwende den Standardwert '%'."
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.trajectories' "
+"nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr ""
-"Fahrzeug '%' liefert den Fahrzeugparameter 'device.ssm.measures' nicht. "
-"Verwende den Standardwert '%'."
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.measures' "
+"nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4178
 msgid ""
@@ -4331,20 +4350,20 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4189
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
-msgstr "Ungültiger Wert '%'für Fahrzeugparameter 'ssm.thresholds'."
+msgstr "Ungültiger Wert '%' für Fahrzeugparameter 'ssm.thresholds'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4195
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
-msgstr "Ungültiger Wert %'für Fahrzeugtypparameter 'ssm.thresholds'."
+msgstr "Ungültiger Wert %' für Fahrzeugtypparameter 'ssm.thresholds'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4200
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
 msgstr ""
-"Fahrzeug '%' liefert den Fahrzeugparameter 'device.ssm.thresholds' nicht. "
-"Verwenden des Standardwerts '%'."
+"Das Fahrzeug '%' definiert den Fahrzeugparameter 'device.ssm.thresholds' "
+"nicht. Es wird der Standardwert '%' verwendet."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4215
 msgid ""
