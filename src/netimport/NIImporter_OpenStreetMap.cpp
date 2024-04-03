@@ -496,7 +496,8 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     const SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
     const SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
     const SVCPermissions extraDis = myImportBikeAccess ? e->myExtraDisallowed : (e->myExtraDisallowed & ~SVC_BICYCLE);
-    SVCPermissions permissions = (defaultPermissions | extra) & ~extraDis;
+    // extra permissions are more specific than extra prohibitions
+    SVCPermissions permissions = (defaultPermissions & ~extraDis) | extra;
     if (defaultPermissions == SVC_SHIP) {
         // extra permission apply to the ships operating on the route rather than the waterway
         permissions = defaultPermissions;
@@ -1243,6 +1244,8 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 && key != "railway:bidirectional"
                 && key != "railway:track_ref"
                 && key != "usage"
+                && key != "access"
+                && key != "emergency"
                 && key != "service"
                 && key != "electrified"
                 && key != "segregated"
@@ -1415,6 +1418,18 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 }
             } catch (const BoolFormatException&) {
                 myCurrentEdge->myExtraAllowed |= SVC_BUS;
+            }
+        } else if (key == "emergency") {
+            try {
+                if (StringUtils::toBool(value)) {
+                    myCurrentEdge->myExtraAllowed |= SVC_AUTHORITY | SVC_EMERGENCY;
+                }
+            } catch (const BoolFormatException&) {
+                myCurrentEdge->myExtraAllowed |= SVC_AUTHORITY | SVC_EMERGENCY;
+            }
+        } else if (key == "access") {
+            if (value == "no") {
+                myCurrentEdge->myExtraDisallowed |= ~(SVC_PUBLIC_CLASSES | SVC_EMERGENCY | SVC_AUTHORITY);
             }
         } else if (StringUtils::startsWith(key, "width:lanes")) {
             try {
