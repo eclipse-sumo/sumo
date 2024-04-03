@@ -35,7 +35,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | vehicleMass             | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
 | frontSurfaceArea        | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
 | airDragCoefficient      | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
-| internalMomentOfInertia | float      | 0.01 (kg)  | Not a *moment*, but the (equivalent) mass of internal rotating elements |
+| rotatingMass            | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
 | radialDragCoefficient   | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
 | rollDragCoefficient     | float      | 0.01              | Rolling resistance coefficient *c<sub>roll</sub>*       |
 | constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
@@ -44,6 +44,10 @@ These values have the following meanings (the defaults are from the Kia below):
 | stoppingThreshold       | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
+
+!!! note
+    Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
+    that it is a mass and not a moment of inertia. The old parameter is considered deprecated.
 
 ```xml
 <routes>
@@ -54,7 +58,7 @@ An example of a vehicle with electric attribute (those are the values for a city
         <param key="vehicleMass" value="10000"/>
         <param key="frontSurfaceArea" value="5"/>
         <param key="airDragCoefficient" value="0.6"/>
-        <param key="internalMomentOfInertia" value="0.01"/>
+        <param key="rotatingMass" value="100"/>
         <param key="radialDragCoefficient" value="0.5"/>
         <param key="rollDragCoefficient" value="0.01"/>
         <param key="constantPowerIntake" value="100"/>
@@ -314,7 +318,7 @@ The values are provided by courtesy of Jim Div based on his own calibration.
     <param key="airDragCoefficient" value="0.35"/>       <!-- https://www.evspecifications.com/en/model/e94fa0 -->
     <param key="constantPowerIntake" value="100"/>       <!-- observed summer levels -->
     <param key="frontSurfaceArea" value="2.6"/>          <!-- computed (ht-clearance) * width -->
-    <param key="internalMomentOfInertia" value="0.01"/>  <!-- guesstimate -->
+    <param key="rotatingMass" value="40"/>               <!-- guesstimate, inspired by PHEMlight5 PC_BEV -->
     <param key="maximumBatteryCapacity" value="64000"/>
     <param key="maximumPower" value="150000"/>           <!-- website as above -->
     <param key="propulsionEfficiency" value=".98"/>      <!-- guesstimate value providing closest match to observed -->

@@ -33,16 +33,16 @@ the following meanings:
 
 | key                           | Value Type | Default         | Description                                                      |
 | ----------------------------- | ---------- | --------------- | ---------------------------------------------------------------- |
-| maximumBatteryCapacity        | float      | 0 Wh            | Maximum battery capacity *E<sub>max</sub>*                       |
-| overheadWireChargingPower     | float      | 0 W             | Constant additional power drawn from an overhead wire if charging a battery |
-| maximumPower                  | float      | 100000 W        | Maximum power of the vehicle electric **drive**                  |
-| vehicleMass                   | float      | 1000 kg         | Vehicle mass *m<sub>veh</sub>*                                   |
-| frontSurfaceArea              | float      | 5 m<sup>2</sup> | Front surface area *A<sub>veh</sub>*                             |
+| maximumBatteryCapacity        | float      | 0 (Wh)          | Maximum battery capacity *E<sub>max</sub>*                       |
+| overheadWireChargingPower     | float      | 0 (W)           | Constant additional power drawn from an overhead wire if charging a battery |
+| maximumPower                  | float      | 100000 (W)      | Maximum power of the vehicle electric **drive**                  |
+| vehicleMass                   | float      | 1000 (kg)       | Vehicle mass *m<sub>veh</sub>*                                   |
+| frontSurfaceArea              | float      | 5 (m<sup>2</sup>) | Front surface area *A<sub>veh</sub>*                             |
 | airDragCoefficient            | float      | 0.6             | Air drag coefficient *c<sub>w</sub>*                             |
-| internalMomentOfInertia       | float      | 0.01 kg         | Not a *moment*, but the mass of internal rotating elements       |
+| rotatingMass                  | float      | 40 (kg)         | (Equivalent) mass of internal rotating elements                  |
 | radialDragCoefficient         | float      | 0.5             | Radial drag coefficient c<sub>rad</sub>                          |
 | rollDragCoefficient           | float      | 0.01            | Rolling resistance coefficient *c<sub>roll</sub>*                |
-| constantPowerIntake           | float      | 1000 W          | Constant consumption of vehicle (auxiliary) systems *P<sub>const</sub>*      |
+| constantPowerIntake           | float      | 1000 (W)        | Constant consumption of vehicle (auxiliary) systems *P<sub>const</sub>*      |
 | propulsionEfficiency          | float      | 0.9             | Drive efficiency *η<sub>prop</sub>*                              |
 | recuperationEfficiency        | float      | 0.8             | Recuperation efficiency (constant) *η<sub>recup</sub>*           |
 | recuperationEfficiencyByDecel | float      | 0.0             | Recuperation efficiency (by deceleration)                        |
@@ -63,7 +63,7 @@ An example of a vehicle with hybrid electric attribute is almost identical with 
       <param key="vehicleMass" value="10000"/>
       <param key="frontSurfaceArea" value="7.5"/>
       <param key="airDragCoefficient" value="0.59"/>
-      <param key="internalMomentOfInertia" value="0.01"/>
+      <param key="rotatingMass" value="100"/>
       <param key="radialDragCoefficient" value="0.5"/>
       <param key="rollDragCoefficient" value="0.061"/>
       <param key="constantPowerIntake" value="5000"/>
