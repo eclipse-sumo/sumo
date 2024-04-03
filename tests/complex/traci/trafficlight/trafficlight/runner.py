@@ -80,10 +80,12 @@ try:
 except traci.TraCIException as e:
     print("caught", e)
 check()
-traci.trafficlight.setRedYellowGreenState(tlsID, "gGyruOorrrrrrrrr")
+traci.trafficlight.setRedYellowGreenState(tlsID, "r")
 print("set ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
 print("program", traci.trafficlight.getProgram(tlsID))
 traci.trafficlight.setProgram(tlsID, "off")
 print("ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
+
+traci.trafficlight.addConstraint(tlsID, "train1", "foeTLS", "foeTrain")
 
 traci.close()

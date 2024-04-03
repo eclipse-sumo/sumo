@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-07-02 09:29:28 by Eclipse SUMO sumo Version v1_13_0+1364-9230dc458dd
+<!-- generated on 2024-04-03 17:09:38 by Eclipse SUMO sumo Version v1_19_0+1675-8d4073b0822
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -7077,49 +7077,49 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.03" noise="55.94" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="-1.60"/>
     </timestep>
     <timestep time="4701.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.92" noise="68.38" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="1.95" noise="68.38" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="7.70" speed="2.60" angle="90.00" x="7.70" y="-1.60"/>
     </timestep>
     <timestep time="4702.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.57" noise="69.46" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="5.69" noise="69.46" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="12.90" speed="5.20" angle="90.00" x="12.90" y="-1.60"/>
     </timestep>
     <timestep time="4703.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.27" noise="70.61" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.46" noise="70.61" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="20.70" speed="7.80" angle="90.00" x="20.70" y="-1.60"/>
     </timestep>
     <timestep time="4704.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.00" noise="71.82" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="13.27" noise="71.82" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="31.10" speed="10.40" angle="90.00" x="31.10" y="-1.60"/>
     </timestep>
     <timestep time="4705.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="16.81" noise="73.06" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="17.15" noise="73.06" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="44.10" speed="13.00" angle="90.00" x="44.10" y="-1.60"/>
     </timestep>
     <timestep time="4706.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="20.70" noise="74.32" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="21.12" noise="74.32" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="59.70" speed="15.60" angle="90.00" x="59.70" y="-1.60"/>
     </timestep>
     <timestep time="4707.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="24.68" noise="75.60" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="25.18" noise="75.60" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="77.90" speed="18.20" angle="90.00" x="77.90" y="-1.60"/>
     </timestep>
     <timestep time="4708.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="28.78" noise="76.87" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="29.36" noise="76.87" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="98.70" speed="20.80" angle="90.00" x="98.70" y="-1.60"/>
     </timestep>
     <timestep time="4709.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="33.01" noise="78.14" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="33.66" noise="78.14" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="122.10" speed="23.40" angle="90.00" x="122.10" y="-1.60"/>
     </timestep>
     <timestep time="4710.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="37.39" noise="79.40" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="38.12" noise="79.40" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="148.10" speed="26.00" angle="90.00" x="148.10" y="-1.60"/>
     </timestep>
     <timestep time="4711.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="41.93" noise="80.65" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="42.74" noise="80.65" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="176.70" speed="28.60" angle="90.00" x="176.70" y="-1.60"/>
     </timestep>
     <timestep time="4712.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="46.66" noise="81.89" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="47.54" noise="81.89" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="207.90" speed="31.20" angle="90.00" x="207.90" y="-1.60"/>
     </timestep>
     <timestep time="4713.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="51.58" noise="83.13" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="52.53" noise="83.13" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="241.70" speed="33.80" angle="90.00" x="241.70" y="-1.60"/>
     </timestep>
     <timestep time="4714.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="56.71" noise="84.36" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="57.74" noise="84.36" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="278.10" speed="36.40" angle="90.00" x="278.10" y="-1.60"/>
     </timestep>
     <timestep time="4715.00">
-        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="21.20" noise="78.19" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
+        <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="21.45" noise="78.19" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="315.10" speed="37.00" angle="90.00" x="315.10" y="-1.60"/>
     </timestep>
     <timestep time="4716.00">
         <vehicle id="Energy" eclass="Energy/default" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="9.78" noise="77.02" route="route0" type="Energy" waiting="0.00" lane="e_0" pos="352.10" speed="37.00" angle="90.00" x="352.10" y="-1.60"/>

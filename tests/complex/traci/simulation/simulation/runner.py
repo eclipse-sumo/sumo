@@ -171,6 +171,8 @@ try:
     print("findRoute", traci.simulation.findRoute("footpath", "footpath2", "DEFAULT_VEHTYPE"))
 except traci.TraCIException:
     pass
+print("findRouteFromInternal", traci.simulation.findRoute("o", "2o"))
+print("findRouteToInternal", traci.simulation.findRoute("o", "2o"))
 
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))

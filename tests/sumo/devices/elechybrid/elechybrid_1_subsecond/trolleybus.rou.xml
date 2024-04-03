@@ -30,7 +30,7 @@
       <param key="maximumPower" value="200000"/>
       <param key="frontSurfaceArea" value="7.5"/>
       <param key="airDragCoefficient" value="0.59"/>
-      <param key="internalMomentOfInertia" value="0.01"/>
+      <param key="rotatingMass" value="100"/>
       <param key="radialDragCoefficient" value="0.5"/>
       <param key="rollDragCoefficient" value="0.061"/>
       <param key="constantPowerIntake" value="1000"/>
