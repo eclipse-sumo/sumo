@@ -243,6 +243,21 @@ public:
         myParametersSet |= what;
     }
 
+    /** @brief Returns the costs of the stage
+     *
+     * @return The stage's costs (normally the time needed to pass it)
+     */
+    double getCosts() const {
+        return myCosts;
+    }
+
+    /** @brief Sets the costs of the stage
+     *
+     * @param[in] costs The new stage costs
+     */
+    void setCosts(double costs) {
+        myCosts = costs;
+    }
 
 protected:
     /// the next edge to reach by getting transported
@@ -268,6 +283,9 @@ protected:
 
     /// The id of the group of transportables traveling together
     const std::string myGroup;
+
+    /// @brief The assigned or calculated costs
+    double myCosts;
 
     /// @brief Information on which parameter were set (mainly for vehroute output)
     int myParametersSet;

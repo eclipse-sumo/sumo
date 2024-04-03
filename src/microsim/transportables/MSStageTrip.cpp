@@ -195,7 +195,9 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                                                 departPos, myOriginStop == nullptr ? "" : myOriginStop->getID(),
                                                 myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                                                 transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
+            double totalCost = 0;
             for (std::vector<MSTransportableRouter::TripItem>::iterator it = result.begin(); it != result.end(); ++it) {
+                totalCost += it->cost;
                 if (!it->edges.empty()) {
                     MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(it->destStop, SUMO_TAG_BUS_STOP);
                     double localArrivalPos = bs != nullptr ? bs->getAccessPos(it->edges.back()) : it->edges.back()->getLength() / 2.;
@@ -235,6 +237,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         }
                         previous = new MSStageWalking(transportable->getID(), it->edges, bs, myDuration, mySpeed, depPos, localArrivalPos, myDepartPosLat);
                         previous->setParameters(*this);
+                        previous->setCosts(it->cost);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (isTaxi) {
                         const ConstMSEdgeVector& prevEdges = previous->getEdges();
@@ -251,6 +254,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, 0.0, std::vector<std::string>({ "taxi" }), myGroup);
                         previous->setParameters(*this);
+                        previous->setCosts(it->cost);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
@@ -259,6 +263,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                         }
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, 0.0, std::vector<std::string>({ it->line }));
                         previous->setParameters(*this);
+                        previous->setCosts(it->cost);
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
@@ -268,6 +273,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                     } else {
                         previous = new MSStageDriving(rideOrigin, it->edges.back(), bs, localArrivalPos, 0.0, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
                         previous->setParameters(*this);
+                        previous->setCosts(it->cost);
                         transportable->appendStage(previous, stageIndex++);
                     }
                 }
@@ -276,6 +282,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                 // mark the last stage
                 transportable->getNextStage(stageIndex - 1)->markSet(VEHPARS_ARRIVALPOS_SET);
             }
+            setCosts(totalCost);
         } else {
             // append stage so the GUI won't crash due to inconsistent state
             previous = new MSStageWalking(transportable->getID(), ConstMSEdgeVector({ myOrigin, myDestination }), myDestinationStop, myDuration, mySpeed, previous->getArrivalPos(), myArrivalPos, myDepartPosLat);
@@ -376,6 +383,9 @@ MSStageTrip::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool /
         }
         if (walkFactorSet) {
             os.writeAttr(SUMO_ATTR_WALKFACTOR, myWalkFactor);
+        }
+        if (OptionsCont::getOptions().getBool("vehroute-output.cost")) {
+            os.writeAttr(SUMO_ATTR_COST, getCosts());
         }
         os.closeTag();
     }

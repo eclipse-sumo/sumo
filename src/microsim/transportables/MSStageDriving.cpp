@@ -385,6 +385,9 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
         os.writeAttr(SUMO_ATTR_STARTED, myDeparted >= 0 ? time2string(myDeparted) : "-1");
         os.writeAttr(SUMO_ATTR_ENDED, myArrived >= 0 ? time2string(myArrived) : "-1");
     }
+    if (OptionsCont::getOptions().getBool("vehroute-output.cost")) {
+        os.writeAttr(SUMO_ATTR_COST, getCosts());
+    }
     os.closeTag(comment);
 }
 

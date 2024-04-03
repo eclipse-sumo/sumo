@@ -54,6 +54,7 @@ MSStage::MSStage(MSStageType type, const MSEdge* destination, MSStoppingPlace* t
     myArrived(-1),
     myType(type),
     myGroup(group),
+    myCosts(-1),
     myParametersSet(0)
 {}
 
