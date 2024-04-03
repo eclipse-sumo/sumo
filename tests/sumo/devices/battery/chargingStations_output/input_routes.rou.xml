@@ -3,7 +3,7 @@
 	<vType accel="1.0" decel="5.0" id="ElectricVehicle1" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1" mass="1600">
 		<param key="device.battery.capacity" value="35000"/>
 		<param key="device.battery.maxPower" value="100000"/>
-		<param key="internalMomentOfInertia" value="30"/>
+		<param key="rotatingMass" value="30"/>
 		<param key="frontSurfaceArea" value="2.2"/>
 		<param key="airDragCoefficient" value="0.33"/>
 		<param key="radialDragCoefficient" value="0"/>
@@ -16,7 +16,7 @@
 	<vType accel="1.0" decel="5.0" id="ElectricVehicle2" length="5" maxSpeed="40.0" sigma="0.0" minGap="2.5" color="1,1,1" mass="1600">
 		<param key="device.battery.capacity" value="35000"/>
 		<param key="device.battery.maxPower" value="100000"/>
-		<param key="internalMomentOfInertia" value="30"/>
+		<param key="rotatingMass" value="30"/>
 		<param key="frontSurfaceArea" value="2.2"/>
 		<param key="airDragCoefficient" value="0.33"/>
 		<param key="radialDragCoefficient" value="0"/>

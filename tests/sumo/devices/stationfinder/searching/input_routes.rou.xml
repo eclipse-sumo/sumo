@@ -9,7 +9,7 @@
 		<param key="device.battery.capacity" value="35000"/>
 		<param key="device.battery.maxPower" value="100000"/>
 		<param key="vehicleMass" value="1600"/>
-		<param key="internalMomentOfInertia" value="30"/>
+		<param key="rotatingMass" value="30"/>
 		<param key="frontSurfaceArea" value="2.2"/>
 		<param key="airDragCoefficient" value="0.33"/>
 		<param key="radialDragCoefficient" value="0"/>
@@ -23,7 +23,7 @@
 		<param key="device.battery.capacity" value="35000"/>
 		<param key="device.battery.maxPower" value="100000"/>
 		<param key="vehicleMass" value="1600"/>
-		<param key="internalMomentOfInertia" value="30"/>
+		<param key="rotatingMass" value="30"/>
 		<param key="frontSurfaceArea" value="2.2"/>
 		<param key="airDragCoefficient" value="0.33"/>
 		<param key="radialDragCoefficient" value="0"/>
