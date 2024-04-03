@@ -558,6 +558,27 @@ call](../TraCI/GenericParameters.md#set_parameter).
 - device.driverstate.headwayChangePerceptionThreshold
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
+- device.toc.manualType
+- device.toc.automatedType
+- device.toc.responseTime
+- device.toc.recoveryRate
+- device.toc.initialAwareness
+- device.toc.lcAbstinence
+- device.toc.currentAwareness
+- device.toc.mrmDecel
+- device.toc.requestToC
+- device.toc.requestMRM
+- device.toc.awareness
+- device.toc.dynamicToCThreshold
+- device.toc.dynamicMRMProbability
+- device.toc.mrmKeepRight
+- device.toc.mrmSafeSpot
+- device.toc.mrmSafeSpotDuration
+- device.toc.maxPreparationAccel
+- device.toc.ogNewTimeHeadway
+- device.toc.ogNewSpaceHeadway
+- device.toc.ogChangeRate
+- device.toc.ogMaxDecel
 - device.example.customValue1 (double literal)
 - has.rerouting.device ("true"): can be used to dynamically enable
   [automatic rerouting](../Demand/Automatic_Routing.md)
