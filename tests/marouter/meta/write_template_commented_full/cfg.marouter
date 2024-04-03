@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:47:17 by Eclipse SUMO marouter Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2024-04-03 13:22:50 by Eclipse SUMO marouter Version v1_19_0+1662-cc3005420e0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -149,6 +149,9 @@
 
         <!-- Apply the given time penalty when computing routing costs for minor-link internal lanes -->
         <weights.minor-penalty value="1.5" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs across a traffic light -->
+        <weights.tls-penalty value="0" type="FLOAT"/>
 
         <!-- Defines the time interval when aggregating single vehicle input; Defaults to one hour -->
         <aggregation-interval value="3600" type="TIME"/>

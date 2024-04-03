@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 10:47:11 by Eclipse SUMO jtrrouter Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2024-04-03 13:22:50 by Eclipse SUMO jtrrouter Version v1_19_0+1662-cc3005420e0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -56,6 +56,7 @@
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
         <restriction-params value="" type="STR[]" help="Comma separated list of param keys to compare for additional restrictions"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
+        <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
         <max-edges-factor value="2" type="FLOAT" help="Routes are cut off when the route edges to net edges ratio is larger than FLOAT"/>
         <turn-defaults value="30,50,20" synonymes="T" type="STR[]" help="Use STR[] as default turn definition"/>
         <sink-edges value="" synonymes="sinks" type="STR[]" help="Use STR[] as list of sink edges"/>

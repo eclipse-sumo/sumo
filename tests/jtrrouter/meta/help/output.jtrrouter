@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_17_0+2470-b55cba8942c
+Eclipse SUMO jtrrouter Version v1_19_0+1662-cc3005420e0
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -83,6 +83,8 @@ Processing Options:
                                     compare for additional restrictions
   --weights.minor-penalty FLOAT    Apply the given time penalty when computing
                                     routing costs for minor-link internal lanes
+  --weights.tls-penalty FLOAT      Apply the given time penalty when computing
+                                    routing costs across a traffic light
   --max-edges-factor FLOAT         Routes are cut off when the route edges to
                                     net edges ratio is larger than FLOAT
   -T, --turn-defaults STR[]        Use STR[] as default turn definition
