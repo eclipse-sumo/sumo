@@ -236,9 +236,6 @@ protected:
     /// @brief The currently parsed vehicle type
     SUMOVTypeParameter* myCurrentVType;
 
-    /// @brief generates numerical ids
-    IDSupplier myIdSupplier;
-
     /// @brief The default value for flow begins
     SUMOTime myBeginDefault;
 
