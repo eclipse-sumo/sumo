@@ -862,6 +862,9 @@ public:
     /** Returns whether the lane pertains to a crossing edge*/
     bool isCrossing() const;
 
+    /** Returns whether the lane pertains to a walkingarea*/
+    bool isWalkingArea() const; 
+
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
 

@@ -134,6 +134,9 @@ void MSEdge::recalcCache() {
             SUMOTime minPenalty = -1;
             for (const MSLane* const l : *myLanes) {
                 for (const MSLink* const link : l->getLinkCont()) {
+                    if (link->getLane()->isWalkingArea()) {
+                        continue;
+                    }
                     SUMOTime linkPenalty = link->isTLSControlled() ? link->getMesoTLSPenalty() : (link->havePriority() ? 0 : minorPenalty);
                     if (minPenalty == -1) {
                         minPenalty = linkPenalty;

@@ -2494,6 +2494,11 @@ MSLane::isCrossing() const {
     return myEdge->isCrossing();
 }
 
+bool
+MSLane::isWalkingArea() const {
+    return myEdge->isWalkingArea();
+}
+
 
 MSVehicle*
 MSLane::getLastFullVehicle() const {
