@@ -800,6 +800,24 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.tripinfo.waitingTime (total waiting time)
 - device.tripinfo.waitingCount
 - device.tripinfo.stopTime (total stopping time)
+- device.toc.state
+- device.toc.holder
+- device.toc.hasDynamicToC
+- device.toc.manualType
+- device.toc.automatedType
+- device.toc.initialAwareness
+- device.toc.lcAbstinence
+- device.toc.currentAwareness
+- device.toc.dynamicToCThreshold
+- device.toc.dynamicMRMProbability
+- device.toc.mrmKeepRight
+- device.toc.mrmSafeSpot
+- device.toc.mrmSafeSpotDuration
+- device.toc.maxPreparationAccel
+- device.toc.ogNewTimeHeadway
+- device.toc.ogNewSpaceHeadway
+- device.toc.ogChangeRate
+- device.toc.ogMaxDecel
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
