@@ -20,7 +20,13 @@ title: ChangeLog
   - NEMA controller now warns about missing green phase #14502
   - Fixed bug where person enters the wrong vehicle on looped public transport line #14526
   - Routes with jumps now support attribute `repeat` #14549
-  - Fixed crash when a person plan contains walks or personTrips where origin equals destination #14558 
+  - Fixed crash when a person plan contains walks or personTrips where origin equals destination #14558
+  - Fixed invalid insertion after jump #14578
+  - Fixed emergency braking in roundabout. #14587
+  - traffic light detectors no longer assume having seen a vehicle on step before the simulation started #14590
+  - Taxi reservations from the same busStop are now grouped if the dispatcher permits it #14612
+  - Removed unneeded warning when a person uses a vehicular connection #14619
+  - Fixed invalid departSpeed for IDM in subsecond simulation #14621     
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -43,6 +49,7 @@ title: ChangeLog
   - Fixed crash when trying to define ride between busStops #14462
   - Fixed use of python tools involving space in paths #14469
   - Fixed saving of python tool config involving space in paths #14506
+  - Fixed invalid state of save-sumoconfic button after changing option #14581 
 
 - netcovert 
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
@@ -58,7 +65,11 @@ title: ChangeLog
   - Fixed crash when processing NEMA junctions with pedestrian crossings #14555 
   - Fixed broken junction shapes in 3D network. #10645
   - Edge parameters are no longer lost when using option **--geometry.remove**. #14517
-  - Fixed invalid route in ptline-output. #14534 
+  - Fixed invalid route in ptline-output. #14534
+  - bike lane default width is now applied to both directions in OSM import #14560
+  - Fixed missing bus connection in OSM import. #14507
+  - Fixed bug where attribute `allowed` and `disallowed` were not minimal #14632
+  - Large circular network structures are no longer misclassified as roundabout. The size threshold can be configured with option **--roundabouts.guess.max-length** #14634 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -67,12 +78,15 @@ title: ChangeLog
   - Fixed invalid default for edges minSize when loading incomplete gui settings file. #14384
   - Persons are no longer drawn outside the vehicle when drawn as triangle #14433
   - option **--write-license** from configfile is now respected #14494
-  - Fixed visible grid in satellite background image tiles. #14573 
+  - Fixed visible grid in satellite background image tiles. #14573
+  - Fixed bug where the legend name was unreadable on black background #14651 
 
 - meso
   - Fixed bug where taxi fails to pick up person on the current segment. #14500
   - traci functions edge.setMaxSpeed and lane.setMaxSpeed now work correctly when increasing speed #14552,  #14566
-  - Fixed invalid error when personTrips require walking before taxi use #14575 
+  - Fixed invalid error when personTrips require walking before taxi use #14575
+  - Fixed invalid error during intermodal routing #14575
+  - Fixed bug where vehicles skip ahead after lane speed update #14593 
 
 - duarouter
   - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
@@ -81,19 +95,22 @@ title: ChangeLog
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
   - `vehicle.setStopParameter` now supports "jump" #14441
-  - `vehicle.setSpeed` no longer causes stop at wrong position #14459 
+  - `vehicle.setSpeed` no longer causes stop at wrong position #14459
+  - Fixed result of `vehicle.getLeader` for junction leaders #14617 
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
   - xml output from edgeDataDiff can now be loaded in netedit and sumo-gui. #14387
   - tileGet.py is able to use maQuest service again. #14202
-  - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562 
+  - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562
+  - osmGet.py: Fixed missing building shapes (also affects osmWebWizard.py) #14598 
     
 - Activitygen: Fixed wrong working hour fallback times. #14344
  
 ### Enhancements
 
 - sumo
+  - Added new vClasses: subway, scooter, aircraft, cable_car, wheelchair, drone, container #12335 
   - Access elements support `pos="doors"` to change the algorithm for placing passengers that exit the vehicle. #14336
   - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
   - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
@@ -102,7 +119,10 @@ title: ChangeLog
   - Option **--fcd-output.attributes** now supports the value 'arrivalDelay' #14447
   - Sumo now allows specifying departure and arrival positions in network or geo-coordinates #2182
   - carFollowModel "Rail" now permits loading custom model curves for traction and resistance #14258
-  - speedFactorPremature can now make use of stop parameter "flexArrival" if a reference time other than the scheduled arrival is needed. #14503 
+  - speedFactorPremature can now make use of stop parameter "flexArrival" if a reference time other than the scheduled arrival is needed. #14503
+  - Using jumps together with 'via' is now supported. #14585
+  - Option **--weights.tls-penalty** now also applies to tls-controlled pedestrian crossings. #14653
+  - Option **--vehroute-output.cost** now applies to routed persons #14655 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -129,23 +149,36 @@ title: ChangeLog
   - OSM import now support importing restricted turn lane information (i.e. turn:bus:lanes) #14476
   - More rail signals are imported from OSM and option **--osm.railsignals** can be used for fine grained control of signal interpretation. #14483
   - Rail signal direction is now imported from OSM #14512
-  - Option **--keep-edges.postload** now applies to permission and speed based edge filters. This is useful when these values are updated with patches or public transport processing. #14528 
- 
+  - Option **--keep-edges.postload** now applies to permission and speed based edge filters. This is useful when these values are updated with patches or public transport processing. #14528
+  - Loaded ptLine period can now be patched by loading the same id in **ptline-files** #14586
+  - OSM import now exports subways as vClass "subway" and aerialway as "cable_car" #14644
+  - Now importing access="no" from OSM #14650 
+
+- polyconvert
+  - Option **--osm.merge-relations** now handles "holes" #14599
+  - Improved import of waterbodies and harbours #14597 
+    
 - duarouter
   - Added support for loading ride with geo-coordinates #14427
-  - When writing person stops, the stoppling place name is now written as a comment. #14521 
-   
+  - When writing person stops, the stoppling place name is now written as a comment. #14521
+  - Added option **--weights.tls-penalty** to improve reliability of travel time. #14653
+
 - TraCI / libsumo
   - person-stage attributes `travelTime` now reflects the spent time for the current stage. #11838
   - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438, #14468
   - inductionloop.getIntervalOccupancy, getIntervalMeanSpeed and getIntervalVehicleNumber are now retrievable in meso #7492
+  - [TocDevice](ToC_Device.md) openGap parameters can now be set via `vehicle.setParameter` #14582
+  - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589 
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
   - tileGet.py supports downloading rendered tiles from OSM. #14241
   - added `sumolib.net.node.getMaxTLLinkIndex` #14373
   - gtfs2pt.py nows support human-readable times output using option **-H**. #11192
-  - [matsim_importPlans.py](Tools/Import/MATSim.md) now supports loading input with coordinates #14422 
+  - [matsim_importPlans.py](Tools/Import/MATSim.md) now supports loading input with coordinates #14422
+  - plot_trajectories.py now supports meso fcd when setting option **--meso**. #14592
+  - sumolib.net now supports `getVersion` to retrieve the network version #14636
+  - osmWebWizard now takes into account traffic lights for intermodal routing to avoid persons missing their ride #14653
 
 
 ### Miscellaneous
