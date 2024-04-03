@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-04-02 14:21+0000\n"
+"PO-Revision-Date: 2024-04-03 21:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -16181,11 +16181,11 @@ msgstr "Moltiplicatore"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1691
 msgid "Save the setting to registry"
-msgstr ""
+msgstr "Scrivi configurazione nel registro di sistema"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1692
 msgid "Remove the setting from registry"
-msgstr ""
+msgstr "Rimuovi configurazione dal registro di sistema"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1693
 msgid "Export setting to file"
