@@ -333,6 +333,7 @@ class Builder(object):
                 if vehicle == "pedestrian" and self.data["publicTransport"]:
                     options += ["--additional-files", ",".join([self.files["stops"], self.files["ptroutes"]])]
                     options += ["--persontrip.walk-opposite-factor", "0.8"]
+                    options += ["--duarouter-weights.tls-penalty", "20"]
 
                 try:
                     randomTrips.main(randomTrips.get_options(options))
