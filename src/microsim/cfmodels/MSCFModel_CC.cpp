@@ -112,6 +112,11 @@ void
 MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader) const {
     auto* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     vars->leaderVehicle = leader;
+    if (leader != nullptr)
+        vars->isLeader = false;
+    else
+        // if we are removing our leader, then this vehicle must become a leader of itself until being member of another platoon
+        vars->isLeader = true;
 }
 
 int
@@ -818,6 +823,7 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
                 throw libsumo::TraCIException("Adding " + id + " as member but " + id + " is not using MSCFModel_CC");
             }
             cfm->setLeader(vehicle, veh);
+            vars->isLeader = true;
             return;
         }
         if (key.compare(PAR_REMOVE_MEMBER) == 0) {
@@ -1170,6 +1176,5 @@ MSCFModel_CC::duplicate(const MSVehicleType* vtype) const {
 bool
 MSCFModel_CC::isLeader(const MSVehicle *veh) const {
     auto vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
-    // TODO: this condition might not be enough
-    return vars->activeController == Plexe::ACC;
+    return vars->isLeader;
 }

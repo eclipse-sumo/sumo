@@ -108,6 +108,9 @@ public:
     MSVehicle* leaderVehicle;
     /// @brief front sumo id, used for auto feeding
     MSVehicle* frontVehicle;
+    /// @brief whether this vehicle is leader of a platoon or not. This is mainly used by the lane change logic.
+    /// By default this is true as a single vehicle is treated as a 1-vehicle platoon
+    bool isLeader;
 
     /// @brief headway time for ACC
     double accHeadwayTime;
