@@ -781,6 +781,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_MAXIMUMPOWER,
     /// @brief Vehicle mass
     SUMO_ATTR_VEHICLEMASS,
+    /// @brief Mass equivalent of rotating elements
+    SUMO_ATTR_ROTATINGMASS,
     /// @brief Front surface area
     SUMO_ATTR_FRONTSURFACEAREA,
     /// @brief Air drag coefficient

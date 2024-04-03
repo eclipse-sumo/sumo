@@ -62,7 +62,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     power += 0.5 * mass * (v * v - lastV * lastV) / TS;
 
     // add power needed for rotational energy diff of internal rotating elements
-    power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (v * v - lastV * lastV) / TS;
+    power += 0.5 * param->getDouble(SUMO_ATTR_ROTATINGMASS) * (v * v - lastV * lastV) / TS;
 
     // power needed for Energy loss through Air resistance [Ws]
     // Calculate energy losses:
@@ -158,6 +158,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     // Power used for accelerating, `Prest`, is the total used power minus power wasted by running resistances.
 
     const double mass = param->getDouble(SUMO_ATTR_MASS) + param->getDoubleOptional(SUMO_ATTR_LOADING, 0.);
+    const double rotMass = param->getDouble(SUMO_ATTR_ROTATINGMASS);
     double const1, const2, const3;
     double Prest;
     int numX;
@@ -195,14 +196,14 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     const2 = 0.5 * mass * (TS);
 
     // update coefficients of a(P) equation considering rotational energy diff of internal rotating elements
-    // in inverse original formula:      power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (v * v - lastV * lastV) / TS;
-    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (2 * lastV * a + TS * a * a);
-    const1 += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (2 * v);
-    const2 += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (TS);
+    // in inverse original formula:      power += 0.5 * rotMass * (v * v - lastV * lastV) / TS;
+    // i.e. in terms of 'lastV' and 'a': power += 0.5 * rotMass * (2 * lastV * a + TS * a * a);
+    const1 += 0.5 * rotMass * (2 * v);
+    const2 += 0.5 * rotMass * (TS);
 
     // update coefficients of a(P) equation considering energy loss through Air resistance
     // in inverse original formula:      power += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * v * v * v;
-    // i.e. in terms of 'lastV' and 'a': power += 0.5 * param->getDouble(SUMO_ATTR_INTERNALMOMENTOFINERTIA) * (lastV^3 + 3* lastV^2 * TS * a +  3* lastV * TS^2 *a^2 + TS^3 * a^3);
+    // i.e. in terms of 'lastV' and 'a': power += 0.5 * rotMass * (lastV^3 + 3* lastV^2 * TS * a +  3* lastV * TS^2 *a^2 + TS^3 * a^3);
     Prest -= 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (v * v * v);
     const1 += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (3 * v * v * TS);
     const2 += 0.5 * 1.2041 * param->getDouble(SUMO_ATTR_FRONTSURFACEAREA) * param->getDouble(SUMO_ATTR_AIRDRAGCOEFFICIENT) * (3 * v * TS * TS);

@@ -543,6 +543,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "maximumBatteryCapacity",         SUMO_ATTR_MAXIMUMBATTERYCAPACITY },
     { "maximumPower",                   SUMO_ATTR_MAXIMUMPOWER },
     { "vehicleMass",                    SUMO_ATTR_VEHICLEMASS },
+    { "rotatingMass",                   SUMO_ATTR_ROTATINGMASS },
     { "frontSurfaceArea",               SUMO_ATTR_FRONTSURFACEAREA },
     { "airDragCoefficient",             SUMO_ATTR_AIRDRAGCOEFFICIENT },
     { "internalMomentOfInertia",        SUMO_ATTR_INTERNALMOMENTOFINERTIA },

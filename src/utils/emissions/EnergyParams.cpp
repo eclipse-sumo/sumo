@@ -59,6 +59,14 @@ EnergyParams::EnergyParams(const SUMOVTypeParameter* typeParams) :
         myMap[SUMO_ATTR_LOADING] = typeParams->getDouble("loading", INVALID_DOUBLE);
         myMap[SUMO_ATTR_WIDTH] = typeParams->width;
         myMap[SUMO_ATTR_HEIGHT] = typeParams->height;
+        if (!StringUtils::startsWith(PollutantsInterface::getName(typeParams->emissionClass), "MMPEVEM")) {
+            if (typeParams->hasParameter(toString(SUMO_ATTR_INTERNALMOMENTOFINERTIA))) {
+                WRITE_WARNINGF(TL("Vehicle type '%' uses the Energy model with parameter 'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."), typeParams->id);
+                if (!typeParams->hasParameter(toString(SUMO_ATTR_ROTATINGMASS))) {
+                    myMap[SUMO_ATTR_ROTATINGMASS] = myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA];
+                }
+            }
+        }
     }
 }
 
@@ -78,6 +86,7 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
         myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_WHEELRADIUS] = INVALID_DOUBLE;
         myMap[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = INVALID_DOUBLE;
+        myMap[SUMO_ATTR_ROTATINGMASS] = INVALID_DOUBLE;
         return;
     }
     const SUMOVTypeParameter::VClassDefaultValues defaultValues(SVC_PASSENGER);
@@ -93,7 +102,7 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     }
     myMap[SUMO_ATTR_FRONTSURFACEAREA] = 2.6;
     myMap[SUMO_ATTR_AIRDRAGCOEFFICIENT] = 0.35;
-    myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 0.01;
+    myMap[SUMO_ATTR_ROTATINGMASS] = 0.01;
     myMap[SUMO_ATTR_RADIALDRAGCOEFFICIENT] = 0.1;
     myMap[SUMO_ATTR_ROLLDRAGCOEFFICIENT] = 0.01;
     myMap[SUMO_ATTR_CONSTANTPOWERINTAKE] = 100.;
@@ -103,7 +112,7 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_ANGLE] = 0.;  // actually angleDiff in the last step
     // @todo set myVecMap defaults as needed
 
-    // Default values for the MMPEVEM
+    // Default values for the MMPEVEM, taken from the VW_ID3
     myMap[SUMO_ATTR_WHEELRADIUS] = 0.3588;                // [m]
     myMap[SUMO_ATTR_MAXIMUMTORQUE] = 310.0;               // [Nm]
     // @todo SUMO_ATTR_MAXIMUMPOWER predates the MMPEVEM emission model. Do you want to set this somewhere else or to another value?
@@ -114,6 +123,7 @@ EnergyParams::EnergyParams(const SUMOEmissionClass c) {
     myMap[SUMO_ATTR_MAXIMUMRECUPERATIONPOWER] = 42800.0;  // [W]
     myMap[SUMO_ATTR_INTERNALBATTERYRESISTANCE] = 0.1142;  // [Ohm]
     myMap[SUMO_ATTR_NOMINALBATTERYVOLTAGE] = 396.0;       // [V]
+    myMap[SUMO_ATTR_INTERNALMOMENTOFINERTIA] = 12.5;      // [kgm^2]
     myCharacteristicMapMap.insert(std::pair<SumoXMLAttr, CharacteristicMap>(SUMO_ATTR_POWERLOSSMAP, CharacteristicMap("2,1|-1e9,1e9;-1e9,1e9|0,0,0,0")));  // P_loss_EM = 0 W for all operating points in the default EV power loss map
 }
 
