@@ -830,9 +830,9 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glTranslated(0, 0, 0.1);
         glBegin(GL_QUADS);
         glVertex2d(textX, topi + fontHeight * bgShift);
-        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * bgShift);
-        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2., topi + fontHeight * (1. + bgShift));
-        glVertex2d(textX, topi + fontHeight * (1. + bgShift));
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2.1, topi + fontHeight * bgShift);
+        glVertex2d(textX - textDir * fontWidth * (double)text.size() / 2.1, topi + fontHeight * (0.8 + bgShift));
+        glVertex2d(textX, topi + fontHeight * (0.8 + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
         GLHelper::drawText(text, Position(textX + textDir * textXShift, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
@@ -842,7 +842,18 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     if (StringUtils::startsWith(name, "by ")) {
         name = name.substr(3);
     }
-    GLHelper::drawText(name, Position(textX + textDir * 0.04, -0.8), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
+    const double topN = -0.8;
+    const double bgShift = 0.0;
+    GLHelper::setColor(RGBColor::WHITE);
+    glTranslated(0, 0, 0.1);
+    glBegin(GL_QUADS);
+    glVertex2d(textX + textDir * 0.04,                                                   topN + fontHeight * bgShift - 0.01);
+    glVertex2d(textX + textDir * 0.04 - textDir * fontWidth * (double)name.size() / 2.3, topN + fontHeight * bgShift - 0.01);
+    glVertex2d(textX + textDir * 0.04 - textDir * fontWidth * (double)name.size() / 2.3, topN + fontHeight * (0.8 + bgShift));
+    glVertex2d(textX + textDir * 0.04,                                                   topN + fontHeight * (0.8 + bgShift));
+    glEnd();
+    glTranslated(0, 0, -0.1);
+    GLHelper::drawText(name, Position(textX + textDir * 0.04, topN), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
 
     GLHelper::popMatrix();
     // restore matrices
