@@ -160,6 +160,7 @@ class EdgeType:
         self.allow = allow
         self.disallow = disallow
 
+
 class Net:
 
     """The whole sumo network."""
@@ -185,7 +186,7 @@ class Net:
         # store dijsktra heap for reuse if the same origin is used repeatedly
         self._shortestPathCache = None
         self._version = None
-        self._edgeTypes = defaultdict(lambda : EdgeType("DEFAULT_EDGETYPE", "", ""))
+        self._edgeTypes = defaultdict(lambda: EdgeType("DEFAULT_EDGETYPE", "", ""))
 
     def getVersion(self):
         return self._version
