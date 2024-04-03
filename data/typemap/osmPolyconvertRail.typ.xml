@@ -25,14 +25,20 @@
     <polygonType id="place"                   name="admin_level" color="1.0,.9,.0" layer="0" fill="false" discard="true"/>
 
     <polygonType id="railway"                     name="railway"                     color=".10,.10,.10" layer="-1" discard="false"/>
+    <polygonType id="railway.light_rail"          name="railway.light_rail"          color=".50,.50,.50" layer="-1" discard="false"/>
+    <polygonType id="railway.subway"              name="railway.subway"              color=".40,.40,.70" layer="-1" discard="false"/>
+    <polygonType id="railway.tram"                name="railway.tram"                color=".70,.70,.40" layer="-1" discard="false"/>
     <polygonType id="railway.switch"              name="railway.switch"              color="red"         layer="1" discard="false"/>
     <polygonType id="railway.railway_crossing"    name="railway.railway_crossing"    color="1.0,0.5,0.5" layer="1" discard="false"/>
     <polygonType id="railway.signal"              name="railway.signal"              color="orange"      layer="1" discard="false"/>
     <polygonType id="railway.crossing"            name="railway.crossing"            color="0.5,0,0.5"   layer="1" discard="false"/>
+    <polygonType id="railway.tram_crossing"       name="railway.tram_crossing"       color="0.7,0,0.7"   layer="1" discard="false"/>
     <polygonType id="railway.station"             name="railway.station"             color="0.0,1.0,0.0" layer="1" discard="false"/>
     <polygonType id="railway.halt"                name="railway.stop"                color="0.5,1.0,0.5" layer="1" discard="false"/>
     <polygonType id="railway.stop"                name="railway.stop"                color="0.0,0.5,0.0" layer="1" discard="false"/>
     <polygonType id="railway.tram_stop"           name="railway.tram_stop"           color="0.0,0.5,0.0" layer="1" discard="false"/>
+    <polygonType id="railway.platform"            name="railway.platform"            color="0,.5,0"      layer="1" discard="false"/>
+    <polygonType id="railway.platform_edge"       name="railway.platform"            color="0.5,.7,0.5"  layer="2" discard="false"/>
     <polygonType id="railway.subway_entrance"     name="railway.subway_entrance"     color="0.0,0.0,0.5" layer="1" discard="false"/>
     <polygonType id="railway.light_rail_entrance" name="railway.light_rail_entrance" color="0.0,0.0,0.5" layer="1" discard="false"/>
     <polygonType id="railway.site"                name="railway.site"                color="0.5,0.5,0.5" layer="1" discard="false"/>
