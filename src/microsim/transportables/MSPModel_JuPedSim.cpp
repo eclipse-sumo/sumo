@@ -835,15 +835,15 @@ MSPModel_JuPedSim::getHoleArea(const GEOSGeometry* hole) {
 }
 
 
-void 
+void
 MSPModel_JuPedSim::filterHoles(const GEOSGeometry* geometry, double minAreaThreshold) {
     GEOSGeometry* exterior = GEOSGeom_clone(GEOSGetExteriorRing(geometry));
     int nbrInteriorRings = GEOSGetNumInteriorRings(geometry);
     if (nbrInteriorRings != -1) {
         std::vector<GEOSGeometry*> holes;
-        for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+        for (int k = 0; k < nbrInteriorRings; k++) {
             GEOSGeometry* linearRing = GEOSGeom_clone(GEOSGetInteriorRingN(geometry, k));
-            double area = getHoleArea(linearRing);
+            const double area = getHoleArea(linearRing);
             if (area > minAreaThreshold) {
                 holes.push_back(linearRing);
             }
@@ -862,16 +862,15 @@ MSPModel_JuPedSim::removePolygonFromDrawing(const std::string& polygonId) {
 void
 MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color) {
     const GEOSGeometry* exterior = GEOSGetExteriorRing(polygon);
-    PositionVector shape = convertToSUMOPoints(exterior);
-    bool added = myShapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), color, 10.0, 0.0, std::string(), false, shape, false, true, 1.0);
+    bool added = myShapeContainer.addPolygon(polygonId, std::string("jupedsim.pedestrian_network"), color, 10.0, 0.0,
+                 std::string(), false, convertToSUMOPoints(exterior), false, true, 1.0);
     if (added) {
         std::vector<PositionVector> holes;
         int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
         if (nbrInteriorRings != -1) {
-            for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+            for (int k = 0; k < nbrInteriorRings; k++) {
                 const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-                PositionVector hole = convertToSUMOPoints(linearRing);
-                holes.push_back(hole);
+                holes.push_back(convertToSUMOPoints(linearRing));
             }
             myShapeContainer.getPolygons().get(polygonId)->setHoles(holes);
         }
@@ -885,7 +884,7 @@ MSPModel_JuPedSim::getLargestComponent(const GEOSGeometry* polygon, int& nbrComp
     const GEOSGeometry* largestComponent = nullptr;
     maxArea = 0.0;
     totalArea = 0.0;
-    for (unsigned int i = 0; i < (unsigned int)nbrComponents; i++) {
+    for (int i = 0; i < nbrComponents; i++) {
         const GEOSGeometry* componentPolygon = GEOSGetGeometryN(polygon, i);
         double area;
         GEOSArea(componentPolygon, &area);
@@ -911,7 +910,7 @@ MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon)
     // Handle the interior polygons (holes).
     int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
     if (nbrInteriorRings != -1) {
-        for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+        for (int k = 0; k < nbrInteriorRings; k++) {
             const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
             std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
             JPS_GeometryBuilder_ExcludeFromAccessibleArea(geometryBuilder, holeCoordinates.data(), holeCoordinates.size());
@@ -942,7 +941,7 @@ MSPModel_JuPedSim::dumpGeometry(const GEOSGeometry* polygon, const std::string& 
         const int nbrInteriorRings = GEOSGetNumInteriorRings(polygon);
         std::vector<GEOSGeometry*> holeRings;
         if (nbrInteriorRings != -1) {
-            for (unsigned int k = 0; k < (unsigned int)nbrInteriorRings; k++) {
+            for (int k = 0; k < nbrInteriorRings; k++) {
                 const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
                 PositionVector holePoints = convertToSUMOPoints(linearRing);
                 for (Position& position : holePoints) {
@@ -988,7 +987,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
 #endif
     std::string filename = oc.getString("pedestrian.jupedsim.wkt");
     if (!filename.empty()) {
-            dumpGeometry(myGEOSPedestrianNetworkLargestComponent, filename, oc.getBool("pedestrian.jupedsim.wkt.geo"));
+        dumpGeometry(myGEOSPedestrianNetworkLargestComponent, filename, oc.getBool("pedestrian.jupedsim.wkt.geo"));
     }
     // For the moment, only one connected component is supported.
     myJPSGeometry = buildJPSGeometryFromGEOSGeometry(myGEOSPedestrianNetworkLargestComponent);
