@@ -1,17 +1,33 @@
+#!/usr/bin/env python
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
+# Copyright (C) 2024-2024 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+
+# @file    plotWKT.py
+# @author  Benjamin Coueraud
+# @date    2024-04-04
+
+
 import os
 import sys
-from matplotlib.pyplot import figure, plot, gca, show
+
+from matplotlib.pyplot import figure, plot, gca, show, savefig
 from shapely import wkt
 from shapely.geometry import Polygon, MultiPolygon
 
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("Please set environment variable 'SUMO_HOME' to your SUMO binary directory.")
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
-import sumolib
 from sumolib.options import ArgumentParser
+
 
 def plotPolygonWithHoles(polygon, options):
     x, y = polygon.exterior.coords.xy
@@ -21,37 +37,40 @@ def plotPolygonWithHoles(polygon, options):
             x, y = hole.coords.xy
             plot(x, y, color=options.color)
 
+
 def plotMultiPolygonWithHoles(multipolygon, options):
     for polygon in multipolygon.geoms:
         plotPolygonWithHoles(polygon, options['color'])
 
+
 def main(args=None):
     ap = ArgumentParser(description="Plot a polygon, or the difference between two polygons, given in WKT format.")
-    ap.add_argument('-f','--filename', category='input', type=ap.file, help='Name of a WKT file', required=True)
-    ap.add_argument('-o','--other-filename', category='input', type=ap.file, help='Name of another WKT file')
-    ap.add_argument('-a', '--area-threshold', category='processing', default=0.01, help='Area threshold used to filter small holes')
-    ap.add_argument('-m', '--color', category='processing', default='blue', help='Color used to draw the polygons')
+    ap.add_argument('filename', category='input', type=ap.file, help='Name of a WKT file')
+    ap.add_argument('-f', '--other-filename', category='input', type=ap.file, help='Name of another WKT file')
+    ap.add_argument('-o', '--output', category='output', type=ap.file, help='Name of image file to write')
+    ap.add_argument('-a', '--area-threshold', default=0.01, type=float,
+                    help='Area threshold used to filter small holes')
+    ap.add_argument('-m', '--color', default='blue', help='Color used to draw the polygons')
     options = ap.parse_args(args=args)
 
     with open(options.filename) as file:
-        wktString = file.read()
-        polygon = wkt.loads(wktString)
+        polygon = wkt.load(file)
         if options.other_filename:
             with open(options.other_filename) as otherFile:
-                otherWKTString = otherFile.read()
-                otherPolygon = polygon.loads(otherWKTString)
+                otherPolygon = wkt.load(otherFile)
                 polygon = polygon.difference(otherPolygon)
-    
+
     figure()
     if type(polygon) == Polygon:
         plotPolygonWithHoles(polygon, options)
     elif type(polygon) == MultiPolygon:
         plotMultiPolygonWithHoles(polygon, options)
     gca().set_aspect('equal')
-    show()
+    if options.output:
+        savefig(options.output)
+    else:
+        show()
+
 
 if __name__ == "__main__":
-    try:
-        main()
-    except ValueError as e:
-        sys.exit(e)
+    main()
