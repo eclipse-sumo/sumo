@@ -871,8 +871,13 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     }
     if (myRemoteLane != nullptr && withinLane) {
         if (keepLane) {
+            // TODO this handles only the case when the new vehicle is completely on the edge
+            const bool needFurtherUpdate = v->myState.myPos < v->getVehicleType().getLength() && myRemotePos >= v->getVehicleType().getLength();
             v->myState.myPos = myRemotePos;
             v->myState.myPosLat = myRemotePosLat;
+            if (needFurtherUpdate) {
+                v->myState.myBackPos = v->updateFurtherLanes(v->myFurtherLanes, v->myFurtherLanesPosLat, std::vector<MSLane*>());
+            }
         } else {
             MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
                                                   ? MSMoveReminder::NOTIFICATION_DEPARTED
