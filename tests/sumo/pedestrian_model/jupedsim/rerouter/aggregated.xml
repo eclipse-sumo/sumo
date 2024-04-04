@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-03-28 16:33:31 by Eclipse SUMO GUI Version v1_19_0+1550-0c41b5f4fa2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/rerouter/net.net.xml"/>
+        <route-files value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/rerouter/input_routes.rou.xml"/>
+        <additional-files value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/rerouter/input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <pedestrian.model value="jupedsim"/>
+    </processing>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="223.00" id="ed0">
+        <edge id="E0" arrived="0" entered="0"/>
+        <edge id="E1" arrived="0" entered="0"/>
+        <edge id="E2" arrived="0" entered="137"/>
+        <edge id="E3" arrived="0" entered="47"/>
+        <edge id="E4" arrived="1" entered="33"/>
+    </interval>
+</meandata>

@@ -238,7 +238,9 @@ public:
 
     template<class T>
     static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
-        std::shuffle(v.begin(), v.end(), rng == nullptr ? myRandomNumberGenerator : *rng);
+        for (int i = v.end() - v.begin() - 1; i > 0; --i) {
+            std::swap(v.begin()[i], v.begin()[rand(i, rng)]);
+        }
     }
 
 protected:
