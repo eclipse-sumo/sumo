@@ -1,1 +1,1 @@
---net-file net.net.xml --route-files input_routes.rou.xml --no-step-log --tripinfo-output tripinfos.xml --fcd-output fcd.xml --pedestrian.jupedsim.wkt wkt.txt --pedestrian.jupedsim.wkt.geo true
+--net-file net.net.xml --route-files input_routes.rou.xml --no-step-log --tripinfo-output tripinfos.xml --pedestrian.jupedsim.wkt wkt.txt --pedestrian.jupedsim.wkt.geo true
