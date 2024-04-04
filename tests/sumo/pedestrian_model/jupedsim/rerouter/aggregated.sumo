@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-23 16:48:41 by Eclipse SUMO sumo Version v1_19_0+1483-02ec7165f6c
+<!-- generated on 2024-04-04 13:53:23 by Eclipse SUMO sumo Version v1_19_0+1689-297f0d2056f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,8 +45,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <interval begin="0.00" end="2000.00" id="ed0">
         <edge id="E0" arrived="0" entered="0"/>
         <edge id="E1" arrived="0" entered="0"/>
-        <edge id="E2" arrived="0" entered="152"/>
-        <edge id="E3" arrived="0" entered="48"/>
+        <edge id="E2" arrived="0" entered="142"/>
+        <edge id="E3" arrived="0" entered="58"/>
         <edge id="E4" arrived="400" entered="400"/>
     </interval>
 </meandata>
