@@ -40,7 +40,7 @@ def plotPolygonWithHoles(polygon, options):
 
 def plotMultiPolygonWithHoles(multipolygon, options):
     for polygon in multipolygon.geoms:
-        plotPolygonWithHoles(polygon, options['color'])
+        plotPolygonWithHoles(polygon, options)
 
 
 def main(args=None):
