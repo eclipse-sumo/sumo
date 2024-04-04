@@ -38,6 +38,12 @@ from copy import copy
 from collections import defaultdict
 from itertools import chain
 
+try:
+    import lxml.etree
+    HAVE_LXML = True
+except ImportError:
+    HAVE_LXML = False
+
 import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
@@ -939,10 +945,21 @@ def readNet(filename, **others):
         'withFoes' : import right-of-way information (default True)
         'withInternal' : import internal edges and lanes (default False)
         'withPedestrianConnections' : import connections between sidewalks, crossings (default False)
+        'lxml' : set to False to use the xml.sax parser instead of the lxml parser
     """
     netreader = NetReader(**others)
     try:
-        parse(gzip.open(filename), netreader)
+        source = gzip.open(filename)
+        source.read(10)
+        source.seek(0)
     except IOError:
-        parse(filename, netreader)
+        source = filename
+    if HAVE_LXML and others.get("lxml", True):
+        for event, v in lxml.etree.iterparse(source, events=("start", "end")):
+            if event == "start":
+                netreader.startElement(v.tag, v.attrib)
+            elif event == "end":
+                netreader.endElement(v.tag)
+    else:
+        parse(source, netreader)
     return netreader.getNet()
