@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 13:52+0100\n"
-"PO-Revision-Date: 2024-04-03 15:50+0000\n"
+"PO-Revision-Date: 2024-04-04 08:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5028,6 +5028,14 @@ msgid ""
 "  or rebuild the network with option '--tls.ignore-internal-junction-jam' or "
 "include the program when building."
 msgstr ""
+"Das Programm '%' der tlLogic '%' ist nicht kompatibel zur Logik am "
+"Knotenpunkt '%' (gegenseitiger Konflikt zwischen Verbindungsindizes %,% LSA-"
+"Indizes %,% Phase %).\n"
+"  Um Kollisionen und Blockaden zu vermeiden sollte entweder das "
+"Signalprogramm mit einer neueren Version von netconvert/netedit "
+"überschrieben werden,\n"
+"  das Netz mit der Option '--tls.ignore-internal-junction-jam' aktualisiert "
+"oder das Programm beim Netzbau eingebunden werden."
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\MSTrafficLightLogic.cpp:466
 msgid "Green fraction is only 1% for link % in tlLogic '%', program '%'."
@@ -5109,7 +5117,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:459
 msgid "Error while generating geometry for carriages."
-msgstr ""
+msgstr "Fehler bei der Erstellung der Wagengeometrie."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:470
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:931
@@ -5118,6 +5126,8 @@ msgid ""
 "While generating geometry % connected components were detected, %% of total "
 "pedestrian area is covered by the largest."
 msgstr ""
+"Bei der Erstellung der Geometrie wurden % verknüpfte Komponenten erkannt, "
+"wovon die größte %% der Fußgängerfläche belegt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:574
 msgid "Polygon '%' will be skipped as it is just a point."
@@ -5236,6 +5246,8 @@ msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
 msgstr ""
+"Das Fußgängermodell nutzt nicht im Netz vorhandene Infrastruktur, wodurch "
+"timeLoss und routeLength ungültige Werte annehmen können."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSTransportable.cpp:149
 msgid "Changing a transportable ID is not permitted"
@@ -5318,12 +5330,13 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:60
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:65
 msgid "Attribute % for chargingStation with ID='%' is invalid (%)."
-msgstr ""
+msgstr "Attribut % der Ladestation mit der ID='%' ist ungültig (%)."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSChargingStation.cpp:70
 msgid ""
 "ChargingStation with ID='getID()' doesn't have a valid position (% < %)."
 msgstr ""
+"Die Ladestation mit der ID='getID()' hat keine gültige Position (% < %)."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSLaneSpeedTrigger.cpp:177
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -5377,7 +5390,7 @@ msgstr "MSTriggeredRerouter %: Keine Parkplatz ID gegeben."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:240
 msgid "MSTriggeredRerouter %: No via edge id given."
-msgstr ""
+msgstr "MSTriggeredRerouter %: Keine ID der Via-Kante gegeben."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:523
 #, c-format
@@ -5385,8 +5398,8 @@ msgid ""
 "Cannot keep destination edge '%' for vehicle '%' due to closed edges. "
 "Terminating route."
 msgstr ""
-"Die Zielkante '%' für das Fahrzeug '%' kann aufgrund geschlossener Kanten "
-"nicht beibehalten werden. Beendende Strecke."
+"Die Zielkante '%' für das Fahrzeug '%' kann aufgrund gesperrter Kanten nicht "
+"beibehalten werden. Die Route wird abgebrochen."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSTriggeredRerouter.cpp:697
 msgid "Invalid value '%' for vehicle parameter '%'"
