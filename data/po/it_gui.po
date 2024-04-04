@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-03-19 14:28+0100\n"
-"PO-Revision-Date: 2024-04-03 21:12+0000\n"
+"PO-Revision-Date: 2024-04-04 09:15+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11923,7 +11923,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDemandSelector.cpp:281
 msgid "Selected invalid item in DemandElementSelector"
-msgstr ""
+msgstr "Selezionato elemento invalido nella selezione di elementi di domanda"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEDrawingShape.cpp:49
 msgid "Drawing"
@@ -12086,7 +12086,7 @@ msgstr "disattiva più attributi di flussi"
 #: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:539
 #: C:\Repos\sumo/src\netedit\frames\GNEFlowEditor.cpp:567
 msgid "different: "
-msgstr ""
+msgstr "differente: "
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:185
 msgid "Parameters of "
@@ -12284,29 +12284,29 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
-msgstr ""
+msgstr "  -- Con riferimento a sinistra: startPos = 70 e endPos = 100."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:384
 msgid "  - Reference Right: will have startPos = 100 and endPos = 130."
-msgstr ""
+msgstr "  -- Con riferimento a destra: startPos = 100 e endPos = 130."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:385
 msgid "  - Center: will have startPos = 85 and endPos = 115."
-msgstr ""
+msgstr "  -- Con riferimento al centro: startPos = 85 e endPos = 115."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:387
 msgid ""
 "  - Extended Left: will have startPos = 85 and endPos until lane's length."
-msgstr ""
+msgstr "  - Esteso a sinistra: startPos = 85 e endPos alla fine della corsia."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:388
 msgid "  - Extended Right: will have startPos from start and endPos = 115."
-msgstr ""
+msgstr "  - Esteso a destra: startPos all'inizio della corsia e endPos = 115."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:389
 msgid ""
 "  - Extended: will have startPos from start and endPos until lane's length."
-msgstr ""
+msgstr "  - Esteso: startPos è all'inizio e endPos alla fine della corsia."
 
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:391
 msgid ""
@@ -12324,7 +12324,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
 msgid "NetworkElements"
-msgstr ""
+msgstr "Elementi di rete"
 
 #: C:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:56
 msgid "Use selected"
@@ -16229,19 +16229,19 @@ msgstr "S&vuota immagini di fondo"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1730
 msgid "Toggle grid"
-msgstr ""
+msgstr "Attiva/disattiva griglia"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1734
 msgid "x-spacing"
-msgstr ""
+msgstr "spazio sull'asse x"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1739
 msgid "y-spacing"
-msgstr ""
+msgstr "spazio sull'asse y"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1748
 msgid "Streets"
-msgstr ""
+msgstr "Strade"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1757
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1787
@@ -16254,13 +16254,13 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2197
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2259
 msgid "Interpolate"
-msgstr ""
+msgstr "Interpola"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1769
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2045
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2268
 msgid "Recalibrate Rainbow"
-msgstr ""
+msgstr "Ricalibra arcobaleno"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1771
 msgid "hide below"
