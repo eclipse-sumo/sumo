@@ -9,7 +9,7 @@
         <route edges="a b c d e"/>
         <stop busStop="1@OCP" duration="10.00" arrival="290" until="300"/>
     </vehicle>
-    <vehicle id="t_0" type="DEFAULT_RAILTYPE" depart="100.00" from="a2" to="e2">
+    <vehicle id="t_0" type="DEFAULT_RAILTYPE" depart="100.00">
         <route edges="a2 b2 c d2 e2"/>
         <stop busStop="3@OCP" duration="10.00" arrival="190" until="200"/>
     </vehicle>
