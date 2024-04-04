@@ -238,8 +238,8 @@ public:
 
     template<class T>
     static void shuffle(std::vector<T>& v, SumoRNG* rng = nullptr) {
-        for (int i = v.end() - v.begin() - 1; i > 0; --i) {
-            std::swap(v.begin()[i], v.begin()[rand(i, rng)]);
+        for (int i = (int)(v.size() - 1); i > 0; --i) {
+            std::swap(*(v.begin() + i), *(v.begin() + rand(i, rng)));
         }
     }
 
