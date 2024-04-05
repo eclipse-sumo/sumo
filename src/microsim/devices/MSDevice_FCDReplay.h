@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <utils/common/Command.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSVehicleDevice.h"
 
@@ -61,10 +62,7 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCDReplay();
 
-    bool notifyMove(SUMOTrafficObject& veh,
-                    double oldPos,
-                    double newPos,
-                    double newSpeed);
+    bool move();
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
@@ -84,6 +82,14 @@ private:
      * @param[in] id The ID of the device
      */
     MSDevice_FCDReplay(SUMOVehicle& holder, const std::string& id);
+
+    class MoveVehicles : public Command {
+    public:
+        SUMOTime execute(SUMOTime currentTime);
+    private:
+        /// @brief Invalidated assignment operator.
+        MoveVehicles& operator=(const MoveVehicles&) = delete;
+    };
 
     class FCDHandler : public SUMOSAXHandler {
     public:

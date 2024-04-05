@@ -77,6 +77,7 @@ MSDevice_FCDReplay::init() {
             throw ProcessError();
         }
         myHandler.addTrafficObjects();
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new MoveVehicles(), SIMSTEP + DELTA_T);
     }
 }
 
@@ -94,27 +95,37 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 
 
 bool
-MSDevice_FCDReplay::notifyMove(SUMOTrafficObject& veh,
-                               double /*oldPos*/,
-                               double /*newPos*/,
-                               double /*newSpeed*/) {
+MSDevice_FCDReplay::move() {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
         // removal happens via the usual MSVehicle::hasArrived mechanism
         // TODO we may need to set an arrivalPos
         return false;
     }
-    MSVehicle* v = dynamic_cast<MSVehicle*>(&veh);
+    MSVehicle* v = dynamic_cast<MSVehicle*>(&myHolder);
     if (v == nullptr) {
         return false;
     }
     const auto& p = myTrajectory->front();
     const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(std::get<1>(p));
     const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(p));
-    libsumo::Vehicle::moveToXY(veh.getID(), edgeID, laneIdx, std::get<0>(p).x(), std::get<0>(p).y(),
+    libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, std::get<0>(p).x(), std::get<0>(p).y(),
                                std::get<4>(p), 7);
     v->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
     return true;
+}
+
+
+SUMOTime
+MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime /* currentTime */) {
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(i->second->getDevice(typeid(MSDevice_FCDReplay)));
+        if (device != nullptr && i->second->hasDeparted()) {
+            device->move();
+        }
+    }
+    return DELTA_T;
 }
 
 
