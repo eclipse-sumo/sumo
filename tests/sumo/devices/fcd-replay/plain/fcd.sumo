@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-21 12:27:36 by Eclipse SUMO sumo Version v1_19_0+1381-8ccae7a9ee6
+<!-- generated on 2024-04-05 13:58:56 by Eclipse SUMO sumo Version v1_19_0+1708-db4e8b964af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,13 +45,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v0" x="-294.97" y="-49.16" angle="80.54" type="t1" speed="0.00" pos="5.10" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="v0" x="-292.40" y="-48.73" angle="80.54" type="t1" speed="2.60" pos="7.71" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v0" x="-292.40" y="-48.73" angle="80.54" type="t1" speed="2.61" pos="7.71" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="v0" x="-287.28" y="-47.88" angle="80.54" type="t1" speed="5.20" pos="12.90" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v0" x="-287.28" y="-47.88" angle="80.54" type="t1" speed="5.19" pos="12.90" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="v0" x="-279.58" y="-46.60" angle="80.54" type="t1" speed="7.80" pos="20.70" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v0" x="-279.58" y="-46.60" angle="80.54" type="t1" speed="7.81" pos="20.70" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
         <vehicle id="v0" x="-269.32" y="-44.89" angle="80.54" type="t1" speed="10.40" pos="31.10" lane="onRamp_0" slope="0.00"/>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v0" x="-125.70" y="-20.95" angle="80.54" type="t1" speed="28.60" pos="176.70" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="v0" x="-94.93" y="-15.82" angle="80.54" type="t1" speed="31.20" pos="207.90" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v0" x="-94.93" y="-15.82" angle="80.54" type="t1" speed="31.19" pos="207.90" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
         <vehicle id="v0" x="-61.59" y="-10.26" angle="80.54" type="t1" speed="33.80" pos="241.70" lane="onRamp_0" slope="0.00"/>
@@ -90,25 +90,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v0" x="4.48" y="-1.60" angle="56.47" type="t1" speed="31.00" pos="0.48" lane="merge_1" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="v0" x="38.09" y="-1.60" angle="90.00" type="t1" speed="33.60" pos="34.09" lane="merge_1" slope="0.00"/>
+        <vehicle id="v0" x="38.09" y="-1.60" angle="90.00" type="t1" speed="33.61" pos="34.09" lane="merge_1" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="v0" x="74.29" y="-1.60" angle="90.00" type="t1" speed="36.20" pos="70.29" lane="merge_1" slope="0.00"/>
+        <vehicle id="v0" x="74.29" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="70.29" lane="merge_1" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="v0" x="112.45" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="8.45" lane="end_0" slope="0.00"/>
+        <vehicle id="v0" x="112.45" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="8.45" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <vehicle id="v0" x="150.61" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="46.61" lane="end_0" slope="0.00"/>
+        <vehicle id="v0" x="150.61" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="46.61" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <vehicle id="v0" x="188.77" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="84.77" lane="end_0" slope="0.00"/>
+        <vehicle id="v0" x="188.77" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="84.77" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <vehicle id="v0" x="226.93" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="122.93" lane="end_0" slope="0.00"/>
+        <vehicle id="v0" x="226.93" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="122.93" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <vehicle id="v0" x="265.09" y="-1.60" angle="90.00" type="t1" speed="38.16" pos="161.09" lane="end_0" slope="0.00"/>
+        <vehicle id="v0" x="265.09" y="-1.60" angle="90.00" type="t1" speed="36.00" pos="161.09" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="23.00"/>
     <timestep time="24.00"/>
@@ -191,13 +191,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="-294.97" y="-49.16" angle="80.54" type="t1" speed="0.00" pos="5.10" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="101.00">
-        <vehicle id="v1" x="-292.40" y="-48.73" angle="80.54" type="t1" speed="2.60" pos="7.71" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v1" x="-292.40" y="-48.73" angle="80.54" type="t1" speed="2.61" pos="7.71" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="102.00">
-        <vehicle id="v1" x="-287.28" y="-47.88" angle="80.54" type="t1" speed="5.20" pos="12.90" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v1" x="-287.28" y="-47.88" angle="80.54" type="t1" speed="5.19" pos="12.90" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="103.00">
-        <vehicle id="v1" x="-279.58" y="-46.60" angle="80.54" type="t1" speed="7.80" pos="20.70" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v1" x="-279.58" y="-46.60" angle="80.54" type="t1" speed="7.81" pos="20.70" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="104.00">
         <vehicle id="v1" x="-269.32" y="-44.89" angle="80.54" type="t1" speed="10.40" pos="31.10" lane="onRamp_0" slope="0.00"/>
@@ -224,13 +224,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="-125.70" y="-20.95" angle="80.54" type="t1" speed="28.60" pos="176.70" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="112.00">
-        <vehicle id="v1" x="-94.93" y="-15.82" angle="80.54" type="t1" speed="31.20" pos="207.90" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v1" x="-94.93" y="-15.82" angle="80.54" type="t1" speed="31.19" pos="207.90" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="113.00">
         <vehicle id="v1" x="-61.61" y="-10.27" angle="80.54" type="t1" speed="33.78" pos="241.67" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="114.00">
-        <vehicle id="v1" x="-28.26" y="-5.00" angle="83.82" type="t1" speed="33.78" pos="275.46" lane="onRamp_0" slope="0.00"/>
+        <vehicle id="v1" x="-28.26" y="-5.00" angle="83.82" type="t1" speed="33.79" pos="275.46" lane="onRamp_0" slope="0.00"/>
     </timestep>
     <timestep time="115.00">
         <vehicle id="v1" x="2.99" y="-4.83" angle="88.57" type="t1" speed="31.25" pos="6.99" lane=":C_2_0" slope="0.00"/>
@@ -266,7 +266,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="327.29" y="0.00" angle="90.00" type="t1" speed="33.78" pos="23.29" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="126.00">
-        <vehicle id="v1" x="361.06" y="0.00" angle="90.00" type="t1" speed="33.78" pos="57.06" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="361.06" y="0.00" angle="90.00" type="t1" speed="33.77" pos="57.06" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="127.00">
         <vehicle id="v1" x="394.84" y="0.00" angle="90.00" type="t1" speed="33.78" pos="90.84" lane="end2_0" slope="0.00"/>
@@ -290,7 +290,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="597.52" y="0.00" angle="90.00" type="t1" speed="33.78" pos="293.52" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="134.00">
-        <vehicle id="v1" x="631.29" y="0.00" angle="90.00" type="t1" speed="33.78" pos="327.29" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="631.29" y="0.00" angle="90.00" type="t1" speed="33.77" pos="327.29" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="135.00">
         <vehicle id="v1" x="665.07" y="0.00" angle="90.00" type="t1" speed="33.78" pos="361.07" lane="end2_0" slope="0.00"/>
@@ -317,7 +317,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="901.53" y="0.00" angle="90.00" type="t1" speed="33.78" pos="597.53" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="143.00">
-        <vehicle id="v1" x="935.30" y="0.00" angle="90.00" type="t1" speed="33.78" pos="631.30" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="935.30" y="0.00" angle="90.00" type="t1" speed="33.77" pos="631.30" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="144.00">
         <vehicle id="v1" x="969.08" y="0.00" angle="90.00" type="t1" speed="33.78" pos="665.08" lane="end2_0" slope="0.00"/>
@@ -341,7 +341,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="1171.76" y="0.00" angle="90.00" type="t1" speed="33.78" pos="867.76" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="151.00">
-        <vehicle id="v1" x="1205.53" y="0.00" angle="90.00" type="t1" speed="33.78" pos="901.53" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="1205.53" y="0.00" angle="90.00" type="t1" speed="33.77" pos="901.53" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="152.00">
         <vehicle id="v1" x="1239.31" y="0.00" angle="90.00" type="t1" speed="33.78" pos="935.31" lane="end2_0" slope="0.00"/>
@@ -365,7 +365,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="1441.99" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1137.99" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="159.00">
-        <vehicle id="v1" x="1475.76" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1171.76" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="1475.76" y="0.00" angle="90.00" type="t1" speed="33.77" pos="1171.76" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="160.00">
         <vehicle id="v1" x="1509.54" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1205.54" lane="end2_0" slope="0.00"/>
@@ -392,7 +392,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="1746.00" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1442.00" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="168.00">
-        <vehicle id="v1" x="1779.77" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1475.77" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="1779.77" y="0.00" angle="90.00" type="t1" speed="33.77" pos="1475.77" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="169.00">
         <vehicle id="v1" x="1813.55" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1509.55" lane="end2_0" slope="0.00"/>
@@ -416,7 +416,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="2016.23" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1712.23" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="176.00">
-        <vehicle id="v1" x="2050.00" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1746.00" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="2050.00" y="0.00" angle="90.00" type="t1" speed="33.77" pos="1746.00" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="177.00">
         <vehicle id="v1" x="2083.78" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1779.78" lane="end2_0" slope="0.00"/>
@@ -440,7 +440,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="2286.46" y="0.00" angle="90.00" type="t1" speed="33.78" pos="1982.46" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="184.00">
-        <vehicle id="v1" x="2320.23" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2016.23" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="2320.23" y="0.00" angle="90.00" type="t1" speed="33.77" pos="2016.23" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="185.00">
         <vehicle id="v1" x="2354.01" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2050.01" lane="end2_0" slope="0.00"/>
@@ -467,7 +467,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="2590.47" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2286.47" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="193.00">
-        <vehicle id="v1" x="2624.24" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2320.24" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="2624.24" y="0.00" angle="90.00" type="t1" speed="33.77" pos="2320.24" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="194.00">
         <vehicle id="v1" x="2658.02" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2354.02" lane="end2_0" slope="0.00"/>
@@ -491,7 +491,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="2860.70" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2556.70" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="201.00">
-        <vehicle id="v1" x="2894.47" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2590.47" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="2894.47" y="0.00" angle="90.00" type="t1" speed="33.77" pos="2590.47" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="202.00">
         <vehicle id="v1" x="2928.25" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2624.25" lane="end2_0" slope="0.00"/>
@@ -515,7 +515,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="3130.93" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2826.93" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="209.00">
-        <vehicle id="v1" x="3164.70" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2860.70" lane="end2_0" slope="0.00"/>
+        <vehicle id="v1" x="3164.70" y="0.00" angle="90.00" type="t1" speed="33.77" pos="2860.70" lane="end2_0" slope="0.00"/>
     </timestep>
     <timestep time="210.00">
         <vehicle id="v1" x="3198.48" y="0.00" angle="90.00" type="t1" speed="33.78" pos="2894.48" lane="end2_0" slope="0.00"/>
@@ -542,7 +542,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="v1" x="3434.84" y="0.00" angle="90.00" type="t1" speed="33.78" pos="134.84" lane="end3_0" slope="0.00"/>
     </timestep>
     <timestep time="218.00">
-        <vehicle id="v1" x="3468.61" y="0.00" angle="90.00" type="t1" speed="33.78" pos="168.61" lane="end3_0" slope="0.00"/>
+        <vehicle id="v1" x="3468.61" y="0.00" angle="90.00" type="t1" speed="33.77" pos="168.61" lane="end3_0" slope="0.00"/>
     </timestep>
     <timestep time="219.00"/>
 </fcd-export>

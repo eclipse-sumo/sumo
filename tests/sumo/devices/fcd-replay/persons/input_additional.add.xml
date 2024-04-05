@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-02-15 14:59:33 by Eclipse SUMO netedit Version v1_19_0+0814-b3a3d13ddb1
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="SBahn" length="40.00" vClass="rail_urban" color="red" carFollowModel="Rail">
+        <param key="carriageLength" value="10.00"/>
+        <param key="locomotiveLength" value="10.00"/>
+        <param key="carriageLength" value="10.00"/>
+        <param key="locomotiveLength" value="10.00"/>
+    </vType>
+</routes>

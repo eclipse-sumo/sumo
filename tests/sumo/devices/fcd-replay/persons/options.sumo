@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --intermodal-collision.action none
+-a input_additional.add.xml --fcd-output fcd.xml --device.fcd-replay.file input_state.xml
