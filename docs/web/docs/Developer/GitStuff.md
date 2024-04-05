@@ -39,9 +39,12 @@ pre-commit install
 ```
 
 It will enable checks for trailing whitespace, LF at the end of every file as well as parsable yaml files
-and a maximum file size of 500kb. Every commit which does not pass the tests will fail.
-Checks are not performed for the tests directory. Whitespace errors will
-be repaired automatically, so that you can issue another commit right afterwards. More checks will probably be added later.
+and a maximum file size of 500kb. Furthermore it will do the [style checks](CodeStyle.md) for C++ and Python
+using astyle and autopep8. Every commit which does not pass the tests will fail.
+Checks are not performed for the tests directory. Style errors will
+be repaired automatically, so that you can issue another commit right afterwards
+(depending on your tool you might need to stage the changes first).
+
 If you want to run the checks manually without committing,
 you can just run `pre-commit`. If you want to check all files (not only the ones which will be part of the commit)
 run `pre-commit run --all`.

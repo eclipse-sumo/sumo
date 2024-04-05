@@ -2,6 +2,11 @@
 title: CodeStyle
 ---
 
+# Automated style checking
+
+The easiest way to enforce the SUMO code style for C++ and Python
+is to enable the [pre-commit checks](GitStuff.md#git-commit-hooks).
+
 # C++ Code
 
 We try to have the code compatible to a wide range of C++11 compatible
@@ -162,7 +167,7 @@ If your script needs Python 3 then state python3 there.
 
 ## Python2 / Python3 compatibility
 
-Our main development focuses on Python 3.5 and later but we strive for
+Our main development focuses on Python 3.7 and later but we strive for
 Python 2 compatibility. When writing or editing scripts, keep the
 following in mind:
 

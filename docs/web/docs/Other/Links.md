@@ -27,13 +27,12 @@ title: Links
 
 ### Software Engineering
 
-- [SourceMonitor](https://www.campwoodsw.com/sourcemonitor.html) A
+- [SourceMonitor](https://www.derpaul.net/SourceMonitor/) A
   great source code metrics tool.
 
 ### Configuration Tools
 
-- [Autoconf](ftp://ftp.gnu.org/pub/gnu/autoconf/) Autoconf ftp-site.
-- [Automake](ftp://ftp.gnu.org/pub/gnu/automake/) Automake ftp-site.
+- [CMake](https://cmake.org/)
 
 ## Open Source Traffic Simulation Packages
 
