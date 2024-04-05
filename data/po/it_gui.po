@@ -199,7 +199,7 @@ msgstr "Modifi&ca"
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:494
 msgid "Edit Selected..."
-msgstr "Modifichi selezione..."
+msgstr "Modifica selezione..."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:496
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:494
@@ -245,7 +245,7 @@ msgstr ""
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
 msgid "Edit Breakpoints"
-msgstr "Modifichi punti di interruzione"
+msgstr "Modifica punti di interruzione"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:508
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:506
