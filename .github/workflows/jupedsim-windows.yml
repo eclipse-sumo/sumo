@@ -77,6 +77,8 @@ jobs:
         $env:TEXTTEST_TMP = "D:/texttest"
         $env:TEXTTEST_CI_APPS = "-a sumo.extra.${{ matrix.jps_version }}"
         ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
+        $env:TEXTTEST_CI_APPS = "-a sumo -ts meta"
+        ctest --build-config ${{ matrix.build_config }} --output-on-failure -R texttest
 
     - name: Compressing test results
       if: failure()
