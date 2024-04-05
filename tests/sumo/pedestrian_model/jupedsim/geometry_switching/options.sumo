@@ -1,1 +1,2 @@
 -e 900 --no-step-log --no-duration-log --net-file=net.net.xml --fcd-output fcd.xml --routes=input_routes.rou.xml --additional-files input_additional.add.xml --pedestrian.model jupedsim --verbose
+--device.fcd.period 100
