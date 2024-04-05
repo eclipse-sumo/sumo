@@ -1694,7 +1694,7 @@ msgstr "Nascondi punti di collegamento"
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:380
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:380
 msgid "Show Link Items"
-msgstr "Mostri punti di collegamento"
+msgstr "Mostra punti di collegamento"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:384
 #: C:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:384
@@ -19665,12 +19665,12 @@ msgstr "Rimuovi dalla selezione"
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:310
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:310
 msgid "Show Parameter"
-msgstr "Mostri parametri"
+msgstr "Mostra parametri"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:319
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:319
 msgid "Show Type Parameter"
-msgstr "Mostri parametri del tipo"
+msgstr "Mostra parametri del tipo"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
@@ -20898,7 +20898,7 @@ msgstr "Colore"
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1605
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1711
 msgid "Background"
-msgstr "Fondo"
+msgstr "Sfondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1636
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1636
@@ -20958,22 +20958,22 @@ msgstr "Punti di interruzione"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1720
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1720
 msgid "Decals:"
-msgstr "Immagini di fondo:"
+msgstr "Immagini di sfondo:"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1723
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1723
 msgid "&Load XML Decals"
-msgstr "&Carica definizione di immagini di fondo"
+msgstr "&Carica definizione di immagini di sfondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1724
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1724
 msgid "&Save XML Decals"
-msgstr "%Salva definizione di immagini di fondo"
+msgstr "%Salva definizione di immagini di sfondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1725
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1725
 msgid "&Clear Decals"
-msgstr "S&vuota immagini di fondo"
+msgstr "S&vuota immagini di sfondo"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1730
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1730
@@ -21045,17 +21045,17 @@ msgstr "Scala larghezza"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1804
 msgid "Show bike markings"
-msgstr "Mostri strisce per ciclisti"
+msgstr "Mostra strisce per ciclisti"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1806
 msgid "Show turning arrows"
-msgstr "Mostri frecce direzionali"
+msgstr "Mostra frecce direzionali"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1809
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1809
 msgid "Show right-of-way rules"
-msgstr "Mostri regole di precedenza"
+msgstr "Mostra regole di precedenza"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1811
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1811
@@ -21065,12 +21065,12 @@ msgstr "Colori realistici per strisce trasversali"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1814
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1814
 msgid "Show lane borders"
-msgstr "Mostri lati di corsia"
+msgstr "Mostra lati di corsia"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1816
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1816
 msgid "Show lane direction"
-msgstr "Mostri direzione di corsia"
+msgstr "Mostra direzione di corsia"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1819
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1819
@@ -21085,7 +21085,7 @@ msgstr "Mostra corsie subordinate"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1824
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1824
 msgid "Show rails"
-msgstr "Mostri binari"
+msgstr "Mostra binari"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1827
@@ -21241,7 +21241,7 @@ msgstr "Gradua la lunghezza con la geometria"
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1923
 msgid "Show parking info"
-msgstr "Mostri informazione parcheggio"
+msgstr "Mostra informazione parcheggio"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1925
