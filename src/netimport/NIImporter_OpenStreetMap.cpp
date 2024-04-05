@@ -597,8 +597,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (onewayBike == "false" || onewayBike == "no" || onewayBike == "0") {
         e->myCyclewayType = e->myCyclewayType == WAY_UNKNOWN ? WAY_BACKWARD : (WayType)(e->myCyclewayType | WAY_BACKWARD);
     }
+
     const bool addBikeLane = bikeLaneWidth != NBEdge::UNSPECIFIED_WIDTH ||
-                             (myImportBikeAccess && ((e->myCyclewayType & WAY_BOTH) != 0 || e->myExtraTags.count("segregated") != 0));
+                             (myImportBikeAccess && (((e->myCyclewayType & WAY_BOTH) != 0 || e->myExtraTags.count("segregated") != 0) &&
+                                     !(e->myCyclewayType == WAY_BACKWARD && (e->myBuswayType & WAY_BOTH) != 0)));
     if (addBikeLane && bikeLaneWidth == NBEdge::UNSPECIFIED_WIDTH) {
         bikeLaneWidth = OptionsCont::getOptions().getFloat("default.bikelane-width");
     }
