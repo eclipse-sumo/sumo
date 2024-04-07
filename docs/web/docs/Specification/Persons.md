@@ -206,6 +206,12 @@ possible to model activities with a fixed duration as well as those with
 a fixed end time. If a person needs to be transferred between two
 positions without delay, it is possible to use two stops in conjunction.
 
+## Parameters
+
+All stages can hold user defined parameters in the usual `<param key="k" value="v"/>` form.
+If a stage is generated using a [personTrip](#persontrips) the stages inherited the parameters
+of the trip.
+
 # Simulation behavior
 
 A person is starting her life at her depart time on the source (resp.
