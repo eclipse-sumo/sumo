@@ -543,9 +543,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool detailZoom = s.scale * exaggeration > 5;
     const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
     const bool drawRails = drawAsRailway(s);
-    if (isCrossing || isWalkingArea) {
+    if (isCrossing) {
         // draw internal lanes on top of junctions
         glTranslated(0, 0, GLO_JUNCTION + 0.1);
+    } else if (isWalkingArea) {
+        // draw internal lanes on top of junctions
+        glTranslated(0, 0, GLO_JUNCTION + 0.3);
     } else if (isWaterway(myPermissions)) {
         // draw waterways below normal roads
         glTranslated(0, 0, getType() - 0.2);
