@@ -3527,6 +3527,9 @@ NBNode::buildCrossingOutlines() {
     for (auto c : getCrossings()) {
         PositionVector wa1 = waShapes[c->prevWalkingArea];
         PositionVector wa2 = waShapes[c->nextWalkingArea];
+        if (wa1.empty() || wa2.empty()) {
+            continue;
+        }
         wa1.closePolygon();
         wa2.closePolygon();
         PositionVector side1 = c->shape;
