@@ -1539,7 +1539,7 @@ PositionVector::operator-(const PositionVector& v2) const {
 PositionVector
 PositionVector::operator+(const PositionVector& v2) const {
     if (length() != v2.length()) {
-        WRITE_ERROR(TL("Trying to subtract PositionVectors of different lengths."));
+        WRITE_ERROR(TL("Trying to add PositionVectors of different lengths."));
     }
     PositionVector pv;
     auto i1 = begin();
