@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:29.492534 by netdiff.py v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 19:56:23.629830 by netdiff.py v1_19_0+1727-bb067693609
 <configuration>
     <source value="source.net.xml"/>
     <dest value="dest.net.xml"/>
@@ -12,6 +12,6 @@
     <!-- Deleted Elements -->
     <crossing edges="CS SC" node="C" discard="true"/>
     <!-- Created Elements -->
-    <crossing edges="CW WC" node="C" linkIndex="15" priority="1" width="4.50"/>
+    <crossing edges="CW WC" node="C" linkIndex="15" outlineShape="87.60,106.50 87.60,93.50 92.10,93.60 92.10,106.40 87.60,106.40" priority="1" width="4.50"/>
     <!-- Changed Elements -->
 </connections>
