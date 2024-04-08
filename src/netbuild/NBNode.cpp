@@ -3535,19 +3535,24 @@ NBNode::buildCrossingOutlines() {
         side2.move2side(c->width / 2);
         PositionVector side1default = side1;
         PositionVector side2default = side2;
-        side1.extrapolate(c->width);
+        side1.extrapolate(POSITION_EPS);
         side2.extrapolate(c->width);
         side1 = cutAtShapes(side1, wa1, wa2, side1default);
         side2 = cutAtShapes(side2, wa1, wa2, side2default);
-        PositionVector side3 = cutAtShapes(wa2, side1, side2, PositionVector());
-        PositionVector side4 = cutAtShapes(wa1, side1, side2, PositionVector());
+        PositionVector side1ex = side1;
+        PositionVector side2ex = side2;
+        side1ex.extrapolate(POSITION_EPS);
+        side2ex.extrapolate(side2 == side2default ? c->width / 2 : POSITION_EPS);
+        PositionVector side3 = cutAtShapes(wa2, side1ex, side2ex, PositionVector());
+        PositionVector side4 = cutAtShapes(wa1, side1ex, side2ex, PositionVector());
         c->outlineShape = side1;
-        c->outlineShape.append(side3);
-        c->outlineShape.append(side2);
-        c->outlineShape.append(side4);
+        c->outlineShape.append(side3, POSITION_EPS);
+        c->outlineShape.append(side2, POSITION_EPS);
+        c->outlineShape.append(side4, POSITION_EPS);
         c->outlineShape.removeDoublePoints();
         // DEBUG
 #ifdef DEBUG_CROSSING_OUTLINE
+        std::cout << "  side1=" << side1 << "\n  side2=" << side2 << "\n  side3=" << side3 << "\n  side4=" << side4 << "\n";
         std::cerr << "<poly id=\"" << c->id << "\" shape=\"" << c->outlineShape << "\" color=\"blue\" lineWidth=\"0.2\" layer=\"100\"/>\n";
 #endif
     }
@@ -3563,20 +3568,53 @@ PositionVector
 NBNode::cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def) {
     std::vector<double> is1 = cut.intersectsAtLengths2D(border1);
     std::vector<double> is2 = cut.intersectsAtLengths2D(border2);
-    //std::cout << "is1=" << is1 << " is2=" << is2 << " cut=" << cut << " border1=" << border1 << " border2=" << border2 << "\n";
+#ifdef DEBUG_CROSSING_OUTLINE
+    std::cout << "is1=" << is1 << " is2=" << is2 << " cut=" << cut << " border1=" << border1 << " border2=" << border2 << "\n";
+#endif
+    if (is1.size() == 0 && border1.size() == 2) {
+        const double d1 = cut.distance2D(border1.front());
+        const double d2 = cut.distance2D(border1.back());
+        Position closer = d1 < d2 ? border1.front() : border1.back();
+        double nOp = cut.nearest_offset_to_point2D(closer, false);
+#ifdef DEBUG_CROSSING_OUTLINE
+        std::cout << " closer=" << closer << " nOp=" << nOp << "\n";
+#endif
+        if (nOp <= 2 * POSITION_EPS && cut.back().distanceTo2D(closer) <= 2 * POSITION_EPS) {
+            is1.push_back(cut.length2D());
+        } else {
+            is1.push_back(nOp);
+        }
+    }
+    if (is2.size() == 0 && border2.size() == 2) {
+        const double d1 = cut.distance2D(border2.front());
+        const double d2 = cut.distance2D(border2.back());
+        Position closer = d1 < d2 ? border2.front() : border2.back();
+        double nOp = cut.nearest_offset_to_point2D(closer, false);
+        if (nOp <= 2 * POSITION_EPS && cut.back().distanceTo2D(closer) <= 2 * POSITION_EPS) {
+            is2.push_back(cut.length2D());
+        } else {
+            is2.push_back(nOp);
+        }
+    }
     if (is1.size() > 0 && is2.size() > 0) {
         double of1 = VectorHelper<double>::maxValue(is1);
         double of2 = VectorHelper<double>::minValue(is2);
-        //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#ifdef DEBUG_CROSSING_OUTLINE
+        std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#endif
         if (of1 > of2) {
             of1 = VectorHelper<double>::maxValue(is2);
             of2 = VectorHelper<double>::minValue(is1);
-            //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#ifdef DEBUG_CROSSING_OUTLINE
+            std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#endif
         }
         if (of1 > of2) {
             of2 = VectorHelper<double>::maxValue(is1);
             of1 = VectorHelper<double>::minValue(is2);
-            //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#ifdef DEBUG_CROSSING_OUTLINE
+            std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+#endif
         }
         assert(of1 <= of2);
         return cut.getSubpart(of1, of2);
