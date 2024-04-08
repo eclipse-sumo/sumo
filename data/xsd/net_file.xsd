@@ -115,6 +115,7 @@
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="changeRight" type="xsd:string" use="optional"/>
         <xsd:attribute name="changeLeft" type="xsd:string" use="optional"/>
+        <xsd:attribute name="outlineShape" type="shapeType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="junctionType">
