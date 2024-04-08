@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:53 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -67,10 +67,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="WC" to="CE" fromLane="3" toLane="3"/>
     <connection from="WC" to="CN" fromLane="3" toLane="3"/>
 
-    <crossing node="C" edges="NC" priority="1"/>
-    <crossing node="C" edges="CN" priority="1"/>
-    <crossing node="C" edges="EC" priority="1"/>
-    <crossing node="C" edges="CE" priority="1"/>
-    <crossing node="C" edges="SC" priority="1"/>
-    <crossing node="C" edges="CS" priority="1"/>
+    <crossing node="C" edges="NC" priority="1" outlineShape="94.81,123.45 88.55,124.82 87.69,121.72 87.39,120.98 93.95,119.55 94.81,123.45 93.95,119.55"/>
+    <crossing node="C" edges="CN" priority="1" outlineShape="114.39,119.49 108.12,120.77 107.32,116.86 108.12,120.77 107.32,116.86 114.54,115.38 114.39,115.67 114.15,117.39 114.39,119.49"/>
+    <crossing node="C" edges="EC" priority="1" outlineShape="119.98,106.22 119.99,112.62 117.89,112.81 116.25,113.38 115.99,113.60 115.98,106.22 119.98,106.12 115.98,106.22"/>
+    <crossing node="C" edges="CE" priority="1" outlineShape="119.95,88.62 119.96,95.22 115.96,95.12 119.96,95.12 115.96,95.12 115.95,88.72 119.95,88.72 119.95,87.22 119.95,84.22 118.11,78.75 115.11,78.72 113.59,78.77 113.75,81.81 114.27,84.30 115.14,86.24 115.95,87.14"/>
+    <crossing node="C" edges="SC" priority="1" outlineShape="107.19,78.75 113.59,78.77 113.75,81.81 113.95,82.77 107.18,82.75 107.09,78.75 107.18,82.75"/>
+    <crossing node="C" edges="CS" priority="1" outlineShape="88.46,78.84 94.96,78.82 107.19,78.75 107.18,82.75 94.98,82.82 84.93,82.85 88.56,78.84 87.06,78.85 84.06,78.86 77.41,83.68 78.75,86.36 81.75,84.79 84.21,83.35 84.93,82.85"/>
 </connections>

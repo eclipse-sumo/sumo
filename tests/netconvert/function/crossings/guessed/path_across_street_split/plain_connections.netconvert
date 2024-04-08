@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:53 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,6 +47,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <connection from="WC" to="CE" fromLane="1" toLane="1"/>
 
-    <crossing node="C" edges="EC" priority="0"/>
-    <crossing node="C" edges="CE" priority="0"/>
+    <crossing node="C" edges="EC" priority="0" outlineShape="103.00,52.00 103.00,55.20 99.00,55.20 99.00,52.00 103.00,52.00 99.00,52.00"/>
+    <crossing node="C" edges="CE" priority="0" outlineShape="103.00,44.80 103.00,48.00 99.00,48.00 103.00,48.00 99.00,48.00 99.00,44.80 103.00,44.80"/>
 </connections>

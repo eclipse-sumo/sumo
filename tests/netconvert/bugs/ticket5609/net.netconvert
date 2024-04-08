@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:13 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:57 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_2351978965_3491058798_606104206_606104215_16_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="23.31" shape="24.72,34.19 47.77,37.64"/>
     </edge>
     <edge id=":cluster_2351978965_3491058798_606104206_606104215_c0" function="crossing" crossingEdges="411031867 -411031867">
-        <lane id=":cluster_2351978965_3491058798_606104206_606104215_c0_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="4.00" shape="45.61,31.31 45.66,33.31"/>
+        <lane id=":cluster_2351978965_3491058798_606104206_606104215_c0_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="4.00" shape="45.61,31.31 45.66,33.31" outlineShape="47.60,31.15 47.67,33.35 47.29,33.45 47.10,33.96 47.09,34.62 43.66,33.36 43.61,31.36 43.56,29.70 42.86,29.80 43.04,30.13 43.48,30.57 44.15,30.90 45.07,31.12 46.22,31.24 47.60,31.25"/>
     </edge>
     <edge id=":cluster_2351978965_3491058798_606104206_606104215_w0" function="walkingarea">
         <lane id=":cluster_2351978965_3491058798_606104206_606104215_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.36" width="4.00" shape="47.54,36.01 47.84,33.03 47.66,33.25 47.29,33.45 47.10,33.96 47.09,34.62 47.23,35.29 47.52,35.81"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:32 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-401154.82,-5810651.34" convBoundary="0.00,0.00,90.48,51.46" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":257749657_c0" function="crossing" crossingEdges="-178028204#3 178028204#3">
-        <lane id=":257749657_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="1.36,-3.77 -3.30,4.62"/>
+        <lane id=":257749657_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="1.36,-3.77 -3.30,4.62" outlineShape="3.11,-2.79 -1.55,5.59 -5.05,3.65 -0.38,-4.74 3.11,-2.79"/>
     </edge>
     <edge id=":257749657_w0" function="walkingarea">
         <lane id=":257749657_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.50" width="4.00" shape="-0.38,-4.74 3.11,-2.79 4.57,-5.41"/>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster3892451598_766875150_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.84" width="3.00" shape="25.72,9.79 27.19,7.18 25.58,6.28 24.12,8.90"/>
     </edge>
     <edge id=":cluster_237253947_3909915214_c0" function="crossing" crossingEdges="178028204#1 -178028204#1">
-        <lane id=":cluster_237253947_3909915214_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="89.85,56.64 94.53,48.26"/>
+        <lane id=":cluster_237253947_3909915214_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="89.85,56.64 94.53,48.26" outlineShape="88.10,55.66 92.79,47.28 92.84,47.20 96.28,49.24 91.60,57.61 88.10,55.66 86.64,58.28 90.41,57.77"/>
     </edge>
     <edge id=":cluster_237253947_3909915214_w0" function="walkingarea">
         <lane id=":cluster_237253947_3909915214_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.50" width="4.00" shape="91.60,57.61 88.10,55.66 86.64,58.28"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:53 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -76,8 +76,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="WC" to="CE" fromLane="2" toLane="2"/>
     <connection from="WC" to="CN" fromLane="2" toLane="2"/>
 
-    <crossing node="C" edges="CN NC" priority="1"/>
-    <crossing node="C" edges="CE EC" priority="1"/>
-    <crossing node="C" edges="CS SC" priority="1"/>
-    <crossing node="C" edges="CW WC" priority="1"/>
+    <crossing node="C" edges="CN NC" priority="1" outlineShape="106.50,110.40 93.50,110.40 93.60,106.40 106.40,106.40 106.40,110.40"/>
+    <crossing node="C" edges="CE EC" priority="1" outlineShape="110.40,93.50 110.40,106.50 106.40,106.40 106.40,93.60 110.40,93.60"/>
+    <crossing node="C" edges="CS SC" priority="1" outlineShape="93.50,89.60 106.50,89.60 106.40,93.60 93.60,93.60 93.60,89.60"/>
+    <crossing node="C" edges="CW WC" priority="1" outlineShape="89.60,106.50 89.60,93.50 93.60,93.60 93.60,106.40 89.60,106.40"/>
 </connections>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:10 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:50 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -76,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_8_0" index="0" allow="bicycle" speed="7.90" length="8.54" width="1.00" shape="100.09,99.36 101.21,102.71 101.60,107.70"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="4.00" shape="97.30,104.20 97.30,95.80"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="4.00" shape="97.30,104.20 97.30,95.80" outlineShape="95.30,104.30 95.30,95.70 99.30,95.80 99.30,104.20 96.75,106.56 96.63,105.76 96.43,105.08 96.13,104.59 95.76,104.30 95.30,104.20"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.23" width="4.00" shape="103.20,92.30 100.00,92.30 96.80,92.30 95.30,93.80 95.30,95.80 99.30,95.80"/>

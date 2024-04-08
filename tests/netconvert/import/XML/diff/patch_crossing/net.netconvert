@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:01 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-08 16:12:28 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -153,16 +153,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_35_0" index="0" allow="passenger" speed="13.89" length="18.32" shape="91.82,99.11 93.16,99.29 97.85,101.96 100.66,106.42 101.60,112.65"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="107.40,110.40 92.60,110.40"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="107.40,110.40 92.60,110.40" outlineShape="107.50,112.65 92.50,112.65 92.60,108.15 107.40,108.15 107.40,112.65"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="111.15,92.60 111.15,107.40"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="111.15,92.60 111.15,107.40" outlineShape="113.40,92.50 113.40,107.50 108.90,107.40 108.90,92.60 113.40,92.60"/>
     </edge>
     <edge id=":C_c2" function="crossing" crossingEdges="CS SC">
-        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="1.00" shape="92.60,86.35 107.40,86.35"/>
+        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="1.00" shape="92.60,86.35 107.40,86.35" outlineShape="92.50,85.85 107.50,85.85 107.40,86.85 92.60,86.85 92.60,85.85"/>
     </edge>
     <edge id=":C_c3" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="88.85,107.40 88.85,92.60"/>
+        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="14.80" width="4.50" shape="88.85,107.40 88.85,92.60" outlineShape="86.60,107.50 86.60,92.50 91.10,92.60 91.10,107.40 86.60,107.40"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.55" width="4.50" shape="91.10,107.40 86.60,107.40 86.60,108.90 86.60,111.15 88.10,112.65 91.10,112.65 92.60,112.65 92.60,108.15"/>

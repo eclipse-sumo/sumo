@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-13 15:13:09 by Eclipse SUMO netconvert Version v1_19_0+1264-9f2af095d39
+<!-- generated on 2024-04-08 16:12:23 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -87,13 +87,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_14_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" shape="90.80,-0.80 91.20,0.00 90.80,0.80 89.60,1.60"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="103.20,8.40 93.60,8.40"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="103.20,8.40 93.60,8.40" outlineShape="103.30,10.40 93.50,10.40 93.49,8.20 93.16,6.40 107.20,6.40 105.98,6.51 104.98,6.84 104.20,7.40 103.64,8.18 103.31,9.18 103.20,10.40"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="105.20,-3.20 105.20,6.40"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="105.20,-3.20 105.20,6.40" outlineShape="107.20,-3.20 107.20,6.50 105.98,6.51 104.98,6.84 104.20,7.40 103.64,8.18 103.53,8.51 103.20,6.40 103.20,-3.20 103.20,-3.48 103.41,-3.44 107.20,-3.20"/>
     </edge>
     <edge id=":C_c2" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="91.60,3.20 91.60,-6.40"/>
+        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="91.60,3.20 91.60,-6.40" outlineShape="89.60,3.20 89.60,-6.50 93.60,-7.67 89.60,-8.40 89.60,-6.40 93.60,-6.40 93.60,3.20 92.80,5.52 92.60,5.00 91.82,4.00 90.82,3.40 89.60,3.20"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="5.00" width="4.00" shape="89.60,3.20 89.60,5.20 91.60,10.40 93.60,10.40 93.49,8.20 93.16,6.40 92.60,5.00 91.82,4.00 90.82,3.40"/>
