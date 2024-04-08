@@ -10,11 +10,13 @@ environment:
           ver: 2015
           generator: "Visual Studio 14 2015 Win64"
           configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
           PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
           generator: "Visual Studio 15 2017 Win64"
           configuration: Release
+          cmake_opts: "-DENABLE_JAVA_BINDINGS=0"
           PYTHON: C:\Python38-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
           ver: 2019
