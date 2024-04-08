@@ -772,6 +772,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "linkIndex",              SUMO_ATTR_TLLINKINDEX },
     { "linkIndex2",             SUMO_ATTR_TLLINKINDEX2 },
     { "shape",                  SUMO_ATTR_SHAPE },
+    { "outlineShape",           SUMO_ATTR_OUTLINESHAPE },
     { "spreadType",             SUMO_ATTR_SPREADTYPE },
     { "radius",                 SUMO_ATTR_RADIUS },
     { "customShape",            SUMO_ATTR_CUSTOMSHAPE },

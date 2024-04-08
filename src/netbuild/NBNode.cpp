@@ -69,6 +69,7 @@
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUG_PED_STRUCTURES
 //#define DEBUG_EDGE_SORTING
+//#define DEBUG_CROSSING_OUTLINE
 //#define DEBUGCOND true
 #define DEBUG_NODE_ID ""
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
@@ -2857,6 +2858,7 @@ NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
                       OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
+    buildCrossingOutlines();
     // ensure that all crossings are properly connected
     bool recheck = myCrossings.size() > 0;
     while (recheck) {
@@ -3509,6 +3511,80 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         }
     }
 }
+
+
+void
+NBNode::buildCrossingOutlines() {
+#ifdef DEBUG_CROSSING_OUTLINE
+    if (myCrossings.size() > 0) {
+        std::cerr << "<add>\n";
+    }
+#endif
+    std::map<std::string, PositionVector> waShapes;
+    for (auto wa : myWalkingAreas) {
+        waShapes[wa.id] = wa.shape;
+    }
+    for (auto c : getCrossings()) {
+        PositionVector wa1 = waShapes[c->prevWalkingArea];
+        PositionVector wa2 = waShapes[c->nextWalkingArea];
+        wa1.closePolygon();
+        wa2.closePolygon();
+        PositionVector side1 = c->shape;
+        PositionVector side2 = c->shape.reverse();
+        side1.move2side(c->width / 2);
+        side2.move2side(c->width / 2);
+        PositionVector side1default = side1;
+        PositionVector side2default = side2;
+        side1.extrapolate(c->width);
+        side2.extrapolate(c->width);
+        side1 = cutAtShapes(side1, wa1, wa2, side1default);
+        side2 = cutAtShapes(side2, wa1, wa2, side2default);
+        PositionVector side3 = cutAtShapes(wa2, side1, side2, PositionVector());
+        PositionVector side4 = cutAtShapes(wa1, side1, side2, PositionVector());
+        c->outlineShape = side1;
+        c->outlineShape.append(side3);
+        c->outlineShape.append(side2);
+        c->outlineShape.append(side4);
+        c->outlineShape.removeDoublePoints();
+        // DEBUG
+#ifdef DEBUG_CROSSING_OUTLINE
+        std::cerr << "<poly id=\"" << c->id << "\" shape=\"" << c->outlineShape << "\" color=\"blue\" lineWidth=\"0.2\" layer=\"100\"/>\n";
+#endif
+    }
+#ifdef DEBUG_CROSSING_OUTLINE
+    if (myCrossings.size() > 0) {
+        std::cerr << "</add>\n";
+    }
+#endif
+}
+
+
+PositionVector
+NBNode::cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def) {
+    std::vector<double> is1 = cut.intersectsAtLengths2D(border1);
+    std::vector<double> is2 = cut.intersectsAtLengths2D(border2);
+    //std::cout << "is1=" << is1 << " is2=" << is2 << " cut=" << cut << " border1=" << border1 << " border2=" << border2 << "\n";
+    if (is1.size() > 0 && is2.size() > 0) {
+        double of1 = VectorHelper<double>::maxValue(is1);
+        double of2 = VectorHelper<double>::minValue(is2);
+        //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+        if (of1 > of2) {
+            of1 = VectorHelper<double>::maxValue(is2);
+            of2 = VectorHelper<double>::minValue(is1);
+            //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+        }
+        if (of1 > of2) {
+            of2 = VectorHelper<double>::maxValue(is1);
+            of1 = VectorHelper<double>::minValue(is2);
+            //std::cout << " of1=" << of1 << " of2=" << of2 << "\n";
+        }
+        assert(of1 <= of2);
+        return cut.getSubpart(of1, of2);
+    } else {
+        return def;
+    }
+}
+
 
 bool
 NBNode::includes(const std::set<const NBEdge*, ComparatorIdLess>& super,

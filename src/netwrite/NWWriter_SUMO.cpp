@@ -422,7 +422,7 @@ NWWriter_SUMO::writeInternalEdges(OutputDevice& into, const NBEdgeCont& ec, cons
         writeLane(into, c->id + "_0", crossingSpeed, NBEdge::UNSPECIFIED_FRICTION, SVC_PEDESTRIAN, 0, SVCAll, SVCAll,
                   NBEdge::UNSPECIFIED_OFFSET, NBEdge::UNSPECIFIED_OFFSET,
                   StopOffset(), c->width, c->shape, c,
-                  MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0);
+                  MAX2(c->shape.length(), POSITION_EPS), 0, "", "", false, c->customShape.size() != 0, c->outlineShape);
         into.closeTag();
     }
     // write pedestrian walking areas
@@ -543,7 +543,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
                          const Parameterised* params, double length, int index,
                          const std::string& oppositeID,
                          const std::string& type,
-                         bool accelRamp, bool customShape) {
+                         bool accelRamp, bool customShape,
+                         const PositionVector& outlineShape) {
     // output the lane's attributes
     into.openTag(SUMO_TAG_LANE).writeAttr(SUMO_ATTR_ID, lID);
     // the first lane of an edge will be the depart lane
@@ -587,6 +588,9 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     }
     if (stopOffset.isDefined()) {
         writeStopOffsets(into, stopOffset);
+    }
+    if (outlineShape.size() != 0) {
+        into.writeAttr(SUMO_ATTR_OUTLINESHAPE, outlineShape);
     }
 
     if (oppositeID != "" && oppositeID != "-") {

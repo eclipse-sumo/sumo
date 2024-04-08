@@ -1100,6 +1100,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLLINKINDEX2,
     /// @brief edge: the shape in xml-definition
     SUMO_ATTR_SHAPE,
+    /// @brief edge: the outline shape in xml-definition
+    SUMO_ATTR_OUTLINESHAPE,
     /// @brief The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADTYPE,
     /// @brief The turning radius at an intersection in m

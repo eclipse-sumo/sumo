@@ -142,6 +142,8 @@ public:
         EdgeVector edges;
         /// @brief The crossing's shape
         PositionVector shape;
+        /// @brief The outline shape for this crossing
+        PositionVector outlineShape;
         /// @brief This crossing's width
         double customWidth;
         /// @brief This crossing's width
@@ -681,6 +683,9 @@ public:
      */
     void buildWalkingAreas(int cornerDetail, double joinMinDist);
 
+    /// @brief build crossing outlines after walkingareas are finished
+    void buildCrossingOutlines();
+
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
     void buildCrossingsAndWalkingAreas();
 
@@ -889,6 +894,9 @@ private:
 
     /// @brief detect explict rail turns with potential geometry problem
     static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
+
+    /// @brief geometry helper that cuts the first shape where bordered by the other two
+    PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def); 
 
 private:
     /// @brief The position the node lies at
