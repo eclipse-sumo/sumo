@@ -246,7 +246,8 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
                SVCPermissions permissions,
                SVCPermissions changeLeft, SVCPermissions changeRight,
                int index, bool isRampAccel,
-               const std::string& type) :
+               const std::string& type,
+               const PositionVector& outlineShape) :
     Named(id),
     myNumericalID(numericalID), myShape(shape), myIndex(index),
     myVehicles(), myLength(length), myWidth(width),
@@ -283,6 +284,9 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     initRestrictions();// may be reloaded again from initialized in MSEdge::closeBuilding
     assert(myRNGs.size() > 0);
     myRNGIndex = numericalID % myRNGs.size();
+    if (outlineShape.size() > 0) {
+        myOutlineShape = new PositionVector(outlineShape);
+    }
 }
 
 
@@ -290,6 +294,7 @@ MSLane::~MSLane() {
     for (MSLink* const l : myLinks) {
         delete l;
     }
+    delete myOutlineShape;
 }
 
 

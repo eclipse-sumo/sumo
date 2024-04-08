@@ -101,7 +101,8 @@ public:
                             SVCPermissions permissions,
                             SVCPermissions changeLeft, SVCPermissions changeRight,
                             int index, bool isRampAccel,
-                            const std::string& type);
+                            const std::string& type,
+                            const PositionVector& outlineShape);
 
     /** @brief process a stopOffset element (originates either from the active edge or lane).
      */

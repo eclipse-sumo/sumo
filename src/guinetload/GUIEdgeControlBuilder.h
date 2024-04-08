@@ -77,7 +77,8 @@ public:
                     SVCPermissions permissions,
                     SVCPermissions changeLeft, SVCPermissions changeRight,
                     int index, bool isRampAccel,
-                    const std::string& type) override;
+                    const std::string& type,
+                    const PositionVector& outlineShape) override;
 
 
 

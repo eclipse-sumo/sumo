@@ -62,6 +62,7 @@
 #define RENDERING_BUFFER 10
 
 //#define GUILane_DEBUG_DRAW_FOE_INTERSECTIONS
+//#define GUILane_DEBUG_DRAW_CROSSING_OUTLINE
 
 // ===========================================================================
 // static member declaration
@@ -79,8 +80,9 @@ GUILane::GUILane(const std::string& id, double maxSpeed, double friction, double
                  SVCPermissions permissions,
                  SVCPermissions changeLeft, SVCPermissions changeRight,
                  int index, bool isRampAccel,
-                 const std::string& type) :
-    MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type),
+                 const std::string& type,
+                 const PositionVector& outlineShape) :
+    MSLane(id, maxSpeed, friction, length, edge, numericalID, shape, width, permissions, changeLeft, changeRight, index, isRampAccel, type, outlineShape),
     GUIGlObject(GLO_LANE, id, GUIIconSubSys::getIcon(GUIIcon::LANE)),
     myParkingAreas(nullptr),
     myTesselation(nullptr),
@@ -632,6 +634,17 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                     glTranslated(0, 0, .2);
                     GLHelper::drawCrossTies(baseShape, getShapeRotations(s2), getShapeLengths(s2), 0.5, 1.0, getWidth() * 0.5,
                                             0, s.drawForRectangleSelection);
+#ifdef GUILane_DEBUG_DRAW_CROSSING_OUTLINE
+                    if (myOutlineShape != nullptr) {
+                        GLHelper::setColor(RGBColor::BLUE);
+                        glTranslated(0, 0, 0.4);
+                        GLHelper::drawBoxLines(*myOutlineShape, 0.1);
+                        glTranslated(0, 0, -0.4);
+                        if (s.geometryIndices.show(this)) {
+                            GLHelper::debugVertices(*myOutlineShape, s.geometryIndices, s.scale);
+                        }
+                    }
+#endif
                     glTranslated(0, 0, -.2);
                 }
             } else if (isWalkingArea) {

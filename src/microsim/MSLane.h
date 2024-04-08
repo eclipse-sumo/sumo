@@ -225,7 +225,8 @@ public:
            SVCPermissions permissions,
            SVCPermissions changeLeft, SVCPermissions changeRight,
            int index, bool isRampAccel,
-           const std::string& type);
+           const std::string& type,
+           const PositionVector& outlineShape);
 
 
     /// @brief Destructor
@@ -1418,6 +1419,9 @@ protected:
 
     /// The shape of the lane
     PositionVector myShape;
+
+    /// @brief the outline of the lane (optional)
+    PositionVector* myOutlineShape = nullptr;
 
     /// The lane index
     int myIndex;
