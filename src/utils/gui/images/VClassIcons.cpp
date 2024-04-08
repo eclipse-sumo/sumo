@@ -83,21 +83,21 @@ VClassIcons::getVClassIcon(const SUMOVehicleClass vc) {
         case SVC_RAIL_FAST:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_RAIL_FAST);
         case SVC_SHIP:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SHIP);
         case SVC_CONTAINER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CONTAINER);
         case SVC_CABLE_CAR:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CABLE_CAR);
         case SVC_SUBWAY:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SUBWAY);
         case SVC_AIRCRAFT:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_AIRCRAFT);
         case SVC_WHEELCHAIR:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_WHEELCHAIR);
         case SVC_SCOOTER:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_SCOOTER);
         case SVC_DRONE:
-            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
+            return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_DRONE);
         case SVC_CUSTOM1:
             return GUIIconSubSys::getIcon(GUIIcon::VCLASS_SMALL_CUSTOM1);
         case SVC_CUSTOM2:

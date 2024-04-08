@@ -452,6 +452,13 @@
 #include "icons/vclasses/vclass_small_pedestrian.xpm"
 #include "icons/vclasses/vclass_small_evehicle.xpm"
 #include "icons/vclasses/vclass_small_ship.xpm"
+#include "icons/vclasses/vclass_small_container.xpm"
+#include "icons/vclasses/vclass_small_cable_car.xpm"
+#include "icons/vclasses/vclass_small_subway.xpm"
+#include "icons/vclasses/vclass_small_aircraft.xpm"
+#include "icons/vclasses/vclass_small_wheelchair.xpm"
+#include "icons/vclasses/vclass_small_scooter.xpm"
+#include "icons/vclasses/vclass_small_drone.xpm"
 #include "icons/vclasses/vclass_small_custom1.xpm"
 #include "icons/vclasses/vclass_small_custom2.xpm"
 
@@ -960,6 +967,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::VCLASS_SMALL_PEDESTRIAN] = new FXXPMIcon(a, vclass_small_pedestrian_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_EVEHICLE] = new FXXPMIcon(a, vclass_small_evehicle_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_SHIP] = new FXXPMIcon(a, vclass_small_ship_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CONTAINER] = new FXXPMIcon(a, vclass_small_container_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_CABLE_CAR] = new FXXPMIcon(a, vclass_small_cable_car_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_SUBWAY] = new FXXPMIcon(a, vclass_small_subway_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_AIRCRAFT] = new FXXPMIcon(a, vclass_small_aircraft_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_WHEELCHAIR] = new FXXPMIcon(a, vclass_small_wheelchair_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_SCOOTER] = new FXXPMIcon(a, vclass_small_scooter_xpm);
+    myIcons[GUIIcon::VCLASS_SMALL_DRONE] = new FXXPMIcon(a, vclass_small_drone_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_CUSTOM1] = new FXXPMIcon(a, vclass_small_custom1_xpm);
     myIcons[GUIIcon::VCLASS_SMALL_CUSTOM2] = new FXXPMIcon(a, vclass_small_custom2_xpm);
 
