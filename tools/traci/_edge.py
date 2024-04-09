@@ -202,6 +202,20 @@ class EdgeDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ANGLE, edgeID, "d", relativePosition)
 
+    def getFromJunction(self, edgeID):
+        """getFromJunction(string) -> string
+
+        Returns the id of the junction at the start of this edge
+        """
+        return self._getUniversal(tc.FROM_JUNCTION, edgeID)
+
+    def getToJunction(self, edgeID):
+        """getToJunction(string) -> string
+
+        Returns the id of the junction at the end of this edge
+        """
+        return self._getUniversal(tc.TO_JUNCTION, edgeID)
+
     def adaptTraveltime(self, edgeID, time, begin=None, end=None):
         """adaptTraveltime(string, double, double, double) -> None
 
