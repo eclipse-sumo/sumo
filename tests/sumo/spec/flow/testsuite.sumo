@@ -36,5 +36,8 @@ poisson_0.1
 # no end value
 poisson_0.1_number
 poisson_1
+
+# test for #14664
+poisson_0.0001
 2flows_scaled
 errors
