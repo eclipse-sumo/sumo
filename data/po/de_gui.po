@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-09 18:45+0200\n"
-"PO-Revision-Date: 2024-03-21 08:32+0000\n"
+"PO-Revision-Date: 2024-04-10 06:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6571,6 +6571,8 @@ msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
 msgstr ""
+"Sollen die Knotenpunkte '%' und '%' zusammengeführt werden?\n"
+"('%' wird entfernt und seine Straßen zu '%' hinzugefügt)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:922
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:924
@@ -6604,7 +6606,7 @@ msgstr "Es gehören mehrere ausgewählte Fahrstreifen zu der gleichen Kante."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:988
 msgid "Only one lane per edge will be restricted to %."
-msgstr ""
+msgstr "Nur ein Fahrstreifen pro Kante wird auf % beschränkt."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1003
 #, c-format
