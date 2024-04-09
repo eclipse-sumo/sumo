@@ -69,6 +69,8 @@ public:
     static std::string getStreetName(const std::string& edgeID);
     static const std::vector<std::string> getPendingVehicles(const std::string& edgeID);
     static double getAngle(const std::string& edgeID, double relativePosition = libsumo::INVALID_DOUBLE_VALUE);
+    static std::string getFromJunction(const std::string& edgeID);
+    static std::string getToJunction(const std::string& edgeID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API

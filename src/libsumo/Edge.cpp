@@ -290,6 +290,15 @@ Edge::getAngle(const std::string& edgeID, double relativePosition) {
     return lanes.empty() ? libsumo::INVALID_DOUBLE_VALUE : Lane::getAngle(lanes.front()->getID(), relativePosition);
 }
 
+std::string
+Edge::getFromJunction(const std::string& edgeID) {
+    return getEdge(edgeID)->getFromJunction()->getID();
+}
+
+std::string
+Edge::getToJunction(const std::string& edgeID) {
+    return getEdge(edgeID)->getToJunction()->getID();
+}
 
 std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
@@ -436,6 +445,10 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
         case VAR_ANGLE:
             paramData->readUnsignedByte();
             return wrapper->wrapDouble(objID, variable, getAngle(objID, paramData->readDouble()));
+        case FROM_JUNCTION:
+            return wrapper->wrapString(objID, variable, getFromJunction(objID));
+        case TO_JUNCTION:
+            return wrapper->wrapString(objID, variable, getToJunction(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));
