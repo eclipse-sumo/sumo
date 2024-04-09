@@ -719,6 +719,18 @@ TRACI_CONST int LAST_STEP_OCCUPANCY = 0x13;
 // last step vehicle halting number (get: e2, e3, lanes, edges)
 TRACI_CONST int LAST_STEP_VEHICLE_HALTING_NUMBER = 0x14;
 
+// upstream junction (edges)
+TRACI_CONST int FROM_JUNCTION = 0x7b;
+
+// downstream junction (edges)
+TRACI_CONST int TO_JUNCTION = 0x7c;
+
+// incoming edges (junction)
+TRACI_CONST int INCOMING_EDGES = 0x7b;
+
+// outgoing edges (junction)
+TRACI_CONST int OUTGOING_EDGES = 0x7c;
+
 // last step mean vehicle length (get: induction loops, lanes, edges)
 TRACI_CONST int LAST_STEP_LENGTH = 0x15;
 
