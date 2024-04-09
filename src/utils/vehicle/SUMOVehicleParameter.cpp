@@ -1068,7 +1068,7 @@ SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
         if (repetitionOffset >= 0) {
             repetitionTotalOffset += (SUMOTime)((double)repetitionOffset / scale);
         } else {
-            assert(poissionRate > 0);
+            assert(poissonRate > 0);
             // we need to cache this do avoid double generation of the rng in the TIME2STEPS macro
             const double r = RandHelper::randExp(poissonRate, rng);
             repetitionTotalOffset += TIME2STEPS(r / scale);
