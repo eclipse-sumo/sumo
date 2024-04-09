@@ -34,6 +34,7 @@
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
+#include <netwrite/NWWriter_SUMO.h>
 #include <utils/foxtools/MFXMenuButtonTooltip.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -3003,60 +3004,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
         OutputDevice& device = OutputDevice::getDevice(file.text());
         // save program
         device.writeXMLHeader("additional", "additional_file.xsd");
-        device.openTag(SUMO_TAG_TLLOGIC);
-        device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
-        device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
-        device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
-        device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
-        myTLSEditorParent->myEditedDef->writeParams(device);
-        // write the phases
-        const bool TLSActuated = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::ACTUATED);
-        const bool TLSDelayBased = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::DELAYBASED);
-        const bool TLSNEMA = (myTLSEditorParent->myEditedDef->getLogic()->getType() == TrafficLightType::NEMA);
-        // write the phases
-        const auto& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
-        for (const auto& phase : phases) {
-            device.openTag(SUMO_TAG_PHASE);
-            device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));
-            device.writeAttr(SUMO_ATTR_STATE, phase.state);
-            // write specific actuated parameters
-            if (TLSActuated || TLSDelayBased) {
-                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-                }
-                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.earliestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_EARLIEST_END, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.latestEnd != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_LATEST_END, writeSUMOTime(phase.maxDur));
-                }
-            }
-            // write specific NEMA parameters
-            if (TLSNEMA) {
-                if (phase.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.minDur));
-                }
-                if (phase.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.maxDur));
-                }
-                if (phase.vehExt != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(phase.vehExt));
-                }
-                if (phase.red != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.red));
-                }
-                if (phase.yellow != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
-                    device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(phase.yellow));
-                }
-            }
-            device.closeTag();
-        }
+        NWWriter_SUMO::writeTrafficLight(device, myTLSEditorParent->myEditedDef->getLogic());
         device.close();
     }
     return 1;
