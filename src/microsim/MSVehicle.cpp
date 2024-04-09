@@ -882,6 +882,9 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
             MSMoveReminder::Notification notify = v->getDeparture() == NOT_YET_DEPARTED
                                                   ? MSMoveReminder::NOTIFICATION_DEPARTED
                                                   : MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED;
+            if (!v->isOnRoad()) {
+                MSVehicleTransfer::getInstance()->remove(v);  // TODO may need optimization, this is linear in the number of vehicles in transfer
+            }
             myRemoteLane->forceVehicleInsertion(v, myRemotePos, notify, myRemotePosLat);
             v->updateBestLanes();
         }

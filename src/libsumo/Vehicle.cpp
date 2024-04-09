@@ -35,6 +35,7 @@
 #include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/MSNet.h>
@@ -2164,6 +2165,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     veh->resetRoutePosition(newRouteIndex, veh->getParameter().departLaneProcedure);
     if (!veh->isOnRoad()) {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
+        MSVehicleTransfer::getInstance()->remove(veh);
     }
     MSMoveReminder::Notification moveReminderReason;
     if (veh->hasDeparted()) {

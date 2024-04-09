@@ -1060,6 +1060,7 @@ SUMOVehicleParameter::getArrivalSpeed() const {
     return val;
 }
 
+
 void
 SUMOVehicleParameter::incrementFlow(double scale, SumoRNG* rng) {
     repetitionsDone++;
