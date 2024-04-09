@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:29.616030 by netdiff.py v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-09 12:24:05.739579 by netdiff.py v1_19_0+1740-ba9e3da40b7
 <configuration>
     <source value="source.net.xml"/>
     <dest value="dest.net.xml"/>
@@ -12,8 +12,8 @@
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
     <!-- Deleted Elements -->
     <!-- Created Elements -->
-    <edge id="-10860203.384" disallow="tram rail_urban rail rail_electric rail_fast ship" from="J0" numLanes="1" priority="11" speed="27.78" to="2" type="highway.secondary"/>
-    <edge id="108602030" disallow="tram rail_urban rail rail_electric rail_fast ship" from="J0" numLanes="1" priority="11" speed="27.78" to="3" type="highway.secondary"/>
+    <edge id="-10860203.384" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" from="J0" numLanes="1" priority="11" speed="27.78" to="2" type="highway.secondary"/>
+    <edge id="108602030" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" from="J0" numLanes="1" priority="11" speed="27.78" to="3" type="highway.secondary"/>
     <!-- Changed Elements -->
     <edge id="-10860203" to="J0"/>
     <edge id="10860203" to="J0"/>
