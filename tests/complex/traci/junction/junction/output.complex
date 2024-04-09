@@ -8,6 +8,8 @@ examining 0
 pos (500.0, 500.0)
 pos3D (500.0, 500.0, 0.0)
 parameter 42
+incomingEdges ('1si', '2si', '3si', '4si')
+outgoingEdges ('1o', '2o', '3o', '4o')
 {0: ('0', '1', '2', '3', '4', 'm1', 'm2', 'm3', 'm4')}
 step 3
 {0: ('0', '1', '2', '3', '4', 'm1', 'm2', 'm3', 'm4')}
