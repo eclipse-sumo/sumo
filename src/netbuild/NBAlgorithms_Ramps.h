@@ -136,4 +136,18 @@ private:
 
     /// @brief shift ramp geometry to merge smoothly with the motorway
     static void patchRampGeometry(NBEdge* potRamp, NBEdge* first, NBEdge* potHighway, bool onRamp);
+
+    template <class T>
+    static std::string getUnusedID(const std::string& prefix, const T& objectCont) {
+        if (objectCont.retrieve(prefix) == nullptr) {
+            return prefix;
+        }
+        int i = 0;
+        std::string result = prefix + "#" + toString(i);
+        while (objectCont.retrieve(result) != nullptr) {
+            i++;
+            result = prefix + "#" + toString(i);
+        }
+        return result;
+    }
 };
