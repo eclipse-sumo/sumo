@@ -389,6 +389,9 @@ MSInsertionControl::saveState(OutputDevice& out) {
         }
         if (flow.pars->repetitionProbability > 0) {
             out.writeAttr(SUMO_ATTR_PROB, flow.pars->repetitionProbability);
+        } else if (flow.pars->poissonRate > 0) {
+            out.writeAttr(SUMO_ATTR_PERIOD, "exp(" + toString(flow.pars->poissonRate) + ")");
+            out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));
         } else {
             out.writeAttr(SUMO_ATTR_PERIOD, STEPS2TIME(flow.pars->repetitionOffset));
             out.writeAttr(SUMO_ATTR_NEXT, STEPS2TIME(flow.pars->repetitionTotalOffset));

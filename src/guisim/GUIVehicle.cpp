@@ -155,6 +155,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (getParameter().repetitionProbability > 0) {
         ret->mkItem(TL("insertion probability"), false, getParameter().repetitionProbability);
     }
+    if (getParameter().poissonRate > 0) {
+        ret->mkItem(TL("poisson rate"), false, getParameter().poissonRate);
+    }
     ret->mkItem(TL("stop info"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getStopInfo));
     ret->mkItem(TL("line"), false, myParameter->line);
     ret->mkItem(TL("CO2 [mg/s]"), true,

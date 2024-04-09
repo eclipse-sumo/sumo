@@ -756,6 +756,9 @@ public:
     /// @brief The probability for emitting a vehicle per second
     double repetitionProbability;
 
+    /// @brief The rate for emitting vehicles with a poisson distribution
+    double poissonRate;
+
     /// @brief The time at which the flow ends (only needed when using repetitionProbability)
     SUMOTime repetitionEnd;
 
