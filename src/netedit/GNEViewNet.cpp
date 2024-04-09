@@ -887,9 +887,7 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             const std::string header = TL("Confirm Junction Merger");
-            const std::string body = (TL("Do you wish to merge junctions '") + movedJunction->getMicrosimID() +
-                                      TL("' and '") + targetJunction->getMicrosimID() + "'?\n('" + movedJunction->getMicrosimID() +
-                                      TL("' will be eliminated and its roads added to '") + targetJunction->getMicrosimID() + "')");
+            const std::string body = (TLF("Do you wish to merge junctions '%' and '%'?\n('%' will be eliminated and its roads added to '%')", movedJunction->getMicrosimID(), targetJunction->getMicrosimID(), movedJunction->getMicrosimID(), targetJunction->getMicrosimID()));
             const FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
@@ -987,8 +985,8 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
     if (mapOfEdgesAndLanes.size() != selectedLanes.size()) {
         const std::string header = TL("Multiple lane in the same edge selected");
         const std::string bodyA = TL("There are selected lanes that belong to the same edge.");
-        const std::string bodyB = TL("Only one lane per edge will be restricted for ");
-        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB + toString(vclass) + ".").c_str());
+        const std::string bodyB = TLF("Only one lane per edge will be restricted to %.", toString(vclass));
+        FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (bodyA + std::string("\n") + bodyB).c_str());
     }
     // If we handeln a set of lanes
     if (mapOfEdgesAndLanes.size() > 0) {
@@ -1002,20 +1000,16 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         }
         // if all edges parent own a Sidewalk, stop function
         if (counter == (int)mapOfEdgesAndLanes.size()) {
-            const std::string headerA = TL("Set vclass for ");
-            const std::string headerB = TL(" to selected lanes");
+            const std::string header = TLF("Set vclass for % to selected lanes", toString(vclass));
             const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body + toString(vclass) + ".").c_str());
             return 0;
         } else {
             WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
-            const std::string headerA = TL("Set vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string bodyA = TL(" lanes will be restricted for ");
-            const std::string bodyB = TL(". Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                   (toString(mapOfEdgesAndLanes.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
+            const std::string body = TLF("% lanes will be restricted to %. Continue?", toString(mapOfEdgesAndLanes.size() - counter), toString(vclass));
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -1080,20 +1074,16 @@ GNEViewNet::addRestrictedLane(GNELane* lane, SUMOVehicleClass vclass, const bool
         }
         // if all lanes own a Sidewalk, stop function
         if (counter == (int)setOfEdges.size()) {
-            const std::string headerA = TL("Add vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
+            const std::string body = TLF("All lanes own already another lane in the same edge with a restriction to %.", toString(vclass));
+            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
             return 0;
         } else {
             WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
-            const std::string headerA = TL("Add vclass for ");
-            const std::string headerB = TL(" to selected lanes");
-            const std::string bodyA = TL(" restrictions for ");
-            const std::string bodyB = TL(" will be added. Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                   (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            const std::string header = TLF("Add vclass % to selected lanes", toString(vclass));
+            const std::string body = TLF("% restrictions to % will be added. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
@@ -1172,20 +1162,16 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
         }
         // if all lanes don't own a Sidewalk, stop function
         if (counter == 0) {
-            const std::string headerA = TL("Remove vclass for ");
-            const std::string headerB = TL(" from selected lanes");
-            const std::string body = TL("Selected lanes and edges haven't a restriction for ");
-            FXMessageBox::information(getApp(), MBOX_OK, (headerA + toString(vclass) + headerB).c_str(), "%s", (body + toString(vclass) + ".").c_str());
+            const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
+            const std::string body = TLF("The selected lanes and edges don't have a restriction to %.", toString(vclass));
+            FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", body.c_str());
             return 0;
         } else {
             WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
-            const std::string headerA = TL("Remove vclass for ");
-            const std::string headerB = TL(" in selected lanes");
-            const std::string bodyA = TL(" restrictions for ");
-            const std::string bodyB = TL(" will be removed. Continue?");
-            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, (headerA + toString(vclass) + headerB).c_str(), "%s",
-                                                   (toString(setOfEdges.size() - counter) + bodyA + toString(vclass) + bodyB).c_str());
+            const std::string header = TLF("Remove vclass % in selected lanes", toString(vclass));
+            const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
+            FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
                 // write warning if netedit is running in testing mode
                 if (answer == 2) {
