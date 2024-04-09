@@ -17428,10 +17428,11 @@ msgstr ""
 msgid "Create TAZRelation"
 msgstr ""
 
-#: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Click fromTaz and toTaz (confirm hotkey <ENTER>)"
 msgstr ""
+"Clicca prima sulla zona di assegnazione di origine e poi su quella di "
+"destinazione (conferma con la scorciatois <ENTER>)"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:58
