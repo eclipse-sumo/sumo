@@ -396,8 +396,25 @@ parseVehicleClasses(const std::string& allowedS, const std::string& disallowedS,
     } else if (allowedS.size() > 0) {
         return parseVehicleClasses(allowedS);
     } else {
-        return invertPermissions(parseVehicleClasses(disallowedS) | (networkVersion < MMVersion(1, 3) ? SVC_RAIL_FAST : SVC_IGNORING));
+        return invertPermissions(extraDisallowed(parseVehicleClasses(disallowedS), networkVersion));
     }
+}
+
+SVCPermissions
+extraDisallowed(SVCPermissions disallowed, const MMVersion& networkVersion) {
+    if (networkVersion < MMVersion(1, 3)) {
+        disallowed |= SVC_RAIL_FAST;
+    }
+    if (networkVersion < MMVersion(1, 20)) {
+        if ((disallowed & SVC_RAIL_URBAN) != 0) {
+            disallowed |= SVC_SUBWAY;
+        }
+        if ((disallowed & SVC_BICYCLE) != 0) {
+            disallowed |= SVC_SCOOTER;
+        }
+        disallowed |= SVC_CONTAINER | SVC_CABLE_CAR | SVC_AIRCRAFT | SVC_DRONE;
+    }
+    return disallowed;
 }
 
 

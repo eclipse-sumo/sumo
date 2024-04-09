@@ -361,6 +361,13 @@ extern SVCPermissions parseVehicleClasses(const std::string& allowedS, const std
  */
 extern SVCPermissions parseVehicleClasses(const std::vector<std::string>& allowedS);
 
+/** @brief Interprets disallowed vehicles depending on network version
+ * @param[in] disallowed The values found in the disallow attribute
+ * @param[in] networkVersion The version of the network from which the disallow value was loaded
+ * @return The (possibly) extended set of disallowed classes
+ */
+extern SVCPermissions extraDisallowed(SVCPermissions disallowed, const MMVersion& networkVersion);
+
 /// @brief negate the given permissions and ensure that only relevant bits are set
 extern SVCPermissions invertPermissions(SVCPermissions permissions);
 
