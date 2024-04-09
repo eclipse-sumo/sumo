@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:10 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-09 12:22:47 by Eclipse SUMO netconvert Version v1_19_0+1737-93f1d1dc17e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,15 +64,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="-169076556#0" from="cluster_1568241232_1654992651" to="1568241231" priority="4" type="highway.residential" shape="4460.99,161.71 4488.29,150.43">
         <lane id="-169076556#0_0" index="0" allow="pedestrian" speed="13.89" length="33.01" width="2.00" shape="4463.80,156.00 4486.69,146.55"/>
-        <lane id="-169076556#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="33.01" shape="4464.79,158.41 4487.68,148.95"/>
+        <lane id="-169076556#0_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="33.01" shape="4464.79,158.41 4487.68,148.95"/>
     </edge>
     <edge id="-169076556#2" from="283018497" to="cluster_1568241232_1654992651" priority="4" type="highway.residential" shape="4436.18,170.72 4454.47,164.08">
         <lane id="-169076556#2_0" index="0" allow="pedestrian" speed="13.89" length="22.93" width="2.00" shape="4438.06,165.57 4446.30,162.58"/>
-        <lane id="-169076556#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="22.93" shape="4438.95,168.01 4447.18,165.02"/>
+        <lane id="-169076556#2_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="22.93" shape="4438.95,168.01 4447.18,165.02"/>
     </edge>
     <edge id="-169076556#3" from="280095054" to="283018497" priority="4" type="highway.residential" shape="4394.12,174.41 4419.25,173.91 4436.18,170.72">
         <lane id="-169076556#3_0" index="0" allow="pedestrian" speed="13.89" length="42.36" width="2.00" shape="4394.04,170.21 4418.82,169.72 4430.38,167.54"/>
-        <lane id="-169076556#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="42.36" shape="4394.09,172.81 4419.08,172.31 4430.86,170.09"/>
+        <lane id="-169076556#3_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="42.36" shape="4394.09,172.81 4419.08,172.31 4430.86,170.09"/>
     </edge>
     <edge id="-25944536" from="283018514" to="283018497" priority="2" type="highway.service" shape="4436.40,194.06 4438.12,188.51 4436.18,170.72">
         <lane id="-25944536_0" index="0" allow="pedestrian delivery" speed="5.56" length="23.71" shape="4434.87,193.59 4436.49,188.35 4435.34,177.82"/>
@@ -85,15 +85,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="169076556#0" from="1568241231" to="cluster_1568241232_1654992651" priority="4" type="highway.residential" shape="4488.29,150.43 4460.99,161.71">
         <lane id="169076556#0_0" index="0" allow="pedestrian" speed="13.89" length="33.01" width="2.00" shape="4489.89,154.31 4467.01,163.77"/>
-        <lane id="169076556#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="33.01" shape="4488.90,151.91 4466.01,161.36"/>
+        <lane id="169076556#0_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="33.01" shape="4488.90,151.91 4466.01,161.36"/>
     </edge>
     <edge id="169076556#2" from="cluster_1568241232_1654992651" to="283018497" priority="4" type="highway.residential" shape="4454.47,164.08 4436.18,170.72">
         <lane id="169076556#2_0" index="0" allow="pedestrian" speed="13.89" length="22.93" width="2.00" shape="4449.16,170.47 4440.93,173.47"/>
-        <lane id="169076556#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="22.93" shape="4448.28,168.03 4440.04,171.02"/>
+        <lane id="169076556#2_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="22.93" shape="4448.28,168.03 4440.04,171.02"/>
     </edge>
     <edge id="169076556#3" from="283018497" to="280095054" priority="4" type="highway.residential" shape="4436.18,170.72 4419.25,173.91 4394.12,174.41">
         <lane id="169076556#3_0" index="0" allow="pedestrian" speed="13.89" length="42.36" width="2.00" shape="4431.93,175.79 4419.68,178.10 4394.20,178.61"/>
-        <lane id="169076556#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="42.36" shape="4431.45,173.24 4419.42,175.51 4394.15,176.01"/>
+        <lane id="169076556#3_1" index="1" disallow="pedestrian rail_fast container cable_car aircraft drone" speed="13.89" length="42.36" shape="4431.45,173.24 4419.42,175.51 4394.15,176.01"/>
     </edge>
     <edge id="25944536" from="283018497" to="283018514" priority="2" type="highway.service" shape="4436.18,170.72 4438.12,188.51 4436.40,194.06">
         <lane id="25944536_0" index="0" allow="pedestrian delivery" speed="5.56" length="23.71" shape="4438.53,177.47 4439.75,188.67 4437.93,194.53"/>
