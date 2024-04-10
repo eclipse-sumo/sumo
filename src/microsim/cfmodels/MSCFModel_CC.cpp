@@ -284,7 +284,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
         }
     }
 
-    if (vars->activeController != Plexe::DRIVER) {
+    if (vars->activeController != Plexe::DRIVER && !vars->useFixedAcceleration) {
         veh->setChosenSpeedFactor(vars->ccDesiredSpeed / veh->getLane()->getSpeedLimit());
     }
 
