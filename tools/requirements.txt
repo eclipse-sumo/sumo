@@ -5,6 +5,7 @@ matplotlib>=3.1.2
 ortools>=9.4.1874
 pandas>=1.2.4
 pandas_read_xml>=0.3.1
+pillow>=10.3.0
 polib>=1.1.1
 pulp>=2.4
 pyautogui>=0.9.53
