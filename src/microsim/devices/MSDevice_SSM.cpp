@@ -958,6 +958,11 @@ MSDevice_SSM::determineConflictPoint(EncounterApproachInfo& eInfo) {
             || type == ENCOUNTER_TYPE_BOTH_ENTERED_CONFLICT_AREA
             || type == ENCOUNTER_TYPE_COLLISION) {
         // Both vehicles have already past the conflict entry.
+        if (e->size() == 0) {
+            eInfo.conflictPoint = e->ego->getPosition();
+            WRITE_WARNINGF(TL("SSM device of vehicle '%' encountered an unexpected conflict with foe % at time=%. Please review your vehicle behavior settings."), e->egoID, e->foeID, time2string(SIMSTEP));
+            return;
+        }
         assert(e->size() > 0); // A new encounter should not be created if both vehicles already entered the conflict area
         eInfo.conflictPoint = e->conflictPointSpan.back();
     } else if (type == ENCOUNTER_TYPE_CROSSING_FOLLOWER
