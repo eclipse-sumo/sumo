@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-09 18:45+0200\n"
-"PO-Revision-Date: 2024-04-10 06:14+0000\n"
+"PO-Revision-Date: 2024-04-10 09:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -3057,7 +3057,7 @@ msgstr "Einsetzungswahrscheinlichkeit"
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 #: D:\Repos\sumo/src\mesogui\GUIMEVehicle.cpp:89
 msgid "poisson rate"
-msgstr ""
+msgstr "Poisson-Rate"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
@@ -6625,11 +6625,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1010
 #, c-format
 msgid "Set vclass to % for selected lanes"
-msgstr ""
+msgstr "Fahrzeugklasse % für die ausgewählten Fahrstreifen setzen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1011
 msgid "% lanes will be restricted to %. Continue?"
-msgstr ""
+msgstr "% Fahrstreifen werden auf % beschränkt. Fortfahren?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1037
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1043
@@ -6640,16 +6640,18 @@ msgstr "Fahrstreifen einschränken zu "
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1084
 #, c-format
 msgid "Add vclass % to selected lanes"
-msgstr ""
+msgstr "Fahrzeugklasse % zu den ausgewählten Fahrstreifen hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1078
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
 msgstr ""
+"In jeder Kante der ausgewählten Fahrstreifen existiert bereits ein auf % "
+"beschränkter Fahrstreifen."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1085
 msgid "% restrictions to % will be added. Continue?"
-msgstr ""
+msgstr "% Einschränkungen auf % werden hinzugefügt. Fortfahren?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1101
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1111
@@ -6664,20 +6666,20 @@ msgstr "Fahrzeugklasse hinzufügen für "
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1165
 #, c-format
 msgid "Remove vclass % from selected lanes"
-msgstr ""
+msgstr "Fahrzeugklasse % von den ausgewählten Fahrstreifen entfernen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1166
 msgid "The selected lanes and edges don't have a restriction to %."
-msgstr ""
+msgstr "Die ausgewählten Fahrstreifen und Kanten sind nicht auf % beschränkt."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1172
 #, c-format
 msgid "Remove vclass % in selected lanes"
-msgstr ""
+msgstr "Fahrzeugklasse % von ausgewählten Fahrstreifen entfernen"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1173
 msgid "% restrictions to % will be removed. Continue?"
-msgstr ""
+msgstr "% Einschränkungen auf % werden entfernt. Fortfahren?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1199
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1175
@@ -7511,7 +7513,7 @@ msgstr "Modus zum Erstellen von Fußgängerfurten zwischen Kanten. (R)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 msgid "Additional mode"
-msgstr ""
+msgstr "Modus für weitere Elemente"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3463
@@ -7531,7 +7533,7 @@ msgstr "Modus zur Bearbeitung von Oberleitungen. (W)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 msgid "TAZ mode"
-msgstr ""
+msgstr "Verkehrsumlegungszonenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3473
@@ -7614,7 +7616,7 @@ msgstr "Modus zum Erstellen und Bearbeiten von Typenverteilungen. (U)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 msgid "Stop mode"
-msgstr ""
+msgstr "Haltemodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3616
@@ -7634,7 +7636,7 @@ msgstr "Modus zum Erstellen von Personen. (P)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 msgid "Person plan mode"
-msgstr ""
+msgstr "Personenplanmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3626
@@ -7644,7 +7646,7 @@ msgstr "Modus zum Erstellen von Personenplänen. (L)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 msgid "Container mode"
-msgstr ""
+msgstr "Containermodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3631
@@ -7654,7 +7656,7 @@ msgstr "Modus zum Erstellen von Containern. (C)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 msgid "Container plan mode"
-msgstr ""
+msgstr "Containerplanmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3636
@@ -7664,7 +7666,7 @@ msgstr "Modus zum Erstellen von Containerplänen. (H)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 msgid "Edge data mode"
-msgstr ""
+msgstr "Kantendatenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3738
@@ -7674,7 +7676,7 @@ msgstr "Modus zum Erstellen von Kantendaten. (E)"
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 msgid "Edge relation data mode"
-msgstr ""
+msgstr "Kantenbeziehungsdatenmodus"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
 #: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3743
@@ -8189,7 +8191,7 @@ msgstr "mit Muskelkraft über Pedale betriebenes Gefährt"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
 msgid "An electric scooter or a kick scooter"
-msgstr ""
+msgstr "Ein E-Scooter oder Tretroller"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
@@ -8198,7 +8200,7 @@ msgstr "Fußgänger"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:259
 msgid "A mobility impaired person"
-msgstr ""
+msgstr "Eine mobilitätseingeschränkte Person"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:260
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
@@ -8227,11 +8229,11 @@ msgstr "Schweres Schienenfahrzeug"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
 msgid "A conveyance suspended on a cable"
-msgstr ""
+msgstr "Ein an einem Kabel befestigtes Transportgefäß"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:266
 msgid "A railway that mostly runs underground"
-msgstr ""
+msgstr "Eine zumeist unterirdisch fahrende Eisenbahn"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
@@ -8265,15 +8267,15 @@ msgstr "Fahrgemeinschaft (mindestens zwei Passagiere)"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:275
 msgid "A transport container"
-msgstr ""
+msgstr "Ein Versandcontainer"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 msgid "A airplane"
-msgstr ""
+msgstr "Ein Flugzeug"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
 msgid "A small unmanned robot"
-msgstr ""
+msgstr "Ein kleiner Roboter"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:278
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:279
@@ -10271,7 +10273,7 @@ msgstr "Wartezeit bis zum Beginn des Ladevorgangs"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1880
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1880
 msgid "Parking area the charging station is located"
-msgstr ""
+msgstr "Parkplatz auf dem sich die Ladestation befindet"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1892
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1892
@@ -10559,7 +10561,7 @@ msgstr "Name vom mehrspurigen E2 Detektor"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2244
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2244
 msgid "E3 EntryExitDetector"
-msgstr ""
+msgstr "E3 Ein-/Ausgangsdetektor"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2249
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2249
