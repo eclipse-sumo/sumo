@@ -419,6 +419,7 @@ class Builder(object):
                 "--duration-log.statistics",
                 "--device.rerouting.adaptation-interval", "10",
                 "--device.rerouting.adaptation-steps", "18",
+                "--tls.actuated.jam-threshold", "30",
                 "-v", "--no-step-log", "--save-configuration", self.files_relative["config"], "--ignore-route-errors"]
 
         if self.routenames:
