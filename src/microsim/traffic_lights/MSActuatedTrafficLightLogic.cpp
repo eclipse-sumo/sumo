@@ -35,6 +35,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSJunctionLogic.h>
 #include <netload/NLDetectorBuilder.h>
 #include "MSActuatedTrafficLightLogic.h"
 
@@ -250,6 +251,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //            Under the following condition we allow actuation from minor link:
     //              check1a : the minor link is minor in all phases
     //              check1b : there is another major link from the same lane in the current phase
+    //              check1e : the conflict is only with bikes/pedestrians (i.e. for a right turn, also left turn with no oncoming traffic)
+    //              check1f : the conflict is only with a link from the same edge
+    //              check1g : the connection is for bicycles and the conflict is with a non-bicycle
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
     //
     //              check1c: when the edge has only one lane, we treat greenMinor as green as there would be no actuation otherwise
@@ -318,7 +322,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 } else if (state[i] == LINKSTATE_TL_GREEN_MINOR) {
                     if (((neverMajor[i] || turnaround[i])  // check1a, 1d
                             && hasMajor(state, getLanesAt(i))) // check1b
-                            || oneLane[i]) { // check1c
+                            || oneLane[i] // check1c
+                            || weakConflict(i, state)) { // check1e, check1f, check1g
                         greenLinks.insert(i);
                         if (!turnaround[i]) {
                             actuatedLinks.insert(i);
@@ -475,6 +480,42 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     }
     //std::cout << SIMTIME << " linkMaxGreenTimes=" << toString(myLinkMaxGreenTimes) << "\n";
 }
+
+
+bool
+MSActuatedTrafficLightLogic::weakConflict(int tlIndex, const std::string& state) const {
+    for (MSLink* link : getLinksAt(tlIndex)) {
+        int linkIndex = link->getIndex();
+        const MSJunction* junction = link->getJunction();
+        for (int i = 0; i < (int)myLinks.size(); i++) {
+            if (i == tlIndex) {
+                continue;
+            }
+            if (state[i] == LINKSTATE_TL_GREEN_MAJOR || state[i] == LINKSTATE_TL_GREEN_MINOR) {
+                for (MSLink* foe : getLinksAt(i)) {
+                    // junction logic is based on junction link index rather than tl index
+                    int foeIndex = foe->getIndex();
+                    const MSJunction* junction2 = foe->getJunction();
+                    if (junction == junction2) {
+                        const MSJunctionLogic* logic = junction->getLogic();
+                        //std::cout << " greenLink=" << i << " isFoe=" << logic->getFoesFor(linkIndex).test(foeIndex) << "\n";
+                        if (logic->getFoesFor(linkIndex).test(foeIndex)
+                                && (foe->getPermissions() & ~SVC_WEAK) != 0 // check1e
+                                && &foe->getLaneBefore()->getEdge() != &link->getLaneBefore()->getEdge() // check1f 
+                                && (link->getPermissions() & ~SVC_WEAK) != 0) { // check1g
+                            //std::cout << " strongConflict " << tlIndex << " in phase " << state << " with link " << foe->getTLIndex() << "\n";
+                            return false;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    //std::cout << " weakConflict " << tlIndex << " in phase " << state << "\n";
+    return true;
+}
+
 
 SUMOTime
 MSActuatedTrafficLightLogic::getMinDur(int step) const {

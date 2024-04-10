@@ -237,6 +237,9 @@ protected:
     /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
     SUMOTime getLinkMinDuration(int target) const;
 
+    /// @brief whether a given link has only weak mode foes that are green in the given state
+    bool weakConflict(int linkIndex, const std::string& state) const;
+
     template<typename T, SumoXMLTag Tag>
     const T* retrieveDetExpression(const std::string& arg, const std::string& expr, bool tryPrefix) const {
         const T* det = dynamic_cast<const T*>(

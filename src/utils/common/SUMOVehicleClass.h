@@ -224,7 +224,8 @@ enum SUMOVehicleClass : int64_t {
                         | SVC_TRUCK | SVC_TRAILER | SVC_MOTORCYCLE | SVC_MOPED | SVC_BICYCLE | SVC_E_VEHICLE
                         | SVC_WHEELCHAIR | SVC_SCOOTER),
     /// @brief classes which (normally) do not drive on normal roads
-    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER
+    SVC_NON_ROAD = SVC_RAIL_CLASSES | SVC_SHIP | SVC_AIRCRAFT | SVC_DRONE | SVC_CONTAINER,
+    SVC_WEAK = SVC_PEDESTRIAN | SVC_WHEELCHAIR | SVC_BICYCLE | SVC_SCOOTER
 };
 
 extern const SUMOVehicleClass SUMOVehicleClass_MAX;
