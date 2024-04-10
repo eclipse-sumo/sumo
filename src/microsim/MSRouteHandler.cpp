@@ -1066,6 +1066,9 @@ MSRouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXMLTag modeTag) {
+    if (myVehicleParameter == nullptr) {
+        throw ProcessError(TLF("Cannot define % stage without %.", toString(modeTag), toString(modeTag)));
+    }
     try {
         const std::string mode = modeTag == SUMO_TAG_RIDE ? "ride" : "transport";
         std::string agent = "person";
@@ -1471,6 +1474,9 @@ MSRouteHandler::parseWalkPositions(const SUMOSAXAttributes& attrs, const std::st
 
 void
 MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
+    if (myVehicleParameter == nullptr) {
+        throw ProcessError(TL("Cannot define person stage without person."));
+    }
     try {
         myActiveRoute.clear();
         bool ok = true;
@@ -1551,6 +1557,9 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
+    if (myVehicleParameter == nullptr) {
+        throw ProcessError(TL("Cannot define person stage without person."));
+    }
     myActiveRouteID = "";
     if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         try {
