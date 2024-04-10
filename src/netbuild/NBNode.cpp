@@ -3400,7 +3400,12 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             //endShape.extrapolate(startCrossingWidth);
             PositionVector curve;
             if (count != (int)normalizedLanes.size() || count == 2) {
-                if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
+                const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
+                if (count == 1 && angle > 0) {
+                    // do not build smooth shape for an unconnected left turn
+                    // (the walkingArea would get bigger without a reason to
+                    // walk there)
+                } else if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
                         ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
                     if (gDebugFlag1) std::cout << "   traffic curve\n";
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, gDebugFlag1 ? this : nullptr);
