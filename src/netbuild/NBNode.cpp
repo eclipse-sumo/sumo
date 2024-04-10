@@ -603,11 +603,12 @@ NBNode::bezierControlPoints(
             center.sub(beg.y() - end.y(), end.x() - beg.x());
             init.push_back(center);
         } else {
+            const double EXT = 100;
             const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
             PositionVector endShapeBegLine(endShape[0], endShape[1]);
             PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
-            endShapeBegLine.extrapolate2D(100, true);
-            begShapeEndLineRev.extrapolate2D(100, true);
+            endShapeBegLine.extrapolate2D(EXT, true);
+            begShapeEndLineRev.extrapolate2D(EXT, true);
 #ifdef DEBUG_SMOOTH_GEOM
             if (DEBUGCOND2(recordError)) std::cout
                 << "   endShapeBegLine=" << endShapeBegLine
@@ -644,7 +645,7 @@ NBNode::bezierControlPoints(
                     const double endLength = begShape[-2].distanceTo2D(begShape[-1]);
                     const double off1 = endLength + MIN2(extrapolateBeg, halfDistance);
                     init.push_back(PositionVector::positionAtOffset2D(begShapeEndLineRev[1], begShapeEndLineRev[0], off1));
-                    const double off2 = 100. - MIN2(extrapolateEnd, halfDistance);
+                    const double off2 = EXT - MIN2(extrapolateEnd, halfDistance);
                     init.push_back(PositionVector::positionAtOffset2D(endShapeBegLine[0], endShapeBegLine[1], off2));
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints found s-curve beg=" << beg << " end=" << end
@@ -680,6 +681,8 @@ NBNode::bezierControlPoints(
                 const double distEnd = intersect.distanceTo2D(end);
                 const bool lengthenBeg = distBeg <= minControlLength;
                 const bool lengthenEnd = distEnd <= minControlLength;
+                const double begOffset = begShapeEndLineRev.nearest_offset_to_point2D(intersect);
+                const double endOffset = endShapeBegLine.nearest_offset_to_point2D(intersect);
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout
                         << "   beg=" << beg << " end=" << end << " intersect=" << intersect
@@ -698,11 +701,11 @@ NBNode::bezierControlPoints(
                     ok = false;
                     return PositionVector();
                 } else if ((shapeFlag & FOUR_CONTROL_POINTS)) {
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - extrapolateBeg));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - extrapolateEnd));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(EXT - extrapolateBeg));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(EXT - extrapolateEnd));
                 } else if (lengthenBeg || lengthenEnd) {
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - minControlLength));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - minControlLength));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(EXT - minControlLength));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(EXT - minControlLength));
                 } else if ((shapeFlag & AVOID_WIDE_LEFT_TURN) != 0
                            // there are two reasons for enabling special geometry rules:
                            // 1) sharp edge angles which could cause overshoot
@@ -713,16 +716,16 @@ NBNode::bezierControlPoints(
                     //std::cout << "   bezierControlPoints intersect=" << intersect << " dist=" << dist << " distBeg=" << distBeg <<  " distEnd=" << distEnd << " angle=" << RAD2DEG(angle) << " flag=" << shapeFlag << "\n";
                     const double factor = ((shapeFlag & AVOID_INTERSECTING_LEFT_TURNS) == 0 ? 1
                                            : MIN2(0.6, 16 / dist));
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - MIN2(distBeg * factor / 1.2, dist * factor / 1.8)));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - MIN2(distEnd * factor / 1.2, dist * factor / 1.8)));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(EXT - MIN2(distBeg * factor / 1.2, dist * factor / 1.8)));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(EXT - MIN2(distEnd * factor / 1.2, dist * factor / 1.8)));
                 } else if ((shapeFlag & AVOID_WIDE_RIGHT_TURN) != 0 && angle < DEG2RAD(-95) && (distBeg > 20 || distEnd > 20)) {
                     //std::cout << "   bezierControlPoints intersect=" << intersect << " distBeg=" << distBeg <<  " distEnd=" << distEnd << "\n";
-                    init.push_back(begShapeEndLineRev.positionAtOffset2D(100 - MIN2(distBeg / 1.4, dist / 2)));
-                    init.push_back(endShapeBegLine.positionAtOffset2D(100 - MIN2(distEnd / 1.4, dist / 2)));
+                    init.push_back(begShapeEndLineRev.positionAtOffset2D(EXT - MIN2(distBeg / 1.4, dist / 2)));
+                    init.push_back(endShapeBegLine.positionAtOffset2D(EXT - MIN2(distEnd / 1.4, dist / 2)));
                 } else {
                     double z;
-                    const double z1 = begShapeEndLineRev.positionAtOffset2D(begShapeEndLineRev.nearest_offset_to_point2D(intersect)).z();
-                    const double z2 = endShapeBegLine.positionAtOffset2D(endShapeBegLine.nearest_offset_to_point2D(intersect)).z();
+                    const double z1 = begShapeEndLineRev.positionAtOffset2D(begOffset).z();
+                    const double z2 = endShapeBegLine.positionAtOffset2D(endOffset).z();
                     const double z3 = 0.5 * (beg.z() + end.z());
                     // if z1 and z2 are on the same side in regard to z3 then we
                     // can use their avarage. Otherwise, the intersection in 3D
