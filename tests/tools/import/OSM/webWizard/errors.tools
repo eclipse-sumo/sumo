@@ -130,13 +130,10 @@ Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_
 Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
 Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
 Warning: Unequal lengths of bidi lane ':4213903960_0_0' and lane ':4213903960_7_0' (9.74 != 5.31).
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 30 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8,9,10,30 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,8,9,10,31,32,33,34 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
-Warning: 18 total messages of type: At actuated tlLogic '%', linkIndex % has no controlling detector.
 Warning: 18 total messages of type: Unequal lengths of bidi lane '%' and lane '%' (% != %).
 Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
 Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
@@ -156,24 +153,9 @@ Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_
 Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.14 != 30.13).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_1_0' and lane ':cluster_30731510_588181257_588181258_588181259_6_0' (33.10 != 28.85).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_2_0' and lane ':cluster_30731510_588181257_588181258_588181259_5_0' (33.14 != 29.02).
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 30 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 8 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 9 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 10 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 31 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 33 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 34 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 6 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 16 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 24 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 32 has no controlling detector.
-Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 33 has no controlling detector.
+Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8,9,10,30 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,8,9,10,31,32,33,34 has no controlling detector.
+Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
