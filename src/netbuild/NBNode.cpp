@@ -553,7 +553,7 @@ NBNode::computeSmoothShape(const PositionVector& begShape,
     PositionVector init = bezierControlPoints(begShape, endShape, isTurnaround, extrapolateBeg, extrapolateEnd, ok, recordError, DEG2RAD(5), shapeFlag);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
-        std::cout << "computeSmoothShape node " << getID() << " init=" << init << "\n";
+        std::cout << "computeSmoothShape node " << getID() << " begShape=" << begShape << " endShape=" << endShape << " init=" << init << " shapeFlag=" << shapeFlag << "\n";
     }
 #endif
     if (init.size() == 0) {
@@ -608,6 +608,12 @@ NBNode::bezierControlPoints(
             PositionVector begShapeEndLineRev(begShape[-1], begShape[-2]);
             endShapeBegLine.extrapolate2D(100, true);
             begShapeEndLineRev.extrapolate2D(100, true);
+#ifdef DEBUG_SMOOTH_GEOM
+            if (DEBUGCOND2(recordError)) std::cout
+                << "   endShapeBegLine=" << endShapeBegLine
+                << " begShapeEndLineRev=" << begShapeEndLineRev
+                << " angle=" << RAD2DEG(angle) << "\n";
+#endif
             if (fabs(angle) < M_PI / 4.) {
                 // very low angle: could be an s-shape or a straight line
                 const double displacementAngle = GeomHelper::angleDiff(begShape.angleAt2D(-2), beg.angleTo2D(end));
@@ -674,10 +680,16 @@ NBNode::bezierControlPoints(
                 const double distEnd = intersect.distanceTo2D(end);
                 const bool lengthenBeg = distBeg <= minControlLength;
                 const bool lengthenEnd = distEnd <= minControlLength;
+#ifdef DEBUG_SMOOTH_GEOM
+                    if (DEBUGCOND2(recordError)) std::cout
+                        << "   beg=" << beg << " end=" << end << " intersect=" << intersect
+                        << " distBeg=" << distBeg << " distEnd=" << distEnd
+                        << " lEnd=" << lengthenEnd << " lBeg=" << lengthenBeg
+                        << "\n";
+#endif
                 if (lengthenBeg && lengthenEnd) {
 #ifdef DEBUG_SMOOTH_GEOM
-                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed beg=" << beg << " end=" << end << " intersect=" << intersect
-                                                               << " distBeg=" << distBeg << " distEnd=" << distEnd << "\n";
+                    if (DEBUGCOND2(recordError)) std::cout << "   bezierControlPoints failed\n";
 #endif
                     if (recordError != nullptr && (shapeFlag & SCURVE_IGNORE) == 0) {
                         // This should be fixable with minor stretching
@@ -3297,6 +3309,9 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     wa.prevSidewalks.push_back(edge->getSidewalkID());
                     connectedPoints.push_back(edge->getLaneShape(0)[-1]);
                 }
+                if (gDebugFlag1) {
+                    std::cout << "    connectedEdge=" << edge->getID() << " connectedPoint=" << connectedPoints.back() << "\n";
+                }
                 connected.insert(edge);
             }
             l.shape.move2side(-l.width / 2);
@@ -3307,23 +3322,23 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         if (buildExtensions) {
             // extension at starting crossing
             if (startCrossingShape.size() > 0) {
-                if (gDebugFlag1) {
-                    std::cout << "  extension at startCrossing shape=" << startCrossingShape << "\n";
-                }
                 startCrossingShape.move2side(startCrossingWidth / 2);
                 wa.shape.push_front_noDoublePos(startCrossingShape[0]); // right corner
                 startCrossingShape.move2side(-startCrossingWidth);
                 wa.shape.push_front_noDoublePos(startCrossingShape[0]); // left corner goes first
+                if (gDebugFlag1) {
+                    std::cout << "  extension at startCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n";
+                }
             }
             // extension at ending crossing
             if (endCrossingShape.size() > 0) {
-                if (gDebugFlag1) {
-                    std::cout << "  extension at endCrossing shape=" << endCrossingShape << "\n";
-                }
                 endCrossingShape.move2side(endCrossingWidth / 2);
                 wa.shape.push_back_noDoublePos(endCrossingShape[-1]);
                 endCrossingShape.move2side(-endCrossingWidth);
                 wa.shape.push_back_noDoublePos(endCrossingShape[-1]);
+                if (gDebugFlag1) {
+                    std::cout << "  extension at endCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n";
+                }
             }
         }
         if (connected.size() == 2 && !connectsCrossing && wa.nextSidewalks.size() == 1 && wa.prevSidewalks.size() == 1
@@ -3372,14 +3387,18 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             if (count != (int)normalizedLanes.size() || count == 2) {
                 if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
                         ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
-                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25);
+                    if (gDebugFlag1) std::cout << "   traffic curve\n";
+                    curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, gDebugFlag1 ? this : nullptr);
                     if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
-                        // recompute less bulging curve
-                        //std::cout << " directLength=" << begShape.back().distanceTo2D(endShape.front()) << " curveLength=" << curve.length2D()
-                        //        << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front()) << "\n";
+                        if (gDebugFlag1) std::cout
+                            << "   reduceBulge directLength=" << begShape.back().distanceTo2D(endShape.front())
+                            << " curveLength=" << curve.length2D()
+                            << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front())
+                            << "\n";
                         curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
                     }
                 } else {
+                    if (gDebugFlag1) std::cout << "   nonTraffic curve\n";
                     const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
                 }
