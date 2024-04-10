@@ -676,17 +676,29 @@ NBNode::bezierControlPoints(
                     }
                     return PositionVector();
                 }
+                const double begOffset = begShapeEndLineRev.nearest_offset_to_point2D(intersect);
+                const double endOffset = endShapeBegLine.nearest_offset_to_point2D(intersect);
+                /*
+                if ((shapeFlag & FOUR_CONTROL_POINTS) == 0 && (begOffset >= EXT || endOffset >= EXT)) {
+                    // intersection point lies within begShape / endShape so we cannot use it
+                    if (dist < 2) {
+                        return PositionVector();
+                    }
+                    shapeFlag |= FOUR_CONTROL_POINTS;
+                    extrapolateBeg = MIN2(10.0, dist / 2);
+                    extrapolateEnd = extrapolateBeg;
+                }
+                */
                 const double minControlLength = MIN2((double)1.0, dist / 2);
                 const double distBeg = intersect.distanceTo2D(beg);
                 const double distEnd = intersect.distanceTo2D(end);
                 const bool lengthenBeg = distBeg <= minControlLength;
                 const bool lengthenEnd = distEnd <= minControlLength;
-                const double begOffset = begShapeEndLineRev.nearest_offset_to_point2D(intersect);
-                const double endOffset = endShapeBegLine.nearest_offset_to_point2D(intersect);
 #ifdef DEBUG_SMOOTH_GEOM
                     if (DEBUGCOND2(recordError)) std::cout
                         << "   beg=" << beg << " end=" << end << " intersect=" << intersect
                         << " distBeg=" << distBeg << " distEnd=" << distEnd
+                        << " begOffset=" << begOffset << " endOffset=" << endOffset
                         << " lEnd=" << lengthenEnd << " lBeg=" << lengthenBeg
                         << "\n";
 #endif
