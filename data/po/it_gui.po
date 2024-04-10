@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-09 18:45+0200\n"
-"PO-Revision-Date: 2024-04-04 09:15+0000\n"
+"PO-Revision-Date: 2024-04-10 15:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -3060,7 +3060,7 @@ msgstr "probabilità di inserzione"
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 #: D:\Repos\sumo/src\mesogui\GUIMEVehicle.cpp:89
 msgid "poisson rate"
-msgstr ""
+msgstr "rata Poisson"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:158
@@ -6568,6 +6568,8 @@ msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
 msgstr ""
+"Vorresti combinare gli incroci '%' e'%'?\n"
+"('%' verrà rimosso e le strade adiacenti verranno aggiunti a '%')"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:922
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:924
@@ -6601,7 +6603,7 @@ msgstr "Ci sono corsie selezionati che appartengono allo stesso arco."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:988
 msgid "Only one lane per edge will be restricted to %."
-msgstr ""
+msgstr "Soltanto una corsia per ogni arco verrà ristretta a %."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1003
 #, c-format
@@ -6618,11 +6620,11 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1010
 #, c-format
 msgid "Set vclass to % for selected lanes"
-msgstr ""
+msgstr "Autorizza la classe di veicoli % su tutte le corsie selezionate"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1011
 msgid "% lanes will be restricted to %. Continue?"
-msgstr ""
+msgstr "% corsie verranno ristrette a %. Desideri continuare?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1037
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1043
@@ -6633,16 +6635,16 @@ msgstr "limita corsia al uso di "
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1084
 #, c-format
 msgid "Add vclass % to selected lanes"
-msgstr ""
+msgstr "Aggiungi la classe di veicoli % alle corsie selezionate"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1078
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
-msgstr ""
+msgstr "Tutti gli archi hanno già una corsia ristretta a %."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1085
 msgid "% restrictions to % will be added. Continue?"
-msgstr ""
+msgstr "% restrizioni a % verranno aggiunte. Desideri continuare?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1101
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1111
@@ -6657,20 +6659,20 @@ msgstr "Aggiungi classe di veicoli per "
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1165
 #, c-format
 msgid "Remove vclass % from selected lanes"
-msgstr ""
+msgstr "Rimuovi la classe di veicoli % dalle corsie selezionate"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1166
 msgid "The selected lanes and edges don't have a restriction to %."
-msgstr ""
+msgstr "Le corsie e gli archi selezionati non sono ristretti a %."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1172
 #, c-format
 msgid "Remove vclass % in selected lanes"
-msgstr ""
+msgstr "Rimuovi la classe di veicoli % dalle corsie selezionate"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1173
 msgid "% restrictions to % will be removed. Continue?"
-msgstr ""
+msgstr "% restrizioni a % verranno rimosse. Desideri continuare?"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1199
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1175
