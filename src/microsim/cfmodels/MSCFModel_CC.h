@@ -250,12 +250,46 @@ public:
      */
     double getACCAcceleration(const MSVehicle* veh) const;
 
+    /**
+     * @brief computes whether a lane change for a whole platoon is safe or not.
+     * This is done by checking the lane change state and neighbors of all vehicles in the platoon added through
+     * the addPlatoonMember API. If the adjacent lane is free and there is enough safe gap for the platoon, the
+     * method returns 0, otherwise it returns the blocking reason
+     * @param veh vehicle for which the check should be made. If the method is invoked on a member, such member
+     * invokes the same method recursively on its leader. The leader in turn asks all member for their status
+     * @param left whether we want to check the left or the right lane
+     * @return 0 if it is safe to change lane, the blocking reason otherwise
+     */
     int isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const;
 
+    /**
+     * @brief Sets the leader for a member of the platoon
+     * @param veh platoon member
+     * @param leader platoon leader
+     */
     void setLeader(MSVehicle* veh, MSVehicle* const leader) const;
 
+    /**
+     * @brief Returns whether a vehicle is a leader of a platoon or not. By default, a vehicle on its own using an ACC
+     * is a leader of itself
+     * @param veh vehicle to check
+     * @return true if leader
+     */
     bool isLeader(const MSVehicle* veh) const;
 
+    /**
+     * This method can be invoked by the lane change model to do a final check on the safety of a platoon lane change
+     * maneuver. This method will cause the leader to check once again the safety status of all members. This might
+     * have changed since the decision of changing lane because two platoons might have decided to change lane exactly
+     * at the same time, when the lane was free for both, but changing lane would cause a side-to-side collision.
+     * SUMO will call this method on one platoon which will answer "still safe" and cause SUMO to start moving the
+     * vehicles on the adjacent lane. On the second platoon, calling this method will cause the platoon to find out
+     * about the vehicles that have just been moved and indicate the lane as busy, aborting the lane change.
+     * @param veh vehicle for which the check should be made. If the method is invoked on a member, such member
+     * invokes the same method recursively on its leader. The leader in turn asks all member for their status
+     * @param left whether we want to check the left or the right lane
+     * @return 0 if it is safe to change lane, the blocking reason otherwise
+     */
     int commitToLaneChange(const MSVehicle* veh, bool left) const;
 
     /**
@@ -278,8 +312,27 @@ private:
     void resetConsensus(const MSVehicle* veh) const;
 
 private:
+    /**
+     * @brief Moves an entire platoon on an adjacent lane, calling changeLane() on all members
+     * @param veh leader vehicle of the platoon
+     * @param direction +1 for left adjacent lane, -1 for right adjacent lane
+     */
     void changeWholePlatoonLane(MSVehicle* const veh, int direction) const;
+
+    /**
+     * @brief Check whether a platoon would gain speed by moving to the left or whether it should move to the right
+     * after an overtake and, if safe, do so. This method is invoked when the platoon auto lane change mechanism is
+     * enabled through the enableAutoLaneChanging API
+     * @param veh leader vehicle of the platoon
+     */
     void performAutoLaneChange(MSVehicle* const veh) const;
+
+    /**
+     * @brief If safe to do so, moves a platoon to a user-desired lane. If not safe, this method continues to try
+     * at each simulation step. This method is invoked when the user requests a platoon to change lane through
+     * the performPlatoonLaneChange API, or when invoking the old setFixedLane API on a single vehicle
+     * @param veh leader vehicle of the platoon
+     */
     void performPlatoonLaneChange(MSVehicle* const veh) const;
 
     double _v(const MSVehicle* const veh, double gap2pred, double egoSpeed, double predSpeed) const;
