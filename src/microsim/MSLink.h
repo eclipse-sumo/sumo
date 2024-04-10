@@ -649,6 +649,11 @@ public:
         return myFoeLinks;
     }
 
+    /// @brief who may use this link
+    SVCPermissions getPermissions() const {
+        return myPermissions;
+    }
+
     /// @brief initialize parallel links (to be called after all links are loaded)
     void initParallelLinks();
 
@@ -834,6 +839,9 @@ private:
 
     /// @brief the turning radius for this link or doublemax for straight links
     double myRadius;
+
+    /// @brief who may drive on this link
+    SVCPermissions myPermissions;
 
     /// @brief the junction to which this link belongs
     MSJunction* myJunction;
