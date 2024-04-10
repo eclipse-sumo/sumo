@@ -81,3 +81,6 @@ maxDur_missing
 
 # network contains a static traffic light, load actuated as additional program (new default)
 minDur0
+
+# test for #14692
+right_turn_crossing_usable
