@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-05 14:59:32 by Eclipse SUMO sumo Version v1_17_0+0721-5dd5dce
+<!-- generated on 2024-04-11 18:35:18 by Eclipse SUMO sumo Version v1_19_0+1793-abaea7a63af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,10 +49,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh.0" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="0.00" ended="10.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" chargingStation="CS1"/>
-    <stopinfo id="veh.1" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="2.00" ended="12.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" chargingStation="CS1"/>
-    <stopinfo id="veh.2" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="4.00" ended="14.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" chargingStation="CS1"/>
-    <stopinfo id="veh.0" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="17.20" ended="28.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="PA2" chargingStation="CS2"/>
-    <stopinfo id="veh.1" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="19.20" ended="30.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="PA2" chargingStation="CS2"/>
-    <stopinfo id="veh.2" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="21.20" ended="32.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="PA2" chargingStation="CS2"/>
+    <stopinfo id="veh.0" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="0.00" ended="10.00" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh.1" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="2.00" ended="12.00" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh.2" type="ElectricVehicle" edge="D2" pos="0.00" parking="1" started="4.00" ended="14.00" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh.0" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="17.20" ended="28.00" parkingArea="PA2" chargingStation="CS2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh.1" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="19.20" ended="30.00" parkingArea="PA2" chargingStation="CS2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh.2" type="ElectricVehicle" edge="D2" pos="100.00" parking="1" started="21.20" ended="32.00" parkingArea="PA2" chargingStation="CS2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 22:27:45 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
+<!-- generated on 2024-04-11 18:35:18 by Eclipse SUMO sumo Version v1_19_0+1793-abaea7a63af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t0" type="fullTrain" edge="a" pos="197.32" parking="0" started="14.21" ended="32.00" delay="12.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="2" unloadedContainers="0" busStop="A"/>
-    <stopinfo id="t0" type="fullTrain" edge="b" pos="98.65" parking="0" started="45.51" ended="83.00" delay="23.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="2" loadedContainers="0" unloadedContainers="1" busStop="B" split="t1"/>
-    <stopinfo id="t0" type="fullTrain" edge="c" pos="293.79" parking="0" started="110.87" ended="128.00" delay="38.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="1" loadedContainers="0" unloadedContainers="1" busStop="C"/>
+    <stopinfo id="t0" type="fullTrain" edge="a" pos="197.32" parking="0" started="14.21" ended="32.00" delay="12.00" busStop="A" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="2" unloadedContainers="0"/>
+    <stopinfo id="t0" type="fullTrain" edge="b" pos="98.65" parking="0" started="45.51" ended="83.00" delay="23.00" busStop="B" split="t1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="2" loadedContainers="0" unloadedContainers="1"/>
+    <stopinfo id="t0" type="fullTrain" edge="c" pos="293.79" parking="0" started="110.87" ended="128.00" delay="38.00" busStop="C" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="1" loadedContainers="0" unloadedContainers="1"/>
 </stops>

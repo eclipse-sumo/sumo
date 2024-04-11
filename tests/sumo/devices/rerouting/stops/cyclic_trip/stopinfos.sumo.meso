@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:17:59 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<!-- generated on 2024-04-11 18:35:19 by Eclipse SUMO sumo Version v1_19_0+1793-abaea7a63af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,16 +47,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="0.00" ended="18.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_a"/>
-    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="24.40" ended="42.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_c"/>
-    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="41.60" ended="59.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-c"/>
-    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="66.00" ended="84.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-a"/>
-    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="83.19" ended="101.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_a"/>
-    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="107.59" ended="125.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_c"/>
-    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="124.79" ended="142.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-c"/>
-    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="149.19" ended="167.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-a"/>
-    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="166.39" ended="184.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_a"/>
-    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="190.79" ended="208.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_c"/>
-    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="207.99" ended="226.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-c"/>
-    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="232.38" ended="250.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop_-a"/>
+    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="0.00" ended="18.00" busStop="busStop_a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="24.40" ended="42.00" busStop="busStop_c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="41.60" ended="59.00" busStop="busStop_-c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="66.00" ended="84.00" busStop="busStop_-a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="83.19" ended="101.00" busStop="busStop_a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="107.59" ended="125.00" busStop="busStop_c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="124.79" ended="142.00" busStop="busStop_-c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="149.19" ended="167.00" busStop="busStop_-a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="a" pos="0.00" parking="0" started="166.39" ended="184.00" busStop="busStop_a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="c" pos="0.00" parking="0" started="190.79" ended="208.00" busStop="busStop_c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-c" pos="0.00" parking="0" started="207.99" ended="226.00" busStop="busStop_-c" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="bus" type="bus" edge="-a" pos="0.00" parking="0" started="232.38" ended="250.00" busStop="busStop_-a" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

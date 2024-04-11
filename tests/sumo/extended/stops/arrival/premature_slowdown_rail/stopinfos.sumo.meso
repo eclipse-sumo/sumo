@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 22:27:43 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
+<!-- generated on 2024-04-11 18:35:16 by Eclipse SUMO sumo Version v1_19_0+1793-abaea7a63af
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t_0" type="train" edge="E0" pos="196.62" parking="0" started="10.67" ended="123.00" delay="3.00" arrivalDelay="-79.33" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_0"/>
-    <stopinfo id="t_0" type="train" edge="E0" pos="7078.24" parking="0" started="328.53" ended="423.00" delay="3.00" arrivalDelay="-61.47" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_1"/>
-    <stopinfo id="t_0" type="train" edge="E0" pos="12976.76" parking="0" started="598.74" ended="723.00" delay="3.00" arrivalDelay="-91.26" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_2"/>
+    <stopinfo id="t_0" type="train" edge="E0" pos="196.62" parking="0" started="10.67" ended="123.00" delay="3.00" arrivalDelay="-79.33" busStop="bs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t_0" type="train" edge="E0" pos="7078.24" parking="0" started="328.53" ended="423.00" delay="3.00" arrivalDelay="-61.47" busStop="bs_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t_0" type="train" edge="E0" pos="12976.76" parking="0" started="598.74" ended="723.00" delay="3.00" arrivalDelay="-91.26" busStop="bs_2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
