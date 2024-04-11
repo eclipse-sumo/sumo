@@ -338,9 +338,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         const MSEdge* const expectedEdge = stage->getEdge();
         if (found && expectedEdge->isNormal() && candidateLane->getEdge().isNormal() && &candidateLane->getEdge() != expectedEdge) {
-            const bool result = stage->moveToNextEdge(person, time, 1, nullptr);
-            UNUSED_PARAMETER(result);
-            assert(result == false); // The person has not arrived yet.
+            const bool arrived = stage->moveToNextEdge(person, time, 1, nullptr);
+            UNUSED_PARAMETER(arrived);
+            assert(!arrived); // The person has not arrived yet.
             stage->activateEntryReminders(person);
             // Adapt speed to lane's speed limit.
             JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);

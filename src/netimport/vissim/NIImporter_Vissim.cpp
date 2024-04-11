@@ -307,7 +307,7 @@ NIImporter_Vissim::NIVissimXMLHandler_Streckendefinition::myEndElement(int eleme
         // FIXME: a length = 0 PosVec seems fatal -> segfault
         double length(geom.length());
 
-        if (isConnector == false) {
+        if (!isConnector) {
             // Add Edge
             std::vector<double> laneWidths;
             for (std::string& w : myElemData["width"]) {

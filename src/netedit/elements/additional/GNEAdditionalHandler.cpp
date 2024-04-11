@@ -2127,7 +2127,7 @@ GNEAdditionalHandler::checkDuplicatedID(const std::vector<SumoXMLTag> tags, cons
         auto additional = myNet->getAttributeCarriers()->retrieveAdditional(tag, id, false);
         // if additional exist, check if overwrite (delete)
         if (additional) {
-            if (myAllowUndoRedo == false) {
+            if (!myAllowUndoRedo) {
                 // only overwrite if allow undo-redo
                 return false;
             } else if (myOverwrite) {

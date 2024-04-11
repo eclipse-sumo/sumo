@@ -1167,7 +1167,7 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
                                           separatorWidth, myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() + separatorWidth);
             }
             // check if we have change prohibitions
-            if ((changeLeft && changeRight) == false) {
+            if (!(changeLeft && changeRight)) {
                 // push prohibitions matrix
                 GLHelper::pushMatrix();
                 // move top
@@ -1427,7 +1427,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // get inspected AC
     const GNEAttributeCarrier* inspectedAC = inspectedACs.size() > 0 ? inspectedACs.front() : nullptr;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
-    if (inspectedAC && (inspectedAC->isAttributeCarrierSelected() == false) &&
+    if (inspectedAC && (!inspectedAC->isAttributeCarrierSelected()) &&
             ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(inspectedAC->getAttribute(SUMO_ATTR_VIA));

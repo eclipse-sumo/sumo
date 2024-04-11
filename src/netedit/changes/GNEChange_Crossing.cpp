@@ -92,7 +92,7 @@ void GNEChange_Crossing::undo() {
         // add crossing of NBNode
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
-        if (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
+        if (!myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
             myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");

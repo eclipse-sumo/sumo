@@ -1454,7 +1454,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     break;
                 }
             }
-            if (onRoute == false) {
+            if (!onRoute) {
                 // search backward
                 for (int i = routePosition - 1; i >= 0; i--) {
                     const MSEdge* cand = currentRoute[i];

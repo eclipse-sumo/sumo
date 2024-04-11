@@ -1403,7 +1403,7 @@ GNENet::requireRecompute() {
 
 bool
 GNENet::isNetRecomputed() const {
-    return (myNeedRecompute == false);
+    return !myNeedRecompute;
 }
 
 
@@ -1475,7 +1475,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     }
 
     // use checkJunctionPosition to avoid conflicts with junction in the same position as others
-    while (checkJunctionPosition(pos) == false) {
+    while (!checkJunctionPosition(pos)) {
         pos.setx(pos.x() + 0.1);
         pos.sety(pos.y() + 0.1);
     }
@@ -1566,7 +1566,7 @@ GNENet::cleanInvalidCrossings(GNEUndoList* undoList) {
     // obtain invalid crossings
     std::vector<GNECrossing*> myInvalidCrossings;
     for (auto i = myNetCrossings.begin(); i != myNetCrossings.end(); i++) {
-        if ((*i)->getNBCrossing()->valid == false) {
+        if (!(*i)->getNBCrossing()->valid) {
             myInvalidCrossings.push_back(*i);
         }
     }

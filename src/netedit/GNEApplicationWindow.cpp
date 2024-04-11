@@ -3142,12 +3142,12 @@ GNEApplicationWindow::onCmdSaveNetwork(FXObject* sender, FXSelector sel, void* p
             std::vector<GNENetworkElement*> invalidNetworkElements;
             // iterate over crossings and edges
             for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                if (edge.second.second->isNetworkElementValid() == false) {
+                if (!edge.second.second->isNetworkElementValid()) {
                     invalidNetworkElements.push_back(edge.second.second);
                 }
             }
             for (const auto& crossing : myViewNet->getNet()->getAttributeCarriers()->getCrossings()) {
-                if (crossing.second->isNetworkElementValid() == false) {
+                if (!crossing.second->isNetworkElementValid()) {
                     invalidNetworkElements.push_back(crossing.second);
                 }
             }

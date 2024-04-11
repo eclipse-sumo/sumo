@@ -130,7 +130,7 @@ GNEWireFrame::createPath(const bool /* useLastRoute */) {
                 myBaseWire->addDoubleAttribute(SUMO_ATTR_STARTPOS, myConsecutiveLaneSelector->getLanePath().front().second);
                 myBaseWire->addDoubleAttribute(SUMO_ATTR_ENDPOS, myConsecutiveLaneSelector->getLanePath().back().second);
                 // show warning dialogbox and stop check if input parameters are valid
-                if (myWireAttributes->areValuesValid() == false) {
+                if (!myWireAttributes->areValuesValid()) {
                     myWireAttributes->showWarningMessage();
                 } else {
                     // declare additional handler
@@ -249,7 +249,7 @@ GNEWireFrame::buildWireOverView(const GNETagProperties& tagProperties) {
     myBaseWire->addDoubleAttribute(SUMO_ATTR_Y, viewPos.y());
     myBaseWire->addDoubleAttribute(SUMO_ATTR_Z, viewPos.z());
     // show warning dialogbox and stop check if input parameters are valid
-    if (myWireAttributes->areValuesValid() == false) {
+    if (!myWireAttributes->areValuesValid()) {
         myWireAttributes->showWarningMessage();
         return false;
     } else {

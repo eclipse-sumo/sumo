@@ -429,7 +429,7 @@ GNEShapeFrame::processClickPolygons(const Position& clickedPosition, bool& updat
 bool
 GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }
@@ -460,7 +460,7 @@ GNEShapeFrame::processClickPOI(SumoXMLTag POITag, const Position& clickedPositio
 bool
 GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }
@@ -499,7 +499,7 @@ GNEShapeFrame::processClickPOILanes(const Position& clickedPosition, const GNEVi
         return false;
     }
     // show warning dialogbox and stop if input parameters are invalid
-    if (myShapeAttributes->areValuesValid() == false) {
+    if (!myShapeAttributes->areValuesValid()) {
         myShapeAttributes->showWarningMessage();
         return false;
     }

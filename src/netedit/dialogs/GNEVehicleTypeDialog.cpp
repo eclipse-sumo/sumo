@@ -1788,7 +1788,7 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, 
     initChanges();
 
     // add element if we aren't updating an existent element
-    if (myUpdatingElement == false) {
+    if (!myUpdatingElement) {
         myEditedDemandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
     }
 
@@ -1808,7 +1808,7 @@ GNEVehicleTypeDialog::~GNEVehicleTypeDialog() {}
 
 long
 GNEVehicleTypeDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    if (myVehicleTypeValid == false) {
+    if (!myVehicleTypeValid) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         std::string operation1 = myUpdatingElement ? ("updating") : ("creating");

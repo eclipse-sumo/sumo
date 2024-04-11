@@ -280,7 +280,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
                 // parse common attributes
                 if (buildAdditionalCommonAttributes(tagProperty)) {
                     // show warning dialogbox and stop check if input parameters are valid
-                    if (myAdditionalAttributes->areValuesValid() == false) {
+                    if (!myAdditionalAttributes->areValuesValid()) {
                         myAdditionalAttributes->showWarningMessage();
                     } else {
                         // declare additional handler
@@ -600,7 +600,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         }
     }
     // show warning dialogbox and stop check if input parameters are valid
-    if (myAdditionalAttributes->areValuesValid() == false) {
+    if (!myAdditionalAttributes->areValuesValid()) {
         myAdditionalAttributes->showWarningMessage();
         return false;
     } else {

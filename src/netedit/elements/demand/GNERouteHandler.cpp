@@ -3057,7 +3057,7 @@ GNERouteHandler::checkDuplicatedDemandElement(const SumoXMLTag tag, const std::s
     auto demandElement = myNet->getAttributeCarriers()->retrieveDemandElement(tag, id, false);
     // if demand exist, check if overwrite (delete)
     if (demandElement) {
-        if (myAllowUndoRedo == false) {
+        if (!myAllowUndoRedo) {
             // only overwrite if allow undo-redo
             return false;
         } else if (myOverwrite) {

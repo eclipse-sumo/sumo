@@ -851,7 +851,7 @@ long GUIOSGView::onRightBtnRelease(FXObject* sender, FXSelector sel, void* ptr) 
 long
 GUIOSGView::onMouseMove(FXObject* sender, FXSelector sel, void* ptr) {
     // if popup exist but isn't shown, destroy it first
-    if (myPopup && (myPopup->shown() == false)) {
+    if (myPopup && !myPopup->shown()) {
         destroyPopup();
     }
 

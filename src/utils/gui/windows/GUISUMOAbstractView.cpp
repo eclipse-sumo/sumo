@@ -1194,7 +1194,7 @@ GUISUMOAbstractView::onMouseMove(FXObject*, FXSelector, void* ptr) {
             myPopupPosition = Position::INVALID;
             myPopup->handle(this, FXSEL(SEL_COMMAND, MID_CURSORDIALOG_FRONT), nullptr);
             destroyPopup();
-        } else if (myPopup->shown() == false) {
+        } else if (!myPopup->shown()) {
             destroyPopup();
         }
     }

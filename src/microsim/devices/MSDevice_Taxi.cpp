@@ -522,7 +522,7 @@ MSDevice_Taxi::cancelCurrentCustomers() {
                 //removed = cancelCustomer((*tIt));
                 
             }
-            //if (removed == false) {
+            //if (!removed) {
             //    tIt++;
             //}
         }

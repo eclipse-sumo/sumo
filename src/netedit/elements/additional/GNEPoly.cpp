@@ -423,7 +423,7 @@ GNEPoly::openPolygon(bool allowUndo) {
 void
 GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
-    if (myShape.isClosed() == false) {
+    if (!myShape.isClosed()) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->begin(this, "close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());

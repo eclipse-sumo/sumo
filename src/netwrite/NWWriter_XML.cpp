@@ -152,7 +152,7 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, const std::string& prefix, NBNod
         if (n->getRadius() != NBNode::UNSPECIFIED_RADIUS) {
             device.writeAttr(SUMO_ATTR_RADIUS, n->getRadius());
         }
-        if (n->getKeepClear() == false) {
+        if (!n->getKeepClear()) {
             device.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear());
         }
         if (n->getRightOfWay() != RightOfWay::DEFAULT) {

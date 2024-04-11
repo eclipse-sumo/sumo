@@ -879,7 +879,7 @@ GNEFrameAttributeModules::AttributesEditor::showAttributeEditorModule(bool inclu
                 // declare a flag for enabled attributes
                 bool attributeEnabled = ACs.front()->isAttributeEnabled(attrProperty.getAttr());
                 // overwrite value if attribute is disabled (used by LinkIndex)
-                if (attributeEnabled == false) {
+                if (!attributeEnabled) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // for types, the following attributes must be always enabled
@@ -990,7 +990,7 @@ GNEFrameAttributeModules::AttributesEditor::refreshAttributeEditor(bool forceRef
                     attributeEnabled = true;
                 }
                 // overwrite value if attribute is disabled (used by LinkIndex)
-                if (attributeEnabled == false) {
+                if (!attributeEnabled) {
                     value = ACs.front()->getAlternativeValueForDisabledAttributes(attrProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
