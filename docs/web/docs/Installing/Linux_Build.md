@@ -45,20 +45,20 @@ alternatives below.
   and manual build instructions for the
   libraries](Linux_Build_Libraries.md)
 - Optionally you may want to add
- - ccache (to speed up builds)
- - ffmpeg-devel (for video output),
- - libOpenSceneGraph-devel (for the experimental 3D GUI),
- - gtest (for [unit testing](../Developer/Unit_Tests.md), do not use 1.13 or later)
- - gettext (for internationalization)
- - texttest, xvfb  and tkdiff (for the acceptance tests)
- - flake, astyle and autopep for style checking
- - see also further dependencies [for GUI testing](../Developer/GUI_Testing.md)
+  - ccache (to speed up builds)
+  - ffmpeg-devel (for video output),
+  - libOpenSceneGraph-devel (for the experimental 3D GUI),
+  - gtest (for [unit testing](../Developer/Unit_Tests.md), do not use 1.13 or later)
+  - gettext (for internationalization)
+  - texttest, xvfb  and tkdiff (for the acceptance tests, include python3-gobject for the texttest GUI)
+  - flake, astyle and autopep for style checking
+  - see also further dependencies [for GUI testing](../Developer/GUI_Testing.md)
 
 The package names above are for openSUSE, for ubuntu the call to get the most important optional libraries and tools is:
 
 ```
 sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-build
-sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8 python3-gi-cairo
+sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8 python3-gi-cairo gir1.2-gtk-3.0
 sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-pulp python3-ezdxf
 python3 -m pip install texttest
 ```
@@ -147,9 +147,10 @@ The pip installation will ensure that all libraries are there, so it is safe to 
 If you need information about the minimum required versions of the packages read them directly
 from the [requirements.txt](https://github.com/eclipse-sumo/sumo/blob/main/tools/requirements.txt). Be aware that
 the minimum versions in the requirements file just reflect our current test server setup, so you might also get away with earlier versions.
+
 If you want to reproduce our test server setup exactly, then use the versions in
 [req_test_server.txt](https://github.com/eclipse-sumo/sumo/blob/main/tools/req_test_server.txt)
-
+Unfortunately some old pip packages are incomplete, so this requires `sudo apt install libspatialindex-dev`.
 
 ## Building the SUMO binaries with cmake
 
