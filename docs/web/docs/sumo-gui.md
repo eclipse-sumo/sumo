@@ -1113,6 +1113,8 @@ helpful:
   - *Exaggerate width by 0.1* (otherwise the shapes overlap which makes it hard to understand them)
   - *Color by selection* (coloring individual lanes makes it easier to understand geometry before and after [internal junctions](Networks/SUMO_Road_Networks.md#internal_junctions))
 
+In the [object locator menu](#locating_objects), activate the "Show internal Structures" checkbox to have them appear in the edge and junction locator dialogs. They are found at the end of the object list since their ID starts with a ':'.
+
 -----
 
 ## Investigation Stopping At Intersections
