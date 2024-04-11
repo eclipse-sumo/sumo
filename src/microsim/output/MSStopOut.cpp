@@ -133,12 +133,6 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (stop.arrival >= 0) {
         myDevice.writeAttr(SUMO_ATTR_ARRIVALDELAY, arrivalDelay);
     }
-    myDevice.writeAttr("initialPersons", si.initialNumPersons);
-    myDevice.writeAttr("loadedPersons", si.loadedPersons);
-    myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
-    myDevice.writeAttr("initialContainers", si.initialNumContainers);
-    myDevice.writeAttr("loadedContainers", si.loadedContainers);
-    myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     if (stop.busstop != "") {
         myDevice.writeAttr(SUMO_ATTR_BUS_STOP, stop.busstop);
     }
@@ -166,6 +160,12 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     if (MSGlobals::gUseStopEnded) {
         myDevice.writeAttr(SUMO_ATTR_USED_ENDED, stop.ended >= 0);
     }
+    myDevice.writeAttr("initialPersons", si.initialNumPersons);
+    myDevice.writeAttr("loadedPersons", si.loadedPersons);
+    myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
+    myDevice.writeAttr("initialContainers", si.initialNumContainers);
+    myDevice.writeAttr("loadedContainers", si.loadedContainers);
+    myDevice.writeAttr("unloadedContainers", si.unloadedContainers);
     myDevice.closeTag();
     myStopped.erase(veh);
 }
