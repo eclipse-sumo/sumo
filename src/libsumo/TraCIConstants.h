@@ -635,6 +635,9 @@ TRACI_CONST int ROUTING_MODE_EFFORT = 0x02;
 TRACI_CONST int ROUTING_MODE_COMBINED = 0x03;
 // use aggregated travel times from device.rerouting enriched with custom weights
 TRACI_CONST int ROUTING_MODE_AGGREGATED_CUSTOM = 0x04;
+// when this bit is set, routing does not consider temporary permission changes (i.e. from rerouters)
+// note: can be combined with either one of the other modes (bitwise)
+TRACI_CONST int ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS = 0x08;
 
 // ****************************************
 // Traffic light types
