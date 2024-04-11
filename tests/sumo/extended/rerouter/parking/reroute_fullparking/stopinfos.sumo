@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-22 17:16:56 by Eclipse SUMO sumo Version v1_16_0+1570-ec89ba0
+<!-- generated on 2024-04-11 10:27:04 by Eclipse SUMO sumo Version v1_19_0+1774-c2740415b91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="16.00" ended="66.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
-    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="38.00" ended="88.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_61567479#3_0_0"/>
-    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.61" parking="1" started="65.00" ended="115.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" parkingArea="parkingArea_-159245989#4_0_1"/>
+    <stopinfo id="vehicle_1" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="7.97" parking="1" started="16.00" ended="66.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="vehicle_0" type="DEFAULT_VEHTYPE" lane="61567479#3_0" pos="15.94" parking="1" started="38.00" ended="88.00" parkingArea="parkingArea_61567479#3_0_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="vehicle_2" type="DEFAULT_VEHTYPE" lane="-159245989#4_0" pos="45.61" parking="1" started="65.00" ended="115.00" parkingArea="parkingArea_-159245989#4_0_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

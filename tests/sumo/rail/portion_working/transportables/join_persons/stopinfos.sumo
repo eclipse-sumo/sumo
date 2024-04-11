@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-26 12:09:55 by Eclipse SUMO sumo Version v1_19_0+1013-694ada1
+<!-- generated on 2024-04-11 10:27:12 by Eclipse SUMO sumo Version v1_19_0+1774-c2740415b91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,9 +40,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t0" type="splitTrain" lane="a_0" pos="258.37" parking="0" started="45.00" ended="55.00" delay="35.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="A"/>
-    <stopinfo id="t1" type="splitTrain" lane="d_0" pos="222.81" parking="0" started="71.00" ended="81.00" delay="41.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="D"/>
-    <stopinfo id="t1" type="splitTrain" lane="b_0" pos="95.00" parking="0" started="135.00" ended="165.00" delay="105.00" initialPersons="1" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B"/>
-    <stopinfo id="t0" type="splitTrain@t0" lane="b_0" pos="150.00" parking="0" started="107.00" ended="166.00" delay="106.00" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="B"/>
-    <stopinfo id="t0" type="splitTrain@t0" lane="c_0" pos="338.22" parking="0" started="234.00" ended="244.00" delay="154.00" initialPersons="2" loadedPersons="0" unloadedPersons="2" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="C"/>
+    <stopinfo id="t0" type="splitTrain" lane="a_0" pos="258.37" parking="0" started="45.00" ended="55.00" delay="35.00" busStop="A" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t1" type="splitTrain" lane="d_0" pos="222.81" parking="0" started="71.00" ended="81.00" delay="41.00" busStop="D" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t1" type="splitTrain" lane="b_0" pos="95.00" parking="0" started="135.00" ended="165.00" delay="105.00" busStop="B" initialPersons="1" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t0" type="splitTrain@t0" lane="b_0" pos="150.00" parking="0" started="107.00" ended="166.00" delay="106.00" busStop="B" initialPersons="1" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t0" type="splitTrain@t0" lane="c_0" pos="338.22" parking="0" started="234.00" ended="244.00" delay="154.00" busStop="C" initialPersons="2" loadedPersons="0" unloadedPersons="2" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

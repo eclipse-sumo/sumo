@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-01 09:41:29 by Eclipse SUMO sumo Version v1_19_0+1115-a7a54a029ff
+<!-- generated on 2024-04-11 10:27:05 by Eclipse SUMO sumo Version v1_19_0+1774-c2740415b91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="speed,arrivalDelay"/>
         <stop-output value="stopinfos.xml"/>
     </output>
 
@@ -39,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t_0" type="train" lane="E0_0" pos="240.26" parking="0" started="37.00" ended="120.00" delay="0.00" arrivalDelay="-53.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_0"/>
-    <stopinfo id="t_0" type="train" lane="E0_0" pos="7100.00" parking="0" started="390.00" ended="420.00" delay="0.00" arrivalDelay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_1"/>
-    <stopinfo id="t_0" type="train" lane="E0_0" pos="13000.50" parking="0" started="690.00" ended="720.00" delay="0.00" arrivalDelay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="bs_2"/>
+    <stopinfo id="t_0" type="train" lane="E0_0" pos="240.26" parking="0" started="37.00" ended="120.00" delay="0.00" arrivalDelay="-53.00" busStop="bs_0" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t_0" type="train" lane="E0_0" pos="7100.00" parking="0" started="390.00" ended="420.00" delay="0.00" arrivalDelay="0.00" busStop="bs_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="t_0" type="train" lane="E0_0" pos="13000.50" parking="0" started="690.00" ended="720.00" delay="0.00" arrivalDelay="0.00" busStop="bs_2" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>

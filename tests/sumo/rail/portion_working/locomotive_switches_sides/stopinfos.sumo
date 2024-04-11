@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-20 08:41:37 by Eclipse SUMO sumo Version v1_19_0+0885-680824b44d1
+<!-- generated on 2024-04-11 10:27:12 by Eclipse SUMO sumo Version v1_19_0+1774-c2740415b91
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="t_0" type="fullTrain@t_0" lane="E1_0" pos="150.00" parking="0" started="48.00" ended="53.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" split="t_1"/>
+    <stopinfo id="t_0" type="fullTrain@t_0" lane="E1_0" pos="150.00" parking="0" started="48.00" ended="53.00" split="t_1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
     <stopinfo id="t_0" type="fullTrain@t_0" lane="-E4_0" pos="102.77" parking="0" started="116.00" ended="116.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
     <stopinfo id="t_1" type="cars" lane="E1_0" pos="130.00" parking="0" started="49.00" ended="160.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
     <stopinfo id="t_0" type="fullTrain@t_0" lane="E1_0" pos="130.00" parking="0" started="159.00" ended="160.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
