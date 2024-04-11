@@ -392,7 +392,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
             }
         }
     }
-    // delete crossings top remove
+    // delete collected crossings
     for (const auto& crossing : crossingsToRemove) {
         deleteCrossing(crossing, undoList);
     }
