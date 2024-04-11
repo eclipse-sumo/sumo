@@ -58,8 +58,8 @@ The package names above are for openSUSE, for ubuntu the call to get the most im
 
 ```
 sudo apt-get install ccache libavformat-dev libswscale-dev libopenscenegraph-dev python3-pip python3-build
-sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8
-sudo apt-get install python3-pyproj python3-rtree python3-pandas flake8 python3-autopep8 python3-pulp python3-ezdxf
+sudo apt-get install libgtest-dev gettext tkdiff xvfb flake8 astyle python3-autopep8 python3-gi-cairo
+sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-pulp python3-ezdxf
 python3 -m pip install texttest
 ```
 
