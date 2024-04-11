@@ -3874,7 +3874,7 @@ NBNode::getWalkingArea(const std::string& id) {
             return walkingArea;
         }
     }
-    throw ProcessError(TL("Request for unknown crossing for the given Edges"));
+    throw ProcessError(TLF("Request for unknown walkingarea '%'.", id));
 }
 
 
