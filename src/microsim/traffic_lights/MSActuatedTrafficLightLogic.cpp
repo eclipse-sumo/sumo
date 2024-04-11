@@ -253,7 +253,6 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //              check1b : there is another major link from the same lane in the current phase
     //              check1e : the conflict is only with bikes/pedestrians (i.e. for a right turn, also left turn with no oncoming traffic)
     //              check1f : the conflict is only with a link from the same edge
-    //              check1g : the connection is for bicycles and the conflict is with a non-bicycle
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
     //
     //              check1c: when the edge has only one lane, we treat greenMinor as green as there would be no actuation otherwise
@@ -323,7 +322,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     if (((neverMajor[i] || turnaround[i])  // check1a, 1d
                             && hasMajor(state, getLanesAt(i))) // check1b
                             || oneLane[i] // check1c
-                            || weakConflict(i, state)) { // check1e, check1f, check1g
+                            || weakConflict(i, state)) { // check1e, check1f
                         greenLinks.insert(i);
                         if (!turnaround[i]) {
                             actuatedLinks.insert(i);
@@ -505,8 +504,7 @@ MSActuatedTrafficLightLogic::weakConflict(int tlIndex, const std::string& state)
                         //std::cout << " greenLink=" << i << " isFoe=" << logic->getFoesFor(linkIndex).test(foeIndex) << "\n";
                         if (logic->getFoesFor(linkIndex).test(foeIndex)
                                 && (foe->getPermissions() & ~SVC_WEAK) != 0 // check1e
-                                && &foe->getLaneBefore()->getEdge() != &link->getLaneBefore()->getEdge() // check1f 
-                                && (link->getPermissions() & ~SVC_WEAK) != 0) { // check1g
+                                && &foe->getLaneBefore()->getEdge() != &link->getLaneBefore()->getEdge()) { // check1f
                             //std::cout << " strongConflict " << tlIndex << " in phase " << state << " with link " << foe->getTLIndex() << "\n";
                             return false;
                         }
