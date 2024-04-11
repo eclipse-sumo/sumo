@@ -110,7 +110,7 @@ MSDevice_FCDReplay::move() {
     const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(p));
     libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, std::get<0>(p).x(), std::get<0>(p).y(),
                                std::get<4>(p), 7);
-    v->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
+    libsumo::Vehicle::setSpeed(myHolder.getID(), std::get<3>(p));
     myTrajectory->erase(myTrajectory->begin());
     return true;
 }
@@ -231,6 +231,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             }
             t.erase(t.begin());
             device->setTrajectory(&t);
+            static_cast<MSVehicle*>(vehicle)->getInfluencer().setSpeedMode(0);
         }
     }
 }
