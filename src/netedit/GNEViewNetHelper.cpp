@@ -1639,6 +1639,7 @@ GNEViewNetHelper::SelectingArea::drawRectangleSelection(const RGBColor& color) c
 
 void
 GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& boundary) {
+    const bool selEdges = myViewNet->myNetworkViewOptions.selectEdges();
     // obtain all elements in boundary
     myViewNet->updateObjectsInBoundary(boundary);
     // filter ACsInBoundary depending of current supermode
@@ -1646,6 +1647,10 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
         if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
             if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
+                if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE && !selEdges)
+                        || (AC->getTagProperty().getTag() == SUMO_TAG_LANE && selEdges)) {
+                    continue;
+                }
                 ACsFiltered.insert(AC);
             }
         } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
