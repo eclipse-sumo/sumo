@@ -1158,6 +1158,15 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
             // get change left and right for passengers
             const bool changeLeft = myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
             const bool changeRight = myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
+            // draw orange background under the lane and under the lane markings to highlight change prohibitions
+            if (!(changeLeft && changeRight)) {
+                GLHelper::pushMatrix();
+                glTranslated(0, 0, -0.1);
+                GLHelper::setColor(RGBColor::ORANGE);
+                GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
+                                          myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
+                GLHelper::popMatrix();
+            }
             // if permissions are similar and we aren't drawing in spread mode, draw markings. In other case, draw a separator
             if (!s.spreadSuperposed && (permissionsA & permissionsB)) {
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
@@ -1165,20 +1174,6 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
             } else {
                 GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
                                           separatorWidth, myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() + separatorWidth);
-            }
-            // check if we have change prohibitions
-            if (!(changeLeft && changeRight)) {
-                // push prohibitions matrix
-                GLHelper::pushMatrix();
-                // move top
-                glTranslated(0, 0, 0.05);
-                // set color
-                GLHelper::setColor(RGBColor::ORANGE);
-                // higlight prohibition
-                GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry,
-                                          myDrawingConstants->getDrawingWidth(), myDrawingConstants->getOffset());
-                // pop prohibitionsmatrix
-                GLHelper::popMatrix();
             }
         }
         // check if draw last separator
