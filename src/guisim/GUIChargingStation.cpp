@@ -133,7 +133,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     glTranslated(0, 0, getType());
 
     // set color depending if charging station is charging
-    if (myChargingVehicle == true) {
+    if (myChargingVehicle) {
         GLHelper::setColor(s.colorSettings.chargingStationColorCharge);
     } else {
         GLHelper::setColor(s.colorSettings.chargingStationColor);

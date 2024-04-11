@@ -300,7 +300,7 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
         dev.writeAttr(SUMO_ATTR_COLLISION, collision);
     }
     // only write friendly position if is true
-    if (friendlyPos == true) {
+    if (friendlyPos) {
         dev.writeAttr(SUMO_ATTR_FRIENDLY_POS, friendlyPos);
     }
     // only write act type if isn't empty

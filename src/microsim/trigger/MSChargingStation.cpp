@@ -158,13 +158,13 @@ MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* ba
     if (battery->getChargingStartTime() > myChargeDelay) {
         if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "chargingStopped";
-        } else if (myChargeInTransit == true) {
+        } else if (myChargeInTransit) {
             status = "chargingInTransit";
         } else {
             status = "noCharging";
         }
     } else {
-        if (myChargeInTransit == true) {
+        if (myChargeInTransit) {
             status = "waitingChargeInTransit";
         } else if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
             status = "waitingChargeStopped";

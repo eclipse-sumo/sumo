@@ -100,7 +100,7 @@ public:
 
     /// @brief is there a filter based on shapes?
     inline static bool hasShapeFilter() {
-        return myShapeFilterDesired == true;
+        return myShapeFilterDesired;
     }
 
 private:
