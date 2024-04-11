@@ -51,36 +51,30 @@ def call(executable, args):
     return subprocess.call(cmd)
 
 
-def exeExists(binary):
-    if os.name == "nt" and binary[-4:] != ".exe":
-        binary += ".exe"
-    return os.path.exists(binary)
-
-
 def checkBinary(name, bindir=None):
     """
     Checks for the given binary in the places, defined by the environment
     variables SUMO_HOME and <NAME>_BINARY.
     """
-    if name == "sumo-gui":
-        envName = "GUISIM_BINARY"
-    else:
-        envName = name.upper() + "_BINARY"
+
+    def exe(binary):
+        return binary + ".exe" if os.name == "nt" and binary[-4:] != ".exe" else binary
+
+    envName = "GUISIM_BINARY" if name == "sumo-gui" else name.upper() + "_BINARY"
     env = os.environ
-    join = os.path.join
-    if envName in env and exeExists(env.get(envName)):
-        return env.get(envName)
+    if envName in env and os.path.exists(exe(env[envName])):
+        return exe(env[envName])
     if bindir is not None:
-        binary = join(bindir, name)
-        if exeExists(binary):
+        binary = exe(os.path.join(bindir, name))
+        if os.path.exists(binary):
             return binary
     if "SUMO_HOME" in env:
-        binary = join(env.get("SUMO_HOME"), "bin", name)
-        if exeExists(binary):
+        binary = exe(os.path.join(env.get("SUMO_HOME"), "bin", name))
+        if os.path.exists(binary):
             return binary
     if bindir is None:
-        binary = os.path.abspath(join(os.path.dirname(__file__), '..', '..', 'bin', name))
-        if exeExists(binary):
+        binary = exe(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'bin', name)))
+        if os.path.exists(binary):
             return binary
     if name[-1] != "D" and name[-5:] != "D.exe":
         binaryD = (name[:-4] if name[-4:] == ".exe" else name) + "D"
