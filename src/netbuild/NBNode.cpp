@@ -3505,7 +3505,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         Crossing& prev = **it;
         Crossing& next = (it !=  validCrossings.begin() ? **(it - 1) :** (validCrossings.end() - 1));
         if (gDebugFlag1) {
-            std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << "\n";
+            std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << " next.prevWA=" << next.prevWalkingArea << "\n";
         }
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "" || &prev == &next) {
@@ -3873,6 +3873,20 @@ NBNode::getWalkingArea(const std::string& id) {
         if (walkingArea.id == id) {
             return walkingArea;
         }
+    }
+    // not found, maybe we need to rebuild
+    updateSurroundingGeometry();
+    sortEdges(true);
+    buildCrossingsAndWalkingAreas();
+    for (auto& walkingArea : myWalkingAreas) {
+        if (walkingArea.id == id) {
+            return walkingArea;
+        }
+    }
+    if (myWalkingAreas.size() > 0) {
+        // don't crash
+        WRITE_WARNINGF("Could not retrieve walkingarea '%' (edge ordering changed after recompute).", id);
+        return myWalkingAreas.front();
     }
     throw ProcessError(TLF("Request for unknown walkingarea '%'.", id));
 }
