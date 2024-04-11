@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-11 11:56:31 by Eclipse SUMO netedit Version v1_19_0+1778-d338a9b14ff
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-391572.13,-5820466.23" convBoundary="0.00,0.00,50.21,27.98" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-101699692#0" from="4673135620" to="588181300" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="0.00,14.74 5.15,14.42 18.07,13.85 21.39,13.45" spreadType="center" allow="tram" bidi="46140393">
+        <lane index="0">
+            <param key="origId" value="101699692 46140393"/>
+        </lane>
+    </edge>
+    <edge id="-153522299#2" from="588181297" to="4213903960" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="20.45,9.58 27.46,10.02 32.32,10.84" spreadType="center" allow="tram" bidi="153522299#2">
+        <lane index="0">
+            <param key="origId" value="153522299"/>
+        </lane>
+    </edge>
+    <edge id="-153522303#1" from="588181300" to="cluster_5534476068_5534476069" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="21.39,13.45 27.76,13.25 34.37,14.58 39.24,16.30 42.89,18.74 45.44,21.54 50.15,27.98" spreadType="center" allow="tram" bidi="153522303#1">
+        <lane index="0">
+            <param key="origId" value="153522303"/>
+        </lane>
+        <param key="origTo" value="5534476068"/>
+    </edge>
+    <edge id="-46140379#0" from="4213903960" to="30731492" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="32.32,10.84 35.10,9.81 41.06,5.70 48.24,0.00" spreadType="center" allow="tram" bidi="46140379#0">
+        <lane index="0">
+            <param key="origId" value="46140379"/>
+        </lane>
+    </edge>
+    <edge id="-46140379#1" from="588181300" to="4213903960" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="21.39,13.45 28.54,12.13 32.32,10.84" spreadType="center" allow="tram" bidi="46140379#1">
+        <lane index="0">
+            <param key="origId" value="46140379"/>
+        </lane>
+    </edge>
+    <edge id="153522299#2" from="4213903960" to="588181297" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="32.32,10.84 27.46,10.02 20.45,9.58" spreadType="center" allow="tram" bidi="-153522299#2">
+        <lane index="0">
+            <param key="origId" value="153522299"/>
+        </lane>
+    </edge>
+    <edge id="153522303#1" from="cluster_5534476068_5534476069" to="588181300" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="50.15,27.98 45.44,21.54 42.89,18.74 39.24,16.30 34.37,14.58 27.76,13.25 21.39,13.45" spreadType="center" allow="tram" bidi="-153522303#1">
+        <lane index="0">
+            <param key="origId" value="153522303"/>
+        </lane>
+        <param key="origFrom" value="5534476068"/>
+    </edge>
+    <edge id="46140379#0" from="30731492" to="4213903960" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="48.24,0.00 41.06,5.70 35.10,9.81 32.32,10.84" spreadType="center" allow="tram" bidi="-46140379#0">
+        <lane index="0">
+            <param key="origId" value="46140379"/>
+        </lane>
+    </edge>
+    <edge id="46140379#1" from="4213903960" to="588181300" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="32.32,10.84 28.54,12.13 21.39,13.45" spreadType="center" allow="tram" bidi="-46140379#1">
+        <lane index="0">
+            <param key="origId" value="46140379"/>
+        </lane>
+    </edge>
+    <edge id="46140393" from="588181300" to="4673135620" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="21.39,13.45 18.07,13.85 5.15,14.42 0.00,14.74" spreadType="center" allow="tram" bidi="-101699692#0">
+        <lane index="0">
+            <param key="origId" value="46140393 101699692"/>
+        </lane>
+    </edge>
+</edges>
