@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-09 18:45+0200\n"
-"PO-Revision-Date: 2024-04-10 10:46+0000\n"
+"PO-Revision-Date: 2024-04-11 11:30+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1485,10 +1485,12 @@ msgstr "Kante '%' ist verboten."
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:742
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
+"Die Abfahrtsgeschwindigkeit des Fahrzeugs '%' ist zu hoch für den "
+"Fahrzeugtyp '%'."
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:751
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
-msgstr ""
+msgstr "Das Fahrzeug '%' darf von keinem Fahrstreifen der Kante '%' abfahren."
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:781
 msgid "Vehicle '%' has no valid route. %"
@@ -2462,12 +2464,14 @@ msgstr "Die Abstoßreichweite des JuPedSim-Modells zu Geometrien (in Metern)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:569
 msgid "The filename to output the JuPedSim network as WKT"
-msgstr ""
+msgstr "Der Dateiname für den Export des JuPedSim-Netzes im WKZ-Format"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
 "Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"
 msgstr ""
+"Ob der Export des JuPedSim-Netzes in das WKT-Format Geokoordinaten nutzen "
+"soll (Längengrad/Breitengrad)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:575
 msgid ""
@@ -2994,7 +2998,7 @@ msgstr "Ein Netz wurde noch nicht aufgebaut."
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:220
 #: D:\Repos\sumo/src\router\RONet.cpp:83
 msgid "A network was already constructed."
-msgstr "Ein Netzwerk wurde aufgebaut."
+msgstr "Es bestand schon ein fertiges Netz."
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:285
 msgid ""
@@ -3079,6 +3083,8 @@ msgid ""
 "Disconnected route '%' when repeating. Last edge '%' is not connected to "
 "first edge '%'%"
 msgstr ""
+"Nicht zusammenhängende Route '%' im Wiederholungsfall. Die letzte Kante '%' "
+"ist nicht mt der ersten Kante '%' verbunden%"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:453
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:461
