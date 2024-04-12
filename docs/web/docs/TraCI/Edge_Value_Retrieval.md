@@ -39,6 +39,8 @@ value is also shown in the table.
 | last step person ids (0x1a)          | stringList | Returns the list of ids of persons that were on the named edge in the last simulation step                                                                              | [getLastStepPersonIDs](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getLastStepPersonIDs)           |
 | last step halting number (0x14)      | int        | Returns the total number of halting vehicles for the last time step on the given edge. A speed of less than 0.1 m/s is considered a halt.                               | [getLastStepHaltingNumber](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getLastStepHaltingNumber)   |
 | angle (0x43) | double | Returns the heading of the straight line segment formed by the edge at the given position. | [getAngle](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getAngle)   |
+| origin junction (0x7b) | string | Returns the id of the junction at the start of this edge. | [getFromJunction](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getFromJunction)   |
+| destination junction (0x7c) | string | Returns the id of the junction at the end of this edge. | [getToJunction](https://sumo.dlr.de/pydoc/traci._edge.html#EdgeDomain-getToJunction)   |
 
 ### Response 0xba: Edge Variable
 
