@@ -47,6 +47,17 @@ to alternative destinations. A different method is to use [traffic assignment zo
 This allows vehicles to change their destination to the best alternative
 from a list of potential destinations.
 
+# Handling of temporary obstructions
+
+By using [`<rerouter>`-definitions](../Simulation/Rerouter.md) of type `<closingReroute allow="..."/>` (or `<closingLaneReroute allow="..."/>` if all lanes are closed) it is possible change road permissions temporarily (i.e. to model construction sites). By default, the simulation will raise an error when loading a route that passes a closed edge or if routing to the destination failes because of an obstruction.
+By setting a vehicle routing mode that includes bit-flag *traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS*, this behavior can be changed. Instead vehicles will ignore obstructions until reaching the closed edge and then wait there (potentially [teleporting](Why_Vehicles_are_teleporting.md) after **--time-to-teleport* is reached).
+
+Setting the routing mode (to ignore blockage) can be accomplished in the following ways:
+
+- `traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS)`
+- sumo option **--device.rerouting.mode 8**
+- defining `<param key="device.rerouting.mode value="8">` in the `vType` or a single `<vehicle>, <trip>` or `<flow>`.
+
 # Travel-time values for routing
 
 By default, the route with the least travel time is chosen. The travel
