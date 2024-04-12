@@ -449,6 +449,7 @@ NWWriter_SUMO::getInternalBidi(const NBEdge* e, const NBEdge::Connection& k, dou
     const std::vector<NBEdge::Connection> cons = toBidi->getConnectionsFromLane(-1, fromBidi, -1);
     if (cons.size() > 0) {
         if (e->getNumLanes() == 1 && k.toEdge->getNumLanes() == 1 && fromBidi->getNumLanes() == 1 && toBidi->getNumLanes() == 1) {
+            length = (k.length + cons.back().length) / 2;
             return cons.back().id;
         }
         // do a more careful check in case there are parallel internal edges
