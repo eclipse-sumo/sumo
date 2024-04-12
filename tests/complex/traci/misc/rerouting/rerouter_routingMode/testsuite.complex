@@ -1,0 +1,5 @@
+# Copy of rerouteTraveltime_default
+rerouteTraveltime_default
+
+# ignore permission changes by rerouter
+rerouteTraveltime_ignoreRerouter

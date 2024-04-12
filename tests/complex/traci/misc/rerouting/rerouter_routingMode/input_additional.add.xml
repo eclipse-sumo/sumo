@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- rerouter notification should not impact vehicle behavior -->
+    <rerouter id="rr" edges="end">
+        <interval begin="1" end="3600">
+            <closingReroute id="middle" allow="authority"/>
+            <closingReroute id="middle2" allow="authority"/>
+        </interval>
+    </rerouter>
+</additional>
