@@ -125,13 +125,11 @@ Warning: Could not import polygon from relation '2678660' (name: reason: found g
 Warning: Could not import polygon from relation '4065109' (missing ways)
 Warning: Could not import polygon from relation '8178851' (missing ways)
 Warning: 7 total messages of type: Could not import polygon from relation '%' (missing ways)
-Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_0_0' (31.57 != 31.56).
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13,14,15 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8,9,10,30 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,8,9,10,31,32,33,34 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
-Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_0_0' (31.57 != 31.56).
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'pt_tram_M2:3.0', lane='148458500#0_0', gap=-1.00, time=476.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
