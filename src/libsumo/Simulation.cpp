@@ -587,7 +587,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         }
         // we need to fix the speed factor here for deterministic results
         vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
-        vehicle->getBaseInfluencer().setRoutingMode(routingMode);
+        vehicle->setRoutingMode(routingMode);
     } catch (ProcessError& e) {
         throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + e.what() + ")");
     }

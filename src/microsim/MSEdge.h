@@ -612,6 +612,8 @@ public:
             : (myCombinedPermissions & svc) != svc);
     }
 
+    bool hasTransientPermissions() const;
+
     /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
      * The restriction mechanism is not implemented yet for the microsim, so it always returns false.
      * @param[in] vehicle The vehicle for which the information has to be returned

@@ -168,7 +168,7 @@ MSNet::getTravelTime(const MSEdge* const e, const SUMOVehicle* const v, double t
     if (getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, t, value)) {
         return value;
     }
-    if (veh != nullptr && veh->getBaseInfluencer() != nullptr && veh->getBaseInfluencer()->getRoutingMode() == libsumo::ROUTING_MODE_AGGREGATED_CUSTOM) {
+    if (veh != nullptr && veh->getRoutingMode() == libsumo::ROUTING_MODE_AGGREGATED_CUSTOM) {
         return MSRoutingEngine::getEffortExtra(e, v, t);
     }
     return e->getMinimumTravelTime(v);

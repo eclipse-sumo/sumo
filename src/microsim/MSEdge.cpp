@@ -1553,6 +1553,18 @@ MSEdge::getDistanceAt(double pos) const {
     return fabs(myDistance + pos);
 }
 
+
+bool
+MSEdge::hasTransientPermissions() const {
+    for (const MSLane* lane : *myLanes) {
+        if (lane->hadPermissionChanges()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void
 MSEdge::clearState() {
     myPersons.clear();

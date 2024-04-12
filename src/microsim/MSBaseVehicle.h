@@ -865,19 +865,6 @@ public:
 
 
         /// @brief return the current routing mode
-        int getRoutingMode() const {
-            return myRoutingMode;
-        }
-
-        /** @brief Sets routing behavior
-         * @param[in] value an enum value controlling the different modes
-         */
-        void setRoutingMode(int value) {
-            myRoutingMode = value;
-        }
-
-
-        /// @brief return the current routing mode
         double getExtraImpatience() const {
             return myExtraImpatience;
         }
@@ -889,13 +876,7 @@ public:
             myExtraImpatience = value;
         }
 
-
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex, SUMOVehicleClass svc) const;
-
     protected:
-        ///@brief routing mode (see TraCIConstants.h)
-        int myRoutingMode;
-
         /// @brief dynamic impatience offset
         double myExtraImpatience = 0;
 
@@ -915,7 +896,19 @@ public:
     virtual bool hasInfluencer() const  = 0;
 
     /// @brief return routing mode (configures router choice but also handling of transient permission changes)
-    int getRoutingMode() const;
+    int getRoutingMode() const {
+        return myRoutingMode;
+    }
+
+    /** @brief Sets routing behavior
+     * @param[in] value an enum value controlling the different modes
+     */
+    void setRoutingMode(int value) {
+        myRoutingMode = value;
+    }
+
+
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT() const;
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *
@@ -1084,6 +1077,9 @@ protected:
      * @note:   only set by vClass rail reversing at the moment
      */
     bool myAmReversed = false;
+
+    ///@brief routing mode (see TraCIConstants.h)
+    int myRoutingMode;
 
 private:
     const NumericalID myNumericalID;

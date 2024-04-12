@@ -76,20 +76,8 @@ SUMOTrafficObject::NumericalID MSBaseVehicle::myCurrentNumericalIndex = 0;
 // Influencer method definitions
 // ===========================================================================
 
-MSBaseVehicle::BaseInfluencer::BaseInfluencer() :
-    myRoutingMode(libsumo::ROUTING_MODE_DEFAULT)
+MSBaseVehicle::BaseInfluencer::BaseInfluencer()
 {}
-
-SUMOAbstractRouter<MSEdge, SUMOVehicle>&
-MSBaseVehicle::BaseInfluencer::getRouterTT(const int rngIndex, SUMOVehicleClass svc) const {
-    if (myRoutingMode == libsumo::ROUTING_MODE_AGGREGATED) {
-        return MSRoutingEngine::getRouterTT(rngIndex, svc);
-    } else {
-        return MSNet::getInstance()->getRouterTT(rngIndex);
-    }
-}
-
-
 
 // ===========================================================================
 // method definitions
@@ -121,6 +109,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, ConstMSRoutePtr route,
     myStopUntilOffset(0),
     myOdometer(0.),
     myRouteValidity(ROUTE_UNCHECKED),
+    myRoutingMode(libsumo::ROUTING_MODE_DEFAULT),
     myNumericalID(myCurrentNumericalIndex++),
     myEdgeWeights(nullptr)
 #ifdef _DEBUG
@@ -716,10 +705,14 @@ MSBaseVehicle::hasValidRoute(std::string& msg, ConstMSRoutePtr route) const {
     MSRouteIterator last = route->end() - 1;
     // check connectivity, first
     for (MSRouteIterator e = start; e != last; ++e) {
-        if ((*e)->allowedLanes(**(e + 1), myType->getVehicleClass()) == nullptr) {
+        const MSEdge& next = **(e + 1);
+        if ((*e)->allowedLanes(next, myType->getVehicleClass()) == nullptr) {
             if (!checkJumps || !hasJump(e)) {
-                msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
-                return false;
+                if ((myRoutingMode & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) == 0
+                        || (!next.hasTransientPermissions() && !(*e)->hasTransientPermissions())) {
+                    msg = TLF("No connection between edge '%' and edge '%'.", (*e)->getID(), (*(e + 1))->getID());
+                    return false;
+                }
             }
         }
     }
@@ -1645,7 +1638,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     double startPos = nextStopIndex == 0 ? getPositionOnLane() : stops[nextStopIndex - 1].pars.endPos;
     MSRouteIterator itEnd = nextStopIndex == n - 1 ? oldEdges.end() - 1 : stops[nextStopIndex + 1].edge;
     auto endPos = nextStopIndex == n - 1 ? getArrivalPos() : stops[nextStopIndex + 1].pars.endPos;
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
     bool newDestination = nextStopIndex == n - 1 && stops[nextStopIndex].edge == oldEdges.end() - 1;
 
@@ -1741,7 +1734,7 @@ MSBaseVehicle::rerouteBetweenStops(int nextStopIndex, const std::string& info, b
     double startPos = nextStopIndex == 0 ? getPositionOnLane() : stops[nextStopIndex - 1].pars.endPos;
     MSRouteIterator itEnd = nextStopIndex == n ? oldEdges.end() - 1 : stops[nextStopIndex].edge;
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
     ConstMSEdgeVector newBetween;
     if (!teleport) {
@@ -1857,7 +1850,7 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     double startPos = nextStopIndex == 0 ? getPositionOnLane() : stops[nextStopIndex - 1].pars.endPos;
     MSRouteIterator itEnd = nextStopIndex == n ? oldEdges.end() - 1 : stops[nextStopIndex].edge;
     auto endPos = nextStopIndex == n ? getArrivalPos() : stops[nextStopIndex].pars.endPos;
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getBaseInfluencer().getRouterTT(getRNGIndex(), getVClass());
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getRouterTT();
 
     bool newDestination = nextStopIndex == n && stopEdge == oldEdges.back();
 
@@ -2209,6 +2202,26 @@ MSBaseVehicle::initTransientModelParams() {
             setCarFollowModelParameter(item.first, item.second);
         }
     }
+    const std::string routingModeStr = MSDevice::getStringParam(*this, OptionsCont::getOptions(), "rerouting.mode", "0", false);
+    try {
+        int routingMode = StringUtils::toInt(routingModeStr);
+        if (routingMode != libsumo::ROUTING_MODE_DEFAULT) {
+            setRoutingMode(routingMode);
+        }
+    } catch (NumberFormatException&) {
+        // @todo interpret symbolic constants
+        throw ProcessError(TLF("Could not interpret routing.mode '%'", routingModeStr));
+    }
+}
+
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>&
+MSBaseVehicle::getRouterTT() const {
+    if (myRoutingMode == libsumo::ROUTING_MODE_AGGREGATED) {
+        return MSRoutingEngine::getRouterTT(getRNGIndex(), getVClass());
+    } else {
+        return MSNet::getInstance()->getRouterTT(getRNGIndex());
+    }
 }
 
 
@@ -2375,19 +2388,6 @@ MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa, bool local) const 
         return -1;
     } else {
         return local ? it->second.blockedAtTimeLocal : it->second.blockedAtTime;
-    }
-}
-
-
-int
-MSBaseVehicle::getRoutingMode() const {
-    // @note: move myRoutingMode into MSBaseVehicle when allowing to set
-    // routingMode via xml input (to avoid having an
-    // influencer in a non-traci simulation)
-    if (hasInfluencer()) {
-        return getBaseInfluencer()->getRoutingMode();
-    } else {
-        return libsumo::ROUTING_MODE_DEFAULT;
     }
 }
 

@@ -743,7 +743,7 @@ Vehicle::getLaneChangeMode(const std::string& vehID) {
 
 int
 Vehicle::getRoutingMode(const std::string& vehID) {
-    return Helper::getVehicle(vehID)->getBaseInfluencer().getRoutingMode();
+    return Helper::getVehicle(vehID)->getRoutingMode();
 }
 
 
@@ -1438,7 +1438,7 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
     // build a new route between the vehicle's current edge and destination edge
     ConstMSEdgeVector newRoute;
     const MSEdge* currentEdge = *veh->getRerouteOrigin();
-    veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()).compute(
+    veh->getRouterTT().compute(
         currentEdge, destEdge, veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
     std::string errorMsg;
@@ -1448,7 +1448,7 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
     // route again to ensure usage of via/stops
     try {
         veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget",
-                     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), onInit);
+                     veh->getRouterTT(), onInit);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
@@ -1920,7 +1920,7 @@ Vehicle::setLaneChangeMode(const std::string& vehID, int laneChangeMode) {
 
 void
 Vehicle::setRoutingMode(const std::string& vehID, int routingMode) {
-    Helper::getVehicle(vehID)->getBaseInfluencer().setRoutingMode(routingMode);
+    Helper::getVehicle(vehID)->setRoutingMode(routingMode);
 }
 
 void
@@ -2076,14 +2076,14 @@ Vehicle::setEffort(const std::string& vehID, const std::string& edgeID,
 void
 Vehicle::rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    const int routingMode = veh->getBaseInfluencer().getRoutingMode();
+    const int routingMode = veh->getRoutingMode();
     if (currentTravelTimes && routingMode == ROUTING_MODE_DEFAULT) {
-        veh->getBaseInfluencer().setRoutingMode(ROUTING_MODE_AGGREGATED_CUSTOM);
+        veh->setRoutingMode(ROUTING_MODE_AGGREGATED_CUSTOM);
     }
     veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:rerouteTraveltime",
-                 veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), isOnInit(vehID));
+                 veh->getRouterTT(), isOnInit(vehID));
     if (currentTravelTimes && routingMode == ROUTING_MODE_DEFAULT) {
-        veh->getBaseInfluencer().setRoutingMode(routingMode);
+        veh->setRoutingMode(routingMode);
     }
 }
 
@@ -2137,7 +2137,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     if (!veh->isOnRoad() && veh->getParameter().wasSet(VEHPARS_FORCE_REROUTE) && veh->getRoute().getEdges().size() == 2) {
         // it's a trip that wasn't routeted yet (likely because the vehicle was added in this step. Find a route now
         veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:moveTo-tripInsertion",
-                     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), true);
+                     veh->getRouterTT(), true);
     }
     // find edge in the remaining route
     MSRouteIterator it = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), destinationRouteEdge);
