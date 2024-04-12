@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-11 11:58:47 by Eclipse SUMO netconvert Version v1_19_0+1778-d338a9b14ff
+<!-- generated on 2024-04-12 13:00:41 by Eclipse SUMO netconvert Version v1_19_0+1806-3a769482ef6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":4213903960_2_0" index="0" allow="tram" speed="13.89" length="11.79" shape="22.51,9.71 25.77,10.16 28.43,10.71 31.04,10.88 34.13,10.17"/>
     </edge>
     <edge id=":4213903960_3" function="internal" bidi=":4213903960_0">
-        <lane id=":4213903960_3_0" index="0" allow="tram" speed="13.89" length="1.24" shape="32.97,10.62 34.13,10.17"/>
+        <lane id=":4213903960_3_0" index="0" allow="tram" speed="13.89" length="6.20" shape="28.28,12.18 30.07,11.78 31.26,11.37 32.42,10.86 34.13,10.17"/>
     </edge>
     <edge id=":4673135620_0" function="internal">
         <lane id=":4673135620_0_0" index="0" allow="tram" speed="0.10" length="0.10" shape="0.00,14.74 0.00,14.74"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":588181300_1_0" index="0" allow="tram" speed="13.89" length="8.37" shape="28.08,12.21 19.83,13.64"/>
     </edge>
     <edge id=":588181300_2" function="internal" bidi=":588181300_1">
-        <lane id=":588181300_2_0" index="0" allow="tram" speed="13.89" length="13.31" shape="19.83,13.64 23.28,13.15 26.39,12.54 29.46,11.74 32.78,10.68"/>
+        <lane id=":588181300_2_0" index="0" allow="tram" speed="13.89" length="8.37" shape="19.83,13.64 28.08,12.21"/>
     </edge>
     <edge id=":588181300_3" function="internal" bidi=":588181300_0">
         <lane id=":588181300_3_0" index="0" allow="tram" speed="13.89" length="14.08" shape="19.83,13.64 23.42,13.38 26.85,13.46 30.27,13.84 33.83,14.47"/>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="-46140379#1" from="588181300" to="4213903960" priority="17" type="railway.tram" spreadType="center" shape="21.39,13.45 28.54,12.13 32.32,10.84" bidi="46140379#1">
-        <lane id="-46140379#1_0" index="0" allow="tram" speed="13.89" length="0.20" shape="32.78,10.68 32.97,10.62">
+        <lane id="-46140379#1_0" index="0" allow="tram" speed="13.89" length="0.20" shape="28.08,12.21 28.28,12.18">
             <param key="origId" value="46140379"/>
         </lane>
     </edge>

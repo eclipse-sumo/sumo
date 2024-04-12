@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:45 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-04-12 13:00:51 by Eclipse SUMO netconvert Version v1_19_0+1806-3a769482ef6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-390305.13,-5819836.66" convBoundary="0.00,0.00,606.89,1468.17" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":100_0" function="internal" bidi=":100_1">
-        <lane id=":100_0_0" index="0" allow="tram" speed="13.89" length="0.48" shape="468.41,126.13 468.86,126.30"/>
+        <lane id=":100_0_0" index="0" allow="tram" speed="13.89" length="0.48" shape="468.42,126.10 468.86,126.30"/>
     </edge>
     <edge id=":100_1" function="internal" bidi=":100_0">
         <lane id=":100_1_0" index="0" allow="tram" speed="13.89" length="0.48" shape="468.86,126.30 468.42,126.10"/>
@@ -137,7 +137,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":126_10_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="7.64" length="4.01" shape="491.25,142.27 494.70,144.31"/>
     </edge>
     <edge id=":126_3" function="internal" bidi=":126_4">
-        <lane id=":126_3_0" index="0" allow="tram" speed="13.89" length="18.33" shape="484.49,135.31 480.90,133.01 476.67,130.55 472.38,128.20 468.59,126.22"/>
+        <lane id=":126_3_0" index="0" allow="tram" speed="13.89" length="18.34" shape="484.49,135.31 480.92,132.96 476.73,130.42 472.45,128.04 468.61,126.18"/>
     </edge>
     <edge id=":126_4" function="internal" bidi=":126_3">
         <lane id=":126_4_0" index="0" allow="tram" speed="13.89" length="18.34" shape="468.61,126.18 472.45,128.04 476.73,130.42 480.92,132.96 484.49,135.31"/>
@@ -306,7 +306,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origTo" value="25664680"/>
     </edge>
     <edge id="1" from="126" to="100" priority="17" type="railway.tram" spreadType="center" shape="482.13,133.68 478.98,131.51 473.95,128.46 468.96,126.33" bidi="17">
-        <lane id="1_0" index="0" allow="tram" speed="13.89" length="0.20" shape="468.59,126.22 468.41,126.13">
+        <lane id="1_0" index="0" allow="tram" speed="13.89" length="0.20" shape="468.61,126.18 468.42,126.10">
             <param key="origId" value="144014237"/>
         </lane>
         <param key="origFrom" value="4590472039"/>

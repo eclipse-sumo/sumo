@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:33 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-04-12 13:00:48 by Eclipse SUMO netconvert Version v1_19_0+1806-3a769482ef6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1582162279_0_0" index="0" allow="tram" speed="13.89" length="24.26" shape="136.59,586.59 134.07,591.13 131.12,597.40 128.44,603.80 126.74,608.71"/>
     </edge>
     <edge id=":1582162279_1" function="internal">
-        <lane id=":1582162279_1_0" index="0" allow="tram" speed="13.89" length="16.09" shape="131.07,593.21 126.74,608.71"/>
+        <lane id=":1582162279_1_0" index="0" allow="tram" speed="13.89" length="16.09" shape="130.98,593.18 126.74,608.71"/>
     </edge>
     <edge id=":1582162305_0" function="internal">
         <lane id=":1582162305_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.30" shape="252.25,611.18 251.97,611.09"/>
@@ -156,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3155104124_1_0" index="0" allow="tram" speed="13.89" length="16.54" shape="142.54,562.21 141.24,558.52 140.81,554.29 140.98,549.96 141.46,545.94"/>
     </edge>
     <edge id=":3155104124_2" function="internal" bidi=":3155104124_4">
-        <lane id=":3155104124_2_0" index="0" allow="tram" speed="13.89" length="16.96" shape="141.48,545.94 138.42,562.62"/>
+        <lane id=":3155104124_2_0" index="0" allow="tram" speed="13.89" length="16.95" shape="141.46,545.94 138.42,562.62"/>
     </edge>
     <edge id=":3155104124_3" function="internal">
         <lane id=":3155104124_3_0" index="0" allow="tram" speed="13.89" length="13.96" shape="138.42,562.62 138.88,559.09 138.88,555.70 138.71,552.29 138.67,548.69"/>
@@ -184,7 +184,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":3155104144_1_0" index="0" allow="tram" speed="13.89" length="12.04" shape="167.23,576.77 164.02,576.04 161.33,575.44 158.74,574.62 155.78,573.23"/>
     </edge>
     <edge id=":3155104145_0" function="internal" bidi=":3155104145_3">
-        <lane id=":3155104145_0_0" index="0" allow="tram" speed="13.89" length="17.20" shape="135.48,576.38 131.13,593.02"/>
+        <lane id=":3155104145_0_0" index="0" allow="tram" speed="13.89" length="17.20" shape="135.48,576.38 131.03,592.99"/>
     </edge>
     <edge id=":3155104145_1" function="internal">
         <lane id=":3155104145_1_0" index="0" allow="tram" speed="13.89" length="1.45" shape="135.29,577.78 135.48,577.42 135.49,577.13 135.45,576.81 135.48,576.38"/>
@@ -251,7 +251,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":51519940_0_0" index="0" allow="tram" speed="13.89" length="17.77" shape="143.24,533.79 142.99,537.96 143.15,542.67 143.69,547.34 144.59,551.42"/>
     </edge>
     <edge id=":51519940_1" function="internal">
-        <lane id=":51519940_1_0" index="0" allow="tram" speed="13.89" length="12.08" shape="143.24,533.79 141.50,545.75"/>
+        <lane id=":51519940_1_0" index="0" allow="tram" speed="13.89" length="12.08" shape="143.24,533.79 141.49,545.74"/>
     </edge>
     <edge id=":51519940_2" function="internal">
         <lane id=":51519940_2_0" index="0" allow="tram" speed="5.06" length="8.06" shape="141.49,545.74 141.86,544.90 142.51,545.57 143.42,547.74 144.59,551.42"/>
@@ -279,7 +279,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="-310143561#0" from="3155104145" to="1582162279" priority="17" type="railway.tram" spreadType="center" shape="135.09,578.04 132.62,587.15 131.51,591.46 131.06,593.27 127.15,607.17" bidi="310143561#0">
-        <lane id="-310143561#0_0" index="0" allow="tram" speed="13.89" length="0.20" shape="131.13,593.02 131.07,593.21"/>
+        <lane id="-310143561#0_0" index="0" allow="tram" speed="13.89" length="0.20" shape="131.03,592.99 130.98,593.18"/>
     </edge>
     <edge id="-310143561#1" from="51519935" to="3155104145" priority="17" type="railway.tram" spreadType="center" bidi="310143561#1">
         <lane id="-310143561#1_0" index="0" allow="tram" speed="13.89" length="0.20" shape="135.53,576.18 135.48,576.38"/>
@@ -288,7 +288,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-310143561#2_0" index="0" allow="tram" speed="13.89" length="8.54" shape="138.42,562.62 138.20,563.65 136.64,570.97"/>
     </edge>
     <edge id="-310143561#3" from="51519940" to="3155104124" priority="17" type="railway.tram" spreadType="center" shape="143.04,535.38 142.25,540.71 141.70,544.38 140.27,554.26 139.79,556.28" bidi="310143561#3">
-        <lane id="-310143561#3_0" index="0" allow="tram" speed="13.89" length="0.20" shape="141.50,545.75 141.48,545.94"/>
+        <lane id="-310143561#3_0" index="0" allow="tram" speed="13.89" length="0.20" shape="141.49,545.74 141.46,545.94"/>
     </edge>
     <edge id="23198871" from="28449324" to="28449327" priority="12" type="highway.primary" spreadType="center">
         <lane id="23198871_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="8.28" shape="121.92,558.58 123.12,550.39"/>

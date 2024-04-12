@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-18 16:05:23 by Eclipse SUMO netconvert Version v1_19_0+1376-c024bb058aa
+<!-- generated on 2024-04-12 13:00:48 by Eclipse SUMO netconvert Version v1_19_0+1806-3a769482ef6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -303,7 +303,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-4490256#3_0" index="0" allow="rail_urban" speed="16.67" length="5.47" shape="3516.99,1216.93 3515.75,1213.31"/>
     </edge>
     <edge id="-4490257#1" from="4863934086" to="27011998" priority="19" type="railway.light_rail" spreadType="center" bidi="4490257#1">
-        <lane id="-4490257#1_0" index="0" allow="rail_urban" speed="16.67" length="1.38" shape="4061.34,2147.65 4061.17,2147.56"/>
+        <lane id="-4490257#1_0" index="0" allow="rail_urban" speed="16.67" length="1.38" shape="4061.86,2147.94 4061.68,2147.85"/>
     </edge>
     <edge id="-4490257#2" from="4353923344" to="4863934086" priority="19" type="railway.light_rail" spreadType="center" shape="4308.20,2181.51 4292.55,2183.65 4252.04,2186.51 4230.97,2187.27 4212.60,2187.93 4201.47,2187.55 4190.59,2186.47 4177.60,2184.77 4167.16,2183.03 4149.33,2179.04 4132.96,2174.63 4113.01,2168.52 4094.81,2162.20 4078.11,2155.37 4061.86,2147.94" bidi="4490257#2">
         <lane id="-4490257#2_0" index="0" allow="rail_urban" speed="16.67" length="252.90" shape="4306.72,2181.71 4292.55,2183.65 4252.04,2186.51 4230.97,2187.27 4212.60,2187.93 4201.47,2187.55 4190.59,2186.47 4177.60,2184.77 4167.16,2183.03 4149.33,2179.04 4132.96,2174.63 4113.01,2168.52 4094.81,2162.20 4078.11,2155.37 4061.86,2147.94"/>
@@ -375,7 +375,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-713903648_0" index="0" allow="rail_urban" speed="11.11" length="33.20" shape="37533.22,2867.57 37500.41,2870.60"/>
     </edge>
     <edge id="-72984377#0" from="7952812615" to="317301801" priority="19" type="railway.light_rail" spreadType="center" bidi="72984377#0">
-        <lane id="-72984377#0_0" index="0" allow="rail_urban" speed="16.67" length="1.64" shape="8665.90,2303.16 8665.83,2303.24"/>
+        <lane id="-72984377#0_0" index="0" allow="rail_urban" speed="16.67" length="1.64" shape="8666.00,2303.05 8665.89,2303.17"/>
         <param key="railway:track_ref" value="3"/>
     </edge>
     <edge id="-72984377#1" from="3808684896" to="7952812615" priority="19" type="railway.light_rail" spreadType="center" shape="8771.11,2188.56 8763.07,2197.41 8738.63,2223.92 8729.20,2234.19 8719.72,2244.63 8692.54,2274.40 8666.00,2303.05" bidi="72984377#1">

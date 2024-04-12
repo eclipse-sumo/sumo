@@ -125,33 +125,19 @@ Warning: Could not import polygon from relation '2678660' (name: reason: found g
 Warning: Could not import polygon from relation '4065109' (missing ways)
 Warning: Could not import polygon from relation '8178851' (missing ways)
 Warning: 7 total messages of type: Could not import polygon from relation '%' (missing ways)
-Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
-Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
-Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
 Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
-Warning: Unequal lengths of bidi lane ':4213903960_0_0' and lane ':4213903960_7_0' (9.74 != 5.31).
+Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_2_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_5_0' (28.48 != 24.45).
+Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_0_0' (31.57 != 31.56).
+Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_1_0' and lane ':cluster_30731510_588181257_588181258_588181259_6_0' (33.10 != 28.85).
+Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_2_0' and lane ':cluster_30731510_588181257_588181258_588181259_5_0' (33.14 != 29.02).
 Warning: At actuated tlLogic 'GS_25662542', linkIndex 13,14,15 has no controlling detector.
 Warning: At actuated tlLogic 'cluster_1673527224_1673527227_21487161_303436603_#9more', linkIndex 8,9,10,30 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_1840326421_cluster_1828018077_1828018093_1828018094_1828018095_#5more', linkIndex 2,8,9,10,31,32,33,34 has no controlling detector.
 Warning: At actuated tlLogic 'joinedS_cluster_1876468341_25665883_29219439_5747234980_#4more_cluster_262469634_29219441_961875301_961875308_#2more', linkIndex 5,6,16,24,32,33 has no controlling detector.
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle '21_tram_12:1'.
-Warning: 18 total messages of type: Unequal lengths of bidi lane '%' and lane '%' (% != %).
-Warning: Unequal lengths of bidi lane ':1633112625_2_0' and lane ':1633112625_1_0' (17.11 != 16.87).
-Warning: Unequal lengths of bidi lane ':1633759847_1_0' and lane ':1633759847_2_0' (18.18 != 18.04).
-Warning: Unequal lengths of bidi lane ':30731492_0_0' and lane ':30731492_3_0' (17.32 != 17.16).
 Warning: Unequal lengths of bidi lane ':311264846_3_0' and lane ':311264846_0_0' (13.48 != 9.46).
-Warning: Unequal lengths of bidi lane ':4213903960_0_0' and lane ':4213903960_7_0' (9.74 != 5.31).
-Warning: Unequal lengths of bidi lane ':4213903960_1_0' and lane ':4213903960_5_0' (10.53 != 5.49).
-Warning: Unequal lengths of bidi lane ':4213903960_2_0' and lane ':4213903960_6_0' (7.77 != 2.88).
-Warning: Unequal lengths of bidi lane ':4213903960_3_0' and lane ':4213903960_4_0' (8.03 != 3.44).
-Warning: Unequal lengths of bidi lane ':4673135630_1_0' and lane ':4673135630_0_0' (9.72 != 9.65).
-Warning: Unequal lengths of bidi lane ':588181297_3_0' and lane ':588181297_0_0' (13.59 != 8.69).
-Warning: Unequal lengths of bidi lane ':588181300_2_0' and lane ':588181300_1_0' (13.32 != 8.38).
-Warning: Unequal lengths of bidi lane ':98973667_1_0' and lane ':98973667_0_0' (11.42 != 11.26).
-Warning: Unequal lengths of bidi lane ':98973667_2_0' and lane ':98973667_3_0' (10.43 != 10.42).
 Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_2_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_5_0' (28.48 != 24.45).
-Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_0_0' (31.58 != 31.56).
-Warning: Unequal lengths of bidi lane ':cluster_25664673_4590472030_4590472039_4590472040_4_0' and lane ':cluster_25664673_4590472030_4590472039_4590472040_3_0' (30.14 != 30.13).
+Warning: Unequal lengths of bidi lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_9_0' and lane ':cluster_1668685163_262478055_3253177076_3820768524_#9more_0_0' (31.57 != 31.56).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_1_0' and lane ':cluster_30731510_588181257_588181258_588181259_6_0' (33.10 != 28.85).
 Warning: Unequal lengths of bidi lane ':cluster_30731510_588181257_588181258_588181259_2_0' and lane ':cluster_30731510_588181257_588181258_588181259_5_0' (33.14 != 29.02).
 Warning: busStop '30731700' on lane '167272531#9_0' is too short for vehicle 'pt_tram_12:1.0'.
