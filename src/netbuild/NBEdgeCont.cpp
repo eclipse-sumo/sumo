@@ -925,6 +925,12 @@ NBEdgeCont::recheckLanes() {
                 }
             }
         }
+        // check for matching bidi lane shapes (at least for the simple case of 1-lane edges)
+        const NBEdge* bidi = edge->getBidiEdge();
+        if (bidi != nullptr && edge->getNumLanes() == 1 && bidi->getNumLanes() == 1 && edge->getID() < bidi->getID()) {
+            edge->getLaneStruct(0).shape = bidi->getLaneStruct(0).shape.reverse();
+        }
+
         // check for valid offset and speed
         const double startOffset = edge->isBidiRail() ? edge->getTurnDestination(true)->getEndOffset() : 0;
         int i = 0;
