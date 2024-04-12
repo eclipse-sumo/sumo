@@ -26,7 +26,9 @@ title: ChangeLog
   - traffic light detectors no longer assume having seen a vehicle on step before the simulation started #14590
   - Taxi reservations from the same busStop are now grouped if the dispatcher permits it #14612
   - Removed unneeded warning when a person uses a vehicular connection #14619
-  - Fixed invalid departSpeed for IDM in subsecond simulation #14621     
+  - Fixed invalid departSpeed for IDM in subsecond simulation #14621
+  - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
+  - Fixed crash when loading person stages without a person (now writes an error) #14654 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -38,18 +40,21 @@ title: ChangeLog
   - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
   - Lane markings are rendered below the junction bubble again #14417 (regression in 1.12.0)
   - The unsupported attribute "lines" is no longer written for a personTrip #14463 (regression in 1.15.0)
+  - Fixed crash on undo #14702 (regression in 1.15.0)
   - Fixed invalid "save" dialog after loading additionals from file. #14464 (regression in 1.16.0)
   - The size and position of the settings dialog are now stored across sessions. #14571 (regression in 1.16.0)
   - Fixed missing connections after adding edge #14391 (regression in 1.19.0)
   - Alt+Hotkeys for menus are working again #14396 (regression in 1.19.0)
   - Fixed superfluous scrollbars in combo boxes #14412 (regression in 1.19.0)
+  - Fixed numerical errors in poisson flow rate #14648 (regression in 1.19.0)
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
   - Tool plot_trajectories.py is now usable. #14147
   - "copy type" now also copies vehicle class #14444
   - Fixed crash when trying to define ride between busStops #14462
   - Fixed use of python tools involving space in paths #14469
   - Fixed saving of python tool config involving space in paths #14506
-  - Fixed invalid state of save-sumoconfic button after changing option #14581 
+  - Fixed invalid state of save-sumoconfic button after changing option #14581
+  - Saving traffic light programs to a file now writes all attributes #14674 
 
 - netcovert 
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
@@ -69,7 +74,10 @@ title: ChangeLog
   - bike lane default width is now applied to both directions in OSM import #14560
   - Fixed missing bus connection in OSM import. #14507
   - Fixed bug where attribute `allowed` and `disallowed` were not minimal #14632
-  - Large circular network structures are no longer misclassified as roundabout. The size threshold can be configured with option **--roundabouts.guess.max-length** #14634 
+  - Large circular network structures are no longer misclassified as roundabout. The size threshold can be configured with option **--roundabouts.guess.max-length** #14634
+  - Motorway ramp building no longer fails when the default IDs for new junctions and edges are already in the network. #14658
+  - Fixed invalid walking area shape #14688
+  - Fixed the root causes for "Unequal lengths of bidi lane" warnings #14699 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -103,7 +111,8 @@ title: ChangeLog
   - xml output from edgeDataDiff can now be loaded in netedit and sumo-gui. #14387
   - tileGet.py is able to use maQuest service again. #14202
   - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562
-  - osmGet.py: Fixed missing building shapes (also affects osmWebWizard.py) #14598 
+  - osmGet.py: Fixed missing building shapes (also affects osmWebWizard.py) #14598
+  - Fixed problem locating binary applications on windows. #14676
     
 - Activitygen: Fixed wrong working hour fallback times. #14344
  
@@ -122,7 +131,11 @@ title: ChangeLog
   - speedFactorPremature can now make use of stop parameter "flexArrival" if a reference time other than the scheduled arrival is needed. #14503
   - Using jumps together with 'via' is now supported. #14585
   - Option **--weights.tls-penalty** now also applies to tls-controlled pedestrian crossings. #14653
-  - Option **--vehroute-output.cost** now applies to routed persons #14655 
+  - Option **--vehroute-output.cost** now applies to routed persons #14655
+  - The [battery device](Models/Electric.md) now supports saving and loading state. #14624
+  - Stages generated from `<personTrip>` now inherit params from the personTrip. #14513
+  - Actuated traffic lights are now more flexible when controlling minor links (reduced warnings of type "... has no controlling detector" warnings) #14692
+  - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -168,7 +181,9 @@ title: ChangeLog
   - Function `vehicle.replaceStop(..., teleport=1)` is now usable without enabling teleports (by using a "jump" to move the vehicle) #14438, #14468
   - inductionloop.getIntervalOccupancy, getIntervalMeanSpeed and getIntervalVehicleNumber are now retrievable in meso #7492
   - [TocDevice](ToC_Device.md) openGap parameters can now be set via `vehicle.setParameter` #14582
-  - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589 
+  - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589
+  - Added functions `edge.getFromJunction`, `edge.getToJunction`, `junction.getIncomingEdges`, `junction.getOutgoingEdges` to query the network topology. #14490
+  - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205 
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
@@ -179,6 +194,8 @@ title: ChangeLog
   - plot_trajectories.py now supports meso fcd when setting option **--meso**. #14592
   - sumolib.net now supports `getVersion` to retrieve the network version #14636
   - osmWebWizard now takes into account traffic lights for intermodal routing to avoid persons missing their ride #14653
+  - osmWebWizard now runs with option **--tls.actuated.jam-threshold 30** to improve the capabilities (and efficiency) of traffic lights #14580
+  - Added tools/visualization/plotWKT.py for plotting WKT files    
 
 
 ### Miscellaneous
@@ -187,6 +204,10 @@ title: ChangeLog
 - Fixed inconsistent documentation for jumps #14316
 - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
 - Plexe: Improved whole-platoon lane change procedure. #14395
+- Added 6 new configuration files for the [MMPEVEM](Models/MMPEVEM.md) model. #14499
+- The battery device now uses param "rotatingMass" instead of "internalMomentOfInertia". The old value has been deprecated. The default value was changed to improve realism. #12513, #13422
+- The network now contains outline shapes for pedestrian crossings #11668
+- stop-output has slightly reordered attributes to easier see the busStop-id without horizontal scrolling #14542 
 
 
 ## Version 1.19.0 (07.11.2023)
