@@ -1813,7 +1813,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
                     const NBEdge* edge = *it_e;
                     // compute foe internal lanes
-                    if (this == edge || con.toEdge == edge) {
+                    if ((this == edge || con.toEdge == edge) && !isRailway(conPermissions)) {
                         foeInternalLinks.push_back(index);
                         if (con.toEdge == edge &&
                                 ((isRightTurn && getJunctionPriority(&n) > 0) || (isTurn && con.tlID != ""))) {
