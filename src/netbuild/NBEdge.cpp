@@ -54,6 +54,7 @@
 //#define DEBUG_REPLACECONNECTION
 //#define DEBUG_JUNCTIONPRIO
 //#define DEBUG_TURNSIGNS
+//#define DEBUG_CUT_LANES
 #define DEBUGID ""
 #define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
@@ -774,12 +775,21 @@ PositionVector
 NBEdge::cutAtIntersection(const PositionVector& old) const {
     PositionVector shape = old;
     shape = startShapeAt(shape, myFrom, myFromBorder);
+#ifdef DEBUG_CUT_LANES
+    if (DEBUGCOND) std::cout << getID() << " cutFrom=" << shape << "\n";
+#endif
     if (shape.size() < 2) {
         // only keep the last snippet
         const double oldLength = old.length();
         shape = old.getSubpart(oldLength - 2 * POSITION_EPS, oldLength);
+#ifdef DEBUG_CUT_LANES
+        if (DEBUGCOND) std::cout << getID() << " cutFromFallback=" << shape << "\n";
+#endif
     }
     shape = startShapeAt(shape.reverse(), myTo, myToBorder).reverse();
+#ifdef DEBUG_CUT_LANES
+    if (DEBUGCOND) std::cout << getID() << " cutTo=" << shape << "\n";
+#endif
     // sanity checks
     if (shape.length() < POSITION_EPS) {
         if (old.length() < 2 * POSITION_EPS) {
@@ -790,6 +800,9 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
             shape = old.getSubpart(midpoint - POSITION_EPS, midpoint + POSITION_EPS);
             assert(shape.size() >= 2);
             assert(shape.length() > 0);
+#ifdef DEBUG_CUT_LANES
+            if (DEBUGCOND) std::cout << getID() << " fallBackShort=" << shape << "\n";
+#endif
         }
     } else {
         // @note If the node shapes are overlapping we may get a shape which goes in the wrong direction
@@ -811,6 +824,9 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
                     assert(shape.size() >= 2);
                     assert(shape.length() > 0);
                 }
+#ifdef DEBUG_CUT_LANES
+                if (DEBUGCOND) std::cout << getID() << " fallBackReversed=" << shape << "\n";
+#endif
             } else {
                 const double midpoint = shape.length() / 2;
                 // cut to size and reverse
@@ -820,6 +836,9 @@ NBEdge::cutAtIntersection(const PositionVector& old) const {
                     // the shape has a sharp turn near the midpoint
                 }
                 shape = shape.reverse();
+#ifdef DEBUG_CUT_LANES
+                if (DEBUGCOND) std::cout << getID() << " fallBackReversed2=" << shape << " mid=" << midpoint << "\n";
+#endif
             }
             // make short edge flat (length <= 2 * POSITION_EPS)
             const double z = (shape[0].z() + shape[1].z()) / 2;
