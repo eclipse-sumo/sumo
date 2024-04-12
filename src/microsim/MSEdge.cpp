@@ -341,7 +341,10 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
             }
         }
     }
-    if (!onInit) {
+    if (onInit) {
+        myOriginalMinimumPermissions = myMinimumPermissions;
+        myOriginalCombinedPermissions = myCombinedPermissions;
+    } else {
         rebuildAllowedTargets(false);
         for (MSEdge* pred : myPredecessors) {
             pred->rebuildAllowedTargets(false);

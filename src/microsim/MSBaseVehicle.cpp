@@ -2378,6 +2378,20 @@ MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa, bool local) const 
     }
 }
 
+
+int
+MSBaseVehicle::getRoutingMode() const {
+    // @note: move myRoutingMode into MSBaseVehicle when allowing to set
+    // routingMode via xml input (to avoid having an
+    // influencer in a non-traci simulation)
+    if (hasInfluencer()) {
+        return getBaseInfluencer()->getRoutingMode();
+    } else {
+        return libsumo::ROUTING_MODE_DEFAULT;
+    }
+}
+
+
 #ifdef _DEBUG
 void
 MSBaseVehicle::initMoveReminderOutput(const OptionsCont& oc) {

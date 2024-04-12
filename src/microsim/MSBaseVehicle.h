@@ -914,6 +914,8 @@ public:
 
     virtual bool hasInfluencer() const  = 0;
 
+    /// @brief return routing mode (configures router choice but also handling of transient permission changes)
+    int getRoutingMode() const;
 
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *

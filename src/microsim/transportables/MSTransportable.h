@@ -385,6 +385,9 @@ public:
         return false;
     }
 
+    /// @brief return routing mode (configures router choice but also handling of transient permission changes)
+    virtual int getRoutingMode() const;
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);

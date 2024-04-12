@@ -570,7 +570,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     if (toEdge == nullptr) {
         throw TraCIException("Unknown to edge '" + to + "'.");
     }
-    SUMOVehicle* vehicle = nullptr;
+    MSBaseVehicle* vehicle = nullptr;
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID == "" ? DEFAULT_VTYPE_ID : typeID);
     if (type == nullptr) {
         throw TraCIException("The vehicle type '" + typeID + "' is not known.");
@@ -579,7 +579,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
     pars->id = "simulation.findRoute";
     try {
         ConstMSRoutePtr const routeDummy = std::make_shared<MSRoute>("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-        vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        vehicle = dynamic_cast<MSBaseVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false));
         std::string msg;
         if (!vehicle->hasValidRouteStart(msg)) {
             MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
@@ -587,6 +587,7 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         }
         // we need to fix the speed factor here for deterministic results
         vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+        vehicle->getBaseInfluencer().setRoutingMode(routingMode);
     } catch (ProcessError& e) {
         throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + e.what() + ")");
     }

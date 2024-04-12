@@ -162,6 +162,8 @@ public:
      */
     virtual SUMOVehicleClass getVClass() const = 0;
 
+    virtual int getRoutingMode() const = 0;
+
     /** @brief Returns the object's maximum speed (minimum of technical and desired maximum speed)
      * @return The object's maximum speed
      */

@@ -40,6 +40,7 @@
 #include <utils/router/RailEdge.h>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
+#include <libsumo/TraCIConstants.h>
 #include "MSNet.h"
 
 
@@ -606,7 +607,9 @@ public:
             return false;
         }
         const SUMOVehicleClass svc = vehicle->getVClass();
-        return (myCombinedPermissions & svc) != svc;
+        return ((vehicle->getRoutingMode() & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS)
+            ? (myOriginalCombinedPermissions & svc) != svc
+            : (myCombinedPermissions & svc) != svc);
     }
 
     /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
@@ -923,6 +926,11 @@ protected:
     SVCPermissions myMinimumPermissions = SVCAll;
     /// @brief The union of lane permissions for this edge
     SVCPermissions myCombinedPermissions = 0;
+
+    /// @brief The original intersection of lane permissions for this edge (before temporary modifications)
+    SVCPermissions myOriginalMinimumPermissions = SVCAll;
+    /// @brief The original union of lane permissions for this edge (before temporary modifications)
+    SVCPermissions myOriginalCombinedPermissions;
     /// @}
 
     /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
