@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 13:29:17 by Eclipse SUMO sumo Version v1_19_0+1295-20871755e55
+<!-- generated on 2024-04-12 11:15:26 by Eclipse SUMO sumo Version v1_19_0+1803-069e576fb4d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -185,13 +185,6 @@
         <pedestrian.striping.reserve-oncoming.max value="1.28" type="FLOAT" help="Maximum width in m to reserve for oncoming pedestrians"/>
         <pedestrian.striping.legacy-departposlat value="false" type="BOOL" help="Interpret departPosLat for walks in legacy style"/>
         <pedestrian.striping.walkingarea-detail value="4" type="INT" help="Generate INT intermediate points to smooth out lanes within the walkingarea"/>
-        <pedestrian.jupedsim.step-length value="0.01" type="TIME" help="The update interval of the JuPedSim simulation (in seconds)"/>
-        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT" help="The distance to accept the JuPedSim arrival point (in meters)"/>
-        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR" help="The submodel to use in JuPedSim (currently only &apos;CollisionFreeSpeed&apos;)"/>
-        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT" help="The neighbor repulsion strength of the JuPedSim model"/>
-        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT" help="The neighbor repulsion range of the JuPedSim model (in meters)"/>
-        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT" help="The geometry repulsion strength of the JuPedSim model"/>
-        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT" help="The geometry repulsion range of the JuPedSim model (in meters)"/>
         <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
         <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
         <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
@@ -224,6 +217,7 @@
         <device.rerouting.adaptation-steps value="180" synonymes="device.routing.adaptation-steps" type="INT" help="The number of steps for moving average weight of prior edge weights"/>
         <device.rerouting.adaptation-interval value="1" synonymes="device.routing.adaptation-interval" type="TIME" help="The interval for updating the edge weights"/>
         <device.rerouting.with-taz value="false" synonymes="device.routing.with-taz with-taz" type="BOOL" help="Use zones (districts) as routing start- and endpoints"/>
+        <device.rerouting.mode value="0" type="STR" help="Set routing flags (8 ignores temporary blockages)"/>
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
         <device.rerouting.threads value="0" synonymes="routing-threads" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
@@ -493,7 +487,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

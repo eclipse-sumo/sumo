@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 13:29:17 by Eclipse SUMO sumo Version v1_19_0+1295-20871755e55
+<!-- generated on 2024-04-12 11:15:26 by Eclipse SUMO sumo Version v1_19_0+1803-069e576fb4d
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -217,13 +217,6 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
-            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
@@ -258,6 +251,7 @@
             <xsd:element name="device.rerouting.adaptation-steps" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.adaptation-interval" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.with-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.rerouting.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.init-with-loaded-weights" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.synchronize" type="boolOptionType" minOccurs="0"/>
@@ -569,7 +563,6 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
-            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
