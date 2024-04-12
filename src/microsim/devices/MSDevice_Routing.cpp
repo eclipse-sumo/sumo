@@ -74,6 +74,9 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addSynonyme("device.rerouting.with-taz", "with-taz");
     oc.addDescription("device.rerouting.with-taz", "Routing", TL("Use zones (districts) as routing start- and endpoints"));
 
+    oc.doRegister("device.rerouting.mode", new Option_String("0"));
+    oc.addDescription("device.rerouting.mode", "Routing", TL("Set routing flags (8 ignores temporary blockages)"));
+
     oc.doRegister("device.rerouting.init-with-loaded-weights", new Option_Bool(false));
     oc.addDescription("device.rerouting.init-with-loaded-weights", "Routing", TL("Use weight files given with option --weight-files for initializing edge weights"));
 
