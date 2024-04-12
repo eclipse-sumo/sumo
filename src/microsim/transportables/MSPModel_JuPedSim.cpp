@@ -349,8 +349,10 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
             }
         }
-
-        if (newPosition.distanceTo2D(state->getNextWaypoint().first) < 2 * state->getNextWaypoint().second) {
+        // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
+        // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
+        const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
+        if (newPosition.distanceTo2D(state->getNextWaypoint().first) < state->getNextWaypoint().second + slack) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk

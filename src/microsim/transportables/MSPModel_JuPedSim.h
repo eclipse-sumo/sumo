@@ -145,7 +145,6 @@ private:
         double myLanePosition;
         /// @brief whether the pedestrian is waiting to start its walk
         bool myWaitingToEnter;
-        int myNumStages;
     };
 
     /// @brief The network on which the simulation runs.
@@ -226,5 +225,5 @@ private:
     void preparePolygonForDrawing(const GEOSGeometry* polygon, const std::string& polygonId, const RGBColor& color);
     static const GEOSGeometry* getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea);
     static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
-    static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates=false);
+    static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
 };

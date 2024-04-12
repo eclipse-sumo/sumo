@@ -56,7 +56,7 @@
 * MSPerson::MSPersonStage_Access - methods
 * ----------------------------------------------------------------------- */
 MSPerson::MSPersonStage_Access::MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
-        const double arrivalPos, const double arrivalPosLat, const double dist, const bool isExit, 
+        const double arrivalPos, const double arrivalPosLat, const double dist, const bool isExit,
         const Position& startPos, const Position& endPos) :
     MSStage(MSStageType::ACCESS, destination, toStop, arrivalPos, arrivalPosLat),
     myDist(dist), myAmExit(isExit) {
@@ -186,9 +186,8 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                         }
                     }
                     newStage = new MSPersonStage_Access(accessEdge, prevStop, arrivalPos, 0.0, access->length, true,
-                                                    trainExit, platformEntry);
-                }
-                else {
+                                                        trainExit, platformEntry);
+                } else {
                     const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
                     const double startPosLat = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePosLat(0) : prior->getArrivalPosLat();
                     // The start and end attributes of the access stage are equal in this case, but we need to compute the arrival position relatively
@@ -253,11 +252,15 @@ MSPerson::reroute(const ConstMSEdgeVector& newEdges, double departPos, int first
     //    << " departPos=" << getEdgePos()
     //    << " arrivalPos=" <<  getNextStage(nextIndex - 1)->getArrivalPos()
     //    << "\n";
+    MSStage* toBeReplaced = getNextStage(nextIndex - 1);
+    if (newEdges.back() != toBeReplaced->getDestination()) {
+
+    }
     MSStageWalking* newStage = new MSStageWalking(getID(), newEdges,
-            getNextStage(nextIndex - 1)->getDestinationStop(), -1,
+            toBeReplaced->getDestinationStop(), -1,
             -1,
             departPos,
-            getNextStage(nextIndex - 1)->getArrivalPos(),
+            toBeReplaced->getArrivalPos(),
             MSPModel::UNSPECIFIED_POS_LAT);
     appendStage(newStage, nextIndex);
     // remove stages in reverse order so that proceed will only be called at the last removal
