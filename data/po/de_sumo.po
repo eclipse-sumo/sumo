@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-09 18:45+0200\n"
-"PO-Revision-Date: 2024-04-11 11:30+0000\n"
+"PO-Revision-Date: 2024-04-12 07:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -8207,10 +8207,14 @@ msgstr ""
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
+"Die OpenDRIVE-Steuergerätinformation für das zu generierende Signalprogramm "
+"nutzen"
 
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:375
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
+"Signale ohne für Kraftfahrzeuge zugelassenen zugeordneten Fahrstreifen "
+"ignorieren"
 
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:386
 msgid ""
@@ -8310,7 +8314,7 @@ msgstr "Kante '%' verbindet identische Knoten, überspringe."
 #: D:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:329
 #, c-format
 msgid "Edge '%' is not unique."
-msgstr ""
+msgstr "Die Kante '%' ist nicht einzigartig."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:338
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
@@ -8604,6 +8608,8 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Mehrere Knotenpunkte mit dem gleichen Steuergerät '%' zu steuern wird "
+"derzeit nicht unterstützt."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:791
 #, c-format
@@ -8629,6 +8635,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten signal '%' and with controller '%'."
 msgstr ""
+"Die Verbindung von '%' zu '%'(Steuergerät '%') ist uneindeutig signalisiert, "
+"da es von Signal '%' und Steuergerät '%' überschrieben wird."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:894
 msgid "Found a traffic light signal on an unknown edge (original edge id='%')."
@@ -8640,6 +8648,8 @@ msgid ""
 "The signaling of the connection from '%' to '%' (controller '%') is "
 "ambiguous because it is overwritten with signal '%' and controller '%'."
 msgstr ""
+"Die Verbindung von '%' zu '%'(Steuergerät '%') ist uneindeutig signalisiert, "
+"da es von Signal '%' und Steuergerät '%' überschrieben wird."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1365
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1397
@@ -8693,7 +8703,7 @@ msgstr "Ignoriere ungültigen pRange-Wert '%' für die Straße '%'."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2484
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "Das fehlende Signal '%' in Steuergerät '%' wird ignoriert."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2522
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2729
@@ -8838,6 +8848,8 @@ msgstr ""
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Für die Kante '%' wird die Standardbreite verwendet, da der Wert '%' nicht "
+"eingelesen werden konnte."
 
 #: D:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1497
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -9284,7 +9296,7 @@ msgstr "Ignoriere Haltepunkt '%' ohne Knoteninformation"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1168
 msgid "Ignoring stopping place '%' with invalid edge reference '%'"
-msgstr ""
+msgstr "Ignoriere Haltepunkt '%' mit der ungültigen Kantenangabe '%'"
 
 #: D:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:1174
 msgid ""
@@ -10127,7 +10139,7 @@ msgstr "Lichtsignalanlagen konnten nicht erstellt werden."
 #, c-format
 msgid ""
 "% edges of the primary network did not occur in the alternative-net-file"
-msgstr ""
+msgstr "% Kanten des Hauptnetzes finden sich nicht im alternativen Netz wieder"
 
 #: D:\Repos\sumo/src\netload\NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
