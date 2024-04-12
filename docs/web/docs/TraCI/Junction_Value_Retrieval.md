@@ -22,7 +22,9 @@ value is also shown in the table.
 | id list (0x00)  | stringList | Returns a list of ids of all junctions within the scenario (the given Junction ID is ignored) | [getIDList](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getIDList)     |
 | count (0x01)    | int        | Returns the number of junctions within the scenario (the given Junction ID is ignored)        | [getIDCount](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getIDCount)   |
 | position (0x42) | position   | Returns the position of the named junction \[m,m\]                                            | [getPosition](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getPosition) |
-| shape (0x4e)    | 2D-polygon | Returns the shape (list of 2D-positions) of the named junction                                | [getShape](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getShape)       |
+| shape (0x4e)    | 2D-polygon | Returns the shape (list of 2D-positions) of the named junction                                | [getShape](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getShape)  |
+| incoming edges (0x7b)    | stringList | Returns the ids of all incoming edges                               | [getIncomingEdges](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getIncomingEdges)  |
+| incoming edges (0x7c)    | stringList | Returns the ids of all outgoing edges                               | [getOutgoingEdges](https://sumo.dlr.de/pydoc/traci._junction.html#JunctionDomain-getOutgoinggEdges)  |
 
 ### Response 0xb9: Junction Variable
 
