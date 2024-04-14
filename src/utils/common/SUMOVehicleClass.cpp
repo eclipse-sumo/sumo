@@ -408,11 +408,8 @@ extraDisallowed(SVCPermissions disallowed, const MMVersion& networkVersion) {
     if (networkVersion < MMVersion(1, 20)) {
         if ((disallowed & SVC_RAIL_URBAN) != 0) {
             disallowed |= SVC_SUBWAY;
+            disallowed |= SVC_CABLE_CAR;
         }
-        if ((disallowed & SVC_BICYCLE) != 0) {
-            disallowed |= SVC_SCOOTER;
-        }
-        disallowed |= SVC_CONTAINER | SVC_CABLE_CAR | SVC_AIRCRAFT | SVC_DRONE;
     }
     return disallowed;
 }
