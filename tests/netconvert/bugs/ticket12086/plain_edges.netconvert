@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-09 12:22:50 by Eclipse SUMO netconvert Version v1_19_0+1737-93f1d1dc17e
+<!-- generated on 2024-04-14 16:37:05 by Eclipse SUMO netconvert Version v1_19_0+1830-e0a213434e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,12 +50,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <location netOffset="-610837.31,-5801296.26" convBoundary="265.09,237.46,833.06,517.76" origBoundary="4.625834,52.338776,4.641096,52.361335" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
-    <edge id="-23602047" from="J05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="831.30,466.39 790.33,459.43 759.05,452.48 727.71,443.99 679.99,427.55 625.39,404.29 530.69,357.81" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
-    <edge id="23602047" from="Z06" to="J05" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="530.69,357.81 625.39,404.29 679.99,427.55 727.71,443.99 759.05,452.48 790.33,459.43 831.30,466.39" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
-    <edge id="gneE01" from="J01" to="Z01" priority="7" type="highway.secondary" numLanes="1" speed="13.89" shape="270.05,513.53 297.03,445.51 307.57,424.85 312.18,416.78" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
-    <edge id="gneE02" from="Z01" to="Z02" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="312.18,416.78 321.62,400.01 324.60,396.32" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
-    <edge id="gneE05" from="Dn27" to="J08" priority="7" type="highway.secondary" numLanes="1" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
-    <edge id="gneE09" from="J04" to="Z03" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="292.38,237.46 300.31,244.14 305.82,252.11 330.55,297.37" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
+    <edge id="-23602047" from="J05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="831.30,466.39 790.33,459.43 759.05,452.48 727.71,443.99 679.99,427.55 625.39,404.29 530.69,357.81" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
+    <edge id="23602047" from="Z06" to="J05" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="530.69,357.81 625.39,404.29 679.99,427.55 727.71,443.99 759.05,452.48 790.33,459.43 831.30,466.39" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
+    <edge id="gneE01" from="J01" to="Z01" priority="7" type="highway.secondary" numLanes="1" speed="13.89" shape="270.05,513.53 297.03,445.51 307.57,424.85 312.18,416.78" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
+    <edge id="gneE02" from="Z01" to="Z02" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="312.18,416.78 321.62,400.01 324.60,396.32" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
+    <edge id="gneE05" from="Dn27" to="J08" priority="7" type="highway.secondary" numLanes="1" speed="13.89" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
+    <edge id="gneE09" from="J04" to="Z03" priority="6" type="highway.tertiary" numLanes="2" speed="13.89" shape="292.38,237.46 300.31,244.14 305.82,252.11 330.55,297.37" spreadType="center" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
     <edge id="gneE110.15" from="AMJ01" to="CJ02" priority="1" numLanes="1" speed="13.89" shape="343.80,361.88 339.20,335.16 332.93,318.15 328.93,309.85" spreadType="center" width="2.00" allow="moped bicycle"/>
     <edge id="gneE111" from="Z02" to="K0001" priority="1" numLanes="3" speed="13.89" shape="326.54,395.08 347.36,372.81" spreadType="center" width="3.00"/>
     <edge id="gneE113" from="Z03" to="K0001" priority="1" numLanes="2" speed="13.89" shape="334.76,305.84 362.49,349.69" spreadType="center"/>
@@ -81,9 +81,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane index="0" allow="taxi bus"/>
         <lane index="1"/>
     </edge>
-    <edge id="gneE134" from="Z05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="464.57,331.21 468.61,331.80 492.99,337.55 530.49,354.11" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
+    <edge id="gneE134" from="Z05" to="Z06" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="464.57,331.21 468.61,331.80 492.99,337.55 530.49,354.11" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
     <edge id="gneE135" from="K0001" to="Dn27" priority="1" numLanes="1" speed="13.89" shape="355.66,381.72 332.18,407.71 319.39,423.87 312.06,435.15 305.86,446.62 294.04,473.27" spreadType="center"/>
-    <edge id="gneE136" from="Z06" to="Dn26" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="527.97,360.17 485.71,343.85 461.62,338.96 458.11,338.67" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone"/>
+    <edge id="gneE136" from="Z06" to="Dn26" priority="7" type="highway.secondary" numLanes="2" speed="13.89" shape="527.97,360.17 485.71,343.85 461.62,338.96 458.11,338.67" spreadType="center" width="3.00" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway"/>
     <edge id="gneE14.0" from="PJ01" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="265.09,511.68 279.30,464.18 285.56,446.89 300.70,413.21 307.28,400.66 316.52,386.12 325.77,375.75 340.72,364.30" width="0.50" allow="pedestrian"/>
     <edge id="gneE145" from="Dn04" to="AMJ01" priority="1" numLanes="1" speed="13.89" shape="342.81,367.68 341.59,366.32" width="0.50" allow="pedestrian"/>
     <edge id="gneE148" from="AMJ01" to="Dn04" priority="1" numLanes="1" speed="13.89" shape="341.59,366.32 342.81,367.68" width="0.50" allow="pedestrian"/>

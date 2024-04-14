@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-09 12:22:48 by Eclipse SUMO netconvert Version v1_19_0+1737-93f1d1dc17e
+<!-- generated on 2024-04-14 16:37:04 by Eclipse SUMO netconvert Version v1_19_0+1830-e0a213434e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,11 +54,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <edge id="-24912713#0" from="34677686" to="34677691" name="Fallersleber-Tor-Wall" priority="4" type="highway.residential" numLanes="2" speed="8.33">
         <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian rail_fast container cable_car aircraft drone"/>
+        <lane index="1" disallow="pedestrian rail_fast"/>
     </edge>
     <edge id="24912713#0" from="34677691" to="34677686" name="Fallersleber-Tor-Wall" priority="4" type="highway.residential" numLanes="2" speed="8.33">
         <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="pedestrian rail_fast container cable_car aircraft drone"/>
+        <lane index="1" disallow="pedestrian rail_fast"/>
     </edge>
     <edge id="5088350" from="34677698" to="34677691" name="Fallersleber-Tor-Wall" priority="1" type="highway.footway" numLanes="1" speed="8.33" spreadType="center" allow="pedestrian"/>
 </edges>

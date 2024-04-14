@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-09 12:22:41 by Eclipse SUMO netconvert Version v1_19_0+1737-93f1d1dc17e
+<!-- generated on 2024-04-14 16:36:57 by Eclipse SUMO netconvert Version v1_19_0+1830-e0a213434e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,30 +64,30 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
 
     <edge id=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0" function="internal">
-        <lane id=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="11.32" length="39.71" shape="5166.26,9474.20 5151.26,9472.88 5138.91,9470.99 5131.10,9468.32 5129.69,9464.69"/>
+        <lane id=":cluster_1797707620_1797707622_1797723249_1797723251_#33more_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="11.32" length="39.71" shape="5166.26,9474.20 5151.26,9472.88 5138.91,9470.99 5131.10,9468.32 5129.69,9464.69"/>
     </edge>
 
     <edge id="306488582" from="1687044416" to="cluster_1797707620_1797707622_1797723249_1797723251_#33more" name="Rebenring" priority="12" type="highway.primary" spreadType="center" shape="5226.64,9485.41 5198.28,9482.84 5165.82,9480.58">
-        <lane id="306488582_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="61.01" shape="5226.06,9491.78 5197.77,9489.22 5165.38,9486.96">
+        <lane id="306488582_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="61.01" shape="5226.06,9491.78 5197.77,9489.22 5165.38,9486.96">
             <param key="origId" value="306488582"/>
         </lane>
-        <lane id="306488582_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="61.01" shape="5226.35,9488.60 5198.02,9486.03 5165.60,9483.77">
+        <lane id="306488582_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="61.01" shape="5226.35,9488.60 5198.02,9486.03 5165.60,9483.77">
             <param key="origId" value="306488582"/>
         </lane>
-        <lane id="306488582_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="61.01" shape="5226.64,9485.41 5198.28,9482.84 5165.82,9480.58">
+        <lane id="306488582_2" index="2" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="61.01" shape="5226.64,9485.41 5198.28,9482.84 5165.82,9480.58">
             <param key="origId" value="306488582"/>
         </lane>
-        <lane id="306488582_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="61.01" shape="5226.93,9482.22 5198.54,9479.65 5166.04,9477.39">
+        <lane id="306488582_3" index="3" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="61.01" shape="5226.93,9482.22 5198.54,9479.65 5166.04,9477.39">
             <param key="origId" value="306488582"/>
         </lane>
-        <lane id="306488582_4" index="4" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="61.01" shape="5227.22,9479.04 5198.79,9476.46 5166.26,9474.20">
+        <lane id="306488582_4" index="4" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="61.01" shape="5227.22,9479.04 5198.79,9476.46 5166.26,9474.20">
             <param key="origId" value="306488582"/>
         </lane>
         <param key="origTo" value="3251469867"/>
         <param key="ref" value="K 11"/>
     </edge>
     <edge id="5139388#0" from="cluster_1797707620_1797707622_1797723249_1797723251_#33more" to="cluster_3239587380_3239587383_34589715_34653749_#4more" name="Lampestraße" priority="3" type="highway.residential" spreadType="center" shape="5129.69,9464.69 5137.73,9450.82 5141.75,9441.64 5155.75,9412.45 5178.42,9366.17 5180.64,9361.65 5183.40,9357.54 5186.23,9354.43 5189.26,9353.41">
-        <lane id="5139388#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="13.89" length="137.54" shape="5129.69,9464.69 5137.73,9450.82 5141.75,9441.64 5155.75,9412.45 5178.42,9366.17 5180.64,9361.65 5183.40,9357.54 5186.23,9354.43 5198.92,9350.16">
+        <lane id="5139388#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship cable_car subway" speed="13.89" length="137.54" shape="5129.69,9464.69 5137.73,9450.82 5141.75,9441.64 5155.75,9412.45 5178.42,9366.17 5180.64,9361.65 5183.40,9357.54 5186.23,9354.43 5198.92,9350.16">
             <param key="origId" value="5139388"/>
         </lane>
         <param key="origFrom" value="21402307"/>

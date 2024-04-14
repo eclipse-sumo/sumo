@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-09 12:22:41 by Eclipse SUMO netconvert Version v1_19_0+1737-93f1d1dc17e
+<!-- generated on 2024-04-14 16:36:57 by Eclipse SUMO netconvert Version v1_19_0+1830-e0a213434e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,18 +56,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <edge id=":node_left_0" function="internal">
         <lane id=":node_left_0_0" index="0" allow="bus" speed="13.90" length="12.95" shape="94.34,-194.34,42.00 90.64,-199.88,42.00 90.34,-204.00,42.00 93.46,-206.71,42.00 100.00,-208.00,42.00"/>
-        <lane id=":node_left_0_1" index="1" disallow="bicycle rail_fast container cable_car aircraft scooter drone" speed="13.90" length="12.95" shape="96.61,-196.61,42.00 94.38,-199.93,42.00 94.21,-202.40,42.00 96.08,-204.02,42.00 100.00,-204.80,42.00"/>
+        <lane id=":node_left_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="12.95" shape="96.61,-196.61,42.00 94.38,-199.93,42.00 94.21,-202.40,42.00 96.08,-204.02,42.00 100.00,-204.80,42.00"/>
         <lane id=":node_left_0_2" index="2" speed="13.90" length="12.95" shape="98.87,-198.87,42.00 98.13,-199.98,42.00 98.07,-200.80,42.00 98.69,-201.34,42.00 100.00,-201.60,42.00"/>
     </edge>
     <edge id=":node_right_0" function="internal">
         <lane id=":node_right_0_0" index="0" allow="bus" speed="13.90" length="13.95" shape="140.00,-208.00,42.00 146.54,-206.71,42.00 149.66,-204.00,42.00 149.36,-199.88,42.00 145.66,-194.34,42.00"/>
-        <lane id=":node_right_0_1" index="1" disallow="bicycle rail_fast container cable_car aircraft scooter drone" speed="13.90" length="13.95" shape="137.00,-204.80,42.00 140.00,-204.80,42.00 143.92,-204.02,42.00 145.79,-202.40,42.00 145.62,-199.93,42.00 143.39,-196.61,42.00"/>
+        <lane id=":node_right_0_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="13.95" shape="137.00,-204.80,42.00 140.00,-204.80,42.00 143.92,-204.02,42.00 145.79,-202.40,42.00 145.62,-199.93,42.00 143.39,-196.61,42.00"/>
         <lane id=":node_right_0_2" index="2" speed="13.90" length="13.95" shape="140.00,-201.60,42.00 141.31,-201.34,42.00 141.93,-200.80,42.00 141.87,-199.98,42.00 141.13,-198.87,42.00"/>
     </edge>
 
     <edge id="edge_with_shape" from="node_right" to="node_left" priority="-1" type="testType" shape="140.00,-200.00,42.00 120.00,-180.00,42.00 100.00,-200.00,42.00">
         <lane id="edge_with_shape_0" index="0" allow="bus" speed="13.90" length="66.17" shape="145.66,-194.34,42.00 120.00,-168.69,42.00 94.34,-194.34,42.00"/>
-        <lane id="edge_with_shape_1" index="1" disallow="bicycle rail_fast container cable_car aircraft scooter drone" speed="13.90" length="66.17" shape="143.39,-196.61,42.00 120.00,-173.21,42.00 96.61,-196.61,42.00"/>
+        <lane id="edge_with_shape_1" index="1" disallow="bicycle rail_fast" speed="13.90" length="66.17" shape="143.39,-196.61,42.00 120.00,-173.21,42.00 96.61,-196.61,42.00"/>
         <lane id="edge_with_shape_2" index="2" speed="13.90" length="66.17" shape="141.13,-198.87,42.00 120.00,-177.74,42.00 98.87,-198.87,42.00"/>
     </edge>
     <edge id="reverse_edge" from="node_left" to="node_right" priority="-1">
