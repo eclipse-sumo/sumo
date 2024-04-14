@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'VehicleClosedAlready'; waited too long, from edge 'middle':4, time=1336.99.
+Warning: Vehicle 'VehicleClosedAlready' is not allowed on source edge 'middle2'.
+Warning: No route for vehicle 'VehicleClosedAlready' found.
+Warning: Vehicle 'VehicleClosedAlready' ends teleporting on edge 'end':0, time=1354.99.
