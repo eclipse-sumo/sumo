@@ -7,7 +7,7 @@ title: LiSuM
 ![LisaSumoIcon.png](../images/LisaSumoIcon.png "LisaSumoIcon.png")
 
 LiSuM is a middleware that couples
-[LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO
+[LISA+](https://www.schlothauer.de/software-lisa) and SUMO
 helping to execute more complex traffic controls on the intersections
 than SUMO originally permits. SUMO communicates with the LISA+ virtual
 controller through LiSuM. Per default LiSuM needs at LISA+ version 7.2
