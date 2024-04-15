@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-04-09 18:45+0200\n"
+"POT-Creation-Date: 2024-04-15 09:01+0200\n"
 "PO-Revision-Date: 2023-06-10 19:38+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -941,7 +941,7 @@ msgid ""
 msgstr ""
 
 #: D:\Repos\sumo/src\libsumo\Person.cpp:941
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1747
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1752
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr ""
 
@@ -949,7 +949,7 @@ msgstr ""
 msgid "Simulation version % started via libsumo with time: %."
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Simulation.cpp:699
+#: D:\Repos\sumo/src\libsumo\Simulation.cpp:700
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -962,32 +962,32 @@ msgid ""
 "vehicle '%' is not computed yet"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1247
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1378
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1252
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1383
 msgid "Unsupported parameter '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1327
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1332
 msgid "Waypoint (speed = %) at index % does not support triggers"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1361
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1366
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1481
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1486
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1483
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1488
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1538
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1943
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1543
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1948
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:423
 #, c-format
 msgid ""
@@ -996,18 +996,18 @@ msgid ""
 "'%' in case it is internal."
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1582
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1587
 #, c-format
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1947
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:459
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1952
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:448
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr ""
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:2644
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:2649
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
@@ -1287,123 +1287,127 @@ msgstr ""
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:190
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:179
 msgid "Changing a vehicle ID is not permitted"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:323
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:312
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:354
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:343
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:398
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:387
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:400
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:389
 msgid "Removing vehicle '%' which has no valid route."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:414
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:403
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:484
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:473
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:497
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:486
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:510
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:499
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:580
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:569
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:721
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:713
 msgid "No connection between edge '%' and edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:730
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:723
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:742
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:735
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:751
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:744
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:781
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:774
 msgid "Vehicle '%' has no valid route. %"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:844
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:837
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:858
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:851
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:878
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:871
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:890
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:883
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:895
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:914
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:907
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:930
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:923
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:935
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:2213
+msgid "Could not interpret routing.mode '%'"
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:930
 msgid "getLeader not yet implemented for meso"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:949
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:944
 msgid "getFollower not yet implemented for meso"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:676
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:679
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1282
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1285
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1295
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1298
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1326
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1329
 #, c-format
 msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
 msgstr ""
@@ -2770,71 +2774,75 @@ msgstr ""
 msgid "Another flow with the id '%' exists."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1184
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1070
+msgid "Cannot define % stage without %."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1187
 msgid "The busStop '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1190
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1193
 msgid "The containerStop '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1196
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1199
 msgid "The parkingArea '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1203
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1206
 msgid "The chargingStation '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1210
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1213
 msgid "The overhead wire segment '%' is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1214
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1217
 msgid "Invalid stop definition%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1262
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1265
 msgid "The edge '%' for a stop is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1276
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1279
 msgid "The lane '%' for a stop is not known%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1308
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1311
 msgid "Could not map stop position '%' to the network%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1325
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1328
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1336
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1339
 msgid "Deprecated attribute 'pos' in description of stop%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1344
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1347
 msgid "Invalid start or end position for stop on %'%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1361
 msgid "Disconnected plan for % '%' (%!=%)."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1368
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1371
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1403
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1406
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1424
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1427
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1096
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1215
 msgid ""
@@ -2842,67 +2850,72 @@ msgid ""
 "person attribute, the arrivalPos of the previous step or explicit stops."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1450
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1453
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1459
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1117
 msgid "No destination edge for %."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1485
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1478
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
+msgid "Cannot define person stage without person."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1491
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1137
 msgid "Start edge not defined for person '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1495
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1501
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1570
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1148
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1206
 msgid "Non-positive walking duration for '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1522
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1567
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1528
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1576
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1210
 msgid "Non-positive walking speed for '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1592
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1601
 msgid "No edges to walk for person '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1630
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1639
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1664
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1673
 msgid "The type '%' for % '%' is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1696
 msgid "Could not read tranship speed for container '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1695
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1704
 msgid "Non-positive tranship speed for container '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1721
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1730
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1740
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1749
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1746
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1755
 msgid "No edges to tranship container '%'."
 msgstr ""
 
@@ -3464,56 +3477,60 @@ msgid "Use zones (districts) as routing start- and endpoints"
 msgstr ""
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:78
+msgid "Set routing flags (8 ignores temporary blockages)"
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:81
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:82
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "The number of parallel execution threads used for rerouting"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 msgid "Let rerouting happen at the same time for all vehicles"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Allow rerouting triggered by rail signals."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Compute separate average speeds for bicycles"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:97
 msgid "Save adapting weights to FILE"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:102
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:105
 msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or 'device."
 "rerouting.adaptation-weight' may be given."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:106
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:109
 msgid "weights.random-factor cannot be less than 1"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:110
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:113
 msgid "Negative value for device.rerouting.adaptation-interval!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:115
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:118
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:120
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:123
 #: D:\Repos\sumo/src\router\ROFrame.cpp:246
 msgid "Parallel routing is only possible when compiled with Fox."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:125
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:128
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr ""
 
@@ -3580,206 +3597,212 @@ msgstr ""
 msgid "Could not load names of edges for filtering SSM device output from '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:1123
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:963
+msgid ""
+"SSM device of vehicle '%' encountered an unexpected conflict with foe % at "
+"time=%. Please review your vehicle behavior settings."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:1128
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2495
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2500
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2673
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2697
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2678
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2702
 msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3873
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4150
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3878
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4155
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3879
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4156
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3884
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3884
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3889
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3907
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3912
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3913
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3918
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3918
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3923
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3934
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3939
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3940
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3945
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3945
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3972
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3950
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3977
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3961
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3966
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3967
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3972
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3988
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3993
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3994
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3999
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3999
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4004
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4017
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4022
 msgid ""
 "SSM order filter '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4034
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4039
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4040
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4045
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4045
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4050
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4061
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4066
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4067
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4072
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4072
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4077
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4090
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4095
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4096
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4101
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4101
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4106
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4107
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4112
 #, c-format
 msgid ""
 "Negative (or no) value encountered for vehicle parameter 'device.ssm."
 "extratime' in vehicle '%' using default value % instead."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4121
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4126
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4127
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4137
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4166
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4178
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4183
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4189
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4194
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4195
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4200
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4200
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4205
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4215
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4220
 msgid ""
 "Given list of thresholds ('%') is not of the same size as the list of "
 "measures ('%').\n"
@@ -4152,74 +4175,74 @@ msgstr ""
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:140
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:141
 #, c-format
 msgid "Traffic light '%' does not control any links"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:229
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:230
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:242
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:243
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:407
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:411
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:444
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:454
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:453
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:461
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:463
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:471
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:905
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:948
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1063
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1106
 msgid "Unmatched parentheses in condition %'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1078
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1121
 msgid "Invalid empty condition '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1093
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1136
 msgid "Unsupported condition '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1156
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1199
 msgid "Division by 0 in condition '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1207
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1250
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1219
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1262
 msgid "Invalid empty expression"
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1315
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1358
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr ""
 
@@ -4832,184 +4855,168 @@ msgstr ""
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:249
-msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
-msgstr ""
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:254
-msgid "Ups - could not build on-ramp for edge '%'!"
-msgstr ""
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:284
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:289
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:400
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:403
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:280
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:285
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:392
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:395
 #: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:712
 msgid "Could not set connection!"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:356
-msgid "Ups - could not build off-ramp for edge '%' (node could not be build)!"
-msgstr ""
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:361
-msgid "Ups - could not build off-ramp for edge '%'!"
-msgstr ""
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:423
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:415
 msgid "For edge '%': could not compute shape."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:432
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:460
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:433
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:461
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:457
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:458
 #, c-format
 msgid "Edge '%' needs at least one lane."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:463
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:464
 msgid "Invalid edge id '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:493
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:627
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:494
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:628
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1002
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1021
 msgid "Found angle of % degrees at edge '%', segment %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1014
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1033
 msgid "Removing sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1015
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1034
 msgid "start"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1020
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1039
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1158
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1177
 msgid "Could not set connection from '%' to '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1670
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1689
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1772
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1791
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1872
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1891
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2210
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2229
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2223
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2242
 msgid "In lane '%': Could not build shape (%)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2653
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2672
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2694
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2713
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2711
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2730
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2717
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2736
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2744
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2763
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3038
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3057
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3052
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3071
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3069
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3088
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3072
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3091
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3673
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3692
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3679
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3698
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4168
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4187
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4177
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4196
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4183
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4202
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4447
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4466
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4505
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4524
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4545
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4564
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4593
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4612
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr ""
 
@@ -5077,64 +5084,64 @@ msgstr ""
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:934
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:940
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:937
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:943
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:939
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:945
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1450
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1456
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1816
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1822
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1832
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1834
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1840
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1844
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1846
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1852
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1886
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1892
 msgid "Not joining tram edge '%' with % lanes."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1964
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2118
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2124
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:141
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2122
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2128
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:145
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:566
 #, c-format
@@ -6080,98 +6087,101 @@ msgstr ""
 msgid " Removing self-looping edge '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:745
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:772
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:761
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:788
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:764
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:791
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:778
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:796
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:805
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:823
 msgid "Could not use custom shape for connection %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:787
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:814
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:804
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:831
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1003
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1030
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1144
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1171
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1148
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1175
 msgid "For junction '%': could not compute shape."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1850
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1877
 msgid "Something went wrong during the building of a connection..."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:2879
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:2906
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3055
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3082
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3074
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3101
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3225
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3252
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3248
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3275
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3253
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3280
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3473
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3512
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3811
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3850
 msgid "Request for unknown crossing '%'"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3827
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3838
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3866
 msgid "Request for unknown crossing for the given Edges"
+msgstr ""
+
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3891
+msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
 #: D:\Repos\sumo/src\netbuild\NBNodeCont.cpp:319
@@ -9144,7 +9154,7 @@ msgid ""
 "instead"
 msgstr ""
 
-#: D:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:468
+#: D:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:469
 msgid "Could not find bidi-connection for edge '%'"
 msgstr ""
 
@@ -10359,7 +10369,7 @@ msgid ""
 "'disallow'"
 msgstr ""
 
-#: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:437
+#: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:434
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
 msgstr ""

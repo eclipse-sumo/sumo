@@ -1000,7 +1000,7 @@ GNEViewNet::restrictLane(GNELane* lane, SUMOVehicleClass vclass) {
         }
         // if all edges parent own a Sidewalk, stop function
         if (counter == (int)mapOfEdgesAndLanes.size()) {
-            const std::string header = TLF("Set vclass for % to selected lanes", toString(vclass));
+            const std::string header = TLF("Set vclass to % for selected lanes", toString(vclass));
             const std::string body = TL("All lanes own already another lane in the same edge with a restriction for ");
             FXMessageBox::information(getApp(), MBOX_OK, header.c_str(), "%s", (body + toString(vclass) + ".").c_str());
             return 0;
@@ -1169,7 +1169,7 @@ GNEViewNet::removeRestrictedLane(GNELane* lane, SUMOVehicleClass vclass) {
         } else {
             WRITE_DEBUG("Opening FXMessageBox 'restrict lanes'");
             // Ask confirmation to user
-            const std::string header = TLF("Remove vclass % in selected lanes", toString(vclass));
+            const std::string header = TLF("Remove vclass % from selected lanes", toString(vclass));
             const std::string body = TLF("% restrictions to % will be removed. Continue?", toString(setOfEdges.size() - counter), toString(vclass));
             FXuint answer = FXMessageBox::question(getApp(), MBOX_YES_NO, header.c_str(), "%s", body.c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc

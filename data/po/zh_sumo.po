@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-04-09 18:45+0200\n"
+"POT-Creation-Date: 2024-04-15 09:01+0200\n"
 "PO-Revision-Date: 2024-02-27 13:49+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -913,7 +913,7 @@ msgid ""
 msgstr "人'%'的出发时间=%是过去的；用当前时间=%代替。"
 
 #: D:\Repos\sumo/src\libsumo\Person.cpp:941
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1747
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1752
 msgid "Could not determine position on lane '%' at lateral position %."
 msgstr "无法确定横向位置%的车道'%'上的位置。"
 
@@ -921,7 +921,7 @@ msgstr "无法确定横向位置%的车道'%'上的位置。"
 msgid "Simulation version % started via libsumo with time: %."
 msgstr "仿真版本 % 通过 libsumo 启动，时间： %。"
 
-#: D:\Repos\sumo/src\libsumo\Simulation.cpp:699
+#: D:\Repos\sumo/src\libsumo\Simulation.cpp:700
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -937,32 +937,32 @@ msgstr ""
 "由于车辆 '%' 的路径尚未计算，所以无法检查在swapConstraintsg上所有的交通死结"
 "(deadlocks)"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1247
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1378
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1252
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1383
 msgid "Unsupported parameter '%'"
 msgstr "不支持的参数'%'"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1327
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1332
 msgid "Waypoint (speed = %) at index % does not support triggers"
 msgstr "索引%的行驶点（速度=%）不支持触发器"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1361
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1366
 msgid ""
 "Triggered stop at index % cannot be changed into a waypoint by setting speed "
 "to %"
 msgstr "索引%处的触发式停靠不能通过设置速度为%来改变为一个行驶点"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1481
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1486
 #, c-format
 msgid "Ignoring changeLaneRelative for vehicle '%' that isn't on the road"
 msgstr "忽略不在路上的车辆'%'的换车道关系（changeLaneRelative）"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1483
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1488
 msgid "Ignoring indexOffset % for vehicle '%' on laneIndex %."
 msgstr "忽略车道索引 %上的车辆'%'的索引偏移（indexOffset） %。"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1538
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1943
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1543
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1948
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParserHelper.cpp:423
 #, c-format
 msgid ""
@@ -973,18 +973,18 @@ msgstr ""
 "内部路由接收到以“!”开头的ID，并且不得在其他车辆或车流定义中引用。如果路"
 "由“%”是内部的，请删除对它的所有引用。"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1582
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1587
 #, c-format
 msgid ""
 "Departure time for vehicle '%' is in the past; using current time instead."
 msgstr "车辆'%'的出发时间是过去的；用当前时间代替。"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1947
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:459
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:1952
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:448
 msgid "Invalid route replacement for vehicle '%'. %"
 msgstr "替换车辆'%'的路径无效。%"
 
-#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:2644
+#: D:\Repos\sumo/src\libsumo\Vehicle.cpp:2649
 msgid ""
 "Ignoring lane change subscription filter with non-neighboring lane offset "
 "direction=%."
@@ -1264,73 +1264,73 @@ msgstr "由于容量限制，车辆'%'忽略了货箱在车道'%'上触发的停
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
 msgstr "错误：状态中的无效车辆（可能是一个微型状态）!"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:190
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:179
 msgid "Changing a vehicle ID is not permitted"
 msgstr "不允许更改车辆ID"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:323
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:312
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
 msgstr "车辆'%'不允许在通过路段'%'的任何车道上行驶。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:354
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:343
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr "车辆'%'从路段'%'到停止路段'%'没有有效路径。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:398
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:387
 #, c-format
 msgid "Vehicle '%' has no valid route."
 msgstr "车辆'%'没有有效路径。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:400
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:389
 msgid "Removing vehicle '%' which has no valid route."
 msgstr "移除没有有效路径的车辆'%'。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:414
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:403
 #, c-format
 msgid "No route for vehicle '%' found."
 msgstr "移除没有有效路径的车辆'%'。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:484
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:473
 #, c-format
 msgid "current edge '%' not found in new route"
 msgstr "在新路径中没有找到当前的路段'%'"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:497
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:486
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr "车辆在交叉口--内侧路段领先于其他地方"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:510
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:499
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr "车辆正驶过交叉口处，并致力于移动到另一个继任路段"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:580
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:569
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr "车辆'%'在时间=%的情况下，改道(%)后无法分配停车'%'。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:721
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:713
 msgid "No connection between edge '%' and edge '%'."
 msgstr "路段'%'和路段'%'之间没有联系。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:730
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:723
 #, c-format
 msgid "Edge '%' prohibits."
 msgstr "路段'%'禁止使用。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:742
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:735
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:751
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:744
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:781
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:774
 msgid "Vehicle '%' has no valid route. %"
 msgstr "车辆'%'没有有效的路径。%"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:844
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:837
 msgid ""
 "Vehicle '%' ignores attribute arrivalEdge=% after rerouting at time=% "
 "(routeLength=%)"
@@ -1338,51 +1338,55 @@ msgstr ""
 "车辆 '%' 忽略属性抵达路段(arrivalEdge)= % 其发生在时间=% 的重新引导路径后（路"
 "段长度(routeLength)=%）"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:858
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:851
 msgid "Vehicle '%' will not be able to arrive at the given position!"
 msgstr "车辆'%'将无法到达给定的位置!"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:878
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:871
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr "车辆'%'将无法到达指定的车道'%_%'!"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:890
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:902
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:883
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:895
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr "车辆'%'在路段%'没有可用的到达车道。"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:914
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:907
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
 msgstr "车辆'%'将无法以给定的速度到达！"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:930
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:923
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略有当前路线车辆超出边缘"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:935
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:2213
+msgid "Could not interpret routing.mode '%'"
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:930
 msgid "getLeader not yet implemented for meso"
 msgstr "getLeader还没有在meso实现"
 
-#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:949
+#: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:944
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower还没有在meso实现"
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:676
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:679
 msgid ""
 "Choosing new speed factor % for vehicle '%' to match departure speed % (max "
 "%)."
 msgstr "为车辆'%'选择新的速度系数%，以匹配出发速度%（最大%）。"
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1282
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1285
 #, c-format
 msgid "Bidi-edge '%' does not exist"
 msgstr "Bidi-路段'%'不存在"
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1295
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1298
 msgid "Ambiguous superposable edges between junction '%' and '%'."
 msgstr "路口'%'和'%'之间有模糊的可叠加路段。"
 
-#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1326
+#: D:\Repos\sumo/src\microsim\MSEdge.cpp:1329
 #, c-format
 msgid "Edge '%s' and bidi edge '%s' have no matching bidi lanes"
 msgstr "路段'%s'和bidi路段'%s'没有匹配的bidi车道"
@@ -2787,43 +2791,47 @@ msgstr "存在一个人和一个具有相同id'%'的货箱。从SUMO 1.9.0开始
 msgid "Another flow with the id '%' exists."
 msgstr "存在另一个ID为'%'的流量。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1184
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1070
+msgid "Cannot define % stage without %."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1187
 msgid "The busStop '%' is not known%."
 msgstr "公共汽车站'%'不详%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1190
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1193
 msgid "The containerStop '%' is not known%."
 msgstr "货箱停靠点'%'不详%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1196
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1199
 msgid "The parkingArea '%' is not known%."
 msgstr "停车区'%'不详%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1203
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1206
 msgid "The chargingStation '%' is not known%."
 msgstr "充电站'%'不知道%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1210
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1213
 msgid "The overhead wire segment '%' is not known%."
 msgstr "高架线段'%'不详%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1214
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1217
 msgid "Invalid stop definition%."
 msgstr "无效的停靠定义%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1262
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1265
 msgid "The edge '%' for a stop is not known%."
 msgstr "停靠点%所在道路“%”未知。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1276
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1279
 msgid "The lane '%' for a stop is not known%."
 msgstr "停靠点%所在车道“%”未知。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1308
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1311
 msgid "Could not map stop position '%' to the network%."
 msgstr ""
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1325
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1328
 msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
@@ -2831,29 +2839,29 @@ msgstr ""
 "停靠点必须设置在公共汽车站、充电站、高架线路段、集装箱站、停车区、道路或车道%"
 "上。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1336
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1339
 msgid "Deprecated attribute 'pos' in description of stop%."
 msgstr "停靠点%的描述中，属性 'pos' 已不适用。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1344
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1347
 msgid "Invalid start or end position for stop on %'%."
 msgstr "停靠点%'%上的起始或终止位置无效。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1361
 msgid "Disconnected plan for % '%' (%!=%)."
 msgstr "%'%'的计划已断开（%!=%）。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1368
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1371
 msgid ""
 "Disconnected plan for % '%' (stop range %-% does not cover previous arrival "
 "position %)."
 msgstr "%'%'的计划已断开连接（停止范围%-%不包含先前的到达位置%）。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1403
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1406
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
 msgstr "%'%' 的属性 “via” 中缺少停靠边。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1424
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1427
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1096
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1215
 msgid ""
@@ -2863,61 +2871,66 @@ msgstr ""
 "对于步行，不再支持departPos属性，请使用人的属性、上一步的到达位置"
 "（ arrivalPos）或明确的停靠。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1450
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1453
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr "忽略%的到达位置（arrivationPos），因为它在给定站点'%'之外。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1456
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1459
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1117
 msgid "No destination edge for %."
 msgstr "没有目的地路段的%。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1485
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1478
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
+msgid "Cannot define person stage without person."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1491
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1137
 msgid "Start edge not defined for person '%'."
 msgstr "没有为'%'的人定义起始路段。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1495
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1501
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1570
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1148
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1206
 msgid "Non-positive walking duration for '%'."
 msgstr "为'%'没有正的行走时间。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1522
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1567
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1528
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1576
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1210
 msgid "Non-positive walking speed for '%'."
 msgstr "为'%'没有正的行走速度。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1592
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1601
 msgid "No edges to walk for person '%'."
 msgstr "为人'%'没有步行的路段。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1630
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1639
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr "在解释出发侧向位置(departPosLat)时,找不到人员'%' 步行的出发巷道"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1664
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1673
 msgid "The type '%' for % '%' is not known."
 msgstr "%'%' 的类型 '%' 未知。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1687
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1696
 msgid "Could not read tranship speed for container '%'."
 msgstr "无法读取货箱'%'的转运速度。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1695
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1704
 msgid "Non-positive tranship speed for container '%'."
 msgstr "为货箱\"%\"没有正的转运速度。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1721
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1730
 #, c-format
 msgid "The start edge for container '%' is not known."
 msgstr "货箱'%'的起始路段未知。"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1740
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1749
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
@@ -2925,7 +2938,7 @@ msgstr ""
 "货柜 '%' 的转运(tranship)不一致，只允许一个选项：'路段(edges)', '到(to)', '货"
 "柜停靠点(containerStop)'"
 
-#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1746
+#: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1755
 msgid "No edges to tranship container '%'."
 msgstr "没有路段来转运货箱'%'。"
 
@@ -3502,32 +3515,36 @@ msgid "Use zones (districts) as routing start- and endpoints"
 msgstr "使用区域（地区）作为路径的起点和终点"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:78
+msgid "Set routing flags (8 ignores temporary blockages)"
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:81
 msgid ""
 "Use weight files given with option --weight-files for initializing edge "
 "weights"
 msgstr "使用选项--weight-files 指定权重文件，以进行路段权重的初始化"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:82
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
 msgid "The number of parallel execution threads used for rerouting"
 msgstr "用于重新搜寻路径的平行执行的线程(threads)数量"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:85
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
 msgid "Let rerouting happen at the same time for all vehicles"
 msgstr "让所有车辆在同一时间进行改道"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:88
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
 msgid "Allow rerouting triggered by rail signals."
 msgstr "允许由铁路信号引发的改道。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:91
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
 msgid "Compute separate average speeds for bicycles"
 msgstr "计算自行车的个别平均速度"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:94
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:97
 msgid "Save adapting weights to FILE"
 msgstr "将适应的权重保存到文件中"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:102
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:105
 msgid ""
 "Only one of the options 'device.rerouting.adaptation-steps' or 'device."
 "rerouting.adaptation-weight' may be given."
@@ -3535,25 +3552,25 @@ msgstr ""
 "只有给定一个选项 'device.rerouting.adaptation-steps' 或是'devicererouting."
 "adaptation-weight' 。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:106
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:109
 msgid "weights.random-factor cannot be less than 1"
 msgstr "weights.random-factor 不能小于 1"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:110
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:113
 msgid "Negative value for device.rerouting.adaptation-interval!"
 msgstr "device.rerouting.adaptation-interval 的值为负值!"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:115
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:118
 msgid ""
 "The value for device.rerouting.adaptation-weight must be between 0 and 1!"
 msgstr "device.rerouting.adaptation-weight 的值必须在 0 和 1 之间!"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:120
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:123
 #: D:\Repos\sumo/src\router\ROFrame.cpp:246
 msgid "Parallel routing is only possible when compiled with Fox."
 msgstr "平行路径只有在用Fox编译时才能实现。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:125
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_Routing.cpp:128
 msgid "Adapting number of routing threads to number of simulation threads."
 msgstr "将路径搜寻的线程(threads)数调整为仿真的线程(threads)数。"
 
@@ -3627,20 +3644,26 @@ msgstr ""
 msgid "Could not load names of edges for filtering SSM device output from '%'."
 msgstr "无法从'%'载入路段名称以过滤SSM装置的输出。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:1123
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:963
+msgid ""
+"SSM device of vehicle '%' encountered an unexpected conflict with foe % at "
+"time=%. Please review your vehicle behavior settings."
+msgstr ""
+
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:1128
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
 msgstr "无法从'%'加载用于过滤SSM设备输出的路段的名称。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2495
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2500
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
 msgstr ""
 "无法对自我(ego)车辆%和对方(foe)车辆% 在时间=% 相遇时两者之间的SSM进行分类。\n"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2673
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2697
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2678
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2702
 msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
@@ -3648,140 +3671,140 @@ msgstr ""
 "由于路口'%'处的内部车道几何形状不佳，无法计算SSM。未找到从路段%和%的交通流之"
 "间的交叉点。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3873
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4150
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3878
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4155
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
 msgstr "车辆参数'ssm.measures'的数值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3879
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4156
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3884
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
 msgstr "车辆类型（vType）参数'ssm.measures'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3884
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3889
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr "车辆'%'没有提供车辆参数'device.ssm.file'文件。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3907
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3912
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
 msgstr "车辆参数'ssm.geo'的数值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3913
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3918
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
 msgstr "vType参数'ssm.geo'的无效值'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3918
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3923
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.geo'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3934
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3939
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
 msgstr "车辆参数'SSM.Write-positions'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3940
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3945
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
 msgstr "vType参数'ssm.write-positions'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3945
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3972
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3950
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3977
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr ""
 "车辆'%'没有提供车辆参数'device.sm.write-positions'记录的位置。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3961
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3966
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
 msgstr "车辆参数'ssm.write-lan-positions'记录的位置值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3967
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3972
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr "vType参数'ssm.write-lan-positions'记录的位置值'%无效'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3988
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3993
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
 msgstr "车辆参数 'ssm.conflict-order' 的值 '%' 无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3994
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3999
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
 msgstr "vType 参数 'ssm.conflict-order '的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3999
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4004
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
 "车辆 '%' 不提供车辆参数 'device.ssm.exclude-conflict-types'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4017
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4022
 msgid ""
 "SSM order filter '%' is not supported. Aborting construction of SSM device "
 "'%'."
 msgstr "不支持 SSM 订单过滤器'%'。中止 SSM 设备'%'的构建。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4034
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4039
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.range'."
 msgstr "车辆参数'ssm.range'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4040
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4045
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.range'."
 msgstr "vType参数'ssm.range'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4045
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4050
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.range'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.range'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4061
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4066
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.mdrac.prt'."
 msgstr "车辆参数 'ssm.mdrac.prt '的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4067
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4072
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.mdrac.prt'."
 msgstr "vType 参数 'ssm.mdrac.prt '的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4072
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4077
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.mdrac.prt'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.ssm.mdrac.prt'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4090
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4095
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.extratime'."
 msgstr "车辆参数'ssm.extratime'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4096
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4101
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.extratime'."
 msgstr "vType参数'ssm.extratime'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4101
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4106
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.extratime'. Using "
 "default of '%'."
 msgstr "车辆'%'没有提供车辆参数'device.sm.extratime'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4107
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4112
 #, c-format
 msgid ""
 "Negative (or no) value encountered for vehicle parameter 'device.ssm."
@@ -3790,50 +3813,50 @@ msgstr ""
 "车辆参数'device.sm.extratime'在车辆'%'中遇到了负值（或没有），使用默认值%代"
 "替。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4121
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4126
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
 msgstr "车辆参数'ssm.trajectories'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4127
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
 msgstr "vType参数'SSM.trajectories'的无效值'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4137
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.trajectories'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4166
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.measures'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4178
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4183
 msgid ""
 "SSM identifier '%' is not supported. Aborting construction of SSM device '%'."
 msgstr "不支持SSM标识符'%'。正在终止SSM装置'%'的构建。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4189
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4194
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
 msgstr "车辆参数'ssm.thresholds'的值'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4195
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4200
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
 msgstr "vType参数'ssm.thresholds'的无效值'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4200
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4205
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
 msgstr "车辆'%'不提供车辆参数'device.sm.thresholds'。使用默认的'%'。"
 
-#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4215
+#: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4220
 msgid ""
 "Given list of thresholds ('%') is not of the same size as the list of "
 "measures ('%').\n"
@@ -4218,12 +4241,12 @@ msgstr "车辆'%'停在路段'%'上，时间=%，没有结束前一次停车。"
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr "车辆'%'在路段'%'上结束停车，时间=%，没有进入停车。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:140
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:141
 #, c-format
 msgid "Traffic light '%' does not control any links"
 msgstr "交通灯'%'不控制任何路段"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:229
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:230
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
@@ -4231,22 +4254,22 @@ msgstr ""
 "未知的感应线圈（inductionLoop） '%'作为自定义检测器，用于驱动的信号逻辑"
 "（tlLogic） '%'，程序'%。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:242
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:243
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
 "在执行触动式信号逻辑（tlLogic ）'%'时，最小时间（minDur ）%对于%米的检测器间"
 "距来说太短。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:407
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:411
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr "在执行触动式信号逻辑tlLogic '%'时，触动的相位%没有控制的探测器。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:444
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:454
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr "在执行信号逻辑（tlLogic） '%'时，linkIndex %没有控制的探测器。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:453
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:461
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -4254,7 +4277,7 @@ msgstr ""
 "指定为触动式信号逻辑（tlLogic）'%' ，时制方案(program) '%' 的linkMaxDur参数的"
 "连接(link) '%' 无效。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:463
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:471
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -4262,38 +4285,38 @@ msgstr ""
 "指定为触动式信号逻辑（tlLogic）'%'，时制方案(program）'%'的linkMinDur参数的连"
 "接'%'无效。"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:905
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:948
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
 msgstr "在执行触动式信号逻辑（tlLogic）'%'，过渡相位%不应该有多个下一相位"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1063
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1106
 msgid "Unmatched parentheses in condition %'"
 msgstr "条件式%'中不配对的括号"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1078
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1121
 msgid "Invalid empty condition '%'"
 msgstr "无效的空条件式'%'"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1093
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1136
 msgid "Unsupported condition '%'"
 msgstr "不支持的条件式'%'"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1156
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1199
 msgid "Division by 0 in condition '%'"
 msgstr "在条件'式%'中除以0"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1207
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1250
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
 msgstr "禁止修改总体条件(global condition）'%'"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1219
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1262
 msgid "Invalid empty expression"
 msgstr "无效的空表式"
 
-#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1315
+#: D:\Repos\sumo/src\microsim\traffic_lights\MSActuatedTrafficLightLogic.cpp:1358
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr "检索信号逻辑（tlLogic）'%'的条件'%'时出错 (%)"
 
@@ -4937,108 +4960,92 @@ msgstr "无法在路段 '%' 上建立入口匝道 - 路段未知。"
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr "无法在路段 '%' 上建立出口匝道 - 路段未知。"
 
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:249
-msgid "Ups - could not build on-ramp for edge '%' (node could not be build)!"
-msgstr "糟糕 - 无法在路段 '%' 建立入口匝道 (无法建立节点)!"
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:254
-msgid "Ups - could not build on-ramp for edge '%'!"
-msgstr "糟糕 - 无法在路段 '%' 建立入口匝道!"
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:284
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:289
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:400
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:403
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:280
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:285
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:392
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:395
 #: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:712
 msgid "Could not set connection!"
 msgstr "无法设定连接线(connection)!"
 
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:356
-msgid "Ups - could not build off-ramp for edge '%' (node could not be build)!"
-msgstr "糟糕- 无法为路段 '%' 建立出口匝道 (无法建立节点)!"
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:361
-msgid "Ups - could not build off-ramp for edge '%'!"
-msgstr "糟糕- 无法为路段 '%' 建立出口匝道!"
-
-#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:423
+#: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:415
 msgid "For edge '%': could not compute shape."
 msgstr "路段 '%':无法计算形状。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:432
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:460
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:433
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:461
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
 msgstr "至少有一个路段的 '%' 节点未知。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:457
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:458
 #, c-format
 msgid "Edge '%' needs at least one lane."
 msgstr "路段 '%' 至少需要一个车道。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:463
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:464
 msgid "Invalid edge id '%'."
 msgstr "无效的路段识别名(id) '%'。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:493
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:627
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:494
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:628
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr "路段的 '%' 起点及终点在相同的位置。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1002
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1021
 msgid "Found angle of % degrees at edge '%', segment %."
 msgstr "在路段 '%',区段 % 处找到 % 度的角度。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1014
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1033
 msgid "Removing sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1015
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1034
 msgid "start"
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1020
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1039
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1158
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1177
 msgid "Could not set connection from '%' to '%'."
 msgstr "无法从'%' 到 '%' 设定连接线(connection)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1670
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1689
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr "接线(connection) '%_%->%_%' 只有 % 米短。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1772
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1791
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
 msgstr ""
 "从车道 '%' 和车道 '%' 在路口 '%' 与左转交会 (增加路口半径以避免这种情況)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1872
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1891
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
 msgstr "由于转弯半径为 %,连接线'%' 的速度 % 降低了 % （长度=%，角度=%）。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2210
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2229
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr "在车道 '%':无法确定车道形状 (%)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2223
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2242
 msgid "In lane '%': Could not build shape (%)."
 msgstr "在车道 '%':无法建立形状 (%)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2653
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2672
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 "无法在路段 '%' 上应用转弯标志信息，因为有 % 的方向,但只有 % 的目标(targets)"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2694
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2713
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
@@ -5046,13 +5053,13 @@ msgstr ""
 "无法在路段 '%' 上应用转弯标志信息，因为有 % 的方向,但只有 % 的目标(targets)"
 "(目标修剪后)"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2711
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2730
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr "无法於路段 '%' 应用转弯标志信息，因为目标路段 '%' 没有合适的车道"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2717
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2736
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
@@ -5060,68 +5067,68 @@ msgstr ""
 "无法在路段'%'上应用转弯标志信息，因为有具有%方向的'%'连接线，但目标路段'%'只"
 "有%的合适车道"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2744
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2763
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 "无法在路段\"%\"应用转弯标志信息，因为无法为方向\"%\"确定有足够的目标车道"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3038
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3057
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr "路段 '%' 在路口 '%' 未与任何离开(outgoing)路段连接。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3052
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3071
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr "车道 '%' 在路口 '%' 未与任何进入(incoming)路段连接。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3069
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3088
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的 禁止换左(changeLeft)以避免造成死结(dead-end)"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3072
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3091
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的 禁止换右(changeRight)以避免造成死结(dead-end)"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3673
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3692
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "路段 '%' 上的车道 '%'已经有交通信号。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3679
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:3698
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr "无法设定信号逻辑(tlLogic) '%' 的任何信号 （未知群组）。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4168
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4187
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr "忽略路段 '%' 的无效 stopOffset （负偏移值(offset)）。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4177
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4196
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr "忽略车道 '%' 的无效 stopOffset （负偏移值(offset)）。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4183
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4202
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr "忽略车道 '%' 的无效 stopOffset （无效的车道索引）。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4447
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4466
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "路段 '%' 允许行人在所有车道上"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4505
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4524
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr "路段 '%' 已经有用于 %s 的专用车道。不再增加另一个。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4545
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4564
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr "路段 '%' 沒有用于 %s 的专用车道。无法恢复。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4593
+#: D:\Repos\sumo/src\netbuild\NBEdge.cpp:4612
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr "无法避免在路段 '%' 的节点 '%' 上重叠形状(shape)。"
 
@@ -5189,64 +5196,64 @@ msgstr "车道 '%' (长度 %)和路段 '%' (长度 %)的平均路段长度。"
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
 msgstr "对面车道'%'与路段%'不能连接在同一节点!"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:934
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:940
 msgid "Invalid endOffset % at lane '%' with length % (startOffset %)."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:937
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:943
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:939
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:945
 #, c-format
 msgid "Lane '%' has a maximum allowed speed of 0."
 msgstr "车道 '%' 的最大允许速度为 0。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1450
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1456
 msgid "Replacing loaded roundabout '%' with '%'."
 msgstr "正在用 '%' 替换载入的环线'%'。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1816
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1822
 msgid "Edge '%' overlaps with edge '%' by %."
 msgstr "路段'%'与路段'%'重叠在%。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1832
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1838
 #, c-format
 msgid "Edge '%' has a vertical jump of %m."
 msgstr "路段 '%' 有一个% 米的垂直跳位(jump)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1834
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1840
 #, c-format
 msgid "Edge '%' has a grade of %%."
 msgstr "路段 '%' 的坡度(grade)为%%。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1844
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1850
 #, c-format
 msgid "Connection '%' has a vertical jump of %m."
 msgstr "连接线(connection) '%' 有一个 % 米的垂直跳位(jump)。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1846
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1852
 #, c-format
 msgid "Connection '%' has a grade of %%."
 msgstr "连接线(connection) '%' 的坡度(grade)为%%。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1886
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1892
 msgid "Not joining tram edge '%' with % lanes."
 msgstr "没有将电车路段'%'与%车道连接起来。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1964
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:1970
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
 msgstr "车道'%'的电车路段'%'和'%'模糊不清。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2118
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2124
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:141
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:554
 #, c-format
 msgid "Edge's '%' from-node '%' is not known."
 msgstr "路段的 '%' 从节点(from-node)'%' 未知。"
 
-#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2122
+#: D:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:2128
 #: D:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:145
 #: D:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:566
 #, c-format
@@ -6218,84 +6225,84 @@ msgstr "无效的节点识别点(id) '%'。"
 msgid " Removing self-looping edge '%'"
 msgstr " 移除自我线圈(self-looping)路段 '%'"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:745
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:772
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr "无法计算节点 '%' 处间接左转形狀"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:761
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:788
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
 msgstr "连接线 '%' 从一个不存在的车道开始。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:764
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:791
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
 msgstr "连接线 '%' 以一个不存在的车道为目标。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:778
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:796
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:805
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:823
 msgid "Could not use custom shape for connection %."
 msgstr "无法与连接线% 使用自定形狀。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:787
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:814
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr "自定形狀与连接线 % 的进入(incoming)车道的距离为 %。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:804
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:831
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr "自定形狀与连接线 % 的离开(outgoing)车道的距离为 %。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1003
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1030
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr "路口 '%' 太复杂 (% 连接线，最大 %); 將被設定为 %。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1144
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1171
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
 msgstr "路口 '%' 的形狀与其給定位置的距离为 %。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1148
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1175
 msgid "For junction '%': could not compute shape."
 msgstr "路口 '%': 无法计算形狀。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1850
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:1877
 msgid "Something went wrong during the building of a connection..."
 msgstr "建立连接线(connection)时,发生了问题..."
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:2879
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:2906
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr "废除连接路段 [%] 的路口 '%' 处的无效穿越道 '%' （未找到步行区域）。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3055
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3082
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无车道可穿越）。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3074
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3101
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 "在具有路段 [%] 的路口 '%' 处废除无效的人行道 '%' （无效的形狀(shape)）。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3225
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3252
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 目标 '%' 和 '%'。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3248
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3275
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 "路口 '%' 处的行人拓扑结构(topology)无效； 穿越道 '%' 是 '%' 和 '%' 的目标。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3253
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3280
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
@@ -6303,18 +6310,21 @@ msgstr ""
 "路口 '%'处的行人拓扑结构(topology)无效；穿越道 '%' 的起点和终点都在步行区域 "
 "'%'。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3473
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3512
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr "无效的行人拓扑结构(topology): 跨越 [%] 的人行穿越道 '%'沒有目标。"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3811
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3850
 msgid "Request for unknown crossing '%'"
 msgstr "请求未知人行穿越道 '%'"
 
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3827
-#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3838
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3866
 msgid "Request for unknown crossing for the given Edges"
 msgstr "请求给定路段的未知人行穿越道"
+
+#: D:\Repos\sumo/src\netbuild\NBNode.cpp:3891
+msgid "Request for unknown walkingarea '%'."
+msgstr ""
 
 #: D:\Repos\sumo/src\netbuild\NBNodeCont.cpp:319
 msgid "Removed a road without junctions: %."
@@ -9347,7 +9357,7 @@ msgid ""
 "instead"
 msgstr "在路网中嵌入 的分区(TAZ)数据已不适用。 使用选项 --taz-output 代替"
 
-#: D:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:468
+#: D:\Repos\sumo/src\netwrite\NWWriter_SUMO.cpp:469
 msgid "Could not find bidi-connection for edge '%'"
 msgstr "找不到路段 '%' 的双向连接线 (bidi-connection)"
 
@@ -10579,7 +10589,7 @@ msgid ""
 "'disallow'"
 msgstr "SVCPermissions 必须通过 'allow' 或 'disallow' 指定。 忽略 'disallow'"
 
-#: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:437
+#: D:\Repos\sumo/src\utils\common\SUMOVehicleClass.cpp:434
 #, c-format
 msgid "The vehicle class '%' is deprecated, use '%' instead."
 msgstr "车辆类别 '%' 已不适用,请改用 '%'。"
@@ -11675,6 +11685,20 @@ msgstr ""
 #: D:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:195
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "当解析'%'时,发生未指定的错误"
+
+#~ msgid ""
+#~ "Ups - could not build on-ramp for edge '%' (node could not be build)!"
+#~ msgstr "糟糕 - 无法在路段 '%' 建立入口匝道 (无法建立节点)!"
+
+#~ msgid "Ups - could not build on-ramp for edge '%'!"
+#~ msgstr "糟糕 - 无法在路段 '%' 建立入口匝道!"
+
+#~ msgid ""
+#~ "Ups - could not build off-ramp for edge '%' (node could not be build)!"
+#~ msgstr "糟糕- 无法为路段 '%' 建立出口匝道 (无法建立节点)!"
+
+#~ msgid "Ups - could not build off-ramp for edge '%'!"
+#~ msgstr "糟糕- 无法为路段 '%' 建立出口匝道!"
 
 #, c-format
 #~ msgid "Vehicle '%' is not allowed to depart on its first edge."
