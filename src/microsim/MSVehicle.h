@@ -2131,6 +2131,9 @@ protected:
     /// @brief remove vehicle from further lanes (on leaving the network)
     void cleanupFurtherLanes();
 
+    /// @brief comparison between different continuations from the same lane
+    static bool betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m);
+
 private:
     /// @brief The per vehicle variables of the car following model
     MSCFModel::VehicleVariables* myCFVariables;

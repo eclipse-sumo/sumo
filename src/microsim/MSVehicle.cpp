@@ -6026,10 +6026,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
                     for (const LaneQ& m : nextLanes) {
                         if ((m.lane->allowsVehicleClass(getVClass()) || m.lane->hadPermissionChanges())
                                 && m.lane->isApproachedFrom(cE, j.lane)) {
-                            if (bestConnectedNext == nullptr || ((bestConnectedNext->length < m.length
-                                                                  || (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset))
-                                                                  || (bestConnectedNext->lane->getBidiLane() != nullptr && m.lane->getBidiLane() == nullptr))
-                                                                 && (m.lane->getBidiLane() == nullptr || bestConnectedNext->lane->getBidiLane() != nullptr))) {
+                            if (betterContinuation(bestConnectedNext, m)) {
                                 bestConnectedNext = &m;
                             }
                         }
@@ -6170,6 +6167,23 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
 #endif
     return;
+}
+
+
+bool
+MSVehicle::betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) {
+    if (bestConnectedNext == nullptr) {
+        return true;
+    } else if (m.lane->getBidiLane() != nullptr && bestConnectedNext->lane->getBidiLane() == nullptr) {
+        return false;
+    } else if (bestConnectedNext->lane->getBidiLane() != nullptr && m.lane->getBidiLane() == nullptr) {
+        return true;
+    } else if (bestConnectedNext->length < m.length) {
+        return true;
+    } else if (bestConnectedNext->length == m.length && abs(bestConnectedNext->bestLaneOffset) > abs(m.bestLaneOffset)) {
+        return true;
+    }
+    return false;
 }
 
 
