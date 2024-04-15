@@ -582,7 +582,7 @@ public:
     /// @brief write electrical substation output
     void writeSubstationOutput() const;
 
-    /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
+    /// @brief return wheter the given logic (or rather its wrapper) is selected in the GUI
     virtual bool isSelected(const MSTrafficLightLogic*) const {
         return false;
     }

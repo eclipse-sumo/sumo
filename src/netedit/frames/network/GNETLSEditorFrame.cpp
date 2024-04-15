@@ -269,7 +269,7 @@ GNETLSEditorFrame::parseTLSPrograms(const std::string& file) {
             myViewNet->getUndoList()->add(new GNEChange_TLS(junction, def, true), true);
         }
     }
-    // clean up temporary container to avoid deletion of defs when it's destruct is called
+    // clean up temporary container to avoid deletion of defs when its destruct is called
     for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
         tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
     }
@@ -2979,7 +2979,7 @@ GNETLSEditorFrame::TLSFile::onCmdLoadTLSProgram(FXObject*, FXSelector, void*) {
             }
         }
 
-        // clean up temporary container to avoid deletion of defs when it's destruct is called
+        // clean up temporary container to avoid deletion of defs when its destruct is called
         for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
             tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
         }

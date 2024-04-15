@@ -357,7 +357,7 @@ public:
     /// @brief return whether the person has reached the end of its plan
     bool hasArrived() const;
 
-    /// @brief return whether the transportable has started it's plan
+    /// @brief return whether the transportable has started its plan
     bool hasDeparted() const;
 
     /// @brief adapt plan when the vehicle reroutes and now stops at replacement instead of orig

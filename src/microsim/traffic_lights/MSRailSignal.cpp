@@ -435,7 +435,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
                                 // init driveway
                                 li.getDriveWay(ego);
                                 if (update && rs->isActive()) {
-                                    // vehicle may have rerouted it's intial trip
+                                    // vehicle may have rerouted its intial trip
                                     // after the states have been set
                                     // @note: This is a hack because it could lead to invalid tls-output
                                     // (it's still an improvement over switching based on default driveways)

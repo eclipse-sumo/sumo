@@ -44,7 +44,7 @@ public:
     /**
      * @brief Constructor.
      *
-     * @param[in] receiver Pointer to object of type T that will receive a call to one of it's methods.
+     * @param[in] receiver Pointer to object of type T that will receive a call to one of its methods.
      * @param[in] parameter The methods parameter (must be copy-constructable)
      * @param[in] operation The objects' method that will be called on execute()
      */

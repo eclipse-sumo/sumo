@@ -224,7 +224,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         }
         if (attrs.hasAttribute(SUMO_ATTR_TYPE) && myCurrentType != myCurrentEdge->getTypeID()) {
             if (!myHaveReportedAboutTypeOverride) {
-                WRITE_MESSAGEF(TL("Edge '%' changed it's type; assuming type override is wished."), myCurrentID);
+                WRITE_MESSAGEF(TL("Edge '%' changed its type; assuming type override is wished."), myCurrentID);
                 myHaveReportedAboutTypeOverride = true;
             }
         }

@@ -944,7 +944,7 @@ public:
 
     /* @brief returns the current signed offset from the lane that is most
      * suited for continuing the current route (in the strategic sense of reducing lane-changes)
-     * - 0 if the vehicle is one it's best lane
+     * - 0 if the vehicle is on its best lane
      * - negative if the vehicle should change to the right
      * - positive if the vehicle should change to the left
      */

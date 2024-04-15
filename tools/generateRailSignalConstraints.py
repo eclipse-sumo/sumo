@@ -26,7 +26,7 @@ When two vehicles stop subsequently at the same busStop (trainStop) and they rea
 via different routes, the switch where both routes merge is identified and a
 constraint is created for the rail signals that guard this merging switch:
     The vehicle B that arrives at the stop later, must wait (at its signal Y)
-    for the vehicle A that arrives first (to pass it's respective signal X)
+    for the vehicle A that arrives first (to pass its respective signal X)
     This uses the 'arrival' attribute of the vehicle stops
 
 A complication arises if the signal of the first vehicle is passed by other
@@ -45,7 +45,7 @@ a "virtual" intermediateStop directly after the switch to "normalize" the input.
 
 2. <insertionPredecessor>
 Whenever a vehicle B departs at a stop (assumed to coincide with the "until"
-attribute of it's first stop), the prior train A that leaves this stop is
+attribute of its first stop), the prior train A that leaves this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 insertion of B until train A has passed the next signal that lies beyond the
 stop.
@@ -66,7 +66,7 @@ go second.
 
 3. <foeInsertion>
 Whenever a vehicle A departs at a stop (assumed to coincide with the "until"
-attribute of it's first stop), the latter train B that enters this stop is
+attribute of its first stop), the latter train B that enters this stop is
 identified (also based on "until"). Then a constraint is created that prevents
 B from entering the section with the stop until A has passed the next signal that lies beyond the
 stop.
@@ -644,7 +644,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                     ended2 = parseTime(stop2.ended) if stop2.hasAttribute("ended") else None
 
                     swappedEnded = (ended2 is not None
-                                    # vehicle had not left but it's schedule follower had
+                                    # vehicle had not left but its schedule follower had
                                     and (ended is None
                                          # vehicle left after schedule follower
                                          or ended2 < ended))
@@ -657,7 +657,7 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                             # legacy: until replaced by ended
                             until2 < until or
                             (started2 is not None
-                                # vehicle had not arrived but it's schedule follower had
+                                # vehicle had not arrived but its schedule follower had
                                 and (started is None
                                      # vehicle arrived after schedule follower
                                      or started2 < started)) or
@@ -1059,7 +1059,7 @@ def findConflicts(options, net, switchRoutes, mergeSignals, signalTimes, stopEdg
                         "invalid", False) and not pStop.getAttributeSecure("invalid", False)
                     if isIntermediateParking:
                         # intermediateParkingConflicts: train order isn't determined at the switch
-                        #  but rather when the second vehicle leaves it's parking stop
+                        #  but rather when the second vehicle leaves its parking stop
                         stopEdge = stopEdges[nStop.intermediateStop.busStop]
                         signal = findSignal(net, (stopEdge,) + nStop.edgesBeforeCommon)
                         if signal is None:
@@ -1484,7 +1484,7 @@ def findBidiConflicts(options, net, stopEdges, uniqueRoutes, stopRoutes, vehicle
                     bidi = getBidiID(net, edge)
                     for route in edge2Route[bidi]:
                         # insertion on the stopEdgeBidi may also define a bidi
-                        # conflict (i.e. with a foe vehicle that has delayed insertion w.r.t it's schedule)
+                        # conflict (i.e. with a foe vehicle that has delayed insertion w.r.t its schedule)
                         if stopEdgeBidi not in route[1:]:
                             oRoutes.add(route)
             if oRoutes:
@@ -1887,7 +1887,7 @@ def main(options):
     if options.abortUnordered:
         markOvertaken(options, vehicleStopRoutes, stopRoutes)
     parkingConflicts, foeParkingInsertionConflicts = updateStartedEnded(
-            options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
+        options, net, stopEdges, stopRoutesBidi, vehicleStopRoutes)
 
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)

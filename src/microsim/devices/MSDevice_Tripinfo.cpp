@@ -411,7 +411,7 @@ MSDevice_Tripinfo::generateOutputForUnfinished() {
             if (tripinfoOut != nullptr) {
                 for (MSVehicleDevice* const dev : d->myHolder.getDevices()) {
                     if (typeid(*dev) == typeid(MSDevice_Tripinfo) || typeid(*dev) == typeid(MSDevice_Vehroutes)) {
-                        // tripinfo is special and vehroute has it's own write-unfinished option
+                        // tripinfo is special and vehroute has its own write-unfinished option
                         continue;
                     }
                     dev->generateOutput(tripinfoOut);

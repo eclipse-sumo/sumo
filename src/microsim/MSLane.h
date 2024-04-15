@@ -864,7 +864,7 @@ public:
     bool isCrossing() const;
 
     /** Returns whether the lane pertains to a walkingarea*/
-    bool isWalkingArea() const; 
+    bool isWalkingArea() const;
 
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
@@ -1208,13 +1208,13 @@ public:
      * @param[in] ego The ego vehicle
      * @param[in] dist The look-ahead distance when looking at consecutive lanes
      * @param[in] oppositeDir Whether the lane has the opposite driving direction of ego
-     * @return the leader vehicle and it's gap to ego
+     * @return the leader vehicle and its gap to ego
      */
     std::pair<MSVehicle* const, double> getOppositeLeader(const MSVehicle* ego, double dist, bool oppositeDir, MinorLinkMode mLinkMode = MinorLinkMode::FOLLOW_NEVER) const;
 
     /* @brief find follower for a vehicle that is located on the opposite of this lane
      * @param[in] ego The ego vehicle
-     * @return the follower vehicle and it's gap to ego
+     * @return the follower vehicle and its gap to ego
      */
     std::pair<MSVehicle* const, double> getOppositeFollower(const MSVehicle* ego) const;
 
@@ -1224,7 +1224,7 @@ public:
      * @param[in] egoPos The ego position mapped to the current lane
      * @param[in] dist The look-back distance when looking at consecutive lanes
      * @param[in] ignoreMinorLinks Whether backward search should stop at minor links
-     * @return the follower vehicle and it's gap to ego
+     * @return the follower vehicle and its gap to ego
      */
     std::pair<MSVehicle* const, double> getFollower(const MSVehicle* ego, double egoPos, double dist, MinorLinkMode mLinkMode) const;
 
@@ -1534,7 +1534,7 @@ protected:
     /// @brief The length of all vehicles that have left this lane in the current step (this lane, excluding their minGaps)
     double myNettoVehicleLengthSumToRemove;
 
-    /** The lane's Links to it's succeeding lanes and the default
+    /** The lane's Links to its succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
     std::vector<MSLink*> myLinks;
 

@@ -144,7 +144,7 @@ public:
                                         int maxCapacity,
                                         int maxContainerCapacity);
 
-    /// @brief remove person from reservation. If the whole reservation is removed, return it's id
+    /// @brief remove person from reservation. If the whole reservation is removed, return its id
     virtual std::string removeReservation(MSTransportable* person,
                                           const MSEdge* from, double fromPos,
                                           const MSEdge* to, double toPos,
@@ -154,9 +154,9 @@ public:
     /// TODO: if there is already a reservation with the newFromPos, add to this reservation
     /// TODO: if there are other persons in this reservation, create a new reservation for the updated one
     virtual Reservation* updateReservationFromPos(MSTransportable* person,
-                                                 const MSEdge* from, double fromPos,
-                                                 const MSEdge* to, double toPos,
-                                                 std::string group, double newFromPos);
+            const MSEdge* from, double fromPos,
+            const MSEdge* to, double toPos,
+            std::string group, double newFromPos);
 
     /// @brief erase reservation from storage
     virtual void fulfilledReservation(const Reservation* res);

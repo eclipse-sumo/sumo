@@ -89,7 +89,7 @@ public:
      *
      * Checks whether one of the stored vehicles may be inserted back into
      *  the network. If not, the vehicle may move virtually to the next lane
-     *  of it's route
+     *  of its route
      *
      * @param[in] time The current simulation time
      */

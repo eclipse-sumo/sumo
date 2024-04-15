@@ -487,7 +487,7 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     bool isLineStop(double position) const;
 
-    /// @brief check wether the vehicle has jump at the given part of it's route
+    /// @brief check wether the vehicle has jump at the given part of its route
     bool hasJump(const MSRouteIterator& it) const;
 
     /** @brief Validates the current or given route

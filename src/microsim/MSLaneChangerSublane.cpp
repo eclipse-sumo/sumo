@@ -384,7 +384,7 @@ MSLaneChangerSublane::startChangeSublane(MSVehicle* vehicle, ChangerIt& from, do
     // 2) distinguish several cases
     //   a) vehicle moves completely within the same lane
     //   b) vehicle intersects another lane
-    //      - vehicle must be moved to the lane where it's midpoint is (either old or new)
+    //      - vehicle must be moved to the lane where its midpoint is (either old or new)
     //      - shadow vehicle must be created/moved to the other lane if the vehicle intersects it
     // 3) updated dens of all lanes that hold the vehicle or its shadow
 

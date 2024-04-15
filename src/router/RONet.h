@@ -166,7 +166,7 @@ public:
      */
     ROEdge* getEdgeForLaneID(const std::string& laneID) const;
 
-    /** @brief Retrieves a lane rom the network given it's id
+    /** @brief Retrieves a lane rom the network given its id
      *
      * @param[in] laneID The name of the lane to retrieve the edge for
      * @return The lane object

@@ -462,7 +462,7 @@ protected:
     bool ignoreErrors;
 
     /**
-     * @brief return the default transition for t give it's and the ot's state
+     * @brief return the default transition for t give its and the ot's state
      *
      * @param t the target phase
      * @param ot the other active phase
@@ -548,8 +548,8 @@ protected:
  * @brief One phase in the NEMAController
  *
  * This represents one phase and all its parameters in a NEMA traffic light
- * The phse ultimately controls it's transition to the next phase,
- * and is resbonisble for determining the valid transitions given it's current state
+ * The phase ultimately controls its transition to the next phase,
+ * and is resbonisble for determining the valid transitions given its current state
  */
 class NEMAPhase {
 public:

@@ -1271,7 +1271,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                         && bidi->getNBEdge()->getGeometry().size() == 2
                         && myNBEdge->getBidiEdge() == nullptr) {
                     // NBEdge::avoidOverlap was already active so we need to reset the
-                    // geometry to it's default
+                    // geometry to its default
                     resetBothEndpoint(undoList);
                     bidi->resetBothEndpoint(undoList);
                 }

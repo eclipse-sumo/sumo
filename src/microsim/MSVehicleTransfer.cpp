@@ -174,8 +174,8 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             } else if (desc.myJumping) {
                 // try again later
                 ++i;
-            } else { 
-                // vehicle is visible while show-route is active. Make it's state more obvious
+            } else {
+                // vehicle is visible while show-route is active. Make its state more obvious
                 desc.myVeh->computeAngle();
                 desc.myVeh->setLateralPositionOnLane(-desc.myVeh->getLane()->getWidth() / 2);
                 desc.myVeh->invalidateCachedPosition();

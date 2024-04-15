@@ -1547,7 +1547,7 @@ MSVehicle::getBackPosition() const {
             }
 #endif
             if (myFurtherLanes.size() > 0 && !myLaneChangeModel->isChangingLanes()) {
-                // truncate to 0 if vehicle starts on an edge that is shorter than it's length
+                // truncate to 0 if vehicle starts on an edge that is shorter than its length
                 const double backPos = MAX2(0.0, getBackPositionOnLane(myFurtherLanes.back()));
                 result = myFurtherLanes.back()->geometryPositionAtOffset(backPos, -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1));
             } else {
@@ -4148,7 +4148,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
 
-        // ensure that the turn-around connection exists from the current edge to it's bidi-edge
+        // ensure that the turn-around connection exists from the current edge to its bidi-edge
         const MSEdgeVector& succ = myLane->getEdge().getSuccessors();
         if (std::find(succ.begin(), succ.end(), myLane->getEdge().getBidiEdge()) == succ.end()) {
 #ifdef DEBUG_REVERSE_BIDI
@@ -6905,7 +6905,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
                         return true;
                     }
                 }
-                // no drive item is found if the vehicle aborts it's request within dist
+                // no drive item is found if the vehicle aborts its request within dist
             }
             lane = (*link)->getViaLaneOrLane();
             if (!lane->getEdge().isInternal()) {

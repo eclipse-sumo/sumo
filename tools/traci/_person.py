@@ -319,18 +319,18 @@ class PersonDomain(VTypeDomain):
     def moveTo(self, personID, laneID, pos, posLat=tc.INVALID_DOUBLE_VALUE):
         """moveTo(string, string, double, double) -> None
 
-        Move a person to a new position along it's current route.
+        Move a person to a new position along its current route.
         """
         self._setCmd(tc.VAR_MOVE_TO, personID, "tsdd", 3, laneID, pos, posLat)
 
     def moveToXY(self, personID, edgeID, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
-        '''Place person at the given x,y coordinates and force it's angle to
+        '''Place person at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
+        any edge in the network but its route then only consists of that edge.
         If keepRoute is set to 2 the person has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID is an optional placement hint to resolve ambiguities.

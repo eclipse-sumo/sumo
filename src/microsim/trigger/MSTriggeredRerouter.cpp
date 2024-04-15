@@ -1315,7 +1315,7 @@ MSTriggeredRerouter::affected(const std::set<SUMOTrafficObject::NumericalID>& ed
 void
 MSTriggeredRerouter::checkParkingRerouteConsistency() {
     // if a parkingArea is a rerouting target, it should generally have a
-    // rerouter on it's edge or vehicles will be stuck there once it's full.
+    // rerouter on its edge or vehicles will be stuck there once it's full.
     // The user should receive a Warning in this case
     std::set<MSEdge*> parkingRerouterEdges;
     std::map<MSParkingArea*, std::string, ComparatorIdLess> targetedParkingArea; // paID -> targetingRerouter
@@ -1335,7 +1335,7 @@ MSTriggeredRerouter::checkParkingRerouteConsistency() {
     }
     for (const auto& item : targetedParkingArea) {
         if (parkingRerouterEdges.count(&item.first->getLane().getEdge()) == 0) {
-            WRITE_WARNINGF(TL("ParkingArea '%' is targeted by rerouter '%' but doesn't have it's own rerouter. This may cause parking search to abort."),
+            WRITE_WARNINGF(TL("ParkingArea '%' is targeted by rerouter '%' but doesn't have its own rerouter. This may cause parking search to abort."),
                            item.first->getID(), item.second);
         }
     }

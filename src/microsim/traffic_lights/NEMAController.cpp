@@ -1405,7 +1405,7 @@ NEMAPhase::enter(NEMALogic* controller, NEMAPhase* lastPhase) {
     if (!controller->coordinateMode && isGreenRest) {
         // If the controller is in free mode and the phase is a green rest phase, then it should enter as "green rest"
         myLightState = LightState::GreenRest;
-        // if the phase has "green rest" capabilities, set it's timer to the dynamic maxGreen
+        // if the phase has "green rest" capabilities, set its timer to the dynamic maxGreen
         greenRestTimer = maxDuration * isGreenRest;
     }
 

@@ -1496,7 +1496,7 @@ class NeteditorApp(wx.App):
 
 
 def netediting(net):
-    app = NeteditorApp(net, output=False)  # put in True if you want output to go to it's own window.
+    app = NeteditorApp(net, output=False)  # put in True if you want output to go to its own window.
     # print 'call MainLoop'
     app.MainLoop()
 

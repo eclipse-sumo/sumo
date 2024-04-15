@@ -55,7 +55,7 @@ public:
 
 public:
     /** Structure used for lane-change. For every lane you have to
-        know four vehicles, the change-candidate veh and it's follower
+        know four vehicles, the change-candidate veh and its follower
         and leader. Further, information about the last vehicle that changed
         into this lane is needed */
     struct ChangeElem {

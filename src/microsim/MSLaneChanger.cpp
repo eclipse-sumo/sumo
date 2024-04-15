@@ -643,7 +643,7 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     if (target != myCandi) {
         neighFollow = veh(target);
     } else {
-        // veh(target) would return the ego vehicle so we use it's predecessor instead
+        // veh(target) would return the ego vehicle so we use its predecessor instead
         if (target->lane->myVehicles.size() > 1) {
             neighFollow = target->lane->myVehicles[target->lane->myVehicles.size() - 2];
         }
@@ -1480,7 +1480,7 @@ MSLaneChanger::changeOpposite(MSVehicle* vehicle, std::pair<MSVehicle*, double> 
             if (!isOpposite && surplusGap >= 0 && oncoming.first != nullptr && oncoming.first->isStopped()
                     && oncomingOpposite.second > oncoming.second) {
                 // even if ego can change back and forth successfully, we have to
-                // make sure that the oncoming vehicle can also finish it's lane
+                // make sure that the oncoming vehicle can also finish its lane
                 // change in time
                 const double oSpeed = MAX2(oncomingOpposite.first->getSpeed(), NUMERICAL_EPS);
                 // conservative estimate

@@ -149,7 +149,7 @@ public:
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
-     * from it's reminder-container.
+     * from its reminder-container.
      *
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] oldPos Position before move.
@@ -223,7 +223,7 @@ public:
      *
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this reminder
-     * from it's reminder-container.
+     * from its reminder-container.
      *
      * @param[in] veh Vehicle that asks this reminder.
      * @param[in] frontOnLane time the front of the vehicle spent on the lane.

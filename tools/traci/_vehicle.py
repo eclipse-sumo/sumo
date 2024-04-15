@@ -1341,7 +1341,7 @@ class VehicleDomain(VTypeDomain):
     def moveTo(self, vehID, laneID, pos, reason=tc.MOVE_AUTOMATIC):
         """moveTo(string, string, double, integer) -> None
 
-        Move a vehicle to a new position along it's current route.
+        Move a vehicle to a new position along its current route.
         """
         self._setCmd(tc.VAR_MOVE_TO, vehID, "tsdi", 3, laneID, pos, reason)
 
@@ -1484,13 +1484,13 @@ class VehicleDomain(VTypeDomain):
         self._setCmd(tc.REMOVE, vehID, "b", reason)
 
     def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
-        '''Place vehicle at the given x,y coordinates and force it's angle to
+        '''Place vehicle at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
         natural angle of the edge on which it is driving.
         If keepRoute is set to 1, the closest position
         within the existing route is taken. If keepRoute is set to 0, the vehicle may move to
-        any edge in the network but it's route then only consists of that edge.
+        any edge in the network but its route then only consists of that edge.
         If keepRoute is set to 2 the vehicle has all the freedom of keepRoute=0
         but in addition to that may even move outside the road network.
         edgeID and lane are optional placement hints to resolve ambiguities.

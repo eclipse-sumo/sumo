@@ -44,7 +44,7 @@ class MSNet;
  * @brief A fixed traffic light logic
  *
  * The implementation of a simple traffic light which only switches between
- * it's phases and sets the lights to red in between.
+ * its phases and sets the lights to red in between.
  * Some functions are called with an information about the current step. This
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.

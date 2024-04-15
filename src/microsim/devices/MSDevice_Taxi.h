@@ -264,7 +264,7 @@ private:
     /// @brief algorithm for controlling idle behavior
     MSIdling* myIdleAlgorithm;
 
-    /// @brief whether the taxi has reached it's schedule service end
+    /// @brief whether the taxi has reached its schedule service end
     bool myReachedServiceEnd = false;
 
     /// @brief reservations currently being served
