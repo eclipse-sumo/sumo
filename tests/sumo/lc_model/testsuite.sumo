@@ -34,6 +34,9 @@ continuous_lanechange
 roundabout
 network_prohibits_changing
 
+# strategic choice when a lane has two successors (decided in bestLanes computation so not technically a lane change).
+lane_split
+
 # test effects of apparentDecel on lane changing
 #apparentDecel
 

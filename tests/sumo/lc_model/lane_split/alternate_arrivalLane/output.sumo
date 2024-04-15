@@ -1,0 +1,14 @@
+Loading net-file from 'net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_19_0+1834-990bab45b79 started with time: 0.00.
+Simulation ended at time: 1800.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 0.23s
+ Real time factor: 7725.32
+ UPS: 388721.030043
+Vehicles: 
+ Inserted: 1200
+ Running: 26
+ Waiting: 0
+

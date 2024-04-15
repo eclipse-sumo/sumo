@@ -1,0 +1,5 @@
+# strategic choice is determined by arrivalLane (maximizes flow)
+alternate_arrivalLane
+
+# strategic choice is unconstrained
+default
