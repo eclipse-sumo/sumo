@@ -77,7 +77,7 @@ If the node type is set to *traffic_light_right_on_red* rather than
 phases (after coming to a stop before entering the traffic stream that
 currently has the green light.
 
-## Intersection layout *incoming*
+## Phase layout *incoming*
 
 - each incoming edge of the intersection gets a separate green phase
 where all directions of movement are allowed
@@ -85,11 +85,11 @@ where all directions of movement are allowed
 than *traffic_light*, then compatible right-turns are allowed
 simultaneously
 
-## Intersection layout *alternateOneWay*
+## Phase layout *alternateOneWay*
 This layout can be used to model alternating access to a road section which can only be used by one direction at a time.
 To make use of this layout, a [joint traffic light](#controlling_multiple_junctions_with_the_same_controller) must be defined for all junctions that border the restricted section. Alternating green phases are separated by an all-red phase that is long enough to clear the interior section.
 
-## Other Intersections
+## Other Phase layouts
 
 - If there are more than 4 roads meeting at an intersection,
 additional green phases are generated
