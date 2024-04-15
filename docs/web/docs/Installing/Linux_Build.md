@@ -388,6 +388,10 @@ For details see
 [stackoverflow](https://stackoverflow.com/questions/335928/ld-cannot-find-an-existing-library)
 discussion.
 
+### ld cannot find certain functions in an existing external library
+
+Make sure you don't have an environment like anaconda installed which modifies your library search path.
+
 ### Additional notes for Cygwin users
 
 At the moment GUI building is still troublesome. It depends whether you
