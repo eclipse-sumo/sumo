@@ -908,6 +908,9 @@ TRACI_CONST int TL_CONSTRAINT_UPDATE = 0x36;
 // add rail signal constraint (set: traffic lights)
 TRACI_CONST int TL_CONSTRAINT_ADD = 0x37;
 
+// retrieve duration spent in the current phase (get: traffic lights)
+TRACI_CONST int TL_SPENT_DURATION = 0x38;
+
 // outgoing link number (get: lanes)
 TRACI_CONST int LANE_LINK_NUMBER = 0x30;
 

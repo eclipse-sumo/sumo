@@ -98,6 +98,7 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
     }
 }
 
+
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
     if (myTLLogic->getDefaultCycleTime() == DELTA_T) {

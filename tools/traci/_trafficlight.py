@@ -229,6 +229,13 @@ class TrafficLightDomain(Domain):
         """
         return self._getUniversal(tc.TL_NEXT_SWITCH, tlsID)
 
+    def getSpentDuration(self, tlsID):
+        """getSpentDuration(string) -> double
+
+        Returns the time in seconds for which the current phase has been active
+        """
+        return self._getUniversal(tc.TL_SPENT_DURATION, tlsID)
+
     def getPhaseDuration(self, tlsID):
         """getPhaseDuration(string) -> double
 

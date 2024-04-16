@@ -153,6 +153,13 @@ TrafficLight::getNextSwitch(const std::string& tlsID) {
     return Dom::getDouble(libsumo::TL_NEXT_SWITCH, tlsID);
 }
 
+
+double
+TrafficLight::getSpentDuration(const std::string& tlsID) {
+    return Dom::getDouble(libsumo::TL_SPENT_DURATION, tlsID);
+}
+
+
 int
 TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
     tcpip::Storage content;

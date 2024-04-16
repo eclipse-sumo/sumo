@@ -402,7 +402,7 @@ GUITrafficLightLogicWrapper::getCurrentTimeInCycleSeconds() const {
 
 int
 GUITrafficLightLogicWrapper::getRunningDurationSeconds() const {
-    return (int)(SIMTIME - STEPS2TIME(getActiveTLLogic()->getCurrentPhaseDef().myLastSwitch));
+    return STEPS2TIME(getActiveTLLogic()->getSpentDuration());
 }
 
 
