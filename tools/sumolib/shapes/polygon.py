@@ -38,7 +38,8 @@ def getBoundingBox(shape):
 
 class Polygon:
 
-    def __init__(self, id, type=None, color=None, layer=None, fill=None, shape=None):
+    def __init__(self, id, type=None, color=None, layer=None, fill=None,
+            shape=None, geo=None, angle=None, lineWidth=None, imgFile=None):
         self.id = id
         self.type = type
         self.color = color
@@ -47,6 +48,10 @@ class Polygon:
         self.layer = layer
         self.fill = fill
         self.shape = shape
+        self.geo = geo
+        self.angle = angle
+        self.lineWidth = lineWidth
+        self.imgFile = imgFile
         self.attributes = {}
 
     def getBoundingBox(self):
@@ -103,7 +108,9 @@ class PolygonReader(handler.ContentHandler):
             if name == 'poly' and not self._includeTaz:
                 c = color.decodeXML(attrs['color'])
                 poly = Polygon(attrs['id'], attrs.get('type'), c,
-                               attrs.get('layer'), attrs.get('fill'), cshape)
+                               attrs.get('layer'), attrs.get('fill'), cshape,
+                               attrs.get('geo'), attrs.get('angle'),
+                               attrs.get('lineWidth'), attrs.get('imgFile'))
             else:
                 poly = Polygon(attrs['id'], color=attrs.get('color'), shape=cshape)
             self._id2poly[poly.id] = poly
