@@ -173,7 +173,7 @@ title: ChangeLog
     
 - duarouter
   - Added support for loading ride with geo-coordinates #14427
-  - When writing person stops, the stoppling place name is now written as a comment. #14521
+  - When writing person stops, the stopping place name is now written as a comment. #14521
   - Added option **--weights.tls-penalty** to improve reliability of travel time. #14653
 
 - TraCI / libsumo
