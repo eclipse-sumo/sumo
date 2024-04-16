@@ -48,7 +48,7 @@ The threshold value can be configure
 using the option **--time-to-teleport** {{DT_INT}} which sets the time in seconds.
 
 !!! note
-    Setting **--time-to-teleport** to a negative value, disables teleporting due to gridlock.
+    Setting **--time-to-teleport** to a negative value disables teleporting due to gridlock.
 
 There are different reasons why a vehicle cannot continue with its
 route. Every time a vehicle teleports due to grid-lock one of the
