@@ -38,6 +38,9 @@ second_teleport_oncoming
 # change attributes of second stop without rerouting
 second_change_attribute
 
+# replace second stop after the vehicle has departed. new stop isn't reachable due to rerouter
+second_unreachable_ignore_rerouter
+
 # insertstop before the last stop
 third
 
