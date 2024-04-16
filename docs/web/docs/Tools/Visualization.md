@@ -72,6 +72,7 @@ The following attribute values have a special meaning. Instead of using an attri
 - `@INDEX`: the index of the *other* value within the input file is used.
 - `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
 - `@COUNT`: the number of occurences of the *other* value is used. Together with option **--barplot** or **-hbarplot** this gives a histogram. Binning size can be set via options **--xbin** and **--ybin**.
+- `@DENSITY`: the number of occurences of the *other* value is used, normalized by the total number of values. The *other* values are ordered by number of occurences.
 - `@BOX`: one or more [box plots](https://en.wikipedia.org/wiki/Box_plot) of the *other* value are drawn. The **--idattr** is used for grouping and there will be one box plot per id
 - `@NONE`: can be used with option **--idattr** to explicitly avoid grouping
 
