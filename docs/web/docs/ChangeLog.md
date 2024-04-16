@@ -520,7 +520,7 @@ title: ChangeLog
   - After generating a network without warnings, the new network will open directly without manually closing the output dialog. Issue #13149
   - Implemented new dialog for setting netedit and sumo options. This dialog supports option help, file selection dialogs and permits dynamic filtering of listed options. Issue #12007
   - Simplified selection of .sumocfg files when calling runSeeds.py tool. Issue #13118
-  - Simplified selection of edge is when calling python tools. Issue #12852
+  - Simplified selection of edge IDs when calling python tools. Issue #12852
   - The traffic light join mode now has 'OK / 'cancel' buttons. Issue #13028
   - Now netedit supports trip and flows over TAZs. Issue #13311
   - Improved error messages when loading additional objects. Issue #13507
