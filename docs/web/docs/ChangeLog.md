@@ -195,7 +195,8 @@ title: ChangeLog
   - sumolib.net now supports `getVersion` to retrieve the network version #14636
   - osmWebWizard now takes into account traffic lights for intermodal routing to avoid persons missing their ride #14653
   - osmWebWizard now runs with option **--tls.actuated.jam-threshold 30** to improve the capabilities (and efficiency) of traffic lights #14580
-  - Added tools/visualization/plotWKT.py for plotting WKT files    
+  - Added tools/visualization/plotWKT.py for plotting WKT files
+  - ptlines2flows.py supports option **--join** to concatenate lines which serve opposite directions. This reduces conflict on single-track rail lines #5320 
 
 
 ### Miscellaneous
