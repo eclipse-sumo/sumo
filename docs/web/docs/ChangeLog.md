@@ -109,7 +109,7 @@ title: ChangeLog
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
   - xml output from edgeDataDiff can now be loaded in netedit and sumo-gui. #14387
-  - tileGet.py is able to use maQuest service again. #14202
+  - tileGet.py is able to use mapQuest service again. #14202
   - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562
   - osmGet.py: Fixed missing building shapes (also affects osmWebWizard.py) #14598
   - Fixed problem locating binary applications on windows. #14676
