@@ -27,7 +27,7 @@ if "SUMO_HOME" in os.environ:
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'),'-c', 'sumo.sumocfg'])
+traci.start([sumolib.checkBinary('sumo'), '-c', 'sumo.sumocfg'])
 traci.simulationStep()
 traci.simulationStep()
 for vehID in traci.vehicle.getIDList():
