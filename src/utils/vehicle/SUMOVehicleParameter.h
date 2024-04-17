@@ -359,7 +359,7 @@ public:
         /// @brief write trigger attribute
         std::vector<std::string> getTriggers() const;
 
-        /// @brief The edge to stop at (used only in netedit)
+        /// @brief The edge to stop at
         std::string edge;
 
         /// @brief The lane to stop at
@@ -400,7 +400,7 @@ public:
 
         /// @brief The earliest pickup time for a taxi stop
         SUMOTime waitUntil = -1;
-        
+
         /// @brief whether an arriving person lets the vehicle continue
         bool triggered = false;
 
