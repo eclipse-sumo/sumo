@@ -27,6 +27,9 @@
 # test for #14731
 3_arm_slanted_1sw_missing
 
+# test for #14731
+3_arm_slanted_1sw_missing2
+
 # 4 arm junction with crossings on all sides and custom tl indices
 sumonet_customTLIndex
 
