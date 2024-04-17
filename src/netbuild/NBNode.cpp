@@ -3243,6 +3243,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         // check for connected crossings
         bool connectsCrossing = false;
         bool crossingNearSidewalk = false;
+        int numCrossings = 0;
         std::vector<Position> connectedPoints;
         for (auto c : getCrossings()) {
             if (gDebugFlag1) {
@@ -3266,6 +3267,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     connectsCrossing = true;
                     connectedPoints.push_back(c->shape[-1]);
                     wa.minPrevCrossingEdges = (int)c->edges.size();
+                    numCrossings++;
                     if (normalizedLanes[lastIdx].second.shape[0].distanceTo2D(connectedPoints.back()) < endCrossingWidth) {
                         crossingNearSidewalk = true;
                         if (gDebugFlag1) {
@@ -3300,6 +3302,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     connectsCrossing = true;
                     connectedPoints.push_back(c->shape[0]);
                     wa.minNextCrossingEdges = (int)c->edges.size();
+                    numCrossings++;
                     if (normalizedLanes[startIdx].second.shape[0].distanceTo2D(connectedPoints.back()) < startCrossingWidth) {
                         crossingNearSidewalk = true;
                         if (gDebugFlag1) {
@@ -3421,7 +3424,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             PositionVector curve;
             if (count != (int)normalizedLanes.size() || count == 2) {
                 const double angle = GeomHelper::angleDiff(begShape.angleAt2D(-2), endShape.angleAt2D(0));
-                if (count == 1 && angle > 0 && crossingNearSidewalk) {
+                if (count == 1 && angle > 0 && crossingNearSidewalk && numCrossings < 2) {
                     // do not build smooth shape for an unconnected left turn
                     // (the walkingArea would get bigger without a reason to
                     // walk there)
@@ -3468,7 +3471,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                             << "  waShape=" << wa.shape
                             << "\n";
             }
-            if (curve.size() > 2 && (count == 2 || (count == 1 && startCrossingWidth + endCrossingWidth > 0))) {
+            if (curve.size() > 2 && (count == 2 || (count == 1 && numCrossings > 0))) {
                 const double innerDist = begShape.back().distanceTo2D(endShape[0]);
                 const double outerDist = begShapeOuter.back().distanceTo2D(endShapeOuter[0]);
                 if (gDebugFlag1) {
