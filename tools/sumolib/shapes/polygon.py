@@ -39,7 +39,7 @@ def getBoundingBox(shape):
 class Polygon:
 
     def __init__(self, id, type=None, color=None, layer=None, fill=None,
-            shape=None, geo=None, angle=None, lineWidth=None, imgFile=None):
+                 shape=None, geo=None, angle=None, lineWidth=None, imgFile=None):
         self.id = id
         self.type = type
         self.color = color
