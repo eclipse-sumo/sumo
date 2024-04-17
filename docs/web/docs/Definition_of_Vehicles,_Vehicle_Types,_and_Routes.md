@@ -186,7 +186,7 @@ using [{{SUMO}}/tools/route/sort_routes.py]({{Source}}tools/route/sort_routes.py
 
 ### Repeated Routes
 When using attribute 'repeat' to repeat a route. The number of edges will be repeated the given number of times *after* driving them for the first time.
-If route is defined as stand-alone route (defined with it's own id outside a vehicle definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'cycleTime' in each iteration.
+If route is defined as stand-alone route (defined with its own id outside a vehicle definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'cycleTime' in each iteration.
 
 !!! caution
     When defining a route as child element of a vehicle, any defined stops will belong to the vehicle rather than the route and will not be repeated.
@@ -364,13 +364,13 @@ vehicle if the first try fails
                   |
 ### arrivalLane
 
-Determines the lane on which the vehicle should end it's route
+Determines the lane on which the vehicle should end its route
 
 - "`current`": the vehicle will not change
-it's lane when nearing arrival. It will use whatever lane is more
+its lane when nearing arrival. It will use whatever lane is more
 convenient to reach its arrival position. *(default behavior)*
-- `≥0`: the vehicle changes lanes to end it's route on the specified lane
-- "`random`": the vehicle will chose a random permitted lane on it's arrival edge and if necessary change it's lane to end there.
+- `≥0`: the vehicle changes lanes to end its route on the specified lane
+- "`random`": the vehicle will chose a random permitted lane on its arrival edge and if necessary change its lane to end there.
 - "`first`": the vehicle will arrive on the rightmost permitted lane.
 
 
@@ -391,9 +391,9 @@ considered to have arrived;
 Determines the speed at which the vehicle should end its route;
 
 - "`current`": the vehicle will not modify
-  it's speed when nearing arrival. It will drive as fast as (safely)
+  its speed when nearing arrival. It will drive as fast as (safely)
   possible. *(default behavior)*
-- `≥0`: the vehicle approaches it's arrival
+- `≥0`: the vehicle approaches its arrival
   position to end with the specified speed
 
 ### arrivalEdge
@@ -506,7 +506,7 @@ startupDelay        | float >= 0        | 0                | The extra delay tim
 | scale  | float >= 0  | scaling factor for traffic. Acts as a multiplier for option **--scale** for all vehicles of this type. Values < 1 cause a proportional reduction in traffic whereas values above 1 increase it by this factor. (default 1)|
 | timeToTeleport       | float   |        | Override option **--time-to-teleport** for vehicles of this type |
 | timeToTeleportBidi   | float   |        | Override option **--time-to-teleport.bidi** for vehicles of this type |
-| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has it's `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
+| speedFactorPremature | float   |        | When set to a positive value, this may cause a train to slow down on approach to a stop whenever the stop has its `arrival` attribut set and the vehicle would otherwise be ahead of schedule. The given value is multiplied with the edge speed limit and used as a lower bound for slowing down. If option **--use-stop-started** is set and the stop defines the `started` attribute, this is used instead of `arrival`. |
 
 Besides values which describe the vehicle's car-following properties,
 one can find definitions of the assigned vehicles' shapes, emissions,
@@ -528,7 +528,7 @@ While it is possible to assign the individual speedFactor value directly in a `<
 
 Having a distribution of speed factors (and hence of desired speeds) is beneficial to the realism of a simulation. If the desired speed is constant among a fleet of vehicles, this implies that gaps between vehicles will keep their size constant over a long time. For this reason, the individual speed factor for each simulated vehicle (whether defined as `<vehicle>`, `<trip>` or part of a `<flow>`) is drawn from a distribution by default.
 
-The `speedFactor` of a vehicle is also multiplied with the value of `maxDesiredSpeed` of it's `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
+The `speedFactor` of a vehicle is also multiplied with the value of `maxDesiredSpeed` of its `vType`. The resulting value gives another [upper bound on speed](Simulation/VehicleSpeed.md#edgelane_speed_and_speedfactor). This achieves speed distribution for road users where the speed limit is not meaningful (i.e. bicyles and pedestrians).
 
 The speedFactor of a vehicle is written to various outputs ([tripinfo-output](Simulation/Output/TripInfo.md), [vehroute-output](Simulation/Output/VehRoutes.md)) and can also be checked via the [vehicle parameter dialog](sumo-gui.md#object_properties_right-click-functions).
 
@@ -595,7 +595,7 @@ Note, that the given type id refers to an edge type rather than a vehicle type. 
     When used for [pedestrians](Simulation/Pedestrians.md), the *speedFactor* attribute is applied directly to the maximum speed of the vType since speed limits are not applicable to pedestrians
 
 !!! note
-    If the specified departSpeed of a vehicle exceeds the speed limit and it's vType has a speedFactor deviation > 0, the individual chosen speed multiplier is at least high enough to accommodate the stated depart speed.
+    If the specified departSpeed of a vehicle exceeds the speed limit and its vType has a speedFactor deviation > 0, the individual chosen speed multiplier is at least high enough to accommodate the stated depart speed.
 
 ### Examples
 
@@ -940,7 +940,7 @@ lists which parameter are used by which model(s).
 | lcSpeedGainRight        | Factor for configuring the threshold asymmetry when changing to the left or to the right for speed gain. By default the decision for changing to the right takes more deliberation. Symmetry is achieved when set to 1.0. *default: 0.1, range \[0-inf)* | LC2013, SL2015 |
 | lcSpeedGainLookahead    | Lookahead time in seconds for anticipating slow down. *default: 0 (LC2013), 5 (SL2015), range \[0-inf)* | LC2013, SL2015 |
 | lcOvertakeDeltaSpeedFactor | Speed difference factor for the eagerness of overtaking a neighbor vehicle before changing lanes. If the actual speed difference between ego and neighbor is higher than factor\*speedlimit, this vehicle will try to overtake the leading vehicle on the neighboring lane before performing the lane change. *default: 0 range \[-1-1]* | LC2013, SL2015 |
-| lcKeepRightAcceptanceTime | Time threshold for changing the willingness to change right. The value is compared against the anticipated time of unobstructed driving on the right. Lower values will encourage keepRight changes. If the value is changed from it's default, fast approaching follower vehicles will also impact willingness to move to the right lane. *default: -1 (legacy behavior where acceptance time ~ 7 \* currentSpeed) range \[0-inf)* | LC2013, SL2015 |
+| lcKeepRightAcceptanceTime | Time threshold for changing the willingness to change right. The value is compared against the anticipated time of unobstructed driving on the right. Lower values will encourage keepRight changes. If the value is changed from its default, fast approaching follower vehicles will also impact willingness to move to the right lane. *default: -1 (legacy behavior where acceptance time ~ 7 \* currentSpeed) range \[0-inf)* | LC2013, SL2015 |
 | lcCooperativeRoundabout | Factor that increases willingness to move to the inside lane in a multi-lane roundabout. *default: lcCooperative, range \[0-1\]* | LC2013, SL2015 |
 | lcCooperativeSpeed      | Factor for cooperative speed adjustments. *default: lcCooperative, range \[0-1\]* | LC2013, SL2015 |
 | minGapLat              | The desired minimum lateral gap when using the [sublane-model](Simulation/SublaneModel.md) , *default: 0.6* | SL2015 |
@@ -1237,9 +1237,9 @@ Special handling of other attributes:
 - when the 'until' value is set, vehicles may stop when reaching a waypoint too early
 
 ## Jumps
-When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration immediately after finishing the stop and re-enter it on the start of the next edge of it's route. Having a disconnected route after a jump-stop is permitted. When giving jumps as [router input](Demand/Shortest_or_Optimal_Path_Routing.md#routing_between_stops), disconnected routes are created by design.
+When defining attribute 'jump' with a non-negative value, the vehicle will leave the network for the given duration immediately after finishing the stop and re-enter it on the start of the next edge of its route. Having a disconnected route after a jump-stop is permitted. When giving jumps as [router input](Demand/Shortest_or_Optimal_Path_Routing.md#routing_between_stops), disconnected routes are created by design.
 
-A typical use case for jumps would be a public transport vehicle that has some of it's stops outside the simulated area and is expected to re-enter it at a later time after leaving the simulation  (while preserving it's ID and delay).
+A typical use case for jumps would be a public transport vehicle that has some of its stops outside the simulated area and is expected to re-enter it at a later time after leaving the simulation  (while preserving its ID and delay).
 
 !!! caution
     The next stop must be on a different edge that that on which the jump started or the next stop will be skipped.
