@@ -570,7 +570,7 @@ configuration:
 
 # Loading order of input files
 
-Sumo loads it's input files in the following order
+Sumo loads its input files in the following order
 
 - net-file
 - additional-files

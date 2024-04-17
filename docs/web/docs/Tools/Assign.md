@@ -43,7 +43,7 @@ If the file `vtypes.add.xml` defines vehicle types that are needed by the traffi
 
 **--additional vtypes.add.xml duarouter--vtype-output dummy.xml duarouter--additional-files vtypes.add.xml**
 
-The first option passes it's arguments only to the [sumo](../sumo.md) process. The other options are passed to [duarouter](../duarouter.md) and ensure that the types are read but are not written to the route output file (since they would then be loaded twice by sumo resulting in an error).
+The first option passes its arguments only to the [sumo](../sumo.md) process. The other options are passed to [duarouter](../duarouter.md) and ensure that the types are read but are not written to the route output file (since they would then be loaded twice by sumo resulting in an error).
 
 !!! caution
     Options, prefixed with **duarouter--** must be the last in the list of all options

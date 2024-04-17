@@ -31,7 +31,7 @@ necessary constraints must be fulfilled:
 - The vehicle must be able to brake for any scheduled stops along its
   route
 
-If a vehicle cannot be inserted due to any of the above reasons it's
+If a vehicle cannot be inserted due to any of the above reasons its
 insertion is delayed (see below). This *departDelay* is recorded in the
 [tripinfo-output](../Simulation/Output/TripInfo.md) and can also be
 inspected in [sumo-gui](../sumo-gui.md) via the vehicle parameter
@@ -44,7 +44,7 @@ as well as on the current state of the road network.
 
 ## Delayed Departure
 
-If there is insufficient space for inserting the vehicle at it's
+If there is insufficient space for inserting the vehicle at its
 designated departure time, that vehicle is put into an insertion queue
 and insertion is repeatedly attempted in subsequent simulation steps. If
 the option **--max-depart-delay** {{DT_TIME}} is used, vehicles are discarded if they could not be
@@ -117,7 +117,7 @@ For specialized use cases the following tips may help to achieve even more inser
   edge. By default, insertion on an edge stops after the first failure
   in each time step
 - **--step-length** {{DT_FLOAT}}: the frequency of insertion attempts can be raised and also the number of possible headways (for a fixed departPos) is increased by setting a lower step-length.
-- **--extrapolate-departpos** {{DT_BOOL}}: Moves the default depart position of a vehicle downstream if it's departure time is a fraction of the simulation step-length. The offset in depart position is proportional to the depart delay from step-length discretization.
+- **--extrapolate-departpos** {{DT_BOOL}}: Moves the default depart position of a vehicle downstream if its departure time is a fraction of the simulation step-length. The offset in depart position is proportional to the depart delay from step-length discretization.
 
 # Miscellaneous
 

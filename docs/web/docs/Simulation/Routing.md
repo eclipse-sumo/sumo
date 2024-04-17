@@ -69,7 +69,7 @@ argument to *traci.simulation.findRoute*.
 
 The following order of steps is taken to retrieve the travel time for each edge. If a step provides data, this is used, otherwise the next step is attempted:
 
-1.  The vehicle retrieves it's individual data storage. This can be set
+1.  The vehicle retrieves its individual data storage. This can be set
     and retrieved using the TraCI vehicle methods [*change edge travel time information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
     and [*edge travel time information*](../TraCI/Vehicle_Value_Retrieval.md#edge_travel_time_information_0x58).
 2.  The [global edge weights](../Demand/Shortest_or_Optimal_Path_Routing.md#custom_edge_weights)

@@ -165,11 +165,11 @@ creation but the specified vehicle.
 The vehicle will be removed from its lane and moved to the given position on the given lane. No collision checks are done, this means that moving the vehicle may cause a collisions or a situations leading to collision. The vehicle keeps its speed - in the next time step it is at given position + speed. Note that the lane must be a part of the route, this means it must be either a part of any of the edges within the vehicles route or an internal lane that connects route edges. To overcome this limitation, the route can be modified prior to calling moveTo.
 
 !!! note
-    This can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having it's departure lane blocked.
+    This can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having its departure lane blocked.
 
 ### move to XY (0xb4)
 
-The vehicle (the center of it's front bumper) is moved to the network
+The vehicle (the center of its front bumper) is moved to the network
 position that best matches the given x,y network coordinates.
 
 The arguments edgeID and lane are optional and can be set to "" and -1 respectively if not known.
@@ -191,13 +191,13 @@ mapping as follows:
 - **bit1** (keepRoute = 2 when only this bit is set)
   - **1**: The vehicle is mapped to the exact position in
   the network (including the exact lateral position). If that position
-  lies outside the road network, the vehicle stops moving on it's own
+  lies outside the road network, the vehicle stops moving on its own
   accord until it is placed back into the network with another TraCI
   command. (if keeproute = 3, the position must still be within 100m of the vehicle route)
   - **0**: The vehicle is always on a road
 - **bit2** (keepRoute = 4 when only this bit is set)
   - **1**: lane permissions are ignored when mapping
-  - **0**: The vehicle is mapped only to lanes that allow it's vehicle class
+  - **0**: The vehicle is mapped only to lanes that allow its vehicle class
 
 The angle value is assumed to be in navigational degrees (between 0 and
 360 with 0 at the top, going clockwise). The angle is used when scoring
@@ -210,10 +210,10 @@ vehicle outside the road network, the angle will be computed from the
 previous and the new position instead.
 
 !!! note
-    This function can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having it's departure lane blocked.
+    This function can also be used to force a vehicle into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but could not depart due to having its departure lane blocked.
 
 !!! caution
-    When mapping a vehicle to an edge that is not currently on it's route, the new route will consist of that edge only. Once the vehicle reaches the end of that edge it disappears unless receiving another moveToXY command in that simulation step. This means, vehicles may disappear when calling *traci.simulationStep* with arguments that cause SUMO to perform multiple steps.
+    When mapping a vehicle to an edge that is not currently on its route, the new route will consist of that edge only. Once the vehicle reaches the end of that edge it disappears unless receiving another moveToXY command in that simulation step. This means, vehicles may disappear when calling *traci.simulationStep* with arguments that cause SUMO to perform multiple steps.
 
 |         byte          |       integer        |        byte         |                       string                       |       byte       |                        double                         | | | | | | | | |
 | :-------------------: | :------------------: | :-----------------: | :------------------------------------------------: | :--------------: | :---------------------------------------------------: | :-: |:-: |:-: |:-: |:-: |:-: |:-: |:-: |
@@ -597,9 +597,9 @@ call](../TraCI/GenericParameters.md#set_parameter).
 
 All [lanechange model attributes](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#lane-changing_models) are initialized from the vehicles vType and then stored in the individual lane change model instance of each vehicle. This has important consequences
 
-- setting a new vType for a vehicle doesn't affect lane change model attributes (the vehicle keeps using it's individual values)
-- changing lane change model attributes on the vType of a vehicle does not affect the vehicle (the vehicle keeps using it's individual values)
-- changing lane change model attributes for a vehicle does not affect it's vType (and instead changes the individual values of the vehicle)
+- setting a new vType for a vehicle doesn't affect lane change model attributes (the vehicle keeps using its individual values)
+- changing lane change model attributes on the vType of a vehicle does not affect the vehicle (the vehicle keeps using its individual values)
+- changing lane change model attributes for a vehicle does not affect its vType (and instead changes the individual values of the vehicle)
 
 !!! caution
     Attribute 'minGapLat' also counts as a lanechange model attribute since version 1.12.0

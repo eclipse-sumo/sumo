@@ -145,14 +145,14 @@ the following conditions are met
 - the vehicle has a timed stop and the person is waiting within 10m of
   the vehicle position
 
-The position of the person is either it's `departPos` or the arrival position of
+The position of the person is either its `departPos` or the arrival position of
 the preceding plan element
 
 A given bus stop (or any other stopping place) may serve as a replacement for a destination edge and
 arrival position. If an arrival position is given nevertheless it has to
 be inside the range of the stop.
 
-The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as it's dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>` to the vType definition of the vehicle.
+The positions of persons in a vehicle depend on the 'guiShape' parameter of the vehicle as well as its dimensions. The offset between the front of the vehicle and the first passenger placement can be configured by adding `<param key="frontSeatPos" value="3.14"/>` to the vType definition of the vehicle.
 
 The number of persons sitting side-by-side depends on the vehicle width but can be overruled by setting `<param key="seatingWidth" value="1.3"/>` in the vType definition.
 

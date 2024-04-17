@@ -72,7 +72,7 @@ Straighten edge restore the original shape of an edge
 
 ### Reset edge length
 
-Sets the edge length to it's computed value (based on geometry) instead of a custom length.
+Sets the edge length to its computed value (based on geometry) instead of a custom length.
 
 ### Straighten edge
 

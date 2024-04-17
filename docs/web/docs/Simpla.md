@@ -48,7 +48,7 @@ catch-up follower mode will use the follower mode if no separate
 catch-up follower mode is specified.
 
 !!! note
-    Simpla currently does not support lane-changing to join a platoon. Vehicles that are already in a platoon will try to change their lane if the platoon leader changes it's lane though.
+    Simpla currently does not support lane-changing to join a platoon. Vehicles that are already in a platoon will try to change their lane if the platoon leader changes its lane though.
 
 # Configuration
 

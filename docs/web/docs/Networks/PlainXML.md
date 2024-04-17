@@ -13,7 +13,7 @@ title: PlainXML
 [netconvert](../netconvert.md) can [convert freely](../Networks/Export.md#plain) and without information loss
 between these two formats. Only the *plain-xml* format is meant to be
 edited by the users. In contrast, the *.net.xml* format has lots of
-subtle inter-dependencies between it's elements and should never be
+subtle inter-dependencies between its elements and should never be
 edited by hand. The *plain-xml* format is described below.
 
 It is possible to loaded a *net.xml* file along with *plain-xml* patch
@@ -168,8 +168,8 @@ If you leave out the tlLayout of the node, it is set to *opposites*. This
 default may be changed using the option **--tls.layout** {{DT_STR}}
 
 - `opposites`: roads from opposite directions get the green light at the same time. Left turns (which conflict with the opposite stream) either have a green-with-conflict ('m') or get their own phase.
-- `incoming`: each incoming road gets it's own green phase
-- `alternateOneWay`: This program is for a joined controller that regulates alternating one-way access from two or more sides of a work zone (or narrow road). each incoming road gets it's own green phase and there is an all-red phase according to the size of the work zone for traffic to clear before the next direction starts up.
+- `incoming`: each incoming road gets its own green phase
+- `alternateOneWay`: This program is for a joined controller that regulates alternating one-way access from two or more sides of a work zone (or narrow road). each incoming road gets its own green phase and there is an all-red phase according to the size of the work zone for traffic to clear before the next direction starts up.
 
 ## Node types
 

@@ -28,7 +28,7 @@ front-bumper to reach the location of the leaders rear-bumper.
 # Computing Headways
 
 The exact time headways observed in the simulation depend on the used
-carFollowModel and it's parameters. The easiest case to analyze is the one where all
+carFollowModel and its parameters. The easiest case to analyze is the one where all
 vehicles drive at the same speed *s*.
 
 Let `grossHeadway` denote the distance between successive vehicle front-bumpers
@@ -54,7 +54,7 @@ From this we can directly compute the time headways:
 - `netTimeHeadway = minGap / s + tau`
 - `grossTimeHeadway = (length + minGap) / s + tau`
 
-Due to length and minGap, the capacity of a road depends on it's speed limit (whereas
+Due to length and minGap, the capacity of a road depends on its speed limit (whereas
 the tau component is independent of speed).
 At high road speeds, the tau component is the dominant factor whereas length and minGap dominate at low speeds.
 

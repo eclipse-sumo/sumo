@@ -207,7 +207,7 @@ A plotting window (acceleration over time) is shown below:
 Clicking on additional Attribute plot symbols opens up new plotting windows.
 By activating the 'Multiplot'-checkbox, any additional attribute plots wil be added to that plot window instead of opening a new plot window.
 
-When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and it's *x* and *y* values are printed in blue along the plot axes.
+When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and its *x* and *y* values are printed in blue along the plot axes.
 
 ## Selecting Objects
 
@@ -569,7 +569,7 @@ value/range
 
 - Show blinkers / brake lights
 - Show brake gap
-- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annotated with it's index along the route (permitting to analyze looped routes)
+- Show route index: When activating *show route* in the vehicle context menu, each highlighted edge is annotated with its index along the route (permitting to analyze looped routes)
 - Show parking info: When activating *show route* in the vehicle context menu, the vehicle is annotated with the number of failed parking attempts and each parking area is annotated with the last target selection score
 - Show minimum gap
 - Show [Bluetooth range](Simulation/Bluetooth.md)
@@ -581,7 +581,7 @@ Vehicle size is affected by the following features
 
 - **Exaggerate by** : Sets a constant scaling factor
 - **Draw with constant size when zoomed out**: Increases vehicle size (relative to road network) and thereby keeps them visible when zooming out
-It is also possible to scale the size of the vehicle according it's attributes.
+It is also possible to scale the size of the vehicle according its attributes.
 - **Scale size**: Selects scaling by a given attribute (i.e. speed). The user may configure a table of scaling factors corresponding to a list of numerical values (with automatic interpolation). This works similar to color interpolation.
 
 ### Textual annotations
@@ -594,7 +594,7 @@ The following textual annotations are supported:
 - **Vehicle text param**: Renders any [Generic Parameter](Simulation/GenericParameters.md) set on the vehicle. This also supports any [virtual parameters accessible via TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e)
 
 
-Each text can be configured with regard to it's size color and background color. By activating the option *Only for selected*, The textual annotation is limited to vehicles with the [*selected*](#selecting_objects) status.
+Each text can be configured with regard to its size color and background color. By activating the option *Only for selected*, The textual annotation is limited to vehicles with the [*selected*](#selecting_objects) status.
 
 ## Edge/Lane Visualisation Settings
 
@@ -839,7 +839,7 @@ decals if the corresponding check-boxes are activated before saving.
 
 ## Minimal settings file
 
-It possible to reference a predefined scheme by it's name alone:
+It possible to reference a predefined scheme by its name alone:
 
 ```xml
 <viewsettings>
@@ -1051,7 +1051,7 @@ Simulation](Simulation/Shapes.md)
 
 ## Display Arbitrary Text in the Simulation View
 To display arbitrary text in the simulation view, the easiest way is to place a poi element with alpha channel 0 (invisible),
-set it's type attribute to the text you wish to show and load gui settings that show poi types in the desired color and size.
+set its type attribute to the text you wish to show and load gui settings that show poi types in the desired color and size.
 
 ```xml
 <poi id="textPlacement0" type="my custom text" x="myX" y="myY" color="0,0,0,0"/>

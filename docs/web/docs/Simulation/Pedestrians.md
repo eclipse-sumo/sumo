@@ -295,7 +295,7 @@ both. The algorithm for selecting the preferred stripe is based on the
 direction of movement (preferring evasion to the right for oncoming
 pedestrians) and the expected distance the pedestrian will be able to
 walk in that stripe without a collision. The model assumes that the pedestrian
-can fit into a single strip when walking in it's center. When **--pedestrian.striping-width** {{DT_FLOAT}}
+can fit into a single strip when walking in its center. When **--pedestrian.striping-width** {{DT_FLOAT}}
 is lower than a given path width, 100% safety is not guaranteed on shared lanes, i.e. collisions may occur.
 The warning to change the stripe-width will then be shown during simulation.
 
@@ -324,14 +324,14 @@ There are several situations in which pedestrian jams are possible
 
 - high traffic from different directions approaching the same walkingarea
 - interaction with vehicles on shared space
-- trying to reach a busStop when it has reached it's `personCapacity` limit
+- trying to reach a busStop when it has reached its `personCapacity` limit
 - oncoming traffic on narrow sidewalks
 
 There are several mitigations to prevent the frequency of jams and to resolve them after they have occured
 
 - on crossings and walkingareas, pedestrians reserve 1/3 of the road space for oncoming traffic (configurable with option **--pedestrian.striping.reserve-oncoming.junctions**)
 - on normal lanes / sidewalks, such a reservation can be activated with option **--pedestrian.striping.reserve-oncoming**
-- if a pedestrian was unable to move for 300s (configurable with option **--pedestrian.striping.jamtime**) he goes into a 'jammed' state accompanied by the warning "Person ... is jammed ...". In this state the person starts moving regardless of obstacles at 1/4 of it's maximum speed. While jammed, no pedestrian collisions are registered. The jammed state ends as soon as there as there are no more obstacles in front of the person.
+- if a pedestrian was unable to move for 300s (configurable with option **--pedestrian.striping.jamtime**) he goes into a 'jammed' state accompanied by the warning "Person ... is jammed ...". In this state the person starts moving regardless of obstacles at 1/4 of its maximum speed. While jammed, no pedestrian collisions are registered. The jammed state ends as soon as there as there are no more obstacles in front of the person.
 - while on a crossing the time to register as jammed is reduced to 10s (configurable with **--pedestrian.striping.jamtime.crossing**)
 - while on a network elements that online permits a single pedestrian abreast the time time to jammed is set to 1s (configurable with option **pedestrian.striping.jamtime.narrow**)
 

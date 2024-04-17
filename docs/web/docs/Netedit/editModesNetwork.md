@@ -51,7 +51,7 @@ As the rest of elements of netedit, connections can be inspected and modified us
 Inspecting a connection. Note that check box "Show connections" is enabled.
 
 ![](../images/GNEConnections4b.png)
-Connections can be inspected through inspection of their **from** lane or it's corresponding edge.
+Connections can be inspected through inspection of their **from** lane or its corresponding edge.
 
 ### Changing connections
 

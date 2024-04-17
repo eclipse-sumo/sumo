@@ -255,7 +255,7 @@ vehicle only once but they include/exclude some special cases.
 
 ## Visualization / Plotting
 
-- [sumo-gui](../../sumo-gui.md#visualizing_edge-related_data) can load edgeData files and color network edges/lanes according to any of it's attributes
+- [sumo-gui](../../sumo-gui.md#visualizing_edge-related_data) can load edgeData files and color network edges/lanes according to any of its attributes
 - [sumo-gui](../../sumo-gui.md#edgelane_visualisation_settings) can color edges/lanes by any of the attributes being collected while the simulation is running
 - [netedit](../../Netedit/editModesData.md) can be used to load/view/edit edgeData files
 - The [mpl_dump_onNet.py](../../Tools/Visualization.md#mpl_dump_onnetpy)

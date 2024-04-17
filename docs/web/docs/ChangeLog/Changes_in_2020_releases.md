@@ -259,7 +259,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Fixed bug where all passenger lanes changed their permissions when adding a sidewalk. Issue #7135
   - Fixed crash when changing connection shape or junction shape. Issue #7138, #7351
   - Fixed invalid output when transforming trip to vehicle. Issue #7073
-  - Fixed invalid routes when on of it's edges. Issue #6986
+  - Fixed invalid routes when on of its edges. Issue #6986
   - Fixed invalid count of selected elements. Issue #7113
   - Fixed missing minDur and maxDur attributes after changing tlType. Issue #7188
   - Selection coloring is now working in data mode. Issue #7066

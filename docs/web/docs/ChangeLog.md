@@ -8,8 +8,8 @@ title: ChangeLog
 
 - sumo
   - Fixed inconsistent edgeData and laneData emissions. #14209
-  - Fixed crash with SSM device and incomplete routes. #14201  
-  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115    
+  - Fixed crash with SSM device and incomplete routes. #14201
+  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
   - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
   - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
@@ -28,14 +28,14 @@ title: ChangeLog
   - Removed unneeded warning when a person uses a vehicular connection #14619
   - Fixed invalid departSpeed for IDM in subsecond simulation #14621
   - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
-  - Fixed crash when loading person stages without a person (now writes an error) #14654 
+  - Fixed crash when loading person stages without a person (now writes an error) #14654
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
     - fixed collision during portion working when train route continues after join. #14350
     - Rail signals now permit train joins where the front is joined to the rear part. #14349
-    - Fixed invalid rail signal warnings for looped route with jumps #14554 
- 
+    - Fixed invalid rail signal warnings for looped route with jumps #14554
+
 - netedit
   - Fixed invalid warning when creating poiGeo #14425 (regression in 1.9.0)
   - Lane markings are rendered below the junction bubble again #14417 (regression in 1.12.0)
@@ -54,9 +54,9 @@ title: ChangeLog
   - Fixed use of python tools involving space in paths #14469
   - Fixed saving of python tool config involving space in paths #14506
   - Fixed invalid state of save-sumoconfic button after changing option #14581
-  - Saving traffic light programs to a file now writes all attributes #14674 
+  - Saving traffic light programs to a file now writes all attributes #14674
 
-- netcovert 
+- netcovert
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
   - Roundabouts defined explicitly in OSM now have correct right-of-way regardless of geometry. #13970
   - Fixed problems related to option **--dlr-navteq-output**. #14071
@@ -65,9 +65,9 @@ title: ChangeLog
   - Fixed crash when importing Vissim Network with unusual geometry. #14413
   - Prevented writing an invalid network when aborting with an error #14470
   - NEMA junctions now stays consistent on recompute #14491
-  - NEMA junctions now work correctly with option --tls.group-signals #14440  
+  - NEMA junctions now work correctly with option --tls.group-signals #14440
   - generated NEMA controller now also gives green to pedestrians #14501
-  - Fixed crash when processing NEMA junctions with pedestrian crossings #14555 
+  - Fixed crash when processing NEMA junctions with pedestrian crossings #14555
   - Fixed broken junction shapes in 3D network. #10645
   - Edge parameters are no longer lost when using option **--geometry.remove**. #14517
   - Fixed invalid route in ptline-output. #14534
@@ -77,7 +77,7 @@ title: ChangeLog
   - Large circular network structures are no longer misclassified as roundabout. The size threshold can be configured with option **--roundabouts.guess.max-length** #14634
   - Motorway ramp building no longer fails when the default IDs for new junctions and edges are already in the network. #14658
   - Fixed invalid walking area shape #14688
-  - Fixed the root causes for "Unequal lengths of bidi lane" warnings #14699 
+  - Fixed the root causes for "Unequal lengths of bidi lane" warnings #14699
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -87,24 +87,24 @@ title: ChangeLog
   - Persons are no longer drawn outside the vehicle when drawn as triangle #14433
   - option **--write-license** from configfile is now respected #14494
   - Fixed visible grid in satellite background image tiles. #14573
-  - Fixed bug where the legend name was unreadable on black background #14651 
+  - Fixed bug where the legend name was unreadable on black background #14651
 
 - meso
   - Fixed bug where taxi fails to pick up person on the current segment. #14500
   - traci functions edge.setMaxSpeed and lane.setMaxSpeed now work correctly when increasing speed #14552,  #14566
   - Fixed invalid error when personTrips require walking before taxi use #14575
   - Fixed invalid error during intermodal routing #14575
-  - Fixed bug where vehicles skip ahead after lane speed update #14593 
+  - Fixed bug where vehicles skip ahead after lane speed update #14593
 
 - duarouter
   - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
-  - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343 
- 
+  - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343
+
 - TraCI
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
   - `vehicle.setStopParameter` now supports "jump" #14441
   - `vehicle.setSpeed` no longer causes stop at wrong position #14459
-  - Fixed result of `vehicle.getLeader` for junction leaders #14617 
+  - Fixed result of `vehicle.getLeader` for junction leaders #14617
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
@@ -113,13 +113,13 @@ title: ChangeLog
   - checkStopOrder.py: Fixed faulty warnings when generating table for multiple locations #14562
   - osmGet.py: Fixed missing building shapes (also affects osmWebWizard.py) #14598
   - Fixed problem locating binary applications on windows. #14676
-    
+
 - Activitygen: Fixed wrong working hour fallback times. #14344
- 
+
 ### Enhancements
 
 - sumo
-  - Added new vClasses: subway, scooter, aircraft, cable_car, wheelchair, drone, container #12335 
+  - Added new vClasses: subway, scooter, aircraft, cable_car, wheelchair, drone, container #12335
   - Access elements support `pos="doors"` to change the algorithm for placing passengers that exit the vehicle. #14336
   - chargingStation now supports attribute "parkingArea". When set, vehicles will only charge after reaching that parkingArea. #13596
   - Persons and containers that continue in a train after [split/join](Simulation/Railways.md#portion_working) no longer incur boarding or loading delay. #14360
@@ -135,7 +135,7 @@ title: ChangeLog
   - The [battery device](Models/Electric.md) now supports saving and loading state. #14624
   - Stages generated from `<personTrip>` now inherit params from the personTrip. #14513
   - Actuated traffic lights are now more flexible when controlling minor links (reduced warnings of type "... has no controlling detector" warnings) #14692
-  - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494 
+  - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -146,15 +146,15 @@ title: ChangeLog
   - Improved rendering speed for large networks. #13894
   - Added red contour to moved elements. #14109
   - The maximum number of rows for a combo box can now be configured in the gui settings (persistent across sessions) #14412
-  - Added option for selective hiding of short edges when zoomed out (enabled by default to increase frame rate) #14487 
- 
+  - Added option for selective hiding of short edges when zoomed out (enabled by default to increase frame rate) #14487
+
 - sumo-gui
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
   - Train visualization param `locomotiveLength` now supports value *0*, to prevent rendering of a locomotive. #14351
   - The new train visualization param `carriageImages` accepts a comma-separated list of image files to enable distinct images for the different carriages. #14403
   - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423
-  - Reduced the number of bike markings being rendered to increase realism and reduce clutter. #14545 
- 
+  - Reduced the number of bike markings being rendered to increase realism and reduce clutter. #14545
+
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
   - Added option **-junctions.endpoint-shape** to compute the junction shape based on custom edge endpoints instead of the usual geometry heuristics. #14341
@@ -165,12 +165,12 @@ title: ChangeLog
   - Option **--keep-edges.postload** now applies to permission and speed based edge filters. This is useful when these values are updated with patches or public transport processing. #14528
   - Loaded ptLine period can now be patched by loading the same id in **ptline-files** #14586
   - OSM import now exports subways as vClass "subway" and aerialway as "cable_car" #14644
-  - Now importing access="no" from OSM #14650 
+  - Now importing access="no" from OSM #14650
 
 - polyconvert
   - Option **--osm.merge-relations** now handles "holes" #14599
-  - Improved import of waterbodies and harbours #14597 
-    
+  - Improved import of waterbodies and harbours #14597
+
 - duarouter
   - Added support for loading ride with geo-coordinates #14427
   - When writing person stops, the stopping place name is now written as a comment. #14521
@@ -183,7 +183,7 @@ title: ChangeLog
   - [TocDevice](ToC_Device.md) openGap parameters can now be set via `vehicle.setParameter` #14582
   - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589
   - Added functions `edge.getFromJunction`, `edge.getToJunction`, `junction.getIncomingEdges`, `junction.getOutgoingEdges` to query the network topology. #14490
-  - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205 
+  - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
@@ -196,7 +196,7 @@ title: ChangeLog
   - osmWebWizard now takes into account traffic lights for intermodal routing to avoid persons missing their ride #14653
   - osmWebWizard now runs with option **--tls.actuated.jam-threshold 30** to improve the capabilities (and efficiency) of traffic lights #14580
   - Added tools/visualization/plotWKT.py for plotting WKT files
-  - ptlines2flows.py supports option **--join** to concatenate lines which serve opposite directions. This reduces conflict on single-track rail lines #5320 
+  - ptlines2flows.py supports option **--join** to concatenate lines which serve opposite directions. This reduces conflict on single-track rail lines #5320
 
 
 ### Miscellaneous
@@ -208,7 +208,7 @@ title: ChangeLog
 - Added 6 new configuration files for the [MMPEVEM](Models/MMPEVEM.md) model. #14499
 - The battery device now uses param "rotatingMass" instead of "internalMomentOfInertia". The old value has been deprecated. The default value was changed to improve realism. #12513, #13422
 - The network now contains outline shapes for pedestrian crossings #11668
-- stop-output has slightly reordered attributes to easier see the busStop-id without horizontal scrolling #14542 
+- stop-output has slightly reordered attributes to easier see the busStop-id without horizontal scrolling #14542
 
 
 ## Version 1.19.0 (07.11.2023)
@@ -265,7 +265,7 @@ title: ChangeLog
   - Context menu uses same screen as sumo-gui on Windows. #13674
   - Sidewalks are no longer connected to the ground in 3D view. #13993
   - The time detection for breakpoints now works with different languages and is not triggered by arbitrary numbers. #14003
-  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. #14005, #13768  
+  - Opening a sumo config in netedit from sumo-gui now works with special characters in paths on Windows. #14005, #13768
 
 - netconvert
   - Fixed unequal length of bidi edge. #13569
@@ -606,7 +606,7 @@ title: ChangeLog
   - Bike lane detector placement for 'actuated' traffic lights now uses correct bike length. Issue #13109
   - Lane changing
     - Fixed crash related to lane-changing in tight corners. Issue #12618 (regression in 1.13.0)
-    - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for it's personal lane change maneuvers. #9473
+    - Attribute `lcCooperative` no longer impacts speed adjustments that a vehicle needs for its personal lane change maneuvers. #9473
     - Fixed invalid interpretation of sublane positioning of junction leaders during lane changing. Issue #12580
     - Fixed unsuitable lateral alignment on bidi edge when preparing for a turning movement. Issue #11436
     - vType attribute `lcTurnAlignmentDistance` now works for indirect left turns. Issue #8500
@@ -780,7 +780,7 @@ title: ChangeLog
   - gtfs2pt.py: multiple improvements to route matching. Issue #12834 (Thanks to Gladys McGan)
   - Visualization tools now support option **--alpha** to set background transparency. Issue #12556
   - Added new tool [generateRerouters.py](Tools/Misc.md#generatererouterspy) to generate rerouters for a given set of closed edges including automatic computation of suitable notification edges. Issue #12510
-  - Added new tool [split_at_stops.py](Tools/Net.md#split_at_stopspy) to ensure that each bus/train-stop has it's own edge. Issue #12519
+  - Added new tool [split_at_stops.py](Tools/Net.md#split_at_stopspy) to ensure that each bus/train-stop has its own edge. Issue #12519
   - racing.py: now supports collision sound. Issue #12540
   - randomTrips.py: Added option **--random-factor** to apply random disturbances to edge probabilities (i.e. to break up symmetry in small networks). Issue #12603
   - randomTrips.py: Trips no longer start or end inside a roundabout. To restore the old behavior, option **--allow-roundabouts** can be set. Issue #12619
@@ -820,7 +820,7 @@ title: ChangeLog
 - Removed libsumo / libtraci from the binary windows release to avoid version mismatch. Instead the user must install the bindings for their installed python version via `pip`. Issue #11992
 - Stop-output no longer contains attribute `delay` if a stop does not define the `until` attribute. Formerly, the value of *-1* would be written which is ambiguous in conjunction with negative delays caused by TraCI or **--use-stop-ended**. Issue #12883
 - Added an installer for the extra version. Issue #8688
-- Removed tool `plotXMLAttr.py` since it's functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
+- Removed tool `plotXMLAttr.py` since its functionality is covered by `plotXMLAttributes.py` (tool moved to 'purgatory' folder). Issue #11994.
 - Netgenerate default parameters where changed to reduce the default network size for spider and random networks. Issue #12927
 - Added translation to Italian. Issue #13004
 - plot_net_dump.py: no longer supports setting a default color with option **-c**. Instead the long option **--default-color** must be used. The option **-c** is now used for loading of a tool configuration file instead. Issue #13068

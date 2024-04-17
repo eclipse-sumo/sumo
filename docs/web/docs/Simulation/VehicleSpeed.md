@@ -16,7 +16,7 @@ of as the maximum speed of the engine.
 # desiredMaxSpeed
 
 The [`<vType>-attribute desiredMaxSpeed`](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
-models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of it's type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
+models the (mean) desired maximum speed that the vehicles drivers of that type wish to use. The actual desired maximum speed of an individual vehicle is computed by multiplying the `maxDesiredSpeed` of its type with the [individual speedFactor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions) of that vehicle.
 The individual desired max speed serves as another upper bound on speed next to the `maxSpeed` and the road speed limit.
 
 The main use of this property is to model speed distributions for vehicles that are not limited by the legal road speed limit (i.e. pedestrians and bicycles). In contrast, regular cars are typically restrained by the speed limit and so their speed distribution is modelled by multiplying their individual speedFactor with the speedLimit. Thus, different [vClasses](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#abstract_vehicle_class) have different default values for `desiredMaxSpeed`:
@@ -65,7 +65,7 @@ sense of being able to stop in time to avoid a collision.
 
 All models are subject to constraints in their [acceleration an deceleration](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#car-following_models).
 By default they will not accelerate stronger then the *accel* value. The
-default model plans it's maneuvers so as to stay within the *decel*
+default model plans its maneuvers so as to stay within the *decel*
 value (per second) but other models may interpret this value
 differently. All models will never brake harder than the
 *emergencyDecel* value (which defaults to the same value as *decel* but
@@ -88,7 +88,7 @@ slow down. If the intersection is used by other vehicles which have the
 right of way, stopping may be necessary until a safe time-window is
 found. That time windows is based on the same safety assumptions as the
 car-following model. For the default *Krauss*-model this means that each
-vehicle must be able to stop safely even if it's lead vehicle brakes
+vehicle must be able to stop safely even if its lead vehicle brakes
 hard to a full stop.
 
 Even if a vehicle has the right-of-way it may need to slow down due to

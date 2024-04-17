@@ -191,7 +191,7 @@ By default, sumo will print some "heartbeat" information to indicate that it is 
 - **ACT**: number of currently running vehicles
 - **BUF**: number of vehicles with delayed insertion
 
-This output can be disabled with the option **--no-step-log**. It's period can be configured with the option **--step-log.period TIME**.
+This output can be disabled with the option **--no-step-log**. Its period can be configured with the option **--step-log.period TIME**.
 
 # Commandline Output (verbose)
 

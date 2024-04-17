@@ -276,9 +276,9 @@ cases:
    lack of capacity
 - when a vehicle enters one of the rerouter-edges and the following
    conditions are all met:
-   - it's current destination parkingArea is among the set of
+   - its current destination parkingArea is among the set of
       parkingAreaReroute definitions and has attribute `visible="true"`
-   - it's current destination parkingArea is full
+   - its current destination parkingArea is full
 
 The definition looks like this:
 

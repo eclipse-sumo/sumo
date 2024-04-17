@@ -969,7 +969,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
     is now scaled according to fraction of available green time. #2753
   - Fixed various issues related to inconsistent handling of net and
     gross time gaps. This was causing exaggerated speeds. The option
-    **--meso-taujf** {{DT_TIME}} now corresponds to the net time-gap (as do **--meso-taufj**, **--meso-tauff**). It's default
+    **--meso-taujf** {{DT_TIME}} now corresponds to the net time-gap (as do **--meso-taufj**, **--meso-tauff**). Its default
     value has been reduced from *2.0* to *1.73* correspondingly
     (reproducing the old behavior at 100km/h).
 

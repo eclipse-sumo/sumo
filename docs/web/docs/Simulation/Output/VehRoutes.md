@@ -103,7 +103,7 @@ For example, setting the option **--device.vehroute.probability 0.25** will equi
 - **--vehroute-output.skip-ptlines**:  Skip vehroute output for public transport vehicles (vehicles that have a 'line' attribute)
 - **--vehroute-output.incomplete**:   Include invalid routes and route stubs (from-to) in the vehroute output
 - **--vehroute-output.stop-edges**:   Include information about edges between stops
-- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had it's departSpeed set)
+- **--vehroute-output.speedfactor**:   Include information vehicle specific speedFactor in output (defaults to 'true' if the vehicle had its departSpeed set)
 - **--vehroute-output.internal**:   Include internal edges in the output. Note, that such routes are not suitable for being loaded by sumo or duarouter!
 
 ## Visualization example

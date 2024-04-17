@@ -709,7 +709,7 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
     rerouters for continuous operation with configurable turning ratios.
   - If the network is not circular to begin with (i.e a single
     road) you can make the network circular in a non-geometrical way
-    by adding a return edge and declaring it's length to be very
+    by adding a return edge and declaring its length to be very
     short (minimum 0.1m). The return edge should have a sensible geometry (i.e. a detour loop) but the length can be made very short so that it does not affect vehicle routes.
 
 !!! caution

@@ -194,7 +194,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - When using the special string 'TIME' in file names, all written files now use the same time stamp. Issue #10346
   - Added option **--pedestrian.striping.walkingarea-detail INT** to increase the smoothness of pedestrian trajectories. Issue #8797
   - Added option **--summary-output.period** to reduce the frequency of summary output. Issue #2445
-  - The slope of a vehicle now takes into account it's length. Issue #8802
+  - The slope of a vehicle now takes into account its length. Issue #8802
   - Rail signal constraints now support loading generic parameters. Issue #11880
   - Added options **--edgedata-output FILE** and **--lanedata-output FILE** to configure a very basic meanData output without the need for additional files. Issue #11939
   - [Wireless simulation](../Simulation/Bluetooth.md) (btsender and btreciever devices) can now be enabled for persons. Issue #11950
@@ -202,7 +202,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
 - netedit
   - Context menus on ambiguously overlapping objects now gives a choice of object. Holding ALT always gives all choices. Issue #10916
   - Saved detector names use descriptive tags instead of the 'E1,E2, ...' tags. Issue #11028
-  - Hovering over an attribute now displays it's full value in a tooltip if field is too narrow. Issue #11194
+  - Hovering over an attribute now displays its full value in a tooltip if field is too narrow. Issue #11194
   - Added button to inspect vTypes/vTypeDistributions during vehicle inspection. Issue #10041
   - Added edge color legend in vehicle mode. Issue #10866
   - Now using distinct default id-prefix for `flow`, `personFlow` and `containerFlow`. Issue #11077
@@ -222,7 +222,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Holding the middle button now allows panning the view (also in sumo-gui). Issue #11632
   - "Undo-Redo list" dialog now includes color codes and entity ids. Issue #4765
   - Using distinct walkingArea color to distinguish them from other objects. Issue #11724
-  - Every vClass has it's own icon now. Issue #9872, #11801
+  - Every vClass has its own icon now. Issue #9872, #11801
   - Kilometrage at cursor position is now shown in the edge context menu. Issue #11815
   - Added (optional) tooltips in attribute labels. Issue #11490
   - Hierarchical selection can now select connections and crossings as children. Issue #11863
@@ -526,7 +526,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Jammed detectors of actuated traffic lights can now be ignored for phase extension after a configurable time threshold. Issue #5212
   - When jam detection is activated (i.e. via option **--tls.actuated.jam-threshold**), all detectors are usable for activation and this eliminates the warnings about "no controlling detectors". Issue #9280, #10682
   - InductionLoop detectors now support optional attribute 'length'. Issue #10668
-  - Actuated traffic lights now support param key 'detector-length' to set the default length of it's detectors. Issue #10668
+  - Actuated traffic lights now support param key 'detector-length' to set the default length of its detectors. Issue #10668
   - Option **--fcd-output.attributes** now supports the value **posLat** to include lateral positions in fcd-output. Issue #10695
   - Setting `lcSpeedGain="0"` now fully disables changing for speedGain. Issue #10709
   - RailSignalConstraints can now be loaded in a deactivated state by setting attribute `active="false"`. They can still be retrieved via TraCI. Issue #10799
@@ -571,7 +571,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Geometry points of polygons junctions and walkingareas can now be annotated to aid in debugging (activated in the openGL settings). Issue #10594
   - Can now color polygons (and TAZ) randomly. Issue #10938
   - Added gzip file endings in file selection dialogs. Issue #10513
-  - Right clicking on a pedestrian crossing now always opens it's context menu (rather than the menu for the junction). Issue #10914
+  - Right clicking on a pedestrian crossing now always opens its context menu (rather than the menu for the junction). Issue #10914
   - Breakpoints set in sumo-gui now override breakpoints from option **--breakpoints**. Issue #11061
 
 - netconvert

@@ -77,7 +77,7 @@ to as *superposed* (alternatively as bidirectional rail edges). In the
 attribute and not to be set by the user.
 
 When Rail signals are placed at both ends of a bidirectional track they
-will restrict it's usage to one direction at a time.
+will restrict its usage to one direction at a time.
 
 ### Bidirectional rails in [sumo-gui](../sumo-gui.md)
 
@@ -252,7 +252,7 @@ Example:
 	<vType id="0" vClass="rail" carFollowModel="Rail" trainType="custom"
            speedTable="0 2.78 5.56 8.33 11.11 13.89 16.67 19.44 22.22 25 27.78 30.56 33.33"
            tractionTable="300 300 263 179 135 108 90 77 67.5 60 54 49 45"
-           resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>   
+           resistanceTable="2 4 8.5 14 22 31 41.5 54 68 83.5 111 120 140"/>
 ```
 
 # Custom dynamics model with parameterized curves
@@ -260,7 +260,7 @@ Example:
 The vType attributes `maxPower` and `maxTraction` can be used to specify the traction curve for a given speed (in m/s) according to the formula:
 
  `traction_kN = min(maxPower / speed, maxTraction`
- 
+
 
 The vType attributes `resCoef_quadratic`, `resCoef_linear` and `resCoef_constant` can be usd to specify the resistance curve for a given speed (in m/s) according to the formula:
 
@@ -272,7 +272,7 @@ Example:
         resCoef_quadratic="0.00028" resCoef_linear="0.00003" resCoef_constant="1.670"/>
 ```
 
-The attributes 
+The attributes
 
 # Train Schedules
 
@@ -327,12 +327,12 @@ To split a train, the following input definition can be used. The rear half of t
     </trip>
 ```
 When defined this way, The rear part of the train will be created as a new simulation vehicle once the first part has reached the stop. After stopping, The front half of the train will continue with reduced length.
-If the vehicle that is split if (with `depart="split"`) uses attribute `departPos="splitFront"` it will instead be inserted at front and the part that keeps it's id will be positioned in the rear.
+If the vehicle that is split if (with `depart="split"`) uses attribute `departPos="splitFront"` it will instead be inserted at front and the part that keeps its id will be positioned in the rear.
 
 ## Joining two trains
 To join two trains, they have to stop at in close proximity (i.e. at the same `<busStop>` or `<trainStop>`) and then one of them is removed (referred to as the **joining train**) and the other made longer (referred to as the **continuing train**.
 
-The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue it's route after another train has joined with it and wait indefinitely for this condition.
+The continuing train requires a stop with attribute `triggered="join"`. By default this train will only continue its route after another train has joined with it and wait indefinitely for this condition.
 However, by setting stop attribute [extension](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints), waiting for the trigger condition can be aborted (as for any other condition).
 The joining train requires a stop with attribute `join="VEH_ID"` where `VEH_ID` denotes the id of the continuing train.
 
@@ -341,8 +341,8 @@ The following conditions must be met for the joining operation to take place:
 
 - the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
 - the trains are in close proximity in either of the two ways:
-  - the continuing train has it's back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
-  - the joining train has it's back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
+  - the continuing train has its back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
+  - the joining train has its back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
 
 The following is an example definition for joining two trains:
 
@@ -358,7 +358,7 @@ The following is an example definition for joining two trains:
 ```
 
 !!! caution
-    if the joined train is in the front and covers multiple edges, then these must all match the route of the continuing train. Also the joining train should have the join-stop on the last edge of it's route.
+    if the joined train is in the front and covers multiple edges, then these must all match the route of the continuing train. Also the joining train should have the join-stop on the last edge of its route.
 
 # Rail Signal Behavior
 
@@ -481,7 +481,7 @@ Road networks are most often modelled according to their actual layout in [carte
 In the railway domain it is often useful to work with schematic (also called abstract) networks instead of (or in addition to) geographical networks.
 Such abstract networks can make it easier so see all tracks and switches on a single screen without zooming and panning. SUMO supports working with abstract maps in the following ways:
 
-- all roads and tracks can have a custom "length" value that differs from their visual length. This allows to separate the visualization of the network from it's simulation behavior (w.r.t. distance traveled).
+- all roads and tracks can have a custom "length" value that differs from their visual length. This allows to separate the visualization of the network from its simulation behavior (w.r.t. distance traveled).
 - sumo-gui supports loading an abstract map of a network along with a geographical map by using options **-n geo.net.xml -N abstract.net.xml**. The two networks must have the exact same topology and may only differ in their geometry.
   - The user may switch between the visualization of either geometry via the hotkey **CTRL+K** or by setting Street visualization setting *secondary shape*.
   - All outputs that include geometry information (i.e. [fcd-output](Output/FCDOutput.md)) will be according the the network loaded with option **-n**

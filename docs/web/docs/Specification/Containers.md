@@ -61,7 +61,7 @@ The vehicle to use has to exist already and the route to take is defined by the 
 - the vehicle has a triggered stop and the container position is within the range of startpos,endPos of the stop.
 - the vehicle has a timed stop and the container is waiting within 10m of the vehicle position
 
-The position of the container is either it's departPos or the arrival position of the preceding plan element
+The position of the container is either its departPos or the arrival position of the preceding plan element
 
 A given container stop (or any other stopping place) may serve as a replacement for a destination edge and arrival position. If an arrival position is given nevertheless it has to be inside the range of the stop.
 

@@ -7,7 +7,7 @@ title: VehiclePermissions
 SUMO allows modelling access restrictions via a predefined set of
 so-called vehicle classes. Each vehicle has a vehicle class and each
 simulation lane allows a set of vehicle classes. Vehicles may only drive
-on lanes that allows it's vehicle class.
+on lanes that allows its vehicle class.
 
 This is useful for describing multi-modal traffic scenarios by
 distinguishing between passenger cars, bicycles, tram and pedestrians.
@@ -83,8 +83,8 @@ However, in some domains such as shipping (draught, beam) and railroads (axle we
 For this, [duarouter](../duarouter.md) provides the option **--restriction-params** to set list of edge and vehicle type [generic parameters](GenericParameters.md) names.
 
 - Only those vehicles where the restriction param has a lower value than the corresponding edge param are allowed to move on an edge.
-- If a `<vType>` does not define a restriction param it's value is initialized to *0*.
-- If an `<edge>` does not define a restriction param it's value is initialized to *1e40*.
+- If a `<vType>` does not define a restriction param its value is initialized to *0*.
+- If an `<edge>` does not define a restriction param its value is initialized to *1e40*.
 
 Restrictions on ship draught could be modelled in the following manner:
 

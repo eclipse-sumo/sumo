@@ -347,7 +347,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     directly within the *tools* folder.
 
 - Misc
-  - *start-commandline-bat* now adds python (python 2.7 in it's
+  - *start-commandline-bat* now adds python (python 2.7 in its
     default install location) and {{SUMO}}/tools to the path.
   - Simplified runner script of
     [Tutorials/TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md)
@@ -522,7 +522,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     [`<laneAreaDetector>`](../TraCI/Lane_Area_Detector_Value_Retrieval.md):
     lane, position, and length. Also added corresponding functions
     to the [python API](../TraCI/Interfacing_TraCI_from_Python.md)
-  - added [command to retrieve the index of the vehicles edge within it's route](../TraCI/Vehicle_Value_Retrieval.md). Also
+  - added [command to retrieve the index of the vehicles edge within its route](../TraCI/Vehicle_Value_Retrieval.md). Also
     added the corresponding method *traci.vehicle.getRouteIndex()*
     to the [python API](../TraCI/Interfacing_TraCI_from_Python.md). #1823
   - extended method *traci.vehicle.setStop(...)* to optionally

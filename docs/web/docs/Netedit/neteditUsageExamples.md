@@ -42,7 +42,7 @@ By default, the geometry of an edge starts with the position of the source junct
 !!! caution
     When right-clicking the geometry point the click must be within the edge shape for this too work.
 
-Afterwards, you will have to recompute the junction shape to see how it looks (F5). If you want to modify the edge and it's reverse edge at once this works almost the same way:
+Afterwards, you will have to recompute the junction shape to see how it looks (F5). If you want to modify the edge and its reverse edge at once this works almost the same way:
 
 1.  switch to [select mode](editModesCommon.md#select)
 2.  select both edges

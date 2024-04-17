@@ -17,7 +17,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
     [tripinfo-output](../Simulation/Output/TripInfo.md) (last
     step was counted twice for some vehicles).
   - Fixed bug that would prevent a vehicle from reaching the end of
-    it's route after rerouting while being teleported. #2554
+    its route after rerouting while being teleported. #2554
   - Fixed erroneous detector output for a special situation. #2556
   - Fixed computation of energy loss for subsecond simulation. #2559
   - Fixed crash when using
@@ -298,7 +298,7 @@ title: Changes in the 2016 releases (versions 0.26.0, 0.27.0, 0.27.1 and 0.28.0)
 - MESO
   - The jam-front back-propagation speed now reaches realistic
     values (it was illogically low before). Note that default value
-    of option **--meso-taujj** changes as well as it's semantics. #2244
+    of option **--meso-taujj** changes as well as its semantics. #2244
   - Fixed bug where the simulation would not terminate when using
     calibrators. #2346
   - The options **--meso-tauff** and **--meso-taufj** now define net time gaps (default values were

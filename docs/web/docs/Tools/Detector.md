@@ -96,7 +96,7 @@ The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to ge
 
 This script does the reverse of flowrouter.py and
 [dfrouter](../dfrouter.md) in generating a traffic counts for
-detectors from a route or flow file. It's main purpose  It can also be used to compare the
+detectors from a route or flow file. Its main purpose: It can also be used to compare the
 input counts with the outputs of flowrouter.py and
 [dfrouter](../dfrouter.md). Example:
 

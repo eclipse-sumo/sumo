@@ -80,7 +80,7 @@ The space element supports the following attributes:
 # Letting Vehicles stop at a parking area
 
 To declare a vehicle that stops at a parkingPlace, a `<stop>`-definition must
-be part of the vehicle or it's route:
+be part of the vehicle or its route:
 
 ```xml
 <vehicle id="0" depart="0">

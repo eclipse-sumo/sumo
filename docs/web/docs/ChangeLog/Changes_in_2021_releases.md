@@ -64,7 +64,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
     - Loading taz without shape is now supported. Issue #9140
     - Taz are now drawn below roads. Issue #9146
     - Fixed bug where additional objects could not be loaded via command line option. Issue #9166
-    - When creating a new TAZ, edges are now assigned based on the polygon shape rather than it's bounding box. Issue #9225
+    - When creating a new TAZ, edges are now assigned based on the polygon shape rather than its bounding box. Issue #9225
     - Fixed invalid e3detector position when placing entry/exit detectors close to junction. Issue #9421
   - network mode: other
     - Copying one of several traffic light programs now copies the correct one. Issue #7963
@@ -775,7 +775,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - The sublane model now supports modeling an inverse relation between longitudinal and lateral speed (higher lateral speed while stopped and lower while driving fast). This is achieved by setting a negative values for attribute 'lcMaxSpeedLatFactor' and by setting 'lcMaxSpeedLatStanding' > 'maxSpeedLat'. #8064
   - Added new vType attribute 'jmIgnoreJunctionFoeProb' to allow ignoring foes (vehicles and pedestrians) that are already on the junction. Issue #8078
   - Added option **--device.ssm.filter-edges.input-file** to filter ssm device output by location. Issue #7398
-  - Added vehicle attribute 'arrivalEdge' which can be used to set an arrival edge index ahead of the last edge of it's route. Issue #7609
+  - Added vehicle attribute 'arrivalEdge' which can be used to set an arrival edge index ahead of the last edge of its route. Issue #7609
   - Connection attribute 'visibility' now controls the distance for zipper merge related speed adjustments (default 100m). Issue #8240
   - Added option **--fcd-output.attributes** to set the list of attributes which are included in fcd-output. Issue #7632
   - fcd-output can now distinguish riding and walking persons by adding 'vehicle' to the option **--fcd-output.attributes**. Issue #7631
