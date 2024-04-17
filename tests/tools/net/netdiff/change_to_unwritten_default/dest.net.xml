@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 08 Dec 2016 02:18:53 PM CET by Netedit Version dev-SVN-r22233
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netedit.exeConfiguration.xsd">
+<!-- generated on 2024-04-17 09:20:04 by Eclipse SUMO netedit Version v1_19_0+1861-4ee0717ac3a
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/scr1/sumoI/sumo/tests/tools/net/netdiff/change_to_unwritten_default/dest.net.xml"/>
+        <sumo-net-file value="dest.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/scr1/sumoI/sumo/tests/tools/net/netdiff/change_to_unwritten_default/dest.net.xml"/>
+        <output-file value="dest.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
         <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
         <junctions.corner-detail value="0"/>
-    </processing>
+        <junctions.limit-turn-speed value="-1.00"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,-20.00,100.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="100.00" shape="0.00,-21.60 100.00,-21.60"/>
+    </edge>
     <edge id="gneE0" from="gneJ0" to="gneJ1" name="Teststraße" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.65 100.00,-1.65"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="100.00" shape="0.00,-1.60 100.00,-1.60"/>
     </edge>
 
-    <junction id="gneJ0" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-0.05 0.00,-3.25"/>
-    <junction id="gneJ1" type="unregulated" x="100.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="100.00,-3.25 100.00,-0.05"/>
+    <junction id="J0" type="dead_end" x="0.00" y="-20.00" incLanes="" intLanes="" shape="0.00,-20.00 0.00,-23.20"/>
+    <junction id="J1" type="dead_end" x="100.00" y="-20.00" incLanes="E0_0" intLanes="" shape="100.00,-23.20 100.00,-20.00"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
+    <junction id="gneJ1" type="dead_end" x="100.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="100.00,-3.20 100.00,0.00"/>
 
 </net>
