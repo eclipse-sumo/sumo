@@ -233,6 +233,10 @@ calls = [
                 nameBase = os.path.basename(target)
             if "." in variant:
                 nameBase += variant.split(".")[-1]
+            isNetdiff = False
+            for a in appOptions:
+                if "netdiff.py" in a:
+                    isNetdiff = True
             exclude = []
             # gather copy_test_path exclusions
             for configFile in cfg:
@@ -247,7 +251,7 @@ calls = [
                     for line in config:
                         entry = line.strip().split(':')
                         if entry and "copy_test_path" in entry[0] and entry[1] in potentials:
-                            if "net" in app or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
+                            if "net" in app or isNetdiff or not net or entry[1][-8:] != ".net.xml" or entry[1] == net:
                                 toCopy = potentials[entry[1]][0]
                                 if os.path.isdir(toCopy):
                                     # copy from least specific to most specific
