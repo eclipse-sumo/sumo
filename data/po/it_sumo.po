@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-15 18:12+0200\n"
-"PO-Revision-Date: 2024-04-02 14:21+0000\n"
+"PO-Revision-Date: 2024-04-17 07:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/applications/it/>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
+"applications/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,15 +71,15 @@ msgstr "Fermata di autobus '%' sconosciuta."
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:61
 msgid "Use FILE as SUMO-network to create trips for"
-msgstr ""
+msgstr "Utilizza FILE come rete SUMO per creare corse per"
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:64
 msgid "Loads the SUMO-statistics FILE"
-msgstr ""
+msgstr "Carica delle statistische SUMO in FILE"
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:72
 msgid "Write generated trips to FILE"
-msgstr ""
+msgstr "Salva le corse generate in FILE"
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:81
 msgid ""
