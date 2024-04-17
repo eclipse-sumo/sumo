@@ -46,5 +46,8 @@ write_shapes
 
 # generate plain geo output
 plain_geo
+
+# add and remove connection permissions
+connection_permissions
 save_config
 load_config
