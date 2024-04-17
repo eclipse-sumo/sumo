@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-17 14:52:40 by Eclipse SUMO netconvert Version v1_19_0+1871-d7b1e486cbd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <connection-files value="input_plain.con.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="273.42,-295.82" convBoundary="0.00,0.00,158.84,267.90" origBoundary="-882.72,-1528.66,912.78,899.36" projParameter="!"/>
+
+    <edge id=":1092_0" function="internal">
+        <lane id=":1092_0_0" index="0" allow="passenger" speed="6.45" length="3.12" shape="45.72,142.85 44.82,144.68 44.70,145.75"/>
+        <lane id=":1092_0_1" index="1" allow="passenger" speed="7.97" length="7.97" shape="43.08,141.05 41.63,143.96 41.33,146.75 41.90,148.58"/>
+    </edge>
+    <edge id=":1092_2" function="internal">
+        <lane id=":1092_2_0" index="0" allow="passenger" speed="6.85" length="15.82" shape="40.43,139.25 37.40,142.60 34.79,143.11 32.59,140.79 30.81,135.64"/>
+    </edge>
+    <edge id=":1092_3" function="internal">
+        <lane id=":1092_3_0" index="0" allow="passenger" speed="6.45" length="4.48" shape="44.70,145.75 44.63,146.43 45.15,148.12 46.39,149.73"/>
+    </edge>
+    <edge id=":1092_4" function="internal">
+        <lane id=":1092_4_0" index="0" allow="passenger" speed="7.97" length="4.13" shape="41.90,148.58 42.16,149.43 44.14,152.01"/>
+    </edge>
+    <edge id=":1092_c0" function="crossing" crossingEdges="1342">
+        <lane id=":1092_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="46.09,147.19 41.59,151.73" outlineShape="47.51,148.60 43.01,153.14 40.27,150.23 43.01,153.14 40.17,150.33 44.67,145.78 46.56,144.62 46.31,145.45 46.27,146.27 46.46,147.07 46.88,147.84 47.51,148.60"/>
+    </edge>
+    <edge id=":1092_w0" function="walkingarea">
+        <lane id=":1092_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.07" width="4.00" shape="47.51,148.60 48.92,147.18 48.70,144.88 47.05,143.75 46.56,144.62 46.31,145.45 46.27,146.27 46.46,147.07 46.88,147.84"/>
+    </edge>
+    <edge id=":1092_w1" function="walkingarea">
+        <lane id=":1092_w1_0" index="0" allow="pedestrian" speed="2.78" length="20.42" width="4.00" shape="29.26,136.01 27.31,136.48 43.01,153.14 40.17,150.33"/>
+    </edge>
+
+    <edge id="1093" from="1004" to="1092" priority="-1">
+        <lane id="1093_0" index="0" allow="pedestrian" speed="13.89" length="163.92" width="2.00" shape="140.06,8.78 47.87,144.32"/>
+        <lane id="1093_1" index="1" allow="passenger" speed="13.89" length="163.92" shape="137.91,7.32 45.72,142.85"/>
+        <lane id="1093_2" index="2" allow="passenger" speed="13.89" length="163.92" shape="135.27,5.52 43.08,141.05"/>
+        <lane id="1093_3" index="3" allow="passenger" speed="13.89" length="163.92" shape="132.62,3.72 40.43,139.25"/>
+    </edge>
+    <edge id="1342" from="1092" to="1010" priority="-1">
+        <lane id="1342_0" index="0" allow="pedestrian" speed="13.89" length="163.05" width="2.00" shape="48.22,147.89 164.05,262.64"/>
+        <lane id="1342_1" index="1" allow="passenger" speed="13.89" length="163.05" shape="46.39,149.73 162.22,264.49"/>
+        <lane id="1342_2" index="2" allow="passenger" speed="13.89" length="163.05" shape="44.14,152.01 159.97,266.76"/>
+    </edge>
+    <edge id="1343" from="1092" to="1198" priority="-1">
+        <lane id="1343_0" index="0" allow="pedestrian" speed="13.89" length="139.09" width="2.00" shape="28.29,136.24 -4.08,0.98"/>
+        <lane id="1343_1" index="1" allow="passenger" speed="13.89" length="139.09" shape="30.81,135.64 -1.56,0.37"/>
+    </edge>
+
+    <junction id="1004" type="dead_end" x="131.30" y="2.82" incLanes="" intLanes="" shape="131.30,2.82 140.89,9.34"/>
+    <junction id="1010" type="dead_end" x="158.84" y="267.90" incLanes="1342_0 1342_1 1342_2" intLanes="" shape="164.75,261.93 158.84,267.90"/>
+    <junction id="1092" type="priority" x="34.67" y="144.88" incLanes="1093_0 1093_1 1093_2 1093_3 :1092_w0_0" intLanes=":1092_3_0 :1092_4_0 :1092_2_0 :1092_c0_0" shape="43.01,153.14 48.92,147.18 48.42,146.45 48.33,146.07 48.35,145.69 48.47,145.29 48.70,144.88 39.11,138.36 37.69,140.08 36.39,140.91 35.20,140.85 34.14,139.88 33.20,138.02 32.37,135.27 27.31,136.48 28.84,141.02 30.76,143.96 33.11,145.96 35.92,147.72 39.21,149.88">
+        <request index="0" response="1000" foes="1000" cont="1"/>
+        <request index="1" response="1000" foes="1000" cont="1"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0011" cont="0"/>
+    </junction>
+    <junction id="1198" type="dead_end" x="0.00" y="0.00" incLanes="1343_0 1343_1" intLanes="" shape="-5.06,1.21 0.00,0.00"/>
+
+    <junction id=":1092_3_0" type="internal" x="44.70" y="145.75" incLanes=":1092_0_0" intLanes=":1092_c0_0"/>
+    <junction id=":1092_4_0" type="internal" x="41.90" y="148.58" incLanes=":1092_0_1" intLanes=":1092_c0_0"/>
+
+    <connection from="1093" to="1342" fromLane="1" toLane="1" via=":1092_0_0" dir="r" state="m"/>
+    <connection from="1093" to="1342" fromLane="2" toLane="2" via=":1092_0_1" dir="r" state="m"/>
+    <connection from="1093" to="1343" fromLane="3" toLane="1" via=":1092_2_0" dir="l" state="M"/>
+
+    <connection from=":1092_0" to="1342" fromLane="0" toLane="1" via=":1092_3_0" dir="r" state="m"/>
+    <connection from=":1092_3" to="1342" fromLane="0" toLane="1" dir="r" state="m"/>
+    <connection from=":1092_0" to="1342" fromLane="1" toLane="2" via=":1092_4_0" dir="r" state="m"/>
+    <connection from=":1092_4" to="1342" fromLane="0" toLane="2" dir="r" state="m"/>
+    <connection from=":1092_2" to="1343" fromLane="0" toLane="1" dir="l" state="M"/>
+
+    <connection from=":1092_c0" to=":1092_w1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1092_w0" to=":1092_c0" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":1092_w0" to="1342" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1093" to=":1092_w0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":1092_w1" to="1343" fromLane="0" toLane="0" dir="s" state="M"/>
+</net>
