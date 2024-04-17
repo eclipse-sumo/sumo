@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-17 09:20:52.235204 by netdiff.py v1_19_0+1864-2aeeb4b0b18
+<!-- generated on 2024-04-17 10:52:33.996976 by netdiff.py v1_19_0+1865-d2066eb953a
 <configuration>
     <source value="source.net.xml"/>
     <dest value="dest.net.xml"/>
@@ -12,5 +12,6 @@
     <!-- Deleted Elements -->
     <!-- Created Elements -->
     <!-- Changed Elements -->
+    <edge id="E0" />  <!-- missingAttributes: disallow,length,name,shape -->
     <edge id="gneE0" spreadType="right"/>
 </edges>
