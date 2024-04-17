@@ -154,7 +154,8 @@ ATTRIBUTE_NAMES = {
 
 # default values for the given attribute (needed when attributes appear in
 # source but do not appear in dest)
-DEFAULT_VALUES = defaultdict(lambda: None)
+MISSING_DEFAULT = "_MISSING_DEFAULT_"
+DEFAULT_VALUES = defaultdict(lambda: MISSING_DEFAULT)
 DEFAULT_VALUES['offset'] = "0"
 DEFAULT_VALUES['spreadType'] = "right"
 DEFAULT_VALUES['customShape'] = "false"
@@ -163,7 +164,9 @@ DEFAULT_VALUES['contPos'] = "-1"
 DEFAULT_VALUES['visibility'] = "-1"
 DEFAULT_VALUES['z'] = "0"
 DEFAULT_VALUES['radius'] = "-1"
-RESET = 0
+DEFAULT_VALUES['allow'] = "all"
+DEFAULT_VALUES['rightOfWay'] = "default"
+DEFAULT_VALUES['fringe'] = "default"
 
 IGNORE_TAGS = set([TAG_LOCATION])
 
@@ -443,17 +446,21 @@ class AttributeStore:
         for tagid in tagids:
             tag, id = tagid
             names, values, children = self.id_attrs[tagid]
-            attrs = self.attr_string(names, values)
+            missing = []
+            attrs = self.attr_string(names, values, missing)
             child_strings = StringIO()
+            comments = ""
+            if missing:
+                comments = "  <!-- missingAttributes: %s -->" % ','.join(missing)
             if children:
                 # writeDeleted is not supported
                 children.writeCreated(child_strings)
                 children.writeChanged(child_strings)
 
-            if len(attrs) > 0 or len(child_strings.getvalue()) > 0 or create or tag in self.copy_tags:
-                close_tag = "/>\n"
+            if len(attrs) > 0 or len(child_strings.getvalue()) > 0 or create or tag in self.copy_tags or missing:
+                close_tag = "/>%s\n" % comments
                 if len(child_strings.getvalue()) > 0:
-                    close_tag = ">\n%s" % child_strings.getvalue()
+                    close_tag = ">%s\n%s" % (comments, child_strings.getvalue())
                 self.write(file, '<%s %s %s%s' % (
                     tag,
                     self.id_string(tag, id),
@@ -466,8 +473,10 @@ class AttributeStore:
         file.write(" " * INDENT * self.level)
         file.write(item)
 
-    def attr_string(self, names, values):
-        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None])
+    def attr_string(self, names, values, missing = None):
+        if missing is not None:
+            missing += [n for n, v in sorted(zip(names, values)) if v is MISSING_DEFAULT]
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None and v is not MISSING_DEFAULT])
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
