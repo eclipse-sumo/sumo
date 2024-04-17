@@ -927,19 +927,11 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.customLength = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW: {
-            const SVCPermissions successorAllows = nbCon.toEdge->getLanes()[nbCon.toLane].permissions;
-            SVCPermissions customPermissions = parseVehicleClasses(value);
-            if (successorAllows != customPermissions) {
-                nbCon.permissions = customPermissions;
-            }
+            nbCon.permissions = parseVehicleClasses(value);
             break;
         }
         case SUMO_ATTR_DISALLOW: {
-            const SVCPermissions successorDisallows = invertPermissions(nbCon.toEdge->getLanes()[nbCon.toLane].permissions);
-            SVCPermissions customPermissions = invertPermissions(parseVehicleClasses(value));
-            if (successorDisallows != customPermissions) {
-                nbCon.permissions = customPermissions;
-            }
+            nbCon.permissions = invertPermissions(parseVehicleClasses(value));
             break;
         }
         case SUMO_ATTR_CHANGE_LEFT: {
