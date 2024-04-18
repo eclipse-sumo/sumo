@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-15 18:12+0200\n"
-"PO-Revision-Date: 2024-04-18 09:38+0000\n"
+"PO-Revision-Date: 2024-04-19 06:39+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "eclipse-sumo/applications/zh_Hans/>\n"
@@ -2147,7 +2147,7 @@ msgstr "作为WKT输出JuPedSim路网的文件名"
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
 "Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"
-msgstr ""
+msgstr "是否使用地理坐标（lon/lat）将JuPedSim网络输出为WKT"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:575
 msgid ""
@@ -2683,7 +2683,7 @@ msgstr " 车辆'%'的 vClass %。"
 msgid ""
 "Disconnected route '%' when repeating. Last edge '%' is not connected to "
 "first edge '%'%"
-msgstr ""
+msgstr "重复时，未连接的路由 '%'。最后一条边 '%' 未连接到第一条边 '%'%"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:453
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:461
@@ -2756,7 +2756,7 @@ msgstr "存在另一个ID为'%'的流量。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1070
 msgid "Cannot define % stage without %."
-msgstr ""
+msgstr "没有 %，无法定义 % 阶段。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1187
 msgid "The busStop '%' is not known%."
@@ -2792,7 +2792,7 @@ msgstr "停靠点%所在车道“%”未知。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1311
 msgid "Could not map stop position '%' to the network%."
-msgstr ""
+msgstr "不能将停靠位置 '%' 映射到路网%。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1328
 msgid ""
