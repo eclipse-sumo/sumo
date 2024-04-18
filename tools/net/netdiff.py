@@ -473,10 +473,10 @@ class AttributeStore:
         file.write(" " * INDENT * self.level)
         file.write(item)
 
-    def attr_string(self, names, values, missing = None):
+    def attr_string(self, names, values, missing=None):
         if missing is not None:
             missing += [n for n, v in sorted(zip(names, values)) if v is MISSING_DEFAULT]
-        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None and v is not MISSING_DEFAULT])
+        return ' '.join(['%s="%s"' % (n, v) for n, v in sorted(zip(names, values)) if v is not None and v is not MISSING_DEFAULT])  # noqa
 
     def id_string(self, tag, id):
         idattrs = IDATTRS[tag]
