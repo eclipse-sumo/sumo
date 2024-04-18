@@ -25,6 +25,18 @@ from .exceptions import TraCIException, deprecated, alias_param
 class Logic:
 
     def __init__(self, programID, type, currentPhaseIndex, phases=None, subParameter=None):
+        """
+        Constructs a new Logic object with the following arguments:
+          programID (string) - arbitrary
+          type (integer) - one of 
+             tc.TRAFFICLIGHT_TYPE_STATIC
+             tc.TRAFFICLIGHT_TYPE_ACTUATED
+             tc.TRAFFICLIGHT_TYPE_NEMA
+             tc.TRAFFICLIGHT_TYPE_DELAYBASED
+          currentPhaseIndex (integer) - must be in range [0, len(phases) - 1]
+          phases (list of Phase objects)
+          subParameter (dictl) - corresponds to generic <param> objects
+        """
         self.programID = programID
         self.type = type
         self.currentPhaseIndex = currentPhaseIndex
@@ -407,7 +419,7 @@ class TrafficLightDomain(Domain):
         """setProgramLogic(string, Logic) -> None
 
         Sets a new program for the given tlsID from a Logic object.
-        See getCompleteRedYellowGreenDefinition.
+        See getAllProgramLogics which returns a list of Logic objects.
         """
         format = "tsiit"
         values = [5, logic.programID, logic.type, logic.currentPhaseIndex, len(logic.phases)]
