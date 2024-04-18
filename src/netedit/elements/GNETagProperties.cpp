@@ -349,6 +349,10 @@ GNETagProperties::isType() const {
     return (myTagType & VTYPE) != 0;
 }
 
+bool
+GNETagProperties::isTypeDist() const {
+    return myTag == SUMO_TAG_VTYPE_DISTRIBUTION;
+}
 
 bool
 GNETagProperties::isVehicle() const {

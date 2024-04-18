@@ -254,6 +254,9 @@ public:
     /// @brief return true if tag correspond to a vehicle/person/container type element
     bool isType() const;
 
+    /// @brief return true if tag correspond to a type distribution element
+    bool isTypeDist() const;
+
     /// @brief return true if tag correspond to a vehicle element
     bool isVehicle() const;
 
