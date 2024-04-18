@@ -1,0 +1,8 @@
+ Retrying in 1 seconds
+set logic type= ()
+34.0  phase=1 nextSwitch=36.0
+37.0  phase=2 nextSwitch=69.0
+70.0  phase=3 nextSwitch=72.0
+73.0  phase=0 nextSwitch=105.0
+set logic type= ()
+151.0  phase=2 nextSwitch=155.0

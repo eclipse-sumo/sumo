@@ -1,5 +1,3 @@
-
-
 # rail signal constraint retrieval and modification
 constraints
 
@@ -17,6 +15,9 @@ crossings_twoSided
 
 # test offset manipulation
 offset
+
+# test different logic types
+setProgramLogic_types
 
 # Tests the trafficlight API
 railsignal_state
