@@ -120,3 +120,4 @@ parameter retrieval call](../TraCI/GenericParameters.md#get_parameter).
 | show-detectors     | bool        | actuated                      | show/hide detectors in view
 | inactive-threshold | double (s)  | actuated                      | time-out for switching to an unserved phase when running with the default phase-skipping logic
 | condition.CONDITION_ID | double  | actuated                      | retrieve current value of [custom switching condition](../Simulation/Traffic_Lights.md#named_expressions) with id = *CONDITION_ID*.
+| typeName | string  | all                      | retrieve the type as a string (i.e. "static")
