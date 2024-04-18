@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-15 18:12+0200\n"
-"PO-Revision-Date: 2024-02-27 13:49+0000\n"
+"PO-Revision-Date: 2024-04-18 09:38+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/eclipse-sumo/applications/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
+"eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1314,11 +1315,11 @@ msgstr "路段'%'禁止使用。"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:735
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
-msgstr ""
+msgstr "车辆 '%' 的出发速度对车辆类型 '%' 来说太高。"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:744
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
-msgstr ""
+msgstr "车辆 '%' 不被允许在路段 '%' 的任何一条车道上出发。"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:774
 msgid "Vehicle '%' has no valid route. %"
@@ -1354,7 +1355,7 @@ msgstr "忽略有当前路线车辆超出边缘"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:2213
 msgid "Could not interpret routing.mode '%'"
-msgstr ""
+msgstr "无法解释路由模式（routing.mode） '%'"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.h:930
 msgid "getLeader not yet implemented for meso"
@@ -2141,7 +2142,7 @@ msgstr "JuPedSim模型的几何排斥范围（米）"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:569
 msgid "The filename to output the JuPedSim network as WKT"
-msgstr ""
+msgstr "作为WKT输出JuPedSim路网的文件名"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid ""
@@ -2841,7 +2842,7 @@ msgstr "没有目的地路段的%。"
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1478
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
 msgid "Cannot define person stage without person."
-msgstr ""
+msgstr "缺少人员，无法定义人员阶段。"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1491
 #: D:\Repos\sumo/src\router\RORouteHandler.cpp:1137
