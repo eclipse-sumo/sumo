@@ -39,11 +39,11 @@ tlsID = "C"
 
 
 logics = [
-        #Logic("customActuated", tc.TRAFFICLIGHT_TYPE_ACTUATED, 0,
-        #      [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
-        #       Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
-        #       Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
-        #       Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
+        Logic("customActuated", tc.TRAFFICLIGHT_TYPE_ACTUATED, 0,
+              [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
+               Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
+               Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
+               Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
         Logic("customStatic", tc.TRAFFICLIGHT_TYPE_STATIC, 0,
               [Phase(33, "GGGggrrrrrGGGggrrrrr"),
                Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
