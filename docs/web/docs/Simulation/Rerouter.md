@@ -18,7 +18,6 @@ the definition. The declaration values are:
 | -------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
 | **id**         | id (string) | The id of of the rerouter                                                                              |
 | **edges**      | float       | An edge id or a list of edge ids where vehicles shall be rerouted                                      |
-| file           | float       | The path to the definition file (alternatively, the intervals may defined as children of the rerouter) |
 | probability    | float       | The probability for vehicle rerouting (0-1), default 1                                                 |
 | timeThreshold  | time (s)    | minimum accumulated waiting time before the rerouter takes effect (default 0 applies always)           |
 | vTypes         | stringList  | Space-separated list of vType IDs for which this rerouter should apply (default "" applies to all)     |
