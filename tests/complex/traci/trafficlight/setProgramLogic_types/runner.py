@@ -63,9 +63,7 @@ logics = [
 
 for logic in logics:
     traci.trafficlight.setProgramLogic(tlsID, logic)
-    print("set logic type=%s (%s)" % (
-        traci.trafficlight.getParameter(tlsID, "type"),
-        traci.trafficlight.getParameter(tlsID, "typeName")))
+    print("set logic type=%s" % traci.trafficlight.getParameter(tlsID, "typeName"))
     phase = traci.trafficlight.getPhase(tlsID)
     for step in range(100):
         traci.simulationStep()
