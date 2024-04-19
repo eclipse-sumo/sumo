@@ -28,7 +28,7 @@ class Logic:
         """
         Constructs a new Logic object with the following arguments:
           programID (string) - arbitrary
-          type (integer) - one of 
+          type (integer) - one of
              tc.TRAFFICLIGHT_TYPE_STATIC
              tc.TRAFFICLIGHT_TYPE_ACTUATED
              tc.TRAFFICLIGHT_TYPE_NEMA
