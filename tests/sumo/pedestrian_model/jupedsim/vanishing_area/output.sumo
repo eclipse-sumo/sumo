@@ -1,9 +1,9 @@
-Loading net-file from 'net.net.xml' ... done (97ms).
-Loading additional-files from 'input_additional.add.xml' ... done (6ms).
+Loading net-file from 'net.net.xml' ... done (24ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ... 
 done.
-Simulation version v1_19_0+1839-63eb0dbab5a started with time: 0.00.
+Simulation version v1_19_0+1879-9a58a7bc365 started with time: 0.00.
 Person 'pf_2.0' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.0' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_2.1' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
@@ -12,26 +12,26 @@ Person 'pf_3.3' in vanishing area 'jupedsim.vanishing_area_1' was removed from t
 Person 'pf_3.5' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.7' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.6' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
-Person 'pf_3.9' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_2.11' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.10' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
-Person 'pf_3.16' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
-Person 'pf_3.14' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_3.13' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_2.17' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
 Person 'pf_3.1' in vanishing area 'jupedsim.vanishing_area_2' was removed from the simulation.
-Person 'pf_3.17' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
-Person 'pf_3.2' in vanishing area 'jupedsim.vanishing_area_2' was removed from the simulation.
-Person 'pf_3.19' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_3.18' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_3.12' in vanishing area 'jupedsim.vanishing_area_1' was removed from the simulation.
+Person 'pf_3.4' in vanishing area 'jupedsim.vanishing_area_2' was removed from the simulation.
 Simulation ended at time: 100.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 25.16s
- Real time factor: 3.9744
+ Duration: 10.08s
+ Real time factor: 9.92457
  UPS: 0.000000
- UPS-Persons: 643.694607
+ UPS-Persons: 1610.063517
 Vehicles: 
  Inserted: 0
  Running: 0
  Waiting: 0
 Persons: 
  Inserted: 12000
- Running: 299
+ Running: 301
 
