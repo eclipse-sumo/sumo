@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-15 18:12+0200\n"
-"PO-Revision-Date: 2024-04-17 07:04+0000\n"
+"PO-Revision-Date: 2024-04-19 13:10+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -85,16 +85,17 @@ msgstr "Salva le corse generate in FILE"
 msgid ""
 "Sets the time of beginning of the simulation during the first day (in "
 "seconds)"
-msgstr ""
+msgstr "Definisce l'ora iniziale della simulazione al primo giorno (in secondi)"
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:84
 msgid ""
 "Sets the time of ending of the simulation during the last day (in seconds)"
 msgstr ""
+"Definisce l'ora finale della simulazione dell'ultimo giorno (in secondi)"
 
 #: D:\Repos\sumo/src\activitygen\AGFrame.cpp:87
 msgid "Sets the duration of the simulation in days"
-msgstr ""
+msgstr "Definisce la durata della simulazione in giorni"
 
 #: D:\Repos\sumo/src\activitygen\activitygen_main.cpp:64
 #: D:\Repos\sumo/src\router\ROLoader.cpp:111
@@ -167,106 +168,116 @@ msgstr ""
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:61
 msgid "Loads the SUMO-network FILE"
-msgstr ""
+msgstr "Carica la rete SUMO da FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:70
 msgid "Loads detector descriptions from FILE"
-msgstr ""
+msgstr "Carica descrizioni di rivelatori da FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:75
 msgid "Loads detector flows from FILE(s)"
-msgstr ""
+msgstr "Carica flussi di rivelatori da uno o più FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:82
 msgid "Saves computed routes to FILE"
-msgstr ""
+msgstr "Salva gli itinerari calcolati in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:85
 msgid "Forces dfrouter to compute routes for in-between detectors"
-msgstr ""
+msgstr "Forza drouter di calcolare degli itinerarj per gli rivelatori di mezzo"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:89
 msgid "Saves typed detectors to FILE"
-msgstr ""
+msgstr "Salva rivelatori tipizzati in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:92
 msgid "Saves detector positions as pois to FILE"
-msgstr ""
+msgstr "Salva posizioni di rivelatori come punti di interesse in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr ""
+msgstr "Salva definizioni di emittenti per rivelatori di origini in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
-msgstr ""
+msgstr "Aggiungi tipi di veicoli nell'archivio di emittenti (PKW, LKW)"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:101
 msgid ""
 "Write generated vehicle types into separate FILE instead of including them "
 "into the emitters-output"
 msgstr ""
+"Scrivi tipi di veicoli generati in un archivio separato FILE invece di "
+"includerli nel output di emittenti"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:104
 msgid "Saves emitter positions as pois to FILE"
-msgstr ""
+msgstr "Salva posizioni di emittenti come punti di interesse in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
+"Salva definizioni di limiti di velocità dinamici per rivelatori di "
+"destinazione in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr ""
+msgstr "Salva definizioni rerouter per rivelatori di destinazione in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:114
 msgid ""
 "Write induction loop definitions for the given detector positions to FILE"
 msgstr ""
+"Scrivi definizioni di circuiti di induzione per le posizioni di rivelatori "
+"dati in FILE"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr ""
+msgstr "Aggiungi rivelatori di origine all'output di validazione"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
 msgstr ""
+"Deriva i valori di flussi mancanti da quelli a monte o a valle (non "
+"funziona!)"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:127
 msgid "Switches to highway-mode"
-msgstr ""
+msgstr "Sceglie il modo autostrada"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:131
 msgid "Only warn about unparseable detectors"
-msgstr ""
+msgstr "Avvertimi solamente per rivelatori non leggibili"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:135
 msgid "Recomputes detector types even if given"
-msgstr ""
+msgstr "Ricalcola i tipi di rivelatori anche se già dati"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:139
 msgid "Recomputes routes even if given"
-msgstr ""
+msgstr "Ricalcola gli itinerari anche se già dati"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:143
 msgid "Keeps routes even if they have exhausted max-search-depth"
-msgstr ""
+msgstr "Mantiene gli itinerari anche se hanno esaurito max-search-depth"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:146
 msgid "Keeps routes even if a shorter one exists"
-msgstr ""
+msgstr "Mantiene gli itinerari anche se ce ne sono quelli più corti"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:150
 msgid "Number of edges to follow a route without passing a detector"
 msgstr ""
+"Numero di archi da passare lungo un'itinerario senza oltrepassara un "
+"rivelatore"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:153
 msgid "Writes only emission times"
-msgstr ""
+msgstr "Scrivi solamente le ore di emissione"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:156
 msgid "Do not route on these edges"
-msgstr ""
+msgstr "Non usare questi archi per itinerari"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:159
 msgid "Only route on edges allowing the given vclass"
