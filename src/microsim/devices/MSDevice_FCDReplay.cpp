@@ -215,10 +215,12 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
         } else {
             const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
             const std::vector<SUMOVehicleParameter::Stop> stops;
-            ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, std::get<3>(desc.second), true, nullptr, stops);
+            const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
+            ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
             if (!MSRoute::dictionary(dummyRouteID, route)) {
                 throw ProcessError("Could not add route '" + dummyRouteID + "'.");
             }
+            params->departLane = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(t.front()));
             SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
             if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
                 throw ProcessError("Duplicate vehicle '" + id + "'.");
@@ -232,6 +234,26 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             t.erase(t.begin());
             device->setTrajectory(&t);
             static_cast<MSVehicle*>(vehicle)->getInfluencer().setSpeedMode(0);
+
+            // repair the route, cannot do this on parsing because a vehicle is needed
+            ConstMSEdgeVector checkedRoute;
+            for (const MSEdge* const e : routeEdges) {
+                if (checkedRoute.empty() || checkedRoute.back()->isConnectedTo(*e, vehicleType->getVehicleClass())) {
+                    checkedRoute.push_back(e);
+                } else {
+                    const MSEdge* fromEdge = checkedRoute.back();
+                    checkedRoute.pop_back();
+                    if (!MSNet::getInstance()->getRouterTT(0).compute(fromEdge, e, vehicle, myTime, checkedRoute)) {
+                        // TODO maybe warn about disconnected route
+                        checkedRoute.push_back(fromEdge);
+                        checkedRoute.push_back(e);
+                    }
+                    // TODO check whether we introduced a big detour
+                }
+            }
+            if (checkedRoute.size() != routeEdges.size()) {
+                vehicle->replaceRouteEdges(checkedRoute, -1, 0, "FCDReplay", true);
+            }
         }
     }
 }
