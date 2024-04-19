@@ -36,7 +36,8 @@ import sys
 import ...
 
 # use the following when you depend on sumolib or traci
-sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
+if "SUMO_HOME" in os.environ:
+    sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 # the noqa is needed to tell the style checker that it is OK to have an import which is not at the top of the file
 ```

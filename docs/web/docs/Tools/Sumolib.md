@@ -14,12 +14,10 @@ To use the library, the {{SUMO}}/tools directory must be on the python load
 path. This is typically done with a stanza like this:
 
 ```python
-import os, sys
+import os
+import sys
 if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:   
-    sys.exit("please declare environment variable 'SUMO_HOME'")
+    sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 ```
 
 # loading a network file

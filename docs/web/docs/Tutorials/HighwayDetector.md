@@ -42,27 +42,28 @@ network. A starting point can be to use the python sumolib to match the
 positions to the network:
 
 ```python
+if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
-    import sumolib
+import sumolib
 
-    net = sumolib.net.readNet(<NETFILE>)
-    detectors = []
-    for id, lon, lat in <DETECTOR_INPUTFILE>:
-        xy_pos = net.convertLonLat2XY(lon, lat)
-        # look 10m around the position
-        lanes = net.getNeighboringLanes(xy_pos[0], xy_pos[1], 10)
-        # attention, result is unsorted
-            bestLane = None
-            ref_d = 9999.
-        for lane, dist in lanes:
-            # now process them and determine a "bestLane"
-            # ...
-                    if dist < ref_d:
-                        ref_d = dist
-                        bestLane = lane
-                pos, d = bestLane.getClosestLanePosAndDist(xy_pos)
-        detectors.append(sumolib.sensors.inductive_loop.InductiveLoop(id, bestLane.getID(), pos))
-    sumolib.files.additional.write(<DETECTORFILE>, detectors)
+net = sumolib.net.readNet(<NETFILE>)
+detectors = []
+for id, lon, lat in <DETECTOR_INPUTFILE>:
+    xy_pos = net.convertLonLat2XY(lon, lat)
+    # look 10m around the position
+    lanes = net.getNeighboringLanes(xy_pos[0], xy_pos[1], 10)
+    # attention, result is unsorted
+        bestLane = None
+        ref_d = 9999.
+    for lane, dist in lanes:
+        # now process them and determine a "bestLane"
+        # ...
+                if dist < ref_d:
+                    ref_d = dist
+                    bestLane = lane
+            pos, d = bestLane.getClosestLanePosAndDist(xy_pos)
+    detectors.append(sumolib.sensors.inductive_loop.InductiveLoop(id, bestLane.getID(), pos))
+sumolib.files.additional.write(<DETECTORFILE>, detectors)
 ```
 
 The period of data aggregation for data collection is 60 seconds by
