@@ -29,6 +29,7 @@ title: ChangeLog
   - Fixed invalid departSpeed for IDM in subsecond simulation #14621
   - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
   - Fixed crash when loading person stages without a person (now writes an error) #14654
+  - Fixed xsd valiation error for router interval with human-readable time #14728 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -47,6 +48,7 @@ title: ChangeLog
   - Alt+Hotkeys for menus are working again #14396 (regression in 1.19.0)
   - Fixed superfluous scrollbars in combo boxes #14412 (regression in 1.19.0)
   - Fixed numerical errors in poisson flow rate #14648 (regression in 1.19.0)
+  - Fixed crash when loading vTypeDistribution #14733 (regression in 1.19.0)
   - Fixed invalid default lane permissions when writing a `<laneClosingReroute>` #14348
   - Tool plot_trajectories.py is now usable. #14147
   - "copy type" now also copies vehicle class #14444
@@ -55,6 +57,8 @@ title: ChangeLog
   - Fixed saving of python tool config involving space in paths #14506
   - Fixed invalid state of save-sumoconfic button after changing option #14581
   - Saving traffic light programs to a file now writes all attributes #14674
+  - custom connection permissions can now be reset #14723
+  
 
 - netcovert
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
@@ -76,8 +80,9 @@ title: ChangeLog
   - Fixed bug where attribute `allowed` and `disallowed` were not minimal #14632
   - Large circular network structures are no longer misclassified as roundabout. The size threshold can be configured with option **--roundabouts.guess.max-length** #14634
   - Motorway ramp building no longer fails when the default IDs for new junctions and edges are already in the network. #14658
-  - Fixed invalid walking area shape #14688
+  - Fixed invalid walking area shape #14688, #14731
   - Fixed the root causes for "Unequal lengths of bidi lane" warnings #14699
+  - OSM: fixed bug when importing cycle lane #14419 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -88,6 +93,7 @@ title: ChangeLog
   - option **--write-license** from configfile is now respected #14494
   - Fixed visible grid in satellite background image tiles. #14573
   - Fixed bug where the legend name was unreadable on black background #14651
+  - Fixed chargingStation power text label position/rotation #14740 
 
 - meso
   - Fixed bug where taxi fails to pick up person on the current segment. #14500
@@ -101,10 +107,13 @@ title: ChangeLog
   - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343
 
 - TraCI
+  - Fixed error in `trafficlight.setProgramLogic` when loading actuated logic with default minDur and maxDur #14741 (regression in 1.12.0)
   - Fixed missing internal lane length in traci.vehicle.getNextTLS. #14246
   - `vehicle.setStopParameter` now supports "jump" #14441
   - `vehicle.setSpeed` no longer causes stop at wrong position #14459
   - Fixed result of `vehicle.getLeader` for junction leaders #14617
+  - Fixed invalid behavior after removing a stop with `vehicle.replaceStop` #14696
+  - Fixed invalid traci constant for traffic light type #14736 
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
@@ -184,6 +193,8 @@ title: ChangeLog
   - in mesosim, `lane.setMaxSpeed` now only affects a single queue when running with **--meso-lane-queue** #14589
   - Added functions `edge.getFromJunction`, `edge.getToJunction`, `junction.getIncomingEdges`, `junction.getOutgoingEdges` to query the network topology. #14490
   - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
+  - Added function `trafficlight.getSpentDuration` #14400
+  - `trafficlight.getParameter(tlsID, "typeName")` now retrieves traffic light type #14737 
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
@@ -197,6 +208,7 @@ title: ChangeLog
   - osmWebWizard now runs with option **--tls.actuated.jam-threshold 30** to improve the capabilities (and efficiency) of traffic lights #14580
   - Added tools/visualization/plotWKT.py for plotting WKT files
   - ptlines2flows.py supports option **--join** to concatenate lines which serve opposite directions. This reduces conflict on single-track rail lines #5320
+  - sumolib.shapes.polygon now supports more attributes. #5429 
 
 
 ### Miscellaneous
@@ -209,6 +221,7 @@ title: ChangeLog
 - The battery device now uses param "rotatingMass" instead of "internalMomentOfInertia". The old value has been deprecated. The default value was changed to improve realism. #12513, #13422
 - The network now contains outline shapes for pedestrian crossings #11668
 - stop-output has slightly reordered attributes to easier see the busStop-id without horizontal scrolling #14542
+- extractTest.py now works for netdiff.py tests #14725 
 
 
 ## Version 1.19.0 (07.11.2023)
