@@ -1,1 +1,3 @@
-Warning: While generating geometry 2 connected components were detected, 99.26% of total pedestrian area is covered by the largest.
+Warning: Polygon ':1387_c0' at junction '1387' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1387_c1' at junction '1387' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':532_c0' at junction '532' has been replaced by its convex hull as it is not simple.
