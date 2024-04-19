@@ -102,11 +102,21 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=-1, maxDur=-1, next=tuple(), name=""):
+    def __init__(self, duration, state, minDur=None, maxDur=None, next=tuple(), name=""):
+        """
+        Constructs a traffic light phase
+        duration (float): the duration of the phase in seconds
+        state (string): the state codes for each controlled link
+        minDur (float): the minimum duration (ignored by static tls)
+        maxDur (float): the maximum duration (ignored by static tls)
+        next (intList): possible succesor phase (optional)
+        name (string): the name of the phase
+        """
         self.duration = duration
         self.state = state
-        self.minDur = minDur  # minimum duration (only for actuated tls)
-        self.maxDur = maxDur  # maximum duration (only for actuated tls)
+        # minimum and maximum duration (only for actuated tls)
+        self.minDur = minDur if minDur is not None else duration
+        self.maxDur = maxDur if maxDur is not None else duration
         self.next = next
         self.name = name
 
