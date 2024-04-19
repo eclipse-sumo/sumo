@@ -108,7 +108,7 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
     agent_parameters.orientation = orientation;
     */
     const MSVehicleType& type = state->getPerson()->getVehicleType();
-    agent_parameters.radius = MAX2(type.getLength(), type.getWidth()) / 2.;
+    agent_parameters.radius = getRadius(type);
     agent_parameters.v0 = state->getPerson()->getMaxSpeed();
     JPS_ErrorMessage message = nullptr;
     JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
@@ -154,6 +154,7 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
     assert(person->getCurrentStageType() == MSStageType::WALKING);
+    double radius = getRadius(person->getVehicleType());
     Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     if (departureLane == nullptr) {
@@ -191,7 +192,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         if (departureRelativePositionY == MSPModel::RANDOM_POS_LAT) {
             departureRelativePositionY = RandHelper::rand(-halfDepartureLaneWidth, halfDepartureLaneWidth);
         }
-        departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos(), -departureRelativePositionY); // Minus sign is here for legacy reasons.
+        departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos() + radius + POSITION_EPS, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
 
     std::vector<std::pair<Position, double> >waypoints;
@@ -237,7 +238,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     }
     if (state == nullptr) {
         state = new PState(static_cast<MSPerson*>(person), stage, journeyId, startingStage, waypoints);
-        state->setLanePosition(stage->getDepartPos());
+        state->setLanePosition(stage->getDepartPos() + radius + POSITION_EPS);
         state->setPreviousPosition(departurePosition);
         state->setPosition(departurePosition.x(), departurePosition.y());
         state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
@@ -449,7 +450,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                         carriageShape.push_back(carriage->back + perp * p);
                         carriageShape.push_back(carriage->back - perp * p);
                         carriageShape.push_back(carriage->front - perp * p);
-                        carriagePolygons.push_back(createGeometryFromShape(carriageShape, train->getID(), false));
+                        carriagePolygons.push_back(createGeometryFromShape(carriageShape));
                         // Create ramps geometry.
                         p += CARRIAGE_RAMP_LENGTH;
                         const double d = 0.5 * MSTrainHelper::CARRIAGE_DOOR_WIDTH;
@@ -459,7 +460,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                             rampShape.push_back(door - perp * p - dir * d);
                             rampShape.push_back(door + perp * p - dir * d);
                             rampShape.push_back(door + perp * p + dir * d);
-                            rampPolygons.push_back(createGeometryFromShape(rampShape, train->getID(), false));
+                            rampPolygons.push_back(createGeometryFromShape(rampShape));
                         }
                     }
                 }
@@ -473,7 +474,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 } else {
                     GEOSGeometry* pedestrianNetworkWithTrainsAndRamps = GEOSUnion(carriagesAndRampsUnion, myGEOSPedestrianNetworkLargestComponent);
 #ifdef DEBUG_GEOMETRY_GENERATION
-                    dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
+                    //dumpGeometry(pedestrianNetworkWithTrainsAndRamps, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                     int nbrComponents = 0;
                     double maxArea = 0.0;
@@ -484,7 +485,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                                        nbrComponents, maxArea / totalArea * 100.0, "%");
                     }
 #ifdef DEBUG_GEOMETRY_GENERATION
-                    dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
+                    //dumpGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent, "pedestrianNetworkWithTrainsAndRamps.wkt");
 #endif
                     myJPSGeometryWithTrainsAndRamps = buildJPSGeometryFromGEOSGeometry(pedestrianNetworkWithTrainsAndRampsLargestComponent);
                     JPS_Simulation_SwitchGeometry(myJPSSimulation, myJPSGeometryWithTrainsAndRamps, nullptr, nullptr);
@@ -554,8 +555,8 @@ const MSEdge*
 MSPModel_JuPedSim::getWalkingAreaInbetween(const MSEdge* const edge, const MSEdge* const otherEdge) {
     for (const MSEdge* nextEdge : getAdjacentEdgesOfEdge(edge)) {
         if (nextEdge->isWalkingArea()) {
-            MSEdgeVector walkingAreOutgoing = getAdjacentEdgesOfEdge(nextEdge);
-            if (std::count(walkingAreOutgoing.begin(), walkingAreOutgoing.end(), otherEdge)) {
+            MSEdgeVector adjacent = getAdjacentEdgesOfEdge(nextEdge);
+            if (std::count(adjacent.begin(), adjacent.end(), otherEdge)) {
                 return nextEdge;
             }
         }
@@ -576,10 +577,10 @@ MSPModel_JuPedSim::createGeometryFromCenterLine(PositionVector centerLine, doubl
 
 
 GEOSGeometry*
-MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape) {
+MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string junctionID, std::string shapeID, bool isInternalShape) {
     // Corner case.
     if (shape.size() == 1) {
-        WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is just a point."), shapeID);
+        WRITE_WARNINGF(TL("Polygon '%' at junction '%' will be skipped as it is just a point."), shapeID, junctionID);
         return nullptr;
     }
     // Make sure the shape is closed.
@@ -598,34 +599,43 @@ MSPModel_JuPedSim::createGeometryFromShape(PositionVector shape, std::string sha
         }
     }
     if (cleanShape.size() < shape.size()) {
-        WRITE_WARNINGF(TL("Polygon '%' had some equal consecutive points removed: %"), shapeID, toString(duplicates, 9));
+        WRITE_WARNINGF(TL("Polygon '%' at junction '%' had some equal consecutive points removed: %"), shapeID, junctionID, toString(duplicates, 9));
     }
     GEOSCoordSequence* coordinateSequence = convertToGEOSPoints(cleanShape);
     GEOSGeometry* linearRing = GEOSGeom_createLinearRing(coordinateSequence);
     GEOSGeometry* polygon = GEOSGeom_createPolygon(linearRing, nullptr, 0);
-    if (!GEOSisSimple(polygon)) {
+
+    if (!GEOSisValid(polygon)) {
         if (cleanShape.size() == 3) {
             if (isInternalShape) {
-                WRITE_WARNINGF(TL("Polygon for junction '%' has been dilated as it is just a segment."), shapeID);
+                WRITE_WARNINGF(TL("Polygon '%' at junction '%' has been dilated as it is just a segment."), shapeID, junctionID);
             } else {
                 WRITE_WARNINGF(TL("Polygon '%' has been dilated as it is just a segment."), shapeID);
             }
             GEOSGeometry* lineString = GEOSGeom_createLineString(GEOSCoordSeq_clone(coordinateSequence));
             GEOSGeom_destroy(polygon);
-            polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_ROUND, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
+            polygon = GEOSBufferWithStyle(lineString, GEOS_BUFFERED_SEGMENT_WIDTH, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_FLAT, GEOSBUF_JOIN_BEVEL, GEOS_MITRE_LIMIT);
             GEOSGeom_destroy(lineString);
         } else {
             if (isInternalShape) {
-                WRITE_WARNINGF(TL("Polygon on junction '%' has been replaced by its convex hull as it is not simple."), shapeID);
+                WRITE_WARNINGF(TL("Polygon '%' at junction '%' has been replaced by its convex hull as it is not simple."), shapeID, junctionID);
                 GEOSGeometry* hull = GEOSConvexHull(polygon);
                 GEOSGeom_destroy(polygon);
-                polygon = hull;
+                polygon = GEOSBufferWithStyle(hull, POSITION_EPS, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_FLAT, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);;
             } else {
-                WRITE_WARNINGF(TL("Polygon '%' will be skipped as it is not simple."), shapeID);
+                WRITE_WARNINGF(TL("Polygon '%' at junction '%' will be skipped as it is not simple."), shapeID, junctionID);
                 polygon = nullptr;
             }
         }
+
+        return polygon;
     }
+
+    // Some junctions need to be buffered a little so that edges are properly connected.
+    if (isInternalShape) {
+        polygon = GEOSBufferWithStyle(polygon, POSITION_EPS, GEOS_QUADRANT_SEGMENTS, GEOSBUF_CAP_FLAT, GEOSBUF_JOIN_ROUND, GEOS_MITRE_LIMIT);
+    }
+
     return polygon;
 }
 
@@ -672,47 +682,36 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                 const MSLane* const lane = getSidewalk<MSEdge, MSLane>(edge);
                 if (lane != nullptr) {
                     pedEdgeCount++;
-                    GEOSGeometry* dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
+                    GEOSGeometry* dilatedLane;
+                    if (!edge->isCrossing()) {
+                        dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_FLAT);
+                    } else {
+                        const PositionVector* outlineShape = lane->getOutlineShape();
+                        if (outlineShape != nullptr) {
+                            dilatedLane = createGeometryFromShape(*outlineShape, junction->getID(), edge->getID(), true);
+                        } else {
+                            dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
+                        }
+                    }
                     walkableAreas.push_back(dilatedLane);
                     for (const MSEdge* const nextEdge : adjacent) {
                         if (nextEdge != edge) {
                             const MSEdge* walkingArea = getWalkingAreaInbetween(edge, nextEdge);
                             if (walkingArea != nullptr) {
                                 hasWalkingArea = true;
-                                MSEdgeVector walkingAreaIncoming = walkingArea->getPredecessors();
                                 const MSLane* const nextLane = getSidewalk<MSEdge, MSLane>(nextEdge);
                                 if (nextLane != nullptr) {
-                                    GEOSGeometry* walkingAreaGeom;
-                                    Position anchor;
-                                    Position nextAnchor;
-
-                                    if (edge->isNormal() && nextEdge->isNormal()) {
-                                        const PositionVector& walkingAreaShape = getSidewalk<MSEdge, MSLane>(walkingArea)->getShape();
-                                        walkingAreaGeom = createGeometryFromShape(walkingAreaShape, junction->getID(), true);
-                                        if (walkingAreaGeom) {
-                                            walkableAreas.push_back(walkingAreaGeom);
-                                            continue;
-                                        } else {
-                                            anchor = getAnchor(lane, edge, walkingAreaIncoming);
-                                            nextAnchor = getAnchor(nextLane, nextEdge, walkingAreaIncoming);
-                                        }
-                                    } else if ((edge->isNormal() && nextEdge->isCrossing()) || (edge->isCrossing() && nextEdge->isNormal())) {
-                                        MSEdgeVector walkingAreaEdges = edge->isCrossing() ? walkingAreaIncoming : walkingArea->getSuccessors();
-                                        if (std::none_of(walkingAreaEdges.begin(), walkingAreaEdges.end(), [](MSEdge * e) {
-                                        return e->isNormal();
-                                        })) {
-                                            anchor = getAnchor(lane, edge, walkingAreaIncoming);
-                                            nextAnchor = getAnchor(nextLane, nextEdge, walkingAreaIncoming);
-                                        }
-                                    } else if (edge->isCrossing() && nextEdge->isCrossing()) {
-                                        anchor = getAnchor(lane, edge, walkingAreaIncoming);
-                                        nextAnchor = getAnchor(nextLane, nextEdge, walkingAreaIncoming);
+                                    const PositionVector& walkingAreaShape = getSidewalk<MSEdge, MSLane>(walkingArea)->getShape();
+                                    GEOSGeometry* walkingAreaGeom = createGeometryFromShape(walkingAreaShape, junction->getID(), walkingArea->getID(), true);
+                                    if (walkingAreaGeom) {
+                                        walkableAreas.push_back(walkingAreaGeom);
                                     } else {
-                                        continue;
+                                        MSEdgeVector walkingAreaIncoming = walkingArea->getPredecessors();
+                                        Position anchor = getAnchor(lane, edge, walkingAreaIncoming);
+                                        Position nextAnchor = getAnchor(nextLane, nextEdge, walkingAreaIncoming);
+                                        walkingAreaGeom = createGeometryFromAnchors(anchor, lane, nextAnchor, nextLane);
+                                        walkableAreas.push_back(walkingAreaGeom);
                                     }
-
-                                    walkingAreaGeom = createGeometryFromAnchors(anchor, lane, nextAnchor, nextLane);
-                                    walkableAreas.push_back(walkingAreaGeom);
                                 }
                             }
                         }
@@ -722,7 +721,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
         }
         if (pedEdgeCount > 1 && !hasWalkingArea) {
             // there is something to connect but no walking area, let's assume peds are allowed everywhere
-            GEOSGeometry* walkingAreaGeom = createGeometryFromShape(junction->getShape(), junction->getID(), true);
+            GEOSGeometry* walkingAreaGeom = createGeometryFromShape(junction->getShape(), junction->getID(), junction->getID(), true);
             if (walkingAreaGeom != nullptr) {
                 walkableAreas.push_back(walkingAreaGeom);
             }
@@ -733,13 +732,13 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     std::vector<GEOSGeometry*> additionalObstacles;
     for (const auto& polygonWithID : myNetwork->getShapeContainer().getPolygons()) {
         if (polygonWithID.second->getShapeType() == "jupedsim.walkable_area" || polygonWithID.second->getShapeType() == "taz") {
-            GEOSGeometry* walkableArea = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
+            GEOSGeometry* walkableArea = createGeometryFromShape(polygonWithID.second->getShape(), std::string(""), polygonWithID.first);
             if (walkableArea != nullptr) {
                 walkableAreas.push_back(walkableArea);
                 myHaveAdditionalWalkableAreas = true;
             }
         } else if (polygonWithID.second->getShapeType() == "jupedsim.obstacle") {
-            GEOSGeometry* additionalObstacle = createGeometryFromShape(polygonWithID.second->getShape(), polygonWithID.first);
+            GEOSGeometry* additionalObstacle = createGeometryFromShape(polygonWithID.second->getShape(), std::string(""), polygonWithID.first);
             if (additionalObstacle != nullptr) {
                 additionalObstacles.push_back(additionalObstacle);
             }
@@ -749,7 +748,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     // Take the union of all walkable areas.
     GEOSGeometry* disjointWalkableAreas = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, walkableAreas.data(), (unsigned int)walkableAreas.size());
 #ifdef DEBUG_GEOMETRY_GENERATION
-    dumpGeometry(disjointWalkableAreas, "disjointWalkableAreas.wkt");
+    // dumpGeometry(disjointWalkableAreas, "disjointWalkableAreas.wkt");
 #endif
     GEOSGeometry* initialWalkableAreas = GEOSUnaryUnion(disjointWalkableAreas);
 #ifdef DEBUG_GEOMETRY_GENERATION
@@ -760,7 +759,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     // At last, remove additional obstacles from the merged walkable areas.
     GEOSGeometry* disjointAdditionalObstacles = GEOSGeom_createCollection(GEOS_MULTIPOLYGON, additionalObstacles.data(), (unsigned int)additionalObstacles.size());
 #ifdef DEBUG_GEOMETRY_GENERATION
-    dumpGeometry(disjointAdditionalObstacles, "disjointAdditionalObstacles.wkt");
+    // dumpGeometry(disjointAdditionalObstacles, "disjointAdditionalObstacles.wkt");
 #endif
     GEOSGeometry* additionalObstaclesUnion = GEOSUnaryUnion(disjointAdditionalObstacles); // Obstacles may overlap, e.g. if they were loaded from separate files.
 #ifdef DEBUG_GEOMETRY_GENERATION
@@ -967,6 +966,12 @@ MSPModel_JuPedSim::dumpGeometry(const GEOSGeometry* polygon, const std::string& 
     GEOSFree(wkt);
     GEOSWKTWriter_destroy(writer);
     GEOSGeom_destroy(polygonGeoCoordinates);
+}
+
+
+double
+MSPModel_JuPedSim::getRadius(const MSVehicleType& vehType) {
+    return 0.5 * MAX2(vehType.getLength(), vehType.getWidth());
 }
 
 
