@@ -1,3 +1,41 @@
-Warning: Error while adding person 'pf_0.18' as JuPedSim agent: Model constraint violation: Agent (103.56022349704102, 9.56186611668762) too close to agent (103.18281270890776, 9.55935705191633): distance 0.37741912829823004
-Warning: Error while adding person 'pf_0.51' as JuPedSim agent: Model constraint violation: Agent (91.03379657655361, 8.234319977046306) too close to agent (91.47941185581641, 8.305238112622364): distance 0.4512231809936673
-Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Model constraint violation: Agent (81.42614727413365, 8.930320963120364) too close to agent (81.09181313776745, 9.226554873834932): distance 0.44669211387373453
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (99.21676616068977, 9.30631920729039) not inside walkable area
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (98.93295396120335, 8.906036270654031) not inside walkable area
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (99.28709928925197, 9.160721988521718) not inside walkable area
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (98.74100773479837, 9.475220688024738) not inside walkable area
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (99.08913756465587, 9.075666795356401) not inside walkable area
+Warning: Error while adding person 'pf_0.0' as JuPedSim agent: Agent (99.14921430196661, 9.59275261625854) not inside walkable area
+Warning: Error while adding person 'pf_0.18' as JuPedSim agent: Agent (89.10219888048887, 9.59484593846862) not inside walkable area
+Warning: Error while adding person 'pf_0.25' as JuPedSim agent: Model constraint violation: Agent (76.98253884976862, 8.688052989220818) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.32' as JuPedSim agent: Model constraint violation: Agent (77.47666466529135, 8.626305126275355) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.32' as JuPedSim agent: Agent (77.29487214483906, 8.145661918602372) not inside walkable area
+Warning: Error while adding person 'pf_0.32' as JuPedSim agent: Agent (77.46737249232483, 8.126431242020288) not inside walkable area
+Warning: Error while adding person 'pf_0.32' as JuPedSim agent: Agent (77.4962531331892, 8.215585802604863) not inside walkable area
+Warning: Error while adding person 'pf_0.41' as JuPedSim agent: Agent (69.32855179447105, 11.69412357811025) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Agent (79.09754989683907, 9.032438587496694) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Model constraint violation: Agent (79.23248441392835, 9.385084198421504) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (79.11817003583073, 9.530011506643188) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Model constraint violation: Agent (79.44084800888132, 9.489263711829375) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Model constraint violation: Agent (79.41393836477309, 9.99032001908314) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (89.03334489898083, 10.588462370386065) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Agent (78.6763188758986, 9.368876193283763) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (78.7669435497979, 9.253854108400684) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.6492777249336, 10.791977551005498) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Agent (79.07193465383071, 8.951900654106106) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (78.66233401425652, 9.470384600697127) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.731152460587, 10.162431726170421) not inside walkable area
+Warning: Error while adding person 'pf_0.74' as JuPedSim agent: Agent (79.08477455299627, 8.725132327858995) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (78.76448297786064, 9.690339406378609) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (89.07434113570747, 10.629067577127085) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Model constraint violation: Agent (79.37203536002434, 9.418406760444906) too close to agent (79.4665583578525, 9.392170200922232): distance 0.09809665730293786
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.99057764946741, 10.097893280381054) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (79.01462461386345, 9.118385484101292) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Model constraint violation: Agent (89.2996141055159, 10.114613552050383) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (79.15635651379361, 9.823924074074295) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.85217818655332, 11.025743873495326) not inside walkable area
+Warning: Error while adding person 'pf_0.77' as JuPedSim agent: Agent (78.6643043242535, 9.121039173224982) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.82817259887491, 10.50962817732589) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Model constraint violation: Agent (89.1853014544144, 10.440491096287683) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.60860199402345, 10.375741896856294) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (89.21523372959604, 10.913571601206154) not inside walkable area
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Model constraint violation: Agent (89.27505244165917, 10.768141757402287) too close to geometry boundaries, distance <= 0.239
+Warning: Error while adding person 'pf_0.79' as JuPedSim agent: Agent (88.60335071306002, 10.163503247949944) not inside walkable area

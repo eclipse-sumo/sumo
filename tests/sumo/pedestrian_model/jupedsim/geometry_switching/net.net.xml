@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-16 12:56:16 by Eclipse SUMO netedit Version v1_19_0+0842-e67d1f15d16
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-04-15 16:00:09 by Eclipse SUMO netconvert Version v1_19_0+1835-bfe95c01591
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\unboarding_ramps\net.net.xml"/>
+        <sumo-net-file value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/geometry_switching/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\coue_be\Dev\sumo\tests\sumo\pedestrian_model\jupedsim\unboarding_ramps\net.net.xml"/>
+        <output-file value="C:/Users/coue_be/Dev/sumo/tests/sumo/pedestrian_model/jupedsim/geometry_switching/net.net.xml"/>
     </output>
 
     <processing>
@@ -32,7 +32,7 @@
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-0.29,3.28,305.37,202.55" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
