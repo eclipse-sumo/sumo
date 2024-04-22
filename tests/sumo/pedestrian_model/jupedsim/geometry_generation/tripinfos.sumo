@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-28 15:07:30 by Eclipse SUMO sumo Version v1_19_0+1550-0c41b5f4fa2
+<!-- generated on 2024-04-18 15:14:03 by Eclipse SUMO sumo Version v1_19_0+1879-9a58a7bc365
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <output>
         <write-license value="true"/>
-        <fcd-output value="fcd.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
         <pedestrian.jupedsim.wkt value="wkt.txt"/>
         <pedestrian.jupedsim.wkt.geo value="true"/>
@@ -44,4 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p_0" depart="0.00" type="pt_ped0" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="694.00" arrivalPos="44.46" duration="694.00" routeLength="344.90" timeLoss="4.20" maxSpeed="0.50"/>
+    </personinfo>
 </tripinfos>

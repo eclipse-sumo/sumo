@@ -1,13 +1,94 @@
-Warning: Polygon on junction '1026' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1026' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1200' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1200' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1430' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1430' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1531' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '1531' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '318' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '318' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '620' has been replaced by its convex hull as it is not simple.
-Warning: Polygon on junction '620' has been replaced by its convex hull as it is not simple.
-Warning: While generating geometry 2 connected components were detected, 99.98% of total pedestrian area is covered by the largest.
+Warning: Polygon ':10_c0' at junction '10' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1010_c0' at junction '1010' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1092_c0' at junction '1092' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_c0' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_c1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':115_w1' at junction '115' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':118_c0' at junction '118' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1198_c0' at junction '1198' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':12_c0' at junction '12' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_c0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_c2' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':137_w0' at junction '137' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1372_c1' at junction '1372' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1372_c3' at junction '1372' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1372_c4' at junction '1372' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1387_c0' at junction '1387' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':14_c0' at junction '14' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':14_c1' at junction '14' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':14_c2' at junction '14' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1428_c3' at junction '1428' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1446_c3' at junction '1446' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1498_c0' at junction '1498' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1498_c2' at junction '1498' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1500_c3' at junction '1500' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1516_c0' at junction '1516' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1516_c2' at junction '1516' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1516_c3' at junction '1516' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1796_w0' at junction '1516' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1796_w0' at junction '1516' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1522_c0' at junction '1522' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1522_c1' at junction '1522' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1522_c3' at junction '1522' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1770_c0' at junction '1770' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1772_c0' at junction '1772' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1782_c0' at junction '1782' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1782_w1' at junction '1782' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1782_w1' at junction '1782' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1796_w0' at junction '1796' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':1796_w0' at junction '1796' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':18_c0' at junction '18' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':2_c1' at junction '2' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':209_c0' at junction '209' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':620_w0' at junction '318' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':620_w0' at junction '318' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':324_c0' at junction '324' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':324_c1' at junction '324' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':329_c0' at junction '329' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':329_c1' at junction '329' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':335_c0' at junction '335' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':343_c1' at junction '343' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':347_c0' at junction '347' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':503_c1' at junction '503' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':503_c2' at junction '503' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':522_c0' at junction '522' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':534_c0' at junction '534' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':568_c0' at junction '568' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':576_c1' at junction '576' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':576_c2' at junction '576' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':584_c2' at junction '584' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':596_c1' at junction '596' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':6_c3' at junction '6' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':607_c0' at junction '607' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':611_c1' at junction '611' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':617_c0' at junction '617' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':620_w0' at junction '620' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':620_w0' at junction '620' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':624_c0' at junction '624' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':673_c0' at junction '673' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':678_c0' at junction '678' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':678_c1' at junction '678' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':678_c2' at junction '678' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':727_c0' at junction '727' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':727_c2' at junction '727' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':733_c0' at junction '733' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_c1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_c2' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':875_w1' at junction '875' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':879_c1' at junction '879' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':881_c0' at junction '881' has been replaced by its convex hull as it is not simple.

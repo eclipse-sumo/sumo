@@ -213,7 +213,7 @@ private:
     static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
     static const MSEdge* getWalkingAreaInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
-    static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string shapeID, bool isInternalShape = false);
+    static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static GEOSCoordSequence* convertToGEOSPoints(PositionVector shape);
@@ -226,4 +226,5 @@ private:
     static const GEOSGeometry* getLargestComponent(const GEOSGeometry* polygon, int& nbrComponents, double& maxArea, double& totalArea);
     static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
+    static double getRadius(const MSVehicleType& vehType);
 };

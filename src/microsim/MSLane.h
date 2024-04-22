@@ -1333,6 +1333,10 @@ public:
     /// @brief compute maximum braking distance on this lane
     double getMaximumBrakeDist() const;
 
+    inline const PositionVector* getOutlineShape() const {
+        return myOutlineShape;
+    }
+
     static void initCollisionOptions(const OptionsCont& oc);
     static void initCollisionAction(const OptionsCont& oc, const std::string& option, CollisionAction& myAction);
 
