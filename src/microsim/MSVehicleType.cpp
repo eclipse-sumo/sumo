@@ -270,6 +270,13 @@ MSVehicleType::setColor(const RGBColor& color) {
 
 
 void
+MSVehicleType::setParkingBadges(const std::vector<std::string>& badges) {
+    myParameter.parkingBadges.assign(badges.begin(), badges.end());
+    myParameter.parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+}
+
+
+void
 MSVehicleType::setWidth(const double& width) {
     if (myOriginalType != nullptr && width < 0) {
         myParameter.width = myOriginalType->getWidth();

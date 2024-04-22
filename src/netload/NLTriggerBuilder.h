@@ -136,6 +136,7 @@ public:
      * @param[in] net The net the parking area belongs to
      * @param[in] id The id of the parking area
      * @param[in] lines Names of the lines that halt on this parking area
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the parking area is placed on
      * @param[in] frompos Begin position of the parking area on the lane
      * @param[in] topos End position of the parking area on the lane
@@ -147,6 +148,7 @@ public:
      */
     virtual void beginParkingArea(MSNet& net,
                                   const std::string& id, const std::vector<std::string>& lines,
+                                  const std::vector<std::string>& badges,
                                   MSLane* lane, double frompos, double topos,
                                   unsigned int capacity,
                                   double width, double length, double angle, const std::string& name,

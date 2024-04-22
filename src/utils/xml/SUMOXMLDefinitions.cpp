@@ -514,6 +514,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "timeToTeleportBidi",     SUMO_ATTR_TIME_TO_TELEPORT_BIDI },
     { "speedFactorPremature",   SUMO_ATTR_SPEEDFACTOR_PREMATURE },
     { "maneuverAngleTimes",     SUMO_ATTR_MANEUVER_ANGLE_TIMES },
+    { "parkingBadges",          SUMO_ATTR_PARKING_BADGES },
     // MSDevice_ElecHybrid
     { "overheadWireChargingPower",      SUMO_ATTR_OVERHEADWIRECHARGINGPOWER },
     // OverheadWire
@@ -848,6 +849,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "containerStop",          SUMO_ATTR_CONTAINER_STOP },
     { "parkingArea",            SUMO_ATTR_PARKING_AREA },
     { "roadsideCapacity",       SUMO_ATTR_ROADSIDE_CAPACITY },
+    { "acceptedBadges",         SUMO_ATTR_ACCEPTED_BADGES },
     { "onRoad",                 SUMO_ATTR_ONROAD },
     { "chargingStation",        SUMO_ATTR_CHARGING_STATION },
     { "group",                  SUMO_ATTR_GROUP },

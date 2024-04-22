@@ -203,6 +203,10 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         }
         dev.writeAttr(SUMO_ATTR_INSERTIONCHECKS, checks);
     }
+    // parking access rights
+    if (wasSet(VEHPARS_PARKING_BADGES_SET)) {
+        dev.writeNonEmptyAttr(SUMO_ATTR_PARKING_BADGES, joinToString(parkingBadges, " "));
+    }
 }
 
 

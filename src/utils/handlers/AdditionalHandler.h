@@ -156,8 +156,8 @@ public:
      */
     virtual void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                                   const double startPos, const double endPos, const std::string& departPos, const std::string& name,
-                                  const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
-                                  const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) = 0;
+                                  const std::vector<std::string>& lines, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
+                                  const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) = 0;
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build

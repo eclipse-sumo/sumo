@@ -77,6 +77,7 @@ const long long int VTYPEPARS_TTT_SET = (long long int)1 << 33;
 const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 34;
 const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 35;
 const long long int VTYPEPARS_SPEEDFACTOR_PREMATURE_SET = (long long int)1 << 36;
+const long long int VTYPEPARS_PARKING_BADGES_SET = (long long int)1 << 37;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -385,6 +386,9 @@ public:
 
     /// @brief width to be used when comping seats
     double seatingWidth;
+
+    /// @brief the parking access rights
+    std::vector<std::string> parkingBadges;
 
     /// @brief Information for the router which parameter were set
     long long int parametersSet;

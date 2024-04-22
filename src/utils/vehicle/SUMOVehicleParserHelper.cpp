@@ -696,6 +696,17 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             }
         }
     }
+    // parse parking access rights
+    if (attrs.hasAttribute(SUMO_ATTR_PARKING_BADGES)) {
+        bool ok = true;
+        std::vector<std::string> badges = attrs.get<std::vector<std::string>>(SUMO_ATTR_PARKING_BADGES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else {
+            ret->parametersSet |= VEHPARS_PARKING_BADGES_SET;
+            ret->parkingBadges = badges;
+        }
+    }
     // parse speed (only used by calibrators flow)
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {
@@ -1122,6 +1133,16 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_MANEUVER_ANGLE_TIMES_SET;
             } else {
                 return handleVehicleTypeError(hardFail, vType, "Invalid manoeuver angle times map for vType '" + vType->id + "'");
+            }
+        }
+        if (attrs.hasAttribute(SUMO_ATTR_PARKING_BADGES)) {
+            bool ok = true;
+            std::vector<std::string> badges = attrs.get<std::vector<std::string>>(SUMO_ATTR_PARKING_BADGES, vType->id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else {
+                vType->parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+                vType->parkingBadges = badges;
             }
         }
         // try to parse Car Following Model params

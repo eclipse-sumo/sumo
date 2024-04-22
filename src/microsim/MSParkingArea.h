@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road
@@ -36,6 +37,7 @@
 class MSLane;
 class SUMOVehicle;
 class MSTransportable;
+class MSBaseVehicle;
 class Position;
 class Command;
 
@@ -63,6 +65,7 @@ public:
      * @param[in] id The id of the stop
      * @param[in] net The net the stop belongs to
      * @param[in] lines Names of the lines that halt on this stop
+     * @param[in] badges Names which grant access to this parking area
      * @param[in] lane The lane the stop is placed on
      * @param[in] begPos Begin position of the stop on the lane
      * @param[in] endPos End position of the stop on the lane
@@ -72,7 +75,8 @@ public:
      * @param[in] angle Angle of the default lot rectangle
      */
     MSParkingArea(const std::string& id,
-                  const std::vector<std::string>& lines, MSLane& lane,
+                  const std::vector<std::string>& lines,
+                  const std::vector<std::string>& badges, MSLane& lane,
                   double begPos, double endPos, int capacity,
                   double width, double length, double angle, const std::string& name,
                   bool onRoad,
@@ -104,6 +108,18 @@ public:
 
     /// @brief Returns the area occupancy at the end of the last simulation step
     int getLastStepOccupancy() const;
+
+    /// @brief Add a badge to the accepted set
+    void accept(std::string badge);
+
+    /// @brief Add badges to the accepted set
+    void accept(std::vector<std::string> badges);
+
+    /// @brief Remove the access right for the given badge
+    void refuse(std::string badge);
+
+    /// @brief Return the parking accepts the vehicle (due to its given badges)
+    bool accepts(const MSBaseVehicle* veh) const;
 
     /** @brief Called if a vehicle enters this stop
      *
@@ -140,7 +156,7 @@ public:
     double getLastFreePos(const SUMOVehicle& forVehicle, double brakePos = 0) const;
 
     /** @brief Returns the last free position on this stop including
-     * reservatiosn from the current lane and time step
+     * reservations from the current lane and time step
      *
      * @return The last free position of this bus stop
      */
@@ -287,6 +303,9 @@ protected:
 
     /// @brief The roadside shape of this parkingArea
     PositionVector myShape;
+
+    /// @brief The parking badges to grant access
+    std::set<std::string> myAcceptedBadges;
 
     /// @brief whether a vehicle wants to exit but is blocked
     bool myEgressBlocked;

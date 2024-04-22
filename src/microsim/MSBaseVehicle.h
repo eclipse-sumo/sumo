@@ -655,6 +655,9 @@ public:
     /** @brief get the current  parking area stop or nullptr */
     MSParkingArea* getCurrentParkingArea();
 
+    /// @brief get the valid parking access rights (vehicle settings override vehicle type settings)
+    const std::vector<std::string>& getParkingBadges() const;
+
     /// @brief departure position where the vehicle fits fully onto the edge (if possible)
     double basePos(const MSEdge* edge) const;
 

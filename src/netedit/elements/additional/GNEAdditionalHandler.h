@@ -147,6 +147,7 @@ public:
      * @param[in] endPos End position of the Parking Area on the lane
      * @param[in] departPos lane position in that vehicle must depart when leaves parkingArea
      * @param[in] name Name of Parking Area
+     * @param[in] badges names which grant access to the parkingArea
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] roadSideCapacity road side capacity of ParkingArea
      * @param[in] width ParkingArea's width
@@ -157,8 +158,8 @@ public:
      */
     void buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
                           const double startPos, const double endPos, const std::string& departPos, const std::string& name,
-                          const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
-                          const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters);
+                          const std::vector<std::string>& badges, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
+                          const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters);
 
     /**@brief Builds a Parking Space
      * @param[in] sumoBaseObject sumo base object used for build

@@ -49,9 +49,9 @@ GNEParkingArea::GNEParkingArea(GNENet* net) :
 
 
 GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos,
-                               const std::string& departPos, const std::string& name, const bool friendlyPosition, const int roadSideCapacity,
-                               const bool onRoad, const double width, const double length, const double angle, const bool lefthand,
-                               const Parameterised::Map& parameters) :
+                               const std::string& departPos, const std::string& name, const std::vector<std::string>& badges,
+                               const bool friendlyPosition, const int roadSideCapacity, const bool onRoad, const double width,
+                               const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) :
     GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, GUIIconSubSys::getIcon(GUIIcon::PARKINGAREA),
                      lane, startPos, endPos, name, friendlyPosition, parameters),
     myDepartPos(departPos),
@@ -60,7 +60,8 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
     myWidth(width),
     myLength(length),
     myAngle(angle),
-    myLefthand(lefthand) {
+    myLefthand(lefthand),
+    myAcceptedBadges(badges) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -105,7 +106,10 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
     }
     if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty.getDefaultValue(SUMO_ATTR_LEFTHAND)) {
-        device.writeAttr(SUMO_ATTR_LEFTHAND, myLefthand);
+        device.writeAttr(SUMO_ATTR_LEFTHAND, toString(myAcceptedBadges));
+    }
+    if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty.getDefaultValue(SUMO_ATTR_ACCEPTED_BADGES)) {
+        device.writeAttr(SUMO_ATTR_ACCEPTED_BADGES, myLefthand);
     }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
@@ -246,6 +250,8 @@ GNEParkingArea::getAttribute(SumoXMLAttr key) const {
             return myDepartPos;
         case SUMO_ATTR_NAME:
             return myAdditionalName;
+        case SUMO_ATTR_ACCEPTED_BADGES:
+            return joinToString(myAcceptedBadges, " ");
         case SUMO_ATTR_FRIENDLY_POS:
             return toString(myFriendlyPosition);
         case SUMO_ATTR_ROADSIDE_CAPACITY:
@@ -313,6 +319,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_NAME:
+        case SUMO_ATTR_ACCEPTED_BADGES:
         case SUMO_ATTR_FRIENDLY_POS:
         case SUMO_ATTR_ROADSIDE_CAPACITY:
         case SUMO_ATTR_ONROAD:
@@ -378,6 +385,8 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
+        case SUMO_ATTR_ACCEPTED_BADGES:
+            return canParse<std::vector<std::string> >(value);
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case SUMO_ATTR_ROADSIDE_CAPACITY:
@@ -458,6 +467,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
+            break;
+        case SUMO_ATTR_ACCEPTED_BADGES:
+            myAcceptedBadges = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
         case SUMO_ATTR_FRIENDLY_POS:
             myFriendlyPosition = parse<bool>(value);

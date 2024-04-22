@@ -47,6 +47,7 @@
         <xsd:attribute name="decel" type="positiveFloatType"/>
         <xsd:attribute name="emergencyDecel" type="positiveFloatType"/>
         <xsd:attribute name="apparentDecel" type="positiveFloatType"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
         <xsd:attribute name="personCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="containerCapacity" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="boardingDuration" type="nonNegativeFloatType"/>
@@ -483,6 +484,7 @@
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="speedFactor" type="positiveFloatType"/>
         <xsd:attribute name="insertionChecks" type="xsd:string"/>
+        <xsd:attribute name="parkingBadges" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">

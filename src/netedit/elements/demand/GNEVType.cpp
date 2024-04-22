@@ -336,6 +336,12 @@ GNEVType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(defaultValues.desiredMaxSpeed);
             }
+        case SUMO_ATTR_PARKING_BADGES:
+            if (wasSet(VTYPEPARS_PARKING_BADGES_SET)) {
+                return joinToString(parkingBadges, " ");
+            } else {
+                return "";
+            }
         case SUMO_ATTR_PERSON_CAPACITY:
             if (wasSet(VTYPEPARS_PERSON_CAPACITY)) {
                 return toString(personCapacity);
@@ -1281,6 +1287,9 @@ GNEVType::overwriteVType(GNEDemandElement* vType, const SUMOVTypeParameter newVT
     if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_CARRIAGE_GAP))) {
         vType->setAttribute(SUMO_ATTR_CARRIAGE_GAP, newVTypeParameter.getParameter(toString(SUMO_ATTR_CARRIAGE_GAP), ""), undoList);
     }
+    if (newVTypeParameter.hasParameter(toString(SUMO_ATTR_PARKING_BADGES))) {
+        vType->setAttribute(SUMO_ATTR_PARKING_BADGES, newVTypeParameter.getParameter(toString(SUMO_ATTR_PARKING_BADGES), ""), undoList);
+    }
     // parse parameters
     std::string parametersStr;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -1550,6 +1559,18 @@ GNEVType::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // update default values
             updateDefaultVClassAttributes(defaultValues);
+            break;
+        case SUMO_ATTR_PARKING_BADGES:
+            if (!value.empty()) {
+                parkingBadges = parse<std::vector<std::string>>(value);
+                // mark parameter as set
+                parametersSet |= VTYPEPARS_PARKING_BADGES_SET;
+            } else {
+                // set default value
+                parkingBadges.clear();
+                // unset parameter
+                parametersSet &= ~VTYPEPARS_PARKING_BADGES_SET;
+            }
             break;
         case SUMO_ATTR_EMISSIONCLASS:
             if (!value.empty() && (value != toString(defaultValues.emissionClass))) {

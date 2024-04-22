@@ -717,6 +717,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_SPEEDFACTOR_PREMATURE,
     /// @brief Class specific timing values for vehicle maneuvering through angle ranges
     SUMO_ATTR_MANEUVER_ANGLE_TIMES,
+    SUMO_ATTR_PARKING_BADGES,
     /// @}
 
     /// @name elecHybrid output attributes
@@ -1217,6 +1218,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_CONTAINER_STOP,
     SUMO_ATTR_PARKING_AREA,
     SUMO_ATTR_ROADSIDE_CAPACITY,
+    SUMO_ATTR_ACCEPTED_BADGES,
     SUMO_ATTR_ONROAD,
     SUMO_ATTR_CHARGING_STATION,
     SUMO_ATTR_GROUP,

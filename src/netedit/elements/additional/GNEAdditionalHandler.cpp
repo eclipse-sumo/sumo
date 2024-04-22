@@ -312,9 +312,9 @@ GNEAdditionalHandler::buildChargingStation(const CommonXMLStructure::SumoBaseObj
 
 void
 GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& id, const std::string& laneID,
-                                       const double startPos, const double endPos, const std::string& departPos, const std::string& name, const bool friendlyPosition,
-                                       const int roadSideCapacity, const bool onRoad, const double width, const double length, const double angle,
-                                       const bool lefthand, const Parameterised::Map& parameters) {
+                                       const double startPos, const double endPos, const std::string& departPos, const std::string& name,
+                                       const std::vector<std::string>& badges, const bool friendlyPosition, const int roadSideCapacity, const bool onRoad,
+                                       const double width, const double length, const double angle, const bool lefthand, const Parameterised::Map& parameters) {
     // check conditions
     if (!SUMOXMLDefinitions::isValidAdditionalID(id)) {
         writeInvalidID(SUMO_TAG_PARKING_AREA, id);
@@ -341,7 +341,7 @@ GNEAdditionalHandler::buildParkingArea(const CommonXMLStructure::SumoBaseObject*
         } else {
             // build parkingArea
             GNEAdditional* parkingArea = new GNEParkingArea(id, lane, myNet, startPos, endPos, GNEAttributeCarrier::canParse<double>(departPos) ? departPos : "",
-                    name, friendlyPosition, roadSideCapacity, onRoad,
+                    name, badges, friendlyPosition, roadSideCapacity, onRoad,
                     (width == 0) ? SUMO_const_laneWidth : width, length, angle, lefthand, parameters);
             // insert depending of allowUndoRedo
             if (myAllowUndoRedo) {

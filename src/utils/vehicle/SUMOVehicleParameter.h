@@ -71,6 +71,7 @@ const int VEHPARS_ARRIVALEDGE_SET = 2 << 26;
 const int VEHPARS_CALIBRATORSPEED_SET = 2 << 27;
 const int VEHPARS_JUNCTIONMODEL_PARAMS_SET = 2 << 28;
 const int VEHPARS_CFMODEL_PARAMS_SET = 2 << 29;
+const int VEHPARS_PARKING_BADGES_SET = 2 << 30;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -778,6 +779,9 @@ public:
 
     /// @brief List of the via-edges the vehicle must visit
     mutable std::vector<std::string> via;
+
+    /// @brief The parking access rights
+    mutable std::vector <std::string> parkingBadges;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     int personNumber;

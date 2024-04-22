@@ -27,6 +27,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleType.h>
 #include "MSLane.h"
 #include <microsim/transportables/MSTransportable.h>
@@ -43,7 +44,8 @@
 // method definitions
 // ===========================================================================
 MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::string>& lines,
-                             MSLane& lane, double begPos, double endPos, int capacity, double width, double length,
+                             const std::vector<std::string>& badges, MSLane& lane,
+                             double begPos, double endPos, int capacity, double width, double length,
                              double angle, const std::string& name, bool onRoad,
                              const std::string& departPos, bool lefthand) :
     MSStoppingPlace(id, SUMO_TAG_PARKING_AREA, lines, lane, begPos, endPos, name),
@@ -53,6 +55,7 @@ MSParkingArea::MSParkingArea(const std::string& id, const std::vector<std::strin
     myWidth(width),
     myLength(length),
     myAngle(lefthand ? -angle : angle),
+    myAcceptedBadges(badges.begin(), badges.end()),
     myEgressBlocked(false),
     myReservationTime(-1),
     myReservations(0),
@@ -531,6 +534,37 @@ int
 MSParkingArea::getLastStepOccupancy() const {
     return myLastStepOccupancy;
 }
+
+
+void MSParkingArea::accept(std::string badge) {
+    myAcceptedBadges.insert(badge);
+}
+
+
+void MSParkingArea::accept(std::vector<std::string> badges) {
+    myAcceptedBadges.insert(badges.begin(), badges.end());
+}
+
+
+void MSParkingArea::refuse(std::string badge) {
+    myAcceptedBadges.erase(badge);
+}
+
+
+bool MSParkingArea::accepts(const MSBaseVehicle* veh) const {
+    if (myAcceptedBadges.size() == 0) {
+        return true;
+    } else {
+        std::vector<std::string> vehicleBadges = veh->getParkingBadges();
+        for (auto badge : vehicleBadges) {
+            if (myAcceptedBadges.count(badge) != 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 
 void
 MSParkingArea::notifyEgressBlocked() {

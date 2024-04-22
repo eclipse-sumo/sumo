@@ -183,6 +183,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                 new FunctionBinding<GUIVehicle, int>(this, &MSVehicle::getContainerNumber));
     ret->mkItem(TL("lcState right"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateRight));
     ret->mkItem(TL("lcState left"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
+    ret->mkItem(TL("parking badges"), false, joinToString(getParkingBadges(), " "));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem(TL("lcState center"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateCenter));
@@ -320,7 +321,7 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     if (exaggeration == 0) {
         return;
     }
-    // bool reversed = 
+    // bool reversed =
     MSTrainHelper trainHelper(this, isReversed() && s.drawReversed, s.secondaryShape, exaggeration, s.vehicleQuality);
     const int numCarriages = trainHelper.getNumCarriages();
     const int firstPassengerCarriage = trainHelper.getFirstPassengerCarriage();

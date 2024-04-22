@@ -216,6 +216,14 @@ public:
     }
 
 
+    /** @brief Returns the parking access rights of this type
+     * @return The parking access rights
+     */
+    const std::vector<std::string>& getParkingBadges() const {
+        return myParameter.parkingBadges;
+    }
+
+
     /** @brief Returns this type's speed factor
      * @return The speed factor of this type
      */
@@ -514,6 +522,12 @@ public:
      * @param[in] color The new color of this type
      */
     void setColor(const RGBColor& color);
+
+
+    /** @brief Set a new value for parking access rights of this type
+     * @param[in] badges The new parking access rights of this type
+     */
+    void setParkingBadges(const std::vector<std::string>& badges);
 
 
     /** @brief Set a new value for this type's width

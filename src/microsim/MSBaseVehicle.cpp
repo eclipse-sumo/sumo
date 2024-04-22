@@ -1103,6 +1103,15 @@ MSBaseVehicle::getCurrentParkingArea() {
 }
 
 
+const std::vector<std::string>&
+MSBaseVehicle::getParkingBadges() const {
+    if (myParameter->wasSet(VEHPARS_PARKING_BADGES_SET)) {
+        return myParameter->parkingBadges;
+    } else {
+        return getVehicleType().getParkingBadges();
+    }
+}
+
 
 double
 MSBaseVehicle::basePos(const MSEdge* edge) const {
@@ -1202,6 +1211,11 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos
             && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
         errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
+    }
+    if (stopType == "parkingArea" && !stop.parkingarea->accepts(this)) {
+        // forbid access in case the parking requests other badges
+        errorMsg = errorMsgStart + "on lane '" + stop.lane->getID() + "' forbids access because vehicle '" + myParameter->id + "' does not provide any valid badge.";
+        return false;
     }
     const MSEdge* stopLaneEdge = &stop.lane->getEdge();
     const MSEdge* stopEdge;
@@ -1628,6 +1642,15 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
     std::advance(itStop, nextStopIndex);
     MSStop& replacedStop = *itStop;
 
+    // check parking access rights
+    if (stop.parkingarea != "") {
+        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA));
+        if (pa != nullptr && !pa->accepts(this)) {
+            errorMsg = "Vehicle '" + getID() + "' does not have the right badge to access parkingArea '" + stop.parkingarea + "'.";
+            return false;
+        }
+    }
+
     if (replacedStop.lane == stopLane && replacedStop.pars.endPos == stop.endPos && !teleport) {
         // only replace stop attributes
         const_cast<SUMOVehicleParameter::Stop&>(replacedStop.pars) = stop;
@@ -1850,6 +1873,15 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     if (!stopLane->allowsVehicleClass(getVClass())) {
         errorMsg = ("Disallowed stop lane '" + stopLane->getID() + "'");
         return false;
+    }
+
+    // check parking access rights
+    if (stop.parkingarea != "") {
+        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(stop.parkingarea, SUMO_TAG_PARKING_AREA));
+        if (pa != nullptr && !pa->accepts(this)) {
+            errorMsg = "Vehicle '" + getID() + "' does not have the right badge to access parkingArea '" + stop.parkingarea + "'.";
+            return false;
+        }
     }
 
     const ConstMSEdgeVector& oldEdges = getRoute().getEdges();
