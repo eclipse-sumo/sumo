@@ -671,7 +671,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
     for (const auto& junctionWithID : network->getJunctionControl()) {
         const MSJunction* const junction = junctionWithID.second;
         const ConstMSEdgeVector& incoming = junction->getIncoming();
-        std::set<const MSEdge*> adjacent(incoming.begin(), incoming.end());
+        std::set<const MSEdge*, ComparatorNumericalIdLess> adjacent(incoming.begin(), incoming.end());
         const ConstMSEdgeVector& outgoing = junction->getOutgoing();
         adjacent.insert(outgoing.begin(), outgoing.end());
 
