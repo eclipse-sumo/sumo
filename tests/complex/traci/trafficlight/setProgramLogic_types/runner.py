@@ -54,7 +54,7 @@ logics = [
                Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
                Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
                Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
-        #Logic("customNEMA", tc.TRAFFICLIGHT_TYPE_NEMA, 0,
+        # Logic("customNEMA", tc.TRAFFICLIGHT_TYPE_NEMA, 0,
         #      [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
         #       Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
         #       Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
