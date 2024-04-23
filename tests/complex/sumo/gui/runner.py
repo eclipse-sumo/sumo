@@ -22,8 +22,8 @@ import subprocess
 import sys
 import time
 import warnings
-import pyautogui
-warnings.simplefilter("ignore")
+warnings.filterwarnings("ignore", category=ResourceWarning)  # pyscreeze leaves files open
+import pyautogui  # noqa
 
 if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
