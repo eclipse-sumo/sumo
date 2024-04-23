@@ -334,7 +334,8 @@ MSRoute::getDistanceBetween(double fromPos, double toPos,
             const MSEdge* pred = fromEdge->getPredecessors().front();
             assert(pred != 0);
             //std::cout << "  recurse fromPred=" << pred->getID() << "\n";
-            return getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal, routePosition) - fromPos;
+            const double d = getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal, routePosition) - fromPos;
+            return d < 0 ? std::numeric_limits<double>::max() : d;
         }
     }
     if (toEdge->isInternal()) {

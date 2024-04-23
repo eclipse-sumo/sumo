@@ -837,6 +837,7 @@ MSVehicle::Influencer::updateRemoteControlRoute(MSVehicle* v) {
     }
 }
 
+
 void
 MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
@@ -940,6 +941,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
                                 : veh->getMaxSpeed()));
     return MIN2(maxSpeed, MAX2(minSpeed, DIST2SPEED(dist)));
 }
+
 
 double
 MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
@@ -6450,22 +6452,10 @@ MSVehicle::getLanePosAfterDist(double distance) const {
 
 double
 MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
-    double distance = std::numeric_limits<double>::max();
     if (isOnRoad() && destEdge != nullptr) {
-        if (&myLane->getEdge() == destEdge && getPositionOnLane() < destPos) {
-            return destPos - getPositionOnLane();
-        }
-        if (myLane->isInternal()) {
-            // vehicle is on inner junction edge
-            assert(myCurrEdge + 1 != myRoute->end());
-            distance = myLane->getLength() - getPositionOnLane();
-            distance += myRoute->getDistanceBetween(0, destPos, *(myCurrEdge + 1), destEdge);
-        } else {
-            // vehicle is on a normal edge
-            distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos, *myCurrEdge, destEdge);
-        }
+        return myRoute->getDistanceBetween(getPositionOnLane(), destPos, &myLane->getEdge(), destEdge);
     }
-    return distance;
+    return std::numeric_limits<double>::max();
 }
 
 
