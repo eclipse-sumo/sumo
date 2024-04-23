@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:52 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-04-23 09:34:30 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="-3.20,93.55 3.20,93.55" outlineShape="-3.20,91.55 3.20,91.55 3.33,93.15 3.70,94.47 4.32,95.49 -2.76,95.55 -2.90,95.11 -3.20,91.55"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
-        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="11.00" width="4.00" shape="-3.20,91.55 -6.20,91.55 -5.83,95.85 -4.72,99.21 -2.84,101.71 -0.16,103.42 3.35,104.39 7.70,104.70 7.70,103.20 4.37,102.88 1.64,101.91 -0.47,100.29 -1.99,98.02 -2.90,95.11"/>
+        <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="11.00" width="4.00" shape="-3.20,91.55 -6.20,91.55 -5.81,95.57 -4.66,98.86 -2.73,101.41 -0.02,103.24 3.45,104.33 7.70,104.70 7.70,103.20 4.37,102.88 1.64,101.91 -0.47,100.29 -1.99,98.02 -2.90,95.11"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
         <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="3.98" width="4.00" shape="7.70,96.80 7.70,93.05 6.20,91.55 3.20,91.55 3.33,93.15 3.70,94.47 4.32,95.49 5.20,96.22 6.32,96.65"/>

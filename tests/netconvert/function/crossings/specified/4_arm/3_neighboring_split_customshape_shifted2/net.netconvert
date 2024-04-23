@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:51 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-04-23 09:34:30 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -146,13 +146,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_w6_0" index="0" allow="pedestrian" speed="2.78" length="13.41" width="4.50" customShape="1" shape="286.91,146.71 270.07,139.68 286.28,131.38"/>
     </edge>
     <edge id=":E_w0" function="walkingarea">
-        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.31" width="3.00" shape="401.97,147.65 402.71,150.56 406.72,148.26 409.07,144.40 409.77,139.77 408.85,135.18 406.33,131.43 402.22,129.33 401.61,132.27 403.72,133.68 405.04,136.43 405.53,139.87 405.20,143.33 404.01,146.14"/>
+        <lane id=":E_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.31" width="3.00" shape="401.97,147.65 402.71,150.56 405.54,148.47 407.17,144.59 407.64,139.82 406.95,135.08 405.14,131.28 402.22,129.33 401.61,132.27 403.72,133.68 405.04,136.43 405.53,139.87 405.20,143.33 404.01,146.14"/>
     </edge>
     <edge id=":N_w0" function="walkingarea">
-        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.47" width="3.00" shape="292.39,237.87 289.50,237.06 289.57,241.66 291.94,245.58 295.83,248.42 300.45,249.79 305.00,249.30 308.70,246.57 306.31,244.76 304.10,246.03 301.00,245.92 297.66,244.73 294.69,242.79 292.72,240.40"/>
+        <lane id=":N_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.47" width="3.00" shape="292.39,237.87 289.50,237.06 289.96,240.55 292.67,243.85 296.77,246.53 301.38,248.16 305.65,248.32 308.70,246.57 306.31,244.76 304.10,246.03 301.00,245.92 297.66,244.73 294.69,242.79 292.72,240.40"/>
     </edge>
     <edge id=":S_w0" function="walkingarea">
-        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="2.78" length="17.70" width="3.00" shape="307.26,36.87 310.01,35.69 307.31,31.93 303.55,29.81 299.32,29.29 295.18,30.34 291.72,32.92 289.52,36.99 292.41,37.82 293.85,35.78 296.43,34.44 299.61,33.85 302.84,34.04 305.57,35.03"/>
+        <lane id=":S_w0_0" index="0" allow="pedestrian" speed="2.78" length="17.70" width="3.00" shape="307.26,36.87 310.01,35.69 307.68,33.14 303.91,31.77 299.46,31.52 295.07,32.33 291.51,34.18 289.52,36.99 292.41,37.82 293.85,35.78 296.43,34.44 299.61,33.85 302.84,34.04 305.57,35.03"/>
     </edge>
     <edge id=":W_w0" function="walkingarea">
         <lane id=":W_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.80" width="3.00" shape="199.95,132.10 199.93,129.10 200.03,150.90 200.02,147.90"/>

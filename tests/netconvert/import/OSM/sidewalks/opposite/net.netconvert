@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:40 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-04-23 09:34:25 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":23083_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.46" length="3.73" shape="166.88,105.89 167.14,106.80 167.21,107.71 167.08,108.62 166.76,109.52"/>
     </edge>
     <edge id=":23083_w0" function="walkingarea">
-        <lane id=":23083_w0_0" index="0" allow="pedestrian" speed="2.78" length="6.08" width="3.00" shape="168.21,110.19 170.93,111.47 171.57,110.02 171.97,108.88 172.12,107.88 172.03,106.87 171.71,105.70 171.17,104.21 168.37,105.30 168.64,106.13 168.78,106.95 168.82,107.77 168.73,108.58 168.53,109.39"/>
+        <lane id=":23083_w0_0" index="0" allow="pedestrian" speed="2.78" length="6.08" width="3.00" shape="168.21,110.19 170.93,111.47 171.40,110.27 171.70,109.07 171.83,107.87 171.78,106.65 171.56,105.44 171.17,104.21 168.37,105.30 168.64,106.13 168.78,106.95 168.82,107.77 168.73,108.58 168.53,109.39"/>
     </edge>
     <edge id=":23083_w1" function="walkingarea">
         <lane id=":23083_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.18" width="3.00" shape="165.39,106.47 162.60,107.56 165.31,108.84 165.47,108.45 165.56,108.05 165.61,107.66 165.59,107.27 165.52,106.87"/>

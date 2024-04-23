@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-17 19:09:37 by Eclipse SUMO netconvert Version v1_19_0+1876-cbd8403118e
+<!-- generated on 2024-04-23 09:34:27 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -230,7 +230,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1976554037_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.47" width="4.00" shape="277.55,185.37 279.45,184.74 278.86,175.01 277.66,175.73 276.84,176.85 276.42,178.38 276.40,180.31 276.78,182.64"/>
     </edge>
     <edge id=":1976554037_w1" function="walkingarea">
-        <lane id=":1976554037_w1_0" index="0" allow="pedestrian" speed="2.78" length="14.25" width="4.00" shape="277.75,172.01 277.05,170.13 272.70,171.83 269.03,173.59 266.05,175.66 263.75,178.27 262.15,181.65 261.25,186.03 263.24,186.25 263.84,184.08 265.25,181.07 267.34,178.36 270.13,175.94 273.60,173.83"/>
+        <lane id=":1976554037_w1_0" index="0" allow="pedestrian" speed="2.78" length="14.25" width="4.00" shape="277.75,172.01 277.05,170.13 272.54,172.09 268.79,174.32 265.78,176.83 263.52,179.62 262.01,182.69 261.25,186.03 263.24,186.25 263.84,184.08 265.25,181.07 267.34,178.36 270.13,175.94 273.60,173.83"/>
     </edge>
     <edge id=":1976554040_0" function="internal">
         <lane id=":1976554040_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="22.22" length="16.48" shape="286.91,284.95 281.60,269.39"/>
@@ -1147,7 +1147,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":7477047552_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.33" width="4.00" shape="730.51,183.79 731.17,185.68 744.25,181.03 743.56,179.15 739.82,180.53"/>
     </edge>
     <edge id=":7477047552_w1" function="walkingarea">
-        <lane id=":7477047552_w1_0" index="0" allow="pedestrian" speed="2.78" length="0.99" width="4.00" shape="742.47,176.14 742.10,177.04 740.75,175.57 742.10,177.04 740.75,175.57 740.19,176.15 739.96,176.53 740.08,176.72 740.54,176.72 741.33,176.53"/>
+        <lane id=":7477047552_w1_0" index="0" allow="pedestrian" speed="2.78" length="0.99" width="4.00" shape="742.47,176.14 741.78,174.27 742.10,177.04 740.75,175.57 740.19,176.15 739.96,176.53 740.08,176.72 740.54,176.72 741.33,176.53"/>
     </edge>
     <edge id=":7477047564_w0" function="walkingarea">
         <lane id=":7477047564_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.30" width="2.00" shape="506.42,328.95 508.31,328.31 508.22,328.02 506.32,328.67"/>

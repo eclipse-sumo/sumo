@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:54 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-04-23 09:34:31 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -2064,7 +2064,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1568241231_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.04" width="4.00" shape="4483.98,155.67 4484.74,157.52 4486.68,157.02 4486.45,156.37 4486.13,155.88 4485.72,155.57 4485.23,155.43 4484.65,155.47"/>
     </edge>
     <edge id=":1568241231_w1" function="walkingarea">
-        <lane id=":1568241231_w1_0" index="0" allow="pedestrian" speed="2.78" length="9.53" width="4.00" shape="4492.88,155.43 4494.82,154.93 4493.60,151.57 4491.92,149.07 4489.78,147.45 4487.20,146.71 4484.20,146.86 4480.77,147.91 4481.54,149.76 4484.33,148.89 4486.77,148.75 4488.84,149.33 4490.55,150.64 4491.90,152.67"/>
+        <lane id=":1568241231_w1_0" index="0" allow="pedestrian" speed="2.78" length="9.53" width="4.00" shape="4492.88,155.43 4494.82,154.93 4493.60,151.52 4491.93,149.00 4489.82,147.38 4487.25,146.66 4484.24,146.84 4480.77,147.91 4481.54,149.76 4484.33,148.89 4486.77,148.75 4488.84,149.33 4490.55,150.64 4491.90,152.67"/>
     </edge>
     <edge id=":1568241232_0" function="internal">
         <lane id=":1568241232_0_0" index="0" allow="delivery" speed="5.77" length="6.59" shape="4462.19,168.54 4461.13,166.49 4460.01,165.16 4458.85,164.54 4457.63,164.63"/>
