@@ -3226,7 +3226,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
     // build walking areas connected to a sidewalk
     for (int i = 0; i < (int)waIndices.size(); ++i) {
         const bool buildExtensions = waIndices[i].second != (int)normalizedLanes.size();
-        const int startIdx = waIndices[i].first;
+        int startIdx = waIndices[i].first;
         const int prev = startIdx > 0 ? startIdx - 1 : (int)normalizedLanes.size() - 1;
         const int count = waIndices[i].second;
         const int end = (startIdx + count) % normalizedLanes.size();
@@ -3407,9 +3407,25 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             PositionVector begShape = normalizedLanes[smoothEnd].second.shape;
             begShape = begShape.reverse();
             double shiftBegExtra = 0;
+            double shiftEndExtra = 0;
             if (lastIdx == startIdx) {
                 lastIdx = (startIdx + 1) % normalizedLanes.size();
-                shiftBegExtra += OptionsCont::getOptions().getFloat("default.sidewalk-width");
+                if (gDebugFlag1) {
+                    std::cout << "    new lastIdx=" << lastIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n";
+                }
+                if (normalizedLanes[startIdx].first == normalizedLanes[lastIdx].first) {
+                    lastIdx = startIdx;
+                    startIdx--;
+                    if (startIdx < 0) {
+                        startIdx = normalizedLanes.size() - 1;
+                    }
+                    if (gDebugFlag1) {
+                        std::cout << "    new startIdx=" << startIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n";
+                    }
+                    shiftEndExtra += OptionsCont::getOptions().getFloat("default.sidewalk-width");
+                } else {
+                    shiftBegExtra += OptionsCont::getOptions().getFloat("default.sidewalk-width");
+                }
             }
             PositionVector begShapeOuter = normalizedLanes[lastIdx].second.shape;
             begShapeOuter = begShapeOuter.reverse();
@@ -3419,7 +3435,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             PositionVector endShape = normalizedLanes[smoothPrev].second.shape;
             PositionVector endShapeOuter = normalizedLanes[startIdx].second.shape;;
             endShape.move2side(normalizedLanes[smoothPrev].second.width / 2);
-            endShapeOuter.move2side(normalizedLanes[startIdx].second.width / 2);
+            endShapeOuter.move2side(normalizedLanes[startIdx].second.width / 2 + shiftEndExtra);
             //endShape.extrapolate(startCrossingWidth);
             PositionVector curve;
             if (count != (int)normalizedLanes.size() || count == 2) {
@@ -3480,11 +3496,27 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 if (outerDist > innerDist) {
                     // we also need a rounded outer curve (unless we have only a single walkingarea)
                     const double extend = MIN2(10.0, begShapeOuter.back().distanceTo2D(endShapeOuter.front()) / 2);
-                    curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
+                    curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, extend, extend, nullptr);
+                    if (curve.length2D() - begShapeOuter.back().distanceTo2D(endShapeOuter.front()) > 5) {
+                        if (gDebugFlag1) std::cout
+                                    << "   reduceBulge directLength=" << begShapeOuter.back().distanceTo2D(endShapeOuter.front())
+                                    << " curveLength=" << curve.length2D()
+                                    << " delta=" << curve.length2D() - begShapeOuter.back().distanceTo2D(endShapeOuter.front())
+                                    << "\n";
+                        curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
+                    }
                     curve = curve.reverse();
                     // keep the points in case of extraShift
-                    curve.push_front_noDoublePos(wa.shape[1]);
-                    curve.push_back_noDoublePos(wa.shape[2]);
+                    if (shiftBegExtra != 0) {
+                        curve.push_front_noDoublePos(wa.shape[1]);
+                        curve.push_back_noDoublePos(wa.shape[2]);
+                    } else if (shiftEndExtra != 0) {
+                        curve.push_back_noDoublePos(wa.shape[1]);
+                        curve.push_back_noDoublePos(wa.shape[2]);
+                    }
+                    if (gDebugFlag1) {
+                        std::cout << " outerCurveRaw=" << curve << " wa1=" << wa.shape[1] << " wa2=" << wa.shape[2] << "\n";
+                    }
                     wa.shape.erase(wa.shape.begin() + 1, wa.shape.begin() + 3);
                     wa.shape.insert(wa.shape.begin() + 1, curve.begin(), curve.end());
                     if (gDebugFlag1) {
