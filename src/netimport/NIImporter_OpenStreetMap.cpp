@@ -2020,7 +2020,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                     if (myPlatform.isWay) {
                         assert(myPlatformShapes.find(myPlatform.ref) != myPlatformShapes.end()); //already tested earlier
                         Edge* edge = (*myPlatformShapes.find(myPlatform.ref)).second;
-                        if (edge->myCurrentNodes[0] == *(edge->myCurrentNodes.end() - 1)) {
+                        if (edge->myCurrentNodes.size() > 1 && edge->myCurrentNodes[0] == *(edge->myCurrentNodes.end() - 1)) {
                             WRITE_WARNINGF(TL("Platform '%' in relation: '%' is given as polygon, which currently is not supported."), myPlatform.ref, myCurrentRelation);
                             continue;
 
