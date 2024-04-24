@@ -84,7 +84,7 @@ NBRailwayTopologyAnalyzer::Track::getSuccessors(SUMOVehicleClass svc) const {
 
 
 const std::vector<std::pair<const NBRailwayTopologyAnalyzer::Track*, const NBRailwayTopologyAnalyzer::Track*> >&
-NBRailwayTopologyAnalyzer::Track::getViaSuccessors(SUMOVehicleClass svc) const {
+NBRailwayTopologyAnalyzer::Track::getViaSuccessors(SUMOVehicleClass svc, bool /*ignoreTransientPermissions*/) const {
     if ((minPermissions & svc) != 0) {
         return viaSuccessors;
     } else {

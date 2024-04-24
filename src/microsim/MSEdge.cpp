@@ -74,6 +74,7 @@ MSEdge::MSEdge(const std::string& id, int numericalID,
     myLaneChanger(nullptr), myFunction(function), myVaporizationRequests(0),
     myLastFailedInsertionTime(-1),
     myFromJunction(nullptr), myToJunction(nullptr),
+    myHaveTransientPermissions(false),
     myOtherTazConnector(nullptr),
     myStreetName(streetName),
     myEdgeType(edgeType),
@@ -317,6 +318,7 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
     // rebuild myMinimumPermissions and myCombinedPermissions
     myMinimumPermissions = SVCAll;
     myCombinedPermissions = 0;
+    bool lanesChangedPermission = false;
     for (MSLane* const lane : *myLanes) {
         // same dedicated lanes are ignored in meso to avoid capacity errors.
         // Here we have to make sure that vehicles which are set to depart on
@@ -324,6 +326,14 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
         SVCPermissions allow = getMesoPermissions(lane->getPermissions(), SVC_PEDESTRIAN);
         myMinimumPermissions &= allow;
         myCombinedPermissions |= allow;
+        lanesChangedPermission |= lane->hadPermissionChanges();
+    }
+    if (!onInit && !myHaveTransientPermissions && lanesChangedPermission) {
+        myHaveTransientPermissions = true;
+        // backup original structures when first needed
+        myOrigAllowed = myAllowed;
+        myOrigAllowedTargets = myAllowedTargets;
+        myOrigClassesViaSuccessorMap = myClassesViaSuccessorMap;
     }
     // rebuild myAllowed
     myAllowed.clear();
@@ -347,6 +357,12 @@ MSEdge::rebuildAllowedLanes(const bool onInit) {
     } else {
         rebuildAllowedTargets(false);
         for (MSEdge* pred : myPredecessors) {
+            if (myHaveTransientPermissions && !pred->myHaveTransientPermissions) {
+                pred->myOrigAllowed = pred->myAllowed;
+                pred->myOrigAllowedTargets = pred->myAllowedTargets;
+                pred->myOrigClassesViaSuccessorMap = pred->myClassesViaSuccessorMap;
+                pred->myHaveTransientPermissions = true;
+            }
             pred->rebuildAllowedTargets(false);
         }
         if (MSGlobals::gUseMesoSim) {
@@ -455,9 +471,10 @@ MSEdge::parallelLane(const MSLane* const lane, int offset, bool includeOpposite)
 
 
 const std::vector<MSLane*>*
-MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const {
-    AllowedLanesByTarget::const_iterator i = myAllowedTargets.find(&destination);
-    if (i != myAllowedTargets.end()) {
+MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass, bool ignoreTransientPermissions) const {
+    const auto& targets = ignoreTransientPermissions && myHaveTransientPermissions ? myOrigAllowedTargets : myAllowedTargets;
+    AllowedLanesByTarget::const_iterator i = targets.find(&destination);
+    if (i != targets.end()) {
         for (const auto& allowed : i->second) {
             if ((allowed.first & vclass) == vclass) {
                 return allowed.second.get();
@@ -1204,26 +1221,27 @@ MSEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 
 const MSConstEdgePairVector&
-MSEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+MSEdge::getViaSuccessors(SUMOVehicleClass vClass, bool ignoreTransientPermissions) const {
     if (vClass == SVC_IGNORING || !MSNet::getInstance()->hasPermissions() || myFunction == SumoXMLEdgeFunc::CONNECTOR) {
         return myViaSuccessors;
     }
 #ifdef HAVE_FOX
     ScopedLocker<> lock(mySuccessorMutex, MSGlobals::gNumThreads > 1);
 #endif
-    auto i = myClassesViaSuccessorMap.find(vClass);
-    if (i != myClassesViaSuccessorMap.end()) {
+    auto& viaMap = ignoreTransientPermissions && myHaveTransientPermissions ? myOrigClassesViaSuccessorMap : myClassesViaSuccessorMap;
+    auto i = viaMap.find(vClass);
+    if (i != viaMap.end()) {
         // can use cached value
         return i->second;
     }
     // instantiate vector
-    MSConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
+    MSConstEdgePairVector& result = viaMap[vClass];
     // this vClass is requested for the first time. rebuild all successors
     for (const auto& viaPair : myViaSuccessors) {
         if (viaPair.first->isTazConnector()) {
             result.push_back(viaPair);
         } else {
-            const std::vector<MSLane*>* allowed = allowedLanes(*viaPair.first, vClass);
+            const std::vector<MSLane*>* allowed = allowedLanes(*viaPair.first, vClass, ignoreTransientPermissions);
             if (allowed != nullptr && allowed->size() > 0) {
                 result.push_back(viaPair);
             }
@@ -1556,12 +1574,7 @@ MSEdge::getDistanceAt(double pos) const {
 
 bool
 MSEdge::hasTransientPermissions() const {
-    for (const MSLane* lane : *myLanes) {
-        if (lane->hadPermissionChanges()) {
-            return true;
-        }
-    }
-    return false;
+    return myHaveTransientPermissions;
 }
 
 

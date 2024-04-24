@@ -159,6 +159,11 @@ public:
         return myType->getParameter().vehicleClass;
     }
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const;
+
     /** @brief Returns the maximum speed (the minimum of desired and technical maximum speed)
      * @return The vehicle's maximum speed
      */

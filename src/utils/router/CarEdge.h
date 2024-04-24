@@ -67,15 +67,16 @@ public:
         }
     }
 
-    virtual const std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+    virtual const std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
         if (vClass == SVC_IGNORING) {
             return this->myFollowingViaEdges;
         }
 #ifdef HAVE_FOX
         FXMutexLock locker(myLock);
 #endif
-        typename std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > >::const_iterator i = myClassesViaSuccessorMap.find(vClass);
-        if (i != myClassesViaSuccessorMap.end()) {
+        auto& viaMap = ignoreTransientPermissions ? myOrigClassesViaSuccessorMap : myClassesViaSuccessorMap;
+        typename std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > >::const_iterator i = viaMap.find(vClass);
+        if (i != viaMap.end()) {
             // can use cached value
             return i->second;
         } else {
@@ -86,10 +87,10 @@ public:
             }
             for (const std::pair<const _IntermodalEdge*, const _IntermodalEdge*>& e : this->myFollowingViaEdges) {
                 if (!e.first->includeInRoute(false) || e.first->getEdge() == this->getEdge() || classedCarFollowers.count(e.first->getEdge()) > 0) {
-                    myClassesViaSuccessorMap[vClass].push_back(e);
+                    viaMap[vClass].push_back(e);
                 }
             }
-            return myClassesViaSuccessorMap[vClass];
+            return viaMap[vClass];
         }
     }
 
@@ -144,6 +145,7 @@ private:
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > > myClassesViaSuccessorMap;
+    mutable std::map<SUMOVehicleClass, std::vector<std::pair<const _IntermodalEdge*, const _IntermodalEdge*> > > myOrigClassesViaSuccessorMap;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap

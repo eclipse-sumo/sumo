@@ -191,6 +191,12 @@ MSBaseVehicle::replaceParameter(const SUMOVehicleParameter* newParameter) {
     myParameter = newParameter;
 }
 
+
+bool
+MSBaseVehicle::ignoreTransientPermissions() const {
+    return (getRoutingMode() & libsumo::ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS) != 0;
+}
+
 double
 MSBaseVehicle::getMaxSpeed() const {
     return MIN2(myType->getMaxSpeed(), myType->getDesiredMaxSpeed() * myChosenSpeedFactor);

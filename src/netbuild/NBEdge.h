@@ -67,7 +67,7 @@ public:
     virtual double getLength() const = 0;
     virtual const NBRouterEdge* getBidiEdge() const = 0;
     virtual int getNumericalID() const = 0;
-    virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const = 0;
+    virtual const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const = 0;
     virtual bool isInternal() const {
         return false;
     }
@@ -327,8 +327,9 @@ public:
         bool isInternal() const {
             return true;
         }
-        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+        const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
             UNUSED_PARAMETER(vClass);
+            UNUSED_PARAMETER(ignoreTransientPermissions);
             return myViaSuccessors;
         }
         /// }@
@@ -1515,7 +1516,7 @@ public:
 
     /** @brief Returns the following edges for the given vClass
      */
-    const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ConstRouterEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
     //@}
     const std::string& getID() const {

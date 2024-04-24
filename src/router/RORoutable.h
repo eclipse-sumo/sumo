@@ -110,6 +110,12 @@ public:
         return getType() != 0 ? getType()->vehicleClass : SVC_IGNORING;
     }
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const {
+        return false;
+    };
 
     /// @brief Returns the vehicle's maximum speed
     inline double getMaxSpeed() const {

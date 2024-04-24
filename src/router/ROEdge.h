@@ -350,7 +350,7 @@ public:
     * @param[in] vClass The vClass for which to restrict the successors
     * @return The eligible following edges
     */
-    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const;
+    const ROConstEdgePairVector& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
 
     /** @brief Returns the number of edges connected to this edge

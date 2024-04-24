@@ -136,8 +136,9 @@ public:
         return myFollowingEdges;
     }
 
-    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {
+    virtual const std::vector<std::pair<const IntermodalEdge*, const IntermodalEdge*> >& getViaSuccessors(SUMOVehicleClass vClass = SVC_IGNORING, bool ignoreTransientPermissions = false) const {
         UNUSED_PARAMETER(vClass);
+        UNUSED_PARAMETER(ignoreTransientPermissions);
         // the network is already tailored. No need to check for permissions here
         return myFollowingViaEdges;
     }

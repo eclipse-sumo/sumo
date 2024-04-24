@@ -4692,7 +4692,7 @@ NBEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 
 const ConstRouterEdgePairVector&
-NBEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+NBEdge::getViaSuccessors(SUMOVehicleClass vClass, bool /*ignoreTransientPermissions*/) const {
     // @todo cache successors instead of recomputing them every time
     myViaSuccessors.clear();
     for (const Connection& con : myConnections) {

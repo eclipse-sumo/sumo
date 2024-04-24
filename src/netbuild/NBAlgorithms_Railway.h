@@ -66,7 +66,7 @@ public:
 
         void addSuccessor(Track* track);
         const std::vector<Track*>& getSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
-        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc = SVC_IGNORING) const;
+        const std::vector<std::pair<const Track*, const Track*> >& getViaSuccessors(SUMOVehicleClass svc = SVC_IGNORING, bool ignoreTransientPermissions = false) const;
 
         const std::string& getID() const {
             return id;

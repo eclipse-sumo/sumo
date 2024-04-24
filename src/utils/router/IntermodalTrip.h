@@ -62,6 +62,13 @@ public:
         return vehicle != 0 ? vehicle->getVClass() : SVC_PEDESTRIAN;
     }
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const {
+        return vehicle != 0 ? vehicle->ignoreTransientPermissions() : false;
+    };
+
     inline double getLength() const {
         // person length is arbitrary (only used in the context of rail-reversal validity
         return vehicle != 0 ? vehicle->getVehicleType().getLength() : 1;

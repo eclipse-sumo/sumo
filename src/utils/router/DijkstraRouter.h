@@ -124,6 +124,7 @@ public:
         std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
+        const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
         std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
         if ((this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) && !this->myAmClean) {
 #ifdef DijkstraRouter_DEBUG_BULKMODE
@@ -203,7 +204,7 @@ public:
                 myExternalEffort->update(minEdge->getNumericalID(), minimumInfo->prev->edge->getNumericalID(), minEdge->getLength());
             }
             // check all ways from the node with the minimal length
-            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass)) {
+            for (const std::pair<const E*, const E*>& follower : minEdge->getViaSuccessors(vClass, ignoreTransient)) {
                 auto& followerInfo = this->myEdgeInfos[follower.first->getNumericalID()];
                 // check whether it can be used
                 if (followerInfo.prohibited || this->isProhibited(follower.first, vehicle)) {

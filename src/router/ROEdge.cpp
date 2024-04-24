@@ -399,7 +399,7 @@ ROEdge::getSuccessors(SUMOVehicleClass vClass) const {
 
 
 const ROConstEdgePairVector&
-ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
+ROEdge::getViaSuccessors(SUMOVehicleClass vClass, bool /*ignoreTransientPermissions*/) const {
     if (vClass == SVC_IGNORING || !RONet::getInstance()->hasPermissions() || isTazConnector()) {
         return myFollowingViaEdges;
     }

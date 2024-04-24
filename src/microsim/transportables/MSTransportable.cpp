@@ -26,6 +26,7 @@
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/router/IntermodalRouter.h>
+#include <libsumo/TraCIConstants.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>

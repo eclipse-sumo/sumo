@@ -58,6 +58,13 @@ public:
         return myVClass;
     }
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    bool ignoreTransientPermissions() const {
+        return false;
+    };
+
     double getLength() const {
         return myLength;
     }

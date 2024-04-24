@@ -162,6 +162,13 @@ public:
      */
     virtual SUMOVehicleClass getVClass() const = 0;
 
+    /** @brief Returns whether this object is ignoring transient permission
+     * changes (during routing)
+     */
+    virtual bool ignoreTransientPermissions() const {
+        return false;
+    };
+
     virtual int getRoutingMode() const = 0;
 
     /** @brief Returns the object's maximum speed (minimum of technical and desired maximum speed)
