@@ -3,24 +3,24 @@
     <polygonType id="traffic_sign"            name="traffic_sign" color=".0,.0,.0" layer="0"/>
     <polygonType id="waterway"                name="water"       color=".71,.82,.82" layer="-4"/>
     <polygonType id="natural"                 name="natural"     color=".55,.77,.42" layer="-4"/>
-    <polygonType id="natural.water"           name="water"       color=".71,.82,.82" layer="-4"/>
-    <polygonType id="natural.bay"             name="bay"         color=".71,.82,.82" layer="-4"/>
-    <polygonType id="natural.strait"          name="strait"      color=".71,.82,.82" layer="-4"/>
-    <polygonType id="natural.wetland"         name="water"       color=".71,.82,.82" layer="-4"/>
-    <polygonType id="natural.wood"            name="forest"      color=".55,.77,.42" layer="-4"/>
-    <polygonType id="natural.land"            name="land"        color=".98,.87,.46" layer="-4"/>
+    <polygonType id="natural.water"           name="water"       color=".71,.82,.82" layer="-4" fill="force"/>
+    <polygonType id="natural.bay"             name="bay"         color=".71,.82,.82" layer="-4" fill="force"/>
+    <polygonType id="natural.strait"          name="strait"      color=".71,.82,.82" layer="-4" fill="force"/>
+    <polygonType id="natural.wetland"         name="water"       color=".71,.82,.82" layer="-4" fill="force"/>
+    <polygonType id="natural.wood"            name="forest"      color=".55,.77,.42" layer="-4" fill="force"/>
+    <polygonType id="natural.land"            name="land"        color=".98,.87,.46" layer="-4" fill="force"/>
 
     <polygonType id="landuse"                 name="landuse"     color=".76,.76,.51" layer="-3"/>
-    <polygonType id="landuse.forest"          name="forest"      color=".55,.77,.42" layer="-3"/>
-    <polygonType id="landuse.park"            name="park"        color=".81,.96,.79" layer="-3"/>
-    <polygonType id="landuse.residential"     name="residential" color=".92,.92,.89" layer="-3"/>
-    <polygonType id="landuse.commercial"      name="commercial"  color=".82,.82,.80" layer="-3"/>
-    <polygonType id="landuse.industrial"      name="industrial"  color=".82,.82,.80" layer="-3"/>
-    <polygonType id="landuse.military"        name="military"    color=".60,.60,.36" layer="-3"/>
-    <polygonType id="landuse.farm"            name="farm"        color=".95,.95,.80" layer="-3"/>
-    <polygonType id="landuse.greenfield"      name="farm"        color=".95,.95,.80" layer="-3"/>
-    <polygonType id="landuse.village_green"   name="farm"        color=".95,.95,.80" layer="-3"/>
-    <polygonType id="landuse.harbour"         name="harbour"     color=".82,.82,.80" layer="-5"/>
+    <polygonType id="landuse.forest"          name="forest"      color=".55,.77,.42" layer="-3" fill="force"/>
+    <polygonType id="landuse.park"            name="park"        color=".81,.96,.79" layer="-3" fill="force"/>
+    <polygonType id="landuse.residential"     name="residential" color=".92,.92,.89" layer="-3" fill="force"/>
+    <polygonType id="landuse.commercial"      name="commercial"  color=".82,.82,.80" layer="-3" fill="force"/>
+    <polygonType id="landuse.industrial"      name="industrial"  color=".82,.82,.80" layer="-3" fill="force"/>
+    <polygonType id="landuse.military"        name="military"    color=".60,.60,.36" layer="-3" fill="force"/>
+    <polygonType id="landuse.farm"            name="farm"        color=".95,.95,.80" layer="-3" fill="force"/>
+    <polygonType id="landuse.greenfield"      name="farm"        color=".95,.95,.80" layer="-3" fill="force"/>
+    <polygonType id="landuse.village_green"   name="farm"        color=".95,.95,.80" layer="-3" fill="force"/>
+    <polygonType id="landuse.harbour"         name="harbour"     color=".82,.82,.80" layer="-5" fill="force"/>
 
     <polygonType id="tourism"                 name="tourism"     color=".81,.96,.79" layer="-2"/>
     <polygonType id="military"                name="military"    color=".60,.60,.36" layer="-2"/>
