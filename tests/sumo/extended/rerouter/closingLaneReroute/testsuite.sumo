@@ -17,3 +17,7 @@ directional_lane_switch_visible
 # Visualization intended to model a 3 lane road with a center lane that switches permitted direction
 # 
 directional_lane_switch
+
+# lane closing blocks the route but the vehicle should stay on the old route
+# (despite rerouting device)
+routingMode_ignore
