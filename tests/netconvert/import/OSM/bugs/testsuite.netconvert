@@ -121,3 +121,6 @@ ticket14124
 
 # crash on missing node reference
 ticket14766
+
+# bad junction join
+ticket14769
