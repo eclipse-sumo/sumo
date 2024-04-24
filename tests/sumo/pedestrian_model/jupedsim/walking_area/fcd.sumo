@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-18 15:14:02 by Eclipse SUMO sumo Version v1_19_0+1879-9a58a7bc365
+<!-- generated on 2024-04-24 12:09:31 by Eclipse SUMO sumo Version v1_19_0+1919-036bad3f86a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="5" x="1670.16" y="2005.36" angle="74.10" speed="1.39" pos="21.17" edge="1388" slope="0.00"/>
         <person id="1" x="1675.47" y="2007.02" angle="73.79" speed="1.39" pos="26.73" edge="1388" slope="0.00"/>
         <person id="4" x="1793.02" y="1921.42" angle="5.31" speed="1.39" pos="22.56" edge="1391" slope="0.00"/>
-        <person id="7" x="1804.77" y="2051.00" angle="178.79" speed="1.39" pos="139.70" edge="1391" slope="0.00"/>
+        <person id="7" x="1804.77" y="2051.01" angle="179.20" speed="1.39" pos="139.70" edge="1391" slope="0.00"/>
         <person id="2" x="1795.01" y="2092.83" angle="343.90" speed="1.39" pos="25.34" edge="1464" slope="0.00"/>
         <person id="9" x="1603.05" y="1903.48" angle="24.72" speed="1.39" pos="15.62" edge="533" slope="0.00"/>
         <person id="3" x="1606.54" y="1911.05" angle="24.72" speed="1.39" pos="23.95" edge="533" slope="0.00"/>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="5" x="1696.88" y="2012.97" angle="74.10" speed="1.39" pos="48.95" edge="1388" slope="0.00"/>
         <person id="1" x="1702.14" y="2014.77" angle="73.79" speed="1.39" pos="54.51" edge="1388" slope="0.00"/>
         <person id="4" x="1795.59" y="1949.08" angle="5.31" speed="1.39" pos="50.34" edge="1391" slope="0.00"/>
-        <person id="7" x="1802.71" y="2023.32" angle="185.12" speed="1.39" pos="124.91" edge="1391" slope="0.00"/>
+        <person id="7" x="1802.71" y="2023.32" angle="185.12" speed="1.39" pos="124.92" edge="1391" slope="0.00"/>
         <person id="9" x="1614.67" y="1928.72" angle="24.72" speed="1.39" pos="43.39" edge="533" slope="0.00"/>
         <person id="3" x="1618.16" y="1936.29" angle="24.72" speed="1.39" pos="51.73" edge="533" slope="0.00"/>
     </timestep>
@@ -141,7 +141,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="100.00">
         <person id="8" x="1773.00" y="2034.71" angle="73.85" speed="1.39" pos="128.12" edge="1388" slope="0.00"/>
         <person id="5" x="1777.00" y="2035.87" angle="73.86" speed="1.39" pos="132.28" edge="1388" slope="0.00"/>
-        <person id="4" x="1803.36" y="2031.47" angle="5.49" speed="1.39" pos="133.10" edge="1391" slope="0.00"/>
+        <person id="4" x="1803.36" y="2031.48" angle="5.49" speed="1.39" pos="133.10" edge="1391" slope="0.00"/>
         <person id="9" x="1645.67" y="2005.00" angle="353.43" speed="1.39" pos="5.38" edge="533" slope="0.00"/>
         <person id="3" x="1644.71" y="2013.28" angle="353.43" speed="1.39" pos="13.60" edge="533" slope="0.00"/>
     </timestep>
@@ -156,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <person id="3" x="1664.88" y="2025.55" angle="73.30" speed="1.39" pos="126.91" edge="-1388" slope="0.00"/>
         <person id="9" x="1656.90" y="2023.16" angle="73.30" speed="1.39" pos="135.25" edge="-1388" slope="0.00"/>
         <person id="8" x="1799.83" y="2038.96" angle="101.59" speed="1.39" pos="5.70" edge="1388" slope="0.00"/>
-        <person id="5" x="1803.89" y="2038.15" angle="140.34" speed="1.37" pos="11.63" edge="1388" slope="0.00"/>
+        <person id="5" x="1803.89" y="2038.15" angle="140.36" speed="1.37" pos="11.63" edge="1388" slope="0.00"/>
         <person id="4" x="1790.58" y="2053.26" angle="333.62" speed="1.39" pos="7.93" edge="1391" slope="0.00"/>
     </timestep>
     <timestep time="130.00">
