@@ -247,11 +247,9 @@ See [Person attributes](../Specification/Persons.md#available_vtype_attributes)
 
 The pedestrian model to use can be selected by using the simulation
 option **--pedestrian.model** {{DT_STR}} with the available parameters being *nonInteracting* and
-*striping* (default is *striping*). The interface between the pedestrian
+*striping* or *jupedsim* (default is *striping*). The interface between the pedestrian
 model and the rest of the simulation was designed with the aim of having
-a high degree of freedom when implementing new models. It is planned to
-implement models with a higher level of interaction detail in the
-future.
+a high degree of freedom when implementing new models. 
 
 ## Model *nonInteracting*
 
@@ -334,6 +332,46 @@ There are several mitigations to prevent the frequency of jams and to resolve th
 - if a pedestrian was unable to move for 300s (configurable with option **--pedestrian.striping.jamtime**) he goes into a 'jammed' state accompanied by the warning "Person ... is jammed ...". In this state the person starts moving regardless of obstacles at 1/4 of its maximum speed. While jammed, no pedestrian collisions are registered. The jammed state ends as soon as there as there are no more obstacles in front of the person.
 - while on a crossing the time to register as jammed is reduced to 10s (configurable with **--pedestrian.striping.jamtime.crossing**)
 - while on a network elements that online permits a single pedestrian abreast the time time to jammed is set to 1s (configurable with option **pedestrian.striping.jamtime.narrow**)
+
+## Model Jupedsim
+
+JuPedSim is a pedestrian simulator developed by the Jülich Research Center. It is based on advanced social force models and has been coupled to SUMO. The coupling is a work in progress and information will be regularly updated as needed. For more information on JuPedSim itself, please have a look at [this page](https://github.com/PedestrianDynamics/jupedsim).
+
+### Installation
+
+If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [the build instructions](../Installing/Windows_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim). If you are on Linux or MacOS, you need to [build JuPedSim, then build SUMO](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim).
+
+### Use
+
+To activate JuPedSim, either set option **--pedestrian.model jupedsim** or add the following line to your SUMO configuration file:
+
+``` xml
+<pedestrian.model value="jupedsim"/>
+```
+
+As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file) to active the model. JuPedSim offers several pedestrian sub-models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't fully exposed.
+
+When the SUMO network is loaded, all pedestrian lanes are collected and a geometric algorithm creates large polygons that correspond to the connected components of the pedestrian network. For the moment SUMO only supports one connected component; the one with the largest area will be the one retained for the simulation in case your SUMO pedestrian network had several connected components.
+
+In addition to this geometry created by SUMO for JuPedSim, additional polygons can be used in the form of a SUMO additional file (see [here](../sumo.md#format_of_additional_files)). These polygons need to be *simple* (non self-intersecting). The polygons that are considered as walkable areas must have the type `jupedsim.walkable_area` whereas the ones considered as obstacles must have the type `jupedsim.obstacle`. To illustrate this, here is a toy example:
+
+``` xml
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="walkable_area_22F" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="0" shape="32.00,46.00 32.00,36.00 42.00,36.00 42.00,46.00 62.00,46.00 62.00,56.00 32.00,56.00 32.00,46.00"/>
+    <poly id="walkable_area_230" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="0" shape="60.00,60.00 60.00,20.00 100.00,20.00 100.00,60.00 60.00,60.00"/>
+    <poly id="obstacle_233" type="jupedsim.obstacle" color="255,204,204" fill="True" layer="1" shape="70.00,30.00 90.00,30.00 90.00,50.00 70.00,50.00 70.00,30.00"/>
+    <poly id="obstacle_48F" type="jupedsim.obstacle" color="255,204,204" fill="True" layer="1" shape="63.21,35.00 62.82,37.34 61.69,39.43 59.94,41.04 57.77,41.99 55.40,42.19 53.10,41.60 51.12,40.31 49.66,38.43 48.89,36.19 48.89,33.81 49.66,31.57 51.12,29.69 53.10,28.40 55.40,27.81 57.77,28.01 59.94,28.96 61.69,30.57 62.82,32.66 63.21,35.00"/>
+</additional>
+```
+
+Because for the moment SUMO supports only one connected component, these polygons need to intersect the SUMO pedestrian network, otherwise if their area is less than the area of the SUMO pedestrian network, they won't be taken into account in the simulation. Please also note that the polygons need to have coordinates in the same coordinate system used for the SUMO network. It is possible to generate such an additional file from a DXF file using the tool `dxf2jupedsim`, here is an example of calling the tool:
+
+``` bash
+python %SUMO_HOME%/tools/import/dxf/dxf2jupedsim.py polygons.dxf
+```
+
+The DXF file should be only composed of two layers, one for the walkable areas, one for the obstacles. The default names for these layers are `walkable_areas` and `obstacles`, respectively, but custom names can be provided by using the options `--walkable-layer` and `--obstacle-layer` of the script. The additional file generated by the script then needs to be added to your SUMO configuration file. For the moment, only POLYLINE and CIRCLE DXF entities can be converted.
+
 
 # Pedestrian Routing
 
@@ -451,41 +489,3 @@ The one property which distinguishs these networks from the next type is the pre
 - Striping model: Persons walk on the sidewalk or shared lanes, interact with each other and use the crossings and walking areas just like the sidewalks
 - Non-interacting model: Persons walk on the sidewalk, crossings and walking areas but without interaction
 
-# JuPedSim
-
-JuPedSim is a pedestrian simulator developed by the Jülich Research Center. It is based on advanced social force models and has been coupled to SUMO. The coupling is a work in progress and information will be regularly updated as needed. For more information on JuPedSim itself, please have a look at [this page](https://github.com/PedestrianDynamics/jupedsim).
-
-## Installation
-
-If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [the build instructions](../Installing/Windows_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim). If you are on Linux or MacOS, you need to [build JuPedSim, then build SUMO](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim).
-
-## Use
-
-To activate JuPedSim, please add the following line to your SUMO configuration file:
-
-``` xml
-<pedestrian.model value="jupedsim"/>
-```
-
-As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file). JuPedSim offers several pedestrian models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't exposed.
-
-When the SUMO network is loaded, all pedestrian lanes are collected and a geometric algorithm creates large polygons that correspond to the connected components of the pedestrian network. For the moment SUMO only supports one connected component; the one with the largest area will be the one retained for the simulation in case your SUMO pedestrian network had several connected components.
-
-In addition to this geometry created by SUMO for JuPedSim, additional polygons can be used in the form of a SUMO additional file (see [here](../sumo.md#format_of_additional_files)). These polygons need to be *simple* (non self-intersecting). The polygons that are considered as walkable areas must have the type `jupedsim.walkable_area` whereas the ones considered as obstacles must have the type `jupedsim.obstacle`. To illustrate this, here is a toy example:
-
-``` xml
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="walkable_area_22F" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="0" shape="32.00,46.00 32.00,36.00 42.00,36.00 42.00,46.00 62.00,46.00 62.00,56.00 32.00,56.00 32.00,46.00"/>
-    <poly id="walkable_area_230" type="jupedsim.walkable_area" color="179,217,255" fill="True" layer="0" shape="60.00,60.00 60.00,20.00 100.00,20.00 100.00,60.00 60.00,60.00"/>
-    <poly id="obstacle_233" type="jupedsim.obstacle" color="255,204,204" fill="True" layer="1" shape="70.00,30.00 90.00,30.00 90.00,50.00 70.00,50.00 70.00,30.00"/>
-    <poly id="obstacle_48F" type="jupedsim.obstacle" color="255,204,204" fill="True" layer="1" shape="63.21,35.00 62.82,37.34 61.69,39.43 59.94,41.04 57.77,41.99 55.40,42.19 53.10,41.60 51.12,40.31 49.66,38.43 48.89,36.19 48.89,33.81 49.66,31.57 51.12,29.69 53.10,28.40 55.40,27.81 57.77,28.01 59.94,28.96 61.69,30.57 62.82,32.66 63.21,35.00"/>
-</additional>
-```
-
-Because for the moment SUMO supports only one connected component, these polygons need to intersect the SUMO pedestrian network, otherwise if their area is less than the area of the SUMO pedestrian network, they won't be taken into account in the simulation. Please also note that the polygons need to have coordinates in the same coordinate system used for the SUMO network. It is possible to generate such an additional file from a DXF file using the tool `dxf2jupedsim`, here is an example of calling the tool:
-
-``` bash
-python %SUMO_HOME%/tools/import/dxf/dxf2jupedsim.py polygons.dxf
-```
-
-The DXF file should be only composed of two layers, one for the walkable areas, one for the obstacles. The default names for these layers are `walkable_areas` and `obstacles`, respectively, but custom names can be provided by using the options `--walkable-layer` and `--obstacle-layer` of the script. The additional file generated by the script then needs to be added to your SUMO configuration file. For the moment, only POLYLINE and CIRCLE DXF entities can be converted.
