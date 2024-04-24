@@ -48,6 +48,12 @@ public:
     /// @brief Destructor
     ~PCTypeMap();
 
+    enum Filltype {
+        NOFILL = 0,
+        FILL = 1,
+        FORCE = 2
+    };
+
     /**
      * @struct TypeDef
      * @brief A single definition of values that shall be used for a given type
@@ -70,7 +76,7 @@ public:
         /// @brief Information whether polygons of this type shall be discarded
         bool discard;
         /// @brief Information whether polygons of this type can be filled
-        bool allowFill;
+        Filltype allowFill;
     };
 
     /** @brief Adds a type definition
@@ -89,7 +95,7 @@ public:
      */
     bool add(const std::string& id, const std::string& newid, const std::string& color,
              const std::string& prefix, const std::string& icon, double layer,
-             double angle, const std::string& imgFile, bool discard, bool allowFill);
+             double angle, const std::string& imgFile, bool discard, Filltype allowFill);
 
     /** @brief Returns a type definition
      *

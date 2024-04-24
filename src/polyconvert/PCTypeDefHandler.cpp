@@ -61,7 +61,15 @@ PCTypeDefHandler::myStartElement(int element,
         const std::string icon = attrs.getOpt<std::string>(SUMO_ATTR_ICON, id.c_str(), ok, myOptions.getString("icon"));
         const double layer = attrs.getOpt<double>(SUMO_ATTR_LAYER, id.c_str(), ok, myOptions.getFloat("layer"));
         const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id.c_str(), ok, false);
-        const bool allowFill = attrs.getOpt<bool>(SUMO_ATTR_FILL, id.c_str(), ok, myOptions.getBool("fill"));
+        PCTypeMap::Filltype allowFill = myOptions.getBool("fill") ? PCTypeMap::FILL : PCTypeMap::NOFILL;
+        if (attrs.hasAttribute(SUMO_ATTR_FILL)) {
+            const std::string allowFillS = attrs.get<std::string>(SUMO_ATTR_FILL, id.c_str(), ok);
+            if (allowFillS == "force") {
+                allowFill = PCTypeMap::FORCE;
+            } else {
+                allowFill = StringUtils::toBool(allowFillS) ? PCTypeMap::FILL : PCTypeMap::NOFILL;
+            }
+        }
         const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOverwriteType ? myOptions.getString("type") : id);
         const std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
         const std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
