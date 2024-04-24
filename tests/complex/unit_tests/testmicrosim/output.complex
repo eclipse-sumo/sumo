@@ -1,5 +1,5 @@
-Running main() from gtest_main.cc
-[==========] Running 7 tests from 3 test cases.
+Running main() from ./googletest/src/gtest_main.cc
+[==========] Running 8 tests from 4 test suites.
 [----------] Global test environment set-up.
 [----------] 1 test from MSEventControl
 [ RUN      ] MSEventControl.test_method_execute
@@ -19,11 +19,16 @@ Running main() from gtest_main.cc
 
 [----------] 2 tests from MSCFModel_IDMTest
 [ RUN      ] MSCFModel_IDMTest.test_method_brakeGap
-[       OK ] MSCFModel_IDMTest.test_method_brakeGap (1 ms)
+[       OK ] MSCFModel_IDMTest.test_method_brakeGap (0 ms)
 [ RUN      ] MSCFModel_IDMTest.test_method_getSecureGap
-[       OK ] MSCFModel_IDMTest.test_method_getSecureGap (1 ms)
-[----------] 2 tests from MSCFModel_IDMTest (2 ms total)
+[       OK ] MSCFModel_IDMTest.test_method_getSecureGap (0 ms)
+[----------] 2 tests from MSCFModel_IDMTest (0 ms total)
+
+[----------] 1 test from MSRouteTest
+[ RUN      ] MSRouteTest.test_method_getDistanceBetween
+[       OK ] MSRouteTest.test_method_getDistanceBetween (0 ms)
+[----------] 1 test from MSRouteTest (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 7 tests from 3 test cases ran. (3 ms total)
-[  PASSED  ] 7 tests.
+[==========] 8 tests from 4 test suites ran. (0 ms total)
+[  PASSED  ] 8 tests.
