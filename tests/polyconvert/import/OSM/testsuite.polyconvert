@@ -24,3 +24,6 @@ geo-output
 dlr-tdp-output
 buildings_from_relation
 inner_shape
+
+# should have attribute fill
+water_incomplete
