@@ -665,9 +665,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:266.06
+PMx:309.409
 fuel:0
-electricity:2006.08
+electricity:1846.3
 Success.
 Running 'HBEFA4/PC_PHEV_petrol_Euro-4_(El)'
 sums
@@ -2425,9 +2425,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:266.037
+PMx:309.375
 fuel:0
-electricity:2924.48
+electricity:2741.6
 Success.
 Running 'HBEFA4/LCV_BEV_N1-II'
 sums
@@ -2436,9 +2436,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:265.841
+PMx:309.1
 fuel:0
-electricity:3493.49
+electricity:3269.56
 Success.
 Running 'HBEFA4/LCV_BEV_N1-IIII'
 sums
@@ -2447,9 +2447,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:265.716
+PMx:308.887
 fuel:0
-electricity:4485.18
+electricity:4138.76
 Success.
 Running 'HBEFA4/LCV_PHEV_petrol_M+N1-I_Euro-5_(El)'
 sums
@@ -3492,9 +3492,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1724.94
+PMx:1994.7
 fuel:0
-electricity:18465.4
+electricity:15073.7
 Success.
 Running 'HBEFA4/Coach_BEV_3-Axes_gt18t'
 sums
@@ -3503,9 +3503,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1725.81
+PMx:1995.77
 fuel:0
-electricity:23845
+electricity:19918.7
 Success.
 Running 'HBEFA4/Coach_BEV_Midi'
 sums
@@ -3514,9 +3514,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1630.63
+PMx:1883.17
 fuel:0
-electricity:12570.1
+electricity:11123.1
 Success.
 Running 'HBEFA4/Coach_FuelCell_Std_le18t'
 sums
@@ -5494,9 +5494,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:154.763
+PMx:179.858
 fuel:0
-electricity:729.499
+electricity:745.355
 Success.
 Running 'HBEFA4/RT_petrol'
 sums
@@ -9003,9 +9003,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1791.49
+PMx:2068.28
 fuel:0
-electricity:25916.7
+electricity:20069.7
 Success.
 Running 'HBEFA4/RigidTruck_BEV_le7.5t'
 sums
@@ -9014,9 +9014,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1890.05
+PMx:2182.99
 fuel:0
-electricity:8396.82
+electricity:7575.33
 Success.
 Running 'HBEFA4/RigidTruck_BEV_gt7.5-12t'
 sums
@@ -9025,9 +9025,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1907.57
+PMx:2200.2
 fuel:0
-electricity:10941.5
+electricity:9122.9
 Success.
 Running 'HBEFA4/RigidTruck_BEV_gt12t'
 sums
@@ -9036,9 +9036,9 @@ CO:0
 CO2:0
 HC:0
 NOx:0
-PMx:1865.06
+PMx:2154.45
 fuel:0
-electricity:13852
+electricity:10984.2
 Success.
 Running 'HBEFA4/RigidTruck_PHEV_le7_5t_Euro-VI-(El)'
 sums
