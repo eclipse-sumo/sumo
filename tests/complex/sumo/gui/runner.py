@@ -35,7 +35,7 @@ STOP = os.path.join("data", "stop.png")
 
 
 def findAndClick(obj):
-    positionOnScreen = pyautogui.locateOnScreen(obj, minSearchTime=3)
+    positionOnScreen = pyautogui.locateOnScreen(obj, minSearchTime=3, confidence=0.9)
     pyautogui.moveTo(positionOnScreen)
     pyautogui.click()
 
