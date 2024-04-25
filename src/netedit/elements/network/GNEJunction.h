@@ -159,6 +159,11 @@ public:
     /// @brief check if junction is currently in grid
     bool isJunctionInGrid() const;
 
+    /// @brief notify the junction as being in the RTree
+    void setJunctionInGrid() {
+        myJunctionInGrid = true;
+    }
+
     /// @brief add incoming GNEEdge
     void addIncomingGNEEdge(GNEEdge* edge);
 
