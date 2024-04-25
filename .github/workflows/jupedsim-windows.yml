@@ -24,10 +24,6 @@ jobs:
       matrix:
         jps_version: [rls-1.2, master]
         build_config: [Release, Debug]
-        # exclude debug master because it currently times out
-        exclude:
-          - jps_version: master
-            build_config: Debug
 
     steps:
     - name: Cloning jupedsim
@@ -72,6 +68,8 @@ jobs:
         cmake --build sumo/build-${{ matrix.build_config }} -j4 --config ${{ matrix.build_config }} --target sumo
 
     - name: Running sumo.extra tests
+      # Tests in Debug hit a timeout
+      if: matrix.build_config == 'Release'
       run: |
         cd sumo/build-${{ matrix.build_config }}
         $env:TEXTTEST_TMP = "D:/texttest"
