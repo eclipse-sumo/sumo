@@ -47,7 +47,7 @@
 #include "MSPModel_JuPedSim.h"
 
 
-#define DEBUG_GEOMETRY_GENERATION
+// #define DEBUG_GEOMETRY_GENERATION
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
