@@ -47,12 +47,12 @@
 #include "MSPModel_JuPedSim.h"
 
 
-// #define DEBUG_GEOMETRY_GENERATION
+#define DEBUG_GEOMETRY_GENERATION
 
 
 const int MSPModel_JuPedSim::GEOS_QUADRANT_SEGMENTS = 16;
 const double MSPModel_JuPedSim::GEOS_MITRE_LIMIT = 5.0;
-const double MSPModel_JuPedSim::GEOS_MIN_AREA = 0.01;
+const double MSPModel_JuPedSim::GEOS_MIN_AREA = 1;
 const double MSPModel_JuPedSim::GEOS_BUFFERED_SEGMENT_WIDTH = 0.5 * SUMO_const_laneWidth;
 const double MSPModel_JuPedSim::CARRIAGE_RAMP_LENGTH = 2.0;
 const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_COLOR = RGBColor(179, 217, 255, 255);
@@ -684,7 +684,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                     pedEdgeCount++;
                     GEOSGeometry* dilatedLane;
                     if (!edge->isCrossing()) {
-                        dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_FLAT);
+                        dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0 + POSITION_EPS, GEOSBUF_CAP_FLAT);
                     } else {
                         const PositionVector* outlineShape = lane->getOutlineShape();
                         if (outlineShape != nullptr) {
@@ -827,30 +827,12 @@ MSPModel_JuPedSim::convertToJPSPoints(const GEOSGeometry* geometry) {
 
 
 double
-MSPModel_JuPedSim::getHoleArea(const GEOSGeometry* hole) {
+MSPModel_JuPedSim::getLinearRingArea(const GEOSGeometry* linearRing) {
     double area;
-    GEOSGeometry* linearRingAsPolygon = GEOSGeom_createPolygon(GEOSGeom_clone(hole), nullptr, 0);
+    GEOSGeometry* linearRingAsPolygon = GEOSGeom_createPolygon(GEOSGeom_clone(linearRing), nullptr, 0);
     GEOSArea(linearRingAsPolygon, &area);
     GEOSGeom_destroy(linearRingAsPolygon);
     return area;
-}
-
-
-void
-MSPModel_JuPedSim::filterHoles(const GEOSGeometry* geometry, double minAreaThreshold) {
-    GEOSGeometry* exterior = GEOSGeom_clone(GEOSGetExteriorRing(geometry));
-    int nbrInteriorRings = GEOSGetNumInteriorRings(geometry);
-    if (nbrInteriorRings != -1) {
-        std::vector<GEOSGeometry*> holes;
-        for (int k = 0; k < nbrInteriorRings; k++) {
-            GEOSGeometry* linearRing = GEOSGeom_clone(GEOSGetInteriorRingN(geometry, k));
-            const double area = getHoleArea(linearRing);
-            if (area > minAreaThreshold) {
-                holes.push_back(linearRing);
-            }
-        }
-        geometry = GEOSGeom_createPolygon(exterior, holes.data(), nbrInteriorRings);
-    }
 }
 
 
@@ -871,7 +853,10 @@ MSPModel_JuPedSim::preparePolygonForDrawing(const GEOSGeometry* polygon, const s
         if (nbrInteriorRings != -1) {
             for (int k = 0; k < nbrInteriorRings; k++) {
                 const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-                holes.push_back(convertToSUMOPoints(linearRing));
+                double area = getLinearRingArea(linearRing);
+                if (area > GEOS_MIN_AREA) {
+                    holes.push_back(convertToSUMOPoints(linearRing));
+                }
             }
             myShapeContainer.getPolygons().get(polygonId)->setHoles(holes);
         }
@@ -913,8 +898,11 @@ MSPModel_JuPedSim::buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon)
     if (nbrInteriorRings != -1) {
         for (int k = 0; k < nbrInteriorRings; k++) {
             const GEOSGeometry* linearRing = GEOSGetInteriorRingN(polygon, k);
-            std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
-            JPS_GeometryBuilder_ExcludeFromAccessibleArea(geometryBuilder, holeCoordinates.data(), holeCoordinates.size());
+            double area = getLinearRingArea(linearRing);
+            if (area > GEOS_MIN_AREA) {
+                std::vector<JPS_Point> holeCoordinates = convertToJPSPoints(linearRing);
+                JPS_GeometryBuilder_ExcludeFromAccessibleArea(geometryBuilder, holeCoordinates.data(), holeCoordinates.size());
+            }
         }
     }
 
@@ -988,7 +976,6 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         WRITE_WARNINGF(TL("While generating geometry % connected components were detected, %% of total pedestrian area is covered by the largest."),
                        nbrComponents, maxArea / totalArea * 100.0, "%");
     }
-    filterHoles(myGEOSPedestrianNetworkLargestComponent, GEOS_MIN_AREA);
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(myGEOSPedestrianNetworkLargestComponent, "pedestrianNetwork.wkt");
 #endif
