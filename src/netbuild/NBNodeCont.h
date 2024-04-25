@@ -174,7 +174,7 @@ public:
     bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const;
 
     /// @brief try to find a joinable subset (recursively)
-    bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
+    bool reduceToCircle(NodeSet& cluster, int circleSize, NodeSet startNodes, double maxDist, std::vector<NBNode*> cands = std::vector<NBNode*>()) const;
 
     /// @brief find closest neighbor for building circle
     NBEdge* shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, const std::vector<NBNode*>& exclude) const;
@@ -386,13 +386,16 @@ private:
     void generateNodeClusters(double maxDist, NodeClusters& into) const;
 
     /// @brief remove geometry-like fringe nodes from cluster
-    void pruneClusterFringe(NodeSet& cluster) const;
+    void pruneClusterFringe(NodeSet& cluster, double maxDist) const;
 
     /// @brief avoid removal of long edges when joining junction clusters
     static int pruneLongEdges(NodeSet& cluster, double maxDist, const bool dryRun = false);
 
+    /// @brief compute the maximum distance between any two cluster nodes
+    static double getDiameter(const NodeSet& cluster);
+
     /// @brief remove nodes that form a slip lane from cluster
-    void pruneSlipLaneNodes(NodeSet& cluster) const;
+    void pruneSlipLaneNodes(NodeSet& cluster, double maxDist) const;
 
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const std::map<const NBNode*, std::vector<NBNode*> >& ptStopEnds,
