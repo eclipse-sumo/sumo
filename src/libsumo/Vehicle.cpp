@@ -683,7 +683,7 @@ Vehicle::getDrivingDistance(const std::string& vehID, const std::string& edgeID,
     if (veh->isOnRoad()) {
         const MSEdge* edge = microVeh != nullptr ? &veh->getLane()->getEdge() : veh->getEdge();
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), pos,
-                          edge, Helper::getEdge(edgeID), true, veh->getRoutePosition());
+                          edge, Helper::getEdge(edgeID), veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
@@ -703,7 +703,7 @@ Vehicle::getDrivingDistance2D(const std::string& vehID, double x, double y) {
     if (veh->isOnRoad()) {
         std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y), veh->getVehicleType().getVehicleClass());
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
-                          veh->getEdge(), &roadPos.first->getEdge(), true, veh->getRoutePosition());
+                          veh->getEdge(), &roadPos.first->getEdge(), veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }

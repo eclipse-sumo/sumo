@@ -125,22 +125,27 @@ public:
         return myEdges;
     }
 
-    /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
-     * Note, that for edges which contain loops:
-     * - the first occurance of fromEdge will be used
-     * - the first occurance of toEdge after the first occurance of fromEdge will be used
+    /** @brief Compute the distance between 2 given edges on this route, optionally including the length of internal lanes.
+     * Note, that for routes which contain loops:
+     * - the first occurance of fromEdge after routePosition will be used
+     * - the first occurance of toEdge after the above occurance of fromEdge will be used
+     * If fromEdge or toEdge are not in the route or the toPos on toEdge is not downstream of fromPos on fromEdge
+     * std::numeric_limits<double>::max() will be returned.
+     *
+     * The code will work with internal edges as fromEdge and toEdge and also the route may contain internal edges
+     * but only at the start or the end, not between two regular edges. If the route contains internal edges at the begin
+     * routePosition needs to be 0.
      *
      * @param[in] fromPos  position on the first edge, at wich the computed distance begins
-     * @param[in] toPos    position on the last edge, at which the coumputed distance endsance
+     * @param[in] toPos    position on the last edge, at which the computed distance ends
      * @param[in] fromEdge edge at wich computation begins
      * @param[in] toEdge   edge at which distance computation shall stop
-     * @param[in] includeInternal Whether the lengths of internal edges shall be counted
      * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal = true, int routePosition = 0) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, int routePosition = 0) const;
 
-    /** @brief Compute the distance between 2 given edges on this route, including the length of internal lanes.
+    /** @brief Compute the distance between 2 given edges on this route, optionally including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge
      * points so looping routes are not an issue.
      *

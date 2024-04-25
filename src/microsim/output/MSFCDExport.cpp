@@ -127,7 +127,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     double lanePos = veh->getPositionOnLane();
                     if (microVeh != nullptr && microVeh->getLane()->isInternal()) {
                         lanePos = microVeh->getRoute().getDistanceBetween(0, lanePos, microVeh->getEdge(), &microVeh->getLane()->getEdge(),
-                                  true, microVeh->getRoutePosition());
+                                  microVeh->getRoutePosition());
                     }
                     of.writeOptionalAttr(SUMO_ATTR_DISTANCE, veh->getEdge()->getDistanceAt(lanePos), mask);
                 }

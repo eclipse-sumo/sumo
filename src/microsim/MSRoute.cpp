@@ -309,57 +309,43 @@ MSRoute::dict_clearState() {
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
-                            const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
-    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
-    if (routePosition < 0 || routePosition >= (int)myEdges.size()) {
-        throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
+                            const MSEdge* fromEdge, const MSEdge* toEdge, int routePosition) const {
+    // std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << "\n";
+    assert(fromPos >= 0. && fromPos <= fromEdge->getLength());
+    assert(toPos >= 0. && toPos <= toEdge->getLength());
+    assert(routePosition >= 0 && routePosition < (int)myEdges.size());
+    assert(routePosition == 0 || !myEdges.front()->isInternal());
+    if (fromEdge == toEdge && fromPos <= toPos) {
+        return toPos - fromPos;
     }
-    if (fromEdge->isInternal() && toEdge->isInternal() && fromEdge->getToJunction() == toEdge->getToJunction()) {
-        // internal edges within the same junction
-        if (fromEdge == toEdge) {
-            if (fromPos <= toPos) {
-                return toPos - fromPos;
-            }
-        } else if (fromEdge->getSuccessors().front() == toEdge) {
-            return fromEdge->getLength() - fromPos + toPos;
-        }
-    }
+    // TODO If fromEdge and toEdge are identical or both are internal and directly connected,
+    // the code does not check whether they are in any relation to the route.
     if (fromEdge->isInternal()) {
-        if (fromEdge == myEdges.front()) {
-            const MSEdge* succ = fromEdge->getSuccessors().front();
-            assert(succ != 0);
-            //std::cout << "  recurse fromSucc=" << succ->getID() << "\n";
-            return (fromEdge->getLength() - fromPos) + getDistanceBetween(0, toPos, succ, toEdge, includeInternal);
-        } else {
-            const MSEdge* pred = fromEdge->getPredecessors().front();
-            assert(pred != 0);
-            //std::cout << "  recurse fromPred=" << pred->getID() << "\n";
-            const double d = getDistanceBetween(pred->getLength(), toPos, pred, toEdge, includeInternal, routePosition) - fromPos;
-            return d < 0 ? std::numeric_limits<double>::max() : d;
-        }
+        const auto& via = fromEdge->getViaSuccessors().front();
+        const MSEdge* const succ = via.second == nullptr ? via.first : via.second;
+        assert(succ != nullptr);
+        // std::cout << "  recurse fromSucc=" << succ->getID() << "\n";
+        const double d = getDistanceBetween(0., toPos, succ, toEdge, routePosition);
+        return d == std::numeric_limits<double>::max() ? d : fromEdge->getLength() - fromPos + d;
     }
     if (toEdge->isInternal()) {
-        const MSEdge* pred = toEdge->getPredecessors().front();
-        assert(pred != 0);
-        //std::cout << "  recurse toPred=" << pred->getID() << "\n";
-        return toPos + getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, includeInternal, routePosition);
+        const MSEdge* const pred = toEdge->getPredecessors().front();
+        assert(pred != nullptr);
+        // std::cout << "  recurse toPred=" << pred->getID() << "\n";
+        const double d = getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, routePosition);
+        return d == std::numeric_limits<double>::max() ? d : toPos + d;
     }
-    ConstMSEdgeVector::const_iterator it = std::find(myEdges.begin() + routePosition, myEdges.end(), fromEdge);
-    if (it == myEdges.end() || std::find(it, myEdges.end(), toEdge) == myEdges.end()) {
-        // start or destination not contained in route
+    ConstMSEdgeVector::const_iterator fromIt = std::find(myEdges.begin() + routePosition, myEdges.end(), fromEdge);
+    if (fromIt == myEdges.end()) {
+        // start not contained in route
         return std::numeric_limits<double>::max();
     }
-    ConstMSEdgeVector::const_iterator it2 = std::find(it + 1, myEdges.end(), toEdge);
-
-    if (fromEdge == toEdge) {
-        if (fromPos <= toPos) {
-            return toPos - fromPos;
-        } else if (it2 == myEdges.end()) {
-            // we don't visit the edge again
-            return std::numeric_limits<double>::max();
-        }
+    ConstMSEdgeVector::const_iterator toIt = std::find(fromIt + 1, myEdges.end(), toEdge);
+    if (toIt == myEdges.end()) {
+        // destination not contained in route
+        return std::numeric_limits<double>::max();
     }
-    return getDistanceBetween(fromPos, toPos, it, it2, includeInternal);
+    return getDistanceBetween(fromPos, toPos, fromIt, toIt, true);
 }
 
 
