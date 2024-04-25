@@ -212,10 +212,10 @@ Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.92' walking to edge 'E4'. Using edge end instead.
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.91' walking to edge 'E4'. Using edge end instead.
-Warning: Error while adding person 'pS5_4.93' as JuPedSim agent: Model constraint violation: Agent (117.51619394613378, 65.9046179111565) too close to agent (117.6674318984204, 65.60217441193997): distance 0.33814935816912856
+Warning: Error while adding person 'pS5_4.93' as JuPedSim agent: Model constraint violation: Agent (117.51619394613378, 65.9046179111565) too close to agent (117.64067151655361, 65.77556244420309): distance 0.17930415245662254
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.93' walking to edge 'E4'. Using edge end instead.
-Warning: Error while adding person 'pS5_4.93' as JuPedSim agent: Model constraint violation: Agent (117.51619394613378, 65.9046179111565) too close to agent (117.6674318984204, 65.60217441193997): distance 0.33814935816912856
+Warning: Error while adding person 'pS5_4.93' as JuPedSim agent: Model constraint violation: Agent (117.51619394613378, 65.9046179111565) too close to agent (117.64067151655361, 65.77556244420309): distance 0.17930415245662254
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.94' walking to edge 'E4'. Using edge end instead.
 Warning: No connection between edge 'E1' and edge 'E3' found.
@@ -443,17 +443,18 @@ Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.194' walking to edge 
 Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.38079306284669, 66.56282362326029) not inside walkable area
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.196' walking to edge 'E4'. Using edge end instead.
+Warning: Error while adding person 'pS5_4.195' as JuPedSim agent: Model constraint violation: Agent (113.53219394613379, 65.92180470538088) too close to agent (113.16626786913186, 65.72834574636424): distance 0.4139181835264354
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.195' walking to edge 'E4'. Using edge end instead.
+Warning: Error while adding person 'pS5_4.195' as JuPedSim agent: Model constraint violation: Agent (113.53219394613379, 65.92180470538088) too close to agent (113.16626786913186, 65.72834574636424): distance 0.4139181835264354
 Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.67422096698317, 66.64263888339492) not inside walkable area
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.198' walking to edge 'E4'. Using edge end instead.
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.197' walking to edge 'E4'. Using edge end instead.
-Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.42625915991846, 66.19970902482028) not inside walkable area
+Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Model constraint violation: Agent (49.06030803254578, 66.34369928234237) too close to geometry boundaries, distance <= 0.239
 Warning: No connection between edge 'E1' and edge 'E2' found.
 Warning: Invalid arrivalPos 101.94 given for person 'pS5_4.199' walking to edge 'E4'. Using edge end instead.
-Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.48851941536884, 66.32702092670816) not inside walkable area
 Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.34669165673438, 66.41052744940835) not inside walkable area
 Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Agent (49.37786827852722, 66.57227159485201) not inside walkable area
 Warning: Error while adding person 'pS5_4.189' as JuPedSim agent: Model constraint violation: Agent (49.18748730688128, 66.17787183525952) too close to geometry boundaries, distance <= 0.239
