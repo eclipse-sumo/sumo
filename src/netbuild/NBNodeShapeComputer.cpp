@@ -754,10 +754,13 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
     }
     const double minDistanceThreshold = (e1->getTotalWidth() + e2->getTotalWidth()) / 2 + POSITION_EPS;
     std::vector<double> distances = geom1.distances(geom2, true);
-    const double minDist = VectorHelper<double>::minValue(distances);
+    std::vector<double> distances2 = geom1.distances(geom2);
+    const double minDist = VectorHelper<double>::minValue(distances2);
     const double maxDist = VectorHelper<double>::maxValue(distances);
     const bool curvingTowards = geom1[0].distanceTo2D(geom2[0]) > minDistanceThreshold && minDist < minDistanceThreshold;
     const bool onTop = (maxDist - POSITION_EPS < minDistanceThreshold) && endAngleDiff < 30;
+    const bool bothDefault = e1->hasDefaultGeometryEndpointAtNode(&myNode) && e2->hasDefaultGeometryEndpointAtNode(&myNode);
+    const bool neverTouch = minDist > minDistanceThreshold * 2 && !bothDefault;
     geom1.extrapolate2D(EXT);
     geom2.extrapolate2D(EXT);
     Position intersect = geom1.intersectionPosition2D(geom2);
@@ -768,11 +771,12 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
                   << " endAngleDiff=" << endAngleDiff
                   << " geom1=" << geom1 << " geom2=" << geom2
                   << " distances=" << toString(distances) << " minDist=" << minDist << " maxDist=" << maxDist << " thresh=" << minDistanceThreshold
+                  << " neverTouch=" << neverTouch
                   << " intersectPos=" << intersect
                   << "\n";
     }
 #endif
-    return onTop || curvingTowards || !intersects;
+    return onTop || curvingTowards || !intersects || neverTouch;
 }
 
 
