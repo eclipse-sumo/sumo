@@ -578,7 +578,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #ifdef DEBUG_JOINJUNCTIONS
                 if (DEBUGCOND(s)) {
                     std::cout << "generateNodeClusters: consider s=" << s->getID()
-                              << " clusterNode=" << n->getID() << " edge=" << e->getID() << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
+                              << " clusterNode=" << n->getID() << " edge=" << e->getID() << " dist=" << dist << " length=" << length << " with cluster " << joinNamedToString(c, ' ') << "\n";
                 }
 #endif
                 if (railAndPeds && n->getType() != SumoXMLNodeType::RAIL_CROSSING) {
@@ -635,8 +635,13 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                     continue;
                 }
                 if (length + dist < maxDist) {
-                    if (s->geometryLike()) {
-                        toProc.emplace_back(s, dist + length);
+                    // don't add long "boring" appendages but always join the whole rail crossing or tls
+                    const bool trueGeomLike = s->geometryLike();
+                    if (trueGeomLike || geometryLikeForClass(s, SVC_WEAK | SVC_DELIVERY)) {
+                        const bool hasTLS = n->isTrafficLight() || s->isTrafficLight();
+                        const double fullLength = e->getGeometry().length2D();
+                        const double length2 = bothCrossing || hasTLS || trueGeomLike ? length : fullLength;
+                        toProc.emplace_back(s, dist + length2);
                     } else {
                         toProc.emplace_back(s, 0.);
                     }
@@ -651,6 +656,28 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
 #endif
         into.push_back(c);
     }
+}
+
+
+bool
+NBNodeCont::geometryLikeForClass(const NBNode* n, SVCPermissions ignored) {
+    EdgeVector allowedIn;
+    EdgeVector allowedOut;
+    for (NBEdge* e : n->getIncomingEdges()) {
+        if ((e->getPermissions() & ~ignored) != 0) {
+            allowedIn.push_back(e);
+        }
+    }
+    for (NBEdge* e : n->getOutgoingEdges()) {
+        if ((e->getPermissions() & ~ignored) != 0) {
+            allowedOut.push_back(e);
+        }
+    }
+    if (allowedIn.size() > 0 && allowedOut.size() > 0) {
+        //std::cout << n->getID() << " geometryLikeForClass=" << n->geometryLike(allowedIn, allowedOut) << " in=" << toString(allowedIn) << " out=" << toString(allowedOut) << "\n";
+        return n->geometryLike(allowedIn, allowedOut);
+    }
+    return true;
 }
 
 

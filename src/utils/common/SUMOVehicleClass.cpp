@@ -526,6 +526,12 @@ isSidewalk(SVCPermissions permissions) {
 
 
 bool
+isForWeakModes(SVCPermissions permissions) {
+    return ((permissions & SVC_WEAK) != 0 && (permissions & ~SVC_WEAK) == 0);
+}
+
+
+bool
 noVehicles(SVCPermissions permissions) {
     return isForbidden(permissions) || isSidewalk(permissions);
 }

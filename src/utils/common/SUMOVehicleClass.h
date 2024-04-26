@@ -433,6 +433,12 @@ extern bool isForbidden(SVCPermissions permissions);
  */
 extern bool isSidewalk(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is a sidewalk
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is a sidewalk
+ */
+extern bool isForWeakModes(SVCPermissions permissions);
+
 /** @brief Returns whether an edge with the given permission forbids vehicles
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is forbidden for vehicles

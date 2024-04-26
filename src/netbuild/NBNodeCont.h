@@ -394,6 +394,9 @@ private:
     /// @brief compute the maximum distance between any two cluster nodes
     static double getDiameter(const NodeSet& cluster);
 
+    /// @brief check whether the node is geometryLike when only considering edges that support the given permissions
+    static bool geometryLikeForClass(const NBNode* n, SVCPermissions permissions);
+
     /// @brief remove nodes that form a slip lane from cluster
     void pruneSlipLaneNodes(NodeSet& cluster, double maxDist) const;
 

@@ -819,6 +819,10 @@ public:
     /// @brief return whether the given type is a traffic light
     static bool isTrafficLight(SumoXMLNodeType type);
 
+    inline bool isTrafficLight() const {
+        return isTrafficLight(myType);
+    }
+
     /// @brief check if node is a simple continuation
     bool isSimpleContinuation(bool checkLaneNumbers = true, bool checkWidth = false) const;
 
