@@ -1,3 +1,4 @@
+Warning: Person 'p1_independent' walking from edge 'beg' to edge 'end' has a disconnect, time=25.00.
 Warning: Person 'p2_need_ride' aborted waiting for p at edge 'middle'.
 Warning: Vehicle 'v1_need_rider' aborted waiting at insertion for a person that will never come.
 Warning: Vehicle 'v2_need_rider' aborted waiting for a person that will never come.
