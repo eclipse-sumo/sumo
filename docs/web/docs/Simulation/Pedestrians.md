@@ -249,7 +249,7 @@ The pedestrian model to use can be selected by using the simulation
 option **--pedestrian.model** {{DT_STR}} with the available parameters being *nonInteracting* and
 *striping* or *jupedsim* (default is *striping*). The interface between the pedestrian
 model and the rest of the simulation was designed with the aim of having
-a high degree of freedom when implementing new models. 
+a high degree of freedom when implementing new models.
 
 ## Model *nonInteracting*
 
@@ -333,7 +333,7 @@ There are several mitigations to prevent the frequency of jams and to resolve th
 - while on a crossing the time to register as jammed is reduced to 10s (configurable with **--pedestrian.striping.jamtime.crossing**)
 - while on a network elements that online permits a single pedestrian abreast the time time to jammed is set to 1s (configurable with option **pedestrian.striping.jamtime.narrow**)
 
-## Model Jupedsim
+## Model *jupedsim*
 
 JuPedSim is a pedestrian simulator developed by the Jülich Research Center. It is based on advanced social force models and has been coupled to SUMO. The coupling is a work in progress and information will be regularly updated as needed. For more information on JuPedSim itself, please have a look at [this page](https://github.com/PedestrianDynamics/jupedsim).
 
@@ -349,9 +349,9 @@ To activate JuPedSim, either set option **--pedestrian.model jupedsim** or add t
 <pedestrian.model value="jupedsim"/>
 ```
 
-As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file) to active the model. JuPedSim offers several pedestrian sub-models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't fully exposed.
+As with pedestrians in general in SUMO, you also need to add at least one pedestrian to your SUMO scenario (routes file) to activate the model. JuPedSim offers several pedestrian sub-models based on the social force model. However for the moment only one is used by SUMO and its parameters aren't fully exposed.
 
-When the SUMO network is loaded, all pedestrian lanes are collected and a geometric algorithm creates large polygons that correspond to the connected components of the pedestrian network. For the moment SUMO only supports one connected component; the one with the largest area will be the one retained for the simulation in case your SUMO pedestrian network had several connected components.
+When the SUMO network is loaded, all pedestrian lanes, walking areas and crossings are collected and a geometric algorithm creates large polygons that correspond to the connected components of the pedestrian network. This process is called _geometry generation_. For the moment SUMO only supports one connected component; the one with the largest area will be the one retained for the simulation in case your SUMO pedestrian network had several connected components.
 
 In addition to this geometry created by SUMO for JuPedSim, additional polygons can be used in the form of a SUMO additional file (see [here](../sumo.md#format_of_additional_files)). These polygons need to be *simple* (non self-intersecting). The polygons that are considered as walkable areas must have the type `jupedsim.walkable_area` whereas the ones considered as obstacles must have the type `jupedsim.obstacle`. To illustrate this, here is a toy example:
 
@@ -364,7 +364,7 @@ In addition to this geometry created by SUMO for JuPedSim, additional polygons c
 </additional>
 ```
 
-Because for the moment SUMO supports only one connected component, these polygons need to intersect the SUMO pedestrian network, otherwise if their area is less than the area of the SUMO pedestrian network, they won't be taken into account in the simulation. Please also note that the polygons need to have coordinates in the same coordinate system used for the SUMO network. It is possible to generate such an additional file from a DXF file using the tool `dxf2jupedsim`, here is an example of calling the tool:
+Because for the moment SUMO supports only one connected component, these polygons need to intersect the SUMO pedestrian network, otherwise if their area is less than the total area of the SUMO pedestrian network, they won't be taken into account in the simulation. Please also note that the polygons need to have coordinates in the same coordinate system used for the SUMO network. It is possible to generate such an additional file from a DXF file using the tool `dxf2jupedsim`, here is an example of calling the tool:
 
 ``` bash
 python %SUMO_HOME%/tools/import/dxf/dxf2jupedsim.py polygons.dxf
@@ -372,6 +372,13 @@ python %SUMO_HOME%/tools/import/dxf/dxf2jupedsim.py polygons.dxf
 
 The DXF file should be only composed of two layers, one for the walkable areas, one for the obstacles. The default names for these layers are `walkable_areas` and `obstacles`, respectively, but custom names can be provided by using the options `--walkable-layer` and `--obstacle-layer` of the script. The additional file generated by the script then needs to be added to your SUMO configuration file. For the moment, only POLYLINE and CIRCLE DXF entities can be converted.
 
+If you want to visualize the geometry of the pedestrian network that is created for JuPedSim, please use the options `--pedestrian.jupedsim.wkt` followed by some filename, as well as the boolean `--pedestrian.jupedsim.wkt.geo` to force or not the use of geocoordinates.
+
+In JuPedSim, pedestrians have a radius. At that time, the radius is computed as half the maximum between the length and the width of the pedestrian, both quantities can be set in a custom `vType` if desired. By changing the `desiredMaxSpeed` attribute for any `vType` in your route file, you can customize the "free flow" speed of your pedestrians.
+
+### Jamming
+
+Sometimes pedestrians get jammed at the front of a gate, which represents the last waypoint into their journey. In this case you can remove the pedestrians by creating a special polygon type named `jupedsim.vanishing_area`. The attribute `period` of this polygon defines the rate at which a pedestrian will be removed in this special polygon (a pedestrian will be removed every period, the period being given in ms).
 
 # Pedestrian Routing
 
@@ -392,6 +399,13 @@ intersections to selected a sequence of *walkingareas* and *crossings*
 for moving onto the other side of the intersection. This type of routing
 takes the shortest part but avoids red lights if possible. The routing
 behavior within intersections cannot currently be influenced.
+
+When using the *jupedsim*-model, pedestrians are routed through the generated geometry
+according to the shortest path in a Delaunay triangulation of this geometry. In addition, _waypoints_ can be created anywhere in the pedestrian network, to make sure that
+pedestrians follow a particular route, including inside the additional walkable areas. To create these waypoints, please use the edge mode of
+NetEdit and click on "create default edge short" (at the top of the left panel). You can then use these edges as usual in the demand mode.
+
+<img src="../images/pedestrian_network_jupedsim.png" width="500" title="walkable areas, obstacles and waypoints with JuPedSim">
 
 # Interaction between pedestrians and other modes
 
@@ -488,4 +502,3 @@ The one property which distinguishs these networks from the next type is the pre
 - Pedestrian routing: Pedestrians use all allowed edges (usually the ones with sidewalks) in both directions, junction connectivity is determined from junctions and walking areas
 - Striping model: Persons walk on the sidewalk or shared lanes, interact with each other and use the crossings and walking areas just like the sidewalks
 - Non-interacting model: Persons walk on the sidewalk, crossings and walking areas but without interaction
-
