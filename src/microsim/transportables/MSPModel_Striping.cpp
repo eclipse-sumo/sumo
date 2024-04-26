@@ -1591,8 +1591,10 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
             myWalkingAreaPath = getArbitraryPath(route.front());
         }
     } else {
-        const bool mayStartForward = canTraverse(FORWARD, route) != UNDEFINED_DIRECTION;
-        const bool mayStartBackward = canTraverse(BACKWARD, route) != UNDEFINED_DIRECTION;
+        int passedFwd = 0;
+        int passedBwd = 0;
+        const bool mayStartForward = canTraverse(FORWARD, route, passedFwd) != UNDEFINED_DIRECTION;
+        const bool mayStartBackward = canTraverse(BACKWARD, route, passedBwd) != UNDEFINED_DIRECTION;
         if DEBUGCOND(*this) {
             std::cout << "  initialize dir for " << myPerson->getID() << " forward=" << mayStartForward << " backward=" << mayStartBackward << "\n";
         }
@@ -1610,6 +1612,15 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
             if DEBUGCOND(*this) {
                 std::cout << " crossingRoute=" << toString(crossingRoute) << "\n";
             }
+        } else if (!mayStartForward && !mayStartBackward) {
+            int lastDisconnect = passedFwd >= passedBwd ? passedFwd : passedBwd;
+            std::string dLoc = TLF(", time=%.", SIMTIME);
+            if (route.size() > 2) {
+                dLoc = TLF("between edge '%' and edge '%', time=%.", route[lastDisconnect - 1]->getID(), route[lastDisconnect]->getID(), SIMTIME);
+            }
+            WRITE_WARNINGF(TL("Person '%' walking from edge '%' to edge '%' has a disconnect%"),
+                    myPerson->getID(), route.front()->getID(), route.back()->getID(), dLoc);
+            myDir =  passedFwd >= passedBwd ? FORWARD : BACKWARD;
         } else {
             myDir = !mayStartBackward ? FORWARD : BACKWARD;
         }

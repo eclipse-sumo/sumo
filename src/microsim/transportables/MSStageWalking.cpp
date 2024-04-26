@@ -232,8 +232,9 @@ MSStageWalking::walkDistance(bool partial) const {
         }
     }
     // determine walking direction for depart and arrival
-    const int departFwdArrivalDir = MSPModel::canTraverse(MSPModel::FORWARD, myRoute);
-    const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute);
+    int dummy = 0;
+    const int departFwdArrivalDir = MSPModel::canTraverse(MSPModel::FORWARD, myRoute, dummy);
+    const int departBwdArrivalDir = MSPModel::canTraverse(MSPModel::BACKWARD, myRoute, dummy);
     const bool mayStartForward = departFwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const bool mayStartBackward = departBwdArrivalDir != MSPModel::UNDEFINED_DIRECTION;
     const double arrivalPos = partial && myArrived < 0 ? getEdgePos(SIMSTEP) : myArrivalPos;

@@ -133,9 +133,10 @@ public:
     static const double RANDOM_POS_LAT;
 
     /* @brief return the arrival direction if the route may be traversed with the given starting direction.
+     * param[out] passedEdges: the number of edges that were successfully traversed
      * returns UNDEFINED_DIRECTION if the route cannot be traversed
      */
-    static int canTraverse(int dir, const ConstMSEdgeVector& route);
+    static int canTraverse(int dir, const ConstMSEdgeVector& route, int& passedEdges);
 
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
