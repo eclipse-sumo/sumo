@@ -24,7 +24,6 @@ Warning: Removing pt stop '663346697' on non existing edge ''.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 5 pt stops because they could not be assigned to the network
-Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (parallel incoming -71028774#0,142575690#7).
 Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
 Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
 Warning: Found sharp turn with radius 4.20 at the end of edge '-245105014'.

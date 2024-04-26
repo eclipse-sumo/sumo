@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 2022-05-13 16:38:10 by Eclipse SUMO netconvert Version v1_13_0+0243-3930482e178
+# <!-- generated on 2024-04-26 09:19:03 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@
 #
 #No driving allowed from ID1 to ID2 or the complete chain from ID1 to IDn
 #RELATREC_ID	PERMANENT_ID_INFO	VALIDITY_PERIOD	THROUGH_TRAFFIC	VEHICLE_TYPE	NAVTEQ_LINK_ID1	[NAVTEQ_LINK_ID2 ...]
-415852992	1	-1	1	100000000000	415852974	415852970
-415852993	1	-1	1	100000000000	224769559	415852934
-415852994	1	-1	1	100000000000	180239847	16942869
-415852995	1	-1	1	100000000000	415852923	415852924
+415852996	1	-1	1	100000000000	415852978	415852974
+415852997	1	-1	1	100000000000	415852925	415852926
+415852998	1	-1	1	100000000000	224769559	415852936
+415852999	1	-1	1	100000000000	180239847	16942869

@@ -24,7 +24,6 @@ Warning: Removing pt stop '663346697' on non existing edge ''.
 Warning: Removing pt stop '735390157' on non existing edge ''.
 Warning: Removing pt stop '852932403' on non existing edge ''.
 Warning: Removed 5 pt stops because they could not be assigned to the network
-Warning: Reducing junction cluster 1560224141,1560224152,1560224191,1560224195 (parallel incoming -71028774#0,142575690#7).
 Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
 Warning: Found sharp turn with radius 7.22 at the start of edge '-133858467#2'.
 Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
@@ -41,8 +40,8 @@ Warning: Ignoring parking area on edge '142575693#4' due to insufficient space.
 Warning: Ignoring parking area on edge '142575693#6' due to insufficient space.
 Warning: Ignoring parking area on edge '143308521#6' due to insufficient space.
 Warning: Ignoring parking area on edge '-143308521#6' due to insufficient space.
-Warning: 20 total messages of type: Could not find edge for parkingArea '%'.
+Warning: 18 total messages of type: Could not find edge for parkingArea '%'.
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 6 total messages of type: Found sharp turn with radius % at the % of edge '%'.
-Warning: 10 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
+Warning: 12 total messages of type: Ignoring parking area on edge '%' due to insufficient space.
 Warning: 10 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
