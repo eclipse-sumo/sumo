@@ -650,7 +650,24 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 }
             } else {
                 // walk forward by default
-                nextDir = junction == nextRouteEdge->getToJunction() ? BACKWARD : FORWARD;
+                if (junction == nextRouteEdge->getToJunction()) {
+                    nextDir = BACKWARD;
+                } else if (junction == nextRouteEdge->getFromJunction()) {
+                    nextDir = FORWARD;
+                } else {
+                    // topological disconnect, find a direction that makes sense
+                    // for the future part of the route
+                    ConstMSEdgeVector futureRoute = ped.myStage->getRoute();
+                    futureRoute.erase(futureRoute.begin(), futureRoute.begin() + ped.myStage->getRoutePosition() + 1);
+                    int passedFwd = 0;
+                    int passedBwd = 0;
+                    canTraverse(FORWARD, futureRoute, passedFwd);
+                    canTraverse(BACKWARD, futureRoute, passedBwd);
+                    nextDir = (passedFwd >= passedBwd) ? FORWARD : BACKWARD;
+                    if DEBUGCOND(ped) {
+                        std::cout << " nextEdge=" << nextRouteEdge->getID() << " passedFwd=" << passedFwd << " passedBwd=" << passedBwd << " futureRoute=" << toString(futureRoute) << " nextDir=" << nextDir << "\n";
+                    }
+                }
                 // try to use a direct link as fallback
                 // direct links only exist if built explicitly. They are used to model tl-controlled links if there are no crossings
                 if (ped.myDir == FORWARD) {
