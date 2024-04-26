@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-15 15:12:37 by Eclipse SUMO netconvert Version v1_19_0+0170-2560452700f
+<!-- generated on 2024-04-26 10:51:21 by Eclipse SUMO netconvert Version v1_19_0+1945-bdae8cdad73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Nov 15 15:12:37 2023" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Fri Apr 26 10:51:21 2024" north="100.00" south="0.00" east="2000.00" west="-100.00"/>
     <road name="customName" length="96.00000000" id="100" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -372,7 +372,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="596.00000000" y="-0.00000000" hdg="3.14159265" length="87.42418932">
+            <geometry s="0.00000000" x="596.00000000" y="0.00000000" hdg="3.14159265" length="87.42418932">
                 <line/>
             </geometry>
         </planView>
@@ -573,7 +573,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
         <type s="0" type="town"/>
         <planView>
-            <geometry s="0.00000000" x="508.57581068" y="-0.00000000" hdg="3.14159265" length="3.46190452">
+            <geometry s="0.00000000" x="508.57581068" y="0.00000000" hdg="3.14159265" length="3.46190452">
                 <line/>
             </geometry>
         </planView>
@@ -688,7 +688,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <type s="0" type="town"/>
         <planView>
             <geometry s="0.00000000" x="1500.00000000" y="11.55000000" hdg="-2.85488263" length="8.86329260">
-                <paramPoly3 aU="-0.00000000" bU="13.19207394" cU="-12.70612104" dU="8.29124486" aV="0.00000000" bV="-0.00000000" cV="2.06622468" dV="-2.62104751" pRange="normalized"/>
+                <paramPoly3 aU="-0.00000000" bU="13.19207394" cU="-12.70612104" dU="8.29124486" aV="0.00000000" bV="0.00000000" cV="2.06622468" dV="-2.62104751" pRange="normalized"/>
             </geometry>
         </planView>
         <elevationProfile>

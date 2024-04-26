@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:11 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-26 10:51:24 by Eclipse SUMO netconvert Version v1_19_0+1945-bdae8cdad73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -54,25 +54,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_0_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.92" shape="692.84,572.84 693.26,544.92"/>
     </edge>
     <edge id=":C_1" function="internal">
-        <lane id=":C_1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.41" shape="692.84,572.84 693.09,563.68 694.77,556.68 697.90,551.84 702.46,549.18"/>
+        <lane id=":C_1_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.39" shape="692.84,572.84 693.09,563.68 694.77,556.68 697.88,551.85 702.44,549.19"/>
     </edge>
     <edge id=":C_2" function="internal">
         <lane id=":C_2_0" index="0" allow="pedestrian delivery bicycle" speed="3.65" length="4.67" shape="692.84,572.84 693.59,571.61 694.37,571.17 695.19,571.53 696.04,572.70"/>
     </edge>
     <edge id=":C_3" function="internal">
-        <lane id=":C_3_0" index="0" allow="rail rail_electric" speed="16.67" length="9.41" shape="699.09,569.54 689.68,569.41"/>
+        <lane id=":C_3_0" index="0" allow="rail rail_electric" speed="16.67" length="18.55" shape="708.23,569.67 689.68,569.41"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="23.18" shape="703.38,552.24 699.86,554.44 697.46,558.58 696.19,564.67 696.04,572.70"/>
+        <lane id=":C_4_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="23.13" shape="703.31,552.26 699.82,554.45 697.44,558.59 696.18,564.67 696.04,572.70"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="15.31" shape="703.38,552.24 699.05,552.89 695.93,551.89 694.00,549.23 693.26,544.92"/>
+        <lane id=":C_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="15.25" shape="703.31,552.26 699.02,552.90 695.91,551.89 693.99,549.23 693.26,544.92"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="703.38,552.24 702.00,551.82 701.39,551.17 701.54,550.29 702.46,549.18"/>
+        <lane id=":C_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="3.65" length="4.67" shape="703.31,552.26 701.93,551.82 701.33,551.16 701.50,550.28 702.44,549.19"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="9.08" shape="696.46,544.84 696.90,547.39 698.04,548.97 699.90,549.56 702.46,549.18"/>
+        <lane id=":C_7_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="9.06" shape="696.46,544.84 696.90,547.39 698.04,548.97 699.88,549.57 702.44,549.19"/>
     </edge>
     <edge id=":C_8" function="internal">
         <lane id=":C_8_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="27.86" shape="696.46,544.84 696.04,572.70"/>
@@ -84,11 +84,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.20" width="3.20" shape="691.25,572.92 694.44,572.77 697.64,572.62"/>
     </edge>
     <edge id=":C_w1" function="walkingarea">
-        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="7.76" width="3.20" shape="703.84,553.78 702.92,550.71 702.00,547.65 698.06,544.80 694.86,544.88 691.66,544.97"/>
+        <lane id=":C_w1_0" index="0" allow="pedestrian" speed="2.78" length="7.74" width="3.20" shape="703.77,553.80 702.85,550.73 701.98,547.65 698.06,544.80 694.86,544.88 691.66,544.97"/>
     </edge>
 
     <edge id="CE" from="C" to="3032658464" priority="1" type="highway.track" shape="695.08,553.06 714.13,547.35 761.31,540.32 883.86,531.99 958.43,525.11 1065.00,510.97 1099.87,505.88">
-        <lane id="CE_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="400.10" shape="702.46,549.18 713.78,545.78 761.14,538.73 883.73,530.39 958.25,523.52 1064.78,509.39 1099.64,504.30"/>
+        <lane id="CE_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="400.13" shape="702.44,549.19 713.78,545.78 761.14,538.73 883.73,530.39 958.25,523.52 1064.78,509.39 1099.64,504.30"/>
     </edge>
     <edge id="CN" from="C" to="408481556" name="Zöberitzer Weg" priority="2" type="highway.service" shape="694.29,569.48 696.38,614.72">
         <lane id="CN_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="41.99" shape="696.04,572.70 697.98,614.65"/>
@@ -100,10 +100,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="CW_rail_0" index="0" allow="rail rail_electric" speed="16.67" length="693.50" shape="689.68,569.41 616.78,568.34 558.22,567.25 433.73,565.67 372.12,564.60 340.68,564.50 310.78,565.74 282.96,566.23 263.04,567.78 225.36,571.23 189.20,575.03 132.89,585.76 74.71,596.65 25.51,606.01 0.00,610.72"/>
     </edge>
     <edge id="EC" from="3032658464" to="C" priority="1" type="highway.track" shape="1099.87,505.88 1065.00,510.97 958.43,525.11 883.86,531.99 761.31,540.32 714.13,547.35 695.08,553.06">
-        <lane id="EC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="399.63" shape="1100.10,507.46 1065.22,512.55 958.61,526.70 883.99,533.59 761.48,541.91 714.48,548.92 703.38,552.24"/>
+        <lane id="EC_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="5.56" length="399.71" shape="1100.10,507.46 1065.22,512.55 958.61,526.70 883.99,533.59 761.48,541.91 714.48,548.92 703.31,552.26"/>
     </edge>
     <edge id="EC_rail" from="38891331" to="C" priority="15" type="railway.rail" spreadType="center" shape="792.26,570.79 694.29,569.48">
-        <lane id="EC_rail_0" index="0" allow="rail rail_electric" speed="16.67" length="93.18" shape="792.26,570.79 699.09,569.54"/>
+        <lane id="EC_rail_0" index="0" allow="rail rail_electric" speed="16.67" length="84.03" shape="792.26,570.79 708.23,569.67"/>
     </edge>
     <edge id="NC" from="408481556" to="C" name="Zöberitzer Weg" priority="2" type="highway.service" shape="696.38,614.72 694.29,569.48">
         <lane id="NC_0" index="0" allow="pedestrian delivery bicycle" speed="5.56" length="41.99" shape="694.78,614.79 692.84,572.84"/>
@@ -123,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="635894914" type="priority" x="666.19" y="0.00" incLanes="CS_0" intLanes=":635894914_0_0" shape="666.19,-0.00 663.04,0.56 666.19,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="C" type="priority" x="694.68" y="561.27" incLanes="NC_0 EC_rail_0 EC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0" shape="691.25,572.92 697.64,572.62 697.77,571.79 697.96,571.50 698.24,571.30 698.61,571.18 699.07,571.14 699.11,567.94 696.03,567.02 694.88,564.75 695.38,561.71 697.24,558.48 700.15,555.64 703.84,553.78 702.00,547.65 699.86,547.84 699.10,547.51 698.55,546.89 698.20,545.99 698.06,544.80 691.66,544.97 691.78,551.96 691.72,557.67 691.48,562.12 691.06,565.29 690.47,567.19 689.71,567.81 689.66,571.01 690.50,571.23 690.81,571.50 691.03,571.87 691.18,572.34">
+    <junction id="C" type="priority" x="694.68" y="561.27" incLanes="NC_0 EC_rail_0 EC_0 SC_0" intLanes=":C_0_0 :C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0" shape="691.25,572.92 697.64,572.62 698.84,571.81 700.37,571.54 702.52,571.36 705.29,571.27 708.69,571.27 702.00,547.65 699.86,547.84 699.10,547.51 698.55,546.89 698.20,545.99 698.06,544.80 691.66,544.97 691.78,551.96 691.72,557.67 691.48,562.12 691.06,565.29 690.47,567.19 689.71,567.81 689.66,571.01 690.50,571.23 690.81,571.50 691.03,571.87 691.18,572.34">
         <request index="0" response="0000001000" foes="1000101000" cont="0"/>
         <request index="1" response="0110001000" foes="0111101000" cont="0"/>
         <request index="2" response="0100010000" foes="0100010000" cont="0"/>

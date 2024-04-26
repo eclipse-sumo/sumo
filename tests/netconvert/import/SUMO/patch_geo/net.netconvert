@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:04 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-04-26 10:25:39 by Eclipse SUMO netconvert Version v1_19_0+1945-bdae8cdad73
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -94,7 +94,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_32444587_6273887394_3_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="1793.73,822.25 1794.91,821.41 1795.80,821.32 1796.40,821.98 1796.73,823.38"/>
     </edge>
     <edge id=":cluster_32444589_4396212913_0" function="internal">
-        <lane id=":cluster_32444589_4396212913_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="1952.56,775.34 1953.96,774.99 1954.82,775.24 1955.14,776.07 1954.92,777.50"/>
+        <lane id=":cluster_32444589_4396212913_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="1952.43,775.48 1953.83,775.14 1954.69,775.38 1955.01,776.22 1954.79,777.64"/>
     </edge>
 
     <edge id="-239924883" from="56455689" to="cluster_32444587_6273887394" name="Stadionstraße" priority="10" type="highway.tertiary" shape="1919.04,842.50 1914.09,847.05 1906.75,847.86 1898.69,846.45 1891.36,844.15 1797.59,816.57">
@@ -111,7 +111,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origFrom" value="32444587"/>
     </edge>
     <edge id="-4930543#0" from="cluster_32444589_4396212913" to="56455689" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1953.74,776.42 1944.60,786.38 1936.39,798.45 1929.34,814.82 1919.04,842.50">
-        <lane id="-4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.59" shape="1954.92,777.50 1945.86,787.38 1937.79,799.22 1930.83,815.42 1921.33,840.93">
+        <lane id="-4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="72.39" shape="1954.79,777.64 1945.86,787.38 1937.79,799.22 1930.83,815.42 1921.33,840.93">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origFrom" value="32444589"/>
@@ -125,7 +125,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="ref" value="K 6161"/>
     </edge>
     <edge id="239924889#3" from="cluster_32444587_6273887394" to="cluster_32444589_4396212913" priority="1" type="highway.footway" spreadType="center" shape="1801.13,809.16 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1948.90,772.39">
-        <lane id="239924889#3_0" index="0" allow="pedestrian" speed="2.78" length="189.39" width="2.00" shape="1806.34,810.72 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1948.90,772.39">
+        <lane id="239924889#3_0" index="0" allow="pedestrian" speed="2.78" length="190.16" width="2.00" shape="1806.34,810.72 1904.77,840.22 1911.78,836.86 1936.77,776.07 1944.60,775.48 1949.52,771.95">
             <param key="origId" value="239924889"/>
         </lane>
         <param key="origFrom" value="6273887394"/>
@@ -138,7 +138,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <param key="origTo" value="32444587"/>
     </edge>
     <edge id="4930543#0" from="56455689" to="cluster_32444589_4396212913" name="Heinrich-Heine-Allee" priority="10" type="highway.tertiary" shape="1919.04,842.50 1929.34,814.82 1936.39,798.45 1944.60,786.38 1953.74,776.42">
-        <lane id="4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="73.83" shape="1918.34,839.82 1927.86,814.23 1934.98,797.67 1943.34,785.39 1952.56,775.34">
+        <lane id="4930543#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="73.63" shape="1918.34,839.82 1927.86,814.23 1934.98,797.67 1943.34,785.39 1952.43,775.48">
             <param key="origId" value="4930543"/>
         </lane>
         <param key="origTo" value="32444589"/>
@@ -164,7 +164,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="2" response="0000" foes="0010" cont="0"/>
         <request index="3" response="0001" foes="0001" cont="0"/>
     </junction>
-    <junction id="cluster_32444589_4396212913" type="priority" x="1951.32" y="774.46" incLanes="239924889#3_0 4930543#0_0" intLanes=":cluster_32444589_4396212913_0_0" shape="1948.31,771.58 1949.48,773.21 1951.38,774.25 1956.10,778.58 1965.27,768.15 1970.25,761.43 1971.05,758.41 1967.65,759.10 1960.08,763.49">
+    <junction id="cluster_32444589_4396212913" type="priority" x="1951.32" y="774.46" incLanes="239924889#3_0 4930543#0_0" intLanes=":cluster_32444589_4396212913_0_0" shape="1948.93,771.14 1950.10,772.76 1951.25,774.40 1955.97,778.72">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
