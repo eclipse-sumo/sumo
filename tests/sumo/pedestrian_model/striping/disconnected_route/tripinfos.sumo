@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 19:21:34 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<!-- generated on 2024-04-26 12:46:38 by Eclipse SUMO sumo Version v1_19_0+1947-e408924a531
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,19 +14,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="three_split.net.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.attributes value="x,y"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
     <processing>
         <default.speeddev value="0"/>
         <pedestrian.model value="striping"/>
-        <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.dawdling value="0.0"/>
     </processing>
 
     <report>
@@ -38,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="test" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <walk depart="0.00" departPos="0.00" arrival="720.00" arrivalPos="499.99" duration="720.00" routeLength="999.99" timeLoss="0.01" maxSpeed="1.39"/>
+    <personinfo id="p_0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <walk depart="0.00" departPos="0.00" arrival="522.00" arrivalPos="46.80" duration="522.00" routeLength="921.58" timeLoss="-141.54" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

@@ -1,5 +1,11 @@
-<routes>
-    <person id="test" depart="0">
-        <walk edges="beg end" arrivalPos="-0.01"/>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-25 15:35:46 by Eclipse SUMO netedit Version v1_19_0+1939-0683e98413b
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <walk edges="E0 E4 E3 E9 E7 E6 E5"/>
     </person>
 </routes>
