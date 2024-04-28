@@ -1,0 +1,58 @@
+joinJunctions...
+generateNodeClusters: consider s=138562259 clusterNode=937153152 edge=22721673#0 dist=0.20 length=0.20 with cluster 138562259 937153152
+generateNodeClusters: consider s=138562259 clusterNode=937153152 edge=-22721673#0 dist=0.20 length=0.20 with cluster 138562259 937153152
+generateNodeClusters: consider s=138562259 clusterNode=937153195 edge=283317453#0 dist=0.42 length=0.42 with cluster 138562259 6709640757 937153152 937153195
+generateNodeClusters: consider s=138562259 clusterNode=937153155 edge=176051612#3 dist=1.26 length=1.26 with cluster 138562259 6709640757 937153152 937153155 937153195
+ DEBUG: consider cluster 138562259 6709640756 6709640757 937153152 937153155 937153195
+generateNodeClusters: consider s=138562259 clusterNode=539737208 edge=-1137297059#1 dist=0.00 length=0.20 with cluster 539737208
+generateNodeClusters: consider s=138562259 clusterNode=539737208 edge=1137297059#1 dist=0.00 length=0.20 with cluster 539737208
+ DEBUG: consider cluster 6709640754 6709640755 937153130 937153142 937153169 967017790
+pruning cluster=138562259 6709640756 6709640757 937153152 937153155 937153195
+  check n=138562259 clusterDist=0.20 cd<th=1 touching=0 out=539737208 in=937153152,937153155,937153195 dia=26.52
+  check n=6709640756 clusterDist=1.49 cd<th=0 touching=0 out=539737264 in=937153155 dia=26.52
+  check n=6709640757 clusterDist=6.40 cd<th=0 touching=0 out=414076809 in=937153152 dia=26.52
+  check n=937153152 clusterDist=0.20 cd<th=1 touching=0 out=10211110911,11381076783 in=138562259,6709640757 dia=26.52
+  check n=937153155 clusterDist=1.26 cd<th=0 touching=0 out= in=138562259,6709640756 dia=26.52
+  check n=937153195 clusterDist=0.42 cd<th=0 touching=0 out=138562265 in=138562259 dia=26.52
+  check n=138562259 clusterDist=0.20 cd<th=1 touching=0 out=539737208 in=937153152,937153155,937153195 dia=26.52
+  check n=6709640756 clusterDist=1.49 cd<th=0 touching=0 out=539737264 in=937153155 dia=26.52
+  check n=6709640757 clusterDist=6.40 cd<th=0 touching=0 out=414076809 in=937153152 dia=26.52
+  check n=937153152 clusterDist=0.20 cd<th=1 touching=0 out=10211110911,11381076783 in=138562259,6709640757 dia=26.52
+  check n=937153155 clusterDist=1.26 cd<th=0 touching=0 out= in=138562259,6709640756 dia=26.52
+  check n=937153195 clusterDist=0.42 cd<th=0 touching=0 out=138562265 in=138562259 dia=26.52
+pruning slip-lanes at cluster=138562259 6709640756 6709640757 937153152 937153155 937153195
+feasibleCluster c=138562259,6709640756,6709640757,937153152,937153155,937153195
+ inAngles=-22721673#2:-50.80 1137297059#1:122.67 176051612#1:39.07
+ outAngles=-1137297059#1:-57.33 22721673#2:129.20 283317453#1:41.04
+feasible hasTLS=1 maxLength=6.40 maxEdge=-22721673#1
+check edge length -1137297059#1 (0.00, passed=0, max=13.20)
+check edge length 283317453#0 (0.42, passed=1, max=13.20)
+check edge length 22721673#0 (6.60, passed=2, max=13.20)
+check edge length 176051612#2 (2.75, passed=2, max=13.20)
+check edge length -22721673#1 (6.60, passed=2, max=13.20)
+check edge length 22721673#2 (0.00, passed=0, max=13.20)
+check edge length -22721673#0 (0.20, passed=1, max=13.20)
+check edge length 1227311403#1 (0.00, passed=0, max=13.20)
+check edge length 22721673#1 (6.40, passed=1, max=13.20)
+check edge length 176051612#3 (1.26, passed=1, max=13.20)
+check edge length 713631176#2 (0.00, passed=0, max=13.20)
+check edge length 283317453#1 (0.00, passed=0, max=13.20)
+check edge length 713631177#2 (0.00, passed=0, max=13.20)
+check edge length -1137297059#1 (0.00, passed=0, max=13.20)
+check edge length 283317453#0 (0.42, passed=1, max=13.20)
+check edge length 22721673#0 (6.60, passed=2, max=13.20)
+check edge length 176051612#2 (2.75, passed=2, max=13.20)
+check edge length -22721673#1 (6.60, passed=2, max=13.20)
+check edge length 22721673#2 (0.00, passed=0, max=13.20)
+check edge length -22721673#0 (0.20, passed=1, max=13.20)
+check edge length 1227311403#1 (0.00, passed=0, max=13.20)
+check edge length 22721673#1 (6.40, passed=1, max=13.20)
+check edge length 176051612#3 (1.26, passed=1, max=13.20)
+check edge length 713631176#2 (0.00, passed=0, max=13.20)
+check edge length 283317453#1 (0.00, passed=0, max=13.20)
+check edge length 713631177#2 (0.00, passed=0, max=13.20)
+feasibleCluster c=138562259,6709640756,6709640757,937153152,937153155,937153195
+ inAngles=-22721673#2:-50.80 1137297059#1:122.67 176051612#1:39.07
+ outAngles=-1137297059#1:-57.33 22721673#2:129.20 283317453#1:41.04
+feasible hasTLS=1 maxLength=6.40 maxEdge=-22721673#1
+Success.

@@ -135,4 +135,7 @@ restrictionException_no
 oerlikon
 width_lane
 crossings
+
+# see #14786
+crossings_no_barrier
 bugs

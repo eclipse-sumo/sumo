@@ -1,0 +1,17 @@
+Warning: Discarding unknown compound 'usage.industrial' in type 'railway.rail|service.yard|usage.industrial' (first occurrence for edge '13845940').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurrence for edge '145586617').
+Warning: Discarding unusable type 'waterway.stream' (first occurrence for edge '454534572').
+Warning: PT stop '664609197' has been moved to edge '-145586617#0'.
+Warning: PT stop '664609199' has been moved to edge '-145586617#0'.
+Warning: PT stop '664609203' has been moved to edge '-145586617#0'.
+Warning: PT stop '664609166' has been moved to edge '-145586617#0'.
+Warning: PT stop '664609173' has been moved to edge '-145586617#0'.
+Warning: Converting invalid rail_crossing to priority junction '539737134'.
+Warning: Converting invalid rail_crossing to priority junction '539737423'.
+Warning: Converting invalid rail_crossing to priority junction '5837705421'.
+Warning: Converting invalid rail_crossing to priority junction '5837705422'.
+Warning: The rail crossing '10211110912' does not have any roads.
+Warning: The rail crossing '8698455602' does not have any roads.
+Warning: The rail crossing '937153129' does not have any roads.
+Warning: The traffic light '1866185169' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1866185169'
