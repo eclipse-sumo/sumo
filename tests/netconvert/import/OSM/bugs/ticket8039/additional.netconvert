@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-14 16:51:37 by Eclipse SUMO netconvert Version v1_19_0+1300-b92ca839bda
+<!-- generated on 2024-04-28 22:49:39 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="39.41" endPos="54.41" friendlyPos="true"/>
+    <busStop id="4539420388" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="39.86" endPos="54.86" friendlyPos="true"/>
     <busStop id="4539421789" name="Brandenburgstraße" lane="4747816#7_0" startPos="110.00" endPos="125.00" friendlyPos="true"/>
     <busStop id="54142977" name="Heideblick" lane="859066434#3_0" startPos="44.98" endPos="69.98" friendlyPos="true" lines="1">
         <access lane="172186756#0_0" pos="0.00" length="17.11" friendlyPos="1"/>
@@ -59,18 +59,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="595002498#1_0" pos="0.00" length="15.10" friendlyPos="1"/>
     </busStop>
     <busStop id="54143009" name="Veltenhöfer Straße" lane="859066431#1_0" startPos="24.19" endPos="49.19" friendlyPos="true" lines="1">
-        <access lane="-10425592#1_0" pos="51.76" length="14.40" friendlyPos="1"/>
-        <access lane="-32433933#1_0" pos="55.50" length="7.91" friendlyPos="1"/>
-        <access lane="10425592#1_0" pos="1.87" length="19.20" friendlyPos="1"/>
-        <access lane="32433933#1_0" pos="1.45" length="10.91" friendlyPos="1"/>
-        <access lane="394007640#2_0" pos="8.59" length="17.14" friendlyPos="1"/>
+        <access lane="-10425592#1_0" pos="54.04" length="14.40" friendlyPos="1"/>
+        <access lane="-32433933#1_0" pos="57.64" length="7.91" friendlyPos="1"/>
+        <access lane="32433933#1_0" pos="1.50" length="10.91" friendlyPos="1"/>
+        <access lane="394007640#1_0" pos="3.20" length="18.08" friendlyPos="1"/>
+        <access lane="394007640#2_0" pos="8.93" length="17.14" friendlyPos="1"/>
     </busStop>
     <busStop id="54143012" name="Veltenhöfer Straße" lane="859066429#0_0" startPos="19.63" endPos="44.63" friendlyPos="true" lines="1">
-        <access lane="-32548182#1_0" pos="16.20" length="0.16" friendlyPos="1"/>
-        <access lane="32548182#1_0" pos="33.43" length="2.84" friendlyPos="1"/>
-        <access lane="388933682#1_0" pos="57.30" length="19.89" friendlyPos="1"/>
-        <access lane="388933682#3_0" pos="0.00" length="21.89" friendlyPos="1"/>
-        <access lane="4747816#1_0" pos="64.63" length="26.33" friendlyPos="1"/>
+        <access lane="-32548182#1_0" pos="13.81" length="0.16" friendlyPos="1"/>
+        <access lane="-4747816#1_0" pos="0.00" length="31.17" friendlyPos="1"/>
+        <access lane="32548182#1_0" pos="33.56" length="2.84" friendlyPos="1"/>
+        <access lane="388933682#1_0" pos="64.82" length="19.89" friendlyPos="1"/>
+        <access lane="4747816#1_0" pos="63.76" length="26.37" friendlyPos="1"/>
     </busStop>
     <busStop id="5672130288" name="Heideblick" lane="40020450#0_0" startPos="127.52" endPos="152.52" friendlyPos="true">
         <access lane="172186756#0_0" pos="0.00" length="25.10" friendlyPos="1"/>
@@ -80,5 +80,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <access lane="595002498#1_0" pos="0.00" length="23.57" friendlyPos="1"/>
     </busStop>
     <busStop id="91556880" name="Brandenburgstraße" lane="4747816#7_0" startPos="118.91" endPos="133.91" friendlyPos="true"/>
-    <busStop id="91556885" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="46.62" endPos="61.62" friendlyPos="true"/>
+    <busStop id="91556885" name="Veltenhöfer Straße" lane="4747816#1_0" startPos="47.14" endPos="62.14" friendlyPos="true"/>
 </additional>

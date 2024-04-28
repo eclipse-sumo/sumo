@@ -20,4 +20,4 @@ Warning: Converting invalid rail_crossing to priority junction '1755789475'.
 Warning: The rail crossing '3144373886' does not have any roads.
 Warning: The traffic light '29326590' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29326590'
-Warning: 67 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 64 total messages of type: Converting invalid rail_crossing to priority junction '%'.

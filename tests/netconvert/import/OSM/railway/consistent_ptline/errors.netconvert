@@ -40,9 +40,7 @@ Warning: Converting invalid rail_crossing to priority junction '3360099094'.
 Warning: Converting invalid rail_crossing to priority junction '3362307568'.
 Warning: Converting invalid rail_crossing to priority junction '3412405253'.
 Warning: Converting invalid rail_crossing to priority junction '3412405264'.
-Warning: Converting invalid rail_crossing to priority junction '3414774979'.
-Warning: Converting invalid rail_crossing to traffic_light at junction '3786025578'.
-Warning: Lane '-23319992#2_0' is not connected from any incoming edge at junction '3414814703'.
+Warning: Converting invalid rail_crossing to priority junction '5297502528'.
 Warning: The traffic light '3319201701' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '3319201701'
 Warning: The traffic light '5708137319' does not control any links; it will not be build.
@@ -50,7 +48,7 @@ Warning: Could not build program '0' for traffic light '5708137319'
 Warning: Speed of straight connection '375217308#1_0->375217308#2_0' reduced by 6.07 due to turning radius of 11.13 (length=7.13, angle=54.57).
 Warning: Speed of straight connection '375217301#1_0->375217301#2_0' reduced by 8.14 due to turning radius of 6.02 (length=1.74, angle=34.17).
 Warning: 8 total messages of type: Cannot assign stop % on edge '%' to pt line '%'. Ignoring!
-Warning: 20 total messages of type: Converting invalid rail_crossing to priority junction '%'.
+Warning: 13 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 12 total messages of type: Discarding way '%' because it has only % node(s)
 Warning: 8 total messages of type: First stop edge '%' is not part of the route of line '%'.
 Warning: 7 total messages of type: Last stop edge '%' is not part of the route of line '%'.

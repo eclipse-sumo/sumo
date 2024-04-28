@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-26 09:52:39 by Eclipse SUMO netconvert Version v1_19_0+1942-af64547e310
+<!-- generated on 2024-04-28 22:49:39 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -213,12 +213,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <junction id="1704693810" type="dead_end" x="645.30" y="547.24" incLanes="" intLanes="" shape="646.14,545.88 644.46,548.60"/>
     <junction id="1906399893" type="traffic_light" x="568.54" y="497.76" incLanes="206889079#2_0" intLanes="" shape="567.58,499.04 569.57,496.54 569.43,496.43">
         <request index="0" response="0" foes="0"/>
+        <param key="crossing:barrier" value="no"/>
+        <param key="crossing:light" value="yes"/>
     </junction>
     <junction id="1906399902" type="traffic_light" x="570.24" y="495.50" incLanes="220198808#0_0" intLanes="" shape="569.38,496.85 571.30,494.30 571.15,494.18 569.14,496.67">
         <request index="0" response="0" foes="0"/>
+        <param key="crossing:barrier" value="no"/>
+        <param key="crossing:light" value="yes"/>
     </junction>
     <junction id="2169462564" type="traffic_light" x="592.60" y="514.67" incLanes="206889079#0_0" intLanes="" shape="591.87,516.09 593.55,513.37 593.38,513.26 591.61,515.93">
         <request index="0" response="0" foes="0"/>
+        <param key="crossing:barrier" value="no"/>
+        <param key="crossing:light" value="yes"/>
     </junction>
     <junction id="3246050934" type="priority" x="628.23" y="546.44" incLanes="541676219_0 541676219_1" intLanes="" shape="630.08,551.21 633.29,545.68 630.95,543.83 630.27,542.99 629.60,542.14 628.68,541.25 627.28,540.27 622.34,548.50 625.12,549.68 626.20,549.87 627.28,550.06 628.52,550.44">
         <request index="0" response="000" foes="000"/>

@@ -1,3 +1,2 @@
-Warning: Converting invalid rail_crossing to traffic_light at junction 'cluster_28114806_286726503_2952513732_2952513733_#2more'.
 Warning: The traffic light '256574415' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '256574415'

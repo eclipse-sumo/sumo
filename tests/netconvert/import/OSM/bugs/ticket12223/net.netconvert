@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:35 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-04-28 22:49:40 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -460,7 +460,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="7" response="000001000" foes="000011100"/>
         <request index="8" response="000001000" foes="000001001"/>
     </junction>
-    <junction id="3263667182" type="dead_end" x="91.27" y="3.29" incLanes="176244741_0 46733382#0_0" intLanes="" shape="90.52,6.24 93.57,5.28 93.48,4.44 93.60,4.11 93.81,3.84 94.14,3.63 94.57,3.47 94.07,1.53 91.96,2.07 91.21,2.22 90.46,2.33 89.54,2.42 88.29,2.52 88.44,4.51 89.34,4.65 89.71,4.89 90.03,5.23 90.30,5.68"/>
+    <junction id="3263667182" type="dead_end" x="91.27" y="3.29" incLanes="176244741_0 46733382#0_0" intLanes="" shape="90.52,6.24 93.57,5.28 93.48,4.44 93.60,4.11 93.81,3.84 94.14,3.63 94.57,3.47 94.07,1.53 91.96,2.07 91.21,2.22 90.46,2.33 89.54,2.42 88.29,2.52 88.44,4.51 89.34,4.65 89.71,4.89 90.03,5.23 90.30,5.68">
+        <param key="crossing:light" value="no"/>
+    </junction>
     <junction id="3363880857" type="traffic_light" x="101.81" y="15.90" incLanes="-176072020#1_0 -176072020#1_1 176072020#0_0 176072020#0_1 176072020#0_2" intLanes="" shape="97.33,17.31 109.43,13.80 109.30,13.37 97.30,17.21">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="00000"/>
