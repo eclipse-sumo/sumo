@@ -124,3 +124,6 @@ ticket14766
 
 # bad junction join
 ticket14769
+
+# bad junction shape
+ticket14785
