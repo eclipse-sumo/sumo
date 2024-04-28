@@ -413,7 +413,11 @@ NIImporter_OpenStreetMap::insertNodeChecking(long long int id, NBNodeCont& nc, N
         }
         n->node = node;
         if (n->railwayCrossing) {
-            node->reinit(pos, SumoXMLNodeType::RAIL_CROSSING);
+            if (n->getParameter("crossing:barrier") != "no") {
+                node->reinit(pos, SumoXMLNodeType::RAIL_CROSSING);
+            } else if (n->getParameter("crossing.light") == "yes") {
+                node->reinit(pos, SumoXMLNodeType::TRAFFIC_LIGHT);
+            }
         } else if (n->railwaySignal) {
             node->reinit(pos, SumoXMLNodeType::RAIL_SIGNAL);
         } else if (n->tlsControlled) {
@@ -997,6 +1001,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (key == "highway" || key == "ele" || key == "crossing" || key == "railway" || key == "public_transport"
                 || key == "name" || key == "train" || key == "bus" || key == "tram" || key == "light_rail" || key == "subway" || key == "station" || key == "noexit"
+                || key == "crossing:barrier"
+                || key == "crossing:light"
                 || StringUtils::startsWith(key, "railway:signal")
                 || StringUtils::startsWith(key, "railway:position")
            ) {
@@ -1012,6 +1018,10 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myCurrentNode->railwayBufferStop = true;
             } else if (key == "railway" && value.find("crossing") != std::string::npos) {
                 myCurrentNode->railwayCrossing = true;
+            } else if (key == "crossing:barrier") {
+                myCurrentNode->setParameter("crossing:barrier", value);
+            } else if (key == "crossing:light") {
+                myCurrentNode->setParameter("crossing:light", value);
             } else if (key == "railway:signal:direction") {
                 if (value == "both") {
                     myCurrentNode->myRailDirection = WAY_BOTH;
