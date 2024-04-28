@@ -71,7 +71,7 @@
 //#define DEBUG_EDGE_SORTING
 //#define DEBUG_CROSSING_OUTLINE
 //#define DEBUGCOND true
-#define DEBUG_NODE_ID ""
+#define DEBUG_NODE_ID "C"
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUG_NODE_ID))
 

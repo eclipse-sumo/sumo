@@ -150,8 +150,13 @@ private:
 
     void computeSameEnd(PositionVector& l1, PositionVector& l2);
 
+    bool isDivided(const NBEdge* e, std::set<NBEdge*> same, const PositionVector& ccw, const PositionVector& cw) const;
+
     /// @brief compute with of rightmost lanes that exlude the given permissions
     static double getExtraWidth(const NBEdge* e, SVCPermissions exclude);
+
+    /// @brief compute the width of the divider space for divided roads
+    static double divisionWidth(const NBEdge* e, std::set<NBEdge*> same, const Position& p, const Position& p2);
 
 private:
     /// The node to compute the geometry for
