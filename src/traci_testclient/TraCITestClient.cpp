@@ -1001,6 +1001,7 @@ TraCITestClient::testAPI() {
     walkEdges.push_back("e_m5");
     person.appendWalkingStage("p1", walkEdges, -20);
     simulationStep();
+    answerLog << "    getEdges before rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
     person.rerouteTraveltime("p1");
     answerLog << "    getEdges after rerouting: " << joinToString(person.getEdges("p1"), " ") << "\n";
 

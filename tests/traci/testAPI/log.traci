@@ -1,12 +1,13 @@
-***Starting server on port 53107 ***
-Loading net-file from 'net.net.xml' ... done (11ms).
+***Starting server on port 33269 ***
+Loading net-file from 'net.net.xml' ... done (9ms).
 Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+1638-3dfb534e134 started with time: 0.00.
+Simulation version v1_19_0+1952-be680871ae9 started with time: 0.00.
 Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
 Error: Answered with error to command 0xa3: Lane 'dummy' is not known
 Warning: Vehicle '0' moved by TraCI from 1640.00,491.75 to 2231.61,498.35 (dist 591.61) with implied speed of 591.61 (exceeding maximum speed 30.00). time=5.00.
 custom message test
+Warning: Person 'p1' walking from edge 'e_u1' to edge 'e_m5' has a disconnectbetween edge 'e_shape1' and edge 'e_m5', time=12.00.
 Error: Requested command not implemented (0xcc): GUI is not running, command not implemented in command line sumo
 Simulation ended at time: 14.00
 Reason: TraCI issued load command.
