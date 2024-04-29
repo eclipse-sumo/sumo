@@ -132,3 +132,6 @@ getNextTLS
 
 # get numbr of alighting persons at the next stop
 alightingPersons
+
+# check handling of stops (#14789)
+changeTarget
