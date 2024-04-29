@@ -160,7 +160,7 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
   geo-referenced networks)
 - **--fcd-output.signals** will add [signal state
   information](../../TraCI/Vehicle_Signalling.md) to the output
-- **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage-mileage-chainage) information to the output
+- **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage_mileage_chainage) information to the output
 - **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
 - **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and carfollowmodel parameters as well as arbitrary user-define values)
