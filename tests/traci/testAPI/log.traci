@@ -1,8 +1,8 @@
-***Starting server on port 33269 ***
-Loading net-file from 'net.net.xml' ... done (9ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
+***Starting server on port 56319 ***
+Loading net-file from 'net.net.xml' ... done (7ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1952-be680871ae9 started with time: 0.00.
+Simulation version v1_19_0+1979-33c355aa94e started with time: 0.00.
 Error: Answered with error to command 0xa3: No connection from lane 'e_vu0_0' to lane 'e_m4_1'
 Error: Answered with error to command 0xa3: Lane 'dummy' is not known
 Warning: Vehicle '0' moved by TraCI from 1640.00,491.75 to 2231.61,498.35 (dist 591.61) with implied speed of 591.61 (exceeding maximum speed 30.00). time=5.00.
@@ -15,5 +15,5 @@ DijkstraRouter answered 3 queries and explored 14.67 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 1 queries and explored 38.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-DijkstraRouter answered 5 queries and explored 9.80 edges on average.
+DijkstraRouter answered 4 queries and explored 9.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
