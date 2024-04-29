@@ -324,17 +324,12 @@ inserted at the end of the lane instead. When departSpeed="max" is set, vehicle 
 
 ### departSpeed
 
-Determines the speed of the vehicle at insertion, where maxSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
+Determines the speed of the vehicle at insertion, where maxDepartSpeed = MIN(speedLimit * speedFactor, vType_desiredMaxSpeed * speedFactor, vType_maxSpeed);
 
-- `≥0`: The vehicle is tried to be inserted
-using the given speed. If that speed is unsafe, departure is
-delayed.
-- "`random`": A random speed between 0 and
-maxSpeed is used,
-the speed may be adapted to ensure a safe distance to the leader
-vehicle.
-- "`max`": The maxSpeed is used, the speed may be adapted to ensure a safe distance to the leader vehicle.
-- "`desired`": The maxSpeed is used. If that speed is unsafe, departure is delayed.
+- `≥0`: The vehicle is tried to be inserted using the given speed. If that speed is unsafe, departure is delayed.
+- "`random`": A random speed between 0 and maxDepartSpeed is used, the speed may be adapted to accomodate a leader or intersection ensure a safe distance to the leader vehicle.
+- "`max`": The maxDeparSpeed is used when possible, the speed may be lowered to accomodate a leader vehicle or intersections.
+- "`desired`": The maxDepartSpeed is used. If that speed is unsafe, departure is delayed.
 - "`speedLimit`": The speed limit of the lane is used. If that speed is unsafe, departure is delayed.
 - "`last`": The current speed of the last vehicle on the departure lane is used (or 'desired' speed if the lane is empty). If that speed is unsafe, departure is delayed.
 - "`avg`": The average speed on the departure lane is used (or the minimum of 'speedLimit' and 'desired' if the lane is empty). If that speed is unsafe, departure is delayed.
