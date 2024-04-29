@@ -23,12 +23,6 @@ Warning: Removed invalid stop '1704693381' from line '2077982'.
 Warning: Removing pt stop '1704693343' on non existing edge ''.
 Warning: Removing pt stop '1704693369' on non existing edge ''.
 Warning: Removed 6 pt stops because they could not be assigned to the network
-Warning: Converting invalid rail_crossing to priority junction '2697454308'.
-Warning: Converting invalid rail_crossing to priority junction '2697454310'.
-Warning: Converting invalid rail_crossing to priority junction '2697454311'.
-Warning: Converting invalid rail_crossing to priority junction '2697454312'.
-Warning: Converting invalid rail_crossing to priority junction '443598344'.
-Warning: 6 total messages of type: Converting invalid rail_crossing to priority junction '%'.
 Warning: 7 total messages of type: Discarding unknown compound '%' in type '%' (first occurrence for edge '%').
 Warning: 8 total messages of type: PT line '%' in relation % seems to be split, only keeping first part.
 Warning: 6 total messages of type: Removed invalid stop '%' from line '%'.
