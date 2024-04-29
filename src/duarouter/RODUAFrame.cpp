@@ -112,11 +112,11 @@ void
 RODUAFrame::addDUAOptions() {
     OptionsCont& oc = OptionsCont::getOptions();
     // register Gawron's DUE-settings
-    oc.doRegister("gawron.beta", new Option_Float(double(0.3)));
+    oc.doRegister("gawron.beta", new Option_Float(double(0.9)));
     oc.addSynonyme("gawron.beta", "gBeta", true);
     oc.addDescription("gawron.beta", "Processing", TL("Use FLOAT as Gawron's beta"));
 
-    oc.doRegister("gawron.a", new Option_Float(double(0.05)));
+    oc.doRegister("gawron.a", new Option_Float(double(0.5)));
     oc.addSynonyme("gawron.a", "gA", true);
     oc.addDescription("gawron.a", "Processing", TL("Use FLOAT as Gawron's a"));
 
