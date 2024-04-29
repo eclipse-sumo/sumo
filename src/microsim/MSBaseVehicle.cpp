@@ -257,15 +257,17 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
 
 
 void
-MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent) {
+MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent, const MSEdge* sink) {
     // check whether to reroute
     const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : *getRerouteOrigin();
     if (source == nullptr) {
         source = *getRerouteOrigin();
     }
-    const MSEdge* sink = withTaz ? MSEdge::dictionary(myParameter->toTaz + "-sink") : myRoute->getLastEdge();
     if (sink == nullptr) {
-        sink = myRoute->getLastEdge();
+        sink = withTaz ? MSEdge::dictionary(myParameter->toTaz + "-sink") : myRoute->getLastEdge();
+        if (sink == nullptr) {
+            sink = myRoute->getLastEdge();
+        }
     }
     ConstMSEdgeVector oldEdgesRemaining(source == *myCurrEdge ? myCurrEdge : myCurrEdge + 1, myRoute->end());
     ConstMSEdgeVector edges;

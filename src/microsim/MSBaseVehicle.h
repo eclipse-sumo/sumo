@@ -301,9 +301,10 @@ public:
      *
      * @param[in] t The time for which the route is computed
      * @param[in] router The router to use
+     * @param[in] sink (optionally) a new destination edge
      * @see replaceRoute
      */
-    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false);
+    void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
 
 
     /** @brief Replaces the current route by the given edges
