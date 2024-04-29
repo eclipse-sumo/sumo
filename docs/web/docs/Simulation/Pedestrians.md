@@ -378,7 +378,7 @@ In JuPedSim, pedestrians have a radius. At that time, the radius is computed as 
 
 ### Jamming
 
-Sometimes pedestrians get jammed at the front of a gate, which represents the last waypoint into their journey. In this case you can remove the pedestrians by creating a special polygon type named `jupedsim.vanishing_area`. The attribute `period` of this polygon defines the rate at which a pedestrian will be removed in this special polygon (a pedestrian will be removed every period, the period being given in ms).
+Sometimes pedestrians get jammed at the front of a gate, which represents the last waypoint into their journey. In this case you can remove the pedestrians by creating a special polygon type named `jupedsim.vanishing_area`. The attribute `period` of this polygon defines the rate at which a pedestrian will be removed in this special polygon (a pedestrian will be removed every period, the period being given in seconds).
 
 # Pedestrian Routing
 
