@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-29 14:26+0200\n"
-"PO-Revision-Date: 2024-04-29 12:24+0000\n"
+"PO-Revision-Date: 2024-04-29 12:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -5091,7 +5091,7 @@ msgstr "Autorizza la classe di veicoli % su tutte le corsie selezionate"
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1004
 msgid ""
 "All lanes own already another lane in the same edge with a restriction for "
-msgstr ""
+msgstr "Ciascuna delle corsie ha già una corsia dello stesso arco ristretta a "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1011
 msgid "% lanes will be restricted to %. Continue?"
@@ -5118,7 +5118,7 @@ msgstr "% restrizioni a % verranno aggiunte. Desideri continuare?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1101
 msgid "add restrictions for "
-msgstr ""
+msgstr "aggiungi ristrezioni per "
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1111
 msgid "add vclass for "
@@ -6320,7 +6320,7 @@ msgstr "Veicolo non motorizzato per pedalare"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
 msgid "An electric scooter or a kick scooter"
-msgstr ""
+msgstr "Uno scooter electtrico oppure a propulsione muscolare"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
 msgid "Person traveling on foot"
@@ -6328,7 +6328,7 @@ msgstr "Pedone"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:259
 msgid "A mobility impaired person"
-msgstr ""
+msgstr "Una persona a mobilità ridotta"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:260
 msgid "Rail vehicle which runs on tracks"
@@ -6352,11 +6352,11 @@ msgstr "Veicolo ferroviaria pesante"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
 msgid "A conveyance suspended on a cable"
-msgstr ""
+msgstr "Una cabina sospesa su un cavo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:266
 msgid "A railway that mostly runs underground"
-msgstr ""
+msgstr "Una ferrovia che scorre perlopiù in ambito sotterraneo"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 msgid "Future electric mobility vehicles"
