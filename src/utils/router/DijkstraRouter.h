@@ -121,7 +121,7 @@ public:
         double length = 0.; // dummy for the via edge cost update
         this->startQuery();
 #ifdef DijkstraRouter_DEBUG_QUERY
-        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
+        std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' from '" << Named::getIDSecure(from) << "' to '" << Named::getIDSecure(to) << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
         const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
         const bool ignoreTransient = vehicle == nullptr ? false : vehicle->ignoreTransientPermissions();
