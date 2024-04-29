@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-29 14:26+0200\n"
-"PO-Revision-Date: 2024-04-29 12:55+0000\n"
+"PO-Revision-Date: 2024-04-29 13:15+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -2314,7 +2314,7 @@ msgstr "probabilidad de inserción"
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:159
 #: C:\Repos\sumo/src\mesogui\GUIMEVehicle.cpp:89
 msgid "poisson rate"
-msgstr ""
+msgstr "tasa de poisson"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:161
 msgid "stop info"
@@ -5057,6 +5057,8 @@ msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
 msgstr ""
+"¿Desea fusionar los cruces '%' y '%'?\n"
+"('%' será eliminado y sus vías se agregarán a '%')"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:922
 msgid " requires switch to network mode. Continue?"
@@ -5084,13 +5086,13 @@ msgstr "Hay carriles seleccionados que pertenecen a la misma arista."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:988
 msgid "Only one lane per edge will be restricted to %."
-msgstr ""
+msgstr "Solo un carril por arista será restringido a %."
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1003
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1010
 #, c-format
 msgid "Set vclass to % for selected lanes"
-msgstr ""
+msgstr "Establecer clase de vehículo % para los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1004
 msgid ""
@@ -5101,7 +5103,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1011
 msgid "% lanes will be restricted to %. Continue?"
-msgstr ""
+msgstr "% carriles serán restringidos a %. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1037
 msgid "restrict lane to "
@@ -5111,7 +5113,7 @@ msgstr "restringir el carril a "
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1084
 #, c-format
 msgid "Add vclass % to selected lanes"
-msgstr ""
+msgstr "Agregar clase de vehículo % a los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1078
 msgid ""
