@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-29 14:26+0200\n"
-"PO-Revision-Date: 2024-03-21 08:32+0000\n"
+"PO-Revision-Date: 2024-04-29 12:55+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -6323,7 +6323,7 @@ msgstr "Vehículo de tracción humana a pedales"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:257
 msgid "An electric scooter or a kick scooter"
-msgstr ""
+msgstr "Patineta eléctrica o manual"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:258
 msgid "Person traveling on foot"
@@ -6331,7 +6331,7 @@ msgstr "Persona que viaja a pie"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:259
 msgid "A mobility impaired person"
-msgstr ""
+msgstr "Una persona con movilidad reducida"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:260
 msgid "Rail vehicle which runs on tracks"
@@ -6355,11 +6355,11 @@ msgstr "Vehículo ferroviario pesado"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:265
 msgid "A conveyance suspended on a cable"
-msgstr ""
+msgstr "Medio de transporte suspendido de un cable"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:266
 msgid "A railway that mostly runs underground"
-msgstr ""
+msgstr "Vehículo ferroviario que circula mayormente bajo tierra"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:269
 msgid "Future electric mobility vehicles"
@@ -6387,15 +6387,15 @@ msgstr "Vehículo de alta ocupación (dos o más pasajeros)"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:275
 msgid "A transport container"
-msgstr ""
+msgstr "Un contenedor de transporte"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 msgid "An airplane"
-msgstr ""
+msgstr "Un avión"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
 msgid "A small unmanned robot"
-msgstr ""
+msgstr "Pequeño robot no tripulado"
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:278
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:279
