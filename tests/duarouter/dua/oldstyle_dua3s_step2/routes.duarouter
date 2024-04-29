@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/24/17 12:37:36 by SUMO duarouter Version dev-SVN-r24439
+<!-- generated on 2024-04-29 13:52:22 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <alternative-files value="input_alts.rou.alt.xml"/>
+        <route-files value="input_alts.rou.alt.xml"/>
         <weight-files value="input_weights.dump.xml"/>
     </input>
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
     </output>
 
     <report>
@@ -38,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="14" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2right right right2end end"/>
     </vehicle>
     <vehicle id="30" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg beg2right right right2end end"/>
@@ -197,7 +203,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg middle end"/>
     </vehicle>
     <vehicle id="77" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2right right right2end end"/>
     </vehicle>
     <vehicle id="76" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg beg2right right right2end end"/>
@@ -323,7 +329,7 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2right right right2end end"/>
     </vehicle>
     <vehicle id="34" type="KRAUSS_DEFAULT" depart="0.00">
-        <route edges="beg middle end"/>
+        <route edges="beg beg2right right right2end end"/>
     </vehicle>
     <vehicle id="33" type="KRAUSS_DEFAULT" depart="0.00">
         <route edges="beg middle end"/>

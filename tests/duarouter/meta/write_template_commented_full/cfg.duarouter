@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-03 13:22:49 by Eclipse SUMO duarouter Version v1_19_0+1662-cc3005420e0
+<!-- generated on 2024-04-29 13:52:17 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -199,10 +199,10 @@
         <astar.save-landmark-distances value="" type="FILE"/>
 
         <!-- Use FLOAT as Gawron&apos;s beta -->
-        <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT"/>
+        <gawron.beta value="0.9" synonymes="gBeta" type="FLOAT"/>
 
         <!-- Use FLOAT as Gawron&apos;s a -->
-        <gawron.a value="0.05" synonymes="gA" type="FLOAT"/>
+        <gawron.a value="0.5" synonymes="gA" type="FLOAT"/>
 
         <!-- Save routes with near zero probability -->
         <keep-all-routes value="false" type="BOOL"/>

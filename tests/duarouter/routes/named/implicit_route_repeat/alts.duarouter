@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 15 14:41:25 2020 by Eclipse SUMO duarouter Version v1_6_0+0729-333dfde668
+<!-- generated on 2024-04-29 13:52:20 by Eclipse SUMO duarouter Version v1_19_0+1975-c861cc8fbcc
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
@@ -15,9 +20,8 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
-        <alternatives-output value="routes.rou.alt.xml"/>
+        <write-license value="true"/>
     </output>
 
     <report>
@@ -32,8 +36,8 @@ SPDX-License-Identifier: EPL-2.0
     <vType id="bus" maxSpeed="3.00" sigma="0"/>
     <vehicle id="bus.0" type="bus" depart="0.00">
         <routeDistribution last="1">
-            <route cost="358.58" probability="0.50345298" edges="a c -c -a a c -c -a a c -c -a"/>
-            <route cost="607.78" probability="0.49654702" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="358.58" probability="0.53447557" edges="a c -c -a a c -c -a a c -c -a"/>
+            <route cost="607.78" probability="0.46552443" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
@@ -50,8 +54,8 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
     <vehicle id="bus.1" type="bus" depart="100.00">
         <routeDistribution last="1">
-            <route cost="358.58" probability="0.50345298" edges="a c -c -a a c -c -a a c -c -a"/>
-            <route cost="607.78" probability="0.49654702" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="358.58" probability="0.53447557" edges="a c -c -a a c -c -a a c -c -a"/>
+            <route cost="607.78" probability="0.46552443" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
@@ -68,8 +72,8 @@ SPDX-License-Identifier: EPL-2.0
     </vehicle>
     <vehicle id="bus_single" type="bus" depart="300.00">
         <routeDistribution last="0">
-            <route cost="358.58" probability="0.50345298" edges="a c -c -a a c -c -a a c -c -a"/>
-            <route cost="607.78" probability="0.49654702" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+            <route cost="358.58" probability="0.53447557" edges="a c -c -a a c -c -a a c -c -a"/>
+            <route cost="607.78" probability="0.46552443" edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         </routeDistribution>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
