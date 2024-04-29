@@ -43,13 +43,13 @@ ODDistrict::~ODDistrict() {}
 
 void
 ODDistrict::addSource(const std::string& id, double weight) {
-    mySources.add(id, weight);
+    mySources.add(id, weight, false);
 }
 
 
 void
 ODDistrict::addSink(const std::string& id, double weight) {
-    mySinks.add(id, weight);
+    mySinks.add(id, weight, false);
 }
 
 
