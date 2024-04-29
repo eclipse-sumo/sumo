@@ -32,6 +32,7 @@ traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
              "-r", "input_routes.rou.xml",
              "--stop-output", "stopinfos.xml",
+             "--vehroute-output", "vehroutes.xml",
              "--no-step-log",
              ] + sys.argv[1:])
 
