@@ -1044,12 +1044,12 @@ public:
      * Compute distance that will be covered, if the vehicle moves to a given position on its route,
      * starting at its current position.
      * @param destPos:  position on the destination edge that shall be reached
-     * @param destEdge: destination edge that shall be reached
+     * @param destLane: destination lane that shall be reached
      * @return      distance from the vehicles current position to the destination position,
      *          or a near infinite real value if the destination position is not contained
      *          within the vehicles route or the vehicle is not active
      */
-    double getDistanceToPosition(double destPos, const MSEdge* destEdge) const;
+    double getDistanceToPosition(double destPos, const MSLane* destLane) const;
 
 
     /** @brief Processes stops, returns the velocity needed to reach the stop

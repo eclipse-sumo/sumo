@@ -539,11 +539,11 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
         } else {
             // Control gap wrt reference vehicle
             const MSVehicle* leader = myGapControlState->referenceVeh;
-            double dist = msVeh->getDistanceToPosition(leader->getPositionOnLane(), leader->getEdge()) - leader->getLength();
+            double dist = msVeh->getDistanceToPosition(leader->getPositionOnLane(), leader->getLane()) - leader->getLength();
             if (dist > 100000) {
                 // Reference vehicle was not found downstream the ego's route
                 // Maybe, it is behind the ego vehicle
-                dist = - leader->getDistanceToPosition(msVeh->getPositionOnLane(), msVeh->getEdge()) - leader->getLength();
+                dist = - leader->getDistanceToPosition(msVeh->getPositionOnLane(), msVeh->getLane()) - leader->getLength();
 #ifdef DEBUG_TRACI
                 if DEBUG_COND2(veh) {
                     if (dist < -100000) {
@@ -926,7 +926,7 @@ MSVehicle::Influencer::implicitSpeedRemote(const MSVehicle* veh, double oldSpeed
         // consist only of a single edge. In this case the new edge may not be
         // on the route so distAlongRoute will be double::max.
         // In this case we still want a sensible speed value
-        const double distAlongRoute = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
+        const double distAlongRoute = veh->getDistanceToPosition(myRemotePos, myRemoteLane);
         if (distAlongRoute != std::numeric_limits<double>::max()) {
             dist = distAlongRoute;
         }
@@ -954,7 +954,7 @@ MSVehicle::Influencer::implicitDeltaPosRemote(const MSVehicle* veh) {
         // on the route so getDistanceToPosition will return double::max.
         // In this case we would rather not move the vehicle in executeMove
         // (updateState) as it would result in emergency braking
-        dist = veh->getDistanceToPosition(myRemotePos, &myRemoteLane->getEdge());
+        dist = veh->getDistanceToPosition(myRemotePos, myRemoteLane);
     }
     if (dist == std::numeric_limits<double>::max()) {
         return 0;
@@ -6451,9 +6451,9 @@ MSVehicle::getLanePosAfterDist(double distance) const {
 
 
 double
-MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
-    if (isOnRoad() && destEdge != nullptr) {
-        return myRoute->getDistanceBetween(getPositionOnLane(), destPos, &myLane->getEdge(), destEdge);
+MSVehicle::getDistanceToPosition(double destPos, const MSLane* destLane) const {
+    if (isOnRoad() && destLane != nullptr) {
+        return myRoute->getDistanceBetween(getPositionOnLane(), destPos, myLane, destLane);
     }
     return std::numeric_limits<double>::max();
 }

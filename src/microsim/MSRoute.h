@@ -138,12 +138,12 @@ public:
      *
      * @param[in] fromPos  position on the first edge, at wich the computed distance begins
      * @param[in] toPos    position on the last edge, at which the computed distance ends
-     * @param[in] fromEdge edge at wich computation begins
-     * @param[in] toEdge   edge at which distance computation shall stop
+     * @param[in] fromLane lane at wich computation begins
+     * @param[in] toLane   lane at which distance computation shall stop
      * @param[in] routePosition Optional offset when searching for the fromEdge within the route
      * @return             distance between the position fromPos on fromEdge and toPos on toEdge
      */
-    double getDistanceBetween(double fromPos, double toPos, const MSEdge* fromEdge, const MSEdge* toEdge, int routePosition = 0) const;
+    double getDistanceBetween(double fromPos, double toPos, const MSLane* fromLane, const MSLane* toLane, int routePosition = 0) const;
 
     /** @brief Compute the distance between 2 given edges on this route, optionally including the length of internal lanes.
      * This has the same semantics as above but uses iterators instead of edge

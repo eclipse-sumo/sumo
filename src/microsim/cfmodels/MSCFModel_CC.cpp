@@ -125,11 +125,11 @@ MSCFModel_CC::isPlatoonLaneChangeSafe(MSVehicle* const veh, bool left) const {
             followers = libsumo::Vehicle::getNeighbors(m->second, left ? 0b100 : 0b101);
             leaders = libsumo::Vehicle::getNeighbors(m->second, left ? 0b110 : 0b111);
             noNeighbors = followers.empty() && leaders.empty();
-            if (mState.second & LCA_BLOCKED || !noNeighbors)
+            if (mState.second & LCA_BLOCKED || !noNeighbors) {
                 return false;
+            }
         }
-    }
-    else {
+    } else {
         return false;
     }
     return true;
@@ -139,7 +139,7 @@ void
 MSCFModel_CC::changeWholePlatoonLane(MSVehicle* const veh, int direction) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     libsumo::Vehicle::changeLane(veh->getID(), veh->getLaneIndex() + direction, 0);
-    for (auto & member : vars->members) {
+    for (auto& member : vars->members) {
         libsumo::Vehicle::changeLane(member.second, veh->getLaneIndex() + direction, 0);
     }
 }
@@ -151,22 +151,24 @@ MSCFModel_CC::performAutoLaneChange(MSVehicle* const veh) const {
     int traciState = state.first;
     if (traciState & LCA_LEFT && traciState & LCA_SPEEDGAIN) {
         // we can gain by moving left. check that all vehicles can move left
-        if (isPlatoonLaneChangeSafe(veh, true))
+        if (isPlatoonLaneChangeSafe(veh, true)) {
             changeWholePlatoonLane(veh, +1);
+        }
     }
     // check for right lane change
     state = libsumo::Vehicle::getLaneChangeState(veh->getID(), -1);
     traciState = state.first;
     if (traciState & LCA_RIGHT && traciState & LCA_KEEPRIGHT) {
         // we should move back right. check that all vehicles can move right
-        if (isPlatoonLaneChangeSafe(veh, false))
+        if (isPlatoonLaneChangeSafe(veh, false)) {
             changeWholePlatoonLane(veh, -1);
+        }
     }
 }
 
 void
 MSCFModel_CC::performPlatoonLaneChange(MSVehicle* const veh) const {
-    auto *vars = (CC_VehicleVariables *) veh->getCarFollowVariables();
+    auto* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     int currentLane = veh->getLaneIndex();
     if (currentLane == vars->platoonFixedLane) {
         // platoon has already reached the desired lane
@@ -174,8 +176,9 @@ MSCFModel_CC::performPlatoonLaneChange(MSVehicle* const veh) const {
         return;
     }
     bool left = currentLane < vars->platoonFixedLane;
-    if (isPlatoonLaneChangeSafe(veh, left))
+    if (isPlatoonLaneChangeSafe(veh, left)) {
         changeWholePlatoonLane(veh, left ? +1 : -1);
+    }
 }
 
 double
@@ -745,15 +748,17 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
         if (key.compare(PAR_ENABLE_AUTO_LANE_CHANGE) == 0) {
             vars->autoLaneChange = StringUtils::toInt(value.c_str()) == 1;
             // if the user enables automatic lane changing, any request for a fixed lane is deleted
-            if (vars->autoLaneChange)
+            if (vars->autoLaneChange) {
                 vars->platoonFixedLane = -1;
+            }
             return;
         }
         if (key.compare(PAR_PLATOON_FIXED_LANE) == 0) {
             vars->platoonFixedLane = StringUtils::toInt(value.c_str());
             // asking a leader to change the lane for the whole platoon automatically disables auto lane change
-            if (vars->platoonFixedLane >= 0)
+            if (vars->platoonFixedLane >= 0) {
                 vars->autoLaneChange = false;
+            }
             return;
         }
         if (key.compare(CC_PAR_CACC_XI) == 0) {
@@ -944,44 +949,20 @@ std::string MSCFModel_CC::getParameter(const MSVehicle* veh, const std::string& 
     }
     if (key.compare(PAR_DISTANCE_TO_END) == 0) {
         //route of the vehicle
-        ConstMSRoutePtr route;
-        //edge the vehicle is currently traveling on
-        const MSEdge* currentEdge;
-        //last edge of the route of this vehicle
-        const MSEdge* lastEdge;
-        //current position of the vehicle on the edge its traveling in
-        double positionOnEdge;
-        //distance to trip end using
-        double distanceToEnd;
-
-        route = veh->getRoutePtr();
-        currentEdge = veh->getEdge();
-        lastEdge = route->getEdges().back();
-        positionOnEdge = veh->getPositionOnLane();
-        distanceToEnd = route->getDistanceBetween(positionOnEdge, lastEdge->getLanes()[0]->getLength(), currentEdge, lastEdge);
-
-        buf << distanceToEnd;
+        ConstMSRoutePtr route = veh->getRoutePtr();
+        //last lane of the route of this vehicle
+        const MSLane* lastLane = route->getEdges().back()->getLanes()[0];
+        //distance to trip end
+        buf << route->getDistanceBetween(veh->getPositionOnLane(), lastLane->getLength(), veh->getLane(), lastLane);
         return buf.str();
     }
     if (key.compare(PAR_DISTANCE_FROM_BEGIN) == 0) {
         //route of the vehicle
-        ConstMSRoutePtr route;
-        //edge the vehicle is currently traveling on
-        const MSEdge* currentEdge;
-        //last edge of the route of this vehicle
-        const MSEdge* firstEdge;
-        //current position of the vehicle on the edge its traveling in
-        double positionOnEdge;
-        //distance to trip end using
-        double distanceFromBegin;
-
-        route = veh->getRoutePtr();
-        currentEdge = veh->getEdge();
-        firstEdge = route->getEdges().front();
-        positionOnEdge = veh->getPositionOnLane();
-        distanceFromBegin = route->getDistanceBetween(0, positionOnEdge, firstEdge, currentEdge);
-
-        buf << distanceFromBegin;
+        ConstMSRoutePtr route = veh->getRoutePtr();
+        //first lane of the route of this vehicle
+        const MSLane* firstLane = route->getEdges().front()->getLanes()[0];
+        //distance to trip start
+        buf << route->getDistanceBetween(0., veh->getPositionOnLane(), firstLane, veh->getLane());
         return buf.str();
     }
     if (key.compare(PAR_CC_DESIRED_SPEED) == 0) {

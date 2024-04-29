@@ -469,7 +469,7 @@ Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair
         return libsumo::INVALID_DOUBLE_VALUE;
     }
     MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, roadPos1.first, roadPos2.first);
 }
 
 

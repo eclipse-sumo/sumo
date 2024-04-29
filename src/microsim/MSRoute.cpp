@@ -309,30 +309,37 @@ MSRoute::dict_clearState() {
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
-                            const MSEdge* fromEdge, const MSEdge* toEdge, int routePosition) const {
+                            const MSLane* fromLane, const MSLane* toLane, int routePosition) const {
     // std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << "\n";
-    assert(fromPos >= 0. && fromPos <= fromEdge->getLength());
-    assert(toPos >= 0. && toPos <= toEdge->getLength());
+    assert(fromPos >= 0. && fromPos <= fromLane->getLength());
+    assert(toPos >= 0. && toPos <= toLane->getLength());
     assert(routePosition >= 0 && routePosition < (int)myEdges.size());
     assert(routePosition == 0 || !myEdges.front()->isInternal());
+    const MSEdge* fromEdge = &fromLane->getEdge();
+    const MSEdge* toEdge = &toLane->getEdge();
     if (fromEdge == toEdge && fromPos <= toPos) {
         return toPos - fromPos;
     }
     // TODO If fromEdge and toEdge are identical or both are internal and directly connected,
     // the code does not check whether they are in any relation to the route.
     if (fromEdge->isInternal()) {
-        const auto& via = fromEdge->getViaSuccessors().front();
-        const MSEdge* const succ = via.second == nullptr ? via.first : via.second;
-        assert(succ != nullptr);
-        // std::cout << "  recurse fromSucc=" << succ->getID() << "\n";
-        const double d = getDistanceBetween(0., toPos, succ, toEdge, routePosition);
-        return d == std::numeric_limits<double>::max() ? d : fromEdge->getLength() - fromPos + d;
+        double minDist = std::numeric_limits<double>::max();
+        for (const auto& via : fromEdge->getViaSuccessors()) {
+            const MSEdge* const succ = via.second == nullptr ? via.first : via.second;
+            assert(succ != nullptr);
+            // std::cout << "  recurse fromSucc=" << succ->getID() << "\n";
+            const double d = getDistanceBetween(0., toPos, succ->getLanes()[0], toLane, routePosition);
+            if (d != std::numeric_limits<double>::max() && fromLane->getLength() - fromPos + d  < minDist) {
+                minDist = fromLane->getLength() - fromPos + d;
+            }
+        }
+        return minDist;
     }
     if (toEdge->isInternal()) {
         const MSEdge* const pred = toEdge->getPredecessors().front();
         assert(pred != nullptr);
         // std::cout << "  recurse toPred=" << pred->getID() << "\n";
-        const double d = getDistanceBetween(fromPos, pred->getLength(), fromEdge, pred, routePosition);
+        const double d = getDistanceBetween(fromPos, pred->getLength(), fromLane, pred->getLanes()[0], routePosition);
         return d == std::numeric_limits<double>::max() ? d : toPos + d;
     }
     ConstMSEdgeVector::const_iterator fromIt = std::find(myEdges.begin() + routePosition, myEdges.end(), fromEdge);
