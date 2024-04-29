@@ -220,6 +220,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
             if (!MSRoute::dictionary(dummyRouteID, route)) {
                 throw ProcessError("Could not add route '" + dummyRouteID + "'.");
             }
+            params->departLaneProcedure = DepartLaneDefinition::GIVEN;
             params->departLane = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(t.front()));
             SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
             if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
