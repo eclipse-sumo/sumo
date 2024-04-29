@@ -2221,13 +2221,13 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             std::cout << SIMTIME << " veh=" << getID() << " speedBeforeTraci=" << v;
         }
 #endif
-        v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
+        v = myInfluencer->influenceSpeed(t, v, v, vMin, maxV);
 #ifdef DEBUG_TRACI
         if (DEBUG_COND) {
             std::cout << " influencedSpeed=" << v;
         }
 #endif
-        v = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, v, v, vMin, maxV);
+        v = myInfluencer->gapControlSpeed(t, this, v, v, vMin, maxV);
 #ifdef DEBUG_TRACI
         if (DEBUG_COND) {
             std::cout << " gapControlSpeed=" << v << "\n";
@@ -6168,7 +6168,6 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         std::cout << SIMTIME << " veh=" << getID() << " bestCont=" << toString(getBestLanesContinuation()) << "\n";
     }
 #endif
-    return;
 }
 
 
