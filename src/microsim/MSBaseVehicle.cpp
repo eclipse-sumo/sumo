@@ -256,7 +256,7 @@ MSBaseVehicle::stopsAtEdge(const MSEdge* edge) const {
 }
 
 
-void
+bool
 MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit, const bool withTaz, const bool silent, const MSEdge* sink) {
     // check whether to reroute
     const MSEdge* source = withTaz && onInit ? MSEdge::dictionary(myParameter->fromTaz + "-source") : *getRerouteOrigin();
@@ -371,7 +371,7 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
 
     // router.setHint(myCurrEdge, myRoute->end(), this, t);
     if (edges.empty() && silent) {
-        return;
+        return false;
     }
     if (!edges.empty() && edges.front()->isTazConnector()) {
         edges.erase(edges.begin());
@@ -396,12 +396,13 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
             } else if (source->isTazConnector()) {
                 WRITE_WARNINGF(TL("Removing vehicle '%' which has no valid route."), getID());
                 MSNet::getInstance()->getInsertionControl().descheduleDeparture(this);
-                return;
+                return false;
             }
         }
         setDepartAndArrivalEdge();
         calculateArrivalParams(onInit);
     }
+    return !edges.empty();
 }
 
 

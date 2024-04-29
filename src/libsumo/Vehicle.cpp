@@ -1437,8 +1437,11 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
     }
     // change the final edge of the route and reroute
     try {
-        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget",
+        const bool success = veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget",
                      veh->getRouterTT(), onInit, false, false, destEdge);
+        if (!success) {
+            throw TraCIException("ChangeTarget failed for vehicle '" + veh->getID() + "', destination edge '" + edgeID + "' unreachable.");
+        }
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
