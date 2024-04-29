@@ -9,9 +9,9 @@ SUMO's netedit tests use
 
 - Python (at least 2.7) should be installed
 - Install using your package manager (Linux, macOS) or pip
-  - openSUSE 15.0: `sudo zypper in python2-PyAutoGUI python2-pyperclip scrot` (there are python3 versions too)
-  - Windows / ubuntu: [follow the
-    docs](https://pyautogui.readthedocs.io/en/latest/install.html)
+  - openSUSE: `sudo zypper in python3-PyAutoGUI python3-pyperclip scrot python3-opencv`
+  - Windows / ubuntu: [follow the docs](https://pyautogui.readthedocs.io/en/latest/install.html)
+  - ubuntu: add `sudo apt in python3-opencv`
 - Running on Linux without visual display will need Xvfb and fluxbox too´
   - openSUSE: `sudo zypper in xorg-x11-server fluxbox`
   - ubuntu: `sudo apt in xvfb fluxbox`
