@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-15 09:01+0200\n"
-"PO-Revision-Date: 2024-04-10 09:33+0000\n"
+"PO-Revision-Date: 2024-04-29 12:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.2\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -8159,7 +8159,7 @@ msgstr "Name der momentanen Induktionsschleife"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2415
 msgid "RouteProbe"
-msgstr ""
+msgstr "Routenstichprobe"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2420
 msgid "The id of RouteProbe"
@@ -8211,11 +8211,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2495
 msgid "VariableSpeedSign (lane)"
-msgstr ""
+msgstr "Dynamische Geschwindigkeitsanzeige (Fahrstreifen)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2506
 msgid "VariableSpeedSign Step"
-msgstr ""
+msgstr "Schritt für dynamische Geschwindigkeitsanzeige"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2516
 msgid "Speed"
@@ -8380,7 +8380,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2758
 msgid "Rerouter (Edge)"
-msgstr ""
+msgstr "Rerouter (Kante)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2769
 msgid "Rerouter Interval"
@@ -8530,7 +8530,7 @@ msgstr "Die Ansichtsposition"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3061
 msgid "PointOfInterestLane"
-msgstr ""
+msgstr "POI auf Fahrstreifen"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3071
 msgid "The name of the lane at which the POI is located at"
@@ -8552,7 +8552,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3104
 msgid "PointOfInterestGeo"
-msgstr ""
+msgstr "Geografischer POI"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3115
 msgid "The longitude position of the parking vehicle on the view"
@@ -8610,7 +8610,7 @@ msgstr "Ankunftsgewicht, das dieser Kante zugeordnet ist"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3240
 msgid "TractionSubstation"
-msgstr ""
+msgstr "Unterwerk"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3244
 msgid "Traction substation ID"
@@ -10201,29 +10201,29 @@ msgstr "Container-Haltepunkt-ID"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6569
 msgid "Edge start ID"
-msgstr ""
+msgstr "ID der Anfangskante"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6575
 msgid "TAZ start ID"
-msgstr ""
+msgstr "ID der Quellverkehrsumlegungszone"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6581
 msgid "Junction start ID"
-msgstr ""
+msgstr "ID des Anfangsknotenpunkts"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6587
 msgid "BuStop start ID"
-msgstr ""
+msgstr "ID der Ausgangsbushaltestelle"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6593
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6644
 msgid "TrainStop start ID"
-msgstr ""
+msgstr "ID des Ausgangszughaltepunkts"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6599
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6650
 msgid "ContainerStop start ID"
-msgstr ""
+msgstr "ID des Ausgangscontainerhaltepunkts"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6606
 msgid "Edge end ID"
