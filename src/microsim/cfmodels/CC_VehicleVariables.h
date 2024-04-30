@@ -106,8 +106,12 @@ public:
     bool autoFeed;
     /// @brief leader vehicle, used for auto feeding
     MSVehicle* leaderVehicle;
+    /// @brief sumo id of the leader vehicle
+    std::string leaderVehicleId;
     /// @brief front sumo id, used for auto feeding
     MSVehicle* frontVehicle;
+    /// @brief sumo id of the front vehicle
+    std::string frontVehicleId;
     /// @brief whether this vehicle is leader of a platoon or not. This is mainly used by the lane change logic.
     /// By default this is true as a single vehicle is treated as a 1-vehicle platoon
     bool isLeader;

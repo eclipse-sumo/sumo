@@ -266,8 +266,9 @@ public:
      * @brief Sets the leader for a member of the platoon
      * @param veh platoon member
      * @param leader platoon leader
+     * @param leaderId platoon leader id
      */
-    void setLeader(MSVehicle* veh, MSVehicle* const leader) const;
+    void setLeader(MSVehicle* veh, MSVehicle* const leader, std::string leaderId) const;
 
     /**
      * @brief Returns whether a vehicle is a leader of a platoon or not. By default, a vehicle on its own using an ACC
@@ -291,6 +292,14 @@ public:
      * @return 0 if it is safe to change lane, the blocking reason otherwise
      */
     int commitToLaneChange(const MSVehicle* veh, bool left) const;
+
+    /**
+     * Searches for a vehicle given its sumo id. Differently from libsumo's getVehicle, this call does not throw an
+     * exception if the vehicle does not exist, so we can check for its existance
+     * @param id sumo vehicle id
+     * @return a pointer to the vehicle if found, nullptr otherwise
+     */
+    MSVehicle* findVehicle(std::string id) const;
 
     /**
      * @brief returns the number of lanes set in the configuration file
