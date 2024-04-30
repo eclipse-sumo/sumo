@@ -58,7 +58,8 @@ The parkingArea supports the following attributes:
 | width            | float          | positive                                                                                     | 3.2                                    | The width of the road-side parking spaces                                                                                  |
 | length           | float          | positive                                                                                     | (endPos - startPos) / roadsideCapacity | The length of the road-side parking spaces                                                                                 |
 | angle            | float (degree) |                                                                                              | 0                                      | The angle of the road-side parking spaces relative to the lane angle, positive means clockwise                             |
-| lefthand            | bool |     | *false*    | Whether road-side parking spaces should be drawn on the left side of the lane   |
+| lefthand         | bool           |     | *false*    | Whether road-side parking spaces should be drawn on the left side of the lane   |
+| acceptedBadges   | string list |     |  | The set of keywords which give access to the parking area (an empty value means free access to all) |
 
 ## Custom parking spaces
 
@@ -117,6 +118,18 @@ If a vehicle reaches a parkingArea that is filled to capacity it must
 wait on the road until a space becomes available or [reroute to a new
 parking
 area](../Simulation/Rerouter.md#rerouting_to_an_alternative_parking_area).
+
+# Restricting the access to the parking area
+
+In the real world, the access to parkings may be restricted to different kinds of users, such as residents, customers or employees. As these access rights may vary a lot depending on the location,
+they are modeled using a separate permission system from the vehicle classes. The access to the parking area can be restricted in the following way:
+
+- The parking area defines a set of accepted badges (keywords) which model single access rights in the attribute **acceptedBadges**, e.g. `acceptedBadges="clients_supermarket employees_supermarket"`
+- The vehicles or vehicle types define the set of owned badges which give them access, e.g. `parkingBadges="employees_supermarket home_johndoe"`
+- Any parking area which is not restricted (empty *acceptedBadges** attribute) or where at least one of the accepted badges is present in the vehicle or vehicle type definition can be accessed
+
+!!! caution
+    Parking badges defined in the vehicle definition override vehicle type settings.
 
 # Importing / Generating Parking Areas
 
