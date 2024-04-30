@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-04-30 10:02:41 by Eclipse SUMO netedit Version v1_19_0+1989-e5b78432182
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="osm.net.xml.gz"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <location netOffset="-397611.47,-5809300.41" convBoundary="40.40,817.71,542.90,1241.27" origBoundary="13.494121,52.424732,13.531175,52.435824" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-1185319465" from="11224967066" to="10211110904" priority="1" type="highway.path" numLanes="1" speed="5.56" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="1185319465"/>
+        </lane>
+    </edge>
+    <edge id="-25944409" from="10211110904" to="283017407" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="250.75,1037.16 118.19,1148.21 103.38,1155.14" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="25944409"/>
+        </lane>
+    </edge>
+    <edge id="1116425704#1" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="10211110904" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="255.95,1042.34 251.39,1039.73 250.75,1037.16" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1116425704 1116425707"/>
+        </lane>
+        <param key="origFrom" value="2008877559"/>
+    </edge>
+    <edge id="1116425706#1" from="cluster_206191823_206191824_2165987563_2165987564_#1more" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="288.20,1071.97 284.29,1068.28 261.71,1045.64 255.95,1042.34" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1116425706 1116425703 1116425704"/>
+        </lane>
+        <param key="origFrom" value="2165987564"/>
+        <param key="origTo" value="2008877559"/>
+    </edge>
+    <edge id="1116425707#1" from="10211110904" to="cluster_10211110901_10211110909" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="250.75,1037.16 249.99,1034.12 209.42,989.09 204.59,983.74 194.09,968.45 182.81,952.86 166.52,933.05 145.60,907.39" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1116425707 1116425702 1116425701"/>
+        </lane>
+        <param key="origTo" value="10211110909"/>
+    </edge>
+    <edge id="1185319465" from="10211110904" to="11224967066" priority="1" type="highway.path" numLanes="1" speed="5.56" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="1185319465"/>
+        </lane>
+    </edge>
+    <edge id="1211598635#0" from="11224967066" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="253.02,1034.94 254.36,1033.74" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1211598635"/>
+        </lane>
+        <param key="origTo" value="8093954993"/>
+    </edge>
+    <edge id="1211598635#2" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="11224967069" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="257.17,1031.22 260.04,1028.65 268.20,1021.36" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="1211598635 1211598636"/>
+        </lane>
+        <param key="origFrom" value="283017357"/>
+    </edge>
+    <edge id="190289144" from="2008877539" to="2008877542" priority="1" type="highway.steps" numLanes="1" speed="1.39" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="190289144"/>
+        </lane>
+    </edge>
+    <edge id="22917228#0" from="1552842823" to="246758619" name="Hermann-Gladenbeck-Brücke" priority="11" type="highway.secondary" numLanes="3" speed="13.89" shape="290.25,1063.48 270.72,1045.11 266.84,1040.71" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="22917228"/>
+        </lane>
+        <lane index="1" changeLeft="authority">
+            <param key="origId" value="22917228"/>
+        </lane>
+        <lane index="2" changeRight="authority">
+            <param key="origId" value="22917228"/>
+        </lane>
+    </edge>
+    <edge id="25944409" from="283017407" to="10211110904" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="103.38,1155.14 118.19,1148.21 250.75,1037.16" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="25944409"/>
+        </lane>
+    </edge>
+    <edge id="25944425#0" from="138559868" to="290971361" name="Massantebrücke" priority="11" type="highway.secondary" numLanes="3" speed="13.89" shape="229.78,971.54 268.27,1014.48 270.09,1016.51" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="25944425"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="25944425"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="25944425"/>
+        </lane>
+    </edge>
+    <edge id="26547169" from="246758619" to="cluster_2008877556_2008877559_206191834_283017357_#4more" name="Stubenrauchstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="266.84,1040.71 262.55,1036.49" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="26547169"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="26547169"/>
+        </lane>
+        <param key="origTo" value="2008877556"/>
+    </edge>
+    <edge id="26547171#0" from="290971361" to="cluster_2008877556_2008877559_206191834_283017357_#4more" name="Stubenrauchstraße" priority="11" type="highway.secondary" numLanes="3" speed="13.89" shape="270.09,1016.51 271.68,1018.24" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <param key="origTo" value="283017446"/>
+    </edge>
+    <edge id="26547171#2" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="665725990" name="Stubenrauchstraße" priority="11" type="highway.secondary" numLanes="3" speed="13.89" shape="276.94,1024.29 281.10,1028.34" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="26547171"/>
+        </lane>
+        <param key="origFrom" value="206191834"/>
+    </edge>
+    <edge id="26547172#0" from="665725990" to="665725993" name="Hermann-Gladenbeck-Brücke" priority="11" type="highway.secondary" numLanes="3" speed="13.89" shape="281.10,1028.34 297.96,1044.72 304.78,1050.71" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="26547172"/>
+        </lane>
+        <lane index="1" changeLeft="authority">
+            <param key="origId" value="26547172"/>
+        </lane>
+        <lane index="2" changeRight="authority">
+            <param key="origId" value="26547172"/>
+        </lane>
+    </edge>
+    <edge id="26547179" from="290971408" to="283017766" name="Massantebrücke" priority="11" type="highway.secondary" numLanes="2" speed="13.89" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="26547179"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="26547179"/>
+        </lane>
+    </edge>
+    <edge id="27077898#1" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="206191835" priority="9" type="highway.motorway_link" numLanes="2" speed="16.67" shape="281.71,1020.31 405.21,917.91 443.24,885.36" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0">
+            <param key="origId" value="27077898 206579081"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="27077898 206579081"/>
+        </lane>
+        <param key="origFrom" value="8123931268"/>
+    </edge>
+    <edge id="283317449#0" from="11224967069" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="268.20,1021.36 271.68,1018.24" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="283317449"/>
+        </lane>
+        <param key="origTo" value="283017446"/>
+    </edge>
+    <edge id="283317449#1" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="8123931267" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="271.68,1018.24 276.07,1014.32" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="283317449"/>
+        </lane>
+        <param key="origFrom" value="283017446"/>
+    </edge>
+    <edge id="283317449#2" from="8123931267" to="2008877542" priority="1" type="highway.footway" numLanes="1" speed="2.78" shape="276.07,1014.32 276.75,1013.71 278.11,1012.52 279.71,1014.01 281.46,1014.24 283.21,1013.62 284.64,1012.37" spreadType="center" width="2.00" allow="pedestrian">
+        <lane index="0">
+            <param key="origId" value="283317449 25944419"/>
+        </lane>
+    </edge>
+    <edge id="283317454" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="290971408" name="Stubenrauchstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="257.17,1031.22 255.62,1029.46" spreadType="center" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone">
+        <lane index="0">
+            <param key="origId" value="283317454"/>
+        </lane>
+        <lane index="1">
+            <param key="origId" value="283317454"/>
+        </lane>
+        <param key="origFrom" value="283017357"/>
+    </edge>
+    <edge id="318210399#0" from="3246050926" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="9" type="highway.motorway_link" numLanes="3" speed="16.67" shape="237.86,1057.52 252.58,1044.98 253.93,1043.94 255.95,1042.34" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2">
+        <lane index="0" changeLeft="authority">
+            <param key="origId" value="318210399"/>
+        </lane>
+        <lane index="1" changeRight="authority">
+            <param key="origId" value="318210399"/>
+        </lane>
+        <lane index="2">
+            <param key="origId" value="318210399"/>
+        </lane>
+        <param key="origTo" value="2008877559"/>
+    </edge>
+    <edge id="872231975#1" from="8123931267" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="276.07,1014.32 281.71,1020.31" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="872231975"/>
+        </lane>
+        <param key="origTo" value="8123931268"/>
+    </edge>
+    <edge id="872231975#2" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="cluster_206191823_206191824_2165987563_2165987564_#1more" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="281.71,1020.31 285.61,1024.43 308.91,1047.07 312.92,1051.11" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="872231975 872231974 872231977"/>
+        </lane>
+        <param key="origFrom" value="8123931268"/>
+        <param key="origTo" value="2165987563"/>
+    </edge>
+    <edge id="872231976" from="8123931246" to="8123931267" priority="1" type="highway.path" numLanes="1" speed="5.56" shape="215.75,949.72 225.28,957.76 234.55,967.27 274.46,1012.60 276.07,1014.32" spreadType="center" width="2.00" allow="pedestrian bicycle">
+        <lane index="0">
+            <param key="origId" value="872231976 872231973 872231975"/>
+        </lane>
+    </edge>
+    <edge id="872231980" from="cluster_2008877556_2008877559_206191834_283017357_#4more" to="8093954997" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" shape="254.36,1033.74 252.76,1032.02 248.86,1027.50 212.46,987.03 206.65,980.25 181.81,945.39 181.46,939.80" spreadType="center" width="1.60" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="872231980 868347085 868347088"/>
+        </lane>
+        <param key="origFrom" value="8093954993"/>
+    </edge>
+    <edge id="872241219#6" from="cluster_206191823_206191824_2165987563_2165987564_#1more" to="cluster_2008877556_2008877559_206191834_283017357_#4more" priority="1" type="highway.cycleway" numLanes="1" speed="5.56" shape="290.33,1070.08 286.55,1066.73 263.20,1043.87 259.04,1039.47" spreadType="center" width="1.60" allow="bicycle">
+        <lane index="0">
+            <param key="origId" value="872241219 868347086 868347087"/>
+        </lane>
+        <param key="origFrom" value="8093954989"/>
+        <param key="origTo" value="8093954992"/>
+    </edge>
+
+
+</edges>

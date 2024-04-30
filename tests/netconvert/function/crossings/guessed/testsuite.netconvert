@@ -33,6 +33,9 @@
 4_arm_parallel_path
 4_arm_oneway
 
+# see #14794
+4_rw_elongated_with_sidepaths
+
 # a pedestrian path crosses a street with sidewalks
 path_across_street
 path_across_street_split
