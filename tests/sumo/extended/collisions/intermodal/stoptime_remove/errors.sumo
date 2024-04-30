@@ -1,27 +1,13 @@
 Warning: Vehicle 'NE.3' collision with person 'pedSN.2', lane=':C_7_0', time=43.00, stage=move.
 Warning: Vehicle 'NE.3' performs emergency stop at the end of lane ':C_7_0' because there is no connection to the next edge (decel=-6.67, offset=0.89), time=44.00.
-Warning: Person 'pedNS.3' is jammed on edge ':C_w0', time=67.00.
 Warning: Teleporting vehicle 'NE.3' after earlier collision, lane=':C_7_0', time=75.00.
 Warning: Vehicle 'NE.3' ends teleporting on edge 'CE', time=75.00.
-Warning: Person 'pedNS.4' is jammed on edge ':C_w0', time=79.00.
-Warning: Vehicle 'NE.4' collision with person 'pedSN.6', lane=':C_7_0', time=92.00, stage=move.
-Warning: Person 'pedSN.6' is jammed on edge ':C_w1', time=104.00.
-Warning: Person 'pedSN.7' is jammed on edge ':C_w1', time=115.00.
-Warning: Teleporting vehicle 'NE.4' after earlier collision, lane=':C_7_0', time=124.00.
-Warning: Vehicle 'NE.4' ends teleporting on edge 'CE', time=124.00.
-Warning: Vehicle 'WE.7' collision with person 'pedNS.10', lane=':C_5_0', time=139.00, stage=move.
-Warning: Person 'pedNS.10' is jammed on edge ':C_w0', time=151.00.
-Warning: Person 'pedNS.11' is jammed on edge ':C_w0', time=163.00.
-Warning: Teleporting vehicle 'WE.7' after earlier collision, lane=':C_5_0', time=171.00.
-Warning: Vehicle 'WE.7' ends teleporting on edge 'CE', time=171.00.
-Warning: Vehicle 'WE.8' collision with person 'pedNS.12', lane=':C_5_0', time=173.00, stage=move.
-Warning: Person 'pedNS.12' is jammed on edge ':C_w0', time=185.00.
-Warning: Person 'pedNS.13' is jammed on edge ':C_w0', time=187.00.
-Warning: Person 'pedNS.14' is jammed on edge ':C_w0', time=199.00.
-Warning: Teleporting vehicle 'WE.8' after earlier collision, lane=':C_5_0', time=204.00.
-Warning: Vehicle 'WE.8' ends teleporting on edge 'CE', time=204.00.
-Warning: Vehicle 'WE.9' collision with person 'pedNS.15', lane=':C_5_0', time=206.00, stage=move.
-Warning: Person 'pedNS.15' is jammed on edge ':C_w0', time=218.00.
-Warning: Person 'pedNS.16' is jammed on edge ':C_w0', time=223.00.
-Warning: Teleporting vehicle 'WE.9' after earlier collision, lane=':C_5_0', time=238.00.
-Warning: Vehicle 'WE.9' ends teleporting on edge 'CE', time=238.00.
+Warning: Vehicle 'WE.2' collision with person 'pedNS.5', lane=':C_5_0', time=80.00, stage=move.
+Warning: Teleporting vehicle 'WE.2' after earlier collision, lane=':C_5_0', time=112.00.
+Warning: Vehicle 'WE.2' ends teleporting on edge 'CE', time=112.00.
+Warning: Vehicle 'WE.3' collision with person 'pedNS.7', lane=':C_5_0', time=114.00, stage=move.
+Warning: Teleporting vehicle 'WE.3' after earlier collision, lane=':C_5_0', time=145.00.
+Warning: Vehicle 'WE.3' ends teleporting on edge 'CE', time=145.00.
+Warning: Vehicle 'WE.4' collision with person 'pedNS.8', lane=':C_5_0', time=148.00, stage=move.
+Warning: Teleporting vehicle 'WE.4' after earlier collision, lane=':C_5_0', time=179.00.
+Warning: Vehicle 'WE.4' ends teleporting on edge 'CE', time=179.00.

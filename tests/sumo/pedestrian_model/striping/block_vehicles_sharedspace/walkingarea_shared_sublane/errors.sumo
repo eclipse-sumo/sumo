@@ -1,4 +1,3 @@
 Warning: Vehicle 'SE.2' performs emergency braking on lane ':C_8_0' with decel=9.00, wished=4.50, severity=1.00, time=411.00.
 Warning: Vehicle 'NS.5' performs emergency braking on lane ':C_1_0' with decel=9.00, wished=4.50, severity=1.00, time=428.00.
-Warning: Person 'pWE.20' is jammed on edge ':C_w0', time=625.00.
 Warning: Vehicle 'NS.10' collision with person 'pEW.32', lane=':C_1_0', time=662.00, stage=laneChange.
