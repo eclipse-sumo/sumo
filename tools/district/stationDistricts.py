@@ -49,7 +49,7 @@ def get_options():
                   help="generate splits for edges assigned to multiple stations")
     ap.add_option("--poi-output", dest="poiOutput", category="output", type=ap.file,
                   help="generate a point of interest for every station")
-    ap.add_option("--vclasses", default="rail,rail_urban", type=str,
+    ap.add_option("--vclasses", default="rail,rail_urban,subway", type=str,
                   help="Include only edges allowing VCLASS")
     ap.add_option("--parallel-radius", type=float, default=100, dest="parallelRadius",
                   help="search radius for finding parallel edges")

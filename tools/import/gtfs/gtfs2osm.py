@@ -43,7 +43,9 @@ OSM2SUMO_MODES = {
     'train': 'rail',
     'tram': 'tram',
     'light_rail': 'rail_urban',
-    'subway': 'rail_urban',
+    'monorail': 'rail_urban',
+    'subway': 'subway',
+    'aerialway': 'cable_car',
     'ferry': 'ship'
 }
 
