@@ -1032,9 +1032,7 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             } else {
                 // recompute crossing indices along with everything else
                 for (const auto& crossing : myGNECrossings) {
-                    const std::string oldValue = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX);
                     GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex), undoList, true);
-                    const std::string oldValue2 = crossing->getAttribute(SUMO_ATTR_TLLINKINDEX2);
                     GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex), undoList, true);
                 }
                 replacementDef = new NBOwnTLDef(newID, tlDef->getOffset(), tlDef->getType());
