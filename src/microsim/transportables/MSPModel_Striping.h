@@ -418,6 +418,10 @@ protected:
         ObstacleType getOType() const {
             return OBSTACLE_VEHICLE;
         }
+
+        const MSVehicle* getVehicle() const {
+            return myVehicle;
+        }
     private:
         const MSVehicle* myVehicle;
         const double myXWidth;

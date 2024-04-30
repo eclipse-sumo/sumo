@@ -1562,8 +1562,12 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
     xBack(ped.getMinX()),
     speed(ped.myDir * ped.mySpeed),
     type(ped.getOType()),
-    description(ped.getID()) {
+    description(ped.getID())
+{
     assert(!ped.myWaitingToEnter);
+    if (type == OBSTACLE_VEHICLE) {
+        vehicle = static_cast<const PStateVehicle&>(ped).getVehicle();
+    }
 }
 
 
@@ -2148,6 +2152,12 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         xSpeed = 0;
     }
     if (xSpeed == 0) {
+        if (DEBUGCOND(*this)) {
+            std::cout << " sharedWA=" << (myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())
+                << " vehObs=" << Named::getIDSecure(obs[current].vehicle)
+                << " vehWait=" << STEPS2TIME(obs[current].vehicle ? obs[current].vehicle->getWaitingTime() : 0)
+                << "\n";
+        }
         if (myWaitingTime > ((myLane->getEdge().isCrossing()
                               // treat shared walkingarea like a crossing to avoid deadlocking vehicles
                               || (myLane->getEdge().isWalkingArea() && obs[current].vehicle != nullptr && obs[current].vehicle->getWaitingTime() > jamTimeCrossing
