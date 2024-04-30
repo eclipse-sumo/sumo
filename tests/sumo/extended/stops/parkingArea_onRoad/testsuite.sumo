@@ -1,3 +1,6 @@
+# give access only to vehicles with the right badges
+access
+
 # block on road line while using parkingArea
 onRoad
 
