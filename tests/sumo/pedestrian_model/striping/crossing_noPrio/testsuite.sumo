@@ -3,3 +3,8 @@ walking_forward
 
 # pedestrians must find a gap in traffic
 walking_forward_between
+
+# pedestrians must find a gap in traffic
+# 
+# see #14796
+shared_space_side
