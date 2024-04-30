@@ -1744,7 +1744,9 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
 #ifdef DEBUG_MOVEXY
             std::cout << SIMTIME << "    prev=" << Named::getIDSecure(prev) << " cand=" << Named::getIDSecure(cand) << " internal=" << Named::getIDSecure(internalCand) << "\n";
 #endif
-            findCloserLane(internalCand, pos, vClass, bestDistance, lane);
+            if (findCloserLane(internalCand, pos, vClass, bestDistance, lane)) {
+                routeOffset = i - 1;
+            }
             prev = internalCand;
         }
         if (findCloserLane(cand, pos, vClass, bestDistance, lane)) {
