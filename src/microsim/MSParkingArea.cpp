@@ -536,22 +536,26 @@ MSParkingArea::getLastStepOccupancy() const {
 }
 
 
-void MSParkingArea::accept(std::string badge) {
+void
+MSParkingArea::accept(std::string badge) {
     myAcceptedBadges.insert(badge);
 }
 
 
-void MSParkingArea::accept(std::vector<std::string> badges) {
+void
+MSParkingArea::accept(std::vector<std::string> badges) {
     myAcceptedBadges.insert(badges.begin(), badges.end());
 }
 
 
-void MSParkingArea::refuse(std::string badge) {
+void
+MSParkingArea::refuse(std::string badge) {
     myAcceptedBadges.erase(badge);
 }
 
 
-bool MSParkingArea::accepts(const MSBaseVehicle* veh) const {
+bool
+MSParkingArea::accepts(const MSBaseVehicle* veh) const {
     if (myAcceptedBadges.size() == 0) {
         return true;
     } else {

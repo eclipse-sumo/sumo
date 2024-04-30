@@ -106,10 +106,10 @@ GNEParkingArea::writeAdditional(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_DEPARTPOS, myDepartPos);
     }
     if (getAttribute(SUMO_ATTR_LEFTHAND) != myTagProperty.getDefaultValue(SUMO_ATTR_LEFTHAND)) {
-        device.writeAttr(SUMO_ATTR_LEFTHAND, toString(myAcceptedBadges));
+        device.writeAttr(SUMO_ATTR_LEFTHAND, myLefthand);
     }
     if (getAttribute(SUMO_ATTR_ACCEPTED_BADGES) != myTagProperty.getDefaultValue(SUMO_ATTR_ACCEPTED_BADGES)) {
-        device.writeAttr(SUMO_ATTR_ACCEPTED_BADGES, myLefthand);
+        device.writeAttr(SUMO_ATTR_ACCEPTED_BADGES, toString(myAcceptedBadges));
     }
     // write all parking spaces
     for (const auto& space : getChildAdditionals()) {
