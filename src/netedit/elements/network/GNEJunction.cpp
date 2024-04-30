@@ -1005,6 +1005,19 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
     for (const auto& TLS : coypOfTls) {
         NBLoadedSUMOTLDef* tlDef = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
         if (tlDef != nullptr) {
+            // the removed traffic light may have controlled more than one junction. These too have become invalid now
+            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            if (myGNECrossings.size() == 0 && getNBNode()->getCrossings().size() != 0) {
+                // crossings were not computed yet. We need them as netedit elements to manage tlIndex resetting
+                myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+                rebuildGNECrossings();
+                for (const auto& node : copyOfNodes) {
+                    GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
+                    if (sharing != this) {
+                        sharing->rebuildGNECrossings();
+                    }
+                }
+            }
             NBTrafficLightDefinition* replacementDef = nullptr;
             std::string newID = tlDef->getID(); // + "_reguessed"; // changes due to reguessing will be visible in diff
             if (deletedConnection != NBConnection::InvalidConnection) {
@@ -1040,18 +1053,21 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             }
             undoList->add(new GNEChange_TLS(this, tlDef, false), true);
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);
-            // the removed traffic light may have controlled more than one junction. These too have become invalid now
-            const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
+            // reset nodes of joint tls
             for (const auto& node : copyOfNodes) {
                 GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
-                // recompute crossing indices for shared
-                // (they won't do this on subsequent call to invalidateTLS if they received an NBOwnTLDef)
-                for (const auto& crossing : sharing->getGNECrossings()) {
-                    GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex), undoList, true);
-                    GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex), undoList, true);
+                if (sharing != this) {
+                    if (deletedConnection == NBConnection::InvalidConnection && addedConnection == NBConnection::InvalidConnection) {
+                        // recompute crossing indices for shared
+                        // (they won't do this on subsequent call to invalidateTLS if they received an NBOwnTLDef)
+                        for (const auto& crossing : sharing->getGNECrossings()) {
+                            GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex), undoList, true);
+                            GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex), undoList, true);
+                        }
+                    }
+                    undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
+                    undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
                 }
-                undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
-                undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
         }
     }
