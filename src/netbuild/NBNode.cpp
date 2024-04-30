@@ -3332,6 +3332,17 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         if (count == (int)normalizedLanes.size()) {
             // junction is covered by the whole walkingarea
             wa.shape = myPoly;
+            // increase walking width if the walkingare is wider than a single lane
+            for (const NBEdge* in : myIncomingEdges) {
+                for (const NBEdge* out : myOutgoingEdges) {
+                    if (in->getFromNode() == out->getToNode() && in->getInnerGeometry().reverse() == out->getInnerGeometry()
+                            && (in->getPermissions() & SVC_PEDESTRIAN)
+                            && (out->getPermissions() & SVC_PEDESTRIAN)) {
+                        // doesn't catch all cases but probably most
+                        wa.width = MAX2(wa.width, in->getTotalWidth() + out->getTotalWidth());
+                    }
+                }
+            }
         } else if (cornerDetail > 0) {
             // build smooth inner curve (optional)
             int smoothEnd = end;
