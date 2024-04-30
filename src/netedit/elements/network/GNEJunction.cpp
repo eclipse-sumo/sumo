@@ -1044,6 +1044,12 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
             const std::vector<NBNode*> copyOfNodes = tlDef->getNodes(); // make a copy!
             for (const auto& node : copyOfNodes) {
                 GNEJunction* sharing = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
+                // recompute crossing indices for shared
+                // (they won't do this on subsequent call to invalidateTLS if they received an NBOwnTLDef)
+                for (const auto& crossing : sharing->getGNECrossings()) {
+                    GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex), undoList, true);
+                    GNEChange_Attribute::changeAttribute(crossing, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex), undoList, true);
+                }
                 undoList->add(new GNEChange_TLS(sharing, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(sharing, replacementDef, true, false, newID), true);
             }
