@@ -143,7 +143,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myParallelLeft(nullptr),
     myAmIndirect(indirect),
     myRadius(std::numeric_limits<double>::max()),
-    myPermissions(myLaneBefore->getPermissions() & myLane->getPermissions() & (via == nullptr ? SVCAll : via->getPermissions())), 
+    myPermissions(myLaneBefore->getPermissions() & myLane->getPermissions() & (via == nullptr ? SVCAll : via->getPermissions())),
     myJunction(nullptr) {
 
     if (MSGlobals::gLateralResolution > 0) {
@@ -1905,21 +1905,21 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
     if (dist > MAX2(myFoeVisibilityDistance, brakeGap)) {
 #ifdef DEBUG_ZIPPER
         const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-        if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
-                                            << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n")
+        DEBUGOUT(DEBUG_COND_ZIPPER, SIMTIME << " getZipperSpeed ego=" << ego->getID()
+                 << " dist=" << dist << " ignoring foes (arrival in " << STEPS2TIME(arrivalTime - now) << ")\n")
 #endif
-            return vSafe;
+        return vSafe;
     }
 #ifdef DEBUG_ZIPPER
-    if (DEBUG_COND_ZIPPER) DEBUGOUT(SIMTIME << " getZipperSpeed ego=" << ego->getID()
-                                        << " egoAT=" << arrivalTime
-                                        << " dist=" << dist
-                                        << " brakeGap=" << brakeGap
-                                        << " vSafe=" << vSafe
-                                        << " numFoes=" << foes->size()
-                                        << "\n")
+    DEBUGOUT(DEBUG_COND_ZIPPER, SIMTIME << " getZipperSpeed ego=" << ego->getID()
+             << " egoAT=" << arrivalTime
+             << " dist=" << dist
+             << " brakeGap=" << brakeGap
+             << " vSafe=" << vSafe
+             << " numFoes=" << foes->size()
+             << "\n")
 #endif
-        MSLink* foeLink = myFoeLinks[0];
+    MSLink* foeLink = myFoeLinks[0];
     for (const auto& item : *foes) {
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(item);
         assert(foe != 0);

@@ -74,6 +74,11 @@
 #define DEBUG_NODE_ID "C"
 #define DEBUGCOND (getID() == DEBUG_NODE_ID)
 #define DEBUGCOND2(obj) ((obj != 0 && (obj)->getID() == DEBUG_NODE_ID))
+#ifdef DEBUG_PED_STRUCTURES
+#define DEBUGCOUT(cond, msg) DEBUGOUT(cond, msg)
+#else
+#define DEBUGCOUT(cond, msg)
+#endif
 
 // ===========================================================================
 // static members
@@ -2658,9 +2663,7 @@ NBNode::guessCrossings() {
         // user supplied crossings, do not guess
         return numGuessed;
     }
-    if (gDebugFlag1) {
-        std::cout << "guess crossings for " << getID() << "\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "guess crossings for " << getID() << "\n")
     EdgeVector allEdges = getEdgesSortedByAngleAtNodeCenter();
     // check for pedestrial lanes going clockwise around the node
     std::vector<std::pair<NBEdge*, bool> > normalizedLanes;
@@ -2698,9 +2701,7 @@ NBNode::guessCrossings() {
         for (int i = 0; i < (int)normalizedLanes.size(); ++i) {
             NBEdge* edge = normalizedLanes[i].first;
             const bool allowsPed = normalizedLanes[i].second;
-            if (gDebugFlag1) {
-                std::cout << "  cands=" << toString(candidates) << "  edge=" << edge->getID() << " allowsPed=" << allowsPed << "\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "  cands=" << toString(candidates) << "  edge=" << edge->getID() << " allowsPed=" << allowsPed << "\n")
             if (!allowsPed && (candidates.size() == 0 || candidates.back() != edge)) {
                 candidates.push_back(edge);
             } else if (allowsPed) {
@@ -2728,9 +2729,7 @@ NBNode::guessCrossings() {
         }
     }
     // Avoid duplicate crossing between the same pair of walkingareas
-    if (gDebugFlag1) {
-        std::cout << "  hadCandidates=" << hadCandidates << "  connectedCandidates=" << toString(connectedCandidates) << "\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "  hadCandidates=" << hadCandidates << "  connectedCandidates=" << toString(connectedCandidates) << "\n")
     if (hadCandidates == 2 && connectedCandidates.size() == 2) {
         // One or both of them might be split: remove the one with less splits
         if (connectedCandidates.back() <= connectedCandidates.front()) {
@@ -2742,12 +2741,14 @@ NBNode::guessCrossings() {
         }
     }
     std::sort(myCrossings.begin(), myCrossings.end(), NBNodesEdgesSorter::crossing_by_junction_angle_sorter(this, myAllEdges));
+#ifdef DEBUG_PED_STRUCTURES
     if (gDebugFlag1) {
         std::cout << "guessedCrossings:\n";
         for (auto& crossing : myCrossings) {
             std::cout << "  edges=" << toString(crossing->edges) << "\n";
         }
     }
+#endif
     if (numGuessed > 0 && isSimpleContinuation(true, true)) {
         // avoid narrow node shape when there is a crossing
         computeNodeShape(-1);
@@ -2761,13 +2762,9 @@ NBNode::guessCrossings() {
 
 int
 NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
-    if (gDebugFlag1) {
-        std::cout << "checkCrossing candidates=" << toString(candidates) << "\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "checkCrossing candidates=" << toString(candidates) << "\n")
     if (candidates.size() == 0) {
-        if (gDebugFlag1) {
-            std::cout << "no crossing added (numCandidates=" << candidates.size() << ")\n";
-        }
+        DEBUGCOUT(gDebugFlag1, "no crossing added (numCandidates=" << candidates.size() << ")\n")
         return 0;
     } else {
         // check whether the edges may be part of a common crossing due to having similar angle
@@ -2777,15 +2774,11 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
             double angle = edge->getCrossingAngle(this);
             // edges should be sorted by angle but this only holds true approximately
             if (i > 0 && fabs(NBHelpers::relAngle(angle, prevAngle)) > EXTEND_CROSSING_ANGLE_THRESHOLD) {
-                if (gDebugFlag1) {
-                    std::cout << "no crossing added (found angle difference of " << fabs(NBHelpers::relAngle(angle, prevAngle)) << " at i=" << i << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "no crossing added (found angle difference of " << fabs(NBHelpers::relAngle(angle, prevAngle)) << " at i=" << i << "\n")
                 return 0;
             }
             if (!checkOnly && !isTLControlled() && myType != SumoXMLNodeType::RAIL_CROSSING && edge->getSpeed() > OptionsCont::getOptions().getFloat("crossings.guess.speed-threshold")) {
-                if (gDebugFlag1) {
-                    std::cout << "no crossing added (uncontrolled, edge with speed > " << edge->getSpeed() << ")\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "no crossing added (uncontrolled, edge with speed > " << edge->getSpeed() << ")\n")
                 return 0;
             }
             prevAngle = angle;
@@ -2793,9 +2786,7 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
         if (candidates.size() == 1 || getType() == SumoXMLNodeType::RAIL_CROSSING) {
             if (!checkOnly) {
                 addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-                if (gDebugFlag1) {
-                    std::cout << "adding crossing: " << toString(candidates) << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
         } else {
@@ -2827,13 +2818,7 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
                     }
                     intermediateWidth -= 0.5 * curr->getLaneWidth(laneI);
                     intermediateWidth += currPos.distanceTo2D(prevPos);
-                    if (gDebugFlag1) {
-                        std::cout
-                                << " prevAngle=" << prevAngle
-                                << " angle=" << angle
-                                << " intermediateWidth=" << intermediateWidth
-                                << "\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, " prevAngle=" << prevAngle << " angle=" << angle << " intermediateWidth=" << intermediateWidth << "\n")
                     if (fabs(NBHelpers::relAngle(prevAngle, angle)) > SPLIT_CROSSING_ANGLE_THRESHOLD
                             || (intermediateWidth > SPLIT_CROSSING_WIDTH_THRESHOLD)) {
                         return checkCrossing(EdgeVector(candidates.begin(), it), checkOnly)
@@ -2844,9 +2829,7 @@ NBNode::checkCrossing(EdgeVector candidates, bool checkOnly) {
             }
             if (!checkOnly) {
                 addCrossing(candidates, NBEdge::UNSPECIFIED_WIDTH, isTLControlled());
-                if (gDebugFlag1) {
-                    std::cout << "adding crossing: " << toString(candidates) << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "adding crossing: " << toString(candidates) << "\n")
             }
             return 1;
         }
@@ -2994,9 +2977,7 @@ NBNode::buildCrossings() {
 #ifdef DEBUG_PED_STRUCTURES
     gDebugFlag1 = DEBUGCOND;
 #endif
-    if (gDebugFlag1) {
-        std::cout << "build crossings for " << getID() << ":\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "build crossings for " << getID() << ":\n")
     if (myDiscardAllCrossings) {
         myCrossings.clear();
     }
@@ -3014,15 +2995,11 @@ NBNode::buildCrossings() {
         c->nextWalkingArea = "";
         c->prevWalkingArea = "";
         EdgeVector& edges = c->edges;
-        if (gDebugFlag1) {
-            std::cout << "  crossing=" << c->id << " edges=" << toString(edges);
-        }
+        DEBUGCOUT(gDebugFlag1, "  crossing=" << c->id << " edges=" << toString(edges))
         // sorting the edges in the right way is imperative. We want to sort
         // them by getAngleAtNodeToCenter() but need to be extra carefull to avoid wrapping around 0 somewhere in between
         std::sort(edges.begin(), edges.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
-        if (gDebugFlag1) {
-            std::cout << " sortedEdges=" << toString(edges) << "\n";
-        };
+        DEBUGCOUT(gDebugFlag1, " sortedEdges=" << toString(edges) << "\n")
         // rotate the edges so that the largest relative angle difference comes at the end
         std::vector<double> rawAngleDiffs;
         double maxAngleDiff = 0;
@@ -3038,9 +3015,7 @@ NBNode::buildCrossings() {
                                        edges[(i + 1) % edges.size()]->getAngleAtNodeNormalized(this));
             rawAngleDiffs.push_back(fabs(rawDiff));
 
-            if (gDebugFlag1) {
-                std::cout << "   i=" << i << " a1=" << edges[i]->getAngleAtNodeToCenter(this) << " a2=" << edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this) << " diff=" << diff << "\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "   i=" << i << " a1=" << edges[i]->getAngleAtNodeToCenter(this) << " a2=" << edges[(i + 1) % edges.size()]->getAngleAtNodeToCenter(this) << " diff=" << diff << "\n")
             if (diff > maxAngleDiff) {
                 maxAngleDiff = diff;
                 maxAngleDiffIndex = i;
@@ -3049,14 +3024,13 @@ NBNode::buildCrossings() {
         if (maxAngleDiff > 2 && maxAngleDiff < 360 - 2) {
             // if the angle differences is too small, we better not rotate
             std::rotate(edges.begin(), edges.begin() + (maxAngleDiffIndex + 1) % edges.size(), edges.end());
-            if (gDebugFlag1) {
-                std::cout << " rotatedEdges=" << toString(edges);
-            }
+            DEBUGCOUT(gDebugFlag1, " rotatedEdges=" << toString(edges))
         }
         bool diagonalCrossing = false;
         std::sort(rawAngleDiffs.begin(), rawAngleDiffs.end());
         if (rawAngleDiffs.size() >= 2 && rawAngleDiffs[rawAngleDiffs.size() - 2] > 30) {
             diagonalCrossing = true;
+#ifdef DEBUG_PED_STRUCTURES
             if (gDebugFlag1) {
                 std::cout << " detected pedScramble " << c->id << " edges=" << toString(edges) << " rawDiffs=" << toString(rawAngleDiffs) << "\n";
                 for (auto e : edges) {
@@ -3067,6 +3041,7 @@ NBNode::buildCrossings() {
                               << "\n";
                 }
             }
+#endif
         }
         // reverse to get them in CCW order (walking direction around the node)
         std::reverse(edges.begin(), edges.end());
@@ -3076,9 +3051,7 @@ NBNode::buildCrossings() {
         const int endDir = (edges.back()->getToNode() == this ? FORWARD : BACKWARD);
         int firstNonPedLane = edges.front()->getFirstNonPedestrianLaneIndex(begDir);
         int lastNonPedLane = edges.back()->getFirstNonPedestrianLaneIndex(endDir);
-        if (gDebugFlag1) {
-            std::cout << " finalEdges=" << toString(edges) << " firstNonPedLane=" << firstNonPedLane << " lastNonPedLane=" << lastNonPedLane << "\n";
-        }
+        DEBUGCOUT(gDebugFlag1, " finalEdges=" << toString(edges) << " firstNonPedLane=" << firstNonPedLane << " lastNonPedLane=" << lastNonPedLane << "\n")
         if (firstNonPedLane < 0 || lastNonPedLane < 0) {
             // invalid crossing
             WRITE_WARNINGF(TL("Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle lanes to cross)."), c->id, getID(), toString(c->edges));
@@ -3122,9 +3095,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
 #endif
     int index = 0;
     myWalkingAreas.clear();
-    if (gDebugFlag1) {
-        std::cout << "build walkingAreas for " << getID() << ":\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "build walkingAreas for " << getID() << ":\n")
     if (myAllEdges.size() == 0) {
         return;
     }
@@ -3178,8 +3149,8 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
 
             }
         }
-        if (gDebugFlag1) std::cout << "     i=" << i << " edge=" << edge->getID() << " start=" << start << " ped=" << ((l.permissions & SVC_PEDESTRIAN) != 0)
-                                       << " waI=" << waIndices.size() << " crossingBetween=" << crossingBetween(edge, prevEdge) << "\n";
+        DEBUGCOUT(gDebugFlag1, "     i=" << i << " edge=" << edge->getID() << " start=" << start << " ped=" << ((l.permissions & SVC_PEDESTRIAN) != 0)
+                  << " waI=" << waIndices.size() << " crossingBetween=" << crossingBetween(edge, prevEdge) << "\n")
         prevEdge = edge;
     }
     // deal with wrap-around issues
@@ -3187,9 +3158,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         const int waNumLanes = (int)normalizedLanes.size() - start;
         if (waIndices.size() == 0) {
             waIndices.push_back(std::make_pair(start, waNumLanes));
-            if (gDebugFlag1) {
-                std::cout << "  single wa, end at wrap-around\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "  single wa, end at wrap-around\n")
         } else {
             if (waIndices.front().first == 0) {
                 NBEdge* edge = normalizedLanes.front().first;
@@ -3197,32 +3166,28 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                         || crossesFringe(edge, normalizedLanes.back().first)) {
                     // do not wrap-around (see above)
                     waIndices.push_back(std::make_pair(start, waNumLanes));
-                    if (gDebugFlag1) {
-                        std::cout << "  do not wrap around\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, "  do not wrap around\n")
                 } else {
                     // first walkingArea wraps around
                     waIndices.front().first = start;
                     waIndices.front().second = waNumLanes + waIndices.front().second;
-                    if (gDebugFlag1) {
-                        std::cout << "  wrapping around\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, "  wrapping around\n")
                 }
             } else {
                 // last walkingArea ends at the wrap-around
                 waIndices.push_back(std::make_pair(start, waNumLanes));
-                if (gDebugFlag1) {
-                    std::cout << "  end at wrap-around\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "  end at wrap-around\n")
             }
         }
     }
+#ifdef DEBUG_PED_STRUCTURES
     if (gDebugFlag1) {
         std::cout << "  normalizedLanes=" << normalizedLanes.size() << " waIndices:\n";
         for (int i = 0; i < (int)waIndices.size(); ++i) {
             std::cout << "   " << waIndices[i].first << ", " << waIndices[i].second << "\n";
         }
     }
+#endif
     // build walking areas connected to a sidewalk
     for (int i = 0; i < (int)waIndices.size(); ++i) {
         const bool buildExtensions = waIndices[i].second != (int)normalizedLanes.size();
@@ -3233,9 +3198,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         int lastIdx = (startIdx + count - 1) % normalizedLanes.size();
 
         WalkingArea wa(":" + getID() + "_w" + toString(index++), 1);
-        if (gDebugFlag1) {
-            std::cout << "build walkingArea " << wa.id << " start=" << startIdx << " end=" << end << " count=" << count << " prev=" << prev << ":\n";
-        }
+        DEBUGCOUT(gDebugFlag1, "build walkingArea " << wa.id << " start=" << startIdx << " end=" << end << " count=" << count << " prev=" << prev << ":\n")
         double endCrossingWidth = 0;
         double startCrossingWidth = 0;
         PositionVector endCrossingShape;
@@ -3246,9 +3209,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         int numCrossings = 0;
         std::vector<Position> connectedPoints;
         for (auto c : getCrossings()) {
-            if (gDebugFlag1) {
-                std::cout << "  crossing=" << c->id << " sortedEdges=" << toString(c->edges) << "\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "  crossing=" << c->id << " sortedEdges=" << toString(c->edges) << "\n")
             if (c->edges.back() == normalizedLanes[end].first
                     && (normalizedLanes[end].second.permissions & SVC_PEDESTRIAN) == 0) {
                 // crossing ends
@@ -3270,14 +3231,10 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     numCrossings++;
                     if (normalizedLanes[lastIdx].second.shape[0].distanceTo2D(connectedPoints.back()) < endCrossingWidth) {
                         crossingNearSidewalk = true;
-                        if (gDebugFlag1) {
-                            std::cout << "    nearSidewalk\n";
-                        }
+                        DEBUGCOUT(gDebugFlag1, "    nearSidewalk\n")
                     }
                 }
-                if (gDebugFlag1) {
-                    std::cout << "    crossing " << c->id << " ends\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "    crossing " << c->id << " ends\n")
             }
             if (c->edges.front() == normalizedLanes[prev].first
                     && (normalizedLanes[prev].second.permissions & SVC_PEDESTRIAN) == 0) {
@@ -3305,26 +3262,20 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     numCrossings++;
                     if (normalizedLanes[startIdx].second.shape[0].distanceTo2D(connectedPoints.back()) < startCrossingWidth) {
                         crossingNearSidewalk = true;
-                        if (gDebugFlag1) {
-                            std::cout << "    nearSidewalk\n";
-                        }
+                        DEBUGCOUT(gDebugFlag1, "    nearSidewalk\n")
                     }
                 }
-                if (gDebugFlag1) {
-                    std::cout << "    crossing " << c->id << " starts\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "    crossing " << c->id << " starts\n")
             }
-            if (gDebugFlag1) std::cout << "  check connections to crossing " << c->id
-                                           << " cFront=" << c->edges.front()->getID() << " cBack=" << c->edges.back()->getID()
-                                           << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[startIdx].first->getID()
-                                           << " wStartPrev=" << normalizedLanes[prev].first->getID()
-                                           << "\n";
+            DEBUGCOUT(gDebugFlag1, "  check connections to crossing " << c->id
+                      << " cFront=" << c->edges.front()->getID() << " cBack=" << c->edges.back()->getID()
+                      << " wEnd=" << normalizedLanes[end].first->getID() << " wStart=" << normalizedLanes[startIdx].first->getID()
+                      << " wStartPrev=" << normalizedLanes[prev].first->getID()
+                      << "\n")
         }
         if (count < 2 && !connectsCrossing) {
             // not relevant for walking
-            if (gDebugFlag1) {
-                std::cout << "    not relevant for walking: count=" << count << " connectsCrossing=" << connectsCrossing << "\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "    not relevant for walking: count=" << count << " connectsCrossing=" << connectsCrossing << "\n")
             continue;
         }
         // build shape and connections
@@ -3342,9 +3293,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     wa.prevSidewalks.push_back(edge->getSidewalkID());
                     connectedPoints.push_back(edge->getLaneShape(0)[-1]);
                 }
-                if (gDebugFlag1) {
-                    std::cout << "    connectedEdge=" << edge->getID() << " connectedPoint=" << connectedPoints.back() << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "    connectedEdge=" << edge->getID() << " connectedPoint=" << connectedPoints.back() << "\n")
                 connected.insert(edge);
             }
             l.shape.move2side(-l.width / 2);
@@ -3359,9 +3308,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 wa.shape.push_front_noDoublePos(startCrossingShape[0]); // right corner
                 startCrossingShape.move2side(-startCrossingWidth);
                 wa.shape.push_front_noDoublePos(startCrossingShape[0]); // left corner goes first
-                if (gDebugFlag1) {
-                    std::cout << "  extension at startCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "  extension at startCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n")
             }
             // extension at ending crossing
             if (endCrossingShape.size() > 0) {
@@ -3369,9 +3316,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 wa.shape.push_back_noDoublePos(endCrossingShape[-1]);
                 endCrossingShape.move2side(-endCrossingWidth);
                 wa.shape.push_back_noDoublePos(endCrossingShape[-1]);
-                if (gDebugFlag1) {
-                    std::cout << "  extension at endCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "  extension at endCrossingShape=" << endCrossingShape << " waShape=" << wa.shape << "\n")
             }
         }
         if (connected.size() == 2 && !connectsCrossing && wa.nextSidewalks.size() == 1 && wa.prevSidewalks.size() == 1
@@ -3380,9 +3325,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             const NBEdge* e1 = *connected.begin();
             const NBEdge* e2 = *(++connected.begin());
             if (e1->hasConnectionTo(e2, 0, 0) || e2->hasConnectionTo(e1, 0, 0)) {
-                if (gDebugFlag1) {
-                    std::cout << "    not building a walkingarea since normal connections exist\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "    not building a walkingarea since normal connections exist\n")
                 continue;
             }
         }
@@ -3410,18 +3353,14 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             double shiftEndExtra = 0;
             if (lastIdx == startIdx) {
                 lastIdx = (startIdx + 1) % normalizedLanes.size();
-                if (gDebugFlag1) {
-                    std::cout << "    new lastIdx=" << lastIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, "    new lastIdx=" << lastIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n")
                 if (normalizedLanes[startIdx].first == normalizedLanes[lastIdx].first) {
                     lastIdx = startIdx;
                     startIdx--;
                     if (startIdx < 0) {
-                        startIdx = normalizedLanes.size() - 1;
+                        startIdx = (int)normalizedLanes.size() - 1;
                     }
-                    if (gDebugFlag1) {
-                        std::cout << "    new startIdx=" << startIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, "    new startIdx=" << startIdx << " startEdge=" << normalizedLanes[startIdx].first->getID() << " lastEdge=" << normalizedLanes[lastIdx].first->getID() << "\n")
                     shiftEndExtra += OptionsCont::getOptions().getFloat("default.sidewalk-width");
                 } else {
                     shiftBegExtra += OptionsCont::getOptions().getFloat("default.sidewalk-width");
@@ -3446,22 +3385,17 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     // walk there)
                 } else if ((normalizedLanes[smoothEnd].first->getPermissions() & normalizedLanes[smoothPrev].first->getPermissions() &
                             ~(SVC_PEDESTRIAN | SVC_RAIL_CLASSES)) != 0) {
-                    if (gDebugFlag1) {
-                        std::cout << "   traffic curve\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, "   traffic curve\n")
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, gDebugFlag1 ? this : nullptr);
                     if (curve.length2D() - begShape.back().distanceTo2D(endShape.front()) > 5) {
-                        if (gDebugFlag1) std::cout
-                                    << "   reduceBulge directLength=" << begShape.back().distanceTo2D(endShape.front())
-                                    << " curveLength=" << curve.length2D()
-                                    << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front())
-                                    << "\n";
+                        DEBUGCOUT(gDebugFlag1, "   reduceBulge directLength=" << begShape.back().distanceTo2D(endShape.front())
+                                  << " curveLength=" << curve.length2D()
+                                  << " delta=" << curve.length2D() - begShape.back().distanceTo2D(endShape.front())
+                                  << "\n")
                         curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
                     }
                 } else {
-                    if (gDebugFlag1) {
-                        std::cout << "   nonTraffic curve\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, "   nonTraffic curve\n")
                     const double extend = MIN2(10.0, begShape.back().distanceTo2D(endShape.front()) / 2);
                     curve = computeSmoothShape(begShape, endShape, cornerDetail + 2, false, extend, extend, nullptr, FOUR_CONTROL_POINTS);
                 }
@@ -3479,30 +3413,26 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                     }
                     wa.shape.append(curve, 0);
                 }
-                if (gDebugFlag1) std::cout
-                            << " end=" << smoothEnd << " prev=" << smoothPrev
-                            << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
-                            << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve
-                            << "  begShapeOuter=" << begShapeOuter << " endShapeOuter=" << endShapeOuter
-                            << "  waShape=" << wa.shape
-                            << "\n";
+                DEBUGCOUT(gDebugFlag1, " end=" << smoothEnd << " prev=" << smoothPrev
+                          << " endCrossingWidth=" << endCrossingWidth << " startCrossingWidth=" << startCrossingWidth
+                          << "  begShape=" << begShape << " endShape=" << endShape << " smooth curve=" << curve
+                          << "  begShapeOuter=" << begShapeOuter << " endShapeOuter=" << endShapeOuter
+                          << "  waShape=" << wa.shape
+                          << "\n")
             }
             if (curve.size() > 2 && (count == 2 || (count == 1 && numCrossings > 0))) {
                 const double innerDist = begShape.back().distanceTo2D(endShape[0]);
                 const double outerDist = begShapeOuter.back().distanceTo2D(endShapeOuter[0]);
-                if (gDebugFlag1) {
-                    std::cout << " innerDist=" << innerDist << " outerDist=" << outerDist << "\n";
-                }
+                DEBUGCOUT(gDebugFlag1, " innerDist=" << innerDist << " outerDist=" << outerDist << "\n")
                 if (outerDist > innerDist) {
                     // we also need a rounded outer curve (unless we have only a single walkingarea)
                     const double extend = MIN2(10.0, begShapeOuter.back().distanceTo2D(endShapeOuter.front()) / 2);
                     curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, extend, extend, nullptr);
                     if (curve.length2D() - begShapeOuter.back().distanceTo2D(endShapeOuter.front()) > 5) {
-                        if (gDebugFlag1) std::cout
-                                    << "   reduceBulge directLength=" << begShapeOuter.back().distanceTo2D(endShapeOuter.front())
-                                    << " curveLength=" << curve.length2D()
-                                    << " delta=" << curve.length2D() - begShapeOuter.back().distanceTo2D(endShapeOuter.front())
-                                    << "\n";
+                        DEBUGCOUT(gDebugFlag1, "   reduceBulge directLength=" << begShapeOuter.back().distanceTo2D(endShapeOuter.front())
+                                  << " curveLength=" << curve.length2D()
+                                  << " delta=" << curve.length2D() - begShapeOuter.back().distanceTo2D(endShapeOuter.front())
+                                  << "\n")
                         curve = computeSmoothShape(begShapeOuter, endShapeOuter, cornerDetail + 2, false, 25, 25, nullptr, AVOID_WIDE_LEFT_TURN | AVOID_INTERSECTING_LEFT_TURNS);
                     }
                     curve = curve.reverse();
@@ -3514,14 +3444,10 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                         curve.push_back_noDoublePos(wa.shape[1]);
                         curve.push_back_noDoublePos(wa.shape[2]);
                     }
-                    if (gDebugFlag1) {
-                        std::cout << " outerCurveRaw=" << curve << " wa1=" << wa.shape[1] << " wa2=" << wa.shape[2] << "\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, " outerCurveRaw=" << curve << " wa1=" << wa.shape[1] << " wa2=" << wa.shape[2] << "\n")
                     wa.shape.erase(wa.shape.begin() + 1, wa.shape.begin() + 3);
                     wa.shape.insert(wa.shape.begin() + 1, curve.begin(), curve.end());
-                    if (gDebugFlag1) {
-                        std::cout << " outerCurve=" << curve << "\n";
-                    }
+                    DEBUGCOUT(gDebugFlag1, " outerCurve=" << curve << "\n")
                 }
             }
         }
@@ -3553,9 +3479,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 }
             }
         }
-        if (gDebugFlag1) {
-            std::cout << "  combinations=" << combinations << " connectedPoints=" << connectedPoints << "\n";
-        }
+        DEBUGCOUT(gDebugFlag1, "  combinations=" << combinations << " connectedPoints=" << connectedPoints << "\n")
         wa.length = POSITION_EPS;
         if (combinations > 0) {
             wa.length = MAX2(POSITION_EPS, lengthSum / combinations);
@@ -3567,9 +3491,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
     for (std::vector<Crossing*>::iterator it = validCrossings.begin(); it != validCrossings.end(); ++it) {
         Crossing& prev = **it;
         Crossing& next = (it !=  validCrossings.begin() ? **(it - 1) :** (validCrossings.end() - 1));
-        if (gDebugFlag1) {
-            std::cout << "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << " next.prevWA=" << next.prevWalkingArea << "\n";
-        }
+        DEBUGCOUT(gDebugFlag1, "  checkIntermediate: prev=" << prev.id << " next=" << next.id << " prev.nextWA=" << prev.nextWalkingArea << " next.prevWA=" << next.prevWalkingArea << "\n")
         if (prev.nextWalkingArea == "") {
             if (next.prevWalkingArea != "" || &prev == &next) {
                 WRITE_WARNINGF(TL("Invalid pedestrian topology: crossing '%' across [%] has no target."), prev.id, toString(prev.edges));
@@ -3607,9 +3529,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
             // length (special case)
             wa.length = MAX2(POSITION_EPS, prev.shape.back().distanceTo2D(next.shape.front()));
             myWalkingAreas.push_back(wa);
-            if (gDebugFlag1) {
-                std::cout << "     build wa=" << wa.id << "\n";
-            }
+            DEBUGCOUT(gDebugFlag1, "     build wa=" << wa.id << "\n")
         }
     }
 }
@@ -4021,6 +3941,7 @@ NBNode::getCenter() const {
 EdgeVector
 NBNode::getEdgesSortedByAngleAtNodeCenter() const {
     EdgeVector result = myAllEdges;
+#ifdef DEBUG_PED_STRUCTURES
     if (gDebugFlag1) {
         std::cout << "  angles:\n";
         for (EdgeVector::const_iterator it = result.begin(); it != result.end(); ++it) {
@@ -4028,15 +3949,12 @@ NBNode::getEdgesSortedByAngleAtNodeCenter() const {
         }
         std::cout << "  allEdges before: " << toString(result) << "\n";
     }
+#endif
     sort(result.begin(), result.end(), NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter(this));
     // let the first edge in myAllEdges remain the first
-    if (gDebugFlag1) {
-        std::cout << "  allEdges sorted: " << toString(result) << "\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "  allEdges sorted: " << toString(result) << "\n")
     rotate(result.begin(), std::find(result.begin(), result.end(), *myAllEdges.begin()), result.end());
-    if (gDebugFlag1) {
-        std::cout << "  allEdges rotated: " << toString(result) << "\n";
-    }
+    DEBUGCOUT(gDebugFlag1, "  allEdges rotated: " << toString(result) << "\n")
     return result;
 }
 
