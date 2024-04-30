@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-28 10:32:26 by Eclipse SUMO netconvert Version v1_19_0+1954-08de32c178f
+<!-- generated on 2024-04-30 18:10:01 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1398803915_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="3.65" length="4.67" shape="1999.59,720.79 1998.49,721.73 1997.61,721.90 1996.95,721.30 1996.51,719.92"/>
     </edge>
     <edge id=":1398803915_w0" function="walkingarea">
-        <lane id=":1398803915_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.93" width="3.20" shape="2001.13,721.22 1994.97,719.49 1994.65,720.55 1994.52,720.92 1994.36,721.27 1994.14,721.69 1993.84,722.25 1995.59,723.21"/>
+        <lane id=":1398803915_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.93" width="6.40" shape="2001.13,721.22 1994.97,719.49 1994.65,720.55 1994.52,720.92 1994.36,721.27 1994.14,721.69 1993.84,722.25 1995.59,723.21"/>
     </edge>
     <edge id=":1403553705_0" function="internal">
         <lane id=":1403553705_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.33" length="4.44" shape="2031.62,744.07 2030.32,743.82 2029.43,743.67 2028.54,743.56 2027.22,743.46"/>
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":1403553705_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="8.33" length="4.82" shape="2027.44,740.27 2028.87,740.38 2029.84,740.49 2030.81,740.66 2032.21,740.92"/>
     </edge>
     <edge id=":1403553705_w0" function="walkingarea">
-        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.87" width="3.20" shape="2031.32,745.64 2032.51,739.35 2031.73,739.04 2031.50,738.78 2031.36,738.46 2031.33,738.07 2031.41,737.62 2029.47,737.12 2029.07,738.03 2028.78,738.33 2028.43,738.54 2028.02,738.66 2027.55,738.67 2027.11,745.06 2028.68,745.18 2029.23,745.26 2029.77,745.35 2030.43,745.47"/>
+        <lane id=":1403553705_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.87" width="6.40" shape="2031.32,745.64 2032.51,739.35 2031.73,739.04 2031.50,738.78 2031.36,738.46 2031.33,738.07 2031.41,737.62 2029.47,737.12 2029.07,738.03 2028.78,738.33 2028.43,738.54 2028.02,738.66 2027.55,738.67 2027.11,745.06 2028.68,745.18 2029.23,745.26 2029.77,745.35 2030.43,745.47"/>
     </edge>
     <edge id=":2475741815_w0" function="walkingarea">
         <lane id=":2475741815_w0_0" index="0" allow="pedestrian" speed="2.78" length="4.13" width="2.00" shape="1995.67,727.02 1996.22,725.09 1995.50,724.72 1995.32,724.45 1995.27,724.14 1995.33,723.78 1995.51,723.36 1993.75,722.40 1992.97,723.83 1992.65,724.32 1992.29,724.76 1991.80,725.26 1991.11,725.88 1992.42,727.39 1993.28,726.91 1993.80,726.80 1994.37,726.78 1994.99,726.86"/>

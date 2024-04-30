@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-30 10:14:54 by Eclipse SUMO netconvert Version v1_19_0+1992-c019d82ec68
+<!-- generated on 2024-04-30 18:10:08 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,10 +50,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":10211110904_1_0" index="0" allow="pedestrian bicycle" speed="5.56" length="7.69" width="2.00" shape="149.79,150.83 144.02,155.91"/>
     </edge>
     <edge id=":10211110904_w0" function="walkingarea">
-        <lane id=":10211110904_w0_0" index="0" allow="pedestrian" speed="2.78" length="5.41" width="2.00" shape="146.96,154.30 148.90,153.81 142.09,153.61 144.66,156.68 151.67,150.40 148.87,147.54 146.19,146.80 144.70,148.13"/>
+        <lane id=":10211110904_w0_0" index="0" allow="pedestrian" speed="2.78" length="5.41" width="4.00" shape="146.96,154.30 148.90,153.81 142.09,153.61 144.66,156.68 151.67,150.40 148.87,147.54 146.19,146.80 144.70,148.13"/>
     </edge>
     <edge id=":11224967066_w0" function="walkingarea">
-        <lane id=":11224967066_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.70" width="2.00" shape="150.81,149.88 149.47,148.39 148.05,151.14"/>
+        <lane id=":11224967066_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.70" width="4.00" shape="150.81,149.88 149.47,148.39 148.05,151.14"/>
     </edge>
     <edge id=":11224967069_w0" function="walkingarea">
         <lane id=":11224967069_w0_0" index="0" allow="pedestrian" speed="2.78" length="0.30" width="2.00" shape="165.60,136.64 164.26,135.16 164.04,135.35 165.37,136.85"/>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":246758619_0_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="4.36" shape="168.42,156.14 167.42,155.35 166.51,155.10 165.58,154.87 164.52,154.14"/>
     </edge>
     <edge id=":283017407_w0" function="walkingarea">
-        <lane id=":283017407_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="2.00" shape="0.00,269.78 -0.85,267.97 0.85,271.59 0.00,269.78"/>
+        <lane id=":283017407_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.00" width="4.00" shape="0.00,269.78 -0.85,267.97 0.85,271.59 0.00,269.78"/>
     </edge>
     <edge id=":290971361_0" function="internal">
         <lane id=":290971361_0_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.89" length="0.29" shape="169.00,128.91 169.16,129.09"/>
@@ -86,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":8123931267_0_0" index="0" allow="pedestrian bicycle" speed="5.56" length="2.42" width="2.00" shape="170.97,127.11 172.62,128.88"/>
     </edge>
     <edge id=":8123931267_w0" function="walkingarea">
-        <lane id=":8123931267_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.17" width="2.00" shape="173.69,131.48 175.15,130.11 175.24,129.00 173.91,126.54 173.14,127.00 172.76,127.04 172.40,126.96 172.04,126.76 171.70,126.43 170.24,127.80 170.67,128.53 170.71,128.88 170.64,129.23 170.45,129.57 170.14,129.90 171.47,131.39 172.23,130.94 172.61,130.90 172.97,130.97 173.34,131.17"/>
+        <lane id=":8123931267_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.17" width="4.00" shape="173.69,131.48 175.15,130.11 175.24,129.00 173.91,126.54 173.14,127.00 172.76,127.04 172.40,126.96 172.04,126.76 171.70,126.43 170.24,127.80 170.67,128.53 170.71,128.88 170.64,129.23 170.45,129.57 170.14,129.90 171.47,131.39 172.23,130.94 172.61,130.90 172.97,130.97 173.34,131.17"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_0" function="internal">
         <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_0_0" index="0" allow="bicycle" speed="9.72" length="20.15" width="1.60" shape="162.61,161.24 160.52,158.07 158.91,153.96 156.74,149.10 152.94,143.68"/>
