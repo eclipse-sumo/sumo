@@ -109,9 +109,10 @@ MSCFModel_CC::createVehicleVariables() const {
 }
 
 void
-MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader) const {
+MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader, std::string leaderId) const {
     auto* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     vars->leaderVehicle = leader;
+    vars->leaderVehicleId = leaderId;
     if (leader != nullptr)
         vars->isLeader = false;
     else
@@ -123,7 +124,11 @@ int
 MSCFModel_CC::isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     if (!vars->isLeader) {
-        return isPlatoonLaneChangeSafe(vars->leaderVehicle, left);
+        // before asking the leader, be sure it is still in the simulation
+        if (findVehicle(vars->leaderVehicleId))
+            return isPlatoonLaneChangeSafe(vars->leaderVehicle, left);
+        else
+            return LCA_BLOCKED;
     }
     int result = 0;
     std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), left ? +1 : -1);
@@ -258,8 +263,17 @@ MSCFModel_CC::commitToLaneChange(const MSVehicle* veh, bool left) const {
         }
     }
     else {
-        return commitToLaneChange(vars->leaderVehicle, left);
+        // before asking the leader, be sure it is still in the simulation
+        if (findVehicle(vars->leaderVehicleId))
+            return commitToLaneChange(vars->leaderVehicle, left);
+        else
+            return LCA_BLOCKED;
     }
+}
+
+MSVehicle*
+MSCFModel_CC::findVehicle(std::string id) const {
+    return dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(id));
 }
 
 double
@@ -421,6 +435,14 @@ MSCFModel_CC::_v(const MSVehicle* const veh, double gap2pred, double egoSpeed, d
 
     if (vars->crashed) {
         return 0;
+    }
+    if (vars->autoFeed) {
+        if (!findVehicle(vars->leaderVehicleId) || !findVehicle(vars->frontVehicleId)) {
+            // either the leader or the front vehicle have left the simulation. Disable auto feed
+            vars->autoFeed = false;
+            vars->leaderVehicle = nullptr;
+            vars->frontVehicle = nullptr;
+        }
     }
     if (vars->activeController == Plexe::DRIVER || !vars->useFixedAcceleration) {
         switch (vars->activeController) {
@@ -817,25 +839,30 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
             buf >> id >> position;
             vars->members[position] = id;
 
-            auto vehicle = dynamic_cast<MSVehicle*>(libsumo::Helper::getVehicle(id));
+            auto vehicle = findVehicle(id);
+            if (!vehicle) {
+                throw libsumo::TraCIException("Adding " + id + " as member but " + id + " does not exists");
+            }
             auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
             if (!cfm) {
                 throw libsumo::TraCIException("Adding " + id + " as member but " + id + " is not using MSCFModel_CC");
             }
-            cfm->setLeader(vehicle, veh);
+            cfm->setLeader(vehicle, veh, veh->getID());
             vars->isLeader = true;
             return;
         }
         if (key.compare(PAR_REMOVE_MEMBER) == 0) {
             for (auto item = vars->members.begin(); item != vars->members.end(); item++)
                 if (item->second.compare(value) == 0) {
-                    auto vehicle = dynamic_cast<MSVehicle*>(libsumo::Helper::getVehicle(value));
+                    auto vehicle = findVehicle(value);
+                    if (!vehicle) {
+                        throw libsumo::TraCIException("Removing " + value + " from members but " + value + " does not exist");
+                    }
                     auto cfm = dynamic_cast<const MSCFModel_CC*>(&vehicle->getVehicleType().getCarFollowModel());
                     if (!cfm) {
                         throw libsumo::TraCIException("Removing " + value + " from members but " + value + " is not using MSCFModel_CC");
                     }
-                    cfm->setLeader(vehicle, nullptr);
-
+                    cfm->setLeader(vehicle, nullptr, "");
                     vars->members.erase(item);
                     break;
                 }
@@ -987,16 +1014,18 @@ void MSCFModel_CC::setParameter(MSVehicle* veh, const std::string& key, const st
                 if (buf.last_empty()) {
                     throw InvalidArgument("Trying to enable auto feeding without providing leader vehicle id");
                 }
-                vars->leaderVehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(leaderId));
-                if (vars->leaderVehicle == 0) {
+                vars->leaderVehicleId = leaderId;
+                vars->leaderVehicle = findVehicle(leaderId);
+                if (!vars->leaderVehicle) {
                     throw libsumo::TraCIException("Vehicle '" + leaderId + "' is not known");
                 }
                 buf >> frontId;
                 if (buf.last_empty()) {
                     throw InvalidArgument("Trying to enable auto feeding without providing front vehicle id");
                 }
-                vars->frontVehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().getVehicle(frontId));
-                if (vars->frontVehicle == 0) {
+                vars->frontVehicleId = frontId;
+                vars->frontVehicle = findVehicle(frontId);
+                if (!vars->frontVehicle) {
                     throw libsumo::TraCIException("Vehicle '" + frontId + "' is not known");
                 }
                 vars->leaderInitialized = true;
@@ -1148,7 +1177,7 @@ void MSCFModel_CC::getRadarMeasurements(const MSVehicle* veh, double& distance, 
         relativeSpeed = 0;
     } else {
         distance = l.second;
-        SUMOVehicle* leader = MSNet::getInstance()->getVehicleControl().getVehicle(l.first);
+        SUMOVehicle* leader = findVehicle(l.first);
         relativeSpeed = leader->getSpeed() - veh->getSpeed();
     }
 }
