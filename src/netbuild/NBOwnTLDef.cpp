@@ -44,9 +44,11 @@
 //#define DEBUG_STREAM_ORDERING
 //#define DEBUG_PHASES
 //#define DEBUG_CONTRELATION
-//#define DEBUGCOND (getID() == "cluster_251050941_280598736_280598739_28902891_3142549227_3142550438")
+#define DEBUGID  "C"
+#define DEBUGCOND (getID() == DEBUGID)
+#define DEBUGCOND2(obj) (obj->getID() == DEBUGID)
 //#define DEBUGEDGE(edge) (edge->getID() == "23209153#1" || edge->getID() == "319583927#0")
-#define DEBUGCOND (true)
+//#define DEBUGCOND (true)
 #define DEBUGEDGE(edge) (true)
 
 // ===========================================================================
@@ -906,6 +908,11 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
             // ensure clearing time for pedestrians
             const int pedStates = (int)crossings.size();
             logic->addStep(pedTime, state, minDur, maxDur, earliestEnd, latestEnd);
+#ifdef DEBUG_PHASES
+            if (DEBUGCOND2(logic)) {
+                std::cout << " intermidate state for addPedestrianPhases " << state << "\n";
+            }
+#endif
             state = state.substr(0, state.size() - pedStates) + std::string(pedStates, 'r');
             logic->addStep(pedClearingTime, state);
         } else {
@@ -915,7 +922,7 @@ NBOwnTLDef::addPedestrianPhases(NBTrafficLightLogic* logic, const SUMOTime green
         }
     }
 #ifdef DEBUG_PHASES
-    if (DEBUGCOND) {
+    if (DEBUGCOND2(logic)) {
         std::cout << " state after addPedestrianPhases " << state << "\n";
     }
 #endif
@@ -1429,6 +1436,11 @@ NBOwnTLDef::addPedestrianScramble(NBTrafficLightLogic* logic, int totalNumLinks,
             }
         }
     }
+#ifdef DEBUG_PHASES
+    if (DEBUGCOND2(logic)) {
+        std::cout << " foundCrossingGreen=" << toString(foundGreen) << "\n";
+    }
+#endif
     for (int j = 0; j < (int)foundGreen.size(); j++) {
         if (!foundGreen[j]) {
             // add a phase where all pedestrians may walk, (preceded by a yellow phase and followed by a clearing phase)
