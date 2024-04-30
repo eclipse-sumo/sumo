@@ -1328,7 +1328,7 @@ MSPModel_Striping::addCrossingVehs(const MSLane* crossing, int stripes, double l
             // the vehicle to enter the junction first has priority
             const MSVehicle* veh = (*it).vehAndGap.first;
             if (veh != nullptr) {
-                Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * minGapToVehicle);
+                Obstacle vo((*it).distToCrossing, 0, OBSTACLE_VEHICLE, veh->getID(), veh->getVehicleType().getWidth() + 2 * minGapToVehicle, veh);
                 // block entry to the crossing in walking direction but allow leaving it
                 Obstacle voBlock = vo;
                 if (dir == FORWARD) {
@@ -1497,7 +1497,7 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
                       << "\n";
         }
         if (vehXMaxCheck > minX && vehXMinCheck && vehXMinCheck <= maxX) {
-            Obstacle vo(vehBack, veh->getSpeed() * (bidi ? -1 : 1), OBSTACLE_VEHICLE, veh->getID(), 0);
+            Obstacle vo(vehBack, veh->getSpeed() * (bidi ? -1 : 1), OBSTACLE_VEHICLE, veh->getID(), 0, veh);
             // moving vehicles block space along their path
             vo.xFwd = vehXMax;
             vo.xBack = vehXMin;
@@ -2150,7 +2150,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     if (xSpeed == 0) {
         if (myWaitingTime > ((myLane->getEdge().isCrossing()
                               // treat shared walkingarea like a crossing to avoid deadlocking vehicles
-                              || (myLane->getEdge().isWalkingArea() && obs[current].type == OBSTACLE_VEHICLE
+                              || (myLane->getEdge().isWalkingArea() && obs[current].vehicle != nullptr && obs[current].vehicle->getWaitingTime() > jamTimeCrossing
                                   && myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())) ? jamTimeCrossing : jamTime)
                 || (sMax == 0 && obs[0].speed * myDir < 0 && myWaitingTime > jamTimeNarrow)
                 || myAmJammed) {
