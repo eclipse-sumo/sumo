@@ -68,7 +68,9 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myCurrentRouteDistribution(nullptr),
     myAmLoadingState(false),
     myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
-    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")) {
+    myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")),
+    myStartTriggeredInFlow(false)
+{
     myActiveRoute.reserve(100);
 }
 
@@ -871,18 +873,16 @@ MSRouteHandler::closeTransportableFlow() {
             }
         } else {
             SUMOTime depart = myVehicleParameter->depart;
-            const bool triggered = myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED;
             if (myVehicleParameter->repetitionOffset < 0) {
                 // poisson: randomize first depart
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
-            for (; i < myVehicleParameter->repetitionNumber && (triggered || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+            for (; i < myVehicleParameter->repetitionNumber && (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()
+                        || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
                 // type existence has been checked on opening
                 MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 addFlowTransportable(depart + myVehicleParameter->repetitionTotalOffset, type, baseID, i);
-                if (myVehicleParameter->departProcedure != DepartDefinition::TRIGGERED) {
-                    myVehicleParameter->incrementFlow(1, &myParsingRNG);
-                }
+                myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
         }
         resetActivePlanAndVehicleParameter();
@@ -890,6 +890,7 @@ MSRouteHandler::closeTransportableFlow() {
         deleteActivePlanAndVehicleParameter();
         throw;
     }
+    myStartTriggeredInFlow = false;
 }
 
 
@@ -1095,7 +1096,8 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
         double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, aid.c_str(), ok,
                             s == nullptr ? std::numeric_limits<double>::infinity() : s->getEndLanePosition());
 
-        SUMOVehicle* startVeh = nullptr;
+        const SUMOVehicleParameter* startVeh = nullptr;
+        const MSEdge* startVehFrom = nullptr;
         if (myActiveTransportablePlan->empty() && myVehicleParameter->departProcedure == DepartDefinition::TRIGGERED) {
             if (st.size() != 1) {
                 throw ProcessError("Triggered departure for " + agent + " '" + aid + "' requires a unique lines value.");
@@ -1103,14 +1105,30 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
             // agent starts
             MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
             const std::string vehID = st.front();
-            startVeh = vehControl.getVehicle(vehID);
+            SUMOVehicle* sVeh = vehControl.getVehicle(vehID);
+            if (sVeh == nullptr) {
+                if (MSNet::getInstance()->hasFlow(vehID)) {
+                    startVeh = MSNet::getInstance()->getInsertionControl().getFlowPars(vehID);
+                    if (startVeh != nullptr) {
+                        ConstMSRoutePtr const route = MSRoute::dictionary(startVeh->routeid);
+                        startVehFrom = route->getEdges().front();
+                        // flows are inserted at the end of the time step so we
+                        // do delay the pedestrian event by one time step
+                        myVehicleParameter->depart = startVeh->depart + DELTA_T;
+                        myStartTriggeredInFlow = true;
+                    }
+                }
+            } else {
+                startVeh = &sVeh->getParameter();
+                startVehFrom = sVeh->getRoute().getEdges().front();
+                myVehicleParameter->depart = startVeh->depart;
+            }
             if (startVeh == nullptr) {
                 throw ProcessError("Unknown vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
             }
-            if (startVeh->getParameter().departProcedure == DepartDefinition::TRIGGERED) {
+            if (startVeh->departProcedure == DepartDefinition::TRIGGERED) {
                 throw ProcessError("Cannot use triggered vehicle '" + vehID + "' in triggered departure for " + agent + " '" + aid + "'.");
             }
-            myVehicleParameter->depart = startVeh->getParameter().depart;
         }
 
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
@@ -1129,12 +1147,12 @@ MSRouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, const SumoXML
                                        "' (edge '" + fromID + "' != edge '" + myActiveTransportablePlan->back()->getDestination()->getID() + "').");
                 }
             }
-            if (startVeh != nullptr && startVeh->getRoute().getEdges().front() != from) {
+            if (startVeh != nullptr && startVehFrom != from) {
                 throw ProcessError("Disconnected plan for triggered " + agent + " '" + aid +
-                                   "' (edge '" + fromID + "' != edge '" + startVeh->getRoute().getEdges().front()->getID() + "').");
+                                   "' (edge '" + fromID + "' != edge '" + startVehFrom->getID() + "').");
             }
         } else if (startVeh != nullptr) {
-            from = startVeh->getRoute().getEdges().front();
+            from = startVehFrom;
         }
         if (myActiveTransportablePlan->empty()) {
             if (from == nullptr) {

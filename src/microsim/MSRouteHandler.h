@@ -237,6 +237,9 @@ protected:
     /// @brief whether loaded rerouting events shall be replayed
     bool myReplayRerouting;
 
+    /// @brief whether we are loading a personFlow that is starting triggered in a vehicle flow
+    bool myStartTriggeredInFlow;
+
     /// @brief A random number generator used to choose from vtype/route distributions and computing the speed factors
     static SumoRNG myParsingRNG;
 

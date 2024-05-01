@@ -175,6 +175,12 @@ public:
         return myFlowIDs.count(id) != 0;
     }
 
+    /// @brief return parameters for the given flow
+    const SUMOVehicleParameter* getFlowPars(const std::string& id) const;
+
+    /// @brief return the last vehicle for the given flow
+    SUMOVehicle* getLastFlowVehicle(const std::string& id) const;
+
     /// @brief updates the flow scale value to keep track of TraCI-induced change
     void updateScale(const std::string vtypeid);
 
@@ -241,8 +247,8 @@ private:
     /// @brief Container for periodical vehicle parameters
     std::vector<Flow> myFlows;
 
-    /// @brief Cache for periodical vehicle ids for quicker checking
-    std::set<std::string> myFlowIDs;
+    /// @brief Cache for periodical vehicle ids and their most recent index for quicker checking
+    std::map<std::string, int> myFlowIDs;
 
     /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;

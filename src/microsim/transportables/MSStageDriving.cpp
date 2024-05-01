@@ -237,10 +237,14 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         // we are the first real stage (stage 0 is WAITING_FOR_DEPART)
         const std::string vehID = *myLines.begin();
         SUMOVehicle* startVeh = net->getVehicleControl().getVehicle(vehID);
+        if (startVeh == nullptr && net->hasFlow(vehID)) {
+            startVeh = net->getInsertionControl().getLastFlowVehicle(vehID);
+        }
         if (startVeh == nullptr) {
             throw ProcessError("Vehicle '" + vehID + "' not found for triggered departure of " +
                                (isPerson ? "person" : "container") + " '" + transportable->getID() + "'.");
         }
+        myDeparted = now;
         setVehicle(startVeh);
         if (myOriginStop != nullptr) {
             myOriginStop->removeTransportable(transportable);
