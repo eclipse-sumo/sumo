@@ -102,7 +102,6 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
     }
     // obtain tags (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    SumoXMLTag clickedACTag = viewObjects.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected person isn't valid."));
@@ -118,20 +117,26 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ViewObjectsSelector& viewObjec
         myViewNet->setStatusBarText(TL("Current selected person plan isn't valid."));
         return false;
     }
-    // add elements to path creator
-    if (clickedACTag == SUMO_TAG_LANE) {
-        return myPlanCreator->addEdge(viewObjects.getLaneFront());
-    } else if (viewObjects.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-        return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
-    } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
-    } else if (clickedACTag == SUMO_TAG_JUNCTION) {
-        return myPlanCreator->addJunction(viewObjects.getJunctionFront());
-    } else if (clickedACTag == SUMO_TAG_TAZ) {
-        return myPlanCreator->addTAZ(viewObjects.getTAZFront());
-    } else {
-        return false;
+    for (GNEAdditional* o : viewObjects.getAdditionals()) {
+        if (o->getTagProperty().isStoppingPlace()) {
+            return myPlanCreator->addStoppingPlace(o);
+        }
     }
+    for (GNEDemandElement* o : viewObjects.getDemandElements()) {
+        if (o->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+            return myPlanCreator->addRoute(o);
+        }
+    }
+    for (GNELane* o : viewObjects.getLanes()) {
+        return myPlanCreator->addEdge(o);
+    }
+    for (GNEJunction* o : viewObjects.getJunctions()) {
+        return myPlanCreator->addJunction(o);
+    }
+    for (GNETAZ* o : viewObjects.getTAZs()) {
+        return myPlanCreator->addTAZ(o);
+    }
+    return false;
 }
 
 

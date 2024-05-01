@@ -309,6 +309,12 @@ struct GNEViewNetHelper {
         /// @brief get vector with edges
         const std::vector<GNEEdge*>& getEdges() const;
 
+        /// @brief get vector with TAZs
+        const std::vector<GNETAZ*>& getTAZs() const;
+
+        /// @brief get vector with additionals
+        const std::vector<GNEAdditional*>& getAdditionals() const;
+
         /// @brief get vector with Demand Elements
         const std::vector<GNEDemandElement*>& getDemandElements() const;
 

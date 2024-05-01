@@ -500,6 +500,15 @@ GNEViewNetHelper::ViewObjectsSelector::getEdges() const {
     return myViewObjects.edges;
 }
 
+const std::vector<GNETAZ*>&
+GNEViewNetHelper::ViewObjectsSelector::getTAZs() const {
+    return myViewObjects.TAZs;
+}
+
+const std::vector<GNEAdditional*>&
+GNEViewNetHelper::ViewObjectsSelector::getAdditionals() const {
+    return myViewObjects.additionals;
+}
 
 const std::vector<GNEDemandElement*>&
 GNEViewNetHelper::ViewObjectsSelector::getDemandElements() const {
