@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-27 15:18:14 by Eclipse SUMO sumo Version v1_12_0+2325-8f8fe5402ec
+<!-- generated on 2024-05-02 07:50:24 by Eclipse SUMO sumo Version v1_19_0+2015-a22a2542da3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -47,16 +46,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1.0" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <ride waitingTime="0.00" vehicle="v.0" depart="1.00" arrival="73.00" arrivalPos="500.00" duration="72.00" routeLength="1900.00" timeLoss="0.00"/>
+    <personinfo id="p1.0" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.00" vehicle="v.0" depart="2.00" arrival="73.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.0" depart="1.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="1.00" arrival="73.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.0 person_v.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1.1" depart="6.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <ride waitingTime="0.00" vehicle="v.1" depart="6.00" arrival="78.00" arrivalPos="500.00" duration="72.00" routeLength="1900.00" timeLoss="0.00"/>
+    <tripinfo id="v.0" depart="1.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="73.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.0 person_v.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1.1" depart="7.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.00" vehicle="v.1" depart="7.00" arrival="78.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.1" depart="6.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="6.00" arrival="78.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.1 person_v.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p1.2" depart="11.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
-        <ride waitingTime="0.00" vehicle="v.2" depart="11.00" arrival="83.00" arrivalPos="500.00" duration="72.00" routeLength="1900.00" timeLoss="0.00"/>
+    <tripinfo id="v.1" depart="6.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="78.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.1 person_v.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p1.2" depart="12.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+        <ride waitingTime="0.00" vehicle="v.2" depart="12.00" arrival="83.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.2" depart="11.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="11.00" arrival="83.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.2 person_v.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.2" depart="11.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="83.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.2 person_v.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
