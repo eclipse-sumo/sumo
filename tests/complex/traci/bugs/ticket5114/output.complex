@@ -7,3 +7,11 @@ getDistanceRoad (1st internal to normal): 68.86999999999999
 getDistanceRoad (1st internal to 2nd internal): 7.85
 getDistanceRoad (2nd internal to normal): 61.019999999999996
 getDistanceRoad (2nd internal to 1st internal): -1073741824.0
+getDrivingDistance (no connection): -1073741824.0
+getDrivingDistance (normal to normal): 155.57
+getDrivingDistance (normal to 1st internal): 86.7
+getDrivingDistance (normal to 2nd internal): 94.55
+getDrivingDistance (1st internal to normal): 73.56988108640536
+getDrivingDistance (1st internal to 2nd internal): 12.54988108640537
+getDrivingDistance (2nd internal to normal): 65.48834801516962
+getDrivingDistance (2nd internal to 1st internal): -1073741824.0
