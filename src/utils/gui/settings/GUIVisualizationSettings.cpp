@@ -635,6 +635,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::RED, 8, TL("closed")); // road closing
     scheme.addColor(RGBColor::GREEN, 9, TL("connector")); // macro-connector
     scheme.addColor(RGBColor::ORANGE, 10, TL("forbidden")); // forbidden road
+    scheme.addColor(RGBColor(200, 240, 240), 11, TL("airway"));
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, TL("selected"));
@@ -1508,7 +1509,8 @@ GUIVisualizationSettings::initNeteditDefaults() {
     scheme.addColor(RGBColor::RED, 8, TL("closed")); // road closing
     scheme.addColor(RGBColor::GREEN, 9, TL("connector")); // macro-connector
     scheme.addColor(RGBColor::ORANGE, 10, TL("forbidden")); // forbidden road
-    scheme.addColor(RGBColor(145, 145, 145), 11., TL("data mode"));
+    scheme.addColor(RGBColor(145, 145, 145), 11, TL("data mode"));
+    scheme.addColor(RGBColor(200, 240, 240), 12, TL("airway"));
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), TL("unselected"), true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1., TL("selected"));
