@@ -19,7 +19,7 @@ implement only the following, major ones:
 
 The vehicle classes below map directly to vehicle subsegments supplied by
 [HBEFA](https://www.hbefa.net/), the SUMO names just remove special characters.
-The original name and the numeric HBEFA id are also given in the table below
+The original name and the numeric HBEFA id are also given in the table below.
 To use the emission classes below prepend the class name with the HBEFA4
 prefix, e.g. `emissionClass="HBEFA4/PC_petrol_Euro-4"`.
 
