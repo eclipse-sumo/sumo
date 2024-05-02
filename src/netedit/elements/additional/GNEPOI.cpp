@@ -333,6 +333,8 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
+    buildPositionCopyEntry(ret, app);
+    new FXMenuSeparator(ret);
     // specific of  non juPedSim polygons
     if (!myTagProperty.isJuPedSimElement()) {
         // continue depending of lane number
