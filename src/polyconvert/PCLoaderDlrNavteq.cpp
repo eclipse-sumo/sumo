@@ -236,7 +236,7 @@ PCLoaderDlrNavteq::loadPolyFile(const std::string& file,
             name = def.prefix + name;
             type = def.id;
             color = def.color;
-            fill = fill && def.allowFill;
+            fill = fill && def.allowFill != PCTypeMap::Filltype::NOFILL;
             discard = def.discard;
             icon = def.icon;
             layer = def.layer;

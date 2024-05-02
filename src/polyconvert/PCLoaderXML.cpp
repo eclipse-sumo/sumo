@@ -102,7 +102,7 @@ PCLoaderXML::myStartElement(int element,
     if (myTypeMap.has(type)) {
         const PCTypeMap::TypeDef& def = myTypeMap.get(type);
         discard = def.discard;
-        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill);
+        setDefaults(def.prefix, def.color, def.icon, def.layer, def.allowFill != PCTypeMap::Filltype::NOFILL);
     } else {
         setDefaults(myOptions.getString("prefix"), RGBColor::parseColor(myOptions.getString("color")),
                     myOptions.getString("icon"), myOptions.getFloat("layer"), myOptions.getBool("fill"));

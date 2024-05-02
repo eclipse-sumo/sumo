@@ -330,7 +330,7 @@ PCLoaderOSM::addPolygon(const PCOSMEdge* edge, const PositionVector& vec, const 
         const bool closedShape = vec.front() == vec.back();
         const std::string idSuffix = (index == 0 ? "" : "#" + toString(index));
         const std::string id = def.prefix + (useName && edge->name != "" ? edge->name : toString(edge->id)) + idSuffix;
-        bool fill = def.allowFill == PCTypeMap::FORCE || (def.allowFill == PCTypeMap::FILL && closedShape);
+        bool fill = def.allowFill == PCTypeMap::Filltype::FORCE || (def.allowFill == PCTypeMap::Filltype::FILL && closedShape);
         SUMOPolygon* poly = new SUMOPolygon(
             StringUtils::escapeXML(id),
             StringUtils::escapeXML(OptionsCont::getOptions().getBool("osm.keep-full-type") ? fullType : def.id),

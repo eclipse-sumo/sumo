@@ -48,7 +48,7 @@ public:
     /// @brief Destructor
     ~PCTypeMap();
 
-    enum Filltype {
+    enum class Filltype {
         NOFILL = 0,
         FILL = 1,
         FORCE = 2

@@ -36,7 +36,7 @@ PCTypeMap::PCTypeMap(const OptionsCont& oc) {
     myDefaultType.icon = oc.getString("icon");
     myDefaultType.layer = oc.getFloat("layer");
     myDefaultType.discard = oc.getBool("discard");
-    myDefaultType.allowFill = oc.getBool("fill") ? FILL : NOFILL;
+    myDefaultType.allowFill = oc.getBool("fill") ? Filltype::FILL : Filltype::NOFILL;
     myDefaultType.prefix = oc.getString("prefix");
 }
 
