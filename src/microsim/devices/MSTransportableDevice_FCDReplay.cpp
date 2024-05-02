@@ -75,17 +75,17 @@ MSTransportableDevice_FCDReplay::~MSTransportableDevice_FCDReplay() {
 
 
 bool
-MSTransportableDevice_FCDReplay::move() {
-    MSPerson* person = dynamic_cast<MSPerson*>(&myHolder);
-    if (person == nullptr || !person->hasDeparted()) {
-        return false;
-    }
+MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
         // removing person
         return true;
     }
-    const auto& p = myTrajectory->front();
-    libsumo::Person::moveToXY(person->getID(), std::get<1>(p), std::get<0>(p).x(), std::get<0>(p).y(), std::get<4>(p), 7);
+    MSPerson* person = dynamic_cast<MSPerson*>(&myHolder);
+    const auto& te = myTrajectory->front();
+    if (person == nullptr || !person->hasDeparted() || te.time > currentTime) {
+        return false;
+    }
+    libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
     // person->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
     myTrajectory->erase(myTrajectory->begin());
     return false;
@@ -93,12 +93,12 @@ MSTransportableDevice_FCDReplay::move() {
 
 
 SUMOTime
-MSTransportableDevice_FCDReplay::MovePedestrians::execute(SUMOTime /* currentTime */) {
+MSTransportableDevice_FCDReplay::MovePedestrians::execute(SUMOTime currentTime) {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
     std::vector<MSTransportable*> toRemove;
     for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
         MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(i->second->getDevice(typeid(MSTransportableDevice_FCDReplay)));
-        if (device != nullptr && device->move()) {
+        if (device != nullptr && device->move(currentTime)) {
             toRemove.push_back(&device->getHolder());
         }
     }

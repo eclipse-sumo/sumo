@@ -69,7 +69,7 @@ public:
         myTrajectory = t;
     }
 
-    bool move();
+    bool move(SUMOTime currentTime);
 
 private:
     /** @brief Constructor

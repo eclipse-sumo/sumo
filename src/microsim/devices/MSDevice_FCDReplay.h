@@ -62,14 +62,23 @@ public:
     /// @brief Destructor.
     ~MSDevice_FCDReplay();
 
-    bool move();
+    void move(SUMOTime currentTime);
 
     /// @brief return the name for this type of device
     const std::string deviceName() const {
         return "fcd-replay";
     }
 
-    typedef std::vector<std::tuple<Position, std::string, double, double, double> > Trajectory;
+    struct TrajectoryEntry {
+        SUMOTime time;
+        Position pos;
+        std::string edgeOrLane;
+        double lanePos;
+        double speed;
+        double angle;
+    };
+
+    typedef std::vector<TrajectoryEntry> Trajectory;
 
     void setTrajectory(Trajectory* const t) {
         myTrajectory = t;

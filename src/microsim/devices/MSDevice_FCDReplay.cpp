@@ -94,35 +94,34 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 }
 
 
-bool
-MSDevice_FCDReplay::move() {
+void
+MSDevice_FCDReplay::move(SUMOTime currentTime) {
     if (myTrajectory == nullptr || myTrajectory->empty()) {
         // removal happens via the usual MSVehicle::hasArrived mechanism
         // TODO we may need to set an arrivalPos
-        return false;
+        return;
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&myHolder);
-    if (v == nullptr) {
-        return false;
+    const TrajectoryEntry& te = myTrajectory->front();
+    if (v == nullptr || te.time > currentTime) {
+        return;
     }
-    const auto& p = myTrajectory->front();
-    const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(std::get<1>(p));
-    const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(p));
-    libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, std::get<0>(p).x(), std::get<0>(p).y(),
-                               std::get<4>(p), 7);
-    libsumo::Vehicle::setSpeed(myHolder.getID(), std::get<3>(p));
+    const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(te.edgeOrLane);
+    const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(te.edgeOrLane);
+    libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, te.pos.x(), te.pos.y(), te.angle, 7);
+    libsumo::Vehicle::setSpeed(myHolder.getID(), te.speed);
+    // libsumo::Vehicle::changeLane(myHolder.getID(), laneIdx, TS);
     myTrajectory->erase(myTrajectory->begin());
-    return true;
 }
 
 
 SUMOTime
-MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime /* currentTime */) {
+MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime currentTime) {
     MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
     for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
         MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(i->second->getDevice(typeid(MSDevice_FCDReplay)));
         if (device != nullptr && i->second->hasDeparted()) {
-            device->move();
+            device->move(currentTime);
         }
     }
     return DELTA_T;
@@ -141,24 +140,26 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
             return;
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_PERSON: {
-            const bool isPerson = element == SUMO_TAG_PERSON;
-            const std::string id = attrs.getString(SUMO_ATTR_ID);
-            const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_DOUBLE);
-            const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_DOUBLE);
-            const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
-            const std::string edgeOrLane = attrs.getOpt<std::string>(isPerson ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, id.c_str(), ok, "");
-            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
-            const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
-            const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
-            myTrajectories[id].push_back(std::make_tuple(Position(x, y), edgeOrLane, pos, speed, angle));
-            const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
-            if (edge != nullptr) {  // TODO maybe warn for unknown edge?
-                if (myRoutes.count(id) == 0) {
-                    myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
-                } else {
-                    auto& route = std::get<3>(myRoutes[id]);
-                    if (!edge->isInternal() && edge != route.back()) {
-                        route.push_back(edge);
+            if (myTime >= SIMSTEP) {
+                const bool isPerson = element == SUMO_TAG_PERSON;
+                const std::string id = attrs.getString(SUMO_ATTR_ID);
+                const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_DOUBLE);
+                const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_DOUBLE);
+                const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
+                const std::string edgeOrLane = attrs.getOpt<std::string>(isPerson ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, id.c_str(), ok, "");
+                const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
+                const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
+                const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
+                myTrajectories[id].push_back({myTime, Position(x, y), edgeOrLane, pos, speed, angle});
+                const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
+                if (edge != nullptr) {  // TODO maybe warn for unknown edge?
+                    if (myRoutes.count(id) == 0) {
+                        myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
+                    } else {
+                        ConstMSEdgeVector& route = std::get<3>(myRoutes[id]);
+                        if (!edge->isInternal() && edge != route.back()) {
+                            route.push_back(edge);
+                        }
                     }
                 }
             }
@@ -185,8 +186,8 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
         SUMOVehicleParameter* params = new SUMOVehicleParameter();
         params->id = id;
         params->depart = std::get<0>(desc.second);
-        params->departPos = std::get<2>(t.front());
-        params->departSpeed = std::get<3>(t.front());
+        params->departPos = t.front().lanePos;
+        params->departSpeed = t.front().speed;
         const bool isPerson = std::get<2>(desc.second);
         std::string vType = std::get<1>(desc.second);
         if (vType == "") {
@@ -221,7 +222,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
                 throw ProcessError("Could not add route '" + dummyRouteID + "'.");
             }
             params->departLaneProcedure = DepartLaneDefinition::GIVEN;
-            params->departLane = SUMOXMLDefinitions::getIndexFromLane(std::get<1>(t.front()));
+            params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
             SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
             if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
                 throw ProcessError("Duplicate vehicle '" + id + "'.");
