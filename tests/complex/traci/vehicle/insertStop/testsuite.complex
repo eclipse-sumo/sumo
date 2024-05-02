@@ -41,6 +41,9 @@ second_change_attribute
 # replace second stop after the vehicle has departed. new stop isn't reachable due to rerouter
 second_unreachable_ignore_rerouter
 
+# insert stop on an edge that is dynamically forbidden but the vehicle should ignore it
+stop_forbidden_ignore_rerouter_copy
+
 # insertstop before the last stop
 third
 
