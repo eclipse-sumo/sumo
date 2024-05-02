@@ -555,7 +555,7 @@ MSParkingArea::refuse(std::string badge) {
 
 
 bool
-MSParkingArea::accepts(const MSBaseVehicle* veh) const {
+MSParkingArea::accepts(MSBaseVehicle* veh) const {
     if (myAcceptedBadges.size() == 0) {
         return true;
     } else {

@@ -119,7 +119,7 @@ public:
     void refuse(std::string badge);
 
     /// @brief Return the parking accepts the vehicle (due to its given badges)
-    bool accepts(const MSBaseVehicle* veh) const;
+    bool accepts(MSBaseVehicle* veh) const;
 
     /** @brief Called if a vehicle enters this stop
      *
