@@ -914,6 +914,8 @@ public:
         return (myPermissions & vclass) == vclass;
     }
 
+    bool allowsVehicleClass(SUMOVehicleClass vclass, int routingMode) const;
+
     /** @brief Returns whether the given vehicle class may change left from this lane */
     inline bool allowsChangingLeft(SUMOVehicleClass vclass) const {
         return (myChangeLeft & vclass) == vclass;

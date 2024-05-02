@@ -1658,7 +1658,7 @@ MSBaseVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, c
         return true;
     }
 
-    if (!stopLane->allowsVehicleClass(getVClass())) {
+    if (!stopLane->allowsVehicleClass(getVClass(), myRoutingMode)) {
         errorMsg = ("Disallowed stop lane '" + stopLane->getID() + "'");
         return false;
     }
@@ -1870,7 +1870,7 @@ MSBaseVehicle::insertStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, co
     MSLane* stopLane = MSLane::dictionary(stop.lane);
     MSEdge* stopEdge = &stopLane->getEdge();
 
-    if (!stopLane->allowsVehicleClass(getVClass())) {
+    if (!stopLane->allowsVehicleClass(getVClass(), myRoutingMode)) {
         errorMsg = ("Disallowed stop lane '" + stopLane->getID() + "'");
         return false;
     }
