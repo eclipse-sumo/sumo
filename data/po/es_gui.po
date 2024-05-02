@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-29 14:26+0200\n"
-"PO-Revision-Date: 2024-04-29 13:15+0000\n"
+"PO-Revision-Date: 2024-04-30 14:07+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.5.3-dev\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -5122,7 +5122,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1085
 msgid "% restrictions to % will be added. Continue?"
-msgstr ""
+msgstr "% restricciones a % serán agregadas. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1101
 msgid "add restrictions for "
@@ -5136,7 +5136,7 @@ msgstr "agregar vClass para "
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1172
 #, c-format
 msgid "Remove vclass % from selected lanes"
-msgstr ""
+msgstr "Remover clase de vehículo % de los carriles seleccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1166
 msgid "The selected lanes and edges don't have a restriction to %."
@@ -5144,7 +5144,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1173
 msgid "% restrictions to % will be removed. Continue?"
-msgstr ""
+msgstr "% restricciones a % serán removidas. ¿Continuar?"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:1199
 msgid "Remove vclass for "
