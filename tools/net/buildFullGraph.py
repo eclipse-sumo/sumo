@@ -51,20 +51,36 @@ def parse_args():
 def main(options):
     net = sumolib.net.readNet(options.net)
     baseEdges = [e for e in net.getEdges() if e.allows(options.vclass)]
-    edgePatch = options.net[:-7] + ".patch.edg.xml"
-    with open(edgePatch, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "edges", options=options)
+    prefix = options.net
+    if prefix.endswith(".net.xml.gz"):
+        prefix = prefix[:-11]
+    elif prefix.endswith(".net.xml"):
+        prefix = prefix[:-8]
+
+    edgePatch = prefix + ".patch.edg.xml"
+    conPatch = prefix + ".patch.con.xml"
+    with open(edgePatch, 'w') as outfe, open(conPatch, 'w') as outfc:
+        sumolib.writeXMLHeader(outfe, "$Id$", "edges", options=options)
+        sumolib.writeXMLHeader(outfc, "$Id$", "connections", options=options)
         for e1 in baseEdges:
             for e2 in baseEdges:
                 if e1 != e2 and e2 not in e1.getOutgoing():
-                    outf.write('    <edge id="%s_%s" from="%s" to="%s" speed="%s" numLanes="%s" width="%s" allow="%s"/>\n' % (
-                        e1.getToNode().getID(), e2.getFromNode().getID(),
-                        e1.getToNode().getID(), e2.getFromNode().getID(),
+                    newEID = "%s_%s" % (e1.getToNode().getID(), e2.getFromNode().getID())
+                    outfe.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" width="%s" allow="%s"/>\n' % (
+                        newEID, e1.getToNode().getID(), e2.getFromNode().getID(),
                         options.speed, options.numlanes, e1.getLanes()[-1].getWidth(), options.vclass))
-        outf.write("</edges>\n")
+                    outfc.write('    <connection from="%s" to="%s" fromLane="0" toLane="0"/>\n' % (e1.getID(), newEID))
+                    outfc.write('    <connection from="%s" to="%s" fromLane="0" toLane="0"/>\n' % (newEID, e2.getID()))
+
+        outfe.write("</edges>\n")
+        outfc.write("</connections>\n")
 
     NETCONVERT = sumolib.checkBinary('netconvert')
-    subprocess.call([NETCONVERT, '-s', options.net, '-e', edgePatch, '-o', options.outfile])
+    subprocess.call([NETCONVERT,
+                     '-s', options.net,
+                     '-e', edgePatch,
+                     '-x', conPatch,
+                     '-o', options.outfile])
 
 if __name__ == "__main__":
     main(parse_args())
