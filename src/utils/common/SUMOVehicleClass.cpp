@@ -512,6 +512,10 @@ isWaterway(SVCPermissions permissions) {
     return permissions == SVC_SHIP;
 }
 
+bool
+isAirway(SVCPermissions permissions) {
+    return permissions == SVC_AIRCRAFT || permissions == SVC_DRONE;
+}
 
 bool
 isForbidden(SVCPermissions permissions) {

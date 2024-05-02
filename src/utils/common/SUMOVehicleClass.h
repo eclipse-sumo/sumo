@@ -421,6 +421,12 @@ extern bool isBikepath(SVCPermissions permissions);
  */
 extern bool isWaterway(SVCPermissions permissions);
 
+/** @brief Returns whether an edge with the given permission is an airway edge
+ * @param[in] permissions The permissions of the edge
+ * @return Whether the edge is an airway edge
+ */
+extern bool isAirway(SVCPermissions permissions);
+
 /** @brief Returns whether an edge with the given permission is a forbidden edge
  * @param[in] permissions The permissions of the edge
  * @return Whether the edge is forbidden
