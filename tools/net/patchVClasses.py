@@ -44,7 +44,6 @@ def parse_args():
     return options
 
 
-
 def main(options):
     classes = options.deleteClasses.split(',')
     with open(options.outfile, 'w') as outf:
@@ -53,6 +52,7 @@ def main(options):
                 line = line.replace(c + " ", "")
                 line = line.replace(" " + c, "")
             outf.write(line)
+
 
 if __name__ == "__main__":
     main(parse_args())
