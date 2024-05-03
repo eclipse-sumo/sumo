@@ -467,6 +467,16 @@ The following coloring options are useful in this regard:
 - 'show edge color value': show the actual travel times for each edge
 - disable 'constant text size' for 'show edge color value': avoid cluttering the display when zoomed out
 
+## Simulation mode/model: micro or meso? sublane?
+
+- Under a meso-simulation: No lane can be selected/shown. "segment" information will be displayed by right-clicking an edge
+  or further choosing "Show Parameter" (see the example image below).
+  ![segment_example](https://github.com/eclipse-sumo/sumo/assets/26454969/74eee4d2-5799-4a0e-a96e-6032bef34a3a)
+- Under a mirco-simulation: Each lane ID can be displayed by mause overing, when the icon "View Tooltips" is toggled.
+  Each lane can be selected.
+- If specific models are used, e.g. sublane and IDM, the respective information can be seen by right-clicking a road user (vehicle, pedestrian,train...)
+  and further choosing "Show Parameter".
+
 # Changing the appearance/visualisation of the simulation
 
 The View Settings menu allows to change and customize the simulations'
