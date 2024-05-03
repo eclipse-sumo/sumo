@@ -41,6 +41,8 @@ def parse_args():
                          help="speed of added edges")
     optParser.add_option("--numlanes", type=int, default=1,
                          help="number of lanes for added edges")
+    optParser.add_option("--width", type=float,
+                         help="width of added edges")
     options = optParser.parse_args()
     if not options.outfile:
         options.outfile = "patched." + options.net
@@ -66,9 +68,10 @@ def main(options):
             for e2 in baseEdges:
                 if e1 != e2 and e2 not in e1.getOutgoing():
                     newEID = "%s_%s" % (e1.getToNode().getID(), e2.getFromNode().getID())
+                    width = options.width if options.width is not None else e1.getLanes()[-1].getWidth()
                     outfe.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" width="%s" allow="%s"/>\n' % (  # noqa
                         newEID, e1.getToNode().getID(), e2.getFromNode().getID(),
-                        options.speed, options.numlanes, e1.getLanes()[-1].getWidth(), options.vclass))
+                        options.speed, options.numlanes, width, options.vclass))
                     outfc.write('    <connection from="%s" to="%s" fromLane="0" toLane="0"/>\n' % (e1.getID(), newEID))
                     outfc.write('    <connection from="%s" to="%s" fromLane="0" toLane="0"/>\n' % (newEID, e2.getID()))
 
