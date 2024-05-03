@@ -187,16 +187,12 @@ see [the notes below](Downloads.md#note_on_licensing). The following packages ca
 <li>Windows 64-bit debug version: <a class="no-arrow-link" href="https://sumo.dlr.de/daily/sumo-win64Debug-git.zip">https://sumo.dlr.de/daily/sumo-win64Debug-git.zip</a><?php getInfo("sumo-win64Debug-git.zip","d",true);?></li>
 </ul>
 
-The nightly builds are also available from the [Python packaging index test instance](https://test.pypi.org/project/eclipse-sumo/).
+The nightly builds are also available as [Python wheels](https://sumo.dlr.de/daily/wheels/).
 To install the latest nightly version (it is strongly encouraged to do this in a virtual environment) use [the instructions above](#python_packages_virtual_environments) replacing the install line with:
-```
-pip install -i https://test.pypi.org/simple/ eclipse-sumo
-```
-Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)). Due to space limitiations of test.pypi.org, this is going to be replaced by
-a self-hosted solution. You may already try out:
 ```
 pip install -f https://sumo.dlr.de/daily/wheels/ eclipse-sumo
 ```
+Although this is a python package, it contains all compiled SUMO binaries and should be fully functional (see the requirements in [the section above](#python_packages_virtual_environments)).
 The nightly python wheels are also available for libsumo, sumolib and traci.
 
 The Linux [repositories](#repositories) at the open build service contain a nightly build as well.
@@ -211,6 +207,8 @@ night.
 
 !!! caution
     The available Windows binary packages may lag behind the [latest Git revision](https://github.com/eclipse-sumo/sumo/commits/main) due to being compiled only once per day (around midnight, Berlin time).
+
+If you need even more recent builds, have a look at the [artifacts of the GitHub actions](https://github.com/eclipse-sumo/sumo/actions). You will need to click on the commit and the platform you are interested in, e.g. `windows` for Windows binaries.
 
 # Older releases and alternative download
 

@@ -79,7 +79,7 @@ Development of guidance for decision-makers
   intermodal routing engine
 - [HubChain (german)](http://komob.de/projekte/hub-chain/) simulating
   autonomous public transport in rural areas
-- [VEU](https://www.dlr.de/VEU/). In this project, SUMO is used to
+- [VEU](https://web.archive.org/web/20220802080754/https://verkehrsforschung.dlr.de/de/projekte/veu). In this project, SUMO is used to
   simulated the traffic of Berlin
 - [COLOMBO](https://verkehrsforschung.dlr.de/en/projects/colombo) Cooperative Self-Organizing
   System for low Carbon Mobility at low Penetration Rates
