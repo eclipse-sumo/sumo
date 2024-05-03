@@ -12,7 +12,7 @@
     <chargingStation id="CS3" lane="C3C2_0" startPos="220" endPos="250" power="12000"  efficiency="0.85" chargeInTransit="false" chargeDelay="3"/>
     <parkingArea id="RPA3" lane="C3C2_0" startPos="220" endPos="250" roadsideCapacity="1"/>
     
-    <!-- In this chargingStation vehicle don0't need to stop for charging but charging start with a delay of 5 timeSteps -->
+    <!-- In this chargingStation vehicle don't need to stop for charging but charging start with a delay of 5 timeSteps -->
     <chargingStation id="CS4" lane="C3C4_0" startPos="220" endPos="250" power="13000"  efficiency="0.8" chargeInTransit="true" chargeDelay="5"/>
     <parkingArea id="RPA4" lane="C3C4_0" startPos="220" endPos="250" roadsideCapacity="1"/>
     

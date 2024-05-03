@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+
+    <!-- A bus stop to ilustrate the different syntax in the definition of stops (see input_routes.rou.xml, line 26) -->
+    <busStop id="BS1" lane="D2_1" startPos="300" endPos="320" />
+    
+</additional>

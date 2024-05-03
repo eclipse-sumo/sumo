@@ -1,3 +1,12 @@
+# Vehicles break down due to low battery and get handled in a few ways (teleport, removal, nothing)
+breakdown
+
+# A vehicle has to reroute to another charging station after waiting for the first one to get available
+occupied
+
+# A vehicle searches for charging stations where there are none nearby
+notFound
+
 # Vehicles take the most suitable chargingStations where chargingStastions have different configurations with charging station output
 searching
 
