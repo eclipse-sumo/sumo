@@ -390,10 +390,9 @@ msgid ""
 "traffic"
 msgstr ""
 
-#: D:\SUMO\sumo-eclipse-github\sumo/src\dfrouter\RODFFrame.cpp:195
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
-msgstr ""
+msgstr "Rimuove rivelatori vuoti dall'elenco"
 
 #: D:\SUMO\sumo-eclipse-github\sumo/src\dfrouter\RODFFrame.cpp:198
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:198
