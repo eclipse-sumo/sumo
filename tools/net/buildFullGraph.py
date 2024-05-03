@@ -35,7 +35,7 @@ def parse_args():
                          help="the network to patch")
     optParser.add_option("-o", "--output-file", dest="outfile", category="output", type=optParser.net_file,
                          help="the output network file")
-    optParser.add_option("--vclass", 
+    optParser.add_option("--vclass",
                          help="class for which the fully connected graph should be built")
     optParser.add_option("--speed", type=float, default=100/3.6,
                          help="speed of added edges")
@@ -66,7 +66,7 @@ def main(options):
             for e2 in baseEdges:
                 if e1 != e2 and e2 not in e1.getOutgoing():
                     newEID = "%s_%s" % (e1.getToNode().getID(), e2.getFromNode().getID())
-                    outfe.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" width="%s" allow="%s"/>\n' % (
+                    outfe.write('    <edge id="%s" from="%s" to="%s" speed="%s" numLanes="%s" width="%s" allow="%s"/>\n' % (  # noqa
                         newEID, e1.getToNode().getID(), e2.getFromNode().getID(),
                         options.speed, options.numlanes, e1.getLanes()[-1].getWidth(), options.vclass))
                     outfc.write('    <connection from="%s" to="%s" fromLane="0" toLane="0"/>\n' % (e1.getID(), newEID))
@@ -81,6 +81,7 @@ def main(options):
                      '-e', edgePatch,
                      '-x', conPatch,
                      '-o', options.outfile])
+
 
 if __name__ == "__main__":
     main(parse_args())
