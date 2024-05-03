@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.dev/sumo
-// Copyright (C) 2001-2023 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2024 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -11,18 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSLCM_LC2013.cpp
-/// @author  Daniel Krajzewicz
-/// @author  Jakob Erdmann
-/// @author  Friedemann Wesner
-/// @author  Sascha Krieg
-/// @author  Michael Behrisch
-/// @author  Laura Bieker
-/// @author  Leonhard Luecken
-/// @date    Fri, 08.10.2013
+/// @file    MSLCM_LC2013_CC.cpp
+/// @author  Michele Segata
+/// @date    Do, 02.05.2024
 ///
-// A lane change model developed by J. Erdmann
-// based on the model of D. Krajzewicz developed between 2004 and 2011 (MSLCM_DK2004)
+// A lane change model developed modification for the CC carFollowModel
 /****************************************************************************/
 #include "MSLCM_LC2013_CC.h"
 #include <microsim/cfmodels/MSCFModel_CC.h>
