@@ -125,14 +125,6 @@ basename $TESTLOG >> $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
 
-# netedit tests
-if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
-  if test "$FILEPREFIX" == "gcc4_64"; then
-    tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
-    tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
-  fi
-fi
-
 WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
 rm -rf dist dist_native
 # native macOS M1 wheels and Linux ARM
@@ -150,6 +142,14 @@ if test ${FILEPREFIX: -2} == "M1"; then
 fi
 # Linux x64 wheels
 if test ${FILEPREFIX} == "gcc4_64"; then
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.0.6 > $WHEELLOG 2>&1
+  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.2.0 > $WHEELLOG 2>&1
   cp build/$FILEPREFIX/*.whl wheelhouse
+fi
+
+# netedit tests
+if test -e $SUMO_BINDIR/netedit -a $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
+  if test "$FILEPREFIX" == "gcc4_64"; then
+    tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
+    tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
+  fi
 fi
