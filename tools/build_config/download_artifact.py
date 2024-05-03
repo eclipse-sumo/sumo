@@ -16,6 +16,7 @@
 # @date    2024-05-03
 
 import argparse
+import os
 import zipfile
 
 import requests
@@ -63,8 +64,9 @@ if __name__ == "__main__":
     ap.add_argument("--repository", default="sumo")
     ap.add_argument("--workflow", default="windows-wheels")
     ap.add_argument("--branch", default="main")
-    ap.add_argument("--token")
-    ap.add_argument("--directory")
+    ap.add_argument("--token", help="GitHub authentication token")
+    ap.add_argument("--directory", help="output directory")
+    ap.add_argument("-v", "--verbose", action="store_true", default=False, help="tell me more")
     options = ap.parse_args()
 
     for minor in range(7, 13):
@@ -75,4 +77,6 @@ if __name__ == "__main__":
                 w.write(response.content)
             zip = zipfile.ZipFile(w.name)
             zip.extractall(options.directory)
-        print(artifact_url, response)
+            os.remove(w.name)
+        if options.verbose:
+            print(artifact_url, response)
