@@ -67,6 +67,16 @@ SUMO_VEHICLE_CLASSES = set([
     "custom1",
     "custom2"])
 
+SUMO_VEHICLE_CLASSES_DEPRECATED = set([
+    "public_emergency",
+    "public_authority",
+    "public_army",
+    "public_transport",
+    "transport",
+    "lightrail",
+    "cityrail",
+    "rail_slow",
+    "rail_fast"])
 
 def is_vehicle_class(s):
     return s in SUMO_VEHICLE_CLASSES
