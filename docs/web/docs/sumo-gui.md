@@ -474,9 +474,8 @@ The following coloring options are useful in this regard:
   ![segment_example](https://github.com/eclipse-sumo/sumo/assets/26454969/74eee4d2-5799-4a0e-a96e-6032bef34a3a)
 - Under a mirco-simulation: Each lane ID can be displayed by mause overing, when the icon "View Tooltips" is toggled.
   Each lane can be selected.
-- If specific models are used, e.g. sublane and IDM, the respective information can be seen by right-clicking a road user (vehicle, pedestrian,train...)
-  and further choosing "Show Parameter" (see the example image with use of the sublane model below, where the created sublanes are directly shown in the network).
-  ![sublane_img_example](https://github.com/eclipse-sumo/sumo/assets/26454969/ae52065f-b8f5-471d-97fc-967d4dff564f)
+- If specific models are used, e.g. sublane and IDM, the respective information can be seen by right-clicking
+  a road user (vehicle, pedestrian,train...) and further choosing "Show Parameter".
 
 # Changing the appearance/visualisation of the simulation
 
