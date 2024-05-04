@@ -6170,6 +6170,12 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
 #endif
 }
 
+void
+MSVehicle::updateLaneBruttoSum() {
+    if (myLane != nullptr) {
+        myLane->markRecalculateBruttoSum();
+    }
+}
 
 bool
 MSVehicle::betterContinuation(const LaneQ* bestConnectedNext, const LaneQ& m) {

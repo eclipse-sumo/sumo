@@ -1388,6 +1388,17 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 libsumo::Vehicle::updateBestLanes(id);
             }
             break;
+            case libsumo::VAR_MINGAP: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting minimum gap requires a double.", outputStorage);
+                }
+                if (value < 0.0 || fabs(value) == std::numeric_limits<double>::infinity()) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Invalid minimum gap.", outputStorage);
+                }
+                libsumo::Vehicle::setMinGap(id, value);
+            }
+            break;
             case libsumo::VAR_MINGAP_LAT: {
                 double value = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {

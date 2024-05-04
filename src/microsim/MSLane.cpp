@@ -264,6 +264,7 @@ MSLane::MSLane(const std::string& id, double maxSpeed, double friction, double l
     myCanonicalSuccessorLane(nullptr),
     myBruttoVehicleLengthSum(0), myNettoVehicleLengthSum(0),
     myBruttoVehicleLengthSumToRemove(0), myNettoVehicleLengthSumToRemove(0),
+    myRecalculateBruttoSum(false),
     myLeaderInfo(width, nullptr, 0.),
     myFollowerInfo(width, nullptr, 0.),
     myLeaderInfoTime(SUMOTime_MIN),
@@ -2308,6 +2309,12 @@ MSLane::executeMovements(const SUMOTime t) {
 
 
 void
+MSLane::markRecalculateBruttoSum() {
+    myRecalculateBruttoSum = true;
+}
+
+
+void
 MSLane::updateLengthSum() {
     myBruttoVehicleLengthSum -= myBruttoVehicleLengthSumToRemove;
     myNettoVehicleLengthSum -= myNettoVehicleLengthSumToRemove;
@@ -2317,6 +2324,12 @@ MSLane::updateLengthSum() {
         // avoid numerical instability
         myBruttoVehicleLengthSum = 0;
         myNettoVehicleLengthSum = 0;
+    } else if (myRecalculateBruttoSum){
+        myBruttoVehicleLengthSum = 0;
+        for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
+            myBruttoVehicleLengthSum += (*i)->getVehicleType().getLengthWithGap();
+        }
+        myRecalculateBruttoSum = false;
     }
 }
 
