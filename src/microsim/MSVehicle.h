@@ -909,6 +909,9 @@ public:
      */
     void updateBestLanes(bool forceRebuild = false, const MSLane* startLane = 0);
 
+    /** @brief Update the lane brutto occupancy after a change in minGap
+     * */
+    void updateLaneBruttoSum();
 
     /** @brief Returns the best sequence of lanes to continue the route starting at myLane
      * @return The bestContinuations of the LaneQ for myLane (see LaneQ)

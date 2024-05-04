@@ -684,6 +684,10 @@ public:
     /// Insert buffered vehicle into the real lane.
     virtual void integrateNewVehicles();
 
+    /** @brief Set a flag to recalculate the brutto (including minGaps) occupancy of this lane (used if mingap is changed)
+     */
+    void markRecalculateBruttoSum();
+
     /// @brief updated current vehicle length sum (delayed to avoid lane-order-dependency)
     void updateLengthSum();
     ///@}
@@ -1539,6 +1543,9 @@ protected:
 
     /// @brief The length of all vehicles that have left this lane in the current step (this lane, excluding their minGaps)
     double myNettoVehicleLengthSumToRemove;
+
+    /// @brief Flag to recalculate the occupancy (including minGaps) after a change in minGap
+    bool myRecalculateBruttoSum;
 
     /** The lane's Links to its succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */

@@ -1927,6 +1927,7 @@ Vehicle::setType(const std::string& vehID, const std::string& typeID) {
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
     if (microVeh != nullptr && microVeh->isOnRoad()) {
         microVeh->updateBestLanes(true);
+        microVeh->updateLaneBruttoSum();
     }
 }
 
@@ -2351,7 +2352,12 @@ Vehicle::setHeight(const std::string& vehID, double height) {
 
 void
 Vehicle::setMinGap(const std::string& vehID, double minGap) {
-    Helper::getVehicle(vehID)->getSingularType().setMinGap(minGap);
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    veh->getSingularType().setMinGap(minGap);
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+    if (microVeh != nullptr && microVeh->isOnRoad()) {
+        microVeh->updateLaneBruttoSum();
+    }
 }
 
 
