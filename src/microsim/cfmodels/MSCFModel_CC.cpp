@@ -239,6 +239,8 @@ MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pr
             return (vars->flatbedD - vars->flatbedH * (speed - leaderSpeed)) * tolerance;
         case Plexe::DRIVER:
             return myHumanDriver->getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
+        default:
+            throw InvalidArgument("Unsupported activeController" + toString(vars->activeController));
     }
 }
 
