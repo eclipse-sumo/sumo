@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 19:20:43 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<!-- generated on 2024-05-05 23:36:58 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,19 +40,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="5.00" waitingTime="0.00" timeLoss="3.46" traveltime="5.00">
         <ride waitingTime="0.00" vehicle="v0" depart="0.00" arrival="5.00" arrivalPos="20.00" duration="5.00" routeLength="14.90" timeLoss="3.46"/>
     </personinfo>
-    <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="7.00" waitingTime="0.00" timeLoss="4.75" traveltime="7.00">
         <ride waitingTime="0.00" vehicle="v1" depart="10.00" arrival="17.00" arrivalPos="39.90" duration="7.00" routeLength="34.80" timeLoss="4.75"/>
     </personinfo>
-    <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="9.00" waitingTime="0.00" timeLoss="6.03" traveltime="9.00">
         <ride waitingTime="0.00" vehicle="v2" depart="20.00" arrival="29.00" arrivalPos="60.00" duration="9.00" routeLength="54.90" timeLoss="6.03"/>
     </personinfo>
-    <personinfo id="p3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="11.00" waitingTime="0.00" timeLoss="7.31" traveltime="11.00">
         <ride waitingTime="0.00" vehicle="v3" depart="30.00" arrival="41.00" arrivalPos="80.00" duration="11.00" routeLength="74.90" timeLoss="7.31"/>
     </personinfo>
-    <personinfo id="p4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="13.00" waitingTime="0.00" timeLoss="8.59" traveltime="13.00">
         <ride waitingTime="0.00" vehicle="v4" depart="40.00" arrival="53.00" arrivalPos="100.00" duration="13.00" routeLength="94.90" timeLoss="8.59"/>
     </personinfo>
     <tripinfo id="v0" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="69.00" arrivalLane="beg2left_0" arrivalPos="503.09" arrivalSpeed="13.90" duration="69.00" routeLength="997.99" waitingTime="0.00" waitingCount="0" stopTime="5.00" timeLoss="9.20" rerouteNo="0" devices="vehroute_v0 tripinfo_v0 person_v0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 19:20:46 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<!-- generated on 2024-05-05 23:36:58 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,43 +22,43 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="15.00" waitingTime="20.00" timeLoss="6.79" traveltime="14.00">
         <stop duration="1.00" arrival="1.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="20.00" vehicle="b" depart="21.00" arrival="35.00" arrivalPos="60.00" duration="14.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.1" depart="0.10" type="DEFAULT_PEDTYPE" speedFactor="0.94">
+    <personinfo id="p.1" depart="0.10" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="15.00" waitingTime="19.00" timeLoss="6.79" traveltime="14.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="35.00" arrivalPos="60.00" duration="14.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.2" depart="0.20" type="DEFAULT_PEDTYPE" speedFactor="1.01">
+    <personinfo id="p.2" depart="0.20" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="15.00" waitingTime="19.00" timeLoss="6.79" traveltime="14.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="35.00" arrivalPos="60.00" duration="14.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.3" depart="0.30" type="DEFAULT_PEDTYPE" speedFactor="1.08">
+    <personinfo id="p.3" depart="0.30" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="16.00" waitingTime="19.00" timeLoss="6.79" traveltime="15.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="36.00" arrivalPos="60.00" duration="15.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.4" depart="0.40" type="DEFAULT_PEDTYPE" speedFactor="1.03">
+    <personinfo id="p.4" depart="0.40" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="16.00" waitingTime="19.00" timeLoss="6.79" traveltime="15.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="36.00" arrivalPos="60.00" duration="15.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.5" depart="0.50" type="DEFAULT_PEDTYPE" speedFactor="0.83">
+    <personinfo id="p.5" depart="0.50" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="17.00" waitingTime="19.00" timeLoss="6.79" traveltime="16.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="37.00" arrivalPos="60.00" duration="16.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.6" depart="0.60" type="DEFAULT_PEDTYPE" speedFactor="1.05">
+    <personinfo id="p.6" depart="0.60" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="17.00" waitingTime="19.00" timeLoss="6.79" traveltime="16.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="37.00" arrivalPos="60.00" duration="16.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.7" depart="0.70" type="DEFAULT_PEDTYPE" speedFactor="0.89">
+    <personinfo id="p.7" depart="0.70" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="18.00" waitingTime="19.00" timeLoss="6.79" traveltime="17.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="38.00" arrivalPos="60.00" duration="17.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.8" depart="0.80" type="DEFAULT_PEDTYPE" speedFactor="0.94">
+    <personinfo id="p.8" depart="0.80" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="18.00" waitingTime="19.00" timeLoss="6.79" traveltime="17.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="38.00" arrivalPos="60.00" duration="17.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>
-    <personinfo id="p.9" depart="0.90" type="DEFAULT_PEDTYPE" speedFactor="0.86">
+    <personinfo id="p.9" depart="0.90" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="19.00" waitingTime="19.00" timeLoss="6.79" traveltime="18.00">
         <stop duration="1.00" arrival="2.00" arrivalPos="50.00" actType="waiting"/>
         <ride waitingTime="19.00" vehicle="b" depart="21.00" arrival="39.00" arrivalPos="60.00" duration="18.00" routeLength="100.10" timeLoss="6.79"/>
     </personinfo>

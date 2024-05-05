@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-08 23:25:53 by Eclipse SUMO sumo Version v1_15_0+0056-02dd159
+<!-- generated on 2024-05-05 23:37:12 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="busABCD.1" depart="1205.00" departLane="A1A0_1" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="1744.00" arrivalLane="B0B1_1" arrivalPos="487.60" arrivalSpeed="3.40" duration="539.00" routeLength="4975.02" waitingTime="1.00" waitingCount="1" stopTime="129.00" timeLoss="51.75" rerouteNo="0" devices="tripinfo_busABCD.1 person_busABCD.1" vType="bus" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainAB.2" depart="1515.00" departLane="railSN_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1745.00" arrivalLane="railSN_0" arrivalPos="1200.00" arrivalSpeed="11.25" duration="230.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="90.70" rerouteNo="0" devices="tripinfo_trainAB.2" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="trainBA.2" depart="1562.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1791.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.2" vType="train" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="779.00" waitingTime="616.00" timeLoss="112.23" traveltime="778.00">
         <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
         <ride waitingTime="38.00" vehicle="trainBA.0" depart="439.00" arrival="508.00" arrivalPos="850.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
         <access stop="stopA_S" depart="508.00" arrival="520.00" duration="12.00" routeLength="17.52"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-14 14:56:00 by Eclipse SUMO sumo Version v1_16_0+1284-919e2e3
+<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,16 +39,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="backward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="backward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="19.00" waitingTime="0.00" timeLoss="-3.67" traveltime="19.00">
         <walk depart="0.00" departPos="0.00" arrival="19.00" arrivalPos="41.98" duration="19.00" routeLength="31.49" timeLoss="-3.67" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="backward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="backward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="31.00" waitingTime="0.00" timeLoss="-3.44" traveltime="31.00">
         <walk depart="0.00" departPos="0.00" arrival="31.00" arrivalPos="41.98" duration="31.00" routeLength="47.83" timeLoss="-3.44" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="forward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="forward_backward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="290.00" waitingTime="0.00" timeLoss="-3.70" traveltime="290.00">
         <walk depart="0.00" departPos="0.00" arrival="290.00" arrivalPos="41.98" duration="290.00" routeLength="407.92" timeLoss="-3.70" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="forward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="forward_forward" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="336.00" waitingTime="0.00" timeLoss="-3.29" traveltime="336.00">
         <walk depart="0.00" departPos="0.00" arrival="336.00" arrivalPos="41.98" duration="336.00" routeLength="471.23" timeLoss="-3.29" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

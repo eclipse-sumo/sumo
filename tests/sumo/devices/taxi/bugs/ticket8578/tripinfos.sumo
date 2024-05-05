@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-28 19:21:48 by Eclipse SUMO sumo Version v1_14_1+0598-02ca306
+<!-- generated on 2024-05-05 23:37:12 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01">
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="101.00" waitingTime="122.00" timeLoss="3.51" traveltime="80.00">
         <stop duration="1.00" arrival="1.00" arrivalPos="200.00" actType="waiting"/>
         <ride waitingTime="122.00" vehicle="taxi" depart="123.00" arrival="203.00" arrivalPos="100.00" duration="80.00" routeLength="250.20" timeLoss="3.51"/>
         <stop duration="20.00" arrival="223.00" arrivalPos="100.00" actType="waiting"/>
@@ -35,7 +35,7 @@
     <tripinfo id="taxi" depart="0.00" departLane="a_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="2000.00" routeLength="395.20" waitingTime="0.00" waitingCount="0" stopTime="1961.00" timeLoss="11.38" rerouteNo="4" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxiType" speedFactor="1.03" vaporized="">
         <taxi customers="2" occupiedDistance="320.30" occupiedTime="34.00"/>
     </tripinfo>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="-1" waitingTime="1932.00" timeLoss="-1" traveltime="-1">
         <ride waitingTime="11.00" vehicle="taxi" depart="11.00" arrival="79.00" arrivalPos="50.00" duration="68.00" routeLength="70.10" timeLoss="4.10"/>
         <ride waitingTime="1921.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>

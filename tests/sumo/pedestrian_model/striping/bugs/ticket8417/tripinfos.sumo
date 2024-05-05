@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-16 12:05:41 by Eclipse SUMO sumo Version v1_17_0+0973-eec37eb
+<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,13 +46,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="bike2869" depart="186.20" departLane="-34001206#18_0" departPos="10.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="202.80" arrivalLane="-34001206#17_0" arrivalPos="15.75" arrivalPosLat="0.00" arrivalSpeed="2.85" duration="16.60" routeLength="36.36" waitingTime="0.50" waitingCount="2" stopTime="0.00" timeLoss="3.93" rerouteNo="0" devices="tripinfo_bike2869 routing_bike2869" vType="bike_bicycle" speedFactor="1.03" vaporized=""/>
-    <personinfo id="ped4877" depart="186.20" type="ped_pedestrian" speedFactor="1.00">
+    <personinfo id="ped4877" depart="186.20" type="ped_pedestrian" speedFactor="1.00" duration="22.60" waitingTime="0.00" timeLoss="6.66" traveltime="22.60">
         <walk depart="186.20" departPos="0.00" arrival="208.80" arrivalPos="8.46" duration="22.60" routeLength="22.15" timeLoss="6.66" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="ped4843" depart="176.71" type="ped_pedestrian" speedFactor="1.00">
+    <personinfo id="ped4843" depart="176.71" type="ped_pedestrian" speedFactor="1.00" duration="37.50" waitingTime="0.00" timeLoss="9.79" traveltime="37.50">
         <walk depart="176.80" departPos="0.00" arrival="214.30" arrivalPos="7.88" duration="37.50" routeLength="38.49" timeLoss="9.79" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="ped4943" depart="247.50" type="ped_pedestrian" speedFactor="1.00">
+    <personinfo id="ped4943" depart="247.50" type="ped_pedestrian" speedFactor="1.00" duration="36.80" waitingTime="0.00" timeLoss="9.09" traveltime="36.80">
         <walk depart="247.50" departPos="0.00" arrival="284.30" arrivalPos="7.88" duration="36.80" routeLength="38.49" timeLoss="9.09" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>

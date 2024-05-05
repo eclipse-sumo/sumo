@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 10 14:23:18 2020 by Eclipse SUMO sumo Version v1_8_0+0100-9052e56b94
+<!-- generated on 2024-05-05 23:36:59 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -34,34 +38,34 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <containerinfo id="c1.1" depart="3.60" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.1" depart="3.60" type="DEFAULT_CONTAINERTYPE" duration="1122.00" waitingTime="0.00" timeLoss="0.00" traveltime="1122.00">
         <tranship depart="4.00" departPos="445.50" arrival="1126.00" arrivalPos="500.00" duration="1122.00" routeLength="1558.33" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.2" depart="7.20" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.2" depart="7.20" type="DEFAULT_CONTAINERTYPE" duration="1185.00" waitingTime="0.00" timeLoss="0.00" traveltime="1185.00">
         <tranship depart="8.00" departPos="356.25" arrival="1193.00" arrivalPos="500.00" duration="1185.00" routeLength="1645.83" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.7" depart="25.20" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.7" depart="25.20" type="DEFAULT_CONTAINERTYPE" duration="1174.00" waitingTime="0.00" timeLoss="0.00" traveltime="1174.00">
         <tranship depart="26.00" departPos="371.63" arrival="1200.00" arrivalPos="500.00" duration="1174.00" routeLength="1630.56" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.5" depart="18.00" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.5" depart="18.00" type="DEFAULT_CONTAINERTYPE" duration="1229.00" waitingTime="0.00" timeLoss="0.00" traveltime="1229.00">
         <tranship depart="18.00" departPos="294.98" arrival="1247.00" arrivalPos="500.00" duration="1229.00" routeLength="1706.94" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.9" depart="32.40" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.9" depart="32.40" type="DEFAULT_CONTAINERTYPE" duration="1245.00" waitingTime="0.00" timeLoss="0.00" traveltime="1245.00">
         <tranship depart="33.00" departPos="272.64" arrival="1278.00" arrivalPos="500.00" duration="1245.00" routeLength="1729.17" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.4" depart="14.40" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.4" depart="14.40" type="DEFAULT_CONTAINERTYPE" duration="1264.00" waitingTime="0.00" timeLoss="0.00" traveltime="1264.00">
         <tranship depart="15.00" departPos="245.72" arrival="1279.00" arrivalPos="500.00" duration="1264.00" routeLength="1755.56" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.8" depart="28.80" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.8" depart="28.80" type="DEFAULT_CONTAINERTYPE" duration="1351.00" waitingTime="0.00" timeLoss="0.00" traveltime="1351.00">
         <tranship depart="29.00" departPos="123.75" arrival="1380.00" arrivalPos="500.00" duration="1351.00" routeLength="1876.39" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.3" depart="10.80" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.3" depart="10.80" type="DEFAULT_CONTAINERTYPE" duration="1423.00" waitingTime="0.00" timeLoss="0.00" traveltime="1423.00">
         <tranship depart="11.00" departPos="22.74" arrival="1434.00" arrivalPos="500.00" duration="1423.00" routeLength="1976.39" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="1440.00" waitingTime="0.00" timeLoss="0.00" traveltime="1440.00">
         <tranship depart="0.00" departPos="0.00" arrival="1440.00" arrivalPos="500.00" duration="1440.00" routeLength="2000.00" maxSpeed="1.39"/>
     </containerinfo>
-    <containerinfo id="c1.6" depart="21.60" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1.6" depart="21.60" type="DEFAULT_CONTAINERTYPE" duration="1424.00" waitingTime="0.00" timeLoss="0.00" traveltime="1424.00">
         <tranship depart="22.00" departPos="21.81" arrival="1446.00" arrivalPos="500.00" duration="1424.00" routeLength="1977.78" maxSpeed="1.39"/>
     </containerinfo>
 </tripinfos>
