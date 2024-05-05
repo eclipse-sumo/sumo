@@ -701,16 +701,9 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
     } else if (myRoutingDevice != nullptr) {
         myRoutingDevice->setActive(true);
     }
-    if (myHolder.isStopped()) {
-        if (!myIsStopped) {
-            // limit duration of stop
-            // @note: stops are not yet added to the vehicle so we can change the loaded parameters. Stops added from a route are not affected
-            // @note: that's not true for pre-booking, so check whether endBoarding is already set
-            //myHolder.getNextStop().endBoarding = myServiceEnd;
-            if (myHolder.getNextStop().endBoarding > myServiceEnd) {
-                myHolder.getNextStop().endBoarding = myServiceEnd;
-            }
-        }
+    if (myHolder.isStopped() && isEmpty() && myHolder.getNextStop().endBoarding > myServiceEnd) {
+        // limit duration of stop (but only for idling-related stops)
+        myHolder.getNextStop().endBoarding = myServiceEnd;
     }
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND && myIsStopped != myHolder.isStopped()) {
