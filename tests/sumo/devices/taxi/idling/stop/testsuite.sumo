@@ -12,3 +12,4 @@ end_of_work
 
 # test taxi device attribute end
 end_of_work_initial_stop
+reuse_stop_laneEnd
