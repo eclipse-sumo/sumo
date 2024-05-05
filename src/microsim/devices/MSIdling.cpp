@@ -78,7 +78,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             stopPos = std::make_pair(stopEdge.getLanes()[0], stopOffset);
         } else {
             MSVehicle& veh = dynamic_cast<MSVehicle&>(taxi->getHolder());
-            brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed());
+            brakeGap = veh.getCarFollowModel().brakeGap(veh.getSpeed(), veh.getCarFollowModel().getMaxDecel(), 0.0);
             stopPos = veh.getLanePosAfterDist(brakeGap);
         }
         if (stopPos.first != nullptr) {
