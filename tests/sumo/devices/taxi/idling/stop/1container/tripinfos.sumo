@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-09 18:51:17 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
+<!-- generated on 2024-05-05 13:24:34 by Eclipse SUMO sumo Version v1_19_0+2061-d19c58abdcd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <transport waitingTime="119.00" vehicle="trip_1" depart="119.00" arrival="298.00" arrivalPos="287.60" duration="179.00" routeLength="1372.05" timeLoss="19.19"/>
     </containerinfo>
-    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="390.00" routeLength="0.10" waitingTime="0.00" waitingCount="0" stopTime="390.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_trip_0 tripinfo_trip_0 routing_trip_0 taxi_trip_0" vType="taxi" speedFactor="1.00" vaporized="end">
+    <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="390.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="390.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_trip_0 tripinfo_trip_0 routing_trip_0 taxi_trip_0" vType="taxi" speedFactor="1.00" vaporized="end">
         <taxi customers="0" occupiedDistance="0.00" occupiedTime="0.00"/>
     </tripinfo>
     <tripinfo id="trip_1" depart="0.00" departLane="A2B2_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="390.00" routeLength="1673.92" waitingTime="3.00" waitingCount="1" stopTime="242.00" timeLoss="25.45" rerouteNo="2" devices="vehroute_trip_1 tripinfo_trip_1 routing_trip_1 taxi_trip_1 container_trip_1" vType="taxi" speedFactor="1.00" vaporized="">

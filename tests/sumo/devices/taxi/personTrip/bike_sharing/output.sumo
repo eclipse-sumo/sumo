@@ -1,7 +1,7 @@
-Loading net-file from 'net3.net.xml' ... done (7ms).
+Loading net-file from 'net3.net.xml' ... done (9ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1563-350e99a6e1b started with time: 0.00.
+Simulation version v1_19_0+2061-d19c58abdcd started with time: 0.00.
 Simulation ended at time: 838.00
 Reason: All vehicles have left the simulation.
 Performance: 
@@ -17,11 +17,11 @@ Persons:
  Inserted: 2
  Running: 0
 Bike Statistics (avg of 2):
- RouteLength: 610.40
+ RouteLength: 610.35
  Speed: 0.73
  Duration: 838.00
  WaitingTime: 0.00
- TimeLoss: 10.65
+ TimeLoss: 10.64
  DepartDelay: 0.00
  DepartDelayWaiting: 0.00
 Pedestrian Statistics (avg of 3 walks):
