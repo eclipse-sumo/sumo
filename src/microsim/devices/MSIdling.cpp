@@ -88,8 +88,8 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             } else {
                 stop.lane = stopPos.first->getID();
             }
-            stop.startPos = stopPos.second;
-            stop.endPos = stopPos.second + POSITION_EPS;
+            stop.startPos = MAX2(0.0, stopPos.second - POSITION_EPS);
+            stop.endPos = stopPos.second;
             if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
                 stop.containerTriggered = true;
             } else {
