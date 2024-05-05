@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:30:45 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2024-05-06 00:00:39 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,13 +27,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -45,12 +43,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="14.51" waitingTime="19.49" timeLoss="0.00" traveltime="13.51">
         <stop duration="1.00" arrival="1.00" arrivalPos="50.00" actType="waiting"/>
         <transport waitingTime="19.49" vehicle="car0" depart="20.49" arrival="34.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
     </containerinfo>
     <tripinfo id="car0" depart="10.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="50.00" arrivalLane="" arrivalPos="92.00" arrivalSpeed="5.54" duration="40.00" routeLength="274.50" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="20.00" rerouteNo="1" devices="vehroute_car0 tripinfo_car0 routing_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+    <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="50.00" timeLoss="-1" traveltime="-1">
         <stop duration="1.00" arrival="1.00" arrivalPos="50.00" actType="waiting"/>
         <transport waitingTime="50.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </containerinfo>

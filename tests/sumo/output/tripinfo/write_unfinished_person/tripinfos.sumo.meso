@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-04-05 10:30:53 by Eclipse SUMO sumo Version v1_12_0+1949-1d2ae20f770
+<!-- generated on 2024-05-06 00:00:39 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,12 +31,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -50,15 +48,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="car" depart="120.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="30.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="3.00" timeLoss="3.00" rerouteNo="1" devices="tripinfo_car routing_car person_car" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="end"/>
-    <personinfo id="ride_not_finished" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="ride_not_finished" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="120.00" timeLoss="-1" traveltime="-1">
         <stop duration="3.00" arrival="3.00" arrivalPos="3.00" actType="waiting"/>
         <ride waitingTime="120.00" vehicle="car" depart="123.00" arrival="-1" arrivalPos="-1" duration="27.00" routeLength="200.00" timeLoss="-1"/>
     </personinfo>
-    <personinfo id="ride_not_started" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="ride_not_started" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="147.00" timeLoss="-1" traveltime="-1">
         <stop duration="3.00" arrival="3.00" arrivalPos="0.00" actType="waiting"/>
         <ride waitingTime="147.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
-    <personinfo id="walk_not_finshed" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00">
+    <personinfo id="walk_not_finshed" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="0.00" timeLoss="0.00" traveltime="-1">
         <walk depart="0.00" departPos="0.00" arrival="-1" arrivalPos="-1" duration="150.00" routeLength="-1" timeLoss="0.00" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
