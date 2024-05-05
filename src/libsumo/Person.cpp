@@ -314,8 +314,8 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         }
         case MSStageType::WAITING: {
             auto* waitingStage = (MSStageWaiting*) stage;
-            if (waitingStage->getDuration() > 0) {
-                result.travelTime = STEPS2TIME(waitingStage->getDuration());
+            if (waitingStage->getPlannedDuration() > 0) {
+                result.travelTime = STEPS2TIME(waitingStage->getPlannedDuration());
             }
             break;
         }

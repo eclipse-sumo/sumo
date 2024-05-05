@@ -66,7 +66,7 @@ MSStageWaiting::getUntil() const {
 }
 
 SUMOTime
-MSStageWaiting::getDuration() const {
+MSStageWaiting::getPlannedDuration() const {
     return myWaitingDuration;
 }
 

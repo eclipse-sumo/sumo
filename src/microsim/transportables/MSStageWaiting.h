@@ -54,7 +54,7 @@ public:
 
     SUMOTime getUntil() const;
 
-    SUMOTime getDuration() const;
+    SUMOTime getPlannedDuration() const;
 
     SUMOTime getStopEnd() const {
         return myStopEndTime;
