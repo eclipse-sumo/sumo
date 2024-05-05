@@ -335,15 +335,27 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
 }
 
 
+SUMOTime
+MSStageDriving::getWaitingTime() const {
+    const SUMOTime departed = myDeparted >= 0 ? myDeparted : SIMSTEP;
+    return myWaitingSince >= 0 ? departed - myWaitingSince : SUMOTime_MAX;
+}
+
+
+SUMOTime
+MSStageDriving::getTimeLoss(const MSTransportable* /*transportable*/) const {
+    return myArrived >= 0 ? myTimeLoss : SUMOTime_MAX;
+}
+
 void
 MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const {
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     const SUMOTime departed = myDeparted >= 0 ? myDeparted : now;
-    const SUMOTime waitingTime = myWaitingSince >= 0 ? departed - myWaitingSince : -1;
+    const SUMOTime waitingTime = getWaitingTime();
     const SUMOTime duration = myArrived - myDeparted;
     MSDevice_Tripinfo::addRideTransportData(transportable->isPerson(), myVehicleDistance, duration, myVehicleVClass, myVehicleLine, waitingTime);
     os.openTag(transportable->isPerson() ? "ride" : "transport");
-    os.writeAttr("waitingTime", waitingTime >= 0 ? time2string(waitingTime) : "-1");
+    os.writeAttr("waitingTime", waitingTime != SUMOTime_MAX ? time2string(waitingTime) : "-1");
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
@@ -351,7 +363,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
                  (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
     os.writeAttr("routeLength", myArrived >= 0 || myVehicle != nullptr ? toString(getDistance()) : "-1");
-    os.writeAttr("timeLoss", myArrived >= 0 ? time2string(myTimeLoss) : "-1");
+    os.writeAttr("timeLoss", myArrived >= 0 ? time2string(getTimeLoss(transportable)) : "-1");
     os.closeTag();
 }
 

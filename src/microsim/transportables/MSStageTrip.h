@@ -100,6 +100,12 @@ public:
         UNUSED_PARAMETER(transportable);
     }
 
+    /// @brief trip doesn't participate in plan summary
+    SUMOTime getTimeLoss() const { return 0; }
+    SUMOTime getDuration() const { return 0; }
+    SUMOTime getTravelTime() const { return 0; }
+    SUMOTime getWaitingTime() const { return 0; }
+
     /** @brief Called on writing vehroute output
     *
     * @param[in] os The stream to write the information into

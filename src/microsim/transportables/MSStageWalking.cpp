@@ -277,6 +277,17 @@ MSStageWalking::walkDistance(bool partial) const {
 }
 
 
+SUMOTime
+MSStageWalking::getTimeLoss(const MSTransportable* transportable) const {
+    SUMOTime timeLoss = myArrived == -1 ? 0 : getDuration() - TIME2STEPS(walkDistance(true) / getMaxSpeed(transportable));
+    if (timeLoss < 0 && timeLoss > TIME2STEPS(-0.1)) {
+        // avoid negative timeLoss due to rounding errors
+        timeLoss = 0;
+    }
+    return timeLoss;
+}
+
+
 void
 MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const person) const {
     if (!myWarnedInvalidTripinfo && MSNet::getInstance()->getPersonControl().getMovementModel()->usingShortcuts()) {
@@ -286,11 +297,7 @@ MSStageWalking::tripInfoOutput(OutputDevice& os, const MSTransportable* const pe
     const double distance = walkDistance(true);
     const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;
-    SUMOTime timeLoss = myArrived == -1 ? 0 : duration - TIME2STEPS(distance / maxSpeed);
-    if (timeLoss < 0 && timeLoss > TIME2STEPS(-0.1)) {
-        // avoid negative timeLoss due to rounding errors
-        timeLoss = 0;
-    }
+    const SUMOTime timeLoss = getTimeLoss(person);
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
     os.openTag("walk");
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");

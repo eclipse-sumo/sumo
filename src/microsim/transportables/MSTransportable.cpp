@@ -210,12 +210,50 @@ MSTransportable::getSpeed() const {
 void
 MSTransportable::tripInfoOutput(OutputDevice& os) const {
     os.openTag(isPerson() ? "personinfo" : "containerinfo");
-    os.writeAttr("id", getID());
-    os.writeAttr("depart", time2string(getDesiredDepart()));
-    os.writeAttr("type", getVehicleType().getID());
+    os.writeAttr(SUMO_ATTR_ID, getID());
+    os.writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    os.writeAttr(SUMO_ATTR_TYPE, getVehicleType().getID());
     if (isPerson()) {
-        os.writeAttr("speedFactor", getChosenSpeedFactor());
+        os.writeAttr(SUMO_ATTR_SPEEDFACTOR, getChosenSpeedFactor());
     }
+    SUMOTime duration = 0;
+    SUMOTime waitingTime = 0;
+    SUMOTime timeLoss = 0;
+    SUMOTime travelTime = 0;
+    bool durationOK = true;
+    bool waitingTimeOK = true;
+    bool timeLossOK = true;
+    bool travelTimeOK = true;
+    for (MSStage* const i : *myPlan) {
+        SUMOTime t = i->getDuration();
+        if (t != SUMOTime_MAX) {
+            duration += t;
+        } else {
+            durationOK = false;
+        }
+        t = i->getWaitingTime();
+        if (t != SUMOTime_MAX) {
+            waitingTime += t;
+        } else {
+            waitingTimeOK = false;
+        }
+        t = i->getTimeLoss(this);
+        if (t != SUMOTime_MAX) {
+            timeLoss += t;
+        } else {
+            timeLossOK = false;
+        }
+        t = i->getTravelTime();
+        if (t != SUMOTime_MAX) {
+            travelTime += t;
+        } else {
+            travelTimeOK = false;
+        }
+    }
+    //os.writeAttr(SUMO_ATTR_DURATION, durationOK ? time2string(duration) : "-1");
+    //os.writeAttr(SUMO_ATTR_WAITINGTIME, waitingTimeOK ? time2string(waitingTime) : "-1");
+    //os.writeAttr(SUMO_ATTR_TIMELOSS, timeLossOK ? time2string(timeLoss) : "-1");
+    //os.writeAttr(SUMO_ATTR_TRAVELTIME, travelTimeOK ? time2string(travelTime) : "-1");
     for (MSStage* const i : *myPlan) {
         i->tripInfoOutput(os, this);
     }

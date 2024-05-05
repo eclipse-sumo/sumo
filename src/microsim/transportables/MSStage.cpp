@@ -134,6 +134,29 @@ MSStage::getArrived() const {
     return myArrived;
 }
 
+
+SUMOTime
+MSStage::getDuration() const {
+    return myArrived > 0 ? myArrived - myDeparted : SUMOTime_MAX;
+}
+
+
+SUMOTime
+MSStage::getTravelTime() const {
+    return getDuration();
+}
+
+SUMOTime
+MSStage::getWaitingTime() const {
+    return 0;
+}
+
+SUMOTime
+MSStage::getTimeLoss(const MSTransportable* /*transportable*/) const {
+    return 0;
+}
+
+
 const std::string
 MSStage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now, const bool /* vehicleArrived */) {
     myArrived = now;

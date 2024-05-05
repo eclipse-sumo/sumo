@@ -176,6 +176,9 @@ public:
     /// @brief checks whether the person may exit at the current vehicle position
     bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
+    SUMOTime getTimeLoss(const MSTransportable* transportable) const;
+    SUMOTime getWaitingTime() const;
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(std::ostringstream& out);
@@ -213,7 +216,7 @@ protected:
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;
-    
+
 
 private:
     /// brief register waiting person (on proceed or loadState)
@@ -232,7 +235,7 @@ private:
         BookReservation(MSTransportable* transportable, SUMOTime earliestPickupTime, MSStageDriving* stage) :
             myTransportable(transportable), myEarliestPickupTime(earliestPickupTime), myStage(stage), myWaitingPos(stage->myWaitingPos) {}
         SUMOTime execute(SUMOTime currentTime);
-        
+
     public:
         MSTransportable* myTransportable;
         SUMOTime myEarliestPickupTime;

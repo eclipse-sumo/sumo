@@ -104,7 +104,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
     os.writeAttr("departPos", myDepartPos);
     os.writeAttr("arrival", time2string(myArrived));
     os.writeAttr("arrivalPos", myArrivalPos);
-    os.writeAttr("duration", myArrived >= 0 ? time2string(myArrived - myDeparted) : "-1");
+    os.writeAttr("duration", myArrived >= 0 ? time2string(getDuration()) : "-1");
     os.writeAttr("routeLength", getDistance());
     os.writeAttr("maxSpeed", mySpeed);
     os.closeTag();

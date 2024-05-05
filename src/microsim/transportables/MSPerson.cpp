@@ -118,7 +118,7 @@ MSPerson::MSPersonStage_Access::tripInfoOutput(OutputDevice& os, const MSTranspo
     os.writeAttr("stop", getDestinationStop()->getID());
     os.writeAttr("depart", time2string(myDeparted));
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("duration", myArrived > 0 ? time2string(myArrived - myDeparted) : "-1");
+    os.writeAttr("duration", myArrived > 0 ? time2string(getDuration()) : "-1");
     os.writeAttr("routeLength", myDist);
     os.closeTag();
 }

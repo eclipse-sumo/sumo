@@ -137,6 +137,8 @@ public:
         return true;
     }
 
+    SUMOTime getTimeLoss(const MSTransportable* transportable) const;
+
 private:
     /// @brief compute total walking distance
     double walkDistance(bool partial = false) const;

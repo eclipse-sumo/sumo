@@ -56,6 +56,10 @@ public:
 
     SUMOTime getPlannedDuration() const;
 
+    SUMOTime getTravelTime() const {
+        return 0;
+    }
+
     SUMOTime getStopEnd() const {
         return myStopEndTime;
     }

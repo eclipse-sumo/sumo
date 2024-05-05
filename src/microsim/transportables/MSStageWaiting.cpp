@@ -70,7 +70,6 @@ MSStageWaiting::getPlannedDuration() const {
     return myWaitingDuration;
 }
 
-
 Position
 MSStageWaiting::getPosition(SUMOTime /* now */) const {
     if (myStopWaitPos != Position::INVALID) {
