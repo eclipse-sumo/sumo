@@ -70,6 +70,11 @@ MSStageWaiting::getPlannedDuration() const {
     return myWaitingDuration;
 }
 
+SUMOTime
+MSStageWaiting::getDuration() const {
+    return myType == MSStageType::WAITING_FOR_DEPART ? 0 : MSStage::getDuration();
+}
+
 Position
 MSStageWaiting::getPosition(SUMOTime /* now */) const {
     if (myStopWaitPos != Position::INVALID) {
@@ -108,7 +113,7 @@ void
 MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
         os.openTag(SUMO_TAG_STOP);
-        os.writeAttr("duration", time2string(myArrived - myDeparted));
+        os.writeAttr("duration", getDuration() != SUMOTime_MAX ? time2string(getDuration()) : "-1");
         os.writeAttr("arrival", time2string(myArrived));
         os.writeAttr("arrivalPos", toString(myArrivalPos));
         os.writeAttr("actType", myActType == "" ? "waiting" : myActType);

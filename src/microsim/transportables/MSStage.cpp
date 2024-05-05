@@ -137,7 +137,7 @@ MSStage::getArrived() const {
 
 SUMOTime
 MSStage::getDuration() const {
-    return myArrived > 0 ? myArrived - myDeparted : SUMOTime_MAX;
+    return myArrived >= 0 ? myArrived - myDeparted : SUMOTime_MAX;
 }
 
 

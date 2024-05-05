@@ -250,10 +250,10 @@ MSTransportable::tripInfoOutput(OutputDevice& os) const {
             travelTimeOK = false;
         }
     }
-    //os.writeAttr(SUMO_ATTR_DURATION, durationOK ? time2string(duration) : "-1");
-    //os.writeAttr(SUMO_ATTR_WAITINGTIME, waitingTimeOK ? time2string(waitingTime) : "-1");
-    //os.writeAttr(SUMO_ATTR_TIMELOSS, timeLossOK ? time2string(timeLoss) : "-1");
-    //os.writeAttr(SUMO_ATTR_TRAVELTIME, travelTimeOK ? time2string(travelTime) : "-1");
+    os.writeAttr(SUMO_ATTR_DURATION, durationOK ? time2string(duration) : "-1");
+    os.writeAttr(SUMO_ATTR_WAITINGTIME, waitingTimeOK ? time2string(waitingTime) : "-1");
+    os.writeAttr(SUMO_ATTR_TIMELOSS, timeLossOK ? time2string(timeLoss) : "-1");
+    os.writeAttr(SUMO_ATTR_TRAVELTIME, travelTimeOK ? time2string(travelTime) : "-1");
     for (MSStage* const i : *myPlan) {
         i->tripInfoOutput(os, this);
     }

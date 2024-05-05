@@ -57,8 +57,11 @@ public:
     SUMOTime getPlannedDuration() const;
 
     SUMOTime getTravelTime() const {
+        // not a travelling stage
         return 0;
     }
+
+    SUMOTime getDuration() const;
 
     SUMOTime getStopEnd() const {
         return myStopEndTime;
