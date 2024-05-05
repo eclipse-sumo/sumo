@@ -190,6 +190,10 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
     if (myDispatchCommand == nullptr) {
         initDispatch();
     }
+    if (fromStop != nullptr && &fromStop->getLane().getEdge() == from) {
+        // pickup position should be at the stop-endPos
+        fromPos = fromStop->getEndLanePosition();
+    }
     myDispatcher->addReservation(person, reservationTime, pickupTime, earliestPickupTime, from, fromPos, fromStop, to, toPos, toStop, group, *lines.begin(), myMaxCapacity, myMaxContainerCapacity);
 }
 
