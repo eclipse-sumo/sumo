@@ -155,10 +155,10 @@ For a dependent mapping, multiple calibrators (each with a different `vTypes` at
 ```xml
 <additional>
   ...
-  <calibrator id="forCars" edge="E1" pos="0" type="myCarType">
+  <calibrator id="forCars" edge="E1" pos="0" vTypes="myCarType">
     <flow begin="0" end="1800" type="myCarType2"/>
   </calibrator>
-  <calibrator id="forTrucks" edge="E1" pos="0" type="myTruckType">
+  <calibrator id="forTrucks" edge="E1" pos="0" vTypes="myTruckType">
     <flow begin="0" end="1800" type="myTruckType2"/>
   </calibrator>
 </additional>
