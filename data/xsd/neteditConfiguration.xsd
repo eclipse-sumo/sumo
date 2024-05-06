@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO netedit Version v1_18_0+2421-58d8177730f
+<!-- generated on 2024-05-06 22:23:07 by Eclipse SUMO netedit Version v1_19_0+2013-766b9941f98
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -39,6 +39,7 @@
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="data-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="meandata-files" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-missing-inputs" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="sumo-net-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="node-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="edge-files" type="fileOptionType" minOccurs="0"/>
@@ -150,6 +151,7 @@
             <xsd:element name="offset.z" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="flip-y-axis" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.guess" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="roundabouts.guess.max-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="roundabouts.visibility-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opposites.guess.fix-lengths" type="boolOptionType" minOccurs="0"/>
@@ -303,6 +305,7 @@
             <xsd:element name="junctions.small-radius" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.higher-speed" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.minimal-shape" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.endpoint-shape" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="internal-junctions.vehicle-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="rectangular-lane-cut" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="check-lane-foes.roundabout" type="boolOptionType" minOccurs="0"/>
@@ -357,6 +360,7 @@
         <xsd:all>
             <xsd:element name="discard-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="ignore-change-restrictions" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.skip-duplicates-check" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.elevation" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.layer-elevation" type="floatOptionType" minOccurs="0"/>
@@ -371,6 +375,7 @@
             <xsd:element name="osm.stop-output.length.bus" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.tram" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="osm.stop-output.length.train" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="osm.railsignals" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="osm.all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="osm.extra-attributes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="osm.speedlimit-none" type="floatOptionType" minOccurs="0"/>
@@ -408,7 +413,6 @@
             <xsd:element name="visum.verbose-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="visum.lanes-from-capacity.norm" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.import-all-lanes" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="opendrive.ignore-widths" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.curve-resolution" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.advance-stopline" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="opendrive.min-width" type="floatOptionType" minOccurs="0"/>
