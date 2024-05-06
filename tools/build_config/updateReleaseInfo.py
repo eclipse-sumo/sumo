@@ -111,7 +111,8 @@ with fileinput.FileInput(os.path.join(SUMO_HOME, "docs", "web", "docs", "ChangeL
         else:
             print(line, end='')
 
-with fileinput.FileInput(os.path.join(SUMO_HOME, "build_config", "package", "sumo.metainfo.xml"), inplace=True) as metainfo:
+with fileinput.FileInput(os.path.join(SUMO_HOME, "build_config", "package", "sumo.metainfo.xml"),
+                         inplace=True) as metainfo:
     have_next = False
     for line in metainfo:
         if next_release in line:
