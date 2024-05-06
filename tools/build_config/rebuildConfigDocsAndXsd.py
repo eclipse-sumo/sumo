@@ -67,8 +67,8 @@ class ConfigReader(handler.ContentHandler):
                     a = s
             print('|', end=' ', file=self._file)
             if a != "":
-                print('**-%s** {{DT_%s}}<br>' % (a, attrs['type']), end=' ', file=self._file)
-            print('**--%s** {{DT_%s}}' % (name, attrs['type']), end=' ', file=self._file)
+                print('**-%s** {{DT_%s}}<br>' % (a, attrs['type'].replace('[]', '_LIST')), end=' ', file=self._file)
+            print('**--%s** {{DT_%s}}' % (name, attrs['type'].replace('[]', '_LIST')), end=' ', file=self._file)
             helpStr = attrs['help'].replace('|', ',')
             if attrs['value']:
                 if helpStr:

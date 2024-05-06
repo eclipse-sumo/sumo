@@ -269,6 +269,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--offset.z** {{DT_FLOAT}} | Adds FLOAT to net z-positions; *default:* **0** |
 | **--flip-y-axis** {{DT_BOOL}} | Flips the y-coordinate along zero; *default:* **false** |
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
+| **--roundabouts.guess.max-length** {{DT_FLOAT}} | Structures with a circumference above FLOAT threshold are not classified as roundabout; *default:* **3500** |
 | **--roundabouts.visibility-distance** {{DT_FLOAT}} | Default visibility when approaching a roundabout; *default:* **9** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **true** |
@@ -373,7 +374,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--keep-edges.explicit** {{DT_STR_LIST}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
 | **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
 | **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
-| **--keep-edges.postload** {{DT_BOOL}} | Remove edges after joining; *default:* **false** |
+| **--keep-edges.postload** {{DT_BOOL}} | Remove edges after loading, patching and joining; *default:* **false** |
 | **--keep-edges.in-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR_LIST}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
 | **--keep-edges.by-vclass** {{DT_STR_LIST}} | Only keep edges which allow one of the vclasses in STR[] |
@@ -422,6 +423,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.small-radius** {{DT_FLOAT}} | Default radius for junctions that do not require wide vehicle turns; *default:* **1.5** |
 | **--junctions.higher-speed** {{DT_BOOL}} | Use maximum value of incoming and outgoing edge speed on junction instead of average; *default:* **false** |
 | **--junctions.minimal-shape** {{DT_BOOL}} | Build junctions with minimal shapes (ignoring edge overlap); *default:* **false** |
+| **--junctions.endpoint-shape** {{DT_BOOL}} | Build junction shapes based on edge endpoints (ignoring edge overlap); *default:* **false** |
 | **--internal-junctions.vehicle-width** {{DT_FLOAT}} | Assumed vehicle width for computing internal junction positions; *default:* **1.8** |
 | **--rectangular-lane-cut** {{DT_BOOL}} | Forces rectangular cuts between lanes and intersections; *default:* **false** |
 | **--check-lane-foes.roundabout** {{DT_BOOL}} | Allow driving onto a multi-lane road if there are foes on other lanes (at roundabouts); *default:* **true** |
@@ -476,6 +478,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **--discard-params** {{DT_STR_LIST}} | Remove the list of keys from all params |
 | **--ignore-change-restrictions** {{DT_STR_LIST}} | List vehicle classes that may ignore lane changing restrictions ('all' discards all restrictions); *default:* **authority** |
+| **--ignore-widths** {{DT_BOOL}} | Whether lane widths shall be ignored.; *default:* **false** |
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
@@ -490,6 +493,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--osm.stop-output.length.bus** {{DT_FLOAT}} | The default length of a bus stop in FLOAT m; *default:* **15** |
 | **--osm.stop-output.length.tram** {{DT_FLOAT}} | The default length of a tram stop in FLOAT m; *default:* **25** |
 | **--osm.stop-output.length.train** {{DT_FLOAT}} | The default length of a train stop in FLOAT m; *default:* **200** |
+| **--osm.railsignals** {{DT_STR_LIST}} | Specify custom rules for importing railway signals; *default:* **DEFAULT** |
 | **--osm.all-attributes** {{DT_BOOL}} | Whether additional attributes shall be imported; *default:* **false** |
 | **--osm.extra-attributes** {{DT_STR_LIST}} | List of additional attributes that shall be imported from OSM via osm.all-attributes (set 'all' to import all); *default:* **all** |
 | **--osm.speedlimit-none** {{DT_FLOAT}} | The speed limit to be set when there is no actual speed limit in reality; *default:* **39.4444** |
@@ -527,7 +531,6 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--visum.verbose-warnings** {{DT_BOOL}} | Prints all warnings, some of which are due to VISUM misbehaviour; *default:* **false** |
 | **--visum.lanes-from-capacity.norm** {{DT_FLOAT}} | The factor for flow to no. lanes conversion; *default:* **1800** |
 | **--opendrive.import-all-lanes** {{DT_BOOL}} | Imports all lane types; *default:* **false** |
-| **--opendrive.ignore-widths** {{DT_BOOL}} | Whether lane widths shall be ignored.; *default:* **false** |
 | **--opendrive.curve-resolution** {{DT_FLOAT}} | The geometry resolution in m when importing curved geometries as line segments.; *default:* **2** |
 | **--opendrive.advance-stopline** {{DT_FLOAT}} | Allow stop lines to be built beyond the start of the junction if the geometries allow so; *default:* **0** |
 | **--opendrive.min-width** {{DT_FLOAT}} | The minimum lane width for determining start or end of variable-width lanes; *default:* **1.8** |
