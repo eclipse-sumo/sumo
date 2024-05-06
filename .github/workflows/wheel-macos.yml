@@ -177,7 +177,7 @@ jobs:
   # publishing wheels
   ###################
   publish-wheels:
-    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
+    if: github.repository == 'eclipse-sumo/sumo' && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags'))
     needs: [test-wheels]
     runs-on: ubuntu-latest
     permissions:
