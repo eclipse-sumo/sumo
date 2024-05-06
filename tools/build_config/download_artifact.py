@@ -45,6 +45,7 @@ def get_latest_artifact_url(options, artifact_name):
             and workflow_run['conclusion'] == "success"
                 and workflow_run['head_branch'] == options.branch):
             workflow_run_id = workflow_run['id']
+            break
     if workflow_run_id is None:
         raise RuntimeError("No successful workflow run found in branch '%s'." % options.branch)
 
@@ -60,7 +61,7 @@ def get_latest_artifact_url(options, artifact_name):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--api-url", default="https://api.github.com")
-    ap.add_argument("--owner", default="DLR-TS")
+    ap.add_argument("--owner", default="eclipse-sumo")
     ap.add_argument("--repository", default="sumo")
     ap.add_argument("--workflow", default="windows-wheels")
     ap.add_argument("--branch", default="main")
