@@ -1,0 +1,8 @@
+
+[Reported by erdm_ja at 06May08:54:01]
+search_string:reaches scheduled end of service
+trigger_on_absence:1
+search_file:errors
+ignore_other_errors:1
+full_description:end of work not recognized for non-parking idle stop
+brief_description:see #14825
