@@ -30,6 +30,7 @@ The SUMO User Conference is an anual event organized by the German Aerospace Cen
 * [SUMO 2021](https://sumo.dlr.de/daily/sumo2021_tutorial.zip): traffic light layout, indirect left turn, TAZ, OD-traffic, GTFS
 * [SUMO 2022](https://sumo.dlr.de/daily/sumo2022_tutorial.zip): network editing, flows, opposite driving, pedestrian crossings, parking search
 * [SUMO 2023](https://sumo.dlr.de/daily/sumo2023_tutorial.zip): graphical diff, personFlow, plotting tools, analyzing repeated runs
+* [SUMO 2024](https://sumo.dlr.de/daily/sumo2024_tutorial.zip): Debugging simulation warnings, pedestrian models, flying taxis
 
 ## Videos
 
