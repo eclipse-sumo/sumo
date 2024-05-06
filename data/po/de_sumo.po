@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-04-29 14:26+0200\n"
-"PO-Revision-Date: 2024-04-12 07:39+0000\n"
+"PO-Revision-Date: 2024-05-06 06:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.3\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1529,7 +1529,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:2221
 msgid "Could not interpret routing.mode '%'"
-msgstr ""
+msgstr "'%' konnte nicht als routing.mode erkannt werden"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.h:936
 msgid "getLeader not yet implemented for meso"
@@ -3175,7 +3175,7 @@ msgstr "Ein anderer Fluss mit der ID '%' existiert."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1070
 msgid "Cannot define % stage without %."
-msgstr ""
+msgstr "Es kann kein %-Abschnitt ohne % definiert werden."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1187
 msgid "The busStop '%' is not known%."
@@ -3271,7 +3271,7 @@ msgstr "Keine Zielkante für %."
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1478
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1561
 msgid "Cannot define person stage without person."
-msgstr ""
+msgstr "Es kann kein Personenabschnitt ohne eine Person definiert werden."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1491
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1137
@@ -5157,7 +5157,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:393
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
-msgstr ""
+msgstr "Person '%' in Zielfläche '%' wurde aus der Simulation entfernt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:473
 msgid "Error while generating geometry for carriages."
@@ -5176,16 +5176,22 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:583
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
 msgstr ""
+"Das Polygon '%' am Knotenpunkt '%' wird ausgelassen, da es nur aus einem "
+"Punkt besteht."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:602
 msgid ""
 "Polygon '%' at junction '%' had some equal consecutive points removed: %"
 msgstr ""
+"Aus dem Polygon '%' am Knotenpunkt '%' wurden mehrere gleiche und einander "
+"folgende Punkte entfernt: %"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:611
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
 msgstr ""
+"Das Polygon '%' am Knotenpunkt '%' wurde erweitert, da es sich nur um ein "
+"Segment handelt."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:613
 #, c-format
@@ -5199,10 +5205,13 @@ msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
 "not simple."
 msgstr ""
+"Das Polygon '%' am Knotenpunkt '%' wurde durch seine konvexe Hülle ersetzt, "
+"da es nicht einfach ist."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:626
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
 msgstr ""
+"Das Polygon '%' am Knotenpunkt '%' wird ausgelassen, da es nicht einfach ist."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:777
 msgid ""
