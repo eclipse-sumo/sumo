@@ -27,7 +27,7 @@ import subprocess
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 import sumolib  # noqa
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.xml import _open
+from sumolib.xml import _open  # noqa
 
 
 def parse_args():
@@ -61,7 +61,8 @@ def main(options):
     else:
         removeVClasses(options, net)
 
-def removeVClasses(options,net):
+
+def removeVClasses(options, net):
     classes = options.deleteClasses.split(',')
     with open(options.outfile, 'w') as outf:
         for line in _open(options.net):

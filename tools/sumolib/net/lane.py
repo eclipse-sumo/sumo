@@ -78,6 +78,7 @@ SUMO_VEHICLE_CLASSES_DEPRECATED = set([
     "rail_slow",
     "rail_fast"])
 
+
 def is_vehicle_class(s):
     return s in SUMO_VEHICLE_CLASSES
 
