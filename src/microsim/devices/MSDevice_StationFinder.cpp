@@ -60,14 +60,14 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.stationfinder.rescueAction", new Option_String("remove"));
     oc.addDescription("device.stationfinder.rescueAction", "Battery", TL("How to deal with a vehicle which has to stop due to low battery: [none, remove, tow]"));
     oc.doRegister("device.stationfinder.reserveFactor", new Option_Float(1.1));
-    oc.addDescription("device.stationfinder.reserveFactor", "Battery", TL("Additional battery buffer for unexpected traffic situation when estimating the battery need"));
+    oc.addDescription("device.stationfinder.reserveFactor", "Battery", TL("Scale battery need with this factor to account for unexpected traffic situations"));
     oc.doRegister("device.stationfinder.emptyThreshold", new Option_Float(5));
     oc.addDescription("device.stationfinder.emptyThreshold", "Battery", TL("Battery percentage to go into rescue mode"));
     oc.doRegister("device.stationfinder.radius", new Option_String("180", "TIME"));
     oc.addDescription("device.stationfinder.radius", "Battery", TL("Search radius in travel time seconds"));
     oc.doRegister("device.stationfinder.repeat", new Option_String("60", "TIME"));
     oc.addDescription("device.stationfinder.repeat", "Battery", TL("When to trigger a new search if no station has been found"));
-    oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(1000.));
+    oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(100000.));
     oc.addDescription("device.stationfinder.maxChargePower", "Battery", TL("The maximum charging speed of the vehicle battery"));
     oc.doRegister("device.stationfinder.chargeType", new Option_String("charging"));
     oc.addDescription("device.stationfinder.chargeType", "Battery", TL("Type of energy transfer"));
@@ -95,17 +95,17 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), myVeh(dynamic_cast<MSVehicle&>(holder)),
       myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
-      myCheckInterval(1000), myArrivalAtChargingStation(-1) {
+      myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     OptionsCont& oc = OptionsCont::getOptions();
     myRescueTime = getFloatParam(holder, oc, "stationfinder.rescueTime", 1800.);
     initRescueAction(holder, oc, "stationfinder.rescueAction", myRescueAction);
     initRescueCommand();
-    myReserveFactor = getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1);
+    myReserveFactor = MAX2(1., getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1));
     myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 100.)) / 100.;
     myRadius = getTimeParam(holder, oc, "stationfinder.radius", 180000);
     myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat", 60000);
     myMaxChargePower = getFloatParam(holder, oc, "stationfinder.maxChargePower", 80000.);
-    myChargeType = CHARGE_TYPE_CHARGING;
+    myChargeType = CHARGETYPE_CHARGING;
     myWaitForCharge = getTimeParam(holder, oc, "stationfinder.waitForCharge", 600000);
     myTargetSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.saturatedChargeLevel", 80.), 100.)) / 100.;
     mySearchSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.needToChargeLevel", 40.), 100.)) / 100.;
@@ -131,7 +131,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         myPassedChargingStations.clear();
         myArrivalAtChargingStation = -1;
         myChargingStation = nullptr;
-        myExecuteRescue = false;
+        mySearchState = SEARCHSTATE_CHARGING;
         return true;
     }
     const SUMOTime now = SIMSTEP;
@@ -143,18 +143,19 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             }
         } else if (myArrivalAtChargingStation < 0 && myVeh.willStop() && myVeh.getDistanceToPosition(myChargingStation->getBeginLanePosition(), myVeh.getLane()) < DEFAULT_CHARGINGSTATION_VIEW_DIST) {
             // remember when the vehicle arrived close to the target charging station
+            mySearchState = SEARCHSTATE_WAITING;
             myArrivalAtChargingStation = now;
         }
     }
     const double currentSoC = myBattery->getActualBatteryCapacity() / myBattery->getMaximumBatteryCapacity();
-    if (currentSoC > mySearchSoC || myExecuteRescue) {
+    if (currentSoC > mySearchSoC || mySearchState == SEARCHSTATE_BROKEN_DOWN) {
         // battery SoC is too high to look for charging facilities or the vehicle is already in rescue mode
         return true;
     }
     // only check once per second
     if (now - myLastChargeCheck < 1000) {
         return true;
-    } else if (myRescueAction != RESCUE_ACTION_NONE  && (currentSoC < myEmptySoC || currentSoC < NUMERICAL_EPS)) {
+    } else if (myRescueAction != RESCUEACTION_NONE  && (currentSoC < myEmptySoC || currentSoC < NUMERICAL_EPS)) {
         // vehicle has to stop at the end of the  because battery SoC is too low
         double brakeGap = myVeh.getCarFollowModel().brakeGap(myVeh.getSpeed());
         std::pair<const MSLane*, double> stopPos = myVeh.getLanePosAfterDist(brakeGap);
@@ -176,7 +177,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
 
             WRITE_MESSAGEF(TL("Vehicle '%' wants to stop on lane % at pos % because of low battery charge % at time=%."), myHolder.getID(), rescueStop.lane, toString(rescueStop.endPos), toString(currentSoC), toString(SIMTIME));
 
-            if (myRescueAction == RESCUE_ACTION_REMOVE) {
+            if (myRescueAction == RESCUEACTION_REMOVE) {
                 // remove vehicle from network
                 rescueStop.until = SUMOTime_MAX;
                 rescueStop.breakDown = true;
@@ -184,9 +185,9 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                 if (!myVeh.insertStop(0, rescueStop, "stationfinder:rescue", false, errorMsg)) {
                     WRITE_ERROR(errorMsg);
                 }
-                myExecuteRescue = true;
+                mySearchState = SEARCHSTATE_BROKEN_DOWN;
                 return true;
-            } else if (myRescueAction == RESCUE_ACTION_TOW) {
+            } else if (myRescueAction == RESCUEACTION_TOW) {
                 // wait next to the road and get teleported to a charging station
                 SUMOTime rescueTime = TIME2STEPS(myRescueTime);
                 rescueStop.duration = rescueTime;
@@ -198,11 +199,11 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                 }
                 initRescueCommand();
                 MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myRescueCommand, SIMSTEP + rescueStop.duration - DELTA_T);
-                myExecuteRescue = true;
+                mySearchState = SEARCHSTATE_BROKEN_DOWN;
                 return true;
             }
         }
-    } else if (myChargingStation == nullptr && myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL) {
+    } else if (myChargingStation == nullptr && (myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL && STEPS2TIME(now - myLastSearch) >= myRepeatInterval))) {
         // check if a charging stop is already planned without the device, otherwise reroute inside this device
         if (!alreadyPlannedCharging() && now > myHolder.getDeparture()) {
             rerouteToChargingStation();
@@ -271,7 +272,6 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
             ConstMSEdgeVector routeFrom;
             double time = router.recomputeCosts(routeTo, &myHolder, now) - csEdge->getMinimumTravelTime(&myHolder) * (csEdge->getLength() - cs->getBeginLanePosition()) / csEdge->getLength();
             if (!constrainTT || time < maxTT) {
-                //std::pair<ConstMSEdgeVector, double> routeInfo = std::make_pair(routeTo, time);
                 travelTimeToCharging.insert({ cs, time });
             }
         }
@@ -311,8 +311,9 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
 
 bool
 MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
-    double expectedConsumption = estimateConsumption();
+    double expectedConsumption = MIN2(estimateConsumption() * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
     if (myBattery->getActualBatteryCapacity() < expectedConsumption) {
+        myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         MSChargingStation* cs = findChargingStation(router, expectedConsumption);
         if (cs != nullptr) {
@@ -326,7 +327,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             }
             stopPar.edge = cs->getLane().getEdge().getID();
             stopPar.lane = cs->getLane().getID();
-            stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()) * myReserveFactor);
+            stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()));
             stopPar.startPos = cs->getBeginLanePosition();
             stopPar.endPos = cs->getEndLanePosition();
             std::string errorMsg;
@@ -349,9 +350,11 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
 
             myPassedChargingStations.push_back(cs);
             myArrivalAtChargingStation = -1;
+            mySearchState = SEARCHSTATE_SUCCESSFUL;
             //WRITE_MESSAGE(TLF("Vehicle % gets rerouted to charging station % (edge % ) at time=%", myHolder.getID(), cs->getID(), stopPar.edge, toString(SIMTIME)));
             return true;
         }
+        mySearchState = SEARCHSTATE_UNSUCCESSFUL;
         WRITE_MESSAGEF(TL("Vehicle '%' wants to charge at time=% but does not find any charging station nearby."), myHolder.getID(), toString(SIMTIME));
     }
     return false;
@@ -362,14 +365,14 @@ SUMOTime
 MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/) {
     // find closest charging station
     MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
-    double expectedConsumption = estimateConsumption(nullptr, true, myVeh.getStops().front().pars.duration);
+    double expectedConsumption = MIN2(estimateConsumption(nullptr, true, myVeh.getStops().front().pars.duration) * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
     MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false);
     if (cs == nullptr) {
         // continue waiting if all charging stations are occupied
         WRITE_MESSAGE(TLF("There is no charging station available to teleport the broken-down vehicle % to at time=%. Will try again in % seconds.", myHolder.getID(), toString(SIMTIME), STEPS2TIME(myRepeatInterval)));
         if (myHolder.isStopped()) {
             myHolder.getNextStop().duration += myRepeatInterval;
-            myExecuteRescue = true;
+            mySearchState = SEARCHSTATE_BROKEN_DOWN;
         } else {
             WRITE_MESSAGE(TLF("Broken-down vehicle % cannot stop longer as it already erroneously resumed at time=%.", myHolder.getID(), toString(SIMTIME)));
         }
@@ -383,7 +386,7 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
     stopPar.lane = cs->getLane().getID();
     stopPar.startPos = cs->getBeginLanePosition();
     stopPar.endPos = cs->getEndLanePosition();
-    stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()) * myReserveFactor);
+    stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()));
     std::string errorMsg;
     if (!myVeh.insertStop(1, stopPar, "stationfinder:search", true, errorMsg)) {
         WRITE_ERROR(errorMsg);
@@ -445,7 +448,7 @@ MSDevice_StationFinder::alreadyPlannedCharging() {
 
 void
 MSDevice_StationFinder::initRescueCommand() {
-    if (myRescueAction == RESCUE_ACTION_TOW && myRescueCommand == nullptr) {
+    if (myRescueAction == RESCUEACTION_TOW && myRescueCommand == nullptr) {
         myRescueCommand = new WrappingCommand<MSDevice_StationFinder>(this, &MSDevice_StationFinder::teleportToChargingStation);
     }
 }
@@ -476,11 +479,11 @@ void
 MSDevice_StationFinder::initRescueAction(const SUMOVehicle& v, const OptionsCont& oc, const std::string& option, RescueAction& myAction) {
     const std::string action = getStringParam(v, oc, option, "remove");
     if (action == "remove") {
-        myAction = RESCUE_ACTION_REMOVE;
+        myAction = RESCUEACTION_REMOVE;
     }  else if (action == "tow") {
-        myAction = RESCUE_ACTION_TOW;
+        myAction = RESCUEACTION_TOW;
     } else if (action == "none") {
-        myAction = RESCUE_ACTION_NONE;
+        myAction = RESCUEACTION_NONE;
     } else {
         WRITE_ERROR(TLF("Invalid % '%'.", option, action));
     }

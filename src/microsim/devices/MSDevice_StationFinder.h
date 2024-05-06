@@ -54,16 +54,25 @@ class MSStoppingPlace;
 class MSDevice_StationFinder : public MSVehicleDevice {
 public:
     enum ChargeType {
-        CHARGE_TYPE_CHARGING,
-        CHARGE_TYPE_BIDIRECTIONAL,
-        CHARGE_TYPE_BATTERY_EXCHANGE,
-        CHARGE_TYPE_FUEL
+        CHARGETYPE_CHARGING,
+        CHARGETYPE_BIDIRECTIONAL,
+        CHARGETYPE_BATTERYEXCHANGE,
+        CHARGETYPE_FUEL
     };
 
     enum RescueAction {
-        RESCUE_ACTION_NONE,
-        RESCUE_ACTION_REMOVE,
-        RESCUE_ACTION_TOW
+        RESCUEACTION_NONE,
+        RESCUEACTION_REMOVE,
+        RESCUEACTION_TOW
+    };
+
+    enum SearchState {
+        SEARCHSTATE_NONE = 0,
+        SEARCHSTATE_SUCCESSFUL,
+        SEARCHSTATE_UNSUCCESSFUL,
+        SEARCHSTATE_CHARGING,
+        SEARCHSTATE_WAITING,
+        SEARCHSTATE_BROKEN_DOWN
     };
 
     /** @brief Inserts MSDevice_StationFinder-options
@@ -229,6 +238,9 @@ private:
     /// @brief Arrival time in the vicinity of the target charging station (to track the waiting time before accessing it)
     SUMOTime myArrivalAtChargingStation;
 
+    /// @brief Last time charging stations have been searched
+    SUMOTime myLastSearch;
+
     /// @brief The time to wait for a rescue vehicle in case the battery is empty
     double myRescueTime;
 
@@ -259,15 +271,14 @@ private:
     /// @brief The state of charge at which the vehicle starts looking for charging stations
     double mySearchSoC;
 
-    /// @brief The marker for executing a rescue action
-    bool myExecuteRescue = false;
-
     /// @brief The type of charging permitted by the battery (charging, bidirectional, battery exchange)
     ChargeType myChargeType;
 
     /// @brief What to do when the state of charge gets very low
     RescueAction myRescueAction;
 
+    /// @brief The current state of the charging search (remember for decision logic)
+    SearchState mySearchState = SEARCHSTATE_NONE;
 
 private:
     /// @brief Invalidated copy constructor.
