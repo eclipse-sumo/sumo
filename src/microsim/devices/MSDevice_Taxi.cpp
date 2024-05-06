@@ -705,7 +705,7 @@ MSDevice_Taxi::updateMove(const SUMOTime traveltime, const double travelledDist)
     } else if (myRoutingDevice != nullptr) {
         myRoutingDevice->setActive(true);
     }
-    if (myHolder.isStopped() && isEmpty() && myHolder.getNextStop().endBoarding > myServiceEnd) {
+    if (myHolder.isStopped() && (isEmpty() || MSGlobals::gUseMesoSim) && myHolder.getNextStop().endBoarding > myServiceEnd) {
         // limit duration of stop (but only for idling-related stops)
         myHolder.getNextStop().endBoarding = myServiceEnd;
     }
