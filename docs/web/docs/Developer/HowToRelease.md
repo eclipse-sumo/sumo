@@ -75,6 +75,8 @@ assigned to a later milestone.
 
 All scenarios should be fixed by now.
 
+- start and save a new version draft [in Zenodo](https://zenodo.org/) (using the sumo@dlr.de user), in order to reserve a DOI. Don't Publish it yet, and don't upload a file to it!
+  - update the version doi in CITATION.cff and in the README badge to this new reserved one
 - patch the version information using `tools/build_config/updateReleaseInfo.py 0.13.7` and double check changes
   - in src/config.h.cmake, also the HAVE_VERSION_H macro should be disabled
   - in CMakeLists.txt
@@ -162,7 +164,7 @@ If everything is fine:
 - close [the milestone](https://github.com/eclipse-sumo/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.
-- update the version doi in CITATION.cff and in the README badge
+- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it
 
 ### After-release cleanup
 
