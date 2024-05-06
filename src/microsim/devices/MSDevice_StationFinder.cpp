@@ -362,7 +362,7 @@ SUMOTime
 MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/) {
     // find closest charging station
     MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
-    double expectedConsumption = estimateConsumption(nullptr, true);
+    double expectedConsumption = estimateConsumption(nullptr, true, myVeh.getStops().front().pars.duration);
     MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false);
     if (cs == nullptr) {
         // continue waiting if all charging stations are occupied
@@ -396,7 +396,7 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
 
 
 double
-MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool includeEmptySoC) const {
+MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool includeEmptySoC, const double stopDiscount) const {
     const SUMOTime now = SIMSTEP;
     MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
     const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
@@ -406,12 +406,13 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
     if (now > myHolder.getDeparture()) {
         const double totalConsumption = myBattery->getTotalConsumption();
         double expectedConsumption = 0.;
-        if (totalConsumption > 0.) {
-            expectedConsumption = totalConsumption / STEPS2TIME(now - myHolder.getDeparture()) * remainingTime;
+        double passedTime = STEPS2TIME(now - myHolder.getDeparture());
+        if (totalConsumption > 0. && passedTime - stopDiscount > DEFAULT_CONSUMPTION_ESTIMATE_HISTORY) {
+            expectedConsumption = totalConsumption / (passedTime - stopDiscount) * remainingTime;
         } else {
             // fallback consumption rate for vehicles starting with low battery
             const double speed = MIN2(myHolder.getMaxSpeed(), myHolder.getLane()->getSpeedLimit());
-            expectedConsumption = DEFAULT_ENERGY_PER_DISTANCE * speed * (remainingTime - STEPS2TIME(now - myHolder.getDeparture())) / 1000.;
+            expectedConsumption = DEFAULT_ENERGY_PER_DISTANCE * speed * (remainingTime - passedTime) / 1000.;
         }
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());

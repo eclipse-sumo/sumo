@@ -29,6 +29,7 @@
 #define DEFAULT_ENERGY_PER_DISTANCE 200 // Wh/km
 #define DEFAULT_AVG_WAITING_TIME 900 // s
 #define DEFAULT_CHARGINGSTATION_VIEW_DIST 10 // m
+#define DEFAULT_CONSUMPTION_ESTIMATE_HISTORY 10 // s
 
 // ===========================================================================
 // class declarations
@@ -188,9 +189,10 @@ private:
      *
      * @param[in] target edge along the route up to which the consumption shall be estimated - the complete route will be used if defaulting to nullptr
      * @param[in] includeEmptySoC whether to add an additional buffer for the range up to the "empty" threshold
+     * @param[in] stopDiscount duration in seconds to discount in the consumption estimation due to occurred stopping time
      * @return energy in Wh needed to complete the planned route
      */
-    double estimateConsumption(const MSEdge* target = nullptr, const bool includeEmptySoC = true) const;
+    double estimateConsumption(const MSEdge* target = nullptr, const bool includeEmptySoC = true, const double stopDiscount = 0.) const;
 
     /** @brief adopt a planned charging stop outside of the device
      *
