@@ -8,8 +8,7 @@ title: ChangeLog
 
 - sumo
   - Fixed inconsistent edgeData and laneData emissions. #14209
-  - Fixed crash with SSM device and incomplete routes. #14201
-  - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115
+  - Fixed crash with SSM device and incomplete routes. #14201  
   - Fixed invalid handling of jumps after stopping twice in the same spot. #14324
   - Teleported vehicles are no longer moved onto restricted lanes. Issue #14168
   - Speeds imposed by variable speed signs (VSS) or TraCI now take precedence of vClass-restricted speeds (this was said to be fixed in 1.19 but didn't work) #13652
@@ -23,8 +22,7 @@ title: ChangeLog
   - Fixed crash when a person plan contains walks or personTrips where origin equals destination #14558
   - Fixed invalid insertion after jump #14578
   - Fixed emergency braking in roundabout. #14587
-  - traffic light detectors no longer assume having seen a vehicle on step before the simulation started #14590
-  - Taxi reservations from the same busStop are now grouped if the dispatcher permits it #14612
+  - traffic light detectors no longer assume having seen a vehicle on step before the simulation started #14590  
   - Removed unneeded warning when a person uses a vehicular connection #14619
   - Fixed invalid departSpeed for IDM in subsecond simulation #14621
   - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
@@ -33,7 +31,13 @@ title: ChangeLog
   - BEV no longer perform coasting / recuperation in HBEFA4 #14764
   - A warning is now given when loading a disconnected walk #14779
   - When simulating a disconnected walk, the walking direction is now correct after passing the disconnected part #14780
-  - Fixed invalid pedestrian jam warning #14796 
+  - Fixed invalid pedestrian jam warning #14796  
+  - Taxi
+    - Fixed problem with **--device.taxi.idle-algorithm taxistand** when the destination is unreachable. #14115
+    - Taxi reservations from the same busStop are now grouped if the dispatcher permits it #14612
+    - Fixed bug where simulation hangs #14821
+    - Fixed bug where taxi exits the simulation prematurely #14819
+    - Fixed invaild taxi pickup time estimation from busStop #14822 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -128,7 +132,9 @@ title: ChangeLog
   - Fixed invalid behavior after removing a stop with `vehicle.replaceStop` #14696
   - Fixed invalid traci constant for traffic light type #14736
   - Stops are no longer lost when calling `vehicle.changeTarget` #14789
-  - Fixed crash when calling `simulation.loadState` with active vehicle highlights #8511 
+  - Fixed crash when calling `simulation.loadState` with active vehicle highlights #8511
+  - Fixed computation of driving distance along a route #14760
+  - Fix for wrong lane occupancy calculation when minGap of vehicles is changed #13024
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
@@ -159,8 +165,10 @@ title: ChangeLog
   - The [battery device](Models/Electric.md) now supports saving and loading state. #14624
   - Stages generated from `<personTrip>` now inherit params from the personTrip. #14513
   - Actuated traffic lights are now more flexible when controlling minor links (reduced warnings of type "... has no controlling detector" warnings) #14692
-  - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494
-  - A personFlow with `depart="triggered"` can now be distributed over a flow of vehicles #14806 
+  - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494, #14815
+  - A personFlow with `depart="triggered"` can now be distributed over a flow of vehicles #14806
+  - vTypes and parkingAreas now support attribute 'parkingBadges' to control access #14482
+  - personInfo (in tripinfo-output) now include data that aggregates over all stages of the plan #14823 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -172,6 +180,7 @@ title: ChangeLog
   - Added red contour to moved elements. #14109
   - The maximum number of rows for a combo box can now be configured in the gui settings (persistent across sessions) #14412
   - Added option for selective hiding of short edges when zoomed out (enabled by default to increase frame rate) #14487
+  - POIs and polygons now support "show-cursor position / geo-position" in the context menu #14812 
 
 - sumo-gui
   - Hotkey B now sets a breakpoint at the current time. Alt+B ahead of the current time. #10400
@@ -179,6 +188,7 @@ title: ChangeLog
   - The new train visualization param `carriageImages` accepts a comma-separated list of image files to enable distinct images for the different carriages. #14403
   - Reduced exaggerated size of long vehicles (i.e. trains) when zoomed out. Issue #14423
   - Reduced the number of bike markings being rendered to increase realism and reduce clutter. #14545
+  - Airways now have their own default color #14813 
 
 - netconvert
   - Edge widths are now imported from OSM. The new option **--ignore-widths** can be used to restore legacy behavior. #4392
@@ -212,7 +222,8 @@ title: ChangeLog
   - Added functions `edge.getFromJunction`, `edge.getToJunction`, `junction.getIncomingEdges`, `junction.getOutgoingEdges` to query the network topology. #14490
   - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
   - Added function `trafficlight.getSpentDuration` #14400
-  - `trafficlight.getParameter(tlsID, "typeName")` now retrieves traffic light type #14737 
+  - `trafficlight.getParameter(tlsID, "typeName")` now retrieves traffic light type #14737
+  - [Plexe](https://plexe.car2x.org/) now supports platoon-aware lane change logic #14809 
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
@@ -226,7 +237,9 @@ title: ChangeLog
   - osmWebWizard now runs with option **--tls.actuated.jam-threshold 30** to improve the capabilities (and efficiency) of traffic lights #14580
   - Added tools/visualization/plotWKT.py for plotting WKT files
   - ptlines2flows.py supports option **--join** to concatenate lines which serve opposite directions. This reduces conflict on single-track rail lines #5320
-  - sumolib.shapes.polygon now supports more attributes. #5429 
+  - sumolib.shapes.polygon now supports more attributes. #5429
+  - Added tool net/buildFullGraph.py to help with building point-to-point aerial mobility #14811
+  - Added tool net/patchVClasses.py for downgrading new networks to be used with older SUMO versions and for manipulating permissions in general. #14798 
 
 
 ### Miscellaneous
