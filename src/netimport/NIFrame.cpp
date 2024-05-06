@@ -218,7 +218,7 @@ NIFrame::fillOptions(OptionsCont& oc, bool forNetedit) {
     oc.doRegister("osm.stop-output.length.train", new Option_Float(200));
     oc.addDescription("osm.stop-output.length.train", "Formats", TL("The default length of a train stop in FLOAT m"));
 
-    oc.doRegister("osm.railsignals", new Option_StringVector(StringVector({ "DEFAULT"} )));
+    oc.doRegister("osm.railsignals", new Option_StringVector(StringVector({ "DEFAULT"})));
     oc.addDescription("osm.railsignals", "Formats", TL("Specify custom rules for importing railway signals"));
 
     oc.doRegister("osm.all-attributes", new Option_Bool(false));

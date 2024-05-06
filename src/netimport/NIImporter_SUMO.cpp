@@ -89,8 +89,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myJunctionsHigherSpeed(false),
       myInternalJunctionsVehicleWidth(OptionsCont::getOptions().getFloat("internal-junctions.vehicle-width")),
       myJunctionsMinimalShape(OptionsCont::getOptions().getBool("junctions.minimal-shape")),
-      myJunctionsEndpointShape(OptionsCont::getOptions().getBool("junctions.endpoint-shape"))
-{
+      myJunctionsEndpointShape(OptionsCont::getOptions().getBool("junctions.endpoint-shape")) {
 }
 
 

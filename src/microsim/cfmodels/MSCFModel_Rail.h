@@ -127,7 +127,7 @@ public:
 
 private:
 
-    static void convertMap(LookUpMap& map, double keyFactor = 1/3.6, double valueFactor = 1);
+    static void convertMap(LookUpMap& map, double keyFactor = 1 / 3.6, double valueFactor = 1);
 
 
     TrainParams myTrainParams;

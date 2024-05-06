@@ -410,7 +410,7 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                                 && (state[i2] == 'G' || state[i2] == 'g')
                                 && c2.getFrom() != nullptr && c2.getTo() != nullptr) {
                             const bool rightTurnConflict = NBNode::rightTurnConflict(
-                                    c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
+                                                               c1.getFrom(), c1.getTo(), c1.getFromLane(), c2.getFrom(), c2.getTo(), c2.getFromLane());
                             const bool forbidden = forbids(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo(), true, controlledWithin);
                             const bool isFoes = foes(c2.getFrom(), c2.getTo(), c1.getFrom(), c1.getTo()) && !c2.getFrom()->isTurningDirectionAt(c2.getTo());
                             if (forbidden || rightTurnConflict) {

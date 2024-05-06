@@ -56,8 +56,7 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const double invalidJamThreshold,
         const std::string& vTypes) :
     MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
-    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos))
-{
+    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
 }

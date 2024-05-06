@@ -2324,7 +2324,7 @@ MSLane::updateLengthSum() {
         // avoid numerical instability
         myBruttoVehicleLengthSum = 0;
         myNettoVehicleLengthSum = 0;
-    } else if (myRecalculateBruttoSum){
+    } else if (myRecalculateBruttoSum) {
         myBruttoVehicleLengthSum = 0;
         for (VehCont::const_iterator i = myVehicles.begin(); i != myVehicles.end(); ++i) {
             myBruttoVehicleLengthSum += (*i)->getVehicleType().getLengthWithGap();
@@ -2941,7 +2941,7 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
                     shortestGap = gap;
                     if (ll.vehAndGap.second < 0 && !MSGlobals::gComputeLC) {
                         // can always continue up to the stop line or crossing point
-                        // @todo: figure out whether this should also impact lane changing 
+                        // @todo: figure out whether this should also impact lane changing
                         ll.vehAndGap.second = MAX2(seen - nextLane->getLength(), ll.distToCrossing);
                     }
                     result = ll.vehAndGap;

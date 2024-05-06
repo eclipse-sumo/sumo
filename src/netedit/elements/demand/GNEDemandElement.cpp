@@ -408,7 +408,7 @@ GNEDemandElement::getTypeParent() const {
     if (getParentDemandElements().size() < 1) {
         throw InvalidArgument("This demand element doesn't have a type parent");
     } else if (!getParentDemandElements().at(0)->getTagProperty().isType()
-            && !getParentDemandElements().at(0)->getTagProperty().isTypeDist()) {
+               && !getParentDemandElements().at(0)->getTagProperty().isTypeDist()) {
         throw InvalidArgument("The first parent isn't a type");
     } else if (getParentDemandElements().at(0)->getTagProperty().getTag() == SUMO_TAG_VTYPE) {
         return getParentDemandElements().at(0);

@@ -31,7 +31,7 @@ const double MSTrainHelper::PEDESTRIAN_RADIUS_EXTRA_TOLERANCE = 0.01;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void 
+void
 MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
     const MSVehicleType& vtype = myTrain->getVehicleType();
     const double totalLength = vtype.getLength();
@@ -64,9 +64,9 @@ MSTrainHelper::computeTrainDimensions(double exaggeration, int vehicleQuality) {
     }
     myCarriageDoors = vtype.getParameter().carriageDoors;
 }
-    
 
-void 
+
+void
 MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
     myCarriages.clear();
 
@@ -96,7 +96,7 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
     }
 
     myFirstPassengerCarriage = myDefaultLength == myLocomotiveLength || myNumCarriages == 1
-                                       || (myTrain->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
+                               || (myTrain->getVClass() & (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST | SVC_RAIL)) == 0 ? 0 : 1;
 
     const double lateralOffset = (myTrain->isParking() && myTrain->getNextStopParameter()->posLat == INVALID_DOUBLE
                                   ? (myTrain->getLane()->getWidth() * (MSGlobals::gLefthand ? -1 : 1))
@@ -134,7 +134,7 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
             }
             backLane = prev;
         }
-        
+
         carriage->front = lane->getShape(secondaryShape).positionAtOffset(carriageOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
         carriage->back = backLane->getShape(secondaryShape).positionAtOffset(carriageBackOffset * lane->getLengthGeometryFactor(secondaryShape), lateralOffset);
         myCarriages.push_back(carriage);
@@ -145,7 +145,7 @@ MSTrainHelper::computeCarriages(bool reversed, bool secondaryShape) {
 }
 
 
-void 
+void
 MSTrainHelper::computeDoorPositions() {
     for (Carriage* carriage : myCarriages) {
         Position dir = carriage->front - carriage->back;
@@ -154,14 +154,14 @@ MSTrainHelper::computeDoorPositions() {
             dir.norm2D();
             for (int j = 1; j <= myCarriageDoors; j++) {
                 const double doorOffset = j * carriageLength / (myCarriageDoors + 1);
-                carriage->doorPositions.push_back(carriage->front - dir*doorOffset);
+                carriage->doorPositions.push_back(carriage->front - dir * doorOffset);
             }
         }
     }
 }
 
 
-void 
+void
 MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::vector<Position>& unboardingPositions) {
     passengerRadius += PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
     for (Carriage* carriage : myCarriages) {
@@ -171,13 +171,13 @@ MSTrainHelper::computeUnboardingPositions(double passengerRadius, std::vector<Po
             dir.norm2D();
             const Position perp = Position(-dir.y(), dir.x());
             double nbrLongitudinalCells, longitudinalOffset;
-            longitudinalOffset = std::modf((carriageLength - 2.0*passengerRadius) / (2.0*passengerRadius), &nbrLongitudinalCells);
+            longitudinalOffset = std::modf((carriageLength - 2.0 * passengerRadius) / (2.0 * passengerRadius), &nbrLongitudinalCells);
             double nbrLateralCells, lateralOffset;
-            lateralOffset = std::modf((myHalfWidth*2.0 - 2.0*passengerRadius) / (2.0*passengerRadius), &nbrLateralCells);
-            const Position gridOrigin = carriage->back + dir*(passengerRadius + 0.5*longitudinalOffset) - perp*(myHalfWidth - passengerRadius - 0.5*lateralOffset);
+            lateralOffset = std::modf((myHalfWidth * 2.0 - 2.0 * passengerRadius) / (2.0 * passengerRadius), &nbrLateralCells);
+            const Position gridOrigin = carriage->back + dir * (passengerRadius + 0.5 * longitudinalOffset) - perp * (myHalfWidth - passengerRadius - 0.5 * lateralOffset);
             for (unsigned int i = 0; i <= (unsigned int)nbrLongitudinalCells; i++) {
                 for (unsigned int j = 0; j <= (unsigned int)nbrLateralCells; j++) {
-                    carriage->unboardingPositions.push_back(gridOrigin + dir * i * 2.0*passengerRadius + perp * j * 2.0*passengerRadius);
+                    carriage->unboardingPositions.push_back(gridOrigin + dir * i * 2.0 * passengerRadius + perp * j * 2.0 * passengerRadius);
                 }
             }
         }

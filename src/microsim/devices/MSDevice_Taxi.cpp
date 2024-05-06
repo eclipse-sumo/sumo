@@ -462,7 +462,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             for (auto itr = persons.begin(); itr != persons.end(); itr++) {
                 stops.back().awaitedPersons.insert((*itr)->getID());
             }
-            
+
             stops.back().parametersSet |= STOP_PERMITTED_SET;
             if (stops.back().duration == -1) {
                 // keep dropOffDuration if the stop is dropOff and pickUp
@@ -524,7 +524,7 @@ MSDevice_Taxi::cancelCurrentCustomers() {
                 //cancelCustomer(t);
                 customersToBeRemoved.insert(t);
                 //removed = cancelCustomer((*tIt));
-                
+
             }
             //if (!removed) {
             //    tIt++;
@@ -556,15 +556,15 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             myDispatcher->fulfilledReservation(*resIt);
             // remove reservation from the current dispatch
             for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
-                if (*it == *resIt)
+                if (*it == *resIt) {
                     it = myLastDispatch.erase(it);
-                else
+                } else {
                     ++it;
+                }
             }
             // remove reservation from the served reservations
             resIt = myCurrentReservations.erase(resIt);
-        }
-        else {
+        } else {
             ++resIt;
         }
     }

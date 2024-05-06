@@ -607,8 +607,8 @@ public:
         }
         const SUMOVehicleClass svc = vehicle->getVClass();
         return (vehicle->ignoreTransientPermissions()
-            ? (myOriginalCombinedPermissions & svc) != svc
-            : (myCombinedPermissions & svc) != svc);
+                ? (myOriginalCombinedPermissions & svc) != svc
+                : (myCombinedPermissions & svc) != svc);
     }
 
     bool hasTransientPermissions() const;

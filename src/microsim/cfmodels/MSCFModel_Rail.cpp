@@ -141,11 +141,11 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         WRITE_WARNING(TLF("Ignoring tractionTable because maxPower and maxTraction are set for vType '%'.", vtype->getID()));
     }
     const bool hasSomeResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
-            || myTrainParams.resCoef_linear != INVALID_DOUBLE
-            || myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
+                                 || myTrainParams.resCoef_linear != INVALID_DOUBLE
+                                 || myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
     const bool hasAllResCoef = (myTrainParams.resCoef_constant != INVALID_DOUBLE
-            && myTrainParams.resCoef_linear != INVALID_DOUBLE
-            && myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
+                                && myTrainParams.resCoef_linear != INVALID_DOUBLE
+                                && myTrainParams.resCoef_quadratic != INVALID_DOUBLE);
     if (hasSomeResCoef && !hasAllResCoef) {
         throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
     }

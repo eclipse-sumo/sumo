@@ -980,10 +980,10 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
 
 std::string
 NBOwnTLDef::patchNEMAStateForCrossings(const std::string& state,
-        const std::vector<NBNode::Crossing*>& crossings,
-        const EdgeVector& fromEdges,
-        const EdgeVector& toEdges,
-        const NBEdge* greenEdge, NBEdge* otherChosen) {
+                                       const std::vector<NBNode::Crossing*>& crossings,
+                                       const EdgeVector& fromEdges,
+                                       const EdgeVector& toEdges,
+                                       const NBEdge* greenEdge, NBEdge* otherChosen) {
     std::string result = state;
     const int pos = (int)(state.size() - crossings.size()); // number of controlled vehicle links
     const EdgeVector& all = greenEdge->getToNode()->getEdges();

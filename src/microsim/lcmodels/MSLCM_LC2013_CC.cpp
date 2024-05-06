@@ -27,10 +27,10 @@ MSLCM_LC2013_CC::MSLCM_LC2013_CC(MSVehicle& v) : MSLCM_LC2013(v) {}
 
 MSLCM_LC2013_CC::~MSLCM_LC2013_CC() {}
 
-int MSLCM_LC2013_CC::checkChangeBeforeCommitting(const MSVehicle *veh, int state) const {
+int MSLCM_LC2013_CC::checkChangeBeforeCommitting(const MSVehicle* veh, int state) const {
 
     if (state & LCA_WANTS_LANECHANGE) {
-        auto *cfm = dynamic_cast<const MSCFModel_CC *>(&veh->getCarFollowModel());
+        auto* cfm = dynamic_cast<const MSCFModel_CC*>(&veh->getCarFollowModel());
 
         if (cfm) {
             bool left = (state & LCA_LEFT) != 0;

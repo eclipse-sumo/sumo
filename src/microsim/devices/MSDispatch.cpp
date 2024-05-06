@@ -210,13 +210,13 @@ MSDispatch::updateReservationFromPos(MSTransportable* person,
     }
 #ifdef DEBUG_RESERVATION
     if (DEBUG_COND2(person)) std::cout << SIMTIME
-                                            << " updateReservationFromPos p=" << person->getID()
-                                            << " from=" << from->getID() << " fromPos=" << fromPos
-                                            << " to=" << to->getID() << " toPos=" << toPos
-                                            << " group=" << group
-                                            << " newFromPos=" << newFromPos
-                                            << " updatedID=" << updatedID
-                                            << "\n";
+                                           << " updateReservationFromPos p=" << person->getID()
+                                           << " from=" << from->getID() << " fromPos=" << fromPos
+                                           << " to=" << to->getID() << " toPos=" << toPos
+                                           << " group=" << group
+                                           << " newFromPos=" << newFromPos
+                                           << " updatedID=" << updatedID
+                                           << "\n";
 #endif
     return result;
 }

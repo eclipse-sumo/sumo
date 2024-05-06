@@ -69,8 +69,7 @@ MSRouteHandler::MSRouteHandler(const std::string& file, bool addVehiclesDirectly
     myAmLoadingState(false),
     myScaleSuffix(OptionsCont::getOptions().getString("scale-suffix")),
     myReplayRerouting(OptionsCont::getOptions().getBool("replay-rerouting")),
-    myStartTriggeredInFlow(false)
-{
+    myStartTriggeredInFlow(false) {
     myActiveRoute.reserve(100);
 }
 
@@ -440,7 +439,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
                     if (tmpStops.size() == 0 || tmpStops.back().jump < 0) {
                         throw ProcessError(TLF("Disconnected route '%' when repeating. Last edge '%' is not connected to first edge '%'%",
-                                    myActiveRouteID, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
+                                               myActiveRouteID, myActiveRoute.back()->getID(), myActiveRoute.front()->getID(), errSuffix));
                     }
                 }
             }
@@ -878,7 +877,7 @@ MSRouteHandler::closeTransportableFlow() {
                 myVehicleParameter->incrementFlow(1, &myParsingRNG);
             }
             for (; i < myVehicleParameter->repetitionNumber && (myVehicleParameter->repetitionNumber != std::numeric_limits<int>::max()
-                        || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
+                    || depart + myVehicleParameter->repetitionTotalOffset <= myVehicleParameter->repetitionEnd); i++) {
                 // type existence has been checked on opening
                 MSVehicleType* const type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                 addFlowTransportable(depart + myVehicleParameter->repetitionTotalOffset, type, baseID, i);
@@ -1297,7 +1296,7 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     throw ProcessError(TLF("The lane '%' for a stop is not known%.", stop.lane, errorSuffix));
                 }
             } else if (ok && ((attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y))
-                        || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
+                              || (attrs.hasAttribute(SUMO_ATTR_LON) && attrs.hasAttribute(SUMO_ATTR_LAT)))) {
                 Position pos;
                 bool geo = false;
                 if (attrs.hasAttribute(SUMO_ATTR_X) && attrs.hasAttribute(SUMO_ATTR_Y)) {

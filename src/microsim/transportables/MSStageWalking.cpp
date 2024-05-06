@@ -139,8 +139,7 @@ MSStageWalking::proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSSta
                     myDepartPosLat = -possibleDepartPosLat;
                 }
             }
-        }
-        else {
+        } else {
             myDepartPosLat = previous->getEdgePosLat(now);
         }
         if (myWalkingTime > 0) {

@@ -70,8 +70,7 @@ RORouteHandler::RORouteHandler(RONet& net, const std::string& file,
     myKeepVTypeDist(OptionsCont::getOptions().getBool("keep-vtype-distributions")),
     myUnsortedInput(OptionsCont::getOptions().exists("unsorted-input") && OptionsCont::getOptions().getBool("unsorted-input")),
     myCurrentVTypeDistribution(nullptr),
-    myCurrentAlternatives(nullptr)
-{
+    myCurrentAlternatives(nullptr) {
     myActiveRoute.reserve(100);
 }
 
@@ -1243,7 +1242,7 @@ RORouteHandler::initLaneTree(NamedRTree* tree) {
 }
 
 
-ROEdge* 
+ROEdge*
 RORouteHandler::retrieveEdge(const std::string& id) {
     return myNet.getEdge(id);
 }

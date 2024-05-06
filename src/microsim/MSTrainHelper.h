@@ -35,7 +35,7 @@ class MSVehicle;
 // ===========================================================================
 /**
  * @class MSTrainHelper
- * @brief A class that helps computing positions of a train's carriages 
+ * @brief A class that helps computing positions of a train's carriages
  * and additional structures.
  *
  */
@@ -48,14 +48,14 @@ public:
         std::vector<Position> unboardingPositions;
     };
 
-    MSTrainHelper(const MSVehicle* vehicle, bool reversed = false, bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3) 
-        : myTrain(vehicle) { 
+    MSTrainHelper(const MSVehicle* vehicle, bool reversed = false, bool secondaryShape = false, double exaggeration = 1.0, int vehicleQuality = 3)
+        : myTrain(vehicle) {
         computeTrainDimensions(exaggeration, vehicleQuality);
         computeCarriages(reversed, secondaryShape);
     }
 
     ~MSTrainHelper() {
-        for (const Carriage* carriage: myCarriages) {
+        for (const Carriage* carriage : myCarriages) {
             delete carriage;
         }
     }
@@ -91,7 +91,7 @@ public:
     inline int getFirstPassengerCarriage() const {
         return myFirstPassengerCarriage;
     }
-    
+
     inline bool isReversed() const {
         return myIsReversed;
     }
@@ -99,7 +99,7 @@ public:
     inline const std::vector<Carriage*>& getCarriages() const {
         return myCarriages;
     }
-    
+
     /// @brief compute door positions on demand and fills the carriage structures
     /// @remark need to be called before retrieving carriages if door positions needed
     void computeDoorPositions();
@@ -107,14 +107,14 @@ public:
     /// @brief compute unboarding positions on demand and fills the carriage structures
     /// @remark need to be called before retrieving carriages if unboarding positions needed
     void computeUnboardingPositions(double passengerRadius, std::vector<Position>& unboardingPositions);
-    
+
     /// @brief return length exaggeration factor (special for long vehicles)
     static double getUpscaleLength(double upscale, double length, int vehicleQuality);
 
     /// @brief average door width used to compute doors positions
     static const double CARRIAGE_DOOR_WIDTH;
 
-    /// @brief small extra tolerance used to avoid constraint violations    
+    /// @brief small extra tolerance used to avoid constraint violations
     static const double PEDESTRIAN_RADIUS_EXTRA_TOLERANCE;
 
 private:

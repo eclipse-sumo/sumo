@@ -76,7 +76,7 @@ public:
 
     /// initialization, e.g. for param-related events
     virtual void init(MSTransportable* /*transportable*/) {};
-    
+
     /// returns the destination edge
     const MSEdge* getDestination() const;
 
@@ -153,7 +153,7 @@ public:
     /// get arrival time of stage
     SUMOTime getArrived() const;
 
-    virtual SUMOTime getTimeLoss(const MSTransportable* transportable) const; 
+    virtual SUMOTime getTimeLoss(const MSTransportable* transportable) const;
     virtual SUMOTime getDuration() const;
     virtual SUMOTime getTravelTime() const;
     virtual SUMOTime getWaitingTime() const;

@@ -134,7 +134,7 @@ protected:
             const N* fromJunction = closestEdge->getFromJunction();
             const N* toJunction = closestEdge->getToJunction();
             const bool fromCloser = (fromJunction->getPosition().distanceSquaredTo2D(pos) <
-                    toJunction->getPosition().distanceSquaredTo2D(pos));
+                                     toJunction->getPosition().distanceSquaredTo2D(pos));
             const E* fromSource = retrieveEdge(fromJunction->getID() + "-source");
             const E* fromSink = retrieveEdge(fromJunction->getID() + "-sink");
             const E* toSource = retrieveEdge(toJunction->getID() + "-source");

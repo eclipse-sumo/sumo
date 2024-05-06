@@ -173,7 +173,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
                         closestTaxi = taxi;
 #ifdef DEBUG_DISPATCH
                         if (DEBUG_COND2(person)) std::cout << SIMTIME << " bestTaxi=" << taxi->getHolder().getID() << " bestRes=" << toString(res->persons)
-                            << " taxiPos=" << taxi->getHolder().getPositionOnLane() << " resFromPos=" << res->fromPos << " traveltime=" << time2string(travelTime) << " taxiWait=" << time2string(taxiWait) << "\n";
+                                                               << " taxiPos=" << taxi->getHolder().getPositionOnLane() << " resFromPos=" << res->fromPos << " traveltime=" << time2string(travelTime) << " taxiWait=" << time2string(taxiWait) << "\n";
 #endif
                     } else {
                         recheck = MIN2(recheck,

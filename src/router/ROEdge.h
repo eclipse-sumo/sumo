@@ -141,7 +141,7 @@ public:
         myTimePenalty = value;
     }
 
-    inline double getTimePenalty() const { 
+    inline double getTimePenalty() const {
         return myTimePenalty;
     }
 

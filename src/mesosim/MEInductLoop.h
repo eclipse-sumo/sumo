@@ -87,7 +87,7 @@ public:
     //@}
 
     const MSMeanData_Net::MSLaneMeanDataValues& getMeanData() const {
-      return myMeanData;
+        return myMeanData;
     }
 
     const MSEdge& getEdge() const;

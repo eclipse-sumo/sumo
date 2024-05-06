@@ -1562,8 +1562,7 @@ MSPModel_Striping::Obstacle::Obstacle(const PState& ped) :
     xBack(ped.getMinX()),
     speed(ped.myDir * ped.mySpeed),
     type(ped.getOType()),
-    description(ped.getID())
-{
+    description(ped.getID()) {
     assert(!ped.myWaitingToEnter);
     if (type == OBSTACLE_VEHICLE) {
         vehicle = static_cast<const PStateVehicle&>(ped).getVehicle();
@@ -1640,7 +1639,7 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
                 dLoc = TLF("between edge '%' and edge '%', time=%.", route[lastDisconnect - 1]->getID(), route[lastDisconnect]->getID(), SIMTIME);
             }
             WRITE_WARNINGF(TL("Person '%' walking from edge '%' to edge '%' has a disconnect%"),
-                    myPerson->getID(), route.front()->getID(), route.back()->getID(), dLoc);
+                           myPerson->getID(), route.front()->getID(), route.back()->getID(), dLoc);
             myDir =  passedFwd >= passedBwd ? FORWARD : BACKWARD;
         } else {
             myDir = !mayStartBackward ? FORWARD : BACKWARD;
@@ -2154,9 +2153,9 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     if (xSpeed == 0) {
         if (DEBUGCOND(*this)) {
             std::cout << " sharedWA=" << (myWalkingAreaFoes.find(&myLane->getEdge()) != myWalkingAreaFoes.end())
-                << " vehObs=" << Named::getIDSecure(obs[current].vehicle)
-                << " vehWait=" << STEPS2TIME(obs[current].vehicle ? obs[current].vehicle->getWaitingTime() : 0)
-                << "\n";
+                      << " vehObs=" << Named::getIDSecure(obs[current].vehicle)
+                      << " vehWait=" << STEPS2TIME(obs[current].vehicle ? obs[current].vehicle->getWaitingTime() : 0)
+                      << "\n";
         }
         if (myWaitingTime > ((myLane->getEdge().isCrossing()
                               // treat shared walkingarea like a crossing to avoid deadlocking vehicles

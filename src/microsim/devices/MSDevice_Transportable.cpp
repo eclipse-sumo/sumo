@@ -117,10 +117,10 @@ MSDevice_Transportable::transferAtSplitOrJoin(MSBaseVehicle* otherVeh) {
                 if (stage2 && stage2->isWaitingFor(otherVeh)) {
                     it = myTransportables.erase(it);
                     // proceeding registers t as waiting on edge
-                    t->proceed(MSNet::getInstance(), SIMSTEP); 
+                    t->proceed(MSNet::getInstance(), SIMSTEP);
                     MSTransportableControl& tc = (t->isPerson() ?
-                            MSNet::getInstance()->getPersonControl() :
-                            MSNet::getInstance()->getContainerControl());
+                                                  MSNet::getInstance()->getPersonControl() :
+                                                  MSNet::getInstance()->getContainerControl());
                     tc.abortWaitingForVehicle(t);
                     t->getEdge()->removeTransportable(t);
                     otherVeh->addTransportable(t);

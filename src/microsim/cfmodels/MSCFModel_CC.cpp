@@ -113,11 +113,13 @@ MSCFModel_CC::setLeader(MSVehicle* veh, MSVehicle* const leader, std::string lea
     auto* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     vars->leaderVehicle = leader;
     vars->leaderVehicleId = leaderId;
-    if (leader != nullptr)
+    if (leader != nullptr) {
         vars->isLeader = false;
-    else
+    } else
         // if we are removing our leader, then this vehicle must become a leader of itself until being member of another platoon
+    {
         vars->isLeader = true;
+    }
 }
 
 int
@@ -125,10 +127,11 @@ MSCFModel_CC::isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*) veh->getCarFollowVariables();
     if (!vars->isLeader) {
         // before asking the leader, be sure it is still in the simulation
-        if (findVehicle(vars->leaderVehicleId))
+        if (findVehicle(vars->leaderVehicleId)) {
             return isPlatoonLaneChangeSafe(vars->leaderVehicle, left);
-        else
+        } else {
             return LCA_BLOCKED;
+        }
     }
     int result = 0;
     std::pair<int, int> state = libsumo::Vehicle::getLaneChangeState(veh->getID(), left ? +1 : -1);
@@ -148,26 +151,27 @@ MSCFModel_CC::isPlatoonLaneChangeSafe(const MSVehicle* veh, bool left) const {
             if (mState.second & LCA_BLOCKED || !noNeighbors) {
                 if (mState.second & LCA_BLOCKED) {
                     result = mState.second;
-                }
-                else {
-                    if (!followers.empty())
+                } else {
+                    if (!followers.empty()) {
                         result |= left ? LCA_BLOCKED_BY_LEFT_FOLLOWER : LCA_BLOCKED_BY_RIGHT_FOLLOWER;
-                    if (!leaders.empty())
+                    }
+                    if (!leaders.empty()) {
                         result |= left ? LCA_BLOCKED_BY_LEFT_LEADER : LCA_BLOCKED_BY_RIGHT_LEADER;
+                    }
                 }
                 break;
             }
         }
-    }
-    else {
+    } else {
         if (state.second & LCA_BLOCKED) {
             result = state.second;
-        }
-        else {
-            if (!followers.empty())
+        } else {
+            if (!followers.empty()) {
                 result |= left ? LCA_BLOCKED_BY_LEFT_FOLLOWER : LCA_BLOCKED_BY_RIGHT_FOLLOWER;
-            if (!leaders.empty())
+            }
+            if (!leaders.empty()) {
                 result |= left ? LCA_BLOCKED_BY_LEFT_LEADER : LCA_BLOCKED_BY_RIGHT_LEADER;
+            }
         }
     }
     return result;
@@ -220,8 +224,7 @@ MSCFModel_CC::performPlatoonLaneChange(MSVehicle* const veh) const {
 }
 
 double
-MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const
-{
+MSCFModel_CC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
     CC_VehicleVariables* vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
 
     const double tolerance = 0.8;
@@ -250,12 +253,12 @@ MSCFModel_CC::commitToLaneChange(const MSVehicle* veh, bool left) const {
     if (isLeader(veh)) {
         SUMOTime timestep = MSNet::getInstance()->getCurrentTimeStep();
         if (vars->laneChangeCommitTime == timestep) {
-            if (vars->commitToLaneChange)
+            if (vars->commitToLaneChange) {
                 return 0;
-            else
+            } else {
                 return vars->noCommitReason;
-        }
-        else {
+            }
+        } else {
             int blocked = isPlatoonLaneChangeSafe(veh, left);
             if (blocked == 0) {
                 vars->commitToLaneChange = true;
@@ -263,13 +266,13 @@ MSCFModel_CC::commitToLaneChange(const MSVehicle* veh, bool left) const {
             }
             return blocked;
         }
-    }
-    else {
+    } else {
         // before asking the leader, be sure it is still in the simulation
-        if (findVehicle(vars->leaderVehicleId))
+        if (findVehicle(vars->leaderVehicleId)) {
             return commitToLaneChange(vars->leaderVehicle, left);
-        else
+        } else {
             return LCA_BLOCKED;
+        }
     }
 }
 
@@ -1205,7 +1208,7 @@ MSCFModel_CC::duplicate(const MSVehicleType* vtype) const {
 }
 
 bool
-MSCFModel_CC::isLeader(const MSVehicle *veh) const {
+MSCFModel_CC::isLeader(const MSVehicle* veh) const {
     auto vars = (CC_VehicleVariables*)veh->getCarFollowVariables();
     return vars->isLeader;
 }

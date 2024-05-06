@@ -524,9 +524,9 @@ NBTrafficLightDefinition::railSignalUncontrolled(const NBEdge* in, const NBEdge*
             }
         } else {
             WRITE_WARNINGF(TL("Could not interpret rail signal direction at junction '%' due to inconsistent directions of edge '%' (%) and edge '%' (%)"),
-                    n->getID(),
-                    in->getID(), in->getParameter(OSM_DIRECTION),
-                    out->getID(), out->getParameter(OSM_DIRECTION));
+                           n->getID(),
+                           in->getID(), in->getParameter(OSM_DIRECTION),
+                           out->getID(), out->getParameter(OSM_DIRECTION));
         }
     }
     return false;

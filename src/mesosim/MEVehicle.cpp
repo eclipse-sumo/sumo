@@ -108,7 +108,7 @@ MEVehicle::getSpeed() const {
 
 double
 MEVehicle::getAverageSpeed() const {
-    if (mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE ) {
+    if (mySegment == nullptr || myQueIndex == MESegment::PARKING_QUEUE) {
         return 0;
     } else {
         return MIN2(mySegment->getLength() / STEPS2TIME(myEventTime - myLastEntryTime),

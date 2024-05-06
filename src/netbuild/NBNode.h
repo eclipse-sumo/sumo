@@ -900,7 +900,7 @@ private:
     static bool isExplicitRailNoBidi(const NBEdge* incoming, const NBEdge* outgoing);
 
     /// @brief geometry helper that cuts the first shape where bordered by the other two
-    PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def); 
+    PositionVector cutAtShapes(const PositionVector& cut, const PositionVector& border1, const PositionVector& border2, const PositionVector& def);
 
 private:
     /// @brief The position the node lies at

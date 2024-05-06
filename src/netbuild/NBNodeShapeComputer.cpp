@@ -460,11 +460,11 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             // keep rectangular cuts if the difference is small or the roads aren't
             // really divided by much (unless the angle is very different)
             const double dWidth = divisionWidth(*i, same[*i],
-                    ccwBound.positionAtOffset2D(offset),
-                    cwBound.positionAtOffset2D(offset2));
+                                                ccwBound.positionAtOffset2D(offset),
+                                                cwBound.positionAtOffset2D(offset2));
             const double angle = RAD2DEG(GeomHelper::angleDiff(ccwBound.angleAt2D(0), cwBound.angleAt2D(0)));
             const double oDelta = fabs(offset - offset2);
-                //std::cout << " i=" << (*i)->getID() << " offset=" << offset << " offset2=" << offset2 << " dWidth=" << dWidth << " angle=" << angle << " same=" << joinNamedToStringSorting(same[*i], ",") << "\n";
+            //std::cout << " i=" << (*i)->getID() << " offset=" << offset << " offset2=" << offset2 << " dWidth=" << dWidth << " angle=" << angle << " same=" << joinNamedToStringSorting(same[*i], ",") << "\n";
             if ((((oDelta < 5 || dWidth < 10) && fabs(angle) < 30)) || (fabs(angle) < 5 && myNode.getType() != SumoXMLNodeType::RAIL_CROSSING)) {
 #ifdef DEBUG_NODE_SHAPE
                 std::cout << " i=" << (*i)->getID() << " offset=" << offset << " offset2=" << offset2 << " dWidth=" << dWidth << " angle=" << angle << " same=" << joinNamedToStringSorting(same[*i], ",") << "\n";
