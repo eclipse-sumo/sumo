@@ -61,7 +61,7 @@ one vehicle with a ToC Device has the following form:
 The following table gives the full list of possible parameters for the
 ToC Device. Each of these parameters must be specified as a child
 element of the form `<param key=<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element
-(e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`)
+(e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
 
 | Parameter             | Type             | Default          | Description                                                                         |
 | --------------------- | ---------------- | ---------------- | ------------------------------------------------------------------------------------------------ |
