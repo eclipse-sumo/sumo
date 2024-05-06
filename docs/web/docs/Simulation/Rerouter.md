@@ -390,6 +390,9 @@ along their route (other vehicles are not affected directly).
 5. closing time versus departure time
    - a) vehicle departs after closing becomes active
    - b) vehicle departs before closing becomes active (closing occurs while en-route)
+6. routing mode of the vehicle (set via **--device.rerouting.mode** or vehicle/vtype `<param key="device.rerouting.mode" value="8"/>`)
+   - a) routing mode 0 (or generally, not setting the 4th bit): all hard closings are visible during routing
+   - b) routing mode 8 (or generally setting the 4th bit): all hard-closings are ignored during routing and will never cause a route error
 
 The following vehicle behaviors are possible:
 
