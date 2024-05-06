@@ -90,6 +90,11 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             }
             stop.startPos = MAX2(0.0, stopPos.second - POSITION_EPS);
             stop.endPos = stopPos.second;
+            if (MSGlobals::gUseMesoSim) {
+                // meso needs the stop to be on the next segment
+                stop.startPos += POSITION_EPS;
+                stop.endPos += POSITION_EPS;
+            }
             if (taxi->getHolder().getVehicleType().getContainerCapacity() > 0) {
                 stop.containerTriggered = true;
             } else {
