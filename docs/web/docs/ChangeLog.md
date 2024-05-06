@@ -29,7 +29,11 @@ title: ChangeLog
   - Fixed invalid departSpeed for IDM in subsecond simulation #14621
   - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
   - Fixed crash when loading person stages without a person (now writes an error) #14654
-  - Fixed xsd valiation error for router interval with human-readable time #14728 
+  - Fixed xsd valiation error for router interval with human-readable time #14728
+  - BEV no longer perform coasting / recuperation in HBEFA4 #14764
+  - A warning is now given when loading a disconnected walk #14779
+  - When simulating a disconnected walk, the walking direction is now correct after passing the disconnected part #14780
+  - Fixed invalid pedestrian jam warning #14796 
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -57,10 +61,13 @@ title: ChangeLog
   - Fixed saving of python tool config involving space in paths #14506
   - Fixed invalid state of save-sumoconfic button after changing option #14581
   - Saving traffic light programs to a file now writes all attributes #14674
-  - custom connection permissions can now be reset #14723
+  - Custom connection permissions can now be reset #14723
+  - Fixed bad signal plan after applying 'join junctions' to part of a joined traffic light #14797
+  - Fixed person mode bug where it was impossible to define a new person on a short that already had a person on it #14801 
   
 
 - netcovert
+  - Fixed crash when importing incomplete OSM data #14766 (regression in 1.15.0)
   - Signal state sequences (green-yellow-green) is no longer generated. #14295
   - Roundabouts defined explicitly in OSM now have correct right-of-way regardless of geometry. #13970
   - Fixed problems related to option **--dlr-navteq-output**. #14071
@@ -82,7 +89,10 @@ title: ChangeLog
   - Motorway ramp building no longer fails when the default IDs for new junctions and edges are already in the network. #14658
   - Fixed invalid walking area shape #14688, #14731
   - Fixed the root causes for "Unequal lengths of bidi lane" warnings #14699
-  - OSM: fixed bug when importing cycle lane #14419 
+  - OSM: fixed bug when importing cycle lane #14419
+  - Preventing oversized junction join #14769
+  - Fixed bad node shape #14777
+  - Increased available width on large walkingareas (avoids jamming on shared-space) #14800 
 
 - sumo-gui
   - Fixed wrong context menu when clicking on lane in mesosim #14457 (regression in 1.15.0)
@@ -105,6 +115,9 @@ title: ChangeLog
 - duarouter
   - Fixed xsd validation error when loading walk or stop with geo-coordinates #14426
   - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343
+ 
+- od2trips
+  - Fixed extremly high running time when loading large TAZ. #14784 
 
 - TraCI
   - Fixed error in `trafficlight.setProgramLogic` when loading actuated logic with default minDur and maxDur #14741 (regression in 1.12.0)
@@ -113,7 +126,9 @@ title: ChangeLog
   - `vehicle.setSpeed` no longer causes stop at wrong position #14459
   - Fixed result of `vehicle.getLeader` for junction leaders #14617
   - Fixed invalid behavior after removing a stop with `vehicle.replaceStop` #14696
-  - Fixed invalid traci constant for traffic light type #14736 
+  - Fixed invalid traci constant for traffic light type #14736
+  - Stops are no longer lost when calling `vehicle.changeTarget` #14789
+  - Fixed crash when calling `simulation.loadState` with active vehicle highlights #8511 
 
 - Tools
   - osmWebWizard no longer aborts with error if a configured mode has no infrastructure. #14361
@@ -145,6 +160,7 @@ title: ChangeLog
   - Stages generated from `<personTrip>` now inherit params from the personTrip. #14513
   - Actuated traffic lights are now more flexible when controlling minor links (reduced warnings of type "... has no controlling detector" warnings) #14692
   - It is now possible to set the vehicle routing mode via `<param key="device.rerouting.mode" value="..."/>` either in the vType or the vehicle/trip/flow. Setting it to value of `8` lets a vehicle ignore rerouter-induced permission changes on insertion and rerouting. The default routing mode for all vehicles can be set with option **--device.rerouting.mode** (even for vehicles that do not have such a device). #13494
+  - A personFlow with `depart="triggered"` can now be distributed over a flow of vehicles #14806 
 
 - netedit
   - Now sidewalk and bikelane width can be edited in *create edge mode*. #9725
@@ -175,6 +191,8 @@ title: ChangeLog
   - Loaded ptLine period can now be patched by loading the same id in **ptline-files** #14586
   - OSM import now exports subways as vClass "subway" and aerialway as "cable_car" #14644
   - Now importing access="no" from OSM #14650
+  - Improved now shape computation to allow more slanted stop lines #14778
+  - OSM import now distinguishes barrier crossings from no-barrier rail crossings #14786 
 
 - polyconvert
   - Option **--osm.merge-relations** now handles "holes" #14599
@@ -221,7 +239,8 @@ title: ChangeLog
 - The battery device now uses param "rotatingMass" instead of "internalMomentOfInertia". The old value has been deprecated. The default value was changed to improve realism. #12513, #13422
 - The network now contains outline shapes for pedestrian crossings #11668
 - stop-output has slightly reordered attributes to easier see the busStop-id without horizontal scrolling #14542
-- extractTest.py now works for netdiff.py tests #14725 
+- extractTest.py now works for netdiff.py tests #14725
+- duarouter: adapted Gawron default values to make them consistent with duaIterate.py. #14772 
 
 
 ## Version 1.19.0 (07.11.2023)
