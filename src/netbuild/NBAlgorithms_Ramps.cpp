@@ -37,6 +37,7 @@
 //#define DEBUG_RAMPS
 #define DEBUGNODEID  ""
 #define DEBUGCOND(obj) ((obj != 0 && (obj)->getID() == DEBUGNODEID))
+//#define DEBUGCOND(obj) true
 
 // ===========================================================================
 // static members
@@ -49,6 +50,9 @@ const std::string NBRampsComputer::ADDED_ON_RAMP_EDGE("-AddedOnRampEdge");
 // ---------------------------------------------------------------------------
 // NBRampsComputer
 // ---------------------------------------------------------------------------
+
+NBRampsComputer::NBRampsComputer() { }
+
 void
 NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove) {
     const bool guessAndAdd = oc.getBool("ramps.guess") && mayAddOrRemove;
@@ -250,12 +254,15 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             NBNode* rn = new NBNode(newNodeID, curr->getGeometry().positionAtOffset(rampLength - currLength));
             nc.insert(rn);
             std::string name = curr->getID();
+            const double currShift = myShiftedEdges[curr];
             if (!ec.splitAt(dc, curr, rn, newEdgeID, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes())) {
                 WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
             //ec.retrieve(name)->invalidateConnections();
             curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -356,11 +363,14 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             NBNode* rn = new NBNode(newNodeID, pos);
             nc.insert(rn);
             std::string name = curr->getID();
+            const double currShift = myShiftedEdges[curr];
             if (!ec.splitAt(dc, curr, rn, curr->getID(), newEdgeID, curr->getNumLanes(), curr->getNumLanes() + toAdd)) {
                 WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' for unknown reason");
                 return;
             }
             curr = ec.retrieve(newEdgeID);
+            // copy shift over
+            myShiftedEdges[curr] = currShift;
             incremented.insert(curr);
             last = curr;
             moveRampRight(curr, toAdd);
@@ -414,10 +424,14 @@ NBRampsComputer::moveRampRight(NBEdge* ramp, int addedLanes) {
     }
     try {
         PositionVector g = ramp->getGeometry();
-        const double offset = (0.5 * addedLanes *
+        double offset = (0.5 * addedLanes *
                                (ramp->getLaneWidth() == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : ramp->getLaneWidth()));
+        if (myShiftedEdges.count(ramp) != 0) {
+            offset -= myShiftedEdges[ramp];
+        }
         g.move2side(offset);
         ramp->setGeometry(g);
+        myShiftedEdges[ramp] = offset;
     } catch (InvalidArgument&) {
         WRITE_WARNINGF(TL("For edge '%': could not compute shape."), ramp->getID());
     }

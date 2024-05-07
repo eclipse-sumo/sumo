@@ -49,12 +49,18 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove);
+    NBRampsComputer();
+
+    void computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove);
 
     /// @brief suffix for newly generated on-ramp edges
     static const std::string ADDED_ON_RAMP_EDGE;
 
 private:
+
+    std::map<NBEdge*, double> myShiftedEdges;
+
+
     /** @brief Determines whether the given node may be an on-ramp begin
      * @param[in] cur The node to check
      * @param[in] minHighwaySpeed The minimum speed limit a highway must have for being a highway
@@ -87,7 +93,7 @@ private:
      * @param[in] dontSplit Whether no edges shall be split
      * @param[in, filled] incremented The list of edges which lane number was already incremented
      */
-    static void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes);
+    void buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes);
 
 
     /** @brief Builds an off-ramp ending at the given node
@@ -99,7 +105,7 @@ private:
      * @param[in] dontSplit Whether no edges shall be split
      * @param[in, filled] incremented The list of edges which lane number was already incremented
      */
-    static void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes,
+    void buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDistrictCont& dc, double rampLength, bool dontSplit, bool addLanes,
                              const std::set<NBNode*, ComparatorIdLess>& potOnRamps);
 
 
@@ -129,7 +135,7 @@ private:
      * @param[in] ramp The ramp to move
      * @param[in] addedLanes The number of added lanes
      */
-    static void moveRampRight(NBEdge* ramp, int addedLanes);
+    void moveRampRight(NBEdge* ramp, int addedLanes);
 
     /// @brief whether the edge has a mode that does not indicate a ramp edge
     static bool hasWrongMode(NBEdge* edge);
