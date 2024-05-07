@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-07 15:25:43 by Eclipse SUMO netconvert Version v1_20_0+0009-62f9f363b7d
+<!-- generated on 2024-05-07 17:05:36 by Eclipse SUMO netconvert Version v1_20_0+0014-e91e42177ef
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,11 +57,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="s2_1" index="1" speed="30.00" length="10.38" shape="608.01,1.60 604.00,1.60"/>
         <lane id="s2_2" index="2" speed="30.00" length="10.38" shape="608.01,-1.60 604.00,-1.60"/>
     </edge>
-    <edge id="s2-AddedOffRampEdge" from="s2-AddedOffRampNode" to="3" priority="-1" spreadType="center" shape="600.00,3.20 559.76,3.20">
-        <lane id="s2-AddedOffRampEdge_0" index="0" speed="30.00" length="43.75" shape="596.00,8.00 559.76,8.00"/>
-        <lane id="s2-AddedOffRampEdge_1" index="1" speed="30.00" length="43.75" shape="596.00,4.80 559.76,4.80"/>
-        <lane id="s2-AddedOffRampEdge_2" index="2" speed="30.00" length="43.75" shape="596.00,1.60 559.76,1.60"/>
-        <lane id="s2-AddedOffRampEdge_3" index="3" speed="30.00" length="43.75" shape="596.00,-1.60 559.76,-1.60"/>
+    <edge id="s2-AddedOffRampEdge" from="s2-AddedOffRampNode" to="3" priority="-1" spreadType="center" shape="600.00,1.60 559.76,1.60">
+        <lane id="s2-AddedOffRampEdge_0" index="0" speed="30.00" length="41.84" shape="596.00,6.40 559.76,6.40"/>
+        <lane id="s2-AddedOffRampEdge_1" index="1" speed="30.00" length="41.84" shape="596.00,3.20 559.76,3.20"/>
+        <lane id="s2-AddedOffRampEdge_2" index="2" speed="30.00" length="41.84" shape="596.00,-0.00 559.76,-0.00"/>
+        <lane id="s2-AddedOffRampEdge_3" index="3" speed="30.00" length="41.84" shape="596.00,-3.20 559.76,-3.20"/>
     </edge>
     <edge id="s3" from="3" to="2" priority="-1" spreadType="center" shape="559.76,1.60 500.00,1.60">
         <lane id="s3_0" index="0" speed="30.00" length="61.98" shape="559.76,6.40 501.74,6.40"/>
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="200.48,101.53 199.52,98.47"/>
-    <junction id="3" type="priority" x="559.76" y="0.00" incLanes="s2-AddedOffRampEdge_0 s2-AddedOffRampEdge_1 s2-AddedOffRampEdge_2 s2-AddedOffRampEdge_3" intLanes="" shape="559.76,9.60 559.76,-4.80 559.76,8.00">
+    <junction id="3" type="priority" x="559.76" y="0.00" incLanes="s2-AddedOffRampEdge_0 s2-AddedOffRampEdge_1 s2-AddedOffRampEdge_2 s2-AddedOffRampEdge_3" intLanes="" shape="559.76,8.00 559.76,-4.80 559.76,8.00">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
@@ -96,7 +96,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="4a" type="dead_end" x="909.76" y="100.00" incLanes="" intLanes="" shape="910.24,98.47 909.28,101.53"/>
     <junction id="5" type="dead_end" x="1109.76" y="0.00" incLanes="" intLanes="" shape="1109.76,-3.20 1109.76,3.20"/>
-    <junction id="s2-AddedOffRampNode" type="priority" x="600.00" y="1.60" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="604.00,6.40 604.00,-3.20 596.00,-3.20 596.00,9.60 599.03,8.77 600.97,7.23 602.21,6.64">
+    <junction id="s2-AddedOffRampNode" type="priority" x="600.00" y="1.60" incLanes="s2_0 s2_1 s2_2" intLanes="" shape="604.00,6.40 604.00,-3.20 601.02,-3.61 598.98,-4.39 597.73,-4.68 596.00,-4.80 596.00,8.00 598.98,7.59 601.02,6.81 602.27,6.52">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>
