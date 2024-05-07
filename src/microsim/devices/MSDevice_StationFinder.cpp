@@ -38,7 +38,8 @@
 #include "MSDevice_Battery.h"
 #include "MSDevice_StationFinder.h"
 
-#define DEBUG_RESCUE
+#define DEBUG_STATIONFINDER_RESCUE
+#define DEBUG_STATIONFINDER_REROUTE
 
 
 // ===========================================================================
@@ -174,7 +175,6 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             rescueStop.startPos = MAX2(endPos - 2 * myHolder.getVehicleType().getLength(), 0.);
             rescueStop.endPos = endPos;
             rescueStop.parametersSet |= STOP_START_SET | STOP_END_SET;
-
             WRITE_MESSAGEF(TL("Vehicle '%' wants to stop on lane % at pos % because of low battery charge % at time=%."), myHolder.getID(), rescueStop.lane, toString(rescueStop.endPos), toString(currentSoC), toString(SIMTIME));
 
             if (myRescueAction == RESCUEACTION_REMOVE) {
@@ -270,7 +270,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         ConstMSEdgeVector routeTo;
         if (router.compute(start, myHolder.getPositionOnLane(), csEdge, stop.second->getBeginLanePosition(), &myHolder, now, routeTo, true)) {
             ConstMSEdgeVector routeFrom;
-            double time = router.recomputeCosts(routeTo, &myHolder, now) - csEdge->getMinimumTravelTime(&myHolder) * (csEdge->getLength() - cs->getBeginLanePosition()) / csEdge->getLength();
+            double time = router.recomputeCosts(routeTo, &myHolder, now); // -csEdge->getMinimumTravelTime(&myHolder) * (csEdge->getLength() - cs->getBeginLanePosition()) / csEdge->getLength();
             if (!constrainTT || time < maxTT) {
                 travelTimeToCharging.insert({ cs, time });
             }
@@ -295,14 +295,14 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
                 time += router.recomputeCosts(routeFrom, &myHolder, now);
             }
             double targetValue = time + chargingTime + waitingTime / parkingCapacity;
-            //WRITE_MESSAGE(TLF("    CS %: time % targetVal %", cs->getID(), toString(time), toString(targetValue)));
 
+#ifdef DEBUG_STATIONFINDER_REROUTE
+            std::cout << "MSDevice_StationFinder::findChargingStation: CS " << cs->getID() << " targetValue " << targetValue << " travelTime " << time << " freeParkingCapacity " << freeParkingCapacity << " chargingTime " << chargingTime << "\n";
+#endif
             if (targetValue < minTargetValue) {
                 minTargetValue = targetValue;
                 minStation = cs;
             }
-        } else {
-            //WRITE_MESSAGE(TLF("    CS %: cannot reach destination", cs->getID()));
         }
     }
     return minStation;
@@ -331,27 +331,32 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             stopPar.startPos = cs->getBeginLanePosition();
             stopPar.endPos = cs->getEndLanePosition();
             std::string errorMsg;
-            //std::ostringstream os;
-            //const ConstMSEdgeVector edgesBefore = msVeh.getRoute().getEdges();
-            //for (auto edge : edgesBefore) {
-            //    os << edge->getID() << " ";
-            //}
-            //WRITE_MESSAGE(TLF("Route before scheduling the charging station: % edges = %", msVeh.getRoute().getEdges().size(), os.str()));
+#ifdef DEBUG_STATIONFINDER_REROUTE
+            std::ostringstream os;
+            const ConstMSEdgeVector edgesBefore = myVeh.getRoute().getEdges();
+            for (auto edge : edgesBefore) {
+                os << edge->getID() << " ";
+            }
+            std::cout << "MSDevice_StationFinder::rerouteToChargingStation: \n\tRoute before scheduling the charging station: " << os.str() << "\n";
+#endif
             if ((replace && !myVeh.replaceStop(0, stopPar, "stationfinder:search", false, errorMsg)) || (!replace && !myVeh.insertStop(0, stopPar, "stationfinder:search", false, errorMsg))) {
                 WRITE_MESSAGE(TLF("Problem with inserting the charging station stop for vehicle %.", myHolder.getID()));
                 WRITE_ERROR(errorMsg);
             }
-            //std::ostringstream os2;
-            //const ConstMSEdgeVector edgesAfter = msVeh.getRoute().getEdges();
-            //for (auto edge : edgesAfter) {
-            //    os2 << edge->getID() << " ";
-            //}
-            //WRITE_MESSAGE(TLF("Route after scheduling the charging station: % edges = %", msVeh.getRoute().getEdges().size(), os2.str()));
-
+#ifdef DEBUG_STATIONFINDER_REROUTE
+            std::ostringstream os2;
+            const ConstMSEdgeVector edgesAfter = myVeh.getRoute().getEdges();
+            for (auto edge : edgesAfter) {
+                os2 << edge->getID() << " ";
+            }
+            std::cout << "\tRoute after scheduling the charging station: " << os2.str() << "\n";
+#endif
             myPassedChargingStations.push_back(cs);
             myArrivalAtChargingStation = -1;
             mySearchState = SEARCHSTATE_SUCCESSFUL;
-            //WRITE_MESSAGE(TLF("Vehicle % gets rerouted to charging station % (edge % ) at time=%", myHolder.getID(), cs->getID(), stopPar.edge, toString(SIMTIME)));
+#ifdef DEBUG_STATIONFINDER_REROUTE
+            std::cout << "\tVehicle " << myHolder.getID() << " gets rerouted to charging station " << cs->getID()  << " on edge " << stopPar.edge  << " at time " << SIMTIME << "\n";
+#endif
             return true;
         }
         mySearchState = SEARCHSTATE_UNSUCCESSFUL;
@@ -369,12 +374,12 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
     MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false);
     if (cs == nullptr) {
         // continue waiting if all charging stations are occupied
-        WRITE_MESSAGE(TLF("There is no charging station available to teleport the broken-down vehicle % to at time=%. Will try again in % seconds.", myHolder.getID(), toString(SIMTIME), STEPS2TIME(myRepeatInterval)));
+#ifdef DEBUG_STATIONFINDER_RESCUE
+        std::cout << "MSDevice_StationFinder::teleportToChargingStation: No charging station available to teleport the broken-down vehicle " << myHolder.getID() << " to at time " << SIMTIME << ".\n.";
+#endif
         if (myHolder.isStopped()) {
             myHolder.getNextStop().duration += myRepeatInterval;
             mySearchState = SEARCHSTATE_BROKEN_DOWN;
-        } else {
-            WRITE_MESSAGE(TLF("Broken-down vehicle % cannot stop longer as it already erroneously resumed at time=%.", myHolder.getID(), toString(SIMTIME)));
         }
         return myRepeatInterval;
     }
