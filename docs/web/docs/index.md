@@ -126,6 +126,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Simple Platooning (Simpla)](Simpla.md)
 - [Demand Responsive Transport (DRT) / Taxis](Simulation/Taxi.md)
 - [Green Light Optimal Speed Advisory (GLOSA)](Simulation/GLOSA.md)
+- [Stationfinder (autonomous charging)](Simulation/Stationfinder.md)
 
 ## Model details
 
