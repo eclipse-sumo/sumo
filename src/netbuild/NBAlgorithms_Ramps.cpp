@@ -250,7 +250,10 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             NBNode* rn = new NBNode(newNodeID, curr->getGeometry().positionAtOffset(rampLength - currLength));
             nc.insert(rn);
             std::string name = curr->getID();
-            ec.splitAt(dc, curr, rn, newEdgeID, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes());
+            if (!ec.splitAt(dc, curr, rn, newEdgeID, curr->getID(), curr->getNumLanes() + toAdd, curr->getNumLanes())) {
+                WRITE_WARNING("Could not build on-ramp for edge '"  + curr->getID() + "' for unknown reason");
+                return;
+            }
             //ec.retrieve(name)->invalidateConnections();
             curr = ec.retrieve(newEdgeID);
             incremented.insert(curr);
@@ -353,7 +356,10 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             NBNode* rn = new NBNode(newNodeID, pos);
             nc.insert(rn);
             std::string name = curr->getID();
-            ec.splitAt(dc, curr, rn, curr->getID(), newEdgeID, curr->getNumLanes(), curr->getNumLanes() + toAdd);
+            if (!ec.splitAt(dc, curr, rn, curr->getID(), newEdgeID, curr->getNumLanes(), curr->getNumLanes() + toAdd)) {
+                WRITE_WARNING("Could not build off-ramp for edge '"  + curr->getID() + "' for unknown reason");
+                return;
+            }
             curr = ec.retrieve(newEdgeID);
             incremented.insert(curr);
             last = curr;
