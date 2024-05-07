@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-12 11:15:26 by Eclipse SUMO sumo Version v1_19_0+1803-069e576fb4d
+<!-- generated on 2024-05-07 18:41:39 by Eclipse SUMO sumo Version v1_20_0+0026-b9eee10faaa
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -303,6 +303,12 @@
         <!-- Write internal state values with the given precision (default 2) -->
         <save-state.precision value="2" type="INT"/>
 
+        <!-- The filename to output the JuPedSim network as WKT -->
+        <pedestrian.jupedsim.wkt value="" type="FILE"/>
+
+        <!-- Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat) -->
+        <pedestrian.jupedsim.wkt.geo value="false" type="BOOL"/>
+
     </output>
 
     <time>
@@ -518,6 +524,27 @@
 
         <!-- Generate INT intermediate points to smooth out lanes within the walkingarea -->
         <pedestrian.striping.walkingarea-detail value="4" type="INT"/>
+
+        <!-- The update interval of the JuPedSim simulation (in seconds) -->
+        <pedestrian.jupedsim.step-length value="0.01" type="TIME"/>
+
+        <!-- The distance to accept the JuPedSim arrival point (in meters) -->
+        <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
+
+        <!-- The submodel to use in JuPedSim (currently only &apos;CollisionFreeSpeed&apos;) -->
+        <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR"/>
+
+        <!-- The neighbor repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-neighbor-repulsion value="8" type="FLOAT"/>
+
+        <!-- The neighbor repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-neighbor-repulsion value="0.1" type="FLOAT"/>
+
+        <!-- The geometry repulsion strength of the JuPedSim model -->
+        <pedestrian.jupedsim.strength-geometry-repulsion value="5" type="FLOAT"/>
+
+        <!-- The geometry repulsion range of the JuPedSim model (in meters) -->
+        <pedestrian.jupedsim.range-geometry-repulsion value="0.02" type="FLOAT"/>
 
         <!-- Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops -->
         <ride.stop-tolerance value="10" type="FLOAT"/>
@@ -795,7 +822,10 @@
         <!-- Time to wait for a rescue vehicle on the road side when the battery is empty -->
         <device.stationfinder.rescueTime value="1800" type="TIME"/>
 
-        <!-- Additional battery buffer for unexpected traffic situation when estimating the battery need -->
+        <!-- How to deal with a vehicle which has to stop due to low battery: [none, remove, tow] -->
+        <device.stationfinder.rescueAction value="remove" type="STR"/>
+
+        <!-- Scale battery need with this factor to account for unexpected traffic situations -->
         <device.stationfinder.reserveFactor value="1.1" type="FLOAT"/>
 
         <!-- Battery percentage to go into rescue mode -->
@@ -808,13 +838,19 @@
         <device.stationfinder.repeat value="60" type="TIME"/>
 
         <!-- The maximum charging speed of the vehicle battery -->
-        <device.stationfinder.maxChargePower value="1000" type="FLOAT"/>
+        <device.stationfinder.maxChargePower value="100000" type="FLOAT"/>
 
         <!-- Type of energy transfer -->
         <device.stationfinder.chargeType value="charging" type="STR"/>
 
         <!-- After this waiting time vehicle searches for a new station when the initial one is blocked -->
         <device.stationfinder.waitForCharge value="600" type="TIME"/>
+
+        <!-- Target state of charge after which the vehicle stops charging -->
+        <device.stationfinder.saturatedChargeLevel value="80" type="FLOAT"/>
+
+        <!-- State of charge the vehicle begins searching for charging stations -->
+        <device.stationfinder.needToChargeLevel value="40" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
         <device.battery.probability value="-1" type="FLOAT"/>

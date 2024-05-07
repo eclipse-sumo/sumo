@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-12 11:15:26 by Eclipse SUMO sumo Version v1_19_0+1803-069e576fb4d
+<!-- generated on 2024-05-07 18:41:39 by Eclipse SUMO sumo Version v1_20_0+0026-b9eee10faaa
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -137,6 +137,8 @@
             <xsd:element name="save-state.transportables" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="save-state.constraints" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="save-state.precision" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.wkt" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.wkt.geo" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -217,6 +219,13 @@
             <xsd:element name="pedestrian.striping.reserve-oncoming.max" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.legacy-departposlat" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.walkingarea-detail" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.step-length" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.exit-tolerance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-neighbor-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.strength-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.jupedsim.range-geometry-repulsion" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="ride.stop-tolerance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
@@ -329,6 +338,7 @@
             <xsd:element name="device.stationfinder.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.rescueTime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.rescueAction" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.reserveFactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.emptyThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
@@ -336,6 +346,8 @@
             <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.saturatedChargeLevel" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.needToChargeLevel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>

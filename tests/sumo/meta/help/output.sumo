@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_19_0+1803-069e576fb4d
+Eclipse SUMO sumo Version v1_20_0+0026-b9eee10faaa
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -176,6 +176,10 @@ Output Options:
   --save-state.constraints             Save rail signal constraints
   --save-state.precision INT           Write internal state values with the
                                         given precision (default 2)
+  --pedestrian.jupedsim.wkt FILE       The filename to output the JuPedSim
+                                        network as WKT
+  --pedestrian.jupedsim.wkt.geo        Whether to output JuPedSim network as
+                                        WKT using geo-coordinates (lon/lat)
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
@@ -367,6 +371,20 @@ Processing Options:
   --pedestrian.striping.walkingarea-detail INT  Generate INT intermediate
                                         points to smooth out lanes within the
                                         walkingarea
+  --pedestrian.jupedsim.step-length TIME  The update interval of the JuPedSim
+                                        simulation (in seconds)
+  --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to accept the
+                                        JuPedSim arrival point (in meters)
+  --pedestrian.jupedsim.model STR      The submodel to use in JuPedSim
+                                        (currently only 'CollisionFreeSpeed')
+  --pedestrian.jupedsim.strength-neighbor-repulsion FLOAT  The neighbor
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-neighbor-repulsion FLOAT  The neighbor repulsion
+                                        range of the JuPedSim model (in meters)
+  --pedestrian.jupedsim.strength-geometry-repulsion FLOAT  The geometry
+                                        repulsion strength of the JuPedSim model
+  --pedestrian.jupedsim.range-geometry-repulsion FLOAT  The geometry repulsion
+                                        range of the JuPedSim model (in meters)
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
                                         pedestrian and vehicle positions on
                                         boarding at individual stops
@@ -553,9 +571,12 @@ Battery Options:
                                         deterministic using a fraction of 1000
   --device.stationfinder.rescueTime TIME  Time to wait for a rescue vehicle on
                                         the road side when the battery is empty
-  --device.stationfinder.reserveFactor FLOAT  Additional battery buffer for
-                                        unexpected traffic situation when
-                                        estimating the battery need
+  --device.stationfinder.rescueAction STR  How to deal with a vehicle which has
+                                        to stop due to low battery: [none,
+                                        remove, tow]
+  --device.stationfinder.reserveFactor FLOAT  Scale battery need with this
+                                        factor to account for unexpected traffic
+                                        situations
   --device.stationfinder.emptyThreshold FLOAT  Battery percentage to go into
                                         rescue mode
   --device.stationfinder.radius TIME   Search radius in travel time seconds
@@ -567,6 +588,10 @@ Battery Options:
   --device.stationfinder.waitForCharge TIME  After this waiting time vehicle
                                         searches for a new station when the
                                         initial one is blocked
+  --device.stationfinder.saturatedChargeLevel FLOAT  Target state of charge
+                                        after which the vehicle stops charging
+  --device.stationfinder.needToChargeLevel FLOAT  State of charge the vehicle
+                                        begins searching for charging stations
   --device.battery.probability FLOAT   The probability for a vehicle to have a
                                         'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
