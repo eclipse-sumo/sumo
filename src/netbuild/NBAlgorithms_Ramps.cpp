@@ -32,6 +32,7 @@
 #include "NBAlgorithms_Ramps.h"
 
 #define OFFRAMP_LOOKBACK 500
+#define MIN_SPLIT_LENGTH POSITION_EPS
 
 //#define DEBUG_RAMPS
 #define DEBUGNODEID  ""
@@ -241,7 +242,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             std::string newNodeID = getUnusedID(curr->getID() + "-AddedOnRampNode", nc);
@@ -343,7 +344,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             }
         }
         // check whether a further split is necessary
-        if (curr != nullptr && !dontSplit && currLength - POSITION_EPS < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
+        if (curr != nullptr && !dontSplit && currLength + MIN_SPLIT_LENGTH < rampLength && curr->getNumLanes() == firstLaneNumber && std::find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
             // there is enough place to build a ramp; do it
             bool wasFirst = first == curr;
             Position pos = curr->getGeometry().positionAtOffset(curr->getGeometry().length() - (rampLength  - currLength));
