@@ -1091,7 +1091,7 @@ it depends on the chosen resolution and screen size of the simulation.
 
 The second approach needs a sumo-gui version which has support for
 ffmpeg compiled in (for the windows downloads this is the extra
-version). When in doubt open the about dialog (press F2) and read the
+version). When in doubt open the about dialog (press F12) and read the
 line mentioning the compiled features (like Proj) whether it includes
 FFmpeg. If so, you can use the screenshot button to start video
 recording. Just enter a filename ending with ".h264" or ".hevc"
