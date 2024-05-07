@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-04-29 12:56+0000\n"
+"PO-Revision-Date: 2024-05-07 16:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.5.4-rc\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -10174,7 +10174,7 @@ msgstr ""
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 msgid "An airplane"
-msgstr ""
+msgstr "Un aeroplano"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
@@ -13999,7 +13999,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3462
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3513
 msgid "the times will be shifted forward by 'cycleTime' on each repeat"
-msgstr ""
+msgstr "gli orari verranno spostati di 'cycleTime' per ogni repetizione"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3479
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3479
