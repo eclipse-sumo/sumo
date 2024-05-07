@@ -137,7 +137,7 @@ If everything is fine:
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
-- publish a new "version" in Zenodo. Do not forget to delete the previous file in the new version!
+- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it.
 - update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
@@ -164,7 +164,6 @@ If everything is fine:
 - close [the milestone](https://github.com/eclipse-sumo/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
 - add the latest version to the **"software version identifier"** statement in [Wikidata](https://www.wikidata.org/wiki/Q15847637) (this will update the Wikipedia articles about SUMO), making sure to select the latest version as **"preferred rank"** and setting the previous one to **"normal rank"**.
-- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it
 
 ### After-release cleanup
 
