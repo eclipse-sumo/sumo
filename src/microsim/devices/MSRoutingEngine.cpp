@@ -121,7 +121,6 @@ MSRoutingEngine::_initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<s
         const double currentSecond = SIMTIME;
         double maxEdgePriority = -std::numeric_limits<double>::max();
         for (const MSEdge* const edge : MSNet::getInstance()->getEdgeControl().getEdges()) {
-            int numID = edge->getNumericalID();
             while (edge->getNumericalID() >= (int)edgeSpeeds.size()) {
                 edgeSpeeds.push_back(0);
                 if (myAdaptationSteps > 0) {
