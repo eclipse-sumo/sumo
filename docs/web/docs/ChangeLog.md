@@ -32,7 +32,7 @@ title: ChangeLog
   - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
   - Fixed crash when loading person stages without a person (now writes an error) #14654
   - Fixed xsd valiation error for router interval with human-readable time #14728
-  - BEV no longer perform coasting / recuperation in HBEFA4 #14764
+  - HBEFA4 electric vehicles can now recuperate #14764
   - A warning is now given when loading a disconnected walk #14779
   - When simulating a disconnected walk, the walking direction is now correct after passing the disconnected part #14780
   - Fixed invalid pedestrian jam warning #14796
@@ -227,7 +227,6 @@ title: ChangeLog
   - The routing mode value `ROUTING_MODE_INGNORE_TRANSIENT_PERMISSIONS` can now be used to ignore temporary permission changes from rerouters. #14205
   - Added function `trafficlight.getSpentDuration` #14400
   - `trafficlight.getParameter(tlsID, "typeName")` now retrieves traffic light type #14737
-  - [Plexe](https://plexe.car2x.org/) now supports platoon-aware lane change logic #14809
 
 - Tools
   - added [createScreenshotSequence.py](Tools/Misc.md#createscreenshotsequencepy) to help with creating videos from a simulation with scripted view movements. #14060
@@ -251,7 +250,7 @@ title: ChangeLog
 - [Numerical access restrictions](Simulation/VehiclePermissions.md#custom_access_restrictions) for routing are now documented.  #14370
 - Fixed inconsistent documentation for jumps #14316
 - The "build" directory has been renamed to "build_config" to allow "build" to be used for build outputs.
-- Plexe: Improved whole-platoon lane change procedure. #14395
+- [Plexe](https://plexe.car2x.org/) now supports platoon-aware lane change logic #14809, #14395
 - Added 6 new configuration files for the [MMPEVEM](Models/MMPEVEM.md) model. #14499
 - The battery device now uses param "rotatingMass" instead of "internalMomentOfInertia". The old value has been deprecated. The default value was changed to improve realism. #12513, #13422
 - The network now contains outline shapes for pedestrian crossings #11668
