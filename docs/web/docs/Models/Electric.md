@@ -82,7 +82,8 @@ be set in the vehicle definitions
 
 # Vehicle behavior
 
-Vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this [TraCI](#traci) must be used to change speed or route based on the current battery level.
+By default, vehicle behavior will not be affected by battery level. Car will keep driving even when their battery capacity is at 0. To avoid this, either [TraCI](#traci) must be used to change speed or route based on the current battery level or 
+the [stationfinder device](../Stationfinder_Device.md) can be configured to monitor the battery capacity.
 
 # Charging Stations
 
