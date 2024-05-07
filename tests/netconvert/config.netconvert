@@ -23,6 +23,7 @@ copy_test_path:osm.xml.gz
 copy_test_path:matsim.xml
 copy_test_path:vissim.inpx
 copy_test_path:opendrive.xodr
+copy_test_path:opendrive.xodr.gz
 copy_test_path:included.xodr
 copy_test_path:input_plain.nod.xml
 copy_test_path:input_plain.edg.xml
