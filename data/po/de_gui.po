@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-04-29 12:24+0000\n"
+"PO-Revision-Date: 2024-05-07 07:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 5.5.4-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -2812,7 +2812,7 @@ msgstr "Alternativen [#]"
 
 #: D:\Repos\sumo/src\guisim\GUIParkingArea.cpp:113
 msgid "access badges"
-msgstr ""
+msgstr "Zugangsausweise"
 
 #: D:\Repos\sumo/src\guisim\GUIPerson.cpp:234
 #: C:\Repos\sumo/src\guisim\GUIPerson.cpp:234
@@ -3142,7 +3142,7 @@ msgstr "Fahrstreifenwechselstatus links"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:186
 msgid "parking badges"
-msgstr ""
+msgstr "Parkplatzausweise"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:189
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:188
@@ -10323,7 +10323,7 @@ msgstr "Name des Parkplatzes"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
 msgid "Accepted badges to access this parkingArea"
-msgstr ""
+msgstr "Akzeptierte Ausweise, um Zugang zu diesem Parkplatz zu erhalten"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1932
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1927
@@ -11498,7 +11498,7 @@ msgstr "Die Fahrzeughöhe [m] (wird nur zum Zeichnen verwendet)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3607
 msgid "The parking badges assigned to the vehicle"
-msgstr ""
+msgstr "Die dem Fahrzeug zugewiesenen Parkplatzausweise"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3612
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3602
