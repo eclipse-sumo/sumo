@@ -39,6 +39,7 @@ both_ramp_split_threshold
 
 # two ramps are build and they overlap
 both_ramp_overlap
+both_ramp_connection_input
 
 # real_world1: bs
 real_world1
