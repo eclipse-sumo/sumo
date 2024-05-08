@@ -38,8 +38,8 @@
 #include "MSDevice_Battery.h"
 #include "MSDevice_StationFinder.h"
 
-#define DEBUG_STATIONFINDER_RESCUE
-#define DEBUG_STATIONFINDER_REROUTE
+//#define DEBUG_STATIONFINDER_RESCUE
+//#define DEBUG_STATIONFINDER_REROUTE
 
 
 // ===========================================================================
