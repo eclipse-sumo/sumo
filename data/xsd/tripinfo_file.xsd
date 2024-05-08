@@ -107,7 +107,7 @@
             <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="waitingTime" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="travelTime" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="traveltime" type="timeTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -124,7 +124,7 @@
             <xsd:attribute name="duration" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="waitingTime" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="timeLoss" type="timeTypeWithErrorValue"/>
-            <xsd:attribute name="travelTime" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="traveltime" type="timeTypeWithErrorValue"/>
         </xsd:complexType>
     </xsd:element>
 
