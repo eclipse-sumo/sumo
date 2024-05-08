@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-07 16:42+0000\n"
+"PO-Revision-Date: 2024-05-08 09:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -20872,25 +20872,26 @@ msgstr "Sposta ogni forma selezionata ortogonalmente alla direzione di marcia"
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Click over edge to create or edit geometry point."
-msgstr ""
+msgstr "Clicca su un arco per creare o modificare un punto geometrico."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:643
 msgid "Shift+click over edge to edit start or end geometry point."
 msgstr ""
+"Shift+click su un arco per modificare il punto geometrico iniziale o finale."
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:645
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:645
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:645
 msgid "-Move geometry point"
-msgstr ""
+msgstr "-Sposta punto geometrico"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:648
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:648
 #: C:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:648
 msgid "-Merge geometry point"
-msgstr ""
+msgstr "-Combina punti geometrici"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:660
@@ -20902,7 +20903,7 @@ msgstr "Sposta"
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:79
 msgid "Selection information"
-msgstr ""
+msgstr "Informazione sulla selezione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:97
 #: D:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2034
@@ -20995,7 +20996,7 @@ msgstr "Punti di interesse"
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:110
 msgid "JuPedSim elements"
-msgstr ""
+msgstr "Elementi JuPedSim"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:114
 #: D:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:188
@@ -21022,7 +21023,7 @@ msgstr "Contenitori"
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:121
 msgid "Transport"
-msgstr ""
+msgstr "Spedizione"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:122
@@ -21052,7 +21053,7 @@ msgstr ""
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:154
 msgid "Modification Mode"
-msgstr ""
+msgstr "Modo di modifica"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:157
@@ -21405,13 +21406,13 @@ msgstr "MeanData"
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:54
 msgid "Confirm TAZRelation"
-msgstr ""
+msgstr "Conferma relazione origine-destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: C:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 msgid "Create TAZRelation"
-msgstr ""
+msgstr "Crea relazione origine-destinazione"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\frames\data\GNETAZRelDataFrame.cpp:56
