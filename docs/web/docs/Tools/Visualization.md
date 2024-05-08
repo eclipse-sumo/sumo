@@ -70,6 +70,7 @@ The script supports the following distinct styles of plots:
 The following attribute values have a special meaning. Instead of using an attribute from the input file they derive a value based on the *other* attribute. (i.e. the special attribute is set for **--xattr** then the *other* value is given by the **--yattr**).
 
 - `@INDEX`: the index of the *other* value within the input file is used.
+- `@FILE`: the (shortened) input file name is used (useful when plotting one value per file)
 - `@RANK`: the index of the *other* value within the sorted (descending) list of values is used
 - `@COUNT`: the number of occurences of the *other* value is used. Together with option **--barplot** or **-hbarplot** this gives a histogram. Binning size can be set via options **--xbin** and **--ybin**.
 - `@DENSITY`: the number of occurences of the *other* value is used, normalized by the total number of values.
