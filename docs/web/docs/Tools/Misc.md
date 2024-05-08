@@ -84,6 +84,31 @@ The available attributes to animate are:
 - Angle using the **--rotate** option. The option value consists of pairs of time and angle values (in degrees, separator: colon) joined by semicolon.
 - Offset/center position using the **--translate** option. The option value consists of pairs of time and position values (separator: colon, position dimensions separated by comma) joined by semicolon.
 
+# distributeChargingStations.py
+
+Charging stations are usually placed on (existing) parking spaces. This tool helps to equip a defined share of given parking spaces with charging infrastructure. In practice, this means generating the
+[charging station](../Models/Electric.md#charging_stations) definitions and eventually cut [parking areas](../Simulation/ParkingArea.md) into two to reach the wanted number of charging points.
+
+Thus the tool writes [additional files](../Simulation/Basic_Definition.md#additional_files) with charging stations and parking areas. It needs at least the net file (**--net-file**) and an additional file (**--add-files**)
+to work. It provides the following options:
+
+- **--net-file**: The network file the charging stations belong to (to keep an overview on the amount of charging stations and whether the wanted share of charging points has been reached)
+- **--add-files**: Files containing parking area definitions
+- **--selection-file**: Network [selection file](../sumo-gui.md#selecting_objects) to restrict the area where charging stations shall be created to the referenced edges
+- **--vclass**: Only use edges which allow the given [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
+- **--output-file**: The new additional file with charging station and parking area definitions
+- **--probability**: Probability for parking areas along an edge to receive charging infrastructure
+- **--density**: Share of the total parking spaces along an edge to be equipped with charging points
+- **--power**: Power attribute of charging stations to create (see [charging station attributes](../Models/Electric.md#charging_stations))
+- **--efficiency**: Efficiency attribute of charging stations to create (see [charging station attributes](../Models/Electric.md#charging_stations))
+- **--min**: Minimum number of charging points to create per edge
+- **--max**: Maximum number of charging points to create per edge
+- **--prefix**: Prefix of generated charging station IDs
+- **--suffix**: Suffix to append to splitted parking area
+- **--seed**: Random seed (used for random probability, see **--probability**)
+
+
+
 # extractTest.py
 
 This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so, you can either:
