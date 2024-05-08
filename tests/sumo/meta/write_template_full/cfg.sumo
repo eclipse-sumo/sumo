@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-07 18:41:39 by Eclipse SUMO sumo Version v1_20_0+0026-b9eee10faaa
+<!-- generated on 2024-05-08 19:06:19 by Eclipse SUMO sumo Version v1_20_0+0051-b8e19735240
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -298,14 +298,14 @@
         <device.stationfinder.rescueTime value="1800" type="TIME" help="Time to wait for a rescue vehicle on the road side when the battery is empty"/>
         <device.stationfinder.rescueAction value="remove" type="STR" help="How to deal with a vehicle which has to stop due to low battery: [none, remove, tow]"/>
         <device.stationfinder.reserveFactor value="1.1" type="FLOAT" help="Scale battery need with this factor to account for unexpected traffic situations"/>
-        <device.stationfinder.emptyThreshold value="5" type="FLOAT" help="Battery percentage to go into rescue mode"/>
+        <device.stationfinder.emptyThreshold value="0.05" type="FLOAT" help="Battery percentage to go into rescue mode"/>
         <device.stationfinder.radius value="180" type="TIME" help="Search radius in travel time seconds"/>
         <device.stationfinder.repeat value="60" type="TIME" help="When to trigger a new search if no station has been found"/>
         <device.stationfinder.maxChargePower value="100000" type="FLOAT" help="The maximum charging speed of the vehicle battery"/>
         <device.stationfinder.chargeType value="charging" type="STR" help="Type of energy transfer"/>
         <device.stationfinder.waitForCharge value="600" type="TIME" help="After this waiting time vehicle searches for a new station when the initial one is blocked"/>
-        <device.stationfinder.saturatedChargeLevel value="80" type="FLOAT" help="Target state of charge after which the vehicle stops charging"/>
-        <device.stationfinder.needToChargeLevel value="40" type="FLOAT" help="State of charge the vehicle begins searching for charging stations"/>
+        <device.stationfinder.saturatedChargeLevel value="0.8" type="FLOAT" help="Target state of charge after which the vehicle stops charging"/>
+        <device.stationfinder.needToChargeLevel value="0.4" type="FLOAT" help="State of charge the vehicle begins searching for charging stations"/>
         <device.battery.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;battery&apos; device"/>
         <device.battery.explicit value="" synonymes="device.battery.knownveh" type="STR[]" help="Assign a &apos;battery&apos; device to named vehicles"/>
         <device.battery.deterministic value="false" type="BOOL" help="The &apos;battery&apos; devices are set deterministic using a fraction of 1000"/>
