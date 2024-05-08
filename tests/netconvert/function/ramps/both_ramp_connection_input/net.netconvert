@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-07 17:11:51 by Eclipse SUMO netconvert Version v1_20_0+0026-b9eee10faaa
+<!-- generated on 2024-05-08 08:53:29 by Eclipse SUMO netconvert Version v1_20_0+0031-89c194ad221
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -85,9 +85,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="2a" type="dead_end" x="200.00" y="100.00" incLanes="off_0" intLanes="" shape="200.48,101.53 199.52,98.47"/>
     <junction id="3" type="priority" x="559.76" y="0.00" incLanes="s2-AddedOffRampEdge_0 s2-AddedOffRampEdge_1 s2-AddedOffRampEdge_2 s2-AddedOffRampEdge_3" intLanes="" shape="559.76,8.00 559.76,-4.80 559.76,8.00">
-        <request index="0" response="000" foes="000"/>
-        <request index="1" response="000" foes="000"/>
-        <request index="2" response="000" foes="000"/>
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="4" type="priority" x="609.76" y="0.00" incLanes="on_0 s1_0 s1_1" intLanes="" shape="610.94,6.85 611.91,3.80 611.51,3.20 611.51,-3.20 608.01,-3.20 608.01,6.40 609.12,6.42 609.50,6.46 609.88,6.54 610.34,6.66">
         <request index="0" response="110" foes="110"/>
@@ -111,11 +112,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="s2" to="s2-AddedOffRampEdge" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="s2" to="s2-AddedOffRampEdge" fromLane="2" toLane="3" dir="s" state="M"/>
     <connection from="s2-AddedOffRampEdge" to="s3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="s2-AddedOffRampEdge" to="s3" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from="s2-AddedOffRampEdge" to="s3" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="s2-AddedOffRampEdge" to="s3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="s2-AddedOffRampEdge" to="s3" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="s2-AddedOffRampEdge" to="s3" fromLane="3" toLane="3" dir="s" state="M"/>
     <connection from="s3" to="off" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="s3" to="s4" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="s3" to="s4" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="s3" to="s4" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="s3" to="s4" fromLane="3" toLane="2" dir="s" state="M"/>
 
 </net>
