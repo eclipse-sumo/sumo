@@ -205,7 +205,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = cont->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = cont;
     NBEdge* last = cont;
     NBEdge* curr = cont;
@@ -215,7 +215,9 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -313,7 +315,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
 #endif
     // compute the number of lanes to append
     const int firstLaneNumber = prev->getNumLanes();
-    int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
+    const int toAdd = (potRamp->getNumLanes() + potHighway->getNumLanes()) - firstLaneNumber;
     NBEdge* first = prev;
     NBEdge* last = prev;
     NBEdge* curr = prev;
@@ -323,7 +325,9 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
         while (curr != nullptr && currLength + curr->getGeometry().length() - POSITION_EPS < rampLength) {
             if (find(incremented.begin(), incremented.end(), curr) == incremented.end()) {
                 curr->incLaneNo(toAdd);
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER) {
+                // we need to distinguish between loading a .net.xml (connections are defined and applicable)
+                // and manual connection patches (should be post-prcess because the lane wasn't added yet)
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     curr->invalidateConnections(true);
                 }
                 incremented.insert(curr);
@@ -334,7 +338,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
             NBNode* prevN = curr->getFromNode();
             if (prevN->getIncomingEdges().size() == 1 && prevN->getOutgoingEdges().size() == 1) {
                 curr = prevN->getIncomingEdges()[0];
-                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER && toAdd != 0) {
+                if (curr->getStep() < NBEdge::EdgeBuildingStep::LANES2LANES_USER || !ec.hasPostProcessConnection(curr->getID())) {
                     // curr might be an onRamp. In this case connections need to be rebuilt
                     curr->invalidateConnections();
                 }
