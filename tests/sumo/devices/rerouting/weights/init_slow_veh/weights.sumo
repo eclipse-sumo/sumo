@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-08 09:56:05 by Eclipse SUMO sumo Version v1_20_0+0031-89c194ad221
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.output value="weights.xml"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<weights xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval id="device.rerouting" begin="0.00" end="1.00">
+        <edge id="beg" traveltime="7.20"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="100000.00"/>
+    </interval>
+    <interval id="device.rerouting" begin="1.00" end="2.00">
+        <edge id="beg" traveltime="7.24"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="7692.19"/>
+    </interval>
+    <interval id="device.rerouting" begin="2.00" end="3.00">
+        <edge id="beg" traveltime="7.28"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="2940.43"/>
+    </interval>
+    <interval id="device.rerouting" begin="3.00" end="4.00">
+        <edge id="beg" traveltime="7.31"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="1456.94"/>
+    </interval>
+    <interval id="device.rerouting" begin="4.00" end="5.00">
+        <edge id="beg" traveltime="7.33"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="880.25"/>
+    </interval>
+    <interval id="device.rerouting" begin="5.00" end="6.00">
+        <edge id="beg" traveltime="7.35"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="583.57"/>
+    </interval>
+    <interval id="device.rerouting" begin="6.00" end="7.00">
+        <edge id="beg" traveltime="7.36"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="415.33"/>
+    </interval>
+    <interval id="device.rerouting" begin="7.00" end="8.00">
+        <edge id="beg" traveltime="7.37"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="321.05"/>
+    </interval>
+    <interval id="device.rerouting" begin="8.00" end="9.00">
+        <edge id="beg" traveltime="7.37"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="260.42"/>
+    </interval>
+    <interval id="device.rerouting" begin="9.00" end="10.00">
+        <edge id="beg" traveltime="7.37"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="219.82"/>
+    </interval>
+    <interval id="device.rerouting" begin="10.00" end="11.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="190.15"/>
+    </interval>
+    <interval id="device.rerouting" begin="11.00" end="12.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="165.82"/>
+    </interval>
+    <interval id="device.rerouting" begin="12.00" end="13.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="147.01"/>
+    </interval>
+    <interval id="device.rerouting" begin="13.00" end="14.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="132.03"/>
+    </interval>
+    <interval id="device.rerouting" begin="14.00" end="15.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.60"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="119.82"/>
+    </interval>
+    <interval id="device.rerouting" begin="15.00" end="16.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.61"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="109.68"/>
+    </interval>
+    <interval id="device.rerouting" begin="16.00" end="17.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.62"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="101.12"/>
+    </interval>
+    <interval id="device.rerouting" begin="17.00" end="18.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.62"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="93.80"/>
+    </interval>
+    <interval id="device.rerouting" begin="18.00" end="19.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.64"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="87.47"/>
+    </interval>
+    <interval id="device.rerouting" begin="19.00" end="20.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.64"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="81.94"/>
+    </interval>
+    <interval id="device.rerouting" begin="20.00" end="21.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.65"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="77.07"/>
+    </interval>
+    <interval id="device.rerouting" begin="21.00" end="22.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.65"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="72.74"/>
+    </interval>
+    <interval id="device.rerouting" begin="22.00" end="23.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.66"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="68.88"/>
+    </interval>
+    <interval id="device.rerouting" begin="23.00" end="24.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.66"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="65.40"/>
+    </interval>
+    <interval id="device.rerouting" begin="24.00" end="25.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.67"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="62.26"/>
+    </interval>
+    <interval id="device.rerouting" begin="25.00" end="26.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.67"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="59.40"/>
+    </interval>
+    <interval id="device.rerouting" begin="26.00" end="27.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.68"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="56.80"/>
+    </interval>
+    <interval id="device.rerouting" begin="27.00" end="28.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.69"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="54.42"/>
+    </interval>
+    <interval id="device.rerouting" begin="28.00" end="29.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.70"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="52.22"/>
+    </interval>
+    <interval id="device.rerouting" begin="29.00" end="30.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.70"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="50.20"/>
+    </interval>
+    <interval id="device.rerouting" begin="30.00" end="31.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.71"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="48.33"/>
+    </interval>
+    <interval id="device.rerouting" begin="31.00" end="32.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.71"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="46.59"/>
+    </interval>
+    <interval id="device.rerouting" begin="32.00" end="33.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.72"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="44.97"/>
+    </interval>
+    <interval id="device.rerouting" begin="33.00" end="34.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.73"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="43.46"/>
+    </interval>
+    <interval id="device.rerouting" begin="34.00" end="35.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.20"/>
+        <edge id="middle" traveltime="42.05"/>
+    </interval>
+    <interval id="device.rerouting" begin="35.00" end="36.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.21"/>
+        <edge id="middle" traveltime="40.73"/>
+    </interval>
+    <interval id="device.rerouting" begin="36.00" end="37.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.21"/>
+        <edge id="middle" traveltime="39.49"/>
+    </interval>
+    <interval id="device.rerouting" begin="37.00" end="38.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.22"/>
+        <edge id="middle" traveltime="38.32"/>
+    </interval>
+    <interval id="device.rerouting" begin="38.00" end="39.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.22"/>
+        <edge id="middle" traveltime="37.22"/>
+    </interval>
+    <interval id="device.rerouting" begin="39.00" end="40.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.22"/>
+        <edge id="middle" traveltime="36.18"/>
+    </interval>
+    <interval id="device.rerouting" begin="40.00" end="41.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.22"/>
+        <edge id="middle" traveltime="35.20"/>
+    </interval>
+    <interval id="device.rerouting" begin="41.00" end="42.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.22"/>
+        <edge id="middle" traveltime="34.27"/>
+    </interval>
+    <interval id="device.rerouting" begin="42.00" end="43.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.23"/>
+        <edge id="middle" traveltime="33.39"/>
+    </interval>
+    <interval id="device.rerouting" begin="43.00" end="44.00">
+        <edge id="beg" traveltime="7.38"/>
+        <edge id="detour" traveltime="21.78"/>
+        <edge id="end" traveltime="7.23"/>
+        <edge id="middle" traveltime="32.55"/>
+    </interval>
+</weights>

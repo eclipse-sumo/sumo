@@ -1,0 +1,2 @@
+--no-step-log --net-file=net.net.xml -a=input_routes.rou.xml --device.rerouting.output weights.xml
+--vehroute-output vehroutes.xml
