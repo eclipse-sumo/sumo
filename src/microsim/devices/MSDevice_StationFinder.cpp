@@ -270,7 +270,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         ConstMSEdgeVector routeTo;
         if (router.compute(start, myHolder.getPositionOnLane(), csEdge, stop.second->getBeginLanePosition(), &myHolder, now, routeTo, true)) {
             ConstMSEdgeVector routeFrom;
-            double time = router.recomputeCosts(routeTo, &myHolder, now); // -csEdge->getMinimumTravelTime(&myHolder) * (csEdge->getLength() - cs->getBeginLanePosition()) / csEdge->getLength();
+            double time = router.recomputeCosts(routeTo, &myHolder, now) - csEdge->getMinimumTravelTime(&myHolder) * (csEdge->getLength() - cs->getBeginLanePosition()) / csEdge->getLength();
             if (!constrainTT || time < maxTT) {
                 travelTimeToCharging.insert({ cs, time });
             }
