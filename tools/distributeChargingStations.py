@@ -33,7 +33,7 @@ def getOptions(args=None):
         description="Add charging stations on parkings and rebuild parkings if necessary")
     argParser.add_argument("-n", "--net-file", category="input", dest="netFile", required=True,
                            help="define the net file (mandatory)")
-    argParser.add_argument("-a", "--add-file", category="input", dest="addFile", required=True,
+    argParser.add_argument("-a", "--add-files", category="input", dest="addFiles", required=True,
                            help="define the base parking areas")
     argParser.add_argument("--selection-file", category="input", dest="selectionFile",
                            help="optionally restrict the parking area to the selected net part")
@@ -55,15 +55,13 @@ def getOptions(args=None):
     argParser.add_argument("--suffix", category="processing", default="_shift",
                            help="suffix for ID of splitted parkingArea")
     argParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
-    argParser.add_argument("--random", category="processing", action="store_true", default=False,
-                           help="use a random seed to initialize the random number generator")
     argParser.add_argument("--vclass", category="processing", default="passenger",
                            help="only use edges which permit the given vehicle class")
-    argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
-                           default=False, help="tell me what you are doing")
+    # argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
+    # default=False, help="tell me what you are doing")
 
     options = argParser.parse_args(args=args)
-    if not options.netFile:
+    if not options.netFile or not options.addFiles:
         argParser.print_help()
         sys.exit(1)
     options.min = max(0, options.min)
@@ -83,8 +81,7 @@ def hasOppositeEdge(edge):
 
 
 def main(options):
-    if not options.random:
-        random.seed(options.seed)
+    random.seed(options.seed)
 
     net = sumolib.net.readNet(options.netFile)
     checkSelection = False
@@ -94,7 +91,9 @@ def main(options):
 
     # read parkingArea data
     edge2parkingArea = {}
-    additionals = list(sumolib.xml.parse(options.addFile, "additional"))[0]
+    additionals = []
+    for addFile in options.addFiles.split(","):
+        additionals.extend(list(sumolib.xml.parse(addFile, "additional"))[0])
     totalCapacity = 0
     for node in additionals.getChildList():
         if node.name != "parkingArea":
