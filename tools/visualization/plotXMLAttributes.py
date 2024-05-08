@@ -54,11 +54,12 @@ RANK_ATTR = "@RANK"
 COUNT_ATTR = "@COUNT"
 DENS_ATTR = "@DENSITY"
 BOX_ATTR = "@BOX"
+FILE_ATTR = "@FILE"
 NONE_ATTR = "@NONE"
 NONE_ATTR_DEFAULT = 0
 ID_ATTR_DEFAULT = ""  # use filename instead
 
-POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR]
+POST_PROCESSING_ATTRS = [RANK_ATTR, COUNT_ATTR, BOX_ATTR, DENS_ATTR, FILE_ATTR]
 SYMBOLIC_ATTRS = POST_PROCESSING_ATTRS + [INDEX_ATTR]
 NON_DATA_ATTRS = SYMBOLIC_ATTRS + [NONE_ATTR]
 
@@ -573,6 +574,10 @@ def main(options):
                     dataID = str(dataID) + "#" + suffix
             x = interpretValue(x)
             y = interpretValue(y)
+            if options.xattr == FILE_ATTR:
+                x = titleFileNames[fileIndex]
+            if options.yattr == FILE_ATTR:
+                y = titleFileNames[fileIndex]
             if isnumeric(x):
                 numericXCount += 1
                 x *= options.xfactor
