@@ -58,11 +58,11 @@ element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PAR
 | rescueTime            | float (s)        | ≥0                  | 1800             | Time to wait for a rescue vehicle on the road side when the battery is empty        |
 | rescueAction          | enum             | {remove;tow;none}   | remove     | What to do with vehicles in rescue mode: `remove` remove immediately from the simulation, `tow` teleport to a charging station after waiting or do nothing using `none` |
 | reserveFactor         | float            | ≥1                  | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
-| emptyThreshold        | float            | [0;100]             | 5                | Battery percentage to go into rescue mode |
+| emptyThreshold        | float            | [0;1]               | 0.05             | Battery percentage to go into rescue mode |
 | radius                | float (s)        | ≥0                  | 180              | Search radius in travel time seconds |
 | repeat                | float (s)        | ≥0                  | 60               | When to trigger a new search if no station has been found |
 | maxChargePower        | float (W)        | ≥0                  | 100000           | The maximum charging speed of the vehicle battery |
 | chargeType            | enum             | {charging}          | charging         | Type of energy transfer (not used at the moment) |
 | waitForCharge         | float (s)        | ≥0                  | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
-| saturatedChargeLevel  | float            | [0;100]             | 80               | Target state of charge after which the vehicle stops charging |
-| needToChargeLevel     | float            | [0;100]             | 40               | State of charge the vehicle begins searching for charging stations |
+| saturatedChargeLevel  | float            | [0;1]               | 0.8              | Target state of charge after which the vehicle stops charging |
+| needToChargeLevel     | float            | [0;1]               | 0.4              | State of charge the vehicle begins searching for charging stations |
