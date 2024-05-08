@@ -60,6 +60,9 @@ stats
 # plot multiple statistic-output files and join the data points
 stats_joined
 
+# plot multiple statistic-output files
+stats_by_file
+
 # plot fcd output and ignore ids
 fcd_speed_density
 
@@ -75,6 +78,4 @@ first_empty_file
 
 # error when all files are empty
 empty_files
-
-
 stops_filter_pattern
