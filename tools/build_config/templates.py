@@ -28,6 +28,7 @@ import sys
 import os
 import re
 import subprocess
+import io
 from os.path import dirname, join
 from glob import glob
 
@@ -404,7 +405,7 @@ def main():
     toolDir = join(dirname(__file__), '..')
     if not os.path.exists("templates.h") or checkMod(toolDir, "templates.h"):
         # write templates.h
-        with open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
+        with io.open("templates.h", 'w', encoding='utf8') as templateHeaderFile:
             buildTemplateToolHeader(templateHeaderFile)
             is_debug = sys.argv[1].endswith("D") or sys.argv[1].endswith("D.exe")
             print("const std::vector<TemplateTool> templateTools {\n", file=templateHeaderFile)
