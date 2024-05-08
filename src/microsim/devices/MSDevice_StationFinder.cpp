@@ -62,7 +62,7 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.rescueAction", "Battery", TL("How to deal with a vehicle which has to stop due to low battery: [none, remove, tow]"));
     oc.doRegister("device.stationfinder.reserveFactor", new Option_Float(1.1));
     oc.addDescription("device.stationfinder.reserveFactor", "Battery", TL("Scale battery need with this factor to account for unexpected traffic situations"));
-    oc.doRegister("device.stationfinder.emptyThreshold", new Option_Float(5));
+    oc.doRegister("device.stationfinder.emptyThreshold", new Option_Float(0.05));
     oc.addDescription("device.stationfinder.emptyThreshold", "Battery", TL("Battery percentage to go into rescue mode"));
     oc.doRegister("device.stationfinder.radius", new Option_String("180", "TIME"));
     oc.addDescription("device.stationfinder.radius", "Battery", TL("Search radius in travel time seconds"));
@@ -74,9 +74,9 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.chargeType", "Battery", TL("Type of energy transfer"));
     oc.doRegister("device.stationfinder.waitForCharge", new Option_String("600", "TIME"));
     oc.addDescription("device.stationfinder.waitForCharge", "Battery", TL("After this waiting time vehicle searches for a new station when the initial one is blocked"));
-    oc.doRegister("device.stationfinder.saturatedChargeLevel", new Option_Float(80.));
+    oc.doRegister("device.stationfinder.saturatedChargeLevel", new Option_Float(0.8));
     oc.addDescription("device.stationfinder.saturatedChargeLevel", "Battery", TL("Target state of charge after which the vehicle stops charging"));
-    oc.doRegister("device.stationfinder.needToChargeLevel", new Option_Float(40.));
+    oc.doRegister("device.stationfinder.needToChargeLevel", new Option_Float(0.4));
     oc.addDescription("device.stationfinder.needToChargeLevel", "Battery", TL("State of charge the vehicle begins searching for charging stations"));
 }
 
@@ -102,14 +102,14 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     initRescueAction(holder, oc, "stationfinder.rescueAction", myRescueAction);
     initRescueCommand();
     myReserveFactor = MAX2(1., getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1));
-    myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 100.)) / 100.;
+    myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 1.));
     myRadius = getTimeParam(holder, oc, "stationfinder.radius", 180000);
     myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat", 60000);
     myMaxChargePower = getFloatParam(holder, oc, "stationfinder.maxChargePower", 80000.);
     myChargeType = CHARGETYPE_CHARGING;
     myWaitForCharge = getTimeParam(holder, oc, "stationfinder.waitForCharge", 600000);
-    myTargetSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.saturatedChargeLevel", 80.), 100.)) / 100.;
-    mySearchSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.needToChargeLevel", 40.), 100.)) / 100.;
+    myTargetSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.saturatedChargeLevel", 80.), 1.));
+    mySearchSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.needToChargeLevel", 40.), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
