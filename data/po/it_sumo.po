@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-04-19 13:10+0000\n"
+"PO-Revision-Date: 2024-05-09 11:51+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.5.4-rc\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2897,47 +2897,51 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1619
 msgid "No edges to walk for person '%'."
-msgstr ""
+msgstr "Nessun arco da camminare per persona '%'."
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1657
 msgid ""
 "Could not find departure lane for walk of person '%' when interpreting "
 "departPosLat"
 msgstr ""
+"Non ho trovato la corsia di partenza del cammino di persona '%' nel "
+"interpretare departPosLat"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1691
 msgid "The type '%' for % '%' is not known."
-msgstr ""
+msgstr "Il tipo '%' per % '%' è sconosciuto."
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1714
 msgid "Could not read tranship speed for container '%'."
-msgstr ""
+msgstr "Non ho potuto leggere la velocità di trasbordo di contenitore '%'."
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1722
 msgid "Non-positive tranship speed for container '%'."
-msgstr ""
+msgstr "Velocità di trasbordo non positiva di contenitore '%'."
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1748
 #, c-format
 msgid "The start edge for container '%' is not known."
-msgstr ""
+msgstr "L'arco iniziale del contenitore '%' è sconosciuto."
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1767
 msgid ""
 "Inconsistent tranship for container '%', only one option is allowed: "
 "'edges', 'to', 'containerStop'"
 msgstr ""
+"Trasbordo inconsistente del contenitore '%' perché si può usare soltanto una "
+"delle opzioni alla volta: 'edges', 'to', 'containerStop'"
 
 #: D:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1773
 msgid "No edges to tranship container '%'."
-msgstr ""
+msgstr "Nessun arco per trasbordare il contenitore '%'."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:76
 #: D:\Repos\sumo/src\polyconvert\PCNetProjectionLoader.cpp:64
 #: D:\Repos\sumo/src\utils\options\OptionsIO.cpp:164
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteLoader.cpp:36
 msgid "Can not read XML-file '%'."
-msgstr ""
+msgstr "Non ho potuto leggere l'archivio XML '%'."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
@@ -3907,18 +3911,22 @@ msgstr "L'algoritmo di invio '%' è sconosciuto"
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:347
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
+"Il cliente esistente '%' è stato di nuovo ogetto di un invio con un'altra "
+"prenotazione"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:380
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
-msgstr ""
+msgstr "L'invio ripetuto non contiene la fermata del cliente esistente '%'"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:493
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
+"Non ho potuto aggiungere una fermata taxi al veicolo '%' a % (ore % "
+"errore=%)."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:702
 msgid "Taxi '%' reaches scheduled end of service at time=%."
-msgstr ""
+msgstr "Il taxi '%' giunge alle fine del servizio alle ore %."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:775
 msgid ""
