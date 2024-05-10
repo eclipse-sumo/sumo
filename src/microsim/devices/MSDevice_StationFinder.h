@@ -179,9 +179,10 @@ private:
      * @param[in] expectedConsumption
      * @param[in] constrainTT whether to constrain the search radius by a maximum travel time
      * @param[in] skipVisited whether to skip charging stations which have not been available when passing by recently
+     * @param[in] skipOccupied whether to skip fully occupied charging stations
      * @return The found charging station, otherwise nullptr
      */
-    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true);
+    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
 
     /** @brief reroute to a charging station
      *
@@ -202,6 +203,13 @@ private:
      * @return energy in Wh needed to complete the planned route
      */
     double estimateConsumption(const MSEdge* target = nullptr, const bool includeEmptySoC = true, const double stopDiscount = 0.) const;
+
+    /** @brief compute the free space at a charging station
+     *
+     * @param[in] cs the charging station to compute the free space for
+     * @return the free space at the charging station as a fraction of the holder vehicle
+     */
+    double freeSpaceAtChargingStation(MSChargingStation* cs) const;
 
     /** @brief adopt a planned charging stop outside of the device
      *

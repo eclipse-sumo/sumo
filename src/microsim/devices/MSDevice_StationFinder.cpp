@@ -166,6 +166,10 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             if (stopLane != stopPos.first) {
                 endPos = MIN2(POSITION_EPS, stopLane->getLength());
             }
+            // remove possibly scheduled charging stop
+            if (myVeh.hasStops() && myVeh.getStop(0).chargingStation != nullptr) {
+                myVeh.abortNextStop();
+            }
 
             // schedule the rescue stop
             SUMOVehicleParameter::Stop rescueStop;
@@ -236,7 +240,7 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 
 MSChargingStation*
-MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited) {
+MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
     const MSEdge* const start = myHolder.getEdge();
     double minTargetValue = std::numeric_limits<double>::max();
     MSChargingStation* minStation = nullptr;
@@ -254,6 +258,9 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         }
         if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {
             // skip stations where the linked parking area does not grant access to the device holder
+            continue;
+        }
+        if (skipOccupied && freeSpaceAtChargingStation(cs) < 1.) {
             continue;
         }
         if (skipVisited && std::find(myPassedChargingStations.begin(), myPassedChargingStations.end(), cs) != myPassedChargingStations.end()) {
@@ -282,8 +289,8 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     for (const auto& tt : travelTimeToCharging) {
         MSChargingStation* cs = tt.first;
         double parkingCapacity = (cs->getParkingArea() != nullptr) ? cs->getParkingArea()->getCapacity() : (cs->getEndLanePosition() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
-        double freeParkingCapacity = (cs->getParkingArea() != nullptr) ? parkingCapacity - cs->getParkingArea()->getOccupancy() : (cs->getLastFreePos() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
-        double waitingTime = (freeParkingCapacity < 0.) ? DEFAULT_AVG_WAITING_TIME / parkingCapacity : 0.; // TODO: create true waiting time function
+        double freeParkingCapacity = freeSpaceAtChargingStation(cs);
+        double waitingTime = (freeParkingCapacity < 1.) ? DEFAULT_AVG_WAITING_TIME / parkingCapacity : 0.; // TODO: create true waiting time function
         double chargingTime = cs->getChargeDelay() + expectedConsumption / cs->getChargingPower(false);
 
         ConstMSEdgeVector routeFrom;
@@ -370,8 +377,8 @@ SUMOTime
 MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/) {
     // find closest charging station
     MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
-    double expectedConsumption = MIN2(estimateConsumption(nullptr, true, myVeh.getStops().front().pars.duration) * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
-    MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false);
+    double expectedConsumption = MIN2(estimateConsumption(nullptr, true, STEPS2TIME(myVeh.getStops().front().pars.duration)) * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
+    MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false, true);
     if (cs == nullptr) {
         // continue waiting if all charging stations are occupied
 #ifdef DEBUG_STATIONFINDER_RESCUE
@@ -383,11 +390,19 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
         }
         return myRepeatInterval;
     }
+    if (cs != nullptr && cs->getLane().getEdge().getID() == myVeh.getLane()->getEdge().getID()) {
+        // TODO: disable jump if the charging station is on the same edge
+    }
 
     // teleport to the charging station, stop there for charging
     myChargingStation = cs;
     SUMOVehicleParameter::Stop stopPar;
     stopPar.chargingStation = cs->getID();
+    if (cs->getParkingArea() != nullptr) {
+        stopPar.parkingarea = cs->getParkingArea()->getID();
+        stopPar.parking = (cs->getParkingArea()->parkOnRoad()) ? ParkingType::ONROAD : ParkingType::OFFROAD;
+    }
+    stopPar.edge = cs->getLane().getEdge().getID();
     stopPar.lane = cs->getLane().getID();
     stopPar.startPos = cs->getBeginLanePosition();
     stopPar.endPos = cs->getEndLanePosition();
@@ -431,6 +446,12 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
         return expectedConsumption;
     }
     return 0.;
+}
+
+
+double
+MSDevice_StationFinder::freeSpaceAtChargingStation(MSChargingStation* cs) const {
+    return (cs->getParkingArea() != nullptr) ? cs->getParkingArea()->getCapacity() - cs->getParkingArea()->getOccupancy() : (cs->getLastFreePos() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
 }
 
 
