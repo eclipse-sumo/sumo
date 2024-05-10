@@ -420,7 +420,9 @@ MSDevice_StationFinder::estimateConsumption(const MSEdge* target, const bool inc
         } else {
             // fallback consumption rate for vehicles starting with low battery
             const double speed = MIN2(myHolder.getMaxSpeed(), myHolder.getLane()->getSpeedLimit());
-            expectedConsumption = DEFAULT_ENERGY_PER_DISTANCE * speed * (remainingTime - passedTime) / 1000.;
+            EnergyParams* const params = myHolder.getEmissionParameters();
+            expectedConsumption = PollutantsInterface::compute(myVeh.getVehicleType().getEmissionClass(), PollutantsInterface::ELEC,
+                                  speed * 0.8, 0., 0., params) * (remainingTime - passedTime);
         }
         if (includeEmptySoC) {
             expectedConsumption += MAX2(0., myEmptySoC * myBattery->getMaximumBatteryCapacity() - myBattery->getActualBatteryCapacity());
