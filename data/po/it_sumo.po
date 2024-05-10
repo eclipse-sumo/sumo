@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-09 11:51+0000\n"
+"PO-Revision-Date: 2024-05-10 09:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6328,10 +6328,12 @@ msgstr ""
 #: D:\Repos\sumo/src\netbuild\NBNodeCont.cpp:2662
 msgid "Attempt to rename node using existing id '%'"
 msgstr ""
+"Tentativo di cambiare il nome di un nodo utilizzando il codice identifactivo "
+"'%' già in uso"
 
 #: D:\Repos\sumo/src\netbuild\NBNodeShapeComputer.cpp:492
 msgid "Fixing offset for edge '%' at node '%."
-msgstr ""
+msgstr "Lo spostamento dell'arco dal nodo '%' è stato corretto."
 
 #: D:\Repos\sumo/src\netbuild\NBOwnTLDef.cpp:572
 #, c-format
@@ -6345,34 +6347,38 @@ msgid ""
 "Generating NEMA phases is not support for traffic light '%' with % incoming "
 "edges. Using tlType 'actuated' as fallback"
 msgstr ""
+"Fasi NEMA non vengono supportate nel semaforo '%' con '%' archi entranti. "
+"Invece tlType 'actuacted' viene usato"
 
 #: D:\Repos\sumo/src\netbuild\NBOwnTLDef.cpp:814
 msgid "The traffic light '%' cannot be adapted to a cycle time of %."
-msgstr ""
+msgstr "Il semaforo '%' non può essere adattato a un ciclo semaforico di %."
 
 #: D:\Repos\sumo/src\netbuild\NBOwnTLDef.cpp:862
 msgid "The traffic light '%' has a high cycle time of %."
-msgstr ""
+msgstr "Il semaforo '%' usa un ciclo semaforico lungo di %."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:208
 msgid "Could not retrieve edge '%' for first stop of line '%'."
-msgstr ""
+msgstr "Non ho trovato l'arco '%' dato come prima fermata della linea '%'."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:214
 msgid "First stop edge '%' is not part of the route of line '%'."
 msgstr ""
+"L'arco '%' della prima fermata non fa parte dell'itinerario della linea '%'."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:238
 msgid "Could not retrieve edge '%' for last stop of line '%'."
-msgstr ""
+msgstr "Non ho trovato l'arco '%' dato come ultima fermata della linea '%'."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:244
 msgid "Last stop edge '%' is not part of the route of line '%'."
 msgstr ""
+"L'arco '%' dell'ultima fermata non fa parte dell'itinerario della linea '%'."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:313
 msgid "Removed invalid stop '%' from line '%'."
-msgstr ""
+msgstr "La fermata invalida '%' è stata rimossa dalla linea '%'."
 
 #: D:\Repos\sumo/src\netbuild\NBPTLine.cpp:331
 msgid "Removed duplicate stop '%' at area '%' from line '%'."
