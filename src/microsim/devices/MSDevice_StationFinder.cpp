@@ -127,7 +127,7 @@ MSDevice_StationFinder::~MSDevice_StationFinder() {
 
 bool
 MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
-    if (myBattery->getEnergyCharged() > 0.) {
+    if (myBattery->getEnergyCharged() > 0. && myChargingStation != nullptr) {
         // we have started charging thus can forget searched charging stations
         myPassedChargingStations.clear();
         myArrivalAtChargingStation = -1;
