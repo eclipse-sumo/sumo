@@ -5,7 +5,7 @@ title: Stationfinder device
 ## Overview
 
 Although SUMO offers output regarding emissions and energy/fuel usage, by default SUMO vehicles would travel as long as wanted without need to charge.
-Charging stations for battery electric vehicles have been introduced with the [battery device](Models/Electric.md#defining_electric_vehicles).
+Charging stations for battery electric vehicles have been introduced with the [battery device](../Models/Electric.md#defining_electric_vehicles).
 
 The stationfinder device lets equipped vehicles monitor their energy buffer (currently battery only) when traveling and reroute to nearby
 charging stations in case they won't make it to their destinations otherwise. Optionally, vehicles can break down due to low battery charge.
@@ -46,7 +46,7 @@ The stationfinder device can be configured using the parameters `rescueTime` and
 
 - `rescueAction="none"`: let vehicles continue on their route although they don't have enough energy
 - `rescueAction="remove"`: the vehicle will come to a standstill and then will be removed from the simulation
-- `rescueTime="TIME" rescueAction="tow"`: the vehicle will come to a standstill and wait for `TIME` seconds (waiting time for a tow truck). Then it will be teleported to a free charging point, charge and continue its route. Thus the travel from the break down to the charging station is not included in [emissions output](Simulation/Output/EmissionOutput.md).
+- `rescueTime="TIME" rescueAction="tow"`: the vehicle will come to a standstill and wait for `TIME` seconds (waiting time for a tow truck). Then it will be teleported to a free charging point, charge and continue its route. Thus the travel from the break down to the charging station is not included in [emissions output](../Simulation/Output/EmissionOutput.md).
 
 ## Configuration
 
