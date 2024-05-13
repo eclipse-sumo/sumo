@@ -134,6 +134,16 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         myChargingStation = nullptr;
         mySearchState = SEARCHSTATE_CHARGING;
         return true;
+    } else if (mySearchState == SEARCHSTATE_CHARGING) {
+        if (myBattery->getChargingStationID() == "") {
+            mySearchState = SEARCHSTATE_NONE;
+        } else {
+            return true;
+        }
+    }
+    // check if the vehicle travels at most an edge length to the charging station after jump/teleport
+    if (mySearchState == SEARCHSTATE_BROKEN_DOWN && myVeh.hasStops() && myVeh.getStop(0).chargingStation != nullptr && myVeh.getStop(0).chargingStation->getLane().getEdge().getID() == myVeh.getLane()->getEdge().getID()) {
+        return true;
     }
     const SUMOTime now = SIMSTEP;
     if (myChargingStation != nullptr) {
@@ -157,6 +167,7 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
     if (now - myLastChargeCheck < 1000) {
         return true;
     } else if (myRescueAction != RESCUEACTION_NONE  && (currentSoC < myEmptySoC || currentSoC < NUMERICAL_EPS)) {
+
         // vehicle has to stop at the end of the  because battery SoC is too low
         double brakeGap = myVeh.getCarFollowModel().brakeGap(myVeh.getSpeed());
         std::pair<const MSLane*, double> stopPos = myVeh.getLanePosAfterDist(brakeGap);
