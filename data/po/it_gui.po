@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-08 09:21+0000\n"
+"PO-Revision-Date: 2024-05-14 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:295
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:298
@@ -14697,7 +14697,7 @@ msgstr ""
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4429
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4419
 msgid "ChargingStation associated with this waypoint"
-msgstr ""
+msgstr "Stazione di ricarica associata a questo punto intermedio"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4443
 #: D:\SUMO\sumo-eclipse-github\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4443
