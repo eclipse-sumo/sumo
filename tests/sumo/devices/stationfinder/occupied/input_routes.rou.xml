@@ -19,7 +19,7 @@
         <param key="device.battery.chargeLevel" value="60"/>
     </vehicle>
     
-    <vehicle depart="20" id="veh1" route="route01" type="ElectricVehicle1">
+    <vehicle depart="3" id="veh1" route="route01" type="ElectricVehicle1">
         <param key="device.battery.chargeLevel" value="90"/>
         <param key="device.stationfinder.waitForCharge" value="5"/>
     </vehicle>
