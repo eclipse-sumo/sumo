@@ -1045,6 +1045,23 @@ The tool [attributeStats.py](Tools/Output.md#attributestatspy) can be used to ge
 i.e. if simulations where run with the option `<statistic-output value="stats.xml">/`, the command
 `tools/output/attributeStats.py *.stats.xml` will generate statistics on each of the attributes in the statistic-output file over all runs.
 
+### How to simulate autonomous vehicles?
+
+All vehicles in SUMO are autonomous (in the sense of having their routes, speeds and lane changing decision controlled by a computer algorithm). 
+Most [carFollowModels](Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#car-following_models) in SUMO are meant to mimic human driving behavior in order to capture traffic effects caused by non-autonomous vehicles.
+The carFollowModels [ACC](Car-Following-Models/ACC.md) and [CACC](Car-Following-Models/CACC.md) are intended to reflect automated driving functions.
+
+The default carFollowModel *Krauss* is simple/general enough to allow parameterization for both human and automated driving. The correct parameters however, depend on the user assumptions about the automated fleet:
+
+- possibly, autonomous vehicles must drive more cautiously than human drivers (i.e. with a larger value of the desired time headway `tau`)
+- possibly, autonomous vehicles may drive at lower time headways than human drivers because they have better sensing or faster actuation (i.e. with a lower valuue of the desired time headway `tau`)
+
+Functions that are meant to capture specific human behaviors can be switched of directly
+- imperfect acceleration, dawdling: `sigma="0"`
+- imperfect compliance with the speed limit: `speedDev="0"` in the `vType` or `speedFactor="1"` in the `<vehicle>`
+  
+Further safey-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
+
 ## Visualization
 
 ### How can I get satellite / aerial background images for my simulation
