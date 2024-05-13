@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-09 11:51+0000\n"
+"PO-Revision-Date: 2024-05-14 10:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -10028,7 +10028,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1062
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
-msgstr "Ignoriere veraltetes Argument 'cont' des E2-Detektor '%'."
+msgstr "Ignoriere veraltetes Argument 'cont' des E2-Detektor '%'"
 
 #: D:\Repos\sumo/src\netload\NLHandler.cpp:1078
 msgid "Invalid person mode '%' in E2 detector definition '%'"
