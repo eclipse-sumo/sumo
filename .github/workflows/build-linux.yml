@@ -102,7 +102,7 @@ jobs:
         unzip -o build-wrapper-linux-x86.zip
         build-wrapper-linux-x86/build-wrapper-linux-x86-64 --out-dir bw-output make -j4
         cd ..
-        sonar-scanner -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.build-wrapper-output=cmake-build/bw-output
+        sonar-scanner -Dsonar.token=${{ secrets.SONAR_TOKEN }} -Dsonar.cfamily.compile-commands=cmake-build/bw-output/compile_commands.json
 
     - name: Building and Installing SUMO
       if: matrix.build_type != 'full' || github.repository != 'eclipse-sumo/sumo' || github.event_name != 'schedule' || matrix.compiler != 'gcc'
