@@ -127,8 +127,8 @@ def main(options):
                 remainingChargingPoints = chargingPointCount
                 for i in range(len(capacities)):
                     if capacities[i] >= remainingChargingPoints:
-                        addChargingStation(
-                            options, additionals, edge, edge2parkingArea[edge][i][0], remainingChargingPoints, "%s%d" % (options.prefix, csIndex))
+                        addChargingStation(options, additionals, edge, edge2parkingArea[edge][i][0],
+                                           remainingChargingPoints, "%s%d" % (options.prefix, csIndex))
                         csIndex += 1
                         remainingChargingPoints = 0
                         edge2parkingArea[edge].remove(edge2parkingArea[edge][i])
@@ -137,9 +137,10 @@ def main(options):
                 capacities = [p[1] for p in edge2parkingArea[edge]]
                 for i in range(len(capacities)):
                     installChargingPoints = min(remainingChargingPoints, capacities[i])
-                    result = addChargingStation(
-                        options, additionals, edge, edge2parkingArea[edge][i][0], installChargingPoints, "%s%d" % (options.prefix, csIndex))
-                    # print("added charging station with %d points on parkingArea %s %s" % (installChargingPoints, edge2parkingArea[edge][i][0].id, result))
+                    addChargingStation(options, additionals, edge, edge2parkingArea[edge][i][0],
+                                       installChargingPoints, "%s%d" % (options.prefix, csIndex))
+                    # print("added charging station with %d points on parkingArea %s %s" %
+                    #       (installChargingPoints, edge2parkingArea[edge][i][0].id, result))
                     csIndex += 1
                     remainingChargingPoints -= installChargingPoints
                     if remainingChargingPoints == 0:
