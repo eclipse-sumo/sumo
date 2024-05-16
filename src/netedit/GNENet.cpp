@@ -512,7 +512,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     while (which->getChildDemandElements().size() > 0) {
         GNEChange_Attribute::changeAttribute(which->getChildDemandElements().front(), SUMO_ATTR_EDGE, by->getID(), undoList);
     }
-    // replace in edge demand elements children
+    // replace in data
     while (which->getChildGenericDatas().size() > 0) {
         GNEChange_Attribute::changeAttribute(which->getChildGenericDatas().front(), SUMO_ATTR_EDGE, by->getID(), undoList);
     }
