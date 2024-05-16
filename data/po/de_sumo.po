@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-14 10:01+0000\n"
+"PO-Revision-Date: 2024-05-17 05:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3366,7 +3366,7 @@ msgstr "Fahrzeugsteuerungsstand konnte nicht geladen werden"
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:434
 msgid "Removed % vehicles while loading state."
-msgstr "% Fahrzeuge beim laden des Stands entfernt."
+msgstr "% Fahrzeuge beim Laden des Stands entfernt."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:460
 #, c-format
