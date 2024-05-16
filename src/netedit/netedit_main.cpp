@@ -47,7 +47,7 @@ main(int argc, char** argv) {
     // get the options
     auto& neteditOptions = OptionsCont::getOptions();
     neteditOptions.setApplicationDescription(TL("Graphical editor for SUMO networks, demand and additional infrastructure."));
-    neteditOptions.setApplicationName("netedit-Anka", "Eclipse SUMO netedit-Anka Version " VERSION_STRING);
+    neteditOptions.setApplicationName("netedit-CBSGM", "Eclipse SUMO netedit-CBSGM Version " VERSION_STRING);
     int ret = 0;
 #ifndef _DEBUG
     try {

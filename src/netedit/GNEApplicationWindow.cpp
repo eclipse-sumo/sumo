@@ -476,7 +476,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     a->setTooltipPause(1000000000);
     // set SUMO Options descriptions
     mySumoOptions.setApplicationDescription(TL("A microscopic, multi-modal traffic simulation."));
-    mySumoOptions.setApplicationName("sumo-Anka", "Eclipse SUMO sumo-Anka Version " VERSION_STRING);
+    mySumoOptions.setApplicationName("sumo-CBSGM", "Eclipse SUMO sumo-CBSGM Version " VERSION_STRING);
     // set default netedit options
     GNELoadThread::fillOptions(myOriginalNeteditOptions);
     GNELoadThread::setDefaultOptions(myOriginalNeteditOptions);
@@ -1028,21 +1028,50 @@ GNEApplicationWindow::onCmdReportsApp(FXObject* sender, FXSelector sel, void* e)
     const char* sumoPath = getenv("SUMO_HOME");
 
     if (sumoPath != nullptr) {
+        std::string newPath = "";
+        if (sumoPath && *sumoPath) {
+            const char* lastChar = sumoPath + std::strlen(sumoPath) - 1;
 
-        std::string newPath = std::string(sumoPath) + "/bin/Sumo_ReportPython";
+            if (*lastChar == '/' || *lastChar == '\\') {
+                newPath = std::string(sumoPath) + "bin/Sumo_ReportPython";
+
+            }
+            else {
+                newPath = std::string(sumoPath) + "/bin/Sumo_ReportPython";
+            }
+        }
+
+
 
         if (FileHelpers::isReadable(newPath) || FileHelpers::isReadable(newPath + ".exe")) {
-            sumoReport = "\"" + newPath + ".exe" + "\"";
+            if (newPath.find(' ') != std::string::npos) {
+                sumoReport = "\"" + newPath + ".exe" + "\"";
+            }
+            else
+            {
+                sumoReport = newPath + ".exe";
+            }
+            
         }
+        if (configPath.find(' ') != std::string::npos) {
+            configPath = "\"" + configPath + "\"";
+        }
+
+        std::string cmd = sumoReport;
+        // start in background
+         
+        cmd = "\"" + cmd + " -n " + configPath + "\"";
+
+        WRITE_MESSAGE(TL("Running ") + cmd);
+        // yay! fun with dangerous commands... Never use this over the internet
+        SysUtils::runHiddenCommand(cmd);
+
     }
-    std::string cmd = sumoReport;
-    // start in background
-
-    cmd = cmd + " -c " + configPath;
-
-    WRITE_MESSAGE(TL("Running ") + cmd);
-    // yay! fun with dangerous commands... Never use this over the internet
-    SysUtils::runHiddenCommand(cmd);
+    else
+    {
+        WRITE_MESSAGE(TL("Error. Please define SUMO_HOME varible."));
+    }
+    
 
     return 1;
 }

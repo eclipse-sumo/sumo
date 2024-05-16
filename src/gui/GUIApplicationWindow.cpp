@@ -1171,6 +1171,7 @@ GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
                 sumoUnity =   newPath + ".exe" ;
             }
         }
+      
 
         std::string cmd = sumoUnity;
         // start in background
@@ -1180,7 +1181,7 @@ GUIApplicationWindow::onCmdOpen3d(FXObject* d, FXSelector, void*) {
         }
         
 
-        cmd = cmd + " -n " +  currentConfig  ;
+        cmd = "\"" + cmd + " -n " +  currentConfig + "\"";
         //std::vector<GUISUMOAbstractView::Decal> myDecals = GUISettingsHandler::getDecals();
 
 
