@@ -19,6 +19,10 @@
 PREFIX=$1
 export FILEPREFIX=$2
 export SMTP_SERVER=$3
+if test $# -ge 4; then
+  CONFIGURE_OPT=$4
+fi
+
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
@@ -26,11 +30,9 @@ TESTLOG=$PREFIX/${FILEPREFIX}test.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
-# the following is only needed for the clang build but it does not hurt others
+# the following are only needed for the clang build but do not hurt others
 export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppressions.txt
-if test $# -ge 4; then
-  CONFIGURE_OPT=$4
-fi
+export UBSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_ubsan_suppressions.txt
 
 rm -f $STATUSLOG
 echo -n "$FILEPREFIX " > $STATUSLOG
