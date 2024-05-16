@@ -970,6 +970,7 @@ def readNet(filename, **others):
                 netreader.startElement(v.tag, v.attrib)
             elif event == "end":
                 netreader.endElement(v.tag)
+            v.clear()  # reduce memory footprint
     else:
         parse(source, netreader)
     return netreader.getNet()
