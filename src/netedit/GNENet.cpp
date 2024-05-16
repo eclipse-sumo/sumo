@@ -530,6 +530,15 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         if (demandElement->hasAttribute(SUMO_ATTR_EDGES)) {
             replaceInListAttribute(demandElement, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
         }
+        if (demandElement->hasAttribute(SUMO_ATTR_VIA)) {
+            replaceInListAttribute(demandElement, SUMO_ATTR_VIA, which->getID(), by->getID(), undoList);
+        }
+        if (demandElement->hasAttribute(SUMO_ATTR_FROM) && demandElement->getAttribute(SUMO_ATTR_FROM) == which->getID()) {
+            GNEChange_Attribute::changeAttribute(demandElement, SUMO_ATTR_FROM, by->getID(), undoList);
+        }
+        if (demandElement->hasAttribute(SUMO_ATTR_TO) && demandElement->getAttribute(SUMO_ATTR_TO) == which->getID()) {
+            GNEChange_Attribute::changeAttribute(demandElement, SUMO_ATTR_TO, by->getID(), undoList);
+        }
     }
     // replace in data
     const std::vector<GNEGenericData*> dataElements = which->getChildGenericDatas();
