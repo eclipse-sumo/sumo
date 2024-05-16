@@ -226,7 +226,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
     optParser.add_option("--fcd-filter-type", dest="fcdtype",
                          help="vehicle type to include in fcd file")
     optParser.add_option("--shift", dest="shift",
-                         help="shift coordinates to postive values only")
+                         help="shift coordinates to positive values only")
     # IPG
     optParser.add_option("--ipg-output", dest="ipg", metavar="FILE",
                          help="Defines the name of the ipg trace file to generate")
