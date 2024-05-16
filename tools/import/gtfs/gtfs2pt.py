@@ -426,6 +426,7 @@ def main(options):
             if not os.path.exists(options.mapperlib):
                 options.gpsdat = None
             if not gtfs2fcd.main(options):
+                print("Warning! GTFS data did not contain any trips with stops within the given bounding box area.", file=sys.stderr)
                 return
         edgeMap, invEdgeMap, typedNets = splitNet(options)
         if os.path.exists(options.mapperlib):
