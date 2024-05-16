@@ -492,6 +492,16 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         std::vector<GNEAdditional*> copyOfLaneAdditionals = lane->getChildAdditionals();
         for (const auto& additional : copyOfLaneAdditionals) {
             GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex()), undoList);
+            if (additional->hasAttribute(SUMO_ATTR_STARTPOS)) {
+                GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_STARTPOS,
+                        toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_STARTPOS)) + which->getNBEdge()->getFinalLength()),
+                        undoList);
+            }
+            if (additional->hasAttribute(SUMO_ATTR_ENDPOS)) {
+                GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_ENDPOS,
+                        toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_ENDPOS)) + which->getNBEdge()->getFinalLength()),
+                        undoList);
+            }
         }
         // replace in demand elements
         std::vector<GNEDemandElement*> copyOfLaneDemandElements = lane->getChildDemandElements();
@@ -505,20 +515,35 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         }
     }
     // replace in edge additionals children
-    while (which->getChildAdditionals().size() > 0) {
-        GNEChange_Attribute::changeAttribute(which->getChildAdditionals().front(), SUMO_ATTR_EDGE, by->getID(), undoList);
+    std::vector<GNEAdditional*> addElements = which->getChildAdditionals();
+    for (GNEAdditional* add : addElements) {
+        if (add->hasAttribute(SUMO_ATTR_EDGE)) {
+            GNEChange_Attribute::changeAttribute(add, SUMO_ATTR_EDGE, by->getID(), undoList);
+        }
     }
     // replace in edge demand elements children
-    while (which->getChildDemandElements().size() > 0) {
-        GNEChange_Attribute::changeAttribute(which->getChildDemandElements().front(), SUMO_ATTR_EDGE, by->getID(), undoList);
+    const std::vector<GNEDemandElement*> demandElements = which->getChildDemandElements();
+    for (GNEDemandElement* demandElement : demandElements) {
+        if (demandElement->hasAttribute(SUMO_ATTR_EDGE)) {
+            GNEChange_Attribute::changeAttribute(demandElement, SUMO_ATTR_EDGE, by->getID(), undoList);
+        }
+        if (demandElement->hasAttribute(SUMO_ATTR_EDGES)) {
+            replaceInListAttribute(demandElement, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
+        }
     }
     // replace in data
-    while (which->getChildGenericDatas().size() > 0) {
-        GNEChange_Attribute::changeAttribute(which->getChildGenericDatas().front(), SUMO_ATTR_EDGE, by->getID(), undoList);
+    const std::vector<GNEGenericData*> dataElements = which->getChildGenericDatas();
+    for (GNEGenericData* dataElement : dataElements) {
+        if (dataElement->hasAttribute(SUMO_ATTR_EDGE)) {
+            GNEChange_Attribute::changeAttribute(dataElement, SUMO_ATTR_EDGE, by->getID(), undoList);
+        }
     }
     // replace in rerouters
-    for (const auto& rerouter : which->getParentAdditionals()) {
-        replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
+    addElements = which->getParentAdditionals();
+    for (GNEAdditional* add : addElements) {
+        if (add->hasAttribute(SUMO_ATTR_EDGES)) {
+            replaceInListAttribute(add, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
+        }
     }
     // replace in crossings
     for (const auto& crossing : which->getToJunction()->getGNECrossings()) {
@@ -2869,8 +2894,15 @@ GNENet::replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const s
     assert(ac->getTagProperty().getAttributeProperties(key).isList());
     std::vector<std::string> values = GNEAttributeCarrier::parse<std::vector<std::string> >(ac->getAttribute(key));
     std::vector<std::string> newValues;
+    bool lastBy = false;
     for (auto v : values) {
-        newValues.push_back(v == which ? by : v);
+        if (v == which && !lastBy) {
+            // avoid duplicate occurence of the 'by' edge (i.e. in routes)
+            newValues.push_back(by);
+        } else {
+            newValues.push_back(v);
+        }
+        lastBy = v == by;
     }
     ac->setAttribute(key, toString(newValues), undoList);
 }
