@@ -1083,6 +1083,18 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 vType->parametersSet |= VTYPEPARS_SPEEDFACTOR_PREMATURE_SET;
             }
         }
+        if (attrs.hasAttribute(SUMO_ATTR_BOARDING_FACTOR)) {
+            bool ok = true;
+            const double bf = attrs.get<double>(SUMO_ATTR_BOARDING_FACTOR, id.c_str(), ok);
+            if (!ok) {
+                return handleVehicleTypeError(hardFail, vType);
+            } else if (bf < 0) {
+                return handleVehicleTypeError(hardFail, vType, toString(SUMO_ATTR_BOARDING_FACTOR) + " must be equal or greater than 0");
+            } else {
+                vType->boardingFactor = bf;
+                vType->parametersSet |= VTYPEPARS_BOARDING_FACTOR_SET;
+            }
+        }
         if (attrs.hasAttribute(SUMO_ATTR_MAXSPEED_LAT)) {
             bool ok = true;
             const double maxSpeedLat = attrs.get<double>(SUMO_ATTR_MAXSPEED_LAT, vType->id.c_str(), ok);

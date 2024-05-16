@@ -78,6 +78,7 @@ const long long int VTYPEPARS_TTT_BIDI_SET = (long long int)1 << 34;
 const long long int VTYPEPARS_SEATING_WIDTH_SET = (long long int)1 << 35;
 const long long int VTYPEPARS_SPEEDFACTOR_PREMATURE_SET = (long long int)1 << 36;
 const long long int VTYPEPARS_PARKING_BADGES_SET = (long long int)1 << 37;
+const long long int VTYPEPARS_BOARDING_FACTOR_SET = (long long int)1 << 38;
 
 
 const int VTYPEPARS_DEFAULT_EMERGENCYDECEL_DEFAULT = -1;
@@ -389,6 +390,9 @@ public:
 
     /// @brief the parking access rights
     std::vector<std::string> parkingBadges;
+
+    /// @brief factor for boardingDuration / loadingDuration
+    double boardingFactor;
 
     /// @brief Information for the router which parameter were set
     long long int parametersSet;

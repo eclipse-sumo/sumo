@@ -342,6 +342,7 @@ SUMOVTypeParameter::SUMOVTypeParameter(const std::string& vtid, const SUMOVehicl
       speedFactorPremature(-1),
       frontSeatPos(1.7),
       seatingWidth(-1),
+      boardingFactor(1),
       parametersSet(0),
       saved(false),
       onlyReferenced(false) {
@@ -558,6 +559,9 @@ SUMOVTypeParameter::write(OutputDevice& dev) const {
     }
     if (wasSet(VTYPEPARS_SPEEDFACTOR_PREMATURE_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEEDFACTOR_PREMATURE, speedFactorPremature);
+    }
+    if (wasSet(VTYPEPARS_BOARDING_FACTOR_SET)) {
+        dev.writeAttr(SUMO_ATTR_BOARDING_FACTOR, boardingFactor);
     }
     if (wasSet(VTYPEPARS_LANE_CHANGE_MODEL_SET)) {
         dev.writeAttr(SUMO_ATTR_LANE_CHANGE_MODEL, lcModel);

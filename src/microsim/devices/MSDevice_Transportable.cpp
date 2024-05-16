@@ -186,10 +186,11 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& /*tObject*/, double /*oldP
                         // no boarding / unboarding time in meso
                         arrivalTime += 1;
                     } else {
+                        const double bf = transportable->getVehicleType().getBoardingFactor();
                         if (timeForNext > currentTime - DELTA_T) {
-                            timeForNext += boardingDuration;
+                            timeForNext += boardingDuration * bf;
                         } else {
-                            timeForNext = currentTime + boardingDuration;
+                            timeForNext = currentTime + boardingDuration * bf;
                         }
                     }
                     //ensure that vehicle stops long enough for deboarding

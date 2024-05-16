@@ -335,6 +335,13 @@ public:
         return isPerson ? myParameter.boardingDuration : myParameter.loadingDuration;
     }
 
+    /** @brief Get this person type's factor for loading/boarding duration
+     * @return The multiplier for the time a container / person needs to get loaded 
+     */
+    SUMOTime getBoardingFactor() const {
+        return myParameter.boardingFactor;
+    }
+
 
     /** @brief Get vehicle's maximum lateral speed [m/s].
      * @return The maximum lateral speed (in m/s) of vehicles of this class
