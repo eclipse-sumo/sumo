@@ -1143,6 +1143,8 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
+        case GNE_ATTR_IS_ROUNDABOUT:
+            return myNBEdge->getFromNode()->isRoundabout() && myNBEdge->getToNode()->isRoundabout() ? True : False;
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -1403,6 +1405,8 @@ GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
             return myNBEdge->isBidiEdge(true);
         case GNE_ATTR_STOPOEXCEPTION:
             return myNBEdge->myEdgeStopOffset.getOffset() > 0;
+        case GNE_ATTR_IS_ROUNDABOUT:
+            return false;
         default:
             return true;
     }

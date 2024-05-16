@@ -1318,6 +1318,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "No TLS";
             }
+        case GNE_ATTR_IS_ROUNDABOUT:
+            return myNBNode->isRoundabout() ? True : False;
         case SUMO_ATTR_KEEP_CLEAR:
             // keep clear is only used as a convenience feature in plain xml
             // input. When saving to .net.xml the status is saved only for the connections
@@ -1566,6 +1568,8 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
             }
             return false;
         }
+        case GNE_ATTR_IS_ROUNDABOUT:
+            return false;
         default:
             return true;
     }

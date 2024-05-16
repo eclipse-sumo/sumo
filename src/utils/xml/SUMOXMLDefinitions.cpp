@@ -1073,6 +1073,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
     { "fromContainerStop",                  GNE_ATTR_FROM_CONTAINERSTOP },
+    { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
