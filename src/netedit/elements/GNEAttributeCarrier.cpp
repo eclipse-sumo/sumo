@@ -997,7 +997,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Whether this junction is part of a roundabout"));
+                                              TL("Whether this junction is part of a roundabout"), "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_TYPE;
@@ -1231,7 +1231,7 @@ GNEAttributeCarrier::fillNetworkElements() {
 
         attrProperty = GNEAttributeProperties(GNE_ATTR_IS_ROUNDABOUT,
                                               GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUE,
-                                              TL("Whether this edge is part of a roundabout"));
+                                              TL("Whether this edge is part of a roundabout"), "false");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     currentTag = SUMO_TAG_LANE;
