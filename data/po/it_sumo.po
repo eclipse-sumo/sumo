@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-10 09:06+0000\n"
+"PO-Revision-Date: 2024-05-17 05:03+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4-rc\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: D:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -2945,40 +2945,41 @@ msgstr "Non ho potuto leggere l'archivio XML '%'."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:87
 msgid "Could not parse time from state file '%'"
-msgstr ""
+msgstr "Non ho potuto analizzare l'ora dall'archivio di stato '%'"
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:185
 msgid "State was written with sumo version % (present: %)!"
 msgstr ""
+"Lo stato è stato scritto con la versione % di SUMO (quella attuale è: %)!"
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:230
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:286
 #: D:\Repos\sumo/src\microsim\traffic_lights\MSRailSignalConstraint.cpp:144
 #, c-format
 msgid "Unknown lane '%' in loaded state."
-msgstr ""
+msgstr "Corsia sconosciuta '%' nello stato caricato."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:390
 #, c-format
 msgid "Ignoring program '%' for traffic light '%' in loaded state"
-msgstr ""
+msgstr "Programma '%' del semaforo '%' viene ignorato nello stato caricato"
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:425
 msgid "Could not load vehicle control state"
-msgstr ""
+msgstr "Non ho potuto caricare lo stato del controllo di veicoli"
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:434
 msgid "Removed % vehicles while loading state."
-msgstr ""
+msgstr "% veicoli rimossi nel caricare lo stato."
 
 #: D:\Repos\sumo/src\microsim\MSStateHandler.cpp:460
 #, c-format
 msgid "Could not load vehicle '%' from state"
-msgstr ""
+msgstr "Non ho potuto caricare il veicolo '%' dallo stato"
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:322
 msgid "No gap control available for meso."
-msgstr ""
+msgstr "Regolazione attuata indisponibile nella simulazione mesoscopica."
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:723
 msgid ""
