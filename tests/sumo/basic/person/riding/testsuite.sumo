@@ -34,6 +34,9 @@ two_stops_at_one_edge
 # busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
 boarding_duration_extension
 
+# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
+boarding_duration_extension_factor
+
 # many persons with sub-second boardingDuration should extend the stop
 boarding_duration_extension_small
 
