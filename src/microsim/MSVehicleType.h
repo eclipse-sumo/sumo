@@ -336,9 +336,9 @@ public:
     }
 
     /** @brief Get this person type's factor for loading/boarding duration
-     * @return The multiplier for the time a container / person needs to get loaded 
+     * @return The multiplier for the time a container / person needs to get loaded
      */
-    SUMOTime getBoardingFactor() const {
+    double getBoardingFactor() const {
         return myParameter.boardingFactor;
     }
 
