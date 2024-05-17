@@ -101,16 +101,11 @@ public:
     }
 
     /// @brief trip doesn't participate in plan summary
-    SUMOTime getTimeLoss() const {
-        return 0;
-    }
     SUMOTime getDuration() const {
         return 0;
     }
+
     SUMOTime getTravelTime() const {
-        return 0;
-    }
-    SUMOTime getWaitingTime() const {
         return 0;
     }
 

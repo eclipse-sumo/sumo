@@ -286,7 +286,7 @@ MSTransportableControl::loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle,
                     t->setAbortWaiting(-1);
                 }
                 if (timeToLoadNext >= 0) { // meso does not have loading times
-                    const SUMOTime loadingDuration = vehicle->getVehicleType().getLoadingDuration(t->isPerson()) * t->getVehicleType().getBoardingFactor();
+                    const SUMOTime loadingDuration = (SUMOTime)((double)vehicle->getVehicleType().getLoadingDuration(t->isPerson()) * t->getVehicleType().getBoardingFactor());
                     //update the time point at which the next transportable can be loaded on the vehicle
                     if (timeToLoadNext > currentTime - DELTA_T) {
                         timeToLoadNext += loadingDuration;
