@@ -473,6 +473,10 @@ MSStateHandler::closeVehicle() {
                 MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VehicleState::NEWROUTE, "loadState");
             }
             vc.handleTriggeredDepart(v, false);
+            if (v->hasArrived()) {
+                // state was created with active option --keep-after-arrival
+                vc.deleteKeptVehicle(v);
+            }
         }
         while (!myDeviceAttrs.empty()) {
             const std::string attrID = myDeviceAttrs.back()->getString(SUMO_ATTR_ID);

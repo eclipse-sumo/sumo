@@ -142,6 +142,9 @@ public:
      */
     virtual void deleteVehicle(SUMOVehicle* v, bool discard = false, bool wasKept = false);
 
+    /** @brief when a vehicle is kept after arrival, schedule later deletion **/
+    void deleteKeptVehicle(SUMOVehicle* veh);
+
     void fixVehicleCounts() {
         myLoadedVehNo++;
         myEndedVehNo++;

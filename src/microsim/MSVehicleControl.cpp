@@ -176,8 +176,7 @@ MSVehicleControl::removePending() {
         if (myKeepTime == 0) {
             deleteVehicle(veh);
         } else {
-            myEndedVehNo++;
-            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new DeleteKeptVehicle(veh), SIMSTEP + myKeepTime);
+            deleteKeptVehicle(veh);
         }
     }
     vehs.clear();
@@ -190,6 +189,12 @@ MSVehicleControl::removePending() {
 #endif
 }
 
+
+void
+MSVehicleControl::deleteKeptVehicle(SUMOVehicle* veh) {
+    myEndedVehNo++;
+    MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new DeleteKeptVehicle(veh), SIMSTEP + myKeepTime);
+}
 
 void
 MSVehicleControl::vehicleDeparted(const SUMOVehicle& v) {
