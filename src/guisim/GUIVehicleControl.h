@@ -91,7 +91,7 @@ public:
      * @param[in] v The vehicle to delete
      * @param[discard] Whether the vehicle is discard during loading (scale < 1)
      */
-    void deleteVehicle(SUMOVehicle* v, bool discard = false) override;
+    void deleteVehicle(SUMOVehicle* v, bool discard = false, bool wasKept = false) override;
 
 
     /** @brief Returns the list of all known vehicles by gl-id

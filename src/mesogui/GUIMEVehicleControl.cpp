@@ -62,9 +62,9 @@ GUIMEVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
 
 
 void
-GUIMEVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
+GUIMEVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
     FXMutexLock locker(myLock);
-    MEVehicleControl::deleteVehicle(veh, discard);
+    MEVehicleControl::deleteVehicle(veh, discard, wasKept);
 }
 
 

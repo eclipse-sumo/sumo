@@ -397,6 +397,9 @@ MSFrame::fillOptions() {
     oc.doRegister("collision.mingap-factor", new Option_Float(-1));
     oc.addDescription("collision.mingap-factor", "Processing", TL("Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"));
 
+    oc.doRegister("keep-after-arrival", new Option_String("0", "TIME"));
+    oc.addDescription("keep-after-arrival", "Processing", TL("After a vehicle arrives, keep it in memory for the given TIME (for TraCI access)"));
+
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", TL("Delay vehicle insertion to stay within the given maximum number"));
 

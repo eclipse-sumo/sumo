@@ -27,6 +27,7 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRouteHandler.h"
+#include "MSEventControl.h"
 #include "MSStop.h"
 #include <microsim/devices/MSVehicleDevice.h>
 #include <microsim/devices/MSDevice_Tripinfo.h>
@@ -65,6 +66,7 @@ MSVehicleControl::MSVehicleControl() :
 
     initDefaultTypes();
     myScale = OptionsCont::getOptions().getFloat("scale");
+    myKeepTime = string2time(OptionsCont::getOptions().getString("keep-after-arrival"));
 }
 
 
@@ -171,7 +173,12 @@ MSVehicleControl::removePending() {
             // close tag after tripinfo (possibly including emissions from another device) have been written
             tripinfoOut->closeTag();
         }
-        deleteVehicle(veh);
+        if (myKeepTime == 0) {
+            deleteVehicle(veh);
+        } else {
+            myEndedVehNo++;
+            MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(new DeleteKeptVehicle(veh), SIMSTEP + myKeepTime);
+        }
     }
     vehs.clear();
     if (tripinfoOut != nullptr) {
@@ -332,10 +339,12 @@ MSVehicleControl::getVehicle(const std::string& id) const {
 
 
 void
-MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard) {
-    myEndedVehNo++;
-    if (discard) {
-        myDiscarded++;
+MSVehicleControl::deleteVehicle(SUMOVehicle* veh, bool discard, bool wasKept) {
+    if (!wasKept) {
+        myEndedVehNo++;
+        if (discard) {
+            myDiscarded++;
+        }
     }
     if (veh != nullptr) {
         myVehicleDict.erase(veh->getID());
@@ -573,5 +582,14 @@ MSVehicleControl::adaptIntermodalRouter(MSTransportableRouter& router) const {
     }
 }
 
+// ===========================================================================
+// MSVehicleControl::DeleteKeptVehicle method definitions
+// ===========================================================================
+
+SUMOTime
+MSVehicleControl::DeleteKeptVehicle::execute(SUMOTime /*currentTime*/) {
+    MSNet::getInstance()->getVehicleControl().deleteVehicle(myVehicle, false, true);
+    return 0;
+}
 
 /****************************************************************************/
