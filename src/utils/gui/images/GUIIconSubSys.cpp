@@ -1055,6 +1055,11 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     // ... and create them
     for (const auto& icon : myIcons) {
+        if (GUIDesignHeight != 23) {
+            int w = (int)(icon.second->getWidth() * GUIDesignHeight / 23.0);
+            int h = (int)(icon.second->getHeight() * GUIDesignHeight / 23.0);
+            icon.second->scale(w, h);
+        }
         icon.second->create();
     }
 }
