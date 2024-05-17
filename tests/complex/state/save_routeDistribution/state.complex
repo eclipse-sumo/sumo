@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-29 15:43:03 by Eclipse SUMO sumo Version v1_12_0+1743-2adbd7c
+<!-- generated on 2024-05-17 10:24:30 by Eclipse SUMO sumo Version v1_20_0+0103-68a9e88491d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1743-2adbd7c" time="20.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0103-68a9e88491d" time="20.00" type="micro">
     <route id="dist_anon#0" state="1" edges="beg middle end"/>
     <route id="dist_anon#1" state="1" edges="beg middle"/>
     <route id="r0" state="1" edges="beg middle end"/>
@@ -36,7 +36,7 @@
     <delay number="1" begin="2" end="1" depart="1.00" time="19.00"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="v1" type="t0" depart="3.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 4000 1 5.10 0 2.77 19000 0 0" pos="155.11 150.11 13.89" speed="13.89 13.89" angle="90.00" posLat="0.00" waitingTime="100000 0">
-        <device id="tripinfo_v1" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+        <device id="tripinfo_v1" state="beg_0 0 0 1.9 0 0 0 0 -1 -1000  -1 0 -1"/>
     </vehicle>
     <lane id="middle_0">
         <vehicles value="v1"/>
