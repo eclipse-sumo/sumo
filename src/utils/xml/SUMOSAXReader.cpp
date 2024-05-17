@@ -231,4 +231,5 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     return new XERCES_CPP_NAMESPACE::MemBufInputSource((const XMLByte*)"", 0, "");
 }
 
+
 /****************************************************************************/

@@ -145,6 +145,9 @@ public:
 
 
 private:
+    static std::string warnLocalScheme(const std::string& newScheme, const bool haveSUMO_HOME);
+
+private:
     /// @brief The XML Readers used for repeated parsing
     static std::vector<SUMOSAXReader*> myReaders;
 
@@ -162,5 +165,8 @@ private:
 
     /// @brief Schema cache to be used for grammars which are not declared
     static XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
+
+    /// @brief Whether a warning about missing SUMO_HOME should be emitted
+    static bool myNeedsValidationWarning;
 
 };

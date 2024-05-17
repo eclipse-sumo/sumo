@@ -46,6 +46,7 @@ std::string XMLSubSys::myValidationScheme = "local";
 std::string XMLSubSys::myNetValidationScheme = "local";
 std::string XMLSubSys::myRouteValidationScheme = "local";
 XERCES_CPP_NAMESPACE::XMLGrammarPool* XMLSubSys::myGrammarPool = nullptr;
+bool XMLSubSys::myNeedsValidationWarning = true;
 
 
 // ===========================================================================
@@ -62,56 +63,45 @@ XMLSubSys::init() {
 }
 
 
+std::string
+XMLSubSys::warnLocalScheme(const std::string& newScheme, const bool haveSUMO_HOME) {
+    if (newScheme != "never" && newScheme != "auto" && newScheme != "always" && newScheme != "local") {
+        throw ProcessError("Unknown xml validation scheme + '" + newScheme + "'.");
+    }
+    if (!haveSUMO_HOME && newScheme == "local") {
+        if (myNeedsValidationWarning) {
+            WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
+            myNeedsValidationWarning = false;
+        }
+        return "never";
+    }
+    return newScheme;
+}
+
+
 void
 XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme) {
-    if (validationScheme != "never" && validationScheme != "auto" && validationScheme != "always" && validationScheme != "local") {
-        throw ProcessError("Unknown xml validation scheme + '" + validationScheme + "'.");
-    }
-    myValidationScheme = validationScheme;
-    if (netValidationScheme != "never" && netValidationScheme != "auto" && netValidationScheme != "always" && netValidationScheme != "local") {
-        throw ProcessError("Unknown network validation scheme + '" + netValidationScheme + "'.");
-    }
-    myNetValidationScheme = netValidationScheme;
-    if (routeValidationScheme != "never" && routeValidationScheme != "auto" && routeValidationScheme != "always" && routeValidationScheme != "local") {
-        throw ProcessError("Unknown route validation scheme + '" + routeValidationScheme + "'.");
-    }
-    myRouteValidationScheme = routeValidationScheme;
+    const char* sumoPath = std::getenv("SUMO_HOME");
+    const bool haveSUMO_HOME = sumoPath != nullptr && FileHelpers::isReadable(sumoPath + std::string("/data/xsd/net_file.xsd"));
+    myValidationScheme = warnLocalScheme(validationScheme, haveSUMO_HOME);
+    myNetValidationScheme = warnLocalScheme(netValidationScheme, haveSUMO_HOME);
+    myRouteValidationScheme = warnLocalScheme(routeValidationScheme, haveSUMO_HOME);
     if (myGrammarPool == nullptr &&
             (myValidationScheme != "never" ||
              myNetValidationScheme != "never" ||
              myRouteValidationScheme != "never")) {
+        if (!haveSUMO_HOME) {
+            if (myNeedsValidationWarning) {
+                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups."));
+                myNeedsValidationWarning = false;
+            }
+            return;
+        }
         myGrammarPool = new XERCES_CPP_NAMESPACE::XMLGrammarPoolImpl(XMLPlatformUtils::fgMemoryManager);
         SAX2XMLReader* parser(XMLReaderFactory::createXMLReader(XMLPlatformUtils::fgMemoryManager, myGrammarPool));
 #if _XERCES_VERSION >= 30100
         parser->setFeature(XERCES_CPP_NAMESPACE::XMLUni::fgXercesHandleMultipleImports, true);
 #endif
-        const char* sumoPath = std::getenv("SUMO_HOME");
-        if (sumoPath == nullptr || !FileHelpers::isReadable(sumoPath + std::string("/data/xsd/net_file.xsd"))) {
-            bool needWarning = true;
-            if (validationScheme == "local") {
-                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
-                needWarning = false;
-                myValidationScheme = "never";
-            }
-            if (netValidationScheme == "local") {
-                if (needWarning) {
-                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
-                    needWarning = false;
-                }
-                myNetValidationScheme = "never";
-            }
-            if (routeValidationScheme == "local") {
-                if (needWarning) {
-                    WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, disabling XML validation. Set 'auto' or 'always' for web lookups."));
-                    needWarning = false;
-                }
-                myRouteValidationScheme = "never";
-            }
-            if (needWarning) {
-                WRITE_WARNING(TL("Environment variable SUMO_HOME is not set properly, XML validation will fail or use slow website lookups."));
-            }
-            return;
-        }
         for (const char* const& filetype : {
                     "additional", "routes", "net"
                 }) {
@@ -120,6 +110,7 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
                 WRITE_WARNINGF(TL("Cannot read local schema '%'."), file);
             }
         }
+        delete parser;
     }
 }
 
