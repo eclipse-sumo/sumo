@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-07 08:44+0200\n"
-"PO-Revision-Date: 2024-05-17 05:03+0000\n"
+"PO-Revision-Date: 2024-05-17 16:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1323,21 +1323,25 @@ msgstr "l'arco attuale '%' non è presente nell'itinerario nuovo"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:495
 msgid "Vehicle is on junction-internal edge leading elsewhere"
-msgstr ""
+msgstr "Il veicolo si trova su un arco interno che porta altrove"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:508
 msgid ""
 "Vehicle is moving past junction and committed to move to another successor "
 "edge"
 msgstr ""
+"Il veicolo si muove oltre l'incrocio ed è deciso di passare a un altro arco "
+"succesivo"
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:578
 msgid "Vehicle '%' could not assign stop '%' after rerouting (%) at time=%."
 msgstr ""
+"Il veicolo '%' non può servire la fermata '%' dopo una deviazione "
+"dell'itinerario (%) alle ore=%."
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:722
 msgid "No connection between edge '%' and edge '%'."
-msgstr ""
+msgstr "Nessun collegamento tra gli archi '%' e '%'."
 
 #: D:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:732
 #, c-format
@@ -2985,11 +2989,13 @@ msgstr "Regolazione attuata indisponibile nella simulazione mesoscopica."
 msgid ""
 "Lane change model did not provide a reason for changing (state=%, time=%\n"
 msgstr ""
+"Il modello di cambio corsia non ha provveduto una ragione del cambio ("
+"stato=%, ora=%\n"
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:764
 #: D:\Repos\sumo/src\utils\common\UtilExceptions.h:171
 msgid "should not happen"
-msgstr ""
+msgstr "non dovrebbe succedere"
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:963
 msgid ""
@@ -3038,11 +3044,11 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:5679
 #, c-format
 msgid "Vehicle '%' aborts stop."
-msgstr ""
+msgstr "Il veicolo '%' abbandona la fermata."
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:5685
 msgid "Vehicle '%' skips stop on lane '%' time=%."
-msgstr ""
+msgstr "Il veicolo '%' salta la fermata sulla corsia '%' ore=%."
 
 #: D:\Repos\sumo/src\microsim\MSVehicle.cpp:7534
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
