@@ -368,6 +368,10 @@ of the new parkingArea will be set as new arrivalPos.
 
 The current state of the parkingSearch can be accessed via calls to `traci.vehicle.getParameter` with the list permitted parameters given at [TraCI/Vehicle_Value_Retrieval](../TraCI/Vehicle_Value_Retrieval.md#supported_further_parameters).
 
+### Example scenarios for parkingSearch
+
+Test cases can be downloaded [here](https://sumo.dlr.de/extractTest.php?path=sumo/extended/rerouter/parking/parkingSearch)
+
 # Vehicle Behavior when closing a street
 The interaction of vehicles with reroutes is complex and depends on many
 different factors. Below we give a description of each of the factors and then
