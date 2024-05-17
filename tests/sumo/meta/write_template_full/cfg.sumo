@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-08 19:06:19 by Eclipse SUMO sumo Version v1_20_0+0051-b8e19735240
+<!-- generated on 2024-05-17 09:35:42 by Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -136,6 +136,7 @@
         <collision.check-junctions value="false" type="BOOL" help="Enables collisions checks on junctions"/>
         <collision.check-junctions.mingap value="0" type="FLOAT" help="Increase or decrease sensitivity for junction collision check"/>
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>
+        <keep-after-arrival value="0" type="TIME" help="After a vehicle arrives, keep it in memory for the given TIME (for TraCI access)"/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>

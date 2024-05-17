@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-08 19:06:19 by Eclipse SUMO sumo Version v1_20_0+0051-b8e19735240
+<!-- generated on 2024-05-17 09:35:42 by Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -371,6 +371,9 @@
 
         <!-- Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used -->
         <collision.mingap-factor value="-1" type="FLOAT"/>
+
+        <!-- After a vehicle arrives, keep it in memory for the given TIME (for TraCI access) -->
+        <keep-after-arrival value="0" type="TIME"/>
 
         <!-- Delay vehicle insertion to stay within the given maximum number -->
         <max-num-vehicles value="-1" type="INT"/>
