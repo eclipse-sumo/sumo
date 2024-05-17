@@ -543,6 +543,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     // MSDevice_Battery
     { "actualBatteryCapacity",          SUMO_ATTR_ACTUALBATTERYCAPACITY },
     { "maximumBatteryCapacity",         SUMO_ATTR_MAXIMUMBATTERYCAPACITY },
+    { "maximumChargeRate",              SUMO_ATTR_MAXIMUMCHARGERATE },
+    { "chargeLevelTable",               SUMO_ATTR_CHARGELEVELTABLE },
+    { "chargeCurveTable",               SUMO_ATTR_CHARGECURVETABLE },
     { "maximumPower",                   SUMO_ATTR_MAXIMUMPOWER },
     { "vehicleMass",                    SUMO_ATTR_VEHICLEMASS },
     { "rotatingMass",                   SUMO_ATTR_ROTATINGMASS },

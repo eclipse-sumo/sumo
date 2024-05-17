@@ -202,6 +202,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getRelativeStateOfCharge));
         ret->mkItem(TL("currently charging [Wh]"), true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getChargedEnergy));
+        ret->mkItem(TL("maximum charge rate [W]"), true,
+                    new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getMaxChargeRate));
     }
     if (isElecHybrid) {
         ret->mkItem(TL("present electric current [A]"), true,

@@ -4,6 +4,8 @@ set(utils_common_STAT_SRCS
    FileHelpers.h
    IDSupplier.h
    IDSupplier.cpp
+   LinearApproxHelpers.h
+   LinearApproxHelpers.cpp
    MsgHandler.h
    MsgHandler.cpp
    MsgRetrievingFunction.h

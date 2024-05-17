@@ -1975,7 +1975,6 @@ MSBaseVehicle::getStateOfCharge() const {
             return batteryOfVehicle->getActualBatteryCapacity();
         }
     }
-
     return -1;
 }
 
@@ -1991,7 +1990,6 @@ MSBaseVehicle::getRelativeStateOfCharge() const {
             return batteryOfVehicle->getActualBatteryCapacity() / batteryOfVehicle->getMaximumBatteryCapacity();
         }
     }
-
     return -1;
 }
 
@@ -2007,7 +2005,16 @@ MSBaseVehicle::getChargedEnergy() const {
             return batteryOfVehicle->getEnergyCharged();
         }
     }
+    return -1;
+}
 
+
+double
+MSBaseVehicle::getMaxChargeRate() const {
+    if (static_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery))) != 0) {
+        MSDevice_Battery* batteryOfVehicle = dynamic_cast<MSDevice_Battery*>(getDevice(typeid(MSDevice_Battery)));
+        return batteryOfVehicle->getMaximumChargeRate();
+    }
     return -1;
 }
 

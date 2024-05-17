@@ -780,6 +780,12 @@ enum SumoXMLAttr {
     /// @brief Maxium battery capacity
     SUMO_ATTR_MAXIMUMBATTERYCAPACITY,
     /// @brief Maximum Power
+    SUMO_ATTR_MAXIMUMCHARGERATE,
+    /// @brief Charge curve axis values
+    SUMO_ATTR_CHARGELEVELTABLE,
+    /// @brief Charge curve
+    SUMO_ATTR_CHARGECURVETABLE,
+    /// @brief Maximum Power
     SUMO_ATTR_MAXIMUMPOWER,
     /// @brief Vehicle mass
     SUMO_ATTR_VEHICLEMASS,

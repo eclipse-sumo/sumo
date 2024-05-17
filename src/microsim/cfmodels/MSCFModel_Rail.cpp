@@ -38,7 +38,7 @@ MSCFModel_Rail::TrainParams::getResistance(double speed) const {
     if (resCoef_constant != INVALID_DOUBLE) {
         return (resCoef_quadratic * speed * speed + resCoef_linear * speed + resCoef_constant); // kN
     } else {
-        return getInterpolatedValueFromLookUpMap(speed, &resistance); // kN
+        return LinearApproxHelpers::getInterpolatedValue(resistance, speed); // kN
     }
 }
 
@@ -48,7 +48,7 @@ MSCFModel_Rail::TrainParams::getTraction(double speed) const {
     if (maxPower != INVALID_DOUBLE) {
         return MIN2(maxPower / speed, maxTraction); // kN
     } else {
-        return getInterpolatedValueFromLookUpMap(speed, &traction); // kN
+        return LinearApproxHelpers::getInterpolatedValue(traction, speed); // kN
     }
 }
 
@@ -204,15 +204,18 @@ double MSCFModel_Rail::followSpeed(const MSVehicle* const veh, double speed, dou
     }
 }
 
+
 int
 MSCFModel_Rail::getModelID() const {
     return SUMO_TAG_CF_RAIL;
 }
 
+
 MSCFModel*
 MSCFModel_Rail::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_Rail(vtype);
 }
+
 
 double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) const {
 
@@ -247,6 +250,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
     return maxNextSpeed;
 }
 
+
 double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) const {
 
     const double slope = veh->getSlope();
@@ -271,42 +275,13 @@ MSCFModel_Rail::minNextSpeedEmergency(double speed, const MSVehicle* const veh) 
 }
 
 
-double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const LookUpMap* lookUpMap) {
-    std::map<double, double>::const_iterator low, prev;
-    low = lookUpMap->lower_bound(speed);
-
-    if (low == lookUpMap->end()) { //speed > max speed
-        return (lookUpMap->rbegin())->second;
-    }
-
-    if (low == lookUpMap->begin()) {
-        return low->second;
-    }
-
-    prev = low;
-    --prev;
-
-    double range = low->first - prev->first;
-    double dist = speed - prev->first;
-    assert(range > 0);
-    assert(dist > 0);
-
-    double weight = dist / range;
-
-    double res = (1 - weight) * prev->second + weight * low->second;
-
-    return res;
-
-}
-
-
-
 //void
 //MSCFModel_Rail::initVehicleVariables(const MSVehicle *const veh, MSCFModel_Rail::VehicleVariables *pVariables) const {
 //
 //    pVariables->setInitialized();
 //
 //}
+
 
 double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 
@@ -320,6 +295,7 @@ double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
     throw ProcessError();
 }
 
+
 MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
     VehicleVariables* ret = new VehicleVariables();
     return ret;
@@ -329,6 +305,7 @@ MSCFModel::VehicleVariables* MSCFModel_Rail::createVehicleVariables() const {
 double MSCFModel_Rail::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     return MSCFModel::finalizeSpeed(veh, vPos);
 }
+
 
 double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* speed */, double dist, double targetSpeed,
                                  const bool onInsertion, const CalcReason /*usage*/) const {
@@ -362,17 +339,7 @@ double MSCFModel_Rail::freeSpeed(const MSVehicle* const /* veh */, double /* spe
     }
 }
 
+
 double MSCFModel_Rail::stopSpeed(const MSVehicle* const veh, const double speed, double gap, double decel, const CalcReason /*usage*/) const {
     return MIN2(maximumSafeStopSpeed(gap, decel, speed, false, TS, false), maxNextSpeed(speed, veh));
-}
-
-
-void
-MSCFModel_Rail::convertMap(LookUpMap& map, double keyFactor, double valueFactor) {
-    LookUpMap map2;
-    for (auto item : map) {
-        map2[item.first * keyFactor] = item.second * valueFactor;
-    }
-    map.clear();
-    map.insert(map2.begin(), map2.end());
 }
