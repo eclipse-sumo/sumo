@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -253,7 +254,7 @@ GNEMatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
-    if (myFromTAZComboBox->getText() == "<from TAZ>") {
+    if (myFromTAZComboBox->getText() == TL("<from TAZ>")) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {
@@ -271,7 +272,7 @@ GNEMatchGenericDataAttribute::onCmdSetFromTAZ(FXObject*, FXSelector, void*) {
 
 long
 GNEMatchGenericDataAttribute::onCmdSetToTAZ(FXObject*, FXSelector, void*) {
-    if (myToTAZComboBox->getText() == "<to TAZ>") {
+    if (myToTAZComboBox->getText() == TL("<to TAZ>")) {
         myFromTAZComboBox->setTextColor(FXRGB(128, 128, 128));
         return 1;
     } else {

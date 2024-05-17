@@ -37,6 +37,8 @@
 #include <microsim/transportables/MSTransportableControl.h>
 #include <netload/NLHandler.h>
 #include <traci-server/TraCIServer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/StringUtils.h>
 #include <utils/foxtools/MFXButtonTooltip.h>
 #include <utils/foxtools/MFXLabelTooltip.h>
 #include <utils/foxtools/MFXLCDLabel.h>
@@ -862,7 +864,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdEditChosen(FXObject* menu, FXSelector, void*) {
     FXMenuCommand* mc = dynamic_cast<FXMenuCommand*>(menu);
-    if (mc->getText() == "Edit Selected...") {
+    if (mc->getText() == StringUtils::replace(TL("Edit Selected..."), "&", "").c_str()) {
         GUIDialog_GLChosenEditor* chooser =
             new GUIDialog_GLChosenEditor(this, &gSelected);
         chooser->create();

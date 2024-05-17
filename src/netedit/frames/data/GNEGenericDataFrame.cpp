@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/data/GNEDataInterval.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -462,7 +463,7 @@ std::string
 GNEGenericDataFrame::AttributeSelector::getFilteredAttribute() const {
     if (myAttributesComboBox->getNumItems() == 0) {
         return "";
-    } else if (myAttributesComboBox->getText() == "<all>") {
+    } else if (myAttributesComboBox->getText() == TL("<all>")) {
         return "";
     } else {
         return myAttributesComboBox->getText().text();
@@ -485,7 +486,7 @@ GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelect
     if (myAttributesComboBox->getText().empty()) {
         myAttributesComboBox->setCurrentItem(0);
     }
-    if (myAttributesComboBox->getText() == "<all>") {
+    if (myAttributesComboBox->getText() == TL("<all>")) {
         myMinMaxLabel->setText(TL("Scale: Min -> Max"));
     }
     // update view
