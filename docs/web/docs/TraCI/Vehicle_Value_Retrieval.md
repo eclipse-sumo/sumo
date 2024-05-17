@@ -800,6 +800,11 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.tripinfo.waitingTime (total waiting time)
 - device.tripinfo.waitingCount
 - device.tripinfo.stopTime (total stopping time)
+- device.tripinfo.arrivalTime (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalLane (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalPos (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalPosLat (only retrievable after arrival with option **--keep-after-arrival TIME**)
+- device.tripinfo.arrivalSpeed (only retrievable after arrival with option **--keep-after-arrival TIME**)
 - device.toc.state
 - device.toc.holder
 - device.toc.hasDynamicToC
