@@ -60,7 +60,7 @@ GNEElementSet::GNEElementSet(GNESelectorFrame* selectorFrameParent, Supermode su
         mySetComboBox->appendIconItem(TL("Network"), GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
         mySetComboBox->appendIconItem(TL("Additional"), GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
         mySetComboBox->appendIconItem(TL("Shape"), GUIIconSubSys::getIcon(GUIIcon::MODESHAPE));
-        mySetComboBox->appendIconItem(tl("TAZ"), GUIIconSubSys::getIcon(GUIIcon::MODETAZ));
+        mySetComboBox->appendIconItem(TL("TAZ"), GUIIconSubSys::getIcon(GUIIcon::MODETAZ));
         // set default set
         myCurrentSet = Type::NETWORK;
     } else if (supermode == Supermode::DEMAND) {
