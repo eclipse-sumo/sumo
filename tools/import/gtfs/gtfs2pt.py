@@ -426,7 +426,8 @@ def main(options):
             if not os.path.exists(options.mapperlib):
                 options.gpsdat = None
             if not gtfs2fcd.main(options):
-                print("Warning! GTFS data did not contain any trips with stops within the given bounding box area.", file=sys.stderr)  # noqa
+                print("Warning! GTFS data did not contain any trips with stops within the given bounding box area.",
+                      file=sys.stderr)
                 return
         edgeMap, invEdgeMap, typedNets = splitNet(options)
         if os.path.exists(options.mapperlib):
@@ -439,7 +440,7 @@ def main(options):
                     routes.setdefault(id, []).append(edge)
         else:
             if not gtfs2fcd.dataAvailable(options):
-                print("Warning! No infrastructure for the given modes %s." % options.modes)
+                print("Warning! No infrastructure for the given modes %s." % options.modes, file=sys.stderr)
                 return
             if options.mapperlib != "tracemapper":
                 print("Warning! No mapping library found, falling back to tracemapper.", file=sys.stderr)
@@ -465,7 +466,7 @@ def main(options):
                                    (stop[0], ft(options.duration), ft(stop[1] - offset), stop[2]))
                     rout.write(u'    </route>\n')
                 else:
-                    print("Warning! Empty route", vehID, file=sys.stderr)
+                    print("Warning! Empty route for %s." % vehID, file=sys.stderr)
             filter_trips(options, routes, stops, rout, options.begin, options.end)
             rout.write(u'</routes>\n')
 
