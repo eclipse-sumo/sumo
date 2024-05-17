@@ -31,10 +31,9 @@ sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net4.net.xml",
              "-r", "input_routes.rou.xml",
-             "--no-step-log",
              "--stop-output", "stopinfos.xml",
              "--vehroute-output", "vehroutes.xml",
-             "--keep-after-arrival", "3"
+             "--keep-after-arrival", "3",
              "--no-step-log",
              ] + sys.argv[1:])
 
@@ -49,11 +48,20 @@ for i in range(5):
             i,
             traci.vehicle.getIDList(),
             traci.vehicle.getLoadedIDList()))
-        print("   vehData: speed=%s pos=%s lane=%s edge=%s" % (
+        print("   vehData: speed=%s pos=%s lane=%s edge=%s stops=%s" % (
             traci.vehicle.getSpeed(vehID),
             traci.vehicle.getPosition(vehID),
-            traci.vehicle.getLane(vehID),
-            traci.vehicle.getRoadID(vehID)))
+            traci.vehicle.getLaneID(vehID),
+            traci.vehicle.getRoadID(vehID),
+            traci.vehicle.getStops(vehID, -100)
+            ))
+        print("   vehTripinfo-arrival: time=%s lane=%s pos=%s posLat=%s speed=%s" % (
+            traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalTime"),
+            traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalLane"),
+            traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalPos"),
+            traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalPosLat"),
+            traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalSpeed"),
+            ))
     except traci.TraCIException:
         pass
 
