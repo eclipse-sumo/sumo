@@ -22,6 +22,7 @@
 
 #include <string>
 #include <utils/foxtools/fxheader.h>
+#include <utils/common/StdDefs.h>
 
 // ===========================================================================
 // Class declaration
@@ -32,9 +33,6 @@ class MFXMenuCheckIcon;
 // ===========================================================================
 // Definitions
 // ===========================================================================
-
-/// @brief define a standard height for all elements (Change it carefully)
-#define GUIDesignHeight 23
 
 /// @brief define the default frames area width
 #define GUIDesignFramesAreaDefaultWidth 220

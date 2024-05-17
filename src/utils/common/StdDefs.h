@@ -124,6 +124,9 @@ extern double gWeightsWalkOppositeFactor; // factor for walking against flow of 
 /// the language for GUI elements and messages
 extern std::string gLanguage;
 
+/// the default size for GUI elements
+extern int GUIDesignHeight;
+
 
 /// @brief global utility flags for debugging
 extern bool gDebugFlag1;

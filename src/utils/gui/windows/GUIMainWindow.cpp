@@ -67,6 +67,7 @@ GUIMainWindow::GUIMainWindow(FXApp* app) :
     FXFontDesc fdesc;
     app->getNormalFont()->getFontDesc(fdesc);
     fdesc.weight = FXFont::Bold;
+    GUIDesignHeight = (int)(fdesc.size / 90.0 * 18) + 5;
     myBoldFont = new FXFont(app, fdesc);
     // https://en.wikipedia.org/wiki/Noto_fonts should be widely available
     myFallbackFont = new FXFont(app, "Noto Sans CJK JP");
