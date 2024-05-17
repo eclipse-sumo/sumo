@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-17 09:50:12 by Eclipse SUMO sumo Version v1_20_0+0100-77b447b423d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <stop-output value="stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <keep-after-arrival value="3"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49489"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0100-77b447b423d" time="47.00" type="micro">
+    <route id="!v!var#1" state="0" edges="A1B1 B1B2 B2C2 C2C1 C1D1"/>
+    <delay number="0" begin="1" end="1" depart="0.00" time="46.00"/>
+    <vType id="car" sigma="0"/>
+    <vehicle id="v" type="car" depart="0.00" departSpeed="avg" route="!v!var#1" distance="392.72 1" speedFactor="1.0600" reroute="1" state="262162 0 4 5.10 0 7.87 46000 0 1" pos="100.14 80.42 14.72" speed="14.72 14.72" angle="90.00" posLat="0.00" waitingTime="100000 1 18000 19000">
+        <stop edge="B2C2" duration="5.00" started="23.00" ended="28.00"/>
+        <param key="has.tripinfo.device" value="true"/>
+        <device id="vehroute_v" state="0 0.00 13.89 5.10 1 !NULL 0 !v device.rerouting -1 0"/>
+        <device id="tripinfo_v" state="A1B1_0 0 13.89 387.62 1000 0 1 5000 -1"/>
+        <device id="routing_v" state="0"/>
+    </vehicle>
+</snapshot>

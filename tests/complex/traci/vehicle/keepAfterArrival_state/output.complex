@@ -1,0 +1,16 @@
+ Retrying in 1 seconds
+0 steps after arrival: active=() loaded=('v',)
+   vehData: speed=-1073741824.0 pos=(-1073741824.0, -1073741824.0) lane= edge= stops=(StopData(startPos=90.39999999999999, endPos=90.6, stopFlags=0, duration=5.0, arrival=23.0, depart=28.0),)
+   vehTripinfo-arrival: time=-1.00 lane= pos=-1.00 posLat=0.00 speed=-1.00
+1 steps after arrival: active=() loaded=('v',)
+   vehData: speed=-1073741824.0 pos=(-1073741824.0, -1073741824.0) lane= edge= stops=(StopData(startPos=90.39999999999999, endPos=90.6, stopFlags=0, duration=5.0, arrival=23.0, depart=28.0),)
+   vehTripinfo-arrival: time=-1.00 lane= pos=-1.00 posLat=0.00 speed=-1.00
+2 steps after arrival: active=() loaded=('v',)
+   vehData: speed=-1073741824.0 pos=(-1073741824.0, -1073741824.0) lane= edge= stops=(StopData(startPos=90.39999999999999, endPos=90.6, stopFlags=0, duration=5.0, arrival=23.0, depart=28.0),)
+   vehTripinfo-arrival: time=-1.00 lane= pos=-1.00 posLat=0.00 speed=-1.00
+3 steps after arrival: active=() loaded=('v',)
+   vehData: speed=-1073741824.0 pos=(-1073741824.0, -1073741824.0) lane= edge= stops=(StopData(startPos=90.39999999999999, endPos=90.6, stopFlags=0, duration=5.0, arrival=23.0, depart=28.0),)
+   vehTripinfo-arrival: time=-1.00 lane= pos=-1.00 posLat=0.00 speed=-1.00
+4 steps after arrival: active=() loaded=('v',)
+   vehData: speed=-1073741824.0 pos=(-1073741824.0, -1073741824.0) lane= edge= stops=(StopData(startPos=90.39999999999999, endPos=90.6, stopFlags=0, duration=5.0, arrival=23.0, depart=28.0),)
+   vehTripinfo-arrival: time=-1.00 lane= pos=-1.00 posLat=0.00 speed=-1.00
