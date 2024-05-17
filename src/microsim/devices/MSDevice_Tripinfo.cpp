@@ -894,7 +894,8 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
             internals << myDepartLane << " " << myDepartPosLat << " ";
         }
         internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
-        internals << myStoppingTime << " " << myParkingStarted;
+        internals << myStoppingTime << " " << myParkingStarted << " ";
+        internals << myArrivalTime << " " << myArrivalLane << " " << myArrivalPos << " " << myArrivalPosLat << " " << myArrivalSpeed;
         out.writeAttr(SUMO_ATTR_STATE, internals.str());
         out.closeTag();
     }
@@ -909,6 +910,7 @@ MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     }
     bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
     bis >> myStoppingTime >> myParkingStarted;
+    bis >> myArrivalTime >> myArrivalLane >> myArrivalPos >> myArrivalPosLat >> myArrivalSpeed;
 }
 
 
