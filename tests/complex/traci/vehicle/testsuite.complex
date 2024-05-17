@@ -135,3 +135,6 @@ alightingPersons
 
 # check handling of stops (#14789)
 changeTarget
+
+# retrieve vehicle information after arrival
+keepAfterArrival
