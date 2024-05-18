@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-17 09:35:42 by Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
+<!-- generated on 2024-05-18 22:12:23 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -138,6 +138,7 @@
         <collision.mingap-factor value="-1" type="FLOAT" help="Sets the fraction of minGap that must be maintained to avoid collision detection. If a negative value is given, the carFollowModel parameter is used"/>
         <keep-after-arrival value="0" type="TIME" help="After a vehicle arrives, keep it in memory for the given TIME (for TraCI access)"/>
         <max-num-vehicles value="-1" type="INT" help="Delay vehicle insertion to stay within the given maximum number"/>
+        <max-num-persons value="-1" type="INT" help="Delay person insertion to stay within the given maximum number"/>
         <max-num-teleports value="-1" type="INT" help="Abort the simulation if the given maximum number of teleports is exceeded"/>
         <scale value="1" type="FLOAT" help="Scale demand by the given factor (by discarding or duplicating vehicles)"/>
         <scale-suffix value="." type="STR" help="Suffix to be added when creating ids for cloned vehicles"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
+Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -232,6 +232,8 @@ Processing Options:
                                         memory for the given TIME (for TraCI
                                         access)
   --max-num-vehicles INT               Delay vehicle insertion to stay within
+                                        the given maximum number
+  --max-num-persons INT                Delay person insertion to stay within
                                         the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
                                         maximum number of teleports is exceeded

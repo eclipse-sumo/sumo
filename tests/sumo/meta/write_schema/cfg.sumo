@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-17 09:35:42 by Eclipse SUMO sumo Version v1_20_0+0093-896caffe5a3
+<!-- generated on 2024-05-18 22:12:23 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -170,6 +170,7 @@
             <xsd:element name="collision.mingap-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="keep-after-arrival" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="max-num-persons" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
