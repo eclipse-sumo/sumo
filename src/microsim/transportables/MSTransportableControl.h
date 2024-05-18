@@ -358,6 +358,9 @@ protected:
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
 
+    /// @brief maximum transportable count
+    int myMaxTransportableNumber;
+
 private:
     MSPModel* myMovementModel;
 

@@ -403,6 +403,9 @@ MSFrame::fillOptions() {
     oc.doRegister("max-num-vehicles", new Option_Integer(-1));
     oc.addDescription("max-num-vehicles", "Processing", TL("Delay vehicle insertion to stay within the given maximum number"));
 
+    oc.doRegister("max-num-persons", new Option_Integer(-1));
+    oc.addDescription("max-num-persons", "Processing", TL("Delay person insertion to stay within the given maximum number"));
+
     oc.doRegister("max-num-teleports", new Option_Integer(-1));
     oc.addDescription("max-num-teleports", "Processing", TL("Abort the simulation if the given maximum number of teleports is exceeded"));
 

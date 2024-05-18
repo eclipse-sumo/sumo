@@ -86,6 +86,7 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
         OutputDevice::createDeviceByOption("personinfo-output", "tripinfos", "tripinfo_file.xsd");
     }
     myAbortWaitingTimeout = string2time(oc.getString("time-to-teleport.ride"));
+    myMaxTransportableNumber = isPerson ? oc.getInt("max-num-persons") : -1;
 }
 
 
@@ -198,6 +199,12 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (auto it = transportables.begin(); it != transportables.end();) {
             MSTransportable* t = *it;
+            if (myMaxTransportableNumber > 0 && myRunningNumber >= myMaxTransportableNumber) {
+                TransportableVector& nextStep = myWaiting4Departure[time + DELTA_T];
+                nextStep.insert(nextStep.begin(), transportables.begin(), transportables.end());
+                transportables.clear();
+                break;
+            }
             it = transportables.erase(it);
             myWaitingForDepartureNumber--;
             const bool isPerson = t->isPerson();
