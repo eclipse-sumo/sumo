@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2024-05-18 11:11:57 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,11 +41,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="t1" depart="30.00" departLane="d_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="245.00" arrivalLane="b_0" arrivalPos="95.00" arrivalSpeed="0.00" duration="215.00" routeLength="488.15" waitingTime="1.00" waitingCount="1" stopTime="120.00" timeLoss="59.86" rerouteNo="0" devices="tripinfo_t1 routing_t1 container_t1" vType="splitTrain" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="179.00" waitingTime="135.00" timeLoss="63.26" traveltime="179.00">
+    <containerinfo id="c0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="314.00" waitingTime="135.00" timeLoss="63.26" traveltime="179.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="208.37" actType="waiting"/>
         <transport waitingTime="135.00" vehicle="t0" depart="135.00" arrival="314.00" arrivalPos="338.22" duration="179.00" routeLength="788.14" timeLoss="63.26"/>
     </containerinfo>
-    <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="241.00" waitingTime="162.00" timeLoss="63.70" traveltime="241.00">
+    <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="403.00" waitingTime="162.00" timeLoss="63.70" traveltime="241.00">
         <stop duration="0.00" arrival="0.00" arrivalPos="172.81" actType="waiting"/>
         <transport waitingTime="161.00" vehicle="t1" depart="161.00" arrival="245.00" arrivalPos="95.00" duration="84.00" routeLength="315.44" timeLoss="31.29"/>
         <transport waitingTime="1.00" vehicle="t0" depart="246.00" arrival="403.00" arrivalPos="338.22" duration="157.00" routeLength="494.34" timeLoss="32.41"/>

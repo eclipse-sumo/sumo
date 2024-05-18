@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 00:00:39 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
+<!-- generated on 2024-05-18 11:11:46 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,15 +48,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="28.00" arrivalPos="0.00" duration="28.00" routeLength="500.00" timeLoss="0.00"/>
         <stop duration="101.00" arrival="129.00" arrivalPos="100.00" actType="waiting"/>
     </personinfo>
-    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="118.60" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
+    <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="129.00" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
         <ride waitingTime="10.40" vehicle="v1" depart="10.40" arrival="28.00" arrivalPos="0.00" duration="17.60" routeLength="500.00" timeLoss="0.00"/>
         <stop duration="101.00" arrival="129.00" arrivalPos="1000.00" actType="waiting"/>
     </personinfo>
-    <personinfo id="p3" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="118.60" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
+    <personinfo id="p3" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="129.00" waitingTime="10.40" timeLoss="0.00" traveltime="17.60">
         <ride waitingTime="10.40" vehicle="v1" depart="10.40" arrival="28.00" arrivalPos="0.00" duration="17.60" routeLength="500.00" timeLoss="0.00"/>
         <stop duration="101.00" arrival="129.00" arrivalPos="105.00" actType="waiting"/>
     </personinfo>
-    <personinfo id="p4" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="157.60" waitingTime="10.40" timeLoss="0.00" traveltime="56.60">
+    <personinfo id="p4" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="168.00" waitingTime="10.40" timeLoss="0.00" traveltime="56.60">
         <ride waitingTime="10.40" vehicle="v1" depart="10.40" arrival="67.00" arrivalPos="800.00" duration="56.60" routeLength="1300.00" timeLoss="0.00"/>
         <stop duration="101.00" arrival="168.00" arrivalPos="900.00" actType="waiting"/>
     </personinfo>

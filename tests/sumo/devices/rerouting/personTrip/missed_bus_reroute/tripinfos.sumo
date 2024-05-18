@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:12 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2024-05-18 11:12:01 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tripinfo id="bus2.0" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="560.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.58" duration="260.00" routeLength="3007.22" waitingTime="3.00" waitingCount="3" stopTime="113.00" timeLoss="38.78" rerouteNo="1" devices="tripinfo_bus2.0 routing_bus2.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus.1" depart="600.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="765.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.50" duration="165.00" routeLength="1994.90" waitingTime="2.00" waitingCount="1" stopTime="31.00" timeLoss="26.48" rerouteNo="1" devices="tripinfo_bus.1 routing_bus.1 person_bus.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus2.1" depart="900.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="1160.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.60" duration="260.00" routeLength="3007.22" waitingTime="3.00" waitingCount="2" stopTime="114.00" timeLoss="37.77" rerouteNo="1" devices="tripinfo_bus2.1 routing_bus2.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="slow" speedFactor="1.00" duration="581.00" waitingTime="581.00" timeLoss="62.79" traveltime="581.00">
+    <personinfo id="p0" depart="0.00" type="slow" speedFactor="1.00" duration="1162.00" waitingTime="581.00" timeLoss="62.79" traveltime="581.00">
         <walk depart="0.00" departPos="200.00" arrival="79.00" arrivalPos="250.00" duration="79.00" routeLength="50.00" timeLoss="7.57" maxSpeed="0.70"/>
         <ride waitingTime="581.00" vehicle="bus.1" depart="660.00" arrival="764.00" arrivalPos="499.99" duration="104.00" routeLength="1500.01" timeLoss="14.34"/>
         <walk depart="764.00" departPos="499.99" arrival="1162.00" arrivalPos="250.00" duration="398.00" routeLength="249.99" timeLoss="40.88" maxSpeed="0.70"/>

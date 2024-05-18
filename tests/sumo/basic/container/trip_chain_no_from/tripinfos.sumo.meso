@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 00:00:39 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
+<!-- generated on 2024-05-18 11:11:46 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="train0" depart="50.00" departLane="" departPos="0.00" departSpeed="13.90" departDelay="0.00" arrival="194.00" arrivalLane="" arrivalPos="90.50" arrivalSpeed="13.90" duration="144.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="110.36" timeLoss="110.36" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="221.51" waitingTime="66.49" timeLoss="0.00" traveltime="201.51">
+    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="288.00" waitingTime="66.49" timeLoss="0.00" traveltime="201.51">
         <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
         <transport waitingTime="66.49" vehicle="train0" depart="120.49" arrival="134.00" arrivalPos="0.00" duration="13.51" routeLength="182.50" timeLoss="0.00"/>
         <tranship depart="134.00" departPos="0.00" arrival="228.00" arrivalPos="30.00" duration="94.00" routeLength="130.55" maxSpeed="1.39"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:12 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2024-05-18 11:12:01 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,10 +39,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="119.00" waitingTime="61.00" timeLoss="17.28" traveltime="119.00">
+    <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="180.00" waitingTime="61.00" timeLoss="17.28" traveltime="119.00">
         <ride waitingTime="61.00" vehicle="trip_0" depart="61.00" arrival="180.00" arrivalPos="285.60" duration="119.00" routeLength="565.55" timeLoss="17.28"/>
     </personinfo>
-    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="168.00" waitingTime="224.00" timeLoss="22.81" traveltime="168.00">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="392.00" waitingTime="224.00" timeLoss="22.81" traveltime="168.00">
         <ride waitingTime="224.00" vehicle="trip_0" depart="224.00" arrival="392.00" arrivalPos="287.60" duration="168.00" routeLength="1161.58" timeLoss="22.81"/>
     </personinfo>
     <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="395.00" routeLength="2831.97" waitingTime="7.00" waitingCount="3" stopTime="126.00" timeLoss="58.44" rerouteNo="4" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 person_trip_0" vType="taxi" speedFactor="1.00" vaporized="">

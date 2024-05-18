@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:12 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2024-05-18 11:12:01 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,10 +38,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <containerinfo id="p0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="179.00" waitingTime="119.00" timeLoss="19.97" traveltime="179.00">
+    <containerinfo id="p0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="298.00" waitingTime="119.00" timeLoss="19.97" traveltime="179.00">
         <transport waitingTime="119.00" vehicle="trip_1" depart="119.00" arrival="298.00" arrivalPos="287.60" duration="179.00" routeLength="1362.12" timeLoss="19.97"/>
     </containerinfo>
-    <containerinfo id="p1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="176.00" waitingTime="139.00" timeLoss="17.35" traveltime="176.00">
+    <containerinfo id="p1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="315.00" waitingTime="139.00" timeLoss="17.35" traveltime="176.00">
         <transport waitingTime="139.00" vehicle="trip_0" depart="139.00" arrival="315.00" arrivalPos="287.60" duration="176.00" routeLength="1362.09" timeLoss="17.35"/>
     </containerinfo>
     <tripinfo id="trip_0" depart="0.00" departLane="A0B0_1" departPos="15.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="407.00" routeLength="1858.34" waitingTime="3.00" waitingCount="2" stopTime="242.00" timeLoss="28.17" rerouteNo="3" devices="tripinfo_trip_0 routing_trip_0 taxi_trip_0 container_trip_0" vType="taxi" speedFactor="1.00" vaporized="">

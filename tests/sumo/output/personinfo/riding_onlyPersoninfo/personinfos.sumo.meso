@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 00:00:39 by Eclipse SUMO sumo Version v1_19_0+2076-0cd5b1960a6
+<!-- generated on 2024-05-18 11:11:47 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,28 +41,28 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="30.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="37.00" waitingTime="30.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="30.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="20.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.1" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="27.00" waitingTime="20.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="20.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="10.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.2" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="17.00" waitingTime="10.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="10.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="0.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.3" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="7.00" waitingTime="0.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="0.38" vehicle="bus.0" depart="30.38" arrival="37.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="90.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.4" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="97.00" waitingTime="90.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="90.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="80.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.5" depart="50.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="87.00" waitingTime="80.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="80.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="70.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.6" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="77.00" waitingTime="70.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="70.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="6.62" waitingTime="60.38" timeLoss="0.00" traveltime="6.62">
+    <personinfo id="p.7" depart="70.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="67.00" waitingTime="60.38" timeLoss="0.00" traveltime="6.62">
         <ride waitingTime="60.38" vehicle="bus.1" depart="130.38" arrival="137.00" arrivalPos="0.00" duration="6.62" routeLength="91.95" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p.8" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="-1" waitingTime="75.00" timeLoss="-1" traveltime="-1">
