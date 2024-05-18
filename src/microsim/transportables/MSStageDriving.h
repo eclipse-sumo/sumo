@@ -177,6 +177,8 @@ public:
     bool canLeaveVehicle(const MSTransportable* t, const SUMOVehicle& veh, const MSStop& stop);
 
     SUMOTime getTimeLoss(const MSTransportable* transportable) const;
+    SUMOTime getDuration() const;
+    SUMOTime getTravelTime() const;
     SUMOTime getWaitingTime() const;
 
     /** @brief Saves the current state into the given stream

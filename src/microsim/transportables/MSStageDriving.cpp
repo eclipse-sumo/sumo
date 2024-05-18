@@ -334,6 +334,17 @@ MSStageDriving::registerWaiting(MSTransportable* transportable, SUMOTime now) {
     myWaitingEdge->addTransportable(transportable);
 }
 
+SUMOTime
+MSStageDriving::getDuration() const {
+    return myArrived >= 0 ? myArrived - myWaitingSince : SUMOTime_MAX;
+}
+
+
+SUMOTime
+MSStageDriving::getTravelTime() const {
+    return myArrived >= 0 ? myArrived - myDeparted : SUMOTime_MAX;
+}
+
 
 SUMOTime
 MSStageDriving::getWaitingTime() const {
