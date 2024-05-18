@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-18 22:11:47 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <max-num-persons value="10"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p1.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="0.00" departPos="0.00" arrival="14.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.1" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="1.00" departPos="0.00" arrival="15.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.2" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="2.00" departPos="0.00" arrival="16.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.3" depart="3.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="3.00" departPos="0.00" arrival="17.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.4" depart="4.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="4.00" departPos="0.00" arrival="18.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.5" depart="5.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="5.00" departPos="0.00" arrival="19.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.6" depart="6.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="6.00" departPos="0.00" arrival="20.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.7" depart="7.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="7.00" departPos="0.00" arrival="21.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.8" depart="8.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="8.00" departPos="0.00" arrival="22.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.9" depart="9.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="9.00" departPos="0.00" arrival="23.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.10" depart="14.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="14.00" departPos="0.00" arrival="28.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.11" depart="15.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="15.00" departPos="0.00" arrival="29.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.12" depart="16.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="16.00" departPos="0.00" arrival="30.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.13" depart="17.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="17.00" departPos="0.00" arrival="31.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.14" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="18.00" departPos="0.00" arrival="32.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.15" depart="19.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="19.00" departPos="0.00" arrival="33.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.16" depart="20.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="20.00" departPos="0.00" arrival="34.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.17" depart="21.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="21.00" departPos="0.00" arrival="35.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.18" depart="22.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="22.00" departPos="0.00" arrival="36.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.19" depart="23.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="14.00" waitingTime="0.00" timeLoss="0.50" traveltime="14.00">
+        <walk depart="23.00" departPos="0.00" arrival="37.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+</tripinfos>

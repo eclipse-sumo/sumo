@@ -18,6 +18,9 @@ ride_triggeredPersonFlow_poisson
 walk_personsPerHour
 
 # Copy of walk_personsPerHour
+walk_maxPersonNumber
+
+# Copy of walk_personsPerHour
 walk_typeDist
 walk_poisson
 walk_probability
