@@ -201,6 +201,7 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
             it = transportables.erase(it);
             myWaitingForDepartureNumber--;
             const bool isPerson = t->isPerson();
+            t->setDeparted(time);
             if (t->proceed(net, time)) {
                 myRunningNumber++;
                 MSNet::getInstance()->informTransportableStateListener(t,

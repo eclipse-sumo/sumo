@@ -209,9 +209,10 @@ MSTransportable::getSpeed() const {
 
 void
 MSTransportable::tripInfoOutput(OutputDevice& os) const {
+    SUMOTime departure = myPlan->front()->getDeparted();
     os.openTag(isPerson() ? "personinfo" : "containerinfo");
     os.writeAttr(SUMO_ATTR_ID, getID());
-    os.writeAttr(SUMO_ATTR_DEPART, time2string(getDesiredDepart()));
+    os.writeAttr(SUMO_ATTR_DEPART, departure >= 0 ? time2string(departure) : "-1");
     os.writeAttr(SUMO_ATTR_TYPE, getVehicleType().getID());
     if (isPerson()) {
         os.writeAttr(SUMO_ATTR_SPEEDFACTOR, getChosenSpeedFactor());
