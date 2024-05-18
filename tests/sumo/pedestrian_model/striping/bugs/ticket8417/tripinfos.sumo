@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-05 23:37:08 by Eclipse SUMO sumo Version v1_19_0+2073-a7ccca7495b
+<!-- generated on 2024-05-18 14:20:53 by Eclipse SUMO sumo Version v1_20_0+0120-0256b4ceff1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="ped4877" depart="186.20" type="ped_pedestrian" speedFactor="1.00" duration="22.60" waitingTime="0.00" timeLoss="6.66" traveltime="22.60">
         <walk depart="186.20" departPos="0.00" arrival="208.80" arrivalPos="8.46" duration="22.60" routeLength="22.15" timeLoss="6.66" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="ped4843" depart="176.71" type="ped_pedestrian" speedFactor="1.00" duration="37.50" waitingTime="0.00" timeLoss="9.79" traveltime="37.50">
+    <personinfo id="ped4843" depart="176.80" type="ped_pedestrian" speedFactor="1.00" duration="37.50" waitingTime="0.00" timeLoss="9.79" traveltime="37.50">
         <walk depart="176.80" departPos="0.00" arrival="214.30" arrivalPos="7.88" duration="37.50" routeLength="38.49" timeLoss="9.79" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="ped4943" depart="247.50" type="ped_pedestrian" speedFactor="1.00" duration="36.80" waitingTime="0.00" timeLoss="9.09" traveltime="36.80">

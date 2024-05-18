@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:12:04 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2024-05-18 14:21:49 by Eclipse SUMO sumo Version v1_20_0+0120-0256b4ceff1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,13 +50,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p.0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="151.00" waitingTime="63.15" timeLoss="0.00" traveltime="87.86">
         <ride waitingTime="63.15" vehicle="trip_0" depart="63.15" arrival="151.00" arrivalPos="191.73" duration="87.86" routeLength="1221.73" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.1" depart="7.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="303.00" waitingTime="215.15" timeLoss="0.00" traveltime="87.86">
+    <personinfo id="p.1" depart="8.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="303.00" waitingTime="215.15" timeLoss="0.00" traveltime="87.86">
         <ride waitingTime="215.15" vehicle="trip_0" depart="223.15" arrival="311.00" arrivalPos="191.73" duration="87.86" routeLength="1221.73" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p.2" depart="15.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="476.00" waitingTime="388.15" timeLoss="0.00" traveltime="87.86">
         <ride waitingTime="388.15" vehicle="trip_0" depart="403.15" arrival="491.00" arrivalPos="191.73" duration="87.86" routeLength="1221.73" timeLoss="0.00"/>
     </personinfo>
-    <personinfo id="p.3" depart="22.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="648.00" waitingTime="560.15" timeLoss="0.00" traveltime="87.86">
+    <personinfo id="p.3" depart="23.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="648.00" waitingTime="560.15" timeLoss="0.00" traveltime="87.86">
         <ride waitingTime="560.15" vehicle="trip_0" depart="583.15" arrival="671.00" arrivalPos="191.73" duration="87.86" routeLength="1221.73" timeLoss="0.00"/>
     </personinfo>
 </tripinfos>
