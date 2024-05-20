@@ -270,12 +270,14 @@ It is possible to start the person simulation simultaneously with the start of a
 ## Starting a person in a vehicle
 To start the simulation of a person while riding in a vehicle, the `depart` attribute of the person must be set to `triggered`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride. Alternatively, the lines attribute may hold the id of a flow. In this case, most recent vehicle belonging to that flow will receive the person.
 
 ## Starting multiple persons in a vehicle
-To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This only works for the distribution attribute `number`, which defines the number of persons inserted into the vehicle, and the attribute `begin="triggered"`. The `end` attribute is ignored or can be left.
+To start the simulation of multiple persons with the same plan while riding in a vehicle, `personFlow` can be used. This works by setting the attribute `begin="triggered"`.
 Additionally the first stage of the plan must be a `ride`. The `from` attribute is not necessary, since the vehicle start position is already defined and used.
-The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride.
+The vehicle is indicated by using only the vehicle ID for the `lines` attribute of the ride. Alternatively, the lines attribute may hold the id of a flow. In this case, most recent vehicle belonging to that flow will receive the person.
+If the personFlow is defined with attribute `number`, then all persons will be inserted into the same vehicle.
+If the personFlow is defined with attribute `period`, then the persons will be created with the indicated period and be put in the vehicle at a later time (and possibly different vehicles if a flow id was used in `lines`).
 
 ## Examples
 Person `p0` starts within the vehicle defined by trip `v0` at edge `gneE0`. The ride ends at edge `gneE1`.
