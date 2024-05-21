@@ -1017,7 +1017,7 @@ MSBaseVehicle::isParking() const {
 
 bool
 MSBaseVehicle::isJumping() const {
-    return myPastStops.size() > 0 && myPastStops.back().jump >= 0 && getEdge()->getID() == myPastStops.back().edge;
+    return myPastStops.size() > 0 && myPastStops.back().jump >= 0 && getEdge()->getID() == myPastStops.back().edge && myPastStops.back().ended == SIMSTEP;
 }
 
 
