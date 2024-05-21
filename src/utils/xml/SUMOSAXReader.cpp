@@ -160,13 +160,18 @@ SUMOSAXReader::parseNext() {
 
 
 bool
-SUMOSAXReader::parseSection(int element) {
+SUMOSAXReader::parseSection(SumoXMLTag element) {
     if (myXMLReader == nullptr) {
         throw ProcessError(TL("The XML-parser was not initialized."));
     }
     bool started = false;
     if (myNextSection.first != -1) {
         started = myNextSection.first == element;
+        if (!started) {
+            // This enforces that the next parsed section starts right after the last one.
+            // If we want to skip sections we need to change this.
+            WRITE_WARNINGF("Expected different XML section '%', some content may be missing.", toString(element));
+        }
         myHandler->myStartElement(myNextSection.first, *myNextSection.second);
         delete myNextSection.second;
         myNextSection.first = -1;
