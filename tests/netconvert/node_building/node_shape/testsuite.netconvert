@@ -43,3 +43,6 @@ minimal-shape
 # build junctions based on (custom) edge endpoints
 endpoint-shape
 on_ramp
+
+# see #14866
+swapped_edges
