@@ -1062,6 +1062,12 @@ Functions that are meant to capture specific human behaviors can be switched of 
   
 Further safey-critical behaviors are described at [Safety](Simulation/Safety.md#safety-related_parameters).
 
+### Why are queuing vehicles on a lane drawn as stacked in sumo-gui?
+
+If no [collisions](Simulation/Safety.md#collisions) have been reported, this is due to [length-geometry mismatch](https://sumo.dlr.de/docs/Simulation/Distances.html#length-geometry-mismatch) and not [scaling the vehicle length 
+to geometry](https://sumo.dlr.de/docs/sumo-gui.html#scaling).
+
+
 ## Visualization
 
 ### How can I get satellite / aerial background images for my simulation
