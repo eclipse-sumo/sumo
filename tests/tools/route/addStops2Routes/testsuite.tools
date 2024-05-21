@@ -27,6 +27,9 @@ duration_random
 # assign stops probabilistically
 probability
 
+# tests for adding stops at the end of a route
+waypoints
+
 # tests for adding stops at the end of a trip
 trip
 
