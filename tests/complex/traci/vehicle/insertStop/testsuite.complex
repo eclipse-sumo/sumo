@@ -10,6 +10,9 @@ first_init_setSpeed
 # replace first stop after the vehicle has departed
 first
 
+# insert a stop that requires looping back to the first stop edge.  (#14883)
+first_loop
+
 # replace first stop while already on the stop edge
 first_later
 
