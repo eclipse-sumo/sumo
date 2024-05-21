@@ -55,8 +55,6 @@
 #include "NILoader.h"
 #include "NIImporter_OpenStreetMap.h"
 
-#define KM_PER_MILE 1.609344
-
 //#define DEBUG_LAYER_ELEVATION
 //#define DEBUG_RAIL_DIRECTION
 
@@ -692,11 +690,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     // if we had been able to extract the maximum speed, override the type's default
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
-        speed = e->myMaxSpeed / 3.6;
+        speed = e->myMaxSpeed;
     }
     double speedBackward = speed;
     if (e->myMaxSpeedBackward != MAXSPEED_UNGIVEN) {
-        speedBackward = e->myMaxSpeedBackward / 3.6;
+        speedBackward = e->myMaxSpeedBackward;
     }
     if (speed <= 0 || speedBackward <= 0) {
         WRITE_WARNINGF(TL("Skipping edge '%' because it has speed %."), id, speed);
@@ -1051,7 +1049,7 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myCurrentNode->name = value;
             } else if (myImportElevation && key == "ele") {
                 try {
-                    const double elevation = StringUtils::toDouble(value);
+                    const double elevation = StringUtils::parseDist(value);
                     if (std::isnan(elevation)) {
                         WRITE_WARNINGF(TL("Value of key '%' is invalid ('%') in node '%'."), key, value, myLastNodeID);
                     } else {
@@ -1095,91 +1093,93 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
     myEdgeMap(toFill),
     myPlatformShapesMap(platformShapes) {
 
-    const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none") * 3.6;
+    const double unlimitedSpeed = OptionsCont::getOptions().getFloat("osm.speedlimit-none");
 
     mySpeedMap["nan"] = MAXSPEED_UNGIVEN;
     mySpeedMap["sign"] = MAXSPEED_UNGIVEN;
     mySpeedMap["signals"] = MAXSPEED_UNGIVEN;
     mySpeedMap["none"] = unlimitedSpeed;
     mySpeedMap["no"] = unlimitedSpeed;
-    mySpeedMap["walk"] = 5.;
+    mySpeedMap["walk"] = 5. / 3.6;
     // https://wiki.openstreetmap.org/wiki/Key:source:maxspeed#Commonly_used_values
-    mySpeedMap["AT:urban"] = 50;
-    mySpeedMap["AT:rural"] = 100;
-    mySpeedMap["AT:trunk"] = 100;
-    mySpeedMap["AT:motorway"] = 130;
-    mySpeedMap["AU:urban"] = 50;
-    mySpeedMap["BE:urban"] = 50;
-    mySpeedMap["BE:zone"] = 30;
-    mySpeedMap["BE:motorway"] = 120;
-    mySpeedMap["BE:zone30"] = 30;
-    mySpeedMap["BE-VLG:rural"] = 70;
-    mySpeedMap["BE-WAL:rural"] = 90;
-    mySpeedMap["BE:school"] = 30;
-    mySpeedMap["CZ:motorway"] = 130;
-    mySpeedMap["CZ:trunk"] = 110;
-    mySpeedMap["CZ:rural"] = 90;
-    mySpeedMap["CZ:urban_motorway"] = 80;
-    mySpeedMap["CZ:urban_trunk"] = 80;
-    mySpeedMap["CZ:urban"] = 50;
+    mySpeedMap["AT:urban"] = 50. / 3.6;
+    mySpeedMap["AT:rural"] = 100. / 3.6;
+    mySpeedMap["AT:trunk"] = 100. / 3.6;
+    mySpeedMap["AT:motorway"] = 130. / 3.6;
+    mySpeedMap["AU:urban"] = 50. / 3.6;
+    mySpeedMap["BE:urban"] = 50. / 3.6;
+    mySpeedMap["BE:zone"] = 30. / 3.6;
+    mySpeedMap["BE:motorway"] = 120. / 3.6;
+    mySpeedMap["BE:zone30"] = 30. / 3.6;
+    mySpeedMap["BE-VLG:rural"] = 70. / 3.6;
+    mySpeedMap["BE-WAL:rural"] = 90. / 3.6;
+    mySpeedMap["BE:school"] = 30. / 3.6;
+    mySpeedMap["CZ:motorway"] = 130. / 3.6;
+    mySpeedMap["CZ:trunk"] = 110. / 3.6;
+    mySpeedMap["CZ:rural"] = 90. / 3.6;
+    mySpeedMap["CZ:urban_motorway"] = 80. / 3.6;
+    mySpeedMap["CZ:urban_trunk"] = 80. / 3.6;
+    mySpeedMap["CZ:urban"] = 50. / 3.6;
     mySpeedMap["DE:motorway"] = unlimitedSpeed;
-    mySpeedMap["DE:rural"] = 100;
-    mySpeedMap["DE:urban"] = 50;
-    mySpeedMap["DE:bicycle_road"] = 30;
-    mySpeedMap["DK:motorway"] = 130;
-    mySpeedMap["DK:rural"] = 80;
-    mySpeedMap["DK:urban"] = 50;
-    mySpeedMap["EE:urban"] = 50;
-    mySpeedMap["EE:rural"] = 90;
-    mySpeedMap["ES:urban"] = 50;
-    mySpeedMap["ES:zone30"] = 30;
-    mySpeedMap["FR:motorway"] = 130; // 110 (raining)
-    mySpeedMap["FR:rural"] = 80;
-    mySpeedMap["FR:urban"] = 50;
-    mySpeedMap["FR:zone30"] = 30;
-    mySpeedMap["HU:living_street"] = 20;
-    mySpeedMap["HU:motorway"] = 130;
-    mySpeedMap["HU:rural"] = 90;
-    mySpeedMap["HU:trunk"] = 110;
-    mySpeedMap["HU:urban"] = 50;
-    mySpeedMap["IT:rural"] = 90;
-    mySpeedMap["IT:motorway"] = 130;
-    mySpeedMap["IT:urban"] = 50;
-    mySpeedMap["JP:nsl"] = 60;
-    mySpeedMap["JP:express"] = 100;
-    mySpeedMap["LT:rural"] = 90;
-    mySpeedMap["LT:urban"] = 50;
-    mySpeedMap["NO:rural"] = 80;
-    mySpeedMap["NO:urban"] = 50;
-    mySpeedMap["ON:urban"] = 50;
-    mySpeedMap["ON:rural"] = 80;
-    mySpeedMap["PT:motorway"] = 120;
-    mySpeedMap["PT:rural"] = 90;
-    mySpeedMap["PT:trunk"] = 100;
-    mySpeedMap["PT:urban"] = 50;
-    mySpeedMap["RO:motorway"] = 130;
-    mySpeedMap["RO:rural"] = 90;
-    mySpeedMap["RO:trunk"] = 100;
-    mySpeedMap["RO:urban"] = 50;
-    mySpeedMap["RS:living_street"] = 30;
-    mySpeedMap["RS:motorway"] = 130;
-    mySpeedMap["RS:rural"] = 80;
-    mySpeedMap["RS:trunk"] = 100;
-    mySpeedMap["RS:urban"] = 50;
-    mySpeedMap["RU:living_street"] = 20;
-    mySpeedMap["RU:urban"] = 60;
-    mySpeedMap["RU:rural"] = 90;
-    mySpeedMap["RU:motorway"] = 110;
-    mySpeedMap["GB:motorway"] = 70 * KM_PER_MILE;
-    mySpeedMap["GB:nsl_dual"] = 70 * KM_PER_MILE;
-    mySpeedMap["GB:nsl_single"] = 60 * KM_PER_MILE;
-    mySpeedMap["UK:motorway"] = 70 * KM_PER_MILE;
-    mySpeedMap["UK:nsl_dual"] = 70 * KM_PER_MILE;
-    mySpeedMap["UK:nsl_single"] = 60 * KM_PER_MILE;
-    mySpeedMap["UZ:living_street"] = 30;
-    mySpeedMap["UZ:urban"] = 70;
-    mySpeedMap["UZ:rural"] = 100;
-    mySpeedMap["UZ:motorway"] = 110;
+    mySpeedMap["DE:rural"] = 100. / 3.6;
+    mySpeedMap["DE:urban"] = 50. / 3.6;
+    mySpeedMap["DE:bicycle_road"] = 30. / 3.6;
+    mySpeedMap["DK:motorway"] = 130. / 3.6;
+    mySpeedMap["DK:rural"] = 80. / 3.6;
+    mySpeedMap["DK:urban"] = 50. / 3.6;
+    mySpeedMap["EE:urban"] = 50. / 3.6;
+    mySpeedMap["EE:rural"] = 90. / 3.6;
+    mySpeedMap["ES:urban"] = 50. / 3.6;
+    mySpeedMap["ES:zone30"] = 30. / 3.6;
+    mySpeedMap["FR:motorway"] = 130. / 3.6; // 110 (raining)
+    mySpeedMap["FR:rural"] = 80. / 3.6;
+    mySpeedMap["FR:urban"] = 50. / 3.6;
+    mySpeedMap["FR:zone30"] = 30. / 3.6;
+    mySpeedMap["HU:living_street"] = 20. / 3.6;
+    mySpeedMap["HU:motorway"] = 130. / 3.6;
+    mySpeedMap["HU:rural"] = 90. / 3.6;
+    mySpeedMap["HU:trunk"] = 110. / 3.6;
+    mySpeedMap["HU:urban"] = 50. / 3.6;
+    mySpeedMap["IT:rural"] = 90. / 3.6;
+    mySpeedMap["IT:motorway"] = 130. / 3.6;
+    mySpeedMap["IT:urban"] = 50. / 3.6;
+    mySpeedMap["JP:nsl"] = 60. / 3.6;
+    mySpeedMap["JP:express"] = 100. / 3.6;
+    mySpeedMap["LT:rural"] = 90. / 3.6;
+    mySpeedMap["LT:urban"] = 50. / 3.6;
+    mySpeedMap["NO:rural"] = 80. / 3.6;
+    mySpeedMap["NO:urban"] = 50. / 3.6;
+    mySpeedMap["ON:urban"] = 50. / 3.6;
+    mySpeedMap["ON:rural"] = 80. / 3.6;
+    mySpeedMap["PT:motorway"] = 120. / 3.6;
+    mySpeedMap["PT:rural"] = 90. / 3.6;
+    mySpeedMap["PT:trunk"] = 100. / 3.6;
+    mySpeedMap["PT:urban"] = 50. / 3.6;
+    mySpeedMap["RO:motorway"] = 130. / 3.6;
+    mySpeedMap["RO:rural"] = 90. / 3.6;
+    mySpeedMap["RO:trunk"] = 100. / 3.6;
+    mySpeedMap["RO:urban"] = 50. / 3.6;
+    mySpeedMap["RS:living_street"] = 30. / 3.6;
+    mySpeedMap["RS:motorway"] = 130. / 3.6;
+    mySpeedMap["RS:rural"] = 80. / 3.6;
+    mySpeedMap["RS:trunk"] = 100. / 3.6;
+    mySpeedMap["RS:urban"] = 50. / 3.6;
+    mySpeedMap["RU:living_street"] = 20. / 3.6;
+    mySpeedMap["RU:urban"] = 60. / 3.6;
+    mySpeedMap["RU:rural"] = 90. / 3.6;
+    mySpeedMap["RU:motorway"] = 110. / 3.6;
+    const double seventy = StringUtils::parseSpeed("70mph");
+    const double sixty = StringUtils::parseSpeed("60mph");
+    mySpeedMap["GB:motorway"] = seventy;
+    mySpeedMap["GB:nsl_dual"] = seventy;
+    mySpeedMap["GB:nsl_single"] = sixty;
+    mySpeedMap["UK:motorway"] = seventy;
+    mySpeedMap["UK:nsl_dual"] = seventy;
+    mySpeedMap["UK:nsl_single"] = sixty;
+    mySpeedMap["UZ:living_street"] = 30. / 3.6;
+    mySpeedMap["UZ:urban"] = 70. / 3.6;
+    mySpeedMap["UZ:rural"] = 100. / 3.6;
+    mySpeedMap["UZ:motorway"] = 110. / 3.6;
 }
 
 NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() = default;
@@ -1448,9 +1448,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
                 const std::vector<std::string> values = StringTokenizer(value, "|").getVector();
                 std::vector<double> widthLanes;
                 for (std::string width : values) {
-                    double parsedWidth = width == ""
-                                         ? -1
-                                         : StringUtils::toDouble(width);
+                    const double parsedWidth = width == "" ? -1 : StringUtils::parseDist(width);
                     widthLanes.push_back(parsedWidth);
                 }
 
@@ -1466,7 +1464,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element, const SUMOSA
             }
         } else if (key == "width") {
             try {
-                myCurrentEdge->myWidth = StringUtils::toDouble(value);
+                myCurrentEdge->myWidth = StringUtils::parseDist(value);
             } catch (const NumberFormatException&) {
                 WRITE_WARNINGF(TL("Using default width for edge '%' as value '%' could not be parsed."), toString(myCurrentEdge->id), value);
             }
@@ -1689,15 +1687,8 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, s
                 value = value.substr(3);
             }
         }
-        double conversion = 1; // OSM default is km/h
-        if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
-            value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
-        } else if (StringUtils::to_lower_case(value).find("mph") != std::string::npos) {
-            value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
-            conversion = KM_PER_MILE;
-        }
         try {
-            return StringUtils::toDouble(value) * conversion;
+            return StringUtils::parseSpeed(value);
         } catch (...) {
             WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
                           toString(myCurrentEdge->id) + "'.");

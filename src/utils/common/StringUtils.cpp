@@ -41,6 +41,8 @@
 #include <utils/common/StringTokenizer.h>
 #include "StringUtils.h"
 
+#define KM_PER_MILE 1.609344
+
 
 // ===========================================================================
 // static member definitions
@@ -428,6 +430,88 @@ StringUtils::toVersion(const std::string& sData) {
     std::vector<std::string> parts = StringTokenizer(sData, ".").getVector();
     return MMVersion(toInt(parts.front()), toDouble(parts.back()));
 }
+
+
+double
+StringUtils::parseDist(const std::string& sData) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "m" || unit == "metre" || unit == "meter" || unit == "metres" || unit == "meters") {
+                return result;
+            }
+            if (unit == "km" || unit == "kilometre" || unit == "kilometer" || unit == "kilometres" || unit == "kilometers") {
+                return result * 1000.;
+            }
+            if (unit == "mi" || unit == "mile" || unit == "miles") {
+                return result * 1000. * KM_PER_MILE;
+            }
+            if (unit == "nmi") {
+                return result * 1852.;
+            }
+            if (unit == "ft" || unit == "foot" || unit == "feet") {
+                return result * 12. * 0.0254;
+            }
+            if (unit == "\"" || unit == "in" || unit == "inch" || unit == "inches") {
+                return result * 0.0254;
+            }
+            if (unit[0] == '\'') {
+                double inches = 12 * result;
+                if (unit.length() > 1) {
+                    inches += std::stod(unit.substr(1), &idx);
+                    if (unit.substr(idx) == "\"") {
+                        return inches * 0.0254;
+                    }
+                }
+            }
+            throw NumberFormatException("(distance format) " + sData);
+        } else {
+            return result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
+    }
+}
+
+
+double
+StringUtils::parseSpeed(const std::string& sData, const bool defaultKmph) {
+    if (sData.size() == 0) {
+        throw EmptyData();
+    }
+    try {
+        size_t idx = 0;
+        const double result = std::stod(sData, &idx);
+        if (idx != sData.size()) {
+            const std::string unit = prune(sData.substr(idx));
+            if (unit == "km/h" || unit == "kph" || unit == "kmh" || unit == "kmph") {
+                return result / 3.6;
+            }
+            if (unit == "m/s") {
+                return result;
+            }
+            if (unit == "mph") {
+                return result * KM_PER_MILE / 3.6;
+            }
+            if (unit == "knots") {
+                return result * 1.852 / 3.6;
+            }
+            throw NumberFormatException("(speed format) " + sData);
+        } else {
+            return defaultKmph ? result / 3.6 : result;
+        }
+    } catch (...) {
+        // invalid_argument or out_of_range
+        throw NumberFormatException("(double) " + sData);
+    }
+}
+
 
 std::string
 StringUtils::transcode(const XMLCh* const data, int length) {

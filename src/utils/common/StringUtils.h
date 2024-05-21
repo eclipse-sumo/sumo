@@ -130,15 +130,21 @@ public:
     static double toDoubleSecure(const std::string& sData, const double def);
 
     /**@brief converts a string into the bool value described by it by calling the char-type converter
-     * @return true if the data* is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
-     * @return false if the data* is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
-     * @throw EmptyData - exception if the given string is empty or 0 pointer
+     * @return true if the sData is one of the following (case insensitive): '1', 'x', 'true', 'yes', 'on', 't'
+     * @return false if the sData is one of the following (case insensitive): '0', '-', 'false', 'no', 'off', 'f'
+     * @throw EmptyData - exception if the given string is empty
      * @throw BoolFormatException in any other case
      */
     static bool toBool(const std::string& sData);
 
-    /// @brief to version
+    /// @brief parse a (network) version string
     static MMVersion toVersion(const std::string& sData);
+
+    /// @brief parse a distance, length or width value with a unit
+    static double parseDist(const std::string& sData);
+
+    /// @brief parse a speed value with a unit
+    static double parseSpeed(const std::string& sData, const bool defaultKmph = true);
 
     /**@brief converts a 0-terminated XMLCh* array (usually UTF-16, stemming from Xerces) into std::string in UTF-8
      * @throw an EmptyData - exception if the given pointer is 0
