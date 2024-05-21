@@ -17,7 +17,11 @@ You can find a test case for these implementations at
 
 # Defining Electric Vehicles
 
-To define an electric vehicle, it must be equipped with a battery
+Different aspects of electric vehicles are modeled separately. This page puts the focus
+on modeling the battery and how it is charged and discharged. The actual energy consumption values themselves
+are part of the emission modelling because SUMO can use different models for that.
+
+To track the charging status of a vehicle, it must be equipped with a battery
 device. This may be done using the option **--device.battery.explicit <vehID1,vehID2,...\>** or simply setting **--device.battery.probability 1** to equip
 all vehicles. Alternatively, the device may be specified using [Generic
 vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
@@ -43,11 +47,11 @@ These values have the following meanings (the defaults are from the Kia below):
 | recuperationEfficiency  | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
 | stoppingThreshold       | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
 
-An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
-
 !!! note
     Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
     that it is a mass and not a moment of inertia. The old parameter is considered deprecated.
+
+An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
 ```xml
 <routes>
@@ -68,6 +72,12 @@ An example of a vehicle with electric attribute (those are the values for a city
     </vType>
 </routes>
 ```
+
+If a vehicle has a battery device (and is not [tracking fuel](#tracking-fuel-consumption-for-non-electrical-vehicles))
+and no explicit `emissionClass` is defined, it will be assigned the emission class `Energy/unknown`.
+It will not use the [default emission class](../Vehicle_Type_Parameter_Defaults.md) derived from the vehicle class then.
+This is for backward compatibility and will issue a warning because in general it is preferable to set the emission class explicitly.
+Most of the parameters above do actually apply to this emission class and not to the battery device itself.
 
 The initial energy content of the battery (by default `0.5*maximumBatteryCapacity`) can
 be set in the vehicle definitions
