@@ -196,14 +196,14 @@ editing is that it must be repeated when running *randomTrips.py* again.
 
 ## Generating different modes of traffic
 
-- Using the option **--pedestrians** will generated pedestrians instead of vehicles.
-- Using the option **--persontrips** will generated persons with `<persontrip>` definitions. This
+- Using the option **--pedestrians** will generate pedestrians instead of vehicles.
+- Using the option **--persontrips** will generate persons with `<persontrip>` definitions. This
 allows to specify the available traffic modes and thus use
 [IntermodalRouting](../IntermodalRouting.md) to decided whether
 they use public transport, a personal car or walking.
   - walking or public transport: **--trip-attributes "modes=\"public\""**
   - walking, public transport or car **--trip-attributes "modes=\"public car\""**
-- Using the option **--personrides <LINE>** will generated persons with `<ride line="LINE">` definitions.
+- Using the option **--personrides <LINE>** will generate persons with `<ride line="LINE">` definitions.
 - using option **--from-stops busStop** will make persons start with an initial `<stop duration="0">` at a random busStop
 - using option **--to-stops busStop** will make persons end their journey at a random busStop
 
