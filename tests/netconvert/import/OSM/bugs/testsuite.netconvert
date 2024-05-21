@@ -130,3 +130,6 @@ ticket14785
 
 # bad junction shape (webwizard version of OSM)
 ticket14785b
+
+# exit on broken OSM
+ticket14892
