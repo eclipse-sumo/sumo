@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-17 18:06+0200\n"
-"PO-Revision-Date: 2024-05-17 16:05+0000\n"
+"PO-Revision-Date: 2024-05-22 08:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2159,23 +2159,25 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:558
 msgid "The update interval of the JuPedSim simulation (in seconds)"
-msgstr ""
+msgstr "L'intervallo di aggiornamento della simulazione JuPedSim (in secondi)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:560
 msgid "The distance to accept the JuPedSim arrival point (in meters)"
-msgstr ""
+msgstr "La distanza dal punto di arrivo JuPedSim da accettare (in metri)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:562
 msgid "The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"
 msgstr ""
+"Il sottomodello da usare in JuPedSim (attualmente solamente "
+"'CollisionFreeSpeed')"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:564
 msgid "The neighbor repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "La forza di repulsione dal vicino nel modello JuPedSim"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:566
 msgid "The neighbor repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "La zona di repulsione dal vicino del modello JuPedSim (in metri)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:568
 msgid "The geometry repulsion strength of the JuPedSim model"
@@ -2361,31 +2363,31 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:744
 msgid "Start the simulation after loading"
-msgstr ""
+msgstr "Inizia la simulazione dopo aver finito di caricarla"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:747
 msgid "Use FLOAT in ms as delay between simulation steps"
-msgstr ""
+msgstr "Usa FLOAT (in ms) come rallentamento tra due passi di simulazione"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:750
 msgid "Use TIME[] as times when the simulation should halt"
-msgstr ""
+msgstr "Usa TIME[] come ore quando la simulazioni deve fermarsi"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:754
 msgid "Load edge/lane weights for visualization from FILE"
-msgstr ""
+msgstr "Carica pesi di archo/di corsie per motivi di visualizzazione da FILE"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:757
 msgid "Load a secondary road network for abstract visualization from FILE"
-msgstr ""
+msgstr "Carica una rete secondaria per una visualizzazione astratta da FILE"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:760
 msgid "Restart the simulation after ending (demo mode)"
-msgstr ""
+msgstr "Inizia la simulazione di nuovo dopo terminarla (modo demo)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:763
 msgid "Do not load background pictures"
-msgstr ""
+msgstr "Non caricare immagini di sfondo"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:766
 msgid "Load current viewport from registry"
@@ -2418,14 +2420,16 @@ msgstr "Attiva messaggi uscita durante il test dell'interfaccia grafica"
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:792
 msgid "Save gui settings in the given settings output file"
 msgstr ""
+"Salva configurazione della visualizzazione nell'archivio di configurazione "
+"dato"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:843
 msgid "No network file (-n) specified."
-msgstr ""
+msgstr "Nessun'archivio di rete (-n) specificato."
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:847
 msgid "Invalid scaling factor."
-msgstr ""
+msgstr "Fattore di graduazione invalido."
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:851
 msgid "A vehroute-output file is needed for exit times."
@@ -2450,7 +2454,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:901
 msgid "the minimum step-length is 0.001"
-msgstr ""
+msgstr "la durata minima di un passo di simulazione è 0.001"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:916
 msgid "The save-state time=% will not be used before simulation end at %."
