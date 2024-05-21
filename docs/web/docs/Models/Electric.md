@@ -228,7 +228,7 @@ The battery-output generates a file with this structure:
 <battery-export>
     <timestep time="0.00">
         <vehicle id="vehicle01" Consum="0.00" actualBatteryCapacity="17500.00" maximumBatteryCapacity="35000.00"
-            chargingStationId="NULL" energyCharge="0.00" energyChargedInTransit="0.00" energyChargedStopped="0.00"
+            chargingStationId="NULL" energyCharged="0.00" energyChargedInTransit="0.00" energyChargedStopped="0.00"
             speed="12.92" acceleration="0.00" x="1428.27" y="25.57" lane="01to02_0"
             posOnLane="0.00" timeStopped="0"/>
         <vehicle id=..... */
