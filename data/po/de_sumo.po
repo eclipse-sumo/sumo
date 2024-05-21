@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-17 18:06+0200\n"
-"PO-Revision-Date: 2024-05-17 16:05+0000\n"
+"PO-Revision-Date: 2024-05-22 08:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2697,7 +2697,7 @@ msgstr "Simulation nach Ende neu beginnen (Demomodus)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:763
 msgid "Do not load background pictures"
-msgstr "Konnte keine Hintergrundbilder laden"
+msgstr "Keine Hintergrundbilder laden"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:766
 msgid "Load current viewport from registry"
