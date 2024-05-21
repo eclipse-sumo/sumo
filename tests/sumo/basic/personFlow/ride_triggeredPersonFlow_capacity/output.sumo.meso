@@ -1,0 +1,17 @@
+Loading net-file from 'three_split.net.xml' ... done (0ms).
+Loading done.
+Simulation version v1_20_0+0143-80f08a61903 started with time: 0.00.
+Simulation ended at time: 1000.00
+Reason: The final simulation step has been reached.
+Statistics (avg of 3):
+ RouteLength: 2000.00
+ Speed: 27.78
+ Duration: 72.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00
+Ride Statistics (avg of 20 rides):
+ WaitingTime: 0.00
+ RouteLength: 1855.00
+ Duration: 68.75
+
