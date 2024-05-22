@@ -267,7 +267,7 @@ NLBuilder::build() {
     if (myOptions.isSet("load-state")) {
         myNet.setCurrentTimeStep(string2time(myOptions.getString("begin")));
         const std::string& f = myOptions.getString("load-state");
-        long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + f + "'");
+        long before = PROGRESS_BEGIN_TIME_MESSAGE(TLF("Loading state from '%'", f));
         MSStateHandler h(f, string2time(myOptions.getString("load-state.offset")));
         XMLSubSys::runParser(h, f);
         if (MsgHandler::getErrorInstance()->wasInformed()) {
