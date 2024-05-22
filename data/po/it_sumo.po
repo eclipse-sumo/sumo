@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-17 18:06+0200\n"
-"PO-Revision-Date: 2024-05-22 08:01+0000\n"
+"PO-Revision-Date: 2024-05-22 10:16+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3645,12 +3645,16 @@ msgstr ""
 msgid ""
 "SSM device of vehicle '%' detected collision with vehicle '%' at time=%."
 msgstr ""
+"L'attrezzo SSM del veicolo '%' ha rilevato una collisione col veicolo '%' "
+"alle ore %."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2500
 msgid ""
 "Cannot classify SSM encounter between ego vehicle % and foe vehicle % at "
 "time=%\n"
 msgstr ""
+"L'incontro SSM tra il veicolo ego % e quello nemico % alle ore % non può "
+"essere classificato\n"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2678
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:2702
@@ -3658,40 +3662,47 @@ msgid ""
 "Cannot compute SSM due to bad internal lane geometry at junction '%'. "
 "Crossing point between traffic from links % and % not found."
 msgstr ""
+"Non si possono calcolare misure SSM dovuto alla strana geometria "
+"dell'incrocio '%'. Il punto di incrocio tra i collegamenti % e % non è stato "
+"trovato."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3878
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4155
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di veicolo 'ssm.measures'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3884
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4161
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di tipo di veicolo 'ssm.measures'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3889
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.file'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.file', quindi viene "
+"usato il valore standard '%'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3912
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.geo'."
-msgstr ""
+msgstr "Valore invalido del parametro di veicolo 'ssm.geo'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3918
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.geo'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di tipo di veicolo 'ssm.geo'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3923
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.geo'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.geo', quindi viene "
+"usato il valore standard '%'."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:3939
 #, c-format
