@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-01-23 07:38:11 by Eclipse SUMO sumo Version v1_19_0+0653-474bc5e6c94
+<!-- generated on 2024-05-22 11:13:35 by Eclipse SUMO sumo Version v1_20_0+0146-87bd759667d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <time>
@@ -23,27 +24,61 @@
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" sampledSeconds="54.90" CO_abs="1056.825000" CO2_abs="115961.000000" HC_abs="7.304750" PMx_abs="0.684725" NOx_abs="38.170750" fuel_abs="36987.350000" electricity_abs="0"
-            CO_normed="162.380282" CO2_normed="17817.311140" HC_normed="1.122369" PMx_normed="0.105207" NOx_normed="5.864904" fuel_normed="5683.075544" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
-        <edge id="4/1to3/1" sampledSeconds="58.10" CO_abs="1118.425000" CO2_abs="122720.111111" HC_abs="7.730528" PMx_abs="0.724636" NOx_abs="40.395639" fuel_abs="39143.261111" electricity_abs="0"
-            CO_normed="171.845070" CO2_normed="18855.842936" HC_normed="1.187789" PMx_normed="0.111340" NOx_normed="6.206756" fuel_normed="6014.329492" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="28.50" CO_abs="2012.164065" CO2_abs="87977.697281" HC_abs="11.161891" PMx_abs="1.331792" NOx_abs="34.950053" fuel_abs="28061.482341" electricity_abs="0"
+            CO_normed="309.167334" CO2_normed="13517.699966" HC_normed="1.715015" PMx_normed="0.204629" NOx_normed="5.370047" fuel_normed="4311.623407" electricity_normed="0"
+            traveltime="53.56" CO_perVeh="3781.334992" CO2_perVeh="165331.023971" HC_perVeh="20.975849" PMx_perVeh="2.502754" NOx_perVeh="65.679465" fuel_perVeh="52734.201428" electricity_perVeh="0"/>
+        <edge id="4/1to3/1" sampledSeconds="84.50" CO_abs="5141.603096" CO2_abs="183333.205512" HC_abs="27.482065" PMx_abs="2.335149" NOx_abs="68.860061" fuel_abs="58477.389359" electricity_abs="0"
+            CO_normed="790.003036" CO2_normed="28168.994445" HC_normed="4.222596" PMx_normed="0.358794" NOx_normed="10.580291" fuel_normed="8985.002206" electricity_normed="0"
+            traveltime="56.79" CO_perVeh="3455.759051" CO2_perVeh="123221.371347" HC_perVeh="18.471164" PMx_perVeh="1.569493" NOx_perVeh="46.282020" fuel_perVeh="39303.649819" electricity_perVeh="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="18.70" CO_abs="359.975000" CO2_abs="39498.555556" HC_abs="2.488139" PMx_abs="0.233231" NOx_abs="13.001694" fuel_abs="12598.605556" electricity_abs="0"
-            CO_normed="55.309859" CO2_normed="6068.920188" HC_normed="0.382300" PMx_normed="0.035836" NOx_normed="1.997700" fuel_normed="1935.765258" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
-        <edge id="2/1to1/1" sampledSeconds="78.10" CO_abs="1503.425000" CO2_abs="164964.555556" HC_abs="10.391639" PMx_abs="0.974081" NOx_abs="54.301194" fuel_abs="52617.705556" electricity_abs="0"
-            CO_normed="231.000000" CO2_normed="25346.666667" HC_normed="1.596667" PMx_normed="0.149667" NOx_normed="8.343333" fuel_normed="8084.666667" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
-        <edge id="3/1to2/1" sampledSeconds="23.20" CO_abs="446.600000" CO2_abs="49003.555556" HC_abs="3.086889" PMx_abs="0.289356" NOx_abs="16.130444" fuel_abs="15630.355556" electricity_abs="0"
-            CO_normed="68.619718" CO2_normed="7529.355527" HC_normed="0.474298" PMx_normed="0.044459" NOx_normed="2.478429" fuel_normed="2401.591122" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="120.00" CO_abs="11110.194444" CO2_abs="276280.277778" HC_abs="56.846667" PMx_abs="4.710278" NOx_abs="111.711389" fuel_abs="88125.277778" electricity_abs="0"
+            CO_normed="1707.072130" CO2_normed="42450.234742" HC_normed="8.734443" PMx_normed="0.723730" NOx_normed="17.164362" fuel_normed="13540.375587" electricity_normed="0"
+            traveltime="82.76" CO_perVeh="7662.541382" CO2_perVeh="190546.535627" HC_perVeh="39.206329" PMx_perVeh="3.248611" NOx_perVeh="77.045739" fuel_perVeh="60778.737146" electricity_perVeh="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="57.20" CO_abs="1101.100000" CO2_abs="120819.111111" HC_abs="7.610778" PMx_abs="0.713411" NOx_abs="39.769889" fuel_abs="38536.911111" electricity_abs="0"
-            CO_normed="338.366197" CO2_normed="37127.511737" HC_normed="2.338779" PMx_normed="0.219230" NOx_normed="12.221221" fuel_normed="11842.328638" electricity_normed="0"
-            traveltime="39.05" CO_perVeh="751.712500" CO2_perVeh="82482.277778" HC_perVeh="5.195819" PMx_perVeh="0.487040" NOx_perVeh="27.150597" fuel_perVeh="26308.852778" electricity_perVeh="0"/>
+        <edge id="2/1to1/1" sampledSeconds="36.50" CO_abs="2166.164065" CO2_abs="104875.475058" HC_abs="12.226336" PMx_abs="1.431570" NOx_abs="40.512275" fuel_abs="33451.260119" electricity_abs="0"
+            CO_normed="665.658612" CO2_normed="32228.058917" HC_normed="3.757133" PMx_normed="0.439919" NOx_normed="12.449355" fuel_normed="10279.516554" electricity_normed="0"
+            traveltime="49.52" CO_perVeh="2939.179586" CO2_perVeh="142301.250570" HC_perVeh="16.589416" PMx_perVeh="1.942439" NOx_perVeh="54.969452" fuel_perVeh="45388.649209" electricity_perVeh="0"/>
+        <edge id="3/1to2/1" sampledSeconds="23.50" CO_abs="3768.036157" CO2_abs="62344.051608" HC_abs="18.618207" PMx_abs="1.530384" NOx_abs="28.424211" fuel_abs="19886.173214" electricity_abs="0"
+            CO_normed="1157.911239" CO2_normed="19158.223286" HC_normed="5.721344" PMx_normed="0.470284" NOx_normed="8.734713" fuel_normed="6110.987928" electricity_normed="0"
+            traveltime="1310.47" CO_perVeh="210112.540254" CO2_perVeh="3476417.557198" HC_perVeh="1038.185019" PMx_perVeh="85.336966" NOx_perVeh="1584.985653" fuel_perVeh="1108889.138975" electricity_perVeh="0"/>
+    </interval>
+</meandata>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-22 11:13:36 by Eclipse SUMO sumo Version v1_20_0+0146-87bd759667d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional2.add.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="3/1to2/1" sampledSeconds="28.50" traveltime="53.56" overlapTraveltime="53.97" density="1.22" laneDensity="1.22" occupancy="0.35" waitingTime="0.00" timeLoss="7.72" speed="7.29" speedRelative="0.73" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="86.92" traveltime="56.79" overlapTraveltime="58.27" density="3.71" laneDensity="3.71" occupancy="1.10" waitingTime="20.00" timeLoss="28.22" speed="6.75" speedRelative="0.68" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="3/1to2/1" sampledSeconds="120.00" traveltime="82.76" overlapTraveltime="83.40" density="5.12" laneDensity="5.12" occupancy="1.54" waitingTime="61.00" timeLoss="63.38" speed="4.72" speedRelative="0.47" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="2/1to1/1" sampledSeconds="36.50" traveltime="49.52" overlapTraveltime="49.90" density="3.12" laneDensity="3.12" occupancy="0.90" waitingTime="0.00" timeLoss="7.72" speed="7.89" speedRelative="0.79" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="25.92" traveltime="1310.47" overlapTraveltime="784.32" density="2.21" laneDensity="2.21" occupancy="0.64" waitingTime="19.00" timeLoss="24.62" speed="0.50" speedRelative="0.05" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

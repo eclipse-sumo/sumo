@@ -4,7 +4,8 @@
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <time>
