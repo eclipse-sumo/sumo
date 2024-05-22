@@ -310,7 +310,7 @@ namespace tcpip
 		{
 #ifdef WIN32
 			ULONG NonBlock = blocking_ ? 0 : 1;
-		    if (ioctlsocket(server_socket_, FIONBIO, &NonBlock) == SOCKET_ERROR)
+			if (ioctlsocket(server_socket_, FIONBIO, &NonBlock) == SOCKET_ERROR)
 				BailOnSocketError("tcpip::Socket::set_blocking() Unable to initialize non blocking I/O");
 #else
 			long arg = fcntl(server_socket_, F_GETFL, NULL);
@@ -331,33 +331,33 @@ namespace tcpip
 		Socket::
 		connect()
 	{
-        struct addrinfo* servinfo; // will point to the results
-        struct addrinfo hints;
-        memset(&hints, 0, sizeof hints); // make sure the struct is empty
-        hints.ai_family = AF_UNSPEC; // IP4 and IP6 are possible
-        hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
-        hints.ai_flags = AI_PASSIVE; // fill in my IP for me
+		struct addrinfo* servinfo; // will point to the results
+		struct addrinfo hints;
+		memset(&hints, 0, sizeof hints); // make sure the struct is empty
+		hints.ai_family = AF_UNSPEC; // IP4 and IP6 are possible
+		hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+		hints.ai_flags = AI_PASSIVE; // fill in my IP for me
 
-        if (getaddrinfo(host_.c_str(), std::to_string(port_).c_str(), &hints, &servinfo) != 0) {
+		if (getaddrinfo(host_.c_str(), std::to_string(port_).c_str(), &hints, &servinfo) != 0) {
 			BailOnSocketError("tcpip::Socket::connect() @ Invalid network address");
-        }
+		}
 		socket_ = -1;
-        for (struct addrinfo* p = servinfo; p != nullptr; p = p->ai_next) {
-			socket_ = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+		for (struct addrinfo* p = servinfo; p != nullptr; p = p->ai_next) {
+			socket_ = (int)socket(p->ai_family, p->ai_socktype, p->ai_protocol);
 			if (socket_ >= 0) {
-				if (::connect(socket_, p->ai_addr, p->ai_addrlen) == 0) {
+				if (::connect(socket_, p->ai_addr, (int)p->ai_addrlen) == 0) {
 					int x = 1;
 					setsockopt(socket_, IPPROTO_TCP, TCP_NODELAY, (const char*)&x, sizeof(x));
 					break;
 				}
 				close();
 			}
-        }
-        freeaddrinfo(servinfo); // free the linked list
+		}
+		freeaddrinfo(servinfo); // free the linked list
 		if (socket_ < 0) {
 			BailOnSocketError("tcpip::Socket::connect() @ socket");
 		}
-    }
+	}
 
 	// ----------------------------------------------------------------------
 	void
