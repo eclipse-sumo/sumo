@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-05-17 18:06+0200\n"
+"POT-Creation-Date: 2024-05-22 16:23+0200\n"
 "PO-Revision-Date: 2024-03-12 10:13+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -12423,6 +12423,12 @@ msgstr "补充"
 msgid "Shape"
 msgstr ""
 
+#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:63
+#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
+#: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
+msgid "TAZ"
+msgstr "交通分配区"
+
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:73
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:165
 msgid "GenericDatas"
@@ -12431,11 +12437,6 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:77
 msgid "Invalid supermode"
 msgstr "无效的超级模式"
-
-#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
-#: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
-msgid "TAZ"
-msgstr "交通分配区"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:96
 msgid "Mark as front element"

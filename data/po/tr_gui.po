@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-05-17 18:06+0200\n"
+"POT-Creation-Date: 2024-05-22 16:23+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -12686,6 +12686,12 @@ msgstr "Ek"
 msgid "Shape"
 msgstr ""
 
+#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:63
+#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
+#: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
+msgid "TAZ"
+msgstr "TAZ"
+
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:73
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:165
 msgid "GenericDatas"
@@ -12694,11 +12700,6 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:77
 msgid "Invalid supermode"
 msgstr "Geçersiz süper mod"
-
-#: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
-#: D:\Repos\sumo/src\netedit\frames\network\GNETAZFrame.cpp:153
-msgid "TAZ"
-msgstr "TAZ"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:96
 msgid "Mark as front element"
