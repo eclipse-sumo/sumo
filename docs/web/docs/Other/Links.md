@@ -4,13 +4,6 @@ title: Links
 
 ## Open Source Development
 
-### Hosts
-
-- [sourceforge.net](https://sourceforge.net/) Host of open-source
-  projects (about 100.000).
-
-### How To Contribute
-
 - [5 Ways to Contribute to Open Source Projects Without
   Coding](https://nongeeksight.blogspot.com/2006/09/5-ways-to-contribute-to-open-source.html)
 

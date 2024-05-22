@@ -67,7 +67,7 @@ Development of guidance for decision-makers
 - [TransAID](https://ec.europa.eu/inea/en/horizon-2020/projects/H2020-Transport/Automated-Road-Transport/TransAID)
   new hierarchical traffic management procedures to allow the smooth
   integration of automated vehicles in traffic systems
-- [VITAL](https://www.dlr.de/fs/en/desktopdefault.aspx/tabid-10704/20365_read-42579/):
+- [VITAL](https://verkehrsforschung.dlr.de/de/projekte/vital-verkehrsabhaengig-intelligente-steuerung-von-lichtsignalanlagen):
   innovative traffic light control with V2X Communication.
 - [VABENE](https://verkehrsforschung.dlr.de/en/projects/vabene). SUMO simulates and predicts
   large-scale traffic for disaster and public event management
@@ -89,14 +89,14 @@ CO2 Assessment Methodology for ICT in Transport
 Addresses the environmental footprint in the transport sector by developing a new approach for pro-active demand-responsive management of traffic
 - [iTetris](https://www.ict-itetris.eu/) An Integrated Wireless and
   Traffic Platform for Real-Time Road Traffic Management Solutions
-- [Delphi](https://www.dlr.de/sc/desktopdefault.aspx/tabid-1262/1765_read-9581): country-wide traffic analysis and prognosis for Germany
+- [Delphi](https://elib.dlr.de/62187/): a joint web decision support application for real time traffic situation analysis and prognosis, information exchange and cooperation
 - [ORINOKO](https://web.archive.org/web/20220710041841/https://www.nuernberg.de/imperia/md/verkehrsplanung/dokumente/orinoko_final_internet.pdf): improvements on mobility in the
   city of Nürnberg
 - TrafficOnline: traffic flow estimation using cellular phones
 - [Soccer2006](https://web.archive.org/web/20150705081516/https://www.dlr.de/desktopdefault.aspx/tabid-1296):
   Traffic prognosis during the FIFA-WorldCup 2006
 - Weltjugendtag2005: Traffic prognosis during the world youth day 2005
-- [TrafficTower](https://www.dlr.de/fs/desktopdefault.aspx/tabid-1237/5441_read-12154/):
+- [TrafficTower](https://www.dlr.de/en/research-and-transfer/research-infrastructure/traffic-tower-en):
   A virtual traffic management centre
 - [INVENT](https://web.archive.org/web/20070310215410/http://www.invent-online.de/de/projekte.html): Evaluation of modern traffic
   management approaches
