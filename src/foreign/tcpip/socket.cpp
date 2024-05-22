@@ -229,41 +229,6 @@ namespace tcpip
 #endif
 
 	// ----------------------------------------------------------------------
-	bool
-		Socket::
-		atoaddr( std::string address, struct sockaddr_in& addr)
-	{
-        int status;
-        struct addrinfo *servinfo; // will point to the results
-
-        struct addrinfo hints;
-        memset(&hints, 0, sizeof hints); // make sure the struct is empty
-        hints.ai_family = AF_INET; // restrict to IPv4?
-        hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
-        hints.ai_flags = AI_PASSIVE; // fill in my IP for me
-
-        if ((status = getaddrinfo(address.c_str(), nullptr, &hints, &servinfo)) != 0) {
-            return false;
-        }
-
-        bool valid = false;
-
-        for (struct addrinfo *p = servinfo; p != nullptr; p = p->ai_next) {
-            if (p->ai_family == AF_INET) { // IPv4
-                addr = *(struct sockaddr_in *)p->ai_addr;
-                addr.sin_port = htons((unsigned short)port_);
-                valid = true;
-                break;
-            }
-        }
-
-        freeaddrinfo(servinfo); // free the linked list
-
-		return valid;
-	}
-
-
-	// ----------------------------------------------------------------------
 	Socket*
 		Socket::
 		accept(const bool create)
@@ -366,22 +331,31 @@ namespace tcpip
 		Socket::
 		connect()
 	{
-		sockaddr_in address;
+        struct addrinfo* servinfo; // will point to the results
+        struct addrinfo hints;
+        memset(&hints, 0, sizeof hints); // make sure the struct is empty
+        hints.ai_family = AF_UNSPEC; // IP4 and IP6 are possible
+        hints.ai_socktype = SOCK_STREAM; // TCP stream sockets
+        hints.ai_flags = AI_PASSIVE; // fill in my IP for me
 
-		if( !atoaddr( host_.c_str(), address) )
+        if (getaddrinfo(host_.c_str(), std::to_string(port_).c_str(), &hints, &servinfo) != 0) {
 			BailOnSocketError("tcpip::Socket::connect() @ Invalid network address");
-
-		socket_ = static_cast<int>(socket( PF_INET, SOCK_STREAM, 0 ));
-		if( socket_ < 0 )
+        }
+		socket_ = -1;
+        for (struct addrinfo* p = servinfo; p != nullptr; p = p->ai_next) {
+			socket_ = socket(p->ai_family, p->ai_socktype, p->ai_protocol);
+			if (socket_ >= 0) {
+				if (::connect(socket_, p->ai_addr, p->ai_addrlen) == 0) {
+					int x = 1;
+					setsockopt(socket_, IPPROTO_TCP, TCP_NODELAY, (const char*)&x, sizeof(x));
+					break;
+				}
+				close();
+			}
+        }
+        freeaddrinfo(servinfo); // free the linked list
+		if (socket_ < 0) {
 			BailOnSocketError("tcpip::Socket::connect() @ socket");
-
-		if( ::connect( socket_, (sockaddr const*)&address, sizeof(address) ) < 0 )
-			BailOnSocketError("tcpip::Socket::connect() @ connect");
-
-		if( socket_ >= 0 )
-		{
-			int x = 1;
-			setsockopt(socket_, IPPROTO_TCP, TCP_NODELAY, (const char*)&x, sizeof(x));
 		}
     }
 
