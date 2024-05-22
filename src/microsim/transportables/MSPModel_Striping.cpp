@@ -1634,12 +1634,12 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
             }
         } else if (!mayStartForward && !mayStartBackward) {
             int lastDisconnect = passedFwd >= passedBwd ? passedFwd : passedBwd;
-            std::string dLoc = TLF(", time=%.", SIMTIME);
+            std::string dLoc;
             if (route.size() > 2) {
-                dLoc = TLF("between edge '%' and edge '%', time=%.", route[lastDisconnect - 1]->getID(), route[lastDisconnect]->getID(), SIMTIME);
+                dLoc = TLF(" between edge '%' and edge '%'", route[lastDisconnect - 1]->getID(), route[lastDisconnect]->getID());
             }
-            WRITE_WARNINGF(TL("Person '%' walking from edge '%' to edge '%' has a disconnect%"),
-                           myPerson->getID(), route.front()->getID(), route.back()->getID(), dLoc);
+            WRITE_WARNINGF(TL("Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."),
+                           myPerson->getID(), route.front()->getID(), route.back()->getID(), dLoc, SIMTIME);
             myDir =  passedFwd >= passedBwd ? FORWARD : BACKWARD;
         } else {
             myDir = !mayStartBackward ? FORWARD : BACKWARD;
