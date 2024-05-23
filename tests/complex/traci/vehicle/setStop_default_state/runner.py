@@ -41,7 +41,7 @@ traci.simulationStep()
 traci.vehicle.setStop(vehID, "B1C1")
 traci.simulation.saveState("state.xml")
 traci.simulation.loadState("state.xml")
-while traci.simulation.getMinExpectedNumber() > 0:
+while traci.simulation.getTime() < 100:
     traci.simulationStep()
 
 traci.close()
