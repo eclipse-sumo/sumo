@@ -31,7 +31,7 @@
 // type definitions
 // ===========================================================================
 typedef long long int SUMOTime;
-#define SUMOTime_MAX std::numeric_limits<SUMOTime>::max()
+#define SUMOTime_MAX (std::numeric_limits<SUMOTime>::max() - 1000)
 #define SUMOTime_MIN std::numeric_limits<SUMOTime>::min()
 #define SUMOTime_MAX_PERIOD (SUMOTime_MAX - SUMOTime_MAX % DELTA_T)
 
