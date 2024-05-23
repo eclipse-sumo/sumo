@@ -40,7 +40,8 @@ modes should be imported (bus, tram, train, subway and/or ferry). As default all
 
 As output an additional file (.add.xml) containing the stops and a route file
 (.rou.xml) containing the vehicle definitions are created. If the option **--osm-routes**
-was not given, the additional file also contains the static routes.
+was not given, the additional file also contains the static routes. 
+In order to obtain vehicle definitions sorted by departure time, the option **--sort** has to be provided.
 
 If the option **--osm-routes** was used, an extra file "gtfs_missing.xml"
 that contains the elements (stops and ptLines) of GTFS that could not be imported
