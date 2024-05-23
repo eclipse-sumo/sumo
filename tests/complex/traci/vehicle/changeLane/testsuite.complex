@@ -18,3 +18,6 @@ changeRelative_invalid
 
 # force changing to a lane that does not continue the route
 lane_deadend
+
+# test changeLane and behavior of surrounding traffic
+changed_while_blocked
