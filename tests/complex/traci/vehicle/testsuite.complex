@@ -141,3 +141,6 @@ keepAfterArrival
 
 # retrieve vehicle information after arrival with state saving and loading
 keepAfterArrival_state
+
+# handle default duration argument (#14904)
+setStop_default_state
