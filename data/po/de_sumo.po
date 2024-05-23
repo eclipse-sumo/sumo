@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-22 08:01+0000\n"
+"PO-Revision-Date: 2024-05-24 13:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2097,6 +2097,8 @@ msgid ""
 "After a vehicle arrives, keep it in memory for the given TIME (for TraCI "
 "access)"
 msgstr ""
+"Behalte ein Fahrzeug für die gegebene Zeit TIME im Speicher, um den Zugriff "
+"mit TraCI zu ermöglichen"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:404
 msgid "Delay vehicle insertion to stay within the given maximum number"
@@ -2107,6 +2109,7 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:407
 msgid "Delay person insertion to stay within the given maximum number"
 msgstr ""
+"Einsatz von Personen verzögern, um die Maximalanzahl nicht zu überschreiten"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:410
 msgid ""
@@ -2969,6 +2972,8 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2230
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
 msgstr ""
+"Das liegengebliebene Fahrzeug '%' auf Fahrstreifen % wird zur Zeit % "
+"entfernt."
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2237
 msgid "Removing vehicle '%' after earlier collision, lane='%', time=%."
@@ -4517,6 +4522,7 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:513
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr ""
+"Der Parameter '%' wird von der Einrichtung des Typs '%' nicht unterstützt"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Taxi.cpp:84
 msgid ""
@@ -5314,7 +5320,7 @@ msgstr "Ungültige walkingArea '%' erlaubt keine Fortsetzung."
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:1639
 msgid " between edge '%' and edge '%'"
-msgstr ""
+msgstr " zwischen Kante '%' und Kante '%'"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:1641
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
@@ -5333,6 +5339,8 @@ msgid ""
 "Vehicle '%' exceeds personCapacity % when placing triggered person '%', time="
 "%"
 msgstr ""
+"Das Fahrzeug '%' wird über die maximale Belegung % hinaus mit der erzeugten "
+"Person '%' beladen (zur Zeit %)"
 
 #: D:\Repos\sumo/src\microsim\transportables\MSStageTrip.cpp:179
 msgid ""
@@ -5700,7 +5708,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1360
 msgid "Added % rail signals at % stops."
-msgstr ""
+msgstr "% Bahnsignale an % Halten hinzugefügt."
 
 #: D:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -5759,15 +5767,15 @@ msgstr "Winkel von % Grad an der Kante '%' gefunden, Abschnitt %."
 
 #: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1045
 msgid "Removing sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Die enge Kurve mit dem Radius % am % der Kante '%' wird entfernt."
 
 #: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1046
 msgid "start"
-msgstr ""
+msgstr "Beginn"
 
 #: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1051
 msgid "Found sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Enge Kurve mit dem Radius % am % der Kante '%' gefunden."
 
 #: D:\Repos\sumo/src\netbuild\NBEdge.cpp:1189
 msgid "Could not set connection from '%' to '%'."
@@ -5824,6 +5832,8 @@ msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr ""
+"Die Fahrtrichtungsmarkierung der Kante '%' kann nicht genutzt werden, da die "
+"ZielKante '%' nicht über geeignete Fahrstreifen verfügt"
 
 #: D:\Repos\sumo/src\netbuild\NBEdge.cpp:2748
 msgid ""
@@ -6363,7 +6373,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netbuild\NBFrame.cpp:257
 msgid "Guess signals that guard public transport stops"
-msgstr ""
+msgstr "Signale zur Sicherung von ÖV-Halten raten"
 
 #: D:\Repos\sumo/src\netbuild\NBFrame.cpp:260
 msgid "The search radius for finding suitable road accesses for rail stops"
@@ -6429,6 +6439,8 @@ msgid ""
 "Structures with a circumference above FLOAT threshold are not classified as "
 "roundabout"
 msgstr ""
+"Gebilde mit einem Umfang über dem Grenzwert FLOAT werden nicht als "
+"Kreisverkehr klassifiziert"
 
 #: D:\Repos\sumo/src\netbuild\NBFrame.cpp:309
 msgid "Default visibility when approaching a roundabout"
@@ -9979,7 +9991,7 @@ msgstr "Lade Gewichte von '%'..."
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:270
 msgid "Loading state from '%'"
-msgstr ""
+msgstr "Lade Zustand aus '%'"
 
 #: D:\Repos\sumo/src\netload\NLBuilder.cpp:290
 msgid "Loading done."
@@ -11054,7 +11066,7 @@ msgstr "Füllt Polygone standardmäßig"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:218
 msgid "Sets STR as default icon"
-msgstr ""
+msgstr "STR als Standard-Icon nutzen"
 
 #: D:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:221
 msgid "Sets FLOAT as default layer"
@@ -11235,6 +11247,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs across a traffic "
 "light"
 msgstr ""
+"Die angegebene Zeitstrafe zu den Routingkosten für die Überquerung eines "
+"Lichtsignals addieren"
 
 #: D:\Repos\sumo/src\router\ROFrame.cpp:220
 msgid "Defaults will override given values"
@@ -11620,12 +11634,12 @@ msgstr ""
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:225
 msgid "Vehicle type is not unique."
-msgstr ""
+msgstr "Der Fahrzeugtyp ist nicht einzigartig."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:229
 #, c-format
 msgid "Vehicle type '%' is not defined."
-msgstr ""
+msgstr "Der Fahrzeugtyp '%' ist nicht definiert."
 
 #: D:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:253
 msgid "Unreadable file '%'."
@@ -11797,11 +11811,11 @@ msgstr "Lokalisierte Meldungen konnten nicht gefunden werden."
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:310
 msgid "Warning: "
-msgstr ""
+msgstr "Warnung: "
 
 #: D:\Repos\sumo/src\utils\common\MsgHandler.cpp:311
 msgid "Error: "
-msgstr ""
+msgstr "Fehler: "
 
 #: D:\Repos\sumo/src\utils\common\Parameterised.cpp:106
 msgid "Invalid conversion from string to double (%)"
@@ -11931,11 +11945,11 @@ msgstr "Schreibt alle Warnungen und Fehler in FILE"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
 msgid "Writes timestamps in front of all messages"
-msgstr ""
+msgstr "Zeitstempel allen Meldungen voranstellen"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
 msgid "Writes process ID in front of all messages"
-msgstr ""
+msgstr "Prozess-ID allen Meldungen voranstellen"
 
 #: D:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
