@@ -51,6 +51,13 @@ while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     if traci.simulation.getTime() == 5:
         traci.vehicle.changeLaneRelative(vehID, 1, 10)
+    if traci.simulation.getTime() == 10:
+        mode = traci.vehicle.getLaneChangeMode(vehID)
+        mode = mode | (1 << 8)
+        mode = mode & ~(1 << 9)
+        # permit changes that ignore safeGap as long as there is no immediate
+        # collision
+        traci.vehicle.setLaneChangeMode(vehID, mode)
 
 
 traci.close()

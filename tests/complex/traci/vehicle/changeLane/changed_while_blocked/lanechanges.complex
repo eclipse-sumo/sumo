@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-23 11:56:23 by Eclipse SUMO sumo Version v1_20_0+0174-4d17f9ba9ec
+<!-- generated on 2024-05-23 12:54:56 by Eclipse SUMO sumo Version v1_20_0+0175-aa0078631e7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,11 +17,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="45003"/>
+        <remote-port value="40867"/>
     </traci_server>
 
 </configuration>
 -->
 
 <lanechanges>
+    <change id="ego" type="tEgo" time="10.00" from="gneE0_0" to="gneE0_1" dir="1" speed="13.89" pos="152.90" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="v0" type="t0" time="16.00" from="gneE0_1" to="gneE0_0" dir="-1" speed="13.36" pos="216.30" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="14.94" origLeaderSecureGap="11.91" origLeaderSpeed="13.89"/>
 </lanechanges>
