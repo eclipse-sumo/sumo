@@ -309,7 +309,6 @@ MFXComboBoxIcon::appendIconItem(const FXString& text, FXIcon* icon, FXColor bgCo
 void
 MFXComboBoxIcon::removeItem(FXint index) {
     const auto isCurrent = myList->isItemCurrent(index);
-    myList->removeItem(index);
     if (isCurrent == TRUE) {
         if ((index > 0) && (index < (int)myList->getNumItems())) {
             setCurrentItem(index - 1);
@@ -317,6 +316,7 @@ MFXComboBoxIcon::removeItem(FXint index) {
             setCurrentItem(0);
         }
     }
+    myList->removeItem(index);
     recalc();
 }
 
