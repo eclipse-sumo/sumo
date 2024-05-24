@@ -43,4 +43,7 @@ complex_sublane
 
 # warn if the stripe width is lower than the pedestrian width
 stripe-width
+
+# pedestrians wait at a crossing and the vehicle waits as well because it has to pass the walkingarea for shared space beyond.
+walkingarea_and_crossing
 tls
