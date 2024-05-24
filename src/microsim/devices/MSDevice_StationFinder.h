@@ -258,6 +258,9 @@ private:
     /// @brief The state of charge threshold below which rescue mode is activated
     double myEmptySoC;
 
+    /// @brief The maximum euclidean distance between the vehicle and the charging station (-1 deactivates the condition)
+    double myMaxEuclideanDistance;
+
     /// @brief The max travel time to the next charging station
     SUMOTime myRadius;
 

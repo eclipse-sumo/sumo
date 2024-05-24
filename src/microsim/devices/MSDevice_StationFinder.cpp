@@ -66,6 +66,8 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.emptyThreshold", "Battery", TL("Battery percentage to go into rescue mode"));
     oc.doRegister("device.stationfinder.radius", new Option_String("180", "TIME"));
     oc.addDescription("device.stationfinder.radius", "Battery", TL("Search radius in travel time seconds"));
+    oc.doRegister("device.stationfinder.maxEuclideanDistance", new Option_String("2000", "FLOAT"));
+    oc.addDescription("device.stationfinder.maxEuclideanDistance", "Battery", TL("Euclidean search distance in meters"));
     oc.doRegister("device.stationfinder.repeat", new Option_String("60", "TIME"));
     oc.addDescription("device.stationfinder.repeat", "Battery", TL("When to trigger a new search if no station has been found"));
     oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(100000.));
@@ -104,6 +106,7 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     myReserveFactor = MAX2(1., getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1));
     myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 1.));
     myRadius = getTimeParam(holder, oc, "stationfinder.radius", 180000);
+    myMaxEuclideanDistance = getFloatParam(holder, oc, "stationfinder.maxEuclideanDistance", -1);
     myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat", 60000);
     myMaxChargePower = getFloatParam(holder, oc, "stationfinder.maxChargePower", 80000.);
     myChargeType = CHARGETYPE_CHARGING;
@@ -278,12 +281,10 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
             // skip recently visited
             continue;
         }
-        /*
-        if (stop.second->getLane().geometryPositionAtOffset(stop.second->getBeginLanePosition()).distanceTo2D(myHolder.getPosition()) > maxTT*13.8) {
+        if (constrainTT && myMaxEuclideanDistance > 0 && stop.second->getLane().geometryPositionAtOffset(stop.second->getBeginLanePosition()).distanceTo2D(myHolder.getPosition()) > myMaxEuclideanDistance) {
             // skip probably too distant charging stations
             continue;
         }
-        */
         const MSEdge* const csEdge = &stop.second->getLane().getEdge();
         ConstMSEdgeVector routeTo;
         if (router.compute(start, myHolder.getPositionOnLane(), csEdge, stop.second->getBeginLanePosition(), &myHolder, now, routeTo, true)) {
