@@ -1043,13 +1043,13 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
             if (minRadius > 0 && r < minRadius) {
                 if (fix) {
                     WRITE_MESSAGEF(TL("Removing sharp turn with radius % at the % of edge '%'."),
-                                   toString(r), start ? TL("start") : "end", getID());
+                                   toString(r), start ? TL("start") : TL("end"), getID());
                     myGeom.erase(myGeom.begin() + (start ? 1 : i + 1));
                     checkGeometry(maxAngle, minRadius, fix, silent);
                     return;
                 } else if (!silent) {
                     WRITE_WARNINGF(TL("Found sharp turn with radius % at the % of edge '%'."),
-                                   toString(r), start ? "start" : "end", getID());
+                                   toString(r), start ? TL("start") : TL("end"), getID());
                 }
             }
         }
