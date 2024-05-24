@@ -1,6 +1,12 @@
 # no prohibitions
 default
 
+# no prohibitions
+cooperativeSpeed_0
+
+# no prohibitions
+cooperativeSpeed_-1
+
 # changing prohibited on the middle edge
 nochange
 
