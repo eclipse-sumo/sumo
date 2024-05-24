@@ -395,7 +395,7 @@ MSLCM_LC2013::_patchSpeed(double min, const double wanted, double max, const MSC
 
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
-    if ((state & LCA_AMBLOCKINGLEADER) != 0) {
+    if ((state & LCA_AMBLOCKINGLEADER) != 0 && myCooperativeSpeed >= 0) {
 #ifdef DEBUG_PATCH_SPEED
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << myVehicle.getID() << " LCA_AMBLOCKINGLEADER\n";
