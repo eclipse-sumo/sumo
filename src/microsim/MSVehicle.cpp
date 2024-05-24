@@ -3432,6 +3432,25 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 continue;
             }
             adaptToJunctionLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
+            // if blocked by a pedestrian for too long we must yield our request
+            if (v < SUMO_const_haltingSpeed && getWaitingTime() > TIME2STEPS(JUNCTION_BLOCKAGE_TIME)) {
+                setRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) {
+                    std::cout << "   aborting request\n";
+                }
+#endif
+                if (lastLink != nullptr) {
+                    // we are not yet on the junction so must abort that request as well
+                    // (or maybe we are already on the junction and the leader is a partial occupator beyond)
+                    lastLink->mySetRequest = false;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                    if (DEBUG_COND) {
+                        std::cout << "      aborting previous request\n";
+                    }
+#endif
+                }
+            }
         } else if (isLeader(link, leader, (*it).vehAndGap.second) || (*it).inTheWay()) {
             if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
                     && getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) >= RandHelper::rand(getRNG())) {
