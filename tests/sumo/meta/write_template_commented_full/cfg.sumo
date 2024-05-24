@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 22:12:23 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
+<!-- generated on 2024-05-24 20:16:13 by Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -840,6 +840,9 @@
         <!-- Search radius in travel time seconds -->
         <device.stationfinder.radius value="180" type="TIME"/>
 
+        <!-- Euclidean search distance in meters -->
+        <device.stationfinder.maxEuclideanDistance value="2000" type="FLOAT"/>
+
         <!-- When to trigger a new search if no station has been found -->
         <device.stationfinder.repeat value="60" type="TIME"/>
 
@@ -1334,6 +1337,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 22:12:23 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
+<!-- generated on 2024-05-24 20:16:13 by Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -302,6 +302,7 @@
         <device.stationfinder.reserveFactor value="1.1" type="FLOAT" help="Scale battery need with this factor to account for unexpected traffic situations"/>
         <device.stationfinder.emptyThreshold value="0.05" type="FLOAT" help="Battery percentage to go into rescue mode"/>
         <device.stationfinder.radius value="180" type="TIME" help="Search radius in travel time seconds"/>
+        <device.stationfinder.maxEuclideanDistance value="2000" type="FLOAT" help="Euclidean search distance in meters"/>
         <device.stationfinder.repeat value="60" type="TIME" help="When to trigger a new search if no station has been found"/>
         <device.stationfinder.maxChargePower value="100000" type="FLOAT" help="The maximum charging speed of the vehicle battery"/>
         <device.stationfinder.chargeType value="charging" type="STR" help="Type of energy transfer"/>
@@ -501,6 +502,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

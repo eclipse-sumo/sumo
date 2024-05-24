@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 22:12:23 by Eclipse SUMO sumo Version v1_20_0+0124-2168f19252d
+<!-- generated on 2024-05-24 20:16:13 by Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -344,6 +344,7 @@
             <xsd:element name="device.stationfinder.reserveFactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.emptyThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.maxEuclideanDistance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
@@ -577,6 +578,7 @@
             <xsd:element name="window-size" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="window-pos" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="tracker-interval" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="osg-view" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing-debug" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="gui-testing.setting-output" type="fileOptionType" minOccurs="0"/>
