@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-24 13:04+0000\n"
+"PO-Revision-Date: 2024-05-25 02:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -6397,7 +6397,7 @@ msgstr "Veicolo di alta occupazione (due o più passeggeri)"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:275
 msgid "A transport container"
-msgstr ""
+msgstr "Un contenitore di trasporto"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:276
 msgid "An airplane"
@@ -6405,7 +6405,7 @@ msgstr "Un aeroplano"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:277
 msgid "A small unmanned robot"
-msgstr ""
+msgstr "Un piccolo robot non occupato"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:278
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAllowVClassesDialog.cpp:279
@@ -7208,7 +7208,7 @@ msgstr "Un codice identificativo opzionale per il piano semaforico"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1000
 msgid "Whether this junction is part of a roundabout"
-msgstr ""
+msgstr "Se questo incrocio fa parte di una rotatoria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1011
 msgid "EdgeType"
@@ -7382,7 +7382,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1234
 msgid "Whether this edge is part of a roundabout"
-msgstr ""
+msgstr "Se questo arco fa parte di una rotatoria"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1245
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:67
@@ -10014,16 +10014,21 @@ msgid ""
 "Factor for configuring the strategic lookahead distance when a change to the "
 "left is necessary (relative to right lookahead)."
 msgstr ""
+"Fattore per configurare la distanza per l'anticipazione strategica del "
+"cambio verso la corsia di sinistra (relativo alla distanza analoga per la "
+"destra)."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6327
 msgid ""
 "Factor for configuring the threshold asymmetry when changing to the left or "
 "to the right for speed gain."
 msgstr ""
+"Fattore per configurare dei valori di soglia asimmetrici per cambiare corsia "
+"verso sinistra o verso destra per ragioni di maggiore velocità."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6333
 msgid "Upper bound on lateral speed when standing."
-msgstr ""
+msgstr "Limite superiore della velocità laterale nello stato fermo."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6339
 msgid ""
