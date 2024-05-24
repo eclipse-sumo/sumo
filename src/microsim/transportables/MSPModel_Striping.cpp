@@ -869,7 +869,11 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
                 if (p.myWaitingToEnter || p.myAmJammed) {
                     continue;
                 }
-                Position relPos =  lane->getShape().transformToVectorCoordinates(p.getPosition(*p.myStage, -1), true);
+                Position pPos = p.getPosition(*p.myStage, -1);
+                Position relPos = lane->getShape().transformToVectorCoordinates(pPos, true);
+                if (relPos == Position::INVALID) {
+                    WRITE_WARNINGF("Could not map position % onto lane '%'", pPos, lane->getID());
+                }
                 const double newY = relPos.y() + lateral_offset;
                 //if (p.myPerson->getID() == "ped200") std::cout << "    ped=" << p.myPerson->getID() << "  relX=" << relPos.x() << " relY=" << newY << " latOff=" << lateral_offset << " s=" << p.stripe(newY) << " os=" << p.otherStripe(newY) << "\n";
                 if ((currentDir == FORWARD && relPos.x() >= lane->getLength()) || (currentDir == BACKWARD && relPos.x() < 0)) {
@@ -1048,8 +1052,16 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             const MSVehicle* veh = *itVeh;
                             const double vehWidth = veh->getVehicleType().getWidth();
                             Boundary relCorners;
-                            Position relFront = path->shape.transformToVectorCoordinates(veh->getPosition());
-                            Position relBack = path->shape.transformToVectorCoordinates(veh->getBackPosition());
+                            Position relFront = path->shape.transformToVectorCoordinates(veh->getPosition(), true);
+                            Position relBack = path->shape.transformToVectorCoordinates(veh->getBackPosition(), true);
+                            if (relFront == Position::INVALID) {
+                                WRITE_WARNINGF("Could not vehicle '%' front position % onto walkingarea '%' path=%, time=%.",
+                                        veh->getID(), veh->getPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
+                            }
+                            if (relBack == Position::INVALID) {
+                                WRITE_WARNINGF("Could not vehicle '%' back position % onto walkingarea '%' path=%, time=%.",
+                                        veh->getID(), veh->getBackPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
+                            }
                             PositionVector relCenter;
                             relCenter.push_back(relFront);
                             relCenter.push_back(relBack);
