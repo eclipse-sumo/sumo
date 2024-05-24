@@ -32,20 +32,23 @@ type](../Simulation/GenericParameters.md).
 
 These values have the following meanings (the defaults are from the Kia below):
 
-| key                     | Value Type | Default           | Description                                             |
-| ----------------------- | ---------- | ----------------- | ------------------------------------------------------- |
-| maximumBatteryCapacity  | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
-| maximumPower            | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
-| vehicleMass             | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
-| frontSurfaceArea        | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
-| airDragCoefficient      | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
-| rotatingMass            | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
-| radialDragCoefficient   | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
-| rollDragCoefficient     | float      | 0.01              | Rolling resistance coefficient *c<sub>roll</sub>*       |
-| constantPowerIntake     | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
-| propulsionEfficiency    | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
-| recuperationEfficiency  | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
-| stoppingThreshold       | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
+| key                               | Value Type | Default           | Description                                             |
+| --------------------------------- | ---------- | ----------------- | ------------------------------------------------------- |
+| maximumBatteryCapacity            | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
+| maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
+| vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
+| frontSurfaceArea                  | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
+| airDragCoefficient                | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
+| rotatingMass                      | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
+| radialDragCoefficient             | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
+| rollDragCoefficient               | float      | 0.01              | Rolling resistance coefficient *c<sub>roll</sub>*       |
+| constantPowerIntake               | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
+| propulsionEfficiency              | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
+| recuperationEfficiency            | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
+| stoppingThreshold                 | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
+| device.battery.maximumChargeRate  | float      | 150000 (W)        | Maximum charging rate of the battery                    |
+| device.battery.chargeLevelTable   | float list |                   | Ordered list of state of charge values (from 0 to 1) for which maximum charge rates are defined in `device.battery.chargeCurveTable` |
+| device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
 
 !!! note
     Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
@@ -69,6 +72,7 @@ An example of a vehicle with electric attribute (those are the values for a city
         <param key="propulsionEfficiency" value="0.9"/>
         <param key="recuperationEfficiency" value="0.9"/>
         <param key="stoppingThreshold" value="0.1"/>
+        <param key="device.battery.maximumChargeRate" value="150000"/>
     </vType>
 </routes>
 ```
@@ -86,6 +90,22 @@ be set in the vehicle definitions
 <routes>
     <vehicle id="0" type="type1" depart="0" color="1,0,0">
         <param key="actualBatteryCapacity" value="500"/>
+    </vehicle>
+</routes>
+```
+
+The charging rate of the battery at a charging station is limited to model the effects of battery management controllers (e.g. charge a nearly full battery less than an nearly empty one).
+There are two ways to define the maximum charge rate: For a constant rate set the attribute `device.battery.maximumChargeRate`.
+If instead a maximum charge rate depending on the state of charge is wanted, it can be defined through data points between which the rate will get interpolated.
+The states of charge have to be given in device.battery.chargeLevelTable` and the corresponding charge rates in `device.battery.chargeCurveTable`.
+If defined, the maximum charge curve takes precedence over the constant maximum charge rate `device.battery.maximumChargeRate`. An example definition where the charge rate decreases after
+50% state of charge looks like the following:
+
+```xml
+<routes>
+    <vehicle id="0" type="type1" depart="0" color="1,0,0">
+        <param key="device.battery.chargeLevelTable" value="0 0.5 1"/>
+        <param key="device.battery.chargeCurveTable" value="45000 45000 20000"/>
     </vehicle>
 </routes>
 ```
