@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 08:12:06 by Eclipse SUMO sumo Version v1_20_0+0176-5d90c6c914d
+<!-- generated on 2024-05-24 15:51:43 by Eclipse SUMO sumo Version v1_20_0+0198-507881c6918
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0176-5d90c6c914d" time="5.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0198-507881c6918" time="5.00" type="meso">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="type0" sigma="0"/>
