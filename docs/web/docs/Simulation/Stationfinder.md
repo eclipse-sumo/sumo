@@ -19,7 +19,7 @@ This paragraph shall convey the major conditions used in the decision logic of t
 vehicle to charge. The user can configure multiple thresholds to change how different vehicles behave.
 
 - As long as the battery state of charge (SoC) is above `needToChargeLevel`, no action is taken. This condition is rechecked each time the SoC has lowered by 10%.
-- When the SoC reaches `needToChargeLevel`, possible charging stations are searched and evaluated using the [target function](#charging_station_target_function). If a valid charging station is found within `radius` travel time, the vehicle is immediately rerouted to go there. Other programmed stops will be served after charging.
+- When the SoC reaches `needToChargeLevel`, possible charging stations are searched and evaluated using the [target function](#charging_station_target_function). If a valid charging station is found within `radius` travel time (and optionally within `maxEuclideanDistance` air line), the vehicle is immediately rerouted to go there. Other programmed stops will be served after charging.
 - If no charging station is available, the vehicle continues its original route. It will search again after `repeat` seconds.
 - If the charging station is occupied on arrival, the vehicle will wait `waitForCharge` seconds before looking for an alternative site.
 - The vehicle will charge enough to complete the planned route multiplied by `reserveFactor` and try to keep the SoC above `emptyThreshold`.
@@ -60,6 +60,7 @@ element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PAR
 | reserveFactor         | float            | ≥1                  | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
 | emptyThreshold        | float            | [0;1]               | 0.05             | Battery percentage to go into rescue mode |
 | radius                | float (s)        | ≥0                  | 180              | Search radius in travel time seconds |
+| maxEuclideanDistance  | float (m)        |                     | -1               | Euclidean search radius in meters (negative values disable this restriction) |
 | repeat                | float (s)        | ≥0                  | 60               | When to trigger a new search if no station has been found |
 | maxChargePower        | float (W)        | ≥0                  | 100000           | The maximum charging speed of the vehicle battery |
 | chargeType            | enum             | {charging}          | charging         | Type of energy transfer (not used at the moment) |
