@@ -11,6 +11,9 @@ walking_forward_2lanes
 walking_forward_insertion
 walking_forward_2edges_insertion
 walking_backward
+
+# persons should get out of the middle of the road
+walking_backward_centered
 walking_backward_overlap
 walkingarea
 
