@@ -2432,7 +2432,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 std::cout << SIMTIME << " adapt to pedestrians on lane=" << lane->getID() << " relPos=" << relativePos << "\n";
             }
 #endif
-            const double stopTime = ceil(getSpeed() / cfModel.getMaxDecel());
+            const double stopTime = MAX2(1.0, ceil(getSpeed() / cfModel.getMaxDecel()));
             PersonDist leader = lane->nextBlocking(relativePos,
                                                    getRightSideOnLane(lane), getRightSideOnLane(lane) + getVehicleType().getWidth(), stopTime);
             if (leader.first != 0) {
