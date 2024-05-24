@@ -1049,6 +1049,7 @@ MSLaneChanger::checkChange(
     const int oldstate = state;
     // let TraCI influence the wish to change lanes and the security to take
     state = vehicle->influenceChangeDecision(state);
+    blocked = state & LCA_BLOCKED;
 #ifdef DEBUG_CHECK_CHANGE
     if (DEBUG_COND) {
         std::cout << SIMTIME
