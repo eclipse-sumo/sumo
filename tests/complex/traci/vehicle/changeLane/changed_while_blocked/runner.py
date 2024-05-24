@@ -46,7 +46,6 @@ def reportState(vehID, direction):
 
 
 vehID = "ego"
-#traci.vehicle.setLaneChangeMode(vehID, 0)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     if traci.simulation.getTime() == 5:
