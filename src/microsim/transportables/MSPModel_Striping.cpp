@@ -1465,7 +1465,7 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
         const double vehBack = veh->getBackPositionOnLane(lane);
         double vehFront = vehBack + veh->getVehicleType().getLength();
         // ensure that vehicles are not blocked
-        const double vehNextSpeed = MAX2(veh->getSpeed(), 1.0);
+        const double vehNextSpeed = veh->getWaitingTime() > DELTA_T ? 0 : MAX2(veh->getSpeed(), 1.0);
         const double clearance = SAFETY_GAP + vehNextSpeed * LOOKAHEAD_SAMEDIR;
         // boundaries for range checking
         double vehXMax;
