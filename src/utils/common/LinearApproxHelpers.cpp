@@ -33,10 +33,13 @@ LinearApproxHelpers::getMinimumValue(const LinearApproxMap& map) {
     if (map.empty()) {
         throw ProcessError(TL("Cannot determine the minimum value from an empty map."));
     }
-    auto it = std::min_element(map.begin(), map.end(), [](const auto & x, const auto & y) {
-        return x.second < y.second;
-    });
-    return it->second;
+    double minValue = std::numeric_limits<double>::max();
+    for (const auto& item : map) {
+        if (item.second < minValue) {
+            minValue = item.second;
+        }
+    }
+    return minValue;
 }
 
 
@@ -45,10 +48,13 @@ LinearApproxHelpers::getMaximumValue(const LinearApproxMap& map) {
     if (map.empty()) {
         throw ProcessError(TL("Cannot determine the maximum value from an empty map."));
     }
-    auto it = std::max_element(map.begin(), map.end(), [](const auto & x, const auto & y) {
-        return x.second < y.second;
-    });
-    return it->second;
+    double maxValue = std::numeric_limits<double>::min();
+    for (const auto& item : map) {
+        if (item.second > maxValue) {
+            maxValue = item.second;
+        }
+    }
+    return maxValue;
 }
 
 
@@ -106,11 +112,10 @@ LinearApproxHelpers::setPoints(LinearApproxMap& map, const std::string& axisStri
 void
 LinearApproxHelpers::scalePoints(LinearApproxMap& map, double keyFactor, double valueFactor) {
     LinearApproxMap map2;
-    for (auto item : map) {
+    for (const auto& item : map) {
         map2[item.first * keyFactor] = item.second * valueFactor;
     }
-    map.clear();
-    map.insert(map2.begin(), map2.end());
+    map.swap(map2);
 }
 
 
