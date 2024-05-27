@@ -518,7 +518,7 @@ MSDevice_Battery::getParameter(const std::string& key) const {
         return toString(getTotalRegenerated());
     } else if (key == toString(SUMO_ATTR_ENERGYCHARGED)) {
         return toString(getEnergyCharged());
-    } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
+    } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) || key == "capacity") {
         return toString(getMaximumBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_MAXIMUMCHARGERATE)) {
         return toString(getMaximumChargeRate());
@@ -542,7 +542,7 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
     }
     if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY) || key == toString(SUMO_ATTR_CHARGELEVEL)) {
         setActualBatteryCapacity(doubleValue);
-    } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
+    } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY) || key == "capacity") {
         setMaximumBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_MAXIMUMCHARGERATE)) {
         setMaximumChargeRate(doubleValue);

@@ -779,7 +779,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ACTUALBATTERYCAPACITY, // deprecated
     SUMO_ATTR_CHARGELEVEL,
     /// @brief Maxium battery capacity
-    SUMO_ATTR_MAXIMUMBATTERYCAPACITY,
+    SUMO_ATTR_MAXIMUMBATTERYCAPACITY, // deprecated
     /// @brief Maximum Power
     SUMO_ATTR_MAXIMUMCHARGERATE,
     /// @brief Charge curve axis values
