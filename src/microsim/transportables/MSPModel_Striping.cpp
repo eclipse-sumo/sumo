@@ -1071,7 +1071,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             relCenter.move2side(-vehWidth);
                             relCorners.add(relCenter[0]);
                             relCorners.add(relCenter[1]);
-                            // persons should requier less gap than the vehicles to prevent getting stuck
+                            // persons should require less gap than the vehicles to prevent getting stuck
                             // when a vehicles moves towards them
                             relCorners.growWidth(SAFETY_GAP / 2);
                             const double xWidth = relCorners.getWidth();
