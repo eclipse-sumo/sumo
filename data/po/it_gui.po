@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-25 02:29+0000\n"
+"PO-Revision-Date: 2024-05-27 12:11+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8746,6 +8746,7 @@ msgid ""
 "When defining a repeating route with stops and those stops use the until "
 "attribute,"
 msgstr ""
+"Se si definisce un itinerario con fermate che utilizzano l'attributo 'until',"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3477
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3528
@@ -10047,7 +10048,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6352
 msgid "The probability for violating rules gainst overtaking on the right."
-msgstr ""
+msgstr "La probabilità di violare le regole contro sorpassare sulla destra."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6358
 msgid "Time threshold for the willingness to change right."
