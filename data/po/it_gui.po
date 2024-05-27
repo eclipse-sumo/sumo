@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-27 13:32+0000\n"
+"PO-Revision-Date: 2024-05-28 05:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11064,7 +11064,7 @@ msgstr "Poligono già semplificato"
 #: D:\Repos\sumo/src\netedit\elements\additional\GNETAZ.cpp:296
 #: D:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:567
 msgid "Set custom Geometry Point"
-msgstr ""
+msgstr "Imposta punto geometrico individuale"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:62
 msgid "add data set"
@@ -11102,7 +11102,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "Could not build % with ID '%'"
-msgstr ""
+msgstr "Non ho potuto generare % con il codice identificativo '%'"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:252
 msgid "declared twice."
@@ -11132,7 +11132,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:198
 msgid "Open % Dialog"
-msgstr ""
+msgstr "Apri dialog o%"
 
 #: D:\Repos\sumo/src\netedit\elements\data\GNEGenericData.cpp:354
 #: D:\Repos\sumo/src\netedit\elements\network\GNEEdgeType.cpp:154
@@ -11176,11 +11176,11 @@ msgstr "Lunghezza d'itinerario: "
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:760
 msgid "reverse"
-msgstr ""
+msgstr "inverti"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:762
 msgid "reverse current %"
-msgstr ""
+msgstr "invert l'attuale %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNEDemandElement.cpp:763
 msgid "Add reverse %"
@@ -12178,12 +12178,12 @@ msgstr "aggiorna più attributi alla volta"
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:386
 #, c-format
 msgid "change % attribute"
-msgstr ""
+msgstr "cambia attributo %"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:430
 #, c-format
 msgid "Value '%' for attribute % of % isn't valid"
-msgstr ""
+msgstr "Il valore '%' dell'attributo % di % non è valido"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:447
 msgid "enable attribute '"
