@@ -49,4 +49,7 @@ stripe-width
 
 # pedestrians wait at a crossing and the vehicle waits as well because it has to pass the walkingarea for shared space beyond.
 walkingarea_and_crossing
+
+# pedestrian and vehicle face each other at walkingarea/shared space
+walkingarea_and_crossing2
 tls
