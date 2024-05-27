@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-27 07:38+0000\n"
+"PO-Revision-Date: 2024-05-27 07:44+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4515,6 +4515,8 @@ msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
 msgstr ""
+"Das Fahrzeug '%' möchte wegen niedrigem Ladestand auf Fahrstreifen % ("
+"Position %) halten (Ladestand % zur Zeit %)."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:361
 msgid "Problem with inserting the charging station stop for vehicle %."
@@ -4525,6 +4527,8 @@ msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
 msgstr ""
+"Das Fahrzeug '%' möchte zur Zeit % laden, findet aber keine nahegelegene "
+"Ladestation."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:513
 msgid "Parameter '%' is not supported for device of type '%'"
@@ -8095,7 +8099,7 @@ msgstr "Die Standardlänge einer Bahnhaltestelle als FLOAT in m"
 
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:222
 msgid "Specify custom rules for importing railway signals"
-msgstr ""
+msgstr "Individuelle Regeln zum Import von Bahnsignalen spezifizieren"
 
 #: D:\Repos\sumo/src\netimport\NIFrame.cpp:226
 msgid "Whether additional attributes shall be imported"
