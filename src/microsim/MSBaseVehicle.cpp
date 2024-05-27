@@ -540,7 +540,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
 #endif
     // remove past stops which are not on the route anymore
     for (std::vector<SUMOVehicleParameter::Stop>::iterator it = myPastStops.begin(); it != myPastStops.end();) {
-        if (std::find(myRoute->begin(), myRoute->end(), MSEdge::dictionary(it->edge)) == myRoute->end()) {
+        if (std::find(myRoute->begin(), myRoute->end(), &MSLane::dictionary(it->lane)->getEdge()) == myRoute->end()) {
             it = myPastStops.erase(it);
         } else {
             ++it;
