@@ -519,7 +519,7 @@ for i in range(10):
         traci.vehicle.getParameter(electricVeh, "device.battery.energyCharged"),
         traci.vehicle.getParameter(electricVeh, "device.battery.totalEnergyConsumed"),
         traci.vehicle.getParameter(electricVeh, "device.battery.totalEnergyRegenerated"),
-        traci.vehicle.getParameter(electricVeh, "device.battery.actualBatteryCapacity"),
+        traci.vehicle.getParameter(electricVeh, "device.battery.chargeLevel"),
         traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity"),
         traci.vehicle.getParameter(electricVeh, "device.battery.chargingStationId"),
         traci.vehicle.getParameter(electricVeh, "device.battery.vehicleMass"),
