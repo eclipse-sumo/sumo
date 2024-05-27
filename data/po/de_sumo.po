@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-24 13:04+0000\n"
+"PO-Revision-Date: 2024-05-27 07:38+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -4446,6 +4446,8 @@ msgid ""
 "How to deal with a vehicle which has to stop due to low battery: [none, "
 "remove, tow]"
 msgstr ""
+"Umgang mit einem Fahrzeug, das wegen niedriger Batterieladung halten muss: ["
+"none, remove, tow]"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:64
 msgid ""
@@ -4456,6 +4458,7 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:66
 msgid "Battery percentage to go into rescue mode"
 msgstr ""
+"Batterieladestand, bei dessen Unterschreitung der Notmodus aktiviert wird"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:68
 msgid "Search radius in travel time seconds"
@@ -4485,17 +4488,21 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:78
 msgid "Target state of charge after which the vehicle stops charging"
-msgstr ""
+msgstr "Zielladestand, bei dem das Fahrzeug den Ladevorgang beendet"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:80
 msgid "State of charge the vehicle begins searching for charging stations"
 msgstr ""
+"Das Fahrzeug beginnt bei der Unterschreitung dieses Ladestands nach "
+"Ladestationen zu suchen"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:114
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
 msgstr ""
+"Das Fahrzeug '%' sucht nur im Notfall nach Ladestationen, da der "
+"Suchschwellwert % <= Notfallschwellwert %."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:153
 msgid ""
