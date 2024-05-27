@@ -776,7 +776,8 @@ enum SumoXMLAttr {
     /// @name battery device parameters
     /// @{
     /// @brief Actual battery capacity
-    SUMO_ATTR_ACTUALBATTERYCAPACITY,
+    SUMO_ATTR_ACTUALBATTERYCAPACITY, // deprecated
+    SUMO_ATTR_CHARGELEVEL,
     /// @brief Maxium battery capacity
     SUMO_ATTR_MAXIMUMBATTERYCAPACITY,
     /// @brief Maximum Power

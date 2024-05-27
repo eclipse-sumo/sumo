@@ -507,7 +507,8 @@ MSDevice_Battery::getMaximumChargeRate() const {
 
 std::string
 MSDevice_Battery::getParameter(const std::string& key) const {
-    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
+    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)
+            || key == toString(SUMO_ATTR_CHARGELEVEL)) {
         return toString(getActualBatteryCapacity());
     } else if (key == toString(SUMO_ATTR_ENERGYCONSUMED)) {
         return toString(getConsum());
@@ -539,7 +540,7 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY)) {
+    if (key == toString(SUMO_ATTR_ACTUALBATTERYCAPACITY) || key == toString(SUMO_ATTR_CHARGELEVEL)) {
         setActualBatteryCapacity(doubleValue);
     } else if (key == toString(SUMO_ATTR_MAXIMUMBATTERYCAPACITY)) {
         setMaximumBatteryCapacity(doubleValue);
