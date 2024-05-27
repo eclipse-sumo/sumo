@@ -3252,14 +3252,14 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
                 vsafeLeader = vStopCrossing;
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
-                    std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
+                    std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStopCrossing=" << vStopCrossing << "\n";
                 }
 #endif
             } else if (leaderInfo.second == -std::numeric_limits<double>::max()) {
                 // drive up to the crossing point and stop
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
-                    std::cout << "  stop at crossing point for critical leader\n";
+                    std::cout << "  stop at crossing point for critical leader vStop=" << vStop << "\n";
                 };
 #endif
                 vsafeLeader = MAX2(vsafeLeader, vStop);
