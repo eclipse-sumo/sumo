@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-27 07:44+0000\n"
+"PO-Revision-Date: 2024-05-27 09:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -9721,6 +9721,8 @@ msgstr "Kante '%' für den Zugang zum Halt '%' nicht gefunden"
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:234
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Doppelte ptLine-ID '%' gefunden; Es wird angenommen, dass Überschreiben "
+"gewünscht ist."
 
 #: D:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:275
 msgid "Found route outside line definition"
@@ -12048,7 +12050,7 @@ msgstr "Eine durch die Leistung gegebene Beschleunigung wurde nicht gefunden."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXComboBoxIcon.cpp:88
 msgid "No matches found"
-msgstr ""
+msgstr "Keine Übereinstimmungen gefunden"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXDecalsTable.cpp:73
 msgid "Add decal"
@@ -12094,15 +12096,15 @@ msgstr "Hintergrund entfernen."
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:73
 msgid "Expand"
-msgstr ""
+msgstr "Erweitern"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXGroupBoxModule.cpp:74
 msgid "Expand frame to show all contents"
-msgstr ""
+msgstr "Rahmen erweitern, um alle Inhalte anzuzeigen"
 
 #: D:\Repos\sumo/src\utils\foxtools\MFXTextFieldSearch.cpp:86
 msgid "Type to search..."
-msgstr ""
+msgstr "Zum Suchen tippen..."
 
 #: D:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
