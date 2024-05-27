@@ -476,8 +476,8 @@ and simply type `git pull`.
 
 ### How do I work around missing dll errors on Windows?
 
-  Install [MSVC2013 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
-  (Old versions of SUMO may also require the MSVC2010 Redistributable)
+  Install [MSVC Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+  (Old versions of SUMO may also require older MSVC Redistributables)
 
 ### What is the meaning of the different exit codes (linux command line)
 

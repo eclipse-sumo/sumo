@@ -208,10 +208,9 @@ tools\build\typemap.py
 ### Execution cannot proceed because MSVCR120.dll/MSVCR140.dll was not found
 
 Install Microsoft [Visual C++ Redistributable Packages for Visual
-Studio 2012](https://www.microsoft.com/en-US/download/details.aspx?id=30679)
-(for MSVCR120.dll) or [Microsoft Visual C++ Redistributable Packages for
-Visual Studio 2015](https://www.visualstudio.com/downloads/) (for
-MSVCR140.dll). You can check if all dependencies are correct using
+Studio](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+(use Visual Studio 2013 version for MSVCR120.dll).
+You can check if all dependencies are correct using
 [Dependencies](https://lucasg.github.io/Dependencies/).
 
 ![](../images/Dependencies.png)
