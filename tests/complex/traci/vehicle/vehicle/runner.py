@@ -471,7 +471,7 @@ for i in range(18):
 electricVeh = "elVeh"
 traci.vehicle.addLegacy(electricVeh, "horizontal", typeID="electric")
 print("device.battery.maximumBatteryCapacity from vehicle definition: %s" % (
-        traci.vehicle.getParameter(electricVeh, "device.battery.maximumBatteryCapacity")))
+        traci.vehicle.getParameter(electricVeh, "device.battery.capacity")))
 traci.vehicle.setParameter(electricVeh, "device.battery.maximumBatteryCapacity", "40000")
 traci.vehicle.setParameter(electricVeh, "device.battery.vehicleMass", "1024")
 print("has battery device: %s" % traci.vehicle.getParameter(electricVeh, "has.battery.device"))
