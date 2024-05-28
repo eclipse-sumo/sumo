@@ -328,6 +328,7 @@ If the computed plan starts with a car or bicycle, a vehicle for use by the pers
 | vTypes     | list     | valid vType ids                               | \-      | list of possible vehicle types to take                        |
 | modes      | list     | any combination of "public", "car", "bicycle", ["taxi"](../Simulation/Taxi.md) | \-      | list of possible traffic modes (separated by ' '). Walking is always possible regardless of this value.     |
 | departPos  | float(m) |                                               | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
+| departPosLat  | float(m) |            | 0       | initial lateral position on the starting edge when walking |
 | arrivalPos | float(m) |                                               | middle of edge | arrival position on the destination edge                      |
 | group| string           |               | ""      | id of the travel group. Persons with the same group may share a taxi ride     |
 
