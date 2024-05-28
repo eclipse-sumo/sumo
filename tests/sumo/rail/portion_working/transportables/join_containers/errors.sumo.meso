@@ -13,4 +13,4 @@ Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:2').
 Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:1').
 Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:3').
 Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:2').
-Warning: Container 'c1' aborted waiting for t0 at busStop 'C'.
+Warning: Container 'c1' aborted waiting for t0 at busStop 'B'.

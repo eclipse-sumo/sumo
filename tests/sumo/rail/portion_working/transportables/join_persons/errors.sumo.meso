@@ -13,4 +13,4 @@ Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:2').
 Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:1').
 Warning: Join stops are not available in meso yet (vehicle 't0', segment 'c:3').
 Warning: Join stops are not available in meso yet (vehicle 't1', segment 'b:2').
-Warning: Person 'p1' aborted waiting for LAC at busStop 'C'.
+Warning: Person 'p1' aborted waiting for LAC at busStop 'B'.

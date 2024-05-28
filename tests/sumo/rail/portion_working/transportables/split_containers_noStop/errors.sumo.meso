@@ -1,4 +1,4 @@
 Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
 Warning: Container 'c1' at edge 'b' position 149.60 cannot use waiting vehicle 't1' at position 0.00 because it is too far away.
-Warning: Container 'c1' aborted waiting for t1 at busStop 'E'.
+Warning: Container 'c1' aborted waiting for t1 at busStop 'B'.
 Warning: Vehicle 't1' aborted waiting for a train from which to split.
