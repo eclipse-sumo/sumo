@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-28 05:42+0000\n"
+"PO-Revision-Date: 2024-05-28 13:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -8377,7 +8377,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2761
 msgid "If rerouter is optional"
-msgstr ""
+msgstr "Se il rerouter è opzionale"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2773
 msgid "Rerouter (Edge)"
@@ -8385,7 +8385,7 @@ msgstr "Rerouter (arco)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2784
 msgid "Rerouter Interval"
-msgstr ""
+msgstr "Intervallo del rerouter"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2789
 msgid "Begin"
@@ -9541,7 +9541,7 @@ msgstr "Un tipo per il punto di interesse"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5707
 msgid "POI Icon"
-msgstr ""
+msgstr "Icon del punto di interesse"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5719
 msgid "The layer of the POI for drawing and selecting"
@@ -10036,15 +10036,21 @@ msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
 msgstr ""
+"Limite superiore della velocità laterale mentre ci si muove calcolato come "
+"lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6345
 msgid ""
 "Distance to an upcoming turn on the vehicles route, below which the alignment"
 msgstr ""
+"Distanza dalla prossima svolta lungo l'itinerario del veicolo sotto la quale "
+"la posizione laterale"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6346
 msgid "should be dynamically adapted to match the turn direction."
 msgstr ""
+"dovrebbe essere adattata dinamicamente per coincidere con la direzione di "
+"svolta."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6352
 msgid "The probability for violating rules gainst overtaking on the right."
@@ -10936,7 +10942,7 @@ msgstr "L'elenco di tipi di veicoli non è valido."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2033
 msgid "Filename is invalid."
-msgstr ""
+msgstr "Il nome del file è invalido."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2039
 msgid "List of lanes isn't valid."
