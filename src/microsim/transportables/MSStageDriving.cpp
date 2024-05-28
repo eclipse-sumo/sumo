@@ -584,9 +584,9 @@ MSStageDriving::abort(MSTransportable* t) {
 std::string
 MSStageDriving::getWaitingDescription() const {
     return isWaiting4Vehicle() ? ("waiting for " + joinToString(myLines, ",")
-                                  + " at " + (myDestinationStop == nullptr
+                                  + " at " + (myOriginStop == nullptr
                                           ? ("edge '" + myWaitingEdge->getID() + "'")
-                                          : ("busStop '" + myDestinationStop->getID() + "'"))
+                                          : (toString(myOriginStop->getElement()) + " '" + myOriginStop->getID() + "'"))
                                  ) : "";
 }
 
