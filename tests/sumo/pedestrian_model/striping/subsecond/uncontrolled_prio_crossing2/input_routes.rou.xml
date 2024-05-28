@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-28 10:15:51 by Eclipse SUMO netedit Version v1_20_0+0233-1b15c9e1158
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <personFlow id="pf_0" begin="0.00" end="3600.00" period="exp(0.10)">
+        <walk edges="E1 -E0"/>
+    </personFlow>
+    <flow id="f_0" begin="0.00" end="3600.00" period="exp(0.10)" departSpeed="max">
+        <route edges="E0 E1"/>
+    </flow>
+</routes>
