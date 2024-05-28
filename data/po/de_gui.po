@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-25 02:29+0000\n"
+"PO-Revision-Date: 2024-05-28 13:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -12850,7 +12850,7 @@ msgstr "Weitere"
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:62
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:153
 msgid "Shape"
-msgstr ""
+msgstr "Shape"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:63
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
@@ -13134,11 +13134,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:257
 msgid "<from TAZ>"
-msgstr ""
+msgstr "<von Verkehrsumlegungszone>"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:275
 msgid "<to TAZ>"
-msgstr ""
+msgstr "<nach Verkehrsumlegungszone>"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
 msgid ""
@@ -13171,7 +13171,7 @@ msgstr "Gesamte Polygone verschieben"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:105
 msgid "Force draw geom. points"
-msgstr ""
+msgstr "Geometriepunkte immer zeichnen"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:160
 msgid "Demand move options"
@@ -13567,7 +13567,7 @@ msgstr "Daten-Attribute"
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:466
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:489
 msgid "<all>"
-msgstr ""
+msgstr "<alle>"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
@@ -14155,7 +14155,7 @@ msgstr "Standard-Kante erstellen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:82
 msgid "Create default edge short"
-msgstr ""
+msgstr "Kurze Standardkante erstellen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:85
 msgid "Disallow for pedestrians"
