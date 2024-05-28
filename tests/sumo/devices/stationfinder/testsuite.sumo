@@ -1,3 +1,6 @@
+# Vehicles break down due to low battery and gets teleported backwards on the same edge.
+breakdown_teleport_backwards
+
 # Vehicles break down due to low battery and get handled in a few ways (teleport, removal, nothing)
 breakdown
 

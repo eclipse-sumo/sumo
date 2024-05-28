@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-28 17:19:42 by Eclipse SUMO sumo Version v1_14_1+13064-fb1593760f2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <battery-output value="battery.xml"/>
+        <battery-output.precision value="4"/>
+        <chargingstations-output value="chargingstations.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.stationfinder.probability value="1"/>
+    </battery>
+
+</configuration>
+-->
+
+<chargingstations-export>
+    <chargingStation id="CS1" totalEnergyCharged="261.25" chargingSteps="45">
+        <vehicle id="veh_tow" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="261.25" chargingBegin="35.00" chargingEnd="79.00">
+            <step time="35.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="5.81" power="22000.00" efficiency="0.95" actualBatteryCapacity="1752.84" maximumBatteryCapacity="35000.00"/>
+            <step time="36.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="11.61" power="22000.00" efficiency="0.95" actualBatteryCapacity="1758.63" maximumBatteryCapacity="35000.00"/>
+            <step time="37.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="17.42" power="22000.00" efficiency="0.95" actualBatteryCapacity="1764.42" maximumBatteryCapacity="35000.00"/>
+            <step time="38.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="23.22" power="22000.00" efficiency="0.95" actualBatteryCapacity="1770.22" maximumBatteryCapacity="35000.00"/>
+            <step time="39.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="29.03" power="22000.00" efficiency="0.95" actualBatteryCapacity="1776.01" maximumBatteryCapacity="35000.00"/>
+            <step time="40.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="34.83" power="22000.00" efficiency="0.95" actualBatteryCapacity="1781.80" maximumBatteryCapacity="35000.00"/>
+            <step time="41.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="40.64" power="22000.00" efficiency="0.95" actualBatteryCapacity="1787.59" maximumBatteryCapacity="35000.00"/>
+            <step time="42.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="46.44" power="22000.00" efficiency="0.95" actualBatteryCapacity="1793.38" maximumBatteryCapacity="35000.00"/>
+            <step time="43.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="52.25" power="22000.00" efficiency="0.95" actualBatteryCapacity="1799.17" maximumBatteryCapacity="35000.00"/>
+            <step time="44.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="58.06" power="22000.00" efficiency="0.95" actualBatteryCapacity="1804.97" maximumBatteryCapacity="35000.00"/>
+            <step time="45.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="63.86" power="22000.00" efficiency="0.95" actualBatteryCapacity="1810.76" maximumBatteryCapacity="35000.00"/>
+            <step time="46.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="69.67" power="22000.00" efficiency="0.95" actualBatteryCapacity="1816.55" maximumBatteryCapacity="35000.00"/>
+            <step time="47.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="75.47" power="22000.00" efficiency="0.95" actualBatteryCapacity="1822.34" maximumBatteryCapacity="35000.00"/>
+            <step time="48.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="81.28" power="22000.00" efficiency="0.95" actualBatteryCapacity="1828.13" maximumBatteryCapacity="35000.00"/>
+            <step time="49.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="87.08" power="22000.00" efficiency="0.95" actualBatteryCapacity="1833.92" maximumBatteryCapacity="35000.00"/>
+            <step time="50.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="92.89" power="22000.00" efficiency="0.95" actualBatteryCapacity="1839.72" maximumBatteryCapacity="35000.00"/>
+            <step time="51.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="98.69" power="22000.00" efficiency="0.95" actualBatteryCapacity="1845.51" maximumBatteryCapacity="35000.00"/>
+            <step time="52.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="104.50" power="22000.00" efficiency="0.95" actualBatteryCapacity="1851.30" maximumBatteryCapacity="35000.00"/>
+            <step time="53.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="110.31" power="22000.00" efficiency="0.95" actualBatteryCapacity="1857.09" maximumBatteryCapacity="35000.00"/>
+            <step time="54.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="116.11" power="22000.00" efficiency="0.95" actualBatteryCapacity="1862.88" maximumBatteryCapacity="35000.00"/>
+            <step time="55.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="121.92" power="22000.00" efficiency="0.95" actualBatteryCapacity="1868.67" maximumBatteryCapacity="35000.00"/>
+            <step time="56.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="127.72" power="22000.00" efficiency="0.95" actualBatteryCapacity="1874.47" maximumBatteryCapacity="35000.00"/>
+            <step time="57.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="133.53" power="22000.00" efficiency="0.95" actualBatteryCapacity="1880.26" maximumBatteryCapacity="35000.00"/>
+            <step time="58.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="139.33" power="22000.00" efficiency="0.95" actualBatteryCapacity="1886.05" maximumBatteryCapacity="35000.00"/>
+            <step time="59.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="145.14" power="22000.00" efficiency="0.95" actualBatteryCapacity="1891.84" maximumBatteryCapacity="35000.00"/>
+            <step time="60.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="150.94" power="22000.00" efficiency="0.95" actualBatteryCapacity="1897.63" maximumBatteryCapacity="35000.00"/>
+            <step time="61.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="156.75" power="22000.00" efficiency="0.95" actualBatteryCapacity="1903.42" maximumBatteryCapacity="35000.00"/>
+            <step time="62.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="162.56" power="22000.00" efficiency="0.95" actualBatteryCapacity="1909.22" maximumBatteryCapacity="35000.00"/>
+            <step time="63.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="168.36" power="22000.00" efficiency="0.95" actualBatteryCapacity="1915.01" maximumBatteryCapacity="35000.00"/>
+            <step time="64.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="174.17" power="22000.00" efficiency="0.95" actualBatteryCapacity="1920.80" maximumBatteryCapacity="35000.00"/>
+            <step time="65.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="179.97" power="22000.00" efficiency="0.95" actualBatteryCapacity="1926.59" maximumBatteryCapacity="35000.00"/>
+            <step time="66.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="185.78" power="22000.00" efficiency="0.95" actualBatteryCapacity="1932.38" maximumBatteryCapacity="35000.00"/>
+            <step time="67.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="191.58" power="22000.00" efficiency="0.95" actualBatteryCapacity="1938.17" maximumBatteryCapacity="35000.00"/>
+            <step time="68.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="197.39" power="22000.00" efficiency="0.95" actualBatteryCapacity="1943.97" maximumBatteryCapacity="35000.00"/>
+            <step time="69.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="203.19" power="22000.00" efficiency="0.95" actualBatteryCapacity="1949.76" maximumBatteryCapacity="35000.00"/>
+            <step time="70.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="209.00" power="22000.00" efficiency="0.95" actualBatteryCapacity="1955.55" maximumBatteryCapacity="35000.00"/>
+            <step time="71.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="214.81" power="22000.00" efficiency="0.95" actualBatteryCapacity="1961.34" maximumBatteryCapacity="35000.00"/>
+            <step time="72.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="220.61" power="22000.00" efficiency="0.95" actualBatteryCapacity="1967.13" maximumBatteryCapacity="35000.00"/>
+            <step time="73.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="226.42" power="22000.00" efficiency="0.95" actualBatteryCapacity="1972.92" maximumBatteryCapacity="35000.00"/>
+            <step time="74.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="232.22" power="22000.00" efficiency="0.95" actualBatteryCapacity="1978.72" maximumBatteryCapacity="35000.00"/>
+            <step time="75.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="238.03" power="22000.00" efficiency="0.95" actualBatteryCapacity="1984.51" maximumBatteryCapacity="35000.00"/>
+            <step time="76.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="243.83" power="22000.00" efficiency="0.95" actualBatteryCapacity="1990.30" maximumBatteryCapacity="35000.00"/>
+            <step time="77.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="249.64" power="22000.00" efficiency="0.95" actualBatteryCapacity="1996.09" maximumBatteryCapacity="35000.00"/>
+            <step time="78.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="255.44" power="22000.00" efficiency="0.95" actualBatteryCapacity="2001.88" maximumBatteryCapacity="35000.00"/>
+            <step time="79.00" chargingStatus="chargingStopped" energyCharged="5.81" partialCharge="261.25" power="22000.00" efficiency="0.95" actualBatteryCapacity="2007.67" maximumBatteryCapacity="35000.00"/>
+        </vehicle>
+    </chargingStation>
+</chargingstations-export>
