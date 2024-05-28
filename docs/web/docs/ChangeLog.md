@@ -6,6 +6,54 @@ title: ChangeLog
 
 ### Bugfixes
 
+- sumo
+  - personInfo total duration now includes ride waiting time #14887
+  - Fixed jump-related bug when there are two stops on the same edge #14883
+  - Fixed saving/loading of maximum time value from state #14904
+  - Fixed creeping vehicle approach to oncoming pedestrian on shared space #14920 
+
+- netconvert
+  - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
+  - Fixed bad ramp geometry when two ramps overlap #14839
+  - Fixed invalid connection with option **--ramps.guess** if the input defines connections #14833
+ 
+- netedit
+  -  Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863 
+
+- sumo-gui
+  - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
+  - Fixed crash when saving view settings to registry #14909 (regression in 1.19.0)
+  - Fixed bad menu spacing and tiny icons when using display scaling on windows (i.e. for high-pixel-count displays) #14882
+  - Fixed translation-related crashes where code relied on hard coded english menu entries. #14710 
+
+- tools
+  -  generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880 
+
+### Enhancments
+
+- sumo
+  - Added time stamp to E3 warnings #14870
+  - personInfo now writes actual stage depart times instead of desired depart #14886
+  - added option **--max-num-persons** to delay person insertion above a given threshold. #14884
+  - A warning is now given when starting more persons in a vehicle than it's personCapacity permits #14752
+  - Persons and containers now support vType attribute `boardingFactor` which gets multiplied with the boarding- or loadingDuration of the vehicle. #14869 
+ 
+- netedit
+  - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
+
+- netconvert
+  - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
+  - OSM import now warns if ways, nodes or relations are out of order #14892 
+
+- traci
+  - The new sumo option ** --keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
+  - Fixed missing leader/follower information in lanechange output after forced change. #14912 
+
+- tools
+  - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
+  - gtfs2pt.py: Now warns if no valid GTFS inside the network boundaries has been found #14876
+  - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895 
+
 ## Version 1.20.0 (07.05.2024)
 
 ### Bugfixes
