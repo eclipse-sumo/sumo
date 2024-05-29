@@ -134,8 +134,8 @@ Warning: Teleporting vehicle 'pt_tram_M2:0.1'; frontal collision with vehicle 'p
 Warning: Vehicle 'pt_tram_M2:0.1' ends teleporting on edge '148458500#1', time=480.00.
 Warning: Person 'ped122' is jammed on edge ':1828018040_c0', time=639.00.
 Warning: Person 'ped129' is jammed on edge ':cluster_611334710_611335401_w0', time=692.00.
-Warning: Person 'ped157' aborted waiting for N42:1 at busStop '270727260'.
-Warning: Person 'ped136' aborted waiting for N42:1 at busStop '270727260'.
-Warning: Person 'ped155' aborted waiting for N42:1 at busStop '270727260'.
-Warning: Person 'ped59' aborted waiting for M5:0 at busStop '1661927028'.
-Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3870475228'.
+Warning: Person 'ped157' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped136' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped155' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped59' aborted waiting for M5:0 at busStop '1633759766'.
+Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3869306771'.
