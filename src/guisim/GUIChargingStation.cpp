@@ -169,10 +169,7 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
         GLHelper::setColor(s.colorSettings.chargingStationColorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-
-        if (s.drawDetail(10, exaggeration)) {
-            GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.chargingStationColor, myFGSignRot);
-        }
+        GLHelper::drawText("C", Position(), .1, 1.6, s.colorSettings.chargingStationColor, myFGSignRot);
 
         glTranslated(5, 0, 0);
         GLHelper::popMatrix();
@@ -203,12 +200,13 @@ GUIChargingStation::initAppearance(MSLane& lane, double frompos, double topos) {
         myFGShapeRotations.push_back((double)atan2((s.x() - f.x()), (f.y() - s.y())) * (double) 180.0 / (double)M_PI);
     }
     PositionVector tmp = myFGShape;
-    tmp.move2side(1.5);
+    const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+    tmp.move2side(1.5 * rotSign);
     myFGSignPos = tmp.getLineCenter();
     myFGSignRot = 0;
     if (tmp.length() != 0) {
         myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
+        myFGSignRot -= 90 * rotSign;
     }
 }
 
