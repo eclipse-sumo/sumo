@@ -29,15 +29,15 @@ csvfile = csv.DictReader(open(sys.argv[1]), delimiter='\t')
 with open("nodes.nod.xml", "w") as nodeout:
     nodeout.write("<nodes>\n")
     for nl in csvfile:
-        nodeout.write('    <node id="%s" x="%s" y="%s"/>\n' % (nl['node'], nl['X'], nl['Y']))
+        nodeout.write('    <node id="%s" x="%s" y="%s"/>\n' % (nl['Node'], nl['X'], nl['Y']))
     nodeout.write("</nodes>\n")
 
 csvfile = csv.reader(open(sys.argv[2]), delimiter='\t')
 with open("edges.edg.xml", "w") as edgeout:
     edgeout.write("<edges>\n")
     for el in csvfile:
-        if el and el[0][0] not in "~<":
-            edgeout.write('    <edge id="%s_%s" from="%s" to="%s"/>\n' % (2 * (el[0], el[1])))
+        if el and (el[0] == '' or el[0][0] not in "~<"):
+            edgeout.write('    <edge id="%s_%s" from="%s" to="%s"/>\n' % (2 * (el[1], el[2])))
     edgeout.write("</edges>\n")
 
-subprocess.call([sumolib.checkBinary("netconvert"), "-n", nodeout.name, "-e", edgeout.name])
+subprocess.call([sumolib.checkBinary("netconvert"), "-n", nodeout.name, "-e", edgeout.name, '--proj.utm'])
