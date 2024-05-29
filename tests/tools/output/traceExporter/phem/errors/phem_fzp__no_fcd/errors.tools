@@ -14,6 +14,5 @@ usage: traceExporter.py [-h] [-c FILE] [-C FILE] [--save-template FILE] -i
                         [--fcd-filter-type FCDTYPE] [--shift SHIFT]
                         [--ipg-output FILE] [--trj-output FILE]
                         [--trj-veh-width TRJVEHWIDTH]
-                        [--trj-vehicle-length TRJVEHLENGTH]
-                        [--timestep TIMESTEP]
+                        [--trj-veh-length TRJVEHLENGTH] [--timestep TIMESTEP]
 traceExporter.py: error: the following arguments are required: -i/--fcd-input
