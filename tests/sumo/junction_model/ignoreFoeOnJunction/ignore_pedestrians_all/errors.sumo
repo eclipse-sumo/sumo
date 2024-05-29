@@ -1,2 +1,6 @@
 Warning: Vehicle 'v.2' collision with person 'p.3', lane=':C_4_0', time=28.00, stage=move.
 Warning: Vehicle 'v.5' collision with person 'p.8', lane=':C_4_0', time=55.00, stage=move.
+Warning: Vehicle 'v.6' collision with person 'p.10', lane=':C_4_0', time=65.00, stage=move.
+Warning: Vehicle 'v.8' collision with person 'p.13', lane=':C_4_0', time=82.00, stage=move.
+Warning: Vehicle 'v.10' collision with person 'p.16', lane=':C_4_0', time=100.00, stage=move.
+Warning: Vehicle 'v.11' collision with person 'p.18', lane=':C_4_0', time=110.00, stage=move.
