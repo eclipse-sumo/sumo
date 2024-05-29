@@ -399,6 +399,8 @@ protected:
          */
         void saveState(std::ostringstream& out);
 
+        const MSLane* getNextCrossing() const;
+
     protected:
         /// @brief constructor for PStateVehicle
         PState();

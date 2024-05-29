@@ -212,7 +212,11 @@ MSPModel_Striping::remove(MSTransportableStateAdapter* state) {
     Pedestrians& pedestrians = myActiveLanes[lane];
     for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
         if (*it == state) {
+            const PState& p = **it;
             pedestrians.erase(it);
+            if (p.getNextCrossing() != nullptr) {
+                unregisterCrossingApproach(p, p.getNextCrossing());
+            }
             myNumActivePedestrians--;
             return;
         }
@@ -2413,6 +2417,12 @@ MSPModel_Striping::PState::getSpeed(const MSStageMoving&) const {
 const MSEdge*
 MSPModel_Striping::PState::getNextEdge(const MSStageMoving&) const {
     return myNLI.lane == nullptr ? nullptr : &myNLI.lane->getEdge();
+}
+
+
+const MSLane*
+MSPModel_Striping::PState::getNextCrossing() const {
+    return myNLI.lane != nullptr && myNLI.lane->isCrossing() ? myNLI.lane : nullptr;
 }
 
 
