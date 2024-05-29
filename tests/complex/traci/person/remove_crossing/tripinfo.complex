@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-29 22:20:03 by Eclipse SUMO sumo Version v1_20_0+0284-e5994eb7f31
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="51349"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="0.50" duration="10.00" waitingTime="0.00" timeLoss="-93.36" traveltime="10.00">
+        <walk depart="0.00" departPos="85.15" arrival="10.00" arrivalPos="43.08" duration="10.00" routeLength="71.78" timeLoss="-93.36" maxSpeed="0.69"/>
+    </personinfo>
+    <tripinfo id="v0" depart="0.00" departLane="WC_3" departPos="56.15" departSpeed="0.00" departDelay="0.00" arrival="54.00" arrivalLane="CS_3" arrivalPos="85.40" arrivalSpeed="2.93" duration="54.00" routeLength="130.36" waitingTime="13.00" waitingCount="1" stopTime="0.00" timeLoss="22.60" rerouteNo="0" devices="tripinfo_v0" vType="DEFAULT_VEHTYPE" speedFactor="0.30" vaporized=""/>
+</tripinfos>

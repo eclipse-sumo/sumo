@@ -19,6 +19,9 @@ trip_chain
 # remove person instantly
 remove
 
+# remove person while on a walkingarea and approaching a crossing (make sure it unregisters)
+remove_crossing
+
 # remove person and add another one with the same id
 remove_add
 
