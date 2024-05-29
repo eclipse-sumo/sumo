@@ -181,7 +181,7 @@ def main(options):
             os.makedirs(options.gpsdat)
         for mode in modes:
             if mode in seenModes:
-                traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name,
+                traceExporter.main(['--base-date', '0', '-i', fcdFile[mode].name,
                                     '--gpsdat-output', os.path.join(options.gpsdat, "gpsdat_%s.csv" % mode)])
     if dataAvailable(options):
         gtfs2osm.write_vtypes(options, seenModes)
