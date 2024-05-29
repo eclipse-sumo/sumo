@@ -1733,8 +1733,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (crossingLink->havePriority() && crossingLink->myApproachingPersons != nullptr) {
                     // a person might step on the crossing at any moment, since ego
                     // is already on the junction, the opened() check is not done anymore
+                    const double timeToEnterCrossing = distToCrossing / MAX2(ego->getSpeed(), 1.0);
                     for (const auto& item : (*crossingLink->myApproachingPersons)) {
-                        if (!ignoreFoe(ego, item.first) && distToCrossing / MAX2(ego->getSpeed(), 1.0) > STEPS2TIME(item.second.arrivalTime - SIMSTEP)) {
+                        if (!ignoreFoe(ego, item.first) && timeToEnterCrossing > STEPS2TIME(item.second.arrivalTime - SIMSTEP)) {
                             if (gDebugFlag1) {
                                 std::cout << SIMTIME << ": " << ego->getID() << " breaking for approaching person " << item.first->getID()
                                     //<< " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
@@ -1742,6 +1743,12 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             }
                             result.emplace_back(nullptr, -1, distToPeds);
                             break;
+                        //} else {
+                        //    if (gDebugFlag1) {
+                        //        std::cout << SIMTIME << ": " << ego->getID() << " notBreaking for approaching person " << item.first->getID()
+                        //            << " dtc=" << distToCrossing << " ttc=" << distToCrossing / MAX2(ego->getSpeed(), 1.0) << " foeAT=" << item.second.arrivalTime << " foeTTC=" << STEPS2TIME(item.second.arrivalTime - SIMSTEP)
+                        //            << "\n";
+                        //    }
                         }
                     }
                 }
