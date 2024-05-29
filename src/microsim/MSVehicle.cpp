@@ -3444,16 +3444,6 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                     std::cout << "   aborting request\n";
                 }
 #endif
-                if (lastLink != nullptr) {
-                    // we are not yet on the junction so must abort that request as well
-                    // (or maybe we are already on the junction and the leader is a partial occupator beyond)
-                    lastLink->mySetRequest = false;
-#ifdef DEBUG_PLAN_MOVE_LEADERINFO
-                    if (DEBUG_COND) {
-                        std::cout << "      aborting previous request\n";
-                    }
-#endif
-                }
             }
         } else if (isLeader(link, leader, (*it).vehAndGap.second) || (*it).inTheWay()) {
             if (getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB, 0) > 0
