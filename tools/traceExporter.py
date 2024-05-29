@@ -236,7 +236,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          help="Defines the name of the trj file to generate")
     optParser.add_option("--trj-veh-width", dest="trjvehwidth", default=1.7,
                          type=float, help="Defines the assumed vehicle width")
-    optParser.add_option("--trj-vehicle-length", dest="trjvehlength", default=4.8,
+    optParser.add_option("--trj-veh-length", "--trj-vehicle-length", dest="trjvehlength", default=4.8,
                          type=float, help="Defines the assumed vehicle length")
     optParser.add_option("--timestep", dest="timestep", default=1.0,
                          type=float, help="Used time step duration")
