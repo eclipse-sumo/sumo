@@ -1728,7 +1728,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                     collectBlockers)) {
                 result.emplace_back(nullptr, -1, distToPeds);
-            } else if (dist < myLaneBefore->getLength() && foeLane->isCrossing()) {
+            } else if (foeLane->isCrossing() && ego->getLane()->isInternal() && ego->getLane()->getEdge().getToJunction() == myJunction) {
                 const MSLink* crossingLink = foeLane->getIncomingLanes()[0].viaLink;
                 if (crossingLink->havePriority() && crossingLink->myApproachingPersons != nullptr) {
                     // a person might step on the crossing at any moment, since ego
