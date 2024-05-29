@@ -2633,6 +2633,8 @@ NIImporter_OpenStreetMap::interpretTransportType(const std::string& type, NIOSMN
         result = SVC_TAXI;
     } else if (type == "minibus") {
         result = SVC_BUS;
+    } else if (type == "trolleybus") {
+        result = SVC_BUS;
     } else if (SumoVehicleClassStrings.hasString(type)) {
         result = SumoVehicleClassStrings.get(type);
     }

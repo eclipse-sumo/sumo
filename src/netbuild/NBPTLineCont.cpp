@@ -479,6 +479,8 @@ void
 NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     std::map<std::string, SUMOVehicleClass> types;
     types["bus"] = SVC_BUS;
+    types["minibus"] = SVC_BUS;
+    types["trolleybus"] = SVC_BUS;
     types["tram"] = SVC_TRAM;
     types["train"] = SVC_RAIL;
     types["subway"] = SVC_RAIL_URBAN;
