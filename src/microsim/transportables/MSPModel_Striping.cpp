@@ -1267,7 +1267,11 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             // consider rerouting over another crossing
             if (p.myWalkingAreaPath != nullptr) {
                 // @todo actually another path would be needed starting at the current position
+                const MSLane* oldNext = p.myNLI.lane;
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
+                if (p.myNLI.lane != oldNext) {
+                    unregisterCrossingApproach(p, oldNext);
+                }
             }
         }
         if DEBUGCOND(p) {
