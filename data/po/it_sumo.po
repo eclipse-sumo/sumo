@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-22 10:16+0000\n"
+"PO-Revision-Date: 2024-05-29 19:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1634,23 +1634,23 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:232
 msgid "Write the last route only"
-msgstr ""
+msgstr "Scrivi soltanto l'ultimo itinerario"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:236
 msgid "Sorts the output by departure time"
-msgstr ""
+msgstr "Ordina l'uscita per ora di partenza"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:240
 msgid "Write the output in the duarouter alternatives style"
-msgstr ""
+msgstr "Scrivi uscita nello stile delle alternative duarouter"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:243
 msgid "Write costs for all routes"
-msgstr ""
+msgstr "Scrivi costi per tutti gli itinerari"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:247
 msgid "Write the output with the intended instead of the real departure time"
-msgstr ""
+msgstr "Scrivi l'ora di partenza pianificata invece di quella reale nell'uscita"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:254
 msgid ""
@@ -1659,15 +1659,15 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:257
 msgid "Skip vehroute output for public transport vehicles"
-msgstr ""
+msgstr "Ometti uscita vehroute per veicoli di trasporto pubblico"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:260
 msgid "Include invalid routes and route stubs in vehroute output"
-msgstr ""
+msgstr "Includi itinerari invalidi e itinerari incompleti nell'uscita vehroute"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:263
 msgid "Include information about edges between stops"
-msgstr ""
+msgstr "Includi informazioni sugli archi tra le fermate"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:266
 msgid ""
