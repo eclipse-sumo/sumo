@@ -996,8 +996,7 @@ density:
   vehicles in SUMO. Make sure that you have enough RAM when trying to
   build or run scenarios beyond city-size. It may be necessary to use
   the 64bit version of SUMO to make use of available RAM.
-- The maximum length of a simulation scenario is 285 million years (or
-  278 thousand years at millisecond time resolution). If you need to
+- The maximum length of a simulation scenario is 292 million years. If you need to
   simulate longer time periods you must [save and reload the simulation state](#how_to_save_a_simulation_state_and_proceed_later_andor_differently)
 
 ### How fast can SUMO run?
