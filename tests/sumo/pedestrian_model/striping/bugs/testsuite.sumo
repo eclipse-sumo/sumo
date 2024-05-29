@@ -47,3 +47,6 @@ ticket11983
 # cross the street going straight on the right side of the road	but the crossing is shifted sideways with regard to the sidewalk and the walkingarea is very short
 # (#12456)
 ticket12456
+
+# emergency braking at crossing
+ticket14939
