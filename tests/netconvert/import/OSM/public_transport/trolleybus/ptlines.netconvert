@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-29 08:50:12 by Eclipse SUMO netconvert Version v1_20_0+0251-82de900cd34
+<!-- generated on 2024-05-29 08:52:58 by Eclipse SUMO netconvert Version v1_20_0+0259-40808f8d29b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -60,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="-378729074" name="Kempfhofsteig"/>
         <busStop id="-378729465" name="Rebbergsteig"/>
     </ptLine>
-    <ptLine id="2792494" name="Bus 46: Zürich, Rütihof → Bahnhofquai/HB" line="46" type="trolleybus" vClass="ignoring" color="193,213,159" completeness="0.07" missingBefore="13" missingAfter="13">
+    <ptLine id="2792494" name="Bus 46: Zürich, Rütihof → Bahnhofquai/HB" line="46" type="trolleybus" vClass="bus" color="193,213,159" completeness="0.07" missingBefore="13" missingAfter="13">
         <route edges="-1096073141 -1096073140#1 -1096073140#0 -171943679#3 -171943679#2 -171943679#1 -171943679#0 12369753#0 12369753#1"/>
         <busStop id="-378729074" name="Kempfhofsteig"/>
         <busStop id="-378729465" name="Rebbergsteig"/>
@@ -72,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <busStop id="2288259663" name="Eschergutweg"/>
         <busStop id="3071738304" name="Alte Trotte"/>
     </ptLine>
-    <ptLine id="34763" name="Bus 46: Zürich, Bahnhofquai/HB → Rütihof" line="46" type="trolleybus" vClass="ignoring" color="193,213,159" completeness="0.07" missingBefore="10" missingAfter="13">
+    <ptLine id="34763" name="Bus 46: Zürich, Bahnhofquai/HB → Rütihof" line="46" type="trolleybus" vClass="bus" color="193,213,159" completeness="0.07" missingBefore="10" missingAfter="13">
         <route edges="-12369753#1 -12369753#0 171943679#0 171943679#1 171943679#2 171943679#3 1096073140#0 1096073140#1 1096073141"/>
         <busStop id="-112326137" name="Rebbergsteig"/>
         <busStop id="378729047" name="Kempfhofsteig"/>
