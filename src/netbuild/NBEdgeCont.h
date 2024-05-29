@@ -319,8 +319,9 @@ public:
     /** @brief Removes unwished edges (not in keep-edges)
      * @param[in, opt. changed] dc The district container needed to remove edges
      * @todo Recheck usage; check whether keep-edges.postload is really useful
+     * @return The number of removed edges
      */
-    void removeUnwishedEdges(NBDistrictCont& dc);
+    int removeUnwishedEdges(NBDistrictCont& dc);
 
     /** @brief Splits edges into multiple if they have a complex geometry
      *
@@ -470,6 +471,9 @@ public:
      * @return The number of found roundabouts
      */
     int extractRoundabouts();
+
+    // brief ensure myRoundabouts only holds valid edges
+    void cleanupRoundabouts();
 
     /** @brief Returns whether the edge with the id was ignored during parsing
      * @return Whether the edge with the id was ignored during parsing

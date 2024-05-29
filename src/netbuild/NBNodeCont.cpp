@@ -171,7 +171,7 @@ NBNodeCont::extract(NBNode* node, bool remember) {
 
 
 // ----------- Adapting the input
-void
+int
 NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc) {
     int no = 0;
     for (NodeCont::iterator i = myNodes.begin(); i != myNodes.end(); i++) {
@@ -180,6 +180,7 @@ NBNodeCont::removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLo
     if (no != 0) {
         WRITE_WARNING(toString(no) + " self-looping edge(s) removed.");
     }
+    return no;
 }
 
 
@@ -234,8 +235,9 @@ NBNodeCont::joinSimilarEdges(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightL
 }
 
 
-void
+int
 NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
+    int numRemovedEdges = 0;
     // Warn of isolated edges, i.e. a single edge with no connection to another edge
     const std::vector<std::string>& edgeNames = ec.getAllNames();
     for (std::vector<std::string>::const_iterator it = edgeNames.begin(); it != edgeNames.end(); ++it) {
@@ -307,6 +309,7 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
                 NBNode* fromNode = (*roadIt)->getFromNode();
                 NBNode* toNode = (*roadIt)->getToNode();
                 ec.erase(dc, *roadIt);
+                numRemovedEdges++;
                 if (fromNode->getIncomingEdges().size() == 0 && fromNode->getOutgoingEdges().size() == 0) {
                     // Node is empty; can be removed
                     erase(fromNode);
@@ -319,10 +322,11 @@ NBNodeCont::removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec) {
             WRITE_WARNINGF(TL("Removed a road without junctions: %."), warningString);
         }
     }
+    return numRemovedEdges;
 }
 
 
-void
+int
 NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops) {
     myRailComponents.clear();
     std::vector<std::set<NBEdge*> > components;
@@ -405,10 +409,11 @@ NBNodeCont::removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKe
     if (foundComponents > 1) {
         WRITE_MESSAGEF(TL("Found % components and removed % (% edges)."), toString(foundComponents), toString(numRemoved), toString(toRemove.size()));
     }
+    return toRemove.size();
 }
 
 
-void
+int
 NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc) {
     std::set<std::string> stopEdges;
     for (const auto& item : sc.getStops()) {
@@ -446,6 +451,7 @@ NBNodeCont::removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCon
     if (numRemoved > 0) {
         WRITE_MESSAGEF(TL("Removed % railway components (% edges)."), toString(numRemoved), toString(numRemovedEdges));
     }
+    return numRemoved;
 }
 
 

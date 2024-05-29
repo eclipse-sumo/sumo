@@ -92,17 +92,18 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // MODIFYING THE SETS OF NODES AND EDGES
     // Removes edges that are connecting the same node
     long before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Removing self-loops"));
-    myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
+    int numRemovedEdges = 0;
+    numRemovedEdges += myNodeCont.removeSelfLoops(myDistrictCont, myEdgeCont, myTLLCont);
     PROGRESS_TIME_MESSAGE(before);
     if (mayAddOrRemove && oc.exists("remove-edges.isolated") && oc.getBool("remove-edges.isolated")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Finding isolated roads"));
-        myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont);
+        numRemovedEdges += myNodeCont.removeIsolatedRoads(myDistrictCont, myEdgeCont);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Finding largest components"));
         const bool hasStops = oc.exists("ptstop-output") && oc.isSet("ptstop-output") && !myPTStopCont.getStops().empty();
-        myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
+        numRemovedEdges += myNodeCont.removeComponents(myDistrictCont, myEdgeCont, oc.getInt("keep-edges.components"), hasStops);
         PROGRESS_TIME_MESSAGE(before);
     }
     if (mayAddOrRemove && oc.exists("keep-edges.postload") && oc.getBool("keep-edges.postload")) {
@@ -114,15 +115,17 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         }
         if (oc.isSet("keep-edges.explicit") || oc.isSet("keep-edges.input-file")) {
             before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Removing unwished edges"));
-            myEdgeCont.removeUnwishedEdges(myDistrictCont);
+            numRemovedEdges += myEdgeCont.removeUnwishedEdges(myDistrictCont);
             PROGRESS_TIME_MESSAGE(before);
         }
         const int removed = myEdgeCont.removeEdgesBySpeed(myDistrictCont);
         if (removed > 0) {
+            numRemovedEdges += removed;
             WRITE_MESSAGEF(TL(" Removed % edges because by minimum speed."), removed);
         }
         const int removed2 = myEdgeCont.removeEdgesByPermissions(myDistrictCont);
         if (removed2 > 0) {
+            numRemovedEdges += removed2;
             WRITE_MESSAGEF(TL(" Removed % edges based on vClass."), removed2);
         }
     }
@@ -139,7 +142,11 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     if (mayAddOrRemove && oc.exists("keep-edges.components") && oc.getInt("keep-edges.components") > 0) {
         // post process rail components unless they have stops
-        myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
+        numRemovedEdges += myNodeCont.removeRailComponents(myDistrictCont, myEdgeCont, myPTStopCont);
+    }
+    // removal is done, clean up roundabouts
+    if (numRemovedEdges > 0) {
+        myEdgeCont.cleanupRoundabouts();
     }
 
     if (!myPTLineCont.getLines().empty()) {

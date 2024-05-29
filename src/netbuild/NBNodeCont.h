@@ -187,8 +187,9 @@ public:
      * @param[in, opt. changed] ec The edge container to remove the edges from
      * @param[in, opt. changed] tc The traffic lights container to update
      * @post Each edge is a uni-directional connection between two different nodes
+     * @return The number of removed edges
      */
-    void removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
+    int removeSelfLoops(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tc);
 
     /** @brief Joins edges connecting the same nodes
      * @param[in, opt. changed] dc The districts container to update
@@ -207,8 +208,9 @@ public:
      *
      * @param[in, opt. changed] dc The district container needed if edges shall be removed
      * @param[in, opt. changed] ec The container with the edge to be tested
+     * @return The number of removed edges
      */
-    void removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec);
+    int removeIsolatedRoads(NBDistrictCont& dc, NBEdgeCont& ec);
 
     /** @brief Checks the network for weak connectivity and removes all but the largest components.
      * The connectivity check is done regardless of edge direction and vclass.
@@ -216,11 +218,14 @@ public:
      * @param[in, opt. changed] dc The district container needed if edges shall be removed
      * @param[in, opt. changed] ec The container with the edge to be tested
      * @param[in] numKeep The number of components to keep
+     * @return The number of removed edges
      */
-    void removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops);
+    int removeComponents(NBDistrictCont& dc, NBEdgeCont& ec, const int numKeep, bool hasPTStops);
 
-    /// @brief remove rail components after ptstops are built
-    void removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc);
+    /* @brief remove rail components after ptstops are built
+     * @return The number of removed edges
+     */
+    int removeRailComponents(NBDistrictCont& dc, NBEdgeCont& ec, NBPTStopCont& sc);
 
     /** @brief Removes "unwished" nodes
      *

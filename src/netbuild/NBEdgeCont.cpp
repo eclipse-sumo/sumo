@@ -765,7 +765,7 @@ NBEdgeCont::getAllNames() const {
 
 
 // ----- Adapting the input
-void
+int
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
     EdgeVector toRemove;
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
@@ -779,6 +779,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
     for (EdgeVector::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
         erase(dc, *j);
     }
+    return toRemove.size();
 }
 
 
@@ -1522,6 +1523,29 @@ NBEdgeCont::extractRoundabouts() {
         } while (doLoop);
     }
     return extracted;
+}
+
+
+void
+NBEdgeCont::cleanupRoundabouts() {
+    // only loaded roundabouts are of concern here since guessing comes later
+    std::set<EdgeSet> validRoundabouts;
+    std::set<NBEdge*> validEdges;
+    for (auto item : myEdges) {
+        validEdges.insert(item.second);
+    }
+    for (EdgeSet roundabout : myRoundabouts) {
+        EdgeSet validRoundabout;
+        for (NBEdge* cand : roundabout) {
+            if (validEdges.count(cand) != 0) {
+                validRoundabout.insert(cand);
+            }
+        }
+        if (validRoundabout.size() > 0) {
+            validRoundabouts.insert(validRoundabout);
+        }
+    }
+    myRoundabouts = validRoundabouts;
 }
 
 
