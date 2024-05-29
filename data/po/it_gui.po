@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-28 13:35+0000\n"
+"PO-Revision-Date: 2024-05-29 19:04+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -11270,7 +11270,7 @@ msgstr "Tipo di veicolo '%' invalido usato in % '%'."
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:492
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:530
 msgid "Invalid % used in % '%'. % is greater than number of lanes"
-msgstr ""
+msgstr "% invalido utilizzato in % '%'. % è maggiore del numero di corsie"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:189
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:263
@@ -11282,7 +11282,7 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:494
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:532
 msgid "Invalid % used in % '%'. % is greater than type %"
-msgstr ""
+msgstr "% invalido utilizzato in % '%'. % è maggiore del tipo %"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:259
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:294
@@ -11301,7 +11301,7 @@ msgstr "Elemento padre invalido per una persona"
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:952
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1009
 msgid "invalid combination for personTrip"
-msgstr ""
+msgstr "combinazione invalida per corse di persone"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:661
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:761
@@ -11915,7 +11915,7 @@ msgstr "Nessuna corsia selezionata"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:61
 msgid "Finish path creation"
-msgstr ""
+msgstr "Termina creazione di itinerario"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEConsecutiveSelector.cpp:64
 msgid "Abort path creation"
