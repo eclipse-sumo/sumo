@@ -147,5 +147,11 @@ bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTim
     return false;
 }
 
+void checkTimeBounds(const double time) {
+    if (time > STEPS2TIME(SUMOTime_MAX)) {
+        throw TimeFormatException("Input time " + toString(time) + "s exceeds the time value range.");
+    }
+}
+
 
 /****************************************************************************/

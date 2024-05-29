@@ -247,6 +247,11 @@ VehicleType::setActionStepLength(const std::string& typeID, double actionStepLen
 
 void
 VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration)  {
+    try {
+        checkTimeBounds(boardingDuration);
+    } catch (ProcessError& e) {
+        throw TraCIException("BoardingDuration parameter exceeds the time value range.");
+    }
     getVType(typeID)->setBoardingDuration(TIME2STEPS(boardingDuration), true);
 }
 

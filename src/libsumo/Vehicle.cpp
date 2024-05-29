@@ -1450,6 +1450,11 @@ Vehicle::changeTarget(const std::string& vehID, const std::string& edgeID) {
 
 void
 Vehicle::changeLane(const std::string& vehID, int laneIndex, double duration) {
+    try {
+        checkTimeBounds(duration);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration parameter exceeds the time value range.");
+    }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1465,6 +1470,11 @@ Vehicle::changeLane(const std::string& vehID, int laneIndex, double duration) {
 
 void
 Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double duration) {
+    try {
+        checkTimeBounds(duration);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration parameter exceeds the time value range.");
+    }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1784,6 +1794,11 @@ Vehicle::moveToXY(const std::string& vehID, const std::string& edgeID, const int
 
 void
 Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
+    try {
+        checkTimeBounds(duration);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration parameter exceeds the time value range.");
+    }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1799,6 +1814,11 @@ Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
 
 void
 Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID) {
+    try {
+        checkTimeBounds(duration);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration parameter exceeds the time value range.");
+    }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1859,6 +1879,11 @@ Vehicle::setSpeed(const std::string& vehID, double speed) {
 
 void
 Vehicle::setAcceleration(const std::string& vehID, double acceleration, double duration) {
+    try {
+        checkTimeBounds(duration);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration parameter exceeds the time value range.");
+    }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -2213,6 +2238,11 @@ Vehicle::setActionStepLength(const std::string& vehID, double actionStepLength, 
 
 void
 Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration)  {
+    try {
+        checkTimeBounds(boardingDuration);
+    } catch (ProcessError& e) {
+        throw TraCIException("BoardingDuration parameter exceeds the time value range.");
+    }
     Helper::getVehicle(vehID)->getSingularType().setBoardingDuration(TIME2STEPS(boardingDuration));
 }
 
@@ -2495,6 +2525,7 @@ Vehicle::setParameter(const std::string& vehID, const std::string& key, const st
 
 void
 Vehicle::highlight(const std::string& vehID, const TraCIColor& col, double size, const int alphaMax, const double duration, const int type) {
+
     // NOTE: Code is duplicated in large parts in POI.cpp
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
 

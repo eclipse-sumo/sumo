@@ -537,6 +537,12 @@ SUMOVehicleParameter::Stop
 Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
     SUMOVehicleParameter::Stop newStop;
+    try {
+        checkTimeBounds(duration);
+        checkTimeBounds(until);
+    } catch (ProcessError& e) {
+        throw TraCIException("Duration or until parameter exceed the time value range.");
+    }
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
     newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
     newStop.index = STOP_INDEX_FIT;
