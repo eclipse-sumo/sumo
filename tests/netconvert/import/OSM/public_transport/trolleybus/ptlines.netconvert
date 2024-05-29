@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-29 08:50:12 by Eclipse SUMO netconvert Version v1_20_0+0251-82de900cd34
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml.gz"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="15004495" name="Bus N13: Weiningen ZH → Unterengstringen → Zürich, Bahnhofplatz/HB" line="N13" type="bus" vClass="bus" nightService="only" color="black" completeness="0.08" missingBefore="14" missingAfter="9">
+        <route edges="42208485#0 42208485#1"/>
+        <busStop id="7108387796" name="Alte Trotte"/>
+        <busStop id="7108387797" name="Eschergutweg"/>
+    </ptLine>
+    <ptLine id="15004496" name="Bus N13: Zürich, Bahnhofplatz/HB → Unterengstringen → Weiningen ZH" line="N13" type="bus" vClass="bus" nightService="only" color="black" completeness="0.08" missingBefore="9" missingAfter="15">
+        <route edges="42208485#0 42208485#1"/>
+        <busStop id="7108387797" name="Eschergutweg"/>
+        <busStop id="7108387796" name="Alte Trotte"/>
+    </ptLine>
+    <ptLine id="15004499" name="Bus N13: Zürich, Bahnhofplatz/HB → Unterengstringen → Schlieren" line="N13" type="bus" vClass="bus" nightService="only" color="black" completeness="0.07" missingBefore="9" missingAfter="19">
+        <route edges="42208485#0 42208485#1"/>
+        <busStop id="7108387797" name="Eschergutweg"/>
+        <busStop id="7108387796" name="Alte Trotte"/>
+    </ptLine>
+    <ptLine id="15004500" name="Bus N4: Zürich, Rütihof → Bahnhofplatz/HB" line="N4" type="bus" vClass="bus" nightService="only" color="black" completeness="0.10" missingBefore="9" missingAfter="9">
+        <route edges="-1096073141 -1096073140#1 -1096073140#0 -171943679#3 -171943679#2 -171943679#1 -171943679#0 12369753#0 12369753#1"/>
+        <busStop id="-378729074" name="Kempfhofsteig"/>
+        <busStop id="-378729465" name="Rebbergsteig"/>
+    </ptLine>
+    <ptLine id="2792494" name="Bus 46: Zürich, Rütihof → Bahnhofquai/HB" line="46" type="trolleybus" vClass="ignoring" color="193,213,159" completeness="0.07" missingBefore="13" missingAfter="13">
+        <route edges="-1096073141 -1096073140#1 -1096073140#0 -171943679#3 -171943679#2 -171943679#1 -171943679#0 12369753#0 12369753#1"/>
+        <busStop id="-378729074" name="Kempfhofsteig"/>
+        <busStop id="-378729465" name="Rebbergsteig"/>
+    </ptLine>
+    <ptLine id="2807066" name="Tram 13: Albisgütli → Frankental" line="13" type="tram" vClass="tram" color="246,200,40" completeness="0.13" missingBefore="20" missingAfter="6">
+        <route edges="1279971413#0 1279971413#1"/>
+        <busStop id="29382367" name="Wipkingerplatz"/>
+        <busStop id="2288259606" name="Waidfussweg"/>
+        <busStop id="2288259663" name="Eschergutweg"/>
+        <busStop id="3071738304" name="Alte Trotte"/>
+    </ptLine>
+    <ptLine id="34763" name="Bus 46: Zürich, Bahnhofquai/HB → Rütihof" line="46" type="trolleybus" vClass="ignoring" color="193,213,159" completeness="0.07" missingBefore="10" missingAfter="13">
+        <route edges="-12369753#1 -12369753#0 171943679#0 171943679#1 171943679#2 171943679#3 1096073140#0 1096073140#1 1096073141"/>
+        <busStop id="-112326137" name="Rebbergsteig"/>
+        <busStop id="378729047" name="Kempfhofsteig"/>
+    </ptLine>
+    <ptLine id="34913" name="Tram 13: Frankental → Albisgütli" line="13" type="tram" vClass="tram" color="246,200,40" completeness="0.13" missingBefore="6" missingAfter="20">
+        <route edges="1279971412"/>
+        <busStop id="4885628503" name="Alte Trotte"/>
+        <busStop id="2288259660" name="Eschergutweg"/>
+        <busStop id="2288259595" name="Waidfussweg"/>
+        <busStop id="2275377478" name="Wipkingerplatz"/>
+    </ptLine>
+    <ptLine id="7871933" name="Bus N13: Schlieren → Unterengstringen → Zürich, Bahnhofplatz/HB" line="N13" type="bus" vClass="bus" nightService="only" color="black" completeness="0.07" missingBefore="19" missingAfter="9">
+        <route edges="42208485#0 42208485#1"/>
+        <busStop id="7108387796" name="Alte Trotte"/>
+        <busStop id="7108387797" name="Eschergutweg"/>
+    </ptLine>
+    <ptLine id="7871934" name="Bus N4: Zürich, Bahnhofplatz/HB → Rütihof" line="N4" type="bus" vClass="bus" nightService="only" color="black" completeness="0.10" missingBefore="9" missingAfter="9">
+        <route edges="-12369753#1 -12369753#0 171943679#0 171943679#1 171943679#2 171943679#3 1096073140#0 1096073140#1 1096073141"/>
+        <busStop id="-112326137" name="Rebbergsteig"/>
+        <busStop id="378729047" name="Kempfhofsteig"/>
+    </ptLine>
+</ptLines>
