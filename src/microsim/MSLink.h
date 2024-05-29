@@ -484,6 +484,9 @@ public:
         return myFoeVisibilityDistance;
     }
 
+    double getDistToFoePedCrossing() const {
+        return myDistToFoePedCrossing;
+    }
 
     /** @brief Returns whether this link belongs to a junction where more than one edge is incoming
      *
@@ -719,6 +722,9 @@ private:
     /// @brief return CustomConflict with foeLane if it is defined
     const CustomConflict* getCustomConflict(const MSLane* foeLane) const;
 
+    /// @brief add information about another pedestrian crossing
+    void updateDistToFoePedCrossing(double dist); 
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
@@ -760,6 +766,9 @@ private:
     ///        and no foe is approaching. Defaults to 4.5m.
     ///        For zipper links (major) this is the distance at which zipper merging starts (and foes become "visible")
     double myFoeVisibilityDistance;
+
+    /// @brief distance from the stop line to the first pedestrian crossing or maxdouble
+    double myDistToFoePedCrossing;
 
     /// @brief Whether any foe links exist
     bool myHasFoes;

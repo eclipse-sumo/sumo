@@ -2646,7 +2646,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - major links: stopping point is irrelevant
         double laneStopOffset;
         const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getVehicleStopOffset(this));
-        const double minorStopOffset = lane->getVehicleStopOffset(this);
         // override low desired decel at yellow and red
         const double stopDecel = yellowOrRed && !isRailway(getVClass()) ? MAX2(MIN2(MSGlobals::gTLSYellowMinDecel, cfModel.getEmergencyDecel()), cfModel.getMaxDecel()) : cfModel.getMaxDecel();
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, stopDecel, 0);
@@ -2660,6 +2659,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, majorStopOffset);
         } else {
             // On minor link, we should likewise never stop below visibility distance
+            const double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
+                    getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, minorStopOffset);
         }
         if (canBrakeBeforeLaneEnd) {

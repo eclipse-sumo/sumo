@@ -708,6 +708,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmIgnoreJunctionFoeProb", SUMO_ATTR_JM_IGNORE_JUNCTION_FOE_PROB },
     { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
     { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
+    { "jmStoplineCrossingGap",  SUMO_ATTR_JM_STOPLINE_CROSSING_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
     { "junctionModel.ignoreIDs",    SUMO_ATTR_JM_IGNORE_IDS },
     { "junctionModel.ignoreTypes",  SUMO_ATTR_JM_IGNORE_TYPES },

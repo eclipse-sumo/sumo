@@ -126,6 +126,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
     myDirection(dir),
     myLength(length),
     myFoeVisibilityDistance(foeVisibilityDistance),
+    myDistToFoePedCrossing(std::numeric_limits<double>::max()),
     myHasFoes(false),
     myAmCont(false),
     myAmContOff(false),
@@ -375,6 +376,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     if (internalLaneBefore->getLogicalPredecessorLane()->getEdge().isInternal() && !foeLane->getEdge().isCrossing())  {
                         flag = CONFLICT_STOP_AT_INTERNAL_JUNCTION;
                     }
+
+                    if (foeLane->getEdge().isCrossing()) {
+                        const_cast<MSLink*>(getCorrespondingEntryLink())->updateDistToFoePedCrossing(intersections1.back());
+                    };
                 }
 
                 myConflicts.push_back(ConflictInfo(
@@ -1666,7 +1671,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
         }
         if (ego != nullptr && MSNet::getInstance()->hasPersons()) {
             // check for crossing pedestrians (keep driving if already on top of the crossing
-            const double distToPeds = distToCrossing - MSPModel::SAFETY_GAP;
+            const double distToPeds = distToCrossing - ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP);
             const double vehWidth = ego->getVehicleType().getWidth() + MSPModel::SAFETY_GAP; // + configurable safety gap
             /// @todo consider lateral position (depending on whether the crossing is encountered on the way in or out)
             // @check lefthand?!
@@ -2086,6 +2091,12 @@ MSLink::ignoreFoe(const SUMOTrafficObject* ego, const SUMOTrafficObject* foe) {
         }
     }
     return false;
+}
+
+
+void
+MSLink::updateDistToFoePedCrossing(double dist) {
+    myDistToFoePedCrossing = MIN2(myDistToFoePedCrossing, dist);
 }
 
 /****************************************************************************/
