@@ -545,6 +545,9 @@ private:
 
     static int getReserved(int stripes, double factor);
 
+    /// @brief register pedestrian approach with the junction model
+    static void registerCrossingApproach(const PState& ped, const MSLane* crossing, const MSLane* beforeWA);
+    static void unregisterCrossingApproach(const PState& ped, const MSLane* crossing);
 
 private:
     /// @brief the total number of active pedestrians
@@ -555,6 +558,9 @@ private:
 
     /// @brief whether an event for pedestrian processing was added
     bool myAmActive;
+
+    /// @brief all crossings being approached by pedestrians
+    std::set<MSLink*> myApproachedCrossings;
 
     /// @brief store for walkinArea elements
     static WalkingAreaPaths myWalkingAreaPaths;

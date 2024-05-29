@@ -116,6 +116,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
                bool indirect) :
     myLane(succLane),
     myLaneBefore(predLane),
+    myApproachingPersons(nullptr),
     myIndex(-1),
     myTLIndex(tlIndex),
     myLogic(logic),
@@ -172,6 +173,7 @@ MSLink::MSLink(MSLane* predLane, MSLane* succLane, MSLane* via, LinkDirection di
 
 MSLink::~MSLink() {
     delete myOffFoeLinks;
+    delete myApproachingPersons;
 }
 
 
@@ -689,6 +691,13 @@ MSLink::setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInforma
     myApproachingVehicles.emplace(approaching, ai);
 }
 
+void
+MSLink::setApproachingPerson(const MSPerson* approaching, const SUMOTime arrivalTime, const SUMOTime leaveTime) {
+    if (myApproachingPersons == nullptr) {
+        myApproachingPersons = new PersonApproachInfos();
+    }
+    myApproachingPersons->emplace(approaching, ApproachingPersonInformation(arrivalTime, leaveTime));
+}
 
 void
 MSLink::addBlockedLink(MSLink* link) {
@@ -721,6 +730,25 @@ MSLink::removeApproaching(const SUMOVehicle* veh) {
     }
 #endif
     myApproachingVehicles.erase(veh);
+}
+
+
+void
+MSLink::removeApproachingPerson(const MSPerson* person) {
+    if (myApproachingPersons == nullptr) {
+        WRITE_WARNINGF("Person '%' entered crossing lane '%' without registering approach, time=%", person->getID(), myLane->getID(), time2string(SIMSTEP));
+        return;
+    }
+#ifdef DEBUG_APPROACHING
+    if (DEBUG_COND2(person)) {
+        std::cout << SIMTIME << " Link '" << (myLaneBefore == 0 ? "NULL" : myLaneBefore->getID()) << "'->'" << (myLane == 0 ? "NULL" : myLane->getID()) << std::endl;
+        std::cout << "' Removing approaching person '" << person->getID() << "'\nCurrently registered persons:" << std::endl;
+        for (auto i = myApproachingPersons->begin(); i != myApproachingPersons->end(); ++i) {
+            std::cout << "'" << i->first->getID() << "'" << std::endl;
+        }
+    }
+#endif
+    myApproachingPersons->erase(person);
 }
 
 
@@ -913,6 +941,23 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                 return true;
             } else {
                 collectFoes->push_back(it.first);
+            }
+        }
+    }
+    if (myApproachingPersons != nullptr) {
+        for (const auto& it : *myApproachingPersons) {
+            if ((ego == nullptr
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_SPEED, 0) < it.first->getSpeed()
+                    || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
+                && !ignoreFoe(ego, it.first)
+                && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
+#ifdef MSLink_DEBUG_OPENED
+                if (gDebugFlag1) {
+                    std::cout << SIMTIME << ": " << ego->getID() << " blocked by person " << it.first->getID() << "\n";
+                }
+#endif
+                return true;
             }
         }
     }

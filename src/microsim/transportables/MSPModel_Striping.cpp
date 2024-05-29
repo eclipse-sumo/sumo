@@ -570,6 +570,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
             if DEBUGCOND(ped) {
                 std::cout << "  crossing\n";
             }
+            unregisterCrossingApproach(ped, currentLane);
         } else if (currentEdge->isWalkingArea())  {
             ConstMSEdgeVector crossingRoute;
             // departPos can be 0 because the direction of the walkingArea does not matter
@@ -611,6 +612,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                     }
                 }
                 assert(link != nullptr);
+                if (nextLane->isCrossing()) {
+                    registerCrossingApproach(ped, nextLane, prevLane);
+                }
             } else {
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME
@@ -1326,6 +1330,27 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         }
         //std::cout << SIMTIME << p.myPerson->getID() << " lane=" << lane->getID() << " x=" << p.myRelX << "\n";
     }
+}
+
+
+void
+MSPModel_Striping::registerCrossingApproach(const PState& ped, const MSLane* crossing, const MSLane* beforeWA) {
+    // person has entered the walkingarea
+    SUMOTime arrivalTime = SIMSTEP;
+    assert(ped.myLane->isWalkingArea());
+    const WalkingAreaPath* wa = getWalkingAreaPath(&ped.myLane->getEdge(), beforeWA, crossing);
+    const double speed = ped.myStage->getMaxSpeed(ped.myPerson) * (1 - dawdling / 2);
+    arrivalTime += TIME2STEPS(wa->length / speed);
+    SUMOTime leavingTime = arrivalTime + TIME2STEPS(crossing->getLength() / speed);
+    crossing->getIncomingLanes()[0].viaLink->setApproachingPerson(ped.myPerson, arrivalTime, leavingTime);
+    //std::cout << SIMTIME << " register " << ped.myPerson->getID() << "\n";
+}
+
+void
+MSPModel_Striping::unregisterCrossingApproach(const PState& ped, const MSLane* crossing) {
+    // person has entered the crossing
+    crossing->getIncomingLanes()[0].viaLink->removeApproachingPerson(ped.myPerson);
+    //std::cout << SIMTIME << " unregister " << ped.myPerson->getID() << "\n";
 }
 
 bool

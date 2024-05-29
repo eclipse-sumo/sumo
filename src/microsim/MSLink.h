@@ -162,8 +162,26 @@ public:
 
     };
 
+    /** @struct ApproachingPersonInformation
+     * @brief A structure holding the information about persons approaching a pedestrian crossing link
+     */
+    struct ApproachingPersonInformation {
+        /** @brief Constructor
+         * @param[in] waitingTime The time during which the vehicle is waiting at this link
+         *   this needs to be placed here because MSVehicle::myWaitingTime is updated in between
+         *   calls to opened() causing order dependencies
+         **/
+        ApproachingPersonInformation(const SUMOTime _arrivalTime, const SUMOTime _leavingTime) :
+            arrivalTime(_arrivalTime), leavingTime(_leavingTime) {}
+        /// @brief The time the vehicle's front arrives at the link
+        const SUMOTime arrivalTime;
+        /// @brief The estimated time at which the vehicle leaves the link
+        const SUMOTime leavingTime;
+    };
+
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
     typedef std::vector<const SUMOVehicle*> BlockingFoes;
+    typedef std::map<const MSPerson*, ApproachingPersonInformation> PersonApproachInfos;
 
     enum ConflictFlag {
         CONFLICT_DEFAULT,
@@ -272,8 +290,14 @@ public:
     /** @brief Sets the information about an approaching vehicle */
     void setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai);
 
+    /** @brief Sets the information about an approaching person (only for a pedestrian crossing) */
+    void setApproachingPerson(const MSPerson* approaching, const SUMOTime arrivalTime, const SUMOTime leaveTime);
+
     /// @brief removes the vehicle from myApproachingVehicles
     void removeApproaching(const SUMOVehicle* veh);
+
+    /// @brief removes the person from myApproachingPersons
+    void removeApproachingPerson(const MSPerson* person);
 
     void addBlockedLink(MSLink* link);
 
@@ -733,6 +757,7 @@ private:
     MSLane* myLaneBefore;
 
     ApproachInfos myApproachingVehicles;
+    PersonApproachInfos* myApproachingPersons;
     std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
