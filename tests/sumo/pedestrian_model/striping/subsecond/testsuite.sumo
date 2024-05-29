@@ -4,3 +4,6 @@ uncontrolled_prio_crossing
 
 # pedestrians walking in the other direction
 uncontrolled_prio_crossing2
+
+# pedestrians walking in the other direction
+uncontrolled_prio_crossing2_bigJunction
