@@ -21,7 +21,7 @@ import sys
 
 from matplotlib.pyplot import figure, plot, gca, show, savefig
 from shapely import wkt
-from shapely.geometry import Polygon, MultiPolygon
+from shapely.geometry import Polygon, MultiPolygon, LineString
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
@@ -29,28 +29,42 @@ if 'SUMO_HOME' in os.environ:
 from sumolib.options import ArgumentParser
 
 
-def plotPolygonWithHoles(polygon, options):
+def plotPolygonWithHoles(polygon, min_area, color):
     x, y = polygon.exterior.coords.xy
-    plot(x, y, color=options.color)
+    plot(x, y, color=color)
     for hole in polygon.interiors:
-        if Polygon(hole).area > options.area_threshold:
+        if Polygon(hole).area > min_area:
             x, y = hole.coords.xy
-            plot(x, y, color=options.color)
+            plot(x, y, color=color)
 
 
-def plotMultiPolygonWithHoles(multipolygon, options):
-    for polygon in multipolygon.geoms:
-        plotPolygonWithHoles(polygon, options)
+def plotLineString(data, color):
+    x, y = data.coords.xy
+    plot(x, y, color=color)
+
+
+def plotGeom(data, min_area, color):
+    if type(data) == Polygon:
+        plotPolygonWithHoles(data, min_area, color)
+    elif type(data) == MultiPolygon:
+        for polygon in data.geoms:
+            plotPolygonWithHoles(polygon, min_area, color)
+    elif type(data) == LineString:
+        plotLineString(data, color)
 
 
 def main(args=None):
     ap = ArgumentParser(description="Plot a polygon, or the difference between two polygons, given in WKT format.")
-    ap.add_argument('filename', category='input', type=ap.file, help='Name of a WKT file')
-    ap.add_argument('-f', '--other-filename', category='input', type=ap.file, help='Name of another WKT file')
+    ap.add_argument('filename', category='input', type=ap.file,
+                    help='Name of the WKT file with the primary polygon')
+    ap.add_argument('-f', '--other-filename', category='input', type=ap.file,
+                    help='Name of the WKT file with the secondary polygon')
+    ap.add_argument('-d', '--data-filename', category='input', type=ap.file, help='Name of supplementary WKT file')
     ap.add_argument('-o', '--output', category='output', type=ap.file, help='Name of image file to write')
     ap.add_argument('-a', '--area-threshold', default=0.01, type=float,
                     help='Area threshold used to filter small holes')
     ap.add_argument('-m', '--color', default='blue', help='Color used to draw the polygons')
+    ap.add_argument('-l', '--extra-color', default='red', help='Color used to draw supplementary data')
     options = ap.parse_args(args=args)
 
     with open(options.filename) as file:
@@ -61,10 +75,11 @@ def main(args=None):
                 polygon = polygon.difference(otherPolygon)
 
     figure()
-    if type(polygon) == Polygon:
-        plotPolygonWithHoles(polygon, options)
-    elif type(polygon) == MultiPolygon:
-        plotMultiPolygonWithHoles(polygon, options)
+    plotGeom(polygon, options.area_threshold, options.color)
+    if options.data_filename:
+        with open(options.data_filename) as data_file:
+            data = wkt.load(data_file)
+        plotGeom(data, options.area_threshold, options.extra_color)
     gca().set_aspect('equal')
     if options.output:
         savefig(options.output)
