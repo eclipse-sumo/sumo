@@ -96,7 +96,8 @@ GUIBusStop::initShape(PositionVector& fgShape,
     fgSignRot = 0;
     if (tmp.length() != 0) {
         fgSignRot = fgShape.rotationDegreeAtOffset(double((fgShape.length() / 2.)));
-        fgSignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        fgSignRot -= 90 * rotSign;
     }
 }
 
@@ -205,16 +206,15 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
-        const double lineAngle = s.getTextAngle(rotSign * signRot);
         RGBColor lineColor = color.changedBrightness(-51);
-        const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
-        const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
+        const double textOffset = 1; // TODO: refactor text flipping for lefthand networks (was s.flippedTextAngle(rotSign * signRot))
+        const double textOffset2 = 0.3; // TODO: refactor text flipping for lefthand networks (was s.flippedTextAngle(rotSign * signRot))
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
             GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(signPos.x(), signPos.y(), 0);
-            glRotated(lineAngle, 0, 0, 1);
+            glRotated(-signRot, 0, 0, 1);
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
@@ -236,14 +236,13 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, .1);
         GLHelper::setColor(colorSign);
         GLHelper::drawFilledCircle((double) 0.9, noPoints);
-        if (s.drawDetail(10, exaggeration)) {
-            if (myElement == SUMO_TAG_CONTAINER_STOP) {
-                GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
-            } else if (myElement == SUMO_TAG_TRAIN_STOP) {
-                GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
-            } else {
-                GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
-            }
+
+        if (myElement == SUMO_TAG_CONTAINER_STOP) {
+            GLHelper::drawText("C", Position(), .1, 1.6, color, signRot);
+        } else if (myElement == SUMO_TAG_TRAIN_STOP) {
+            GLHelper::drawText("T", Position(), .1, 1.6, color, signRot);
+        } else {
+            GLHelper::drawText("H", Position(), .1, 1.6, color, signRot);
         }
         GLHelper::popMatrix();
     }
