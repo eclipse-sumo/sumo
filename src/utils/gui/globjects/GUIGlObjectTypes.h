@@ -251,9 +251,6 @@ enum GUIGlObjectType {
     /// @brief Lock icon (used in netedit)
     GLO_LOCKICON = 1000,
 
-    /// @brief text element (used in netedit)
-    GLO_TEXTNAME = 1010,
-
     /// @brief geometry point (used in netedit)
     GLO_GEOMETRYPOINT = 1020,
 
@@ -265,6 +262,9 @@ enum GUIGlObjectType {
 
     /// @brief temporal shape (used in netedit)
     GLO_TEMPORALSHAPE = 1050,
+
+    /// @brief text element (used in netedit)
+    GLO_TEXTNAME = 1055,
 
     /// @brief rectangle selection shape (used in netedit)
     GLO_RECTANGLESELECTION = 1060,
