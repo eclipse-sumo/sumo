@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-27 09:53+0000\n"
+"PO-Revision-Date: 2024-05-30 14:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -10401,7 +10401,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:91
 msgid "The dlr-navteq output format version to write"
-msgstr ""
+msgstr "Die zu schreibende DLR-Navteq-Formatversion"
 
 #: D:\Repos\sumo/src\netwrite\NWFrame.cpp:94
 msgid ""
@@ -10882,7 +10882,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:206
 msgid "Assembled polygon from relation '%' (name:%)%"
-msgstr ""
+msgstr "Polygon aus Beziehung '%' gebildet (Name:%)%"
 
 #: D:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:208
 msgid ""
@@ -12039,6 +12039,8 @@ msgid ""
 "Vehicle type '%' uses the Energy model with parameter "
 "'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."
 msgstr ""
+"Der Fahrzeugtyp '%' nutzt das Energy-Modell mit dem veralteten Parameter "
+"'internalMomentOfInertia'. Bitte nutze stattdessen 'rotatingMass'."
 
 #: D:\Repos\sumo/src\utils\emissions\EnergyParams.cpp:196
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
@@ -12177,7 +12179,7 @@ msgstr "Versuch Positionsvektoren unterschiedlicher Länge zu subtrahieren."
 
 #: D:\Repos\sumo/src\utils\geom\PositionVector.cpp:1542
 msgid "Trying to add PositionVectors of different lengths."
-msgstr ""
+msgstr "Versuche PositionVector verschiedener Länge zu addieren."
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:876
 msgid "Invalid charge type '%' defined in chargingStation '%'."
@@ -12229,7 +12231,7 @@ msgstr "lon und lat müssen zusammen in POIs definiert sein"
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1764
 #: D:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:128
 msgid "Invalid icon % for POI '%', using default"
-msgstr ""
+msgstr "Ungültiges Icon % für PoI '%' - nutze Standard-Icon"
 
 #: D:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:1852
 msgid "Parameters must be defined within an object."
@@ -12283,6 +12285,8 @@ msgid ""
 "Could not build % with ID '%' in netedit; Distinct number of distribution "
 "values and probabilities."
 msgstr ""
+"Konnte % mit der ID '%' nicht in netedit erstellen; Ungleiche Anzahl an "
+"Verteilungswerten und Wahrscheinlichkeiten."
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:471
 msgid ""
@@ -12301,11 +12305,15 @@ msgstr "Durchlaufzeit von % muss gleich oder größer als 0 sein"
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
+"Die Attribute 'from', 'fromJunction' und 'fromTaz' können nicht gemeinsam "
+"definiert werden"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:544
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:624
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
 msgstr ""
+"Die Attribute 'to', 'toJunction' und 'toTaz' können nicht gemeinsam "
+"definiert werden"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:588
 msgid ""
