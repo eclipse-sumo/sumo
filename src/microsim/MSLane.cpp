@@ -958,7 +958,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 // traffic light never turns 'G'?
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
-            const double remaining = seen - currentLane->getVehicleStopOffset(aVehicle);
+            const double laneStopOffset = MAX2(getVehicleStopOffset(aVehicle),
+                    aVehicle->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+            const double remaining = seen - laneStopOffset;
             auto dsp = aVehicle->getParameter().departSpeedProcedure;
             const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
             // patchSpeed depends on the presence of vehicles for these procedures. We never want to abort them here
