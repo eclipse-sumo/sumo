@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-30 14:24+0000\n"
+"PO-Revision-Date: 2024-05-30 14:41+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -12320,6 +12320,8 @@ msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
+"Fahrtdefinitionen benötigen entweder 'from/to', 'fromJunction/toJunction' "
+"oder 'fromTaz/toTaz'"
 
 #: D:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:965
 msgid "Parameters must be defined within an object"
@@ -12459,6 +12461,8 @@ msgid ""
 "A value for the option '%' was already set.\n"
 " Possible synonymes: "
 msgstr ""
+"Es wurde bereits ein Wert für die Option '%' festgelegt.\n"
+" Mögliche Synonyme: "
 
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:621
 #: D:\Repos\sumo/src\utils\options\OptionsCont.cpp:642
@@ -12594,15 +12598,18 @@ msgstr "Speicher neue Matrix in '%'."
 #: D:\Repos\sumo/src\utils\router\SUMOAbstractRouter.h:222
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
-msgstr ""
+msgstr "Keine Verbindung zwischen Kante '%' und Kante '%' gefunden."
 
 #: D:\Repos\sumo/src\utils\router\CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
 msgstr ""
+"Der Routing-Algorithmus CH unterstützt dynamische Kantensperrungen nicht%"
 
 #: D:\Repos\sumo/src\utils\router\CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
 msgstr ""
+"Der Routing-Algorithmus CHWrapper unterstützt dynamische Kantensperrungen "
+"nicht%"
 
 #: D:\Repos\sumo/src\utils\router\IntermodalNetwork.h:295
 #, c-format
@@ -12639,7 +12646,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\router\IntermodalRouter.h:198
 msgid "No connection between % '%' and % '%' found."
-msgstr ""
+msgstr "Keine Verbindung zwischen % '%' und % '%' gefunden."
 
 #: D:\Repos\sumo/src\utils\router\IntermodalRouter.h:226
 #: D:\Repos\sumo/src\utils\router\PedestrianRouter.h:126
@@ -12842,11 +12849,11 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:487
 msgid "Speed cannot be negative for stop%."
-msgstr ""
+msgstr "Die Geschwindigkeit an einem Halt kann nicht negativ sein%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:503
 msgid "Invalid duration or end time is given for a stop%."
-msgstr ""
+msgstr "Ungültige Dauer oder Abfahrtszeit an einem Halt angegeben%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:507
 msgid "Triggers and waypoints cannot be combined%."
