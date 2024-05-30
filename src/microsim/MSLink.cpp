@@ -779,7 +779,7 @@ MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,
 bool
 MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, double vehicleLength,
                double impatience, double decel, SUMOTime waitingTime, double posLat,
-               BlockingFoes* collectFoes, bool ignoreRed, const SUMOTrafficObject* ego) const {
+               BlockingFoes* collectFoes, bool ignoreRed, const SUMOTrafficObject* ego, double dist) const {
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
         std::cout << SIMTIME << "  opened? link=" << getDescription() << " red=" << haveRed() << " cont=" << isCont() << " numFoeLinks=" << myFoeLinks.size() << " havePrio=" << havePriority() << " lastWasContMajorGreen=" << lastWasContState(LINKSTATE_TL_GREEN_MAJOR) << "\n";
@@ -898,7 +898,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         }
 #endif
         if (link->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == link->getLane(),
-                                impatience, decel, waitingTime, collectFoes, ego, lastWasContRed)) {
+                                impatience, decel, waitingTime, collectFoes, ego, lastWasContRed, dist)) {
             return false;
         }
     }
@@ -912,7 +912,7 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
 bool
 MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                      BlockingFoes* collectFoes, const SUMOTrafficObject* ego, bool lastWasContRed) const {
+                      BlockingFoes* collectFoes, const SUMOTrafficObject* ego, bool lastWasContRed, double dist) const {
     for (const auto& it : myApproachingVehicles) {
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
@@ -954,10 +954,19 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                 && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
 #ifdef MSLink_DEBUG_OPENED
                 if (gDebugFlag1) {
-                    std::cout << SIMTIME << ": " << ego->getID() << " blocked by person " << it.first->getID() << "\n";
+                    std::cout << SIMTIME << ": " << ego->getID() << " conflict with person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime << "\n";
                 }
 #endif
-                return true;
+                // check whether braking is feasible (ego might have started to accelerate already)
+                const auto& cfm = ego->getVehicleType().getCarFollowModel();
+                if (dist > cfm.brakeGap(ego->getSpeed(), cfm.getMaxDecel(), 0)) {
+#ifdef MSLink_DEBUG_OPENED
+                    if (gDebugFlag1) {
+                        std::cout << SIMTIME << ": " << ego->getID() << " blocked by person " << it.first->getID() << "\n";
+                    }
+#endif
+                    return true;
+                }
             }
         }
     }

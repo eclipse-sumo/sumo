@@ -326,7 +326,8 @@ public:
                 double posLat = 0,
                 BlockingFoes* collectFoes = nullptr,
                 bool ignoreRed = false,
-                const SUMOTrafficObject* ego = nullptr) const;
+                const SUMOTrafficObject* ego = nullptr,
+                double dist = -1) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -345,7 +346,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr, bool lastWasContRed = false) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr, bool lastWasContRed = false, double dist = -1) const;
 
 
     bool isBlockingAnyone() const {

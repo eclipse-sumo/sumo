@@ -3625,7 +3625,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                            getCarFollowModel().getMaxDecel(),
                                            getWaitingTime(), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
-                                           ignoreRedLink, this));
+                                           ignoreRedLink, this, dpi.myDistance));
             if (opened && myLaneChangeModel->getShadowLane() != nullptr) {
                 const MSLink* const parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
                 if (parallelLink != nullptr) {
@@ -3635,7 +3635,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
                                                           getWaitingTime(), shadowLatPos, nullptr,
-                                                          ignoreRedLink, this));
+                                                          ignoreRedLink, this, dpi.myDistance));
 #ifdef DEBUG_EXEC_MOVE
                     if (DEBUG_COND) {
                         std::cout << SIMTIME
