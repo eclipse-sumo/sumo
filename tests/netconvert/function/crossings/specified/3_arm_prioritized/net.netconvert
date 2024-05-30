@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-30 15:03:04 by Eclipse SUMO netconvert Version v1_20_0+0303-e59185a10d5
+<!-- generated on 2024-05-30 15:13:02 by Eclipse SUMO netconvert Version v1_20_0+0305-1ad84049fa9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,10 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":J1_4_0" index="0" disallow="pedestrian" speed="13.89" length="14.40" shape="92.80,-1.60 107.20,-1.60"/>
     </edge>
     <edge id=":J1_5" function="internal">
-        <lane id=":J1_5_0" index="0" disallow="pedestrian" speed="8.00" length="4.07" shape="92.80,-1.60 96.65,-1.05 96.80,-0.96"/>
-    </edge>
-    <edge id=":J1_6" function="internal">
-        <lane id=":J1_6_0" index="0" disallow="pedestrian" speed="8.00" length="10.13" shape="96.80,-0.96 99.40,0.60 101.05,3.35 101.60,7.20"/>
+        <lane id=":J1_5_0" index="0" disallow="pedestrian" speed="8.00" length="14.19" shape="92.80,-1.60 96.65,-1.05 99.40,0.60 101.05,3.35 101.60,7.20"/>
     </edge>
     <edge id=":J1_c0" function="crossing" crossingEdges="-E0 E0">
         <lane id=":J1_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="94.80,3.20 94.80,-3.20" outlineShape="92.80,3.20 92.80,-3.20 96.80,-5.20 92.80,-5.20 92.80,-3.20 96.80,-3.20 96.80,3.20 96.47,5.31 96.36,4.98 95.80,4.20 95.02,3.64 94.02,3.31 92.80,3.20"/>
@@ -103,19 +100,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="-E0_0 -E0_1" intLanes="" shape="0.00,0.00 0.00,5.20 0.00,0.00"/>
-    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="-E2_0 -E2_1 -E1_0 -E1_1 E0_0 E0_1 :J1_w0_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_3_0 :J1_4_0 :J1_6_0 :J1_c0_0" shape="94.80,7.20 105.20,7.20 105.42,6.09 105.70,5.70 106.09,5.42 106.59,5.26 107.20,5.20 107.20,-5.20 92.80,-5.20 92.80,5.20 93.91,5.42 94.30,5.70 94.58,6.09 94.74,6.59">
+    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="-E2_0 -E2_1 -E1_0 -E1_1 E0_0 E0_1 :J1_w0_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_c0_0" shape="94.80,7.20 105.20,7.20 105.42,6.09 105.70,5.70 106.09,5.42 106.59,5.26 107.20,5.20 107.20,-5.20 92.80,-5.20 92.80,5.20 93.91,5.42 94.30,5.70 94.58,6.09 94.74,6.59">
         <request index="0" response="1001000" foes="1001000" cont="0"/>
         <request index="1" response="0111000" foes="0111000" cont="0"/>
         <request index="2" response="0000000" foes="0100000" cont="0"/>
         <request index="3" response="1000000" foes="1100011" cont="0"/>
         <request index="4" response="1000000" foes="1000010" cont="0"/>
-        <request index="5" response="1001100" foes="1001110" cont="1"/>
+        <request index="5" response="1001100" foes="1001110" cont="0"/>
         <request index="6" response="0000000" foes="0111001" cont="0"/>
     </junction>
     <junction id="J2" type="dead_end" x="200.00" y="0.00" incLanes="E1_0 E1_1" intLanes="" shape="200.00,0.00 200.00,-5.20 200.00,0.00"/>
     <junction id="J3" type="dead_end" x="100.00" y="100.00" incLanes="E2_0 E2_1" intLanes="" shape="100.00,100.00 105.20,100.00 100.00,100.00"/>
-
-    <junction id=":J1_6_0" type="internal" x="96.80" y="-0.96" incLanes=":J1_5_0 -E1_1" intLanes=":J1_1_0 :J1_2_0 :J1_3_0 :J1_c0_0"/>
 
     <connection from="-E1" to="E2" fromLane="1" toLane="1" via=":J1_2_0" dir="r" state="M"/>
     <connection from="-E1" to="-E0" fromLane="1" toLane="1" via=":J1_3_0" dir="s" state="m"/>
@@ -129,8 +124,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":J1_2" to="E2" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":J1_3" to="-E0" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":J1_4" to="E1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":J1_5" to="E2" fromLane="0" toLane="1" via=":J1_6_0" dir="l" state="m"/>
-    <connection from=":J1_6" to="E2" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":J1_5" to="E2" fromLane="0" toLane="1" dir="l" state="M"/>
 
     <connection from=":J0_w0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E0" to=":J0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
