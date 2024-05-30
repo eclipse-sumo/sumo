@@ -199,11 +199,11 @@ where -x is the attribute for the x axis; -y is the attribute for the y axis; -s
 <img src="../images/vehroute_output.png" width="500px"/>
 
 ### Leader gaps versus speeds
-Input is [langechange-output](../Simulation/Output/Lanechange.md).
+Input is [lanechange-output](../Simulation/Output/Lanechange.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png langchange.xml -i reason --filter-ids speedGain
+python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png lanechange.xml -i reason --filter-ids speedGain
 ```
 where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
 
