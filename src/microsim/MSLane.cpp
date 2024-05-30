@@ -991,6 +991,19 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             }
 #endif
             break;
+        } else if (nextLane->isInternal()) {
+            double tmp = 0;
+            bool dummyReq = true;
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "checking linkLeader for lane '" << nextLane->getID() << "'\n";
+                gDebugFlag1 = true;
+            }
+#endif
+            aVehicle->checkLinkLeader(*link, nextLane, seen, nullptr, speed, tmp, tmp, dummyReq);
+#ifdef DEBUG_INSERTION
+            gDebugFlag1 = false;
+#endif
         }
         // get the next used lane (including internal)
         nextLane = (*link)->getViaLaneOrLane();

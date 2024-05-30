@@ -3228,7 +3228,12 @@ MSVehicle::adaptToJunctionLeader(const std::pair<const MSVehicle*, double> leade
             vsafeLeader = -std::numeric_limits<double>::max();
         }
         if (leaderInfo.second >= 0) {
-            vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+            if (hasDeparted()) {
+                vsafeLeader = cfModel.followSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+            } else {
+                // called in the context of MSLane::isInsertionSuccess
+                vsafeLeader = cfModel.insertionFollowSpeed(this, getSpeed(), leaderInfo.second, leaderInfo.first->getSpeed(), leaderInfo.first->getCurrentApparentDecel(), leaderInfo.first);
+            }
         } else if (leaderInfo.first != this) {
             // the leading, in-lapping vehicle is occupying the complete next lane
             // stop before entering this lane

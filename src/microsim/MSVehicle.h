@@ -2075,6 +2075,10 @@ public:
      */
     const MSLane* getPreviousLane(const MSLane* current, int& furtherIndex) const;
 
+    /// @brief checks for link leaders on the given link
+    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
+                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
+                         bool isShadowLink = false) const;
 protected:
 
     /* @brief adapt safe velocity in accordance to multiple vehicles ahead:
@@ -2096,10 +2100,6 @@ protected:
                                DriveProcessItem* const lastLink,
                                double& v, double& vLinkPass) const;
 
-    /// @brief checks for link leaders on the given link
-    void checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
-                         DriveProcessItem* const lastLink, double& v, double& vLinkPass, double& vLinkWait, bool& setRequest,
-                         bool isShadowLink = false) const;
 
     /// @brief checks for link leaders of the current link as well as the parallel link (if there is one)
     void checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* lane, double seen,
