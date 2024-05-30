@@ -23,6 +23,7 @@
 3_arm_service_entering
 3_arm_unprioritized
 3_arm_unprioritized2
+3_arm_prioritized
 
 # test for #14731
 3_arm_slanted_1sw_missing
