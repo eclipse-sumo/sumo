@@ -1818,6 +1818,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     index++;
                 }
             }
+            if (dir == LinkDirection::TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
+                // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
+                // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
+                crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
+            }
             // foe pedestrian crossings
             std::vector<NBNode::Crossing*> crossings = n.getCrossings();
             for (auto c : crossings) {
@@ -1839,17 +1844,14 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                     crossingPositions.first = minDV;
                                 }
                             }
+                        } else if (this == edge && crossing.priority && !myTo->isTLControlled()) {
+                            crossingPositions.first = 0;
                         }
                     }
                 }
                 index++;
             }
 
-            if (dir == LinkDirection::TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
-                // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
-                // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
-                crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
-            }
         }
         if (con.contPos != UNSPECIFIED_CONTPOS) {
             // apply custom internal junction position
@@ -1927,7 +1929,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         con.id = innerID + "_" + toString(edgeIndex);
         const double shapeLength = shape.length();
         double firstLength = shapeLength;
-        if (crossingPositions.first >= 0 && crossingPositions.first < shapeLength) {
+        if (crossingPositions.first > 0 && crossingPositions.first < shapeLength) {
             std::pair<PositionVector, PositionVector> split = shape.splitAt(crossingPositions.first);
             con.shape = split.first;
             con.foeIncomingLanes = std::vector<std::string>(tmpFoeIncomingLanes.begin(), tmpFoeIncomingLanes.end());
