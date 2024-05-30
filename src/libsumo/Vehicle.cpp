@@ -1452,7 +1452,7 @@ void
 Vehicle::changeLane(const std::string& vehID, int laneIndex, double duration) {
     try {
         checkTimeBounds(duration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration parameter exceeds the time value range.");
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -1472,7 +1472,7 @@ void
 Vehicle::changeLaneRelative(const std::string& vehID, int indexOffset, double duration) {
     try {
         checkTimeBounds(duration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration parameter exceeds the time value range.");
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -1796,7 +1796,7 @@ void
 Vehicle::slowDown(const std::string& vehID, double speed, double duration) {
     try {
         checkTimeBounds(duration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration parameter exceeds the time value range.");
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -1816,7 +1816,7 @@ void
 Vehicle::openGap(const std::string& vehID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel, const std::string& referenceVehID) {
     try {
         checkTimeBounds(duration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration parameter exceeds the time value range.");
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -1881,7 +1881,7 @@ void
 Vehicle::setAcceleration(const std::string& vehID, double acceleration, double duration) {
     try {
         checkTimeBounds(duration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration parameter exceeds the time value range.");
     }
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
@@ -2240,7 +2240,7 @@ void
 Vehicle::setBoardingDuration(const std::string& vehID, double boardingDuration)  {
     try {
         checkTimeBounds(boardingDuration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("BoardingDuration parameter exceeds the time value range.");
     }
     Helper::getVehicle(vehID)->getSingularType().setBoardingDuration(TIME2STEPS(boardingDuration));

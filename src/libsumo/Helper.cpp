@@ -540,7 +540,7 @@ Helper::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
     try {
         checkTimeBounds(duration);
         checkTimeBounds(until);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("Duration or until parameter exceed the time value range.");
     }
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
