@@ -1351,14 +1351,18 @@ MSPModel_Striping::registerCrossingApproach(const PState& ped, const MSLane* cro
     arrivalTime += TIME2STEPS(wa->length / speed);
     SUMOTime leavingTime = arrivalTime + TIME2STEPS(crossing->getLength() / speed);
     crossing->getIncomingLanes()[0].viaLink->setApproachingPerson(ped.myPerson, arrivalTime, leavingTime);
-    //std::cout << SIMTIME << " register " << ped.myPerson->getID() << "\n";
+    if DEBUGCOND(ped) {
+        std::cout << SIMTIME << " register " << ped.myPerson->getID() << " at crossing " << crossing->getID() << "\n";
+    }
 }
 
 void
 MSPModel_Striping::unregisterCrossingApproach(const PState& ped, const MSLane* crossing) {
     // person has entered the crossing
     crossing->getIncomingLanes()[0].viaLink->removeApproachingPerson(ped.myPerson);
-    //std::cout << SIMTIME << " unregister " << ped.myPerson->getID() << "\n";
+    if DEBUGCOND(ped) {
+        std::cout << SIMTIME << " unregister " << ped.myPerson->getID() << " at crossing " << crossing->getID() << "\n";
+    }
 }
 
 bool
