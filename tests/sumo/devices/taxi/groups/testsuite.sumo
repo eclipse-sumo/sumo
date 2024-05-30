@@ -26,4 +26,7 @@
 2containers
 
 # use a transport definition to call a taxi
+2containers_defaultgroup
+
+# use a transport definition to call a taxi
 2containers_capa1
