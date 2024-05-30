@@ -1739,7 +1739,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 result.emplace_back(nullptr, -1, distToPeds);
             } else if (foeLane->isCrossing() && ego->getLane()->isInternal() && ego->getLane()->getEdge().getToJunction() == myJunction) {
                 const MSLink* crossingLink = foeLane->getIncomingLanes()[0].viaLink;
-                if (crossingLink->havePriority() && crossingLink->myApproachingPersons != nullptr) {
+                if (distToCrossing > 0 && crossingLink->havePriority() && crossingLink->myApproachingPersons != nullptr) {
                     // a person might step on the crossing at any moment, since ego
                     // is already on the junction, the opened() check is not done anymore
                     const double timeToEnterCrossing = distToCrossing / MAX2(ego->getSpeed(), 1.0);
