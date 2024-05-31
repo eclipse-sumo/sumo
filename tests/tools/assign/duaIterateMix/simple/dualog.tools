@@ -7,28 +7,28 @@ Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
 Loading net-file from '000/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_19_0+1503-61bb69e0a41 started with time: 0.00.
-Simulation ended at time: 4623.00
+Simulation version v1_20_0+0332-f60b870b24d started with time: 0.00.
+Simulation ended at time: 4627.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.65s
- Real time factor: 7123.27
- UPS: 490231.124807
+ Duration: 1.04s
+ Real time factor: 4431.99
+ UPS: 304273.946360
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
  RouteLength: 1086.01
- Speed: 4.82
- Duration: 318.16
- WaitingTime: 116.58
- TimeLoss: 259.02
- DepartDelay: 859.16
+ Speed: 4.78
+ Duration: 317.66
+ WaitingTime: 116.54
+ TimeLoss: 258.51
+ DepartDelay: 863.17
 
-DijkstraRouter answered 467 queries and explored 5.73 edges on average.
+DijkstraRouter answered 468 queries and explored 5.70 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
@@ -38,29 +38,29 @@ Success.
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
-Loading net-file from '001/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
+Loading net-file from '001/../input_net.net.xml' ... done (0ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1503-61bb69e0a41 started with time: 0.00.
-Simulation ended at time: 2907.00
+Simulation version v1_20_0+0332-f60b870b24d started with time: 0.00.
+Simulation ended at time: 2897.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.45s
- Real time factor: 6488.84
- UPS: 628171.875000
+ Duration: 0.46s
+ Real time factor: 6270.56
+ UPS: 594359.307359
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
- RouteLength: 1179.77
- Speed: 5.76
- Duration: 281.42
- WaitingTime: 88.56
- TimeLoss: 207.11
- DepartDelay: 156.20
+ RouteLength: 1181.62
+ Speed: 5.86
+ Duration: 274.59
+ WaitingTime: 85.03
+ TimeLoss: 200.16
+ DepartDelay: 155.13
 
-DijkstraRouter answered 544 queries and explored 5.98 edges on average.
+DijkstraRouter answered 540 queries and explored 5.94 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
@@ -70,29 +70,29 @@ Success.
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
-Loading net-file from '002/../input_net.net.xml' ... done (1ms).
-Loading additional-files from '002/../edgedata.add.xml' ... done (1ms).
+Loading net-file from '002/../input_net.net.xml' ... done (0ms).
+Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1503-61bb69e0a41 started with time: 0.00.
-Simulation ended at time: 2597.00
+Simulation version v1_20_0+0332-f60b870b24d started with time: 0.00.
+Simulation ended at time: 2589.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.44s
- Real time factor: 5915.72
- UPS: 661974.943052
+ Duration: 0.45s
+ Real time factor: 5702.64
+ UPS: 628843.612335
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
- RouteLength: 1200.44
- Speed: 5.53
- Duration: 290.61
- WaitingTime: 85.33
- TimeLoss: 212.40
- DepartDelay: 96.53
+ RouteLength: 1203.15
+ Speed: 5.60
+ Duration: 285.50
+ WaitingTime: 81.65
+ TimeLoss: 207.26
+ DepartDelay: 103.11
 
-DijkstraRouter answered 661 queries and explored 6.72 edges on average.
+DijkstraRouter answered 719 queries and explored 7.32 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
@@ -105,58 +105,56 @@ Success.
 Loading net-file from '003/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1503-61bb69e0a41 started with time: 0.00.
-Simulation ended at time: 2498.00
+Simulation version v1_20_0+0332-f60b870b24d started with time: 0.00.
+Simulation ended at time: 2590.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.43s
- Real time factor: 5809.3
- UPS: 670246.511628
+ Duration: 0.46s
+ Real time factor: 5630.43
+ UPS: 622571.739130
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
- RouteLength: 1194.08
- Speed: 5.42
- Duration: 288.21
- WaitingTime: 80.22
- TimeLoss: 209.60
- DepartDelay: 77.49
+ RouteLength: 1189.94
+ Speed: 5.51
+ Duration: 286.38
+ WaitingTime: 80.36
+ TimeLoss: 208.34
+ DepartDelay: 83.34
 
-DijkstraRouter answered 659 queries and explored 6.46 edges on average.
+DijkstraRouter answered 627 queries and explored 6.13 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes2_003.duarcfg']
-Warning: No interval matches passed time=262.80 in edge 'c'.
- Using edge's length / max speed.
 Success.
 -------------------------------------------------------------------------------
 ['/scr1/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
 Loading net-file from '004/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_19_0+1503-61bb69e0a41 started with time: 0.00.
-Simulation ended at time: 2554.00
+Simulation version v1_20_0+0332-f60b870b24d started with time: 0.00.
+Simulation ended at time: 2603.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 0.44s
- Real time factor: 5817.77
- UPS: 643779.043280
+ Duration: 0.48s
+ Real time factor: 5457.02
+ UPS: 593618.448637
 Vehicles: 
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
- RouteLength: 1187.50
- Speed: 5.60
- Duration: 282.62
- WaitingTime: 80.38
- TimeLoss: 204.58
- DepartDelay: 79.81
+ RouteLength: 1186.49
+ Speed: 5.58
+ Duration: 283.16
+ WaitingTime: 81.74
+ TimeLoss: 205.59
+ DepartDelay: 93.30
 
-DijkstraRouter answered 616 queries and explored 6.10 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+DijkstraRouter answered 584 queries and explored 5.98 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.01ms on average).
