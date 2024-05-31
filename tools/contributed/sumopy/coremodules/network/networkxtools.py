@@ -32,7 +32,8 @@ import numpy as np
 from collections import OrderedDict
 from copy import deepcopy
 import sys
-reload(sys)
+import importlib
+importlib.reload(sys)
 sys.setdefaultencoding('utf8')
 
 try:
@@ -63,7 +64,7 @@ def load_objfile(filepath):
     try:
         f = open(filepath, 'rb')
     except:
-        print 'WARNING in load_obj: could not open', filepath
+        print('WARNING in load_obj: could not open', filepath)
         return None
 
     # try:
@@ -74,18 +75,18 @@ def load_objfile(filepath):
 
 
 def print_attrs(attrs):
-    for key, val in attrs.iteritems():
-        print '    %s=\t%s' % (key, val)
-    print
+    for key, val in attrs.items():
+        print('    %s=\t%s' % (key, val))
+    print()
 
 
 def get_loop(digraph, ids_node, ids_nodepairs=[], n_node_max=4):
-    print 'get_loop ids_node', ids_node
+    print('get_loop ids_node', ids_node)
     if (ids_node[-1] == ids_node[0]):
-        print '    success.'
+        print('    success.')
         return ids_nodepairs
     elif (len(ids_node) == n_node_max):
-        print '    no loop reached.'
+        print('    no loop reached.')
         return []
     else:
         id_node = ids_node[-1]
@@ -94,7 +95,7 @@ def get_loop(digraph, ids_node, ids_nodepairs=[], n_node_max=4):
         id_nbnode = ids_node[-2]
         # print '    node_to_dirind.keys()',node_to_dirind.keys(),node_to_dirind.has_key(id_nbnode)
 
-        if node_to_dirind.has_key(id_nbnode):
+        if id_nbnode in node_to_dirind:
             ind = node['node_to_dirind'][id_nbnode]
         else:
             ind = node['node_to_dirind'][-id_nbnode]
@@ -106,11 +107,11 @@ def get_loop(digraph, ids_node, ids_nodepairs=[], n_node_max=4):
 
         id_nbnode_new = node['dirind_to_node'][ind]
         if id_nbnode == id_nbnode_new:
-            print '  simple bidir return link'
+            print('  simple bidir return link')
             return []
 
         elif abs(id_nbnode_new) in ids_node[1:]:
-            print '  complex bidir return link'
+            print('  complex bidir return link')
             return []
 
         if id_nbnode_new < 0:
@@ -166,7 +167,7 @@ class Road:
         """
         Make defaults to be overridden
         """
-        print 'config'
+        print('config')
         # pass here either road type specific defaults
         # or global defaults from parent process
 
@@ -272,7 +273,7 @@ class Road:
     def make_sumoattrs(self):
 
         osmattrs = self._osmattrs
-        print 'make_sumoattrs'
+        print('make_sumoattrs')
         print_attrs(osmattrs)
         #self._highway = osmattrs.get('highway','road')
 
@@ -292,7 +293,7 @@ class Road:
         n_lane_backward_osm = -1
         is_lanes_forward_rigid = False
         is_lanes_backward_rigid = False
-        if osmattrs.has_key('lanes'):
+        if 'lanes' in osmattrs:
             # print '  total number of lanes provided n_lane_osm_str',osmattrs['lanes']
             n_lane_osm_str = osmattrs['lanes']
             # if type(n_lane_osm_str) in cm.STRINGTYPES:
@@ -317,10 +318,10 @@ class Road:
 
             else:
                 # in case of bidir
-                if osmattrs.has_key('lanes:forward'):
+                if 'lanes:forward' in osmattrs:
                     n_lane_forward_osm = int(osmattrs['lanes:forward'])
                     is_lanes_forward_rigid = True
-                    if osmattrs.has_key('lanes:backward'):
+                    if 'lanes:backward' in osmattrs:
                         n_lane_backward_osm = int(osmattrs['lanes:backward'])
                         is_lanes_backward_rigid = True
                     else:
@@ -330,7 +331,7 @@ class Road:
                             n_lane_backward_osm = 1
                         n_lane_osm = n_lane_forward_osm+n_lane_backward_osm
 
-                elif osmattrs.has_key('lanes:backward'):
+                elif 'lanes:backward' in osmattrs:
                     n_lane_backward_osm = int(osmattrs['lanes:backward'])
                     n_lane_forward_osm = n_lane_osm-n_lane_backward_osm
                     is_lanes_backward_rigid = True
@@ -352,23 +353,23 @@ class Road:
             if is_oneway_osm:
                 # in cas of (declared) oneway
                 n_lane_backward_osm = 0
-                if osmattrs.has_key('lanes:forward'):
+                if 'lanes:forward' in osmattrs:
                     n_lane_forward_osm = int(osmattrs['lanes:forward'])
                     is_lanes_forward_rigid = True
                 else:
                     n_lane_forward_osm = self.n_lane  # default
             else:
                 # bidir
-                if osmattrs.has_key('lanes:forward'):
+                if 'lanes:forward' in osmattrs:
                     n_lane_forward_osm = int(osmattrs['lanes:forward'])
                     is_lanes_forward_rigid = True
-                    if osmattrs.has_key('lanes:backward'):
+                    if 'lanes:backward' in osmattrs:
                         n_lane_backward_osm = int(osmattrs['lanes:backward'])
                         is_lanes_backward_rigid = True
                     else:
                         n_lane_backward_osm = self.n_lane  # default
 
-                elif osmattrs.has_key('lanes:backward'):
+                elif 'lanes:backward' in osmattrs:
                     n_lane_backward_osm = int(osmattrs['lanes:backward'])
                     is_lanes_backward_rigid = True
                     n_lane_forward_osm = self.n_lane  # default
@@ -386,7 +387,7 @@ class Road:
         self._n_lane_forward_osm = n_lane_forward_osm
         self._n_lane_backward_osm = n_lane_backward_osm
         self._n_lane_osm = n_lane_osm
-        print '  lane numbers: n_lane_forward_osm=%d, n_lane_backward_osm=%d n_default=%d' % (n_lane_forward_osm, n_lane_backward_osm, self.n_lane), 'rigid fb', is_lanes_forward_rigid, is_lanes_backward_rigid
+        print('  lane numbers: n_lane_forward_osm=%d, n_lane_backward_osm=%d n_default=%d' % (n_lane_forward_osm, n_lane_backward_osm, self.n_lane), 'rigid fb', is_lanes_forward_rigid, is_lanes_backward_rigid)
 
     def _get_access(self, access_str):
         access_data = np.array(access_str.split('|'), dtype=np.object)[::-1]
@@ -446,12 +447,12 @@ class Road:
 
         #lanes = []
         #lanes_opp = []
-        print '  realoneway', self.is_oneway()
+        print('  realoneway', self.is_oneway())
 
         #self._lanes = []
         #self._lanes_opp = []
 
-        print '  Main Dir ^^^^^^^^^^^', self._is_lanes_forward_rigid, self._is_lanes_backward_rigid
+        print('  Main Dir ^^^^^^^^^^^', self._is_lanes_forward_rigid, self._is_lanes_backward_rigid)
         if self._is_lanes_forward_rigid:
             self.make_lanes_rigid(is_opp=False, n_lane_osm=self._n_lane_forward_osm)
         else:
@@ -459,15 +460,15 @@ class Road:
 
         if not self.is_oneway():
 
-            print '  Opp  Dir vvvvvvvvvvv'
+            print('  Opp  Dir vvvvvvvvvvv')
             if self._is_lanes_backward_rigid:
                 self.make_lanes_rigid(is_opp=True, n_lane_osm=self._n_lane_backward_osm)
             else:
                 self.make_lanes(is_opp=True, n_lane_osm=self._n_lane_backward_osm)
 
-        print '  id', id(self)
-        print '  len(self._lanes)', len(self._lanes)
-        print '  len(self._lanes_opp)', len(self._lanes_opp)
+        print('  id', id(self))
+        print('  len(self._lanes)', len(self._lanes))
+        print('  len(self._lanes_opp)', len(self._lanes_opp))
 
     def _get_speedinfo(self, speed_max_str):
         speed_max_data = speed_max_str.split(' ')
@@ -490,7 +491,7 @@ class Road:
 
     def make_speed(self, speed_max_default):
         # estimate speed max in m/s
-        if self._osmattrs.has_key('maxspeed'):
+        if 'maxspeed' in self._osmattrs:
             speed_max_str = self._osmattrs['maxspeed']
             # print 'make_speed speed_max_str',speed_max_str
             if speed_max_str.count(';') > 0:
@@ -511,7 +512,7 @@ class Road:
         self.speed_max = speed_max
 
     def _is_opposite(self, osmattrs, tag):
-        if osmattrs.has_key(tag):
+        if tag in osmattrs:
             elems = osmattrs[tag].split('_')
             return elems[0] == 'opposite'
         else:
@@ -527,7 +528,7 @@ class Road:
         if osmattrs.get('junction', '') == 'roundabout':
             self._is_oneway = True
 
-        elif osmattrs.has_key('oneway'):
+        elif 'oneway' in osmattrs:
             if osmattrs['oneway'] == 'no':
                 self._is_oneway = False
 
@@ -538,13 +539,13 @@ class Road:
                 elif self._is_opposite(osmattrs, 'busway:right'):
                     self._is_oneway = False
 
-                elif osmattrs.has_key('lanes:bus:backward'):
+                elif 'lanes:bus:backward' in osmattrs:
                     self._is_oneway = False
 
-                elif osmattrs.has_key('trolley_wire:both'):
+                elif 'trolley_wire:both' in osmattrs:
                     self._is_oneway = False
 
-                elif osmattrs.has_key('lanes:psv:backward'):
+                elif 'lanes:psv:backward' in osmattrs:
                     self._is_oneway = False
 
                 elif self._is_opposite(osmattrs, 'cycleway'):
@@ -563,7 +564,7 @@ class Road:
                 # elif osmattrs.get('sidewalk','') == 'both':
                 #    self._is_oneway = False
 
-                elif osmattrs.has_key('oneway:bicycle'):
+                elif 'oneway:bicycle' in osmattrs:
                     if osmattrs['oneway:bicycle'] == 'no':
                         self._is_oneway = False
 
@@ -607,7 +608,7 @@ class Road:
         else:
             ind = 1
 
-        print 'add_sidewalk', is_opp, self._sidewalkattrs[ind]['n_lane'], self._sidewalkattrs[ind]['n_lane'] == 0
+        print('add_sidewalk', is_opp, self._sidewalkattrs[ind]['n_lane'], self._sidewalkattrs[ind]['n_lane'] == 0)
         if self._sidewalkattrs[ind]['n_lane'] == 0:
             self.make_sidewalk(is_opp=is_opp, is_rightside=True, width=road.lanewidth)
             self.make_road()
@@ -629,7 +630,7 @@ class Road:
         #  to mark that sidewalks are mapped separately.
         # Also, sidewalk=separate
 
-        print 'make_sidewalk', ind, is_rightside
+        print('make_sidewalk', ind, is_rightside)
         # needed to merge access?
         self._sidewalkattrs[ind]['is_share'] = len(ids_modes_allow) > 0
 
@@ -657,7 +658,7 @@ class Road:
         print_attrs(self._sidewalkattrs[ind])
 
     def make_sidewalkattrs(self):
-        print 'make_sidewalkattrs'
+        print('make_sidewalkattrs')
 
         if self.get_priority() < 7:
             return self.make_sidewalkattrs_smallroads()
@@ -665,7 +666,7 @@ class Road:
             return self.make_sidewalkattrs_largeroads()
 
     def make_sidewalkattrs_largeroads(self):
-        print 'make_sidewalkattrs_largeroads'
+        print('make_sidewalkattrs_largeroads')
 
         osmattrs = self._osmattrs
         self._sidewalkattrs = (deepcopy(LANEATTRS_DEFAULT),
@@ -678,11 +679,11 @@ class Road:
         if sidewalk not in ['no', 'none', 'auto']:
             # there is a sidewalk, make sure there is at least one
 
-            if osmattrs.has_key('sidewalk:width'):
+            if 'sidewalk:width' in osmattrs:
                 width_left = float(osmattrs['sidewalk:width'])
                 width_right = width_left
 
-            elif osmattrs.has_key('sidewalk:both:width'):
+            elif 'sidewalk:both:width' in osmattrs:
                 width_left = float(osmattrs['sidewalk:both:width'])
                 width_right = width_left
             else:
@@ -742,7 +743,7 @@ class Road:
         #        print_attrs(attrs)
 
     def make_sidewalkattrs_smallroads(self):
-        print 'make_sidewalkattrs_smallroads'
+        print('make_sidewalkattrs_smallroads')
         osmattrs = self._osmattrs
         self._sidewalkattrs = (deepcopy(LANEATTRS_DEFAULT),
                                deepcopy(LANEATTRS_DEFAULT))
@@ -754,11 +755,11 @@ class Road:
         if sidewalk not in ['no', 'none', 'auto']:
             # there is a sidewalk, make sure there is at least one
 
-            if osmattrs.has_key('sidewalk:width'):
+            if 'sidewalk:width' in osmattrs:
                 width_left = float(osmattrs['sidewalk:width'])
                 width_right = width_left
 
-            elif osmattrs.has_key('sidewalk:both:width'):
+            elif 'sidewalk:both:width' in osmattrs:
                 width_left = float(osmattrs['sidewalk:both:width'])
                 width_right = width_left
             else:
@@ -808,20 +809,20 @@ class Road:
             if self.is_oneway():
 
                 if osmattrs.get('junction', '') == 'roundabout':
-                    print '  put a sidewalk around roundabouts, not inside'
+                    print('  put a sidewalk around roundabouts, not inside')
                     self.make_sidewalk(is_opp=False, is_rightside=True, width=self.width_sidewalk)
                 else:
-                    print '  put a sidewalk on both sides of the oneway'
+                    print('  put a sidewalk on both sides of the oneway')
                     self.make_sidewalk(is_opp=False, is_rightside=True, width=self.width_sidewalk)
                     self.make_sidewalk(is_opp=False, is_rightside=False, width=self.width_sidewalk)
             else:
-                print '    put a sidewalk on both sides of the road'
+                print('    put a sidewalk on both sides of the road')
                 self.make_sidewalk(is_opp=False, is_rightside=True, width=self.width_sidewalk)
                 self.make_sidewalk(is_opp=True, is_rightside=True, width=self.width_sidewalk)
 
     def make_bikelane(self, is_opp=False, is_rightside=True,
                       ids_modes_allow=[], width=1.5, n_lane=1):
-        print 'make_bikelane', is_opp, is_rightside, ids_modes_allow
+        print('make_bikelane', is_opp, is_rightside, ids_modes_allow)
         if is_opp:
             ind = 0
         else:
@@ -857,7 +858,7 @@ class Road:
                 widths:  is a tuple with sidewalk widths of left and right sidewalk.
                 if values are less than 0 means no sidewalk.
         """
-        print 'make_bikewayattrs'
+        print('make_bikewayattrs')
         self._bikewayattrs = (deepcopy(LANEATTRS_DEFAULT),
                               deepcopy(LANEATTRS_DEFAULT))
 
@@ -866,11 +867,11 @@ class Road:
         cycleway_left = osmattrs.get('cycleway:left', '')
         cycleway_right = osmattrs.get('cycleway:right', '')
 
-        if osmattrs.has_key('cycleway:width'):
+        if 'cycleway:width' in osmattrs:
             width_left = float(osmattrs['cycleway:width'])
             width_right = width_left
 
-        elif osmattrs.has_key('cycleway:both:width'):
+        elif 'cycleway:both:width' in osmattrs:
             width_left = float(osmattrs['cycleway:both:width'])
             width_right = width_left
 
@@ -942,7 +943,7 @@ class Road:
             # general bicycle tag if all from abive fails but share with pedestrians
             # Moved to main lane attr except if segragated
             elif (osmattrs.get('bicycle', 'no') in YES_OR_DESIGNATED) & (osmattrs.get('segregated', '') == 'yes'):
-                print '  check if there are cycle lanes already', self._bikewayattrs[0]['n_lane'] == 0, self._bikewayattrs[1]['n_lane'] == 0
+                print('  check if there are cycle lanes already', self._bikewayattrs[0]['n_lane'] == 0, self._bikewayattrs[1]['n_lane'] == 0)
 
                 if (self._bikewayattrs[0]['n_lane'] == 0) & (self._bikewayattrs[1]['n_lane'] == 0):
                     # no bikelanes in both dir
@@ -1003,7 +1004,7 @@ class Road:
             # Moved to main lane attr except segregated
             elif (osmattrs.get('bicycle', 'no') in YES_OR_DESIGNATED) & (osmattrs.get('segregated', '') == 'yes'):
 
-                print '  check if there are cycle lanes already', self._bikewayattrs[1]['n_lane'] == 0
+                print('  check if there are cycle lanes already', self._bikewayattrs[1]['n_lane'] == 0)
                 if (self._bikewayattrs[1]['n_lane'] == 0):
                     self.make_bikelane(is_opp=False, is_rightside=True, width=width_left)
 
@@ -1014,7 +1015,7 @@ class Road:
 
     def make_buslane(self, is_opp=False, is_rightside=True,
                      ids_modes_allow=[], width=3.5, n_lane=1):
-        print 'make_buslane', is_opp, is_rightside, width
+        print('make_buslane', is_opp, is_rightside, width)
         if is_opp:
             ind = 0
         else:
@@ -1052,17 +1053,17 @@ class Road:
                 return 0
 
     def make_buswayattrs(self):
-        print 'make_buswayattrs'
+        print('make_buswayattrs')
         self._buswayattrs = (deepcopy(LANEATTRS_DEFAULT),
                              deepcopy(LANEATTRS_DEFAULT))
 
         osmattrs = self._osmattrs
 
-        if osmattrs.has_key('busway:width'):
+        if 'busway:width' in osmattrs:
             width_left = float(osmattrs['busway:width'])
             width_right = width_left
 
-        elif osmattrs.has_key('busway:both:width'):
+        elif 'busway:both:width' in osmattrs:
             width_left = float(osmattrs['busway:both:width'])
             width_right = width_left
         else:
@@ -1075,7 +1076,7 @@ class Road:
             # busway scheme
             if osmattrs.get('oneway', 'no') == 'no':
                 # bidir
-                print '  buslane bidir', busway
+                print('  buslane bidir', busway)
                 if busway == 'lane':
                     self.make_buslane(is_opp=False)
                     self.make_buslane(is_opp=True)
@@ -1125,7 +1126,7 @@ class Road:
 
             else:
                 # cycle lanes on oneway road
-                print '  buslane oneway', busway, busway in ('opposite', 'opposite_lane')
+                print('  buslane oneway', busway, busway in ('opposite', 'opposite_lane'))
                 if busway == 'lane':
                     self.make_buslane(is_opp=False, width=width_right)
 
@@ -1151,7 +1152,7 @@ class Road:
 
                 return
 
-        elif osmattrs.has_key('lanes:psv'):
+        elif 'lanes:psv' in osmattrs:
             # lanes:psv=* scheme
             if osmattrs.get('oneway', 'no') == 'no':
                 # bidir
@@ -1173,7 +1174,7 @@ class Road:
                 self.make_buslane(is_opp=False, n_lane=psv, width=width_right)
             return
 
-        elif osmattrs.has_key('lanes:bus'):
+        elif 'lanes:bus' in osmattrs:
             # lanes:psv=* scheme
             if osmattrs.get('oneway', 'no') == 'no':
                 # bidir
@@ -1189,25 +1190,25 @@ class Road:
                 self.make_buslane(is_opp=False, n_lane=psv, width=width_right)
             return
 
-        if osmattrs.has_key('lanes:psv:forward'):
+        if 'lanes:psv:forward' in osmattrs:
             psv = self._get_psv_from_str(osmattrs['lanes:psv:forward'])
             self.make_buslane(is_opp=False, n_lane=psv, width=width_right)
 
-        if osmattrs.has_key('lanes:psv:backward'):
+        if 'lanes:psv:backward' in osmattrs:
             psv = self._get_psv_from_str(osmattrs['lanes:psv:backward'])
             self.make_buslane(is_opp=True, n_lane=psv, width=width_left)
 
-        if osmattrs.has_key('lanes:bus:forward'):
+        if 'lanes:bus:forward' in osmattrs:
             n_lane = self._get_psv_from_str(osmattrs['lanes:bus:forward'])
             self.make_buslane(is_opp=False, n_lane=n_lane, width=width_right)
 
-        if osmattrs.has_key('lanes:bus:backward'):
+        if 'lanes:bus:backward' in osmattrs:
             n_lane = self._get_psv_from_str(osmattrs['lanes:bus:backward'])
             self.make_buslane(is_opp=True, n_lane=n_lane, width=width_left)
 
         if osmattrs.get('oneway', 'no') == 'yes':
             # special check of opposite bus lane
-            if osmattrs.has_key('trolley_wire:both') | osmattrs.has_key('trolley_wire:backward'):
+            if ('trolley_wire:both' in osmattrs) | ('trolley_wire:backward' in osmattrs):
                 # if way is oneway withot reserved access,
                 # but there are wires in both ways,
                 # then there is probably a reserved bus lane in opposite
@@ -1289,7 +1290,7 @@ class Road:
                 return 10
 
     def merge_laneattrs(self, laneattrs_dest, laneattrs_merge, is_rightside=False, is_leftside=False):
-        print 'merge_laneattrs'
+        print('merge_laneattrs')
         # print '  laneattrs_dest',laneattrs_dest
         # print '  laneattrs_merge',laneattrs_merge
         #self._buswayattrs[ind]['ids_modes_allow'] = ids_allowed
@@ -1297,7 +1298,7 @@ class Road:
         #self._buswayattrs[ind]['is_rightside'] = is_rightside
         # if laneattrs_merge['width']>laneattrs_dest['width']:
         width_dest = 0.0
-        if laneattrs_dest.has_key('width'):
+        if 'width' in laneattrs_dest:
             width_dest = laneattrs_dest['width']
         else:
             if is_rightside:
@@ -1305,7 +1306,7 @@ class Road:
             else:
                 width_dest = laneattrs_dest['width_leftside']
 
-        if laneattrs_merge.has_key('width'):
+        if 'width' in laneattrs_merge:
             width_merge = laneattrs_merge['width']
         else:
             if is_rightside:
@@ -1335,8 +1336,8 @@ class Road:
 
     def set_lane(self, lanes, laneattrs, ind):
         lanes[ind] = deepcopy(laneattrs)
-        if not laneattrs.has_key('width'):
-            if laneattrs.has_key('width_rightside'):
+        if 'width' not in laneattrs:
+            if 'width_rightside' in laneattrs:
                 lanes[ind]['width'] = laneattrs['width_rightside']
             else:
                 lanes[ind]['width'] = laneattrs['width_rightside']
@@ -1362,7 +1363,7 @@ class Road:
                 laneattrs['ids_modes_allow'].append(id_allow)
 
     def make_lanes_rigid(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes_rigid', is_opp, n_lane_osm
+        print('make_lanes_rigid', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
 
         if is_opp:
@@ -1386,7 +1387,7 @@ class Road:
         attrs = self._buswayattrs[ind]
 
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -1396,7 +1397,7 @@ class Road:
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if ind < n_lane:
                         if a & (i < n_lane):
                             self.set_lane(lanes, attrs, i)
@@ -1418,7 +1419,7 @@ class Road:
         # do bikeways
         attrs = self._bikewayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -1426,7 +1427,7 @@ class Road:
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if i < n_lane:
                         if a & i < n_lane:
                             self.set_lane(lanes, attrs, i)
@@ -1448,7 +1449,7 @@ class Road:
         # do sidewalks
         attrs = self._sidewalkattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -1477,14 +1478,14 @@ class Road:
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
         return True
 
     def make_lanes(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes', is_opp, n_lane_osm
+        print('make_lanes', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
         is_lanes_rigid = False
 
@@ -1503,7 +1504,7 @@ class Road:
         # do busways
         attrs = self._buswayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -1518,7 +1519,7 @@ class Road:
         # do bikeways
         attrs = self._bikewayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -1541,7 +1542,7 @@ class Road:
         attrs = self._sidewalkattrs[ind]
 
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -1570,7 +1571,7 @@ class Road:
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
@@ -1597,7 +1598,7 @@ class Road:
             ind = 1
             lanes = np.array(self._lanes)
 
-        print 'configure_edge', id_edge, net.edges.ids_sumo[id_edge], self.highway, 'is_opp', is_opp, 'n_lanes', len(lanes), 'is_remove_sidewalk', is_remove_sidewalk
+        print('configure_edge', id_edge, net.edges.ids_sumo[id_edge], self.highway, 'is_opp', is_opp, 'n_lanes', len(lanes), 'is_remove_sidewalk', is_remove_sidewalk)
 
         if self._is_oneway:  # & (not self.is_roundabout()):
             type_spread = 1  # centered
@@ -1628,11 +1629,11 @@ class Road:
             for laneattrs in lanes:
                 # &lanes[-1]['is_sidewalk']:
                 if (ind == 0) & laneattrs['is_sidewalk'] & (is_remove_sidewalk == 2) & (ind_lastlane > 0):
-                    print '  sidewalk removed on right side'
+                    print('  sidewalk removed on right side')
                     pass
                 # &lanes[0]['is_sidewalk']:
                 elif (ind == ind_lastlane) & laneattrs['is_sidewalk'] & (is_remove_sidewalk == 1) & (ind_lastlane > 0):
-                    print '  sidewalk removed on left side'
+                    print('  sidewalk removed on left side')
                     pass
                 else:
                     inds_valid.append(ind)
@@ -1667,12 +1668,12 @@ class Road:
         # add lanes
 
         if n_lane == 0:
-            print 'WARNING: no lane for this direction!!'
+            print('WARNING: no lane for this direction!!')
         else:
-            print '    inds_valid', inds_valid
+            print('    inds_valid', inds_valid)
         ids_lane = net.lanes.add_rows(n_lane)
 
-        for id_lane, ind_lane, laneattrs in zip(ids_lane, xrange(n_lane), lanes[inds_valid]):
+        for id_lane, ind_lane, laneattrs in zip(ids_lane, range(n_lane), lanes[inds_valid]):
             if len(laneattrs['ids_modes_allow']) == 0:
                 id_mode_main = self.id_mode
             else:
@@ -1753,7 +1754,7 @@ class Primary(Road):
             return 10
 
     def make_lanes_rigid(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes_rigid', is_opp, n_lane_osm
+        print('make_lanes_rigid', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
 
         if is_opp:
@@ -1777,7 +1778,7 @@ class Primary(Road):
         attrs = self._buswayattrs[ind]
 
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -1787,7 +1788,7 @@ class Primary(Road):
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if ind < n_lane:
                         if a & (i < n_lane):
                             self.set_lane(lanes, attrs, i)
@@ -1809,7 +1810,7 @@ class Primary(Road):
         # do bikeways
         attrs = self._bikewayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -1817,7 +1818,7 @@ class Primary(Road):
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if i < n_lane:
                         if a & i < n_lane:
                             self.set_lane(lanes, attrs, i)
@@ -1846,7 +1847,7 @@ class Primary(Road):
         # do sidewalks
         attrs = self._sidewalkattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -1876,14 +1877,14 @@ class Primary(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
         return True
 
     def make_lanes(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes primary', is_opp, n_lane_osm
+        print('make_lanes primary', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
         #is_lanes_rigid = False
 
@@ -1902,7 +1903,7 @@ class Primary(Road):
         # do busways
         attrs = self._buswayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -1917,7 +1918,7 @@ class Primary(Road):
         # do bikeways
         attrs = self._bikewayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -1947,7 +1948,7 @@ class Primary(Road):
         # do sidewalks
         attrs = self._sidewalkattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -1976,7 +1977,7 @@ class Primary(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
@@ -2025,7 +2026,7 @@ class Motorway(Road):
             return 10
 
     def make_lanes_rigid(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes_rigid', is_opp, n_lane_osm
+        print('make_lanes_rigid', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
 
         if is_opp:
@@ -2048,14 +2049,14 @@ class Motorway(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
         return True
 
     def make_lanes(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes primary', is_opp, n_lane_osm
+        print('make_lanes primary', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
         #is_lanes_rigid = False
 
@@ -2078,7 +2079,7 @@ class Motorway(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
@@ -2119,7 +2120,7 @@ class Residential(Road):
         return 3
 
     def make_sidewalkattrs(self):
-        print 'make_sidewalkattrs'
+        print('make_sidewalkattrs')
         self.make_sidewalkattrs_smallroads()
 
 
@@ -2217,7 +2218,7 @@ class Footpath(Road):
         # but there will be no sidewalk of sidewalk
 
     def make_bikewayattrs(self):
-        print 'Footpath.make_bikewayattrs'
+        print('Footpath.make_bikewayattrs')
         osmattrs = self._osmattrs
         self._bikewayattrs = (deepcopy(LANEATTRS_DEFAULT),
                               deepcopy(LANEATTRS_DEFAULT))
@@ -2244,7 +2245,7 @@ class Footpath(Road):
                     self.make_bikelane(is_opp=False, is_rightside=False, width=width_right)
 
     def make_lanes_rigid(self, is_opp=False, n_lane_osm=0):
-        print 'Footpath.make_lanes_rigid ped', is_opp, n_lane_osm
+        print('Footpath.make_lanes_rigid ped', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
 
         if is_opp:
@@ -2273,7 +2274,7 @@ class Footpath(Road):
         attrs = self._buswayattrs[ind]
 
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -2283,7 +2284,7 @@ class Footpath(Road):
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if ind < n_lane:
                         if a & (i < n_lane):
                             self.set_lane(lanes, attrs, i)
@@ -2305,7 +2306,7 @@ class Footpath(Road):
         # do bikeways
         attrs = self._bikewayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
 
             n_lane = len(lanes)
 
@@ -2313,7 +2314,7 @@ class Footpath(Road):
 
             n_allow = len(allowed)
             if n_allow > 0:
-                for i, a, d in zip(xrange(n_allow), allowed, disallowed):
+                for i, a, d in zip(range(n_allow), allowed, disallowed):
                     if i < n_lane:
                         if a & i < n_lane:
                             self.set_lane(lanes, attrs, i)
@@ -2333,10 +2334,10 @@ class Footpath(Road):
                             n_lane_assig -= 1
 
     def make_lanes(self, is_opp=False, n_lane_osm=0):
-        print 'Footpath.make_lanes', is_opp, n_lane_osm, 'n_bikelane', len(self._bikewayattrs)
+        print('Footpath.make_lanes', is_opp, n_lane_osm, 'n_bikelane', len(self._bikewayattrs))
         osmattrs = self._osmattrs
 
-        print '  main lane attrs'
+        print('  main lane attrs')
         print_attrs(self._laneattrs_main)
 
         if is_opp:
@@ -2357,7 +2358,7 @@ class Footpath(Road):
         # do busways
         attrs = self._buswayattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  busways n_lane', attrs['n_lane']
+            print('  busways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -2371,11 +2372,11 @@ class Footpath(Road):
 
         # do bikeways
 
-        print '  bikewayattrs:'
+        print('  bikewayattrs:')
         attrs = self._bikewayattrs[ind]
         print_attrs(attrs)
         if attrs['n_lane'] > 0:
-            print '  bikeways n_lane', attrs['n_lane']
+            print('  bikeways n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
 
@@ -2399,7 +2400,7 @@ class Footpath(Road):
         else:
             self._lanes = lanes
 
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
@@ -2412,7 +2413,7 @@ class Cycleway(Road):
         """
         Make defaults to be overridden
         """
-        print 'config cycleway'
+        print('config cycleway')
         # pass here either road type specific defaults
         # or global defaults from parent process
 
@@ -2444,7 +2445,7 @@ class Cycleway(Road):
         self.ids_modes_disallow = []
         self.make_speed(self.parent.speed_max_bike)
 
-        print '  ids_modes_allow', self.ids_modes_allow
+        print('  ids_modes_allow', self.ids_modes_allow)
         #self.speed_max_bus = self.parent.speed_max_bus
         #self.speed_max_bike = self.parent.speed_max_bike
         self.speed_max_ped = self.parent.speed_max_ped
@@ -2479,12 +2480,12 @@ class Cycleway(Road):
         pass
 
     def make_sidewalkattrs(self):
-        print 'make_sidewalkattrs'
+        print('make_sidewalkattrs')
         # put sidewalks only if sidewalk  attributes are given
         return self.make_sidewalkattrs_largeroads()
 
     def make_lanes_rigid(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes_rigid cycle', is_opp, n_lane_osm
+        print('make_lanes_rigid cycle', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
 
         if is_opp:
@@ -2502,7 +2503,7 @@ class Cycleway(Road):
         # do sidewalks
         attrs = self._sidewalkattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -2531,14 +2532,14 @@ class Cycleway(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
         return True
 
     def make_lanes(self, is_opp=False, n_lane_osm=0):
-        print 'make_lanes cycle', is_opp, n_lane_osm
+        print('make_lanes cycle', is_opp, n_lane_osm)
         osmattrs = self._osmattrs
         is_lanes_rigid = False
 
@@ -2557,7 +2558,7 @@ class Cycleway(Road):
         # do sidewalks
         attrs = self._sidewalkattrs[ind]
         if attrs['n_lane'] > 0:
-            print '  sidewalks n_lane', attrs['n_lane']
+            print('  sidewalks n_lane', attrs['n_lane'])
             n_lane_assig = attrs['n_lane']
             n_lane = len(lanes)
             # sidewalks are not considered lanes in osm
@@ -2586,7 +2587,7 @@ class Cycleway(Road):
             self._lanes_opp = lanes
         else:
             self._lanes = lanes
-        print '  created %d lanes' % len(lanes)
+        print('  created %d lanes' % len(lanes))
         # print '  lanes', lanes
         for laneattrs in lanes:
             print_attrs(laneattrs)
@@ -2637,7 +2638,7 @@ class OxImporter(Process):
                  info='Import of network imported with the help of osmnx.',
                  logger=None, **kwargs):
 
-        print 'OxImporter.__init__'
+        print('OxImporter.__init__')
 
         self._init_common(ident,
                           parent=scenario,
@@ -2797,10 +2798,10 @@ class OxImporter(Process):
         return self.parent
 
     def do(self):
-        print self.ident+'.do'
+        print(self.ident+'.do')
 
-        print '   osmdatafilepaths', self.osmdatafilepaths
-        print '   nxnetworkpaths', self.nxnetworkpaths
+        print('   osmdatafilepaths', self.osmdatafilepaths)
+        print('   nxnetworkpaths', self.nxnetworkpaths)
         net = self.get_scenario().net
         self._net = net
         self._map_id_edge_sumo_to_doubles = {}
@@ -2830,19 +2831,19 @@ class OxImporter(Process):
             # {u'lat': 47.6038005, u'type': u'node', u'lon': 7.6006465, u'id': 453208, u'tags': {u'ref': u'69', u'name': u'Weil am Rhein / H\xfcningen', u'highway': u'motorway_junction'}}
             # print '  parse element',element['id'],element['type']
             if element['type'] == 'way':
-                if element.has_key('tags'):
+                if 'tags' in element:
                     highway = element['tags'].get('highway', 'road')
                 else:
                     highway = 'road'
-                print '  '+70*'-'
-                print '  way', element['id'], type(element['id']), highway
+                print('  '+70*'-')
+                print('  way', element['id'], type(element['id']), highway)
                 edges_osm[str(element['id'])] = ROADCLASSES.get(highway, Road)(element, self)
-                print '  done with way', element['id'], id(self.edges_osm[str(element['id'])])
+                print('  done with way', element['id'], id(self.edges_osm[str(element['id'])]))
 
             if element['type'] == 'node':
                 nodes_osm[element['id']] = element.get('tags', {})
 
-        print '   import_osmdata:done'
+        print('   import_osmdata:done')
 
     # def get_id_edge_sumo(self, osmid):
     #    idmap = self._map_id_edge_sumo_to_doubles
@@ -2855,7 +2856,7 @@ class OxImporter(Process):
 
     def get_edgenumber(self, osmid_dir):
         idmap = self._map_id_edge_sumo_to_doubles
-        if idmap.has_key(osmid_dir):
+        if osmid_dir in idmap:
             idmap[osmid_dir] += 1
         else:
             idmap[osmid_dir] = 0
@@ -2879,13 +2880,13 @@ class OxImporter(Process):
     def is_edge_eligible(self, id_osm, id_fromnode_sumo, id_tonode_sumo):
 
         # print 'is_edge_eligible',id_osm,type(id_osm),id_fromnode_sumo, id_tonode_sumo,self.edges_osm.has_key(id_osm),self._edgelookup.has_key(id_osm)
-        if not self.edges_osm.has_key(id_osm):
+        if id_osm not in self.edges_osm:
             # for some reason, nx network has edges that are not in jason
             return False
 
         edgelookup = self._edgelookup
 
-        if edgelookup.has_key(id_osm):
+        if id_osm in edgelookup:
             # is reverse already in database
             # print '  check',edgelookup[id_osm], (id_tonode_sumo, id_fromnode_sumo) in edgelookup[id_osm]
             edgelookup[id_osm].add((id_fromnode_sumo, id_tonode_sumo))
@@ -2907,7 +2908,7 @@ class OxImporter(Process):
         n_edges = len(polylines)
         inds = np.arange(n_edges)
         #ids = inds+1
-        print 'make_linevertices', n_edges
+        print('make_linevertices', n_edges)
 
         linevertices = np.zeros((0, 2, 3), np.float32)
         vertexinds = np.zeros((0, 2), np.int32)
@@ -2931,7 +2932,7 @@ class OxImporter(Process):
             # print '  =======',n_seg#,polyline
 
             if n_seg > 1:
-                polyvinds = range(n_seg)
+                polyvinds = list(range(n_seg))
                 # print '  polyvinds\n',polyvinds
                 vi = np.zeros((2*n_seg-2), np.int32)
                 vi[0] = polyvinds[0]
@@ -3001,7 +3002,7 @@ class OxImporter(Process):
         elif d_max is None:
             dists2_min = np.zeros(n_best, dtype=np.float32)
             inds_min = np.zeros(n_best, dtype=np.int)
-            for i in xrange(n_best):
+            for i in range(n_best):
                 ind = np.argmin(d2)
                 inds_min[i] = ind
                 dists2_min[i] = d2[ind]
@@ -3024,7 +3025,7 @@ class OxImporter(Process):
             return self._edgeinds[inds_min], np.sqrt(dists2_min), angles[inds_min]
 
     def configure_sidewalks(self):
-        print 'configure_sidewalks'
+        print('configure_sidewalks')
         nodes = self._net.nodes
 
         #are_remove_sidewalk = np.zeros(len(self._are_edge_valid), dtype = np.int32)
@@ -3044,11 +3045,11 @@ class OxImporter(Process):
         for ind, id_edge_osm, shape, id_fromnode, id_tonode in zip(np.arange(len(ids_edge_osm)), ids_edge_osm, self._edgeshapes, ids_fromnode, ids_tonode):
             road = edges_osm[id_edge_osm]
             # if road.is_roundabout():# & (len(shape)>2):
-            print '  check edge id_edge_osm', ids_edge_sumo[ind], 'no cycleped', (road.highway not in ['cycleway', 'path', 'pedestrian', 'stairs', 'steps', 'platform']), 'has sidewalk', (road.has_sidewalks(False) | road.has_sidewalks(True))
+            print('  check edge id_edge_osm', ids_edge_sumo[ind], 'no cycleped', (road.highway not in ['cycleway', 'path', 'pedestrian', 'stairs', 'steps', 'platform']), 'has sidewalk', (road.has_sidewalks(False) | road.has_sidewalks(True)))
             # if (road.has_sidewalks(False)|road.has_sidewalks(True))\
             #    &(road.highway not in ['cycleway','path','pedestrian','stairs','steps','platform']):
             if 1:  # (road.highway not in ['path','pedestrian','stairs','steps','platform','footway']):
-                print '   add_edge', ids_edge_sumo[ind], 'id_fromnode', id_fromnode, 'id_tonode', id_tonode, 'ind', ind
+                print('   add_edge', ids_edge_sumo[ind], 'id_fromnode', id_fromnode, 'id_tonode', id_tonode, 'ind', ind)
 
                 shapearray = np.array(shape, dtype=np.float32)
                 delta_out = shapearray[1]-shapearray[0]
@@ -3066,13 +3067,13 @@ class OxImporter(Process):
                 #digraph.add_edge(id_fromnode, id_tonode )
 
         # print '  graph.nodes()',graph.nodes()
-        for id_fromnode, tonodes in digraph.adj.items():
-            print '  investigate id_fromnode', id_fromnode
+        for id_fromnode, tonodes in list(digraph.adj.items()):
+            print('  investigate id_fromnode', id_fromnode)
             # dictionary with id_nnode as key and outgoing angle as value
             # if id_nnode is negative then the direction if from
             #  incoming edge from node -id_nnode
             directiondata = []
-            for id_tonode, edge in tonodes.items():
+            for id_tonode, edge in list(tonodes.items()):
                 # print '    id_tonode',id_tonode
                 directiondata.append((edge['angle_out'], id_tonode, edge['id_edge_sumo']))
 
@@ -3085,7 +3086,7 @@ class OxImporter(Process):
             node_to_dirind = OrderedDict()
             i = 0
             for angle, id_node, id_edge_sumo in directiondata:
-                print '      ', i, 'id_node', id_node, 'angle', angle, 'id_edge_sumo', id_edge_sumo
+                print('      ', i, 'id_node', id_node, 'angle', angle, 'id_edge_sumo', id_edge_sumo)
                 dirind_to_node[i] = id_node
                 node_to_dirind[id_node] = i
                 i += 1
@@ -3097,8 +3098,8 @@ class OxImporter(Process):
         for id_node in list(digraph.nodes_iter()):
 
             node = digraph.node[id_node]
-            print '\n  find loops for node', id_node  # ,node['dirind_to_node']
-            for ind, id_nbnode in node['dirind_to_node'].iteritems():
+            print('\n  find loops for node', id_node)  # ,node['dirind_to_node']
+            for ind, id_nbnode in node['dirind_to_node'].items():
 
                 if id_nbnode < 0:
                     # incoming
@@ -3126,7 +3127,7 @@ class OxImporter(Process):
                                 are_remove_sidewalk[id_sumo] = 1  # remove sidewalk from left
 
                             else:
-                                if are_remove_sidewalk.has_key(id_sumo):
+                                if id_sumo in are_remove_sidewalk:
                                     pass
                                     # if are_remove_sidewalk[id_sumo] == 1:
                                     #    # let remove from left
@@ -3137,10 +3138,10 @@ class OxImporter(Process):
                                 else:
                                     are_remove_sidewalk[id_sumo] = 2  # remove sidewalk from right
 
-                            print '   found edge', id_sumo, id_fromnode, id_tonone, id_node, 'is_remove_sidewalk', are_remove_sidewalk[id_sumo]
+                            print('   found edge', id_sumo, id_fromnode, id_tonone, id_node, 'is_remove_sidewalk', are_remove_sidewalk[id_sumo])
 
     def configure_roundabouts(self):
-        print 'configure_roundabouts'
+        print('configure_roundabouts')
         nodes = self._net.nodes
         roundabouts = []
         edges_osm = self.edges_osm
@@ -3213,13 +3214,13 @@ class OxImporter(Process):
             return id_osm
 
     def check_consistency(self):
-        print 'check_consistency'
+        print('check_consistency')
         nodelookup = {}
 
         for ind, id_fromnode,  id_tonode, id_edge_sumo in zip(np.arange(len(self._ids_edge_sumo)), self._ids_fromnode, self._ids_tonode, self._ids_edge_sumo):
             ids_fromtonode = (id_fromnode, id_tonode)
-            if nodelookup.has_key(ids_fromtonode):
-                print '  WARNING: %s double edge to %s detected' % (id_edge_sumo, nodelookup[ids_fromtonode]), 'from', id_fromnode, 'to', id_tonode, 'id_edge_sumo', id_edge_sumo, nodelookup[ids_fromtonode] == id_edge_sumo
+            if ids_fromtonode in nodelookup:
+                print('  WARNING: %s double edge to %s detected' % (id_edge_sumo, nodelookup[ids_fromtonode]), 'from', id_fromnode, 'to', id_tonode, 'id_edge_sumo', id_edge_sumo, nodelookup[ids_fromtonode] == id_edge_sumo)
                 if nodelookup[ids_fromtonode] == id_edge_sumo:
                     # meand 2 edges with identical ID
                     self._are_edge_valid[ind] = False
@@ -3247,7 +3248,7 @@ class OxImporter(Process):
 
         alpha_crit = 30.0*np.pi/180.0
         alpha_crit_cross = 30.0*np.pi/180.0
-        print 'configure_footpath alpha_crit', alpha_crit
+        print('configure_footpath alpha_crit', alpha_crit)
         #self.id_mode = ID_MODE_PED
         # highway=footway|path
         #self.highway = self._osmattrs.get('highway','footway')
@@ -3258,7 +3259,7 @@ class OxImporter(Process):
             road = edges_osm[id_edge_osm]
 
             if road.highway in footpath_condig:
-                print '  check edge', ids_edge_sumo[ind], road.footway, (road.get_osmattr('tunnel') != 'yes'), (length > dist_min_remove), length
+                print('  check edge', ids_edge_sumo[ind], road.footway, (road.get_osmattr('tunnel') != 'yes'), (length > dist_min_remove), length)
                 #(road.footway != 'crossing') (road.footway != 'sidewalk')
                 ids_osm_main = set()
                 is_remove = True
@@ -3273,16 +3274,16 @@ class OxImporter(Process):
                         inds_edge_main, dists, angles = self.get_closest_edge_dist(
                             point, ind, n_best=20, d_max=dist_min_detect)
                         #matchdata = {}
-                        print '   check sidewalk point (%d/%d)' % (i+1, len(shape))
+                        print('   check sidewalk point (%d/%d)' % (i+1, len(shape)))
                         for ind_edge_main, dist, angle in zip(inds_edge_main, dists, angles):
                             id_edge_osm_main, is_opp, nr = self.get_id_edge_osm_from_id_sumo(
                                 ids_edge_sumo[ind_edge_main])
                             road_main = edges_osm[id_edge_osm_main]
                             prio = road_main.get_priority(is_opp)
-                            print '    check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit), (dist < 2*dist_min_detect), (road_main.highway not in footpath_nomerge)
+                            print('    check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit), (dist < 2*dist_min_detect), (road_main.highway not in footpath_nomerge))
                             # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                             if (angle < 2*alpha_crit) & (dist < dist_min_detect) & (road_main.highway not in footpath_nomerge):
-                                print '     add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                print('     add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp))
                                 ids_osm_main.add((id_edge_osm_main, is_opp))
                                 is_foundmatch = True
                                 break
@@ -3299,16 +3300,16 @@ class OxImporter(Process):
                             is_foundmatch = False
                             inds_edge_main, dists, angles = self.get_closest_edge_dist(
                                 point, ind, n_best=20, d_max=dist_min_detect)
-                            print '  check footpath point (%d/%d)' % (i+1, len(shape))
+                            print('  check footpath point (%d/%d)' % (i+1, len(shape)))
                             for ind_edge_main, dist, angle in zip(inds_edge_main, dists, angles):
                                 id_edge_osm_main, is_opp, nr = self.get_id_edge_osm_from_id_sumo(
                                     ids_edge_sumo[ind_edge_main])
                                 road_main = edges_osm[id_edge_osm_main]
                                 prio = road_main.get_priority(is_opp)
-                                print '   check medge %s d=%.1fm al=%.1f,%.2f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180, angle), prio, road_main.highway, (angle < alpha_crit), (dist < dist_min_detect), (road_main.highway not in footpath_nomerge)
+                                print('   check medge %s d=%.1fm al=%.1f,%.2f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180, angle), prio, road_main.highway, (angle < alpha_crit), (dist < dist_min_detect), (road_main.highway not in footpath_nomerge))
                                 # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                                 if (prio <= prio_max) & (angle < alpha_crit) & (dist < dist_min_detect) & (road_main.highway not in footpath_nomerge):
-                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                    print('       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp))
                                     ids_osm_main.add((id_edge_osm_main, is_opp))
                                     is_foundmatch = True
                                     break
@@ -3329,17 +3330,17 @@ class OxImporter(Process):
                             is_foundmatch = False
                             inds_edge_main, dists, angles = self.get_closest_edge_dist(
                                 point, ind, n_best=20, d_max=dist_min_detect_cross)
-                            print '  check crossing point (%d/%d)' % (i+1, len(shape))
+                            print('  check crossing point (%d/%d)' % (i+1, len(shape)))
                             for ind_edge_main, dist, angle in zip(inds_edge_main, dists, angles):
                                 id_edge_osm_main, is_opp, nr = self.get_id_edge_osm_from_id_sumo(
                                     ids_edge_sumo[ind_edge_main])
                                 road_main = edges_osm[id_edge_osm_main]
                                 prio = road_main.get_priority(is_opp)
-                                print '   check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit_cross), (dist < dist_min_detect_cross), (road_main.highway in footpath_merge_cross)
+                                print('   check medge %s d=%.1fm al=%.1f' % (ids_edge_sumo[ind_edge_main], dist, angle/np.pi*180), prio, road_main.highway, (angle < alpha_crit_cross), (dist < dist_min_detect_cross), (road_main.highway in footpath_merge_cross))
                                 # print '   p1',shape[i-1],'pc',point,'p2',shape[i]
                                 # if (prio<=prio_max)&(((angle<alpha_crit_cross)&(dist < dist_min_detect))|(dist < dist_min_detect_cross))& (road_main.highway in footpath_merge_cross):
                                 if (prio <= prio_max) & (angle < alpha_crit_cross) & (dist < dist_min_detect_cross) & (road_main.highway in footpath_merge_cross):
-                                    print '       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp)
+                                    print('       add edge main edge %s' % ids_edge_sumo[ind_edge_main], (id_edge_osm_main, is_opp))
                                     ids_osm_main.add((id_edge_osm_main, is_opp))
                                     is_foundmatch = True
                                     break
@@ -3356,11 +3357,11 @@ class OxImporter(Process):
                     # footpath can be matched to main roads
 
                     for id_osm_main, is_opp in ids_osm_main:
-                        print '    found', id_edge_osm, 'match with', id_osm_main, 'is_opp', is_opp
+                        print('    found', id_edge_osm, 'match with', id_osm_main, 'is_opp', is_opp)
                         edges_osm[id_osm_main].add_sidewalk(road, is_opp=is_opp)
 
                     # make sure footpath is invalid
-                    print '  eliminate edge', ids_edge_sumo[ind]
+                    print('  eliminate edge', ids_edge_sumo[ind])
                     are_edge_valid[ind] = False
 
     def _get_osmid_from_attr(self, attrs):
@@ -3407,7 +3408,7 @@ class OxImporter(Process):
         """
         Import an networkx graph into net
         """
-        print 'import_nx'
+        print('import_nx')
         net = self._net
         edges_osm = self.edges_osm
         nodes_osm = self.nodes_osm
@@ -3453,10 +3454,10 @@ class OxImporter(Process):
         #ids_node_sumo = np.zeros(n_node, dtype = np.int32)
 
         i_node = -1
-        for id_fromnode, id_fromnode_sumo, outgoingdicts in zip(ids_node, graphx.adj.keys(), graphx.adj.values()):
+        for id_fromnode, id_fromnode_sumo, outgoingdicts in zip(ids_node, list(graphx.adj.keys()), list(graphx.adj.values())):
             i_node += 1
             #ids_node_sumo[i_node] = id_fromnode_sumo
-            print '  ', id_fromnode, id_fromnode_sumo, gxnodes[id_fromnode_sumo]  # nodes.ids_sumo[id_fromnode]
+            print('  ', id_fromnode, id_fromnode_sumo, gxnodes[id_fromnode_sumo])  # nodes.ids_sumo[id_fromnode]
             lonlats_node[i_node] = [gxnodes[id_fromnode_sumo]['x'], gxnodes[id_fromnode_sumo]['y']]
             ids_node_sumo[i_node] = str(id_fromnode_sumo)
             elevation[i_node] = float(gxnodes[id_fromnode_sumo].get('elevation', 0.0))
@@ -3472,9 +3473,9 @@ class OxImporter(Process):
         nodes.types_tl[ids_node[nodetypes == id_nodetype_tl]] = nodes.types_tl.choices['static']
 
         if projparams is None:
-            print '  take first node to estimate projection', (lonlats_node[0][0], lonlats_node[0][1])
+            print('  take first node to estimate projection', (lonlats_node[0][0], lonlats_node[0][1]))
             projparams = guess_utm_from_coord([lonlats_node[0][0], lonlats_node[0][1]])
-        print '  projparams', projparams
+        print('  projparams', projparams)
         proj = pyproj.Proj(projparams)
         net.set_projparams(projparams)
 
@@ -3524,10 +3525,10 @@ class OxImporter(Process):
         # debug
         self._nodelookup = {}
 
-        for id_fromnode, id_fromnode_sumo, outgoingdicts in zip(ids_node, graphx.adj.keys(), graphx.adj.values()):
+        for id_fromnode, id_fromnode_sumo, outgoingdicts in zip(ids_node, list(graphx.adj.keys()), list(graphx.adj.values())):
             i_node += 1
             # print '  id_fromnode_sumo',i_node, id_fromnode, id_fromnode_sumo
-            for id_tonode_sumo, edgedatalist in outgoingdicts.iteritems():
+            for id_tonode_sumo, edgedatalist in outgoingdicts.items():
 
                 edgeattrs = edgedatalist[0]
 
@@ -3537,7 +3538,7 @@ class OxImporter(Process):
 
                     id_tonode = get_id_node(str(id_tonode_sumo))
 
-                    if edgeattrs.has_key('geometry'):
+                    if 'geometry' in edgeattrs:
                         # print '    geometry',edgeattrs['geometry']
                         lonlats = edgeattrs['geometry'].xy
                         xx, yy = proj(lonlats[0], lonlats[1])
@@ -3584,7 +3585,7 @@ class OxImporter(Process):
                     road = edges_osm[id_osm]
 
                     is_oneway = road.is_oneway()
-                    print '    check id_osm', id_osm, 'is_oneway', is_oneway, "id_fromnode_sumo %s id_tonode_sumo %s" % (id_fromnode_sumo, id_tonode_sumo)
+                    print('    check id_osm', id_osm, 'is_oneway', is_oneway, "id_fromnode_sumo %s id_tonode_sumo %s" % (id_fromnode_sumo, id_tonode_sumo))
                     if is_oneway:
                         is_reverse = False
                         shapes.append(list(shape1))
@@ -3593,7 +3594,7 @@ class OxImporter(Process):
 
                     else:
                         is_reverse = self.is_reverse(id_osm, id_fromnode_sumo, id_tonode_sumo)
-                        print 'is_revese', is_reverse, edges_osm[id_osm].ids_osmnode
+                        print('is_revese', is_reverse, edges_osm[id_osm].ids_osmnode)
 
                         # if (not is_oneway) & is_reverse:#self.is_reverse(id_osm, id_fromnode_sumo, id_tonode_sumo):
                         if is_reverse:
@@ -3601,7 +3602,7 @@ class OxImporter(Process):
                             shapes.append(list(shape1)[::-1])
                             ids_fromnode.append(id_tonode)
                             ids_tonode.append(id_fromnode)
-                            print '      created edge %s from' % ids_edge_sumo[-1], id_tonode_sumo, 'to', id_fromnode_sumo
+                            print('      created edge %s from' % ids_edge_sumo[-1], id_tonode_sumo, 'to', id_fromnode_sumo)
                             #id_node_temp = id_fromnode
                             #id_fromnode = id_tonode
                             #id_tonode = id_node_temp
@@ -3609,7 +3610,7 @@ class OxImporter(Process):
                             shapes.append(list(shape1))
                             ids_fromnode.append(id_fromnode)
                             ids_tonode.append(id_tonode)
-                            print '      created edge %s from' % ids_edge_sumo[-1], id_fromnode_sumo, 'to', id_tonode_sumo
+                            print('      created edge %s from' % ids_edge_sumo[-1], id_fromnode_sumo, 'to', id_tonode_sumo)
                             # ids_fromnode.append(id_fromnode)
                             # ids_tonode.append(id_tonode)
 
@@ -3631,7 +3632,7 @@ class OxImporter(Process):
                         ids_edge_sumo.append(self.get_id_edge_sumo('-'+id_osm))
                         ids_edge_osm.append(id_osm)
                         inds_edge_opp.append(-2)  # mark that this is the opposite edge
-                        print '      created reverse ids_edge_sumo', ids_edge_sumo[i_edge], 'from', ids_fromnode[-1], 'to', ids_tonode[-1]
+                        print('      created reverse ids_edge_sumo', ids_edge_sumo[i_edge], 'from', ids_fromnode[-1], 'to', ids_tonode[-1])
 
                     else:
                         inds_edge_opp.append(-1)
@@ -3715,12 +3716,12 @@ class OxImporter(Process):
             if id_sumo[0] > '-':  # it is not an opposite edge
                 road = edges_osm[id_edge_osm]
 
-                print '  configure way id_edge_osm', id_edge_osm, id_sumo, are_remove_sidewalk.get(id_sumo, 0)
+                print('  configure way id_edge_osm', id_edge_osm, id_sumo, are_remove_sidewalk.get(id_sumo, 0))
                 road.configure_edge(id_edge, net, is_remove_sidewalk=are_remove_sidewalk.get(id_sumo, 0))
                 #id_edge_opp = self.get_id_edge_opp
                 id_sumo_opp = '-'+id_sumo
                 if edges.ids_sumo.has_index(id_sumo_opp):
-                    print '  configure opposite way id_edge_osm', id_edge_osm, id_sumo_opp, are_remove_sidewalk.get(id_sumo_opp, 0)
+                    print('  configure opposite way id_edge_osm', id_edge_osm, id_sumo_opp, are_remove_sidewalk.get(id_sumo_opp, 0))
                     road.configure_edge(edges.ids_sumo.get_id_from_index(id_sumo_opp),
                                         net, is_opp=True,
                                         is_remove_sidewalk=are_remove_sidewalk.get(id_sumo_opp, 0))

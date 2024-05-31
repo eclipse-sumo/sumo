@@ -133,7 +133,7 @@ class TaxiService(DemandobjMixin, cm.BaseObjman):
         """
         Write taxi configuration to sumo configuration file feed.
         """
-        print 'TaxiService.write_config is_enabled', self.is_enabled
+        print('TaxiService.write_config is_enabled', self.is_enabled)
         if self.is_enabled:
             attrsman = self.get_attrsman()
 

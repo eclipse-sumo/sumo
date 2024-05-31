@@ -40,7 +40,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
                           name=name,
                           info=info, logger=logger)
 
-        print 'VirtualpopIteratePlotter.__init__', self.parent
+        print('VirtualpopIteratePlotter.__init__', self.parent)
         attrsman = self.get_attrsman()
 
         self.is_strategy_share = attrsman.add(cm.AttrConf('is_strategy_share', kwargs.get('is_strategy_share', True),
@@ -75,7 +75,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def show(self):
-        print 'show'
+        print('show')
         # if self.axis  is None:
         self.init_figures()
         plt.rc('lines', linewidth=self.width_line)
@@ -83,7 +83,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
         #                    cycler('linestyle', ['-', '--', ':', '-.'])))
 
         for plotattr in self.get_attrsman().get_group('plots'):
-            print '  ', plotattr.attrname, plotattr.get_value()
+            print('  ', plotattr.attrname, plotattr.get_value())
             if plotattr.get_value():
                 plotattr.plotfunction()
 
@@ -103,7 +103,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
         """
         Plot total est times for each stategy over iterations.
         """
-        print 'plot_strategy_share'
+        print('plot_strategy_share')
         scenario = self.get_scenario()
         simresults = scenario.simulation.results
         vpiterstats = simresults.get_resultobj('vpiterstats')
@@ -126,7 +126,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
             ident_strat = strategy.get_ident()
             name_strat = strategy.get_name()
             counts = self.get_resultattrconf(vpiterstats.get_stratcountattr(strategy))
-            print '  name_strat', name_strat, 'counts', counts
+            print('  name_strat', name_strat, 'counts', counts)
             if np.any(counts[iters] > 0):
                 ax.plot(iters, 1.0*counts[iters]/trips_tot*100,
                         label=name_strat,
@@ -157,7 +157,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
 
     def plot_strategy_changes(self):
         """'Plot strategy changes over iterations."""
-        print 'plot_strategy_changes'
+        print('plot_strategy_changes')
         scenario = self.get_scenario()
         simresults = scenario.simulation.results
         vpiterstats = simresults.get_resultobj('vpiterstats')
@@ -188,7 +188,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
             self.save_fig('fig_changes')
 
     def plot_strategy_time_tot_est(self):
-        print 'plot_strategy_time_tot_est'
+        print('plot_strategy_time_tot_est')
         scenario = self.get_scenario()
         simresults = scenario.simulation.results
         vpiterstats = simresults.get_resultobj('vpiterstats')
@@ -244,7 +244,7 @@ class IteratePlotter(PlotoptionsMixin, Process):
             self.save_fig('fig_time_tot_est')
 
     def plot_strategy_time_tot(self):
-        print 'plot_strategy_time_tot'
+        print('plot_strategy_time_tot')
         scenario = self.get_scenario()
         simresults = scenario.simulation.results
         vpiterstats = simresults.get_resultobj('vpiterstats')
@@ -307,7 +307,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         self._init_common('strategyresultplotter', parent=virtualpop, name=name,
                           info=info, logger=logger)
 
-        print 'StrategyPlotter.__init__', self.parent
+        print('StrategyPlotter.__init__', self.parent)
         attrsman = self.get_attrsman()
 
         self.is_strategy_share = attrsman.add(cm.AttrConf('is_strategy_share', kwargs.get('is_strategy_share', True),
@@ -364,7 +364,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         self.add_save_options(**kwargs)
 
     def show(self):
-        print 'show'
+        print('show')
         # if self.axis  is None:
         self.init_figures()
         plt.rc('lines', linewidth=self.width_line)
@@ -372,7 +372,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         #                    cycler('linestyle', ['-', '--', ':', '-.'])))
 
         for plotattr in self.get_attrsman().get_group('plots'):
-            print '  ', plotattr.attrname, plotattr.get_value()
+            print('  ', plotattr.attrname, plotattr.get_value())
             if plotattr.get_value():
                 plotattr.plotfunction()
 
@@ -380,7 +380,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             show_plot()
 
     def plot_strategy_share(self):
-        print 'plot_strategy_share'
+        print('plot_strategy_share')
         fig = self.create_figure()
         ax = fig.add_subplot(111)
 
@@ -437,7 +437,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
             self.save_fig('virtualpop_strategy_share_current')
 
     def plot_strategy_times_est(self):
-        print 'plot_strategy_times_est'
+        print('plot_strategy_times_est')
         fig = self.create_figure()
         ax = fig.add_subplot(111)
 
@@ -503,7 +503,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         """
         For each strategy plot its estimated travel time factor with respect to the fastest strategy of the same person
         """
-        print 'plot_strategy_timefactors_est'
+        print('plot_strategy_timefactors_est')
         fig = self.create_figure()
         ax = fig.add_subplot(111)
 
@@ -545,14 +545,14 @@ class StrategyPlotter(PlotoptionsMixin, Process):
 
         x_min = 0.0
         x_max = 0.0
-        for id_strat, timefactors in strategytimefactors.iteritems():
+        for id_strat, timefactors in strategytimefactors.items():
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
         #bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
-            for id_strat, timefactors in strategytimefactors.iteritems():
+            for id_strat, timefactors in strategytimefactors.items():
                 if len(timefactors) > 0:
                     self.plot_hist(ax, np.array(timefactors, dtype=np.float32),
                                    bins=bins,
@@ -583,7 +583,7 @@ class StrategyPlotter(PlotoptionsMixin, Process):
         """
         For each strategy plot its travel executive time factor with respect to the fastest strategy of the same person
         """
-        print 'plot_strategy_timefactors_est'
+        print('plot_strategy_timefactors_est')
         fig = self.create_figure()
         ax = fig.add_subplot(111)
 
@@ -627,17 +627,17 @@ class StrategyPlotter(PlotoptionsMixin, Process):
                     n_nonexistant += 1
 
         if n_nonexistant > 0:
-            print '  WARNING: only %d of %d  persons have not completed all strategies' % (n_nonexistant, n_pers)
+            print('  WARNING: only %d of %d  persons have not completed all strategies' % (n_nonexistant, n_pers))
         x_min = 0.0
         x_max = 0.0
-        for id_strat, timefactors in strategytimefactors.iteritems():
+        for id_strat, timefactors in strategytimefactors.items():
             if len(timefactors) > 0:
                 x_max = max(x_max, np.max(timefactors))
 
         #bins = np.linspace(x_min,x_max,self.n_bins)
         bins = np.arange(x_min, x_max, self.timeint_bins)
         if len(bins) > 0:
-            for id_strat, timefactors in strategytimefactors.iteritems():
+            for id_strat, timefactors in strategytimefactors.items():
                 if len(timefactors) > 0:
                     self.plot_hist(ax, np.array(timefactors, dtype=np.float32),
                                    bins=bins,

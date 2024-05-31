@@ -36,7 +36,7 @@ class Logger:
             self._logfile = open(self._filepath, 'w')
             self._logfile.write(ttext+'\n')
         if self._is_stdout:
-            print text
+            print(text)
 
     def add_callback(self, function, key='message'):
         self._callbacks[key] = function
@@ -62,13 +62,13 @@ class Logger:
         if self._logfile is not None:
             self._logfile.write(strftime(self._timeformat, gmtime())+' '+text+'\n')
 
-        elif self._callbacks.has_key(key):
+        elif key in self._callbacks:
             kwargs['key'] = key
             self._callbacks[key](data, **kwargs)
         # elif type(data)==types.StringType:
         #    print data
         if self._is_stdout:
-            print text
+            print(text)
 
     def stop(self, text="End logging."):
 
@@ -79,4 +79,4 @@ class Logger:
             self._logfile = None
 
         if self._is_stdout:
-            print text
+            print(text)

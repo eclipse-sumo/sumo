@@ -18,14 +18,14 @@
 
 #from classman import *
 
-from test_classman_classes import *
-from classman import *
-from arrayman import *
+from .test_classman_classes import *
+from .classman import *
+from .arrayman import *
 is_all = 0
 if 1 | is_all:
     pass
 if 1 | is_all:
-    print 'Lines, Poly example'
+    print('Lines, Poly example')
 
     ###########################################################################
     # Instance creation
@@ -54,17 +54,17 @@ if 1 | is_all:
     # lines.add_rows(3)
     lines.add_rows(3, vertices=vertices, polygons=polygons, ids_sumo=ids_sumo)
     lines.print_attrs()
-    print '\n  indexmap', lines.ids_sumo.get_indexmap()
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('bb22')
-    print 'ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333'])
+    print('\n  indexmap', lines.ids_sumo.get_indexmap())
+    print('direct access vertex=\n', lines.vertices.value)
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('bb22'))
+    print('ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333']))
     # lines.del_row(2)
     lines.print_attrs()
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('cc333')
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('cc333'))
 
     lines.ids_sumo[2] = 'xy'
 
-    print '\n  indexmap', lines.ids_sumo.get_indexmap()
+    print('\n  indexmap', lines.ids_sumo.get_indexmap())
     lines.print_attrs()
 if 0 | is_all:
     class Lines(TableObjman):
@@ -124,13 +124,13 @@ if 0 | is_all:
     # lines.add_rows(3)
     lines.add_rows(3, vertices=vertices, polygons=polygons, ids_sumo=ids_sumo)
     lines.print_attrs()
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'direct access polygons=\n', lines.polygons.value
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('bb22')
-    print 'ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333'])
+    print('direct access vertex=\n', lines.vertices.value)
+    print('direct access polygons=\n', lines.polygons.value)
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('bb22'))
+    print('ids for index bb22,cc333=', lines.ids_sumo.get_ids_from_indices(['bb22', 'cc333']))
     lines.del_row(2)
     lines.print_attrs()
-    print 'id for index bb22=', lines.ids_sumo.get_id_from_index('cc333')
+    print('id for index bb22=', lines.ids_sumo.get_id_from_index('cc333'))
 if 0 | is_all:
     class Lines(ArrayObjman):
 
@@ -180,8 +180,8 @@ if 0 | is_all:
     # lines.add_rows(3)
     lines.add_rows(3, vertices=vertices, polygons=polygons)
     lines.print_attrs()
-    print 'direct access vertex=\n', lines.vertices.value
-    print 'direct access polygons=\n', lines.polygons.value
+    print('direct access vertex=\n', lines.vertices.value)
+    print('direct access polygons=\n', lines.polygons.value)
 
 if 0 | is_all:
     class ZonesTab(ArrayObjman):
@@ -292,9 +292,9 @@ if 0 | is_all:
     odintervals.print_attrs()
 
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
@@ -408,9 +408,9 @@ if 0 | is_all:
     odintervals.print_attrs()
 
     for id_odmodes in odintervals.get_ids():
-        print '\nMODE:'
+        print('\nMODE:')
         odintervals.odmodes[id_odmodes].print_attrs()
-        print '\nTRIPS:'
+        print('\nTRIPS:')
         for id_odtrips in odmodes.get_ids():
             odmodes.odtrips[id_odtrips].print_attrs()
 
@@ -483,16 +483,16 @@ if 0 | is_all:
                   streetname=['a', 'bb', 'ccc', 'dddd'],
                   )
 
-    print 'direct access: tab1.surname.value', tab1.surname.value
+    print('direct access: tab1.surname.value', tab1.surname.value)
     tab1.print_attrs()
 
 if 0 | is_all:
 
     tab1 = TableObjman('tab1')
-    print '\ntab1.ident', tab1.ident
+    print('\ntab1.ident', tab1.ident)
 
     tab2 = TableObjman('tab2', parent=tab1)
-    print '\ntab2.ident', tab2.ident
+    print('\ntab2.ident', tab2.ident)
 
     # TODO: seperate attrname from linked obj ident because restrictive and makes problems with multiple tab destinations
     # this should be possible ...following the path of attrnames of absident
@@ -534,7 +534,7 @@ if 0 | is_all:
 if 0 | is_all:
     obj = TestTabman()
 
-    print '\nobj.ident', obj.ident
+    print('\nobj.ident', obj.ident)
 
     # streetname
     # print 'This is the value of the attribute: obj.streetname=',obj.streetname
@@ -545,7 +545,7 @@ if 0 | is_all:
 if 0 | is_all:
     obj = TestTableObjMan()
 
-    print '\nobj.ident', obj.ident
+    print('\nobj.ident', obj.ident)
 
     # streetname
     # print 'This is the value of the attribute: obj.streetname=',obj.streetname

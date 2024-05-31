@@ -30,8 +30,8 @@ import pickle
 #APPDIR =  os.path.join(os.path.dirname(__file__),"..")
 
 
-import classman as cm
-from misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist, ff, P
+from . import classman as cm
+from .misc import filepathlist_to_filepathstring, filepathstring_to_filepathlist, ff, P
 
 
 # p = psutil.Process(the_pid_you_want) !!
@@ -162,7 +162,7 @@ class Process(cm.BaseObjman):
         try:
             f = open(filepath, 'wb')
         except:
-            print 'WARNING in save: could not open', filepath
+            print('WARNING in save: could not open', filepath)
             return False
 
         # print '  before',is_not_save_parent,parent,obj.parent
@@ -173,7 +173,7 @@ class Process(cm.BaseObjman):
         try:
             f = open(filepath, 'rb')
         except:
-            print 'WARNING in load_options: could not open', filepath
+            print('WARNING in load_options: could not open', filepath)
             return None
 
         # try:
@@ -182,7 +182,7 @@ class Process(cm.BaseObjman):
         f.close()
 
         attrsman = self.get_attrsman()
-        for attrname, value in optiondata.iteritems():
+        for attrname, value in optiondata.items():
             if attrsman.has_attrname(attrname):
                 attrsman.get_config(attrname).set_value(value)
 
@@ -197,7 +197,7 @@ class Options:
         self._cmlvaluemaps = []
         self._transdir = {}
         self._filepathattrs = []
-        for attr, value in kwargs.iteritems():
+        for attr, value in kwargs.items():
             self.add_option(attr, value)
 
     def add_option(self, attr='', value='', cml=None,
@@ -231,7 +231,7 @@ class Options:
             cmlattr = self._transdir.get(attr, attr)
             is_continue = True
             if cmlvaluemap is not None:
-                if cmlvaluemap.has_key(value):
+                if value in cmlvaluemap:
                     is_continue = False  # take value from mapping
                     if P == '"':  # windows
                         s += ' '+cmlattr+' "%s"' % cmlvaluemap[value]
@@ -244,10 +244,10 @@ class Options:
                 if attr in self._filepathattrs:
                     if value != '':
                         s += ' '+cmlattr+' %s' % filepathlist_to_filepathstring(value.split(','))
-                elif type(value) == types.BooleanType:
+                elif type(value) == bool:
                     if value:
                         s += ' '+cmlattr
-                elif type(value) in [types.StringTypes, types.UnicodeType]:
+                elif type(value) in [(str,), str]:
                     if P == '"':  # windows
                         s += ' '+cmlattr+' "%s"' % value
                     else:
@@ -314,14 +314,14 @@ class CmlMixin:
         setattr(self, option, default)
 
     def get_options(self):
-        print '\nget_options'
+        print('\nget_options')
         options = Options()
         for attrconfig in self.get_attrsman().get_configs(is_all=True):
             if self.optiongroupname in attrconfig.groupnames:
-                print '  option', attrconfig.attrname, attrconfig.groupnames, 'is path', attrconfig.get_metatype() in self.pathmetatypes, 'has cmlmap', hasattr(attrconfig, 'cmlvaluemap')
+                print('  option', attrconfig.attrname, attrconfig.groupnames, 'is path', attrconfig.get_metatype() in self.pathmetatypes, 'has cmlmap', hasattr(attrconfig, 'cmlvaluemap'))
                 is_enabled = True
                 if hasattr(attrconfig, 'is_enabled'):
-                    print ' is_enabled=', attrconfig.is_enabled(self), attrconfig.get_value()
+                    print(' is_enabled=', attrconfig.is_enabled(self), attrconfig.get_value())
                     is_enabled = attrconfig.is_enabled(self)
                 if is_enabled:  # disabeled options are simply not added
                     if hasattr(attrconfig, 'cmlvaluemap'):
@@ -335,10 +335,10 @@ class CmlMixin:
         return options
 
     def print_options(self):
-        print 'Options of process ident:', self.ident
-        print ' Keywordoptions:'
+        print('Options of process ident:', self.ident)
+        print(' Keywordoptions:')
         for attrconfig in self.get_attrsman().get_configs(filtergroupnames=[self.optiongroupname]):
-            print '  ', attrconfig.attrname, '=', attrconfig.get_value()
+            print('  ', attrconfig.attrname, '=', attrconfig.get_value())
 
     def reset_cml(self, cml):
         self._command = cml
@@ -352,7 +352,7 @@ class CmlMixin:
         # if self.workdirpath is not None
         options = self.get_options()
         optionstr = options.get_optionstring()
-        print 'get_cml command', self._command, 'workdirpath', self.workdirpath
+        print('get_cml command', self._command, 'workdirpath', self.workdirpath)
         if True:  # self.workdirpath is None:
             if is_without_command:
                 cml = optionstr
@@ -380,8 +380,8 @@ class CmlMixin:
 
         attrsman.pid.set(self._subprocess.pid)
         attrsman.status.set('running')
-        print 'run_cml cml=', cml
-        print '  pid = ', self.pid, 'cwd', wd
+        print('run_cml cml=', cml)
+        print('  pid = ', self.pid, 'cwd', wd)
         if not self.is_run_background:
             self._subprocess.wait()
             # if self.workdirpath is not None:

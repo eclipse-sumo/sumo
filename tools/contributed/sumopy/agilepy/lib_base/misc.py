@@ -47,7 +47,7 @@ def string_to_float(s):
 
 
 def get_inversemap(m):
-    return {v: k for k, v in m.items()}
+    return {v: k for k, v in list(m.items())}
 
 
 def random_choice_dist2(n, b):
@@ -133,7 +133,7 @@ def ff(filepath):
 
 
 def filepathlist_to_filepathstring(filepathlist, sep=','):
-    if type(filepathlist) == types.ListType:
+    if type(filepathlist) == list:
         if len(filepathlist) == 0:
             return ''
         else:
@@ -157,7 +157,7 @@ def filepathstring_to_filepathlist(filepathstring, sep=','):
 
 def dict_to_str(d, intend=0):
     s = ''
-    for key, value in d.iteritems():
+    for key, value in d.items():
         s += intend*" "+"%s: %s\n" % (key, value)
 
     return s

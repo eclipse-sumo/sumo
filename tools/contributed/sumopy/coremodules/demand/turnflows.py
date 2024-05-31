@@ -27,7 +27,7 @@ from agilepy.lib_base.geometry import *
 #from coremodules.modules_common import *
 from coremodules.network.network import SumoIdsConf, MODES
 from agilepy.lib_base.processes import Process, P, call, CmlMixin
-import demandbase as db
+from . import demandbase as db
 
 
 class Flows(am.ArrayObjman):
@@ -250,7 +250,7 @@ class Turns(am.ArrayObjman):
         flows_total = {}
         for _id in self.get_ids():
             id_fromedge = self.ids_fromedge[_id]
-            if not flows_total.has_key(id_fromedge):
+            if id_fromedge not in flows_total:
                 flows_total[id_fromedge] = 0.0
             flows_total[id_fromedge] += self.flows[_id]
 
@@ -259,7 +259,7 @@ class Turns(am.ArrayObjman):
                 self.probabilities[_id] = self.flows[_id] / flows_total[self.ids_fromedge[_id]]
 
     def add_turn(self, id_fromedge, id_toedge, flow):
-        print 'Turns.add_turn'
+        print('Turns.add_turn')
         return self.add_row(ids_fromedge=id_fromedge,
                             ids_toedge=id_toedge,
                             flows=flow,
@@ -295,14 +295,14 @@ class Turns(am.ArrayObjman):
         fromedge_to_turnprobs = {}
         for _id in self.get_ids():
             id_fromedge = self.ids_fromedge[_id]
-            if not fromedge_to_turnprobs.has_key(id_fromedge):
+            if id_fromedge not in fromedge_to_turnprobs:
                 fromedge_to_turnprobs[id_fromedge] = []
             fromedge_to_turnprobs[id_fromedge].append((self.ids_toedge[_id], self.probabilities[_id]))
 
         ids_sumoeges = self.get_edges().ids_sumo
 
         fd.write(xm.begin('edgeRelations', indent))
-        for id_fromedge in fromedge_to_turnprobs.keys():
+        for id_fromedge in list(fromedge_to_turnprobs.keys()):
 
             for id_toedge, turnprob in fromedge_to_turnprobs[id_fromedge]:
                 fd.write(xm.start('edgeRelation', indent+2))
@@ -321,7 +321,7 @@ class TurnflowModes(am.ArrayObjman):
                           info='Contains for each transport mode an OD trip table.',
                           xmltag=('modesods', 'modeods', 'ids_mode'), **kwargs)
 
-        print 'TurnflowModes.__init__', modes
+        print('TurnflowModes.__init__', modes)
         self.add_col(am.IdsArrayConf('ids_mode', modes,
                                      groupnames=['state'],
                                      choices=MODES,
@@ -330,7 +330,7 @@ class TurnflowModes(am.ArrayObjman):
                                      #xmltag = 'vClass',
                                      info='ID of transport mode.',
                                      ))
-        print '  self.ids_mode.is_index', self.ids_mode.is_index()
+        print('  self.ids_mode.is_index', self.ids_mode.is_index())
 
         self.add_col(cm.ObjsConf('flowtables',
                                  groupnames=['state'],
@@ -366,7 +366,7 @@ class TurnflowModes(am.ArrayObjman):
 
     def add_mode(self, id_mode):
         id_tf_modes = self.add_row(ids_mode=id_mode)
-        print '  add_mode', id_mode, id_tf_modes
+        print('  add_mode', id_mode, id_tf_modes)
 
         flows = Flows((self.flowtables.attrname, id_tf_modes), self, self.edges.get_value())
         self.flowtables[id_tf_modes] = flows
@@ -381,8 +381,8 @@ class TurnflowModes(am.ArrayObjman):
         Sets a demand flows between from-Edge and toEdge pairs for mode where flows is a dictionary
         with (fromEdgeID,toEdgeID) pair as key and number of trips as values.
         """
-        print 'TurnflowModes.add_turnflows', id_mode  # ,flows,kwargs
-        print '  self.ids_mode.is_index()', self.ids_mode.is_index()
+        print('TurnflowModes.add_turnflows', id_mode)  # ,flows,kwargs
+        print('  self.ids_mode.is_index()', self.ids_mode.is_index())
         if self.ids_mode.has_index(id_mode):
             id_tf_modes = self.ids_mode.get_id_from_index(id_mode)
         else:
@@ -394,7 +394,7 @@ class TurnflowModes(am.ArrayObjman):
         """
         Sets turn probability between from-edge and to-edge.
         """
-        print 'TurnflowModes.add_turn', id_mode  # ,turnflow,kwargs
+        print('TurnflowModes.add_turn', id_mode)  # ,turnflow,kwargs
         # if scale!=1.0:
         #    for od in odm.iterkeys():
         #        odm[od] *= scale
@@ -413,7 +413,7 @@ class TurnflowModes(am.ArrayObjman):
         Export flow data of desired mode to xml file.
         Returns list with edge IDs with non zero flows and a flow ID counter.
         """
-        print 'TurnflowModes.export_flows_xml id_mode, id_flow', id_mode, id_flow, self.ids_mode.has_index(id_mode)
+        print('TurnflowModes.export_flows_xml id_mode, id_flow', id_mode, id_flow, self.ids_mode.has_index(id_mode))
         ids_sourceedge = []
 
         if not self.ids_mode.has_index(id_mode):
@@ -432,7 +432,7 @@ class TurnflowModes(am.ArrayObjman):
         #    # TODO: can we put some distributen here?
         #    vtype = vtypes[0]
         for vtype, share in zip(vtypes, shares):
-            print '  write flows for vtype', vtype, share
+            print('  write flows for vtype', vtype, share)
             if self.ids_mode.has_index(id_mode):
                 id_tf_modes = self.ids_mode.get_id_from_index(id_mode)
                 ids_sourceedge, id_flow = self.flowtables[id_tf_modes].export_xml(
@@ -446,7 +446,7 @@ class TurnflowModes(am.ArrayObjman):
         Export flow data of desired mode to xml file.
         Returns list with edge IDs with non zero flows and a flow ID counter.
         """
-        print 'TurnflowModes.export_turns_xml'
+        print('TurnflowModes.export_turns_xml')
 
         if self.ids_mode.has_index(id_mode):
             id_tf_modes = self.ids_mode.get_id_from_index(id_mode)
@@ -502,7 +502,7 @@ class Turnflows(am.ArrayObjman):
         """
         Makes sure that sum of turn probabilities from an edge equals 1.
         """
-        print 'Turnflows.normalize_turnprobabilities'
+        print('Turnflows.normalize_turnprobabilities')
         # for turnflowmode in self.turnflowmodes.get_value():
         #    turnflowmode.normalize_turnprobabilities() # no! it's a dict!!
         # print '  ',self.turnflowmodes.get_value()
@@ -589,9 +589,9 @@ class Turnflows(am.ArrayObjman):
         In the SUMOpy tunflow data structure, each mode has its own 
         flow and turnratio data.
         """
-        print '\n\n'+79*'_'
-        print 'export_flows_and_turns id_mode=', id_mode, 'ids_vtype=', self.parent.vtypes.select_by_mode(id_mode)
-        print '  write flows', flowfilepath
+        print('\n\n'+79*'_')
+        print('export_flows_and_turns id_mode=', id_mode, 'ids_vtype=', self.parent.vtypes.select_by_mode(id_mode))
+        print('  write flows', flowfilepath)
         fd = open(flowfilepath, 'w')
         fd.write(xm.begin('flows', indent))
 
@@ -707,14 +707,14 @@ class Turnflows(am.ArrayObjman):
             scenario.net.export_netxml()
 
         ids_mode = self.get_modes()
-        print 'turnflows_to_routes', ids_mode  # scenario.net.modes.get_ids()
-        print '  cmloptions', cmloptions
+        print('turnflows_to_routes', ids_mode)  # scenario.net.modes.get_ids()
+        print('  cmloptions', cmloptions)
 
         # route for all modes and read in routes
         for id_mode in ids_mode:
             # write flow and turns xml file for this mode
             time_start, time_end = self.export_flows_and_turns(flowfilepath, turnfilepath, id_mode)
-            print '  time_start, time_end =', time_start, time_end
+            print('  time_start, time_end =', time_start, time_end)
 
             if time_end > time_start:  # means there exist some flows for this mode
                 cmd = 'jtrrouter --route-files=%s --turn-ratio-files=%s --net-file=%s --output-file=%s --begin %s --end %s %s'\
@@ -733,7 +733,7 @@ class Turnflows(am.ArrayObjman):
                         os.remove(routefilepath)
 
             else:
-                print 'jtrroute: no flows generated for id_mode', id_mode
+                print('jtrroute: no flows generated for id_mode', id_mode)
 
         # self.simfiles.set_modified_data('rou',True)
         # self.simfiles.set_modified_data('trip',True)
@@ -872,9 +872,9 @@ class TurnflowRouter(db.TripoptionMixin, CmlMixin, Process):
         #                )
 
     def do(self):
-        print 'do'
+        print('do')
         cml = self.get_cml(is_without_command=True)  # only options, not the command #
-        print '  cml=', cml
+        print('  cml=', cml)
         self.parent.turnflows_to_routes(is_clear_trips=self.is_clear_trips,
                                         is_export_network=self.is_export_network,
                                         is_make_probabilities=True,
@@ -972,7 +972,7 @@ class TurnflowImporter(Process):
         ids_sumoedge_notexist = []
         pairs_sumoedge_unconnected = []
 
-        print 'import_pat_csv', self.tffilepath
+        print('import_pat_csv', self.tffilepath)
         i_line = 1
         for line in f.readlines():
             cols = line.split(sep)
@@ -1006,12 +1006,12 @@ class TurnflowImporter(Process):
                                                                id_fromedge, id_toedge, turnflow)
 
             else:
-                print 'WARNING: inconsistent row in line %d, file %s' % (i_line, self.tffilepath)
+                print('WARNING: inconsistent row in line %d, file %s' % (i_line, self.tffilepath))
             i_line += 1
         f.close()
         if len(ids_sumoedge_notexist) > 0:
-            print 'WARNING: inexistant edge IDs:', ids_sumoedge_notexist
+            print('WARNING: inexistant edge IDs:', ids_sumoedge_notexist)
         if len(pairs_sumoedge_unconnected) > 0:
-            print 'WARNING: unconnected edge pairs:', pairs_sumoedge_unconnected
+            print('WARNING: unconnected edge pairs:', pairs_sumoedge_unconnected)
 
         return ids_sumoedge_notexist, pairs_sumoedge_unconnected

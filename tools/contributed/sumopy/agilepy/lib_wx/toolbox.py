@@ -18,7 +18,7 @@
 
 import agilepy.lib_base.arrayman as am
 import agilepy.lib_base.classman as cm
-from objpanel import ObjPanel, NaviPanel
+from .objpanel import ObjPanel, NaviPanel
 from wx.lib.buttons import GenBitmapTextButton, GenBitmapButton
 import wx
 import sys
@@ -260,14 +260,14 @@ class ToolPalett(wx.Panel):
         # self.SetMaxSize((300,-1))
 
     def has_tool(self, newtool):
-        for tool, b in self._id_to_tool.values():
+        for tool, b in list(self._id_to_tool.values()):
             if tool.get_ident() == newtool.get_ident():
                 return True
         return False
 
     def get_tool_by_ident(self, ident):
         # print 'get_tool_by_ident',ident
-        for tool, b in self._id_to_tool.values():
+        for tool, b in list(self._id_to_tool.values()):
             # print '  tool',tool.get_ident()
             if tool.get_ident() == ident:
                 return tool
@@ -303,7 +303,7 @@ class ToolPalett(wx.Panel):
         Returns lins with all toll instances
         """
         tools = []
-        for (tool, b) in self._id_to_tool.values():
+        for (tool, b) in list(self._id_to_tool.values()):
             tools.append(tool)
         return tools
 
@@ -322,7 +322,7 @@ class ToolPalett(wx.Panel):
         # print '\n on_select',_id,self._id#,self._id_to_tool[_id]
 
         if _id != self._id:
-            if self._id_to_tool.has_key(_id):
+            if _id in self._id_to_tool:
 
                 (tool, button) = self._id_to_tool[_id]
                 # print '  new tool',tool.get_name()
@@ -346,7 +346,7 @@ class ToolPalett(wx.Panel):
         # print '\nselect',_id,self._id,self._id_to_tool
 
         if _id != self._id:
-            if self._id_to_tool.has_key(_id):
+            if _id in self._id_to_tool:
 
                 (tool, button) = self._id_to_tool[_id]
 
@@ -373,7 +373,7 @@ class ToolPalett(wx.Panel):
         """
         Unselect currently selected tool.
         """
-        if self._id_to_tool.has_key(self._id):
+        if self._id in self._id_to_tool:
             (tool, button) = self._id_to_tool[self._id]
 
             if tool.is_active() == True:

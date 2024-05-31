@@ -30,8 +30,8 @@ from agilepy.lib_base.processes import Process
 from coremodules.network.network import SumoIdsConf, MODES
 from coremodules.network import routing
 from coremodules.simulation import results as res
-from demandbase import *
-import virtualpop_results as res
+from .demandbase import *
+from . import virtualpop_results as res
 
 
 GENDERS = {'male': 0, 'female': 1, 'unknown': -1}
@@ -1202,7 +1202,7 @@ class WalkStrategy(StrategyMixin):
             activities = vp.get_activities()
 
             ids_pers_filter = ids_person[persons.ids_mode_preferred[ids_person] != self._id_mode_ped]
-            for i,  ids_activity in zip(xrange(len(ids_pers_filter)), vp.activitypatterns[ids_pers_filter]):
+            for i,  ids_activity in zip(range(len(ids_pers_filter)), vp.activitypatterns[ids_pers_filter]):
 
                 id_act1 = ids_activity[0]
                 id_act2 = ids_activity[1]
@@ -1212,7 +1212,7 @@ class WalkStrategy(StrategyMixin):
                 if dist_fac_sqr > max_dist_fac_sqr:
                     preeval[i] = -1
 
-        print '  WalkStrategy.preevaluate', len(np.flatnonzero(preeval >= 0))
+        print('  WalkStrategy.preevaluate', len(np.flatnonzero(preeval >= 0)))
         return preeval
 
     def plan(self, ids_person, logger=None, **kwargs):
@@ -1220,7 +1220,7 @@ class WalkStrategy(StrategyMixin):
         Generates a plan for these person according to this strategie.
         Overriden by specific strategy.
         """
-        print 'WalkStrategy.pan', len(ids_person)
+        print('WalkStrategy.pan', len(ids_person))
         #make_plans_private(self, ids_person = None, mode = 'passenger')
         # routing necessary?
         virtualpop = self.get_virtualpop()
@@ -1258,7 +1258,7 @@ class WalkStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in WalkStrategy.plan: no eligible persons found.'
+            print('WARNING in WalkStrategy.plan: no eligible persons found.')
             return False
 
         # temporary maps from ids_person to other parameters
@@ -1277,7 +1277,7 @@ class WalkStrategy(StrategyMixin):
         map_ids_fac_from[ids_person_act] = activities.ids_facility[ids_act_from]
 
         n_plans = len(ids_person_act)
-        print 'TrasitStrategy.plan n_plans=', n_plans
+        print('TrasitStrategy.plan n_plans=', n_plans)
 
         # make initial activity stage
         ids_edge_from = facilities.ids_roadedge_closest[map_ids_fac_from[ids_person_act]]
@@ -1362,8 +1362,8 @@ class WalkStrategy(StrategyMixin):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'_'
-                print '  id_plan=%d, id_person=%d, ' % (id_plan, id_person)
+                print(79*'_')
+                print('  id_plan=%d, id_person=%d, ' % (id_plan, id_person))
 
                 id_stage_walk1, time = walkstages.append_stage(id_plan, time_from,
                                                                id_edge_from=id_edge_from,
@@ -1473,24 +1473,24 @@ class AutoStrategy(StrategyMixin):
 
         """
         n_pers = len(ids_person)
-        print 'Autostrategy.preevaluate', n_pers, 'persons'
+        print('Autostrategy.preevaluate', n_pers, 'persons')
         persons = self.get_virtualpop()
         preeval = np.zeros(n_pers, dtype=np.int32)
 
         # put -1 for persons without car access
         preeval[persons.ids_iauto[ids_person] == -1] = -1
-        print '  persons having no auto', len(np.flatnonzero(persons.ids_iauto[ids_person] == -1))
+        print('  persons having no auto', len(np.flatnonzero(persons.ids_iauto[ids_person] == -1)))
 
         # put 0 for persons with car but with a different preferred mode
         preeval[(persons.ids_iauto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto)] = 0
 
-        print '  persons with car but with a different preferred mode', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto)))
+        print('  persons with car but with a different preferred mode', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_auto))))
 
         # put 2 for persons with car access and who prefer the car
         preeval[(persons.ids_iauto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)] = 2
-        print '  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto)))
+        print('  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_iauto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_auto))))
 
         return preeval
 
@@ -1549,7 +1549,7 @@ class AutoStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in Autostrategy.plan: no eligible persons found.'
+            print('WARNING in Autostrategy.plan: no eligible persons found.')
             return False
 
         # ok
@@ -1591,7 +1591,7 @@ class AutoStrategy(StrategyMixin):
         map_are_fallback[ids_person_act] = are_fallback
 
         n_plans = len(ids_person_act)
-        print 'AutoStrategy.plan n_plans=', n_plans
+        print('AutoStrategy.plan n_plans=', n_plans)
         # print '  map_ids_parking_from[ids_person_act].shape',map_ids_parking_from[ids_person_act].shape
         # set initial activity
         # this is because the following steps start with travel
@@ -1730,7 +1730,7 @@ class AutoStrategy(StrategyMixin):
                     position_edge_to=pos_edge_parking_from-1.5,  # wait 1.5 m before nose of parked car
                 )
 
-                print '      id_person,id_veh', id_person, id_veh
+                print('      id_person,id_veh', id_person, id_veh)
                 # ride from  car parking to road edge near activity
                 id_stage_car, time, is_fallback = ridestages.append_stage(
                     id_plan,
@@ -1891,24 +1891,24 @@ class BikeStrategy(StrategyMixin):
 
         """
         n_pers = len(ids_person)
-        print 'BikeStrategy.preevaluate', n_pers, 'persons'
+        print('BikeStrategy.preevaluate', n_pers, 'persons')
         persons = self.get_virtualpop()
         preeval = np.zeros(n_pers, dtype=np.int32)
 
         # put -1 for persons without car access
         preeval[persons.ids_ibike[ids_person] == -1] = -1
-        print '  persons having no bike', len(np.flatnonzero(persons.ids_ibike[ids_person] == -1))
+        print('  persons having no bike', len(np.flatnonzero(persons.ids_ibike[ids_person] == -1)))
 
         # put 0 for persons with bike but with a different preferred mode
         preeval[(persons.ids_ibike[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike)] = 0
 
-        print '  persons with bike but with a different preferred mode', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike)))
+        print('  persons with bike but with a different preferred mode', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_bike))))
 
         # put 2 for persons with bike access and who prefer the bike
         preeval[(persons.ids_ibike[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] == self._id_mode_bike)] = 2
-        print '  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_bike)))
+        print('  persons  with car access and who prefer the car', len(np.flatnonzero((persons.ids_ibike[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_bike))))
 
         return preeval
 
@@ -1993,7 +1993,7 @@ class BikeStrategy(StrategyMixin):
                 pos = 0.5*self.length_edge_min
 
         if id_bikeedge == -1:
-            print 'WARNING in get_edge_bikeaccess no access for', id_edge, self._edges.ids_sumo[id_edge]
+            print('WARNING in get_edge_bikeaccess no access for', id_edge, self._edges.ids_sumo[id_edge])
 
         if is_get_route:
             return id_bikeedge, pos, route
@@ -2175,7 +2175,7 @@ class BikeStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in BikeStrategy.plan: no eligible persons found.'
+            print('WARNING in BikeStrategy.plan: no eligible persons found.')
             return False
 
         # ok
@@ -2205,7 +2205,7 @@ class BikeStrategy(StrategyMixin):
         #map_ids_parking_from[ids_person_act] = ids_parking_from
 
         n_plans = len(ids_person_act)
-        print 'BikeStrategy.plan n_plans=', n_plans
+        print('BikeStrategy.plan n_plans=', n_plans)
         # print '  map_ids_parking_from[ids_person_act].shape',map_ids_parking_from[ids_person_act].shape
         # set initial activity
         # this is because the following steps start with travel
@@ -2313,9 +2313,9 @@ class BikeStrategy(StrategyMixin):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'*'
-                print '  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to
-                print '  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to]
+                print(79*'*')
+                print('  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to)
+                print('  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to])
 
                 time = self.plan_bikeride(id_plan, time_from, id_veh,
                                           id_edge_from, pos_edge_from,
@@ -2446,14 +2446,14 @@ class TaxiStrategy(StrategyMixin):
         # put 2 for persons with car access and who prefer cars
         preeval[persons.ids_mode_preferred[ids_person] == self._id_mode_taxi] = 2
 
-        print '  TaxiStrategy.preevaluate', len(np.flatnonzero(preeval))
+        print('  TaxiStrategy.preevaluate', len(np.flatnonzero(preeval)))
         return preeval
 
     def get_edge_access(self, id_edge, is_search_backward=False, is_get_route=False, is_star=False, bstar=0, fstar=0, n_iter_acces_max=None):
         # get firts edge allowing bikes and pedestrian, saving route, frontward or backward. You can include bstar or fstar:
         # check only connected links. You can obtain also the route.
         # print 'get_edge_bikeaccess',id_edge, is_search_backward,'id_sumo',self._edges.ids_sumo[id_edge]
-        print 'get_edge_access id_edge', id_edge, 'is_search_backward', is_search_backward, 'n_iter_acces_max', self.n_iter_acces_max
+        print('get_edge_access id_edge', id_edge, 'is_search_backward', is_search_backward, 'n_iter_acces_max', self.n_iter_acces_max)
         if n_iter_acces_max is None:
             n_iter_acces_max = self.n_iter_acces_max
 
@@ -2480,15 +2480,15 @@ class TaxiStrategy(StrategyMixin):
         ids = [id_edge]
         coll_ids = [0]
         route = []
-        print 'start  id_modeedge', id_modeedge, 'n', n, 'n_iter_acces_max', n_iter_acces_max, (id_modeedge < 0), (n < n_iter_acces_max)
+        print('start  id_modeedge', id_modeedge, 'n', n, 'n_iter_acces_max', n_iter_acces_max, (id_modeedge < 0), (n < n_iter_acces_max))
 
         while (id_modeedge < 0) & (n < n_iter_acces_max):
-            print '    while id_modeedge', id_modeedge, 'n', n
+            print('    while id_modeedge', id_modeedge, 'n', n)
             n += 1
 
             ids_new = []
             for id_edge_test, is_long_enough in zip(ids_current, edgelengths[ids_current] > self.length_edge_min):
-                print '    check id', id_edge_test, is_long_enough, 'taxi access', get_accesslevel(id_edge_test, id_mode), 'ped access', get_accesslevel(id_edge_test, id_mode_ped)
+                print('    check id', id_edge_test, is_long_enough, 'taxi access', get_accesslevel(id_edge_test, id_mode), 'ped access', get_accesslevel(id_edge_test, id_mode_ped))
                 if is_long_enough & (get_accesslevel(id_edge_test, id_mode) >= 0) & (get_accesslevel(id_edge_test, id_mode_ped) >= 0):
                     id_modeedge = id_edge_test
 
@@ -2505,7 +2505,7 @@ class TaxiStrategy(StrategyMixin):
                         if is_search_backward is not True:
                             route.reverse()
 
-                    print '    found', id_modeedge, self._edges.ids_sumo[id_modeedge]
+                    print('    found', id_modeedge, self._edges.ids_sumo[id_modeedge])
                     break
                 else:
 
@@ -2532,7 +2532,7 @@ class TaxiStrategy(StrategyMixin):
                 pos = 0.5*self.length_edge_min
 
         if id_modeedge == -1:
-            print 'WARNING in TaxiStrategy.get_edge_access no access at id_edge', id_edge, self._edges.ids_sumo[id_edge]
+            print('WARNING in TaxiStrategy.get_edge_access no access at id_edge', id_edge, self._edges.ids_sumo[id_edge])
 
         if is_get_route:
             return id_modeedge, pos, route
@@ -2553,7 +2553,7 @@ class TaxiStrategy(StrategyMixin):
         id_edge_to_taxi, pos_to_taxi = self.get_edge_access(id_edge_to, is_search_backward=True)
 
         if (dist_from_to < dist_walk_max) | (id_edge_from_taxi == -1) | (id_edge_to_taxi == -1):
-            print '    go by foot because distance is too short or no taxi access', dist_from_to, id_edge_from_taxi, id_edge_to_taxi
+            print('    go by foot because distance is too short or no taxi access', dist_from_to, id_edge_from_taxi, id_edge_to_taxi)
             id_stage_walk1, time = walkstages.append_stage(
                 id_plan, time_from,
                 id_edge_from=id_edge_from,
@@ -2563,12 +2563,12 @@ class TaxiStrategy(StrategyMixin):
             )
 
         else:
-            print '    try to take the taxi'
+            print('    try to take the taxi')
             # print '    id_edge_from_taxi',edges.ids_sumo[id_edge_from_taxi],pos_from_taxi
             # print '    id_edge_to_taxi',edges.ids_sumo[id_edge_to_taxi],pos_to_taxi
 
             if id_edge_from_taxi != id_edge_from:
-                print '    must walk from origin to taxi accessible edge, time_from', time_from
+                print('    must walk from origin to taxi accessible edge, time_from', time_from)
                 # walk to taxi edge
                 id_stage_walk1, time = walkstages.append_stage(
                     id_plan, time_from,
@@ -2579,7 +2579,7 @@ class TaxiStrategy(StrategyMixin):
                 )
 
                 if id_edge_to_taxi != id_edge_to:
-                    print '      must walk from taxi accessible edge to dest, time_from', time
+                    print('      must walk from taxi accessible edge to dest, time_from', time)
                     # take taxi
                     id_stage_taxi, time = ridestages.append_stage(
                         id_plan, time,
@@ -2602,7 +2602,7 @@ class TaxiStrategy(StrategyMixin):
                         )
 
                 else:
-                    print '    ride  taxi from taxi edge to destination', time
+                    print('    ride  taxi from taxi edge to destination', time)
                     # take taxi
                     id_stage_taxi, time = ridestages.append_stage(
                         id_plan, time,
@@ -2615,9 +2615,9 @@ class TaxiStrategy(StrategyMixin):
                         position_edge_to=pos_edge_to,
                     )
             else:
-                print '    take taxi directly from edge of origin', time_from
+                print('    take taxi directly from edge of origin', time_from)
                 if id_edge_to_taxi != id_edge_to:
-                    print '      must walk from taxi accessible destination to destination', time_from
+                    print('      must walk from taxi accessible destination to destination', time_from)
 
                     id_stage_taxi, time = ridestages.append_stage(
                         id_plan, time_from,
@@ -2638,7 +2638,7 @@ class TaxiStrategy(StrategyMixin):
                             position_edge_to=pos_edge_to,
                         )
                 else:
-                    print '    take taxi directly from origin to destination', time_from
+                    print('    take taxi directly from origin to destination', time_from)
                     id_stage_taxi, time = ridestages.append_stage(
                         id_plan, time_from,
                         id_veh=id_veh,
@@ -2654,7 +2654,7 @@ class TaxiStrategy(StrategyMixin):
             # if not, for whatever reason,
             # we walk from origin to destination
             if id_stage_taxi == -1:
-                print '    walk because no ride stage has been planned', time_from
+                print('    walk because no ride stage has been planned', time_from)
                 if id_stage_walk1 == -1:
                     # no walk stage has been planned
                     id_stage_walk1, time = walkstages.append_stage(
@@ -2715,7 +2715,7 @@ class TaxiStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in TaxiStrategy.plan: no eligible persons found.'
+            print('WARNING in TaxiStrategy.plan: no eligible persons found.')
             return False
 
         # ok
@@ -2745,7 +2745,7 @@ class TaxiStrategy(StrategyMixin):
         #map_ids_parking_from[ids_person_act] = ids_parking_from
 
         n_plans = len(ids_person_act)
-        print 'TaxiStrategy.plan n_plans=', n_plans
+        print('TaxiStrategy.plan n_plans=', n_plans)
         # print '  map_ids_parking_from[ids_person_act].shape',map_ids_parking_from[ids_person_act].shape
         # set initial activity
         # this is because the following steps start with travel
@@ -2832,9 +2832,9 @@ class TaxiStrategy(StrategyMixin):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'*'
-                print '  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to
-                print '  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to]
+                print(79*'*')
+                print('  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to)
+                print('  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to])
 
                 time = self.plan_taxiride(id_plan, time_from, id_veh,
                                           id_edge_from, pos_edge_from,
@@ -2955,24 +2955,24 @@ class MotorcycleStrategy(StrategyMixin):
 
         """
         n_pers = len(ids_person)
-        print 'MotorcycleStrategy.preevaluate', n_pers, 'persons'
+        print('MotorcycleStrategy.preevaluate', n_pers, 'persons')
         persons = self.get_virtualpop()
         preeval = np.zeros(n_pers, dtype=np.int32)
 
         # put -1 for persons without motorcycle access
         preeval[persons.ids_imoto[ids_person] == -1] = -1
-        print '  persons having no motorcycle', len(np.flatnonzero(persons.ids_imoto[ids_person] == -1))
+        print('  persons having no motorcycle', len(np.flatnonzero(persons.ids_imoto[ids_person] == -1)))
 
         # put 0 for persons with motorcycle but with a different preferred mode
         preeval[(persons.ids_imoto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] != self._id_mode_moto)] = 0
 
-        print '  persons with motorcycle but with a different preferred mode', len(np.flatnonzero((persons.ids_imoto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_moto)))
+        print('  persons with motorcycle but with a different preferred mode', len(np.flatnonzero((persons.ids_imoto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] != self._id_mode_moto))))
 
         # put 2 for persons with motorcycle access and who prefer the car
         preeval[(persons.ids_imoto[ids_person] > -1)
                 & (persons.ids_mode_preferred[ids_person] == self._id_mode_moto)] = 2
-        print '  persons  with motorcycle access and who prefer the car', len(np.flatnonzero((persons.ids_imoto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_moto)))
+        print('  persons  with motorcycle access and who prefer the car', len(np.flatnonzero((persons.ids_imoto[ids_person] > -1) & (persons.ids_mode_preferred[ids_person] == self._id_mode_moto))))
 
         return preeval
 
@@ -3056,7 +3056,7 @@ class MotorcycleStrategy(StrategyMixin):
                 pos = 0.5*self.length_edge_min
 
         if id_motoedge == -1:
-            print 'WARNING in get_edge_motoaccess no access for', id_edge, self._edges.ids_sumo[id_edge]
+            print('WARNING in get_edge_motoaccess no access for', id_edge, self._edges.ids_sumo[id_edge])
 
         if is_get_route:
             return id_motoedge, pos, route
@@ -3238,7 +3238,7 @@ class MotorcycleStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in MotorcycleStrategy.plan: no eligible persons found.'
+            print('WARNING in MotorcycleStrategy.plan: no eligible persons found.')
             return False
 
         # ok
@@ -3268,7 +3268,7 @@ class MotorcycleStrategy(StrategyMixin):
         #map_ids_parking_from[ids_person_act] = ids_parking_from
 
         n_plans = len(ids_person_act)
-        print 'MotorcycleStrategy.plan n_plans=', n_plans
+        print('MotorcycleStrategy.plan n_plans=', n_plans)
         # print '  map_ids_parking_from[ids_person_act].shape',map_ids_parking_from[ids_person_act].shape
         # set initial activity
         # this is because the following steps start with travel
@@ -3376,9 +3376,9 @@ class MotorcycleStrategy(StrategyMixin):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'*'
-                print '  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to
-                print '  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to]
+                print(79*'*')
+                print('  plan id_plan', id_plan, 'time_from', time_from, 'from', id_edge_from, pos_edge_from, 'to', id_edge_to, pos_edge_to)
+                print('  id_edge_from', edges.ids_sumo[id_edge_from], 'id_edge_to', edges.ids_sumo[id_edge_to])
 
                 time = self.plan_motoride(id_plan, time_from, id_veh,
                                           id_edge_from, pos_edge_from,
@@ -3489,7 +3489,7 @@ class TransitStrategy(StrategyMixin):
         # put 2 for persons with car access and who prefer cars
         preeval[persons.ids_mode_preferred[ids_person] == self._id_mode_bus] = 2
 
-        print '  TransitStrategy.preevaluate', len(np.flatnonzero(preeval))
+        print('  TransitStrategy.preevaluate', len(np.flatnonzero(preeval)))
         return preeval
 
     def plan_transit(self, id_plan, time_from,
@@ -3504,14 +3504,14 @@ class TransitStrategy(StrategyMixin):
                      ids_laneedge, ids_stoplane, ptstops):
 
         edges = self.get_scenario().net.edges
-        print 'plan_transit id_plan', id_plan, 'id_edge_from %d (%s)' % (id_edge_from, edges.ids_sumo[id_edge_from]), 'id_edge_to %d (%s)' % (id_edge_to, edges.ids_sumo[id_edge_to])
+        print('plan_transit id_plan', id_plan, 'id_edge_from %d (%s)' % (id_edge_from, edges.ids_sumo[id_edge_from]), 'id_edge_to %d (%s)' % (id_edge_to, edges.ids_sumo[id_edge_to]))
 
         # debug?
         is_debug = False  # id_plan == 14983
 
         if is_debug:
 
-            print '  id_stop_from', id_stop_from, 'id_stop_to', id_stop_to
+            print('  id_stop_from', id_stop_from, 'id_stop_to', id_stop_to)
 
         ptlinks = ptlines.get_ptlinks()
         ptlinktypes = ptlinks.types.choices
@@ -3527,9 +3527,9 @@ class TransitStrategy(StrategyMixin):
             time = time_from
             id_stage_walk1 = None
             if is_debug:
-                print '  no initial walk required.'
-                print '    id_edge_from', id_edge_from, edges.ids_sumo[id_edge_from]
-                print '    pos_edge_from', pos_edge_from
+                print('  no initial walk required.')
+                print('    id_edge_from', id_edge_from, edges.ids_sumo[id_edge_from])
+                print('    pos_edge_from', pos_edge_from)
         else:
             id_stage_walk1, time = walkstages.append_stage(id_plan, time_from,
                                                            id_edge_from=id_edge_from,
@@ -3538,20 +3538,20 @@ class TransitStrategy(StrategyMixin):
                                                            position_edge_to=pos_stop_from,  # -7.0,
                                                            )
             if is_debug:
-                print '  add initial walk stage'
-                print '    id_edge_from', id_edge_from, edges.ids_sumo[id_edge_from]
-                print '    pos_edge_from', pos_edge_from
-                print '     IIIInitial walk'
-                print '    id_stopedge_from', id_stopedge_from, edges.ids_sumo[id_stopedge_from]
-                print '    pos_stop_from', pos_stop_from
+                print('  add initial walk stage')
+                print('    id_edge_from', id_edge_from, edges.ids_sumo[id_edge_from])
+                print('    pos_edge_from', pos_edge_from)
+                print('     IIIInitial walk')
+                print('    id_stopedge_from', id_stopedge_from, edges.ids_sumo[id_stopedge_from])
+                print('    pos_stop_from', pos_stop_from)
 
         if is_debug:
-            print '      TTTransit'
-            print '    id_stopedge_to', id_stopedge_to, edges.ids_sumo[id_stopedge_to]
-            print '    pos_stop_to', pos_stop_to
-            print ' ----------------------------------'
-            print '    id_stop_from', id_stop_from
-            print '    id_stop_to', id_stop_to
+            print('      TTTransit')
+            print('    id_stopedge_to', id_stopedge_to, edges.ids_sumo[id_stopedge_to])
+            print('    pos_stop_to', pos_stop_to)
+            print(' ----------------------------------')
+            print('    id_stop_from', id_stop_from)
+            print('    id_stop_to', id_stop_to)
 
         durations, linktypes, ids_line, ids_fromstop, ids_tostop =\
             ptlinks.route(id_stop_from, id_stop_to,
@@ -3560,12 +3560,12 @@ class TransitStrategy(StrategyMixin):
                           stops_to_exit=stops_to_exit)
 
         if is_debug:
-            print '  routing done. make plan, success', len(linktypes) > 0
+            print('  routing done. make plan, success', len(linktypes) > 0)
 
         if is_debug:
-            print '  ids_line    ', ids_line
-            print '  ids_fromstop', ids_fromstop
-            print '  ids_tostop  ', ids_tostop
+            print('  ids_line    ', ids_line)
+            print('  ids_fromstop', ids_fromstop)
+            print('  ids_tostop  ', ids_tostop)
 
         if (type_transit in linktypes):  # is there any public transport line to take?
 
@@ -3584,7 +3584,7 @@ class TransitStrategy(StrategyMixin):
             # check if initial walk needs to be modified
             if (id_stage_walk1 is not None) & (linktypes[0] == type_walk):
                 if is_debug:
-                    print '    Modify initial walk from stop fromedge %d (%s) toedge %d (%s)' % (id_edge_from, edges.ids_sumo[id_edge_from], ids_stopedge_from[0], edges.ids_sumo[ids_stopedge_from[0]])
+                    print('    Modify initial walk from stop fromedge %d (%s) toedge %d (%s)' % (id_edge_from, edges.ids_sumo[id_edge_from], ids_stopedge_from[0], edges.ids_sumo[ids_stopedge_from[0]]))
 
                 is_initial_walk_done = True
                 time = walkstages.modify_stage(
@@ -3601,7 +3601,7 @@ class TransitStrategy(StrategyMixin):
             for i, linktype, id_line, duration,\
                 id_stopedge_from, pos_fromstop,\
                 id_stopedge_to, pos_tostop in\
-                    zip(xrange(len(linktypes)),
+                    zip(range(len(linktypes)),
                         linktypes,
                         ids_line,
                         durations,
@@ -3609,16 +3609,16 @@ class TransitStrategy(StrategyMixin):
                         ids_stopedge_to, poss_stop_to,
                         ):
                 if is_debug:
-                    print '    ...........................'
-                    print '    stage for linktype %2d fromedge %s toedge %s' % (linktype, edges.ids_sumo[id_stopedge_from], edges.ids_sumo[id_stopedge_to])
-                    print '        id_stopedge_from,id_stopedge_to', id_stopedge_from, id_stopedge_to
+                    print('    ...........................')
+                    print('    stage for linktype %2d fromedge %s toedge %s' % (linktype, edges.ids_sumo[id_stopedge_from], edges.ids_sumo[id_stopedge_to]))
+                    print('        id_stopedge_from,id_stopedge_to', id_stopedge_from, id_stopedge_to)
 
                 if linktype == type_transit:  # transit!
                     # check if last link type has also been a transit
                     if i > 0:
                         if linktypes[i-1] == type_transit:
                             if is_debug:
-                                print '    add inter-transit walk stage'
+                                print('    add inter-transit walk stage')
                             # introdice a walk stage to be sure that
                             # person gets to the middle of the stop
                             id_stage_transfer, time = walkstages.append_stage(
@@ -3631,7 +3631,7 @@ class TransitStrategy(StrategyMixin):
                             )
 
                     if is_debug:
-                        print '    add transit stage id_line', id_line
+                        print('    add transit stage id_line', id_line)
                     id_stage_transit, time = transitstages.append_stage(
                         id_plan, time,
                         id_line=id_line,
@@ -3644,7 +3644,7 @@ class TransitStrategy(StrategyMixin):
                 elif (linktype == type_walk) & ((i > 0) | (not is_initial_walk_done)):
                     # walk to transfer, no initial walk if done
                     if is_debug:
-                        print '    add walk to transfer'
+                        print('    add walk to transfer')
                     id_stage_transfer, time = walkstages.append_stage(
                         id_plan, time,
                         id_edge_from=id_stopedge_from,
@@ -3658,18 +3658,18 @@ class TransitStrategy(StrategyMixin):
                 else:  # all other link time are no modelld
                     # do not do anything , just add wait time to next stage
                     if is_debug:
-                        print '    do noting add duration', duration
+                        print('    do noting add duration', duration)
                     duration_wait += duration
 
             # walk from final stop to activity
             i = len(linktypes)-1  # last link index
 
             if is_debug:
-                print '  linktypes', linktypes, 'i', i, 'linktypes[i]', linktypes[i], linktypes[i] == type_walk
+                print('  linktypes', linktypes, 'i', i, 'linktypes[i]', linktypes[i], linktypes[i] == type_walk)
 
             if linktypes[i] == type_walk:
                 if is_debug:
-                    print '    Modify final walk from stop fromedge %d (%s) toedge %d (%s)' % (id_stopedge_to, edges.ids_sumo[id_stopedge_to], id_edge_to, edges.ids_sumo[id_edge_to])
+                    print('    Modify final walk from stop fromedge %d (%s) toedge %d (%s)' % (id_stopedge_to, edges.ids_sumo[id_stopedge_to], id_edge_to, edges.ids_sumo[id_edge_to]))
 
                 time = walkstages.modify_stage(
                     id_stage_transfer,
@@ -3681,7 +3681,7 @@ class TransitStrategy(StrategyMixin):
 
             else:
                 if is_debug:
-                    print '    Add final walk stage  fromedge %d (%s) toedge %d (%s)' % (id_stopedge_to, edges.ids_sumo[id_stopedge_to], id_edge_to, edges.ids_sumo[id_edge_to])
+                    print('    Add final walk stage  fromedge %d (%s) toedge %d (%s)' % (id_stopedge_to, edges.ids_sumo[id_stopedge_to], id_edge_to, edges.ids_sumo[id_edge_to]))
 
                 id_stage_walk2, time = walkstages.append_stage(id_plan, time,
                                                                id_edge_from=id_stopedge_to,
@@ -3693,7 +3693,7 @@ class TransitStrategy(StrategyMixin):
         else:
             # there is no public transport line linking these nodes.
             if is_debug:
-                print '  No PT lines used create direct walk stage'
+                print('  No PT lines used create direct walk stage')
 
             if id_stage_walk1 is None:
                 # Create first walk directly from home to activity
@@ -3720,7 +3720,7 @@ class TransitStrategy(StrategyMixin):
         Generates a plan for these person according to this strategie.
         Overriden by specific strategy.
         """
-        print 'TransitStrategy.plan', len(ids_person)
+        print('TransitStrategy.plan', len(ids_person))
         #make_plans_private(self, ids_person = None, mode = 'passenger')
         # routing necessary?
         virtualpop = self.get_virtualpop()
@@ -3752,12 +3752,12 @@ class TransitStrategy(StrategyMixin):
         # print '   demand.virtualpop',demand.virtualpop,dir(demand.virtualpop)
         # print '   demand.trips',demand.trips,dir(demand.trips)
         if len(ptlines) == 0:
-            print 'WARNING in TrasitStrategy.plan: no transit services available. Create public trasit services by connecting stops.'
+            print('WARNING in TrasitStrategy.plan: no transit services available. Create public trasit services by connecting stops.')
             return False
 
         ptlinks = ptlines.get_ptlinks()
         if len(ptlinks) == 0:
-            print 'WARNING in TrasitStrategy.plan: no public transport links. Run methods: "create routes" and "build links" from public trasport services.'
+            print('WARNING in TrasitStrategy.plan: no public transport links. Run methods: "create routes" and "build links" from public trasport services.')
             return False
 
         ptlinktypes = ptlinks.types.choices
@@ -3779,7 +3779,7 @@ class TransitStrategy(StrategyMixin):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in TrasitStrategy.plan: no eligible persons found.'
+            print('WARNING in TrasitStrategy.plan: no eligible persons found.')
             return False
 
         # temporary maps from ids_person to other parameters
@@ -3798,7 +3798,7 @@ class TransitStrategy(StrategyMixin):
         map_ids_fac_from[ids_person_act] = activities.ids_facility[ids_act_from]
 
         n_plans = len(ids_person_act)
-        print 'TrasitStrategy.plan n_plans=', n_plans
+        print('TrasitStrategy.plan n_plans=', n_plans)
 
         # make initial activity stage
         ids_edge_from = facilities.ids_roadedge_closest[map_ids_fac_from[ids_person_act]]
@@ -3883,8 +3883,8 @@ class TransitStrategy(StrategyMixin):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'_'
-                print '  id_plan=%d, id_person=%d, ' % (id_plan, id_person)
+                print(79*'_')
+                print('  id_plan=%d, id_person=%d, ' % (id_plan, id_person))
 
                 time = self.plan_transit(id_plan, time_from,
                                          id_edge_from, pos_edge_from,
@@ -3973,7 +3973,7 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
         # put 2 for persons with bike access and who prefer bike or bus
         preeval[inds_avail & inds_prefer] = 1
 
-        print '  BikeTransitStrategy.preevaluate', len(np.flatnonzero(preeval))
+        print('  BikeTransitStrategy.preevaluate', len(np.flatnonzero(preeval)))
         return preeval
 
     def plan(self, ids_person, logger=None, **kwargs):
@@ -3981,7 +3981,7 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
         Generates a plan for these person according to this strategie.
         Overriden by specific strategy.
         """
-        print 'TransitStrategy.plan', len(ids_person)
+        print('TransitStrategy.plan', len(ids_person))
         #make_plans_private(self, ids_person = None, mode = 'passenger')
         # routing necessary?
         virtualpop = self.get_virtualpop()
@@ -4014,7 +4014,7 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
         # print '   demand.virtualpop',demand.virtualpop,dir(demand.virtualpop)
         # print '   demand.trips',demand.trips,dir(demand.trips)
         if len(ptlines) == 0:
-            print 'WARNING in TrasitStrategy.plan: no transit services available.'
+            print('WARNING in TrasitStrategy.plan: no transit services available.')
             return False
 
         ptlinks = ptlines.get_ptlinks()
@@ -4037,7 +4037,7 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
             = virtualpop.get_activities_from_pattern(0, ids_person=ids_person)
 
         if len(ids_person_act) == 0:
-            print 'WARNING in TrasitStrategy.plan: no eligible persons found.'
+            print('WARNING in TrasitStrategy.plan: no eligible persons found.')
             return False
 
         # temporary maps from ids_person to other parameters
@@ -4056,7 +4056,7 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
         map_ids_fac_from[ids_person_act] = activities.ids_facility[ids_act_from]
 
         n_plans = len(ids_person_act)
-        print 'TrasitStrategy.plan n_plans=', n_plans
+        print('TrasitStrategy.plan n_plans=', n_plans)
 
         # make initial activity stage
         ids_edge_from = facilities.ids_roadedge_closest[map_ids_fac_from[ids_person_act]]
@@ -4149,8 +4149,8 @@ class BikeTransitStrategy(BikeStrategy, TransitStrategy):
                 if logger:
                     logger.progress(i/n_pers*100)
                 i += 1.0
-                print 79*'_'
-                print '  id_plan=%d, id_person=%d, ' % (id_plan, id_person)
+                print(79*'_')
+                print('  id_plan=%d, id_person=%d, ' % (id_plan, id_person))
                 #dist_from_stop_from, dist_stop_to_to
 
                 time = self.plan_bikeride(id_plan, time_from, id_veh,
@@ -4291,8 +4291,8 @@ class Strategies(am.ArrayObjman):
                           'motorcycle': np.array([170, 200, 0, 220], np.float32)/255,
                           'taxi': np.array([40, 240, 240, 220], np.float32)/255,
                           }
-        ids = self.names.get_ids_from_indices_save(colors_default.keys())
-        self.colors[ids] = colors_default.values()  # np.array(colors_default.values(), np.float32).reshape(-1,4)
+        ids = self.names.get_ids_from_indices_save(list(colors_default.keys()))
+        self.colors[ids] = list(colors_default.values())  # np.array(colors_default.values(), np.float32).reshape(-1,4)
 
         #self.colors.indexset(colors_default.keys(), colors_default.values())
 
@@ -4323,14 +4323,14 @@ class Strategies(am.ArrayObjman):
             2  : Strategy uses predomunantly preferred mode
 
         """
-        print 'preevaluate strategies'
+        print('preevaluate strategies')
         ids_strat = self.get_ids()
         n_pers = len(ids_person)
         n_strat = len(ids_strat)
 
         preeval = np.zeros((n_pers, n_strat), dtype=np.int32)
-        for i, strategy in zip(range(n_strat), self.strategies[ids_strat]):
-            print '  preevaluate strategiy', strategy.ident
+        for i, strategy in zip(list(range(n_strat)), self.strategies[ids_strat]):
+            print('  preevaluate strategiy', strategy.ident)
             preeval[i, :] = strategy.preevaluate(ids_person)
 
         return ids_strat, preeval
@@ -4389,7 +4389,7 @@ class StageTypeMixin(am.ArrayObjman):
         ids = self.get_ids()
         #ids_plan_part = self.ids_plan[ids]
         are_selected = np.zeros(len(ids), dtype=np.bool)
-        for ind, id_plan_part in zip(xrange(len(ids)), self.ids_plan[ids]):
+        for ind, id_plan_part in zip(range(len(ids)), self.ids_plan[ids]):
             are_selected[ind] = id_plan_part in ids_plan
         return ids[are_selected]
         # print '  ids_plan_part',type(ids_plan_part),ids_plan_part
@@ -4437,9 +4437,9 @@ class StageTypeMixin(am.ArrayObjman):
         Returns a vector mapping id_edge to edge travel times
         for given mode id_mode
         """
-        print 'get_times', self._timesmap.keys()
+        print('get_times', list(self._timesmap.keys()))
 
-        if not self._timesmap.has_key(id_mode):
+        if id_mode not in self._timesmap:
             edges = self.get_virtualpop().get_scenario().net.edges
             self._timesmap[id_mode] = edges.get_times(id_mode=id_mode,
                                                       is_check_lanes=True,
@@ -4452,9 +4452,9 @@ class StageTypeMixin(am.ArrayObjman):
         Returns a vector mapping id_edge to edge distances
         for given mode id_mode
         """
-        print 'get_distances', self._distancesmap.keys()
+        print('get_distances', list(self._distancesmap.keys()))
 
-        if not self._distancesmap.has_key(id_mode):
+        if id_mode not in self._distancesmap:
             edges = self.get_virtualpop().get_scenario().net.edges
             self._distancesmap[id_mode] = edges.get_distances(id_mode=id_mode,
                                                               is_check_lanes=True,
@@ -4467,9 +4467,9 @@ class StageTypeMixin(am.ArrayObjman):
         Returns a fstar
         for given mode id_mode
         """
-        print 'get_fstar', self._fstarmap.keys()
+        print('get_fstar', list(self._fstarmap.keys()))
 
-        if not self._fstarmap.has_key(id_mode):
+        if id_mode not in self._fstarmap:
             edges = self.get_virtualpop().get_scenario().net.edges
             self._fstarmap[id_mode] = edges.get_fstar(id_mode=id_mode,
                                                       is_ignor_connections=is_ignor_connections,
@@ -4659,13 +4659,13 @@ class AutorideStages(StageTypeMixin):
 
         If not feasible -1 and start time will be returned.
         """
-        print 'Rides.append_stage id_plan', id_plan, is_fallback
+        print('Rides.append_stage id_plan', id_plan, is_fallback)
 
         route, dist, duration, is_fallback = self.get_route_between_parking(
             id_parking_from, id_parking_to, id_mode,
             is_fallback, id_mode_fallback,)
 
-        print '  after routing: is_fallback', is_fallback, 'route', route
+        print('  after routing: is_fallback', is_fallback, 'route', route)
 
         if (len(route) > 0):  # |(dist > self.dist_ride_min.get_value()): # is there a connection
             # create stage
@@ -4697,7 +4697,7 @@ class AutorideStages(StageTypeMixin):
 
 
         """
-        print 'get_route_between_parking', id_parking_from, id_parking_to, 'is_fallback', is_fallback, 'id_mode_fallback', id_mode_fallback
+        print('get_route_between_parking', id_parking_from, id_parking_to, 'is_fallback', is_fallback, 'id_mode_fallback', id_mode_fallback)
         scenario = self.get_virtualpop().get_scenario()
         edges = scenario.net.edges
         lanes = scenario.net.lanes
@@ -4711,11 +4711,11 @@ class AutorideStages(StageTypeMixin):
         pos_from, pos_to = parking.positions[[id_parking_from, id_parking_to]]
 
         if is_fallback & (id_mode_fallback is not None):
-            print '   use id_mode_fallback', id_mode_fallback
+            print('   use id_mode_fallback', id_mode_fallback)
             id_mode_current = id_mode_fallback
 
         else:
-            print '   use id_mode', id_mode
+            print('   use id_mode', id_mode)
             id_mode_current = id_mode
 
         # print '  id_edge_from, id_edge_to=',id_edge_from, id_edge_to
@@ -4729,7 +4729,7 @@ class AutorideStages(StageTypeMixin):
         if (len(route) == 0) & (not is_fallback) & (id_mode_fallback is not None):
             is_fallback = True
             id_mode_current = id_mode_fallback
-            print '  no route found with normal mode, try fallback', is_fallback
+            print('  no route found with normal mode, try fallback', is_fallback)
             # now retry with fallback
             duration_approx, route = routing.get_mincostroute_edge2edge(
                 id_edge_from,
@@ -4738,7 +4738,7 @@ class AutorideStages(StageTypeMixin):
                 fstar=self.get_fstar(id_mode_current),
             )
             if len(route) > 0:
-                print '  fallback has been successful'
+                print('  fallback has been successful')
 
         # here is a big problem: starting with the successive node of edge_from
         # may result that the first edge of the route is not  connected with edge_from
@@ -4762,7 +4762,7 @@ class AutorideStages(StageTypeMixin):
     #    return str(self.ids_veh[id_stage])+'.'+str(i_ride)
 
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
-        print 'AutorideStages.get_writexmlinfo', len(ids_plan), is_route, 'is_plain', is_plain
+        print('AutorideStages.get_writexmlinfo', len(ids_plan), is_route, 'is_plain', is_plain)
         iautos = self.get_virtualpop().get_iautos()
         writefunc = iautos.prepare_write_xml(is_route, is_plain)
 
@@ -4936,7 +4936,7 @@ class BikerideStages(StageTypeMixin):
             return -1, time_start  # no stage creation took place
 
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
-        print 'BikerideStages.get_writexmlinfo', len(ids_plan), is_plain
+        print('BikerideStages.get_writexmlinfo', len(ids_plan), is_plain)
         ibikes = self.get_virtualpop().get_ibikes()
         bikewritefunc = ibikes.prepare_write_xml(is_plain=is_plain)
         ids = self.get_ids_from_ids_plan(ids_plan)
@@ -5110,7 +5110,7 @@ class MotorcyclerideStages(StageTypeMixin):
             return -1, time_start  # no stage creation took place
 
     def get_writexmlinfo(self, ids_plan, is_route=True, is_plain=False):
-        print 'MotorcyclerideStages.get_writexmlinfo', len(ids_plan), is_plain
+        print('MotorcyclerideStages.get_writexmlinfo', len(ids_plan), is_plain)
         imotos = self.get_virtualpop().get_imotos()
         motowritefunc = imotos.prepare_write_xml(is_plain=is_plain)
         ids = self.get_ids_from_ids_plan(ids_plan)
@@ -5324,7 +5324,7 @@ class WalkStages(StageTypeMixin):
                      position_edge_from=0.1, position_edge_to=0.0,
                      **kwargs):
         # print 'WalkStages.append_stage',id_stage
-        if kwargs.has_key('duration'):
+        if 'duration' in kwargs:
             duration = kwargs['duration']
         else:
             dist, duration = self.plan_walk(id_edge_from, id_edge_to,
@@ -5652,7 +5652,7 @@ class Plans(am.ArrayObjman):
         pass
 
     def clear_plans(self):
-        print 'Plans.clear_plans'
+        print('Plans.clear_plans')
         for stagetable in self.get_stagetables():
             # print '  stagetable',stagetable
             stagetable.clear()
@@ -5918,7 +5918,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         self.clear_rows()
 
     def del_persons(self, ids_pers_delete):
-        print 'delete', len(ids_pers_delete), 'persons'
+        print('delete', len(ids_pers_delete), 'persons')
         ids_plans_all = set()
         ids_activity_del = set()
         lists_ids_plan = self.lists_ids_plan[ids_pers_delete]
@@ -5967,7 +5967,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         """
         Clear all individually owned vehicles.
         """
-        print 'clear_ivehicles'
+        print('clear_ivehicles')
         self.get_iautos().clear_vehicles()
         self.get_ibikes().clear_vehicles()
         self.get_imotos().clear_vehicles()
@@ -6009,7 +6009,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         return self.get_net().ptstops
 
     def get_id_sumo_from_id(self, id_sumo):
-        return u'vp.%s' % id_sumo
+        return 'vp.%s' % id_sumo
 
     def get_id_from_id_sumo(self, id_veh_sumo):
         if len(id_veh_sumo.split('.')) == 2:
@@ -6098,9 +6098,9 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
 
         """
         tripnumber = int(scale*tripnumber_tot)
-        print 'disaggregate_odflow', time_start, time_end, id_mode, tripnumber
+        print('disaggregate_odflow', time_start, time_end, id_mode, tripnumber)
 
-        print '  id_activitytype_orig,id_activitytype_dest', id_activitytype_orig, id_activitytype_dest
+        print('  id_activitytype_orig,id_activitytype_dest', id_activitytype_orig, id_activitytype_dest)
 
         # print '  probs_orig',sum(probs_fac_orig)#,'\n',probs_fac_orig
         # print '  probs_dest',sum(probs_fac_dest)#,'\n',probs_fac_dest
@@ -6195,7 +6195,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
 
             return ids_person
         else:
-            print 'WARNING in disaggregate_odflow: no probabilities', np.sum(probs_fac_orig), np.sum(probs_fac_dest)
+            print('WARNING in disaggregate_odflow: no probabilities', np.sum(probs_fac_orig), np.sum(probs_fac_dest))
 
             return []
 
@@ -6208,7 +6208,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         if  landusetype_orig and landusetype_dest also landuse types
         of facilities of origin and destination are taken into account.
         """
-        print 'create_pop_from_odflows'
+        print('create_pop_from_odflows')
 
         demand = self.parent
         odflowtab = demand.odintervals.generate_odflows()
@@ -6320,7 +6320,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         # return odflowtab
 
     def add_plans(self, ids_person, id_strategy=-1):
-        print 'add_plans n, id_strategy', len(ids_person), id_strategy
+        print('add_plans n, id_strategy', len(ids_person), id_strategy)
         n_plans = len(ids_person)
         # print '  get_plans',self.get_plans()
         # print '  stagetables',self.get_plans().get_stagetables().get_ident_abs()
@@ -6361,7 +6361,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         #        if id_strat_pers
 
         ids_person_preeval = ids_person[inds_preeval]
-        print 'plan_with_strategy', strategy.ident, 'n_pers', len(ids_person_preeval)
+        print('plan_with_strategy', strategy.ident, 'n_pers', len(ids_person_preeval))
 
         # TODO: is_substitute = is_substitute could be an argument to plan()
         # and then passed to the centralized add_plan() method of the VP.
@@ -6444,7 +6444,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         ids_pers = ids_pers_all[np.random.random(len(ids_pers_all)) > (1.0-fraction)]
         n_pers = len(ids_pers)
         preevals = -1*np.ones((np.max(ids_pers)+1, np.max(ids_strat)+1), dtype=np.int32)
-        for ind, id_strategy, strategy in zip(range(n_strat), ids_strat, strategies.strategies[ids_strat]):
+        for ind, id_strategy, strategy in zip(list(range(n_strat)), ids_strat, strategies.strategies[ids_strat]):
             preevals[ids_pers, id_strategy] = strategy.preevaluate(ids_pers)
 
         preferred = 2
@@ -6453,10 +6453,10 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         for id_pers, ids_plan in zip(ids_pers, self.lists_ids_plan[ids_pers]):
             if ids_plan is not None:
                 if len(ids_plan) > 0:
-                    print '  id_pers,ids_plan', id_pers, ids_plan
-                    print '  ids_strat, preeval', plans.ids_strategy[ids_plan], preevals[id_pers, plans.ids_strategy[ids_plan]]
+                    print('  id_pers,ids_plan', id_pers, ids_plan)
+                    print('  ids_strat, preeval', plans.ids_strategy[ids_plan], preevals[id_pers, plans.ids_strategy[ids_plan]])
                     inds_sel = np.flatnonzero(preevals[id_pers, plans.ids_strategy[ids_plan]] == preferred)
-                    print '  inds_sel', inds_sel, inds_sel.dtype
+                    print('  inds_sel', inds_sel, inds_sel.dtype)
                     if len(inds_sel) > 0:
                         #ids_plan_sel = np.array(ids_plan)[inds_sel]
                         # print '    ids_plan_sel',ids_plan_sel
@@ -6485,7 +6485,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
                     times_rand = np.random.normal(0.0, timedev, len(ids_plan))
                 elif c_probit > 0:
                     times_rand = np.zeros(len(ids_plan), dtype=np.float32)
-                    for i, t in zip(xrange(len(ids_plan)), times_est[ids_plan]):
+                    for i, t in zip(range(len(ids_plan)), times_est[ids_plan]):
                         times_rand[i] = np.random.normal(0.0, c_probit * t, 1)
 
                 else:
@@ -6500,13 +6500,13 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         """
 
         ids_pers_all = self.get_ids()
-        print 'select_plans_random', len(ids_pers_all), fraction
+        print('select_plans_random', len(ids_pers_all), fraction)
         times_est = self.get_plans().times_est
         # self.ids_plan.reset()
         # ids_mode[random_choice(n,shares/np.sum(shares))]
 
         ids_pers = ids_pers_all[np.random.random(len(ids_pers_all)) > (1.0-fraction)]
-        print '  ids_pers', ids_pers
+        print('  ids_pers', ids_pers)
         for id_pers, ids_plan in zip(ids_pers, self.lists_ids_plan[ids_pers]):
             if len(ids_plan) > 0:
                 # print '  id_pers,ids_plan',id_pers,ids_plan
@@ -6531,7 +6531,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
                     times_rand = np.random.normal(0.0, timedev, len(ids_plan))
                 elif c_probit > 0:
                     times_rand = np.zeros(len(ids_plan), dtype=np.float32)
-                    for i, t in zip(xrange(len(ids_plan)), times_exec[ids_plan]):
+                    for i, t in zip(range(len(ids_plan)), times_exec[ids_plan]):
                         times_rand[i] = np.random.normal(0.0, c_probit * t, 1)
 
                 else:
@@ -6576,11 +6576,11 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
                 elif c_probit > 0:
                     if len(ids_plan_est) > 0:
                         times_rand_est = np.zeros(len(ids_plan_est), dtype=np.float32)
-                        for i, t in zip(xrange(len(ids_plan_est)), times_est[ids_plan_est]):
+                        for i, t in zip(range(len(ids_plan_est)), times_est[ids_plan_est]):
                             times_rand_est[i] = np.random.normal(0.0, c_probit * t, 1)
                     if len(ids_plan_exec) > 0:
                         times_rand_exec = np.zeros(len(ids_plan_exec), dtype=np.float32)
-                        for i, t in zip(xrange(len(ids_plan_exec)), times_exec[ids_plan_exec]):
+                        for i, t in zip(range(len(ids_plan_exec)), times_exec[ids_plan_exec]):
                             times_rand_exec[i] = np.random.normal(0.0, c_probit * t, 1)
 
                 else:
@@ -6604,7 +6604,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
                     self.ids_plan[id_pers] = np.array(ids_plan_exec)[np.argmin(
                         times_exec[ids_plan_exec]+times_rand_exec)]
 
-        print 'were analyzed  %d persons' % (n_analyzed_persons)
+        print('were analyzed  %d persons' % (n_analyzed_persons))
         return True
 
     def select_plans_next(self, fraction=0.1, **kwargs):
@@ -6645,7 +6645,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         plans = self.get_plans()
         ids_pers_all = self.get_ids()
 
-        print 'select_plans_utility_function', len(ids_pers_all)
+        print('select_plans_utility_function', len(ids_pers_all))
 
         ids_pers = ids_pers_all[np.random.random(len(ids_pers_all)) > (1.0-fraction)]
         times_exec = self.get_plans().times_exec
@@ -6710,7 +6710,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
 
         Method used to sort trips when exporting to route or trip xml file
         """
-        print 'Virtualpop.get_writexmlinfo is_plain', is_plain
+        print('Virtualpop.get_writexmlinfo is_plain', is_plain)
         plans = self.get_plans()
 
         ids_pers = self.select_ids(self.ids_plan.get_value() >= 0)
@@ -6741,9 +6741,9 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
             writefuncs_pers[:] = self.write_person_xml
 
             # assemble vectors
-            print '  times_depart_pers.shape', times_depart_pers.shape
-            print '  times_depart_bike.shape', times_depart_bike.shape
-            print '  times_depart_auto.shape', times_depart_auto.shape
+            print('  times_depart_pers.shape', times_depart_pers.shape)
+            print('  times_depart_bike.shape', times_depart_bike.shape)
+            print('  times_depart_auto.shape', times_depart_auto.shape)
             times_depart = np.concatenate((times_depart_pers,
                                            times_depart_auto,
                                            times_depart_bike,
@@ -6850,7 +6850,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         """
 
         ids_res = personresults.get_ids()
-        print 'update_results', len(ids_res)
+        print('update_results', len(ids_res))
         ids_person = personresults.ids_person[ids_res]
         ids_plan = self.ids_plan[ids_person]
         self.get_plans().times_exec[ids_plan] = personresults.times_travel_total[ids_res]
@@ -6864,7 +6864,7 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         """Reads route information of vehicles, and overwrites existing routes in stages.
         Used for example read results from Duaiterate process.
         """
-        print 'Virtualop.import_routes_xml from %s' % (filepath)
+        print('Virtualop.import_routes_xml from %s' % (filepath))
         if is_clear_trips:
             self.clear_trips()
 
@@ -6873,11 +6873,11 @@ class Virtualpopulation(DemandobjMixin, am.ArrayObjman):
         reader = RouteReaderVp(self, counter)
         if 1:  # try:
             parse(filepath, reader)
-            print '  call make_routes', is_generate_ids, 'is_add', is_add
+            print('  call make_routes', is_generate_ids, 'is_add', is_add)
             reader.insert_routes(ids_strategy=ids_strategy)
 
         else:  # except KeyError:
-            print >> sys.stderr, "Error: Problems with reading routes!"
+            print("Error: Problems with reading routes!", file=sys.stderr)
             raise
 
 
@@ -6890,7 +6890,7 @@ class DuarouterVp(routing.RouterMixin):
                  is_export_trips=True,
                  logger=None,
                  **kwargs):
-        print 'DuarouterVp.__init__ '
+        print('DuarouterVp.__init__ ')
 
         self._init_common(ident, name='Virtual Population DUA router',
                           parent=virtualpop,
@@ -6908,7 +6908,7 @@ class DuarouterVp(routing.RouterMixin):
         if routefilepaths is None:
             routefilepaths = demand.get_routefilepath()
 
-        print '  default routefilepaths', routefilepaths
+        print('  default routefilepaths', routefilepaths)
         self.add_option('routefilepaths', routefilepaths,
                         groupnames=['files'],
                         cml='--route-files',
@@ -6931,7 +6931,7 @@ class DuarouterVp(routing.RouterMixin):
         # for id_strat, name_strat in zip(ids_strat, strategies.names[ids_strat]):
         #    strategychoices[name_strat] = id_strat
         strategychoices = strategies.names.get_indexmap()
-        self.ids_strategy = attrsman.add(cm.ListConf('ids_strategy', kwargs.get('ids_strategy', strategychoices.values()),
+        self.ids_strategy = attrsman.add(cm.ListConf('ids_strategy', kwargs.get('ids_strategy', list(strategychoices.values())),
                                                      choices=strategychoices,
                                                      groupnames=['options'],
                                                      name='Rerouted strategies',
@@ -6999,9 +6999,9 @@ class DuarouterVp(routing.RouterMixin):
 
         self.run_cml(cml)
         if self.status == 'success':
-            print '  DUA routing done.'
+            print('  DUA routing done.')
             if os.path.isfile(self.outfilepath):
-                print '  outfile exists, start importing routes'
+                print('  outfile exists, start importing routes')
                 virtualpop.import_routes_xml(self.outfilepath, ids_strategy=self.ids_strategy)
 
                 return True
@@ -7014,7 +7014,7 @@ class RouteReaderVp(RouteReader):
     def insert_routes(self, ids_strategy=None):
 
         virtualpop = self._trips  # parent is called trips here need to be changed
-        print 'RouteReaderVp.insert_routes found %d routes.' % (len(self.ids_sumo))
+        print('RouteReaderVp.insert_routes found %d routes.' % (len(self.ids_sumo)))
         plans = virtualpop.get_plans()
         strategies = virtualpop.get_strategies()
         id_strat_auto = strategies.names.get_id_from_index('auto')
@@ -7034,7 +7034,7 @@ class RouteReaderVp(RouteReader):
                     # print '      before:',stages.ids_edges[id_stage]
                     if stages.ids_edges[id_stage] != ids_edge:
                         n_change_route += 1
-                        print '  route change of id_veh', id_veh, 'id_stage', id_stage
+                        print('  route change of id_veh', id_veh, 'id_stage', id_stage)
                     stages.ids_edges[id_stage] = ids_edge
                     # print '      after :',stages.ids_edges[id_stage]
 
@@ -7048,7 +7048,7 @@ class RouteReaderVp(RouteReader):
                     # print '      before:',stages.ids_edges[id_stage]
                     if stages.ids_edges[id_stage] != ids_edge:
                         n_change_route += 1
-                        print '  route change of id_veh', id_veh, 'id_stage', id_stage
+                        print('  route change of id_veh', id_veh, 'id_stage', id_stage)
                     stages.ids_edges[id_stage] = ids_edge
                     # print '      after :',stages.ids_edges[id_stage]
 
@@ -7062,15 +7062,15 @@ class RouteReaderVp(RouteReader):
                     # print '      before:',stages.ids_edges[id_stage]
                     if stages.ids_edges[id_stage] != ids_edge:
                         n_change_route += 1
-                        print '  route change of id_veh', id_veh, 'id_stage', id_stage
+                        print('  route change of id_veh', id_veh, 'id_stage', id_stage)
                     stages.ids_edges[id_stage] = ids_edge
                     # print '      after :',stages.ids_edges[id_stage]
-        print '  RouteReaderVp: Total number of changed routes:', n_change_route
+        print('  RouteReaderVp: Total number of changed routes:', n_change_route)
 
 
 class PopGenerator(Process):
     def __init__(self, ident='virtualpopgenerator', virtualpop=None,  logger=None, **kwargs):
-        print 'PopFromOdfGenerator.__init__ ', ident, virtualpop
+        print('PopFromOdfGenerator.__init__ ', ident, virtualpop)
 
         # TODO: let this be independent, link to it or child??
         #
@@ -7170,7 +7170,7 @@ class PopGenerator(Process):
         #self.modeshares = attrsman.add( cm.ObjConf(ModeShares('modeshares',self,scenario.net.modes),groupnames = ['options']) )
 
     def do(self):
-        print 'PopGenerator.do'
+        print('PopGenerator.do')
         # links
 
         virtualpop = self.parent
@@ -7186,7 +7186,7 @@ class PopGenerator(Process):
         ids_fac = facilities.get_ids()
         map_id_edge_to_ids_fac = {}
         for id_fac, id_edge in zip(ids_fac, facilities.ids_roadedge_closest[ids_fac]):
-            if map_id_edge_to_ids_fac.has_key(id_edge):
+            if id_edge in map_id_edge_to_ids_fac:
                 map_id_edge_to_ids_fac[id_edge].append(id_fac)
             else:
                 map_id_edge_to_ids_fac[id_edge] = [id_fac, ]
@@ -7250,7 +7250,7 @@ class PopGenerator(Process):
                 #    id_from_check = btree[id_from_check]
                 #    #print '  id_edge = ',id_from_check
                 # print '  success = ',id_from_check==id_edge_to
-                if map_id_edge_to_ids_fac.has_key(id_edge_from):
+                if id_edge_from in map_id_edge_to_ids_fac:
                     ids_fac_lim += map_id_edge_to_ids_fac[id_edge_from]
 
             if len(ids_fac_lim) == 0:
@@ -7259,7 +7259,7 @@ class PopGenerator(Process):
                 # this will reduce travel time
                 for id_edge_from in ids_edge_from:
                     # verify if id_edge_from has facilities.
-                    while not map_id_edge_to_ids_fac.has_key(id_edge_from):
+                    while id_edge_from not in map_id_edge_to_ids_fac:
                         # print '  no facility, go backward'
                         id_edge_from = btree[id_edge_from]
 
@@ -7343,7 +7343,7 @@ class PopGenerator(Process):
 
 class PopFromOdfGenerator(Process):
     def __init__(self, ident, virtualpop,  logger=None, **kwargs):
-        print 'PopFromOdfGenerator.__init__'
+        print('PopFromOdfGenerator.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -7417,7 +7417,7 @@ class PopFromOdfGenerator(Process):
                                                           ))
 
     def do(self):
-        print 'PopFromOdfGenerator.do'
+        print('PopFromOdfGenerator.do')
         # links
 
         virtualpop = self.parent
@@ -7438,7 +7438,7 @@ class PopFromOdfGenerator(Process):
 
 class Planner(Process):
     def __init__(self, ident='planner', virtualpop=None,  ids_strategy=None, logger=None, **kwargs):
-        print 'Planner.__init__'
+        print('Planner.__init__')
         # TODO: let this be independent, link to it or child??
 
         self._init_common(ident,
@@ -7457,12 +7457,12 @@ class Planner(Process):
 
         if (ids_strategy is None):
             # no info given, select all
-            ids_strategy_default = strategychoices.values()
+            ids_strategy_default = list(strategychoices.values())
 
         elif ids_strategy is not None:
             ids_strategy_default = ids_strategy
 
-        print '  ids_strategy_default', ids_strategy_default
+        print('  ids_strategy_default', ids_strategy_default)
         self.ids_strategy = attrsman.add(cm.ListConf('ids_strategy', ids_strategy_default,
                                                      groupnames=['options'],
                                                      choices=strategychoices,
@@ -7496,7 +7496,7 @@ class Planner(Process):
                                                              ))
 
     def do(self):
-        print 'Planner.do', len(self.ids_strategy)
+        print('Planner.do', len(self.ids_strategy))
         # links
 
         virtualpop = self.parent
@@ -7511,12 +7511,12 @@ class Planner(Process):
 
         i = 1
         strategies = virtualpop.get_strategies()
-        print '  strategies:', self.ids_strategy, strategies.names[self.ids_strategy]
-        print '             instances', strategies.strategies[self.ids_strategy]
+        print('  strategies:', self.ids_strategy, strategies.names[self.ids_strategy])
+        print('             instances', strategies.strategies[self.ids_strategy])
 
         n_strat = len(self.ids_strategy)
         for id_strategy, strategy in zip(self.ids_strategy, strategies.strategies[self.ids_strategy]):
-            print '  current strategy', strategy, id(strategy)
+            print('  current strategy', strategy, id(strategy))
             logger.w('Plan with '+strategy.get_name()+' (%d/%d)' % (i, n_strat))
             virtualpop.plan_with_strategy(id_strategy, evalcrit=self.evalcrit,
                                           is_plan_no_preferred=self.is_plan_no_preferred,  logger=logger)
@@ -7531,7 +7531,7 @@ class PlanSelector(Process):
                  methodname='plan with shortest estim. time',
                  logger=None, **kwargs):
 
-        print 'PlanSelector.__init__'
+        print('PlanSelector.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -7610,7 +7610,7 @@ class PlanSelector(Process):
                                                  ))
 
     def do(self):
-        print 'Planner.do'
+        print('Planner.do')
         # links
 
         #virtualpop = self.parent
@@ -7624,7 +7624,7 @@ class PlanSelector(Process):
 
 class VehicleProvider(Process):
     def __init__(self, ident='vehicleprovider', virtualpop=None,  logger=None, **kwargs):
-        print 'VehicleProvider.__init__'
+        print('VehicleProvider.__init__')
 
         # TODO: let this be independent, link to it or child??
 
@@ -7667,7 +7667,7 @@ class VehicleProvider(Process):
                                                         ))
 
     def do(self):
-        print 'VehicleProvider.do'
+        print('VehicleProvider.do')
         # links
 
         virtualpop = self.parent
@@ -7699,7 +7699,7 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_iauto = iautos.assign_to_persons(ids_pers_assign)
 
-        print '  created %d autos, target share=%.2f, share = %.2f' % (iautos.get_share(is_abs=True), iautos.get_share(), self.share_autoowner)
+        print('  created %d autos, target share=%.2f, share = %.2f' % (iautos.get_share(is_abs=True), iautos.get_share(), self.share_autoowner))
 
         ids_prefer_bike = virtualpop.select_ids(
             (virtualpop.ids_mode_preferred.get_value() == id_mode_bike) & (virtualpop.ids_ibike.get_value() == -1))
@@ -7713,7 +7713,7 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_ibike = ibikes.assign_to_persons(ids_pers_assign)
 
-        print '  created %d bikes, target share=%.2f, share = %.2f' % (ibikes.get_share(is_abs=True), ibikes.get_share(), self.share_bikeowner)
+        print('  created %d bikes, target share=%.2f, share = %.2f' % (ibikes.get_share(is_abs=True), ibikes.get_share(), self.share_bikeowner))
 
         ids_prefer_moto = virtualpop.select_ids(
             (virtualpop.ids_mode_preferred.get_value() == id_mode_moto) & (virtualpop.ids_imoto.get_value() == -1))
@@ -7726,7 +7726,7 @@ class VehicleProvider(Process):
             ids_pers_assign = np.random.choice(ids_pers_miss, n_need, replace=False)
             ids_imoto = imotos.assign_to_persons(ids_pers_assign)
 
-        print '  created %d moto, target share=%.2f, share = %.2f' % (imotos.get_share(is_abs=True), imotos.get_share(), self.share_motorcycleowner)
+        print('  created %d moto, target share=%.2f, share = %.2f' % (imotos.get_share(is_abs=True), imotos.get_share(), self.share_motorcycleowner))
         return True
 
         # TODO: generate and assign  additional vehicles
