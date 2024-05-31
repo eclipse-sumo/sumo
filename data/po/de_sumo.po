@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-31 08:58+0000\n"
+"PO-Revision-Date: 2024-05-31 09:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -12864,15 +12864,16 @@ msgstr "Ungültige Dauer oder Abfahrtszeit an einem Halt angegeben%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:507
 msgid "Triggers and waypoints cannot be combined%."
-msgstr ""
+msgstr "Trigger und Wegpunkte können nicht kombiniert werden%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:514
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr ""
+"Halt auf Parkplatz hat gegenüber dem Attribut 'parking' des Halts Vorrang%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:555
 msgid "Invalid 'index' for stop%."
-msgstr ""
+msgstr "Ungültiger 'index' des halts%."
 
 #: D:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
