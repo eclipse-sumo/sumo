@@ -2663,6 +2663,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, minorStopOffset);
         }
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " desired stopOffset on lane '" << lane->getID() << "' is " << laneStopOffset << "\n";
+        }
+#endif
         if (canBrakeBeforeLaneEnd) {
             // avoid emergency braking if possible
             laneStopOffset = MIN2(laneStopOffset, seen - brakeDist);
