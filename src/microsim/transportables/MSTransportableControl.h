@@ -104,9 +104,10 @@ public:
     * @param[in] vehicle the vehicle which is taking on containers
     * @param[in,out] timeToLoadNext earliest time for the next loading process (gets updated)
     * @param[in,out] stopDuration the duration of the stop where the loading takes place (might be extended)
+    * @param[in] force force loading even if the vehicle is not on a stop (needed for replay)
     * @return Whether any transportables have been loaded
     */
-    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration);
+    bool loadAnyWaiting(const MSEdge* edge, SUMOVehicle* vehicle, SUMOTime& timeToLoadNext, SUMOTime& stopDuration, const bool force = false);
 
     /// checks whether any transportable waits to finish her plan
     bool hasTransportables() const;

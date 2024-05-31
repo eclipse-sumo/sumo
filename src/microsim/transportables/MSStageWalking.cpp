@@ -355,7 +355,7 @@ MSStageWalking::routeOutput(const bool /* isPerson */, OutputDevice& os, const b
 
 
 bool
-MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal) {
+MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal, const bool isReplay) {
     ((MSEdge*)getEdge())->removeTransportable(person);
     const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
     const bool arrived = myRouteStep == myRoute.end() - 1;
@@ -379,13 +379,17 @@ MSStageWalking::moveToNextEdge(MSTransportable* person, SUMOTime currentTime, in
     }
     if (arrived) {
         MSPerson* p = dynamic_cast<MSPerson*>(person);
-        if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
+        if (!isReplay && p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
             myCurrentInternalEdge = nextInternal;
             ((MSEdge*) getEdge())->addTransportable(person);
             return false;
         }
         if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(person);
+        }
+        if (isReplay) {
+            // cannot do this in the replay device because the person might get deleted below
+            MSNet::getInstance()->getPersonControl().getMovementModel()->remove(myPState);
         }
         if (!person->proceed(MSNet::getInstance(), currentTime)) {
             MSNet::getInstance()->getPersonControl().erase(person);

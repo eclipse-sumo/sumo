@@ -122,7 +122,13 @@ private:
     private:
         SUMOTime myTime;
         std::map<std::string, Trajectory> myTrajectories;
-        std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector > > myRoutes;
+        struct StageStart {
+            std::string vehicle;
+            int trajectoryOffset;
+            int routeOffset;
+        };
+        std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector, std::vector<StageStart> > > myRoutes;
+        std::map<const Position, std::string> myPositions;
     };
 
 private:

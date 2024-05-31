@@ -93,7 +93,7 @@ public:
     virtual double getMaxSpeed(const MSTransportable* const transportable = nullptr) const = 0;
 
     /// @brief move forward and return whether the transportable arrived
-    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = 0) = 0;
+    virtual bool moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr, const bool isReplay = false) = 0;
 
     /// @brief add the move reminders for the current lane on entry
     virtual void activateEntryReminders(MSTransportable* person, const bool isDepart = false) {

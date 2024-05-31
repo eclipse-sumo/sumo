@@ -30,6 +30,7 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSInsertionControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/transportables/MSStageDriving.h>
 #include <microsim/transportables/MSStageWaiting.h>
 #include <microsim/transportables/MSStageWalking.h>
 #include "MSTransportableDevice_FCDReplay.h"
@@ -137,29 +138,45 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
     switch (element) {
         case SUMO_TAG_TIMESTEP:
             myTime = attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, "", ok);
+            myPositions.clear();
             return;
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_PERSON: {
             if (myTime >= SIMSTEP) {
                 const bool isPerson = element == SUMO_TAG_PERSON;
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
-                const double x = attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_DOUBLE);
-                const double y = attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_DOUBLE);
+                const Position xy = Position(attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_DOUBLE),
+                                             attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_DOUBLE));
                 const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
                 const std::string edgeOrLane = attrs.getOpt<std::string>(isPerson ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, id.c_str(), ok, "");
                 const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
                 const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
                 const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
-                myTrajectories[id].push_back({myTime, Position(x, y), edgeOrLane, pos, speed, angle});
+                std::string vehicle = attrs.getOpt<std::string>(SUMO_ATTR_VEHICLE, id.c_str(), ok, "");
+                if (isPerson) {
+                    if (vehicle == "") {
+                        const auto& veh = myPositions.find(xy);
+                        if (veh != myPositions.end()) {
+                            vehicle = veh->second;
+                        }
+                    }
+                } else {
+                    myPositions[xy] = id;
+                }
+                myTrajectories[id].push_back({myTime, xy, edgeOrLane, pos, speed, angle});
                 const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
                 if (edge != nullptr) {  // TODO maybe warn for unknown edge?
                     if (myRoutes.count(id) == 0) {
-                        myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge});
+                        myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge}, std::vector<StageStart>());
                     } else {
                         ConstMSEdgeVector& route = std::get<3>(myRoutes[id]);
                         if (!edge->isInternal() && edge != route.back()) {
                             route.push_back(edge);
                         }
+                    }
+                    std::vector<StageStart>& vehicleUsage = std::get<4>(myRoutes[id]);
+                    if ((vehicleUsage.empty() && vehicle != "") || (!vehicleUsage.empty() && vehicle != vehicleUsage.back().vehicle)) {
+                        vehicleUsage.push_back({vehicle, (int)myTrajectories[id].size() - 1, (int)std::get<3>(myRoutes[id]).size() - 1});
                     }
                 }
             }
@@ -199,8 +216,56 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
         }
         if (isPerson) {
             MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
-            plan->push_back(new MSStageWaiting(std::get<3>(desc.second).front(), nullptr, 0, params->depart, params->departPos, "awaiting departure", true));
-            plan->push_back(new MSStageWalking(id, std::get<3>(desc.second), nullptr, -1, params->departSpeed, params->departPos, 0, 0));
+            const ConstMSEdgeVector& route = std::get<3>(desc.second);
+            plan->push_back(new MSStageWaiting(route.front(), nullptr, 0, params->depart, params->departPos, "awaiting departure", true));
+            int prevRouteOffset = 0;
+            const MSEdge* start = route.front();
+            std::string prevVeh;
+            for (const auto& stageStart : std::get<4>(desc.second)) {
+                if (stageStart.vehicle != prevVeh) {
+                    if (stageStart.trajectoryOffset != 0) {
+                        const MSEdge* prevEdge = MSEdge::dictionary(t[stageStart.trajectoryOffset - 1].edgeOrLane);
+                        if (prevVeh == "") {
+                            MSStoppingPlace* finalStop = nullptr;
+                            if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
+                                prevRouteOffset++;  // skip the access
+                            }
+                            int offset = stageStart.routeOffset;
+                            if (offset < (int)route.size() - 1 && (route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
+                                offset++;  // a bus stop or two consecutive walks so include the edge in both
+                            } else {
+                                // may have an access, let's find the stop
+                                const std::string& stop = MSNet::getInstance()->getStoppingPlaceID(route[offset]->getLanes()[0], t[stageStart.trajectoryOffset].lanePos, SUMO_TAG_BUS_STOP);
+                                if (stop != "") {
+                                    finalStop = MSNet::getInstance()->getStoppingPlace(stop, SUMO_TAG_BUS_STOP);
+                                }
+                            }
+                            ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
+                            plan->push_back(new MSStageWalking(id, subRoute, finalStop, -1, params->departSpeed, params->departPos, 0, 0));
+                        } else {
+                            plan->push_back(new MSStageDriving(start, prevEdge, nullptr, -1, 0, {prevVeh}));
+                        }
+                        start = MSEdge::dictionary(t[stageStart.trajectoryOffset].edgeOrLane);
+                        prevVeh = stageStart.vehicle;
+                        prevRouteOffset = stageStart.routeOffset;
+                    }
+                }
+            }
+            // final stage
+            if (prevVeh == "") {
+                if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
+                    prevRouteOffset++;
+                }
+                int offset = (int)route.size() - 1;
+                if ((route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
+                    offset++;
+                }
+                ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
+                plan->push_back(new MSStageWalking(id, subRoute, nullptr, -1, params->departSpeed, params->departPos, 0, 0));
+            } else {
+                plan->push_back(new MSStageDriving(start, route.back(), nullptr, -1, 0, {prevVeh}));
+            }
+            // plan completed, now build the person
             MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
             person->getSingularType().setVClass(SVC_IGNORING);
             if (!MSNet::getInstance()->getPersonControl().add(person)) {

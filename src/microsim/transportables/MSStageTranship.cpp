@@ -137,7 +137,7 @@ MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bo
 
 
 bool
-MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */) {
+MSStageTranship::moveToNextEdge(MSTransportable* transportable, SUMOTime currentTime, int /*prevDir*/, MSEdge* /* nextInternal */, const bool /* isReplay */) {
     getEdge()->removeTransportable(transportable);
     // transship does a direct move so we are already at our destination
     if (myDestinationStop != nullptr) {

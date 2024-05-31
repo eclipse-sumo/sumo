@@ -21,8 +21,10 @@
 
 #include <utils/options/OptionsCont.h>
 #include <libsumo/Person.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
+#include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageWalking.h>
 #include <microsim/transportables/MSTransportable.h>
@@ -76,18 +78,41 @@ MSTransportableDevice_FCDReplay::~MSTransportableDevice_FCDReplay() {
 
 bool
 MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
-    if (myTrajectory == nullptr || myTrajectory->empty()) {
+    if (myTrajectory == nullptr || myTrajectoryIndex == (int)myTrajectory->size()) {
         // removing person
         return true;
     }
     MSPerson* person = dynamic_cast<MSPerson*>(&myHolder);
-    const auto& te = myTrajectory->front();
+    const auto& te = myTrajectory->at(myTrajectoryIndex);
     if (person == nullptr || !person->hasDeparted() || te.time > currentTime) {
         return false;
     }
-    libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
+    if (person->getCurrentStageType() == MSStageType::WALKING) {
+        libsumo::Person::moveToXY(person->getID(), te.edgeOrLane, te.pos.x(), te.pos.y(), te.angle, 7);
+        MSStageWalking* walk = static_cast<MSStageWalking*>(person->getCurrentStage());
+        if (myTrajectoryIndex > 0 && myTrajectory->at(myTrajectoryIndex - 1).edgeOrLane != te.edgeOrLane) {
+            walk->moveToNextEdge(person, currentTime, 1, nullptr, true);
+        }
+    } else if (person->getCurrentStageType() == MSStageType::DRIVING) {
+        if (person->getVehicle() == nullptr) {  // entering the vehicle
+            const MSEdge* const edge = person->getEdge();
+            for (const SUMOVehicle* v : edge->getVehicles()) {
+                if (v->getSpeed() == 0. && fabs(v->getPositionOnLane() - te.lanePos) < POSITION_EPS) {
+                    SUMOTime dummy = -1; // boarding- and loading-time are not considered
+                    MSNet::getInstance()->getPersonControl().loadAnyWaiting(edge, const_cast<SUMOVehicle*>(v), dummy, dummy, true);
+                }
+            }
+        } else {
+            SUMOVehicle* v = person->getVehicle();
+            if (te.speed == 0. && fabs(v->getPositionOnLane() - te.lanePos) >= POSITION_EPS) {  // leaving the vehicle
+                MSDevice_Transportable* transDev = static_cast<MSDevice_Transportable*>(v->getDevice(typeid(MSDevice_Transportable)));
+                transDev->removeTransportable(person);
+                person->proceed(MSNet::getInstance(), currentTime);
+            }
+        }
+    }
     // person->setPreviousSpeed(std::get<3>(p), std::numeric_limits<double>::min());
-    myTrajectory->erase(myTrajectory->begin());
+    myTrajectoryIndex++;
     return false;
 }
 
@@ -95,15 +120,17 @@ MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
 SUMOTime
 MSTransportableDevice_FCDReplay::MovePedestrians::execute(SUMOTime currentTime) {
     MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
-    std::vector<MSTransportable*> toRemove;
+    std::vector<MSTransportableDevice_FCDReplay*> devices;
     for (MSTransportableControl::constVehIt i = c.loadedBegin(); i != c.loadedEnd(); ++i) {
         MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(i->second->getDevice(typeid(MSTransportableDevice_FCDReplay)));
-        if (device != nullptr && device->move(currentTime)) {
-            toRemove.push_back(&device->getHolder());
+        if (device != nullptr) {
+            devices.push_back(device);
         }
     }
-    for (MSTransportable* t : toRemove) {
-        t->removeStage(0, false);
+    for (MSTransportableDevice_FCDReplay* d : devices) {
+        if (d->move(currentTime)) {
+            d->getHolder().removeStage(0, false);
+        }
     }
     return DELTA_T;
 }

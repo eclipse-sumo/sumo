@@ -113,7 +113,7 @@ public:
     virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// @brief move forward and return whether the person arrived
-    bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr);
+    bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, int prevDir, MSEdge* nextInternal = nullptr, const bool isReplay = false);
 
     void activateEntryReminders(MSTransportable* person, const bool isDepart = false);
 
