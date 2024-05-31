@@ -942,7 +942,7 @@ MFXTextFieldIcon::layout() {
     // Always redraw
     update();
 
-    flags &= ~FLAG_DIRTY;
+    flags &= ~(FXuint)FLAG_DIRTY;
 }
 
 

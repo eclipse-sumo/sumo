@@ -69,7 +69,7 @@ MFXListIconItem::setFocus(FXbool focus) {
     if (focus) {
         state |= FOCUS;
     } else {
-        state &= ~FOCUS;
+        state &= ~(FXuint)FOCUS;
     }
 }
 

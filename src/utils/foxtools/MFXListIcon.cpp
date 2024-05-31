@@ -203,7 +203,7 @@ MFXListIcon::layout() {
         makeItemVisible(viewable);
     }
     // No more dirty
-    flags &= ~FLAG_DIRTY;
+    flags &= ~(FXuint)FLAG_DIRTY;
 }
 
 
@@ -1198,7 +1198,7 @@ MFXListIcon::recompute() {
         y += h;
     }
     listHeight = y;
-    flags &= ~FLAG_RECALC;
+    flags &= ~(FXuint)FLAG_RECALC;
 }
 
 

@@ -99,7 +99,7 @@ MFXComboBoxIcon::MFXComboBoxIcon(FXComposite* p, FXint cols, const bool canSearc
     myButton = new FXMenuButton(this, FXString::null, NULL, myPane, FRAME_RAISED | FRAME_THICK | MENUBUTTON_DOWN | MENUBUTTON_ATTACH_RIGHT, 0, 0, 0, 0, 0, 0, 0, 0);
     myButton->setXOffset(border);
     myButton->setYOffset(border);
-    flags &= ~FLAG_UPDATE;  // Never GUI update
+    flags &= ~(FXuint)FLAG_UPDATE;  // Never GUI update
 
 }
 
@@ -187,7 +187,7 @@ MFXComboBoxIcon::layout() {
         myNoItemsLabel->resize(width, height);
     }
     myPane->resize(width, myPane->getDefaultHeight());
-    flags &= ~FLAG_DIRTY;
+    flags &= ~(FXuint)FLAG_DIRTY;
 }
 
 

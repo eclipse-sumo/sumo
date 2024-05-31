@@ -204,7 +204,7 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawDetail(10, exaggeration)) {
         GLHelper::pushMatrix();
         // draw the lines
-        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        // const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
         RGBColor lineColor = color.changedBrightness(-51);
         const double textOffset = 1; // TODO: refactor text flipping for lefthand networks (was s.flippedTextAngle(rotSign * signRot))
