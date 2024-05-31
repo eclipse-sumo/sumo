@@ -121,10 +121,6 @@ MSInternalJunction::postloadInit() {
             break;
         }
     }
-    for (MSLink* const link : myInternalLinkFoes) {
-        thisLink->addBlockedLink(link);
-        link->addBlockedLink(thisLink);
-    }
 }
 
 

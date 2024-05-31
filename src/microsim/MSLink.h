@@ -299,8 +299,6 @@ public:
     /// @brief removes the person from myApproachingPersons
     void removeApproachingPerson(const MSPerson* person);
 
-    void addBlockedLink(MSLink* link);
-
     /* @brief return information about this vehicle if it is registered as
      * approaching (dummy values otherwise)
      * @note used for visualisation of link items */
@@ -347,14 +345,6 @@ public:
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
                        BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr, bool lastWasContRed = false, double dist = -1) const;
-
-
-    bool isBlockingAnyone() const {
-        return myApproachingVehicles.size() != 0;
-    }
-
-    bool willHaveBlockedFoe() const;
-
 
 
     /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
@@ -759,7 +749,6 @@ private:
 
     ApproachInfos myApproachingVehicles;
     PersonApproachInfos* myApproachingPersons;
-    std::set<MSLink*> myBlockedFoeLinks;
 
     /// @brief The position within this respond
     int myIndex;

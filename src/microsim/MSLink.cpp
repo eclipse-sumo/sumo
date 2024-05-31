@@ -700,24 +700,6 @@ MSLink::setApproachingPerson(const MSPerson* approaching, const SUMOTime arrival
 }
 
 void
-MSLink::addBlockedLink(MSLink* link) {
-    myBlockedFoeLinks.insert(link);
-}
-
-
-
-bool
-MSLink::willHaveBlockedFoe() const {
-    for (std::set<MSLink*>::const_iterator i = myBlockedFoeLinks.begin(); i != myBlockedFoeLinks.end(); ++i) {
-        if ((*i)->isBlockingAnyone()) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-void
 MSLink::removeApproaching(const SUMOVehicle* veh) {
 
 #ifdef DEBUG_APPROACHING

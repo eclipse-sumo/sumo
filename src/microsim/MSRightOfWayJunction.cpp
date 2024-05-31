@@ -164,10 +164,6 @@ MSRightOfWayJunction::postloadInit() {
                 exitLink->setRequestInformation((int)requestPos, false, false, std::vector<MSLink*>(),
                                                 myLinkFoeInternalLanes[link], link->getLane());
             }
-            for (MSLink* const foe : foes) {
-                link->addBlockedLink(foe);
-                foe->addBlockedLink(link);
-            }
             requestPos++;
         }
         if (walkingAreaFoe != nullptr && lane->getLinkCont().size() > 1) {
