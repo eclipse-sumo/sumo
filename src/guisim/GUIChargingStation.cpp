@@ -144,14 +144,16 @@ GUIChargingStation::drawGL(const GUIVisualizationSettings& s) const {
 
     // draw details unless zoomed out to far
     if (s.drawDetail(10, exaggeration)) {
-
         // push charging power matrix
         GLHelper::pushMatrix();
         // translate and rotate
+        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        const double lineAngle = s.getTextAngle(myFGSignRot);
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-        glRotated(-myFGSignRot, 0, 0, 1);
+        glRotated(-lineAngle, 0, 0, 1);
         // draw charging power
-        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), Position(1.2, 0), .1, 1.f, s.colorSettings.chargingStationColor, 0, FONS_ALIGN_LEFT);
+        const double textOffset = s.flippedTextAngle(rotSign * myFGSignRot) ? -0.5 : -0.1;
+        GLHelper::drawText((toString(myChargingPower) + " W").c_str(), Position(1.2, textOffset), .1, 1.f, s.colorSettings.chargingStationColor, 0, FONS_ALIGN_LEFT);
         // pop charging power matrix
         GLHelper::popMatrix();
 
