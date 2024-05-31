@@ -894,7 +894,10 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         }
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
-            std::cout << "    foeLink=" << link->getViaLaneOrLane()->getID() << " numApproaching=" << link->getApproaching().size() << "\n";
+            std::cout << SIMTIME << "   foeLink=" << link->getViaLaneOrLane()->getID() << " numApproaching=" << link->getApproaching().size() << "\n";
+            if (link->getLane()->isCrossing()) {
+                std::cout << SIMTIME << "     approachingPersons=" << (link->myApproachingPersons == nullptr ? "NULL" : toString(link->myApproachingPersons->size())) << "\n";
+            }
         }
 #endif
         if (link->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == link->getLane(),
