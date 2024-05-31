@@ -204,17 +204,18 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawDetail(10, exaggeration)) {
         GLHelper::pushMatrix();
         // draw the lines
-        // const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        const double lineAngle = s.getTextAngle(signRot);
         // Iterate over every line
         RGBColor lineColor = color.changedBrightness(-51);
-        const double textOffset = 1; // TODO: refactor text flipping for lefthand networks (was s.flippedTextAngle(rotSign * signRot))
-        const double textOffset2 = 0.3; // TODO: refactor text flipping for lefthand networks (was s.flippedTextAngle(rotSign * signRot))
+        const double textOffset = s.flippedTextAngle(rotSign * signRot) ? -1 : 1;
+        const double textOffset2 = s.flippedTextAngle(rotSign * signRot) ? -1 : 0.3;
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
             GLHelper::pushMatrix();
             // traslate and rotate
             glTranslated(signPos.x(), signPos.y(), 0);
-            glRotated(-signRot, 0, 0, 1);
+            glRotated(-lineAngle, 0, 0, 1);
             // draw line
             GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
