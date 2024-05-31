@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-20 15:31:26 by Eclipse SUMO sumo Version v1_15_0+1163-053c4cf
+<!-- generated on 2024-05-31 17:13:08 by Eclipse SUMO sumo Version v1_20_0+0319-5a9f5015b64
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -73,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="342.00" id="0" programID="01" phase="1" state="srryyysrryyy" name="2+6"/>
     <tlsState time="346.00" id="0" programID="01" phase="0" state="rrrrrrrrrrrr" name="2+6"/>
     <tlsState time="348.00" id="0" programID="01" phase="1" state="GGGsrrsrgsrr" name="3+8"/>
-    <tlsState time="386.00" id="0" programID="01" phase="0" state="yyysrrsrysrr" name="3+8"/>
-    <tlsState time="390.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+8"/>
-    <tlsState time="392.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
+    <tlsState time="388.00" id="0" programID="01" phase="0" state="yyysrrsrysrr" name="3+8"/>
+    <tlsState time="392.00" id="0" programID="01" phase="1" state="rrrrrrrrrrrr" name="3+8"/>
+    <tlsState time="394.00" id="0" programID="01" phase="0" state="srrGGgsrrGGg" name="2+6"/>
 </tlsStates>

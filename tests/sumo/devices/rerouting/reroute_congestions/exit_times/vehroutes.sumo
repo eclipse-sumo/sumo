@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-21 08:20:14 by Eclipse SUMO sumo Version v1_17_0+1084-95d2ead
+<!-- generated on 2024-05-31 17:13:22 by Eclipse SUMO sumo Version v1_20_0+0319-5a9f5015b64
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -2788,7 +2788,7 @@
     <vehicle id="489" depart="1956.00" arrival="2543.00">
         <routeDistribution>
             <route cost="441.99" savings="0.00" replacedOnEdge="45" replacedOnIndex="3" reason="device.rerouting" replacedAtTime="2076.00" probability="0" edges="-339 -330 -51 45 -3 5 222 232 250 264 493 1309 1337 1605 2175 2365 -2365"/>
-            <route cost="357.30" savings="21.80" replacedOnEdge="240" replacedOnIndex="7" reason="device.rerouting" replacedAtTime="2196.00" probability="0" edges="-339 -330 -51 45 -3 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2405 -2365"/>
+            <route cost="357.30" savings="21.81" replacedOnEdge="240" replacedOnIndex="7" reason="device.rerouting" replacedAtTime="2196.00" probability="0" edges="-339 -330 -51 45 -3 5 222 240 254 278 652 662 833 2386 -2370 1903 2058 2405 -2365"/>
             <route cost="308.90" savings="12.15" edges="-339 -330 -51 45 -3 5 222 240 254 290 540 662 833 2386 -2370 2319 2321 2365 -2365" exitTimes="1977.00 2021.00 2070.00 2103.00 2163.00 2174.00 2193.00 2223.00 2253.00 2292.00 2343.00 2354.00 2364.00 2384.00 2438.00 2452.00 2482.00 2512.00 2543.00"/>
         </routeDistribution>
     </vehicle>

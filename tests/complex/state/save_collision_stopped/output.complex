@@ -1,33 +1,33 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_17_0+1155-03d9b09 started with time: 0.00.
+Simulation version v1_20_0+0319-5a9f5015b64 started with time: 0.00.
 Simulation ended at time: 500.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 0.32s
- Real time factor: 1562.5
- UPS: 151762.500000
+ Duration: 0.26s
+ Real time factor: 1945.53
+ UPS: 188548.638132
 Vehicles: 
- Inserted: 160 (Loaded: 1000)
- Running: 148
- Waiting: 840
+ Inserted: 158 (Loaded: 1000)
+ Running: 146
+ Waiting: 842
  Teleports: 7 (Collisions: 5, Yield: 2)
 
-Loading net-file from 'net.net.xml' ... done (2ms).
+Loading net-file from 'net.net.xml' ... done (14ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (25ms).
+Loading state from 'state.xml' ... done (72ms).
 Loading done.
-Simulation version v1_17_0+1155-03d9b09 started with time: 50.00.
+Simulation version v1_20_0+0319-5a9f5015b64 started with time: 50.00.
 Simulation ended at time: 500.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 0.33s
- Real time factor: 1384.62
- UPS: 147347.692308
+ Duration: 0.47s
+ Real time factor: 959.488
+ UPS: 101878.464819
 Vehicles: 
- Inserted: 160 (Loaded: 1000)
- Running: 148
- Waiting: 840
+ Inserted: 158 (Loaded: 1000)
+ Running: 146
+ Waiting: 842
  Teleports: 3 (Collisions: 1, Yield: 2)
 

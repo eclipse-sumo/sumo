@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-25 13:45:48 by Eclipse SUMO sumo Version v1_19_0+1525-a01a4bc4749
+<!-- generated on 2024-05-31 17:28:45 by Eclipse SUMO sumo Version v1_20_0+0319-5a9f5015b64
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,13 +25,13 @@
 -->
 
 <statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
-    <performance clockBegin="1711370748.40" clockEnd="1711370749.20" clockDuration="0.79" traciDuration="0.00" realTimeFactor="1917.83" vehicleUpdatesPerSecond="466601.77" personUpdatesPerSecond="0.00" begin="0.00" end="1517.00" duration="1517.00"/>
+    <performance clockBegin="1717169325.41" clockEnd="1717169327.89" clockDuration="2.48" traciDuration="0.00" realTimeFactor="587.40" vehicleUpdatesPerSecond="117121.11" personUpdatesPerSecond="0.00" begin="0.00" end="1455.00" duration="1455.00"/>
     <vehicles loaded="2000" inserted="2000" running="0" waiting="0"/>
-    <teleports total="2" jam="0" yield="2" wrongLane="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
     <safety collisions="0" emergencyStops="0" emergencyBraking="0"/>
     <persons loaded="0" running="0" jammed="0"/>
     <personTeleports total="0" abortWait="0" wrongDest="0"/>
-    <vehicleTripStatistics count="2000" routeLength="485.00" speed="3.82" duration="184.54" waitingTime="109.02" timeLoss="146.58" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="369082.00" totalDepartDelay="0.00"/>
+    <vehicleTripStatistics count="2000" routeLength="467.11" speed="4.13" duration="145.05" waitingTime="74.89" timeLoss="108.54" departDelay="0.00" departDelayWaiting="-1.00" totalTravelTime="290109.00" totalDepartDelay="0.00"/>
     <pedestrianStatistics number="0" routeLength="0.00" duration="0.00" timeLoss="0.00"/>
     <rideStatistics number="0"/>
     <transportStatistics number="0"/>

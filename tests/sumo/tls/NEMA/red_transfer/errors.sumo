@@ -79,85 +79,87 @@ Warning: Teleporting vehicle 'NS_1.26'; waited too long (yield), lane='4si_0', t
 Warning: Vehicle 'NS_1.26' ends teleporting on edge '3o', time=10602.00.
 Warning: Teleporting vehicle 'NS_1.27'; waited too long (yield), lane='4si_0', time=10925.00.
 Warning: Vehicle 'NS_1.27' ends teleporting on edge '3o', time=10925.00.
-Warning: Teleporting vehicle 'NS_1.38'; waited too long (yield), lane='4si_0', time=11227.00.
+Warning: Teleporting vehicle 'NS_1.28'; waited too long (yield), lane='4si_0', time=10930.00.
+Warning: Vehicle 'NS_1.28' ends teleporting on edge '3o', time=10930.00.
+Warning: Teleporting vehicle 'NS_1.38'; waited too long (wrong lane), lane='4si_1', time=11227.00.
 Warning: Vehicle 'NS_1.38' ends teleporting on edge '3o', time=11227.00.
-Warning: Teleporting vehicle 'NS_1.40'; waited too long (wrong lane), lane='4si_1', time=11229.00.
-Warning: Vehicle 'NS_1.40' ends teleporting on edge '3o', time=11229.00.
-Warning: Teleporting vehicle 'NS_1.28'; waited too long (yield), lane='4si_0', time=11530.00.
-Warning: Vehicle 'NS_1.28' ends teleporting on edge '3o', time=11530.00.
-Warning: Teleporting vehicle 'NS_1.41'; waited too long (wrong lane), lane='4si_1', time=11531.00.
-Warning: Vehicle 'NS_1.41' ends teleporting on edge '3o', time=11531.00.
-Warning: Teleporting vehicle 'NS_1.29'; waited too long (yield), lane='4si_0', time=11834.00.
-Warning: Vehicle 'NS_1.29' ends teleporting on edge '3o', time=11834.00.
-Warning: Teleporting vehicle 'NS_1.30'; waited too long (yield), lane='4si_0', time=12138.00.
-Warning: Vehicle 'NS_1.30' ends teleporting on edge '3o', time=12138.00.
-Warning: Teleporting vehicle 'NS_1.31'; waited too long (yield), lane='4si_0', time=12451.00.
-Warning: Vehicle 'NS_1.31' ends teleporting on edge '3o', time=12451.00.
-Warning: Teleporting vehicle 'NS_1.32'; waited too long (yield), lane='4si_0', time=12755.00.
-Warning: Vehicle 'NS_1.32' ends teleporting on edge '3o', time=12755.00.
-Warning: Teleporting vehicle 'NS_1.33'; waited too long (yield), lane='4si_0', time=13063.00.
-Warning: Vehicle 'NS_1.33' ends teleporting on edge '3o', time=13063.00.
-Warning: Teleporting vehicle 'NS_1.34'; waited too long (yield), lane='4si_0', time=13367.00.
-Warning: Vehicle 'NS_1.34' ends teleporting on edge '3o', time=13367.00.
-Warning: Teleporting vehicle 'NS_1.35'; waited too long (yield), lane='4si_0', time=13680.00.
-Warning: Vehicle 'NS_1.35' ends teleporting on edge '3o', time=13680.00.
-Warning: Teleporting vehicle 'NS_1.36'; waited too long (yield), lane='4si_0', time=13988.00.
-Warning: Vehicle 'NS_1.36' ends teleporting on edge '3o', time=13988.00.
-Warning: Teleporting vehicle 'NS_1.37'; waited too long (yield), lane='4si_0', time=14292.00.
-Warning: Vehicle 'NS_1.37' ends teleporting on edge '3o', time=14292.00.
-Warning: Teleporting vehicle 'NS_1.39'; waited too long (yield), lane='4si_0', time=14600.00.
-Warning: Vehicle 'NS_1.39' ends teleporting on edge '3o', time=14600.00.
-Warning: Teleporting vehicle 'NS_1.42'; waited too long (yield), lane='4si_0', time=14928.00.
-Warning: Vehicle 'NS_1.42' ends teleporting on edge '3o', time=14928.00.
-Warning: Teleporting vehicle 'NS_1.51'; waited too long (wrong lane), lane='4si_1', time=15236.00.
-Warning: Teleporting vehicle 'NS_1.43'; waited too long (yield), lane='4si_0', time=15236.00.
-Warning: Vehicle 'NS_1.43' ends teleporting on edge '3o', time=15236.00.
-Warning: Vehicle 'NS_1.51' ends teleporting on edge '3o', time=15236.00.
-Warning: Teleporting vehicle 'NS_1.52'; waited too long (yield), lane='4si_0', time=15540.00.
-Warning: Vehicle 'NS_1.52' ends teleporting on edge '3o', time=15540.00.
-Warning: Teleporting vehicle 'NS_1.44'; waited too long (yield), lane='4si_0', time=15844.00.
-Warning: Vehicle 'NS_1.44' ends teleporting on edge '3o', time=15844.00.
-Warning: Teleporting vehicle 'NS_1.45'; waited too long (yield), lane='4si_0', time=16157.00.
-Warning: Vehicle 'NS_1.45' ends teleporting on edge '3o', time=16157.00.
-Warning: Teleporting vehicle 'NS_1.46'; waited too long (yield), lane='4si_0', time=16461.00.
-Warning: Vehicle 'NS_1.46' ends teleporting on edge '3o', time=16461.00.
-Warning: Teleporting vehicle 'NS_1.47'; waited too long (yield), lane='4si_0', time=16769.00.
-Warning: Vehicle 'NS_1.47' ends teleporting on edge '3o', time=16769.00.
-Warning: Teleporting vehicle 'NS_1.48'; waited too long (yield), lane='4si_0', time=17077.00.
-Warning: Vehicle 'NS_1.48' ends teleporting on edge '3o', time=17077.00.
-Warning: Teleporting vehicle 'NS_1.49'; waited too long (yield), lane='4si_0', time=17385.00.
-Warning: Vehicle 'NS_1.49' ends teleporting on edge '3o', time=17385.00.
-Warning: Teleporting vehicle 'NS_1.50'; waited too long (yield), lane='4si_0', time=17703.00.
-Warning: Vehicle 'NS_1.50' ends teleporting on edge '3o', time=17703.00.
-Warning: Teleporting vehicle 'NS_1.53'; waited too long (yield), lane='4si_0', time=18036.00.
-Warning: Vehicle 'NS_1.53' ends teleporting on edge '3o', time=18036.00.
-Warning: Teleporting vehicle 'NS_1.64'; waited too long (wrong lane), lane='4si_1', time=18344.00.
-Warning: Teleporting vehicle 'NS_1.54'; waited too long (yield), lane='4si_0', time=18344.00.
-Warning: Vehicle 'NS_1.54' ends teleporting on edge '3o', time=18344.00.
-Warning: Vehicle 'NS_1.64' ends teleporting on edge '3o', time=18344.00.
-Warning: Teleporting vehicle 'NS_1.65'; waited too long (wrong lane), lane='4si_1', time=18346.00.
-Warning: Vehicle 'NS_1.65' ends teleporting on edge '3o', time=18346.00.
-Warning: Teleporting vehicle 'NS_1.55'; waited too long (yield), lane='4si_0', time=18648.00.
-Warning: Vehicle 'NS_1.55' ends teleporting on edge '3o', time=18648.00.
-Warning: Teleporting vehicle 'NS_1.56'; waited too long (yield), lane='4si_0', time=18956.00.
-Warning: Vehicle 'NS_1.56' ends teleporting on edge '3o', time=18956.00.
-Warning: Teleporting vehicle 'NS_1.57'; waited too long (yield), lane='4si_0', time=19260.00.
-Warning: Vehicle 'NS_1.57' ends teleporting on edge '3o', time=19260.00.
-Warning: Teleporting vehicle 'NS_1.58'; waited too long (yield), lane='4si_0', time=19573.00.
-Warning: Vehicle 'NS_1.58' ends teleporting on edge '3o', time=19573.00.
-Warning: Teleporting vehicle 'NS_1.59'; waited too long (yield), lane='4si_0', time=19877.00.
-Warning: Vehicle 'NS_1.59' ends teleporting on edge '3o', time=19877.00.
-Warning: Teleporting vehicle 'NS_1.60'; waited too long (yield), lane='4si_0', time=20181.00.
-Warning: Vehicle 'NS_1.60' ends teleporting on edge '3o', time=20181.00.
-Warning: Teleporting vehicle 'NS_1.61'; waited too long (yield), lane='4si_0', time=20489.00.
-Warning: Vehicle 'NS_1.61' ends teleporting on edge '3o', time=20489.00.
-Warning: Teleporting vehicle 'NS_1.62'; waited too long (yield), lane='4si_0', time=20793.00.
-Warning: Vehicle 'NS_1.62' ends teleporting on edge '3o', time=20793.00.
-Warning: Teleporting vehicle 'NS_1.63'; waited too long (yield), lane='4si_0', time=21097.00.
-Warning: Vehicle 'NS_1.63' ends teleporting on edge '3o', time=21097.00.
-Warning: Teleporting vehicle 'NS_1.66'; waited too long (yield), lane='4si_0', time=21425.00.
-Warning: Vehicle 'NS_1.66' ends teleporting on edge '3o', time=21425.00.
-Warning: Teleporting vehicle 'NS_1.67'; waited too long (yield), lane='4si_0', time=21729.00.
-Warning: Vehicle 'NS_1.67' ends teleporting on edge '3o', time=21729.00.
-Warning: Teleporting vehicle 'NS_1.68'; waited too long (yield), lane='4si_0', time=22033.00.
-Warning: Vehicle 'NS_1.68' ends teleporting on edge '3o', time=22033.00.
+Warning: Teleporting vehicle 'NS_1.40'; waited too long (yield), lane='4si_0', time=11234.00.
+Warning: Vehicle 'NS_1.40' ends teleporting on edge '3o', time=11234.00.
+Warning: Teleporting vehicle 'NS_1.41'; waited too long (yield), lane='4si_0', time=11538.00.
+Warning: Vehicle 'NS_1.41' ends teleporting on edge '3o', time=11538.00.
+Warning: Teleporting vehicle 'NS_1.29'; waited too long (yield), lane='4si_0', time=11842.00.
+Warning: Vehicle 'NS_1.29' ends teleporting on edge '3o', time=11842.00.
+Warning: Teleporting vehicle 'NS_1.30'; waited too long (yield), lane='4si_0', time=12146.00.
+Warning: Vehicle 'NS_1.30' ends teleporting on edge '3o', time=12146.00.
+Warning: Teleporting vehicle 'NS_1.31'; waited too long (yield), lane='4si_0', time=12459.00.
+Warning: Vehicle 'NS_1.31' ends teleporting on edge '3o', time=12459.00.
+Warning: Teleporting vehicle 'NS_1.32'; waited too long (yield), lane='4si_0', time=12763.00.
+Warning: Vehicle 'NS_1.32' ends teleporting on edge '3o', time=12763.00.
+Warning: Teleporting vehicle 'NS_1.33'; waited too long (yield), lane='4si_0', time=13071.00.
+Warning: Vehicle 'NS_1.33' ends teleporting on edge '3o', time=13071.00.
+Warning: Teleporting vehicle 'NS_1.34'; waited too long (yield), lane='4si_0', time=13375.00.
+Warning: Vehicle 'NS_1.34' ends teleporting on edge '3o', time=13375.00.
+Warning: Teleporting vehicle 'NS_1.35'; waited too long (yield), lane='4si_0', time=13688.00.
+Warning: Vehicle 'NS_1.35' ends teleporting on edge '3o', time=13688.00.
+Warning: Teleporting vehicle 'NS_1.36'; waited too long (yield), lane='4si_0', time=13996.00.
+Warning: Vehicle 'NS_1.36' ends teleporting on edge '3o', time=13996.00.
+Warning: Teleporting vehicle 'NS_1.37'; waited too long (yield), lane='4si_0', time=14300.00.
+Warning: Vehicle 'NS_1.37' ends teleporting on edge '3o', time=14300.00.
+Warning: Teleporting vehicle 'NS_1.39'; waited too long (yield), lane='4si_0', time=14608.00.
+Warning: Vehicle 'NS_1.39' ends teleporting on edge '3o', time=14608.00.
+Warning: Teleporting vehicle 'NS_1.42'; waited too long (yield), lane='4si_0', time=14936.00.
+Warning: Vehicle 'NS_1.42' ends teleporting on edge '3o', time=14936.00.
+Warning: Teleporting vehicle 'NS_1.51'; waited too long (yield), lane='4si_0', time=15244.00.
+Warning: Vehicle 'NS_1.51' ends teleporting on edge '3o', time=15244.00.
+Warning: Teleporting vehicle 'NS_1.52'; waited too long (wrong lane), lane='4si_1', time=15548.00.
+Warning: Teleporting vehicle 'NS_1.43'; waited too long (yield), lane='4si_0', time=15548.00.
+Warning: Vehicle 'NS_1.43' ends teleporting on edge '3o', time=15548.00.
+Warning: Vehicle 'NS_1.52' ends teleporting on edge '3o', time=15548.00.
+Warning: Teleporting vehicle 'NW_1.59'; waited too long (wrong lane), lane='4si_1', time=15852.00.
+Warning: Teleporting vehicle 'NS_1.44'; waited too long (yield), lane='4si_0', time=15852.00.
+Warning: Vehicle 'NS_1.44' ends teleporting on edge '3o', time=15852.00.
+Warning: Vehicle 'NW_1.59' ends teleporting on edge '1o', time=15852.00.
+Warning: Teleporting vehicle 'NS_1.45'; waited too long (yield), lane='4si_0', time=16160.00.
+Warning: Vehicle 'NS_1.45' ends teleporting on edge '3o', time=16160.00.
+Warning: Teleporting vehicle 'NS_1.46'; waited too long (yield), lane='4si_0', time=16464.00.
+Warning: Vehicle 'NS_1.46' ends teleporting on edge '3o', time=16464.00.
+Warning: Teleporting vehicle 'NS_1.47'; waited too long (yield), lane='4si_0', time=16772.00.
+Warning: Vehicle 'NS_1.47' ends teleporting on edge '3o', time=16772.00.
+Warning: Teleporting vehicle 'NS_1.48'; waited too long (yield), lane='4si_0', time=17080.00.
+Warning: Vehicle 'NS_1.48' ends teleporting on edge '3o', time=17080.00.
+Warning: Teleporting vehicle 'NS_1.49'; waited too long (yield), lane='4si_0', time=17388.00.
+Warning: Vehicle 'NS_1.49' ends teleporting on edge '3o', time=17388.00.
+Warning: Teleporting vehicle 'NS_1.50'; waited too long (yield), lane='4si_0', time=17706.00.
+Warning: Vehicle 'NS_1.50' ends teleporting on edge '3o', time=17706.00.
+Warning: Teleporting vehicle 'NS_1.53'; waited too long (yield), lane='4si_0', time=18039.00.
+Warning: Vehicle 'NS_1.53' ends teleporting on edge '3o', time=18039.00.
+Warning: Teleporting vehicle 'NS_1.64'; waited too long (yield), lane='4si_0', time=18347.00.
+Warning: Vehicle 'NS_1.64' ends teleporting on edge '3o', time=18347.00.
+Warning: Teleporting vehicle 'NS_1.65'; waited too long (wrong lane), lane='4si_1', time=18651.00.
+Warning: Teleporting vehicle 'NS_1.54'; waited too long (yield), lane='4si_0', time=18651.00.
+Warning: Vehicle 'NS_1.54' ends teleporting on edge '3o', time=18651.00.
+Warning: Vehicle 'NS_1.65' ends teleporting on edge '3o', time=18651.00.
+Warning: Teleporting vehicle 'NS_1.55'; waited too long (yield), lane='4si_0', time=18955.00.
+Warning: Vehicle 'NS_1.55' ends teleporting on edge '3o', time=18955.00.
+Warning: Teleporting vehicle 'NS_1.56'; waited too long (yield), lane='4si_0', time=19263.00.
+Warning: Vehicle 'NS_1.56' ends teleporting on edge '3o', time=19263.00.
+Warning: Teleporting vehicle 'NS_1.57'; waited too long (yield), lane='4si_0', time=19567.00.
+Warning: Vehicle 'NS_1.57' ends teleporting on edge '3o', time=19567.00.
+Warning: Teleporting vehicle 'NS_1.58'; waited too long (yield), lane='4si_0', time=19880.00.
+Warning: Vehicle 'NS_1.58' ends teleporting on edge '3o', time=19880.00.
+Warning: Teleporting vehicle 'NS_1.59'; waited too long (yield), lane='4si_0', time=20184.00.
+Warning: Vehicle 'NS_1.59' ends teleporting on edge '3o', time=20184.00.
+Warning: Teleporting vehicle 'NS_1.60'; waited too long (yield), lane='4si_0', time=20488.00.
+Warning: Vehicle 'NS_1.60' ends teleporting on edge '3o', time=20488.00.
+Warning: Teleporting vehicle 'NS_1.61'; waited too long (yield), lane='4si_0', time=20796.00.
+Warning: Vehicle 'NS_1.61' ends teleporting on edge '3o', time=20796.00.
+Warning: Teleporting vehicle 'NS_1.62'; waited too long (yield), lane='4si_0', time=21100.00.
+Warning: Vehicle 'NS_1.62' ends teleporting on edge '3o', time=21100.00.
+Warning: Teleporting vehicle 'NS_1.63'; waited too long (yield), lane='4si_0', time=21404.00.
+Warning: Vehicle 'NS_1.63' ends teleporting on edge '3o', time=21404.00.
+Warning: Teleporting vehicle 'NS_1.66'; waited too long (yield), lane='4si_0', time=21732.00.
+Warning: Vehicle 'NS_1.66' ends teleporting on edge '3o', time=21732.00.
+Warning: Teleporting vehicle 'NS_1.67'; waited too long (yield), lane='4si_0', time=22036.00.
+Warning: Vehicle 'NS_1.67' ends teleporting on edge '3o', time=22036.00.
+Warning: Teleporting vehicle 'NS_1.68'; waited too long (yield), lane='4si_0', time=22340.00.
+Warning: Vehicle 'NS_1.68' ends teleporting on edge '3o', time=22340.00.

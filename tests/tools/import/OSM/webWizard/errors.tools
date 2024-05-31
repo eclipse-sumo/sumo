@@ -136,4 +136,5 @@ Warning: Person 'ped122' is jammed on edge ':1828018040_c0', time=639.00.
 Warning: Person 'ped157' aborted waiting for N42:1 at busStop '3867910439'.
 Warning: Person 'ped136' aborted waiting for N42:1 at busStop '3867910439'.
 Warning: Person 'ped155' aborted waiting for N42:1 at busStop '3867910439'.
+Warning: Person 'ped59' aborted waiting for M5:0 at busStop '1633759766'.
 Warning: Person 'ped47' aborted waiting for TXL:0 at busStop '3869306771'.
