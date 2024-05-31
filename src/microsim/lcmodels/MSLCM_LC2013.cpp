@@ -73,6 +73,7 @@
 #define LC_RESOLUTION_SPEED_LAT 0.5 // the lateral speed (in m/s) for a standing vehicle which was unable to finish a continuous LC in time (in case mySpeedLatStanding==0), see #3771
 
 #define REACT_TO_STOPPED_DISTANCE 100
+#define BLOCKER_IS_BLOCKED_TIME_THRESHOLD 5 // the time after which a blocking neighbor is treated similar to a stopped vehicle
 
 // ===========================================================================
 // debug defines
@@ -514,6 +515,11 @@ MSLCM_LC2013::informLeader(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
 
         if (dv > myOvertakeDeltaSpeedFactor * myVehicle.getLane()->getSpeedLimit()) {
             overtakeTime = overtakeDist / dv;
+        } else if (nv->getWaitingSeconds() > BLOCKER_IS_BLOCKED_TIME_THRESHOLD
+                && !isOpposite()
+                && (myVehicle.getVehicleType().getLengthWithGap() + nv->getVehicleType().getLengthWithGap()) <= myLeftSpace) {
+            // -> set overtakeTime to indicate possibility of overtaking (only if there is enough space)
+            overtakeTime = remainingSeconds - 1;
         } else {
             // -> set overtakeTime to something indicating impossibility of overtaking
             overtakeTime = remainingSeconds + 1;
