@@ -88,6 +88,11 @@ MSInternalJunction::postloadInit() {
             } else {
                 if (std::find(myInternalLaneFoes.begin(), myInternalLaneFoes.end(), lane) == myInternalLaneFoes.end()) {
                     myInternalLaneFoes.push_back(lane);
+                    if (lane->isCrossing()) {
+                        // also add to myInternalLinkFoes (the origin
+                        // walkingArea is not part of myIncomingLanes)
+                        myInternalLinkFoes.push_back(lane->getIncomingLanes()[0].viaLink);
+                    }
                 }
             }
         }
