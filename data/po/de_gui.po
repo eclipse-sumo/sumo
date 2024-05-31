@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-28 13:18+0000\n"
+"PO-Revision-Date: 2024-06-01 10:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -13901,6 +13901,8 @@ msgid ""
 "-Requires at least one Entry\n"
 " and one Exit"
 msgstr ""
+"-Benötigt mindestens einen Eingangsdetektor\n"
+" und einen Ausgangsdetektor"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:98
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:101
@@ -14167,7 +14169,7 @@ msgstr "Fußweg hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:89
 msgid "Add bikelane"
-msgstr ""
+msgstr "Radweg hinzufügen"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:92
 msgid "Use edgeType/template"
@@ -14338,7 +14340,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over junction to mark candidate edges."
-msgstr ""
+msgstr "Auf Knotentpunkt klicken, um Kandidatenkanten auszuwählen."
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:539
 msgid "Click over candidate edges for selecting."
@@ -15362,7 +15364,7 @@ msgstr "Element auswählen"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUICursorDialog.cpp:68
 msgid "Mark front element"
-msgstr ""
+msgstr "Oberes Element markieren"
 
 #: D:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
 msgid "Object must be a lane"
@@ -15955,15 +15957,15 @@ msgstr "gegebene/zugewiesene Containerfarbe"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1128
 msgid "transport"
-msgstr ""
+msgstr "Versand"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1130
 msgid "waiting for transport"
-msgstr ""
+msgstr "auf Versand warten"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1131
 msgid "tranship"
-msgstr ""
+msgstr "umladen/Umladung"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1169
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1632
