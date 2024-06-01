@@ -380,6 +380,11 @@ In JuPedSim, pedestrians have a radius. At that time, the radius is computed as 
 
 Sometimes pedestrians get jammed at the front of a gate, which represents the last waypoint into their journey. In this case you can remove the pedestrians by creating a special polygon type named `jupedsim.vanishing_area`. The attribute `period` of this polygon defines the rate at which a pedestrian will be removed in this special polygon (a pedestrian will be removed every period, the period being given in seconds).
 
+### Speed modification
+
+In order to modify the speed of agents depending on location it is possible to define a special polygon type named `jupedsim.influencer`. The attribute `speed` of this polygon defines the new maximum speed of any agent entering the polygon. Be aware that currently the speed change is permanent (it will persist even if the agent leaves the polygon). This might change in future versions. Furthermore the functionality will probably be adapted to allow the change of other parameters as well.
+
+
 # Pedestrian Routing
 
 If the user does not specify a complete list of edges for walking,
