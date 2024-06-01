@@ -36,8 +36,9 @@ These values have the following meanings (the defaults are from the Kia below):
 | --------------------------------- | ---------- | ----------------- | ------------------------------------------------------- |
 | maximumBatteryCapacity            | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
-| vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>*                          |
-| frontSurfaceArea                  | float      | 2.6 (m<sup>2</sup>)      | Front surface area *A<sub>veh</sub>*                    |
+| vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
+| loading                           | float      | 0 (kg)            | Additional mass                                         |
+| frontSurfaceArea                  | float      | 2.6 (m<sup>2</sup>) | Front surface area *A<sub>veh</sub>*                  |
 | airDragCoefficient                | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
 | rotatingMass                      | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
 | radialDragCoefficient             | float      | 0.1               | Radial drag coefficient c<sub>rad</sub>                 |
@@ -45,7 +46,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | constantPowerIntake               | float      | 100 (W)           | Avg. (constant) power of consumers *P<sub>const</sub>*  |
 | propulsionEfficiency              | float      | 0.98              | Drive efficiency *η<sub>prop</sub>*                     |
 | recuperationEfficiency            | float      | 0.96              | Recuperation efficiency *η<sub>recup</sub>*             |
-| stoppingThreshold                 | float      | 0.1 (km/h)        | Maximum velocity to start charging                      |
+| stoppingThreshold                 | float      | 0.1 (m/s)         | Maximum velocity to start charging                      |
 | device.battery.maximumChargeRate  | float      | 150000 (W)        | Maximum charging rate of the battery                    |
 | device.battery.chargeLevelTable   | float list |                   | Ordered list of state of charge values (from 0 to 1) for which maximum charge rates are defined in `device.battery.chargeCurveTable` |
 | device.battery.chargeCurveTable   | float list |                   | Corresponding maximum charge rates to each state of charge value in `device.battery.chargeLevelTable` |
@@ -53,16 +54,16 @@ These values have the following meanings (the defaults are from the Kia below):
 !!! note
     Before SUMO 1.20.0 the `rotatingMass` was called `internalMomentOfInertia` but it has been renamed to make clear
     that it is a mass and not a moment of inertia. The old parameter is considered deprecated.
+    Also the `vehicleMass` has been deprecated in favor of the new `mass` attribute.
 
 An example of a vehicle with electric attribute (those are the values for a city bus from the original publication):
 
 ```xml
 <routes>
-    <vType id="ElectricBus" accel="1.0" decel="1.0" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+    <vType id="ElectricBus" accel="1.0" decel="1.0" length="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" mass="10000" color="1,1,1">
         <param key="has.battery.device" value="true"/>
         <param key="maximumBatteryCapacity" value="2000"/>
         <param key="maximumPower" value="1000"/>
-        <param key="vehicleMass" value="10000"/>
         <param key="frontSurfaceArea" value="5"/>
         <param key="airDragCoefficient" value="0.6"/>
         <param key="rotatingMass" value="100"/>

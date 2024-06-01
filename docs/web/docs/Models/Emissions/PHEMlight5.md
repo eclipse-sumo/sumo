@@ -183,3 +183,27 @@ PHEMlight5 allows to model the effects of aging and temperature on emissions. Th
 - **--phemlight-temperature** the ambient temperature. This will only affect the NOx value of some Diesel cars.
 
 The underlying correction factors are read from the files Deterioration.det, Mileage.vma and NOxCor.tno in your PHEMlight5 directory.
+
+## Dynamic modification of parameters
+
+SUMO 1.20.0 added the possibility to change parameters which were a static part of the emission class definition before.
+Most of the parameters have the same name and meaning as with the [electric model](../Electric.md) and can be defined as
+params in the vehicle type definition. Furthermore the type attribute `mass` is now being respected by PHEMlight as well.
+If any of the new attributes or params is not defined the default will be taken from the emission class as before.
+For reference you find a list of the evaluated params below.
+
+| key                      | Value Type | Unit           | Description                                             |
+| ------------------------ | ---------- | -------------- | ------------------------------------------------------- |
+| maximumPower             | float      | W              | Maximum power which the vehicle can reach               |
+| vehicleMass              | float      | kg             | Vehicle mass (deprecated)                               |
+| loading                  | float      | kg             | Additional mass                                         |
+| rotatingMass             | float      | kg             | (Equivalent) mass of internal rotating elements         |
+| frontSurfaceArea         | float      | m<sup>2</sup>  | Front surface area                                      |
+| airDragCoefficient       | float      | -              | Air drag coefficient                                    |
+| radialDragCoefficient    | float      | -              | Radial drag coefficient                                 |
+| rollDragCoefficient      | float      | -              | Rolling resistance coefficient                          |
+| wheelRadius              | float      | m              | Radius of the wheels                                    |
+| constantPowerIntake      | float      | W              | Avg. (constant) power of consumers                      |
+
+Please be aware that `vehicleMass` should not be used for total mass anymore. Please use the `mass` attribute (for empty mass)
+and the `loading` param instead.
