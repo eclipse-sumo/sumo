@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-29 19:04+0000\n"
+"PO-Revision-Date: 2024-06-03 15:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15502,7 +15502,7 @@ msgstr "proibito"
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1149
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1514
 msgid "airway"
-msgstr ""
+msgstr "via aerea"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:640
 #: D:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:985
