@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-05-29 19:04+0000\n"
+"PO-Revision-Date: 2024-06-03 15:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -502,7 +502,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:76
 msgid "Could not open detector file '%'"
-msgstr ""
+msgstr "Non ho potuto aprire il file di rivelatore '%'"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:88
 msgid "No detectors found."
@@ -515,31 +515,32 @@ msgstr ""
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:124
 msgid "Removing empty detectors"
-msgstr ""
+msgstr "Rimuovo i rivelatori vuoti"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:128
 msgid "Scanning for empty detectors"
-msgstr ""
+msgstr "Cerco dei rivelatori vuoti"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr ""
+msgstr "Non ci sono rivelatori di origine."
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:147
 msgid "Computing routes"
-msgstr ""
+msgstr "Calcolo itinerari"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:158
 msgid "The detector types are not defined; use in combination with a network"
 msgstr ""
+"I tipi dei rivelatori non sono stati definiti; usali insieme ad una rete"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:162
 msgid "The emitters have no routes; use in combination with a network"
-msgstr ""
+msgstr "Gli emittori non tengono itinerari; usali insieme ad una rete"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:193
 msgid "Rechecking loaded flows"
-msgstr ""
+msgstr "Verifica dei flussi caricati"
 
 #: D:\Repos\sumo/src\dfrouter\dfrouter_main.cpp:198
 msgid "Writing emitters"
