@@ -31,7 +31,7 @@ export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 export SUMO_BINDIR=$PREFIX/sumo/bin
 # the following are only needed for the clang build but do not hurt others
-export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppressions.txt
+export LSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_memleak_suppressions.txt,print_suppressions=0
 export UBSAN_OPTIONS=suppressions=$PREFIX/sumo/build_config/clang_ubsan_suppressions.txt
 
 rm -f $STATUSLOG
