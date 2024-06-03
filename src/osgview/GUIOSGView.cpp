@@ -270,9 +270,15 @@ GUIOSGView::adoptViewSettings() {
 
     // show/hide OSG nodes
     unsigned int cullMask = 0xFFFFFFFF;
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSDomes) ^ cullMask) & (1UL << NODESET_TLSDOMES);
-    cullMask ^= (-int(myVisualizationSettings->show3DTLSLinkMarkers) ^ cullMask) & (1UL << NODESET_TLSLINKMARKERS);
-    cullMask ^= (-int(myVisualizationSettings->generate3DTLSModels) ^ cullMask) & (1UL << NODESET_TLSMODELS);
+    if (!myVisualizationSettings->show3DTLSDomes) {
+        cullMask &= ~(unsigned int)NODESET_TLSDOMES;
+    }
+    if (!myVisualizationSettings->show3DTLSLinkMarkers) {
+        cullMask &= ~(unsigned int)NODESET_TLSLINKMARKERS;
+    }
+    if (!myVisualizationSettings->generate3DTLSModels) {
+        cullMask &= ~(unsigned int)NODESET_TLSMODELS;
+    }
     myViewer->getCamera()->setCullMask(cullMask);
     unsigned int hudCullMask = (myVisualizationSettings->show3DHeadUpDisplay) ? 0xFFFFFFFF : 0;
     myHUD->setCullMask(hudCullMask);
