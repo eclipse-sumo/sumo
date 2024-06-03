@@ -46,7 +46,7 @@ def run(suffix, args, guiTests=False, chrouter=True):
     try:
         if os.name == "posix":
             subprocess.call(['python2', '-V'], stdout=open(os.devnull, "w"))
-        apps += ',complex.python2,tools.python2'
+            apps += ',complex.python2,tools.python2'
     except Exception:
         pass
     if guiTests:
