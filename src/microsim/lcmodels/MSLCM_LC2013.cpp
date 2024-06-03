@@ -1992,14 +1992,15 @@ MSLCM_LC2013::slowDownForBlocked(MSVehicle** blocked, int state) {
                               << "\n";
                 }
 #endif
-            } /* else {
-            	// experimental else-branch...
+            } /*else if ((*blocked)->getWaitingSeconds() > 30 && gap > myVehicle.getBrakeGap()) {
+                // experimental else-branch...
+
                 state |= LCA_AMBACKBLOCKER;
-                myVSafes.push_back(getCarFollowModel().followSpeed(
-                                       &myVehicle, myVehicle.getSpeed(),
-                                       (gap - POSITION_EPS), (*blocked)->getSpeed(),
-                                       (*blocked)->getCarFollowModel().getMaxDecel()));
-            }*/
+                addLCSpeedAdvice(getCarFollowModel().followSpeed(
+                            &myVehicle, myVehicle.getSpeed(),
+                            (gap - POSITION_EPS), (*blocked)->getSpeed(),
+                            (*blocked)->getCarFollowModel().getMaxDecel()));
+            } */
         }
     }
     return state;
