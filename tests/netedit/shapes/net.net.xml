@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-04 14:49:31 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\shapes\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\Netedit_dev\tests\netedit\shapes\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-35.00,0.00,20.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":Junction5_0" function="internal">
+        <lane id=":Junction5_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="20.00,-1.50 21.12,-0.75 21.50,0.00 21.12,0.75 20.00,1.50"/>
+    </edge>
+
+    <edge id="EdgeCenter0" from="Junction4" to="Junction5" priority="-1" length="47.50">
+        <lane id="EdgeCenter0_0" index="0" disallow="pedestrian" speed="13.89" length="47.50" width="3.00" shape="-35.00,-1.50 20.00,-1.50"/>
+    </edge>
+    <edge id="EdgeCenter1" from="Junction5" to="Junction4" priority="-1" length="47.50">
+        <lane id="EdgeCenter1_0" index="0" disallow="pedestrian" speed="13.89" length="47.50" width="3.00" shape="20.00,1.50 -35.00,1.50"/>
+    </edge>
+
+    <junction id="Junction4" type="dead_end" x="-35.00" y="0.00" incLanes="EdgeCenter1_0" intLanes="" shape="-35.00,0.00 -35.00,3.00 -35.00,0.00"/>
+    <junction id="Junction5" type="priority" x="20.00" y="0.00" incLanes="EdgeCenter0_0" intLanes=":Junction5_0_0" shape="20.00,0.00 20.00,-3.00 20.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="EdgeCenter0" to="EdgeCenter1" fromLane="0" toLane="0" via=":Junction5_0_0" dir="t" state="M"/>
+
+    <connection from=":Junction5_0" to="EdgeCenter1" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>
