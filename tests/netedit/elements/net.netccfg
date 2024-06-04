@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-04 09:44:32 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="net.nod.xml"/>
+        <edge-files value="net.edg.xml"/>
+        <connection-files value="net.con.xml"/>
+        <tllogic-files value="net.tll.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+</configuration>
