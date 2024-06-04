@@ -20,18 +20,13 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
-import os
 import gc
-import sys
 import matplotlib
-if 'matplotlib.backends' not in sys.modules:
-    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-        matplotlib.use('Agg')
 from ..options import ArgumentParser
-from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, title  # noqa
-from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks  # noqa
-from matplotlib.ticker import FuncFormatter as ff  # noqa
-from matplotlib.collections import LineCollection  # noqa
+from pylab import arange, close, cm, figure, legend, log, plt, savefig, show, title
+from pylab import xlabel, xlim, xticks, ylabel, ylim, yticks
+from matplotlib.ticker import FuncFormatter as ff
+from matplotlib.collections import LineCollection
 mpl_version = tuple(map(int, matplotlib.__version__.split(".")))
 
 # http://datadebrief.blogspot.de/2010/10/plotting-sunrise-sunset-times-in-python.html

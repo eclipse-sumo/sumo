@@ -31,11 +31,7 @@ import re
 import sys
 from collections import defaultdict
 import fnmatch
-import matplotlib
-if 'matplotlib.backends' not in sys.modules:
-    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-        matplotlib.use('Agg')
-import matplotlib.pyplot as plt  # noqa
+import matplotlib.pyplot as plt
 
 try:
     import xml.etree.cElementTree as ET

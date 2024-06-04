@@ -29,12 +29,8 @@ from __future__ import print_function
 import os
 import sys
 from collections import defaultdict
-import matplotlib
-if 'matplotlib.backends' not in sys.modules:
-    if 'TEXTTEST_SANDBOX' in os.environ or (os.name == 'posix' and 'DISPLAY' not in os.environ):
-        matplotlib.use('Agg')
-import matplotlib.pyplot as plt  # noqa
-import math  # noqa
+import math
+import matplotlib.pyplot as plt
 
 from sumolib.xml import parse_fast_nested  # noqa
 from sumolib.miscutils import uMin, uMax, parseTime  # noqa
