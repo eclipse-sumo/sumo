@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 10:49:38 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2024-06-04 12:27:57 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\SUMO\tests\netedit\demandelements\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\datas.dat.xml"/>
-        <sumo-net-file value="D:\SUMO\tests\netedit\demandelements\net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
     </input>
 
     <processing>
@@ -29,52 +26,33 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-    <netedit>
-        <ignore-supermode-question value="true"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\gui-settings.xml"/>
-        <window-size value="1280, 720"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\log.txt"/>
-    </report>
-
 </configuration>
 -->
 
 <tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="Junction1" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGG"/>
-        <phase duration="3"  state="yyyy"/>
-        <phase duration="42" state="GGGG"/>
-        <phase duration="3"  state="yyyy"/>
+        <phase duration="90" state="GG"/>
+        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction2" type="static" programID="0" offset="0">
-        <phase duration="42" state="GGGG"/>
-        <phase duration="3"  state="yyyy"/>
-        <phase duration="42" state="GGGG"/>
-        <phase duration="3"  state="yyyy"/>
+        <phase duration="90" state="GG"/>
+        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction3" type="static" programID="0" offset="0">
         <phase duration="90" state="GGGg"/>
+        <phase duration="3"  state="rrrr"/>
     </tlLogic>
     <tlLogic id="Junction4" type="static" programID="0" offset="0">
         <phase duration="90" state="gGGG"/>
+        <phase duration="3"  state="rrrr"/>
     </tlLogic>
 
-    <connection from="Edge0" to="Edge1" fromLane="1" toLane="1" tl="Junction1" linkIndex="3"/>
-    <connection from="Edge1" to="Edge2" fromLane="1" toLane="1" tl="Junction2" linkIndex="1"/>
+    <connection from="Edge0" to="Edge1" fromLane="1" toLane="1" tl="Junction1" linkIndex="1"/>
+    <connection from="Edge1" to="Edge2" fromLane="1" toLane="1" tl="Junction2" linkIndex="0"/>
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="1" tl="Junction3" linkIndex="0"/>
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="2" tl="Junction3" linkIndex="1"/>
-    <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" tl="Junction2" linkIndex="3"/>
-    <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" tl="Junction1" linkIndex="1"/>
+    <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" tl="Junction2" linkIndex="1"/>
+    <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" tl="Junction1" linkIndex="0"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="1" tl="Junction4" linkIndex="0"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="2" toLane="1" tl="Junction4" linkIndex="1"/>
     <connection from="EdgeBike1" to="Edge3" fromLane="1" toLane="1" tl="Junction3" linkIndex="2"/>

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 10:49:38 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2024-06-04 12:27:57 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\SUMO\tests\netedit\demandelements\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\datas.dat.xml"/>
-        <sumo-net-file value="D:\SUMO\tests\netedit\demandelements\net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
     </input>
 
     <processing>
@@ -28,23 +25,6 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <netedit>
-        <ignore-supermode-question value="true"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\gui-settings.xml"/>
-        <window-size value="1280, 720"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun101318.7608\netedit.gui\demandelements\route\create_consecutive\default\log.txt"/>
-    </report>
 
 </configuration>
 -->
@@ -84,12 +64,14 @@
         <lane index="1" allow="bicycle" width="1.00"/>
         <lane index="2" allow="bus" width="3.00"/>
     </edge>
-    <edge id="EdgeCenter0" from="Junction4" to="JunctionCenter" priority="-1" numLanes="2" speed="13.89" length="47.50">
+    <edge id="EdgeCenter0" from="Junction4" to="Junction5" priority="-1" numLanes="2" speed="13.89" length="47.50">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian" width="3.00"/>
     </edge>
-    <edge id="EdgeCenter1" from="JunctionCenter" to="Junction4" priority="-1" numLanes="2" speed="13.89" length="47.50">
+    <edge id="EdgeCenter1" from="Junction5" to="Junction4" priority="-1" numLanes="2" speed="13.89" length="47.50">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian" width="3.00"/>
     </edge>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-65.00,0.00 -50.00,0.00 -50.00,-25.00 -45.00,-30.00 35.00,-30.00 40.00,-25.00 40.00,0.00 55.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="55.00,0.00 40.00,0.00 40.00,25.00 35.00,30.00 -45.00,30.00 -50.00,25.00 -50.00,0.00 -65.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
 </edges>
