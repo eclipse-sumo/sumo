@@ -4,6 +4,12 @@ title: Traffic Data
 
 # Traffic Data
 
+- [Hourly traffic data for the UK](https://roadtraffic.dft.gov.uk/downloads)
+- [Hourly traffic data for Germany (Federal Roads)](https://www.bast.de/DE/Verkehrstechnik/Fachthemen/v2-verkehrszaehlung/Stundenwerte.html): 
+- [List of various traffic data resources collected by the Graphhopper project](https://github.com/graphhopper/open-traffic-collection)
+- [Realtime access to traffic Data of California (requires account)](https://pems.dot.ca.gov/)
+- [Swiss Dataset from ETH Zürich](https://utd19.ethz.ch/)
+
 ## FSP - Data from the *Freeway Service Patrol Evaluation Project*
 
 <font color="red">This description is not yet completed</font>
