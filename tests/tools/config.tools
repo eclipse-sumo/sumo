@@ -292,6 +292,7 @@ errors::ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element
 errors:Matplotlib is building the font cache; this may take a moment.
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:dateutil/tz/tz.py:.*: DeprecationWarning: datetime.datetime.utcfromtimestamp{LINES 2}
+errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
 errors:schemaCheck.py
 errors:site-packages/ortools.*DeprecationWarning:
 errors:remaining_args \.\.\.
