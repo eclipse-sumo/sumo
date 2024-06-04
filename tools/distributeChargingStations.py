@@ -57,13 +57,22 @@ def getOptions(args=None):
     argParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
     argParser.add_argument("--vclass", category="processing", default="passenger",
                            help="only use edges which permit the given vehicle class")
-    # argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
-    # default=False, help="tell me what you are doing")
+    argParser.add_argument("--include-existing", dest="includeExisting", action="store_false",
+                           default=True,
+                           help="If set, loaded charging stations from input files will contribute to the density")
+    # argParser.add_argument("--no-roadside", dest="noRoadsideCharging", action="store_false",
+    # default=True, help="Forbid to use roadside parking for charging points")
+    # argParser.add_argument("--no-parking-lot", dest="noParkingLotCharging", action="store_false",
+    # default=True, help="Forbid to use parking lots off the road for charging points")
+    argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
+                           default=False, help="tell me what you are doing")
 
     options = argParser.parse_args(args=args)
     if not options.netFile or not options.addFiles:
         argParser.print_help()
         sys.exit(1)
+    if not options.roadside and not options.parkingLot:
+        print("Have to use at least one option of roadside or offroad parking to place charging stations. Please ")
     options.min = max(0, options.min)
     options.max = max(0, options.max)
     if options.min > options.max:
@@ -89,24 +98,46 @@ def main(options):
         net.loadSelection(options.selectionFile)
         checkSelection = True
 
-    # read parkingArea data
+    # read data of predefined parkingAreas and charging stations
     edge2parkingArea = {}
+    edge2chargingPointCount = {}
     additionals = []
     for addFile in options.addFiles.split(","):
         additionals.extend(list(sumolib.xml.parse(addFile, "additional"))[0])
     totalCapacity = 0
+    paCount = 0
+    existingChargingStations = []
     for node in additionals.getChildList():
-        if node.name != "parkingArea":
-            continue
-        edge = net.getLane(node.lane).getEdge()
-        capacity = sum(determineParkingCapacity(node))
-        if edge not in edge2parkingArea:
-            edge2parkingArea[edge] = []
-        edge2parkingArea[edge].append((node, capacity))
-        totalCapacity += capacity
+        if node.name == "chargingStation" and node.hasAttribute("parkingArea"):
+            existingChargingStations.append(node)
+        elif node.name == "parkingArea":
+            edge = net.getLane(node.lane).getEdge()
+            capacity = sum(determineParkingCapacity(node))
+            if edge not in edge2parkingArea:
+                edge2parkingArea[edge] = []
+            edge2parkingArea[edge].append([node, capacity])
+            paCount += 1
+            totalCapacity += capacity
+    if options.verbose:
+        print("Loaded %d parkings (%d already equipped with charging stations) with a total of %d parking lots." %
+              (paCount, len(equippedParkings), totalCapacity))
+
+    # count already existing charging points per edge
+    if options.includeExisting:
+        for cs in existingChargingStations:
+            edge = net.getLane(node.lane).getEdge()
+            for item in edge2parkingArea[edge]:
+                if item[0].getAttribute("id") == cs.getAttribute("parkingArea"):
+                    if edge not in edge2chargingPointCount:
+                        edge2chargingPointCount = 0
+                    edge2chargingPointCount += item[1]
+                    item[1] = 0
+                    break
 
     # iterate edges with parkingArea groups and randomly select a charging point count
     totalChargingPoints = math.floor(totalCapacity * options.probability * options.density)
+    if options.verbose:
+        print("Charging points to distribute: %.0f" % totalChargingPoints)
     csIndex = 0
     with open(options.outFile, 'w') as outf:
         sumolib.xml.writeHeader(outf)
@@ -120,8 +151,11 @@ def main(options):
                 parkingSum = sum(capacities)
                 if parkingSum < options.min:
                     continue
-                chargingPointCount = min(totalChargingPoints, parkingSum, options.min +
-                                         round((options.max - options.min) * randomNumber/options.probability))
+                randomChargingPointCount = options.min + \
+                    round((options.max - options.min) * randomNumber/options.probability)
+                if options.includeExisting and edge in edge2chargingPointCount:
+                    randomChargingPointCount -= edge2chargingPointCount[edge]
+                chargingPointCount = min(totalChargingPoints, parkingSum, randomChargingPointCount)
 
                 # first check if the charging point fits exactly one parkingArea
                 remainingChargingPoints = chargingPointCount
@@ -146,11 +180,11 @@ def main(options):
                     if remainingChargingPoints == 0:
                         break
                 totalChargingPoints -= chargingPointCount
-
                 if totalChargingPoints <= 0:
                     break
         outf.write(additionals.toXML())
-        print("charging point balance: %d" % totalChargingPoints)
+        if options.verbose:
+            print("Final charging point balance: %.0f" % totalChargingPoints)
 
 
 def addChargingStation(options, root, edge, parkingArea, chargingPoints, csID):
@@ -166,6 +200,7 @@ def addChargingStation(options, root, edge, parkingArea, chargingPoints, csID):
         posDownSize = (startPos, endPos) if chargingOnSpaces > 0 else (
             startPos, startPos + (endPos - startPos)*chargingRoadSide/parkingCapacity[0])
         parkingArea.roadsideCapacity = str(chargingRoadSide)
+
         if shiftRoadSideCapacity + shiftSpaces > 0:
             parkingArea.setAttribute("startPos", str(posDownSize[0]))
             parkingArea.setAttribute("endPos", str(posDownSize[1]))
