@@ -23,6 +23,7 @@
 #include <libsumo/Person.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/transportables/MSPerson.h>
@@ -98,16 +99,20 @@ MSTransportableDevice_FCDReplay::move(SUMOTime currentTime) {
             const MSEdge* const edge = person->getEdge();
             for (const SUMOVehicle* v : edge->getVehicles()) {
                 if (v->getSpeed() == 0. && fabs(v->getPositionOnLane() - te.lanePos) < POSITION_EPS) {
+                    v->getLane()->getVehiclesSecure();  // lock the lane
                     SUMOTime dummy = -1; // boarding- and loading-time are not considered
                     MSNet::getInstance()->getPersonControl().loadAnyWaiting(edge, const_cast<SUMOVehicle*>(v), dummy, dummy, true);
+                    v->getLane()->releaseVehicles();  // unlock the lane
                 }
             }
         } else {
             SUMOVehicle* v = person->getVehicle();
             if (te.speed == 0. && fabs(v->getPositionOnLane() - te.lanePos) >= POSITION_EPS) {  // leaving the vehicle
+                v->getLane()->getVehiclesSecure();  // lock the lane
                 MSDevice_Transportable* transDev = static_cast<MSDevice_Transportable*>(v->getDevice(typeid(MSDevice_Transportable)));
                 transDev->removeTransportable(person);
                 person->proceed(MSNet::getInstance(), currentTime);
+                v->getLane()->releaseVehicles();  // unlock the lane
             }
         }
     }
