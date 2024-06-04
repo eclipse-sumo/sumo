@@ -249,7 +249,7 @@ void
 VehicleType::setBoardingDuration(const std::string& typeID, double boardingDuration)  {
     try {
         checkTimeBounds(boardingDuration);
-    } catch (ProcessError& e) {
+    } catch (ProcessError&) {
         throw TraCIException("BoardingDuration parameter exceeds the time value range.");
     }
     getVType(typeID)->setBoardingDuration(TIME2STEPS(boardingDuration), true);
