@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:21:53 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
+<!-- generated on 2024-06-04 09:44:44 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\netelements\edges\inspect\disallow/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\netelements\edges\inspect\disallow/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\netelements\edges\inspect\disallow/net.con.xml"/>
+        <node-files value=".\netedit\netelements\edges\inspect\disallow\net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\edges\inspect\disallow\net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\edges\inspect\disallow\net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\edges\inspect\disallow/net.net.xml"/>
+        <output-file value=".\netedit\netelements\edges\inspect\disallow\net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

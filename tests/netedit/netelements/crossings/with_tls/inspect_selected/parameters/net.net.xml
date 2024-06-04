@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:21:51 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
+<!-- generated on 2024-06-04 09:44:40 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\parameters/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\parameters/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\parameters/net.con.xml"/>
+        <node-files value=".\netedit\netelements\crossings\with_tls\inspect_selected\parameters\net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\crossings\with_tls\inspect_selected\parameters\net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\crossings\with_tls\inspect_selected\parameters\net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\inspect_selected\parameters/net.net.xml"/>
+        <output-file value=".\netedit\netelements\crossings\with_tls\inspect_selected\parameters\net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -88,10 +92,10 @@
         <lane id=":Center_21_0" index="0" disallow="pedestrian" speed="9.26" length="14.34" shape="44.56,49.11 44.85,49.15 48.60,51.40 50.85,55.15 51.60,60.40"/>
     </edge>
     <edge id=":Center_c0" function="crossing" crossingEdges="4 8">
-        <lane id=":Center_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="3.00" shape="58.90,43.60 58.90,56.40"/>
+        <lane id=":Center_c0_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="3.00" shape="58.90,43.60 58.90,56.40" outlineShape="60.40,43.60 60.40,56.40 59.18,56.51 58.18,56.84 57.40,57.40 57.40,42.60 58.18,43.16 59.18,43.49 60.40,43.60"/>
     </edge>
     <edge id=":Center_c1" function="crossing" crossingEdges="3 7">
-        <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="41.60,56.40 41.60,43.60"/>
+        <lane id=":Center_c1_0" index="0" allow="pedestrian" speed="2.78" length="12.80" width="4.00" shape="41.60,56.40 41.60,43.60" outlineShape="39.60,56.40 39.60,43.60 43.60,39.60 41.60,39.60 39.60,41.60 39.60,43.60 43.60,39.60 43.60,60.40 43.49,59.18 43.16,58.18 42.60,57.40 41.82,56.84 40.82,56.51 39.60,56.40"/>
     </edge>
     <edge id=":Center_w0" function="walkingarea">
         <lane id=":Center_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.53" width="4.00" shape="39.60,56.40 39.60,58.40 41.60,60.40 43.60,60.40 43.49,59.18 43.16,58.18 42.60,57.40 41.82,56.84 40.82,56.51"/>

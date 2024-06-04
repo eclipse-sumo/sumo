@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:21:36 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
+<!-- generated on 2024-06-04 09:44:31 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\bugs\processing\ticket2327/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\bugs\processing\ticket2327/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\bugs\processing\ticket2327/net.con.xml"/>
+        <node-files value=".\netedit\bugs\processing\ticket2327\net.nod.xml"/>
+        <edge-files value=".\netedit\bugs\processing\ticket2327\net.edg.xml"/>
+        <connection-files value=".\netedit\bugs\processing\ticket2327\net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\bugs\processing\ticket2327/net.net.xml"/>
+        <output-file value=".\netedit\bugs\processing\ticket2327\net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="3.00,-25.00" convBoundary="0.00,0.00,100.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -45,13 +49,13 @@
         <lane id=":gneJ11_7_0" index="0" disallow="pedestrian rail_fast" speed="6.51" length="4.28" shape="67.12,36.80 68.05,35.25 68.40,32.80"/>
     </edge>
     <edge id=":gneJ11_c0" function="crossing" crossingEdges="gneE8 -gneE8">
-        <lane id=":gneJ11_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,36.80 75.20,43.20"/>
+        <lane id=":gneJ11_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,36.80 75.20,43.20" outlineShape="77.20,36.80 77.20,43.20 73.20,45.20 77.20,45.20 77.20,43.20 73.20,43.20 73.20,36.80 73.53,34.69 73.64,35.02 74.20,35.80 74.98,36.36 75.98,36.69 77.20,36.80"/>
     </edge>
     <edge id=":gneJ11_c1" function="crossing" crossingEdges="-gneE16 gneE16">
-        <lane id=":gneJ11_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="66.80,34.80 73.20,34.80"/>
+        <lane id=":gneJ11_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="66.80,34.80 73.20,34.80" outlineShape="66.70,32.80 73.30,32.80 73.31,34.02 73.64,35.02 74.20,35.80 74.98,36.36 75.31,36.47 73.20,36.80 66.80,36.80 64.69,36.47 65.02,36.36 65.80,35.80 66.36,35.02 66.69,34.02 66.80,32.80"/>
     </edge>
     <edge id=":gneJ11_c2" function="crossing" crossingEdges="-gneE15 gneE15">
-        <lane id=":gneJ11_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,43.20 64.80,36.80"/>
+        <lane id=":gneJ11_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,43.20 64.80,36.80" outlineShape="62.80,43.20 62.80,36.80 64.02,36.69 65.02,36.36 65.80,35.80 66.36,35.02 66.47,34.69 66.80,36.80 66.80,43.20 62.80,43.20"/>
     </edge>
     <edge id=":gneJ11_w0" function="walkingarea">
         <lane id=":gneJ11_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.03" width="4.00" shape="66.80,43.20 62.80,43.20 62.80,45.20 77.20,45.20 77.20,43.20 73.20,43.20"/>
@@ -69,10 +73,10 @@
         <lane id=":gneJ12_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="84.80,38.40 86.38,38.17 87.50,37.50 88.18,36.38 88.40,34.80"/>
     </edge>
     <edge id=":gneJ12_c0" function="crossing" crossingEdges="gneE9 -gneE9">
-        <lane id=":gneJ12_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="86.80,36.80 93.20,36.80"/>
+        <lane id=":gneJ12_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="86.80,36.80 93.20,36.80" outlineShape="86.70,34.80 93.30,34.80 94.64,38.80 94.91,37.98 95.20,34.80 93.20,34.80 93.20,38.80 86.80,38.80 84.80,36.80 85.41,36.74 85.91,36.58 86.30,36.30 86.58,35.91 86.74,35.41 86.80,34.80"/>
     </edge>
     <edge id=":gneJ12_w0" function="walkingarea">
-        <lane id=":gneJ12_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="84.80,43.20 84.80,45.20 88.12,44.94 90.76,44.14 92.76,42.76 94.14,40.76 94.94,38.12 95.20,34.80 93.20,34.80 92.97,37.37 92.27,39.47 91.10,41.10 89.47,42.27 87.37,42.97"/>
+        <lane id=":gneJ12_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="84.80,43.20 84.80,45.20 87.98,44.91 90.58,44.04 92.60,42.60 94.04,40.58 94.91,37.98 95.20,34.80 93.20,34.80 92.97,37.37 92.27,39.47 91.10,41.10 89.47,42.27 87.37,42.97"/>
     </edge>
     <edge id=":gneJ12_w1" function="walkingarea">
         <lane id=":gneJ12_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="86.80,34.80 84.80,34.80 84.80,36.80 85.41,36.74 85.91,36.58 86.30,36.30 86.58,35.91 86.74,35.41"/>
@@ -102,13 +106,13 @@
         <lane id=":gneJ13_5_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="14.19" shape="82.80,18.40 86.65,18.95 89.40,20.60 91.05,23.35 91.60,27.20"/>
     </edge>
     <edge id=":gneJ13_c0" function="crossing" crossingEdges="-gneE9 gneE9">
-        <lane id=":gneJ13_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="93.20,25.20 86.80,25.20"/>
+        <lane id=":gneJ13_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="93.20,25.20 86.80,25.20" outlineShape="93.30,27.20 86.70,27.20 86.69,25.98 86.36,24.98 85.80,24.20 85.02,23.64 84.69,23.53 86.80,23.20 93.20,23.20 93.20,27.20"/>
     </edge>
     <edge id=":gneJ13_c1" function="crossing" crossingEdges="gneE10 -gneE10">
-        <lane id=":gneJ13_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="86.80,14.80 93.20,14.80"/>
+        <lane id=":gneJ13_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="86.80,14.80 93.20,14.80" outlineShape="86.70,12.80 93.30,12.80 93.20,16.80 86.80,16.80 84.69,16.47 85.02,16.36 85.80,15.80 86.36,15.02 86.69,14.02 86.80,12.80"/>
     </edge>
     <edge id=":gneJ13_c2" function="crossing" crossingEdges="-gneE17 gneE17">
-        <lane id=":gneJ13_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="84.80,23.20 84.80,16.80"/>
+        <lane id=":gneJ13_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="84.80,23.20 84.80,16.80" outlineShape="82.80,23.20 82.80,16.80 84.02,16.69 85.02,16.36 85.80,15.80 86.36,15.02 86.47,14.69 86.80,16.80 86.80,23.20 86.47,25.31 86.36,24.98 85.80,24.20 85.02,23.64 84.02,23.31 82.80,23.20"/>
     </edge>
     <edge id=":gneJ13_w0" function="walkingarea">
         <lane id=":gneJ13_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="82.80,23.20 82.80,25.20 84.80,27.20 86.80,27.20 86.69,25.98 86.36,24.98 85.80,24.20 85.02,23.64 84.02,23.31"/>
@@ -126,13 +130,13 @@
         <lane id=":gneJ14_1_0" index="0" disallow="pedestrian rail_fast" speed="7.10" length="10.97" shape="84.80,-1.60 87.78,-1.18 89.90,0.10 91.18,2.22 91.60,5.20"/>
     </edge>
     <edge id=":gneJ14_c0" function="crossing" crossingEdges="-gneE10 gneE10">
-        <lane id=":gneJ14_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="93.20,3.20 86.80,3.20"/>
+        <lane id=":gneJ14_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="93.20,3.20 86.80,3.20" outlineShape="93.30,5.20 86.70,5.20 84.80,3.20 84.80,5.20 86.80,5.20 86.80,1.20 93.20,1.20 94.64,1.20 94.04,-0.58 92.60,-2.60 90.58,-4.04 87.98,-4.91 84.80,-5.20 84.80,-3.20 87.37,-2.97 89.47,-2.27 91.10,-1.10 92.27,0.53 92.97,2.63 93.20,5.20"/>
     </edge>
     <edge id=":gneJ14_w0" function="walkingarea">
         <lane id=":gneJ14_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="84.80,3.20 84.80,5.20 86.80,5.20 86.74,4.59 86.58,4.09 86.30,3.70 85.91,3.42 85.41,3.26"/>
     </edge>
     <edge id=":gneJ14_w1" function="walkingarea">
-        <lane id=":gneJ14_w1_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="93.20,5.20 95.20,5.20 94.94,1.88 94.14,-0.76 92.76,-2.76 90.76,-4.14 88.12,-4.94 84.80,-5.20 84.80,-3.20 87.37,-2.97 89.47,-2.27 91.10,-1.10 92.27,0.53 92.97,2.63"/>
+        <lane id=":gneJ14_w1_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="93.20,5.20 95.20,5.20 94.91,2.02 94.04,-0.58 92.60,-2.60 90.58,-4.04 87.98,-4.91 84.80,-5.20 84.80,-3.20 87.37,-2.97 89.47,-2.27 91.10,-1.10 92.27,0.53 92.97,2.63"/>
     </edge>
     <edge id=":gneJ15_0" function="internal">
         <lane id=":gneJ15_0_0" index="0" disallow="pedestrian rail_fast" speed="6.51" length="9.03" shape="68.40,7.20 68.05,4.75 67.00,3.00 65.25,1.95 62.80,1.60"/>
@@ -159,13 +163,13 @@
         <lane id=":gneJ15_7_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="10.13" shape="66.80,-0.96 69.40,0.60 71.05,3.35 71.60,7.20"/>
     </edge>
     <edge id=":gneJ15_c0" function="crossing" crossingEdges="-gneE18 gneE18">
-        <lane id=":gneJ15_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="73.20,5.20 66.80,5.20"/>
+        <lane id=":gneJ15_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="73.20,5.20 66.80,5.20" outlineShape="73.30,7.20 66.70,7.20 66.69,5.98 66.36,4.98 65.80,4.20 65.02,3.64 64.69,3.53 66.80,3.20 73.20,3.20 75.31,3.53 74.98,3.64 74.20,4.20 73.64,4.98 73.31,5.98 73.20,7.20"/>
     </edge>
     <edge id=":gneJ15_c1" function="crossing" crossingEdges="-gneE11 gneE11">
-        <lane id=":gneJ15_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,-3.20 75.20,3.20"/>
+        <lane id=":gneJ15_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,-3.20 75.20,3.20" outlineShape="77.20,-3.20 77.20,3.20 75.98,3.31 74.98,3.64 74.20,4.20 73.64,4.98 73.53,5.31 73.20,3.20 73.20,-3.20 77.20,-3.20"/>
     </edge>
     <edge id=":gneJ15_c2" function="crossing" crossingEdges="gneE12 -gneE12">
-        <lane id=":gneJ15_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,3.20 64.80,-3.20"/>
+        <lane id=":gneJ15_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,3.20 64.80,-3.20" outlineShape="62.80,3.20 62.80,-3.20 66.80,-5.20 62.80,-5.20 62.80,-3.20 66.80,-3.20 66.80,3.20 66.47,5.31 66.36,4.98 65.80,4.20 65.02,3.64 64.02,3.31 62.80,3.20"/>
     </edge>
     <edge id=":gneJ15_w0" function="walkingarea">
         <lane id=":gneJ15_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="62.80,3.20 62.80,5.20 64.80,7.20 66.80,7.20 66.69,5.98 66.36,4.98 65.80,4.20 65.02,3.64 64.02,3.31"/>
@@ -183,10 +187,10 @@
         <lane id=":gneJ16_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="55.20,1.60 53.62,1.82 52.50,2.50 51.82,3.62 51.60,5.20"/>
     </edge>
     <edge id=":gneJ16_c0" function="crossing" crossingEdges="gneE13 -gneE13">
-        <lane id=":gneJ16_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,3.20 46.80,3.20"/>
+        <lane id=":gneJ16_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,3.20 46.80,3.20" outlineShape="53.20,5.20 46.80,5.20 45.36,1.20 45.09,2.02 44.80,5.20 46.80,5.20 46.80,1.20 53.20,1.20 55.20,3.20 54.59,3.26 54.09,3.42 53.70,3.70 53.42,4.09 53.26,4.59 53.20,5.20"/>
     </edge>
     <edge id=":gneJ16_w0" function="walkingarea">
-        <lane id=":gneJ16_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="55.20,-3.20 55.20,-5.20 51.88,-4.94 49.24,-4.14 47.24,-2.76 45.86,-0.76 45.06,1.88 44.80,5.20 46.80,5.20 47.03,2.63 47.73,0.53 48.90,-1.10 50.53,-2.27 52.63,-2.97"/>
+        <lane id=":gneJ16_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="55.20,-3.20 55.20,-5.20 52.02,-4.91 49.42,-4.04 47.40,-2.60 45.96,-0.58 45.09,2.02 44.80,5.20 46.80,5.20 47.03,2.63 47.73,0.53 48.90,-1.10 50.53,-2.27 52.63,-2.97"/>
     </edge>
     <edge id=":gneJ16_w1" function="walkingarea">
         <lane id=":gneJ16_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="53.20,5.20 55.20,5.20 55.20,3.20 54.59,3.26 54.09,3.42 53.70,3.70 53.42,4.09 53.26,4.59"/>
@@ -216,13 +220,13 @@
         <lane id=":gneJ17_7_0" index="0" disallow="pedestrian rail_fast" speed="6.51" length="4.28" shape="53.20,17.12 54.75,18.05 57.20,18.40"/>
     </edge>
     <edge id=":gneJ17_c0" function="crossing" crossingEdges="gneE14 -gneE14">
-        <lane id=":gneJ17_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,25.20 46.80,25.20"/>
+        <lane id=":gneJ17_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,25.20 46.80,25.20" outlineShape="53.20,27.20 46.80,27.20 44.80,23.20 44.80,27.20 46.80,27.20 46.80,23.20 53.20,23.20 55.31,23.53 54.98,23.64 54.20,24.20 53.64,24.98 53.31,25.98 53.20,27.20"/>
     </edge>
     <edge id=":gneJ17_c1" function="crossing" crossingEdges="-gneE19 gneE19">
-        <lane id=":gneJ17_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="55.20,16.80 55.20,23.20"/>
+        <lane id=":gneJ17_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="55.20,16.80 55.20,23.20" outlineShape="57.20,16.80 57.20,23.20 55.98,23.31 54.98,23.64 54.20,24.20 53.64,24.98 53.53,25.31 53.20,23.20 53.20,16.80 53.53,14.69 53.64,15.02 54.20,15.80 54.98,16.36 55.98,16.69 57.20,16.80"/>
     </edge>
     <edge id=":gneJ17_c2" function="crossing" crossingEdges="-gneE13 gneE13">
-        <lane id=":gneJ17_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="46.80,14.80 53.20,14.80"/>
+        <lane id=":gneJ17_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="46.80,14.80 53.20,14.80" outlineShape="46.80,12.80 53.20,12.80 53.31,14.02 53.64,15.02 54.20,15.80 54.98,16.36 55.31,16.47 53.20,16.80 46.80,16.80 46.80,12.80"/>
     </edge>
     <edge id=":gneJ17_w0" function="walkingarea">
         <lane id=":gneJ17_w0_0" index="0" allow="pedestrian" speed="2.78" length="9.03" width="4.00" shape="46.80,16.80 46.80,12.80 44.80,12.80 44.80,27.20 46.80,27.20 46.80,23.20"/>
@@ -240,10 +244,10 @@
         <lane id=":gneJ18_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="51.60,34.80 51.83,36.38 52.50,37.50 53.62,38.18 55.20,38.40"/>
     </edge>
     <edge id=":gneJ18_c0" function="crossing" crossingEdges="gneE15 -gneE15">
-        <lane id=":gneJ18_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,36.80 53.20,43.20"/>
+        <lane id=":gneJ18_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.20,36.80 53.20,43.20" outlineShape="55.20,36.80 55.20,43.20 51.20,44.64 52.02,44.91 55.20,45.20 55.20,43.20 51.20,43.20 51.20,36.80 53.20,34.80 53.26,35.41 53.42,35.91 53.70,36.30 54.09,36.58 54.59,36.74 55.20,36.80"/>
     </edge>
     <edge id=":gneJ18_w0" function="walkingarea">
-        <lane id=":gneJ18_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="46.80,34.80 44.80,34.80 45.06,38.12 45.86,40.76 47.24,42.76 49.24,44.14 51.88,44.94 55.20,45.20 55.20,43.20 52.63,42.97 50.53,42.27 48.90,41.10 47.73,39.47 47.03,37.37"/>
+        <lane id=":gneJ18_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="46.80,34.80 44.80,34.80 45.09,37.98 45.96,40.58 47.40,42.60 49.42,44.04 52.02,44.91 55.20,45.20 55.20,43.20 52.63,42.97 50.53,42.27 48.90,41.10 47.73,39.47 47.03,37.37"/>
     </edge>
     <edge id=":gneJ18_w1" function="walkingarea">
         <lane id=":gneJ18_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="55.20,36.80 55.20,34.80 53.20,34.80 53.26,35.41 53.42,35.91 53.70,36.30 54.09,36.58 54.59,36.74"/>
@@ -297,16 +301,16 @@
         <lane id=":gneJ19_11_0" index="0" disallow="pedestrian rail_fast" speed="8.00" length="14.19" shape="62.80,18.40 66.65,18.95 69.40,20.60 71.05,23.35 71.60,27.20"/>
     </edge>
     <edge id=":gneJ19_c0" function="crossing" crossingEdges="gneE16 -gneE16">
-        <lane id=":gneJ19_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="73.20,25.20 66.80,25.20"/>
+        <lane id=":gneJ19_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="73.20,25.20 66.80,25.20" outlineShape="73.30,27.20 66.70,27.20 66.69,25.98 66.36,24.98 65.80,24.20 65.02,23.64 64.69,23.53 66.80,23.20 73.20,23.20 75.31,23.53 74.98,23.64 74.20,24.20 73.64,24.98 73.31,25.98 73.20,27.20"/>
     </edge>
     <edge id=":gneJ19_c1" function="crossing" crossingEdges="gneE17 -gneE17">
-        <lane id=":gneJ19_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,16.80 75.20,23.20"/>
+        <lane id=":gneJ19_c1_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="75.20,16.80 75.20,23.20" outlineShape="77.20,16.80 77.20,23.20 75.98,23.31 74.98,23.64 74.20,24.20 73.64,24.98 73.53,25.31 73.20,23.20 73.20,16.80 73.53,14.69 73.64,15.02 74.20,15.80 74.98,16.36 75.98,16.69 77.20,16.80"/>
     </edge>
     <edge id=":gneJ19_c2" function="crossing" crossingEdges="gneE18 -gneE18">
-        <lane id=":gneJ19_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="66.80,14.80 73.20,14.80"/>
+        <lane id=":gneJ19_c2_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="66.80,14.80 73.20,14.80" outlineShape="66.70,12.80 73.30,12.80 73.31,14.02 73.64,15.02 74.20,15.80 74.98,16.36 75.31,16.47 73.20,16.80 66.80,16.80 64.69,16.47 65.02,16.36 65.80,15.80 66.36,15.02 66.69,14.02 66.80,12.80"/>
     </edge>
     <edge id=":gneJ19_c3" function="crossing" crossingEdges="gneE19 -gneE19">
-        <lane id=":gneJ19_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,23.20 64.80,16.80"/>
+        <lane id=":gneJ19_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="64.80,23.20 64.80,16.80" outlineShape="62.80,23.20 62.80,16.80 64.02,16.69 65.02,16.36 65.80,15.80 66.36,15.02 66.47,14.69 66.80,16.80 66.80,23.20 66.47,25.31 66.36,24.98 65.80,24.20 65.02,23.64 64.02,23.31 62.80,23.20"/>
     </edge>
     <edge id=":gneJ19_w0" function="walkingarea">
         <lane id=":gneJ19_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.00" shape="62.80,23.20 62.80,25.20 64.80,27.20 66.80,27.20 66.69,25.98 66.36,24.98 65.80,24.20 65.02,23.64 64.02,23.31"/>
@@ -351,10 +355,10 @@
         <lane id=":gneJ6_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="1.60,34.80 1.82,36.38 2.50,37.50 3.62,38.17 5.20,38.40"/>
     </edge>
     <edge id=":gneJ6_c0" function="crossing" crossingEdges="gneE4 -gneE4">
-        <lane id=":gneJ6_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,36.80 3.20,43.20"/>
+        <lane id=":gneJ6_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,36.80 3.20,43.20" outlineShape="5.20,36.80 5.20,43.20 1.20,44.64 2.02,44.91 5.20,45.20 5.20,43.20 1.20,43.20 1.20,36.80 3.20,34.80 3.26,35.41 3.42,35.91 3.70,36.30 4.09,36.58 4.59,36.74 5.20,36.80"/>
     </edge>
     <edge id=":gneJ6_w0" function="walkingarea">
-        <lane id=":gneJ6_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="-3.20,34.80 -5.20,34.80 -4.94,38.12 -4.14,40.76 -2.76,42.76 -0.76,44.14 1.88,44.94 5.20,45.20 5.20,43.20 2.63,42.97 0.53,42.27 -1.10,41.10 -2.27,39.47 -2.97,37.37"/>
+        <lane id=":gneJ6_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="-3.20,34.80 -5.20,34.80 -4.91,37.98 -4.04,40.58 -2.60,42.60 -0.58,44.04 2.02,44.91 5.20,45.20 5.20,43.20 2.63,42.97 0.53,42.27 -1.10,41.10 -2.27,39.47 -2.97,37.37"/>
     </edge>
     <edge id=":gneJ6_w1" function="walkingarea">
         <lane id=":gneJ6_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="5.20,36.80 5.20,34.80 3.20,34.80 3.26,35.41 3.42,35.91 3.70,36.30 4.09,36.58 4.59,36.74"/>
@@ -366,10 +370,10 @@
         <lane id=":gneJ7_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="14.80,38.40 16.38,38.17 17.50,37.50 18.17,36.38 18.40,34.80"/>
     </edge>
     <edge id=":gneJ7_c0" function="crossing" crossingEdges="gneE5 -gneE5">
-        <lane id=":gneJ7_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="16.80,36.80 23.20,36.80"/>
+        <lane id=":gneJ7_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="16.80,36.80 23.20,36.80" outlineShape="16.80,34.80 23.20,34.80 24.64,38.80 24.91,37.98 25.20,34.80 23.20,34.80 23.20,38.80 16.80,38.80 14.80,36.80 15.41,36.74 15.91,36.58 16.30,36.30 16.58,35.91 16.74,35.41 16.80,34.80"/>
     </edge>
     <edge id=":gneJ7_w0" function="walkingarea">
-        <lane id=":gneJ7_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="14.80,43.20 14.80,45.20 18.12,44.94 20.76,44.14 22.76,42.76 24.14,40.76 24.94,38.12 25.20,34.80 23.20,34.80 22.97,37.37 22.27,39.47 21.10,41.10 19.47,42.27 17.37,42.97"/>
+        <lane id=":gneJ7_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="14.80,43.20 14.80,45.20 17.98,44.91 20.58,44.04 22.60,42.60 24.04,40.58 24.91,37.98 25.20,34.80 23.20,34.80 22.97,37.37 22.27,39.47 21.10,41.10 19.47,42.27 17.37,42.97"/>
     </edge>
     <edge id=":gneJ7_w1" function="walkingarea">
         <lane id=":gneJ7_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="16.80,34.80 14.80,34.80 14.80,36.80 15.41,36.74 15.91,36.58 16.30,36.30 16.58,35.91 16.74,35.41"/>
@@ -381,13 +385,13 @@
         <lane id=":gneJ8_1_0" index="0" disallow="pedestrian rail_fast" speed="7.10" length="10.97" shape="14.80,18.40 17.78,18.82 19.90,20.10 21.18,22.22 21.60,25.20"/>
     </edge>
     <edge id=":gneJ8_c0" function="crossing" crossingEdges="-gneE5 gneE5">
-        <lane id=":gneJ8_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="23.20,23.20 16.80,23.20"/>
+        <lane id=":gneJ8_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="23.20,23.20 16.80,23.20" outlineShape="23.20,25.20 16.80,25.20 14.80,23.20 14.80,25.20 16.80,25.20 16.80,21.20 23.20,21.20 24.64,21.20 24.04,19.42 22.60,17.40 20.58,15.96 17.98,15.09 14.80,14.80 14.80,16.80 17.37,17.03 19.47,17.73 21.10,18.90 22.27,20.53 22.97,22.63 23.20,25.20"/>
     </edge>
     <edge id=":gneJ8_w0" function="walkingarea">
         <lane id=":gneJ8_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="14.80,23.20 14.80,25.20 16.80,25.20 16.74,24.59 16.58,24.09 16.30,23.70 15.91,23.42 15.41,23.26"/>
     </edge>
     <edge id=":gneJ8_w1" function="walkingarea">
-        <lane id=":gneJ8_w1_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="23.20,25.20 25.20,25.20 24.94,21.88 24.14,19.24 22.76,17.24 20.76,15.86 18.12,15.06 14.80,14.80 14.80,16.80 17.37,17.03 19.47,17.73 21.10,18.90 22.27,20.53 22.97,22.63"/>
+        <lane id=":gneJ8_w1_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="23.20,25.20 25.20,25.20 24.91,22.02 24.04,19.42 22.60,17.40 20.58,15.96 17.98,15.09 14.80,14.80 14.80,16.80 17.37,17.03 19.47,17.73 21.10,18.90 22.27,20.53 22.97,22.63"/>
     </edge>
     <edge id=":gneJ9_0" function="internal">
         <lane id=":gneJ9_0_0" index="0" disallow="pedestrian rail_fast" speed="7.10" length="10.97" shape="-1.60,25.20 -1.18,22.22 0.10,20.10 2.22,18.82 5.20,18.40"/>
@@ -396,10 +400,10 @@
         <lane id=":gneJ9_1_0" index="0" disallow="pedestrian rail_fast" speed="5.37" length="5.81" shape="5.20,21.60 3.62,21.82 2.50,22.50 1.82,23.62 1.60,25.20"/>
     </edge>
     <edge id=":gneJ9_c0" function="crossing" crossingEdges="gneE7 -gneE7">
-        <lane id=":gneJ9_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,23.20 -3.20,23.20"/>
+        <lane id=":gneJ9_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="3.20,23.20 -3.20,23.20" outlineShape="3.20,25.20 -3.20,25.20 -4.64,21.20 -4.91,22.02 -5.20,25.20 -3.20,25.20 -3.20,21.20 3.20,21.20 5.20,23.20 4.59,23.26 4.09,23.42 3.70,23.70 3.42,24.09 3.26,24.59 3.20,25.20"/>
     </edge>
     <edge id=":gneJ9_w0" function="walkingarea">
-        <lane id=":gneJ9_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="5.20,16.80 5.20,14.80 1.88,15.06 -0.76,15.86 -2.76,17.24 -4.14,19.24 -4.94,21.88 -5.20,25.20 -3.20,25.20 -2.97,22.63 -2.27,20.53 -1.10,18.90 0.53,17.73 2.63,17.03"/>
+        <lane id=":gneJ9_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.91" width="4.00" shape="5.20,16.80 5.20,14.80 2.02,15.09 -0.58,15.96 -2.60,17.40 -4.04,19.42 -4.91,22.02 -5.20,25.20 -3.20,25.20 -2.97,22.63 -2.27,20.53 -1.10,18.90 0.53,17.73 2.63,17.03"/>
     </edge>
     <edge id=":gneJ9_w1" function="walkingarea">
         <lane id=":gneJ9_w1_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="3.20,25.20 5.20,25.20 5.20,23.20 4.59,23.26 4.09,23.42 3.70,23.70 3.42,24.09 3.26,24.59"/>

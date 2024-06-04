@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:21:51 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
+<!-- generated on 2024-06-04 09:44:41 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\load\custom_shape/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\load\custom_shape/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\load\custom_shape/net.con.xml"/>
+        <node-files value=".\netedit\netelements\crossings\with_tls\load\custom_shape\net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\crossings\with_tls\load\custom_shape\net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\crossings\with_tls\load\custom_shape\net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\crossings\with_tls\load\custom_shape/net.net.xml"/>
+        <output-file value=".\netedit\netelements\crossings\with_tls\load\custom_shape\net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -82,16 +86,16 @@
         <lane id=":C_22_0" index="0" disallow="pedestrian" speed="9.26" length="14.34" shape="94.56,99.11 94.85,99.15 98.60,101.40 100.85,105.15 101.60,110.40"/>
     </edge>
     <edge id=":C_c0" function="crossing" crossingEdges="CN NC">
-        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="13.19" width="4.50" customShape="1" shape="106.40,108.15 102.15,106.65 98.81,107.13 93.60,108.15"/>
+        <lane id=":C_c0_0" index="0" allow="pedestrian" speed="2.78" length="13.19" width="4.50" customShape="1" shape="106.40,108.15 102.15,106.65 98.81,107.13 93.60,108.15" outlineShape="105.65,110.27 101.92,108.96 99.19,109.35 94.03,110.36 90.67,106.43 98.43,104.91 102.38,104.34 108.84,106.62 108.18,106.84 107.40,107.40 106.84,108.18 106.51,109.18 105.65,110.27"/>
     </edge>
     <edge id=":C_c1" function="crossing" crossingEdges="CE EC">
-        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="12.96" width="4.50" customShape="1" shape="108.15,93.60 107.76,97.76 107.22,102.48 108.15,106.40"/>
+        <lane id=":C_c1_0" index="0" allow="pedestrian" speed="2.78" length="12.96" width="4.50" customShape="1" shape="108.15,93.60 107.76,97.76 107.22,102.48 108.15,106.40" outlineShape="110.39,93.81 110.00,97.99 109.50,102.34 110.34,105.88 105.96,106.92 104.94,102.62 105.52,97.53 105.91,93.39"/>
     </edge>
     <edge id=":C_c2" function="crossing" crossingEdges="CS SC">
-        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="13.68" width="4.50" customShape="1" shape="93.60,91.85 98.03,89.89 102.98,90.01 106.40,91.85"/>
+        <lane id=":C_c2_0" index="0" allow="pedestrian" speed="2.78" length="13.68" width="4.50" customShape="1" shape="93.60,91.85 98.03,89.89 102.98,90.01 106.40,91.85" outlineShape="93.12,89.60 97.58,87.63 103.57,87.77 106.97,89.60 105.33,93.83 102.39,92.25 98.48,92.15 94.51,93.91"/>
     </edge>
     <edge id=":C_c3" function="crossing" crossingEdges="CW WC">
-        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="13.04" width="4.50" customShape="1" shape="91.85,106.40 92.78,102.36 93.02,98.78 91.85,93.60"/>
+        <lane id=":C_c3_0" index="0" allow="pedestrian" speed="2.78" length="13.04" width="4.50" customShape="1" shape="91.85,106.40 92.78,102.36 93.02,98.78 91.85,93.60" outlineShape="89.66,105.90 90.55,102.03 90.75,98.96 89.66,94.10 93.25,89.60 91.60,89.60 89.60,91.60 89.60,93.60 89.66,94.10 93.27,89.67 95.29,98.60 95.01,102.69 93.51,109.22"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.30" width="4.50" shape="89.66,105.90 89.60,106.40 89.60,108.40 91.60,110.40 93.60,110.40 94.03,110.36 93.49,109.18 93.16,108.18 92.60,107.40 91.82,106.84 90.82,106.51"/>

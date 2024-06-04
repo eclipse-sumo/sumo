@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:22:00 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
+<!-- generated on 2024-06-04 09:45:03 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\netelements\trafficlights/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\netelements\trafficlights/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\netelements\trafficlights/net.con.xml"/>
-        <tllogic-files value="D:/SUMO/tests/netedit\netelements\trafficlights/net.tll.xml"/>
+        <node-files value=".\netedit\netelements\trafficlights\net.nod.xml"/>
+        <edge-files value=".\netedit\netelements\trafficlights\net.edg.xml"/>
+        <connection-files value=".\netedit\netelements\trafficlights\net.con.xml"/>
+        <tllogic-files value=".\netedit\netelements\trafficlights\net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\trafficlights/net.net.xml"/>
+        <output-file value=".\netedit\netelements\trafficlights\net.net.xml"/>
     </output>
+
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="30.00,-20.00" convBoundary="0.00,0.00,60.00,60.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":J0_0" function="internal">
-        <lane id=":J0_0_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="25.20,41.10 24.81,38.34 23.62,36.38 21.66,35.19 18.90,34.80"/>
+        <lane id=":J0_0_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="25.20,41.10 24.81,38.34 23.62,36.37 21.66,35.19 18.90,34.80"/>
         <lane id=":J0_0_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="28.40,41.10 27.81,36.94 26.02,33.98 23.06,32.19 18.90,31.60"/>
     </edge>
     <edge id=":J0_2" function="internal">
@@ -35,7 +39,7 @@
         <lane id=":J0_16_0" index="0" disallow="pedestrian" speed="9.51" length="15.47" shape="29.11,36.14 29.19,35.54 31.57,31.58 35.54,29.19 41.10,28.40"/>
     </edge>
     <edge id=":J0_4" function="internal">
-        <lane id=":J0_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="41.10,34.80 38.34,35.19 36.38,36.38 35.19,38.34 34.80,41.10"/>
+        <lane id=":J0_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="41.10,34.80 38.34,35.19 36.37,36.38 35.19,38.34 34.80,41.10"/>
         <lane id=":J0_4_1" index="1" disallow="pedestrian" speed="8.29" length="15.32" shape="41.10,31.60 36.94,32.19 33.98,33.98 32.19,36.94 31.60,41.10"/>
     </edge>
     <edge id=":J0_6" function="internal">
