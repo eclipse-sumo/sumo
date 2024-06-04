@@ -27,6 +27,7 @@
 #include <map>
 #include <string>
 #include <set>
+#include <utils/foxtools/MFXSynchSet.h>
 #include <microsim/MSRouterDefs.h>
 #include "MSVehicleContainer.h"
 
@@ -230,7 +231,12 @@ private:
     std::set<SUMOVehicle*> myEmitCandidates;
 
     /// @brief Set of vehicles which shall not be inserted anymore
+
+#ifdef HAVE_FOX
+    MFXSynchSet<const SUMOVehicle*> myAbortedEmits;
+#else
     std::set<const SUMOVehicle*> myAbortedEmits;
+#endif
 
     /** @struct Flow
      * @brief Definition of vehicle flow with the current index for vehicle numbering

@@ -93,6 +93,35 @@ public:
 #endif
     }
 
+    void erase(T what) {
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.lock();
+        }
+#endif
+        myItems.erase(what);
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.unlock();
+        }
+#endif
+    }
+
+    int count(T what) {
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.lock();
+        }
+#endif
+        int result = myItems.count(what);
+#ifdef HAVE_FOX
+        if (myCondition) {
+            myMutex.unlock();
+        }
+#endif
+        return result;
+    }
+
     bool empty() {
 #ifdef HAVE_FOX
         if (myCondition) {
