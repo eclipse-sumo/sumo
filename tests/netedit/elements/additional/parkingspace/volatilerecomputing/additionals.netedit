@@ -23,16 +23,16 @@
     <parkingArea id="pa_3" lane="center1_1" startPos="26.00" endPos="36.00">
         <space x="24.00" y="-14.00"/>
     </parkingArea>
-    <parkingArea id="pa_4" lane="top_0" startPos="12.00" endPos="22.00">
+    <parkingArea id="pa_4" lane="Edge3_1" startPos="12.00" endPos="22.00">
         <space x="12.00" y="22.00"/>
     </parkingArea>
-    <parkingArea id="pa_5" lane="top_0" startPos="28.00" endPos="38.00">
+    <parkingArea id="pa_5" lane="Edge3_1" startPos="28.00" endPos="38.00">
         <space x="-20.00" y="22.00"/>
     </parkingArea>
-    <parkingArea id="pa_6" lane="bot_0" startPos="12.00" endPos="22.00">
+    <parkingArea id="pa_6" lane="Edge5_1" startPos="12.00" endPos="22.00">
         <space x="-12.00" y="-26.00"/>
     </parkingArea>
-    <parkingArea id="pa_7" lane="bot_0" startPos="28.00" endPos="38.00">
+    <parkingArea id="pa_7" lane="Edge5_1" startPos="28.00" endPos="38.00">
         <space x="20.00" y="-26.00"/>
     </parkingArea>
     <parkingArea id="pa_8" lane="center0_1" startPos="26.00" endPos="36.00">

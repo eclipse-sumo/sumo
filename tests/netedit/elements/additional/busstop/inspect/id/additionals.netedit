@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-10 09:25:01 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+<!-- generated on 2024-06-04 16:21:41 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="bs_1" lane="center1_1" startPos="20.00" endPos="30.00"/>
-    <busStop id="correctID" lane="center1_1" startPos="14.00" endPos="24.00"/>
+    <busStop id="bs_1" lane="EdgeCenter1_1" startPos="7.09" endPos="17.09"/>
+    <busStop id="correctID" lane="EdgeCenter1_1" startPos="27.82" endPos="37.82"/>
 </additional>

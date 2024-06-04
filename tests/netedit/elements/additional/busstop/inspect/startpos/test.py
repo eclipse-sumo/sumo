@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
 
 # Change parameter startPos with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.startPos, "", True)

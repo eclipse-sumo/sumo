@@ -4,8 +4,8 @@
         <detEntry lane="center0_1" pos="21.14"/>
         <detEntry lane="center1_0" pos="23.63"/>
         <detEntry lane="EdgeCenter1_1" pos="26.64"/>
-        <detEntry lane="bot_0" pos="28.96"/>
-        <detEntry lane="top_0" pos="18.55"/>
+        <detEntry lane="Edge5_1" pos="28.96"/>
+        <detEntry lane="Edge3_1" pos="18.55"/>
         <detEntry lane="E5_1" pos="33.51"/>
         <detEntry lane="E4_1" pos="14.69"/>
         <detExit lane="E1_1" pos="10.69"/>

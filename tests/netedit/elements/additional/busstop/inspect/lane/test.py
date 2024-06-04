@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.lane, "dummy lane", True)

@@ -3,15 +3,15 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 dummyLenght
-TestFunctions: Clicked over position 734 - 424
+TestFunctions: Clicked over position 628 - 383
 -20
-TestFunctions: Clicked over position 801 - 425
+TestFunctions: Clicked over position 665 - 383
 5
-TestFunctions: Clicked over position 848 - 425
+TestFunctions: Clicked over position 665 - 383
 Reference Right
-TestFunctions: Clicked over position 710 - 425
+TestFunctions: Clicked over position 705 - 383
 Center
-TestFunctions: Clicked over position 800 - 425
+TestFunctions: Clicked over position 743 - 383
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

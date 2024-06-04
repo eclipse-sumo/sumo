@@ -49,8 +49,9 @@ class additionalElements:
         x = 554
         y = 215
         
-    
-
+    class inspectBusStop:
+        x = 325
+        y = 205
 
 class demandElements:
 

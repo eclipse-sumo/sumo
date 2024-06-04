@@ -13,6 +13,6 @@
     <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
 	
 	<!-- Duplicated ID (train) -->
-    <trainStop id="busStop_00" lane="top_0" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <trainStop id="busStop_00" lane="Edge3_1" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="false"/>
 
 </additional>

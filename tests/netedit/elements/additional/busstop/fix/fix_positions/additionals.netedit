@@ -7,6 +7,6 @@
     <!-- StoppingPlaces -->
     <busStop id="busStopA" lane="center0_0" startPos="11.90" endPos="12.00"/>
     <busStop id="busStopB" lane="center1_0" startPos="38.00" endPos="47.00"/>
-    <busStop id="busStopC" lane="top_0" startPos="4.00" endPos="42.00"/>
-    <busStop id="busStopD" lane="bot_0" startPos="29.90" endPos="30.00"/>
+    <busStop id="busStopC" lane="Edge3_1" startPos="4.00" endPos="42.00"/>
+    <busStop id="busStopD" lane="Edge5_1" startPos="29.90" endPos="30.00"/>
 </additional>

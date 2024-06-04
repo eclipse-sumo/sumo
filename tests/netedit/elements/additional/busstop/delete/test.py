@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created busStop
-netedit.leftClick(referencePosition, 440, 280)
+netedit.leftClick(referencePosition, 264, 205)
 
 # delete first loaded busStop
-netedit.leftClick(referencePosition, 360, 26)
+netedit.leftClick(referencePosition, 596, 72)
 
 # delete lane with the second loaded busStop
-netedit.leftClick(referencePosition, 520, 416)
+netedit.leftClick(referencePosition, 456, 415)
 
 # Check undo
 netedit.undo(referencePosition, 3)

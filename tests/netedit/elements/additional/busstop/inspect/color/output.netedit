@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 Center
-TestFunctions: Clicked over position 734 - 424
-TestFunctions: Clicked over position 734 - 448
+TestFunctions: Clicked over position 628 - 383
+TestFunctions: Clicked over position 629 - 373
 dummyColor
 255,255,500
 blue

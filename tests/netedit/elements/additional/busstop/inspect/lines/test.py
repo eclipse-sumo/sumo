@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
 
 # Change parameter 5 with a non valid value (throw warning)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.lines, "line1, line2", True)

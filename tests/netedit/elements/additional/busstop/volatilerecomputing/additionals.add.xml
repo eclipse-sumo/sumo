@@ -7,14 +7,14 @@
     <!-- StoppingPlaces -->
     <busStop id="bs_0" lane="center0_0" startPos="35.00" endPos="45.00"/>
     <busStop id="bs_1" lane="center0_0" startPos="5.00" endPos="15.00"/>
-    <busStop id="bs_10" lane="bot_0" startPos="10.00" endPos="20.00"/>
-    <busStop id="bs_11" lane="bot_0" startPos="30.00" endPos="40.00"/>
+    <busStop id="bs_10" lane="Edge5_1" startPos="10.00" endPos="20.00"/>
+    <busStop id="bs_11" lane="Edge5_1" startPos="30.00" endPos="40.00"/>
     <busStop id="bs_2" lane="center1_0" startPos="5.00" endPos="15.00"/>
     <busStop id="bs_3" lane="center1_0" startPos="35.00" endPos="45.00"/>
     <busStop id="bs_4" lane="EdgeCenter1_1" startPos="30.00" endPos="40.00"/>
     <busStop id="bs_5" lane="EdgeCenter1_1" startPos="10.00" endPos="20.00"/>
     <busStop id="bs_6" lane="center0_1" startPos="30.00" endPos="40.00"/>
     <busStop id="bs_7" lane="center0_1" startPos="10.00" endPos="20.00"/>
-    <busStop id="bs_8" lane="top_0" startPos="30.00" endPos="40.00"/>
-    <busStop id="bs_9" lane="top_0" startPos="10.00" endPos="20.00"/>
+    <busStop id="bs_8" lane="Edge3_1" startPos="30.00" endPos="40.00"/>
+    <busStop id="bs_9" lane="Edge3_1" startPos="10.00" endPos="20.00"/>
 </additional>

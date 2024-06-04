@@ -7,6 +7,6 @@
     <!-- StoppingPlaces -->
     <containerStop id="containerStopA" lane="center0_0" startPos="-2.00" endPos="12.00" friendlyPos="true"/>
     <containerStop id="containerStopB" lane="center1_0" startPos="38.00" endPos="480.00" friendlyPos="true"/>
-    <containerStop id="containerStopC" lane="top_0" startPos="-38.00" endPos="48.00" friendlyPos="true"/>
-    <containerStop id="containerStopD" lane="bot_0" startPos="-2.00" endPos="-12.00" friendlyPos="true"/>
+    <containerStop id="containerStopC" lane="Edge3_1" startPos="-38.00" endPos="48.00" friendlyPos="true"/>
+    <containerStop id="containerStopD" lane="Edge5_1" startPos="-2.00" endPos="-12.00" friendlyPos="true"/>
 </additional>

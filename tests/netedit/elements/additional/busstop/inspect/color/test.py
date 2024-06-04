@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.busStop.inspect.colorButton, 5, True)
