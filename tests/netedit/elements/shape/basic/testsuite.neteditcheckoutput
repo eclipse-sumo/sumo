@@ -1,5 +1,0 @@
-# select invalid shapes in polygon frame
-shape_invalid
-
-# load location file
-location_load
