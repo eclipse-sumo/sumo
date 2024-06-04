@@ -76,3 +76,6 @@ ticket12873
 
 # unsafe insertion
 ticket13262
+
+# crash with junction-taz
+ticket14973
