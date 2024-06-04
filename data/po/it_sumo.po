@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-06-04 13:20+0000\n"
+"PO-Revision-Date: 2024-06-04 13:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2589,10 +2589,12 @@ msgid ""
 "Vehicle '%' will not be able to depart using the given velocity (slow lane "
 "ahead)!"
 msgstr ""
+"Il veicolo '%' non sarà in grado di partire con la velocità scelta perché "
+"arriverà presto su una corsia lenta!"
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2104
 msgid "Vehicle '%'"
-msgstr ""
+msgstr "Veicolo '%'"
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2133
 #, c-format
@@ -2638,11 +2640,13 @@ msgid ""
 "Lane '%' is approached multiple times from edge '%'. This may cause "
 "collisions."
 msgstr ""
+"La corsia '%' può essere raggiunta da più collegamenti provenienti dallo "
+"stesso arco '%'. Questo può causare collisioni."
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:4370
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:527
 msgid "Invalid % '%'."
-msgstr ""
+msgstr "% '%' invalido."
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:4507
 msgid ""
@@ -2654,17 +2658,17 @@ msgstr ""
 #: D:\Repos\sumo/src\microsim\MSLeaderInfo.h:232
 #: D:\Repos\sumo/src\microsim\MSLeaderInfo.h:239
 msgid "Method not supported"
-msgstr ""
+msgstr "Metodo non supportato"
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:186
 #: D:\Repos\sumo/src\router\RONet.cpp:60
 msgid "A network was not yet constructed."
-msgstr ""
+msgstr "La rete ancora non è stata costruita."
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:220
 #: D:\Repos\sumo/src\router\RONet.cpp:83
 msgid "A network was already constructed."
-msgstr ""
+msgstr "Una rete è già stata costruita."
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:285
 msgid ""
