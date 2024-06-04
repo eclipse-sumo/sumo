@@ -90,4 +90,7 @@ private:
 
     /// @brief Module for select consecutive lanes
     GNEConsecutiveSelector* myConsecutiveLaneSelector;
+
+    /// @brief Warn about experimental state
+    bool myWarnedExperimental = false;
 };

@@ -65,6 +65,10 @@ GNEWireFrame::show() {
     myWireTagSelector->refreshTagSelector();
     // show frame
     GNEFrame::show();
+    if (!myWarnedExperimental) {
+        FXMessageBox::warning(getApp(), MBOX_OK, "Experimental Part", "%s", "Warning: The netedit overhead editor is still in experimental state.");
+        myWarnedExperimental = true;
+    }
 }
 
 
