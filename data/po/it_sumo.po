@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-06-03 15:19+0000\n"
+"PO-Revision-Date: 2024-06-04 13:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2513,7 +2513,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:997
 msgid "You need a non-negative delay."
-msgstr ""
+msgstr "C'è bisogno di un valore di ritardo non negativo."
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:1010
 msgid "Parallel simulation is only possible when compiled with Fox."
