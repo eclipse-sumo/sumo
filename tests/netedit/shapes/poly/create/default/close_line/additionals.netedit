@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-12-20 16:37:35 by Eclipse SUMO netedit Version v1_19_0+0526-effa408d743
+<!-- generated on 2024-06-04 15:21:54 by Eclipse SUMO netedit Version v1_20_0+0347-e1e273b3b3e
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Shapes -->
-    <poly id="po_0" color="red" fill="0" layer="0.00" shape="-30.000000,10.000000 -50.000000,20.000000 -30.000000,10.000000"/>
+    <poly id="po_0" color="red" fill="0" layer="0.00" shape="-22.000000,8.000000 -30.000000,16.000000 -22.000000,8.000000"/>
 </additional>
