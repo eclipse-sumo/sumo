@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 12:27:57 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2024-06-04 13:05:24 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\datas.dat.xml"/>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
     </input>
 
@@ -26,18 +29,35 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun130306.18636\netedit.gui\elements\additional\busstop\create\default\log.txt"/>
+    </report>
+
 </configuration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0,0" convBoundary="-65.00,-30.00,55.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="Junction0" x="-40.00" y="-20.00" type="dead_end"/>
-    <node id="Junction1" x="30.00" y="-20.00" type="traffic_light" tl="Junction1"/>
-    <node id="Junction2" x="30.00" y="20.00" type="traffic_light" tl="Junction2"/>
-    <node id="Junction3" x="-40.00" y="20.00" type="traffic_light" tl="Junction3"/>
-    <node id="Junction4" x="-40.00" y="0.00" type="traffic_light" tl="Junction4"/>
-    <node id="Junction5" x="15.00" y="0.00" type="priority"/>
-    <node id="JunctionExtern0" x="-65.00" y="0.00" type="priority"/>
-    <node id="JunctionExtern1" x="55.00" y="0.00" type="priority"/>
+    <node id="Junction0" x="-35.00" y="-20.00" type="dead_end"/>
+    <node id="Junction1" x="35.00" y="-20.00" type="traffic_light" tl="Junction1"/>
+    <node id="Junction2" x="35.00" y="20.00" type="traffic_light" tl="Junction2"/>
+    <node id="Junction3" x="-35.00" y="20.00" type="traffic_light" tl="Junction3"/>
+    <node id="Junction4" x="-35.00" y="0.00" type="traffic_light" tl="Junction4"/>
+    <node id="Junction5" x="20.00" y="0.00" type="priority"/>
+    <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
+    <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
 </nodes>
