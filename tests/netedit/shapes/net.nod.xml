@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 14:49:37 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2024-06-04 14:57:10 by Eclipse SUMO netedit Version v1_20_0+0345-f9c5dc4db4d
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\datas.dat.xml"/>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\shapes\net.net.xml"/>
     </input>
 
@@ -15,7 +18,7 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
+        <no-internal-links value="true"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -26,12 +29,29 @@
         <walkingareas value="0"/>
     </pedestrian>
 
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun145550.16400\netedit.gui\shapes\poly\create\default\default\log.txt"/>
+    </report>
+
 </configuration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="-35.00,0.00,20.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-40.00,0.00,40.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
-    <node id="Junction4" x="-35.00" y="0.00" type="dead_end"/>
-    <node id="Junction5" x="20.00" y="0.00" type="priority"/>
+    <node id="Junction4" x="-40.00" y="0.00" type="dead_end"/>
+    <node id="Junction5" x="40.00" y="0.00" type="dead_end"/>
 </nodes>
