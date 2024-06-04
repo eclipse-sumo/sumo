@@ -423,7 +423,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     }
     for (int i = ego->getParameter().departEdge; i <= endIndex - 1; i++) {
         const MSEdge* e = edges[i];
-        if (e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        if (e->isNormal() && e->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
             const MSEdge* e2 = edges[i + 1];
             for (MSLane* lane : e->getLanes()) {
                 for (MSLink* link : lane->getLinkCont()) {
