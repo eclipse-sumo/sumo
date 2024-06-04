@@ -11,8 +11,8 @@
     <inductionLoop id="e1_11" lane="top_0" pos="21.00" period="300.00" file="e1_11.xml"/>
     <inductionLoop id="e1_2" lane="center0_1" pos="31.00" period="300.00" file="e1_2.xml"/>
     <inductionLoop id="e1_3" lane="center0_1" pos="19.00" period="300.00" file="e1_3.xml"/>
-    <inductionLoop id="e1_4" lane="center1_1" pos="15.00" period="300.00" file="e1_4.xml"/>
-    <inductionLoop id="e1_5" lane="center1_1" pos="33.00" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_4" lane="EdgeCenter1_1" pos="15.00" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="EdgeCenter1_1" pos="33.00" period="300.00" file="e1_5.xml"/>
     <inductionLoop id="e1_6" lane="center1_0" pos="13.00" period="300.00" file="e1_6.xml"/>
     <inductionLoop id="e1_7" lane="center1_0" pos="35.00" period="300.00" file="e1_7.xml"/>
     <inductionLoop id="e1_8" lane="bot_0" pos="13.00" period="300.00" file="e1_8.xml"/>

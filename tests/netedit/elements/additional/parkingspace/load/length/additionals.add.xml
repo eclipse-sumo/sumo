@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_0" lane="center1_1" startPos="20.00" endPos="30.00">
+    <parkingArea id="parkingArea_0" lane="EdgeCenter1_1" startPos="20.00" endPos="30.00">
 
         <!-- valid length (missing) -->
         <space x="30.00" y="15.00" z="1" width="3.30" angle="45.00"/>

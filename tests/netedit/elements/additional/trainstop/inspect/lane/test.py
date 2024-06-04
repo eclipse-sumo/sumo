@@ -38,7 +38,7 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
 # create trainStop in mode "Center"
-netedit.leftClick(referencePosition, 430, 256)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # go to inspect mode
 netedit.inspectMode()

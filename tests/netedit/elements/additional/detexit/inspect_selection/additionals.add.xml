@@ -11,11 +11,11 @@
 
     <!-- Entry B -->
     <entryExitDetector id="E3_1" period="100.00" file="fileB.txt" timeThreshold="1.00" speedThreshold="1.39" pos="17.5,3">
-        <detExit lane="center1_1" pos="20" friendlyPos="1">
+        <detExit lane="EdgeCenter1_1" pos="20" friendlyPos="1">
             <param key="KeyB1" value="valueB1"/>
             <param key="KeyB3" value="valueB2"/>
             <param key="KeyB2" value="valueB3"/>
         </detExit>
-        <detEntry lane="center1_1" pos="25" friendlyPos="0"/>
+        <detEntry lane="EdgeCenter1_1" pos="25" friendlyPos="0"/>
     </entryExitDetector>
 </additional>

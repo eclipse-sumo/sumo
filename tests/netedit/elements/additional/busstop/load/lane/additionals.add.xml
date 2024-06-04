@@ -7,6 +7,6 @@
     <busStop id="busStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2" name="busStop" friendlyPos="false"/>
 
     <!-- valid lane -->
-    <busStop id="busStop_03" lane="center1_1" startPos="15" endPos="20" lines="line1 line2" name="busStop" friendlyPos="false"/>
+    <busStop id="busStop_03" lane="EdgeCenter1_1" startPos="15" endPos="20" lines="line1 line2" name="busStop" friendlyPos="false"/>
 
 </additional>

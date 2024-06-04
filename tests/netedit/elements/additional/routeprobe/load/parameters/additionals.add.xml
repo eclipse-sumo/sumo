@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <routeProbe id="routeProbe_01" edge="center1" period="100.00" file="fileA.txt" begin="0.00">
+    <routeProbe id="routeProbe_01" edge="EdgeCenter1" period="100.00" file="fileA.txt" begin="0.00">
 
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>

@@ -19,6 +19,39 @@
 # GENERAL
 # --------------------------------
 
+class additionalElements:
+
+    class centralEdge0:
+        x = 324
+        y = 215
+        
+    class centralEdge1:
+        x = 361
+        y = 215
+        
+    class centralEdge2:
+        x = 401
+        y = 215
+        
+    class centralEdge3:
+        x = 439
+        y = 215
+        
+    class centralEdge4:
+        x = 477
+        y = 215
+        
+    class centralEdge4:
+        x = 516
+        y = 215
+        
+    class centralEdge4:
+        x = 554
+        y = 215
+        
+    
+
+
 class demandElements:
 
     class edge0:

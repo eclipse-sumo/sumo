@@ -7,7 +7,7 @@
     </routeProbe>
 
     <!-- routeProbe B -->
-    <routeProbe id="routeProbe_02" edge="center1" period="120.00" file="fileB.txt" begin="3.00">
+    <routeProbe id="routeProbe_02" edge="EdgeCenter1" period="120.00" file="fileB.txt" begin="3.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

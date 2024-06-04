@@ -7,6 +7,6 @@
     <containerStop id="containerStop_02" lane="dummyLane" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
 
     <!-- valid lane -->
-    <containerStop id="containerStop_03" lane="center1_1" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_03" lane="EdgeCenter1_1" startPos="15" endPos="20" lines="line1 line2" name="containerStop" friendlyPos="false"/>
 
 </additional>

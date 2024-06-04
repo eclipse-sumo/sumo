@@ -11,7 +11,7 @@
         <access lane="E4_0" pos="2.00"/>
         <access lane="E5_0" pos="2.00"/>
     </busStop>
-    <busStop id="bs_1" lane="center1_1" startPos="20.00" endPos="30.00">
+    <busStop id="bs_1" lane="EdgeCenter1_1" startPos="20.00" endPos="30.00">
         <access lane="E0_0" pos="2.00"/>
         <access lane="E1_0" pos="2.00"/>
         <access lane="E4_0" pos="2.00"/>

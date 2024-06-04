@@ -11,7 +11,7 @@
     </calibrator>
 
     <!-- calibrator B -->
-    <calibrator id="calibratorB" edge="center1" pos="30" period="40" name="NameB" routeProbe="RouteProbeB" output="fileB.txt">
+    <calibrator id="calibratorB" edge="EdgeCenter1" pos="30" period="40" name="NameB" routeProbe="RouteProbeB" output="fileB.txt">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>

@@ -56,5 +56,5 @@
     <chargingStation id="chargingStationA" lane="center0_0" startPos="-2.00" endPos="12.00" friendlyPos="1"/>
     <chargingStation id="chargingStationB" lane="center0_1" startPos="38.00" endPos="480.00" friendlyPos="1"/>
     <chargingStation id="chargingStationC" lane="center1_0" startPos="-38.00" endPos="48.00" friendlyPos="1"/>
-    <chargingStation id="chargingStationD" lane="center1_1" startPos="-2.00" endPos="-12.00" friendlyPos="1"/>
+    <chargingStation id="chargingStationD" lane="EdgeCenter1_1" startPos="-2.00" endPos="-12.00" friendlyPos="1"/>
 </additional>

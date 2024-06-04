@@ -41,6 +41,6 @@
         <detEntry lane="top_0" pos="4.97"/>
         <detEntry lane="bot_0" pos="19.61"/>
         <detExit lane="center1_0" pos="23.22"/>
-        <detExit lane="center1_1" pos="3.55"/>
+        <detExit lane="EdgeCenter1_1" pos="3.55"/>
     </entryExitDetector>
 </additional>

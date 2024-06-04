@@ -38,19 +38,19 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.parkingLength, "dummyLenght")
 
 # try to create containerStop
-netedit.leftClick(referencePosition, 430, 256)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.parkingLength, "-7.5")
 
 # try to create containerStop
-netedit.leftClick(referencePosition, 497, 257)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.parkingLength, "3")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, 544, 255)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
