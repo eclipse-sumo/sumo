@@ -66,6 +66,7 @@ double MSRoutingEngine::myPriorityFactor(0);
 double MSRoutingEngine::myMinEdgePriority(std::numeric_limits<double>::max());
 double MSRoutingEngine::myEdgePriorityRange(0);
 std::map<std::thread::id, SumoRNG*> MSRoutingEngine::myThreadRNGs;
+bool MSRoutingEngine::myHaveRoutingThreads(false);
 
 SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation MSRoutingEngine::myEffortFunc = &MSRoutingEngine::getEffort;
 #ifdef HAVE_FOX
@@ -178,12 +179,15 @@ MSRoutingEngine::getEffortBike(const MSEdge* const e, const SUMOVehicle* const v
 
 SumoRNG*
 MSRoutingEngine::getThreadRNG() {
-    if (myThreadRNGs.size() > 0) {
+    if (myHaveRoutingThreads) {
         auto it = myThreadRNGs.find(std::this_thread::get_id());
         if (it != myThreadRNGs.end()) {
             return it->second;
+        } else {
+            SumoRNG* rng = new SumoRNG("routing_" + toString(myThreadRNGs.size()));
+            myThreadRNGs[std::this_thread::get_id()] = rng;
+            return rng;
         }
-        std::cout << " something bad happended\n";
     }
     return nullptr;
 }
@@ -426,14 +430,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
                 static_cast<MSEdgeControl::WorkerThread*>(*t)->setRouterProvider(myRouterProvider->clone());
             }
         }
-#ifndef WIN32
-        /*
-        int i = 0;
-        for (MFXWorkerThread* t : threads) {
-            myThreadRNGs[(std::thread::id)t->id()] = new SumoRNG("routing_" + toString(i++));
-        }
-        */
-#endif
+        myHaveRoutingThreads = true;
     }
 #endif
 #endif

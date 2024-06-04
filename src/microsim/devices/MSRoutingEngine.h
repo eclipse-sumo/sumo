@@ -231,6 +231,7 @@ private:
     static MSRouterProvider* myRouterProvider;
 
     static std::map<std::thread::id, SumoRNG*> myThreadRNGs;
+    static bool myHaveRoutingThreads;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, ConstMSRoutePtr> myCachedRoutes;
