@@ -1,7 +1,7 @@
 loaded? False
  Retrying in 1 seconds
-version at start (20, 'SUMO v1_18_0+1904-9d0ee453306')
-version (20, 'SUMO v1_18_0+1904-9d0ee453306')
+version at start (21, 'SUMO v1_20_0+0359-09f6b58d48b')
+version (21, 'SUMO v1_20_0+0359-09f6b58d48b')
 loaded? True
 endTime 42.0
 net file input_net.net.xml
@@ -57,13 +57,13 @@ convertRoadGeoAlt (12.014678141837997, 48.12144918989498, 2.0)
 convertRoad2D length (667.2699999999995, 3124.688)
 convert2DGeo (12.023018905461857, 48.09105459778215)
 convertGeo2D (-1619.565396778169, -9550.720808432437)
-convert2DRoad ('o', 2906.189220451069, 0)
-convertGeoRoad ('o', 1012.1569043555733, 0)
-convertGeoRoadBus ('o', 1012.1569043555733, 0)
-convertGeoRoadBusDisallowed ('2o', 8027.707315024644, 0)
+convert2DRoad ('o', 2906.1892204510686, 0)
+convertGeoRoad ('o', 1012.1569043555731, 0)
+convertGeoRoadBus ('o', 1012.1569043555731, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707315024642, 0)
 distance2D 10.0
 distance2Dgeo (12.023018905461857, 48.09105459778215) (12.023153016821599, 48.09105807508728) 10.0
-drivingDistance2D 6.489345613324986
+drivingDistance2D 6.48934561332544
 distanceRoad 5131.878972316085
 drivingDistanceRoad 5136.55
 clearing pending
@@ -81,6 +81,23 @@ getParameter parkingArea.key3 val3
 getParameter busStop.name Magnusstr.
 getParameter busStop.lane o_0
 getParameter busStop.key2 val2
+getParameter stats.vehicles.loaded 6
+getParameter stats.vehicles.inserted 2
+getParameter stats.vehicles.running 2
+getParameter stats.vehicles.waiting 0
+getParameter stats.teleports.total 0
+getParameter stats.teleports.jam 0
+getParameter stats.teleports.yield 0
+getParameter stats.teleports.wrongLane 0
+getParameter stats.safety.collisions 0
+getParameter stats.safety.emergencyStops 0
+getParameter stats.safety.emergencyBraking 0
+getParameter stats.persons.loaded 1
+getParameter stats.persons.running 1
+getParameter stats.persons.jammed 0
+getParameter stats.personTeleports.total 0
+getParameter stats.personTeleports.abortWait 0
+getParameter stats.personTeleports.wrongDest 0
 getBusStopIDList ('bs',)
 getBusStopWaiting 1
 getBusStopWaitingIDList ('p1',)

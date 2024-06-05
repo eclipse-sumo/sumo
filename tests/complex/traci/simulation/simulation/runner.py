@@ -151,6 +151,24 @@ print("getParameter busStop.name", traci.simulation.getParameter("bs", "busStop.
 print("getParameter busStop.lane", traci.simulation.getParameter("bs", "busStop.lane"))
 print("getParameter busStop.key2", traci.simulation.getParameter("bs", "busStop.key2"))
 
+print("getParameter stats.vehicles.loaded", traci.simulation.getParameter("", "stats.vehicles.loaded"))
+print("getParameter stats.vehicles.inserted", traci.simulation.getParameter("", "stats.vehicles.inserted"))
+print("getParameter stats.vehicles.running", traci.simulation.getParameter("", "stats.vehicles.running"))
+print("getParameter stats.vehicles.waiting", traci.simulation.getParameter("", "stats.vehicles.waiting"))
+print("getParameter stats.teleports.total", traci.simulation.getParameter("", "stats.teleports.total"))
+print("getParameter stats.teleports.jam", traci.simulation.getParameter("", "stats.teleports.jam"))
+print("getParameter stats.teleports.yield", traci.simulation.getParameter("", "stats.teleports.yield"))
+print("getParameter stats.teleports.wrongLane", traci.simulation.getParameter("", "stats.teleports.wrongLane"))
+print("getParameter stats.safety.collisions", traci.simulation.getParameter("", "stats.safety.collisions"))
+print("getParameter stats.safety.emergencyStops", traci.simulation.getParameter("", "stats.safety.emergencyStops"))
+print("getParameter stats.safety.emergencyBraking", traci.simulation.getParameter("", "stats.safety.emergencyBraking"))
+print("getParameter stats.persons.loaded", traci.simulation.getParameter("", "stats.persons.loaded"))
+print("getParameter stats.persons.running", traci.simulation.getParameter("", "stats.persons.running"))
+print("getParameter stats.persons.jammed", traci.simulation.getParameter("", "stats.persons.jammed"))
+print("getParameter stats.personTeleports.total", traci.simulation.getParameter("", "stats.personTeleports.total"))
+print("getParameter stats.personTeleports.abortWait", traci.simulation.getParameter("", "stats.personTeleports.abortWait"))
+print("getParameter stats.personTeleports.wrongDest", traci.simulation.getParameter("", "stats.personTeleports.wrongDest"))
+
 try:
     print("getBusStopWaiting", traci.simulation.getBusStopWaiting("foo"))
 except traci.TraCIException:
