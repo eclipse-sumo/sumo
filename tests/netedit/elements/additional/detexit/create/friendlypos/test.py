@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "5", "25")
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -38,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # select entry detector
 netedit.changeElement("detExit")
@@ -47,13 +44,13 @@ netedit.changeElement("detExit")
 netedit.changeDefaultBoolValue(netedit.attrs.entryExit.create.friendlyPos)
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo

@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "5", "25")
-
 # go to additional mode
 netedit.additionalMode()
 

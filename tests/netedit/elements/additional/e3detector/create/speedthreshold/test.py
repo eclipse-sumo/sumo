@@ -38,31 +38,31 @@ netedit.changeElement("entryExitDetector")
 netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "dummySpeedTreshold")
 
 # try to create E3 with different speedTreshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # set invalid speedTreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "-3.80")
 
 # try to create E3 with different speedTreshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # set valid speedTreshold
 netedit.changeDefaultValue(netedit.attrs.E3.create.speedThreshold, "2.51")
 
 # create E3 with different speedTreshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo

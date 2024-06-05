@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # create E3 with default parameters
 netedit.leftClick(referencePosition, 677, 83)
@@ -44,20 +44,20 @@ netedit.leftClick(referencePosition, 677, 83)
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditional.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.E3.inspect.id, "e3_1", False)
