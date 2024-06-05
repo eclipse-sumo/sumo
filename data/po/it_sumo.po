@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-22 16:23+0200\n"
-"PO-Revision-Date: 2024-06-04 13:58+0000\n"
+"PO-Revision-Date: 2024-06-05 10:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2599,17 +2599,17 @@ msgstr "Veicolo '%'"
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2133
 #, c-format
 msgid "Teleporting vehicle '%' after"
-msgstr ""
+msgstr "Teleporto del veicolo '%' dopo"
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2138
 #, c-format
 msgid "Removing vehicle '%' after"
-msgstr ""
+msgstr "Rimozione del veicolo '%' dopo"
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2142
 #, c-format
 msgid "Keeping remote-controlled vehicle '%' after"
-msgstr ""
+msgstr "Il veicolo '%' controllato remotamente verrà mantenuto dopo"
 
 #: D:\Repos\sumo/src\microsim\MSLane.cpp:2155
 msgid " collision with person '%', lane='%', gap=%, time=%, stage=%."
@@ -2653,6 +2653,8 @@ msgid ""
 "State was saved with more than % threads. Change the number of threads or do "
 "not load RNG state"
 msgstr ""
+"Lo stato è stato salvato con più di % thread. Cambia il numero di thread "
+"oppure non carica lo stato del generatore di numeri casuali"
 
 #: D:\Repos\sumo/src\microsim\MSLeaderInfo.h:169
 #: D:\Repos\sumo/src\microsim\MSLeaderInfo.h:232
@@ -2675,10 +2677,12 @@ msgid ""
 "Option weights.separate-turns is only supported when simulating with "
 "internal lanes"
 msgstr ""
+"L'opzione weights.separate-turns è supportata unicamente se la simulazione "
+"contiene corsie interne"
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:396
 msgid "Simulation version % started with time: %."
-msgstr ""
+msgstr "La simulazione (versione %) è incominciata alle ore %."
 
 #: D:\Repos\sumo/src\microsim\MSNet.cpp:1473
 msgid ""
