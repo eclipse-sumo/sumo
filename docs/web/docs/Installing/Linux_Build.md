@@ -64,7 +64,7 @@ python3 -m pip install texttest
 ```
 
 For the Python tools there are some more requirements depending on which tools you want to use. If you want to install
-everything using pip do `python3 -m pip install -r tools/requirements.txt`.
+everything using pip do `python3 -m pip install -r tools/requirements.txt -r tools/req_dev.txt`.
 
 ## Getting the source code
 
@@ -140,7 +140,7 @@ sudo apt-get install python3-pyproj python3-rtree python3-pandas flake8 python3-
 and then install the remaining parts using pip:
 
 ```
-python3 -m pip install -r tools/requirements.txt
+python3 -m pip install -r tools/requirements.txt -r tools/req_dev.txt
 ```
 
 The pip installation will ensure that all libraries are there, so it is safe to skip the first `apt-get` step.

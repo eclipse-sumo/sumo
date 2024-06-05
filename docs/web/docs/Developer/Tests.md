@@ -67,7 +67,7 @@ to collapse the static test suites on program start. E.g.:
 There are several packages being used by the tools under test. So if you want to run
 the "tools" and/or "complex" tests please do
 
-`pip3 install -r $SUMO_HOME/tools/requirements.txt`
+`pip3 install -r $SUMO_HOME/tools/requirements.txt -r $SUMO_HOME/tools/req_dev.txt`
 
 # Running the Tests
 
