@@ -248,7 +248,7 @@ def plotNet(net, colors, widths, options):
 
 
 def getColorMap(options):
-    if mpl_version < (3, 7, 0):
+    if mpl_version < (3, 6, 0):
         return matplotlib.cm.get_cmap(options.colormap)
     return matplotlib.colormaps[options.colormap]
 
@@ -261,7 +261,7 @@ def getColor(options, i, a):
         return v[i]
     if options.colormap[0] == '#':
         colormap = parseColorMap(options.colormap[1:])
-        if mpl_version < (3, 7, 0):
+        if mpl_version < (3, 6, 0):
             cm.register_cmap(name="CUSTOM", cmap=colormap)
         else:
             matplotlib.colormaps.register(name="CUSTOM", cmap=colormap)
