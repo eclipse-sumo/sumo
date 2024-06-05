@@ -779,6 +779,50 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid net parameter '" + attrName + "'");
         }
+    } else if (StringUtils::startsWith(key, "stats.")) {
+        if (objectID != "") {
+            throw TraCIException("Simulation parameter '" + key + "' is not supported for object id '" + objectID + "'. Use empty id for stats");
+        }
+        const std::string attrName = key.substr(6);
+        const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+        const MSTransportableControl* pc = MSNet::getInstance()->hasPersons() ? &MSNet::getInstance()->getPersonControl() : nullptr;
+        if (attrName == "vehicles.loaded") {
+            return toString(vc.getLoadedVehicleNo());
+        } else if (attrName == "vehicles.inserted") {
+            return toString(vc.getDepartedVehicleNo());
+        } else if (attrName == "vehicles.running") {
+            return toString(vc.getRunningVehicleNo());
+        } else if (attrName == "vehicles.waiting") {
+            return toString(MSNet::getInstance()->getInsertionControl().getWaitingVehicleNo());
+        } else if (attrName == "teleports.total") {
+            return toString(vc.getTeleportCount());
+        } else if (attrName == "teleports.jam") {
+            return toString(vc.getTeleportsJam());
+        } else if (attrName == "teleports.yield") {
+            return toString(vc.getTeleportsYield());
+        } else if (attrName == "teleports.wrongLane") {
+            return toString(vc.getTeleportsWrongLane());
+        } else if (attrName == "safety.collisions") {
+            return toString(vc.getCollisionCount());
+        } else if (attrName == "safety.emergencyStops") {
+            return toString(vc.getEmergencyStops());
+        } else if (attrName == "safety.emergencyBraking") {
+            return toString(vc.getEmergencyBrakingCount());
+        } else if (attrName == "persons.loaded") {
+            return toString(pc != nullptr ? pc->getLoadedNumber() : 0);
+        } else if (attrName == "persons.running") {
+            return toString(pc != nullptr ? pc->getRunningNumber() : 0);
+        } else if (attrName == "persons.jammed") {
+            return toString(pc != nullptr ? pc->getJammedNumber() : 0);
+        } else if (attrName == "personTeleports.total") {
+            return toString(pc != nullptr ? pc->getTeleportCount() : 0);
+        } else if (attrName == "personTeleports.abortWait") {
+            return toString(pc != nullptr ? pc->getTeleportsAbortWait() : 0);
+        } else if (attrName == "personTeleports.wrongDest") {
+            return toString(pc != nullptr ? pc->getTeleportsWrongDest() : 0);
+        } else {
+            throw TraCIException("Invalid stats parameter '" + attrName + "'");
+        }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));
