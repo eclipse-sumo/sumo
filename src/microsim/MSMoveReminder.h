@@ -212,6 +212,25 @@ public:
         return true;
     }
 
+    /** @brief Called if the vehicle's back leaves the reminder's lane
+     *
+     * Informs if vehicle back leaves reminder lane (due to lane change, removal
+     *  from the network, or leaving to the next lane).
+     *  The default is to do nothing.
+     *
+     * @param[in] veh The leaving vehicle.
+     * @param[in] reason how the vehicle leaves the lane
+     * @param[in] leftLane The lane that the vehicle's back left
+     * @see Notification
+     *
+     * @return True if the reminder wants to receive further info.
+     */
+    virtual bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane) {
+        UNUSED_PARAMETER(&veh);
+        UNUSED_PARAMETER(reason);
+        UNUSED_PARAMETER(leftLane);
+        return true;
+    }
 
     // TODO: Documentation
     void updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,

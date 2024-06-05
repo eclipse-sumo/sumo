@@ -4622,6 +4622,14 @@ MSVehicle::executeMove() {
         }
 #endif
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
+        if (passedLanes.size() > 1 && isRailway(getVClass())) {
+            for (auto pi = passedLanes.rbegin(); pi != passedLanes.rend(); ++pi) {
+                MSLane* pLane = *pi;
+                if (pLane != myLane && std::find(myFurtherLanes.begin(), myFurtherLanes.end(), pLane) == myFurtherLanes.end()) {
+                    leaveLaneBack(MSMoveReminder::NOTIFICATION_JUNCTION, *pi);
+                }
+            }
+        }
         // bestLanes need to be updated before lane changing starts. NOTE: This call is also a presumption for updateDriveItems()
         updateBestLanes();
         if (myLane != oldLane || oldBackLane != getBackLane()) {
@@ -5740,6 +5748,28 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
                 resumeFromStopping();
             }
             myStopDist = std::numeric_limits<double>::max();
+        }
+    }
+}
+
+
+void
+MSVehicle::leaveLaneBack(const MSMoveReminder::Notification reason, const MSLane* leftLane) {
+    for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
+        if (rem->first->notifyLeaveBack(*this, reason, leftLane)) {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeaveBack", rem->first, rem->second, true);
+            }
+#endif
+            ++rem;
+        } else {
+#ifdef _DEBUG
+            if (myTraceMoveReminders) {
+                traceMoveReminder("notifyLeaveBack", rem->first, rem->second, false);
+            }
+#endif
+            rem = myMoveReminders.erase(rem);
         }
     }
 }
