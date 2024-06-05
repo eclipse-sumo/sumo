@@ -205,6 +205,7 @@ MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
         params->depart = std::get<0>(desc.second);
         params->departPos = t.front().lanePos;
         params->departSpeed = t.front().speed;
+        // params->arrivalPos = t.back().lanePos;
         const bool isPerson = std::get<2>(desc.second);
         std::string vType = std::get<1>(desc.second);
         if (vType == "") {

@@ -82,6 +82,7 @@ private:
 
     class MovePedestrians : public Command {
     public:
+        MovePedestrians();
         SUMOTime execute(SUMOTime currentTime);
     private:
         /// @brief Invalidated assignment operator.
