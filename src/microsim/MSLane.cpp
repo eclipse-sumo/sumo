@@ -959,7 +959,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 errorMsg = "tlLogic '" + (*link)->getTLLogic()->getID() + "' link " + toString((*link)->getTLIndex()) + " never switches to 'G'";
             }
             const double laneStopOffset = MAX2(getVehicleStopOffset(aVehicle),
-                    aVehicle->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+                                               aVehicle->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             const double remaining = seen - laneStopOffset;
             auto dsp = aVehicle->getParameter().departSpeedProcedure;
             const bool patchSpeedSpecial = patchSpeed || dsp == DepartSpeedDefinition::DESIRED || dsp == DepartSpeedDefinition::LIMIT;
@@ -2229,6 +2229,12 @@ MSLane::executeMovements(const SUMOTime t) {
             // vehicle started to park
             MSVehicleTransfer::getInstance()->add(t, veh);
             myParkingVehicles.insert(veh);
+        } else if (veh->brokeDown()) {
+            veh->resumeFromStopping();
+            WRITE_WARNINGF(TL("Removing vehicle '%' after breaking down, lane='%', time=%."),
+                           veh->getID(), veh->getLane()->getID(), time2string(t));
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_BREAKDOWN);
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         } else if (veh->isJumping()) {
             // vehicle jumps to next route edge
             MSVehicleTransfer::getInstance()->add(t, veh);
@@ -2240,12 +2246,7 @@ MSLane::executeMovements(const SUMOTime t) {
                            veh->getID(), getID(), time2string(t));
             MSNet::getInstance()->getVehicleControl().registerCollision(true);
             MSVehicleTransfer::getInstance()->add(t, veh);
-        } else if (veh->brokeDown()) {
-            veh->resumeFromStopping();
-            WRITE_WARNINGF(TL("Removing vehicle '%' after breaking down, lane='%', time=%."),
-                           veh->getID(), veh->getLane()->getID(), time2string(t));
-            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_BREAKDOWN);
-            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+
         } else if (veh->collisionStopTime() == 0) {
             veh->resumeFromStopping();
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
