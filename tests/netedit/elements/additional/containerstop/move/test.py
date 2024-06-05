@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.moveMode()
 
 # move containerStop to right
-netedit.moveElement(referencePosition, 430, 280, 544, 280)
+netedit.moveElement(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x, netedit.positions.additionalElements.inspectContainerStop.y, 544, 280)
 
 # move containerStop back
 netedit.moveElement(referencePosition, 544, 280, 337, 280)

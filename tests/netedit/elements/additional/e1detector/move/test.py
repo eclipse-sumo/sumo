@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 405, 257)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # change to move mode
 netedit.moveMode()
 
 # move E1 to right
-netedit.moveElement(referencePosition, 405, 257, 596, 257)
+netedit.moveElement(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y, 596, 257)
 
 # move E1 to left
 netedit.moveElement(referencePosition, 596, 257, 333, 257)

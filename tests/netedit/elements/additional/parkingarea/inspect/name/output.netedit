@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 Center
-TestFunctions: Clicked over position 779 - 424
-TestFunctions: Clicked over position 779 - 448
+TestFunctions: Clicked over position 628 - 383
+TestFunctions: Clicked over position 628 - 358
 %%%$$$$%$
 new Parking Area Name
 TestFunctions: Clicked over position 304 - 168

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 13:53:25 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+<!-- generated on 2024-06-05 15:12:38 by Eclipse SUMO netedit Version v1_20_0+0359-09f6b58d48b
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="E1_A" name="customName" lane="center0_1" pos="6.00" period="120.00" file="fileA.txt" vTypes="Type1 Type2 Type3">
+    <inductionLoop id="E1_A" name="customName" lane="EdgeCenter1_1" pos="32.82" period="120.00" file="fileA.txt" vTypes="Type1 Type2 Type3">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </inductionLoop>
-    <inductionLoop id="E1_B" name="customName" lane="center1_1" pos="10.00" period="90.00" file="fileB.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
+    <inductionLoop id="E1_B" name="customName" lane="EdgeCenter1_0" pos="10.00" period="90.00" file="fileB.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

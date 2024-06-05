@@ -38,7 +38,7 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, 405, 257)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # Change to delete
 netedit.deleteMode()
@@ -47,7 +47,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created E1
-netedit.leftClick(referencePosition, 405, 257)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # delete loaded E1
 netedit.leftClick(referencePosition, 351, 44)

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x, netedit.positions.additionalElements.inspectContainerStop.y)
 
 # Change parameter name with a valid value
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.name, "Container Stop Name", True)

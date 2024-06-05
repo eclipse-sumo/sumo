@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 430, 280)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x, netedit.positions.additionalElements.inspectContainerStop.y)
 
 # Change parameter friendly pos
 netedit.modifyBoolAttribute(netedit.attrs.containerStop.inspect.friendlyPos, True)

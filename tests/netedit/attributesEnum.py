@@ -774,8 +774,9 @@ class chargingStation:
         chargeDelay = 11
         chargeType = 12
         waitingTime = 14
-        references = 18
-        length = 20
+        parkingArea = 15
+        references = 19
+        length = 21
 
     class inspect:
         id = 1
@@ -791,7 +792,8 @@ class chargingStation:
         chargeDelay = 11
         chargeType = 12
         waitingTime = 14
-        parameters = 17
+        parkingArea = 15
+        parameters = 18
 
     class inspectSelection:
         name = 1
@@ -802,7 +804,8 @@ class chargingStation:
         chargeDelay = 6
         chargeType = 7
         waitingTime = 9
-        parameters = 12
+        parkingArea = 10
+        parameters = 13
 
 # access
 
@@ -832,15 +835,16 @@ class parkingArea:
         id = 5
         departPos = 6
         name = 7
-        roadSideCapacity = 8
-        onRoad = 9
-        friendlyPos = 10
-        width = 11
-        length = 12
-        angle = 13
-        lefthand = 14
-        references = 18
-        referencesLength = 20
+        acceptedBadges = 8
+        roadSideCapacity = 9
+        onRoad = 10
+        friendlyPos = 11
+        width = 12
+        length = 13
+        angle = 14
+        lefthand = 15
+        references = 19
+        referencesLength = 21
 
     class inspect:
         id = 1
@@ -850,26 +854,28 @@ class parkingArea:
         endPos = 5
         departPos = 6
         name = 7
-        roadSideCapacity = 8
-        onRoad = 9
-        friendlyPos = 10
-        width = 11
-        length = 12
-        angle = 13
-        lefthand = 14
-        parameters = 17
+        acceptedBadges = 8
+        roadSideCapacity = 9
+        onRoad = 10
+        friendlyPos = 11
+        width = 12
+        length = 13
+        angle = 14
+        lefthand = 15
+        parameters = 18
 
     class inspectSelection:
         departPos = 1
         name = 2
-        roadSideCapacity = 3
-        onRoad = 4
-        friendlyPos = 5
-        width = 6
-        length = 7
-        angle = 8
-        lefthand = 9
-        parameters = 12
+        acceptedBadges = 3
+        roadSideCapacity = 4
+        onRoad = 5
+        friendlyPos = 6
+        width = 7
+        length = 8
+        angle = 9
+        lefthand = 10
+        parameters = 13
 
 # parkingSpace
 

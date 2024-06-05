@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerstops
-netedit.leftClick(referencePosition, 297, 270)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x, netedit.positions.additionalElements.inspectContainerStop.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.containerStop.inspectSelection.parameters, True)

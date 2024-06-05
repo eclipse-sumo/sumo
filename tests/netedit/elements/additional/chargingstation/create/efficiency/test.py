@@ -38,25 +38,25 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "dummyEfficiency")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, 304, 244)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # set invalid efficiency (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "-50")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, 346, 244)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
 
 # set invalid efficiency (> 1)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "30")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, 304, 244)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # set valid efficiency
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.efficiency, "0.5")
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, 346, 244)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, 427, 275)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectTrainStop.x, netedit.positions.additionalElements.inspectTrainStop.y)
 
 # Change parameter friendly pos
 netedit.modifyBoolAttribute(netedit.attrs.trainStop.inspect.friendlyPos, True)

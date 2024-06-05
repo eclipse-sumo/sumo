@@ -53,6 +53,22 @@ class additionalElements:
         x = 325
         y = 205
 
+    class inspectTrainStop:
+        x = 325
+        y = 205
+
+    class inspectContainerStop:
+        x = 326
+        y = 198
+
+    class inspectChargingStation:
+        x = 306
+        y = 258
+
+    class inspectParkingArea:
+        x = 324
+        y = 190
+
 class demandElements:
 
     class edge0:
