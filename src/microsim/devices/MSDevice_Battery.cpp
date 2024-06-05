@@ -212,13 +212,8 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         }
 
         // saturate between 0 and myMaximumBatteryCapacity [Wh]
-        if (getActualBatteryCapacity() < 0) {
-            setActualBatteryCapacity(0);
-            if (getMaximumBatteryCapacity() > 0) {
-                WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted."), veh.getID());
-            }
-        } else if (getActualBatteryCapacity() > getMaximumBatteryCapacity()) {
-            setActualBatteryCapacity(getMaximumBatteryCapacity());
+        if (getActualBatteryCapacity() < NUMERICAL_EPS && getMaximumBatteryCapacity() > 0) {
+            WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted."), veh.getID());
         }
         myLastAngle = veh.getAngle();
     }
