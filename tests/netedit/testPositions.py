@@ -69,6 +69,14 @@ class additionalElements:
         x = 324
         y = 190
 
+    class squaredAdditionalA:
+        x = 440
+        y = 140
+
+    class squaredAdditionalB:
+        x = 440
+        y = 140
+
 class demandElements:
 
     class edge0:
