@@ -450,3 +450,25 @@ The following parameters can be retrieved. They are not for a specific device ho
 - device.tripinfo.transportStatistics.taxi
 - device.tripinfo.transportStatistics.bike
 - device.tripinfo.transportStatistics.aborted
+
+### Statistics Parameter Retrieval
+
+The retrievable values are those described at [statistic-output](../Simulation/Output/StatisticOutput.md) as applicable to the current simulation time.
+
+- stats.vehicles.loaded
+- stats.vehicles.inserted
+- stats.vehicles.running
+- stats.vehicles.waiting
+- stats.teleports.total
+- stats.teleports.jam
+- stats.teleports.yield
+- stats.teleports.wrongLane
+- stats.safety.collisions
+- stats.safety.emergencyStops
+- stats.safety.emergencyBraking
+- stats.persons.loaded
+- stats.persons.running
+- stats.persons.jammed
+- stats.personTeleports.total
+- stats.personTeleports.abortWait
+- stats.personTeleports.wrongDest
