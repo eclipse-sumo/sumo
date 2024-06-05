@@ -107,13 +107,13 @@ public:
 #endif
     }
 
-    int count(T what) {
+    size_t count(T what) {
 #ifdef HAVE_FOX
         if (myCondition) {
             myMutex.lock();
         }
 #endif
-        int result = myItems.count(what);
+        size_t result = myItems.count(what);
 #ifdef HAVE_FOX
         if (myCondition) {
             myMutex.unlock();
