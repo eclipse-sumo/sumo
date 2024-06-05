@@ -2162,4 +2162,33 @@ MSLink::updateDistToFoePedCrossing(double dist) {
     myDistToFoePedCrossing = MIN2(myDistToFoePedCrossing, dist);
 }
 
+
+std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation>
+MSLink::getClosest() const {
+    assert(getApproaching().size() > 0);
+    double minDist = std::numeric_limits<double>::max();
+    auto closestIt = getApproaching().begin();
+    for (auto apprIt = getApproaching().begin(); apprIt != getApproaching().end(); apprIt++) {
+        if (apprIt->second.dist < minDist) {
+            minDist = apprIt->second.dist;
+            closestIt = apprIt;
+        }
+    }
+    // maybe a parallel link has a closer vehicle
+    /*
+    for (MSLink* link2 : link->getLaneBefore()->getLinkCont()) {
+        if (link2 != link) {
+            for (auto apprIt2 = link2->getApproaching().begin(); apprIt2 != link2->getApproaching().end(); apprIt2++) {
+                if (apprIt2->second.dist < minDist) {
+                    minDist = apprIt2->second.dist;
+                    closestIt = apprIt2;
+                }
+            }
+        }
+    }
+    */
+    return *closestIt;
+}
+
+
 /****************************************************************************/

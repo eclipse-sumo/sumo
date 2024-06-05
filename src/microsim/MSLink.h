@@ -683,6 +683,10 @@ public:
     /// @brief get string description for this link
     std::string  getDescription() const;
 
+    /// @brief get the closest vehicle approaching this link
+    std::pair<const SUMOVehicle* const, const ApproachingVehicleInformation> getClosest() const;
+
+
     /// @brief post-processing for legacy networks
     static void recheckSetRequestInformation();
 

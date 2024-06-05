@@ -27,6 +27,7 @@
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include "MSRailSignal.h"
+#include "MSDriveWay.h"
 #include "MSRailSignalControl.h"
 
 
@@ -130,8 +131,8 @@ MSRailSignalControl::recheckGreen() {
                         // new driveway pair
                         const MSRailSignal* rs = static_cast<const MSRailSignal*>(item.first->getTLLogic());
                         const MSRailSignal* rs2 = static_cast<const MSRailSignal*>(item2.first->getTLLogic());
-                        const MSRailSignal::DriveWay& dw = rs->retrieveDriveWay(item.second);
-                        const MSRailSignal::DriveWay& dw2 = rs2->retrieveDriveWay(item2.second);
+                        const MSDriveWay& dw = rs->retrieveDriveWay(item.second);
+                        const MSDriveWay& dw2 = rs2->retrieveDriveWay(item2.second);
                         // overlap may return true if the driveways are consecutive forward sections
                         conflict = dw.flankConflict(dw2) || dw2.flankConflict(dw);
                         myDriveWayCompatibility[code] = conflict;
@@ -142,9 +143,9 @@ MSRailSignalControl::recheckGreen() {
                     if (conflict) {
                         MSRailSignal* rs = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(item.first->getTLLogic()));
                         MSRailSignal* rs2 = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(item2.first->getTLLogic()));
-                        const MSRailSignal::Approaching& veh = rs->getClosest(item.first);
-                        const MSRailSignal::Approaching& veh2 = rs2->getClosest(item2.first);
-                        if (MSRailSignal::DriveWay::mustYield(veh, veh2)) {
+                        const MSRailSignal::Approaching& veh = item.first->getClosest();
+                        const MSRailSignal::Approaching& veh2 = item2.first->getClosest();
+                        if (MSDriveWay::mustYield(veh, veh2)) {
                             std::string state = rs->getCurrentPhaseDef().getState();
                             state[item.first->getTLIndex()] = 'r';
                             const_cast<MSPhaseDefinition&>(rs->getCurrentPhaseDef()).setState(state);
