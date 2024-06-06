@@ -80,6 +80,9 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
             for (const MSEdge* edge : vehicle->getRoute().getEdges()) {
                 myUsedEdges.insert(edge);
                 if (myProtectedDriveways.count(edge) != 0) {
+#ifdef DEBUG_REGISTER_DRIVEWAY
+                    std::cout << "MSRailSignalControl edge=" << edge->getID() << " used by vehicle " << vehicle->getID() << ". Updating " << myProtectedDriveways[edge].size() << " driveways\n";
+#endif
                     updateDriveways(edge);
                 }
             }
