@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
+Eclipse SUMO sumo Version v1_20_0+0370-0825f8501ad
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -141,6 +141,8 @@ Output Options:
                                         separate FILE
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
+  --railsignal-vehicle-output FILE     Record entry and exit times of vehicles
+                                        for railsignal blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
                                         (in conjunction with device.btreceiver
                                         and device.btsender)
@@ -948,8 +950,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing

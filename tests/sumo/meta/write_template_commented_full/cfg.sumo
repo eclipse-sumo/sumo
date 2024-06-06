@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 20:16:13 by Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
+<!-- generated on 2024-06-06 15:18:00 by Eclipse SUMO sumo Version v1_20_0+0370-0825f8501ad
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -239,6 +239,9 @@
 
         <!-- Save railsignal-blocks into FILE -->
         <railsignal-block-output value="" type="FILE"/>
+
+        <!-- Record entry and exit times of vehicles for railsignal blocks into FILE -->
+        <railsignal-vehicle-output value="" type="FILE"/>
 
         <!-- Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender) -->
         <bt-output value="" type="FILE"/>
@@ -1337,9 +1340,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
