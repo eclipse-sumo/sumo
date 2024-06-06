@@ -93,6 +93,7 @@
 #include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
@@ -191,6 +192,7 @@ MSNet::initStatic() {
     if (!MSGlobals::gUseMesoSim) {
         MSVehicle::Influencer::init();
     }
+    MSDriveWay::init();
 }
 
 void
@@ -692,9 +694,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().isSet("substations-output")) {
         writeSubstationOutput();
     }
-    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
-        writeRailSignalBlocks();
-    }
+    writeRailSignalBlocks();
     const long now = SysUtils::getCurrentMillis();
     if (myLogExecutionTime || OptionsCont::getOptions().getBool("duration-log.statistics")) {
         WRITE_MESSAGE(generateStatistics(start, now));
@@ -1407,11 +1407,22 @@ MSNet::writeChargingStationOutput() const {
 
 void
 MSNet::writeRailSignalBlocks() const {
-    OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
-    for (auto tls : myLogics->getAllLogics()) {
-        MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
-        if (rs != nullptr) {
-            rs->writeBlocks(output);
+    if (OptionsCont::getOptions().isSet("railsignal-block-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-block-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, false);
+            }
+        }
+    }
+    if (OptionsCont::getOptions().isSet("railsignal-vehicle-output")) {
+        OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-vehicle-output");
+        for (auto tls : myLogics->getAllLogics()) {
+            MSRailSignal* rs = dynamic_cast<MSRailSignal*>(tls);
+            if (rs != nullptr) {
+                rs->writeBlocks(output, true);
+            }
         }
     }
 }

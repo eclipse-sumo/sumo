@@ -278,6 +278,9 @@ MSFrame::fillOptions() {
     oc.doRegister("railsignal-block-output", new Option_FileName());
     oc.addDescription("railsignal-block-output", "Output", TL("Save railsignal-blocks into FILE"));
 
+    oc.doRegister("railsignal-vehicle-output", new Option_FileName());
+    oc.addDescription("railsignal-vehicle-output", "Output", TL("Record entry and exit times of vehicles for railsignal blocks into FILE"));
+
     oc.doRegister("bt-output", new Option_FileName());
     oc.addDescription("bt-output", "Output", TL("Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"));
 

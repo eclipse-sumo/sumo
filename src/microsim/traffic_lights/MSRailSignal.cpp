@@ -320,7 +320,7 @@ MSRailSignal::describeLinks(std::vector<MSLink*> links) {
 
 
 void
-MSRailSignal::writeBlocks(OutputDevice& od) const {
+MSRailSignal::writeBlocks(OutputDevice& od, bool writeVehicles) const {
     od.openTag("railSignal");
     od.writeAttr(SUMO_ATTR_ID, getID());
     for (const LinkInfo& li : myLinkInfos) {
@@ -330,7 +330,11 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
         od.writeAttr(SUMO_ATTR_FROM, link->getLaneBefore()->getID());
         od.writeAttr(SUMO_ATTR_TO, link->getViaLaneOrLane()->getID());
         for (const MSDriveWay* dw : li.myDriveways) {
-            dw->writeBlocks(od);
+            if (writeVehicles) {
+                dw->writeBlockVehicles(od);
+            } else {
+                dw->writeBlocks(od);
+            }
         }
         od.closeTag(); // link
     }

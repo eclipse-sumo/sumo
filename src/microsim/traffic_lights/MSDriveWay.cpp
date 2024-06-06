@@ -51,7 +51,21 @@
 // ===========================================================================
 int MSDriveWay::myDriveWayIndex(0);
 int MSDriveWay::myNumWarnings(0);
+bool MSDriveWay::myWriteVehicles(false);
 
+// ---------------------------------------------------------------------------
+// static initialisation methods
+// ---------------------------------------------------------------------------
+void
+MSDriveWay::init() {
+    const OptionsCont& oc = OptionsCont::getOptions();
+    if (oc.isSet("railsignal-vehicle-output")) {
+        OutputDevice::createDeviceByOption("railsignal-vehicle-output");
+        myWriteVehicles = true;
+    } else {
+        myWriteVehicles = false;
+    }
+}
 
 // ===========================================================================
 // MSDriveWay method definitions
@@ -88,6 +102,9 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
     //std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
     if (veh.isVehicle()) {
         myTrains.insert(&dynamic_cast<SUMOVehicle&>(veh));
+        if (myWriteVehicles) {
+            myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
+        }
         return true;
     } else {
         return false;
@@ -104,7 +121,9 @@ MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification
         // leaving network with departure, teleport etc
         if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
-            //std::cout << " removed\n";
+            if (myWriteVehicles) {
+                myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), reason));
+            }
             return false;
         } else {
             return true;
@@ -123,7 +142,9 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
     if (veh.isVehicle()) {
         if (leftLane == myForward.back()) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
-            //std::cout << " removed\n";
+            if (myWriteVehicles) {
+                myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), reason));
+            }
             return false;
         } else {
             return true;
@@ -484,6 +505,9 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("driveWay");
+    if (myWriteVehicles) {
+        od.writeAttr(SUMO_ATTR_ID, myNumericalID);
+    }
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
     if (myCoreSize != (int)myRoute.size()) {
         od.writeAttr("core", myCoreSize);
@@ -518,6 +542,21 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     }
     od.writeAttr("signals", joinToString(signals, " "));
     od.closeTag();
+    od.closeTag(); // driveWay
+}
+
+
+void
+MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
+    od.openTag("driveWay");
+    od.writeAttr(SUMO_ATTR_ID, myNumericalID);
+    for (const VehicleEvent& ve : myVehicleEvents) {
+        od.openTag(ve.isEntry ? "entry" : "exit");
+        od.writeAttr(SUMO_ATTR_ID, ve.id);
+        od.writeAttr(SUMO_ATTR_TIME, time2string(ve.time));
+        od.writeAttr("reason", ve.reason);
+        od.closeTag(); // event
+    }
     od.closeTag(); // driveWay
 }
 

@@ -221,7 +221,7 @@ public:
     std::string getConstraintInfo() const;
 
     /// @brief write rail signal block output for all links and driveways
-    void writeBlocks(OutputDevice& od) const;
+    void writeBlocks(OutputDevice& od, bool writeVehicles) const;
 
     /// @brief register constraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);

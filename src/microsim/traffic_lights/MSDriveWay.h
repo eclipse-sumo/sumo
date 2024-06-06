@@ -75,6 +75,7 @@ public:
 
     /// @brief Write block items for this driveway
     void writeBlocks(OutputDevice& od) const;
+    void writeBlockVehicles(OutputDevice& od) const;
 
     const std::vector<const MSEdge*>& getRoute() const {
         return myRoute;
@@ -107,6 +108,8 @@ public:
     bool foundReversal() const {
         return myFoundReversal;
     }
+
+    static void init();
 
     /// @brief Whether veh must yield to the foe train
     static bool mustYield(const Approaching& veh, const Approaching& foe);
@@ -229,8 +232,20 @@ protected:
 private:
 
     std::set<SUMOVehicle*> myTrains;
+    
+    struct VehicleEvent {
+        VehicleEvent(SUMOTime _time, bool _isEntry, const std::string& _id, Notification _reason):
+            time(_time), isEntry(_isEntry), id(_id), reason(_reason) {}
+        SUMOTime time;
+        bool isEntry;
+        std::string id;
+        Notification reason;
+    };
+    std::vector<VehicleEvent> myVehicleEvents;
+
     static int myDriveWayIndex;
     static int myNumWarnings;
+    static bool myWriteVehicles;
 
 
 };
