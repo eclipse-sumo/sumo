@@ -7,7 +7,28 @@ title: Cadyts
 Cadyts is a tool to overcome the gap between the real traffic flows,
 which you should have, in form of induction loop data and the simulated
 traffic flows produced by SUMO. It adapts the flows by using the script
-cadytsIterate.py. For further information please consult the [Cadyts home page](https://github.com/gunnarfloetteroed/java).
+cadytsIterate.py.
+
+Cadyts is orginally designed to deal with people with different trip plans,
+i.e. each person/agent has different trip plans, including different departure 
+times, activities and duration for each activity etc. In this sense, each 
+person's departure time can be adjusted by choosing different trip plan for 
+matching given traffic measurements.
+
+In the SUMO-Cadyts coupling, each person 
+has only one trip plan with single origin and destination as well as fixed 
+departure time. So, departure time will not be adjusted. But, when the scale 
+option is used, the whole demand will be scaled, i.e. the original trips 
+will be "cloned". Then the scaled trips with the depature times, which 
+can result in a better matching to traffic measurements for each given 
+interval, would be selected. The un-selected cloned trips will be treated 
+as "stay at home" and not be used. So, using the scale factor does not mean
+that the whole scaled demand will be considered in the simulation. The scale 
+factor should not be too large. Otherweise, the network could be overloaded, 
+and the overall O-D matrix structure would be twisted.
+
+For further information please consult the [Cadyts home page](https://github.com/gunnarfloetteroed/java), [CaDyTS: Calibration of Dynamic Traffic Simulations
+] (https://api-depositonce.tu-berlin.de/server/api/core/bitstreams/76ff1f2b-1e6f-4caa-ba56-7f34956a3700/content) and [Cadyts – a free calibration tool for dynamic traffic simulations](https://core.ac.uk/reader/147962730).
 
 ## Usage
 
