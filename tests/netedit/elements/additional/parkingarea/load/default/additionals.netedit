@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingArea_0" lane="center1_0" startPos="5.00"/>
+    <parkingArea id="parkingArea_0" lane="EdgeCenter1_0" startPos="5.00"/>
 </additional>

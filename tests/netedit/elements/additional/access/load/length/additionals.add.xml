@@ -1,5 +1,5 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_0" lane="center0_1" startPos="23.00" endPos="33.00">
+    <busStop id="busStop_0" lane="EdgeCenter1_1" startPos="23.00" endPos="33.00">
 
         <!-- non valid length (missing) -->
         <access lane="E0_0" pos="1" friendlyPos="0"/>

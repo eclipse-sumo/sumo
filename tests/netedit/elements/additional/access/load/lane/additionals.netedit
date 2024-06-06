@@ -5,7 +5,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop_0" lane="center0_1" startPos="23.00" endPos="33.00">
+    <busStop id="busStop_0" lane="EdgeCenter1_1" startPos="23.00" endPos="33.00">
         <access lane="E0_0" pos="1.20" length="10.00"/>
     </busStop>
 </additional>

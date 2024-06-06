@@ -5,7 +5,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStop_00" lane="center1_1" startPos="5.00" endPos="10.00" lines="line1 line2">
+    <busStop id="busStop_00" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" lines="line1 line2">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>

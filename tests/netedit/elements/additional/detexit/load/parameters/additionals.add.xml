@@ -1,6 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <entryExitDetector id="entryExitDetector_0" period="100" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
-        <detExit lane="center1_0" pos="15" friendlyPos="0">
+        <detExit lane="EdgeCenter1_0" pos="15" friendlyPos="0">
 
             <!-- generic parameter -->
             <param key="key1" value="value1"/>
@@ -27,6 +27,6 @@
             <param/>
 
         </detExit>
-        <detEntry lane="center1_0" pos="20" friendlyPos="0"/>
+        <detEntry lane="EdgeCenter1_0" pos="20" friendlyPos="0"/>
     </entryExitDetector>
 </additional>

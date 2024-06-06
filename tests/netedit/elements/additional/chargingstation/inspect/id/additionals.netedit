@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="correctID" lane="center1_1" startPos="4.00" endPos="14.00"/>
+    <chargingStation id="correctID" lane="EdgeCenter1_1" startPos="4.00" endPos="14.00"/>
 </additional>

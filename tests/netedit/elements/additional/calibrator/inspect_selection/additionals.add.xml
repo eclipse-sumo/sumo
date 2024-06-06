@@ -1,10 +1,10 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <routeProbe id="RouteProbeA" edge="center0" period="3600" file="RouteProbeA.xml" begin="0.00"/>
-    <routeProbe id="RouteProbeB" edge="center0" period="3600" file="RouteProbeB.xml" begin="0.00"/>
-    <routeProbe id="customRouteProbeName" edge="center0" period="3600" file="RouteProbeB.xml" begin="0.00"/>
+    <routeProbe id="RouteProbeA" edge="EdgeCenter0" period="3600" file="RouteProbeA.xml" begin="0.00"/>
+    <routeProbe id="RouteProbeB" edge="EdgeCenter0" period="3600" file="RouteProbeB.xml" begin="0.00"/>
+    <routeProbe id="customRouteProbeName" edge="EdgeCenter0" period="3600" file="RouteProbeB.xml" begin="0.00"/>
 
     <!-- calibrator A -->
-    <calibrator id="calibratorA" edge="center0" pos="20" period="30" name="NameA" routeProbe="RouteProbeA" output="fileA.txt">
+    <calibrator id="calibratorA" edge="EdgeCenter0" pos="20" period="30" name="NameA" routeProbe="RouteProbeA" output="fileA.txt">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>

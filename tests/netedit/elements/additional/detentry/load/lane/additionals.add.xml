@@ -10,10 +10,10 @@
         <detEntry lane="dummyLane" pos="10"/>
 
         <!-- Valid lane -->
-        <detEntry lane="center1_0" pos="15"/>
+        <detEntry lane="EdgeCenter1_0" pos="15"/>
 
         <!-- Extra detExit for parent -->
-        <detExit lane="center1_0" pos="50"/>
+        <detExit lane="EdgeCenter1_0" pos="50"/>
 
     </entryExitDetector>
 

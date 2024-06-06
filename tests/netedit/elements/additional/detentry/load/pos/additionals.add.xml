@@ -4,25 +4,25 @@
     <entryExitDetector id="entryExitDetector_0" period="100" file="entryExitDetector_0.txt" timeThreshold="1.00" speedThreshold="1.39" pos="22.97,6.36">
 
         <!-- non valid Position (missing) -->
-        <detEntry lane="center1_0"/>
+        <detEntry lane="EdgeCenter1_0"/>
 
         <!-- non valid Position (dummy) -->
-        <detEntry lane="center1_0" pos="dummyPosition"/>
+        <detEntry lane="EdgeCenter1_0" pos="dummyPosition"/>
 
         <!-- non valid Position (empty) -->
-        <detEntry lane="center1_0" pos=""/>
+        <detEntry lane="EdgeCenter1_0" pos=""/>
 
         <!-- non valid Position (negative) -->
-        <detEntry lane="center1_0" pos="-10"/>
+        <detEntry lane="EdgeCenter1_0" pos="-10"/>
 
         <!-- non valid Position (overpassing lane) -->
-        <detEntry lane="center1_0" pos="20000"/>
+        <detEntry lane="EdgeCenter1_0" pos="20000"/>
 
         <!-- valid Position (overpassing lane) -->
-        <detEntry lane="center1_0" pos="50"/>
+        <detEntry lane="EdgeCenter1_0" pos="50"/>
 
         <!-- Extra detExit for parent -->
-        <detExit lane="center1_0" pos="50"/>
+        <detExit lane="EdgeCenter1_0" pos="50"/>
 
     </entryExitDetector>
 

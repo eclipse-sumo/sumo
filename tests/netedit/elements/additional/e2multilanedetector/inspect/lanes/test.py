@@ -58,10 +58,10 @@ netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "Id with spaces
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "top_0", True)
 
 # Change parameter lanes with a non valid value (non consecutive lanes)
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center1_1 bot_0", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter1_1 bot_0", True)
 
 # Change parameter lanes with a valid value
-netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "center0_1 center1_1", True)
+netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.lanes, "EdgeCenter0_1 EdgeCenter1_1", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

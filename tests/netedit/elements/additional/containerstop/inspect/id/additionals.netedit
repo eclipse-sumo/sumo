@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <containerStop id="correctID" lane="center1_1" startPos="14.00" endPos="24.00"/>
-    <containerStop id="ct_1" lane="center1_1" startPos="20.00" endPos="30.00"/>
+    <containerStop id="correctID" lane="EdgeCenter1_1" startPos="14.00" endPos="24.00"/>
+    <containerStop id="ct_1" lane="EdgeCenter1_1" startPos="20.00" endPos="30.00"/>
 </additional>

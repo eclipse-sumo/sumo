@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingAreaA" lane="center1_1" startPos="-2.00" endPos="12.00" friendlyPos="true"/>
-    <parkingArea id="parkingAreaB" lane="center1_1" startPos="38.00" endPos="480.00" friendlyPos="true"/>
-    <parkingArea id="parkingAreaC" lane="center1_1" startPos="-38.00" endPos="48.00" friendlyPos="true"/>
-    <parkingArea id="parkingAreaD" lane="center1_1" startPos="-2.00" endPos="-12.00" friendlyPos="true"/>
+    <parkingArea id="parkingAreaA" lane="EdgeCenter1_1" startPos="-2.00" endPos="12.00" friendlyPos="true"/>
+    <parkingArea id="parkingAreaB" lane="EdgeCenter1_1" startPos="38.00" endPos="480.00" friendlyPos="true"/>
+    <parkingArea id="parkingAreaC" lane="EdgeCenter1_1" startPos="-38.00" endPos="48.00" friendlyPos="true"/>
+    <parkingArea id="parkingAreaD" lane="EdgeCenter1_1" startPos="-2.00" endPos="-12.00" friendlyPos="true"/>
 </additional>

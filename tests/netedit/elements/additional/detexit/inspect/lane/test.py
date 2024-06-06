@@ -63,7 +63,7 @@ netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "dummyLane", True)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "", True)
 
 # Change parameter lane with a valid value (other lane)
-netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "center1_1", True)
+netedit.modifyAttribute(netedit.attrs.entryExit.inspect.lane, "EdgeCenter1_1", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <trainStop id="trainStopA" name="trainStop" lane="center1_1" startPos="5.00" endPos="10.00" friendlyPos="true" lines="line1 line2" personCapacity="10" parkingLength="12.00">
+    <trainStop id="trainStopA" name="trainStop" lane="EdgeCenter1_1" startPos="5.00" endPos="10.00" friendlyPos="true" lines="line1 line2" personCapacity="10" parkingLength="12.00">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </trainStop>
-    <trainStop id="trainStopB" name="trainStop" lane="center1_0" startPos="15.00" endPos="20.00" friendlyPos="true" lines="line3 line4" personCapacity="20" parkingLength="15.00">
+    <trainStop id="trainStopB" name="trainStop" lane="EdgeCenter1_0" startPos="15.00" endPos="20.00" friendlyPos="true" lines="line3 line4" personCapacity="20" parkingLength="15.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00"/>
+    <rerouter id="rerouter_0" edges="EdgeCenter0 EdgeCenter1" pos="0.00,10.00"/>
 </additional>

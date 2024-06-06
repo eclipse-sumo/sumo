@@ -11,6 +11,6 @@
     <calibrator id="ca_3" edge="E4" pos="0.00"/>
     <calibrator id="ca_4" edge="E1" pos="0.00"/>
     <calibrator id="ca_5" edge="bot" pos="0.00"/>
-    <calibrator id="calibrator_center0_3" edge="center0" pos="0.00" period="100.00" output="calibrator_center0_3.txt"/>
-    <calibrator id="calibrator_center1_2" edge="EdgeCenter1" pos="0.00" period="100.00" output="calibrator_center1_2.txt"/>
+    <calibrator id="calibrator_center0_3" edge="EdgeCenter0" pos="0.00" period="100.00" output="calibrator_center0_3.txt"/>
+    <calibrator id="calibrator_EdgeCenter1_2" edge="EdgeCenter1" pos="0.00" period="100.00" output="calibrator_EdgeCenter1_2.txt"/>
 </additional>

@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingArea_A" lane="center1_1" startPos="12.00" endPos="22.00" length="5.00"/>
-    <parkingArea id="parkingArea_B" lane="center1_1" startPos="29.00" endPos="39.00" length="5.00">
+    <parkingArea id="parkingArea_A" lane="EdgeCenter1_1" startPos="12.00" endPos="22.00" length="5.00"/>
+    <parkingArea id="parkingArea_B" lane="EdgeCenter1_1" startPos="29.00" endPos="39.00" length="5.00">
         <space name="nameB" x="34.00" y="7.00" z="20.00" width="2.00" length="12.00" angle="12.00" slope="30.00">
             <param key="KeyB1" value="valueB1"/>
             <param key="KeyB2" value="valueB2"/>

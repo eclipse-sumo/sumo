@@ -7,6 +7,6 @@
     <laneAreaDetector id="E2_02" lane="dummyLane" pos="3" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 
     <!-- valid lane -->
-    <laneAreaDetector id="E2_03" lane="center0_0" pos="1" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
+    <laneAreaDetector id="E2_03" lane="EdgeCenter0_0" pos="1" length="10.00" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
 
 </additional>

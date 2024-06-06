@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <rerouter id="rerouter_1" edges="center0 center1" pos="10.00,10.00" name="2·$$·%··"/>
-    <rerouter id="rerouter_2" edges="center0 center1" pos="40.00,-10.00" name="customName"/>
+    <rerouter id="rerouter_1" edges="EdgeCenter0 EdgeCenter1" pos="10.00,10.00" name="2·$$·%··"/>
+    <rerouter id="rerouter_2" edges="EdgeCenter0 EdgeCenter1" pos="40.00,-10.00" name="customName"/>
 </additional>

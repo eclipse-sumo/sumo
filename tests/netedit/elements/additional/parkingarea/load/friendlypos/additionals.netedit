@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingArea_1" name="parkingArea" lane="center1_0" startPos="-20.00" endPos="-10.00" friendlyPos="true" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_2" name="parkingArea" lane="center1_0" startPos="200.00" endPos="300.00" friendlyPos="true" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_3" name="parkingArea" lane="center1_0" startPos="50.00" endPos="20.00" friendlyPos="true" width="12.00" length="5.00"/>
-    <parkingArea id="parkingArea_4" name="parkingArea" lane="center1_0" startPos="20.00" endPos="20.00" friendlyPos="true" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_1" name="parkingArea" lane="EdgeCenter1_0" startPos="-20.00" endPos="-10.00" friendlyPos="true" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_2" name="parkingArea" lane="EdgeCenter1_0" startPos="200.00" endPos="300.00" friendlyPos="true" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_3" name="parkingArea" lane="EdgeCenter1_0" startPos="50.00" endPos="20.00" friendlyPos="true" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_4" name="parkingArea" lane="EdgeCenter1_0" startPos="20.00" endPos="20.00" friendlyPos="true" width="12.00" length="5.00"/>
 </additional>

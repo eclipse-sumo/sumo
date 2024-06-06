@@ -1,25 +1,25 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- non valid file (missing) -->
     <entryExitDetector id="entryExitDetector_0" period="100.00" timeThreshold="1.00" speedThreshold="1.39" pos="12,10">
-        <detEntry lane="center1_0" pos="16"/>
-        <detExit lane="center0_0" pos="16"/>
+        <detEntry lane="EdgeCenter1_0" pos="16"/>
+        <detExit lane="EdgeCenter0_0" pos="16"/>
     </entryExitDetector>
 
     <!-- non valid file (invalid) -->
     <entryExitDetector id="entryExitDetector_1" period="100.00" file="%%$$$%%" timeThreshold="1.00" speedThreshold="1.39" pos="12,10">
-        <detEntry lane="center1_0" pos="18"/>
-        <detExit lane="center0_0" pos="18"/>
+        <detEntry lane="EdgeCenter1_0" pos="18"/>
+        <detExit lane="EdgeCenter0_0" pos="18"/>
     </entryExitDetector>
 
     <!-- valid file (empty) -->
     <entryExitDetector id="entryExitDetector_2" period="100.00" file="" timeThreshold="1.00" speedThreshold="1.39" pos="14,10">
-        <detEntry lane="center1_0" pos="20"/>
-        <detExit lane="center0_0" pos="20"/>
+        <detEntry lane="EdgeCenter1_0" pos="20"/>
+        <detExit lane="EdgeCenter0_0" pos="20"/>
     </entryExitDetector>
 
     <!-- valid file -->
     <entryExitDetector id="entryExitDetector_3" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="16,10">
-        <detEntry lane="center1_0" pos="22"/>
-        <detExit lane="center0_0" pos="22"/>
+        <detEntry lane="EdgeCenter1_0" pos="22"/>
+        <detExit lane="EdgeCenter0_0" pos="22"/>
     </entryExitDetector>
 </additional>

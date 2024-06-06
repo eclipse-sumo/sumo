@@ -5,7 +5,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="parkingArea_0" lane="center1_0" startPos="5.00" endPos="10.00" width="12.00" length="5.00">
+    <parkingArea id="parkingArea_0" lane="EdgeCenter1_0" startPos="5.00" endPos="10.00" width="12.00" length="5.00">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>

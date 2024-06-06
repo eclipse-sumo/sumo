@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- RouteProbes -->
-    <routeProbe id="routeProbe_0" begin="0.00" period="100.00" edge="center1" file="routeProbe_0.txt"/>
-    <routeProbe id="routeProbe_2" begin="0.00" period="100.00" edge="center1" file="routeProbe_2.txt"/>
+    <routeProbe id="routeProbe_0" begin="0.00" period="100.00" edge="EdgeCenter1" file="routeProbe_0.txt"/>
+    <routeProbe id="routeProbe_2" begin="0.00" period="100.00" edge="EdgeCenter1" file="routeProbe_2.txt"/>
 </additional>

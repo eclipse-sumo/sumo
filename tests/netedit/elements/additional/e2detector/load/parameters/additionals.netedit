@@ -5,7 +5,7 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="E2_01" lane="center0_0" pos="1.00" length="10.00" period="100.00" file="fileA.txt">
+    <laneAreaDetector id="E2_01" lane="EdgeCenter0_0" pos="1.00" length="10.00" period="100.00" file="fileA.txt">
         <param key="$$key with spaces%%" value="value4"/>
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>

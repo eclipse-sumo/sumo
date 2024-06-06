@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "dummy lane", True)
 
 # Change parameter lane with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "center0_0", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "EdgeCenter0_0", True)
 
 # Change parameter lane with a valid value (original edge, same lane)
-netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "center1_1", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "EdgeCenter1_1", True)
 
 # Change parameter lane with a valid value (original edge, different lane)
-netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "center1_0", True)
+netedit.modifyAttribute(netedit.attrs.E1Instant.inspect.lane, "EdgeCenter1_0", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

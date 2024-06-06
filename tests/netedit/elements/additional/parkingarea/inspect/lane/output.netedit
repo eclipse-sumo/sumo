@@ -7,8 +7,8 @@ TestFunctions: Clicked over position 779 - 424
 TestFunctions: Clicked over position 779 - 448
 dummy lane
 center0_1
-center1_0
-center1_1
+EdgeCenter1_0
+EdgeCenter1_1
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

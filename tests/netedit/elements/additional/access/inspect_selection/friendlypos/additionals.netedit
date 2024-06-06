@@ -5,10 +5,10 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStopA" lane="center1_0" startPos="23.00" endPos="33.00">
+    <busStop id="busStopA" lane="EdgeCenter1_0" startPos="23.00" endPos="33.00">
         <access lane="E5_0" pos="2.00" length="10.00" friendlyPos="1"/>
     </busStop>
-    <busStop id="busStopB" lane="center1_0" startPos="23.00" endPos="33.00">
+    <busStop id="busStopB" lane="EdgeCenter1_0" startPos="23.00" endPos="33.00">
         <access lane="E1_0" pos="2.50" length="20.00" friendlyPos="1"/>
     </busStop>
 </additional>

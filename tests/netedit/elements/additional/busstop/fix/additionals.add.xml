@@ -53,8 +53,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStopA" lane="center0_0" startPos="-2.00" endPos="12.00" friendlyPos="1"/>
-    <busStop id="busStopB" lane="center1_0" startPos="38.00" endPos="480.00" friendlyPos="1"/>
+    <busStop id="busStopA" lane="EdgeCenter0_0" startPos="-2.00" endPos="12.00" friendlyPos="1"/>
+    <busStop id="busStopB" lane="EdgeCenter1_0" startPos="38.00" endPos="480.00" friendlyPos="1"/>
     <busStop id="busStopC" lane="Edge3_1" startPos="-38.00" endPos="48.00" friendlyPos="1"/>
     <busStop id="busStopD" lane="Edge5_1" startPos="-2.00" endPos="-12.00" friendlyPos="1"/>
 </additional>

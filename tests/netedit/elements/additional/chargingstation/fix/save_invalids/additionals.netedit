@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <chargingStation id="chargingStationA" lane="center0_0" startPos="-2.00" endPos="12.00"/>
-    <chargingStation id="chargingStationB" lane="center0_1" startPos="38.00" endPos="480.00"/>
-    <chargingStation id="chargingStationC" lane="center1_0" startPos="-38.00" endPos="48.00"/>
-    <chargingStation id="chargingStationD" lane="center1_1" startPos="-2.00" endPos="-12.00"/>
+    <chargingStation id="chargingStationA" lane="EdgeCenter0_0" startPos="-2.00" endPos="12.00"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="38.00" endPos="480.00"/>
+    <chargingStation id="chargingStationC" lane="EdgeCenter1_0" startPos="-38.00" endPos="48.00"/>
+    <chargingStation id="chargingStationD" lane="EdgeCenter1_1" startPos="-2.00" endPos="-12.00"/>
 </additional>

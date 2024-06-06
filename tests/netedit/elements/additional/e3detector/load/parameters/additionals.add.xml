@@ -31,8 +31,8 @@
      <!-- valid generic parameter (valid) -->
      <param key="keyFinal" value="valueFinal"/>
         <!-- childs -->
-        <detEntry lane="center1_0" pos="2"/>
-        <detExit lane="center0_0" pos="2"/>
+        <detEntry lane="EdgeCenter1_0" pos="2"/>
+        <detExit lane="EdgeCenter0_0" pos="2"/>
 
     </entryExitDetector>
 </additional>

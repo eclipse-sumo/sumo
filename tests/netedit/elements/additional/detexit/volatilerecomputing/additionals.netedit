@@ -6,10 +6,10 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <entryExitDetector id="entryExitDetector_0" pos="-9.88,24.71" period="100.00" file="entryExitDetector_0.txt">
-        <detExit lane="center0_0" pos="19.25"/>
-        <detExit lane="center0_1" pos="21.14"/>
-        <detExit lane="center1_0" pos="23.63"/>
-        <detExit lane="center1_1" pos="26.64"/>
+        <detExit lane="EdgeCenter0_0" pos="19.25"/>
+        <detExit lane="EdgeCenter1_1" pos="21.14"/>
+        <detExit lane="EdgeCenter1_0" pos="23.63"/>
+        <detExit lane="EdgeCenter1_1" pos="26.64"/>
         <detExit lane="Edge5_1" pos="28.96"/>
         <detExit lane="Edge3_1" pos="18.55"/>
         <detExit lane="E4_1" pos="14.69" friendlyPos="1"/>

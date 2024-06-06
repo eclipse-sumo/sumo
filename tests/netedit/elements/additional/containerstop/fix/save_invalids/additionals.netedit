@@ -5,8 +5,8 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <containerStop id="containerStopA" lane="center0_0" startPos="-2.00" endPos="12.00"/>
-    <containerStop id="containerStopB" lane="center1_0" startPos="38.00" endPos="480.00"/>
+    <containerStop id="containerStopA" lane="EdgeCenter0_0" startPos="-2.00" endPos="12.00"/>
+    <containerStop id="containerStopB" lane="EdgeCenter1_0" startPos="38.00" endPos="480.00"/>
     <containerStop id="containerStopC" lane="Edge3_1" startPos="-38.00" endPos="48.00"/>
     <containerStop id="containerStopD" lane="Edge5_1" startPos="-2.00" endPos="-12.00"/>
 </additional>

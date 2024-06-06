@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Calibrators -->
-    <calibrator id="calibrator03" lane="center1_0" pos="16.00" period="100.00" output="calibrator03.txt"/>
+    <calibrator id="calibrator03" lane="EdgeCenter1_0" pos="16.00" period="100.00" output="calibrator03.txt"/>
 </additional>

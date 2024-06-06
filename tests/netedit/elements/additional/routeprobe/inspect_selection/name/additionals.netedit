@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- RouteProbes -->
-    <routeProbe id="routeProbe_01" begin="0.00" period="100.00" edge="center0" name="customName" file="fileA.txt">
+    <routeProbe id="routeProbe_01" begin="0.00" period="100.00" edge="EdgeCenter0" name="customName" file="fileA.txt">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </routeProbe>
-    <routeProbe id="routeProbe_02" begin="3.00" period="120.00" edge="center1" name="customName" file="fileB.txt">
+    <routeProbe id="routeProbe_02" begin="3.00" period="120.00" edge="EdgeCenter1" name="customName" file="fileB.txt">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

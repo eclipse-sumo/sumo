@@ -6,6 +6,6 @@
 
     <rerouter id="rerouter_2" edges="ABC DEF" pos="40.00,-10.00"/>
 
-    <rerouter id="rerouter_3" edges="center0 center1" pos="50.00,-10.00"/>
+    <rerouter id="rerouter_3" edges="EdgeCenter0 EdgeCenter1" pos="50.00,-10.00"/>
 
 </additional>

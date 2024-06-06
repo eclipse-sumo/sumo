@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="e1_0" name="customName" lane="center1_1" pos="23.00" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_0" name="customName" lane="EdgeCenter1_1" pos="23.00" period="300.00" file="e1_0.xml"/>
 </additional>

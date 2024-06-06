@@ -6,8 +6,8 @@
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="dataSet" begin="0.00" end="3600.00">
         <edge id="top"/>
-        <edge id="center1"/>
+        <edge id="EdgeCenter1"/>
         <edge id="bot"/>
-        <edge id="center0"/>
+        <edge id="EdgeCenter0"/>
     </interval>
 </data>

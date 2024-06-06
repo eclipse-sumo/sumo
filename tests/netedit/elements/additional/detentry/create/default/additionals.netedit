@@ -6,7 +6,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <entryExitDetector id="e3_0" pos="-4.00,10.00" period="300.00" file="e3_0.xml">
-        <detEntry lane="center0_1" pos="35.00"/>
-        <detExit lane="center0_1" pos="21.00"/>
+        <detEntry lane="EdgeCenter1_1" pos="35.00"/>
+        <detExit lane="EdgeCenter1_1" pos="21.00"/>
     </entryExitDetector>
 </additional>

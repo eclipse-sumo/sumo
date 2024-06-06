@@ -8,13 +8,13 @@
     <entryExitDetector id="entryExitDetector_0" pos="10.00,10.00" period="100.00" file="entryExitDetector_0.txt">
         <detEntry lane="Edge3_1" pos="13.82"/>
         <detEntry lane="Edge5_1" pos="42.11" friendlyPos="1"/>
-        <detExit lane="center0_0" pos="38.04"/>
-        <detExit lane="center0_1" pos="34.51"/>
+        <detExit lane="EdgeCenter0_0" pos="38.04"/>
+        <detExit lane="EdgeCenter1_1" pos="34.51"/>
     </entryExitDetector>
     <entryExitDetector id="entryExitDetector_1" pos="5.00,5.00" period="100.00" file="entryExitDetector_1.txt">
         <detEntry lane="Edge3_1" pos="4.97"/>
         <detEntry lane="Edge5_1" pos="19.61"/>
-        <detExit lane="center1_0" pos="23.22"/>
-        <detExit lane="center1_1" pos="3.55"/>
+        <detExit lane="EdgeCenter1_0" pos="23.22"/>
+        <detExit lane="EdgeCenter1_1" pos="3.55"/>
     </entryExitDetector>
 </additional>

@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <instantInductionLoop id="E1_A" name="DetectorA" lane="center0_1" pos="6.00" file="myOwnOutput.txt" vTypes="Type1 Type2 Type3">
+    <instantInductionLoop id="E1_A" name="DetectorA" lane="EdgeCenter1_1" pos="6.00" file="myOwnOutput.txt" vTypes="Type1 Type2 Type3">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </instantInductionLoop>
-    <instantInductionLoop id="E1_B" name="DetectorB" lane="center1_1" pos="10.00" file="myOwnOutput.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
+    <instantInductionLoop id="E1_B" name="DetectorB" lane="EdgeCenter1_1" pos="10.00" file="myOwnOutput.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

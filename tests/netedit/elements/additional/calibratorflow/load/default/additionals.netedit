@@ -5,9 +5,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->
-    <route id="CRoute" edges="center0 center1"/>
+    <route id="CRoute" edges="EdgeCenter0 EdgeCenter1"/>
     <!-- Calibrators -->
-    <calibrator id="calibratorFlows" edge="center0" pos="20.00" period="100.00" output="calibratorFlows.txt">
+    <calibrator id="calibratorFlows" edge="EdgeCenter0" pos="20.00" period="100.00" output="calibratorFlows.txt">
         <flow type="DEFAULT_VEHTYPE" begin="0.00" speed="10.00" end="100.00" route="CRoute" vehsPerHour="250.00"/>
     </calibrator>
 </additional>

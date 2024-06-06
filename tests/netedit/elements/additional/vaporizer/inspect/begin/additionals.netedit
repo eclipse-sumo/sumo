@@ -5,5 +5,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <vaporizer id="center1" begin="5.00" end="3600.00"/>
+    <vaporizer id="EdgeCenter1" begin="5.00" end="3600.00"/>
 </additional>

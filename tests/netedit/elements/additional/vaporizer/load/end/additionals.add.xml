@@ -1,10 +1,10 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- non valid end (missing) -->
-    <vaporizer id="center0" begin="5.00"/>
+    <vaporizer id="EdgeCenter0" begin="5.00"/>
 
     <!-- non valid end (missing, default < begin) -->
-    <vaporizer id="center1" begin="50.00"/>
+    <vaporizer id="EdgeCenter1" begin="50.00"/>
 
     <!-- non valid end (dummy) -->
     <vaporizer id="top" begin="5.00" end="dummy"/>

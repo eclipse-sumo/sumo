@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Other additionals -->
-    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00">
+    <rerouter id="rerouter_0" edges="EdgeCenter0 EdgeCenter1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
-            <closingLaneReroute id="center0_0"/>
-            <closingLaneReroute id="center0_0" allow="all"/>
-            <closingLaneReroute id="center0_0" allow="pedestrian passenger"/>
-            <closingLaneReroute id="center0_0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2"/>
+            <closingLaneReroute id="EdgeCenter0_0"/>
+            <closingLaneReroute id="EdgeCenter0_0" allow="all"/>
+            <closingLaneReroute id="EdgeCenter0_0" allow="pedestrian passenger"/>
+            <closingLaneReroute id="EdgeCenter0_0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2"/>
         </interval>
     </rerouter>
 </additional>

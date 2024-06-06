@@ -5,12 +5,12 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" name="customName" lanes="center1_1 center0_1" pos="10.00" endPos="37.00" period="100.00" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="1">
+    <laneAreaDetector id="multiLaneAreaDetector_0" name="customName" lanes="EdgeCenter1_1 center0_1" pos="10.00" endPos="37.00" period="100.00" file="fileA.txt" vTypes="type1 type2 type3" friendlyPos="1">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </laneAreaDetector>
-    <laneAreaDetector id="multiLaneAreaDetector_1" name="customName" lanes="center0_1 center1_1" pos="10.00" endPos="37.00" period="200.00" file="fileB.xml" vTypes="type4 type5 type6" friendlyPos="1">
+    <laneAreaDetector id="multiLaneAreaDetector_1" name="customName" lanes="EdgeCenter0_1 EdgeCenter1_1" pos="10.00" endPos="37.00" period="200.00" file="fileB.xml" vTypes="type4 type5 type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

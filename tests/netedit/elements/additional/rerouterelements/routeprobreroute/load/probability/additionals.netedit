@@ -5,9 +5,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Routes (used in RouteProbReroutes and calibratorFlows) -->
-    <route id="route_0" edges="center0 center1" color="yellow"/>
+    <route id="route_0" edges="EdgeCenter0 EdgeCenter1" color="yellow"/>
     <!-- Other additionals -->
-    <rerouter id="rerouter_0" edges="center0 center1" pos="0.00,10.00">
+    <rerouter id="rerouter_0" edges="EdgeCenter0 EdgeCenter1" pos="0.00,10.00">
         <interval begin="0.00" end="3600.00">
             <routeProbReroute id="route_0" probability="1.00"/>
             <routeProbReroute id="route_0" probability="60.00"/>

@@ -5,8 +5,8 @@
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>
-        <detEntry lane="center0_0" pos="5" friendlyPos="0"/>
-        <detExit lane="center0_0" pos="25" friendlyPos="0"/>
+        <detEntry lane="EdgeCenter0_0" pos="5" friendlyPos="0"/>
+        <detExit lane="EdgeCenter0_0" pos="25" friendlyPos="0"/>
     </entryExitDetector>
 
     <!-- E3 B -->
@@ -14,8 +14,8 @@
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB3" value="valueB2"/>
         <param key="KeyB2" value="valueB3"/>
-        <detEntry lane="center1_0" pos="10" friendlyPos="0"/>
-        <detExit lane="center1_0" pos="30" friendlyPos="0"/>
+        <detEntry lane="EdgeCenter1_0" pos="10" friendlyPos="0"/>
+        <detExit lane="EdgeCenter1_0" pos="30" friendlyPos="0"/>
     </entryExitDetector>
 
 </additional>

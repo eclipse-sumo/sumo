@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- default calibratorLane -->
-    <calibrator id="calibrator01" lane="center0_0" pos="0.00" period="100.00" output="calibrator01.txt">
+    <calibrator id="calibrator01" lane="EdgeCenter0_0" pos="0.00" period="100.00" output="calibrator01.txt">
 
     <!-- valid generic parameter (valid) -->
     <param key="key1" value="value1"/>

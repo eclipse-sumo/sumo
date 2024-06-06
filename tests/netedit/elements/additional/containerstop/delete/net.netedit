@@ -101,13 +101,13 @@
         <lane id="E5_0" index="0" allow="pedestrian" speed="13.89" length="3.10" width="2.00" shape="29.20,7.90 29.20,11.00"/>
         <lane id="E5_1" index="1" disallow="pedestrian" speed="13.89" length="3.10" shape="26.60,7.90 26.60,11.00"/>
     </edge>
-    <edge id="center0" from="JC1" to="JC0" priority="1">
-        <lane id="center0_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,4.80 -23.50,4.80"/>
-        <lane id="center0_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,1.60 -23.50,1.60"/>
+    <edge id="EdgeCenter0" from="JC1" to="JC0" priority="1">
+        <lane id="EdgeCenter0_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,4.80 -23.50,4.80"/>
+        <lane id="EdgeCenter1_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="23.50,1.60 -23.50,1.60"/>
     </edge>
-    <edge id="center1" from="JC0" to="JC1" priority="1">
-        <lane id="center1_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="-23.50,-4.80 23.50,-4.80"/>
-        <lane id="center1_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="-23.50,-1.60 23.50,-1.60"/>
+    <edge id="EdgeCenter1" from="JC0" to="JC1" priority="1">
+        <lane id="EdgeCenter1_0" index="0" disallow="pedestrian" speed="13.89" length="47.00" shape="-23.50,-4.80 23.50,-4.80"/>
+        <lane id="EdgeCenter1_1" index="1" disallow="pedestrian" speed="13.89" length="47.00" shape="-23.50,-1.60 23.50,-1.60"/>
     </edge>
     <edge id="top" from="JT1" to="JT0" priority="-1">
         <lane id="top_0" index="0" speed="13.89" length="42.00" shape="21.00,16.60 -21.00,16.60"/>
@@ -135,7 +135,7 @@
         <request index="3" response="00111" foes="00111" cont="0"/>
         <request index="4" response="00110" foes="00110" cont="0"/>
     </junction>
-    <junction id="JC1" type="traffic_light" x="25.00" y="0.00" incLanes="E4_0 E4_1 center1_0 center1_1" intLanes=":JC1_0_0 :JC1_1_0 :JC1_1_1 :JC1_3_0 :JC1_4_0" shape="25.00,7.90 30.20,7.90 30.20,-7.90 25.00,-7.90 24.83,-7.07 24.62,-6.78 24.33,-6.57 23.96,-6.44 23.50,-6.40 23.50,6.40 24.33,6.57 24.62,6.77 24.83,7.07 24.96,7.44">
+    <junction id="JC1" type="traffic_light" x="25.00" y="0.00" incLanes="E4_0 E4_1 EdgeCenter1_0 EdgeCenter1_1" intLanes=":JC1_0_0 :JC1_1_0 :JC1_1_1 :JC1_3_0 :JC1_4_0" shape="25.00,7.90 30.20,7.90 30.20,-7.90 25.00,-7.90 24.83,-7.07 24.62,-6.78 24.33,-6.57 23.96,-6.44 23.50,-6.40 23.50,6.40 24.33,6.57 24.62,6.77 24.83,7.07 24.96,7.44">
         <request index="0" response="00000" foes="01000" cont="0"/>
         <request index="1" response="00000" foes="11000" cont="0"/>
         <request index="2" response="00000" foes="11000" cont="0"/>
@@ -150,28 +150,28 @@
     </junction>
 
     <connection from="E0" to="E1" fromLane="1" toLane="1" via=":JC0_0_0" tl="gneJ0" linkIndex="0" dir="s" state="O"/>
-    <connection from="E0" to="center1" fromLane="1" toLane="0" via=":JC0_1_0" tl="gneJ0" linkIndex="1" dir="l" state="O"/>
-    <connection from="E0" to="center1" fromLane="1" toLane="1" via=":JC0_1_1" tl="gneJ0" linkIndex="2" dir="l" state="O"/>
+    <connection from="E0" to="EdgeCenter1" fromLane="1" toLane="0" via=":JC0_1_0" tl="gneJ0" linkIndex="1" dir="l" state="O"/>
+    <connection from="E0" to="EdgeCenter1" fromLane="1" toLane="1" via=":JC0_1_1" tl="gneJ0" linkIndex="2" dir="l" state="O"/>
     <connection from="E4" to="E5" fromLane="1" toLane="1" via=":JC1_0_0" tl="gneJ1" linkIndex="0" dir="s" state="O"/>
-    <connection from="E4" to="center0" fromLane="1" toLane="0" via=":JC1_1_0" tl="gneJ1" linkIndex="1" dir="l" state="O"/>
-    <connection from="E4" to="center0" fromLane="1" toLane="1" via=":JC1_1_1" tl="gneJ1" linkIndex="2" dir="l" state="O"/>
+    <connection from="E4" to="EdgeCenter0" fromLane="1" toLane="0" via=":JC1_1_0" tl="gneJ1" linkIndex="1" dir="l" state="O"/>
+    <connection from="E4" to="EdgeCenter0" fromLane="1" toLane="1" via=":JC1_1_1" tl="gneJ1" linkIndex="2" dir="l" state="O"/>
     <connection from="E5" to="top" fromLane="1" toLane="0" via=":JT1_0_0" dir="l" state="M"/>
-    <connection from="center0" to="E1" fromLane="0" toLane="1" via=":JC0_3_0" tl="gneJ0" linkIndex="3" dir="l" state="o"/>
-    <connection from="center0" to="center1" fromLane="1" toLane="1" via=":JC0_4_0" tl="gneJ0" linkIndex="4" dir="t" state="o"/>
-    <connection from="center1" to="E5" fromLane="0" toLane="1" via=":JC1_3_0" tl="gneJ1" linkIndex="3" dir="l" state="o"/>
-    <connection from="center1" to="center0" fromLane="1" toLane="1" via=":JC1_4_0" tl="gneJ1" linkIndex="4" dir="t" state="o"/>
+    <connection from="EdgeCenter0" to="E1" fromLane="0" toLane="1" via=":JC0_3_0" tl="gneJ0" linkIndex="3" dir="l" state="o"/>
+    <connection from="EdgeCenter0" to="EdgeCenter1" fromLane="1" toLane="1" via=":JC0_4_0" tl="gneJ0" linkIndex="4" dir="t" state="o"/>
+    <connection from="EdgeCenter1" to="E5" fromLane="0" toLane="1" via=":JC1_3_0" tl="gneJ1" linkIndex="3" dir="l" state="o"/>
+    <connection from="EdgeCenter1" to="EdgeCenter0" fromLane="1" toLane="1" via=":JC1_4_0" tl="gneJ1" linkIndex="4" dir="t" state="o"/>
     <connection from="top" to="E0" fromLane="0" toLane="1" via=":JT0_0_0" dir="l" state="M"/>
 
     <connection from=":JC0_0" to="E1" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":JC0_1" to="center1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":JC0_1" to="center1" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":JC0_1" to="EdgeCenter1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":JC0_1" to="EdgeCenter1" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":JC0_3" to="E1" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":JC0_4" to="center1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":JC0_4" to="EdgeCenter1" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":JC1_0" to="E5" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":JC1_1" to="center0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":JC1_1" to="center0" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":JC1_1" to="EdgeCenter0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":JC1_1" to="EdgeCenter0" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":JC1_3" to="E5" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":JC1_4" to="center0" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":JC1_4" to="EdgeCenter0" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":JT0_0" to="E0" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":JT1_0" to="top" fromLane="0" toLane="0" dir="l" state="M"/>
 

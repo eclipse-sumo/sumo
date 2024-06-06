@@ -6,6 +6,6 @@
 
     <variableSpeedSign id="variableSpeedSign_2" lanes="ABC DEF" pos="40.00,-10.00"/>
 
-    <variableSpeedSign id="variableSpeedSign_3" lanes="center0_0 center1_0" pos="50.00,-10.00"/>
+    <variableSpeedSign id="variableSpeedSign_3" lanes="EdgeCenter0_0 EdgeCenter1_0" pos="50.00,-10.00"/>
 
 </additional>

@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <instantInductionLoop id="E1_01" name="$·$··%·" lane="center0_1" pos="12.00" file="fileA.txt" vTypes="taxi bus" friendlyPos="1"/>
-    <instantInductionLoop id="E1_02" name="custom Name" lane="center0_1" pos="15.00" file="fileA.txt" vTypes="taxi bus" friendlyPos="1"/>
+    <instantInductionLoop id="E1_01" name="$·$··%·" lane="EdgeCenter1_1" pos="12.00" file="fileA.txt" vTypes="taxi bus" friendlyPos="1"/>
+    <instantInductionLoop id="E1_02" name="custom Name" lane="EdgeCenter1_1" pos="15.00" file="fileA.txt" vTypes="taxi bus" friendlyPos="1"/>
 </additional>

@@ -5,6 +5,6 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="E2_01" lane="center0_0" pos="31.00" length="10.00" period="120.00" file="fileA.txt"/>
-    <laneAreaDetector id="E2_04" lane="center0_0" pos="34.00" length="10.00" period="120.00" file="fileA.txt" jamThreshold="1.39"/>
+    <laneAreaDetector id="E2_01" lane="EdgeCenter0_0" pos="31.00" length="10.00" period="120.00" file="fileA.txt"/>
+    <laneAreaDetector id="E2_04" lane="EdgeCenter0_0" pos="34.00" length="10.00" period="120.00" file="fileA.txt" jamThreshold="1.39"/>
 </additional>

@@ -38,11 +38,11 @@
     <laneAreaDetector id="multiLaneAreaDetector_1" lanes="dunmmyLane1 dunmmyLane2" pos="15" period="900.00" file="multiLaneAreaDetector_1.xml" endPos="15"/>
 
     <!-- single -->
-    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="center0_1" pos="15" period="900.00" file="multiLaneAreaDetector_2.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="EdgeCenter1_1" pos="15" period="900.00" file="multiLaneAreaDetector_2.xml" endPos="15"/>
 
     <!-- non consecutives -->
-    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="center0_1 top_0" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="EdgeCenter0_1 top_0" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"/>
 
     <!-- consecutives -->
-    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="center0_1 center1_1" pos="15" period="900.00" file="multiLaneAreaDetector_4.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="EdgeCenter0_1 EdgeCenter1_1" pos="15" period="900.00" file="multiLaneAreaDetector_4.xml" endPos="15"/>
 </additional>

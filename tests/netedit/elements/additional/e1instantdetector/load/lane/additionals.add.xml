@@ -7,6 +7,6 @@
     <instantInductionLoop id="E1_02" lane="dummyLane" pos="12" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
     <!-- valid lane -->
-    <instantInductionLoop id="E1_03" lane="center0_1" pos="12" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
+    <instantInductionLoop id="E1_03" lane="EdgeCenter1_1" pos="12" file="fileA.txt" vTypes="bus taxi private" friendlyPos="0"/>
 
 </additional>
