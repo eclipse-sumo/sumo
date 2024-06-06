@@ -708,12 +708,12 @@ void
 MSRailSignal::updateDriveway(int numericalID) {
     for (LinkInfo& li : myLinkInfos) {
         for (auto it = li.myDriveways.begin(); it != li.myDriveways.end(); it++) {
-            const MSDriveWay& dw = *it;
-            if (dw.getNumericalID() == numericalID) {
+            const MSDriveWay* dw = *it;
+            if (dw->getNumericalID() == numericalID) {
 #ifdef DEBUG_DRIVEWAY_UPDATE
                 std::cout << SIMTIME << " rail signal junction '" << getID() << "' requires update for driveway " << numericalID << "\n";
 #endif
-                std::vector<const MSEdge*> route = dw.getRoute();
+                std::vector<const MSEdge*> route = dw->getRoute();
                 delete *it;
                 li.myDriveways.erase(it);
                 if (li.myDriveways.size() == 0) {
