@@ -1004,5 +1004,29 @@ MSDriveWay::appendMapIndex(LaneVisitedMap& map, const MSLane* lane) {
     map[lane] = tmp;
 }
 
+bool
+MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
+    // @todo optimize: it is sufficient to check for specific edges (after each switch)
+    auto itRoute = firstIt;
+    auto itDwRoute = myRoute.begin();
+    bool match = true;
+    while (itRoute != route.end() && itDwRoute != myRoute.end()) {
+        if (*itRoute != *itDwRoute) {
+            match = false;
+            //std::cout << "  check dw=" << " match failed at vehEdge=" << (*itRoute)->getID() << " dwEdge=" << (*itDwRoute)->getID() << "\n";
+            break;
+        }
+        itRoute++;
+        itDwRoute++;
+    }
+    // if the vehicle arrives before the end of this driveway,
+    // we'd rather build a new driveway to avoid superfluous restrictions
+    if (match && itDwRoute == myRoute.end()
+            && (itRoute == route.end() || myFoundSignal || myFoundReversal)) {
+        //std::cout << "  using dw=" << "\n";
+        return true;
+    }
+    return false;
+}
 
 /****************************************************************************/

@@ -101,13 +101,8 @@ public:
         return myNumericalID;
     }
 
-    bool foundSignal() const {
-        return myFoundSignal;
-    }
-
-    bool foundReversal() const {
-        return myFoundReversal;
-    }
+    /// @brief whether the give route matches this driveway
+    bool match(const MSRoute& route, MSRouteIterator firstIt) const;
 
     static void init();
 

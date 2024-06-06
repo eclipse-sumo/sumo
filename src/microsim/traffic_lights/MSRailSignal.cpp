@@ -580,24 +580,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
     for (MSDriveWay* dw : myDriveways) {
-        // @todo optimize: it is sufficient to check for specific edges (after each switch)
-        auto itRoute = firstIt;
-        auto itDwRoute = dw->getRoute().begin();
-        bool match = true;
-        while (itRoute != veh->getRoute().end() && itDwRoute != dw->getRoute().end()) {
-            if (*itRoute != *itDwRoute) {
-                match = false;
-                //std::cout << "  check dw=" << " match failed at vehEdge=" << (*itRoute)->getID() << " dwEdge=" << (*itDwRoute)->getID() << "\n";
-                break;
-            }
-            itRoute++;
-            itDwRoute++;
-        }
-        // if the vehicle arrives before the end of this driveway,
-        // we'd rather build a new driveway to avoid superfluous restrictions
-        if (match && itDwRoute == dw->getRoute().end()
-                && (itRoute == veh->getRoute().end() || dw->foundSignal() || dw->foundReversal())) {
-            //std::cout << "  using dw=" << "\n";
+        if (dw->match(veh->getRoute(), firstIt)) {
             return *dw;
         }
 #ifdef DEBUG_SELECT_DRIVEWAY
