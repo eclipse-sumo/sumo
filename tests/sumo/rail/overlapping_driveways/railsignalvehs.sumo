@@ -17,20 +17,14 @@
         <driveWay id="1">
             <entry id="v_0" time="35.00" reason="1"/>
             <exit id="v_0" time="57.00" reason="1"/>
-            <entry id="v_1" time="59.00" reason="1"/>
             <entry id="v_2" time="90.00" reason="1"/>
-            <entry id="v_3" time="124.00" reason="1"/>
             <exit id="v_2" time="152.00" reason="1"/>
-            <exit id="v_1" time="157.00" reason="9"/>
-            <exit id="v_3" time="264.00" reason="9"/>
         </driveWay>
         <driveWay id="4">
             <entry id="v_1" time="59.00" reason="1"/>
             <exit id="v_1" time="82.00" reason="1"/>
-            <entry id="v_2" time="90.00" reason="1"/>
             <entry id="v_3" time="124.00" reason="1"/>
             <exit id="v_3" time="177.00" reason="1"/>
-            <exit id="v_2" time="239.00" reason="9"/>
         </driveWay>
     </link>
 </railSignal>
