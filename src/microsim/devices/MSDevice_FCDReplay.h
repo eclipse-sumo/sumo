@@ -26,6 +26,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class SUMOSAXReader;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -57,6 +63,7 @@ public:
     /** @brief Static intialization
      */
     static void init();
+    static SUMOTime parseNext(SUMOTime t);
 
 public:
     /// @brief Destructor.
@@ -82,6 +89,7 @@ public:
 
     void setTrajectory(Trajectory* const t) {
         myTrajectory = t;
+        myTrajectoryIndex = 1;
     }
 
 private:
@@ -103,7 +111,10 @@ private:
     class FCDHandler : public SUMOSAXHandler {
     public:
         void reset();
-        void addTrafficObjects();
+        SUMOTime getTime() const {
+            return myTime;
+        }
+        void updateTrafficObjects(const SUMOTime intervalStart);
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -120,20 +131,27 @@ private:
         //@}
 
     private:
-        SUMOTime myTime;
-        std::map<std::string, Trajectory> myTrajectories;
         struct StageStart {
             std::string vehicle;
             int trajectoryOffset;
             int routeOffset;
         };
+
+        MSTransportable::MSTransportablePlan* makePlan(const SUMOVehicleParameter& params, const ConstMSEdgeVector& route,
+                const std::vector<StageStart>& stages, const Trajectory& t);
+        ConstMSEdgeVector checkRoute(const ConstMSEdgeVector& edges, const SUMOVehicle* const vehicle);
+
+        SUMOTime myTime = 0;
+        std::map<std::string, Trajectory> myTrajectories;
         std::map<std::string, std::tuple<SUMOTime, std::string, bool, ConstMSEdgeVector, std::vector<StageStart> > > myRoutes;
         std::map<const Position, std::string> myPositions;
     };
 
 private:
     static FCDHandler myHandler;
+    static SUMOSAXReader* myParser;
     Trajectory* myTrajectory = nullptr;
+    int myTrajectoryIndex = 0;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -19,8 +19,10 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StaticCommand.h>
 #include <utils/geom/Position.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/xml/SUMOSAXReader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <libsumo/Vehicle.h>
 #include <microsim/MSNet.h>
@@ -41,6 +43,7 @@
 // static member initializations
 // ===========================================================================
 MSDevice_FCDReplay::FCDHandler MSDevice_FCDReplay::myHandler;
+SUMOSAXReader* MSDevice_FCDReplay::myParser = nullptr;
 
 
 // ===========================================================================
@@ -74,12 +77,34 @@ MSDevice_FCDReplay::init() {
     myHandler.reset();
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("device.fcd-replay.file")) {
-        if (!XMLSubSys::runParser(myHandler, oc.getString("device.fcd-replay.file"))) {
-            throw ProcessError();
+        const std::string& filename = oc.getString("device.fcd-replay.file");
+        myParser = XMLSubSys::getSAXReader(myHandler);
+        if (!myParser->parseFirst(filename)) {
+            throw ProcessError(TLF("Can not read XML-file '%'.", filename));
         }
-        myHandler.addTrafficObjects();
+        const SUMOTime inc = parseNext(SIMSTEP);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new MoveVehicles(), SIMSTEP + DELTA_T);
+        if (inc > 0) {
+            MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(new StaticCommand<MSDevice_FCDReplay>(&MSDevice_FCDReplay::parseNext),
+                    SIMSTEP + inc);
+        }
     }
+}
+
+
+SUMOTime
+MSDevice_FCDReplay::parseNext(SUMOTime t) {
+    SUMOTime inc = string2time(OptionsCont::getOptions().getString("route-steps"));
+    // make sure that we have always at least inc time steps buffered, so at time 200 we will parse 400 to 600
+    const SUMOTime start = myHandler.getTime();
+    while (myHandler.getTime() < t + 2 * inc) {
+        if (!myParser->parseNext()) {
+            inc = 0;
+            break;
+        }
+    }
+    myHandler.updateTrafficObjects(start);
+    return inc;
 }
 
 
@@ -97,13 +122,13 @@ MSDevice_FCDReplay::~MSDevice_FCDReplay() {
 
 void
 MSDevice_FCDReplay::move(SUMOTime currentTime) {
-    if (myTrajectory == nullptr || myTrajectory->empty()) {
+    if (myTrajectory == nullptr || myTrajectoryIndex == (int)myTrajectory->size()) {
         // removal happens via the usual MSVehicle::hasArrived mechanism
         // TODO we may need to set an arrivalPos
         return;
     }
     MSVehicle* v = dynamic_cast<MSVehicle*>(&myHolder);
-    const TrajectoryEntry& te = myTrajectory->front();
+    const TrajectoryEntry& te = myTrajectory->at(myTrajectoryIndex);
     if (v == nullptr || te.time > currentTime) {
         return;
     }
@@ -112,7 +137,7 @@ MSDevice_FCDReplay::move(SUMOTime currentTime) {
     libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, te.pos.x(), te.pos.y(), te.angle, 7);
     libsumo::Vehicle::setSpeed(myHolder.getID(), te.speed);
     // libsumo::Vehicle::changeLane(myHolder.getID(), laneIdx, TS);
-    myTrajectory->erase(myTrajectory->begin());
+    myTrajectoryIndex++;
 }
 
 
@@ -190,137 +215,183 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
 
 void
 MSDevice_FCDReplay::FCDHandler::reset() {
+    myTime = 0;
     myTrajectories.clear();
     myRoutes.clear();
 }
 
 
+MSTransportable::MSTransportablePlan*
+MSDevice_FCDReplay::FCDHandler::makePlan(const SUMOVehicleParameter& params, const ConstMSEdgeVector& route,
+        const std::vector<StageStart>& stages, const Trajectory& t) {
+    MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
+    plan->push_back(new MSStageWaiting(route.front(), nullptr, 0, params.depart, params.departPos, "awaiting departure", true));
+    int prevRouteOffset = 0;
+    const MSEdge* start = route.front();
+    std::string prevVeh;
+    for (const auto& stageStart : stages) {
+        if (stageStart.vehicle != prevVeh) {
+            if (stageStart.trajectoryOffset != 0) {
+                const MSEdge* prevEdge = MSEdge::dictionary(t[stageStart.trajectoryOffset - 1].edgeOrLane);
+                if (prevVeh == "") {
+                    MSStoppingPlace* finalStop = nullptr;
+                    if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
+                        prevRouteOffset++;  // skip the access
+                    }
+                    int offset = stageStart.routeOffset;
+                    if (offset < (int)route.size() - 1 && (route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
+                        offset++;  // a bus stop or two consecutive walks so include the edge in both
+                    } else {
+                        // may have an access, let's find the stop
+                        const std::string& stop = MSNet::getInstance()->getStoppingPlaceID(route[offset]->getLanes()[0], t[stageStart.trajectoryOffset].lanePos, SUMO_TAG_BUS_STOP);
+                        if (stop != "") {
+                            finalStop = MSNet::getInstance()->getStoppingPlace(stop, SUMO_TAG_BUS_STOP);
+                        }
+                    }
+                    ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
+                    plan->push_back(new MSStageWalking(params.id, subRoute, finalStop, -1, params.departSpeed, params.departPos, 0, 0));
+                } else {
+                    plan->push_back(new MSStageDriving(start, prevEdge, nullptr, -1, 0, {prevVeh}));
+                }
+                start = MSEdge::dictionary(t[stageStart.trajectoryOffset].edgeOrLane);
+                prevVeh = stageStart.vehicle;
+                prevRouteOffset = stageStart.routeOffset;
+            }
+        }
+    }
+    // final stage
+    if (prevVeh == "") {
+        if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
+            prevRouteOffset++;
+        }
+        int offset = (int)route.size() - 1;
+        if ((route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
+            offset++;
+        }
+        if (prevRouteOffset < offset) {
+            // otherwise we may be still in a vehicle or in access, skip the stage for now
+            ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
+            plan->push_back(new MSStageWalking(params.id, subRoute, nullptr, -1, params.departSpeed, params.departPos, 0, 0));
+        }
+    } else {
+        plan->push_back(new MSStageDriving(start, route.back(), nullptr, -1, 0, {prevVeh}));
+    }
+    return plan;
+}
+
+
+ConstMSEdgeVector
+MSDevice_FCDReplay::FCDHandler::checkRoute(const ConstMSEdgeVector& edges, const SUMOVehicle* const vehicle) {
+    ConstMSEdgeVector checkedRoute;
+    for (const MSEdge* const e : edges) {
+        if (checkedRoute.empty() || checkedRoute.back()->isConnectedTo(*e, vehicle->getVehicleType().getVehicleClass())) {
+            checkedRoute.push_back(e);
+        } else {
+            const MSEdge* fromEdge = checkedRoute.back();
+            checkedRoute.pop_back();
+            if (!MSNet::getInstance()->getRouterTT(0).compute(fromEdge, e, vehicle, myTime, checkedRoute)) {
+                // TODO maybe warn about disconnected route
+                checkedRoute.push_back(fromEdge);
+                checkedRoute.push_back(e);
+            }
+            // TODO check whether we introduced a big detour
+        }
+    }
+    return checkedRoute;
+}
+
+
 void
-MSDevice_FCDReplay::FCDHandler::addTrafficObjects() {
+MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStart) {
     for (const auto& desc : myRoutes) {
         const std::string& id = desc.first;
-        Trajectory& t = myTrajectories[id];
-        SUMOVehicleParameter* params = new SUMOVehicleParameter();
-        params->id = id;
-        params->depart = std::get<0>(desc.second);
-        params->departPos = t.front().lanePos;
-        params->departSpeed = t.front().speed;
-        // params->arrivalPos = t.back().lanePos;
         const bool isPerson = std::get<2>(desc.second);
-        std::string vType = std::get<1>(desc.second);
-        if (vType == "") {
-            vType = isPerson ? DEFAULT_PEDTYPE_ID : DEFAULT_VTYPE_ID;
-        }
-        MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vType);
-        if (vehicleType == nullptr) {
-            throw ProcessError("Unknown vType '" + vType + "'.");
-        }
-        if (isPerson) {
-            MSTransportable::MSTransportablePlan* plan = new MSTransportable::MSTransportablePlan();
-            const ConstMSEdgeVector& route = std::get<3>(desc.second);
-            plan->push_back(new MSStageWaiting(route.front(), nullptr, 0, params->depart, params->departPos, "awaiting departure", true));
-            int prevRouteOffset = 0;
-            const MSEdge* start = route.front();
-            std::string prevVeh;
-            for (const auto& stageStart : std::get<4>(desc.second)) {
-                if (stageStart.vehicle != prevVeh) {
-                    if (stageStart.trajectoryOffset != 0) {
-                        const MSEdge* prevEdge = MSEdge::dictionary(t[stageStart.trajectoryOffset - 1].edgeOrLane);
-                        if (prevVeh == "") {
-                            MSStoppingPlace* finalStop = nullptr;
-                            if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
-                                prevRouteOffset++;  // skip the access
-                            }
-                            int offset = stageStart.routeOffset;
-                            if (offset < (int)route.size() - 1 && (route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
-                                offset++;  // a bus stop or two consecutive walks so include the edge in both
-                            } else {
-                                // may have an access, let's find the stop
-                                const std::string& stop = MSNet::getInstance()->getStoppingPlaceID(route[offset]->getLanes()[0], t[stageStart.trajectoryOffset].lanePos, SUMO_TAG_BUS_STOP);
-                                if (stop != "") {
-                                    finalStop = MSNet::getInstance()->getStoppingPlace(stop, SUMO_TAG_BUS_STOP);
-                                }
-                            }
-                            ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
-                            plan->push_back(new MSStageWalking(id, subRoute, finalStop, -1, params->departSpeed, params->departPos, 0, 0));
-                        } else {
-                            plan->push_back(new MSStageDriving(start, prevEdge, nullptr, -1, 0, {prevVeh}));
-                        }
-                        start = MSEdge::dictionary(t[stageStart.trajectoryOffset].edgeOrLane);
-                        prevVeh = stageStart.vehicle;
-                        prevRouteOffset = stageStart.routeOffset;
-                    }
-                }
+        Trajectory& t = myTrajectories[id];
+        if (t.front().time >= intervalStart) {
+            // new vehicle or person
+            SUMOVehicleParameter* params = new SUMOVehicleParameter();
+            params->id = id;
+            params->depart = std::get<0>(desc.second);
+            params->departPos = t.front().lanePos;
+            params->departSpeed = t.front().speed;
+            // params->arrivalPos = t.back().lanePos;
+            std::string vType = std::get<1>(desc.second);
+            if (vType == "") {
+                vType = isPerson ? DEFAULT_PEDTYPE_ID : DEFAULT_VTYPE_ID;
             }
-            // final stage
-            if (prevVeh == "") {
-                if (prevRouteOffset < (int)route.size() - 1 && (route[prevRouteOffset]->getPermissions() & SVC_PEDESTRIAN) == 0) {
-                    prevRouteOffset++;
+            MSVehicleType* vehicleType = MSNet::getInstance()->getVehicleControl().getVType(vType);
+            if (vehicleType == nullptr) {
+                throw ProcessError("Unknown vType '" + vType + "'.");
+            }
+            if (isPerson) {
+                MSTransportable::MSTransportablePlan* plan = makePlan(*params, std::get<3>(desc.second), std::get<4>(desc.second), t);
+                // plan completed, now build the person
+                MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
+                person->getSingularType().setVClass(SVC_IGNORING);
+                if (!MSNet::getInstance()->getPersonControl().add(person)) {
+                    throw ProcessError("Duplicate person '" + id + "'.");
                 }
-                int offset = (int)route.size() - 1;
-                if ((route[offset]->getPermissions() & SVC_PEDESTRIAN) == SVC_PEDESTRIAN) {
-                    offset++;
+                MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
+                if (device == nullptr) {  // Person did not get a replay device
+                    // TODO delete person
+                    continue;
                 }
-                ConstMSEdgeVector subRoute = ConstMSEdgeVector(route.begin() + prevRouteOffset, route.begin() + offset);
-                plan->push_back(new MSStageWalking(id, subRoute, nullptr, -1, params->departSpeed, params->departPos, 0, 0));
+                device->setTrajectory(&t);
             } else {
-                plan->push_back(new MSStageDriving(start, route.back(), nullptr, -1, 0, {prevVeh}));
-            }
-            // plan completed, now build the person
-            MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(params, vehicleType, plan, nullptr);
-            person->getSingularType().setVClass(SVC_IGNORING);
-            if (!MSNet::getInstance()->getPersonControl().add(person)) {
-                throw ProcessError("Duplicate person '" + id + "'.");
-            }
-            MSTransportableDevice_FCDReplay* device = static_cast<MSTransportableDevice_FCDReplay*>(person->getDevice(typeid(MSTransportableDevice_FCDReplay)));
-            if (device == nullptr) {  // Person did not get a replay device
-                // TODO delete person
-                continue;
-            }
-            t.erase(t.begin());
-            device->setTrajectory(&t);
-        } else {
-            const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
-            const std::vector<SUMOVehicleParameter::Stop> stops;
-            const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
-            ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
-            if (!MSRoute::dictionary(dummyRouteID, route)) {
-                throw ProcessError("Could not add route '" + dummyRouteID + "'.");
-            }
-            params->departLaneProcedure = DepartLaneDefinition::GIVEN;
-            params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
-            SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
-            if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
-                throw ProcessError("Duplicate vehicle '" + id + "'.");
-            }
-            MSNet::getInstance()->getInsertionControl().add(vehicle);
-            MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(vehicle->getDevice(typeid(MSDevice_FCDReplay)));
-            if (device == nullptr) {  // Vehicle did not get a replay device
-                MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
-                continue;
-            }
-            t.erase(t.begin());
-            device->setTrajectory(&t);
-            static_cast<MSVehicle*>(vehicle)->getInfluencer().setSpeedMode(0);
+                const std::string dummyRouteID = "DUMMY_ROUTE_" + id;
+                const std::vector<SUMOVehicleParameter::Stop> stops;
+                const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
+                ConstMSRoutePtr route = std::make_shared<MSRoute>(dummyRouteID, routeEdges, true, nullptr, stops);
+                if (!MSRoute::dictionary(dummyRouteID, route)) {
+                    throw ProcessError("Could not add route '" + dummyRouteID + "'.");
+                }
+                params->departLaneProcedure = DepartLaneDefinition::GIVEN;
+                params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
+                if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
+                    throw ProcessError("Duplicate vehicle '" + id + "'.");
+                }
+                MSNet::getInstance()->getInsertionControl().add(vehicle);
+                MSDevice_FCDReplay* device = static_cast<MSDevice_FCDReplay*>(vehicle->getDevice(typeid(MSDevice_FCDReplay)));
+                if (device == nullptr) {  // Vehicle did not get a replay device
+                    MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+                    continue;
+                }
+                device->setTrajectory(&t);
+                static_cast<MSVehicle*>(vehicle)->getInfluencer().setSpeedMode(0);
 
-            // repair the route, cannot do this on parsing because a vehicle is needed
-            ConstMSEdgeVector checkedRoute;
-            for (const MSEdge* const e : routeEdges) {
-                if (checkedRoute.empty() || checkedRoute.back()->isConnectedTo(*e, vehicleType->getVehicleClass())) {
-                    checkedRoute.push_back(e);
-                } else {
-                    const MSEdge* fromEdge = checkedRoute.back();
-                    checkedRoute.pop_back();
-                    if (!MSNet::getInstance()->getRouterTT(0).compute(fromEdge, e, vehicle, myTime, checkedRoute)) {
-                        // TODO maybe warn about disconnected route
-                        checkedRoute.push_back(fromEdge);
-                        checkedRoute.push_back(e);
-                    }
-                    // TODO check whether we introduced a big detour
+                // repair the route, cannot do this on parsing because a vehicle is needed
+                ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);
+                if (checkedRoute.size() != routeEdges.size()) {
+                    vehicle->replaceRouteEdges(checkedRoute, -1, 0, "FCDReplay", true);
                 }
             }
-            if (checkedRoute.size() != routeEdges.size()) {
-                vehicle->replaceRouteEdges(checkedRoute, -1, 0, "FCDReplay", true);
+        } else if (t.back().time >= intervalStart) {
+            // new data for existing person / vehicle
+            if (isPerson) {
+                MSTransportable* person = MSNet::getInstance()->getPersonControl().get(id);
+                // TODO optimize: no need to regenerate the whole plan
+                MSTransportable::MSTransportablePlan* plan = makePlan(person->getParameter(), std::get<3>(desc.second), std::get<4>(desc.second), t);
+                const int stageIndex = person->getNumRemainingStages() - 1;
+                MSStage* const final = person->getNextStage(stageIndex);
+                bool append = false;
+                for (MSStage* stage : *plan) {
+                    if (stage->getStageType() == final->getStageType() && stage->getFromEdge() == final->getFromEdge()) {
+                        // TODO: circular plans?
+                        append = true;
+                    }
+                    if (append) {
+                        person->appendStage(stage);
+                    }
+                }
+                person->removeStage(stageIndex);
+            } else {
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
+                const ConstMSEdgeVector& routeEdges = std::get<3>(desc.second);
+                ConstMSEdgeVector checkedRoute = checkRoute(routeEdges, vehicle);
+                if ((int)checkedRoute.size() != vehicle->getRoute().size()) {
+                    vehicle->replaceRouteEdges(checkedRoute, -1, 0, "FCDReplay", true);
+                }
             }
         }
     }

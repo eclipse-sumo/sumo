@@ -32,7 +32,6 @@
 #include <microsim/MSVehicleControl.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
-#include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include "MSRoutingEngine.h"

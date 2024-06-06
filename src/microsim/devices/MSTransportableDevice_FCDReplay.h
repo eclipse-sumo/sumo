@@ -67,7 +67,7 @@ public:
 
     void setTrajectory(MSDevice_FCDReplay::Trajectory* const t) {
         myTrajectory = t;
-        myTrajectoryIndex = 0;
+        myTrajectoryIndex = 1;
     }
 
     bool move(SUMOTime currentTime);
