@@ -103,6 +103,7 @@
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_EXTRAPOLATE_DEPARTPOS
 //#define DEBUG_REMOTECONTROL
+//#define DEBUG_MOVEREMINDERS
 //#define DEBUG_COND (getID() == "ego")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
@@ -5772,6 +5773,15 @@ MSVehicle::leaveLaneBack(const MSMoveReminder::Notification reason, const MSLane
             rem = myMoveReminders.erase(rem);
         }
     }
+#ifdef DEBUG_MOVEREMINDERS
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << getID() << " myReminders:";
+        for (auto rem : myMoveReminders) {
+            std::cout << rem.first->getDescription() << " ";
+        }
+        std::cout << "\n";
+    }
+#endif
 }
 
 
