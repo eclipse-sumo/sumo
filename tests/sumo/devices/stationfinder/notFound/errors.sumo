@@ -1,1 +1,3 @@
 Warning: Battery of vehicle 'veh0' is depleted, time=14.00.
+Warning: There is no charging station available to teleport the vehicle 'veh0' to at time=1813.00. Thus the vehicle will be removed.
+Warning: Removing vehicle 'veh0' after breaking down, lane='D2_0', time=1813.00.
