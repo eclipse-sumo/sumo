@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a chargingStation.
 Error: Could not build chargingStation with ID 'id with spaces' in netedit; ID contains invalid characters.
 Error: Could not build chargingStation with ID 'chargingStation_0' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/chargingstation/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081353.35498/netedit.gui/elements/additional/chargingstation/load/id/additionals.add.xml failed.

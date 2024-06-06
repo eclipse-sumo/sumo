@@ -1,3 +1,3 @@
 Error: Attribute 'parkingLength' in definition of trainStop 'trainStop_02' Invalid Number Format (double) dummyparkingLength.
 Error: Could not build trainStop with ID 'trainStop_03' in netedit; Attribute parkingLength cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/trainstop/load/parkinglength/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081345.34828/netedit.gui/elements/additional/trainstop/load/parkinglength/additionals.add.xml failed.

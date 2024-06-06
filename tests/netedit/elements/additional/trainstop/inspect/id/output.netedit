@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 trainStop
 Center
-TestFunctions: Clicked over position 734 - 424
-TestFunctions: Clicked over position 801 - 425
-TestFunctions: Clicked over position 731 - 443
+TestFunctions: Clicked over position 628 - 383
+TestFunctions: Clicked over position 665 - 383
+TestFunctions: Clicked over position 629 - 373
 bs_1
 Id with spaces
 correctID

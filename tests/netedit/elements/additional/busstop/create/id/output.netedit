@@ -4,11 +4,11 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 TestFunctions: Clicked over position 628 - 383
 ;;;;;;;;;;;;;;;;
-TestFunctions: Clicked over position 559 - 418
-bs_0
 TestFunctions: Clicked over position 665 - 383
-custom_ID
+bs_0
 TestFunctions: Clicked over position 705 - 383
+custom_ID
+TestFunctions: Clicked over position 743 - 383
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
