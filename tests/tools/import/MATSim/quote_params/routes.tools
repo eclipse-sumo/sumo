@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 13:52:53.902254 by matsim_importPlans.py v1_20_0+0390-2c3e3231e7b
+<!-- generated on 2024-06-06 14:07:33.666470 by matsim_importPlans.py v1_20_0+0391-0a0e48b0b6d
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 
@@ -20,7 +20,7 @@
         <param key="employed" value="true"/>
         <param key="hasLicense" value="yes"/>
         <param key="sex" value="m"/>
-        <param key="vehicles" value="{"car":"12"}"/>
+        <param key="vehicles" value='{"car":"12"}'/>
         <stop edge="13758" until="08:00:00" actType="home"/>
         <ride lines="100009_0" to="14465"/>
         <stop edge="14465" until="16:04:00" actType="work"/>
