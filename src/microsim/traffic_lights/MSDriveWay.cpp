@@ -508,9 +508,7 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("driveWay");
-    if (myWriteVehicles) {
-        od.writeAttr(SUMO_ATTR_ID, myNumericalID);
-    }
+    od.writeAttr(SUMO_ATTR_ID, myNumericalID);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
     if (myCoreSize != (int)myRoute.size()) {
         od.writeAttr("core", myCoreSize);
