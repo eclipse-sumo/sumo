@@ -1575,6 +1575,8 @@ enum {
     MID_GNE_UNDOLIST_UPDATE,
     /// @brief check if recomputing is needed
     MID_GNE_RECOMPUTINGNEEDED,
+    /// @brief force save elements (using for saving netedit and sumo configs)
+    MID_GNE_FORCESAVE,
 
     /// @}
 
