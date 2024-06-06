@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  4 10:41:56 2020 by Eclipse SUMO sumo Version v1_6_0+1976-92a2f18a3f
+<!-- generated on 2024-06-06 18:07:57 by Eclipse SUMO sumo Version v1_20_0+0379-42fc1ca62a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -36,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to=":A_0_0">
-            <driveWay edges="b c d e f g h j k l">
+            <driveWay id="0" edges="b c d e f g h j k l">
                 <forward lanes=":A_0_0 b_0 :B_1_0 c_0 :C_1_0 d_0"/>
                 <bidi lanes="-c_0 :C_0_0 -d_0 :D_0_0 -e_0 :E_0_0 -f_0 :F_0_0 -g_0 :G_0_0 -h_0 :H_0_0 -j_0 :J_0_0 -k_0 :K_0_0 -l_0"/>
                 <flank lanes=""/>
@@ -47,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
     </railSignal>
     <railSignal id="D">
         <link linkIndex="0" from="-e_0" to=":D_0_0">
-            <driveWay edges="-d -c -b -a">
+            <driveWay id="2" edges="-d -c -b -a">
                 <forward lanes=":D_0_0 -d_0 :C_0_0 -c_0 :B_0_0 -b_0 :-A_0_0 -a_0"/>
                 <bidi lanes=":D_1_0 d_0 :C_1_0 c_0"/>
                 <flank lanes=":B_1_0 b_0 :A_0_0"/>
@@ -56,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0
             </driveWay>
         </link>
         <link linkIndex="1" from="d_0" to=":D_1_0">
-            <driveWay edges="e f g h j k l">
+            <driveWay id="1" edges="e f g h j k l">
                 <forward lanes=":D_1_0 e_0 :E_1_0 f_0 :F_1_0 g_0 :G_1_0 h_0 :H_1_0 j_0 :J_1_0 k_0 :K_1_0 l_0"/>
                 <bidi lanes=":D_0_0 -e_0 :E_0_0 -f_0 :F_0_0 -g_0 :G_0_0 -h_0 :H_0_0 -j_0 :J_0_0 -k_0 :K_0_0 -l_0"/>
                 <flank lanes=""/>

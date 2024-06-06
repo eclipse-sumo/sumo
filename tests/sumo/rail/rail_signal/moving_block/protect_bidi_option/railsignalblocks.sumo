@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-07-02 15:05:29 by Eclipse SUMO sumo Version v1_9_2+0827-c35d3aa
+<!-- generated on 2024-06-06 18:07:57 by Eclipse SUMO sumo Version v1_20_0+0379-42fc1ca62a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <vehroute-output value="vehroutes.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
     </output>
 
     <processing>
+        <railsignal-moving-block value="true"/>
         <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="gneJ5">
         <link linkIndex="0" from="-e_0" to=":gneJ5_0_0">
-            <driveWay edges="-d -c -b -a">
+            <driveWay id="0" edges="-d -c -b -a">
                 <forward lanes=":gneJ5_0_0 -d_0 :gneJ2_0_0 -c_0 :gneJ1_0_0 -b_0 :gneJ6_0_0 -a_0"/>
                 <bidi lanes="c_0"/>
                 <flank lanes=":gneJ1_1_0 b_0 :gneJ8_0_0"/>
@@ -48,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0
     </railSignal>
     <railSignal id="gneJ8">
         <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
-            <driveWay edges="b c d e">
+            <driveWay id="1" edges="b c d e">
                 <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0 :gneJ9_0_0 e_0"/>
                 <bidi lanes="-c_0"/>
                 <flank lanes=":gneJ2_0_0 -d_0 :gneJ5_0_0"/>

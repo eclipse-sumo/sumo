@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-30 16:21:02 by Eclipse SUMO sumo Version v1_15_0+0679-5ca98c3
+<!-- generated on 2024-06-06 18:07:57 by Eclipse SUMO sumo Version v1_20_0+0379-42fc1ca62a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="A">
         <link linkIndex="0" from="-T1_0" to=":A_0_0"/>
         <link linkIndex="1" from="T0_0" to=":A_1_0">
-            <driveWay edges="T1 T1b T2 T3 T4">
+            <driveWay id="0" edges="T1 T1b T2 T3 T4">
                 <forward lanes=":A_1_0 T1_0 :w1_3_0 T1b_0 :w2_3_0 T2_0 :w3_3_0 T3_0 :w4_3_0 T4_0"/>
                 <bidi lanes=":A_0_0 -T1_0 :w1_0_0 -T1b_0 :w2_0_0 -T2_0 :w3_0_0 -T3_0 :w4_0_0 -T4_0"/>
                 <flank lanes=":w1_2_0 T11_0 :w11_0_0 T10_0 :w2_2_0 :w11_1_0 T21_0 :w12_0_0 T20_0 :w3_2_0 :w12_1_0 T31_0 :w13_0_0 T30_0 :w4_2_0 :w2_1_0 -T10_0 :w11_3_0 :w3_1_0 -T20_0 :w12_3_0 :w4_1_0 -T30_0 :w13_1_0 -T31_0 :w12_2_0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-16 09:05:57 by Eclipse SUMO sumo Version v1_17_0+0295-140a9ea
+<!-- generated on 2024-06-06 18:07:57 by Eclipse SUMO sumo Version v1_20_0+0379-42fc1ca62a4
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J2">
         <link linkIndex="0" from="E1_0" to=":J2_1_0">
-            <driveWay edges="E2 E3 E4">
+            <driveWay id="0" edges="E2 E3 E4">
                 <forward lanes=":J2_1_0 E2_0"/>
                 <bidi lanes=":J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
                 <flank lanes=":J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="J3">
         <link linkIndex="0" from="E2_0" to=":J3_2_0">
-            <driveWay edges="E3 E4">
+            <driveWay id="1" edges="E3 E4">
                 <forward lanes=":J3_2_0 E3_0 :J4_2_0 E4_0"/>
                 <bidi lanes=":J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
                 <flank lanes=":J5_0_0 -E5_0 :J6_0_0 -E6_0"/>
