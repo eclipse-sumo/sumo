@@ -202,7 +202,7 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
         }
 
         // saturate between 0 and myMaximumBatteryCapacity [Wh]
-        if (getActualBatteryCapacity() - myConsum < 0 && getMaximumBatteryCapacity() > 0) {
+        if (myConsum > getActualBatteryCapacity() && getActualBatteryCapacity() > 0 && getMaximumBatteryCapacity() > 0) {
             WRITE_WARNINGF(TL("Battery of vehicle '%' is depleted."), veh.getID());
         }
 
