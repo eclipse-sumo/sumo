@@ -34,16 +34,18 @@ def getOptions(args=None):
     argParser.add_argument("-n", "--net-file", category="input", dest="netFile", required=True,
                            help="define the net file (mandatory)")
     argParser.add_argument("-a", "--add-files", category="input", dest="addFiles", required=True,
-                           help="define the base parking areas")
+                           help="define the base parking areas and charging stations")
     argParser.add_argument("--selection-file", category="input", dest="selectionFile",
                            help="optionally restrict the parking area to the selected net part")
     argParser.add_argument("-o", "--output-file", category="output", dest="outFile",
-                           default="parkingCharging.add.xml", help="define the output filename")
+                           default="parkingCharging.add.xml", help="define the output filename for charging station definitions (and by default parking areas)")
+    argParser.add_argument("--output-parking-file", category="output", dest="outParkingFile",
+                           help="define the output filename for the separate parking additional file")
     argParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
                            help="Probability for an edge to receive a charging station")
     argParser.add_argument("-d", "--density", category="processing", type=float, default=0.1,
                            help="Share of parking spaces on the edge which should get charging points")
-    argParser.add_argument("--power", category="processing", type=float, default=100,
+    argParser.add_argument("--power", category="processing", type=float, default=22000,
                            help="Charging power of the charging station")
     argParser.add_argument("--efficiency", category="processing", type=float, default=0.95,
                            help="Charging efficiency")
@@ -60,10 +62,10 @@ def getOptions(args=None):
     argParser.add_argument("--include-existing", dest="includeExisting", action="store_false",
                            default=True,
                            help="If set, loaded charging stations from input files will contribute to the density")
-    # argParser.add_argument("--no-roadside", dest="noRoadsideCharging", action="store_false",
-    # default=True, help="Forbid to use roadside parking for charging points")
-    # argParser.add_argument("--no-parking-lot", dest="noParkingLotCharging", action="store_false",
-    # default=True, help="Forbid to use parking lots off the road for charging points")
+    argParser.add_argument("--only-roadside", dest="onlyRoadside", action="store_true",
+                           default=False, help="Only use roadside parking for charging points")
+    argParser.add_argument("--only-parking-lot", dest="onlyParkingLot", action="store_true",
+                           default=False, help="Only use parking lots off the road for charging points")
     argParser.add_argument("-v", "--verbose", category="processing", action="store_true",
                            default=False, help="tell me what you are doing")
 
@@ -71,8 +73,8 @@ def getOptions(args=None):
     if not options.netFile or not options.addFiles:
         argParser.print_help()
         sys.exit(1)
-    if not options.roadside and not options.parkingLot:
-        print("Have to use at least one option of roadside or offroad parking to place charging stations. Please ")
+    if options.onlyRoadside and options.onlyParkingLot:
+        sys.exit("Please use at most one of the parameters --only-parking-lot and --only-roadside.")
     options.min = max(0, options.min)
     options.max = max(0, options.max)
     if options.min > options.max:
@@ -81,12 +83,6 @@ def getOptions(args=None):
     options.density = max(0., min(options.density, 1.))
 
     return options
-
-
-def hasOppositeEdge(edge):
-    toNode = edge.getToNode()
-    fromNode = edge.getFromNode()
-    return fromNode in [e.getToNode() for e in toNode.getOutgoing()]
 
 
 def main(options):
@@ -103,14 +99,21 @@ def main(options):
     edge2chargingPointCount = {}
     additionals = []
     for addFile in options.addFiles.split(","):
-        additionals.extend(list(sumolib.xml.parse(addFile, "additional"))[0])
+        additionals.extend(list(sumolib.xml.parse(addFile, "additional"))[0].getChildList())
     totalCapacity = 0
     paCount = 0
     existingChargingStations = []
-    for node in additionals.getChildList():
+    unusedParkings = []
+    for node in additionals:
         if node.name == "chargingStation" and node.hasAttribute("parkingArea"):
             existingChargingStations.append(node)
         elif node.name == "parkingArea":
+            if int(node.getAttributeSecure("roadsideCapacity", 0)) > 0 and options.onlyParkingLot:
+                unusedParkings.append(node)
+                continue
+            if node.hasChild("space") and options.onlyRoadside:
+                unusedParkings.append(node)
+                continue
             edge = net.getLane(node.lane).getEdge()
             capacity = sum(determineParkingCapacity(node))
             if edge not in edge2parkingArea:
@@ -139,8 +142,11 @@ def main(options):
     if options.verbose:
         print("Charging points to distribute: %.0f" % totalChargingPoints)
     csIndex = 0
+    rootParking = None
     with open(options.outFile, 'w') as outf:
-        sumolib.xml.writeHeader(outf)
+        rootCharging = sumolib.xml.create_document("additional")
+        rootParking = sumolib.xml.create_document("additional") if options.outParkingFile else rootCharging
+        rootParking.setChildList(unusedParkings)
         alreadyChecked = []
         for edge in edge2parkingArea:
             if (checkSelection and not edge.isSelected()) or edge in alreadyChecked:
@@ -161,7 +167,7 @@ def main(options):
                 remainingChargingPoints = chargingPointCount
                 for i in range(len(capacities)):
                     if capacities[i] >= remainingChargingPoints:
-                        addChargingStation(options, additionals, edge, edge2parkingArea[edge][i][0],
+                        addChargingStation(options, rootCharging, rootParking, edge, edge2parkingArea[edge][i][0],
                                            remainingChargingPoints, "%s%d" % (options.prefix, csIndex))
                         csIndex += 1
                         remainingChargingPoints = 0
@@ -171,7 +177,7 @@ def main(options):
                 capacities = [p[1] for p in edge2parkingArea[edge]]
                 for i in range(len(capacities)):
                     installChargingPoints = min(remainingChargingPoints, capacities[i])
-                    addChargingStation(options, additionals, edge, edge2parkingArea[edge][i][0],
+                    addChargingStation(options, rootCharging, rootParking, edge, edge2parkingArea[edge][i][0],
                                        installChargingPoints, "%s%d" % (options.prefix, csIndex))
                     # print("added charging station with %d points on parkingArea %s %s" %
                     #       (installChargingPoints, edge2parkingArea[edge][i][0].id, result))
@@ -182,12 +188,19 @@ def main(options):
                 totalChargingPoints -= chargingPointCount
                 if totalChargingPoints <= 0:
                     break
-        outf.write(additionals.toXML())
+        # write existing charging stations
+        for csNode in existingChargingStations:
+            rootCharging.addChild(csNode.name, attrs={t[0]: t[1] for t in csNode.getAttributes()}, sortAttrs=False)
+        outf.write(rootCharging.toXML())
         if options.verbose:
             print("Final charging point balance: %.0f" % totalChargingPoints)
+    if options.outParkingFile:
+        outfParking = open(options.outParkingFile, 'w')
+        outfParking.write(rootParking.toXML())
+        outfParking.close()
 
 
-def addChargingStation(options, root, edge, parkingArea, chargingPoints, csID):
+def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, chargingPoints, csID):
     parkingCapacity = determineParkingCapacity(parkingArea)
     if chargingPoints <= sum(parkingCapacity):
         # downsize parkingArea and create a new one for the remaining parking spaces
@@ -214,18 +227,20 @@ def addChargingStation(options, root, edge, parkingArea, chargingPoints, csID):
             shiftedPaDict["startPos"] = str(posShift[0])
             shiftedPaDict["endPos"] = str(posShift[1])
             shiftedPaDict["roadsideCapacity"] = str(shiftRoadSideCapacity)
-            shiftedParkingArea = root.addChild(parkingArea.name, shiftedPaDict, sortAttrs=False)
+            shiftedParkingArea = rootParking.addChild(parkingArea.name, shiftedPaDict, sortAttrs=False)
             for spaceToShift in spacesToShift:
                 parkingArea.removeChild(spaceToShift)
                 spaceDict = {t[0]: t[1] for t in spaceToShift.getAttributes()}
                 shiftedParkingArea.addChild(spaceToShift.name, spaceDict)
-        root.addChild("chargingStation", {"id": csID,
-                                          "lane": parkingArea.lane,
-                                          "startPos": parkingArea.startPos,
-                                          "endPos": parkingArea.endPos,
-                                          "power": str(options.power),
-                                          "efficiency": str(options.efficiency),
-                                          "parkingArea": parkingArea.id}, sortAttrs=False)
+        paDict = {t[0]: t[1] for t in parkingArea.getAttributes()}
+        rootParking.addChild(parkingArea.name, paDict, sortAttrs=False)
+        rootCharging.addChild("chargingStation", {"id": csID,
+                                                  "lane": parkingArea.lane,
+                                                  "startPos": parkingArea.startPos,
+                                                  "endPos": parkingArea.endPos,
+                                                  "power": str(options.power),
+                                                  "efficiency": str(options.efficiency),
+                                                  "parkingArea": parkingArea.id}, sortAttrs=False)
         return True
     return False
 
