@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-06 13:52:53.902254 by matsim_importPlans.py v1_20_0+0390-2c3e3231e7b
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" vClass="passenger"/>
+    <vType id="bicycle" vClass="bicycle"/>
+
+    <vehicle id="100009_0" depart="triggered" type="car">
+        <route edges="13758 14271 14269 14273 14468 14267 14465"/>
+    </vehicle>
+    <vehicle id="100009_1" depart="triggered" type="car">
+        <route edges="14465 14442 14451 13758"/>
+    </vehicle>
+    <person id="100009" depart="00:01:00">
+        <param key="age" value="49"/>
+        <param key="carAvail" value="always"/>
+        <param key="employed" value="true"/>
+        <param key="hasLicense" value="yes"/>
+        <param key="sex" value="m"/>
+        <param key="vehicles" value="{"car":"12"}"/>
+        <stop edge="13758" until="08:00:00" actType="home"/>
+        <ride lines="100009_0" to="14465"/>
+        <stop edge="14465" until="16:04:00" actType="work"/>
+        <ride lines="100009_1" to="13758"/>
+        <stop edge="13758" until="24:00:00" actType="home"/>
+    </person>
+</routes>
