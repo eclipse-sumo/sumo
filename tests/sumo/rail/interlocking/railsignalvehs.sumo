@@ -2,17 +2,11 @@
     <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
         <driveWay id="6">
             <entry id="ICE0" time="16564.00" reason="1"/>
-            <entry id="ICE0" time="16565.00" reason="1"/>
-            <entry id="ICE0" time="16633.00" reason="1"/>
-            <entry id="ICE0" time="16633.00" reason="1"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
         <driveWay id="0">
             <entry id="RB1" time="16147.00" reason="1"/>
-            <entry id="RB1" time="16147.00" reason="1"/>
-            <entry id="RB1" time="16393.00" reason="1"/>
-            <entry id="RB1" time="16395.00" reason="1"/>
             <exit id="RB1" time="16403.00" reason="1"/>
         </driveWay>
     </link>
@@ -21,18 +15,12 @@
     <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
         <driveWay id="5">
             <entry id="ICE0" time="16365.00" reason="1"/>
-            <entry id="ICE0" time="16366.00" reason="1"/>
-            <entry id="ICE0" time="16564.00" reason="1"/>
-            <entry id="ICE0" time="16565.00" reason="1"/>
             <exit id="ICE0" time="16597.00" reason="1"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
         <driveWay id="3">
             <entry id="RB1" time="16393.00" reason="1"/>
-            <entry id="RB1" time="16395.00" reason="1"/>
-            <entry id="RB1" time="16472.00" reason="1"/>
-            <entry id="RB1" time="16473.00" reason="1"/>
             <exit id="RB1" time="16474.00" reason="1"/>
         </driveWay>
     </link>
@@ -41,9 +29,6 @@
     <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
         <driveWay id="4">
             <entry id="ICE0" time="16313.00" reason="1"/>
-            <entry id="ICE0" time="16314.00" reason="1"/>
-            <entry id="ICE0" time="16365.00" reason="1"/>
-            <entry id="ICE0" time="16366.00" reason="1"/>
             <exit id="ICE0" time="16391.00" reason="1"/>
         </driveWay>
     </link>
@@ -51,14 +36,12 @@
     <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
         <driveWay id="7">
             <entry id="RB2" time="16336.00" reason="1"/>
-            <entry id="RB2" time="16337.00" reason="1"/>
             <exit id="RB2" time="16379.00" reason="9"/>
         </driveWay>
     </link>
     <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
         <driveWay id="2">
             <entry id="RB1" time="16472.00" reason="1"/>
-            <entry id="RB1" time="16473.00" reason="1"/>
             <exit id="RB1" time="16516.00" reason="9"/>
         </driveWay>
     </link>
