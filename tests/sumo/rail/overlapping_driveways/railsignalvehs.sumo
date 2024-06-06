@@ -1,0 +1,56 @@
+<railSignal id="J0">
+    <link linkIndex="0" from="E6_0" to=":J0_0_0">
+        <driveWay id="0">
+            <entry id="v_0" time="20.00" reason="1"/>
+            <exit id="v_0" time="40.00" reason="1"/>
+            <entry id="v_1" time="42.00" reason="1"/>
+            <exit id="v_1" time="64.00" reason="1"/>
+            <entry id="v_2" time="66.00" reason="1"/>
+            <exit id="v_2" time="96.00" reason="1"/>
+            <entry id="v_3" time="99.00" reason="1"/>
+            <exit id="v_3" time="131.00" reason="1"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="J1">
+    <link linkIndex="0" from="E0_0" to=":J1_0_0">
+        <driveWay id="1">
+            <entry id="v_0" time="35.00" reason="1"/>
+            <exit id="v_0" time="57.00" reason="1"/>
+            <entry id="v_1" time="59.00" reason="1"/>
+            <entry id="v_2" time="90.00" reason="1"/>
+            <entry id="v_3" time="124.00" reason="1"/>
+            <exit id="v_2" time="152.00" reason="1"/>
+            <exit id="v_1" time="157.00" reason="9"/>
+            <exit id="v_3" time="264.00" reason="9"/>
+        </driveWay>
+        <driveWay id="4">
+            <entry id="v_1" time="59.00" reason="1"/>
+            <exit id="v_1" time="82.00" reason="1"/>
+            <entry id="v_2" time="90.00" reason="1"/>
+            <entry id="v_3" time="124.00" reason="1"/>
+            <exit id="v_3" time="177.00" reason="1"/>
+            <exit id="v_2" time="239.00" reason="9"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="J3">
+    <link linkIndex="0" from="E2_0" to=":J3_0_0">
+        <driveWay id="2">
+            <entry id="v_0" time="53.00" reason="1"/>
+            <exit id="v_0" time="132.00" reason="9"/>
+            <entry id="v_2" time="135.00" reason="1"/>
+            <exit id="v_2" time="239.00" reason="9"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="J5">
+    <link linkIndex="0" from="E4_0" to=":J5_0_0">
+        <driveWay id="3">
+            <entry id="v_1" time="78.00" reason="1"/>
+            <exit id="v_1" time="157.00" reason="9"/>
+            <entry id="v_3" time="160.00" reason="1"/>
+            <exit id="v_3" time="264.00" reason="9"/>
+        </driveWay>
+    </link>
+</railSignal>

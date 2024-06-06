@@ -19,6 +19,9 @@ headonconflict
 # Tests interlocked block signalling
 interlocking
 
+# test vehicle-on-driveway registration
+overlapping_driveways
+
 # speed when passing tracks with different speed limits
 slow_fast_slow
 
@@ -64,4 +67,3 @@ crossing
 
 # test for various types of train collision
 collision
-
