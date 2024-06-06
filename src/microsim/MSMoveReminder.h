@@ -292,7 +292,7 @@ protected:
 protected:
 
     /// @brief Lane on which the reminder works
-    MSLane* const myLane;
+    MSLane* myLane;
     /// @brief a description of this moveReminder
     std::string myDescription;
 

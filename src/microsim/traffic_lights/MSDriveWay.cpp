@@ -100,7 +100,7 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
     UNUSED_PARAMETER(reason);
     UNUSED_PARAMETER(enteredLane);
     //std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
-    if (veh.isVehicle()) {
+    if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION)) {
         myTrains.insert(&dynamic_cast<SUMOVehicle&>(veh));
         if (myWriteVehicles) {
             myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
@@ -607,6 +607,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             if (!foundUnsafeSwitch) {
                 myForward.push_back(toLane);
                 if (myForward.size() == 1) {
+                    myLane = toLane;
                     toLane->addMoveReminder(this);
                 }
             }
