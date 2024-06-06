@@ -396,15 +396,26 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
 #ifdef DEBUG_STATIONFINDER_RESCUE
         std::cout << "MSDevice_StationFinder::teleportToChargingStation: No charging station available to teleport the broken-down vehicle " << myHolder.getID() << " to at time " << SIMTIME << ".\n.";
 #endif
+        // remove the vehicle if teleport to a charging station fails
         if (myHolder.isStopped()) {
-            myHolder.getNextStop().duration += myRepeatInterval;
+            MSStop& currentStop = myHolder.getNextStop();
+            currentStop.duration += TS;
+            SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(currentStop.pars);
+            stopPar.jump = -1;
+            stopPar.breakDown = true;
             mySearchState = SEARCHSTATE_BROKEN_DOWN;
+            WRITE_WARNINGF(TL("There is no charging station available to teleport the vehicle '%' to at time=%. Thus the vehicle will be removed."), myHolder.getID(), toString(SIMTIME));
         }
+#ifdef DEBUG_STATIONFINDER_RESCUE
+        else {
+#ifdef DEBUG_STATIONFINDER_RESCUE
+            std::cout << "MSDevice_StationFinder::teleportToChargingStation: Rescue stop of " << myHolder.getID() << " ended prematurely before regular end at " << SIMTIME << ".\n.";
+#endif
+        }
+#endif
         return myRepeatInterval;
     }
-    if (cs != nullptr && cs->getLane().getEdge().getID() == myVeh.getLane()->getEdge().getID()) {
-        // TODO: disable jump if the charging station is on the same edge
-    }
+
 
     // teleport to the charging station, stop there for charging
     myChargingStation = cs;
