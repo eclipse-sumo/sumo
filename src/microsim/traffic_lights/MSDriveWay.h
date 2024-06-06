@@ -52,7 +52,7 @@ public:
     MSDriveWay(bool temporary = false);
 
     /// @brief Destructor
-    virtual ~MSDriveWay() {};
+    virtual ~MSDriveWay();
 
     bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane); 
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0); 

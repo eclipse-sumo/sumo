@@ -69,8 +69,23 @@ MSDriveWay::MSDriveWay(bool temporary) :
         myFoundReversal(false)
 {}
 
+
+MSDriveWay::~MSDriveWay() {
+    for (SUMOVehicle* veh : myTrains) {
+        MSBaseVehicle* bVeh = dynamic_cast<MSBaseVehicle*>(veh);
+        bVeh->removeReminder(this);
+    }
+    for (const MSLane* lane : myForward) {
+        const_cast<MSLane*>(lane)->removeMoveReminder(this);
+    }
+}
+
+
 bool
-MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification /*reason*/, const MSLane* /*enteredLane*/) {
+MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
+    UNUSED_PARAMETER(reason);
+    UNUSED_PARAMETER(enteredLane);
+    //std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
     if (veh.isVehicle()) {
         myTrains.insert(&dynamic_cast<SUMOVehicle&>(veh));
         return true;
@@ -81,10 +96,15 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification /*reason*/, const M
 
 
 bool
-MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification reason, const MSLane* /*enteredLane*/) {
+MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification reason, const MSLane* enteredLane) {
+    UNUSED_PARAMETER(reason);
+    UNUSED_PARAMETER(enteredLane);
+    //std::cout << SIMTIME << " notifyLeave " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(enteredLane) << " reason=" << toString(reason) << "\n";
     if (veh.isVehicle()) {
-        if (reason != MSMoveReminder::NOTIFICATION_JUNCTION) {
+        // leaving network with departure, teleport etc
+        if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
+            //std::cout << " removed\n";
             return false;
         } else {
             return true;
@@ -96,11 +116,14 @@ MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification
 
 
 bool
-MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification /*reason*/, const MSLane* leftLane) {
+MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane) {
+    UNUSED_PARAMETER(reason);
+    UNUSED_PARAMETER(leftLane);
+    //std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
     if (veh.isVehicle()) {
-        // leaving network with departure, teleport etc
         if (leftLane == myForward.back()) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
+            //std::cout << " removed\n";
             return false;
         } else {
             return true;
@@ -544,7 +567,9 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
         if (seekForwardSignal) {
             if (!foundUnsafeSwitch) {
                 myForward.push_back(toLane);
-                toLane->addMoveReminder(this);
+                if (myForward.size() == 1) {
+                    toLane->addMoveReminder(this);
+                }
             }
         } else if (bidi == nullptr) {
             seekBidiSwitch = false;

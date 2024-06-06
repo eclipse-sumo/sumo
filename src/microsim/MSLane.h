@@ -309,6 +309,14 @@ public:
     virtual void addMoveReminder(MSMoveReminder* rem);
 
 
+    /** @brief Remove a move-reminder from move-reminder container
+     *
+     * The move reminder will not be deleted by the lane.
+     * @param[in] rem The move reminder to remvoe
+     */
+    virtual void removeMoveReminder(MSMoveReminder* rem);
+
+
     /** @brief Return the list of this lane's move reminders
      * @return Previously added move reminder
      */

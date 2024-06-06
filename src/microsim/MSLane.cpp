@@ -356,6 +356,18 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 }
 
 
+void
+MSLane::removeMoveReminder(MSMoveReminder* rem) {
+    auto it = std::find(myMoveReminders.begin(), myMoveReminders.end(), rem);
+    if (it != myMoveReminders.end()) {
+        myMoveReminders.erase(it);
+        for (MSVehicle* const veh : myVehicles) {
+            veh->removeReminder(rem);
+        }
+    }
+}
+
+
 double
 MSLane::setPartialOccupation(MSVehicle* v) {
     // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
