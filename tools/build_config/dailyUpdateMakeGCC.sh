@@ -78,6 +78,8 @@ if test -e $SUMO_BINDIR/sumo && test $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Mak
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
     tests/runExtraTests.py --gui "b $FILEPREFIX" &> $TESTLOG
+  elif test "$FILEPREFIX" == "netedit"; then
+    tests/runTests.sh -a neteditcheckoutput -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
     if which Xvfb &>/dev/null; then
