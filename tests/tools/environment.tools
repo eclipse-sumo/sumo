@@ -1,1 +1,1 @@
-MPLBACKEND:Agg
+MATPLOTLIBRC:$TEXTTEST_HOME/tools/matplotlibrc
