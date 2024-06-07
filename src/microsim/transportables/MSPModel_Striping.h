@@ -143,6 +143,8 @@ public:
     static const double LOOKAHEAD_ONCOMING;
     // @brief the distance (in m) to look around for vehicles
     static const double LOOKAROUND_VEHICLES;
+    // @brief the distance (in m) to look ahead for obstacles on a subsequent edge
+    static const double LOOKAHEAD_ONCOMING_DIST;
 
     // @brief the utility penalty for moving sideways (corresponds to meters)
     static const double LATERAL_PENALTY;

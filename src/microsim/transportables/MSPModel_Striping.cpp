@@ -93,6 +93,7 @@ SUMOTime MSPModel_Striping::jamTimeNarrow;
 bool MSPModel_Striping::myLegacyPosLat;
 const double MSPModel_Striping::LOOKAHEAD_SAMEDIR(4.0); // seconds
 const double MSPModel_Striping::LOOKAHEAD_ONCOMING(10.0); // seconds
+const double MSPModel_Striping::LOOKAHEAD_ONCOMING_DIST(10.0); // m
 const double MSPModel_Striping::LOOKAROUND_VEHICLES(60.0); // meters
 const double MSPModel_Striping::LATERAL_PENALTY(-1.); // meters
 const double MSPModel_Striping::OBSTRUCTED_PENALTY(-300000.); // meters
@@ -1226,7 +1227,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const MSLink* link = p.myNLI.link;
         const double dist = p.distToLaneEnd();
         const double speed = p.myStage->getMaxSpeed(p.myPerson);
-        if (nextLane != nullptr && dist <= LOOKAHEAD_ONCOMING) {
+        if (nextLane != nullptr && dist <= LOOKAHEAD_ONCOMING_DIST) {
             const double currentLength = (p.myWalkingAreaPath == nullptr ? lane->getLength() : p.myWalkingAreaPath->length);
             const Obstacles& nextObs = getNextLaneObstacles(
                                            nextLanesObs, lane, nextLane, stripes,
