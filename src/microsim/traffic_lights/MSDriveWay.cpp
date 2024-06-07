@@ -40,6 +40,8 @@
 #define MAX_BLOCK_LENGTH 20000
 #define MAX_SIGNAL_WARNINGS 10
 
+#define DRIVEWAY_SANITY_CHECK
+
 //#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_CHECK_FLANKS
@@ -91,6 +93,16 @@ MSDriveWay::~MSDriveWay() {
     }
     for (const MSLane* lane : myForward) {
         const_cast<MSLane*>(lane)->removeMoveReminder(this);
+    }
+    for (MSDriveWay* foe : myFoes) {
+        auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
+        if (it != foe->myFoes.end()) {
+            foe->myFoes.erase(it);
+        } else {
+#ifdef DRIVEWAY_SANITY_CHECK
+            WRITE_WARNINGF("Driveway % has does not shop up in foes of foe driveway %.", myNumericalID, foe->getNumericalID());
+#endif
+        }
     }
 }
 
@@ -537,12 +549,29 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.closeTag();
 
     od.openTag("conflictLinks");
+
     std::vector<std::string> signals;
     for (MSLink* link : myConflictLinks) {
         signals.push_back(getTLLinkID(link));
     }
     od.writeAttr("signals", joinToString(signals, " "));
     od.closeTag();
+
+    std::vector<int> foes;
+    for (MSDriveWay* dw : myFoes) {
+        foes.push_back(dw->getNumericalID());
+    }
+    if (foes.size() > 0) {
+        od.openTag("foes");
+        od.writeAttr("driveWays", joinToString(foes, " "));
+        od.closeTag();
+#ifdef DRIVEWAY_SANITY_CHECK
+        std::set<int> uniq(foes.begin(), foes.end());
+        if (uniq.size() < foes.size()) {
+            WRITE_WARNINGF("Driveway % has non-unique foes", myNumericalID);
+        }
+#endif
+    }
     od.closeTag(); // driveWay
 }
 
@@ -835,6 +864,7 @@ MSDriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& vis
         std::cout << "   flank guarded by " << link->getTLLogic()->getID() << "\n";
 #endif
         myConflictLinks.push_back(link);
+        addFoes(link);
     } else if (length > MAX_BLOCK_LENGTH) {
         // length exceeded
         if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
@@ -936,9 +966,9 @@ MSDriveWay::buildDriveWay(const MSLink* link, MSRouteIterator first, MSRouteIter
     dw->checkFlanks(link, dw->myForward, visited, true, dw->myFlankSwitches);
     dw->checkFlanks(link, dw->myBidi, visited, false, dw->myFlankSwitches);
     dw->checkFlanks(link, before, visited, true, dw->myFlankSwitches);
-    for (MSLink* link : dw->myFlankSwitches) {
+    for (MSLink* fsLink : dw->myFlankSwitches) {
         //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
-        dw->findFlankProtection(link, 0, visited, link, dw->myFlank);
+        dw->findFlankProtection(fsLink, 0, visited, fsLink, dw->myFlank);
     }
     std::vector<MSLink*> flankSwitchesBidiExtended;
     dw->checkFlanks(link, dw->myBidiExtended, visited, false, flankSwitchesBidiExtended);
@@ -1028,6 +1058,19 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
         return true;
     }
     return false;
+}
+
+void
+MSDriveWay::addFoes(const MSLink* link) {
+    const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+    if (rs != nullptr) {
+        for (MSDriveWay* foe : rs->retrieveDriveWays(link->getTLIndex())) {
+            if (foe != this) {
+                myFoes.push_back(foe);
+                foe->myFoes.push_back(this);
+            }
+        }
+    }
 }
 
 /****************************************************************************/

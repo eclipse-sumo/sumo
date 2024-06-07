@@ -54,9 +54,9 @@ public:
     /// @brief Destructor
     virtual ~MSDriveWay();
 
-    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane); 
-    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0); 
-    bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane); 
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane);
 
     /// @brief Wether there is a flank conflict with the given driveway
     bool flankConflict(const MSDriveWay& other) const;
@@ -212,6 +212,9 @@ protected:
      */
     void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink, std::vector<const MSLane*>& flank);
 
+    /// @brief add all driveWays that start at the given link as foes
+    void addFoes(const MSLink* link);
+
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
 
@@ -227,7 +230,7 @@ protected:
 private:
 
     std::set<SUMOVehicle*> myTrains;
-    
+
     struct VehicleEvent {
         VehicleEvent(SUMOTime _time, bool _isEntry, const std::string& _id, Notification _reason):
             time(_time), isEntry(_isEntry), id(_id), reason(_reason) {}
@@ -237,6 +240,7 @@ private:
         Notification reason;
     };
     std::vector<VehicleEvent> myVehicleEvents;
+    std::vector<MSDriveWay*> myFoes;
 
     static int myDriveWayIndex;
     static int myNumWarnings;

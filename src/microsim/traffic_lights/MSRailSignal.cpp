@@ -691,6 +691,13 @@ MSRailSignal::retrieveDriveWayForVeh(int tlIndex, const SUMOVehicle* veh) {
     return myLinkInfos[tlIndex].getDriveWay(veh);
 }
 
+
+const std::vector<MSDriveWay*>
+MSRailSignal::retrieveDriveWays(int tlIndex) const {
+    return myLinkInfos[tlIndex].myDriveways;
+}
+
+
 void
 MSRailSignal::updateDriveway(int numericalID) {
     for (LinkInfo& li : myLinkInfos) {

@@ -261,6 +261,8 @@ public:
 
     const MSDriveWay& retrieveDriveWayForVeh(int tlIndex, const SUMOVehicle* veh);
 
+    const std::vector<MSDriveWay*> retrieveDriveWays(int tlIndex) const;
+
     /// @brief whether the given vehicle is free to drive
     bool constraintsAllow(const SUMOVehicle* veh) const;
 
