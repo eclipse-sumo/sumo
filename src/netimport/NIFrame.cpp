@@ -462,7 +462,7 @@ NIFrame::checkOptions(OptionsCont& oc) {
         oc.setDefault("osm.all-attributes", "true");
     }
     if (oc.getBool("osm.crossings") && !oc.getBool("osm.sidewalks")) {
-        WRITE_WARNING(TL("It is recommend to use option osm.crossings with osm.sidewalks"));
+        WRITE_WARNING(TL("It is recommended to use option osm.crossings with osm.sidewalks"));
     }
     if (oc.isSet("shapefile-prefix") && !oc.isDefault("shapefile.name")) {
         oc.setDefault("output.street-names", "true");

@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-05-22 16:23+0200\n"
+"POT-Creation-Date: 2024-05-28 15:36+0200\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/zh_Hant/>\n"
 "Language: zh-Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -650,17 +649,15 @@ msgstr "\t時間節距\t執行單一模擬時間節距。"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:698
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
-"seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and "
+"hour:minute:seconds display."
 msgstr "時間:\t切換時間格式\t時間顯示切換：秒 或 小時：分鐘：秒。"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:712
 msgid ""
 "Delay (ms):\tDelay per simulated second\tDelay per simulated second. Click "
 "to toggle between the last two delay values."
-msgstr ""
-"延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒的延遲. 按鍵進行最"
-"後兩個延遲值的切換。"
+msgstr "延遲(毫秒):\t每個模擬秒(simulated second)的延遲\t每個模擬秒的延遲. 按鍵進行最後兩個延遲值的切換。"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:735
 msgid "Scale Traffic:"
@@ -1054,8 +1051,8 @@ msgstr "關於 Eclipse SUMO sumo-gui"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation "
-"SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation"
+" SUMO."
 msgstr "用於微觀、多模式交通模擬 SUMO 的圖形使用者介面。"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:56
@@ -1064,7 +1061,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:62
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
-msgid "This application is based on code provided by the Eclipse SUMO project."
+msgid ""
+"This application is based on code provided by the Eclipse SUMO project."
 msgstr "此應用軟體是以Eclipse SUMO專案提供的代碼為基礎開發的。"
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:63
@@ -1281,7 +1279,7 @@ msgid "Remove"
 msgstr "移除"
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:873
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:614
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:616
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr "車輛參數 '% ' 鍵 '% ' 不是車輛 '% ' 的數字。"
 
@@ -1501,20 +1499,20 @@ msgstr "最小間距"
 
 #: D:\Repos\sumo/src\guisim\GUIContainer.cpp:190
 #: D:\Repos\sumo/src\guisim\GUIPerson.cpp:258
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "mass [kg]"
 msgstr "重量 [公斤]"
 
 #: D:\Repos\sumo/src\guisim\GUIContainer.cpp:191
 #: D:\Repos\sumo/src\guisim\GUIPerson.cpp:260
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "maximum speed [m/s]"
 msgstr "最大速度 [公尺/秒]"
 
 #: D:\Repos\sumo/src\guisim\GUIE2Collector.cpp:130
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:185
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1044
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "length [m]"
 msgstr "長度 [公尺]"
 
@@ -1852,7 +1850,7 @@ msgid "allowed speed [m/s]"
 msgstr "允許速度 [公尺/秒]"
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1045
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:227
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "width [m]"
 msgstr "寬度 [公尺]"
 
@@ -2394,112 +2392,116 @@ msgstr "相對電量狀態 (SoC) [-]"
 msgid "currently charging [Wh]"
 msgstr "目前充電量 [瓦小時(Wh)]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:205
+msgid "maximum charge rate [W]"
+msgstr ""
+
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:209
 msgid "present electric current [A]"
 msgstr "目前電流 [安培(A)]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:212
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:214
 msgid "speed mode"
 msgstr "速度模式"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:215
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:217
 msgid "lane change mode"
 msgstr "車道變換模式"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "height [m]"
 msgstr "高度 [公尺]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
 msgid "minGap [m]"
 msgstr "最小間距 [公尺]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "vehicle class"
 msgstr "車輛類別"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "emission class"
 msgstr "排放類別"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "car-following model"
 msgstr "跟車模式"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "lane-change model"
 msgstr "車道變換模式"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "guiShape"
 msgstr "視覺形狀(guiShape)"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "desired maximum speed [m/s]"
 msgstr "期望的最大速度 [公尺/秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:240
 msgid "maximum acceleration [m/s^2]"
 msgstr "最大加速度 [公尺/秒^2]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "maximum deceleration [m/s^2]"
 msgstr "最大減速度 [公尺/秒^2]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:240
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:242
 msgid "emergency deceleration [m/s^2]"
 msgstr "緊急減速度 [公尺/秒^2]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "apparent deceleration [m/s^2]"
 msgstr "明顯的減速度 [公尺/秒^2]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:242
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "imperfection (sigma)"
 msgstr "不完美狀態 (sigma)"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "desired headway (tau) [s]"
 msgstr "期望的車間距 (tau) [秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "speedfactor"
 msgstr "速度因子"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "action step length [s]"
 msgstr "決策時間步長 [秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "person capacity"
 msgstr "人員容量"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:251
 msgid "boarding time [s]"
 msgstr "上車時間 [秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "container capacity"
 msgstr "集裝箱容量"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:251
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:253
 msgid "loading time [s]"
 msgstr "載入時間 [秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:253
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:255
 msgid "minGapLat [m]"
 msgstr "最小橫向間距 [公尺]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:254
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:257
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:256
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:259
 msgid "maxSpeedLat [m/s]"
 msgstr "最大側向速度 [公尺/秒]"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:255
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:257
 msgid "latAlignment"
 msgstr "側向對齊"
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:266
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:268
 msgid "manoeuver Angle vs Times"
 msgstr "操作角度與時間"
 
@@ -3239,7 +3241,8 @@ msgid "Save TLS Programs As..."
 msgstr "將交通號誌計畫另存為..."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:401
-msgid "Save all traffic light programs of the current network to another file."
+msgid ""
+"Save all traffic light programs of the current network to another file."
 msgstr "現有路網內所有交通號誌計畫另存新檔。"
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:407
@@ -4388,8 +4391,7 @@ msgstr "載入 netedit 設定檔 '%' 失敗。"
 msgid ""
 "Invalid input network option. Load with either sumo/netedit/netconvert "
 "config or with -new option"
-msgstr ""
-"輸入路網選項無效。使用 sumo/netedit/netconvert 設定檔案或 -new 選項載入"
+msgstr "輸入路網選項無效。使用 sumo/netedit/netconvert 設定檔案或 -new 選項載入"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:136
 msgid "Invalid Options. Nothing loaded"
@@ -4672,17 +4674,14 @@ msgid ""
 "settings override the default. Must be a multiple of the simulation step-"
 "length."
 msgstr ""
-"在跟車模式及車道變換模式內行動點(action point)之間的預設區間長度（以秒為單"
-"位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設"
-"值。必須是模擬步長的倍數。"
+"在跟車模式及車道變換模式內行動點(action "
+"point)之間的預設區間長度（以秒為單位）。如果沒有指定，模擬步長將作為預設值。車輛或是VType的特殊設定值會改寫預設值。必須是模擬步長的倍數。"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:499
 msgid ""
 "Select default speed deviation. A negative value implies vClass specific "
 "defaults (0.1 for the default passenger class)"
-msgstr ""
-"選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0.1為小客車等級的"
-"預設值)"
+msgstr "選擇速度偏差的預設值。負值表示 車輛類別(vClass)特定預設值（ 0.1為小客車等級的預設值)"
 
 #: D:\Repos\sumo/src\netedit\GNELoadThread.cpp:538
 msgid "Failed to reset options."
@@ -4804,7 +4803,8 @@ msgstr "合併路口的位置"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1490
 msgid ""
-"There is another unselected junction in the same position of joined junction."
+"There is another unselected junction in the same position of joined "
+"junction."
 msgstr "在合併路口的相同位置上有另外一個未被選擇的路口。"
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1491
@@ -5305,8 +5305,7 @@ msgstr "於多個路口上新增交通號誌(TLS)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:5688
 msgid "Shift + click to create two additionals in the same position"
-msgstr ""
-"移位鍵(shift) + 點選(click) 將在同一個位置上新稱兩個附加物(additionals)"
+msgstr "移位鍵(shift) + 點選(click) 將在同一個位置上新稱兩個附加物(additionals)"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:5932
 msgid "Control + click to create two stop in the same position"
@@ -5558,9 +5557,7 @@ msgstr "將狀態應用於所有相位(phases)"
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
-msgstr ""
-"切換是否點擊時應將更改的狀態(state)應用於現有交通號誌(TLS) 計劃的所有相位"
-"(phase)。"
+msgstr "切換是否點擊時應將更改的狀態(state)應用於現有交通號誌(TLS) 計劃的所有相位(phase)。"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2371
 msgid "Automatic merging junction"
@@ -5591,7 +5588,8 @@ msgid "Edge chain mode"
 msgstr "路段鏈(chain)模式"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2391
-msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid ""
+"Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr "單擊一下即可建立連續的路段（按 ESC 取消鏈(chain))。"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2398
@@ -6682,8 +6680,8 @@ msgstr "變數是由一個密鑰(key)及值(value)定義的。\n"
 #: D:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
 #: D:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format key1=parameter1|"
-"key2=parameter2|...\n"
+"- In Netedit can be defined using format "
+"key1=parameter1|key2=parameter2|...\n"
 msgstr "- 在netedit 內可以用格式密鑰 1=變數1|密鑰 2=變數2|...定義\n"
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
@@ -7229,11 +7227,9 @@ msgstr "在SUMO路段類型檔案內的一個類型名稱"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1166
 msgid ""
-"If the shape is given it should start and end with the positions of the from-"
-"node and to-node"
-msgstr ""
-"如果給定形狀(shape)，則應以起始節點(from-node)和終止節點(to-node)的位置開始和"
-"結束"
+"If the shape is given it should start and end with the positions of the "
+"from-node and to-node"
+msgstr "如果給定形狀(shape)，則應以起始節點(from-node)和終止節點(to-node)的位置開始和結束"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1171
 msgid "The length of the edge in meter"
@@ -7291,8 +7287,8 @@ msgstr "車道識別名(自動產生, 無法編輯)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1254
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
-"is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
+" is the leftmost one)"
 msgstr "車道的列舉索引(0是最右邊的車道, 車道數減去1是最左邊的車道)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
@@ -7410,27 +7406,21 @@ msgstr "如果設定, 車輛通過此車道與車道連接的連接線(connectio
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1451
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
-"worry about blocking the intersection"
-msgstr ""
-"如果設定為假值(false), 車輛通過此車道與車道連接的連接線(connection)時, 將不會"
-"擔心是否會阻塞路口"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
+" worry about blocking the intersection"
+msgstr "如果設定為假值(false), 車輛通過此車道與車道連接的連接線(connection)時, 將不會擔心是否會阻塞路口"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1457
 msgid ""
 "If set to a more than 0 value, an internal junction will be built at this "
 "position (in m)/n from the start of the internal lane for this connection"
-msgstr ""
-"如果設定為大於0的值, 內部路口將會被建立在此連接線(connection)的內部車道起點的"
-"位置(公尺為單位)"
+msgstr "如果設定為大於0的值, 內部路口將會被建立在此連接線(connection)的內部車道起點的位置(公尺為單位)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1463
 msgid ""
 "If set to true, This connection will not be TLS-controlled despite its node "
 "being controlled"
-msgstr ""
-"如果設為真值(true), 儘管節點路口受號誌控制, 此連接線(connection)不會受到號誌"
-"控制"
+msgstr "如果設為真值(true), 儘管節點路口受號誌控制, 此連接線(connection)不會受到號誌控制"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1469
 msgid "Vision distance between vehicles"
@@ -7511,9 +7501,7 @@ msgstr "車道上的起始位置(車道上較低位置)(以公尺為單位)"
 msgid ""
 "The end position on the lane (the higher position on the lane) in meters, "
 "must be larger than startPos by more than 0.1m"
-msgstr ""
-"車道上的結束位置(車道上較高的位置) (以公尺為單位), 必須比起始位置(startPos)大"
-"於 0.1公尺以上"
+msgstr "車道上的結束位置(車道上較高的位置) (以公尺為單位), 必須比起始位置(startPos)大於 0.1公尺以上"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1602
 msgid "Name of busStop"
@@ -7536,7 +7524,8 @@ msgstr "公車停靠站(busStop)的名稱"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4209
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4355
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6774
-msgid "If set, no error will be reported if element is placed behind the lane."
+msgid ""
+"If set, no error will be reported if element is placed behind the lane."
 msgstr "如果設定，若元素放置在車道後面，不會報告任何錯誤。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1608
@@ -7575,8 +7564,8 @@ msgstr "意思是在這個公車停靠站的公車線路的名稱。這僅用於
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1620
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1687
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the "
-"sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the"
+" sidewalk"
 msgstr "大量人群試圖進入將會在人行道上造成上游堵塞"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1626
@@ -7723,8 +7712,8 @@ msgstr "在運輸過程中啟用或禁用充電，即車輛必須或不得停車
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1871
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station, "
-"before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station,"
+" before the energy transfer (charging) begins"
 msgstr "車輛到達/停在充電站後，能量傳輸（充電）開始之前的時間延遲"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1877
@@ -7779,8 +7768,8 @@ msgstr "路邊停車位的寬度"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1968
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) / "
-"roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) /"
+" roadsideCapacity"
 msgstr "路邊停車位的長度。預設情況下為（終點位置 - 開始位置）/路邊容量"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1974
@@ -7824,8 +7813,8 @@ msgstr "E1 的id"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2356
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2391
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of "
-"the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of"
+" the network used"
 msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2051
@@ -7833,8 +7822,7 @@ msgstr "偵測器所在車道的 ID。車道必須位於所用路網內"
 msgid ""
 "The position on the lane the detector shall be laid on in meters. The "
 "position must be a value between -1*lane's length and the lane's length"
-msgstr ""
-"偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
+msgstr "偵測器在車道上的位置應以米為單位設置。該位置必須是在正負一個車道長度之間"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2056
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2117
@@ -7906,17 +7894,14 @@ msgstr "時間為基礎的閾值用來定義車輛必須停等多少時間才會
 msgid ""
 "The speed-based threshold that describes how slow a vehicle has to be to be "
 "recognized as halting) in m/s"
-msgstr ""
-"速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
+msgstr "速度為基礎的閾值用來定義車輛必需行駛多慢才會被認為是停等 (單位為 公尺/秒)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2155
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2238
 msgid ""
 "The maximum distance to the next standing vehicle in order to make this "
 "vehicle count as a participant to the jam in m"
-msgstr ""
-"車輛到下一個停等的車輛得最大距離(公尺), 此距離用於計算該車輛是否被視為堵塞的"
-"參與者"
+msgstr "車輛到下一個停等的車輛得最大距離(公尺), 此距離用於計算該車輛是否被視為堵塞的參與者"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2175
 msgid "E2 MultiLaneAreaDetector"
@@ -8170,19 +8155,15 @@ msgstr "車輛重新搜尋路徑(rerouting)機率(0-1)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2744
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting "
-"(default -1 which disables the threshold)"
-msgstr ""
-"啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, 表示禁用此閾"
-"值)"
+"The waiting time threshold (in s) that must be reached to activate rerouting"
+" (default -1 which disables the threshold)"
+msgstr "啟動路徑重新搜尋必須達到的等待時間閾值, 以秒為單位(預設值為-1, 表示禁用此閾值)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2750
 msgid ""
 "The list of vehicle types that shall be affected by this rerouter (empty to "
 "affect all types)"
-msgstr ""
-"受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影"
-"響)"
+msgstr "受此重新搜尋路徑裝置(rerouter)影響的車輛類型清單(空的表示所有車輛類型將被影響)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2755
 msgid ""
@@ -8480,8 +8461,8 @@ msgstr "架空電線開始夾(overheadWireIDStartClamp)的架空電線區段車�
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3357
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp "
-"is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp"
+" is connected"
 msgstr "與架空電線夾終點連結的架空電線區段的識別名(ID)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3362
@@ -8527,8 +8508,8 @@ msgstr "路徑識別名(id)"
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3460
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3511
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using "
-"spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using"
+" spaces"
 msgstr "車輛行經的路段(使用空格分隔)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3465
@@ -8601,15 +8582,15 @@ msgstr "車輛的最大速度[公尺/秒]"
 msgid ""
 "The vehicle's expected multiplicator for lane speed limits (or a "
 "distribution specifier)"
-msgstr ""
-"車輛預期的車道速度限制乘數(multiplicator) (或一個分佈說明符(specifier))"
+msgstr "車輛預期的車道速度限制乘數(multiplicator) (或一個分佈說明符(specifier))"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3587
 msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr "車輛所需的最大速度 (與 speedFactor 交互作用)。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3588
-msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid ""
+"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr "適用於沒有速度限制的情況 (腳踏車, 某些高速公路） [m/s]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3593
@@ -8634,8 +8615,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3622
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow "
-"functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow"
+" functional coloring)"
 msgstr "用於呈現此類別車輛的圖像檔案(應為灰階標度以允許功能性著色)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3627
@@ -8955,7 +8936,8 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr "定位點(waypoint)應位於的車道的名稱"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4363
-msgid "The lateral offset on the named lane at which the vehicle must waypoint"
+msgid ""
+"The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr "車輛必須在已指定車道上定點的側向偏移值"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4377
@@ -9357,8 +9339,8 @@ msgstr "車輛離該路網時的應有速度"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5804
 msgid ""
-"A string specifying the id of a public transport line which can be used when "
-"specifying person rides"
+"A string specifying the id of a public transport line which can be used when"
+" specifying person rides"
 msgstr "當指定人員乘車(ride)時, 一個用於指定公共運輸路線的識別名的字串"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5809
@@ -9437,8 +9419,8 @@ msgstr "此類型車輛的減速能力[公尺/平方秒]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5912
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model [m/"
-"s^2]"
+"The apparent deceleration of the vehicle as used by the standard model "
+"[m/s^2]"
 msgstr "標準模式使用的車輛視在減速 [公尺/平方秒]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5918
@@ -9508,10 +9490,9 @@ msgstr "EIDM 最大急衝變數 [公尺/立方秒]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6017
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
-"s^2]"
-msgstr ""
-"在兩個動作點(action points)之間的EIDM模式最大負加速度（閾值） [公尺/平方秒]"
+"EIDM maximal negative acceleration between two Action Points (threshold) "
+"[m/s^2]"
+msgstr "在兩個動作點(action points)之間的EIDM模式最大負加速度（閾值） [公尺/平方秒]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6023
 msgid ""
@@ -9528,8 +9509,8 @@ msgstr "EIDM 啟動/起步曲線的偏移變數 [-]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6041
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration "
-"calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration"
+" calculation [0/1]"
 msgstr "EIDM 變數，如果模式應將車輛動力學納入加速度計算 [0/1]"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6047
@@ -9609,14 +9590,14 @@ msgstr "如果黃燈相位的時間低於給定的閾值，則此值會導致車
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6198
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red "
-"phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red"
+" phase is lower than the given threshold."
 msgstr "如果紅燈相位的時間低於給定的閾值，則此值會導致車輛闖紅燈。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6204
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
-"violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
+" violating a red light."
 msgstr "此值會導致受 jmDriveAfterRedTime 影響的車輛在闖紅燈時減速。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6210
@@ -9721,10 +9702,9 @@ msgstr "每秒最大側向加速度。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6321
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the "
-"left is necessary (relative to right lookahead)."
-msgstr ""
-"當需要向左變換（相對於向右前看）時, 用於設定策略性向前看距離的係數(factor)。"
+"Factor for configuring the strategic lookahead distance when a change to the"
+" left is necessary (relative to right lookahead)."
+msgstr "當需要向左變換（相對於向右前看）時, 用於設定策略性向前看距離的係數(factor)。"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6327
 msgid ""
@@ -9740,13 +9720,12 @@ msgstr "站立時側向速度的上限。"
 msgid ""
 "Upper bound on lateral speed while moving computed as lcMaxSpeedLatStanding "
 "+ lcMaxSpeedLatFactor * getSpeed()"
-msgstr ""
-"移動時側向速度上限的計算為lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * "
-"getSpeed()"
+msgstr "移動時側向速度上限的計算為lcMaxSpeedLatStanding + lcMaxSpeedLatFactor * getSpeed()"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6345
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the alignment"
+"Distance to an upcoming turn on the vehicles route, below which the "
+"alignment"
 msgstr "在車輛路徑上，到即將轉彎的距離，低於該距離的對齊方式"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6346
@@ -9809,8 +9788,7 @@ msgstr "路徑繼續時的時間長度"
 msgid ""
 "If set to a non-negative time value, then the stop duration can be extended "
 "at most by the extension value in seconds"
-msgstr ""
-"如果設定一個非負數的時間值,則停等的時間可以被延長 最多以秒為單位的延長值"
+msgstr "如果設定一個非負數的時間值,則停等的時間可以被延長 最多以秒為單位的延長值"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6453
 msgid "Whether a person or container or both may end the stop"
@@ -9854,7 +9832,8 @@ msgstr "在開始位置(startPos)和 結束位置(endPos)之間行駛時要保�
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6505
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or disembark"
+"Whether the stop may be skipped if no passengers wants to embark or "
+"disembark"
 msgstr "如果沒有乘客要上下車，是否可以跳過該站"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6512
@@ -10111,8 +10090,8 @@ msgstr "僅對給定檔案內的路段識別名(ID)輸出結果"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:7021
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single "
-"value"
+"Whether the traffic statistic of all edges shall be aggregated into a single"
+" value"
 msgstr "是否所有路段的交通統計應被彙整為一個單一 值"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
@@ -10260,9 +10239,7 @@ msgstr "新增火車站 '"
 msgid ""
 "Could not build access in netedit; busStop parent already owns an access in "
 "the edge '"
-msgstr ""
-"無法在 netedit 中建立連通通道(access)； 公車站的親代(parent)在路段上已有連通"
-"通道(access) '"
+msgstr "無法在 netedit 中建立連通通道(access)； 公車站的親代(parent)在路段上已有連通通道(access) '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:205
 #, c-format
@@ -10287,9 +10264,7 @@ msgstr "新增充電站 '"
 msgid ""
 "Could not build parking area with ID '%' in netedit; Invalid departPos over "
 "lane."
-msgstr ""
-"無法在 netedit 中用識別號(ID) '%' 建立停車區域; 車道上的出發位置(departPos)無"
-"效."
+msgstr "無法在 netedit 中用識別號(ID) '%' 建立停車區域; 車道上的出發位置(departPos)無效."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:348
 msgid "add parking area '"
@@ -10297,8 +10272,8 @@ msgstr "新增停車區域 '"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:370
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute width cannot be parse to"
+" float."
 msgstr "無法在netedit建立停車區域; 屬性寬度無法解析為浮點數。"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:372
@@ -10309,8 +10284,8 @@ msgstr "無法在netedit內建立停車空間; 屬性長度無法剖析為浮點
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute angle cannot be parse to"
+" float."
 msgstr "浮點數。"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:395
@@ -10327,9 +10302,7 @@ msgstr "新增偵測器 '"
 msgid ""
 "Could not build lane area detector with ID '%' in netedit; invalid traffic "
 "light ID."
-msgstr ""
-"無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 交通號誌識別號 (ID) 無"
-"效."
+msgstr "無法在 netedit 中用識別號(ID) '%' 建立車道區域偵測器; 交通號誌識別號 (ID) 無效."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:504
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:565
@@ -10427,9 +10400,7 @@ msgstr "新增可變速度標誌(VSS)時間步長於 '"
 #, c-format
 msgid ""
 "Could not build Vaporizer with ID '%' in netedit; begin is greater than end."
-msgstr ""
-"無法在 netedit 中用識別號(ID) '%' 建立蒸發器(vaporizer); 開始時間大於結束時"
-"間."
+msgstr "無法在 netedit 中用識別號(ID) '%' 建立蒸發器(vaporizer); 開始時間大於結束時間."
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:1269
 msgid "add vaporizer in '"
@@ -10591,9 +10562,7 @@ msgstr "myEdge及myLane均未定義"
 msgid ""
 "calibratorFlow of calibrator '%' cannot be written. Either type or "
 "vehsPerHour or speed must be enabled"
-msgstr ""
-"校估器 '%' 的校估器流量無法寫入。 必須啟用 類型(type), 每小時車輛數"
-"(vehsPerHour) 或 速度(speed)"
+msgstr "校估器 '%' 的校估器流量無法寫入。 必須啟用 類型(type), 每小時車輛數(vehsPerHour) 或 速度(speed)"
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNELaneAreaDetector.cpp:176
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEOverheadWire.cpp:125
@@ -10992,8 +10961,7 @@ msgstr "車輛不支援停靠點位於路段上"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1238
 msgid "A stop must be defined either over a stoppingPlace, a edge or a lane"
-msgstr ""
-"一個停靠點必須定義在一個停靠位置(stoppingPlace), 一個路段或是一個車道上"
+msgstr "一個停靠點必須定義在一個停靠位置(stoppingPlace), 一個路段或是一個車道上"
 
 #: D:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1240
 msgid "A stop requires only a stoppingPlace, edge or lane"
@@ -11923,15 +11891,15 @@ msgid "Netedit Parameters Help"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
-msgid "- Reference point: Mark the initial position of the additional element."
+msgid ""
+"- Reference point: Mark the initial position of the additional element."
 msgstr "- 參考點：標記附加元素的初始位置。"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:381
 msgid ""
 "  Example: If you want to create a busStop with a length of 30 in the point "
 "100 of the lane:"
-msgstr ""
-"  範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
+msgstr "  範例: 如果要在100公尺長的車道上建立一個長度為30公尺的公車站(busStop)："
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:383
 msgid "  - Reference Left: will have startPos = 70 and endPos = 100."
@@ -11970,7 +11938,8 @@ msgid "  the mouse. This option can be modified inspecting element."
 msgstr "  滑鼠。這個選項可以修改檢視的元素。"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:393
-msgid "- Center view: if is enabled, view will be center over created element."
+msgid ""
+"- Center view: if is enabled, view will be center over created element."
 msgstr "- 中心視圖：如果啟用，建立的元素將展示於中間位置。"
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
@@ -12464,8 +12433,7 @@ msgstr "設定新的親代(parent)"
 msgid ""
 "- Mark as front element: Mark element as front element (Will be drawn over "
 "all other elements)\n"
-msgstr ""
-"標記前端元素(front element): 標記元素為前端元素 (將會繪製在其他元素之上)\n"
+msgstr "標記前端元素(front element): 標記元素為前端元素 (將會繪製在其他元素之上)\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:369
 msgid "- Block movement: disable movement in move mode\n"
@@ -12479,8 +12447,8 @@ msgstr "- 鎖住形狀物:禁止移動形狀物的點和邊。整個形狀物可
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
-"- Close shape: Add or remove the last vertex with the same position of first "
-"edge'."
+"- Close shape: Add or remove the last vertex with the same position of first"
+" edge'."
 msgstr "- 封閉形狀物: 新增或移除與第一個路段位置相同的最後一個端點。"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
@@ -12579,8 +12547,8 @@ msgstr "未知集"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are "
-"then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are"
+" then applied to the current selection\n"
 msgstr "- '匹配屬性'的控制允許指定一組物件,其可以用於現有的選擇內\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
@@ -12613,10 +12581,9 @@ msgstr "- 空白表式會匹配到所有的物件\n"
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison "
-"operator ('<', '>', '=') and a number.\n"
-msgstr ""
-"對於數值屬性,其匹配表式必須包含一個比較運算子('<', '>', '=')及一個數字。\n"
+"- For numerical attributes the match expression must consist of a comparison"
+" operator ('<', '>', '=') and a number.\n"
+msgstr "對於數值屬性,其匹配表式必須包含一個比較運算子('<', '>', '=')及一個數字。\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:462
@@ -12630,9 +12597,7 @@ msgstr "如果給定運算子的屬性與給定數字之間的比較結果為真
 msgid ""
 "- For string attributes the match expression must consist of a comparison "
 "operator ('', '=', '!', '^') and a string.\n"
-msgstr ""
-"對於字串屬性,其匹配表式必須包含一個比較運算子('', '=', '!', '^')及一個字"
-"串。\n"
+msgstr "對於字串屬性,其匹配表式必須包含一個比較運算子('', '=', '!', '^')及一個字串。\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:283
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:465
@@ -12664,7 +12629,8 @@ msgstr "- 範例:\n"
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
+"id\n"
 msgstr "     路口; 識別名(id); 'foo' -> 匹配所有識別名(id)中有 'foo' 的路口\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
@@ -12673,8 +12639,8 @@ msgid ""
 "     junction; type; '=priority' -> match all junctions of type 'priority', "
 "but not of type 'priority_stop'\n"
 msgstr ""
-"     路口; 類型; '=優先' -> 匹配所有類型為優先'priority'的路口, 但不匹配'優先"
-"停等'(priority_stop)類型的路口\n"
+"     路口; 類型; '=優先' -> 匹配所有類型為優先'priority'的路口, "
+"但不匹配'優先停等'(priority_stop)類型的路口\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:291
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:473
@@ -12701,9 +12667,7 @@ msgstr ""
 msgid ""
 "- The 'MatchGenericData Attribute' controls allow to specify a set of "
 "objects which are then applied to the current selection\n"
-msgstr ""
-"匹配通用資料屬性(MatchGenericData Attribute)控制允許指定一組物件，並然後將其"
-"應用於目前的選擇\n"
+msgstr "匹配通用資料屬性(MatchGenericData Attribute)控制允許指定一組物件，並然後將其應用於目前的選擇\n"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMoveFrame.cpp:70
 msgid "Common move options"
@@ -13577,8 +13541,7 @@ msgstr "選擇衝突"
 msgid ""
 "Selects all lanes with more than one incoming connection from the same edge "
 "(clears previous selection)"
-msgstr ""
-"選擇所有至少有一條進入連接線(incoming connection)的車道 （清除之前的選擇）"
+msgstr "選擇所有至少有一條進入連接線(incoming connection)的車道 （清除之前的選擇）"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:168
 msgid "Select Passing"
@@ -13619,8 +13582,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
+" nodes or with incompatible permissions)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
@@ -13785,7 +13748,8 @@ msgstr "建立路段"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:692
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or template"
+"Select either default edgeType or short edge or a custom edgeType or "
+"template"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:694
@@ -14451,8 +14415,7 @@ msgstr "建立新的交通號誌計畫。"
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
-msgstr ""
-"刪除交通號誌計畫。如果全部的計畫都被刪除,路口將轉為以優先順序方式控制。"
+msgstr "刪除交通號誌計畫。如果全部的計畫都被刪除,路口將轉為以優先順序方式控制。"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1401
 msgid "Reset single"
@@ -14542,7 +14505,8 @@ msgid "Clean unused states from all phase"
 msgstr "清除所有相位內未使用的狀態"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
-msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid ""
+"Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr "清除所有相位內未使用的狀態。（不允許使用於多個計畫）"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
@@ -14557,9 +14521,7 @@ msgstr "用一個輸入延伸所有相位的狀態向量"
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
-msgstr ""
-"通過一個輸入來延伸所有相位的狀態列。 (除非一個連接線或是穿越道被指定一個新的"
-"索引,否則將不使用)"
+msgstr "通過一個輸入來延伸所有相位的狀態列。 (除非一個連接線或是穿越道被指定一個新的索引,否則將不使用)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1944
 msgid "Group Sig."
@@ -14569,16 +14531,13 @@ msgstr "進行號誌群組。"
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
-msgstr ""
-"通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義"
+msgstr "通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
-msgstr ""
-"通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義(不允"
-"許使用於多個時制計畫)"
+msgstr "通過讓具有相同號誌狀態的連接線(connections)使用相同的索引來縮短狀態定義(不允許使用於多個時制計畫)"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1950
 msgid "Ungroup Sig."
@@ -14645,8 +14604,7 @@ msgstr "一個 % 需要至少兩個車道的位置"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:237
 msgid "Currently unsupported. Create VSS steps elements using VSS dialog"
-msgstr ""
-"目前尚未支援。使用可變速度標誌(VSS)對話窗建立VSS步驟元素(steps elements)"
+msgstr "目前尚未支援。使用可變速度標誌(VSS)對話窗建立VSS步驟元素(steps elements)"
 
 #: D:\Repos\sumo/src\netedit\netedit_main.cpp:49
 msgid ""
@@ -14940,7 +14898,8 @@ msgid "Invalid vClass"
 msgstr "無效的車輛類別(vClass)"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
-msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid ""
+"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr "對於暫停點(breakpoints),不宜使用屬性'value'。請使用 'time'。"
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:385
@@ -16416,7 +16375,8 @@ msgstr "更改顯示語言需要重啟才能生效。"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:419
 msgid ""
-"For the Debug build you might also need to set the LANG environment variable."
+"For the Debug build you might also need to set the LANG environment "
+"variable."
 msgstr "對於除錯組建(Debug build)，您可能還需要設定LANG的環境變數。"
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:422
@@ -16639,15 +16599,15 @@ msgstr "無法將座標轉換為%單位。"
 #~ "element must be at least networkElement, additional, TAZ, demandElement, "
 #~ "dataElement or meanData"
 #~ msgstr ""
-#~ "元素必須至少是路網元素(networkElement), 附加物(additional), 交通分區(TAZ),"
-#~ "需求元素(demandElement), 資料元素(dataElement) 或平均資料(meanData)"
+#~ "元素必須至少是路網元素(networkElement), 附加物(additional), 交通分區(TAZ),需求元素(demandElement),"
+#~ " 資料元素(dataElement) 或平均資料(meanData)"
 
 #~ msgid ""
-#~ "element can be only a networkElement, additional, demandElement, "
-#~ "dataElement or meanData at the same time"
+#~ "element can be only a networkElement, additional, demandElement, dataElement"
+#~ " or meanData at the same time"
 #~ msgstr ""
-#~ "元素只能同時是路網元素(networkElement), 附加物(additional),需求元素"
-#~ "(demandElement), 資料元素(dataElement) 或平均資料(meanData)"
+#~ "元素只能同時是路網元素(networkElement), 附加物(additional),需求元素(demandElement), "
+#~ "資料元素(dataElement) 或平均資料(meanData)"
 
 #~ msgid "element can be only a shape, TAZ or wire element at the same time"
 #~ msgstr "元素只能同時是圖形物件、分區或是通訊線"
@@ -16656,13 +16616,10 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgstr "開啟編輯允許車輛類別的對話窗"
 
 #~ msgid "VType with vClass == 'ignoring' is oriented to containers"
-#~ msgstr ""
-#~ "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃"
-#~ "(containers)為導向"
+#~ msgstr "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)是以貨櫃(containers)為導向"
 
 #~ msgid "VType with vClass != 'pedestrian' is not oriented to persons"
-#~ msgstr ""
-#~ "具有車輛類別(vClass)為'行人'的車輛類型(VType)不是以人員(persons)為導向"
+#~ msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)不是以人員(persons)為導向"
 
 #~ msgid "VType with vClass == 'pedestrian' is oriented to pedestrians"
 #~ msgstr "具有車輛類別(vClass)為'行人'的車輛類型(VType)是以行人為導向"
@@ -16719,9 +16676,7 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgstr "一個停靠點必須設置於公車停靠站"
 
 #~ msgid "VType with vClass != 'ignoring' is not oriented to containers"
-#~ msgstr ""
-#~ "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃"
-#~ "(containers)為導向"
+#~ msgstr "具有車輛類別(vClass)為'忽略'(ignoring)的車輛類型(VType)不是以貨櫃(containers)為導向"
 
 #~ msgid "first select an edge"
 #~ msgstr "首先選擇一個路段"
@@ -16873,23 +16828,16 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgid "reference center"
 #~ msgstr "以中心為主的參考點"
 
-#~ msgid ""
-#~ "  - Reference Left will create it with startPos = 70 and endPos = 100."
-#~ msgstr ""
-#~ "  開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點"
-#~ "將會建立。"
+#~ msgid "  - Reference Left will create it with startPos = 70 and endPos = 100."
+#~ msgstr "  開始位置為70(startPos=70)及結束位置為100(endPos=100)的以左邊為準的參考點將會建立。"
 
 #~ msgid ""
 #~ "  - Reference Right will create it with startPos = 100 and endPos = 130."
-#~ msgstr ""
-#~ "  - 開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參"
-#~ "考點將會建立。"
+#~ msgstr "  - 開始位置為100(startPos=100)及結束位置為130(endPos=130)的以右邊為準的參考點將會建立。"
 
 #~ msgid ""
 #~ "  - Reference Center will create it with startPos = 85 and endPos = 115."
-#~ msgstr ""
-#~ "  - 開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考"
-#~ "點將會建立。"
+#~ msgstr "  - 開始位置為85(startPos=85)及結束位置為115(endPos=115)的以中心為準的參考點將會建立。"
 
 #~ msgid "Select either default edgeType or a custom edgeType or template"
 #~ msgstr "選擇預設的路段類型,自訂的路段類型或是範本"
@@ -17517,8 +17465,8 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgstr "停車車輛在視圖上的緯度位置"
 
 #~ msgid ""
-#~ "The vehicles expected multiplicator for lane speed limits (or a "
-#~ "distribution specifier)"
+#~ "The vehicles expected multiplicator for lane speed limits (or a distribution"
+#~ " specifier)"
 #~ msgstr "車輛預期的車道速限乘數(multiplicator)(或是分配說明符(specifier))"
 
 #~ msgid "The vehicles desired maximum velocity (interacts with speedFactor)."
@@ -17646,8 +17594,7 @@ msgstr "無法將座標轉換為%單位。"
 #~ msgid "0"
 #~ msgstr "0"
 
-#~ msgid ""
-#~ "The list of secuencial lane ids in which the detector shall be laid on"
+#~ msgid "The list of secuencial lane ids in which the detector shall be laid on"
 #~ msgstr "應放置偵測器的安全車道的識別名(id)清單"
 
 #~ msgid "red"

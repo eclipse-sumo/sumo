@@ -7,11 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-05-22 16:23+0200\n"
+"POT-Creation-Date: 2024-05-28 15:36+0200\n"
 "PO-Revision-Date: 2023-10-16 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-gui-netedit/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -210,7 +209,8 @@ msgstr "Editer Rectangle de visualisation"
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:516
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1285
 msgid "Opens a dialog for editing viewing area, zoom and rotation."
-msgstr "Ouvre un dialogue pour éditer zone de visualisation, zoom et rotation."
+msgstr ""
+"Ouvre un dialogue pour éditer zone de visualisation, zoom et rotation."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:520
 msgid "Load additionals in netedit"
@@ -385,8 +385,8 @@ msgid ""
 "Show vehicles that are teleporting or driving remote-controlled outside the "
 "road network in locator dialog."
 msgstr ""
-"Montrer véhicules qui sont téleportés ou conduisant de manière télécommandée "
-"en dehors du réseau routier dans le dialogue de localisation."
+"Montrer véhicules qui sont téleportés ou conduisant de manière télécommandée"
+" en dehors du réseau routier dans le dialogue de localisation."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:578
 msgid "Simulation"
@@ -656,8 +656,8 @@ msgstr "\tAvancer\tEffectuer un seul pas de simulation."
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:698
 msgid ""
-"Time:\tToggle between time formats\tToggle between seconds and hour:minute:"
-"seconds display."
+"Time:\tToggle between time formats\tToggle between seconds and "
+"hour:minute:seconds display."
 msgstr ""
 "Temps :\tBasculer le format des temps\tBasculer l'affichage entre secondes "
 "et heures :minutes :secondes."
@@ -696,8 +696,8 @@ msgstr "Temps Perdu:"
 msgid ""
 "Time lost due to being unable to drive with maximum speed for all vehicles"
 msgstr ""
-"Temps perdu dû à l'impossibilité de conduire avec vitesse maximale pour tous "
-"les véhicules"
+"Temps perdu dû à l'impossibilité de conduire avec vitesse maximale pour tous"
+" les véhicules"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:783
 msgid "Distance (km):"
@@ -1066,8 +1066,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:54
 msgid ""
-"Graphical user interface for the microscopic, multi-modal traffic simulation "
-"SUMO."
+"Graphical user interface for the microscopic, multi-modal traffic simulation"
+" SUMO."
 msgstr ""
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:56
@@ -1076,7 +1076,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:62
 #: D:\Repos\sumo/src\netedit\dialogs\GNEAbout.cpp:66
-msgid "This application is based on code provided by the Eclipse SUMO project."
+msgid ""
+"This application is based on code provided by the Eclipse SUMO project."
 msgstr ""
 
 #: D:\Repos\sumo/src\gui\dialogs\GUIDialog_AboutSUMO.cpp:63
@@ -1293,7 +1294,7 @@ msgid "Remove"
 msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIBaseVehicle.cpp:873
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:614
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:616
 msgid "Vehicle parameter '%' key '%' is not a number for vehicle '%'."
 msgstr ""
 "Paramètre véhicule '%' (clé '%') n'est pas un nombre pour véhicule '%'."
@@ -1514,20 +1515,20 @@ msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIContainer.cpp:190
 #: D:\Repos\sumo/src\guisim\GUIPerson.cpp:258
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
 msgid "mass [kg]"
 msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIContainer.cpp:191
 #: D:\Repos\sumo/src\guisim\GUIPerson.cpp:260
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
 msgid "maximum speed [m/s]"
 msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUIE2Collector.cpp:130
 #: D:\Repos\sumo/src\guisim\GUIEdge.cpp:185
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1044
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:226
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
 msgid "length [m]"
 msgstr ""
 
@@ -1865,7 +1866,7 @@ msgid "allowed speed [m/s]"
 msgstr ""
 
 #: D:\Repos\sumo/src\guisim\GUILane.cpp:1045
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:227
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
 msgid "width [m]"
 msgstr ""
 
@@ -2410,112 +2411,116 @@ msgstr ""
 msgid "currently charging [Wh]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:205
+msgid "maximum charge rate [W]"
+msgstr ""
+
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:209
 msgid "present electric current [A]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:212
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:214
 msgid "speed mode"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:215
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:217
 msgid "lane change mode"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:228
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
 msgid "height [m]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:229
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
 msgid "minGap [m]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:230
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:232
 msgid "vehicle class"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:231
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
 msgid "emission class"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:233
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
 msgid "car-following model"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:234
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:236
 msgid "lane-change model"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:235
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
 msgid "guiShape"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:237
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
 msgid "desired maximum speed [m/s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:238
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:240
 msgid "maximum acceleration [m/s^2]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:239
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
 msgid "maximum deceleration [m/s^2]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:240
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:242
 msgid "emergency deceleration [m/s^2]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:241
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
 msgid "apparent deceleration [m/s^2]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:242
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
 msgid "imperfection (sigma)"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:243
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:245
 msgid "desired headway (tau) [s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:244
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
 msgid "speedfactor"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:246
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
 msgid "action step length [s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:248
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
 msgid "person capacity"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:249
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:251
 msgid "boarding time [s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:250
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:252
 msgid "container capacity"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:251
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:253
 msgid "loading time [s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:253
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:255
 msgid "minGapLat [m]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:254
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:257
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:256
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:259
 msgid "maxSpeedLat [m/s]"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:255
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:257
 msgid "latAlignment"
 msgstr ""
 
-#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:266
+#: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:268
 msgid "manoeuver Angle vs Times"
 msgstr ""
 
@@ -3260,10 +3265,11 @@ msgid "Save TLS Programs As..."
 msgstr "Sauvegarder Programmes Feux de Circulation sous..."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:401
-msgid "Save all traffic light programs of the current network to another file."
+msgid ""
+"Save all traffic light programs of the current network to another file."
 msgstr ""
-"Sauvegarder tous les programmes de feux de circulation du réseau actuel dans "
-"autre fichier."
+"Sauvegarder tous les programmes de feux de circulation du réseau actuel dans"
+" autre fichier."
 
 #: D:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:407
 msgid "Reload TLS Programs"
@@ -4825,7 +4831,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1490
 msgid ""
-"There is another unselected junction in the same position of joined junction."
+"There is another unselected junction in the same position of joined "
+"junction."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNENet.cpp:1491
@@ -5609,7 +5616,8 @@ msgid "Edge chain mode"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2391
-msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
+msgid ""
+"Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2398
@@ -6704,8 +6712,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:402
 #: D:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:397
 msgid ""
-"- In Netedit can be defined using format key1=parameter1|"
-"key2=parameter2|...\n"
+"- In Netedit can be defined using format "
+"key1=parameter1|key2=parameter2|...\n"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\dialogs\GNEMultipleParametersDialog.cpp:406
@@ -7251,8 +7259,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1166
 msgid ""
-"If the shape is given it should start and end with the positions of the from-"
-"node and to-node"
+"If the shape is given it should start and end with the positions of the "
+"from-node and to-node"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1171
@@ -7311,8 +7319,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1254
 msgid ""
-"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1 "
-"is the leftmost one)"
+"The enumeration index of the lane (0 is the rightmost lane, <NUMBER_LANES>-1"
+" is the leftmost one)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1259
@@ -7430,8 +7438,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1451
 msgid ""
-"if set to false, vehicles which pass this (lane-2-lane) connection) will not "
-"worry about blocking the intersection"
+"if set to false, vehicles which pass this (lane-2-lane) connection) will not"
+" worry about blocking the intersection"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1457
@@ -7548,7 +7556,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4209
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4355
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6774
-msgid "If set, no error will be reported if element is placed behind the lane."
+msgid ""
+"If set, no error will be reported if element is placed behind the lane."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1608
@@ -7587,8 +7596,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1620
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1687
 msgid ""
-"Larger numbers of persons trying to enter will create an upstream jam on the "
-"sidewalk"
+"Larger numbers of persons trying to enter will create an upstream jam on the"
+" sidewalk"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1626
@@ -7735,8 +7744,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1871
 msgid ""
-"Time delay after the vehicles has reached / stopped on the charging station, "
-"before the energy transfer (charging) begins"
+"Time delay after the vehicles has reached / stopped on the charging station,"
+" before the energy transfer (charging) begins"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1877
@@ -7791,8 +7800,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1968
 msgid ""
-"The length of the road-side parking spaces. By default (endPos - startPos) / "
-"roadsideCapacity"
+"The length of the road-side parking spaces. By default (endPos - startPos) /"
+" roadsideCapacity"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1974
@@ -7836,8 +7845,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2356
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2391
 msgid ""
-"The id of the lane the detector shall be laid on. The lane must be a part of "
-"the network used"
+"The id of the lane the detector shall be laid on. The lane must be a part of"
+" the network used"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2051
@@ -8178,8 +8187,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2744
 msgid ""
-"The waiting time threshold (in s) that must be reached to activate rerouting "
-"(default -1 which disables the threshold)"
+"The waiting time threshold (in s) that must be reached to activate rerouting"
+" (default -1 which disables the threshold)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2750
@@ -8484,8 +8493,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3357
 msgid ""
-"ID of the overhead wire segment, to the end of which the overhead wire clamp "
-"is connected"
+"ID of the overhead wire segment, to the end of which the overhead wire clamp"
+" is connected"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3362
@@ -8531,8 +8540,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3460
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3511
 msgid ""
-"The edges the vehicle shall drive along, given as their ids, separated using "
-"spaces"
+"The edges the vehicle shall drive along, given as their ids, separated using"
+" spaces"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3465
@@ -8612,7 +8621,8 @@ msgid "The vehicle's desired maximum velocity (interacts with speedFactor)."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3588
-msgid "Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
+msgid ""
+"Applicable when no speed limit applies (bicycles, some motorways) [m/s]"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3593
@@ -8637,8 +8647,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3622
 msgid ""
-"Image file for rendering vehicles of this type (should be grayscale to allow "
-"functional coloring)"
+"Image file for rendering vehicles of this type (should be grayscale to allow"
+" functional coloring)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3627
@@ -8958,7 +8968,8 @@ msgid "The name of the lane the waypoint shall be located at"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4363
-msgid "The lateral offset on the named lane at which the vehicle must waypoint"
+msgid ""
+"The lateral offset on the named lane at which the vehicle must waypoint"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:4377
@@ -9360,8 +9371,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5804
 msgid ""
-"A string specifying the id of a public transport line which can be used when "
-"specifying person rides"
+"A string specifying the id of a public transport line which can be used when"
+" specifying person rides"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5809
@@ -9440,8 +9451,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5912
 msgid ""
-"The apparent deceleration of the vehicle as used by the standard model [m/"
-"s^2]"
+"The apparent deceleration of the vehicle as used by the standard model "
+"[m/s^2]"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:5918
@@ -9511,8 +9522,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6017
 msgid ""
-"EIDM maximal negative acceleration between two Action Points (threshold) [m/"
-"s^2]"
+"EIDM maximal negative acceleration between two Action Points (threshold) "
+"[m/s^2]"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6023
@@ -9530,8 +9541,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6041
 msgid ""
-"EIDM parameter if model shall include vehicle dynamics into the acceleration "
-"calculation [0/1]"
+"EIDM parameter if model shall include vehicle dynamics into the acceleration"
+" calculation [0/1]"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6047
@@ -9611,14 +9622,14 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6198
 msgid ""
-"This value causes vehicles to violate a red light if the duration of the red "
-"phase is lower than the given threshold."
+"This value causes vehicles to violate a red light if the duration of the red"
+" phase is lower than the given threshold."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6204
 msgid ""
-"This value causes vehicles affected by jmDriveAfterRedTime to slow down when "
-"violating a red light."
+"This value causes vehicles affected by jmDriveAfterRedTime to slow down when"
+" violating a red light."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6210
@@ -9723,8 +9734,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6321
 msgid ""
-"Factor for configuring the strategic lookahead distance when a change to the "
-"left is necessary (relative to right lookahead)."
+"Factor for configuring the strategic lookahead distance when a change to the"
+" left is necessary (relative to right lookahead)."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6327
@@ -9745,7 +9756,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6345
 msgid ""
-"Distance to an upcoming turn on the vehicles route, below which the alignment"
+"Distance to an upcoming turn on the vehicles route, below which the "
+"alignment"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6346
@@ -9852,7 +9864,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6505
 msgid ""
-"Whether the stop may be skipped if no passengers wants to embark or disembark"
+"Whether the stop may be skipped if no passengers wants to embark or "
+"disembark"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:6512
@@ -10109,8 +10122,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:7021
 msgid ""
-"Whether the traffic statistic of all edges shall be aggregated into a single "
-"value"
+"Whether the traffic statistic of all edges shall be aggregated into a single"
+" value"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\GNEHierarchicalElement.cpp:421
@@ -10291,8 +10304,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:370
 msgid ""
-"Could not build parking space in netedit; attribute width cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute width cannot be parse to"
+" float."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:372
@@ -10303,8 +10316,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:374
 msgid ""
-"Could not build parking space in netedit; attribute angle cannot be parse to "
-"float."
+"Could not build parking space in netedit; attribute angle cannot be parse to"
+" float."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:395
@@ -11910,7 +11923,8 @@ msgid "Netedit Parameters Help"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:380
-msgid "- Reference point: Mark the initial position of the additional element."
+msgid ""
+"- Reference point: Mark the initial position of the additional element."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:381
@@ -11956,7 +11970,8 @@ msgid "  the mouse. This option can be modified inspecting element."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:393
-msgid "- Center view: if is enabled, view will be center over created element."
+msgid ""
+"- Center view: if is enabled, view will be center over created element."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\GNENetworkSelector.cpp:49
@@ -12464,8 +12479,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:371
 msgid ""
-"- Close shape: Add or remove the last vertex with the same position of first "
-"edge'."
+"- Close shape: Add or remove the last vertex with the same position of first"
+" edge'."
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:402
@@ -12564,8 +12579,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:272
 msgid ""
-"- The 'Match Attribute' controls allow to specify a set of objects which are "
-"then applied to the current selection\n"
+"- The 'Match Attribute' controls allow to specify a set of objects which are"
+" then applied to the current selection\n"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:273
@@ -12598,8 +12613,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:279
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:461
 msgid ""
-"- For numerical attributes the match expression must consist of a comparison "
-"operator ('<', '>', '=') and a number.\n"
+"- For numerical attributes the match expression must consist of a comparison"
+" operator ('<', '>', '=') and a number.\n"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:280
@@ -12646,7 +12661,8 @@ msgstr ""
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:289
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:471
 msgid ""
-"     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+"     junction; id; 'foo' -> match all junctions that have 'foo' in their "
+"id\n"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchAttribute.cpp:290
@@ -13596,8 +13612,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:315
 msgid ""
-"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper "
-"nodes or with incompatible permissions)"
+"Hold <CTRL> while clicking to create conflicting connections (i.e. at zipper"
+" nodes or with incompatible permissions)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:329
@@ -13762,7 +13778,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:692
 msgid ""
-"Select either default edgeType or short edge or a custom edgeType or template"
+"Select either default edgeType or short edge or a custom edgeType or "
+"template"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:694
@@ -14516,7 +14533,8 @@ msgid "Clean unused states from all phase"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
-msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
+msgid ""
+"Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1938
@@ -14908,7 +14926,8 @@ msgid "Invalid vClass"
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:77
-msgid "The 'value' attribute is deprecated for breakpoints. Please use 'time'."
+msgid ""
+"The 'value' attribute is deprecated for breakpoints. Please use 'time'."
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\settings\GUISettingsHandler.cpp:385
@@ -16384,7 +16403,8 @@ msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:419
 msgid ""
-"For the Debug build you might also need to set the LANG environment variable."
+"For the Debug build you might also need to set the LANG environment "
+"variable."
 msgstr ""
 
 #: D:\Repos\sumo/src\utils\gui\windows\GUIMainWindow.cpp:422
@@ -16457,8 +16477,8 @@ msgstr ""
 #~ "Scale traffic from flows and vehicles that are loaded incrementally from "
 #~ "route files."
 #~ msgstr ""
-#~ "Augmenter/réduire trafic depuis flux et véhicules chargés "
-#~ "incrémentalement depuis fichiers de routes."
+#~ "Augmenter/réduire trafic depuis flux et véhicules chargés incrémentalement "
+#~ "depuis fichiers de routes."
 
 #~ msgid "Configure Options"
 #~ msgstr "Configurer Options"
