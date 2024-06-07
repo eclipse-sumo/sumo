@@ -62,3 +62,6 @@ repeat_stops_no_period
 
 # test repeating route definition (invalid)
 repeat_disconnected
+
+# see #14992
+repeat_reset
