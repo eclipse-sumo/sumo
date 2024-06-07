@@ -25,7 +25,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry VehicleEngineHandler::engineTags[] = {
+SequentialStringBijection::Entry VehicleEngineHandler::engineTags[] = {
     { "vehicles",     VehicleEngineHandler::ENGINE_TAG_VEHICLES },
     { "vehicle",      VehicleEngineHandler::ENGINE_TAG_VEHICLE },
     { "gears",        VehicleEngineHandler::ENGINE_TAG_GEARS                  },
@@ -43,7 +43,7 @@ StringBijection<int>::Entry VehicleEngineHandler::engineTags[] = {
 };
 
 
-StringBijection<int>::Entry VehicleEngineHandler::engineAttrs[] = {
+SequentialStringBijection::Entry VehicleEngineHandler::engineAttrs[] = {
     { "id",           VehicleEngineHandler::ENGINE_ATTR_ID},
     { "n",            VehicleEngineHandler::ENGINE_ATTR_GEAR_N                 },
     { "ratio",        VehicleEngineHandler::ENGINE_ATTR_GEAR_RATIO             },

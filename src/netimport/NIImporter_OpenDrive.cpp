@@ -74,7 +74,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
+SequentialStringBijection::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "header",           NIImporter_OpenDrive::OPENDRIVE_TAG_HEADER },
     { "road",             NIImporter_OpenDrive::OPENDRIVE_TAG_ROAD },
     { "predecessor",      NIImporter_OpenDrive::OPENDRIVE_TAG_PREDECESSOR },
@@ -113,7 +113,7 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
 };
 
 
-StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
+SequentialStringBijection::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "revMajor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMAJOR },
     { "revMinor",       NIImporter_OpenDrive::OPENDRIVE_ATTR_REVMINOR },
     { "id",             NIImporter_OpenDrive::OPENDRIVE_ATTR_ID },

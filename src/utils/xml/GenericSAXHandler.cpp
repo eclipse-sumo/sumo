@@ -37,8 +37,8 @@
 // class definitions
 // ===========================================================================
 GenericSAXHandler::GenericSAXHandler(
-    StringBijection<int>::Entry* tags, int terminatorTag,
-    StringBijection<int>::Entry* attrs, int terminatorAttr,
+    SequentialStringBijection::Entry* tags, int terminatorTag,
+    SequentialStringBijection::Entry* attrs, int terminatorAttr,
     const std::string& file, const std::string& expectedRoot)
     : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file),
       myExpectedRoot(expectedRoot), myNextSectionStart(-1, nullptr) {

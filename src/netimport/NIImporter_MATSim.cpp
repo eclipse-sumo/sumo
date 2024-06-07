@@ -46,7 +46,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry NIImporter_MATSim::matsimTags[] = {
+SequentialStringBijection::Entry NIImporter_MATSim::matsimTags[] = {
     { "network",          NIImporter_MATSim::MATSIM_TAG_NETWORK },
     { "node",             NIImporter_MATSim::MATSIM_TAG_NODE },
     { "link",             NIImporter_MATSim::MATSIM_TAG_LINK },
@@ -55,7 +55,7 @@ StringBijection<int>::Entry NIImporter_MATSim::matsimTags[] = {
 };
 
 
-StringBijection<int>::Entry NIImporter_MATSim::matsimAttrs[] = {
+SequentialStringBijection::Entry NIImporter_MATSim::matsimAttrs[] = {
     { "id",             NIImporter_MATSim::MATSIM_ATTR_ID },
     { "x",              NIImporter_MATSim::MATSIM_ATTR_X },
     { "y",              NIImporter_MATSim::MATSIM_ATTR_Y },

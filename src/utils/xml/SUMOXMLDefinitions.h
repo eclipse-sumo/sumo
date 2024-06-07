@@ -27,6 +27,7 @@
 #include <bitset>
 
 #include <utils/common/StringBijection.h>
+#include <utils/common/SequentialStringBijection.h>
 
 // ===========================================================================
 // definitions
@@ -38,8 +39,6 @@
  * @see SUMOSAXHandler
  */
 enum SumoXMLTag {
-    /// @brief invalid tag
-    SUMO_TAG_NOTHING,
     /// @brief root file
     SUMO_TAG_ROOTFILE,
     /// @brief root element of a network file
@@ -533,6 +532,8 @@ enum SumoXMLTag {
     GNE_TAG_STOPCONTAINER_CONTAINERSTOP,
     GNE_TAG_STOPCONTAINER_EDGE,
     /// @}
+    /// @brief invalid tag, must be the last one
+    SUMO_TAG_NOTHING,
 };
 
 typedef std::bitset<96> SumoXMLAttrMask;
@@ -544,9 +545,6 @@ typedef std::bitset<96> SumoXMLAttrMask;
  * @see SUMOSAXHandler
  */
 enum SumoXMLAttr {
-    /// @brief invalid attribute
-    SUMO_ATTR_NOTHING = 0,
-
     /// @name meanData output attributes
     /// @note: sorted first to simplify filtering written attributes with bit operations
     /// @{
@@ -1572,8 +1570,10 @@ enum SumoXMLAttr {
     SUMO_ATTR_MESO_TLS_PENALTY,
     SUMO_ATTR_MESO_TLS_FLOW_PENALTY,
     SUMO_ATTR_MESO_MINOR_PENALTY,
-    SUMO_ATTR_MESO_OVERTAKING
+    SUMO_ATTR_MESO_OVERTAKING,
     // @}
+    /// @brief invalid attribute, must be the last one
+    SUMO_ATTR_NOTHING,
 };
 
 /*
@@ -1933,16 +1933,16 @@ class SUMOXMLDefinitions {
 
 public:
     /// @brief The names of SUMO-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry tags[];
+    static SequentialStringBijection::Entry tags[];
 
     /// @brief The names of SUMO-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry attrs[];
+    static SequentialStringBijection::Entry attrs[];
 
     /// @brief The names of SUMO-XML elements for use in netbuild
-    static StringBijection<int> Tags;
+    static SequentialStringBijection Tags;
 
     /// @brief The names of SUMO-XML attributes for use in netbuild
-    static StringBijection<int> Attrs;
+    static SequentialStringBijection Attrs;
 
     /// @name Special values of SUMO-XML attributes
     /// @{

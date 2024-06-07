@@ -771,10 +771,10 @@ protected:
     static void writeRoadObjects(const OpenDriveEdge* e);
 
     /// The names of openDrive-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveTags[];
+    static SequentialStringBijection::Entry openDriveTags[];
 
     /// The names of openDrive-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry openDriveAttrs[];
+    static SequentialStringBijection::Entry openDriveAttrs[];
 
     class LaneSorter {
     public:

@@ -25,7 +25,6 @@
 #include <config.h>
 
 #include <cassert>
-#include <utils/common/StringBijection.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
 
@@ -35,7 +34,7 @@
 // definitions
 // ===========================================================================
 
-StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
+SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     // Simulation elements
     { "net",                                    SUMO_TAG_NET },
     { "edge",                                   SUMO_TAG_EDGE },
@@ -363,7 +362,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
 };
 
 
-StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
+SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     // meta value for attribute enum
     { "default",                SUMO_ATTR_DEFAULT },
     // meandata
@@ -1348,10 +1347,10 @@ StringBijection<POIIcon>::Entry SUMOXMLDefinitions::POIIconValues[] = {
     {"",                 POIIcon::NONE} //< must be the last one
 };
 
-StringBijection<int> SUMOXMLDefinitions::Tags(
+SequentialStringBijection SUMOXMLDefinitions::Tags(
     SUMOXMLDefinitions::tags, SUMO_TAG_NOTHING);
 
-StringBijection<int> SUMOXMLDefinitions::Attrs(
+SequentialStringBijection SUMOXMLDefinitions::Attrs(
     SUMOXMLDefinitions::attrs, SUMO_ATTR_NOTHING);
 
 StringBijection<SumoXMLNodeType> SUMOXMLDefinitions::NodeTypes(

@@ -147,10 +147,10 @@ private:
     };
 
     /// The names of engine-XML elements (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry engineTags[];
+    static SequentialStringBijection::Entry engineTags[];
 
     /// The names of engine-XML attributes (for passing to GenericSAXHandler)
-    static StringBijection<int>::Entry engineAttrs[];
+    static SequentialStringBijection::Entry engineAttrs[];
 
 
 private:

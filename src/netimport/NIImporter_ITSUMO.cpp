@@ -45,7 +45,7 @@
 // ===========================================================================
 // static variables
 // ===========================================================================
-StringBijection<int>::Entry NIImporter_ITSUMO::itsumoTags[] = {
+SequentialStringBijection::Entry NIImporter_ITSUMO::itsumoTags[] = {
     { "simulation",             NIImporter_ITSUMO::ITSUMO_TAG_SIMULATION },
     { "network_id",             NIImporter_ITSUMO::ITSUMO_TAG_NETWORK_ID },
     { "network_name",           NIImporter_ITSUMO::ITSUMO_TAG_NETWORK_NAME },
@@ -88,7 +88,7 @@ StringBijection<int>::Entry NIImporter_ITSUMO::itsumoTags[] = {
 };
 
 
-StringBijection<int>::Entry NIImporter_ITSUMO::itsumoAttrs[] = {
+SequentialStringBijection::Entry NIImporter_ITSUMO::itsumoAttrs[] = {
     { "",               NIImporter_ITSUMO::ITSUMO_ATTR_NOTHING }
 };
 
