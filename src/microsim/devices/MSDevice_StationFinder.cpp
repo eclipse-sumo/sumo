@@ -399,7 +399,7 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
         // remove the vehicle if teleport to a charging station fails
         if (myHolder.isStopped()) {
             MSStop& currentStop = myHolder.getNextStop();
-            currentStop.duration += TS;
+            currentStop.duration += DELTA_T;
             SUMOVehicleParameter::Stop& stopPar = const_cast<SUMOVehicleParameter::Stop&>(currentStop.pars);
             stopPar.jump = -1;
             stopPar.breakDown = true;
