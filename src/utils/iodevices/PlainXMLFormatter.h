@@ -150,3 +150,18 @@ private:
     /// @brief whether a closing ">" might be missing
     bool myHavePendingOpener;
 };
+
+
+// ===========================================================================
+// specialized template implementations (for speedup)
+// ===========================================================================
+template <>
+inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
+    into << " " << toString(attr) << "=\"" << val << "\"";
+}
+
+
+template <>
+inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val) {
+    into << " " << toString(attr) << "=\"" << val << "\"";
+}
