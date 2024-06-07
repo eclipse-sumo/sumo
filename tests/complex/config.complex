@@ -162,7 +162,6 @@ errors:send failed: Connection reset by peer{REPLACE send failed: Software cause
 errors:send failed: Socket reset by peer{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:send failed: Broken pipe{REPLACE send failed: Software caused tcpip::Socket abort}
 errors:Could not find connection between
-errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
@@ -172,6 +171,8 @@ errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in o
 errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 errors:Network contains internal links which are ignored.
 errors:Matplotlib is building the font cache; this may take a moment.
+errors:matplotlib/projections/__init__.py:.*: UserWarning: Unable to import Axes3D.{LINES 2}
+errors:.*UserWarning: {REPLACE UserWarning: }
 errors:apport/report.py:13: DeprecationWarning: the imp{LINES 2}
 errors:\\{REPLACE /}
 ps:%%CreationDate
