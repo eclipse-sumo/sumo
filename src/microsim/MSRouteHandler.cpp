@@ -433,7 +433,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                     MSVehicleType* vtype = vehControl.getVType(myVehicleParameter->vtypeid, &myParsingRNG);
                     if (vtype != nullptr) {
                         vClass = vtype->getVehicleClass();
-                        errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, vClass);
+                        errSuffix = TLF(" for vehicle '%' with vClass %.", myVehicleParameter->id, getVehicleClassNames(vClass));
                     }
                 }
                 if (myActiveRoute.size() > 0 && !myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
@@ -501,6 +501,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         myActiveRouteID = "";
         myActiveRouteColor = nullptr;
         myActiveRouteStops.clear();
+        myActiveRouteRepeat = 0;
     } catch (ProcessError&) {
         deleteActivePlanAndVehicleParameter();
         throw;
