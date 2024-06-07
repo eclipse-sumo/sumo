@@ -379,9 +379,10 @@ nodes may be quite surprising. Please note the - quite pathologic -
 network on the left side and compare it to the one on the right. You may
 note some big differences in lane-to-lane connections, especially for
 the edge coming from the south.
-![../images/JunctionJoin_before.svg](../images/JunctionJoin_before.svg
+
+[<img src="../images/JunctionJoin_before.svg" alt="junction before joining" width="400" />](../images/JunctionJoin_before.svg
 "junctionJoin_before.svg")
-![JunctionJoin_after.svg](../images/JunctionJoin_after.svg
+[<img src="../images/JunctionJoin_after.svg" alt="junction after joining" width="400" />](../images/JunctionJoin_after.svg
 "junctionJoin_after.svg")
 
 The reason is that during joining, edges are subsequently merged, and
