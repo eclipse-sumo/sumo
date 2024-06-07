@@ -450,7 +450,7 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         glTranslated((s.laneWidthExaggeration - 1) * -offsetFromLeftBorder / 2, 0, 0);
     }
 
-    double upscaleLength = MSTrainHelper::getUpscaleLength(upscale, length, s.vehicleQuality);
+    double upscaleLength = MSTrainHelper::getUpscaleLength(upscale, length, getVType().getWidth(), s.vehicleQuality);
     glScaled(upscale, upscaleLength, 1);
     /*
         MSLaneChangeModel::DK2004 &m2 = static_cast<MSLaneChangeModel::DK2004&>(veh->getLaneChangeModel());
