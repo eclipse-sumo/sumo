@@ -340,6 +340,7 @@ image:<dc:date>
 image:\)scale\({REPLACE ) scale(}
 image:\)rotate\({REPLACE ) rotate(}
 image:\)translate\({REPLACE ) translate(}
+image:(<text .* transform=")[^"]*"{REPLACE \1"}
 image-600:<g id="matplotlib.axis
 image-600:<dc:date>
 image-600:\)scale\({REPLACE ) scale(}
