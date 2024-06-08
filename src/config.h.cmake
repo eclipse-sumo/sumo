@@ -173,17 +173,20 @@
 /* defined if ffmpeg is available */
 #cmakedefine HAVE_FFMPEG
 
+/* defined if fmt is available */
+#cmakedefine HAVE_FMT
+
 /* defined if FOX is available */
 #cmakedefine HAVE_FOX
-
-/* defined if libintl is available */
-#cmakedefine HAVE_INTL
 
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
+
+/* defined if libintl is available */
+#cmakedefine HAVE_INTL
 
 /* defined and set to version if JuPedSim is available */
 #cmakedefine JPS_VERSION @JPS_VERSION@

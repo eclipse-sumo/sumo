@@ -21,6 +21,10 @@
 #pragma once
 #include <config.h>
 
+#ifdef HAVE_FMT
+#include <fmt/ostream.h>
+#endif
+
 #include "OutputFormatter.h"
 
 
@@ -157,7 +161,11 @@ private:
 // ===========================================================================
 template <>
 inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
+#ifdef HAVE_FMT
+    fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
+#else
     into << " " << toString(attr) << "=\"" << val << "\"";
+#endif
 }
 
 

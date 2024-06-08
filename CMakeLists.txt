@@ -463,6 +463,13 @@ else (FREETYPE_FOUND)
     message(WARNING "FreeType cannot be found. If you are using SUMO libraries, update SUMO_LIBRARIES folder with git pull. Otherwise, specify manually FreeType include folder and libs.")
 endif (FREETYPE_FOUND)
 
+find_package(fmt QUIET)
+if (fmt_FOUND)
+    set(HAVE_FMT 1)
+    set(FMT_LIBRARY fmt::fmt)
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} FMT")
+endif (fmt_FOUND)
+
 find_package(X11)
 if (X11_FOUND)
     link_directories(${X11_LIBRARY_DIR})
@@ -576,7 +583,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_handlers utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${Intl_LIBRARIES} ${FMT_LIBRARY})
 if (WIN32)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
