@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 09:23:52 by Eclipse SUMO sumo Version v1_20_0+0381-12db074e0f6
+<!-- generated on 2024-06-10 09:47:42 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -58,9 +58,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="2" edges="1052 1075 1058 1077 1053 1054 1043 1044 1072 1047 1048">
                 <forward lanes="1052_0 1075_0 1058_0 1077_0 1053_0 1054_0 1043_0"/>
                 <bidi lanes="1033_0 1017_0 1034_0 1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0"/>
-                <flank lanes="1068_0 1002_0"/>
+                <flank lanes="1002_0 1068_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="28_0 2_0"/>
+                <conflictLinks signals="2_0 28_0"/>
                 <foes driveWays="0"/>
             </driveWay>
         </link>
@@ -73,6 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="1068_0 1073_0 1084_0 1066_0 1081_0"/>
                 <protectingSwitches links="37_0"/>
                 <conflictLinks signals="28_0"/>
+                <foes driveWays="5"/>
             </driveWay>
         </link>
     </railSignal>
@@ -83,9 +84,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes="1016_0 1037_0 1026_0 1040_0 1032_0 1010_0 1011_0 1033_0 1017_0 1034_0"
                     deadlockCheck="1012_0 1013_0 1000_0 1001_0 1031_0 1005_0 1006_0 1007_0 1002_0"/>
                 <flank lanes="1038_0 1042_0 1027_0"/>
-                <protectingSwitches links="35_3 35_3"/>
+                <protectingSwitches links="35_3"/>
                 <conflictLinks signals="27_0 2_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="0 1"/>
             </driveWay>
         </link>
     </railSignal>

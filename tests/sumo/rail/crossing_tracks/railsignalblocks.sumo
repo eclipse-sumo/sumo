@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 18:07:57 by Eclipse SUMO sumo Version v1_20_0+0379-42fc1ca62a4
+<!-- generated on 2024-06-10 09:37:09 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -68,9 +68,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="3" edges="T8_1 T15_1 T7_1 TL2_1">
                 <forward lanes=":s4_0_0 T8_1_0 :k1_1_0 T15_1_0 :w1_1_0 T7_1_0"/>
                 <bidi lanes=":s4_1_0 T8_0_0 :k1_3_0 T15_0_0 :w1_2_0 T7_0_0 :s3_1_0 TL2_0_0"/>
-                <flank lanes=":k1_2_0 T16_0_0 :w2_3_0 :k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0 :w1_0_0 T1_1_0 :s1_0_0"/>
+                <flank lanes=":k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0 :k1_2_0 T16_0_0 :w2_3_0 :w1_0_0 T1_1_0 :s1_0_0"/>
                 <protectingSwitches links="w2_3"/>
                 <conflictLinks signals="s1_0"/>
+                <foes driveWays="0 1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -82,6 +83,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="3"/>
             </driveWay>
         </link>
     </railSignal>
@@ -90,9 +92,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <driveWay id="1" edges="T12_0 T16_0 T3_0 T4_0 TO1_0">
                 <forward lanes=":s6_1_0 T12_0_0 :w2_3_0 T16_0_0 :k1_2_0 T3_0_0 :s8_1_0 T4_0_0"/>
                 <bidi lanes=":s6_0_0 T12_1_0 :w2_0_0 T16_1_0 :k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0"/>
-                <flank lanes=":k1_3_0 T15_0_0 :w1_2_0 :k1_1_0 T8_1_0 :s4_0_0 :w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
+                <flank lanes=":k1_1_0 T8_1_0 :s4_0_0 :k1_3_0 T15_0_0 :w1_2_0 :w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
                 <protectingSwitches links="w1_2"/>
                 <conflictLinks signals="s4_0"/>
+                <foes driveWays="3"/>
             </driveWay>
         </link>
     </railSignal>
