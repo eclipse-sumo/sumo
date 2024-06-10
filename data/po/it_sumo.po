@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-10 07:40+0000\n"
+"PO-Revision-Date: 2024-06-10 12:32+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -319,7 +319,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
-msgstr ""
+msgstr "Includi anche itinerari inutilizzati nell'uscita"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:192
 msgid ""
@@ -335,16 +335,20 @@ msgstr "Rimuove rivelatori vuoti dall'elenco"
 msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
+"Se degli archi con uno stato sconosciusto possono impedire un arco di "
+"diventare origine"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:201
 msgid ""
 "Try to determine further inflows to an inbetween detector when computing "
 "split probabilities"
 msgstr ""
+"Cerca di dedurre altri flussi entranti presso un rivelatore di mezzo quando "
+"le probabilità di ripartizione vengono calcolate"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:205
 msgid "Scale factor for flows"
-msgstr ""
+msgstr "Fattore di scala per flussi"
 
 #: D:\Repos\sumo/src\dfrouter\RODFFrame.cpp:209
 #: D:\Repos\sumo/src\marouter\ROMAFrame.cpp:123
@@ -2006,45 +2010,51 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:461
 msgid "Duration of a lane change maneuver (default 0)"
-msgstr ""
+msgstr "Durata di un cambio corsia (valore standard 0)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:464
 msgid "Whether overtaking on the right on motorways is permitted"
-msgstr ""
+msgstr "Se sorpassare sulla destra è autorizzato in autostrada"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:467
 msgid "Switches off all traffic lights."
-msgstr ""
+msgstr "Spegne tutti i semafori."
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:470
 msgid "Sets default visibility for actuation detectors"
-msgstr ""
+msgstr "Imposta la visibilità standard di rivelatori per semafori intelligenti"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:473
 msgid "Sets default jam-threshold parameter for all actuation detectors"
 msgstr ""
+"Imposta il valore soglia standard di rivelatori di semafori intelligenti per "
+"riconoscere una coda"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:476
 msgid "Sets default detector length parameter for all actuation detectors"
-msgstr ""
+msgstr "Imposta la lunghezza standard di rivelatori di semafori intelligenti"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:479
 msgid "Sets default range for detecting delayed vehicles"
-msgstr ""
+msgstr "Imposta la distanza massima standard per rivelare veicoli ritardati"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:482
 msgid "Minimum deceleration when braking at yellow"
-msgstr ""
+msgstr "Decelerazione minima frenando col giallo"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:485
 msgid "Let railsignals operate in moving-block mode by default"
 msgstr ""
+"Lascia gli segnali ferroviari nel modo di operazione moving-block per difetto"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:488
 msgid ""
 "Specify how long a vehicle may wait until impatience grows from 0 to 1, "
 "defaults to 300, non-positive values disable impatience growth"
 msgstr ""
+"Specifica quanto tempo un veicolo può aspettare fino a che la sua impazienza "
+"cresce da 0 a 1 (standard 300s), valori non positivi impediscono che cresca "
+"l'impazienza"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:491
 msgid ""
@@ -2062,7 +2072,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:494
 msgid "Select default car following model (Krauss, IDM, ...)"
-msgstr ""
+msgstr "Scegli il modello di guida standard (Krauss, IDM, ...)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:498
 msgid ""
