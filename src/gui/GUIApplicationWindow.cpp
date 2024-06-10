@@ -159,6 +159,8 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_SIMLOAD,                                                GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_E_EDITSELECTION_LOADNETEDITCONFIG,          GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS,          GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_B_BREAKPOINT,                                    GUIApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_ALT_B_BREAKPOINT_EARLY,                          GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F9_EDIT_VIEWSCHEME,                              GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_I_EDITVIEWPORT,                             GUIApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_T_OPENNETEDIT_OPENSUMO,                     GUIApplicationWindow::onUpdNeedsNetwork),
@@ -1411,7 +1413,9 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdBreakpoint(FXObject*, FXSelector, void*) {
     // see updateTimeLCD for the DELTA_T
-    addBreakpoint(SIMSTEP - DELTA_T);
+    if (myRunThread->networkAvailable()) {
+        addBreakpoint(SIMSTEP - DELTA_T);
+    }
     return 1;
 }
 
@@ -1419,7 +1423,9 @@ GUIApplicationWindow::onCmdBreakpoint(FXObject*, FXSelector, void*) {
 long
 GUIApplicationWindow::onCmdBreakpointEarly(FXObject*, FXSelector, void*) {
     // see updateTimeLCD for the DELTA_T
-    addBreakpoint(SIMSTEP - DELTA_T + GUIMessageWindow::getBreakPointOffset());
+    if (myRunThread->networkAvailable()) {
+        addBreakpoint(SIMSTEP - DELTA_T + GUIMessageWindow::getBreakPointOffset());
+    }
     return 1;
 }
 
