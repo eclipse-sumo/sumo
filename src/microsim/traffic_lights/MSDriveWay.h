@@ -159,10 +159,6 @@ protected:
     /// @brief the lanes that must be clear of trains before this signal can switch to green
     std::vector<const MSLane*> myConflictLanes;
 
-    /* @brief the list of switches that threaten the driveway and for which protection must be found
-    */
-    std::vector<MSLink*> myFlankSwitches;
-
     /* @brief the list of (first) switches that could give protection from oncoming/flanking vehicles
      * if any of them fails to do so, upstream search must be performed
      * until protection or conflict is found
@@ -195,17 +191,17 @@ protected:
      *
      * returns edge that is assumed to safe from oncoming-deadlock or nullptr
      */
-    void buildRoute(const MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited);
+    void buildRoute(const MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end, LaneVisitedMap& visited, std::set<MSLink*>&);
 
     /* @brief find switches that threaten this driveway
      * @param[out] flankSwitches collect the switches
      */
-    void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, std::vector<MSLink*>& flankSwitches) const;
+    void checkFlanks(const MSLink* originLink, const std::vector<const MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes, std::set<MSLink*>& flankSwitches) const;
 
     /* @brief find links that cross the driveway without entering it
      * @param[out] flankSwitches collect the switches
      */
-    void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::vector<MSLink*>& flankSwitches) const;
+    void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, std::set<MSLink*>& flankSwitches) const;
 
     /* @brief find upstream protection from the given link
      * @param[out] flank: the stored flank lanes
@@ -214,6 +210,9 @@ protected:
 
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);
+
+    /// @brief add all driveWays that pass the given link as foes
+    void addSwitchFoes(const MSLink* link);
 
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
@@ -242,9 +241,15 @@ private:
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
 
+    /// @brief track own occurences in mySwitchDriveWays for cleanup in destructor
+    std::vector<const MSLink*> myForwardSwitches;
+
     static int myDriveWayIndex;
     static int myNumWarnings;
     static bool myWriteVehicles;
+
+    /// @brief all driveways passing the given switch (used to look up flank foes)
+    static std::map<const MSLink*, std::vector<MSDriveWay*> > mySwitchDriveWays;
 
 
 };
