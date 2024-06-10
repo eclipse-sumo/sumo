@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-10 19:29:12 by Eclipse SUMO netedit Version v1_20_0+0385-0b5f01233df
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/localdata1/debug/sasan_NEMA_crash/net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/sasan_NEMA_crash/net2.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.20" spreadType="roadCenter" junctionCornerDetail="5" limitTurnSpeed="5.50" tlsIgnoreInternalJunctionJam="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-436401.59,-3657161.25" convBoundary="9960.40,16421.95,10147.86,16504.55" origBoundary="-87.774814,32.937960,-86.973201,33.436019" projParameter="+proj=utm +zone=16 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +north"/>
+
+    <type id="highway.primary" priority="12" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+
+    <edge id="-8861052#2" from="3641458915" to="cluster_64375873_64375875" name="Dinah Washington Avenue" priority="3" type="highway.residential" spreadType="roadCenter" shape="10066.34,16421.95 10066.33,16435.68 10066.30,16465.50 10066.29,16473.81">
+        <lane id="-8861052#2_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.12" shape="10067.94,16421.95 10067.93,16435.68 10067.90,16464.33">
+            <param key="origId" value="8861052"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="lanes" value="2"/>
+        <param key="name" value="Dinah Washington Avenue"/>
+        <param key="origTo" value="64375875"/>
+    </edge>
+    <edge id="1217211382#0" from="cluster_64375873_64375875" to="cluster_64341192_64341193" name="15th Street" priority="12" type="highway.primary" spreadType="center" shape="10066.10,16490.33 9961.23,16504.55">
+        <lane id="1217211382#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.13" shape="10062.40,16494.06 9962.21,16507.65">
+            <param key="origId" value="1217211382"/>
+        </lane>
+        <lane id="1217211382#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.13" shape="10061.97,16490.89 9961.78,16504.47">
+            <param key="origId" value="1217211382"/>
+        </lane>
+        <lane id="1217211382#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.13" shape="10061.54,16487.72 9961.35,16501.30">
+            <param key="origId" value="1217211382"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="3"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="15th Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="origFrom" value="64375873"/>
+        <param key="origTo" value="64341193"/>
+    </edge>
+    <edge id="1217211383" from="11278418448" to="cluster_64375873_64375875" name="15th Street" priority="12" type="highway.primary" spreadType="center" shape="10104.51,16483.66 10066.10,16490.33">
+        <lane id="1217211383_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="40.40" shape="10105.33,16488.39 10078.18,16493.10">
+            <param key="origId" value="1217211383"/>
+        </lane>
+        <lane id="1217211383_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="40.40" shape="10104.78,16485.24 10077.59,16489.96">
+            <param key="origId" value="1217211383"/>
+        </lane>
+        <lane id="1217211383_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="40.40" shape="10104.24,16482.08 10077.01,16486.81">
+            <param key="origId" value="1217211383"/>
+        </lane>
+        <lane id="1217211383_3" index="3" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="40.40" shape="10103.69,16478.93 10076.42,16483.67">
+            <param key="origId" value="1217211383"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="4"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="15th Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="origTo" value="64375873"/>
+        <param key="turn:lanes:forward" value="left|none|none|none"/>
+    </edge>
+    <edge id="1217211384#0" from="cluster_64341192_64341193" to="cluster_64375873_64375875" name="15th Street" priority="12" type="highway.primary" spreadType="center" shape="9960.40,16490.03 10066.29,16473.81">
+        <lane id="1217211384#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.16" shape="9959.23,16486.97 10059.36,16471.63">
+            <param key="origId" value="1217211384"/>
+        </lane>
+        <lane id="1217211384#0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.16" shape="9959.71,16490.14 10059.79,16474.81">
+            <param key="origId" value="1217211384"/>
+        </lane>
+        <lane id="1217211384#0_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="118.16" shape="9960.20,16493.30 10060.22,16477.98">
+            <param key="origId" value="1217211384"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="3"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="15th Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="origFrom" value="64341192"/>
+        <param key="origTo" value="64375875"/>
+    </edge>
+    <edge id="1217211384#1" from="cluster_64375873_64375875" to="cluster_64187964_64187965" name="15th Street" priority="12" type="highway.primary" spreadType="center" shape="10066.29,16473.81 10120.50,16463.71 10147.86,16459.39">
+        <lane id="1217211384#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="85.77" shape="10073.72,16469.17 10119.96,16460.56 10145.77,16456.48">
+            <param key="origId" value="1217211384 1217211386"/>
+        </lane>
+        <lane id="1217211384#1_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="85.77" shape="10074.31,16472.32 10120.50,16463.71 10146.27,16459.64">
+            <param key="origId" value="1217211384 1217211386"/>
+        </lane>
+        <lane id="1217211384#1_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="85.77" shape="10074.89,16475.46 10121.04,16466.86 10146.77,16462.80">
+            <param key="origId" value="1217211384 1217211386"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="3"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="15th Street"/>
+        <param key="oneway" value="yes"/>
+        <param key="origFrom" value="64375875"/>
+        <param key="origTo" value="64187965"/>
+        <param key="turn:lanes:forward" value="left|none|none|none"/>
+    </edge>
+    <edge id="8861052#1" from="cluster_64375873_64375875" to="3641458915" name="Dinah Washington Avenue" priority="3" type="highway.residential" spreadType="roadCenter" shape="10066.29,16473.81 10066.30,16465.50 10066.33,16435.68 10066.34,16421.95">
+        <lane id="8861052#1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.89" length="60.12" shape="10064.70,16464.32 10064.73,16435.68 10064.74,16421.95">
+            <param key="origId" value="8861052"/>
+        </lane>
+        <param key="highway" value="residential"/>
+        <param key="lanes" value="2"/>
+        <param key="name" value="Dinah Washington Avenue"/>
+        <param key="origFrom" value="64375875"/>
+    </edge>
+
+    <tlLogic id="63015005" type="NEMA" programID="0" offset="0">
+        <phase duration="90" state="GGGrrrrrrrrrrr" minDur="5" maxDur="110" vehext="5" yellow="3" red="2" name="6"/>
+        <phase duration="90" state="rrrGrrrrrrrrrr" minDur="5" maxDur="15" vehext="2.50" yellow="3" red="2" name="1"/>
+        <phase duration="90" state="rrrrGGGGrrrrrr" minDur="5" maxDur="25" vehext="2.50" yellow="3" red="2" name="8"/>
+        <phase duration="90" state="rrrrrrrrGGGGGG" minDur="5" maxDur="110" vehext="5" yellow="3" red="2" name="2"/>
+        <param key="barrier2Phases" value="2,6"/>
+        <param key="barrierPhases" value="4,8"/>
+        <param key="ring1" value="1,2,0,8"/>
+        <param key="ring2" value="0,6,0,8"/>
+        <param key="total-cycle-length" value="150"/>
+    </tlLogic>
+
+    <junction id="11278418448" type="dead_end" x="10104.51" y="16483.66" incLanes="" intLanes="" shape="10103.42,16477.35 10105.60,16489.97"/>
+    <junction id="3641458915" type="dead_end" x="10066.34" y="16421.95" incLanes="8861052#1_0" intLanes="" shape="10066.34,16421.95 10063.14,16421.95 10066.34,16421.95"/>
+    <junction id="cluster_64187964_64187965" type="dead_end" x="10147.58" y="16467.92" incLanes="1217211384#1_0 1217211384#1_1 1217211384#1_2" intLanes="" shape="10145.52,16454.90 10147.02,16464.38">
+        <param key="origEdgeIds" value="-1217211385 1217211385"/>
+        <param key="origId" value="64187964 64187965"/>
+    </junction>
+    <junction id="cluster_64341192_64341193" type="dead_end" x="9960.81" y="16497.29" incLanes="1217211382#0_0 1217211382#0_1 1217211382#0_2" intLanes="" shape="9960.44,16494.88 9958.99,16485.39 9962.43,16509.23 9961.14,16499.72">
+        <param key="origEdgeIds" value="-8858698#0 8858698#0"/>
+        <param key="origId" value="64341192 64341193"/>
+    </junction>
+    <junction id="cluster_64375873_64375875" type="traffic_light" x="10066.19" y="16482.07" incLanes="1217211383_0 1217211383_1 1217211383_2 1217211383_3 -8861052#2_0 1217211384#0_0 1217211384#0_1 1217211384#0_2" intLanes="" shape="10078.47,16494.68 10073.43,16467.60 10071.25,16467.56 10070.48,16467.15 10069.94,16466.47 10069.61,16465.53 10069.50,16464.33 10063.10,16464.32 10062.66,16467.23 10062.11,16468.31 10061.34,16469.14 10060.35,16469.72 10059.14,16470.05 10062.61,16495.65" rightOfWay="allwayStop">
+        <request index="0"  response="00000000000" foes="00001100000"/>
+        <request index="1"  response="00000000000" foes="00001100000"/>
+        <request index="2"  response="00000000000" foes="00001100000"/>
+        <request index="3"  response="11110000000" foes="11111100000"/>
+        <request index="4"  response="11100000000" foes="11100000000"/>
+        <request index="5"  response="11100001111" foes="11100001111"/>
+        <request index="6"  response="11100001111" foes="11100001111"/>
+        <request index="7"  response="00000000000" foes="00000001000"/>
+        <request index="8"  response="00000000000" foes="00001111000"/>
+        <request index="9"  response="00000000000" foes="00001111000"/>
+        <request index="10" response="00000000000" foes="00001111000"/>
+        <param key="origEdgeIds" value="-8861052#0 8861052#0"/>
+        <param key="origId" value="64375873 64375875"/>
+    </junction>
+
+    <connection from="-8861052#2" to="1217211384#1" fromLane="0" toLane="0" tl="63015005" linkIndex="5" dir="r" state="w"/>
+    <connection from="-8861052#2" to="1217211382#0" fromLane="0" toLane="1" tl="63015005" linkIndex="6" dir="l" state="w"/>
+    <connection from="-8861052#2" to="1217211382#0" fromLane="0" toLane="2" tl="63015005" linkIndex="7" dir="l" state="w"/>
+    <connection from="1217211383" to="1217211382#0" fromLane="0" toLane="0" tl="63015005" linkIndex="0" dir="s" state="w"/>
+    <connection from="1217211383" to="1217211382#0" fromLane="1" toLane="1" tl="63015005" linkIndex="1" dir="s" state="w"/>
+    <connection from="1217211383" to="1217211382#0" fromLane="2" toLane="2" tl="63015005" linkIndex="2" dir="s" state="w"/>
+    <connection from="1217211383" to="8861052#1" fromLane="3" toLane="0" tl="63015005" linkIndex="3" dir="l" state="w"/>
+    <connection from="1217211384#0" to="8861052#1" fromLane="0" toLane="0" tl="63015005" linkIndex="8" dir="r" state="w"/>
+    <connection from="1217211384#0" to="1217211384#1" fromLane="0" toLane="0" tl="63015005" linkIndex="9" dir="s" state="w"/>
+    <connection from="1217211384#0" to="1217211384#1" fromLane="1" toLane="1" tl="63015005" linkIndex="10" dir="s" state="w"/>
+    <connection from="1217211384#0" to="1217211384#1" fromLane="2" toLane="2" tl="63015005" linkIndex="11" dir="s" state="w"/>
+
+
+</net>
