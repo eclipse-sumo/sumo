@@ -7,43 +7,75 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed invalid error when loading a trip directly after a route with `repeat` #14992 (regression in 1.20.0)
   - personInfo total duration now includes ride waiting time #14887
   - Fixed jump-related bug when there are two stops on the same edge #14883
   - Fixed saving/loading of maximum time value from state #14904
-  - Fixed creeping vehicle approach to oncoming pedestrian on shared space #14920 
+  - Fixed creeping vehicle approach to oncoming pedestrian on shared space #14920
+  - Fixed invalid busStop id in warning "aborted waiting at busStop" #14929
+  - Fixed emergency braking at pedestrian crossings #14939
+  - Fixed emergency braking at pedestrian crossing in subsecond simulation #14928
+  - Fixed emergency braking for right-turning traffic at prioritized pedestrian crossing #14952 
+  - Fixed emergency braking due to unsafe insertion speed #14941
+  - Fixed unsafe insertion speed before prioritized pedestrian crossing when using **--step-method.ballistic**. #14951
+  - Fixed lane-changing related deadlock around stopped vehicles #14322
+  - Fixed crash when parallel routing encounters invalid trips #14963
+  - Fixed handling of passed stops after rerouting #14918
+  - Fixed crash when using junction-taz in railway simulation #14973
+  - Fixed non-deterministic behavior with option **--device.rerouting.threads --weights.random-factor** #10292
+  - Electric vehicles now issues a warning on running out of battery power #14980 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
+  - Fixed crash when edge removal affects roundabouts defined in OSM. #14930 (regression in 1.20.0)
   - Fixed bad ramp geometry when two ramps overlap #14839
   - Fixed invalid connection with option **--ramps.guess** if the input defines connections #14833
+  - Fixed unsafe waiting position within a junction that conflicts with a pedestrian crossing #14946 
  
 - netedit
-  -  Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863 
+  - Fixed invalid tls link indices #14949 (regression in 1.20.0)
+  - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
+  - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
+  - In inspect mode, the junction contour no longer hides link indices #14948 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
   - Fixed crash when saving view settings to registry #14909 (regression in 1.19.0)
   - Fixed bad menu spacing and tiny icons when using display scaling on windows (i.e. for high-pixel-count displays) #14882
-  - Fixed translation-related crashes where code relied on hard coded english menu entries. #14710 
+  - Fixed translation-related crashes where code relied on hard coded english menu entries. #14710
+  - Fixed placement of chargingStation and ParkingArea symbol in lefthand networks #14744, #14959
+  - Fixed invalid angle for busStop text label in lefthand networks #14743
+  - Fixed invalid scaling of aircraft when zoomed out #14899
+  - "Set breakpoint" can no longer cause a crash when no network is loaded #15003 
+
+- TraCI
+  - Fixed handling of large time input values #14793 
 
 - tools
-  -  generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880 
+  - generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880
+  - traceExporter.py: fixed inconsistent trj-output #14925
+  - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988 
 
 ### Enhancments
 
 - sumo
+  - Improved speed of writing xml output by 60% #14994, #8905
   - Added time stamp to E3 warnings #14870
   - personInfo now writes actual stage depart times instead of desired depart #14886
   - added option **--max-num-persons** to delay person insertion above a given threshold. #14884
   - A warning is now given when starting more persons in a vehicle than it's personCapacity permits #14752
-  - Persons and containers now support vType attribute `boardingFactor` which gets multiplied with the boarding- or loadingDuration of the vehicle. #14869 
+  - Persons and containers now support vType attribute `boardingFactor` which gets multiplied with the boarding- or loadingDuration of the vehicle. #14869
+  - Loaded polygons can be used to influence [jupedsim agents](Simulation/Pedestrians.md#model_jupedsim) #14325
+  - PHEMlight5 parameters can now be configured with [generic parameters](Simulation/GenericParameters.md) #14285 
  
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
+  - Mode for editing overhead wires now warns about experimental state #14974 
 
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
-  - OSM import now warns if ways, nodes or relations are out of order #14892 
+  - OSM import now warns if ways, nodes or relations are out of order #14892
+  - OSM import now handles trolleybus routes #14932 
 
 - traci
   - The new sumo option ** --keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
@@ -52,7 +84,9 @@ title: ChangeLog
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
   - gtfs2pt.py: Now warns if no valid GTFS inside the network boundaries has been found #14876
-  - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895 
+  - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895
+  - traceExporter.py now supports options **-c** and **-C** for loading and saving configuration files #14934
+  - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609 
 
 ## Version 1.20.0 (07.05.2024)
 
