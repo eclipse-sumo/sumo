@@ -1408,8 +1408,16 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             for (const auto& TLS : copyOfTls) {
                 NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
                 if (oldLoaded != nullptr) {
-                    NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*oldLoaded, *oldLoaded->getLogic());
-                    newDef->guessMinMaxDuration();
+                    NBTrafficLightDefinition* newDef = nullptr;
+                    if (value == toString(TrafficLightType::NEMA) || oldLoaded->getType() == TrafficLightType::NEMA ) {
+                        // rebuild the program because the old and new ones are incompatible
+                        newDef = new NBOwnTLDef(oldLoaded->getID(), oldLoaded->getOffset(), TrafficLightType::NEMA);
+                        newDef->setProgramID(oldLoaded->getProgramID());
+                    } else {
+                        NBLoadedSUMOTLDef* newLDef = new NBLoadedSUMOTLDef(*oldLoaded, *oldLoaded->getLogic());
+                        newLDef->guessMinMaxDuration(); // minDur and maxDur are never written for a static tls
+                        newDef = newLDef;
+                    }
                     std::vector<NBNode*> nodes = TLS->getNodes();
                     for (const auto& node : nodes) {
                         GNEJunction* junction = myNet->getAttributeCarriers()->retrieveJunction(node->getID());
@@ -1865,21 +1873,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
             for (const auto& TLS : copyOfTls) {
                 TLS->setType(SUMOXMLDefinitions::TrafficLightTypes.get(value));
-                // add special parameters values for NEMA
-                if (TLS->getType() == TrafficLightType::NEMA) {
-                    if (!TLS->hasParameter("barrierPhases")) {
-                        TLS->setParameter("barrierPhases", "4,8");
-                    }
-                    if (!TLS->hasParameter("barrier2Phases")) {
-                        TLS->setParameter("barrier2Phases", "2,6");
-                    }
-                    if (!TLS->hasParameter("ring1")) {
-                        TLS->setParameter("ring1", "0,2,0,4");
-                    }
-                    if (!TLS->hasParameter("ring2")) {
-                        TLS->setParameter("ring2", "0,6,0,8");
-                    }
-                }
             }
             break;
         }
