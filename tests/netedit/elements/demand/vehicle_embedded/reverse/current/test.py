@@ -46,8 +46,8 @@ netedit.typeEnter()
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.singleVehicleEdge.x,
-                                netedit.positions.demandElements.singleVehicleEdge.y,
+                                netedit.positions.demandElements.vehicleEdge.x,
+                                netedit.positions.demandElements.vehicleEdge.y,
                                 netedit.attrs.vehicleEmbedded.reverseElement,
                                 netedit.attrs.vehicleEmbedded.reverse.add)
 

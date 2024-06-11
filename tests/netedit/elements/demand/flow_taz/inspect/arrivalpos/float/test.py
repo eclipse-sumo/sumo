@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
-                  netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
+                  netedit.positions.demandElements.vehicleTAZ.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
                   netedit.positions.demandElements.TAZRed.y)
 
@@ -50,8 +50,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
-                  netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
+                  netedit.positions.demandElements.vehicleTAZ.y)
 
 # change arrivalPos with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.arrivalPos, "", False)

@@ -50,8 +50,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleTAZ.x,
-                  netedit.positions.demandElements.singleVehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
+                  netedit.positions.demandElements.vehicleTAZ.y)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspect.type, "custom_vType", False)

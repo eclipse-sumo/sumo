@@ -53,8 +53,8 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, n
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.singleVehicleEdge.x,
-                                netedit.positions.demandElements.singleVehicleEdge.y,
+                                netedit.positions.demandElements.vehicleEdge.x,
+                                netedit.positions.demandElements.vehicleEdge.y,
                                 netedit.attrs.routeFlow.reverseElement,
                                 netedit.attrs.routeFlow.reverse.add)
 

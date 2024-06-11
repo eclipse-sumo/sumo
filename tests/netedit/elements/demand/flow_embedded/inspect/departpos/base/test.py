@@ -48,8 +48,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.singleVehicleEdge.x,
-                  netedit.positions.demandElements.singleVehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x,
+                  netedit.positions.demandElements.vehicleEdge.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.departPos, "", False)

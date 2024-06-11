@@ -41,8 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.multipleVehiclesEdge.x,
-                  netedit.positions.demandElements.multipleVehiclesEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x,
+                  netedit.positions.demandElements.vehicleEdge.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.routeFlow.inspectSelection.colorButton, 5, True)

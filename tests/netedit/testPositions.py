@@ -128,12 +128,12 @@ class demandElements:
         y = 60
 
     class TAZGreen:
-        x = 555
-        y = 155
+        x = 525
+        y = 175
 
     class TAZRed:
-        x = 730
-        y = 160
+        x = 720
+        y = 175
 
     class busStop:
         x = 295
@@ -187,47 +187,42 @@ class demandElements:
         x = 720
         y = 3
 
-    # click over single trips, flows, etc... over edges
-    class singleVehicleEdge:
-        x = 160
+    # vehicle (over edge/route)
+    class vehicleEdge:
+        x = 185
         y = 440
 
-    # click over multiple trips, flows, etc... over edges
-    class multipleVehiclesEdge:
-        x = 190
-        y = 440
+    # click over single trip or flow over junctions
+    class vehicleJunction:
+        x = 160
+        y = 410
+
+    # click over single trip or flow over TAZ
+    class vehicleTAZ:
+        x = 525
+        y = 230
 
     # click over single person / flow over edges
     class person:
-        x = 133
-        y = 479
+        x = 150
+        y = 470
 
     # click stop/waypoint over edge
-    class stopEdge:
+    class stopEdgeX:
         x = 256
         y = 35
 
-    # click over single trip or flow over junctions
-    class singleVehicleJunction:
-        x = 160
-        y = 435
-
-    # click over single trip or flow over TAZ
-    class singleVehicleTAZ:
-        x = 280
-        y = 315
-
     # click over plan that ends in junction
-    class planJunction:
+    class planJunctionX:
         x = 134
         y = 52
 
     # click over plan in busStop
-    class planBusStop:
+    class planBusStopX:
         x = 318
         y = 14
 
     # click over plan in edge
-    class planEdge:
+    class planEdgeX:
         x = 197
         y = 36
