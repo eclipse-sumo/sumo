@@ -1976,6 +1976,19 @@ NBNodeCont::registerJoinedCluster(const NodeSet& cluster) {
     myJoinedClusters.push_back(ids);
 }
 
+void
+NBNodeCont::registerJoinedCluster(const std::set<std::string>& cluster) {
+    myJoinedClusters.push_back(cluster);
+}
+
+void
+NBNodeCont::unregisterJoinedCluster(const std::set<std::string>& cluster) {
+    auto it = std::find(myJoinedClusters.begin(), myJoinedClusters.end(), cluster);
+    if (it != myJoinedClusters.end()) {
+        myJoinedClusters.erase(it);
+    }
+}
+
 
 void
 NBNodeCont::analyzeCluster(NodeSet cluster, std::string& id, Position& pos,

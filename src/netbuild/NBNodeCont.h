@@ -341,6 +341,10 @@ public:
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     void registerJoinedCluster(const NodeSet& cluster);
+    void registerJoinedCluster(const std::set<std::string>& cluster);
+
+    /// @brief remove cluster from list (on netedit-undo)
+    void unregisterJoinedCluster(const std::set<std::string>& cluster);
 
     /// @brief gets all joined clusters (see doc for myClusters2Join)
     const std::vector<std::set<std::string> >& getJoinedClusters() const {
