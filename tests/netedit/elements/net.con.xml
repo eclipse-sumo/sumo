@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 09:12:52 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
+<!-- generated on 2024-06-11 15:05:50 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\Netedit_dev\tests\netedit\elements\demand\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Jun084156.16320\netedit.gui\elements\demand\trip\create\default\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Jun084156.16320\netedit.gui\elements\demand\trip\create\default\datas.dat.xml"/>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
     </input>
 
@@ -28,23 +25,6 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
-
-    <netedit>
-        <ignore-supermode-question value="true"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Jun084156.16320\netedit.gui\elements\demand\trip\create\default\gui-settings.xml"/>
-        <window-size value="1280, 720"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Jun084156.16320\netedit.gui\elements\demand\trip\create\default\guisettingsoutput.xml"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Jun084156.16320\netedit.gui\elements\demand\trip\create\default\log.txt"/>
-    </report>
 
 </configuration>
 -->
