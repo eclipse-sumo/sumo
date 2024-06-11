@@ -150,7 +150,21 @@ GNEAdditional::getCenteringBoundary() const {
     if (myAdditionalBoundary.isInitialised()) {
         return myAdditionalBoundary;
     } else {
-        return myAdditionalContour.getContourBoundary();
+        Boundary contourBoundary = myAdditionalContour.getContourBoundary();
+        if (contourBoundary.isInitialised()) {
+            contourBoundary.grow(5);
+            return contourBoundary;
+        } else if (myAdditionalGeometry.getShape().size() > 0) {
+            Boundary geometryBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+            geometryBoundary.grow(5);
+            return geometryBoundary;
+        } else if (getParentAdditionals().size() > 0) {
+            return getParentAdditionals().front()->getCenteringBoundary();
+        } else {
+            Boundary centerBoundary(0, 0, 0, 0);
+            centerBoundary.grow(5);
+            return centerBoundary;
+        }
     }
 }
 
