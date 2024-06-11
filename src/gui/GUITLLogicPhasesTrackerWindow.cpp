@@ -181,15 +181,19 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (auto item : myTLLogic->getConditions()) {
         myConditionNames.push_back(item.first);
     }
+    loadSettings();
+    int height = computeHeight();
+    FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | FRAME_NONE);
+    FXHorizontalFrame* spacerFrame = new FXHorizontalFrame(scrollWindow, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_NONE);
+    new FXScrollWindow(spacerFrame, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE, 0, 0, 0, height - 40);
     FXVerticalFrame* glcanvasFrame =
-        new FXVerticalFrame(this,
+        new FXVerticalFrame(spacerFrame,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    loadSettings();
-    setHeight(computeHeight());
+    setHeight(height);
 }
 
 
@@ -209,14 +213,18 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
     }
+    int height = computeHeight();
+    FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL_X | LAYOUT_FILL_Y | HSCROLLER_NEVER | FRAME_NONE);
+    FXHorizontalFrame* spacerFrame = new FXHorizontalFrame(scrollWindow, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_NONE);
+    new FXScrollWindow(spacerFrame, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_NONE, 0, 0, 0, height - 40);
     FXVerticalFrame* glcanvasFrame =
-        new FXVerticalFrame(this,
+        new FXVerticalFrame(spacerFrame,
                             FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y,
                             0, 0, 0, 0, 0, 0, 0, 0);
     myPanel = new GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - phases").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight(computeHeight());
+    setHeight(height);
     setWidth(700);
 }
 
@@ -291,6 +299,7 @@ GUITLLogicPhasesTrackerWindow::computeHeight() {
     int newHeight = (int)myTLLogic->getLinks().size() * 20 + 30 + 8 + 30 + 60;
     if (myAmInTrackingMode) {
         newHeight += 20; // time bar
+        newHeight += 10; // something extra caused by the scroll frames
         if (myDetectorMode->getCheck()) {
             newHeight += (int)myTLLogic->getDetectorStates().size() * 20 + 5;
         }
