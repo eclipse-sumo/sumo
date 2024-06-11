@@ -42,6 +42,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 - customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area)
+- customizing emission model [PHEMligh5 parameters](../Models/Emissions/PHEMlight5.md#dynamic_modification_of_parameters)
 - configuring [parameters of carFollowModel and laneChangeModel  via TraCI](../TraCI/Change_Vehicle_State.md#supported_lanechangemodel_parameters)
 - retrieving [parameters of carFollowModel and laneChangeModel via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_lanechangemodel_parameters)
 - configuring [device parameters via TraCI](../TraCI/Change_Vehicle_State.md#supported_device_parameters)
