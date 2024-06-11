@@ -176,7 +176,8 @@ MFXMenuCheckIcon::onButtonRelease(FXObject*, FXSelector, void*) {
     if (!isEnabled()) {
         return 0;
     }
-    getParent()->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
+    // keep menu open
+    //getParent()->handle(this, FXSEL(SEL_COMMAND, ID_UNPOST), NULL);
     if (active) {
         setCheck(!myCheck);
         if (target) {
