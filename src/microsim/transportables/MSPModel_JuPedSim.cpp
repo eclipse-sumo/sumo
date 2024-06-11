@@ -624,6 +624,7 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
                 } else {
                     dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
                 }
+                myCrossingWaits[lane] = {0, 0};
             } else {  // regular sidewalk
                 dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0 + POSITION_EPS, GEOSBUF_CAP_FLAT);
             }
@@ -969,20 +970,14 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
             myAreas.push_back({poly->getID(), type, areaBoundary, poly->getParametersMap(), 0});
         }
     }
-}
-
-
-MSLane* MSPModel_JuPedSim::getNextPedestrianLane(const MSLane* const currentLane) {
-    std::vector<MSLink*> links = currentLane->getLinkCont();
-    MSLane* nextLane = nullptr;
-    for (MSLink* link : links) {
-        MSLane* lane = link->getViaLaneOrLane();
-        if (lane->getPermissions() == SVC_PEDESTRIAN) {
-            nextLane = lane;
-            break;
-        }
+    // add waiting sets at crossings
+    for (auto& crossing : myCrossingWaits) {
+        const PositionVector& shape = crossing.first->getShape();
+        std::vector<JPS_Point> pointsIn{{shape.front().x(), shape.front().y()}};
+        crossing.second.first = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsIn.data(), pointsIn.size(), &message);
+        std::vector<JPS_Point> pointsOut{{shape.back().x(), shape.back().y()}};
+        crossing.second.second = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsOut.data(), pointsOut.size(), &message);
     }
-    return nextLane;
 }
 
 

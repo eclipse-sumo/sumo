@@ -195,6 +195,8 @@ private:
     /// @brief Array of stopped trains, used to detect whether to add carriages and ramps to the geometry.
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
+    std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
+
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
@@ -208,7 +210,6 @@ private:
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
     bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius);
-    static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
