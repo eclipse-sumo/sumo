@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -7,7 +6,7 @@ Simulation parameters:
   drf: 1.5
   waiting_time: 100.0
   fix_allocation: True
-timestep:  0.0
+timestep: 0.0
 Reservations waiting: ['0', '1']
 Taxis empty: ('v0',)
 Solve CPDP
@@ -25,9 +24,9 @@ Start solving the problem.
  Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
-pickup/dropoff nodes: 1/3
+pickup/dropoff nodes: 1/2
 allow to reject new reservation 0
-pickup/dropoff nodes: 2/4
+pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
 reservation 0: direct route cost 680 and (hard) max cost 1020
@@ -51,7 +50,7 @@ Objective: 8834
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (1,58))
  ->  1 (L: 1, C: 588, T: (43,100))
- ->  3 (L: 0, C: 1268, T: (156,600))
+ ->  2 (L: 0, C: 1268, T: (156,600))
  ->  0 (L: 0, C: 1268, T: (156,600))
 Costs of the route: 1268
 
@@ -59,7 +58,7 @@ Total cost of the routes: 1268
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '0']
 Costs for v0: 1268
-timestep:  30.0
+timestep: 30.0
 Reservations waiting: ['1']
 Reservations being picked up: ['0']
 Taxis picking up: ('v0',)
@@ -71,16 +70,18 @@ Reservation 0 starts at edge B0C0
 Reservation 1 starts at edge C0D0
 Reservation 0 ends at edge C1D1
 Reservation 1 ends at edge D0D1
+Reservation 0 has direct route costs 680
+Reservation 1 has direct route costs 385
 Start solving the problem.
  Register distance callback.
  Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
-pickup/dropoff nodes: 1/3
-pickup/dropoff nodes: 2/4
+pickup/dropoff nodes: 1/2
+pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (soft) max cost 1020.0
+reservation 0: direct route cost 680 and (soft) max cost 1020
 reservation 1: direct route cost 385 and (hard) max cost 578
  Add dropoff constraints...
  Add "no re-allocation" constraints...
@@ -88,8 +89,8 @@ reservation 0 in veh id=0
  Add capacity constraints...
  Add time windows constraints...
 soft time window for node 1: [30, 600]
-hard time window for node 2: [30, 600]
-soft time window for node 3: [30, 600]
+soft time window for node 2: [30, 600]
+hard time window for node 3: [30, 600]
 hard time window for node 4: [30, 600]
 hard time window for node 5: [30, 600]
  Add waiting time constraints...
@@ -99,14 +100,14 @@ reservation 1 has a maximum (hard) pickup time at 100
  Set solution heuristic...
 Start solving the problem.
 Initial solution:
-veh 0: [1, 3]
+veh 0: [1, 2]
 Objective: 8203
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (30,30))
  ->  1 (L: 1, C: 286, T: (51,51))
- ->  2 (L: 2, C: 872, T: (93,93))
+ ->  3 (L: 2, C: 872, T: (93,93))
  ->  4 (L: 1, C: 1257, T: (184,184))
- ->  3 (L: 0, C: 1933, T: (299,299))
+ ->  2 (L: 0, C: 1933, T: (299,299))
  ->  0 (L: 0, C: 1933, T: (299,299))
 Costs of the route: 1933
 
@@ -114,49 +115,49 @@ Total cost of the routes: 1933
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '1', '1', '0']
 Costs for v0: 1933
-timestep:  60.0
+timestep: 60.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
-timestep:  90.0
+timestep: 90.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
-timestep:  120.0
+timestep: 120.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
-timestep:  150.0
+timestep: 150.0
 Reservations en route: ['0', '1']
 Taxis occupied: ('v0',)
-timestep:  180.0
+timestep: 180.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  210.0
+timestep: 210.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  240.0
+timestep: 240.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  270.0
+timestep: 270.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  300.0
+timestep: 300.0
 Taxis empty: ('v0',)
-timestep:  330.0
+timestep: 330.0
 Taxis empty: ('v0',)
-timestep:  360.0
+timestep: 360.0
 Taxis empty: ('v0',)
-timestep:  390.0
+timestep: 390.0
 Taxis empty: ('v0',)
-timestep:  420.0
+timestep: 420.0
 Taxis empty: ('v0',)
-timestep:  450.0
+timestep: 450.0
 Taxis empty: ('v0',)
-timestep:  480.0
+timestep: 480.0
 Taxis empty: ('v0',)
-timestep:  510.0
+timestep: 510.0
 Taxis empty: ('v0',)
-timestep:  540.0
+timestep: 540.0
 Taxis empty: ('v0',)
-timestep:  570.0
+timestep: 570.0
 Taxis empty: ('v0',)
-timestep:  600.0
+timestep: 600.0
 Taxis empty: ('v0',)

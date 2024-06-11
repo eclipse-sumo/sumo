@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -7,7 +6,7 @@ Simulation parameters:
   drf: 1.5
   waiting_time: 900
   fix_allocation: False
-timestep:  0.0
+timestep: 0.0
 Reservations waiting: ['0']
 Taxis empty: ('v0',)
 Solve CPDP
@@ -49,13 +48,13 @@ Total cost of the routes: 1558
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '0']
 Costs for v0: 1558
-timestep:  30.0
+timestep: 30.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  60.0
+timestep: 60.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
-timestep:  90.0
+timestep: 90.0
 Reservations waiting: ['1']
 Reservations en route: ['0']
 Taxis occupied: ('v0',)
@@ -67,6 +66,7 @@ Reservation 1 starts at edge C2C1
 Reservation 1 ends at edge D1D2
 Drop-off of reservation 0 at edge D1C1
 Reservation 1 has direct route costs 485
+Reservation 0 has direct route costs 970
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -76,7 +76,7 @@ pickup/dropoff nodes: 1/2
 allow to reject new reservation 1
  Add direct route factor constraints...
 reservation 1: direct route cost 485 and (hard) max cost 728
-reservation 0: direct route cost 970.29 and (soft) max cost 1455, already used costs 292.95322651883464
+reservation 0: direct route cost 970 and (soft) max cost 1455, already used costs 293
  Add dropoff constraints...
 reservation 0 in veh v0(0), droppoff node: 3
  Add capacity constraints...
@@ -105,57 +105,57 @@ Total cost of the routes: 1634
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '1', '1']
 Costs for v0: 1634
-timestep:  120.0
+timestep: 120.0
 Reservations being picked up: ['1']
 Reservations en route: ['0']
 Taxis picking up: ('v0',)
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
-timestep:  150.0
+timestep: 150.0
 Reservations being picked up: ['1']
 Reservations en route: ['0']
 Taxis picking up: ('v0',)
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
-timestep:  180.0
+timestep: 180.0
 Reservations being picked up: ['1']
 Reservations en route: ['0']
 Taxis picking up: ('v0',)
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
-timestep:  210.0
+timestep: 210.0
 Reservations being picked up: ['1']
 Reservations en route: ['0']
 Taxis picking up: ('v0',)
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
-timestep:  240.0
+timestep: 240.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
-timestep:  270.0
+timestep: 270.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
-timestep:  300.0
+timestep: 300.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
-timestep:  330.0
+timestep: 330.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
-timestep:  360.0
+timestep: 360.0
 Taxis empty: ('v0',)
-timestep:  390.0
+timestep: 390.0
 Taxis empty: ('v0',)
-timestep:  420.0
+timestep: 420.0
 Taxis empty: ('v0',)
-timestep:  450.0
+timestep: 450.0
 Taxis empty: ('v0',)
-timestep:  480.0
+timestep: 480.0
 Taxis empty: ('v0',)
-timestep:  510.0
+timestep: 510.0
 Taxis empty: ('v0',)
-timestep:  540.0
+timestep: 540.0
 Taxis empty: ('v0',)
-timestep:  570.0
+timestep: 570.0
 Taxis empty: ('v0',)
-timestep:  600.0
+timestep: 600.0
 Taxis empty: ('v0',)
