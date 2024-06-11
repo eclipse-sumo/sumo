@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-10 20:09:15 by Eclipse SUMO sumo Version v1_20_0+0422-de94181c11f
+<!-- generated on 2024-06-11 10:22:35 by Eclipse SUMO sumo Version v1_20_0+0429-6edc6a0d28b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,5 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="10.00" ended="237.00" delay="207.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="10.00" ended="37.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="56.48" ended="137.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="0" type="DEFAULT_VEHTYPE" edge="SC" pos="0.00" parking="0" started="156.48" ended="237.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
