@@ -4456,17 +4456,10 @@ GNEViewNet::onCmdIntervalBarSetParameter(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
-    // make GL current (To allow take objects in popup position)
-    if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        // make sure that AC is selected before selecting
-        if (ACToselect && !ACToselect->isAttributeCarrierSelected()) {
-            ACToselect->selectAttributeCarrier();
-        }
-        // make non current
-        makeNonCurrent();
+    // only select if AC under cursor isn't previously selected
+    auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+    if (AC && !AC->isAttributeCarrierSelected()) {
+        AC->selectAttributeCarrier();
     }
     return 1;
 }
@@ -4474,17 +4467,10 @@ GNEViewNet::onCmdAddSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
-    // make GL current (To allow take objects in popup position)
-    if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        GNEAttributeCarrier* ACToselect = dynamic_cast <GNEAttributeCarrier*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        // make sure that AC is selected before unselecting
-        if (ACToselect && ACToselect->isAttributeCarrierSelected()) {
-            ACToselect->unselectAttributeCarrier();
-        }
-        // make non current
-        makeNonCurrent();
+    // only unselect if AC under cursor isn't previously selected
+    auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+    if (AC && AC->isAttributeCarrierSelected()) {
+        AC->unselectAttributeCarrier();
     }
     return 1;
 }
@@ -4492,18 +4478,10 @@ GNEViewNet::onCmdRemoveSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdAddEdgeSelected(FXObject*, FXSelector, void*) {
-    // make GL current (To allow take objects in popup position)
-    if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        // get lane
-        GNELane* lane = dynamic_cast <GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        // make sure that AC is selected before selecting
-        if (lane && !lane->getParentEdge()->isAttributeCarrierSelected()) {
-            lane->getParentEdge()->selectAttributeCarrier();
-        }
-        // make non current
-        makeNonCurrent();
+    // only select if edge under cursor isn't previously selected
+    auto edge = myViewObjectsSelector.getEdgeFront();
+    if (edge && !edge->isAttributeCarrierSelected()) {
+        edge->selectAttributeCarrier();
     }
     return 1;
 }
@@ -4511,18 +4489,10 @@ GNEViewNet::onCmdAddEdgeSelected(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdRemoveEdgeSelected(FXObject*, FXSelector, void*) {
-    // make GL current (To allow take objects in popup position)
-    if (makeCurrent()) {
-        int id = getObjectAtPosition(getPopupPosition());
-        // get lane
-        GNELane* lane = dynamic_cast <GNELane*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
-        GUIGlObjectStorage::gIDStorage.unblockObject(id);
-        // make sure that AC is selected before unselecting
-        if (lane && lane->getParentEdge()->isAttributeCarrierSelected()) {
-            lane->getParentEdge()->unselectAttributeCarrier();
-        }
-        // make non current
-        makeNonCurrent();
+    // only unselect if edge under cursor isn't previously selected
+    auto edge = myViewObjectsSelector.getEdgeFront();
+    if (edge && edge->isAttributeCarrierSelected()) {
+        edge->unselectAttributeCarrier();
     }
     return 1;
 }
