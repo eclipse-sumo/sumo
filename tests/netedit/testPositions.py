@@ -84,122 +84,106 @@ class demandElements:
         y = 440
 
     class edge1:
-        x = 885
-        y = 225
+        x = 850
+        y = 230
 
     class edge2:
-        x = 375
-        y = 33
+        x = 500
+        y = 28
 
     class edge3:
-        x = 280
-        y = 75
+        x = 500
+        y = 55
 
     class edge4:
-        x = 835
-        y = 225
+        x = 816
+        y = 230
 
     class edge5:
         x = 450
-        y = 390
-
-    class edgeRepeat0:
-        x = 110
-        y = 250
-
-    class edgeRepeat1:
-        x = 150
-        y = 250
-
-    class edgeBus1:
-        x = 150
-        y = 220
-
-    class edgeBus2:
-        x = 150
-        y = 150
+        y = 410
 
     class edgeCenter1:
-        x = 350
-        y = 250
+        x = 360
+        y = 212
 
     class edgeCenter2:
-        x = 350
-        y = 205
+        x = 360
+        y = 250
 
     class junction0:
-        x = 135
-        y = 390
+        x = 155
+        y = 430
 
     class junction1:
-        x = 860
-        y = 390
+        x = 825
+        y = 422
 
     class junction2:
-        x = 860
-        y = 50
+        x = 825
+        y = 60
 
     class junction3:
-        x = 135
-        y = 50
+        x = 170
+        y = 60
 
     class TAZGreen:
-        x = 200
-        y = 315
+        x = 555
+        y = 155
 
     class TAZRed:
-        x = 740
-        y = 315
+        x = 730
+        y = 160
 
     class busStop:
-        x = 375
-        y = 12
+        x = 295
+        y = 10
 
     class trainStop:
-        x = 375
-        y = 90
+        x = 720
+        y = 10
 
     class containerStop:
-        x = 615
-        y = -9
+        x = 400
+        y = 0
 
     class chargingStation:
-        x = 500
-        y = 30
+        x = 620
+        y = 25
 
     class parkingArea:
-        x = 615
-        y = 110
+        x = 525
+        y = 0
 
     class route:
-        x = 470
+        x = 440
         y = 440
 
     class routeB:
         x = 470
+        y = 410
+
+    class containerX:
+        x = 470
         y = 400
 
-    class container:
-        x = 135
-        y = 480
-
-    class containerPlanEdge:
+    class containerPlanEdgeX:
         x = 197
         y = 37
 
-    class planTopEdge:
+    class planTopEdgeX:
         x = 750
         y = 3
 
-    class planTopBusStop:
+    class planTopBusStopX:
         x = 750
         y = 33
 
-    class planTopRide:
+    class planTopRideX:
         x = 750
         y = 33
 
-    class planTop:
+    class planTopX:
         x = 720
         y = 3
 
