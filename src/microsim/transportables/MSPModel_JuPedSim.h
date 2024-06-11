@@ -209,12 +209,8 @@ private:
     void tryPedestrianInsertion(PState* state, const Position& p);
     bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius);
     static MSLane* getNextPedestrianLane(const MSLane* const currentLane);
-    static const Position& getAnchor(const MSLane* const lane, const MSEdge* const edge, MSEdgeVector incoming);
-    static const MSEdgeVector getAdjacentEdgesOfEdge(const MSEdge* const edge);
-    static const MSEdge* getWalkingAreaInbetween(const MSEdge* const edge, const MSEdge* const otherEdge);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
-    static GEOSGeometry* createGeometryFromAnchors(const Position& anchor, const MSLane* const lane, const Position& otherAnchor, const MSLane* const otherLane);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
     static GEOSCoordSequence* convertToGEOSPoints(PositionVector shape);
     static std::vector<JPS_Point> convertToJPSPoints(const GEOSGeometry* geometry);
