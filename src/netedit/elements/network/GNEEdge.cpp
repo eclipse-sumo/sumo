@@ -2821,7 +2821,7 @@ GNEEdge::calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisual
         // check if we're in move mode
         const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE);
         // calculate contour
-        myNetworkElementContour.calculateContourEdge(s, d, this, true, true);
+        myNetworkElementContour.calculateContourEdge(s, d, this, this, true, true);
         // calculate edge geometry points
         myNetworkElementContour.calculateContourEdgeGeometryPoints(s, d, this, geometryPointRadius, moveMode, firstExtrem, lastExtrem);
     }

@@ -202,10 +202,10 @@ GNEEdgeRelData::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPa
         }
         // draw dotted contour
         if (getParentEdges().front() == segment->getLane()->getParentEdge()) {
-            segment->getContour()->calculateContourEdge(s, d, getParentEdges().front(), true, false);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().front(), this, true, false);
         }
         if (getParentEdges().back() == segment->getLane()->getParentEdge()) {
-            segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), false, true);
+            segment->getContour()->calculateContourEdge(s, d, getParentEdges().back(), this, false, true);
         }
     }
 }
