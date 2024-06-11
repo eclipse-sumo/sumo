@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-10 12:32+0000\n"
+"PO-Revision-Date: 2024-06-11 11:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1818,7 +1818,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:349
 msgid "Defines the step duration in seconds"
-msgstr ""
+msgstr "Definisce la durata in secondi del passo di simulazione"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:352
 msgid ""
