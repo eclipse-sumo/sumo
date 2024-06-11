@@ -1027,13 +1027,21 @@ GNEVehicle::computePathElement() {
 
 void
 GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                                myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    // check conditions
-    if (segment->getLane() && !s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || isAttributeCarrierSelected()) &&
+    // conditions for draw always in network mode
+    const bool drawInNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                   myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+                                   myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    // conditions for draw always in demand mode
+    const bool drawInDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    // conditions for draw if is selected
+    const bool isSelected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                            isAttributeCarrierSelected();
+    // conditions for draw if is inspected
+    const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                             myNet->getViewNet()->isAttributeCarrierInspected(this);
+    // check drawing conditions
+    if (segment->getLane() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
@@ -1137,14 +1145,21 @@ GNEVehicle::drawLanePartialGL(const GUIVisualizationSettings& s, const GNEPathMa
 
 void
 GNEVehicle::drawJunctionPartialGL(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const double offsetFront) const {
-    // get flags
-    const bool drawNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
-                                 myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
-                                 myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    const bool drawDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
-                                myNet->getViewNet()->getDemandViewOptions().showAllTrips();
-    // check conditions
-    if (!s.drawForRectangleSelection && (drawNetworkMode || drawDemandMode || isAttributeCarrierSelected()) &&
+    // conditions for draw always in network mode
+    const bool drawInNetworkMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
+                                   myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+                                   myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    // conditions for draw always in demand mode
+    const bool drawInDemandMode = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                                  myNet->getViewNet()->getDemandViewOptions().showAllTrips();
+    // conditions for draw if is selected
+    const bool isSelected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                            isAttributeCarrierSelected();
+    // conditions for draw if is inspected
+    const bool isInspected = myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand() &&
+                             myNet->getViewNet()->isAttributeCarrierInspected(this);
+    // check drawing conditions
+    if (segment->getJunction() && !s.drawForRectangleSelection && (drawInNetworkMode || drawInDemandMode || isSelected || isInspected) &&
             myNet->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myTagProperty.getTag())) {
         // get detail level
         const auto d = s.getDetailLevel(1);
