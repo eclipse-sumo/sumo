@@ -1258,7 +1258,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     double prevStopPos = getPositionOnLane();
     // where to insert the stop
     std::list<MSStop>::iterator iter = myStops.begin();
-    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
+    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size()) || stopPar.index == STOP_INDEX_REPEAT) {
         iter = myStops.end();
         if (myStops.size() > 0 && myStops.back().edge >= *searchStart) {
             prevStopEdge = myStops.back().edge;
@@ -1267,7 +1267,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                     && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
-                    && prevStopPos > stop.pars.endPos) {
+                    && (prevStopPos > stop.pars.endPos ||
+                        (prevStopPos == stop.pars.endPos && stopPar.index == STOP_INDEX_REPEAT))) {
                 stop.edge = std::find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
 #ifdef DEBUG_ADD_STOP

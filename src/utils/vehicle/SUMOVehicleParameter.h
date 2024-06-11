@@ -75,6 +75,7 @@ const int VEHPARS_PARKING_BADGES_SET = 2 << 30;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
+const int STOP_INDEX_REPEAT = -3;
 
 const int STOP_START_SET = 1;
 const int STOP_END_SET = 2;
