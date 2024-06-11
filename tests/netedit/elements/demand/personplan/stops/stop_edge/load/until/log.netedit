@@ -1,3 +1,4 @@
 Error: Attribute 'until' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'Edge2'
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103803.21028\netedit.gui\demandelements\personplan\stops\stop_edge\load\until\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/stops/stop_edge/load/until/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

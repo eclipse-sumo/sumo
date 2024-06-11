@@ -1,3 +1,4 @@
 Error: Unknown lane change model 'dummyLaneChangeModel' when parsing vType 'vType0'
 Error: Attribute 'laneChangeModel' in definition of vType 'vType1' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/lanechangemodel/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/lanechangemodel/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

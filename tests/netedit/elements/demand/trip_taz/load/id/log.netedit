@@ -6,4 +6,5 @@ Error: trip cannot be created
 Error: Invalid trip id 'id with spaces'. Contains invalid characters.
 Error: trip cannot be created
 Error: There is another tripTAZs with the same ID='trip_valid'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun131813.4690/netedit.gui/demandelements/trip_taz/load/id/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101554.4810/netedit.gui/elements/demand/trip_taz/load/id/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

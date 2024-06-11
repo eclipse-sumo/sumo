@@ -1,2 +1,3 @@
 Error: Attribute 'jump' in definition of a stop is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.10Nov104604.38939/netedit.gui/demandelements/stop/busstop/load/jump/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101602.6166/netedit.gui/elements/demand/stop/busstop/load/jump/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

@@ -2,9 +2,9 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 1189 - 393
-TestFunctions: Clicked over position 679 - 201
-TestFunctions: Clicked over position 774 - 608
+TestFunctions: Clicked over position 1154 - 398
+TestFunctions: Clicked over position 804 - 196
+TestFunctions: Clicked over position 744 - 608
 
 <><><><>$%%%
 route with spaces

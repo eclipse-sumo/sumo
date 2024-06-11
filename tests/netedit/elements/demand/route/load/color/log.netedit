@@ -1,3 +1,4 @@
 Error: Attribute 'color' in definition of route 'route_1' Invalid color definition ''.
 Error: Attribute 'color' in definition of route 'route_2' Invalid color definition 'dummycolor'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.route.01Dec143641.87240/netedit.daily.demand.route/demandelements/route/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101540.2127/netedit.gui/elements/demand/route/load/color/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

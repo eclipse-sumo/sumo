@@ -1,4 +1,5 @@
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: Invalid departSpeed used in vehicle 'vehicle_3'. 500.00 is greater than type maxSpeed
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.embedded.22May115309.2068/netedit.daily.demand.embedded/demandelements/vehicle_embedded/load/departspeed/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/load/departspeed/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

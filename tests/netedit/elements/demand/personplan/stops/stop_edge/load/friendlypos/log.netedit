@@ -1,3 +1,4 @@
 Error: Attribute 'friendlyPos' in definition of a stop Invalid Bool Format dummy.
 Error: Invalid duration or end time is given for a stop at 'Edge2'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.personplan.26Jan095535.11216/netedit.daily.demand.personplan/demandelements/personplan/stops/stop_edge/load/friendlypos/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/stops/stop_edge/load/friendlypos/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

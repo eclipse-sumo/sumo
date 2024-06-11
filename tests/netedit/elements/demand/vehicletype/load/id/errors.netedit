@@ -4,4 +4,4 @@ Error: Attribute 'id' in definition of a vType is empty.
 Error: Invalid vType id ''.
 Error: VType cannot be created
 Error: There is another vType with the same ID='vType0'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.25Jan182728.9957/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/id/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/id/routes.rou.xml failed.

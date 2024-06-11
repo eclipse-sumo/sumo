@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 ;;;;;;;;;;
-TestFunctions: Clicked over position 689 - 201
+TestFunctions: Clicked over position 814 - 196
 
-TestFunctions: Clicked over position 687 - 201
+TestFunctions: Clicked over position 812 - 196
 ID1 ID2 ID3
-TestFunctions: Clicked over position 685 - 201
+TestFunctions: Clicked over position 810 - 196
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

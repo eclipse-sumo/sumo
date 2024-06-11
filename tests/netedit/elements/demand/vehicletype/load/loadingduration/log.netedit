@@ -1,3 +1,4 @@
 Error: Attribute 'loadingDuration' in definition of vType 'vType0' is not a valid time value.
 Error: loadingDuration must be equal or greater than 0
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.08Apr202456.3580/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/loadingduration/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/loadingduration/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

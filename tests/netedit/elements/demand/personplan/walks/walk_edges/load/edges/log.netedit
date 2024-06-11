@@ -1,2 +1,3 @@
 Error: Could not build walk in netedit; edge doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.18Oct083957.7775/netedit.gui/demandelements/personplan/walks/walk_edges/load/edges/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/walks/walk_edges/load/edges/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

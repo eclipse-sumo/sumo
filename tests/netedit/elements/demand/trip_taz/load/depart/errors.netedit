@@ -1,4 +1,4 @@
 Error: Invalid departure time for vehicle 'trip_0';
  must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
 Error: Negative departure time in the definition of vehicle 'trip_1'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.22Jun103609.4490/netedit.gui/demandelements/trip_taz/load/depart/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101554.4810/netedit.gui/elements/demand/trip_taz/load/depart/routes.rou.xml failed.

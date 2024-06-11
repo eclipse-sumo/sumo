@@ -1,3 +1,4 @@
 Error: Attribute 'color' in definition of person 'p_1' Invalid color definition ''.
 Error: Attribute 'color' in definition of person 'p_2' Invalid color definition 'dummycolor'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.person.01Dec143641.87232/netedit.daily.demand.person/demandelements/person/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/person/load/color/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

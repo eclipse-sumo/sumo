@@ -3,16 +3,16 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 vehicle (embedded route)
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 ;;;;&&&
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 v_0
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 customID
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-07-24 10:10:44 by Eclipse SUMO netedit Version v1_18_0+0458-be70fa69b0d
+<!-- generated on 2024-06-11 10:44:05 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="busStopA" lane="Edge2_1" startPos="29.80" endPos="39.80"/>
-    <busStop id="busStopB" name="i" lane="EdgeCenter1_1" startPos="17.50" endPos="22.50"/>
-    <trainStop id="trainStopA" lane="Edge3_1" startPos="9.80" endPos="19.80"/>
-    <trainStop id="trainStopB" name="m" lane="EdgeCenter1_1" startPos="11.50" endPos="16.50"/>
-    <containerStop id="containerStopA" lane="Edge2_1" startPos="9.80" endPos="19.80"/>
-    <containerStop id="containerStopB" lane="EdgeCenter1_1" startPos="5.50" endPos="10.50"/>
-    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="20.80" endPos="28.80"/>
-    <chargingStation id="chargingStationB" lane="EdgeCenter0_1" startPos="2.30" endPos="7.30"/>
-    <parkingArea id="parkingAreaA" lane="Edge3_1" startPos="29.80" endPos="39.80"/>
-    <parkingArea id="parkingAreaB" lane="EdgeCenter0_1" startPos="14.30" endPos="19.30"/>
+    <busStop id="busStopA" lane="Edge2_1" startPos="46.00" endPos="56.00"/>
+    <busStop id="busStopB" name="i" lane="EdgeCenter1_1" startPos="24.18" endPos="31.09"/>
+    <trainStop id="trainStopA" lane="Edge2_1" startPos="2.00" endPos="12.00"/>
+    <trainStop id="trainStopB" name="m" lane="EdgeCenter0_1" startPos="6.05" endPos="12.95"/>
+    <containerStop id="containerStopA" lane="Edge2_1" startPos="34.00" endPos="44.00"/>
+    <containerStop id="containerStopB" lane="EdgeCenter1_1" startPos="10.36" endPos="20.73"/>
+    <chargingStation id="chargingStationA" lane="Edge2_1" startPos="13.00" endPos="21.00"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="34.42" endPos="41.58"/>
+    <parkingArea id="parkingAreaA" lane="Edge2_1" startPos="22.00" endPos="32.00"/>
+    <parkingArea id="parkingAreaB" lane="EdgeCenter0_1" startPos="16.41" endPos="26.77"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="Edge4_1" pos="3.00" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="Edge1_1" pos="27.00" period="300.00" file="e1_1.xml"/>
     <!-- TAZs -->
-    <taz id="taz_green" shape="18.00,20.00 18.00,16.00 0.00,16.00 0.00,20.00 18.00,20.00" fill="1" color="green">
+    <taz id="taz_green" shape="8.00,10.00 8.00,-10.00 -4.00,-10.00 -4.00,10.00 8.00,10.00" fill="1" color="green">
         <tazSource id="Edge2" weight="1.00"/>
         <tazSink id="Edge2" weight="1.00"/>
         <tazSource id="Edge3" weight="1.00"/>
         <tazSink id="Edge3" weight="1.00"/>
     </taz>
-    <taz id="taz_red" shape="36.00,20.00 36.00,16.00 54.00,16.00 54.00,20.00 36.00,20.00" fill="1" color="red">
+    <taz id="taz_red" shape="20.00,10.00 20.00,-10.00 42.00,-10.00 42.00,10.00 20.00,10.00" fill="1" color="red">
         <tazSource id="Edge0" weight="1.00"/>
         <tazSink id="Edge0" weight="1.00"/>
         <tazSource id="Edge5" weight="1.00"/>

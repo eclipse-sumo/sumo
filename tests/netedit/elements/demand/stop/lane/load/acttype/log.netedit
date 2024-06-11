@@ -1,2 +1,3 @@
 Error: Attribute 'actType' in definition of a stop is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct094038.2924\netedit.gui\demandelements\stop\lane\load\acttype\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101602.6166/netedit.gui/elements/demand/stop/lane/load/acttype/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to TAZs)
 blue
-TestFunctions: Clicked over position 504 - 483
-TestFunctions: Clicked over position 1044 - 483
+TestFunctions: Clicked over position 829 - 343
+TestFunctions: Clicked over position 1024 - 343
 custom_vType
-TestFunctions: Clicked over position 504 - 483
-TestFunctions: Clicked over position 1044 - 483
+TestFunctions: Clicked over position 829 - 343
+TestFunctions: Clicked over position 1024 - 343
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

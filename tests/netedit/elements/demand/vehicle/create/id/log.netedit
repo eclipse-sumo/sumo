@@ -1,3 +1,4 @@
 Error: Attribute 'id' in definition of a vehicle is empty.
 Error: Invalid vehicle id ''.
 Error: vehicle cannot be created
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

@@ -3,4 +3,5 @@ Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
 Error: Attribute 'period' in definition of personFlow 'p_2' is empty.
 Error: Invalid repetition rate in the definition of personFlow 'p_3'.
 Error: Invalid repetition rate in the definition of personFlow 'p_4'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_22Apr103431.6120\netedit.gui\demandelements\personflow\load\period\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personflow/load/period/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

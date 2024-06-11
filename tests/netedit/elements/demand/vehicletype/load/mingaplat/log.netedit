@@ -1,3 +1,4 @@
 Error: Attribute 'minGapLat' in definition of vType 'vType0' Invalid Number Format (double) dummyMinGapLat.
 Error: minGapLat must be equal or greater than 0
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.26Jan095536.11246/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/mingaplat/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/mingaplat/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

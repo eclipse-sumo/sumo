@@ -1,3 +1,4 @@
 Error: Attribute 'color' in definition of vType 'vType0' Invalid color definition 'dummycolor'.
 Error: Attribute 'color' in definition of vType 'vType1' Invalid color definition ''.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.vehicletype.01Dec143641.87337/netedit.daily.demand.vehicletype/demandelements/vehicletype/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/color/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

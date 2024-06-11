@@ -1,2 +1,3 @@
 Error: Attribute 'departPos' in definition of person 'p_1' is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.22Apr102202.6084\netedit.gui\demandelements\person\load\departpos\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/person/load/departpos/routes.rou.xml failed.
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

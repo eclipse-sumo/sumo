@@ -1,3 +1,4 @@
 Error: Attribute 'id' in definition of a trip is empty.
 Error: Invalid trip id ''.
 Error: trip cannot be created
+Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
