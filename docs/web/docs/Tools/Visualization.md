@@ -44,8 +44,8 @@ Create multiple 2D-plots of 2 arbitrary attributes from on or more xml files agg
 Example uses:
 
 ```
-python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml
-python  tools/visualization/plotXMLAttributes.py -x x -y y -s fcd.xml fcd2.xml
+python  tools/visualization/plotXMLAttributes.py -x x -y y fcd.xml
+python  tools/visualization/plotXMLAttributes.py -x x -y y fcd.xml fcd2.xml
 ```
 
 The above example draws the paths of all vehicles through the network based on fcd-output. (It is a special case that can also be accomplished with  [plot_trajectories.py](#plot_trajectoriespy))
@@ -122,7 +122,7 @@ Call: `python tools/visualization/plotXMLAttributes.py -x begin -y meanSpeed det
 
 Input is [stop-output](../Simulation/Output/StopOutput.md)
 
-Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay -s --scatterplot --legend`
+Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop -x loadedPersons -y delay --scatterplot --legend`
 
 <img src="../images/plotAttrs_boardingDelay.png" width="500px"/>
 
@@ -130,7 +130,7 @@ Call: `python tools/visualization/plotXMLAttributes.py stopinfos.xml -i busStop 
 
 Input is [edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) with 1-minute aggregation (`<edgeData id="example" file="data.xml" period="60"/>`)
 
-Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left -s  --scatterplot --yfactor 60 --ylabel vehs/hour`
+Call: `python tools/visualization/plotXMLAttributes.py data.xml -i id -x density -y left --scatterplot --yfactor 60 --ylabel vehs/hour`
 
 Each color gives encodes a different edge-id. Option **--factor 60** is used to convert from vehicles per 60s (edgeData-period 60) to vehicles per hour.
 
@@ -181,9 +181,9 @@ Input is [queue-output](../Simulation/Output/QueueOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -s -o queue.png queue.xml -i id --filter-ids 121_0
+python tools/visualization/plotXMLAttributes.py -x timestep -y queueing_time -o queue.png queue.xml -i id --filter-ids 121_0
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (lane id in this case); --filter-ids are the value(s) of the filtered attribute name (id = 121_0 in this case).
 
 <img src="../images/queue_out.png" width="500px"/>
 
@@ -192,9 +192,9 @@ Input is [vehroutes-output](../Simulation/Output/VehRoutes.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x depart -y arrival -s -o vehroute.png vehroute.xml --scatterplot
+python tools/visualization/plotXMLAttributes.py -x depart -y arrival -o vehroute.png vehroute.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot.
 
 <img src="../images/vehroute_output.png" width="500px"/>
 
@@ -203,9 +203,9 @@ Input is [lanechange-output](../Simulation/Output/Lanechange.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -s -o lc.png lanechange.xml -i reason --filter-ids speedGain
+python tools/visualization/plotXMLAttributes.py -x speed -y leaderGap -o lc.png lanechange.xml -i reason --filter-ids speedGain
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (reason for lane changing in this case); --filter-ids are the values of the filtered attribute name (reason = speedGain in this case).
 
 <img src="../images/lanechange_output.png" width="500px"/>
 
@@ -214,9 +214,9 @@ Input is [fcd_output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x x -y y -s -o allXY_output.png fcd.xml --scatterplot
+python tools/visualization/plotXMLAttributes.py -x x -y y -o allXY_output.png fcd.xml --scatterplot
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; --scatterplot is to make a scatter plot instead of a line plot..
 
 <img src="../images/allXY_output.png" width="500px"/>
 
@@ -225,9 +225,9 @@ Input is [fcd_output](../Simulation/Output/FCDOutput.md).
 
 Call to generate the plot:
 ```
-python tools/visualization/plotXMLAttributes.py -x x -y y -s -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
+python tools/visualization/plotXMLAttributes.py -x x -y y -o vehLocations_output.png fcd.xml -i id --filter-ids Audinot_7_0 --scatterplot --legend
 ```
-where -x is the attribute for the x axis; -y is the attribute for the y axis; -s is to show the plot; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
+where -x is the attribute for the x axis; -y is the attribute for the y axis; -o is the output file name; -i is the filtered attribute name (vehicle id in this case); --filter-ids are the values of the filtered attribute name (vehicle id = Audinot_7_0 in this case); --scatterplot is to make a scatter plot instead of a line plot; --legend is to show the legend.
 
 <img src="../images/vehLocations_output.png" width="500px"/>
 
@@ -291,7 +291,7 @@ It also shows how to clamp data to the upper range of 300.
 
 Call to generate the plot:
 ```
-plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE -s --legend  --barplot --xbin 20 --xclamp :300
+plotXMLAttributes.py tripinfos.xml tripinfos2.xml -x timeLoss -y @COUNT -i @NONE --legend  --barplot --xbin 20 --xclamp :300
 ```
 <img src="../images/hist_timeLoss_clamped.png" width="500px"/>
 
