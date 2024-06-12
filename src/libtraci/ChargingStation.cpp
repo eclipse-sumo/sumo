@@ -30,10 +30,10 @@ namespace libtraci {
 
 typedef Domain<libsumo::CMD_GET_CHARGINGSTATION_VARIABLE, libsumo::CMD_SET_CHARGINGSTATION_VARIABLE> Dom;
 
-
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 std::vector<std::string>
 ChargingStation::getIDList() {
     return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
@@ -75,10 +75,29 @@ ChargingStation::getVehicleIDs(const std::string& stopID) {
     return Dom::getStringVector(libsumo::VAR_STOP_STARTING_VEHICLES_IDS, stopID);
 }
 
+double
+ChargingStation::getChargingPower(const std::string& stopID) {
+    return Dom::getDouble(libsumo::VAR_CS_POWER, stopID);
+}
 
-LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
+double
+ChargingStation::getEfficiency(const std::string& stopID) {
+    return Dom::getDouble(libsumo::VAR_CS_EFFICIENCY, stopID);
+}
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
+void
+ChargingStation::setChargingPower(const std::string& stopID, double chargingpower) {
+    Dom::setDouble(libsumo::VAR_CS_POWER, stopID, chargingpower);
+}
+
+void
+ChargingStation::setEfficiency(const std::string& stopID, double efficiency) {
+    Dom::setDouble(libsumo::VAR_CS_EFFICIENCY, stopID, efficiency);
+}
+
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
 }
 

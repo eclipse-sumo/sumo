@@ -22,6 +22,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "ChargingStation.h"
@@ -31,13 +32,14 @@ namespace libsumo {
 // ===========================================================================
 // static member initializations
 // ===========================================================================
+
 SubscriptionResults ChargingStation::mySubscriptionResults;
 ContextSubscriptionResults ChargingStation::myContextSubscriptionResults;
-
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
 std::vector<std::string>
 ChargingStation::getIDList() {
     std::vector<std::string> ids;
@@ -47,6 +49,7 @@ ChargingStation::getIDList() {
     std::sort(ids.begin(), ids.end());
     return ids;
 }
+
 
 int
 ChargingStation::getIDCount() {
@@ -63,6 +66,7 @@ double
 ChargingStation::getStartPos(const std::string& stopID) {
     return getChargingStation(stopID)->getBeginLanePosition();
 }
+
 
 double
 ChargingStation::getEndPos(const std::string& stopID) {
@@ -89,6 +93,30 @@ ChargingStation::getVehicleIDs(const std::string& stopID) {
         result.push_back(veh->getID());
     }
     return result;
+}
+
+
+double
+ChargingStation::getChargingPower(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargingPower(true);
+}
+
+
+double
+ChargingStation::getEfficiency(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getEfficency();
+}
+
+
+void
+ChargingStation::setChargingPower(const std::string& stopID, double chargingpower) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(chargingpower);
+}
+
+
+void
+ChargingStation::setEfficiency(const std::string& stopID, double efficiency) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setEfficiency(efficiency);
 }
 
 
@@ -152,6 +180,5 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
 }
 
 }
-
 
 /****************************************************************************/

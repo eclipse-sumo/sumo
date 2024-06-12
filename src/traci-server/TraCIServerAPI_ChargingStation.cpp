@@ -56,7 +56,9 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();
-    if (variable != libsumo::VAR_PARAMETER) {
+    if (variable != libsumo::VAR_PARAMETER &&
+        variable != libsumo::VAR_CS_POWER &&
+        variable != libsumo::VAR_CS_EFFICIENCY) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Change ChargingStation State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -70,8 +72,24 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
                 const std::string name = StoHelp::readTypedString(inputStorage, "The name of the parameter must be given as a string.");
                 const std::string value = StoHelp::readTypedString(inputStorage, "The value of the parameter must be given as a string.");
                 libsumo::ChargingStation::setParameter(id, name, value);
-                break;
             }
+            break;
+            case libsumo::VAR_CS_POWER: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting chargingPower requires a double.", outputStorage);
+                }
+                libsumo::ChargingStation::setChargingPower(id, value);
+            }
+            break;
+            case libsumo::VAR_CS_EFFICIENCY: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting boardingDuration requires a double.", outputStorage);
+                }
+                libsumo::ChargingStation::setEfficiency(id, value);
+            }
+            break;
             default:
                 break;
         }

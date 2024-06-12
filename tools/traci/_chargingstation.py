@@ -30,6 +30,7 @@ class ChargingStationDomain(Domain):
 
     def getLaneID(self, stopID):
         """getLaneID(string) -> string
+
         Returns the lane of this calibrator (if it applies to a single lane)
         """
         return self._getUniversal(tc.VAR_LANE_ID, stopID)
@@ -57,12 +58,42 @@ class ChargingStationDomain(Domain):
 
     def getVehicleCount(self, stopID):
         """getVehicleCount(string) -> integer
+
         Get the total number of vehicles stopped at the named charging station.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
         """getVehicleIDs(string) -> list(string)
+
         Get the IDs of vehicles stopped at the named charging station.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
+
+    def getChargingPower(self, stopID):
+        """getChargingPower(string) -> double
+
+        The charging power.
+        """
+        return self._getUniversal(tc.VAR_LANEPOSITION, stopID)
+
+    def getEfficiency(self, stopID):
+        """getEfficiency(string) -> double
+
+        The efficiency [0,1].
+        """
+        return self._getUniversal(tc.VAR_LANEPOSITION, stopID)
+
+    def setChargingPower(self, typeID, length):
+        """setChargingPower(string, double) -> None
+
+        Sets the charging power in this charging station.
+        """
+        self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
+
+    def setEfficiency(self, typeID, length):
+        """setEfficiency(string, double) -> None
+
+        Sets the efficiency in this charging station.
+        """
+        self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
