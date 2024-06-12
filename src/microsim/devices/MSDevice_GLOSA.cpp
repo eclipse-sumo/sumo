@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSDevice_GLOSA.cpp
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    21.04.2021
 ///
 // A device for Green Light Optimal Speed Advisory
@@ -139,6 +140,10 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
     const MSLink* prevLink = myNextTLSLink;
     myNextTLSLink = nullptr;
     const MSLane* lane = myVeh.getLane();
+    if (myVeh.getDeparture() < SIMSTEP) {
+        // no need to call at insertion
+        myVeh.updateBestLanes();
+    }
     const std::vector<MSLane*>& bestLaneConts = myVeh.getBestLanesContinuation(lane);
     double seen = lane->getLength() - myVeh.getPositionOnLane();
     int view = 1;
@@ -175,8 +180,9 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
     }
 
 #ifdef DEBUG_GLOSA
-    if (DEBUG_COND) std::cout << SIMTIME << " veh=" << myVeh.getID() << " enter=" << myVeh.getLane()->getID() << " hadTLS=" << hadTLS
-                                  << " tls=" << (myNextTLSLink == nullptr ? "NULL" : myNextTLSLink->getTLLogic()->getID()) << " dist=" << myDistance << "\n";
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVeh.getID() << " enter=" << myVeh.getLane()->getID() << " tls=" << (myNextTLSLink == nullptr ? "NULL" : myNextTLSLink->getTLLogic()->getID()) << " dist=" << myDistance << "\n";
+    }
 #endif
     return true; // keep the device
 }
