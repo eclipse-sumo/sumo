@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-11 11:34+0000\n"
+"PO-Revision-Date: 2024-06-12 12:52+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2089,10 +2089,13 @@ msgid ""
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
+"Seleziona il valore emergencyDecel standard tra ('decel','default',FLOAT) "
+"dove il primo è la decelerazione normale, la seconda un valore standard "
+"tratto dal tipo di veicolo e l'ultimo FLOAT in m/s^2"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:504
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
-msgstr ""
+msgstr "Utilizza le leggi di Kirchhoff per risolvere il circuito di catenarie"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:507
 msgid ""
@@ -2168,17 +2171,19 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:545
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "Frazione di strisce da prenotare per pedoni della direzione opposta"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:548
 msgid ""
 "Fraction of stripes to reserve for oncoming pedestrians on crossings and "
 "walkingareas"
 msgstr ""
+"Frazione di strisce da prenotare su passaggi pedonali e aree pedonali per "
+"pedoni della direzione opposta"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:551
 msgid "Maximum width in m to reserve for oncoming pedestrians"
-msgstr ""
+msgstr "Larghezza massima da prenotare per pedoni della direzione opposta"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:554
 msgid "Interpret departPosLat for walks in legacy style"
@@ -2213,11 +2218,11 @@ msgstr "La zona di repulsione dal vicino del modello JuPedSim (in metri)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:571
 msgid "The geometry repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "La forza di repulsione geometrica del modello JuPedSim"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:573
 msgid "The geometry repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "La zona di repulsione geometrica del modello JuPedSim (in metri)"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:575
 msgid "The filename to output the JuPedSim network as WKT"
@@ -2383,15 +2388,15 @@ msgstr "Carica configurazione di visualizzazione da FILE"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:738
 msgid "Quits the GUI when the simulation stops"
-msgstr ""
+msgstr "Chiude l'interfaccia grafica alla fine della simulazione"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:741
 msgid "Start the GUI in gaming mode"
-msgstr ""
+msgstr "Avvia l'interfaccia grafica nel modo ludico"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:744
 msgid "Select the game type ('tls', 'drt')"
-msgstr ""
+msgstr "Seleziona il tipo di gioco ('tls', 'drt')"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:747
 msgid "Start the simulation after loading"
@@ -2439,7 +2444,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:782
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
-msgstr ""
+msgstr "Inizia con una veduta 3D OpenSceneGraph invece della veduta 2D normale"
 
 #: D:\Repos\sumo/src\microsim\MSFrame.cpp:787
 msgid "Enable overlay for screen recognition"
