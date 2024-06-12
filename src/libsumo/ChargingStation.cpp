@@ -168,6 +168,10 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
         case VAR_STOP_STARTING_VEHICLES_IDS:
             return wrapper->wrapStringList(objID, variable, getVehicleIDs(objID));
+        case VAR_CS_POWER:
+            return wrapper->wrapDouble(objID, variable, getChargingPower(objID));
+        case VAR_CS_EFFICIENCY:
+            return wrapper->wrapDouble(objID, variable, getEfficiency(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

@@ -46,8 +46,8 @@ public:
     static std::string getName(const std::string& stopID);
     static int getVehicleCount(const std::string& stopID);
     static std::vector<std::string> getVehicleIDs(const std::string& stopID);
-    double getChargingPower(const std::string& stopID);
-    double getEfficiency(const std::string& stopID);
+    static double getChargingPower(const std::string& stopID);
+    static double getEfficiency(const std::string& stopID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
