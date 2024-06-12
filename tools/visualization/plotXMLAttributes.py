@@ -79,7 +79,7 @@ def getOptions(args=None):
     optParser.add_option("--xelem", help="element for x-axis")
     optParser.add_option("--yelem", help="element for y-axis")
     optParser.add_option("--idelem", help="element for grouping data points into lines")
-    optParser.add_option("-s", "--show", action="store_true", category="output",
+    optParser.add_option("--show", action="store_true", category="output",
                          default=False, help="show plot directly")
     optParser.add_option("--csv-output", dest="csv_output", category="output",
                          help="write plot as csv")
