@@ -22,14 +22,12 @@
 Prototype online DRT algorithm using ortools via TraCI.
 """
 from __future__ import print_function
-from enum import Enum
 
 import os
 import pathlib
 import sys
 import argparse
 
-import numpy as np
 import ortools_pdp
 import orToolsDataModel
 
@@ -52,8 +50,10 @@ NodeOrder = list[int]
 TranslatedSolutions = dict[int, tuple[RequestOrder, Cost, NodeOrder]]
 
 # TODO: solution_requests is not needed as input
+
+
 def dispatch(time_limit: int, solution_requests: TranslatedSolutions,
-            data: orToolsDataModel.ORToolsDataModel, verbose: bool) -> TranslatedSolutions | None:
+             data: orToolsDataModel.ORToolsDataModel, verbose: bool) -> TranslatedSolutions | None:
     """Dispatch using ortools."""
     if verbose:
         print('Start solving the problem.')
@@ -64,18 +64,21 @@ def dispatch(time_limit: int, solution_requests: TranslatedSolutions,
     return solution_requests
 
 
-def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostType, drf: float, waiting_time: int, end: int,
-            fix_allocation: bool, solution_requests: TranslatedSolutions | None, penalty: int,
-            data_reservations: list[orToolsDataModel.Reservation], timestep: float, verbose: bool) -> orToolsDataModel.ORToolsDataModel:
+def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostType,
+                      drf: float, waiting_time: int, end: int,
+                      fix_allocation: bool, solution_requests: TranslatedSolutions | None, penalty: int,
+                      data_reservations: list[orToolsDataModel.Reservation],
+                      timestep: float, verbose: bool) -> orToolsDataModel.ORToolsDataModel:
     """Creates the data for the problem."""
     vehicles = orToolsDataModel.create_vehicles(sumo_fleet)
     updated_reservations = orToolsDataModel.update_reservations(data_reservations)
     new_reservations = orToolsDataModel.create_new_reservations(updated_reservations)
     reservations = new_reservations + updated_reservations
-    reservations, rejected_reservations = orToolsDataModel.reject_late_reservations(reservations, waiting_time, timestep)
+    reservations, rejected_reservations = orToolsDataModel.reject_late_reservations(
+        reservations, waiting_time, timestep)
     orToolsDataModel.map_vehicles_to_reservations(vehicles, reservations)
     node_objects = orToolsDataModel.create_nodes(reservations, vehicles)
-    
+
     n_vehicles = len(vehicles)
     if verbose:
         if rejected_reservations:
@@ -93,7 +96,7 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
                 print(f'Drop-off of reservation {reservation.get_id()} at edge {reservation.get_to_edge()}')
 
     vehicle_capacities = [veh.get_person_capacity() for veh in vehicles]
-    
+
     types_vehicle = [veh.get_type_ID() for veh in vehicles]
     types_vehicles_unique = list(set(types_vehicle))
     if len(types_vehicles_unique) > 1:
@@ -105,13 +108,13 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
 
     # safe cost and time matrix
     if verbose:
-       import csv
-       with open("cost_matrix.csv", 'a') as cost_file:
-           wr = csv.writer(cost_file)
-           wr.writerows(cost_matrix)
-       with open("time_matrix.csv", 'a') as time_file:
-           wr = csv.writer(time_file)
-           wr.writerows(time_matrix)
+        import csv
+        with open("cost_matrix.csv", 'a') as cost_file:
+            wr = csv.writer(cost_file)
+            wr.writerows(cost_matrix)
+        with open("time_matrix.csv", 'a') as time_file:
+            wr = csv.writer(time_file)
+            wr.writerows(time_matrix)
 
     # add "direct route cost" to the requests:
     for reservation in reservations:
@@ -134,25 +137,25 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
                     for node, node_object in enumerate(node_objects)]
 
     data = orToolsDataModel.ORToolsDataModel(
-        depot = 0,
-        cost_matrix = cost_matrix,
-        time_matrix = time_matrix,
-        pickups_deliveries = [res for res in reservations if not res.is_picked_up()], #dp_reservations
-        dropoffs = [res for res in reservations if res.is_picked_up()], #do_reservations
-        num_vehicles = n_vehicles,
-        starts = start_nodes,
-        ends = n_vehicles * [0],  # end at 'depot', which is is anywere
-        demands = demands,  #[0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + veh_demand
-        vehicle_capacities = vehicle_capacities,
-        drf = drf,
-        waiting_time = waiting_time,
-        time_windows = time_windows,
-        fix_allocation = fix_allocation,
-        max_time = end,
-        initial_routes = solution_requests,
-        penalty = int(penalty),
-        reservations = reservations,
-        vehicles = vehicles
+        depot=0,
+        cost_matrix=cost_matrix,
+        time_matrix=time_matrix,
+        pickups_deliveries=[res for res in reservations if not res.is_picked_up()],  # dp_reservations
+        dropoffs=[res for res in reservations if res.is_picked_up()],  # do_reservations
+        num_vehicles=n_vehicles,
+        starts=start_nodes,
+        ends=n_vehicles * [0],  # end at 'depot', which is is anywere
+        demands=demands,  # [0] + n_dp_reservations*[1] + n_dp_reservations*[-1] + n_do_reservations*[-1] + veh_demand
+        vehicle_capacities=vehicle_capacities,
+        drf=drf,
+        waiting_time=waiting_time,
+        time_windows=time_windows,
+        fix_allocation=fix_allocation,
+        max_time=end,
+        initial_routes=solution_requests,
+        penalty=int(penalty),
+        reservations=reservations,
+        vehicles=vehicles
     )
     return data
 
@@ -199,7 +202,7 @@ def get_max_time() -> int:
 
 
 def solution_by_requests(solution_ortools: ortools_pdp.ORToolsSolution | None,
-            data: orToolsDataModel.ORToolsDataModel, verbose: bool = False) -> TranslatedSolutions | None:
+                         data: orToolsDataModel.ORToolsDataModel, verbose: bool = False) -> TranslatedSolutions | None:
     """Translate solution from ortools to SUMO requests."""
     if solution_ortools is None:
         return None
@@ -220,7 +223,9 @@ def solution_by_requests(solution_ortools: ortools_pdp.ORToolsSolution | None,
         for i_route in solution_ortools[key][0][1:-1]:  # take only the routes ([0]) without the start node ([1:-1])
             if i_route in route2request:
                 request_order.append(route2request[i_route])  # add request id to route
-                res = orToolsDataModel.get_reservation_by_node(data.pickups_deliveries+data.dropoffs, i_route)  #[res for res in data["pickups_deliveries"]+data['dropoffs'] if res.get_id() == route2request[i_route]][0]  # get the reservation
+                # [res for res in data["pickups_deliveries"]+data['dropoffs']
+                #      if res.get_id() == route2request[i_route]][0]  # get the reservation
+                res = orToolsDataModel.get_reservation_by_node(data.pickups_deliveries+data.dropoffs, i_route)
                 res.vehicle = orToolsDataModel.get_vehicle_by_vehicle_index(data.vehicles, key)
             else:
                 if verbose:
@@ -319,7 +324,7 @@ def run(penalty: int, end: int = None, interval: int = 30, time_limit: float = 1
             if verbose:
                 print('Start creating the model.')
             data = create_data_model(fleet, cost_type, drf, waiting_time, int(end),
-                             fix_allocation, solution_requests, penalty, data_reservations, timestep, verbose)
+                                     fix_allocation, solution_requests, penalty, data_reservations, timestep, verbose)
             data_reservations = data.reservations
             solution_requests = dispatch(time_limit, solution_requests, data, verbose)
             if solution_requests is not None:

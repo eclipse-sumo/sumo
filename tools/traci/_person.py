@@ -82,6 +82,9 @@ _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
 
 
 class PersonDomain(VTypeDomain):
+
+    Reservation = Reservation
+
     def __init__(self):
         VTypeDomain.__init__(self, "person", tc.CMD_GET_PERSON_VARIABLE, tc.CMD_SET_PERSON_VARIABLE,
                              tc.CMD_SUBSCRIBE_PERSON_VARIABLE, tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE,

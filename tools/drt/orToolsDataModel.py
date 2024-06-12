@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    ortools_data_model.py
+# @file    orToolsDataModel.py
 # @author  Johannes Rummel
 # @date    2024-03-13
 
@@ -28,7 +28,7 @@ import numpy as np
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-#import sumolib  # noqa
+# import sumolib  # noqa
 import traci  # noqa
 
 
@@ -49,13 +49,13 @@ class Vehicle:
 
     def get_person_capacity(self):
         return traci.vehicle.getPersonCapacity(self.id_vehicle)
-    
+
     def get_type_ID(self):
         return traci.vehicle.getTypeID(self.id_vehicle)
-    
+
     def get_edge(self) -> str:
         return traci.vehicle.getRoadID(self.id_vehicle)
-    
+
     def get_person_id_list(self):
         return traci.vehicle.getPersonIDList(self.id_vehicle)
 
@@ -65,7 +65,7 @@ class Reservation:
     """
     Represents a request for a transportation.
     """
-    reservation: traci._person.Reservation
+    reservation: traci.person.Reservation
     from_node: int = None
     to_node: int = None
     direct_route_cost: int = None
@@ -77,29 +77,30 @@ class Reservation:
             return True
         else:
             return False
-        
+
     def is_picked_up(self) -> bool:
         return self.reservation.state == 8
-    
+
     def is_from_node(self, node: int) -> bool:
         return (not self.is_picked_up() and self.from_node == node)
-    
+
     def is_to_node(self, node: int) -> bool:
         return self.to_node == node
-        
+
     def get_from_edge(self) -> str:
         return self.reservation.fromEdge
-    
+
     def get_to_edge(self) -> str:
         return self.reservation.toEdge
-    
+
     def get_id(self) -> str:
         return self.reservation.id
-    
+
     def get_persons(self):
         return self.reservation.persons
-    
-    def update_direct_route_cost(self, type_vehicle: str, cost_matrix : list[list[int]] = None, cost_type : CostType = CostType.DISTANCE):
+
+    def update_direct_route_cost(self, type_vehicle: str, cost_matrix: list[list[int]] = None,
+                                 cost_type: CostType = CostType.DISTANCE):
         if self.direct_route_cost:
             return
         if not self.is_picked_up():
@@ -113,8 +114,8 @@ class Reservation:
                 self.direct_route_cost = round(route.length)
             else:
                 raise ValueError(f"Cannot set given cost ({cost_type}).")
-    
-    def update_current_route_cost(self, cost_type : CostType = CostType.DISTANCE):
+
+    def update_current_route_cost(self, cost_type: CostType = CostType.DISTANCE):
         person_id = self.reservation.persons[0]
         stage = traci.person.getStage(person_id, 0)
         # stage type '3' is defined as 'driving'
@@ -145,7 +146,7 @@ class ORToolsDataModel:
     vehicle_capacities: list[int]
     drf: float
     waiting_time: int
-    time_windows: list[(int,int)]
+    time_windows: list[(int, int)]
     fix_allocation: bool
     max_time: int
     initial_routes: dict[int: list[list[int]]]
@@ -167,8 +168,8 @@ class Node:
         TO_EDGE = 2
         VEHICLE = 3
         DEPOT = 4
-    
-    #id: int = field(default_factory=...)
+
+    # id: int = field(default_factory=...)
     node_type: NodeType
 
 
@@ -200,6 +201,7 @@ def create_nodes(reservations: list[Reservation], vehicles: list[Vehicle]) -> li
         # TODO: to generalize the end nodes, separate nodes are needed
     return node_objects
 
+
 def create_vehicles(fleet: list[str]) -> list[Vehicle]:
     vehicles = []
     for i, veh_id in enumerate(fleet):
@@ -208,9 +210,10 @@ def create_vehicles(fleet: list[str]) -> list[Vehicle]:
     return vehicles
 
 
-def create_new_reservations(data_reservations: list[Reservation]) -> list[Reservation]:  # list[traci.Person.Reservation]
+# list[traci.Person.Reservation]
+def create_new_reservations(data_reservations: list[Reservation]) -> list[Reservation]:
     """create Reservations that not already exist"""
-    sumo_reservations = traci.person.getTaxiReservations(0)  #TODO: state 1 should be enough
+    sumo_reservations = traci.person.getTaxiReservations(0)  # TODO: state 1 should be enough
     data_reservations_ids = [res.get_id() for res in data_reservations]
     new_reservations = []
     for res in sumo_reservations:
@@ -231,11 +234,12 @@ def update_reservations(data_reservations: list[Reservation]) -> list[Reservatio
     return updated_reservations
 
 
-def reject_late_reservations(data_reservations: list[Reservation], waiting_time: int, timestep: float) -> tuple[list[Reservation], list[Reservation]]:
+def reject_late_reservations(data_reservations: list[Reservation], waiting_time: int,
+                             timestep: float) -> tuple[list[Reservation], list[Reservation]]:
     """
     rejects reservations that are not assigned to a vehicle and cannot be served by time
-    
-    Returns a cleared list and a list of the removed reservations. 
+
+    Returns a cleared list and a list of the removed reservations.
     """
     new_data_reservations = []
     rejected_reservations = []
@@ -247,7 +251,6 @@ def reject_late_reservations(data_reservations: list[Reservation], waiting_time:
         else:
             new_data_reservations.append(data_reservation)
     return new_data_reservations, rejected_reservations
-
 
 
 def map_vehicles_to_reservations(vehicles: list[Vehicle], reservations: list[Reservation]) -> None:
@@ -299,7 +302,8 @@ def get_cost_matrix(node_objects: list[NodeObject], cost_type: CostType):
     Index in cost matrix is the same as the node index of the constraint solver."""
 
     # get vehicle type of one vehicle (we suppose all vehicles are of the same type)
-    type_vehicle, id_vehicle = next(((x.get_type_ID(),x.id_vehicle) for x in node_objects if isinstance(x, Vehicle)), None)
+    type_vehicle, id_vehicle = next(((x.get_type_ID(), x.id_vehicle)
+                                    for x in node_objects if isinstance(x, Vehicle)), None)
     boardingDuration_param = traci.vehicletype.getBoardingDuration(type_vehicle)
     boardingDuration = 0 if boardingDuration_param == '' else round(float(boardingDuration_param))
     # TODO: pickup and dropoff duration of first vehicle is used for all vehicles!!!
@@ -350,16 +354,17 @@ def get_cost_matrix(node_objects: list[NodeObject], cost_type: CostType):
     return cost_matrix.tolist(), time_matrix.tolist()
 
 
-def get_time_window_of_node_object(node_object: NodeObject, node: int, end: int) -> tuple[int,int]:
+def get_time_window_of_node_object(node_object: NodeObject, node: int, end: int) -> tuple[int, int]:
     """returns a pair with earliest and latest service time"""
     current_time = round(traci.simulation.getTime())
     max_time = round(end)
-    
+
     time_window = None
     if isinstance(node_object, str) and node_object == 'depot':
         time_window = (current_time, max_time)
     elif isinstance(node_object, Vehicle):
-        device_taxi_end = max_time  #TODO: throws an exception if not set: traci.vehicle.getParameter(node_object.id_vehicle, 'device.taxi.end')
+        # TODO: throws an exception if not set: traci.vehicle.getParameter(node_object.id_vehicle, 'device.taxi.end')
+        device_taxi_end = max_time
         time_window_end = max_time if device_taxi_end == '' else round(float(device_taxi_end))
         time_window = (current_time, time_window_end)
     elif isinstance(node_object, Reservation):
