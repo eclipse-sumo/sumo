@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  6 10:51:21 2020 by Eclipse SUMO Version v1_6_0+0103-10c2ef2212
+<!-- generated on 2024-06-12 18:37:29 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -32,4 +32,4 @@
         <device.fcd.period value="4"/>
     </fcd_device>
 
-</configuration>
+</sumoConfiguration>

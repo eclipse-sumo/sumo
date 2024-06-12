@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 21:10:23 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662b
+<!-- generated on 2024-06-12 18:37:40 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="cross/cross.net.xml"/>
@@ -25,4 +25,4 @@
         <gui-settings-file value="cross/cross.settings.xml"/>
     </gui_only>
 
-</configuration>
+</sumoConfiguration>

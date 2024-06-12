@@ -1,8 +1,18 @@
-<c>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<n>input_net.net.xml</n>
-<a>e2.det.xml</a>
-<r>input_routes.rou.xml</r>
-<e>3600</e>
+<!-- generated on 2024-06-12 18:37:29 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
+-->
 
-</c>
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="e2.det.xml"/>
+    </input>
+
+    <time>
+        <end value="3600"/>
+    </time>
+
+</sumoConfiguration>
