@@ -52,7 +52,7 @@ The disadvantage of this approach is the need to run the simulation multiple tim
 ## Reducing the speed locally
 
 An alternative approach is to reduce the speed at some part of the
-circle repeatedly and insert vehicles upstream of the speed reduction
+circle repeatedly and insert vehicles downstream of the speed reduction
 where the local density is reduced for a time. This can be accomplished
 with the following definition (to be placed in an {{AdditionalFile}})
 
