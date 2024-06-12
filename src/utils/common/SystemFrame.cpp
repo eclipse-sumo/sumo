@@ -149,6 +149,9 @@ SystemFrame::checkOptions(OptionsCont& oc) {
     if (oc.exists("xml-validation.routes") && oc.isDefault("xml-validation.routes") && !oc.isDefault("xml-validation")) {
         oc.setDefault("xml-validation.routes", oc.getString("xml-validation"));
     }
+    if ((oc.exists("ignore-errors") && oc.getBool("ignore-errors")) || gSimulation) {
+        gIgnoreUnknownVClass = true;
+    }
     std::cout << std::setprecision(gPrecision);
     return true;
 }
