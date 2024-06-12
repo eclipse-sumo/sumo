@@ -185,6 +185,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myAddSizePanel;
     // delete rainbow panels
     delete myEdgeRainbowPanel;
+    delete myJunctionRainbowPanel;
 }
 
 
@@ -363,6 +364,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
     myTLSPhaseNamePanel->update(mySettings->tlsPhaseName);
     myJunctionSizePanel->update(mySettings->junctionSize);
+    myJunctionRainbowPanel->update(mySettings->junctionValueRainBow);
 
     myAddNamePanel->update(mySettings->addName);
     myAddFullNamePanel->update(mySettings->addFullName);
@@ -666,6 +668,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();
     tmpSettings.tlsPhaseName = myTLSPhaseNamePanel->getSettings();
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
+    tmpSettings.junctionValueRainBow = myJunctionRainbowPanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
     tmpSettings.addFullName = myAddFullNamePanel->getSettings();
@@ -720,8 +723,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
                                     myEdgeRainbowPanel->myHideMinCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMinThreshold->getValue(),
                                     myEdgeRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMaxThreshold->getValue());
         doRebuildColorMatrices = true;
-    } else if (sender == myJunctionColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
+    } else if (sender == myJunctionRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION,
+                                    myJunctionRainbowPanel->myHideMinCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMinThreshold->getValue(),
+                                    myJunctionRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMaxThreshold->getValue());
         doRebuildColorMatrices = true;
     } else if (sender == myDataColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
@@ -1363,9 +1368,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         myEdgeRainbowPanel->myColorRainbow->enable();
     }
     if (mySettings->junctionColorer.getScheme().isFixed()) {
-        myJunctionColorRainbow->disable();
+        myJunctionRainbowPanel->myColorRainbow->disable();
     } else {
-        myJunctionColorRainbow->enable();
+        myJunctionRainbowPanel->myColorRainbow->enable();
     }
     std::string activeSchemeName = myLaneEdgeColorMode->getText().text();
     std::string activeScaleSchemeName = myLaneEdgeScaleMode->getText().text();
@@ -2065,8 +2070,7 @@ GUIDialog_ViewSettings::buildJunctionsFrame(FXTabBook* tabbook) {
     myJunctionColorInterpolation = new FXCheckButton(m41, TL("Interpolate"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
 
     myJunctionColorSettingFrame = new FXVerticalFrame(verticalFrame, GUIDesignViewSettingsVerticalFrame4);
-    myJunctionColorRainbow = GUIDesigns::buildFXButton(verticalFrame, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                             (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myJunctionRainbowPanel = new RainbowPanel(verticalFrame, this, mySettings->junctionValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m42 = new FXMatrix(verticalFrame, 2, GUIDesignMatrixViewSettings);

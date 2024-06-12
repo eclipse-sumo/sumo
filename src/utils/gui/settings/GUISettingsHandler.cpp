@@ -299,6 +299,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.drawCrossingsAndWalkingareas = StringUtils::toBool(attrs.getStringSecure(
                         "drawCrossingsAndWalkingareas", toString(mySettings.drawCrossingsAndWalkingareas)));
             mySettings.junctionSize = parseSizeSettings("junction", attrs, mySettings.junctionSize);
+            mySettings.junctionValueRainBow = parseRainbowSettings("junctionValue", attrs, mySettings.junctionValueRainBow);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_ADDITIONALS:

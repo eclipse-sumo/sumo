@@ -872,6 +872,8 @@ public:
     bool drawCrossingsAndWalkingareas;
     // Setting bundles for controling the size of the drawn junction
     GUIVisualizationSizeSettings junctionSize;
+
+    GUIVisualizationRainbowSettings junctionValueRainBow;
     /// @}
 
 

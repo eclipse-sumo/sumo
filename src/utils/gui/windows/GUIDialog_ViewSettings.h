@@ -322,7 +322,7 @@ protected:
     std::vector<FXRealSpinner*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation = nullptr;
-    FXButton* myJunctionColorRainbow = nullptr;
+    RainbowPanel* myJunctionRainbowPanel = nullptr;
     FXComboBox* myParamKey = nullptr;
     FXComboBox* myScalingParamKey = nullptr;
     MFXComboBoxIcon* myMeanDataID = nullptr;

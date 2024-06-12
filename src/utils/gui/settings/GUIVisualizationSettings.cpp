@@ -599,6 +599,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawJunctionShape(true),
     drawCrossingsAndWalkingareas(true),
     junctionSize(1),
+    junctionValueRainBow(false, 0, false, 100),
     addMode(0),
     addSize(1),
     addName(false, 60, RGBColor(255, 0, 128, 255)),
@@ -1895,6 +1896,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("drawShape", drawJunctionShape);
     dev.writeAttr("drawCrossingsAndWalkingareas", drawCrossingsAndWalkingareas);
     junctionSize.print(dev, "junction");
+    junctionValueRainBow.print(dev, "junctionValue");
     junctionColorer.save(dev);
     dev.closeTag();
     // additionals
@@ -2268,6 +2270,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (junctionSize != v2.junctionSize) {
+        return false;
+    }
+    if (junctionValueRainBow != v2.junctionValueRainBow) {
         return false;
     }
 
