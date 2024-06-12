@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Wed Jun 12 15:50:04 2024
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=37 varID=86 objID=3/1to2/1
+.. Command acknowledged (37), [description: ]
+  CommandID=53  VariableID=86  ObjectID=3/1to2/1 valueDataType=11 Double value: 220.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

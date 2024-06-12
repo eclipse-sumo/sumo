@@ -1,0 +1,15 @@
+TraCITestClient output file. Date: Wed Jun 12 15:40:56 2024
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=37 varID=255 objID=dummy
+.. Answered with error to command (37), [description: Get ChargingStation Variable: unsupported variable 0xff specified]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]
