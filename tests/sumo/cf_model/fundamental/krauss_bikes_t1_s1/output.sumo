@@ -1,0 +1,22 @@
+Loading net-file from 'net2.net.xml' ... done (1ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading done.
+Simulation version v1_20_0+0441-b48668e145b started with time: 0.00.
+Simulation ended at time: 3600.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 0.72s
+ Real time factor: 4979.25
+ UPS: 992266.943292
+Vehicles: 
+ Inserted: 1545 (Loaded: 3600)
+ Running: 217
+ Waiting: 4
+Bike Statistics (avg of 1328):
+ RouteLength: 1998.30
+ Speed: 4.03
+ Duration: 503.11
+ WaitingTime: 21.33
+ TimeLoss: 143.84
+ DepartDelay: 0.00
+
