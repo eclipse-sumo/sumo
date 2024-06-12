@@ -945,9 +945,8 @@ public:
     /// @brief key for coloring by edgeRelation / tazRelation attribute
     std::string relDataAttr;
 
-    /// @brief value below which relation data value should not be rendered
-    bool dataValueHideCheck;
-    double dataValueHideThreshold;
+    /// @brief value below which edgeData and edgeRelation data value should not be rendered
+    GUIVisualizationRainbowSettings dataValueRainBow;
     /// @}
 
 

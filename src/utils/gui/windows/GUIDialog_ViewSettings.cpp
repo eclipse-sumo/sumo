@@ -186,6 +186,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     // delete rainbow panels
     delete myEdgeRainbowPanel;
     delete myJunctionRainbowPanel;
+    delete myDataRainbowPanel;
 }
 
 
@@ -296,8 +297,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
         myDataColorMode->setCurrentItem((FXint) mySettings->dataColorer.getActive());
         myEdgeRelationUpscaleDialer->setValue(mySettings->edgeRelWidthExaggeration);
         myTazRelationUpscaleDialer->setValue(mySettings->tazRelWidthExaggeration);
-        myDataColorRainbowCheck->setCheck(mySettings->dataValueHideCheck);
-        myDataColorRainbowThreshold->setValue(mySettings->dataValueHideThreshold);
+        myDataRainbowPanel->update(mySettings->dataValueRainBow);
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -692,8 +692,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.dataValue = myDataValuePanel->getSettings();
         tmpSettings.tazRelWidthExaggeration = myTazRelationUpscaleDialer->getValue();
         tmpSettings.edgeRelWidthExaggeration = myEdgeRelationUpscaleDialer->getValue();
-        tmpSettings.dataValueHideCheck = (myDataColorRainbowCheck->getCheck() != FALSE);
-        tmpSettings.dataValueHideThreshold = myDataColorRainbowThreshold->getValue();
+        tmpSettings.dataValueRainBow = myDataRainbowPanel->getSettings();
     }
 
     tmpSettings.showLane2Lane = (myShowLane2Lane->getCheck() != FALSE);
@@ -728,9 +727,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
                                     myJunctionRainbowPanel->myHideMinCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMinThreshold->getValue(),
                                     myJunctionRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMaxThreshold->getValue());
         doRebuildColorMatrices = true;
-    } else if (sender == myDataColorRainbow) {
+    } else if (sender == myDataRainbowPanel->myColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
-                                    myDataColorRainbowCheck->getCheck() != FALSE, myDataColorRainbowThreshold->getValue());
+                                    myDataRainbowPanel->myHideMinCheck->getCheck() != FALSE, myDataRainbowPanel->myMinThreshold->getValue(),
+                                    myDataRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myDataRainbowPanel->myMaxThreshold->getValue());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {
@@ -2291,12 +2291,7 @@ GUIDialog_ViewSettings::buildDataFrame(FXTabBook* tabbook) {
     mySettings->dataColorer.fill(*myDataColorMode);
 
     // rainbow settings
-    FXMatrix* m113 = new FXMatrix(verticalFrame2, 3, GUIDesignViewSettingsMatrix3);
-    myDataColorRainbow = GUIDesigns::buildFXButton(m113, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                         (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myDataColorRainbowCheck = new FXCheckButton(m113, TL("hide below threshold"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myDataColorRainbowThreshold = new FXRealSpinner(m113, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myDataColorRainbowThreshold->setRange(-100000000, 100000000);
+    myDataRainbowPanel = new RainbowPanel(verticalFrame2, this, mySettings->dataValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     FXMatrix* m112 = new FXMatrix(verticalFrame, 2, GUIDesignViewSettingsMatrix1);

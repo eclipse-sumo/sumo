@@ -435,9 +435,7 @@ protected:
     FXComboBox* myDataParamKey = nullptr;
     FXRealSpinner* myEdgeRelationUpscaleDialer = nullptr;
     FXRealSpinner* myTazRelationUpscaleDialer = nullptr;
-    FXButton* myDataColorRainbow = nullptr;
-    FXCheckButton* myDataColorRainbowCheck = nullptr;
-    FXRealSpinner* myDataColorRainbowThreshold = nullptr;
+    RainbowPanel* myDataRainbowPanel = nullptr;
 
     /// @brief buttons
     FXCheckButton* myShowLane2Lane = nullptr;

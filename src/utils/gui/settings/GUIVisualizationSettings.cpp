@@ -616,8 +616,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
-    dataValueHideCheck(false),
-    dataValueHideThreshold(0),
+    dataValueRainBow(false, -100, false, 100),
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),
@@ -2340,10 +2339,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (!(relDataAttr == v2.relDataAttr)) {
         return false;
     }
-    if (!(dataValueHideCheck == v2.dataValueHideCheck)) {
-        return false;
-    }
-    if (!(dataValueHideThreshold == v2.dataValueHideThreshold)) {
+    if (!(dataValueRainBow == v2.dataValueRainBow)) {
         return false;
     }
 
