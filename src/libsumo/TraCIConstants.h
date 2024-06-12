@@ -1452,6 +1452,12 @@ TRACI_CONST int VAR_CS_POWER = 0x97;
 // charging station power
 TRACI_CONST int VAR_CS_EFFICIENCY = 0x98;
 
+// charging station power
+TRACI_CONST int VAR_CS_CHARGE_IN_TRANSIT = 0x99;
+
+// charging station power
+TRACI_CONST int VAR_CS_CHARGE_DELAY = 0x9a;
+
 } // namespace libsumo
 
 #undef TRACI_CONST
