@@ -377,25 +377,28 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         JPS_AgentIdIterator agentsInArea = JPS_Simulation_AgentsInPolygon(myJPSSimulation, areaBoundary.data(), areaBoundary.size());
         if (area.areaType == "vanishing_area") {
             const SUMOTime period = area.params.count("period") > 0 ? string2time(area.params.at("period")) : 1000;
-            if (time - area.lastRemovalTime >= period) {
-                const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
-                if (agentID != 0) {
-                    auto lambda = [agentID](const PState * const p) {
-                        return p->getAgentId() == agentID;
-                    };
-                    std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
-                    if (iterator != myPedestrianStates.end()) {
-                        const PState* const state = *iterator;
-                        MSPerson* const person = state->getPerson();
-                        // Code below only works if the removal happens at the last stage.
-                        const bool finalStage = person->getNumRemainingStages() == 1;
-                        if (finalStage) {
-                            WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area.id);
-                            while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
-                            registerArrived();
-                            JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
-                            myPedestrianStates.erase(iterator);
-                            area.lastRemovalTime = time;
+            const int nbrPeriodsCoveringTimestep = (int)ceil(TS / STEPS2TIME(period));
+            if (time - area.lastRemovalTime >= nbrPeriodsCoveringTimestep * period) {
+                for (int k = 0; k < nbrPeriodsCoveringTimestep; k++) {
+                    const JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea);
+                    if (agentID != 0) {
+                        auto lambda = [agentID](const PState * const p) {
+                            return p->getAgentId() == agentID;
+                        };
+                        std::vector<PState*>::const_iterator iterator = std::find_if(myPedestrianStates.begin(), myPedestrianStates.end(), lambda);
+                        if (iterator != myPedestrianStates.end()) {
+                            const PState* const state = *iterator;
+                            MSPerson* const person = state->getPerson();
+                            // Code below only works if the removal happens at the last stage.
+                            const bool finalStage = person->getNumRemainingStages() == 1;
+                            if (finalStage) {
+                                WRITE_MESSAGEF(TL("Person '%' in vanishing area '%' was removed from the simulation."), person->getID(), area.id);
+                                while (!state->getStage()->moveToNextEdge(person, time, 1, nullptr));
+                                registerArrived();
+                                JPS_Simulation_MarkAgentForRemoval(myJPSSimulation, agentID, nullptr);
+                                myPedestrianStates.erase(iterator);
+                                area.lastRemovalTime = time;
+                            }
                         }
                     }
                 }
