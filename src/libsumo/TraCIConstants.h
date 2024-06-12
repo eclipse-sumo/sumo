@@ -1446,6 +1446,12 @@ TRACI_CONST int VAR_TRACK_VEHICLE = 0xa6;
 // presence of view
 TRACI_CONST int VAR_HAS_VIEW = 0xa7;
 
+// charging station power
+TRACI_CONST int VAR_CS_POWER = 0x97;
+
+// charging station power
+TRACI_CONST int VAR_CS_EFFICIENCY = 0x98;
+
 } // namespace libsumo
 
 #undef TRACI_CONST
