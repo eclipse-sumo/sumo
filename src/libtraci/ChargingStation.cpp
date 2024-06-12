@@ -90,7 +90,7 @@ ChargingStation::getChargeDelay(const std::string& stopID) {
     return Dom::getDouble(libsumo::VAR_CS_CHARGE_DELAY, stopID);
 }
 
-bool
+int
 ChargingStation::getChargeInTransit(const std::string& stopID) {
     return Dom::getInt(libsumo::VAR_CS_CHARGE_IN_TRANSIT, stopID);
 }
