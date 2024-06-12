@@ -70,3 +70,6 @@ invalid_color_name
 empty_line
 parkingArea_noCapacity
 missing_first_param
+
+# only warn about unknown vClass (to improve upward compatibility)
+unknown_vClass
