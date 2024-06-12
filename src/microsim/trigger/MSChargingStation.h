@@ -61,7 +61,7 @@ public:
     /// @brief destructor
     ~MSChargingStation();
 
-    /// @brief Get charging station's charging power in the
+    /// @brief Get charging station's charging power
     double getChargingPower(bool usingFuel) const;
 
     /// @brief Get efficiency of the charging station
@@ -83,6 +83,12 @@ public:
      * @return pointer to the parking area or nullptr
      */
     const MSParkingArea* getParkingArea() const;
+
+    /// @brief set charging station's charging power
+    void setChargingPower(double chargingPower);
+
+    /// @brief set efficiency of the charging station
+    void setEfficiency(double efficiency);
 
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);

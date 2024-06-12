@@ -125,8 +125,21 @@ MSChargingStation::getWaitingTime() const {
 }
 
 
-const MSParkingArea* MSChargingStation::getParkingArea() const {
+const MSParkingArea*
+MSChargingStation::getParkingArea() const {
     return myParkingArea;
+}
+
+
+void
+MSChargingStation::setChargingPower(double chargingPower) {
+    myChargingPower = chargingPower;
+}
+
+
+void
+MSChargingStation::setEfficiency(double efficiency) {
+    myEfficiency = efficiency;
 }
 
 
