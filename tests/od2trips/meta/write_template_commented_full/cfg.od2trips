@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-09-01 11:05:14 by Eclipse SUMO od2trips Version v1_17_0+2470-b55cba8942c
+<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO od2trips Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+<od2tripsConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -197,4 +197,4 @@
 
     </random_number>
 
-</configuration>
+</od2tripsConfiguration>

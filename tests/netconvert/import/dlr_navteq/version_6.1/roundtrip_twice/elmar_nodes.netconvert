@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on 2022-05-13 16:38:10 by Eclipse SUMO netconvert Version v1_13_0+0243-3930482e178
+# <!-- generated on 2024-06-12 07:52:39 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -14,7 +14,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # -->
 # 
-# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 # 
 #     <input>
 #         <dlr-navteq-prefix value="elmar"/>
@@ -37,7 +37,7 @@
 #         <xml-validation value="never"/>
 #     </report>
 # 
-# </configuration>
+# </netconvertConfiguration>
 # 
 #
 # NODE_ID	IS_BETWEEN_NODE	amount_of_geocoordinates	x1	y1	[x2 y2  ... xn  yn]

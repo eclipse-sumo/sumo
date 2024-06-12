@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/19/18 11:32:06 by SUMO marouter Version v0_31_0+1647-6d8dc768ae
+<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO marouter Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -15,4 +15,4 @@
         <output-file value="routes.rou.xml"/>
     </output>
 
-</configuration>
+</marouterConfiguration>

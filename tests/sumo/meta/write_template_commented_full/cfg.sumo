@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 20:16:13 by Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
+<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <configuration>
         <!-- Loads the named config on startup -->
@@ -1352,4 +1352,4 @@
 
     </gui_only>
 
-</configuration>
+</sumoConfiguration>

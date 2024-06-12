@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-09-30 10:53:39 by Eclipse SUMO sumo Version v1_14_1+1354-5baa17403a0
+<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -12,4 +12,4 @@
         <weight-files value="weights.xml"/>
     </input>
 
-</configuration>
+</sumoConfiguration>
