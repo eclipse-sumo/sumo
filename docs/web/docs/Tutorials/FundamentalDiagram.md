@@ -105,6 +105,7 @@ Some tests cases can be obtained at
 
 - [circle_krauss_d50_t0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d50_t0.8)
 - [circle_krauss_d30_t1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_d30_t1)
+- [circle_krauss_bikes_sublane](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/circle_krauss_bikes_sublane)
 
 
 
@@ -118,5 +119,9 @@ Some tests cases can be obtained at
 - [krauss_t0.9_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s1)
 - [krauss_t0.9_s0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s0.8)
 - [krauss_bikes_t1_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_bikes_t1_s1)
+- [krauss_bikes_sublane](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_bikes_sublane)
 - [2lane_krauss_t0.8_s0.5](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_krauss_t0.8_s0.5)
 - [2lane_IDM](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_IDM)
+
+!!! note
+    Theses tests set a low value of **--end** to save time. To get a fuller fundamental diagram, increase the end time.
