@@ -55,6 +55,9 @@ jam2
 # a jam test for reaching 100% occupancy
 jam_max
 
+# a jam test for reaching 100% occupancy
+jam_max_sublane
+
 # a jam test with different maximum traveltime
 maxtraveltime
 
