@@ -272,6 +272,42 @@ GUIVisualizationTextSettings::show(const GUIGlObject* o) const {
 }
 
 // ---------------------------------------------------------------------------
+// GUIVisualizationRainbowSettings - methods
+// ---------------------------------------------------------------------------
+
+GUIVisualizationRainbowSettings::GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold) :
+    hideMin(_hideMin),
+    minThreshold(_minThreshold),
+    hideMax(_hideMax),
+    maxThreshold(_maxThreshold) {
+}
+
+
+bool
+GUIVisualizationRainbowSettings::operator==(const GUIVisualizationRainbowSettings& other) {
+    return (hideMin == other.hideMin) &&
+           (minThreshold == other.minThreshold) &&
+           (hideMin == other.hideMin) &&
+           (maxThreshold == other.maxThreshold);
+}
+
+
+bool
+GUIVisualizationRainbowSettings::operator!=(const GUIVisualizationRainbowSettings& other) {
+    return !((*this) == other);
+}
+
+
+void
+GUIVisualizationRainbowSettings::print(OutputDevice& dev, const std::string& name) const {
+    dev.writeAttr(name + "HideCheck", hideMin);
+    dev.writeAttr(name + "HideThreshold", minThreshold);
+    dev.writeAttr(name + "HideCheck2", hideMax);
+    dev.writeAttr(name + "HideThreshold2", maxThreshold);
+}
+
+
+// ---------------------------------------------------------------------------
 // GUIVisualizationSizeSettings - methods
 // ---------------------------------------------------------------------------
 
@@ -528,10 +564,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     edgeData("speed"),
     edgeDataID(""),
     edgeDataScaling(""),
-    edgeValueHideCheck(false),
-    edgeValueHideThreshold(0),
-    edgeValueHideCheck2(false),
-    edgeValueHideThreshold2(200),
+    edgeValueRainBow(false, 0, false, 200),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -1758,10 +1791,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("edgeData", edgeData);
     dev.writeAttr("edgeDataID", edgeDataID);
     dev.writeAttr("edgeDataScaling", edgeDataScaling);
-    dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
-    dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
-    dev.writeAttr("edgeValueHideCheck2", edgeValueHideCheck2);
-    dev.writeAttr("edgeValueHideThreshold2", edgeValueHideThreshold2);
+    edgeValueRainBow.print(dev, "edgeValue");
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -2108,16 +2138,7 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
     if (edgeDataScaling != v2.edgeDataScaling) {
         return false;
     }
-    if (edgeValueHideCheck != v2.edgeValueHideCheck) {
-        return false;
-    }
-    if (edgeValueHideThreshold != v2.edgeValueHideThreshold) {
-        return false;
-    }
-    if (edgeValueHideCheck2 != v2.edgeValueHideCheck2) {
-        return false;
-    }
-    if (edgeValueHideThreshold2 != v2.edgeValueHideThreshold2) {
+    if (edgeValueRainBow != v2.edgeValueRainBow) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {

@@ -166,10 +166,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
             mySettings.edgeDataID = attrs.getStringSecure("edgeDataID", mySettings.edgeDataID);
             mySettings.edgeDataScaling = attrs.getStringSecure("edgeDataScaling", mySettings.edgeDataScaling);
-            mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
-            mySettings.edgeValueHideThreshold = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold", toString(mySettings.edgeValueHideThreshold)));
-            mySettings.edgeValueHideCheck2 = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck2", toString(mySettings.edgeValueHideCheck2)));
-            mySettings.edgeValueHideThreshold2 = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold2", toString(mySettings.edgeValueHideThreshold2)));
+            mySettings.edgeValueRainBow = parseRainbowSettings("edgeValue", attrs, mySettings.edgeValueRainBow);
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);
@@ -480,6 +477,16 @@ GUISettingsHandler::parseSizeSettings(
                StringUtils::toBool(attrs.getStringSecure(prefix + "_constantSizeSelected", toString(defaults.constantSizeSelected))));
 }
 
+GUIVisualizationRainbowSettings
+GUISettingsHandler::parseRainbowSettings(
+    const std::string& prefix, const SUMOSAXAttributes& attrs,
+    GUIVisualizationRainbowSettings defaults) {
+    return GUIVisualizationRainbowSettings(
+               StringUtils::toBool(attrs.getStringSecure(prefix + "HideCheck", toString(defaults.hideMin))),
+               StringUtils::toDouble(attrs.getStringSecure(prefix + "HideThreshold", toString(defaults.minThreshold))),
+               StringUtils::toBool(attrs.getStringSecure(prefix + "HideCheck2", toString(defaults.hideMax))),
+               StringUtils::toDouble(attrs.getStringSecure(prefix + "HideThreshold2", toString(defaults.maxThreshold))));
+}
 
 const std::vector<std::string>&
 GUISettingsHandler::addSettings(GUISUMOAbstractView* view) const {

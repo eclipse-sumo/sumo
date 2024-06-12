@@ -330,8 +330,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     if (doubleValue != s.MISSING_DATA
                             && color.alpha() != 0
-                            && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)
-                            && (!s.edgeValueHideCheck2 || doubleValue < s.edgeValueHideThreshold2)
+                            && (!s.edgeValueRainBow.hideMin || doubleValue > s.edgeValueRainBow.minThreshold)
+                            && (!s.edgeValueRainBow.hideMax || doubleValue < s.edgeValueRainBow.maxThreshold)
                        ) {
                         value = toString(doubleValue);
                     }

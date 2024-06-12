@@ -183,6 +183,8 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myPOISizePanel;
     delete myPolySizePanel;
     delete myAddSizePanel;
+    // delete rainbow panels
+    delete myEdgeRainbowPanel;
 }
 
 
@@ -317,10 +319,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* ptr) {
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
     myDisableHideByZoom->setCheck(mySettings->disableHideByZoom);
-    myLaneColorRainbowCheck->setCheck(mySettings->edgeValueHideCheck);
-    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
-    myLaneColorRainbowCheck2->setCheck(mySettings->edgeValueHideCheck2);
-    myLaneColorRainbowThreshold2->setValue(mySettings->edgeValueHideThreshold2);
+    myEdgeRainbowPanel->update(mySettings->edgeValueRainBow);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -623,10 +622,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else if (sender == myMeanDataID) {
         tmpSettings.edgeDataID = myMeanDataID->getText().text();
     }
-    tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
-    tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
-    tmpSettings.edgeValueHideCheck2 = (myLaneColorRainbowCheck2->getCheck() != FALSE);
-    tmpSettings.edgeValueHideThreshold2 = myLaneColorRainbowThreshold2->getValue();
+    tmpSettings.edgeValueRainBow = myEdgeRainbowPanel->getSettings();
     tmpSettings.laneWidthExaggeration = myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = myLaneMinWidthDialer->getValue();
 
@@ -719,10 +715,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.skyColor = MFXUtils::getRGBColor(mySkyColor->getRGBA());
 
     // lanes (colors)
-    if (sender == myLaneColorRainbow) {
+    if (sender == myEdgeRainbowPanel->myColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
-                                    myLaneColorRainbowCheck->getCheck() != FALSE, myLaneColorRainbowThreshold->getValue(),
-                                    myLaneColorRainbowCheck2->getCheck() != FALSE, myLaneColorRainbowThreshold2->getValue());
+                                    myEdgeRainbowPanel->myHideMinCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMinThreshold->getValue(),
+                                    myEdgeRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMaxThreshold->getValue());
         doRebuildColorMatrices = true;
     } else if (sender == myJunctionColorRainbow) {
         myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION);
@@ -1362,9 +1358,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) {
         m->create();
     }
     if (mySettings->getLaneEdgeScheme().isFixed()) {
-        myLaneColorRainbow->disable();
+        myEdgeRainbowPanel->myColorRainbow->disable();
     } else {
-        myLaneColorRainbow->enable();
+        myEdgeRainbowPanel->myColorRainbow->enable();
     }
     if (mySettings->junctionColorer.getScheme().isFixed()) {
         myJunctionColorRainbow->disable();
@@ -1676,6 +1672,43 @@ GUIDialog_ViewSettings::SizePanel::onCmdSizeChange(FXObject* obj, FXSelector sel
 }
 
 
+GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
+    FXComposite* parent,
+    GUIDialog_ViewSettings* target,
+    const GUIVisualizationRainbowSettings& settings) {
+    FXMatrix* matrixRainbow = new FXMatrix(parent, 5, GUIDesignViewSettingsMatrix3);
+    myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
+                         (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myHideMinCheck = new FXCheckButton(matrixRainbow, TL("hide below"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMinCheck->setCheck(settings.hideMin);
+    myMinThreshold = new FXRealSpinner(matrixRainbow, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMinThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myMinThreshold->setValue(settings.minThreshold);
+    myHideMaxCheck = new FXCheckButton(matrixRainbow, TL("hide above"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMaxCheck->setCheck(settings.hideMax);
+    myMaxThreshold = new FXRealSpinner(matrixRainbow, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMaxThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myMaxThreshold->setValue(settings.maxThreshold);
+}
+
+
+GUIVisualizationRainbowSettings
+GUIDialog_ViewSettings::RainbowPanel::getSettings() {
+    return GUIVisualizationRainbowSettings(myHideMinCheck->getCheck() != FALSE,
+                                        myMinThreshold->getValue(),
+                                        myHideMaxCheck->getCheck() != FALSE,
+                                        myMaxThreshold->getValue());
+}
+
+
+void
+GUIDialog_ViewSettings::RainbowPanel::update(const GUIVisualizationRainbowSettings& settings) {
+    myHideMinCheck->setCheck(settings.hideMin);
+    myMinThreshold->setValue(settings.minThreshold);
+    myHideMaxCheck->setCheck(settings.hideMax);
+    myMaxThreshold->setValue(settings.maxThreshold);
+}
+
 void
 GUIDialog_ViewSettings::buildHeader(FXVerticalFrame* contentFrame) {
     FXHorizontalFrame* horizontalFrame = new FXHorizontalFrame(contentFrame, GUIDesignViewSettingsHorizontalFrame1);
@@ -1765,17 +1798,7 @@ GUIDialog_ViewSettings::buildStreetsFrame(FXTabBook* tabbook) {
     myParamKey->disable();
 
     // rainbow settings
-    FXMatrix* matrixRainbow = new FXMatrix(verticalFrameColor, 5, GUIDesignViewSettingsMatrix3);
-    myLaneColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE,
-                         (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
-    myLaneColorRainbowCheck = new FXCheckButton(matrixRainbow, TL("hide below"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myLaneColorRainbowThreshold = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myLaneColorRainbowThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
-    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
-    myLaneColorRainbowCheck2 = new FXCheckButton(matrixRainbow, TL("hide above"), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
-    myLaneColorRainbowThreshold2 = new FXRealSpinner(matrixRainbow, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
-    myLaneColorRainbowThreshold2->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
-    myLaneColorRainbowThreshold2->setValue(mySettings->edgeValueHideThreshold2);
+    myEdgeRainbowPanel = new RainbowPanel(verticalFrameColor, this, mySettings->edgeValueRainBow);
 
     new FXHorizontalSeparator(verticalFrame, GUIDesignHorizontalSeparator);
     //  ... scale settings

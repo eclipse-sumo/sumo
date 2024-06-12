@@ -202,4 +202,9 @@ private:
     GUIVisualizationSizeSettings parseSizeSettings(
         const std::string& prefix, const SUMOSAXAttributes& attrs,
         GUIVisualizationSizeSettings defaults);
+
+    /// @brief parse attributes for rainbowSettings
+    GUIVisualizationRainbowSettings parseRainbowSettings(
+            const std::string& prefix, const SUMOSAXAttributes& attrs,
+            GUIVisualizationRainbowSettings defaults);
 };

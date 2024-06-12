@@ -132,6 +132,35 @@ public:
         GUIGlObjectType myType = GLO_NETWORK;
     };
 
+    /// @brief NamePanel
+    class RainbowPanel {
+
+    public:
+        /// @brief constructor
+        RainbowPanel(FXComposite* parent, GUIDialog_ViewSettings* target,
+                  const GUIVisualizationRainbowSettings& settings);
+
+        /// @brief get settings
+        GUIVisualizationRainbowSettings getSettings();
+
+        /// @brief update
+        void update(const GUIVisualizationRainbowSettings& settings);
+
+        FXButton* myColorRainbow = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myHideMinCheck = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myMinThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myHideMaxCheck = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myMaxThreshold = nullptr;
+    };
+
     /** @brief Constructor
      * @param[in] parent The view to report changed settings to
      * @param[in, out] settings The current settings that can be changed
@@ -293,11 +322,6 @@ protected:
     std::vector<FXRealSpinner*> myLaneThresholds;
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation = nullptr;
-    FXButton* myLaneColorRainbow = nullptr;
-    FXCheckButton* myLaneColorRainbowCheck = nullptr;
-    FXRealSpinner* myLaneColorRainbowThreshold = nullptr;
-    FXCheckButton* myLaneColorRainbowCheck2 = nullptr;
-    FXRealSpinner* myLaneColorRainbowThreshold2 = nullptr;
     FXButton* myJunctionColorRainbow = nullptr;
     FXComboBox* myParamKey = nullptr;
     FXComboBox* myScalingParamKey = nullptr;
@@ -481,6 +505,9 @@ protected:
     SizePanel* myPolySizePanel = nullptr;
     SizePanel* myAddSizePanel = nullptr;
     SizePanel* myJunctionSizePanel = nullptr;
+
+    /// @brief rainbow panels
+    RainbowPanel* myEdgeRainbowPanel = nullptr;
 
     /// @brief load/save-menu
     FXCheckButton* mySaveViewPort = nullptr;

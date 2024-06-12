@@ -86,6 +86,31 @@ struct GUIVisualizationTextSettings {
 };
 
 
+struct GUIVisualizationRainbowSettings {
+
+    /// @brief constructor
+    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold);
+
+    /// @brief equality comparator
+    bool operator==(const GUIVisualizationRainbowSettings& other);
+
+    /// @brief inequality comparator
+    bool operator!=(const GUIVisualizationRainbowSettings& other);
+
+    /// @brief print values in output device
+    void print(OutputDevice& dev, const std::string& name) const;
+
+    /// @brief whether data below threshold should not be colored
+    bool hideMin;
+    /// @brief threshold below which value should not be colored
+    double minThreshold;
+    /// @brief whether data above threshold should not be colored
+    bool hideMax;
+    /// @brief threshold above which value should not be colored
+    double maxThreshold;
+};
+
+
 /// @brief struct for size settings
 struct GUIVisualizationSizeSettings {
 
@@ -738,13 +763,8 @@ public:
     /// @brief key for scaling by edgeData
     std::string edgeDataScaling;
 
-    /// @brief threshold below which edge data value should not be rendered
-    bool edgeValueHideCheck;
-    double edgeValueHideThreshold;
-
-    /// @brief threshold above which edge data value should not be rendered
-    bool edgeValueHideCheck2;
-    double edgeValueHideThreshold2;
+    /// @brief checks and thresholds for rainbow coloring
+    GUIVisualizationRainbowSettings edgeValueRainBow;
     /// @}
 
     /// @name vehicle visualization settings
