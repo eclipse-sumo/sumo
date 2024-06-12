@@ -251,8 +251,11 @@ void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const int numLanes, const double speedLimit, const double defaultTravelTime, const int numVehicles) const {
 
-    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength,
-                                1000. * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    double density = sampleSeconds / STEPS2TIME(period) * 1000. / myLaneLength;
+    if (MSGlobals::gLateralResolution < 0) {
+        // avoid exceeding upper bound
+        density = MIN2(density, 1000 * (double)numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    }
     const double laneDensity = density / (double)numLanes;
     const double occupancy = getOccupancy(period, numLanes);
 #ifdef DEBUG_OCCUPANCY2
