@@ -358,6 +358,9 @@ being joined. The **joinExclude**-tag is only useful together with the
 option **--junctions.join** but the **join**-tag can also be used all by itself. Nodes to be
 excluded from joining can also be specified via the option **--junctions.join-exclude id,[id\]+**.
 
+!!! note
+    The `<join>`-element supports all attributes that are also supported by the `<node>`-element. This allows overriding the attributes of the created node.
+
 ### Connections after joining nodes
 
 !!! caution
