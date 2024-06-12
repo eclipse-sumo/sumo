@@ -17,6 +17,11 @@ krauss_t0.9_s0.8
 # - setting startupDelay between 1 and 2 can be used to scale the amount of breakdown
 krauss_bikes_t1_s1
 
+# - observing breakdown for vehicles requires shorter edges because more vehicles fit on the same amount of road and averaging smoothes out the disturbances
+# - dawdling for Krauss is scaled to accel so the effect is reduced for bicycles
+# - setting startupDelay between 1 and 2 can be used to scale the amount of breakdown
+krauss_bikes_sublane
+
 # instead of creating a disturbance with high sigma, we combine long plattoons of fast vehicles (on the left lane) with occasional slow vehicles (on the right lane) to occasionally obstruct the plattoon via lane changing
 # 
 2lane_krauss_t0.8_s0.5
