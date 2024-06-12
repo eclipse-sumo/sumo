@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 22:23:05 by Eclipse SUMO marouter Version v1_19_0+2013-766b9941f98
+<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO marouter Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="marouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>

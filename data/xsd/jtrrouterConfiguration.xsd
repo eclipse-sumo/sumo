@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-05 18:18:16 by Eclipse SUMO jtrrouter Version v1_18_0+2421-58d8177730f
+<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO jtrrouter Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="jtrrouterConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -67,6 +67,7 @@
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="weights.tls-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="max-edges-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="turn-defaults" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="sink-edges" type="strArrayOptionType" minOccurs="0"/>

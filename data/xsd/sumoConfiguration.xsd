@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-06 22:23:06 by Eclipse SUMO sumo Version v1_19_0+2013-766b9941f98
+<!-- generated on 2024-06-12 07:53:54 by Eclipse SUMO sumo Version v1_20_0+0443-233e48e5c88
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
-    <xsd:element name="configuration" type="configurationType"/>
+    <xsd:element name="sumoConfiguration" type="configurationType"/>
 
     <xsd:complexType name="configurationType">
         <xsd:all>
@@ -168,7 +168,9 @@
             <xsd:element name="collision.check-junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="collision.check-junctions.mingap" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="collision.mingap-factor" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="keep-after-arrival" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="max-num-vehicles" type="intOptionType" minOccurs="0"/>
+            <xsd:element name="max-num-persons" type="intOptionType" minOccurs="0"/>
             <xsd:element name="max-num-teleports" type="intOptionType" minOccurs="0"/>
             <xsd:element name="scale" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="scale-suffix" type="strOptionType" minOccurs="0"/>
@@ -338,13 +340,17 @@
             <xsd:element name="device.stationfinder.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.deterministic" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.rescueTime" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.rescueAction" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.reserveFactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.emptyThreshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.radius" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.maxEuclideanDistance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.repeat" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.maxChargePower" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.chargeType" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.stationfinder.waitForCharge" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.saturatedChargeLevel" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.stationfinder.needToChargeLevel" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.battery.deterministic" type="boolOptionType" minOccurs="0"/>
