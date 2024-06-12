@@ -117,5 +117,6 @@ Some tests cases can be obtained at
 
 - [krauss_t0.9_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s1)
 - [krauss_t0.9_s0.8](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_t0.9_s0.8)
+- [krauss_bikes_t1_s1](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/krauss_bikes_t1_s1)
 - [2lane_krauss_t0.8_s0.5](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_krauss_t0.8_s0.5)
 - [2lane_IDM](https://sumo.dlr.de/extractTest.php?path=sumo/cf_model/fundamental/2lane_IDM)
