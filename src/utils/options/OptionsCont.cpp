@@ -887,13 +887,9 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
     if (!inComment) {
         writeXMLHeader(os, false);
     }
-    os << "<configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/";
-    if (myAppName == "sumo-gui") {
-        os << "sumo";
-    } else {
-        os << myAppName;
-    }
-    os << "Configuration.xsd\">" << std::endl << std::endl;
+    const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
+    os << "<" << app << "Configuration xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+       << "xsi:noNamespaceSchemaLocation=\"http://sumo.dlr.de/xsd/" << app << "Configuration.xsd\">\n\n";
     for (std::string subtopic : mySubTopics) {
         if (subtopic == "Configuration" && !complete) {
             continue;
@@ -912,11 +908,11 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 continue;
             }
             if (!hadOne) {
-                os << "    <" << subtopic << ">" << std::endl;
+                os << "    <" << subtopic << ">\n";
             }
             // add the comment if wished
             if (addComments) {
-                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
+                os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->\n";
             }
             // write the option and the value (if given)
             os << "        <" << name << " value=\"";
@@ -950,27 +946,28 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                     os << "\" help=\"" << StringUtils::escapeXML(o->getDescription());
                 }
             }
-            os << "\"/>" << std::endl;
+            os << "\"/>\n";
             // append an endline if a comment was printed
             if (addComments) {
-                os << std::endl;
+                os << "\n";
             }
             hadOne = true;
         }
         if (hadOne) {
-            os << "    </" << subtopic << ">" << std::endl << std::endl;
+            os << "    </" << subtopic << ">\n\n";
         }
     }
-    os << "</configuration>" << std::endl;
+    os << "</" << app << "Configuration>" << std::endl;  // flushing seems like a good idea here
 }
 
 
 void
 OptionsCont::writeSchema(std::ostream& os) {
+    const std::string& app = myAppName == "sumo-gui" ? "sumo" : myAppName;
     writeXMLHeader(os, false);
     os << "<xsd:schema elementFormDefault=\"qualified\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n\n";
     os << "    <xsd:include schemaLocation=\"baseTypes.xsd\"/>\n";
-    os << "    <xsd:element name=\"configuration\" type=\"configurationType\"/>\n\n";
+    os << "    <xsd:element name=\"" << app << "Configuration\" type=\"configurationType\"/>\n\n";
     os << "    <xsd:complexType name=\"configurationType\">\n";
     os << "        <xsd:all>\n";
     for (std::string subtopic : mySubTopics) {
