@@ -13,6 +13,7 @@
 
 # @file    _chargingstation.py
 # @author  Jakob Erdmann
+# @author  Mirko Barthauer
 # @date    2020-06-02
 
 from __future__ import absolute_import
@@ -75,25 +76,53 @@ class ChargingStationDomain(Domain):
 
         The charging power.
         """
-        return self._getUniversal(tc.VAR_LANEPOSITION, stopID)
+        return self._getUniversal(tc.VAR_CS_POWER, stopID)
 
     def getEfficiency(self, stopID):
         """getEfficiency(string) -> double
 
         The efficiency [0,1].
         """
-        return self._getUniversal(tc.VAR_LANEPOSITION, stopID)
+        return self._getUniversal(tc.VAR_CS_EFFICIENCY, stopID)
 
-    def setChargingPower(self, typeID, length):
+    def getChargeDelay(self, stopID):
+        """getChargeDelay(string) -> double
+
+        Get the charge delay in seconds.
+        """
+        return self._getUniversal(tc.VAR_CS_CHARGE_DELAY, stopID)
+
+    def getChargeInTransit(self, stopID):
+        """getChargeInTransit(string) -> integer
+
+        Get whether charging when driving across the charging station works (0=no, 1=yes).
+        """
+        return self._getUniversal(tc.VAR_CS_CHARGE_IN_TRANSIT, stopID)
+
+    def setChargingPower(self, typeID, power):
         """setChargingPower(string, double) -> None
 
         Sets the charging power in this charging station.
         """
-        self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
+        self._setCmd(tc.VAR_CS_POWER, typeID, "d", power)
 
-    def setEfficiency(self, typeID, length):
+    def setEfficiency(self, typeID, efficiency):
         """setEfficiency(string, double) -> None
 
         Sets the efficiency in this charging station.
         """
-        self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
+        self._setCmd(tc.VAR_CS_EFFICIENCY, typeID, "d", efficiency)
+
+    def setChargeDelay(self, typeID, delay):
+        """setChargeDelay(string, double) -> None
+
+        Sets the charge delay in this charging station.
+        """
+        self._setCmd(tc.VAR_CS_CHARGE_DELAY, typeID, "d", delay)
+
+    def setChargeInTransit(self, typeID, inTransit):
+        """setEfficiency(string, integer) -> None
+
+        Sets whether this charging station allows charging while still driving (0=no, 1=yes).
+        """
+        self._setCmd(tc.VAR_CS_CHARGE_IN_TRANSIT, typeID, "u", inTransit)

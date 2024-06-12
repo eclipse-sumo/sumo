@@ -57,8 +57,10 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
     // variable
     int variable = inputStorage.readUnsignedByte();
     if (variable != libsumo::VAR_PARAMETER &&
-        variable != libsumo::VAR_CS_POWER &&
-        variable != libsumo::VAR_CS_EFFICIENCY) {
+            variable != libsumo::VAR_CS_POWER &&
+            variable != libsumo::VAR_CS_EFFICIENCY &&
+            variable != libsumo::VAR_CS_CHARGE_DELAY &&
+            variable != libsumo::VAR_CS_CHARGE_IN_TRANSIT) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Change ChargingStation State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
@@ -85,9 +87,25 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
             case libsumo::VAR_CS_EFFICIENCY: {
                 double value = 0;
                 if (!server.readTypeCheckingDouble(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting boardingDuration requires a double.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting efficiency requires a double.", outputStorage);
                 }
                 libsumo::ChargingStation::setEfficiency(id, value);
+            }
+            break;
+            case libsumo::VAR_CS_CHARGE_DELAY: {
+                double value = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge delay requires a double.", outputStorage);
+                }
+                libsumo::ChargingStation::setChargeDelay(id, value);
+            }
+            break;
+            case libsumo::VAR_CS_CHARGE_IN_TRANSIT: {
+                int value = 0;
+                if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge in transit requires an unsigned byte.", outputStorage);
+                }
+                libsumo::ChargingStation::setChargeInTransit(id, value);
             }
             break;
             default:

@@ -85,6 +85,16 @@ ChargingStation::getEfficiency(const std::string& stopID) {
     return Dom::getDouble(libsumo::VAR_CS_EFFICIENCY, stopID);
 }
 
+double
+ChargingStation::getChargeDelay(const std::string& stopID) {
+    return Dom::getDouble(libsumo::VAR_CS_CHARGE_DELAY, stopID);
+}
+
+bool
+ChargingStation::getChargeInTransit(const std::string& stopID) {
+    return Dom::getInt(libsumo::VAR_CS_CHARGE_IN_TRANSIT, stopID);
+}
+
 LIBTRACI_PARAMETER_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
 void
@@ -96,6 +106,17 @@ void
 ChargingStation::setEfficiency(const std::string& stopID, double efficiency) {
     Dom::setDouble(libsumo::VAR_CS_EFFICIENCY, stopID, efficiency);
 }
+
+void
+ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
+    Dom::setDouble(libsumo::VAR_CS_CHARGE_DELAY, stopID, delay);
+}
+
+void
+ChargingStation::setChargeInTransit(const std::string& stopID, int value) {
+    Dom::setInt(libsumo::VAR_CS_CHARGE_IN_TRANSIT, stopID, value);
+}
+
 
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 

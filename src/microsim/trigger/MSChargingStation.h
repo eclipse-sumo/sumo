@@ -90,6 +90,12 @@ public:
     /// @brief set efficiency of the charging station
     void setEfficiency(double efficiency);
 
+    /// @brief set charging delay of the charging station
+    void setChargeDelay(SUMOTime delay);
+
+    /// @brief set charging in transit
+    void setChargeInTransit(bool value);
+
     /// @brief enable or disable charging vehicle
     void setChargingVehicle(bool value);
 

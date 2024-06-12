@@ -17,7 +17,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 ///
-// Chargin Station for Electric vehicles
+// Charging Station for Electric vehicles
 /****************************************************************************/
 #include <config.h>
 
@@ -140,6 +140,18 @@ MSChargingStation::setChargingPower(double chargingPower) {
 void
 MSChargingStation::setEfficiency(double efficiency) {
     myEfficiency = efficiency;
+}
+
+
+void
+MSChargingStation::setChargeDelay(SUMOTime delay) {
+    myChargeDelay = delay;
+}
+
+
+void
+MSChargingStation::setChargeInTransit(bool value) {
+    myChargeInTransit = value;
 }
 
 

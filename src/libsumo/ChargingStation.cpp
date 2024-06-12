@@ -24,6 +24,7 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <libsumo/TraCIConstants.h>
+#include <utils/common/SUMOTime.h>
 #include "Helper.h"
 #include "ChargingStation.h"
 
@@ -108,6 +109,18 @@ ChargingStation::getEfficiency(const std::string& stopID) {
 }
 
 
+double
+ChargingStation::getChargeDelay(const std::string& stopID) {
+    return STEPS2TIME(dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargeDelay());
+}
+
+
+int
+ChargingStation::getChargeInTransit(const std::string& stopID) {
+    return dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->getChargeInTransit();
+}
+
+
 void
 ChargingStation::setChargingPower(const std::string& stopID, double chargingpower) {
     dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargingPower(chargingpower);
@@ -117,6 +130,18 @@ ChargingStation::setChargingPower(const std::string& stopID, double chargingpowe
 void
 ChargingStation::setEfficiency(const std::string& stopID, double efficiency) {
     dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setEfficiency(efficiency);
+}
+
+
+void
+ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeDelay(TIME2STEPS(delay));
+}
+
+
+void
+ChargingStation::setChargeInTransit(const std::string& stopID, int value) {
+    dynamic_cast<MSChargingStation*>(getChargingStation(stopID))->setChargeInTransit(value);
 }
 
 
