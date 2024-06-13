@@ -281,8 +281,10 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         GLHelper::pushMatrix();
         // draw charging power
+        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
+        const double lineAngle = s.getTextAngle(myFGSignRot);
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-        glRotated(-myFGSignRot, 0, 0, 1);
+        glRotated(-lineAngle, 0, 0, 1);
         GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), 0, FONS_ALIGN_LEFT);
         // pop charging power matrix
         GLHelper::popMatrix();
