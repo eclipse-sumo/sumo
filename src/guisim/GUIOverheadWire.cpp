@@ -14,6 +14,7 @@
 /// @file    GUIOverheadWire.cpp
 /// @author  Jakub Sevcik (RICE)
 /// @author  Jan Prikryl (RICE)
+/// @author  Mirko Barthauer
 /// @date    2019-12-15
 ///
 // The gui-version of a MSOverheadWire
@@ -80,7 +81,8 @@ GUIOverheadWire::GUIOverheadWire(const std::string& id, MSLane& lane, double fro
     myFGSignRot = 0;
     if (tmp.length() != 0) {
         myFGSignRot = myFGShape.rotationDegreeAtOffset(double((myFGShape.length() / 2.)));
-        myFGSignRot -= 90;
+        const double rotSign = MSGlobals::gLefthand ? -1 : 1;
+        myFGSignRot -= 90 * rotSign;
     }
 }
 
@@ -279,7 +281,9 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         GLHelper::pushMatrix();
         // draw charging power
-        GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), myFGSignPos + Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), myFGSignRot, FONS_ALIGN_LEFT);
+        glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
+        glRotated(-myFGSignRot, 0, 0, 1);
+        GLHelper::drawText((toString(getTractionSubstation()->getSubstationVoltage()) + " V").c_str(), Position(1.2, 0), .1, 1.f, RGBColor(114, 210, 252), 0, FONS_ALIGN_LEFT);
         // pop charging power matrix
         GLHelper::popMatrix();
 
