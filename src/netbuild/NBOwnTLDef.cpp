@@ -1686,8 +1686,11 @@ NBOwnTLDef::buildNemaPhases(
 
     filterMissingNames(ring1, names, false);
     filterMissingNames(ring2, names, false);
-    filterMissingNames(barrier1, names, true);
-    filterMissingNames(barrier2, names, true);
+    filterMissingNames(barrier1, names, true, 8);
+    filterMissingNames(barrier2, names, true, 6);
+    if (ring1[0] == 0 && ring1[1] == 0) {
+        ring1[1] = 6;
+    }
     if (ring1[2] == 0 && ring1[3] == 0) {
         ring1[3] = 8;
     }
@@ -1720,14 +1723,14 @@ NBOwnTLDef::filterState(std::string state, const EdgeVector& fromEdges, const NB
 }
 
 void
-NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier) {
+NBOwnTLDef::filterMissingNames(std::vector<int>& vec, const std::map<int, int>& names, bool isBarrier, int barrierDefault) {
     for (int i = 0; i < (int)vec.size(); i++) {
         if (names.count(vec[i]) == 0) {
             if (isBarrier) {
                 if (names.count(vec[i] - 1) > 0) {
                     vec[i] = vec[i] - 1;
                 } else {
-                    vec[i] = 8;
+                    vec[i] = barrierDefault;
                 }
             } else {
                 vec[i] = 0;
