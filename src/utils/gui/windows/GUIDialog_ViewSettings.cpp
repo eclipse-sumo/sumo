@@ -1675,23 +1675,28 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
     FXComposite* parent,
     GUIDialog_ViewSettings* target,
     const GUIVisualizationRainbowSettings& settings) {
-    FXMatrix* matrixRainbow = new FXMatrix(parent, 6, GUIDesignViewSettingsMatrix3);
+    FXMatrix* matrixRainbow = new FXMatrix(parent, 8, GUIDesignViewSettingsMatrix3);
     myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_RAINBOW_CHANGE, GUIDesignViewSettingsComboBox1);
     for (auto item : GUIVisualizationSettings::RAINBOW_SCHEMES) {
         myRainbowStyle->appendIconItem(item.first.c_str());
     }
-    myHideMinCheck = new FXCheckButton(matrixRainbow, TL("hide below"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMinCheck = new FXCheckButton(matrixRainbow, TL("min"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myHideMinCheck->setCheck(settings.hideMin);
-    myMinThreshold = new FXRealSpinner(matrixRainbow, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMinThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myMinThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myMinThreshold->setValue(settings.minThreshold);
-    myHideMaxCheck = new FXCheckButton(matrixRainbow, TL("hide above"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myHideMaxCheck = new FXCheckButton(matrixRainbow, TL("max"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myHideMaxCheck->setCheck(settings.hideMax);
-    myMaxThreshold = new FXRealSpinner(matrixRainbow, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myMaxThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myMaxThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myMaxThreshold->setValue(settings.maxThreshold);
+    mySetNeutral = new FXCheckButton(matrixRainbow, TL("center"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    mySetNeutral->setCheck(settings.setNeutral);
+    myNeutralThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+    myNeutralThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
+    myNeutralThreshold->setValue(settings.neutralThreshold);
 }
 
 
@@ -1700,7 +1705,9 @@ GUIDialog_ViewSettings::RainbowPanel::getSettings() {
     GUIVisualizationRainbowSettings res(myHideMinCheck->getCheck() != FALSE,
                                         myMinThreshold->getValue(),
                                         myHideMaxCheck->getCheck() != FALSE,
-                                        myMaxThreshold->getValue());
+                                        myMaxThreshold->getValue(),
+                                        mySetNeutral->getCheck() != FALSE,
+                                        myNeutralThreshold->getValue());
     std::string sName = myRainbowStyle->getItemText(myRainbowStyle->getCurrentItem());
     res.colors = GUIVisualizationSettings::RAINBOW_SCHEMES[sName];
     return res;
@@ -1713,6 +1720,8 @@ GUIDialog_ViewSettings::RainbowPanel::update(const GUIVisualizationRainbowSettin
     myMinThreshold->setValue(settings.minThreshold);
     myHideMaxCheck->setCheck(settings.hideMax);
     myMaxThreshold->setValue(settings.maxThreshold);
+    mySetNeutral->setCheck(settings.setNeutral);
+    myNeutralThreshold->setValue(settings.neutralThreshold);
 }
 
 void

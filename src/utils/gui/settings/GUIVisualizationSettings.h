@@ -89,7 +89,7 @@ struct GUIVisualizationTextSettings {
 struct GUIVisualizationRainbowSettings {
 
     /// @brief constructor
-    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold);
+    GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold);
 
     /// @brief equality comparator
     bool operator==(const GUIVisualizationRainbowSettings& other);
@@ -108,6 +108,10 @@ struct GUIVisualizationRainbowSettings {
     bool hideMax;
     /// @brief threshold above which value should not be colored
     double maxThreshold;
+    /// @brief whether the scale should be centered at a specific value
+    bool setNeutral;
+    /// @brief neutral point of scale
+    double neutralThreshold;
     /// @brief color steps for the rainbow;
     std::vector<RGBColor> colors;
 };

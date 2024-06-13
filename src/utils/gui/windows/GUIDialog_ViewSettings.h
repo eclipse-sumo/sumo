@@ -161,6 +161,12 @@ public:
 
         /// @brief threshold dial
         FXRealSpinner* myMaxThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* mySetNeutral = nullptr;
+
+        /// @brief threshold dial
+        FXRealSpinner* myNeutralThreshold = nullptr;
     };
 
     /** @brief Constructor
