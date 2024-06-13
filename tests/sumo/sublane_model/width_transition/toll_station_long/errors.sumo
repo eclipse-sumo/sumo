@@ -1,0 +1,17 @@
+Warning: Vehicle 'v.167' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=27.00.
+Warning: Vehicle 'v.1112'; collision with vehicle 'v.1000', lane='3_1', gap=-1.21', latGap=-0.05, time=60.00 stage=move.
+Warning: Vehicle 'v.1112' performs emergency braking on lane '3_0' with decel=9.00, wished=4.50, severity=1.00, time=61.00.
+Warning: Vehicle 'v.5278' performs emergency braking on lane '2_0' with decel=9.00, wished=4.50, severity=1.00, time=122.00.
+Warning: Vehicle 'v.7223'; collision with vehicle 'v.7056', lane='2_2', gap=-1.66', latGap=-1.00, time=154.00 stage=move.
+Warning: Vehicle 'v.7889'; collision with vehicle 'v.7724', lane='2.9_5', gap=-1.15', latGap=-0.80, time=168.00 stage=laneChange.
+Warning: Vehicle 'v.9223'; junction collision with vehicle 'v.9056', lane=':1_0_1', gap=-6.74', latGap=-0.70, time=209.00 stage=move.
+Warning: Vehicle 'v.12278'; collision with vehicle 'v.11389', lane='2_2', gap=-1.09', latGap=-1.75, time=248.00 stage=move.
+Warning: Vehicle 'v.12389'; collision with vehicle 'v.12056', lane='2_0', gap=-0.08', latGap=-1.30, time=254.00 stage=move.
+Warning: Vehicle 'v.14778'; junction collision with vehicle 'v.14500', lane=':J1_0_2', gap=-4.74', latGap=-0.10, time=294.00 stage=move.
+Warning: Vehicle 'v.15334'; collision with vehicle 'v.15167', lane='2_1', gap=-1.20', latGap=-1.45, time=305.00 stage=move.
+Warning: Vehicle 'v.15778' performs emergency braking on lane '2_2' with decel=9.00, wished=4.50, severity=1.00, time=309.00.
+Warning: Vehicle 'v.15000'; collision with vehicle 'v.15612', lane='2_2', gap=-4.33', latGap=-0.55, time=309.00 stage=move.
+Warning: Vehicle 'v.16278'; collision with vehicle 'v.16112', lane='2_2', gap=-0.52', latGap=-1.40, time=318.00 stage=move.
+Warning: Vehicle 'v.15612'; junction collision with vehicle 'v.15000', lane=':1_0_2', gap=-7.40', latGap=-0.05, time=320.00 stage=move.
+Warning: Vehicle 'v.17500'; collision with vehicle 'v.17778', lane='2_2', gap=-6.30', latGap=-0.30, time=348.00 stage=move.
+Warning: Vehicle 'v.18500'; collision with vehicle 'v.18334', lane='2_0', gap=-0.47', latGap=-1.00, time=361.00 stage=move.

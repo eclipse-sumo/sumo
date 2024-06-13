@@ -26,7 +26,9 @@ opposite_direction_driving
 # test latAlignment configuration
 latAlignment
 
-# bicycles merge from a wide road lane onto a narrow bike lane
+# tests involving changing lane widths
+# - bicycles merge from a wide road lane onto a narrow bike lane
+# - a toll station with narrow with intermediate narrow lanes
 width_transition
 
 # test vehicles moving in opposite directions on the same edge

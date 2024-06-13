@@ -9,3 +9,9 @@ neighbor_none
 
 # bike lane is a seperate edge without parallel lane, testing a different seed
 neighbor_none2
+
+# entry lane to the station is too short to complete a change
+toll_station_short
+
+# entry lane to the station is long enough to complete a change
+toll_station_long
