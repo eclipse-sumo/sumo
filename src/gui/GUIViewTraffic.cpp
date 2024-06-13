@@ -236,40 +236,7 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         }
         return;
     }
-
-    if (rs.hideMin && rs.hideMax && minValue == std::numeric_limits<double>::infinity()) {
-        minValue = rs.minThreshold;
-        maxValue = rs.maxThreshold;
-    }
-    if (minValue != std::numeric_limits<double>::infinity()) {
-        scheme.clear();
-        // add new thresholds
-        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_LANE_PARAM_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_DATA_ATTRIBUTE_NUMERICAL
-                || scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PARAM_NUMERICAL
-                || hasMissingData)  {
-            scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
-        }
-        if (rs.hideMin) {
-            const double rawRange = maxValue - minValue;
-            minValue = MAX2(rs.minThreshold + MIN2(1.0, rawRange / 100.0), minValue);
-            scheme.addColor(RGBColor(204, 204, 204), rs.minThreshold);
-        }
-        if (rs.hideMax) {
-            const double rawRange = maxValue - minValue;
-            maxValue = MIN2(rs.maxThreshold - MIN2(1.0, rawRange / 100.0), maxValue);
-            scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
-        }
-        double range = maxValue - minValue;
-        scheme.addColor(rs.colors.front(), (minValue));
-        const int steps = rs.colors.size() - 1;
-        for (int i = 1; i < steps; i++) {
-            scheme.addColor(rs.colors[i], (minValue + range * i / steps));
-        }
-        scheme.addColor(rs.colors.back(), (maxValue));
-    }
+    buildMinMaxRainbow(s, scheme, rs, minValue, maxValue, hasMissingData);
 }
 
 
