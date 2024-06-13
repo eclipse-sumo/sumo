@@ -635,8 +635,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         if (junctionExaggeration > 0) {
             // get detail level
             const auto d = s.getDetailLevel(junctionExaggeration);
+            // get shape area
+            const double junctionShapeArea = myNBNode->getShape().area();
             // check if draw junction as shape
-            const bool drawBubble = drawAsBubble(s);
+            const bool drawBubble = drawAsBubble(s, junctionShapeArea);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode
             if (!s.drawForViewObjectsHandler) {
                 // push layer matrix
@@ -660,7 +662,9 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // draw junction name
                 drawJunctionName(s);
                 // draw dotted contour for shape
-                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                if (junctionShapeArea >= 4) {
+                    myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                }
                 // draw dotted contour for bubble
                 if (drawBubble) {
                     myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
@@ -1611,10 +1615,10 @@ GNEJunction::setResponsible(bool newVal) {
 // ===========================================================================
 
 bool
-GNEJunction::drawAsBubble(const GUIVisualizationSettings& s) const {
+GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const {
     // check conditions
-    if ((myNBNode->getShape().area() < 4) && (mySourceCandidate || myTargetCandidate ||
-            mySpecialCandidate || myPossibleCandidate || myConflictedCandidate)) {
+    if ((junctionShapeArea < 4) && (mySourceCandidate || myTargetCandidate ||
+                                    mySpecialCandidate || myPossibleCandidate || myConflictedCandidate)) {
         // force draw if this junction is a candidate
         return true;
     }
@@ -1626,7 +1630,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s) const {
         // force draw bubbles if we enabled option in checkbox of viewNet
         return true;
     }
-    if (myNBNode->getShape().area() > 4) {
+    if (junctionShapeArea >= 4) {
         // don't draw if shape area is greater than 4
         return false;
     }

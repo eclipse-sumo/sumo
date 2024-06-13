@@ -361,7 +361,7 @@ protected:
 
 private:
     /// @brief check if draw junction as bubble
-    bool drawAsBubble(const GUIVisualizationSettings& s) const;
+    bool drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const;
 
     /// @brief draw junction as bubble
     void drawJunctionAsBubble(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
