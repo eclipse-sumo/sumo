@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-13 12:30:51 by Eclipse SUMO netconvert Version v1_20_0+0505-b858beff344
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <tls_building>
+        <tls.default-type value="NEMA"/>
+    </tls_building>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-446859.91,-3674570.62" convBoundary="0.00,0.00,110.87,108.79" origBoundary="-87.774814,32.937960,-86.973201,33.436019" projParameter="+proj=utm +zone=16 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +north"/>
+
+    <edge id=":3459661227_0" function="internal">
+        <lane id=":3459661227_0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="6.41" length="9.04" shape="57.43,72.06 56.87,74.48 57.23,76.48 58.53,78.03 60.76,79.15"/>
+    </edge>
+    <edge id=":3459661227_1" function="internal">
+        <lane id=":3459661227_1_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="13.44" shape="54.44,70.90 52.93,74.81 51.79,77.46 50.40,79.97 48.13,83.49"/>
+        <lane id=":3459661227_1_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="13.44" shape="51.46,69.74 50.02,73.46 48.94,75.98 47.62,78.37 45.46,81.72"/>
+        <lane id=":3459661227_1_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="13.44" shape="48.48,68.59 47.11,72.12 46.09,74.50 44.84,76.77 42.80,79.95"/>
+    </edge>
+    <edge id=":3459661227_4" function="internal">
+        <lane id=":3459661227_4_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="23.96" shape="37.93,71.79 60.76,79.15"/>
+        <lane id=":3459661227_4_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="23.96" shape="36.98,74.84 59.74,82.19"/>
+    </edge>
+    <edge id=":3459661227_6" function="internal">
+        <lane id=":3459661227_6_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="6.83" length="12.24" shape="36.98,74.84 41.57,76.53 44.51,78.24 45.81,79.97 45.46,81.72"/>
+        <lane id=":3459661227_6_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="5.89" length="8.79" shape="36.98,74.84 40.20,76.05 42.25,77.30 43.11,78.60 42.80,79.95"/>
+    </edge>
+    <edge id=":cluster_5816827040_8934321409_0" function="internal">
+        <lane id=":cluster_5816827040_8934321409_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="13.00" length="59.92" shape="48.89,91.65 27.26,84.09 9.43,76.64 -1.11,69.98 -0.85,64.77"/>
+        <lane id=":cluster_5816827040_8934321409_0_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="12.38" length="54.18" shape="49.90,88.62 29.75,81.76 13.21,75.56 2.75,70.60 0.85,67.49"/>
+    </edge>
+    <edge id=":cluster_5816827040_8934321409_2" function="internal">
+        <lane id=":cluster_5816827040_8934321409_2_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="12.15" length="63.83" shape="42.69,80.12 27.49,92.65 15.45,94.72 6.57,86.34 0.85,67.49"/>
+    </edge>
+
+    <edge id="814278931#0" from="3459661227" to="cluster_5816827040_8934321409" name="Lurleen B Wallace Boulevard North" priority="13" type="highway.trunk" spreadType="center" shape="48.72,76.81 42.51,86.17">
+        <lane id="814278931#0_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="0.20" shape="48.13,83.49 48.02,83.65">
+            <param key="origId" value="814278931"/>
+        </lane>
+        <lane id="814278931#0_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="0.20" shape="45.46,81.72 45.35,81.89">
+            <param key="origId" value="814278931"/>
+        </lane>
+        <lane id="814278931#0_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="0.20" shape="42.80,79.95 42.69,80.12">
+            <param key="origId" value="814278931"/>
+        </lane>
+        <param key="bicycle" value="yes"/>
+        <param key="highway" value="trunk"/>
+        <param key="lanes" value="3"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="Lurleen B Wallace Boulevard North"/>
+        <param key="oneway" value="yes"/>
+        <param key="origTo" value="8934321409"/>
+    </edge>
+    <edge id="965779693" from="11323131855" to="cluster_5816827040_8934321409" name="University Boulevard" priority="12" type="highway.primary" spreadType="center" shape="110.87,108.79 42.51,86.17">
+        <lane id="965779693_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="64.22" shape="109.86,111.83 48.89,91.65">
+            <param key="origId" value="965779693"/>
+        </lane>
+        <lane id="965779693_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="64.22" shape="110.87,108.79 49.90,88.62">
+            <param key="origId" value="965779693"/>
+        </lane>
+        <lane id="965779693_2" index="2" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="64.22" shape="111.88,105.75 50.91,85.58">
+            <param key="origId" value="965779693"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="3"/>
+        <param key="name" value="University Boulevard"/>
+        <param key="oneway" value="yes"/>
+        <param key="origTo" value="8934321409"/>
+        <param key="turn:lanes" value="through|right|right"/>
+    </edge>
+    <edge id="965779695" from="3459661227" to="8934321405" name="University Boulevard" priority="12" type="highway.primary" spreadType="center">
+        <lane id="965779695_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="43.56" shape="60.76,79.15 102.07,92.97">
+            <param key="origId" value="965779695"/>
+        </lane>
+        <lane id="965779695_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="43.56" shape="59.74,82.19 101.05,96.01">
+            <param key="origId" value="965779695"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="name" value="University Boulevard"/>
+        <param key="oneway" value="yes"/>
+    </edge>
+    <edge id="965779697" from="cluster_5816827040_8934321409" to="3459661227" name="University Boulevard" priority="12" type="highway.primary" spreadType="center" shape="0.00,66.13 5.04,62.99 19.63,67.68 30.12,71.04 48.72,76.81">
+        <lane id="965779697_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="39.95" shape="-0.85,64.77 4.82,61.24 20.12,66.16 30.60,69.51 37.93,71.79">
+            <param key="origId" value="965779697"/>
+        </lane>
+        <lane id="965779697_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship" speed="27.78" length="39.95" shape="0.85,67.49 5.26,64.74 19.14,69.20 29.64,72.57 36.98,74.84">
+            <param key="origId" value="965779697"/>
+        </lane>
+        <param key="highway" value="primary"/>
+        <param key="lanes" value="2"/>
+        <param key="name" value="University Boulevard"/>
+        <param key="oneway" value="yes"/>
+        <param key="origFrom" value="5816827040"/>
+    </edge>
+    <edge id="965779701" from="5817007532" to="3459661227" name="Lurleen B Wallace Boulevard North" priority="13" type="highway.trunk" spreadType="center" shape="74.88,0.00 53.65,64.09 48.72,76.81">
+        <lane id="965779701_0" index="0" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="73.58" shape="80.96,2.01 59.68,66.25 57.43,72.06">
+            <param key="origId" value="965779701"/>
+        </lane>
+        <lane id="965779701_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="73.58" shape="77.92,1.01 56.66,65.17 54.44,70.90">
+            <param key="origId" value="965779701"/>
+        </lane>
+        <lane id="965779701_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="73.58" shape="74.88,-0.00 53.65,64.09 51.46,69.74">
+            <param key="origId" value="965779701"/>
+        </lane>
+        <lane id="965779701_3" index="3" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="73.58" shape="71.84,-1.01 50.64,63.01 48.48,68.59">
+            <param key="origId" value="965779701"/>
+        </lane>
+        <lane id="965779701_4" index="4" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" speed="20.12" length="73.58" shape="68.80,-2.01 47.62,61.93 45.49,67.43">
+            <param key="origId" value="965779701"/>
+        </lane>
+        <param key="bicycle" value="yes"/>
+        <param key="highway" value="trunk"/>
+        <param key="lanes" value="5"/>
+        <param key="maxspeed" value="45 mph"/>
+        <param key="name" value="Lurleen B Wallace Boulevard North"/>
+        <param key="oneway" value="yes"/>
+        <param key="turn:lanes" value="left|none|none|none|right"/>
+    </edge>
+
+    <tlLogic id="3459661227" type="NEMA" programID="0" offset="0">
+        <phase duration="90" state="GGGGrrrr" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="6"/>
+        <phase duration="90" state="rrrrGGGG" minDur="5" maxDur="50" vehext="2" yellow="3" red="2" name="8"/>
+        <param key="barrier2Phases" value="8,6"/>
+        <param key="barrierPhases" value="8,8"/>
+        <param key="ring1" value="0,0,0,8"/>
+        <param key="ring2" value="0,6,0,8"/>
+    </tlLogic>
+
+    <junction id="11323131855" type="dead_end" x="110.87" y="108.79" incLanes="" intLanes="" shape="112.38,104.23 109.36,113.35"/>
+    <junction id="3459661227" type="traffic_light" x="48.72" y="76.81" incLanes="965779701_0 965779701_1 965779701_2 965779701_3 965779701_4 965779697_0 965779697_1" intLanes=":3459661227_0_0 :3459661227_1_0 :3459661227_1_1 :3459661227_1_2 :3459661227_4_0 :3459661227_4_1 :3459661227_6_0 :3459661227_6_1" shape="59.24,83.70 61.27,77.63 59.32,76.51 58.78,75.75 58.54,74.85 58.58,73.81 58.92,72.63 44.00,66.85 42.59,69.27 41.71,70.00 40.72,70.41 39.62,70.49 38.40,70.26 36.50,76.37 39.37,77.71 40.15,78.51 40.49,79.40 40.41,80.37 39.89,81.44 47.89,86.75 49.23,85.11 50.80,83.92 52.58,83.19 54.58,82.91 56.80,83.08" rightOfWay="allwayStop">
+        <request index="0" response="00000000" foes="00110000" cont="0"/>
+        <request index="1" response="00000000" foes="11110000" cont="0"/>
+        <request index="2" response="00000000" foes="11110000" cont="0"/>
+        <request index="3" response="00000000" foes="11110000" cont="0"/>
+        <request index="4" response="00001111" foes="00001111" cont="0"/>
+        <request index="5" response="00001111" foes="00001111" cont="0"/>
+        <request index="6" response="00001110" foes="00001110" cont="0"/>
+        <request index="7" response="00001110" foes="00001110" cont="0"/>
+        <param key="highway" value="traffic_signals"/>
+    </junction>
+    <junction id="5817007532" type="dead_end" x="74.88" y="0.00" incLanes="" intLanes="" shape="67.29,-2.52 82.47,2.52"/>
+    <junction id="8934321405" type="dead_end" x="101.56" y="94.49" incLanes="965779695_0 965779695_1" intLanes="" shape="102.58,91.46 100.54,97.52"/>
+    <junction id="cluster_5816827040_8934321409" type="priority" x="21.26" y="76.15" incLanes="965779693_0 965779693_1 965779693_2 814278931#0_0 814278931#0_1 814278931#0_2" intLanes=":cluster_5816827040_8934321409_0_0 :cluster_5816827040_8934321409_0_1 :cluster_5816827040_8934321409_2_0" shape="48.39,93.17 51.41,84.06 50.72,83.64 50.58,83.35 50.56,83.01 50.68,82.61 50.93,82.16 42.93,76.86 1.69,68.85 -1.69,63.41 -4.14,66.63 -2.27,70.55 3.92,75.16 14.42,80.47 29.25,86.47">
+        <request index="0" response="000" foes="100" cont="0"/>
+        <request index="1" response="000" foes="100" cont="0"/>
+        <request index="2" response="011" foes="011" cont="0"/>
+        <param key="origEdgeIds" value="965779696"/>
+        <param key="origId" value="5816827040 8934321409"/>
+    </junction>
+
+    <connection from="814278931#0" to="965779697" fromLane="2" toLane="1" via=":cluster_5816827040_8934321409_2_0" dir="t" state="m"/>
+    <connection from="965779693" to="965779697" fromLane="0" toLane="0" via=":cluster_5816827040_8934321409_0_0" dir="l" state="M"/>
+    <connection from="965779693" to="965779697" fromLane="1" toLane="1" via=":cluster_5816827040_8934321409_0_1" dir="l" state="M"/>
+    <connection from="965779697" to="965779695" fromLane="0" toLane="0" via=":3459661227_4_0" tl="3459661227" linkIndex="4" dir="s" state="w"/>
+    <connection from="965779697" to="965779695" fromLane="1" toLane="1" via=":3459661227_4_1" tl="3459661227" linkIndex="5" dir="s" state="w"/>
+    <connection from="965779697" to="814278931#0" fromLane="1" toLane="1" via=":3459661227_6_0" tl="3459661227" linkIndex="6" dir="l" state="w"/>
+    <connection from="965779697" to="814278931#0" fromLane="1" toLane="2" via=":3459661227_6_1" tl="3459661227" linkIndex="7" dir="l" state="w"/>
+    <connection from="965779701" to="965779695" fromLane="0" toLane="0" via=":3459661227_0_0" tl="3459661227" linkIndex="0" dir="r" state="w"/>
+    <connection from="965779701" to="814278931#0" fromLane="1" toLane="0" via=":3459661227_1_0" tl="3459661227" linkIndex="1" dir="s" state="w"/>
+    <connection from="965779701" to="814278931#0" fromLane="2" toLane="1" via=":3459661227_1_1" tl="3459661227" linkIndex="2" dir="s" state="w"/>
+    <connection from="965779701" to="814278931#0" fromLane="3" toLane="2" via=":3459661227_1_2" tl="3459661227" linkIndex="3" dir="s" state="w"/>
+
+    <connection from=":3459661227_0" to="965779695" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":3459661227_1" to="814278931#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3459661227_1" to="814278931#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":3459661227_1" to="814278931#0" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":3459661227_4" to="965779695" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":3459661227_4" to="965779695" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":3459661227_6" to="814278931#0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":3459661227_6" to="814278931#0" fromLane="1" toLane="2" dir="l" state="M"/>
+    <connection from=":cluster_5816827040_8934321409_0" to="965779697" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":cluster_5816827040_8934321409_0" to="965779697" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_5816827040_8934321409_2" to="965779697" fromLane="0" toLane="1" dir="t" state="M"/>
+
+</net>
