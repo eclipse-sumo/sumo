@@ -1409,7 +1409,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 NBLoadedSUMOTLDef* oldLoaded = dynamic_cast<NBLoadedSUMOTLDef*>(TLS);
                 if (oldLoaded != nullptr) {
                     NBTrafficLightDefinition* newDef = nullptr;
-                    if (value == toString(TrafficLightType::NEMA) || oldLoaded->getType() == TrafficLightType::NEMA ) {
+                    if (value == toString(TrafficLightType::NEMA) || oldLoaded->getType() == TrafficLightType::NEMA) {
                         // rebuild the program because the old and new ones are incompatible
                         newDef = new NBOwnTLDef(oldLoaded->getID(), oldLoaded->getOffset(), TrafficLightType::NEMA);
                         newDef->setProgramID(oldLoaded->getProgramID());
@@ -1801,7 +1801,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         myNetworkElementContour.calculateContourClosedShape(s, d, this, myNBNode->getShape(), exaggeration);
         // check if calculate contour for bubble
         if (drawBubble) {
-            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
+            myCircleContour.calculateContourCircleShape(s, d, this, myNBNode->getPosition(), s.neteditSizeSettings.junctionBubbleRadius, exaggeration);
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
