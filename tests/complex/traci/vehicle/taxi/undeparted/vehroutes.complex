@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-08-09 18:29:19 by Eclipse SUMO sumo Version v1_14_1+0166-5f48fcf
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-06-13 14:22:27 by Eclipse SUMO sumo Version v1_20_0+0509-8e1b6edaebc
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net4.net.xml"/>
@@ -22,14 +22,14 @@
     </taxi_device>
 
     <traci_server>
-        <remote-port value="37451"/>
+        <remote-port value="38691"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="94.00">
+    <person id="p0" depart="0.00" arrival="126.00">
         <ride from="A2B2" to="C2D2" arrivalPos="90.60" lines="taxi"/>
     </person>
 

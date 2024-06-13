@@ -44,8 +44,14 @@ traci.start([sumoBinary,
 traci.simulationStep()
 reservations = traci.person.getTaxiReservations(3)
 print("reservations", reservations)
-traci.vehicle.add("taxi", "taxi", "r0")
-traci.vehicle.dispatchTaxi("taxi", [reservations[0].id])
+traci.vehicle.add("taxi", "r0", "taxi")
+try:
+    traci.vehicle.dispatchTaxi("taxi", [reservations[0].id])
+except traci.TraCIException:
+    traci.simulationStep()
+    traci.vehicle.dispatchTaxi("taxi", [reservations[0].id])
+
+
 
 while traci.simulation.getMinExpectedNumber() > 0:
     print("%s all=%s empty=%s pickup=%s dropoff=%s pickup+dropoff=%s" % (
