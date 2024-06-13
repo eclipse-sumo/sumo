@@ -1,6 +1,9 @@
+chargingstation.setChargeDelay traci: (typeID, delay) libsumo: (stopID, delay)
+chargingstation.setChargeInTransit traci: (typeID, inTransit) libsumo: (stopID, value)
+chargingstation.setChargingPower traci: (typeID, power) libsumo: (stopID, chargingpower)
+chargingstation.setEfficiency traci: (typeID, efficiency) libsumo: (stopID, efficiency)
 lane.getLinks traci: (laneID, extended=True) libsumo: (laneID)
 person.getPosition traci: (personID) libsumo: (personID, includeZ=False)
 poi.getPosition traci: (poiID) libsumo: (poiID, includeZ=False)
 vehicle.getPosition traci: (vehID) libsumo: (vehID, includeZ=False)
- Retrying in 1 seconds
 Domain.setParameter() got an unexpected keyword argument 'oID'
