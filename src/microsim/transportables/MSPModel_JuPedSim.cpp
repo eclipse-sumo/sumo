@@ -74,6 +74,9 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
 
 MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     clearState();
+    if (myPythonScript != nullptr) {
+        (*myPythonScript) << "while simulation.agent_count() > 0 and simulation.iteration_count() < 160 * 100: simulation.iterate()\n";
+    }
 
     JPS_Simulation_Free(myJPSSimulation);
     JPS_OperationalModel_Free(myJPSModel);
@@ -148,7 +151,8 @@ MSPModel_JuPedSim::addStage(JPS_JourneyDescription journey, JPS_StageId& predece
 bool
 MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint) {
     JPS_ErrorMessage message = nullptr;
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {std::get<1>(waypoint).x(), std::get<1>(waypoint).y()},
+    const Position& coords = std::get<1>(waypoint);
+    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {coords.x(), coords.y()},
                                    std::get<2>(waypoint), &message);
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
@@ -157,8 +161,19 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
     }
     const JPS_StageId waiting = std::get<0>(waypoint);
     if (waiting != 0) {
+        if (myPythonScript != nullptr) {
+            (*myPythonScript) << "journey.add(" << waiting << ")\n"
+                              "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(" << waiting << "))\n";
+        }
         if (!addStage(journey, predecessor, agentID, waiting)) {
             return false;
+        }
+    }
+    if (myPythonScript != nullptr) {
+        (*myPythonScript) << "ws = simulation.add_waypoint_stage((" << coords.x() << "," << coords.y() << "), " << std::get<2>(waypoint) << ")\n"
+                          "journey.add(ws)\n";
+        if (predecessor != 0) {
+            (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(ws))\n";
         }
     }
     if (!addStage(journey, predecessor, agentID, waypointId)) {
@@ -259,6 +274,9 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     waypoints.push_back({finalWait, arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)});
 
     JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
+    if (myPythonScript != nullptr) {
+        (*myPythonScript) << "\njourney = jps.JourneyDescription()\n";
+    }
     JPS_StageId startingStage = 0;
     JPS_StageId predecessor = 0;
     for (const auto& p : waypoints) {
@@ -299,6 +317,12 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     }
     if (state->isWaitingToEnter()) {
         tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
+        if (myPythonScript != nullptr) {
+            (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
+                              "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
+                              << startingStage << ",position=(" << departurePosition.x() << "," << departurePosition.y()
+                              << "),radius=" << getRadius(person->getVehicleType()) << ",v0=" << person->getMaxSpeed() << "))\n";
+        }
     } else {
         JPS_Simulation_SwitchAgentJourney(myJPSSimulation, state->getAgentId(), journeyId, startingStage, &message);
         if (message != nullptr) {
@@ -1022,9 +1046,12 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     }
     if (OutputDevice::createDeviceByOption("pedestrian.jupedsim.py")) {
         myPythonScript = &OutputDevice::getDeviceByOption("pedestrian.jupedsim.py");
+        myPythonScript->setPrecision(10);
         (*myPythonScript) << "import jupedsim as jps\nimport shapely\n\n"
-                          "simulation = jps.Simulation(dt=0.05, model=jps.CollisionFreeSpeedModel(), geometry=geometry,\n"
-                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file=''))\n";
+                          "with open('" << oc.getString("pedestrian.jupedsim.wkt") << "') as f: geom = shapely.from_wkt(f.read())\n"
+                          "simulation = jps.Simulation(dt=" << STEPS2TIME(myJPSDeltaT) << ", model=jps.CollisionFreeSpeedModel(), geometry=geom,\n"
+                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n"
+                          "waiting_sets = {}\n";
     }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
@@ -1039,6 +1066,11 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         }
         const auto proxy1 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy1, JPS_WaitingSet_Inactive);
+        if (myPythonScript != nullptr) {
+            (*myPythonScript) << "ws_in = simulation.add_waiting_set_stage([(" << inPos.x() << "," << inPos.y() << ")])\n"
+                              "simulation.get_stage(ws_in).state = jps.stages.WaitingSetState.INACTIVE\n";
+        }
+
         const Position outPos = shape.positionAtOffset(shape.length() - .5);
         std::vector<JPS_Point> pointsOut{{outPos.x(), outPos.y()}};
         crossing.second.second = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsOut.data(), pointsOut.size(), &message);
@@ -1049,6 +1081,11 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         }
         const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy2, JPS_WaitingSet_Inactive);
+        if (myPythonScript != nullptr) {
+            (*myPythonScript) << "ws_out = simulation.add_waiting_set_stage([(" << outPos.x() << "," << outPos.y() << ")])\n"
+                              "simulation.get_stage(ws_out).state = jps.stages.WaitingSetState.INACTIVE\n"
+                              "waiting_sets['" << crossing.first->getID() << "'] = (ws_in, ws_out)\n";
+        }
     }
 }
 
