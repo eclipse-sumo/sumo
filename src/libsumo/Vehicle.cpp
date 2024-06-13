@@ -2583,6 +2583,9 @@ void
 Vehicle::dispatchTaxi(const std::string& vehID,  const std::vector<std::string>& reservations) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
     MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(veh->getDevice(typeid(MSDevice_Taxi)));
+    if (!veh->hasDeparted()) {
+        throw TraCIException("Vehicle '" + vehID + "' has not yet departed");
+    }
     if (taxi == nullptr) {
         throw TraCIException("Vehicle '" + vehID + "' is not a taxi");
     }
