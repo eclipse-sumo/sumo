@@ -30,6 +30,7 @@ stop is an area on a lane. The parameters have the following meanings:
 | color           | color      | see [color definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#colors)                                                                                | "76,170,50"            | Bus stop color. This is only used for visualization purposes.                                                               |
 | lines          | string list | A list of names separated by spaces (' ')                                                    |             | meant to be the names of the bus lines that stop at this bus stop. This is only used for visualization purposes.           |
 | personCapacity  | int | >= 0 | min(6, (endPos-StartPos) * 2.4)  | larger numbers of persons trying to enter will create an upstream jam on the sidewalk.  |
+| parkingLength  | float | >= 0 | (endPos - startPos) | space available for parking vehicles  |
 
 !!! caution
     Please note that bus stops must be added to a config via the *--additional-files* parameter (see {{AdditionalFile}}).
