@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-06-13 07:10:45 by Eclipse SUMO duarouter Version v1_20_0+0443-233e48e5c88
+-->
+
+<duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -11,4 +14,4 @@
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</duarouterConfiguration>

@@ -1,4 +1,9 @@
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-13 07:15:38 by Eclipse SUMO netgenerate Version v1_20_0+0443-233e48e5c88
+-->
+
+<netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
 
     <random_network>
         <rand value="true"/>
@@ -16,4 +21,4 @@
         <no-turnarounds.fringe value="true"/>
     </junctions>
 
-</configuration>
+</netgenerateConfiguration>

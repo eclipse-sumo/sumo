@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-04 09:44:33 by Eclipse SUMO netconvert Version v1_20_0+0345-f9c5dc4db4d
+<!-- generated on 2024-06-13 07:12:49 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="net.nod.xml"/>
@@ -16,4 +16,4 @@
         <output-file value="net.net.xml"/>
     </output>
 
-</configuration>
+</netconvertConfiguration>

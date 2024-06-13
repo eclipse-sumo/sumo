@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-12-02 13:09:18 by Eclipse SUMO netconvert Version v1_15_0+0719-b14a25c54bb
+<!-- generated on 2024-06-13 07:12:54 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertUrbanDe.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertPedestrians.typ.xml"/>
@@ -41,12 +41,12 @@
     </pedestrian>
 
     <formats>
-        <osm.sidewalks value="true"/>
         <osm.bike-access value="true"/>
+        <osm.sidewalks value="true"/>
     </formats>
 
     <report>
         <verbose value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>

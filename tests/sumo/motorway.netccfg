@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-07-01 09:53:52 by Eclipse SUMO netconvert Version v1_9_2+0786-faea4df
+<!-- generated on 2024-06-13 07:12:52 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="motorway.nod.xml"/>
@@ -23,4 +23,4 @@
         <junctions.small-radius value="4"/>
     </junctions>
 
-</configuration>
+</netconvertConfiguration>

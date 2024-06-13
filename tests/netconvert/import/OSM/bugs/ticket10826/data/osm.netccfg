@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-01 08:44:50 by Eclipse SUMO netconvert Version v1_13_0+0497-ea965e7
+<!-- generated on 2024-06-13 07:12:54 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
 -->
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="patch.nod.xml"/>
@@ -15,4 +15,4 @@
         <remove-edges.by-type value="highway.track,highway.unsurfaced,highway.service"/>
     </edge_removal>
 
-</configuration>
+</netconvertConfiguration>
