@@ -1969,12 +1969,27 @@ GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUICo
             scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
         }
         double range = maxValue - minValue;
-        scheme.addColor(rs.colors.front(), (minValue));
+        scheme.addColor(rs.colors.front(), minValue);
         const int steps = rs.colors.size() - 1;
-        for (int i = 1; i < steps; i++) {
-            scheme.addColor(rs.colors[i], (minValue + range * i / steps));
+        if (rs.setNeutral) {
+            int steps1 = steps / 2;
+            int steps2 = steps - steps1;
+            int range1 = rs.neutralThreshold - minValue;
+            int range2 = maxValue - rs.neutralThreshold;
+            for (int i = 1; i < steps1; i++) {
+                scheme.addColor(rs.colors[i], (minValue + range1 * i / steps1));
+            }
+            scheme.addColor(rs.colors[steps1], rs.neutralThreshold);
+            for (int i = 1; i < steps2; i++) {
+                scheme.addColor(rs.colors[steps1 + i], (rs.neutralThreshold + range2 * i / steps2));
+            }
+
+        } else {
+            for (int i = 1; i < steps; i++) {
+                scheme.addColor(rs.colors[i], (minValue + range * i / steps));
+            }
         }
-        scheme.addColor(rs.colors.back(), (maxValue));
+        scheme.addColor(rs.colors.back(), maxValue);
     }
 }
 
