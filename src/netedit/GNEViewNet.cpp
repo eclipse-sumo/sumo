@@ -825,13 +825,12 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
         }
         double range = maxValue - minValue;
-        scheme.addColor(RGBColor::RED, (minValue));
-        scheme.addColor(RGBColor::ORANGE, (minValue + range * 1 / 6.0));
-        scheme.addColor(RGBColor::YELLOW, (minValue + range * 2 / 6.0));
-        scheme.addColor(RGBColor::GREEN, (minValue + range * 3 / 6.0));
-        scheme.addColor(RGBColor::CYAN, (minValue + range * 4 / 6.0));
-        scheme.addColor(RGBColor::BLUE, (minValue + range * 5 / 6.0));
-        scheme.addColor(RGBColor::MAGENTA, (maxValue));
+        scheme.addColor(rs.colors.front(), (minValue));
+        const int steps = rs.colors.size() - 1;
+        for (int i = 1; i < steps; i++) {
+            scheme.addColor(rs.colors[i], (minValue + range * i / steps));
+        }
+        scheme.addColor(rs.colors.back(), (maxValue));
     }
 }
 

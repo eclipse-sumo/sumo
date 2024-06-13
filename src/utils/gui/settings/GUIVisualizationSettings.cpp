@@ -203,6 +203,13 @@ const std::string GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_LIVE("by live e
 const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>::max());
 RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
 
+std::map<std::string, std::vector<RGBColor> > GUIVisualizationSettings::RAINBOW_SCHEMES({
+        // cannot use predefined colors to avoid "static initialization order fiasco"
+        {"classic", std::vector<RGBColor>({RGBColor(255,0,0), RGBColor(255,128,0), RGBColor(255,255,0), RGBColor(0,255,0), RGBColor(0,255,255), RGBColor(0,0,255), RGBColor(255,0,255)})}, 
+        {"YlOrRd", std::vector<RGBColor>({RGBColor(255,255,178), RGBColor(254,217,118), RGBColor(254,178,76), RGBColor(253,141,60), RGBColor(252,78,42), RGBColor(227,26,28), RGBColor(177,0,38)})}, 
+        {"RdBu", std::vector<RGBColor>({RGBColor(178,24,43), RGBColor(239,138,98), RGBColor(253,219,199), RGBColor(247,247,247), RGBColor(209,229,240), RGBColor(103,169,207), RGBColor(33,102,172)})}, 
+        });
+
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
 #define COL_SCHEME_MISC     RGBColor(210,220,255)
@@ -279,8 +286,9 @@ GUIVisualizationRainbowSettings::GUIVisualizationRainbowSettings(bool _hideMin, 
     hideMin(_hideMin),
     minThreshold(_minThreshold),
     hideMax(_hideMax),
-    maxThreshold(_maxThreshold) {
-}
+    maxThreshold(_maxThreshold),
+    colors(GUIVisualizationSettings::RAINBOW_SCHEMES["classic"])
+{ }
 
 
 bool

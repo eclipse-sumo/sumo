@@ -641,7 +641,8 @@ enum {
     MID_SIMPLE_VIEW_SAVE_DECALS_XML,
     /// @brief For the clear-decals - button
     MID_SIMPLE_VIEW_CLEAR_DECALS,
-
+    /// @brief For changing rainbow style
+    MID_SIMPLE_VIEW_RAINBOW_CHANGE,
     /// @}
 
     ///@brief help button

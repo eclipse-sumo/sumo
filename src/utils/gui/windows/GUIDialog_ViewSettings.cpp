@@ -1675,9 +1675,13 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
     FXComposite* parent,
     GUIDialog_ViewSettings* target,
     const GUIVisualizationRainbowSettings& settings) {
-    FXMatrix* matrixRainbow = new FXMatrix(parent, 5, GUIDesignViewSettingsMatrix3);
+    FXMatrix* matrixRainbow = new FXMatrix(parent, 6, GUIDesignViewSettingsMatrix3);
     myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
+    myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_RAINBOW_CHANGE, GUIDesignViewSettingsComboBox1);
+    for (auto item : GUIVisualizationSettings::RAINBOW_SCHEMES) {
+        myRainbowStyle->appendIconItem(item.first.c_str());
+    }
     myHideMinCheck = new FXCheckButton(matrixRainbow, TL("hide below"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
     myHideMinCheck->setCheck(settings.hideMin);
     myMinThreshold = new FXRealSpinner(matrixRainbow, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
@@ -1693,10 +1697,13 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
 
 GUIVisualizationRainbowSettings
 GUIDialog_ViewSettings::RainbowPanel::getSettings() {
-    return GUIVisualizationRainbowSettings(myHideMinCheck->getCheck() != FALSE,
+    GUIVisualizationRainbowSettings res(myHideMinCheck->getCheck() != FALSE,
                                         myMinThreshold->getValue(),
                                         myHideMaxCheck->getCheck() != FALSE,
                                         myMaxThreshold->getValue());
+    std::string sName = myRainbowStyle->getItemText(myRainbowStyle->getCurrentItem());
+    res.colors = GUIVisualizationSettings::RAINBOW_SCHEMES[sName];
+    return res;
 }
 
 

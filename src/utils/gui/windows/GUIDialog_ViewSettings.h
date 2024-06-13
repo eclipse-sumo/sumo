@@ -148,6 +148,8 @@ public:
 
         FXButton* myColorRainbow = nullptr;
 
+        MFXComboBoxIcon* myRainbowStyle = nullptr;
+
         /// @brief check button
         FXCheckButton* myHideMinCheck = nullptr;
 

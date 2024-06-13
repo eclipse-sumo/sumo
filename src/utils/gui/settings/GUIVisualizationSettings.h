@@ -108,6 +108,8 @@ struct GUIVisualizationRainbowSettings {
     bool hideMax;
     /// @brief threshold above which value should not be colored
     double maxThreshold;
+    /// @brief color steps for the rainbow;
+    std::vector<RGBColor> colors;
 };
 
 
@@ -1038,6 +1040,8 @@ public:
 
     static const double MISSING_DATA;
     static RGBColor COL_MISSING_DATA;
+
+    static std::map<std::string, std::vector<RGBColor> > RAINBOW_SCHEMES;
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
