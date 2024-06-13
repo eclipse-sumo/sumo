@@ -14,6 +14,7 @@
 
 # @file    runner.py
 # @author  Jakob Erdmann
+# author   Mirko Barthauer
 # @date    2020-03-16
 
 
@@ -36,14 +37,33 @@ traci.start([sumolib.checkBinary('sumo'),
 
 print("chargingstations", traci.chargingstation.getIDList())
 print("chargingstation count", traci.chargingstation.getIDCount())
-print("stop attributes:")
+print("stop attributes before setting values:")
 for stop in traci.chargingstation.getIDList():
-    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s" % (
+    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s power=%.0f efficiency=%.2f chargeDelay=%.2f chargeInTransit=%d" % (
         stop,
         traci.chargingstation.getLaneID(stop),
         traci.chargingstation.getStartPos(stop),
         traci.chargingstation.getEndPos(stop),
-        traci.chargingstation.getName(stop)))
+        traci.chargingstation.getName(stop),
+        traci.chargingstation.getChargingPower(stop),
+        traci.chargingstation.getEfficiency(stop),
+        traci.chargingstation.getChargeDelay(stop),
+        traci.chargingstation.getChargeInTransit(stop))
+        )
+    # setter functions
+print("stop attributes after setting values:")
+for stop in traci.chargingstation.getIDList():
+    traci.chargingstation.setChargingPower(stop, 50000.)
+    traci.chargingstation.setEfficiency(stop, 1.)
+    traci.chargingstation.setChargeDelay(stop, 0.)
+    traci.chargingstation.setChargeInTransit(stop, 1)
+    print("  stop=%s power=%.0f efficiency=%.2f chargeDelay=%.2f chargeInTransit=%d" % (
+        stop,
+        traci.chargingstation.getChargingPower(stop),
+        traci.chargingstation.getEfficiency(stop),
+        traci.chargingstation.getChargeDelay(stop),
+        traci.chargingstation.getChargeInTransit(stop))
+        )
 
 for step in range(50):
     if step % 5 == 0:
