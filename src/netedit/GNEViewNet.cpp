@@ -743,7 +743,7 @@ GNEViewNet::getEditNetworkElementShapes() const {
 
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-        const GUIVisualizationRainbowSettings& rs) {
+                              const GUIVisualizationRainbowSettings& rs) {
     assert(!scheme.isFixed());
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
@@ -2656,7 +2656,7 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
             // end undo-list
             myNet->getViewNet()->getUndoList()->end();
         } else {
-            polygonUnderMouse->simplifyShape();
+            polygonUnderMouse->closePolygon();
         }
     }
     updateViewNet();
