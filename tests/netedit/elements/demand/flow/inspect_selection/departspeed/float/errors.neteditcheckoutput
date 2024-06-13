@@ -17,7 +17,6 @@ Warning: Choosing new speed factor 1.44 for vehicle 'flowA.3' to match departure
 Warning: Vehicle 'flowA.3' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.3' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.3' to match departure speed 20.00 (max 12.32).
-Error: Vehicle 'flowB.3' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.4' to match departure speed 20.00 (max 13.04).
 Warning: Vehicle 'flowA.4' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.4' will not be able to arrive at the given lane 'Edge2_0'!
@@ -32,7 +31,6 @@ Warning: Choosing new speed factor 1.44 for vehicle 'flowA.6' to match departure
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.6' to match departure speed 20.00 (max 15.61).
-Error: Vehicle 'flowB.6' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.7' to match departure speed 20.00 (max 13.78).
 Warning: Vehicle 'flowA.7' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.7' will not be able to arrive at the given lane 'Edge2_0'!
@@ -57,7 +55,6 @@ Warning: Choosing new speed factor 1.44 for vehicle 'flowA.11' to match departur
 Warning: Vehicle 'flowA.11' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.11' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.11' to match departure speed 20.00 (max 12.37).
-Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.12' to match departure speed 20.00 (max 11.48).
 Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_0'!

@@ -10,7 +10,6 @@ Warning: Vehicle 'flowA.4' will not be able to arrive at the given lane 'Edge2_0
 Warning: Vehicle 'flowA.4' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.5' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.5' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.5' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.7' will not be able to arrive at the given lane 'Edge2_0'!
@@ -19,12 +18,14 @@ Warning: Vehicle 'flowA.8' will not be able to arrive at the given lane 'Edge2_0
 Warning: Vehicle 'flowA.8' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.9' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.9' will not be able to arrive at the given lane 'Edge2_0'!
+Error: Vehicle 'flowA.9' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.10' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.10' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.11' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.11' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_0'!
+Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.13' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.13' will not be able to arrive at the given lane 'Edge2_0'!
-Error: Vehicle 'flowA.13' will not be able to depart using the given velocity (slow lane ahead)!

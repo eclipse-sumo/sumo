@@ -1,12 +1,15 @@
+Warning: Missing yellow phase in tlLogic 'Junction1', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction2', program '0' for tl-index 0 when switching to phase 1.
+Warning: Unused states in tlLogic 'Junction3', program '0' in phase 0 after tl-index 3
+Warning: Missing yellow phase in tlLogic 'Junction3', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction4', program '0' for tl-index 0 when switching to phase 1.
 Warning: Vehicle 'routeFlow.0' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'routeFlow.1' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.15), time=343.00.
 Warning: Vehicle 'routeFlow.1' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.2' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.3' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.4' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.5' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.6' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
-Warning: Vehicle 'routeFlow.7' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.01), time=1544.00.
 Warning: Vehicle 'routeFlow.7' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.8' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.
 Warning: Vehicle 'routeFlow.9' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.

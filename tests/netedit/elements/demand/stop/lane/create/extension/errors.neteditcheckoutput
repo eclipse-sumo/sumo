@@ -1,2 +1,1 @@
-Warning: Vehicle 'routeFlow.15' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.07), time=3024.00.
 Warning: Vehicle 'routeFlow.17' aborted waiting for a person that will never come.

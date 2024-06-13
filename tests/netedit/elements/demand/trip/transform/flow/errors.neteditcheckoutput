@@ -1,0 +1,11 @@
+Warning: Missing yellow phase in tlLogic 'Junction1', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction2', program '0' for tl-index 0 when switching to phase 1.
+Warning: Unused states in tlLogic 'Junction3', program '0' in phase 0 after tl-index 3
+Warning: Missing yellow phase in tlLogic 'Junction3', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction4', program '0' for tl-index 0 when switching to phase 1.
+Warning: Vehicle 't_0.520' performs emergency braking on lane 'Edge0_1' with decel=9.00, wished=4.50, severity=1.00, time=1578.00.
+Warning: Vehicle 't_0.675' performs emergency braking on lane 'Edge0_1' with decel=9.00, wished=4.50, severity=1.00, time=2043.00.
+Warning: Vehicle 't_0.675' performs emergency stop at the end of lane 'Edge0_1' because of a red traffic light (decel=-9.46, offset=0.09), time=2043.00.
+Warning: Vehicle 't_0.1015' performs emergency braking on lane 'Edge0_1' with decel=9.00, wished=4.50, severity=1.00, time=3066.00.
+Warning: Vehicle 't_0.1015' performs emergency stop at the end of lane 'Edge0_1' because of a red traffic light (decel=-10.57, offset=0.62), time=3066.00.
+Warning: Vehicle 't_0.1324' performs emergency braking on lane 'Edge0_1' with decel=9.00, wished=4.50, severity=1.00, time=3996.00.

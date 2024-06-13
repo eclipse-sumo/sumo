@@ -472,7 +472,6 @@ Warning: Vehicle 'flowA.439' will not be able to arrive at the given lane 'Edge2
 Warning: Vehicle 'flowA.440' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.441' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.441' will not be able to arrive with the given speed!
-Warning: Choosing new speed factor 1.21 for vehicle 'flowA.441' to match departure speed 12.00 (max 11.22).
 Warning: Vehicle 'flowA.442' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.443' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.444' will not be able to arrive at the given lane 'Edge2_0'!

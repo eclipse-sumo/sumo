@@ -25,7 +25,6 @@ Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (sl
 Warning: Vehicle 'flowA.6' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.6' to match departure speed 20.00 (max 14.55).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.6' to match departure speed 20.00 (max 15.61).
-Error: Vehicle 'flowB.6' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.7' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.7' to match departure speed 20.00 (max 13.78).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.7' to match departure speed 20.00 (max 12.88).
@@ -50,7 +49,6 @@ Warning: Vehicle 'flowA.12' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.12' to match departure speed 20.00 (max 11.48).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.12' to match departure speed 20.00 (max 12.13).
-Error: Vehicle 'flowB.12' will not be able to depart using the given velocity (slow lane ahead)!
 Warning: Vehicle 'flowA.13' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Choosing new speed factor 1.44 for vehicle 'flowA.13' to match departure speed 20.00 (max 12.75).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.13' to match departure speed 20.00 (max 13.19).

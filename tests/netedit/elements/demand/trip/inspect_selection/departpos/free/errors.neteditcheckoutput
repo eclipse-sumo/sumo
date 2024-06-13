@@ -1,2 +1,7 @@
+Warning: Missing yellow phase in tlLogic 'Junction1', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction2', program '0' for tl-index 0 when switching to phase 1.
+Warning: Unused states in tlLogic 'Junction3', program '0' in phase 0 after tl-index 3
+Warning: Missing yellow phase in tlLogic 'Junction3', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction4', program '0' for tl-index 0 when switching to phase 1.
 Warning: Vehicle 'tripA' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'tripA' will not be able to arrive at the given lane 'Edge2_0'!

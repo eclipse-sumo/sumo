@@ -1,4 +1,5 @@
-Error: Another edge with the id ':Junction3_0' exists.
-Error: Another edge with the id ':Junction3_1' exists.
-Error: Another junction with the id 'Junction3' exists.
-Quitting (on error).
+Warning: Missing yellow phase in tlLogic 'Junction1', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction2', program '0' for tl-index 0 when switching to phase 1.
+Warning: Unused states in tlLogic 'Junction3', program '0' in phase 0 after tl-index 3
+Warning: Missing yellow phase in tlLogic 'Junction3', program '0' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'Junction4', program '0' for tl-index 0 when switching to phase 1.
