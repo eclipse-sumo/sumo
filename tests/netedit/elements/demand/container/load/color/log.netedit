@@ -1,3 +1,3 @@
 Error: Attribute 'color' in definition of container 'p_1' Invalid color definition ''.
 Error: Attribute 'color' in definition of container 'p_2' Invalid color definition 'dummycolor'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.containers.1_from_17Jul085406.138164/netedit.daily.demand.containers/demandelements/container/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/container/load/color/routes.rou.xml failed.

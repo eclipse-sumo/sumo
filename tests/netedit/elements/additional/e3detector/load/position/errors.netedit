@@ -10,4 +10,4 @@ Error: 'detExit' must be defined within the definition of a 'e3Detector' (found 
 Error: Attribute 'pos' in definition of entryExitDetector 'entryExitDetector_3' Invalid Number Format (double) dummyY.
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.09Feb092805.14716/netedit.gui/additionalelements/e3detector/load/position/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e3detector/load/position/additionals.add.xml failed.

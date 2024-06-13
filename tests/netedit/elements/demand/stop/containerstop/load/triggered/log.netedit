@@ -3,4 +3,4 @@ Error: Attribute 'triggered' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
 Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
 Error: Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a boolean
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.20Jul154345.48029/netedit.gui/demandelements/stop/containerstop/load/triggered/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/stop/containerstop/load/triggered/routes.rou.xml failed.

@@ -1,2 +1,1 @@
 Error: Invalid departLane used in trip 't_1'. 20 is greater than number of lanes
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4

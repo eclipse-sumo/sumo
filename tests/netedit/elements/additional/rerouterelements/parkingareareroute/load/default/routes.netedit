@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-18 13:51:03 by Eclipse SUMO netedit Version v1_16_0+2149-f5731f702e4
+<!-- generated on 2024-06-11 15:54:00 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="r_0" edges="EdgeCenter1 E5 top E0 E1 bot E4 center0"/>
+    <route id="r_0" edges="Edge0 Edge1 Edge2"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <flow id="f_0" begin="0.00" route="r_0" end="3600.00" vehsPerHour="180.00"/>
+    <flow id="f_0" begin="0.00" route="r_0" end="3600.00" vehsPerHour="180"/>
 </routes>

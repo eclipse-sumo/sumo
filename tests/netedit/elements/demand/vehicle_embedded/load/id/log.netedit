@@ -9,5 +9,4 @@ Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
 Error: vehicle cannot be created
 Error: a route must be defined either within a vehicle/flow or with an ID attribute
 Error: There is another vehicleWithRoute with the same ID='vehicle_valid'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/load/id/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/load/id/routes.rou.xml failed.

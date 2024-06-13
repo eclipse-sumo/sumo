@@ -5,4 +5,4 @@ Error: flow cannot be created
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: flow cannot be created
 Error: There is another flowJunctions with the same ID='flow_valid'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun131813.4690/netedit.gui/demandelements/flow_junctions/load/id/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/flow_junctions/load/id/routes.rou.xml failed.

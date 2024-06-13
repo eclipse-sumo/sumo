@@ -4,10 +4,10 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 %%%%%%
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 leaderGap junction speedLimit pedestrian
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

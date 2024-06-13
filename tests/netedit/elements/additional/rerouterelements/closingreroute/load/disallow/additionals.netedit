@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 14:26:09 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+<!-- generated on 2024-06-11 15:53:29 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
@@ -10,7 +10,7 @@
             <closingReroute id="EdgeCenter0"/>
             <closingReroute id="EdgeCenter0" allow="all"/>
             <closingReroute id="EdgeCenter0" allow="pedestrian passenger"/>
-            <closingReroute id="EdgeCenter0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2"/>
+            <closingReroute id="EdgeCenter0" allow="private emergency authority army vip hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
         </interval>
     </rerouter>
 </additional>

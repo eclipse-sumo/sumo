@@ -1,3 +1,2 @@
 Error: Attribute 'impatience' in definition of vType 'vType0' Invalid Number Format (double) dummyImpatience.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/impatience/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150707.3454/netedit.gui/elements/demand/vehicletype/load/impatience/routes.rou.xml failed.

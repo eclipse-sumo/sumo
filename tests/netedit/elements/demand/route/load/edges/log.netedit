@@ -1,5 +1,4 @@
 Error: Attribute 'edges' is missing in definition of route 'route_0'.
 Error: Attribute 'edges' in definition of route 'route_1' is empty.
 Error: Could not build route in netedit; edge doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101540.2127/netedit.gui/elements/demand/route/load/edges/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150707.3454/netedit.gui/elements/demand/route/load/edges/routes.rou.xml failed.

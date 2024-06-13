@@ -1,3 +1,2 @@
 Error: Attribute 'departPos' in definition of personFlow 'p_1' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personflow/load/departpos/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/personflow/load/departpos/routes.rou.xml failed.

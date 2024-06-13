@@ -4,19 +4,19 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to edges)
 dummyTerminate
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 end
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 dummy
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 -30
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 20.5
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
+TestFunctions: Clicked over position 804 - 196
 22
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (embedded route)
 TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 679 - 201
-TestFunctions: Clicked over position 464 - 608
+TestFunctions: Clicked over position 804 - 196
+TestFunctions: Clicked over position 489 - 608
 
 dummyColor
 cyan

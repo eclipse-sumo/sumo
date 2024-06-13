@@ -1,3 +1,2 @@
 Error: Attribute 'line' in definition of trip 'trip_1' is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101545.3469/netedit.gui/elements/demand/trip/load/line/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/trip/load/line/routes.rou.xml failed.

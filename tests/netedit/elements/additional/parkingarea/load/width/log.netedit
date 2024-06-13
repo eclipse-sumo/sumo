@@ -1,3 +1,3 @@
 Error: Attribute 'width' in definition of parkingArea 'parkingArea_1' Invalid Number Format (double) dummy.
 Error: Could not build parkingArea with ID 'parkingArea_2' in netedit; Attribute width cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/parkingarea/load/width/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/parkingarea/load/width/additionals.add.xml failed.

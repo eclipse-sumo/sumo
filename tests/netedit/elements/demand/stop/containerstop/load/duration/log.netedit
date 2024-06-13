@@ -3,4 +3,4 @@ Error: Invalid duration or end time is given for a stop at 'containerStopA'
 Error: Attribute 'duration' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStopA'
 Error: Invalid duration or end time is given for a stop at 'containerStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.20Jul154345.48029/netedit.gui/demandelements/stop/containerstop/load/duration/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/stop/containerstop/load/duration/routes.rou.xml failed.

@@ -1,3 +1,3 @@
 Error: Attribute 'id' is missing in definition of a parkingAreaReroute.
 Error: Could not build parkingAreaReroute in netedit; parkingArea 'dummyParkingArea' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Jun100327.17860\netedit.gui\additionalelements\rerouterelements\parkingareareroute\load\parking\additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/rerouterelements/parkingareareroute/load/parking/additionals.add.xml failed.

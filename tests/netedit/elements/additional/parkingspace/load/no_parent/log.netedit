@@ -1,2 +1,2 @@
 Error: 'space' must be defined within the definition of a 'parkingArea' (found 'rootFile').
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr081849.968\netedit.gui\additionalelements\parkingspace\load\no_parent\additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/parkingspace/load/no_parent/additionals.add.xml failed.

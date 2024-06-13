@@ -1,5 +1,6 @@
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_0' in netedit; List of lanes isn't valid.
 Error: Could not build laneAreaDetector in netedit; lane doesn't exist.
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_1' in netedit; List of lanes isn't valid.
-Error: Could not build lane area detector with ID 'multiLaneAreaDetector_3' in netedit; Lanes aren't consecutives.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e2multilanedetector/load/lanes/additionals.add.xml failed.
+Error: Could not build laneAreaDetector in netedit; lane doesn't exist.
+Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_3' in netedit; List of lanes isn't valid.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e2multilanedetector/load/lanes/additionals.add.xml failed.

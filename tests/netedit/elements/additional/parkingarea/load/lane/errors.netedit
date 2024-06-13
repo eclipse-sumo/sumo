@@ -1,3 +1,3 @@
 Error: Attribute 'lane' is missing in definition of parkingArea 'parkingArea_01'.
 Error: Could not build parkingArea 'parkingArea_02' in netedit; lane 'dummyLane' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun100756.19514/netedit.gui/additionalelements/parkingarea/load/lane/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/parkingarea/load/lane/additionals.add.xml failed.

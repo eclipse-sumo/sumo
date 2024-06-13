@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 10:38:20 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
+<!-- generated on 2024-06-11 16:32:01 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/net.net.xml"/>
     </output>
 
     <processing>
@@ -38,16 +38,16 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101550.4140/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/vehicle_embedded/inspect_selection/line/log.txt"/>
     </report>
 
 </configuration>
@@ -182,23 +182,19 @@
 
     <tlLogic id="Junction1" type="static" programID="0" offset="0">
         <phase duration="90" state="GG"/>
-        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction2" type="static" programID="0" offset="0">
         <phase duration="90" state="GG"/>
-        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction3" type="static" programID="0" offset="0">
-        <phase duration="90" state="GGGgr"/>
-        <phase duration="3"  state="rrrrr"/>
-        <phase duration="5"  state="rrrrG"/>
-        <phase duration="5"  state="rrrrr"/>
+        <phase duration="90" state="GGGg"/>
     </tlLogic>
     <tlLogic id="Junction4" type="static" programID="0" offset="0">
-        <phase duration="90" state="gGGGr"/>
-        <phase duration="3"  state="rrrrr"/>
-        <phase duration="5"  state="rrrrG"/>
-        <phase duration="5"  state="rrrrr"/>
+        <phase duration="42" state="gGrrr"/>
+        <phase duration="3"  state="yyrrr"/>
+        <phase duration="37" state="rrggG"/>
+        <phase duration="5"  state="rrggr"/>
+        <phase duration="3"  state="rryyr"/>
     </tlLogic>
 
     <junction id="Junction0" type="dead_end" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes="" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00"/>

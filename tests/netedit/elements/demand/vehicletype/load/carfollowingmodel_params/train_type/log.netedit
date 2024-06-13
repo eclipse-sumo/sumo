@@ -4,5 +4,4 @@ Error: Invalid train type '-3' used in Car-Following-Attribute trainType
 Error: Invalid parsing embedded VType
 Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
 Error: Invalid parsing embedded VType
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/carfollowingmodel_params/train_type/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150707.3454/netedit.gui/elements/demand/vehicletype/load/carfollowingmodel_params/train_type/routes.rou.xml failed.

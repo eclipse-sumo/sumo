@@ -2,5 +2,4 @@ Error: Invalid Junction-Model Attribute jmDriveAfterYellowTime. Cannot be parsed
 Error: Invalid Junction Model Parameters
 Error: Invalid Junction-Model Attribute jmDriveAfterYellowTime. Must be equal or greater than 0
 Error: Invalid Junction Model Parameters
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/junctionmodel_params/jm_drive_after_yellow_time/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150707.3454/netedit.gui/elements/demand/vehicletype/load/junctionmodel_params/jm_drive_after_yellow_time/routes.rou.xml failed.

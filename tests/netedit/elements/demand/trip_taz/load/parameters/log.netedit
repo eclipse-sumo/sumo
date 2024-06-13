@@ -1,5 +1,4 @@
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' is missing in definition of a param.
 Error: Attribute 'key' in definition of a param is empty.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101554.4810/netedit.gui/elements/demand/trip_taz/load/parameters/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/trip_taz/load/parameters/routes.rou.xml failed.

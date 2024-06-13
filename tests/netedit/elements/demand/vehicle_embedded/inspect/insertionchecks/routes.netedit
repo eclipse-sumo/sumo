@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 10:30:44 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
+<!-- generated on 2024-06-11 16:24:48 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <vehicle id="v_0" depart="0.00">
+    <vehicle id="v_0" depart="0.00" insertionChecks="leaderGap junction speedLimit pedestrian all">
         <route edges="Edge0 Edge1 Edge2"/>
     </vehicle>
 </routes>

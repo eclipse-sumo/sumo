@@ -1,4 +1,4 @@
 Error: Attribute 'length' in definition of a space is empty.
 Error: Could not build parking space in netedit; attribute length cannot be parse to float.
 Error: Could not build space with ID 'parkingArea_0' in netedit; Attribute length cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/parkingspace/load/length/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/parkingspace/load/length/additionals.add.xml failed.

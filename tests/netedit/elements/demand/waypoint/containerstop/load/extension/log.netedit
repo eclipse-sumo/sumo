@@ -2,4 +2,4 @@ Error: Attribute 'extension' in definition of a stop is not a valid time value.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
 Error: Attribute 'extension' in definition of a stop is empty.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'containerStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.20Jul154401.51975/netedit.gui/demandelements/waypoint/containerstop/load/extension/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/waypoint/containerstop/load/extension/routes.rou.xml failed.

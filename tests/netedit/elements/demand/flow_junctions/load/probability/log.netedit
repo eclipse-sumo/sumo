@@ -5,4 +5,4 @@ Error: Attribute 'probability' in definition of flow 'flow_3' is empty.
 Error: Invalid repetition probability in the definition of flow 'flow_4'.
 Error: Invalid repetition probability in the definition of flow 'flow_5'.
 Error: Invalid repetition probability in the definition of flow 'flow_6'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.flow_junctions.26Jan095535.11205/netedit.daily.demand.flow_junctions/demandelements/flow_junctions/load/probability/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/flow_junctions/load/probability/routes.rou.xml failed.

@@ -1,9 +1,9 @@
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format dummy.
-Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
 Error: Attribute 'containerTriggered' in definition of a stop is empty.
-Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format -4.
-Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
-Error: Invalid duration or end time is given for a stop on lane 'Edge2_0'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.demand.waypoint.lane.26Jan095536.11262/netedit.daily.demand.waypoint.lane/demandelements/waypoint/lane/load/containertrigger/routes.rou.xml failed.
+Error: Invalid duration or end time is given for a stop on lane 'Edge2_1'
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/waypoint/lane/load/containertrigger/routes.rou.xml failed.

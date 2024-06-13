@@ -2,16 +2,16 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointChargingStation
-TestFunctions: Clicked over position 804 - 198
-TestFunctions: Clicked over position 805 - 198
+TestFunctions: Clicked over position 924 - 193
+TestFunctions: Clicked over position 925 - 193
 dummyValue
-TestFunctions: Clicked over position 806 - 198
+TestFunctions: Clicked over position 926 - 193
 -20
-TestFunctions: Clicked over position 807 - 198
+TestFunctions: Clicked over position 927 - 193
 0
-TestFunctions: Clicked over position 808 - 198
+TestFunctions: Clicked over position 928 - 193
 22.33
-TestFunctions: Clicked over position 809 - 198
+TestFunctions: Clicked over position 929 - 193
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

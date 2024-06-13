@@ -4,4 +4,4 @@ Error: Attribute 'period' in definition of flow 'flow_3' is empty.
 Error: Attribute 'period' in definition of flow 'flow_3' is empty.
 Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_4'.
 Error: Invalid rate parameter for exponentially distributed period in the definition of flow 'flow_5'.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.08Apr130940.160\netedit.gui\demandelements\routeflow\load\poisson\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/load/poisson/routes.rou.xml failed.

@@ -4,5 +4,4 @@ Error: Attribute 'id' in definition of a vType is empty.
 Error: Invalid vType id ''.
 Error: VType cannot be created
 Error: There is another vType with the same ID='vType0'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101542.2798/netedit.gui/elements/demand/vehicletype/load/id/routes.rou.xml failed.
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150707.3454/netedit.gui/elements/demand/vehicletype/load/id/routes.rou.xml failed.

@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a laneAreaDetector.
 Error: Could not build laneAreaDetector with ID ';;%%$$$$$$%' in netedit; ID contains invalid characters.
 Error: Could not build laneAreaDetector with ID 'multiLaneAreaDetector_1' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e2multilanedetector/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e2multilanedetector/load/id/additionals.add.xml failed.

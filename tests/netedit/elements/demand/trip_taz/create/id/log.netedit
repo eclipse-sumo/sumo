@@ -1,4 +1,3 @@
 Error: Attribute 'id' in definition of a tripTAZs is empty.
 Error: Invalid tripTAZs id ''.
 Error: tripTAZs cannot be created
-Warning: Unused state in tlLogic 'Junction3', program '0' at tl-index 4
