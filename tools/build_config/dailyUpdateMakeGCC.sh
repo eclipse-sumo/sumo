@@ -15,7 +15,7 @@
 # @author  Michael Behrisch
 # @date    2008
 
-# Does the nightly git pull on the linux server and then runs build and tests
+# Does the nightly git pull on the Linux / macOS server and then runs build and tests
 PREFIX=$1
 export FILEPREFIX=$2
 export SMTP_SERVER=$3
@@ -128,27 +128,6 @@ echo "--" >> $STATUSLOG
 basename $TESTLOG >> $STATUSLOG
 date >> $STATUSLOG
 echo "--" >> $STATUSLOG
-
-WHEELLOG=$PREFIX/${FILEPREFIX}wheel.log
-rm -rf dist dist_native
-# native macOS M1 wheels and Linux ARM
-if test ${FILEPREFIX: -2} == "M1"; then
-  cp build_config/pyproject.toml .
-  python3 tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
-  python3 -m build --wheel > $WHEELLOG 2>&1
-  python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
-  python3 -m build --wheel tools -o dist > $WHEELLOG 2>&1
-  python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
-  mv dist dist_native  # just as backup
-  # the docker script will create _skbuild, dist and wheelhouse dir owned by root but writable for everyone
-  # we only need wheelhouse, the rest is for inspecting if errors occur
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_aarch64 tools/build_config/build_wheels.sh $HTTPS_PROXY >> $WHEELLOG 2>&1
-fi
-# Linux x64 wheels
-if test ${FILEPREFIX} == "gcc4_64"; then
-  docker run --rm -v $PWD:/opt/sumo --workdir /opt/sumo manylinux2014_x64 tools/build_config/build_wheels.sh $HTTPS_PROXY v1.2.0 > $WHEELLOG 2>&1
-  cp build/$FILEPREFIX/*.whl wheelhouse
-fi
 
 # netedit tests
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
