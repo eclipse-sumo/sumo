@@ -122,16 +122,10 @@ MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
 
 
 bool
-MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius) {
+MSPModel_JuPedSim::addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage) {
     JPS_ErrorMessage message = nullptr;
-    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {point.x(), point.y()}, radius, &message);
-    if (message != nullptr) {
-        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
-        JPS_ErrorMessage_Free(message);
-        return false;
-    }
     if (predecessor != 0) {
-        const JPS_Transition transition = JPS_Transition_CreateFixedTransition(waypointId, &message);
+        const JPS_Transition transition = JPS_Transition_CreateFixedTransition(stage, &message);
         if (message != nullptr) {
             WRITE_WARNINGF(TL("Error while creating fixed transition for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
             JPS_ErrorMessage_Free(message);
@@ -145,8 +139,31 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
         }
         JPS_Transition_Free(transition);
     }
-    JPS_JourneyDescription_AddStage(journey, waypointId);
-    predecessor = waypointId;
+    JPS_JourneyDescription_AddStage(journey, stage);
+    predecessor = stage;
+    return true;
+}
+
+
+bool
+MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint) {
+    JPS_ErrorMessage message = nullptr;
+    const JPS_StageId waypointId = JPS_Simulation_AddStageWaypoint(myJPSSimulation, {std::get<1>(waypoint).x(), std::get<1>(waypoint).y()},
+                                   std::get<2>(waypoint), &message);
+    if (message != nullptr) {
+        WRITE_WARNINGF(TL("Error while adding waypoint for person '%': %"), agentID, JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+        return false;
+    }
+    const JPS_StageId waiting = std::get<0>(waypoint);
+    if (waiting != 0) {
+        if (!addStage(journey, predecessor, agentID, waiting)) {
+            return false;
+        }
+    }
+    if (!addStage(journey, predecessor, agentID, waypointId)) {
+        return false;
+    }
     return true;
 }
 
@@ -195,24 +212,57 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         departurePosition = departureLane->getShape().positionAtOffset(stage->getDepartPos() + radius + POSITION_EPS, -departureRelativePositionY); // Minus sign is here for legacy reasons.
     }
 
-    std::vector<std::pair<Position, double> >waypoints;
+    std::vector<WaypointDesc> waypoints;
+    const MSEdge* prev = nullptr;
     for (const MSEdge* const e : stage->getEdges()) {
         const MSLane* const lane = getSidewalk<MSEdge, MSLane>(e);
-        waypoints.push_back(std::make_pair(lane->getShape().positionAtOffset(e->getLength() / 2.), lane->getWidth() / 2.));
+        JPS_StageId waitingStage = 0;
+        if (prev != nullptr) {
+            int dir = UNDEFINED_DIRECTION;
+            if (prev->getToJunction() == e->getFromJunction() || prev->getToJunction() == e->getToJunction()) {
+                dir = FORWARD;
+            } else if (prev->getFromJunction() == e->getFromJunction() || prev->getFromJunction() == e->getToJunction()) {
+                dir = BACKWARD;
+            }
+            if (dir != UNDEFINED_DIRECTION) {
+                ConstMSEdgeVector crossingRoute;
+                MSNet::getInstance()->getPedestrianRouter(0).compute(prev, e, 0, 0, stage->getMaxSpeed(person), 0, dir == FORWARD ? prev->getToJunction() : prev->getFromJunction(), crossingRoute, true);
+                for (const MSEdge* const ce : crossingRoute) {
+                    if (ce->isCrossing()) {
+                        const MSLane* const crossing = getSidewalk<MSEdge, MSLane>(ce);
+                        if (myCrossingWaits.count(crossing) > 0) {
+                            const MSLane* const prevLane = getSidewalk<MSEdge, MSLane>(prev);
+                            const Position& startPos = dir == FORWARD ? prevLane->getShape().back() : prevLane->getShape().front();
+                            // choose the waiting set closer to the lane "end"
+                            if (crossing->getShape().front().distanceSquaredTo(startPos) < crossing->getShape().back().distanceSquaredTo(startPos)) {
+                                waitingStage = myCrossingWaits[crossing].first;
+                            } else {
+                                waitingStage = myCrossingWaits[crossing].second;
+                            }
+                        } else {
+                            throw ProcessError(TLF("No waiting set for crossing at %.", person->getID(), person->getEdge()->getID(), time2string(SIMSTEP)));
+                        }
+                    }
+                }
+            }
+        }
+        waypoints.push_back({waitingStage, lane->getShape().positionAtOffset(e->getLength() / 2.), lane->getWidth() / 2.});
+        prev = e;
     }
+    const JPS_StageId finalWait = std::get<0>(waypoints.back());
     waypoints.pop_back();  // arrival waypoint comes later
     if (!waypoints.empty()) {
         waypoints.erase(waypoints.begin());  // departure edge also does not need a waypoint
     }
     const MSLane* const arrivalLane = getSidewalk<MSEdge, MSLane>(stage->getDestination());
     const Position arrivalPosition = arrivalLane->getShape().positionAtOffset(stage->getArrivalPos());
-    waypoints.push_back(std::make_pair(arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)));
+    waypoints.push_back({finalWait, arrivalPosition, stage->getDouble("jupedsim.waypoint.radius", myExitTolerance)});
 
     JPS_JourneyDescription journeyDesc = JPS_JourneyDescription_Create();
     JPS_StageId startingStage = 0;
     JPS_StageId predecessor = 0;
-    for (const std::pair<Position, double>& p : waypoints) {
-        if (!addWaypoint(journeyDesc, predecessor, p.first, person->getID(), p.second)) {
+    for (const auto& p : waypoints) {
+        if (!addWaypoint(journeyDesc, predecessor, person->getID(), p)) {
             JPS_JourneyDescription_Free(journeyDesc);
             return nullptr;
         }
@@ -353,7 +403,7 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
         // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
         const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
-        if (newPosition.distanceTo2D(state->getNextWaypoint().first) < state->getNextWaypoint().second + slack) {
+        if (newPosition.distanceTo2D(std::get<1>(state->getNextWaypoint())) < std::get<2>(state->getNextWaypoint()) + slack) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk
@@ -970,13 +1020,35 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
             myAreas.push_back({poly->getID(), type, areaBoundary, poly->getParametersMap(), 0});
         }
     }
+    if (OutputDevice::createDeviceByOption("pedestrian.jupedsim.py")) {
+        myPythonScript = &OutputDevice::getDeviceByOption("pedestrian.jupedsim.py");
+        (*myPythonScript) << "import jupedsim as jps\nimport shapely\n\n"
+                          "simulation = jps.Simulation(dt=0.05, model=jps.CollisionFreeSpeedModel(), geometry=geometry,\n"
+                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file=''))\n";
+    }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
         const PositionVector& shape = crossing.first->getShape();
-        std::vector<JPS_Point> pointsIn{{shape.front().x(), shape.front().y()}};
+        const Position inPos = shape.positionAtOffset(.5);
+        std::vector<JPS_Point> pointsIn{{inPos.x(), inPos.y()}};
         crossing.second.first = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsIn.data(), pointsIn.size(), &message);
-        std::vector<JPS_Point> pointsOut{{shape.back().x(), shape.back().y()}};
+        if (message != nullptr) {
+            const std::string error = TLF("Error while adding waiting set for entry on '%': %", crossing.first->getID(), JPS_ErrorMessage_GetMessage(message));
+            JPS_ErrorMessage_Free(message);
+            throw ProcessError(error);
+        }
+        const auto proxy1 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
+        JPS_WaitingSetProxy_SetWaitingSetState(proxy1, JPS_WaitingSet_Inactive);
+        const Position outPos = shape.positionAtOffset(shape.length() - .5);
+        std::vector<JPS_Point> pointsOut{{outPos.x(), outPos.y()}};
         crossing.second.second = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsOut.data(), pointsOut.size(), &message);
+        if (message != nullptr) {
+            const std::string error = TLF("Error while adding waiting set for exit on '%': %", crossing.first->getID(), JPS_ErrorMessage_GetMessage(message));
+            JPS_ErrorMessage_Free(message);
+            throw ProcessError(error);
+        }
+        const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
+        JPS_WaitingSetProxy_SetWaitingSetState(proxy2, JPS_WaitingSet_Inactive);
     }
 }
 
@@ -986,7 +1058,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
                                   JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const std::vector<std::pair<Position, double> >& waypoints)
+                                  const std::vector<WaypointDesc>& waypoints)
     : myPerson(person), myStage(stage), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
       myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
@@ -994,7 +1066,7 @@ MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
 
 void
 MSPModel_JuPedSim::PState::reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const std::vector<std::pair<Position, double> >& waypoints) {
+                                  const std::vector<WaypointDesc>& waypoints) {
     if (myStage != nullptr) {
         myStage->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
     }
@@ -1080,7 +1152,8 @@ const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage)
 }
 
 
-const std::pair<Position, double>& MSPModel_JuPedSim::PState::getNextWaypoint() const {
+const MSPModel_JuPedSim::WaypointDesc&
+MSPModel_JuPedSim::PState::getNextWaypoint() const {
     return myWaypoints.front();
 }
 

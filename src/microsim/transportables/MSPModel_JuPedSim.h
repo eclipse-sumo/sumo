@@ -32,6 +32,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -68,6 +74,7 @@ public:
         MSPModel_JuPedSim* myJPSModel;
     };
 
+    typedef std::tuple<JPS_StageId, Position, double> WaypointDesc;
 private:
     /**
     * @class PState
@@ -75,10 +82,10 @@ private:
     */
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<std::pair<Position, double> >& waypoints);
+        PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<WaypointDesc>& waypoints);
         ~PState() override;
 
-        void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<std::pair<Position, double> >& waypoints);
+        void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<WaypointDesc>& waypoints);
 
         Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
         void setPosition(double x, double y);
@@ -100,7 +107,7 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
         double getSpeed(const MSStageMoving& stage) const override;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
-        const std::pair<Position, double>& getNextWaypoint() const;
+        const MSPModel_JuPedSim::WaypointDesc& getNextWaypoint() const;
         JPS_AgentId getAgentId() const;
 
         /// @brief whether the transportable has finished walking
@@ -137,7 +144,7 @@ private:
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
-        std::vector<std::pair<Position, double> > myWaypoints;
+        std::vector<MSPModel_JuPedSim::WaypointDesc> myWaypoints;
         JPS_AgentId myAgentId;
         Position myPosition;
         Position myPreviousPosition; // Will be initialized to zero automatically.
@@ -177,6 +184,7 @@ private:
     JPS_Geometry myJPSGeometryWithTrainsAndRamps;
     JPS_OperationalModel myJPSModel;
     JPS_Simulation myJPSSimulation;
+    OutputDevice* myPythonScript = nullptr;
 
     /// @brief Structure that keeps data related to vanishing areas (and other types of areas).
     struct AreaData {
@@ -209,7 +217,8 @@ private:
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
-    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const Position& point, const std::string& agentID, const double radius);
+    bool addStage(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const JPS_StageId stage);
+    bool addWaypoint(JPS_JourneyDescription journey, JPS_StageId& predecessor, const std::string& agentID, const WaypointDesc& waypoint);
     static GEOSGeometry* createGeometryFromCenterLine(PositionVector centerLine, double width, int capStyle);
     static GEOSGeometry* createGeometryFromShape(PositionVector shape, std::string junctionID = std::string(""), std::string shapeID = std::string(""), bool isInternalShape = false);
     GEOSGeometry* buildPedestrianNetwork(MSNet* network);
