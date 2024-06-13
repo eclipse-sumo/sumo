@@ -718,19 +718,13 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
 
     // lanes (colors)
     if (sender == myEdgeRainbowPanel->myColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE,
-                                    myEdgeRainbowPanel->myHideMinCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMinThreshold->getValue(),
-                                    myEdgeRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myEdgeRainbowPanel->myMaxThreshold->getValue());
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.getLaneEdgeScheme(), tmpSettings.getLaneEdgeMode(), GLO_LANE, myEdgeRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
     } else if (sender == myJunctionRainbowPanel->myColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION,
-                                    myJunctionRainbowPanel->myHideMinCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMinThreshold->getValue(),
-                                    myJunctionRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myJunctionRainbowPanel->myMaxThreshold->getValue());
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.junctionColorer.getScheme(), tmpSettings.junctionColorer.getActive(), GLO_JUNCTION, myJunctionRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
-    } else if (sender == myDataRainbowPanel->myColorRainbow) {
-        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA,
-                                    myDataRainbowPanel->myHideMinCheck->getCheck() != FALSE, myDataRainbowPanel->myMinThreshold->getValue(),
-                                    myDataRainbowPanel->myHideMaxCheck->getCheck() != FALSE, myDataRainbowPanel->myMaxThreshold->getValue());
+    } else if (myDataRainbowPanel && sender == myDataRainbowPanel->myColorRainbow) {
+        myParent->buildColorRainbow(tmpSettings, tmpSettings.dataColorer.getScheme(), tmpSettings.dataColorer.getActive(), GLO_TAZRELDATA, myDataRainbowPanel->getSettings());
         doRebuildColorMatrices = true;
     }
     if (tmpSettings.getLaneEdgeMode() == prevLaneMode) {

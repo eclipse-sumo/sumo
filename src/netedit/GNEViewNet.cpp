@@ -743,9 +743,8 @@ GNEViewNet::getEditNetworkElementShapes() const {
 
 void
 GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-                              bool hide, double hideThreshold, bool hide2, double hideThreshold2) {
+        const GUIVisualizationRainbowSettings& rs) {
     assert(!scheme.isFixed());
-    UNUSED_PARAMETER(s);
     double minValue = std::numeric_limits<double>::infinity();
     double maxValue = -std::numeric_limits<double>::infinity();
     // retrieve range
@@ -800,9 +799,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         }
         return;
     }
-    if (hide && hide2 && minValue == std::numeric_limits<double>::infinity()) {
-        minValue = hideThreshold;
-        maxValue = hideThreshold2;
+    if (rs.hideMin && rs.hideMax && minValue == std::numeric_limits<double>::infinity()) {
+        minValue = rs.minThreshold;
+        maxValue = rs.maxThreshold;
     }
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
@@ -815,15 +814,15 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
                 || hasMissingData) {
             scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
         }
-        if (hide) {
+        if (rs.hideMin) {
             const double rawRange = maxValue - minValue;
-            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
+            minValue = MAX2(rs.minThreshold + MIN2(1.0, rawRange / 100.0), minValue);
+            scheme.addColor(RGBColor(204, 204, 204), rs.minThreshold);
         }
-        if (hide2) {
+        if (rs.hideMax) {
             const double rawRange = maxValue - minValue;
-            maxValue = MIN2(hideThreshold2 - MIN2(1.0, rawRange / 100.0), maxValue);
-            scheme.addColor(RGBColor(204, 204, 204), hideThreshold2);
+            maxValue = MIN2(rs.maxThreshold - MIN2(1.0, rawRange / 100.0), maxValue);
+            scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
         }
         double range = maxValue - minValue;
         scheme.addColor(RGBColor::RED, (minValue));

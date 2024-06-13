@@ -262,12 +262,7 @@ public:
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
-                                   bool hide = false, double hideThreshold = 0,
-                                   bool hide2 = false, double hideThreshold2 = 0) {
-        UNUSED_PARAMETER(hide);
-        UNUSED_PARAMETER(hideThreshold);
-        UNUSED_PARAMETER(hide2);
-        UNUSED_PARAMETER(hideThreshold2);
+            const GUIVisualizationRainbowSettings& /*rs*/) {
     }
 
     /// @brief return list of loaded edgeData attributes
