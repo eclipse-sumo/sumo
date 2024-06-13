@@ -487,18 +487,14 @@ void
 GNEPoly::simplifyShape(bool allowUndo) {
     if (!mySimplifiedShape && myShape.size() > 2) {
         const Boundary b =  myShape.getBoxBoundary();
+        // create a square as simplified shape
         PositionVector simplifiedShape;
+        simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+        simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+        simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
         if (myShape.isClosed()) {
-            // create a square as simplified shape
-            simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
-            simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
-            simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
-            simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
             simplifiedShape.push_back(simplifiedShape[0]);
-        } else {
-            // create a line as simplified shape
-            simplifiedShape.push_back(myShape.front());
-            simplifiedShape.push_back(myShape.back());
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
