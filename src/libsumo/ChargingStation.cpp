@@ -197,6 +197,10 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapDouble(objID, variable, getChargingPower(objID));
         case VAR_CS_EFFICIENCY:
             return wrapper->wrapDouble(objID, variable, getEfficiency(objID));
+        case VAR_CS_CHARGE_DELAY:
+            return wrapper->wrapDouble(objID, variable, STEPS2TIME(getChargeDelay(objID)));
+        case VAR_CS_CHARGE_IN_TRANSIT:
+            return wrapper->wrapInt(objID, variable, getChargeInTransit(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

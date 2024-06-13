@@ -102,8 +102,8 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
             break;
             case libsumo::VAR_CS_CHARGE_IN_TRANSIT: {
                 int value = 0;
-                if (!server.readTypeCheckingUnsignedByte(inputStorage, value)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge in transit requires an unsigned byte.", outputStorage);
+                if (!server.readTypeCheckingInt(inputStorage, value)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge in transit requires an integer.", outputStorage);
                 }
                 libsumo::ChargingStation::setChargeInTransit(id, value);
             }
