@@ -282,13 +282,14 @@ GUIVisualizationTextSettings::show(const GUIGlObject* o) const {
 // GUIVisualizationRainbowSettings - methods
 // ---------------------------------------------------------------------------
 
-GUIVisualizationRainbowSettings::GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold) :
+GUIVisualizationRainbowSettings::GUIVisualizationRainbowSettings(bool _hideMin, double _minThreshold, bool _hideMax, double _maxThreshold, bool _setNeutral, double _neutralThreshold, bool _fixRange) :
     hideMin(_hideMin),
     minThreshold(_minThreshold),
     hideMax(_hideMax),
     maxThreshold(_maxThreshold),
     setNeutral(_setNeutral),
     neutralThreshold(_neutralThreshold),
+    fixRange(_fixRange),
     colors(GUIVisualizationSettings::RAINBOW_SCHEMES["classic"])
 { }
 
@@ -300,7 +301,8 @@ GUIVisualizationRainbowSettings::operator==(const GUIVisualizationRainbowSetting
            (hideMin == other.hideMin) &&
            (maxThreshold == other.maxThreshold) &&
            (setNeutral == other.setNeutral) &&
-           (neutralThreshold == other.neutralThreshold);
+           (neutralThreshold == other.neutralThreshold) &&
+           (fixRange == other.fixRange);
 }
 
 
@@ -318,6 +320,7 @@ GUIVisualizationRainbowSettings::print(OutputDevice& dev, const std::string& nam
     dev.writeAttr(name + "HideThreshold2", maxThreshold);
     dev.writeAttr(name + "SetNeutral", setNeutral);
     dev.writeAttr(name + "NeutralThreshold", neutralThreshold);
+    dev.writeAttr(name + "FixRange", fixRange);
 }
 
 
@@ -578,7 +581,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     edgeData("speed"),
     edgeDataID(""),
     edgeDataScaling(""),
-    edgeValueRainBow(false, 0, false, 200, false, 0),
+    edgeValueRainBow(false, 0, false, 200, false, 0, false),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -613,7 +616,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     drawJunctionShape(true),
     drawCrossingsAndWalkingareas(true),
     junctionSize(1),
-    junctionValueRainBow(false, 0, false, 100, false, 0),
+    junctionValueRainBow(false, 0, false, 100, false, 0, false),
     addMode(0),
     addSize(1),
     addName(false, 60, RGBColor(255, 0, 128, 255)),
@@ -630,7 +633,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     tazRelWidthExaggeration(1),
     edgeRelWidthExaggeration(1),
     relDataAttr("count"),
-    dataValueRainBow(false, -100, false, 100, false, 0),
+    dataValueRainBow(false, -100, false, 100, false, 0, false),
     show3DTLSLinkMarkers(true),
     show3DTLSDomes(true),
     generate3DTLSModels(false),

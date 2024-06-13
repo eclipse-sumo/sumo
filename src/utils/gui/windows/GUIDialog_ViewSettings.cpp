@@ -1675,7 +1675,7 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
     FXComposite* parent,
     GUIDialog_ViewSettings* target,
     const GUIVisualizationRainbowSettings& settings) {
-    FXMatrix* matrixRainbow = new FXMatrix(parent, 8, GUIDesignViewSettingsMatrix3);
+    FXMatrix* matrixRainbow = new FXMatrix(parent, 9, GUIDesignViewSettingsMatrix3);
     myColorRainbow = GUIDesigns::buildFXButton(matrixRainbow, TL("Recalibrate Rainbow"), "", "", nullptr, target, MID_SIMPLE_VIEW_COLORCHANGE,
                          (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
     myRainbowStyle = new MFXComboBoxIcon(matrixRainbow, 5, false, 10, target, MID_SIMPLE_VIEW_RAINBOW_CHANGE, GUIDesignViewSettingsComboBox1);
@@ -1697,6 +1697,8 @@ GUIDialog_ViewSettings::RainbowPanel::RainbowPanel(
     myNeutralThreshold = new FXRealSpinner(matrixRainbow, 6, target, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
     myNeutralThreshold->setRange(-std::numeric_limits<double>::max(), std::numeric_limits<double>::max());
     myNeutralThreshold->setValue(settings.neutralThreshold);
+    myFixRange = new FXCheckButton(matrixRainbow, TL("fix range"), target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
+    myFixRange->setCheck(settings.fixRange);
 }
 
 
@@ -1707,7 +1709,8 @@ GUIDialog_ViewSettings::RainbowPanel::getSettings() {
                                         myHideMaxCheck->getCheck() != FALSE,
                                         myMaxThreshold->getValue(),
                                         mySetNeutral->getCheck() != FALSE,
-                                        myNeutralThreshold->getValue());
+                                        myNeutralThreshold->getValue(),
+                                        myFixRange->getCheck() != FALSE);
     std::string sName = myRainbowStyle->getItemText(myRainbowStyle->getCurrentItem());
     res.colors = GUIVisualizationSettings::RAINBOW_SCHEMES[sName];
     return res;
@@ -1722,6 +1725,7 @@ GUIDialog_ViewSettings::RainbowPanel::update(const GUIVisualizationRainbowSettin
     myMaxThreshold->setValue(settings.maxThreshold);
     mySetNeutral->setCheck(settings.setNeutral);
     myNeutralThreshold->setValue(settings.neutralThreshold);
+    myFixRange->setCheck(settings.fixRange);
 }
 
 void

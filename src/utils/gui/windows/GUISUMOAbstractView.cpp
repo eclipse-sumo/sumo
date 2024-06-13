@@ -1947,6 +1947,14 @@ GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUICo
         minValue = rs.minThreshold;
         maxValue = rs.maxThreshold;
     }
+    if (rs.fixRange) {
+        if (rs.hideMin) {
+            minValue = rs.minThreshold;
+        }
+        if (rs.hideMax) {
+            maxValue = rs.maxThreshold;
+        }
+    }
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
@@ -1958,12 +1966,12 @@ GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUICo
                 || hasMissingData) {
             scheme.addColor(s.COL_MISSING_DATA, s.MISSING_DATA, "missing data");
         }
-        if (rs.hideMin) {
+        if (rs.hideMin && !rs.fixRange) {
             const double rawRange = maxValue - minValue;
             minValue = MAX2(rs.minThreshold + MIN2(1.0, rawRange / 100.0), minValue);
             scheme.addColor(RGBColor(204, 204, 204), rs.minThreshold);
         }
-        if (rs.hideMax) {
+        if (rs.hideMax && !rs.fixRange) {
             const double rawRange = maxValue - minValue;
             maxValue = MIN2(rs.maxThreshold - MIN2(1.0, rawRange / 100.0), maxValue);
             scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);

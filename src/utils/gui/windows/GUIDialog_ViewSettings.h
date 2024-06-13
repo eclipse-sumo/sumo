@@ -167,6 +167,9 @@ public:
 
         /// @brief threshold dial
         FXRealSpinner* myNeutralThreshold = nullptr;
+
+        /// @brief check button
+        FXCheckButton* myFixRange = nullptr;
     };
 
     /** @brief Constructor
