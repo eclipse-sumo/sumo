@@ -1,0 +1,4 @@
+simstep2 0
+setvalue 0x45 0x97 xxx <double> 0.42
+simstep2 0
+simstep2 0

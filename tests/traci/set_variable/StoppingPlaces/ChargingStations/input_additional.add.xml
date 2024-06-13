@@ -1,0 +1,9 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+   <chargingStation id="cs" lane="3/1to2/1_0" startPos="200" endPos="220" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" name="chargingStationNameB" chargeType="fuel" waitingTime="500" friendlyPos="true">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB3" value="valueB2"/>
+        <param key="KeyB2" value="valueB3"/>
+    </chargingStation>
+
+</additional>

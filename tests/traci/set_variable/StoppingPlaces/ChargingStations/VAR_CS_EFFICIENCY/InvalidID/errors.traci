@@ -1,0 +1,2 @@
+TraCIAPI is deprecated. Please use libtraci instead, see https://sumo.dlr.de/docs/Libtraci.html.
+Error: Answered with error to command 0x45: chargingStation 'xxx' is not known
