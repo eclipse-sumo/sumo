@@ -567,13 +567,14 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
             routeIndex--;
         }
     }
+    MSRailSignal* rs = const_cast<MSRailSignal*>(dynamic_cast<const MSRailSignal*>(myLink->getTLLogic()));
     if (firstIt == veh->getRoute().end()) {
         WRITE_WARNING("Invalid approach information to rail signal '" + MSDriveWay::getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
                       + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         if (myDriveways.empty()) {
             ConstMSEdgeVector dummyRoute;
             dummyRoute.push_back(&myLink->getLane()->getEdge());
-            MSDriveWay* dw = MSDriveWay::buildDriveWay(myLink, dummyRoute.begin(), dummyRoute.end());
+            MSDriveWay* dw = MSDriveWay::buildDriveWay(rs->getNewDrivewayID(), myLink, dummyRoute.begin(), dummyRoute.end());
             myDriveways.push_back(dw);
         }
         return *myDriveways.front();
@@ -587,7 +588,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
         std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " other dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
 #endif
     }
-    MSDriveWay* dw = MSDriveWay::buildDriveWay(myLink, firstIt, veh->getRoute().end());
+    MSDriveWay* dw = MSDriveWay::buildDriveWay(rs->getNewDrivewayID(), myLink, firstIt, veh->getRoute().end());
 #ifdef DEBUG_SELECT_DRIVEWAY
     std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
 #endif
@@ -712,7 +713,7 @@ MSRailSignal::updateDriveway(int numericalID) {
                 li.myDriveways.erase(it);
                 if (li.myDriveways.size() == 0) {
                     // rebuild default driveway
-                    li.myDriveways.push_back(MSDriveWay::buildDriveWay(li.myLink, route.begin(), route.end()));
+                    li.myDriveways.push_back(MSDriveWay::buildDriveWay(getNewDrivewayID(), li.myLink, route.begin(), route.end()));
                 }
                 return;
             }
@@ -791,4 +792,9 @@ MSRailSignal::setParameter(const std::string& key, const std::string& value) {
     Parameterised::setParameter(key, value);
 }
 
+
+std::string
+MSRailSignal::getNewDrivewayID() {
+    return getID() + "." + toString(myDriveWayIndex++);
+}
 /****************************************************************************/

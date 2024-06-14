@@ -49,7 +49,7 @@ public:
      *  When a signal guards a switch (indirect guard) that signal stores two
      *  or more driveways
      */
-    MSDriveWay(bool temporary = false);
+    MSDriveWay(const std::string& id, bool temporary = false);
 
     /// @brief Destructor
     virtual ~MSDriveWay();
@@ -110,7 +110,7 @@ public:
     static bool mustYield(const Approaching& veh, const Approaching& foe);
 
     /// @brief construct a new driveway by searching along the given route until all block structures are found
-    static MSDriveWay* buildDriveWay(const MSLink* link, MSRouteIterator first, MSRouteIterator end);
+    static MSDriveWay* buildDriveWay(const std::string& id, const MSLink* link, MSRouteIterator first, MSRouteIterator end);
 
     /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
     static std::string getClickableTLLinkID(const MSLink* link);
@@ -119,6 +119,9 @@ protected:
 
     /// @brief global driveway index
     int myNumericalID;
+
+    /// @brief driveway name
+    std::string myID;
 
     /// @brief the maximum flank length searched while building this driveway
     double myMaxFlankLength;
@@ -244,7 +247,7 @@ private:
     /// @brief track own occurences in mySwitchDriveWays for cleanup in destructor
     std::vector<const MSLink*> myForwardSwitches;
 
-    static int myDriveWayIndex;
+    static int myGlobalDriveWayIndex;
     static int myNumWarnings;
     static bool myWriteVehicles;
 

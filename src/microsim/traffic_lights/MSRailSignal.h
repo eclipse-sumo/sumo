@@ -291,6 +291,8 @@ public:
 
 protected:
 
+    std::string getNewDrivewayID();
+
     /* The driveways for each link
      */
     struct LinkInfo {
@@ -343,6 +345,9 @@ protected:
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
+
+    /// @brief running number of driveways created for this signal
+    int myDriveWayIndex;
 
 protected:
     /// @brief update vehicle lists for traci calls

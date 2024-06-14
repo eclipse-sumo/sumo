@@ -59,7 +59,7 @@
 // ===========================================================================
 // static value definitions
 // ===========================================================================
-int MSDriveWay::myDriveWayIndex(0);
+int MSDriveWay::myGlobalDriveWayIndex(0);
 int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
@@ -83,9 +83,10 @@ MSDriveWay::init() {
 // ===========================================================================
 
 
-MSDriveWay::MSDriveWay(bool temporary) :
-        MSMoveReminder("DriveWay_" + (temporary ? "tmp" : toString(myDriveWayIndex))),
-        myNumericalID(temporary ? -1 : myDriveWayIndex++),
+MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
+        MSMoveReminder("DriveWay_" + (temporary ? "tmp" : toString(myGlobalDriveWayIndex))),
+        myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
+        myID(id),
         myMaxFlankLength(0),
         myActive(nullptr),
         myProtectedBidi(nullptr),
@@ -109,7 +110,7 @@ MSDriveWay::~MSDriveWay() {
             foe->myFoes.erase(it);
         } else if (myNumericalID != -1) {
 #ifdef DRIVEWAY_SANITY_CHECK
-            WRITE_WARNINGF("Driveway % has does not show up in foes of foe driveway %.", myNumericalID, foe->getNumericalID());
+            WRITE_WARNINGF("Driveway % (%) has does not show up in foes of foe driveway % (%).", myID, myNumericalID, foe->myID, foe->getNumericalID());
 #endif
         }
     }
@@ -478,7 +479,7 @@ MSDriveWay::findProtection(const Approaching& veh, MSLink* link) const {
         return true;
     } else {
         // find protection further upstream
-        MSDriveWay tmp(true);
+        MSDriveWay tmp("tmp", true);
         const MSLane* before = link->getLaneBefore();
         tmp.myFlank.push_back(before);
         LaneVisitedMap visited;
@@ -533,7 +534,7 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("driveWay");
-    od.writeAttr(SUMO_ATTR_ID, myNumericalID);
+    od.writeAttr(SUMO_ATTR_ID, myID);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
     if (myCoreSize != (int)myRoute.size()) {
         od.writeAttr("core", myCoreSize);
@@ -570,9 +571,9 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.writeAttr("signals", joinToString(signals, " "));
     od.closeTag();
 
-    std::vector<int> foes;
+    std::vector<std::string> foes;
     for (MSDriveWay* dw : myFoes) {
-        foes.push_back(dw->getNumericalID());
+        foes.push_back(dw->myID);
     }
     if (foes.size() > 0) {
         od.openTag("foes");
@@ -586,7 +587,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
 void
 MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
     od.openTag("driveWay");
-    od.writeAttr(SUMO_ATTR_ID, myNumericalID);
+    od.writeAttr(SUMO_ATTR_ID, myID);
     for (const VehicleEvent& ve : myVehicleEvents) {
         od.openTag(ve.isEntry ? "entry" : "exit");
         od.writeAttr(SUMO_ATTR_ID, ve.id);
@@ -939,7 +940,7 @@ MSDriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& vis
 
 
 MSDriveWay*
-MSDriveWay::buildDriveWay(const MSLink* link, MSRouteIterator first, MSRouteIterator end) {
+MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIterator first, MSRouteIterator end) {
     // collect lanes and links that are relevant for setting this signal for the current driveWay
     // For each driveway we collect
     //   - conflictLanes (signal must be red if any conflict lane is occupied)
@@ -963,7 +964,7 @@ MSDriveWay::buildDriveWay(const MSLink* link, MSRouteIterator first, MSRouteIter
     //   -> add all found lanes to conflictLanes
     //   -> add final links to conflictLinks
 
-    MSDriveWay* dw = new MSDriveWay();
+    MSDriveWay* dw = new MSDriveWay(id);
     LaneVisitedMap visited;
     std::vector<const MSLane*> before;
     appendMapIndex(visited, link->getLaneBefore());
@@ -995,7 +996,7 @@ MSDriveWay::buildDriveWay(const MSLink* link, MSRouteIterator first, MSRouteIter
 
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
-        std::cout << "  buildDriveWay " << dw->myNumericalID << " at railSignal=" << Named::getIDSecure(link->getTLLogic())
+        std::cout << "  buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ") at railSignal=" << Named::getIDSecure(link->getTLLogic())
                   << "\n    route=" << toString(dw->myRoute)
                   << "\n    forward=" << toString(dw->myForward)
                   << "\n    bidi=" << toString(dw->myBidi)
@@ -1086,14 +1087,14 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
 void
 MSDriveWay::addFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myNumericalID << " addFoes for link " << link->getDescription() << "\n";
+    std::cout << "driveway " << myID << " (" << myNumericalID << ") addFoes for link " << link->getDescription() << "\n";
 #endif
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
         for (MSDriveWay* foe : rs->retrieveDriveWays(link->getTLIndex())) {
             if (foe != this) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->getNumericalID() << "\n";
+                std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
 #endif
                 myFoes.push_back(foe);
             }
@@ -1105,14 +1106,14 @@ MSDriveWay::addFoes(const MSLink* link) {
 void
 MSDriveWay::addSwitchFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myNumericalID << " addSwitchFoes for link " << link->getDescription() << "\n";
+    std::cout << "driveway " << myID << " (" << myNumericalID << ") addSwitchFoes for link " << link->getDescription() << "\n";
 #endif
     auto it = mySwitchDriveWays.find(link);
     if (it != mySwitchDriveWays.end()) {
         for (MSDriveWay* foe : it->second) {
             if (foe != this) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->getNumericalID() << "\n";
+                std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
 #endif
                 myFoes.push_back(foe);
             }
