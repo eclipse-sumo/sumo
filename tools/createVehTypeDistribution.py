@@ -70,7 +70,7 @@ def get_options(args=None):
 
 def readConfigFile(options):
     filePath = options.configFile
-    result = []
+    result = dict()
     floatRegex = [r'\s*(-?[0-9]+(\.[0-9]+)?)\s*']
     distSyntaxes = {'normal': r'normal\(%s\)' % (",".join(2 * floatRegex)),
                     'lognormal': r'lognormal\(%s\)' % (",".join(2 * floatRegex)),
@@ -141,14 +141,14 @@ def readConfigFile(options):
                             upperLimit = float(items[0][2])
                             limits = (lowerLimit, upperLimit)
 
-                    result.append({
+                    result[attName] = {
                         "name": attName,
                         "is_param": isParam,
                         "distribution": distName,
                         "distribution_params": distAttr,
                         "bounds": limits,
                         "attribute_value": attValue
-                    })
+                    }
     return result
 
 
@@ -160,8 +160,13 @@ def main(options):
                                              resampling=options.nrSamplingAttempts,
                                              decimal_places=options.decimalPlaces)
 
-    for param_dict in readConfigFile(options):
+    params = readConfigFile(options);
+    for param_dict in params.values():
         dist_creator.add_attribute(param_dict)
+    if ("speedFactor" in params) and ("speedDev" not in params):
+        dist_creator.add_attribute({"name": "speedDev", "is_param": False, "distribution": None,
+                                    "distribution_params": None, "bounds": None, "attribute_value": "0"})
+        print("Warning: Setting speedDev to 0 because only speedFactor is given.", file=sys.stderr)
 
     dist_creator.to_xml(options.outputFile)
 
