@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-10 09:37:09 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="w1">
         <link linkIndex="0" from="T3_1_0" to=":w1_0_0">
-            <driveWay id="9" edges="T7_1">
+            <driveWay id="w1.1" edges="T7_1">
                 <forward lanes=":w1_0_0 T7_1_0"/>
                 <bidi lanes="T7_0_0"/>
                 <flank lanes=""/>
@@ -54,7 +54,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="T7_0_0" to=":w1_1_0">
-            <driveWay id="0" edges="T9_0">
+            <driveWay id="w1.0" edges="T9_0">
                 <forward lanes=":w1_1_0 T9_0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":w1_0_0"/>
@@ -65,100 +65,100 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="w2">
         <link linkIndex="0" from="T13_1_0" to=":w2_0_0">
-            <driveWay id="8" edges="T3_1">
+            <driveWay id="w2.2" edges="T3_1">
                 <forward lanes=":w2_0_0 T3_1_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":w2_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w2_1"/>
-                <foes driveWays="4"/>
+                <foes driveWays="w2.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T9_0_0" to=":w2_1_0">
-            <driveWay id="4" edges="T11_0 T14_0 T18_0">
+            <driveWay id="w2.1" edges="T11_0 T14_0 T18_0">
                 <forward lanes=":w2_1_0 T11_0_0"/>
                 <bidi lanes="T13_1_0 :w3_0_0 T16_1_0 :w4_0_0"
                     deadlockCheck="T18_1_0"/>
                 <flank lanes=":w3_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_0 w3_1"/>
-                <foes driveWays="6 7 8"/>
+                <foes driveWays="w4.1 w3.2 w2.2"/>
             </driveWay>
-            <driveWay id="10" edges="T11_0 T4_0 T18_0" core="2">
+            <driveWay id="w2.3" edges="T11_0 T4_0 T18_0" core="2">
                 <forward lanes=":w2_1_0 T11_0_0"/>
                 <bidi lanes="T13_1_0 :w3_1_0 T6_1_0 :w4_1_0"/>
                 <flank lanes=":w3_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w3_0"/>
-                <foes driveWays="7"/>
+                <foes driveWays="w3.2"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="w3">
         <link linkIndex="0" from="T16_1_0" to=":w3_0_0">
-            <driveWay id="7" edges="T13_1">
+            <driveWay id="w3.2" edges="T13_1">
                 <forward lanes=":w3_0_0 T13_1_0"/>
                 <bidi lanes=":w3_3_0 T11_0_0"/>
                 <flank lanes=":w2_1_0 :w3_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w2_1 w3_1"/>
-                <foes driveWays="4 10 11"/>
+                <foes driveWays="w2.1 w2.3 w3.3"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T6_1_0" to=":w3_1_0"/>
         <link linkIndex="2" from="T11_0_0" to=":w3_2_0">
-            <driveWay id="11" edges="T4_0 T18_0" core="1">
+            <driveWay id="w3.3" edges="T4_0 T18_0" core="1">
                 <forward lanes=":w3_2_0 T4_0_0"/>
                 <bidi lanes=":w3_1_0 T6_1_0 :w4_1_0"/>
                 <flank lanes=":w3_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w3_0"/>
-                <foes driveWays="7"/>
+                <foes driveWays="w3.2"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="T11_0_0" to=":w3_3_0">
-            <driveWay id="5" edges="T14_0 T18_0">
+            <driveWay id="w3.1" edges="T14_0 T18_0">
                 <forward lanes=":w3_3_0 T14_0_0"/>
                 <bidi lanes=":w3_0_0 T16_1_0 :w4_0_0"
                     deadlockCheck="T18_1_0"/>
                 <flank lanes=":w3_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_0 w3_1"/>
-                <foes driveWays="6"/>
+                <foes driveWays="w4.1"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="w4">
         <link linkIndex="0" from="T18_1_0" to=":w4_0_0">
-            <driveWay id="6" edges="T16_1 T13_1">
+            <driveWay id="w4.1" edges="T16_1 T13_1">
                 <forward lanes=":w4_0_0 T16_1_0"/>
                 <bidi lanes=":w4_3_0 T14_0_0 :w3_3_0"
                     deadlockCheck="T11_0_0 :w2_1_0"/>
                 <flank lanes=":w4_2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w3_3 w4_2 w2_1"/>
-                <foes driveWays="4 5"/>
+                <foes driveWays="w2.1 w3.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T18_1_0" to=":w4_1_0"/>
         <link linkIndex="2" from="T4_0_0" to=":w4_2_0">
-            <driveWay id="12" edges="T18_0">
+            <driveWay id="w4.2" edges="T18_0">
                 <forward lanes=":w4_2_0 T18_0_0"/>
                 <bidi lanes=":w4_1_0 T18_1_0"/>
                 <flank lanes=":w4_3_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_3"/>
-                <foes driveWays="3"/>
+                <foes driveWays="w4.0"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="T14_0_0" to=":w4_3_0">
-            <driveWay id="3" edges="T18_0">
+            <driveWay id="w4.0" edges="T18_0">
                 <forward lanes=":w4_3_0 T18_0_0"/>
                 <bidi lanes=":w4_0_0 T18_1_0"/>
                 <flank lanes=":w4_2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_2"/>
-                <foes driveWays="12"/>
+                <foes driveWays="w4.2"/>
             </driveWay>
         </link>
     </railSignal>

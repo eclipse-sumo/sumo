@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 16:26:10 by Eclipse SUMO sumo Version v1_20_0+0373-07542dc6aa2
+<!-- generated on 2024-06-14 12:20:21 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J0">
         <link linkIndex="0" from="E6_0" to=":J0_0_0">
-            <driveWay id="0" edges="E0">
+            <driveWay id="J0.0" edges="E0">
                 <forward lanes=":J0_0_0 E0_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -51,14 +51,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="J1">
         <link linkIndex="0" from="E0_0" to=":J1_0_0">
-            <driveWay id="1" edges="E1 E2">
+            <driveWay id="J1.0" edges="E1 E2">
                 <forward lanes=":J1_0_0 E1_0 :J2_0_0 E2_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
-            <driveWay id="4" edges="E1 E4">
+            <driveWay id="J1.1" edges="E1 E4">
                 <forward lanes=":J1_0_0 E1_0 :J2_1_0 E4_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -69,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="J3">
         <link linkIndex="0" from="E2_0" to=":J3_0_0">
-            <driveWay id="2" edges="E3">
+            <driveWay id="J3.0" edges="E3">
                 <forward lanes=":J3_0_0 E3_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="J5">
         <link linkIndex="0" from="E4_0" to=":J5_0_0">
-            <driveWay id="3" edges="E5">
+            <driveWay id="J5.0" edges="E5">
                 <forward lanes=":J5_0_0 E5_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>

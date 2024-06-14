@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 07:58:22 by Eclipse SUMO sumo Version v1_20_0+0381-12db074e0f6
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,25 +41,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="gneJ5">
         <link linkIndex="0" from="-e_0" to=":gneJ5_0_0">
-            <driveWay id="0" edges="-d -c -b -a">
+            <driveWay id="gneJ5.0" edges="-d -c -b -a">
                 <forward lanes=":gneJ5_0_0 -d_0 :gneJ2_0_0 -c_0 :gneJ1_0_0 -b_0 :gneJ6_0_0 -a_0"/>
                 <bidi lanes="c_0"/>
                 <flank lanes=":gneJ1_1_0 b_0 :gneJ8_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ8_0"/>
-                <foes driveWays="1"/>
+                <foes driveWays="gneJ8.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
         <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
-            <driveWay id="1" edges="b c d e">
+            <driveWay id="gneJ8.0" edges="b c d e">
                 <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0 :gneJ9_0_0 e_0"/>
                 <bidi lanes="-c_0"/>
                 <flank lanes=":gneJ2_0_0 -d_0 :gneJ5_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ5_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="gneJ5.0"/>
             </driveWay>
         </link>
     </railSignal>

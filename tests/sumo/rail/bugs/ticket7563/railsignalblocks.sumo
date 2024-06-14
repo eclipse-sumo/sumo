@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 10:25:04 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,20 +40,20 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="gneE0_0" to=":A_0_0">
-            <driveWay id="3" edges="gneE1 gneE1.100 gneE2 gneE5 gneE6">
+            <driveWay id="A.1" edges="gneE1 gneE1.100 gneE2 gneE5 gneE6">
                 <forward lanes=":A_0_0 gneE1_0 :gneJ8_1_0 gneE1.100_0"/>
                 <bidi lanes="gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"
                     deadlockCheck="gneE8_0 :C_0_0 gneE7_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links="gneJ3_0"/>
                 <conflictLinks signals=""/>
-                <foes driveWays="2"/>
+                <foes driveWays="C.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="B">
         <link linkIndex="0" from="gneE1.100_0" to=":B_1_0">
-            <driveWay id="1" edges="gneE2 gneE5 gneE6">
+            <driveWay id="B.0" edges="gneE2 gneE5 gneE6">
                 <forward lanes=":B_1_0 gneE2_0 :gneJ3_2_0 gneE5_0 :C_1_0 gneE6_0"/>
                 <bidi lanes=":B_0_0 gneE9_0 :gneJ3_0_0 gneE8_0 :C_0_0 gneE7_0"/>
                 <flank lanes=""/>
@@ -64,13 +64,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="C">
         <link linkIndex="0" from="gneE7_0" to=":C_0_0">
-            <driveWay id="2" edges="gneE8 gneE9 gneE10 gneE11 gneE12">
+            <driveWay id="C.0" edges="gneE8 gneE9 gneE10 gneE11 gneE12">
                 <forward lanes=":C_0_0 gneE8_0 :gneJ3_0_0 gneE9_0 :B_0_0 gneE10_0 :gneJ8_0_0 gneE11_0 :gneJ9_0_0 gneE12_0"/>
                 <bidi lanes=":C_1_0 gneE5_0 :gneJ3_2_0 gneE2_0 :B_1_0 gneE1.100_0"/>
                 <flank lanes=":gneJ8_1_0 gneE1_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="3"/>
+                <foes driveWays="A.1"/>
             </driveWay>
         </link>
     </railSignal>

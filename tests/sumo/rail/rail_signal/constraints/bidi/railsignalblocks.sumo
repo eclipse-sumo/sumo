@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-10 09:34:15 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,19 +42,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="A">
         <link linkIndex="0" from="-b_0" to="-a_0"/>
         <link linkIndex="1" from="a_0" to="b_0">
-            <driveWay id="0" edges="b c d e f">
+            <driveWay id="A.0" edges="b c d e f">
                 <forward lanes="b_0 c_0 d_0 e_0"/>
                 <bidi lanes="-b_0 -c_0 -d_0 -e_0 -f_0"/>
                 <flank lanes="-e2_0 b2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="J1_0 D_1"/>
-                <foes driveWays="2"/>
+                <foes driveWays="J1.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="D">
         <link linkIndex="0" from="-b2_0" to="-a2_0">
-            <driveWay id="3" edges="-a2">
+            <driveWay id="D.0" edges="-a2">
                 <forward lanes="-a2_0"/>
                 <bidi lanes="a2_0"/>
                 <flank lanes=""/>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="J0">
         <link linkIndex="0" from="-f_0" to="-e_0"/>
         <link linkIndex="1" from="e_0" to="f_0">
-            <driveWay id="1" edges="f">
+            <driveWay id="J0.0" edges="f">
                 <forward lanes="f_0"/>
                 <bidi lanes="-f_0"/>
                 <flank lanes=""/>
@@ -78,13 +78,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="J1">
         <link linkIndex="0" from="-f2_0" to="-e2_0">
-            <driveWay id="2" edges="-e2 -d -c -b2 -a2">
+            <driveWay id="J1.0" edges="-e2 -d -c -b2 -a2">
                 <forward lanes="-e2_0 -d_0 -c_0 -b2_0"/>
                 <bidi lanes="e2_0 d_0 c_0 b2_0 a2_0"/>
                 <flank lanes="-e_0 b_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="J0_0 A_1"/>
-                <foes driveWays="0"/>
+                <foes driveWays="A.0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="e2_0" to="f2_0"/>

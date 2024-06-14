@@ -1,11 +1,11 @@
 <railSignal id="gneJ1">
     <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
-        <driveWay id="6">
+        <driveWay id="gneJ1.1">
             <entry id="ICE0" time="16564.00" reason="1"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
-        <driveWay id="0">
+        <driveWay id="gneJ1.0">
             <entry id="RB1" time="16147.00" reason="1"/>
             <exit id="RB1" time="16403.00" reason="1"/>
         </driveWay>
@@ -13,13 +13,13 @@
 </railSignal>
 <railSignal id="gneJ2">
     <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
-        <driveWay id="5">
+        <driveWay id="gneJ2.2">
             <entry id="ICE0" time="16365.00" reason="1"/>
             <exit id="ICE0" time="16597.00" reason="1"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-        <driveWay id="3">
+        <driveWay id="gneJ2.1">
             <entry id="RB1" time="16393.00" reason="1"/>
             <exit id="RB1" time="16474.00" reason="1"/>
         </driveWay>
@@ -27,20 +27,20 @@
 </railSignal>
 <railSignal id="gneJ3">
     <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
-        <driveWay id="4">
+        <driveWay id="gneJ3.1">
             <entry id="ICE0" time="16313.00" reason="1"/>
             <exit id="ICE0" time="16391.00" reason="1"/>
         </driveWay>
     </link>
     <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
     <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
-        <driveWay id="7">
+        <driveWay id="gneJ3.2">
             <entry id="RB2" time="16336.00" reason="1"/>
             <exit id="RB2" time="16379.00" reason="9"/>
         </driveWay>
     </link>
     <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
-        <driveWay id="2">
+        <driveWay id="gneJ3.0">
             <entry id="RB1" time="16472.00" reason="1"/>
             <exit id="RB1" time="16516.00" reason="9"/>
         </driveWay>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 10:25:04 by Eclipse SUMO sumo Version v1_20_0+0383-db5ff9831f3
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,25 +44,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="A2">
         <link linkIndex="0" from="a2_0" to=":A2_0_0">
-            <driveWay id="0" edges="b2 b3 c">
+            <driveWay id="A2.0" edges="b2 b3 c">
                 <forward lanes=":A2_0_0 b2_0 :B2_0_0 b3_0 :B_1_0 c_0"/>
                 <bidi lanes="-c_0"/>
                 <flank lanes=":B_0_0 b_0 :A_0_0 :C_0_0 d2_0 :D2_0_0"/>
                 <protectingSwitches links="D2_0"/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="1"/>
+                <foes driveWays="D3.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="D3">
         <link linkIndex="0" from="e_0" to=":D3_0_0">
-            <driveWay id="1" edges="d3 d2 -c">
+            <driveWay id="D3.0" edges="d3 d2 -c">
                 <forward lanes=":D3_0_0 d3_0 :D2_0_0 d2_0 :C_0_0 -c_0"/>
                 <bidi lanes="c_0"/>
                 <flank lanes=":B_0_0 b_0 :A_0_0 :B_1_0 b3_0 :B2_0_0"/>
                 <protectingSwitches links="B2_0"/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="A2.0"/>
             </driveWay>
         </link>
     </railSignal>

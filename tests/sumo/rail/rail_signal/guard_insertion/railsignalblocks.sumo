@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 07:58:22 by Eclipse SUMO sumo Version v1_20_0+0381-12db074e0f6
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,36 +39,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="entry_0" to=":A_1_0">
-            <driveWay id="1" edges="beg end">
+            <driveWay id="A.0" edges="beg end">
                 <forward lanes=":A_1_0 beg_0"/>
                 <bidi lanes=":A_0_0 -beg_0 :B_1_0 -end_0"/>
                 <flank lanes=":B_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="B.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="B">
         <link linkIndex="0" from="branch_0" to=":B_0_0">
-            <driveWay id="0" edges="-beg -entry">
+            <driveWay id="B.0" edges="-beg -entry">
                 <forward lanes=":B_0_0 -beg_0 :A_0_0 -entry_0"/>
                 <bidi lanes="beg_0 :A_1_0 entry_0"/>
                 <flank lanes=":B_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_1"/>
-                <foes driveWays="1 2"/>
+                <foes driveWays="A.0 B.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="-end_0" to=":B_1_0"/>
         <link linkIndex="2" from="beg_0" to=":B_2_0">
-            <driveWay id="2" edges="end">
+            <driveWay id="B.1" edges="end">
                 <forward lanes=":B_2_0 end_0"/>
                 <bidi lanes=":B_1_0 -end_0"/>
                 <flank lanes=":B_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="B.0"/>
             </driveWay>
         </link>
     </railSignal>

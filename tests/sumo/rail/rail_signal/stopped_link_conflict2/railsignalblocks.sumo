@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-07 07:58:22 by Eclipse SUMO sumo Version v1_20_0+0381-12db074e0f6
+<!-- generated on 2024-06-14 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0385-0b5f01233df
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,25 +41,25 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to=":A_0_0">
-            <driveWay id="0" edges="b c">
+            <driveWay id="A.0" edges="b c">
                 <forward lanes=":A_0_0 b_0 :gneJ5_0_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ5_1_0 b2_0 :A2_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A2_0"/>
-                <foes driveWays="1"/>
+                <foes driveWays="A2.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="A2">
         <link linkIndex="0" from="a2_0" to=":A2_0_0">
-            <driveWay id="1" edges="b2 c">
+            <driveWay id="A2.0" edges="b2 c">
                 <forward lanes=":A2_0_0 b2_0 :gneJ5_1_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ5_0_0 b_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="0"/>
+                <foes driveWays="A.0"/>
             </driveWay>
         </link>
     </railSignal>
