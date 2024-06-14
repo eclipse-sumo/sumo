@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-13 15:09+0000\n"
+"PO-Revision-Date: 2024-06-14 16:08+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3333,7 +3333,7 @@ msgstr ""
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:206
 msgid "Battery of vehicle '%' is depleted, time=%."
-msgstr ""
+msgstr "La batteria del veicolo '%' si è esaurita alle ore %."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:370
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:380
@@ -8391,34 +8391,34 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:112
 msgid "No nodes loaded."
-msgstr ""
+msgstr "Nessun nodo caricato."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:115
 msgid "No edges loaded."
-msgstr ""
+msgstr "Nessun arco caricato."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:126
 msgid " Import done:"
-msgstr ""
+msgstr " Importazione completata:"
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:128
 #, c-format
 msgid "   % districts loaded."
-msgstr ""
+msgstr "   % distretti caricati."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:130
 #, c-format
 msgid "   % nodes loaded."
-msgstr ""
+msgstr "   % nodi caricati."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:132
 msgid "   % types loaded."
-msgstr ""
+msgstr "   % tipi caricati."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:134
 #, c-format
 msgid "   % edges loaded."
-msgstr ""
+msgstr "   % archi caricati."
 
 #: D:\Repos\sumo/src\netimport\NILoader.cpp:136
 #, c-format
