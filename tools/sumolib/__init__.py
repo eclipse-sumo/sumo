@@ -72,6 +72,13 @@ def checkBinary(name, bindir=None):
         binary = exe(os.path.join(env.get("SUMO_HOME"), "bin", name))
         if os.path.exists(binary):
             return binary
+    try:
+        import sumo
+        binary = exe(os.path.join(sumo.SUMO_HOME, "bin", name))
+        if os.path.exists(binary):
+            return binary
+    except ImportError:
+        pass
     if bindir is None:
         binary = exe(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'bin', name)))
         if os.path.exists(binary):
