@@ -189,7 +189,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
   publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
-- [Rapid Generation of Realistic Simulation for VANET](http://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
+- [Rapid Generation of Realistic Simulation for VANET](https://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!
