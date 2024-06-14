@@ -85,7 +85,7 @@ In order to be available for use, the device must also be added in
 Devices are assigned by global options for equipping all or a fraction
 of the vehicle fleet. Alternatively, they can be defined by setting `<vehicle>` or
 `<vType>`-[generic
-parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
+parameters](../../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#assignment_by_generic_parameters).
 The new assignment options are generated automatically by calling the
 function *MSDevice::insertDefaultAssignmentsOptions*. The test whether a
 specific vehicle should be equipped with the device is done by calling
