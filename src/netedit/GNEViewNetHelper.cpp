@@ -1654,18 +1654,20 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
     // filter ACsInBoundary depending of current supermode
     std::set<GNEAttributeCarrier*> ACsFiltered;
     for (const auto& AC : myViewNet->getViewObjectsSelector().getAttributeCarriers()) {
-        if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
-            if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
-                if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE && !selEdges)
-                        || (AC->getTagProperty().getTag() == SUMO_TAG_LANE && selEdges)) {
-                    continue;
+        if (!AC->getGUIGlObject()->isGLObjectLocked()) {
+            if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
+                if (AC->getTagProperty().isNetworkElement() || AC->getTagProperty().isAdditionalElement()) {
+                    if ((AC->getTagProperty().getTag() == SUMO_TAG_EDGE && !selEdges)
+                            || (AC->getTagProperty().getTag() == SUMO_TAG_LANE && selEdges)) {
+                        continue;
+                    }
+                    ACsFiltered.insert(AC);
                 }
+            } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
+                ACsFiltered.insert(AC);
+            } else if (myViewNet->myEditModes.isCurrentSupermodeData() && AC->getTagProperty().isGenericData()) {
                 ACsFiltered.insert(AC);
             }
-        } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
-            ACsFiltered.insert(AC);
-        } else if (myViewNet->myEditModes.isCurrentSupermodeData() && AC->getTagProperty().isGenericData()) {
-            ACsFiltered.insert(AC);
         }
     }
     // declare two sets of attribute carriers, one for select and another for unselect

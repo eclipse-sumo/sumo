@@ -240,14 +240,14 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(SelectionOperation)
 
-        /// @brief process network element selection
-        bool processNetworkElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive network element selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveNetworkElementSelection();
 
-        /// @brief process demand element selection
-        bool processDemandElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive demand element selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDemandElementSelection();
 
-        /// @brief process data element selection
-        bool processDataElementSelection(const bool onlyCount, const bool onlyUnselect, bool& ignoreLocking);
+        /// @brief process massive dataelement selection
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDataElementSelection();
 
         /// @brief ask if continue due locking
         bool askContinueIfLock() const;
