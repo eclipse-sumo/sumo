@@ -81,6 +81,16 @@ The meanings of the written values are given in the following table.
 !!! caution
     When running with sub-second resolution, the emissions written during every simulation step are extrapolated to those that would be generated in 1 second. To avoid scaling (and thus simplify aggregation), set option **--emission-output.step-scaled**
 
+
+## Further Options
+
+- **--emission-output.geo** will toggle output coordinates to WGS84 (for
+  geo-referenced networks)	
+- **--emission-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
+  - **all**: enables all attributes
+- **--emission-output.precision** will control the number of decimal digits in the output (default 2)
+- **--emission-output.step-scaled** will write per-step emissions rather than per-second emissions (only relevant when also using option **--step-length**)  
+
 ## Visualization example
 The user-selected attributes can be plotted with use of [plotXMLAttributes.py](../../Tools/Visualization.md#plotxmlattributespy). The scenario acosta, one of the published sumo scenarios, is used as example (https://github.com/DLR-TS/sumo-scenarios/tree/main/bologna/acosta).
 
