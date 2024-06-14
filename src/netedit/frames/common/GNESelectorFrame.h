@@ -241,7 +241,7 @@ public:
         FOX_CONSTRUCTOR(SelectionOperation)
 
         /// @brief process massive network element selection
-        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveNetworkElementSelection();
+        std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveNetworkElementSelection(const bool filterLanes);
 
         /// @brief process massive demand element selection
         std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > processMassiveDemandElementSelection();

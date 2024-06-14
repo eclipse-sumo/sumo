@@ -378,7 +378,7 @@ GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
     // get element to selet/unselect depending of current supermode
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        ACsToSelectUnselect = processMassiveNetworkElementSelection();
+        ACsToSelectUnselect = processMassiveNetworkElementSelection(false);
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         ACsToSelectUnselect = processMassiveDemandElementSelection();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
@@ -428,7 +428,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
     // get element to selet/unselect depending of current supermode
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
-        ACsToSelectUnselect = processMassiveNetworkElementSelection();
+        ACsToSelectUnselect = processMassiveNetworkElementSelection(true);
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         ACsToSelectUnselect = processMassiveDemandElementSelection();
     } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
@@ -493,7 +493,7 @@ GNESelectorFrame::SelectionOperation::onCmdReduce(FXObject*, FXSelector, void*) 
 
 
 std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
-GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection() {
+GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(const bool filterLanes) {
     // get attribute carriers (only for improve code legibly)
     const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // extract all network elements
@@ -503,10 +503,14 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection() {
         networkACs.push_back(junction.second);
         // due we iterate over all junctions, only it's necessary iterate over incoming edges
         for (const auto& incomingEdge : junction.second.second->getGNEIncomingEdges()) {
-            networkACs.push_back(std::make_pair(incomingEdge->getGUIGlObject(), incomingEdge));
+            if (!filterLanes || mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
+                networkACs.push_back(std::make_pair(incomingEdge->getGUIGlObject(), incomingEdge));
+            }
             // add lanes
-            for (const auto& lane : incomingEdge->getLanes()) {
-                networkACs.push_back(std::make_pair(lane->getGUIGlObject(), lane));
+            if (!filterLanes || !mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
+                for (const auto& lane : incomingEdge->getLanes()) {
+                    networkACs.push_back(std::make_pair(lane->getGUIGlObject(), lane));
+                }
             }
             // add connections
             for (const auto& connection : incomingEdge->getGNEConnections()) {
