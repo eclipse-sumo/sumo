@@ -111,9 +111,9 @@ title: ChangeLog
   - traffic light detectors no longer assume having seen a vehicle on step before the simulation started #14590
   - Removed unneeded warning when a person uses a vehicular connection #14619
   - Fixed invalid departSpeed for IDM in subsecond simulation #14621
-  - Fixed invalid traffic demand when defining poission flows with rate below 0.001 #14664
+  - Fixed invalid traffic demand when defining poisson flows with rate below 0.001 #14664
   - Fixed crash when loading person stages without a person (now writes an error) #14654
-  - Fixed xsd valiation error for router interval with human-readable time #14728
+  - Fixed xsd validation error for router interval with human-readable time #14728
   - HBEFA4 electric vehicles can now recuperate #14764
   - A warning is now given when loading a disconnected walk #14779
   - When simulating a disconnected walk, the walking direction is now correct after passing the disconnected part #14780
@@ -123,7 +123,7 @@ title: ChangeLog
     - Taxi reservations from the same busStop are now grouped if the dispatcher permits it #14612
     - Fixed bug where simulation hangs #14821
     - Fixed bug where taxi exits the simulation prematurely #14819
-    - Fixed invaild taxi pickup time estimation from busStop #14822
+    - Fixed invalid taxi pickup time estimation from busStop #14822
   - Railways
     - Fixed trains getting stuck on reversal due to routing failure. #14332 (also affects duarouter)
     - Inserting vehicle with depart="split" now works on short edges. #14359
@@ -149,7 +149,7 @@ title: ChangeLog
   - Fixed crash when trying to define ride between busStops #14462
   - Fixed use of python tools involving space in paths #14469
   - Fixed saving of python tool config involving space in paths #14506
-  - Fixed invalid state of save-sumoconfic button after changing option #14581
+  - Fixed invalid state of save-sumoconfig button after changing option #14581
   - Saving traffic light programs to a file now writes all attributes #14674
   - Custom connection permissions can now be reset #14723
   - Fixed bad signal plan after applying 'join junctions' to part of a joined traffic light #14797
@@ -207,7 +207,7 @@ title: ChangeLog
   - Fixed invalid intermodal route on looped public transport (also affects routing in sumo) #14343
 
 - od2trips
-  - Fixed extremly high running time when loading large TAZ. #14784
+  - Fixed extremely high running time when loading large TAZ. #14784
 
 - TraCI
   - Fixed error in `trafficlight.setProgramLogic` when loading actuated logic with default minDur and maxDur #14741 (regression in 1.12.0)
