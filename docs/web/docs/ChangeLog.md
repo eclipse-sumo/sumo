@@ -23,20 +23,33 @@ title: ChangeLog
   - Fixed handling of passed stops after rerouting #14918
   - Fixed crash when using junction-taz in railway simulation #14973
   - Fixed non-deterministic behavior with option **--device.rerouting.threads --weights.random-factor** #10292
-  - Electric vehicles now issues a warning on running out of battery power #14980 
+  - Electric vehicles now issues a warning on running out of battery power #14980
+  - Fixed crash when loading misconfigured NEMA controller #15001
+  - Fixed invalid stopping when loading a route with attribute `repeat` and a single stop #13639
+  - Fixed invalid density in edgedata-output in sublane simulation #15017
+  - Fixed invalid behavior by GLOSA device when there are junctions ahead of a traffic light within **device.glosa.range** #15011 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
   - Fixed crash when edge removal affects roundabouts defined in OSM. #14930 (regression in 1.20.0)
   - Fixed bad ramp geometry when two ramps overlap #14839
   - Fixed invalid connection with option **--ramps.guess** if the input defines connections #14833
-  - Fixed unsafe waiting position within a junction that conflicts with a pedestrian crossing #14946 
+  - Fixed unsafe waiting position within a junction that conflicts with a pedestrian crossing #14946
+  - Fixed invalid NEMA controllers in written network #15023 
  
 - netedit
+  - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
+  - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
   - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
+  - Button "center" in "locate additional" dialog is working again #14986 (regression in 1.20.0)
+  - Selecting lanes and edges via context menu is working again #14965 (regression in 1.20.0)
+  - Inspected trips show the route again #14964 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
-  - In inspect mode, the junction contour no longer hides link indices #14948 
+  - In inspect mode, the junction contour no longer hides link indices #14948
+  - Fixed invalid NEMA controller when changing type from static #15007
+  - Fixed invalid junction contour #15002, #14488
+  - Fixed crash when loading another network while the traffic light frame has an active traffic light #15004 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -44,12 +57,13 @@ title: ChangeLog
   - Fixed bad menu spacing and tiny icons when using display scaling on windows (i.e. for high-pixel-count displays) #14882
   - Fixed translation-related crashes where code relied on hard coded english menu entries. #14710
   - Fixed placement of chargingStation and ParkingArea symbol in lefthand networks #14744, #14959
-  - Fixed invalid angle for busStop text label in lefthand networks #14743
+  - Fixed invalid angle for infrastructure text label in lefthand networks #14743, #14955
   - Fixed invalid scaling of aircraft when zoomed out #14899
   - "Set breakpoint" can no longer cause a crash when no network is loaded #15003 
 
 - TraCI
-  - Fixed handling of large time input values #14793 
+  - Fixed handling of large time input values #14793
+  - Fixed crash when trying to call `traci.vehicle.dispatchTaxi` for an undeparted vehicle #15016 
 
 - tools
   - generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880
@@ -66,11 +80,19 @@ title: ChangeLog
   - A warning is now given when starting more persons in a vehicle than it's personCapacity permits #14752
   - Persons and containers now support vType attribute `boardingFactor` which gets multiplied with the boarding- or loadingDuration of the vehicle. #14869
   - Loaded polygons can be used to influence [jupedsim agents](Simulation/Pedestrians.md#model_jupedsim) #14325
-  - PHEMlight5 parameters can now be configured with [generic parameters](Simulation/GenericParameters.md) #14285 
+  - PHEMlight5 parameters can now be configured with [generic parameters](Simulation/GenericParameters.md) #14285
+  - Electric vehicles now support [defining variable charge rate](Models/Electric.md#defining_electric_vehicles) #14860
+  - The new option **--emission-output.attributes** can now be used to customize the output #12850 
  
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
-  - Mode for editing overhead wires now warns about experimental state #14974 
+  - Mode for editing overhead wires now warns about experimental state #14974
+  - Using check boxes in submenu now keeps the menu open #15009
+  - Loading a single file without options now supports .sumocfg files #15015 
+
+- sumo-gui
+  - Traffic light dialog for tracking phases can now scroll to see all links #3862
+  - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483 
 
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
@@ -86,7 +108,15 @@ title: ChangeLog
   - gtfs2pt.py: Now warns if no valid GTFS inside the network boundaries has been found #14876
   - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895
   - traceExporter.py now supports options **-c** and **-C** for loading and saving configuration files #14934
-  - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609 
+  - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609
+  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025 
+
+### Miscellaneous
+
+- configuration file root elements are now application-specific #7700
+- Unknown vehicle classes are now ignored by sumo to ensure upwards compatibility when adding classes in the future. Netconvert and duarouter support this behavior by setting option **--ignore-errors** #14993
+- Saving config files now handles environment variables as absolute path #15022
+- `sumolib.checkBinary` now finds sumo binaries installed via pip #14982 
 
 ## Version 1.20.0 (07.05.2024)
 
