@@ -1,5 +1,6 @@
-<configuration>
+<sumoConfiguration>
     <input>
-        <net-file value="ne%.net.xml"/>
+        <net-file value="net.net.xml"/>
+        <additional-files value="${SOMEWHERE}/file.xml"/>
     </input>
-</configuration>
+</sumoConfiguration>
