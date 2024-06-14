@@ -107,7 +107,7 @@ private:
         SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
         double getSpeed(const MSStageMoving& stage) const override;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
-        const MSPModel_JuPedSim::WaypointDesc& getNextWaypoint() const;
+        const MSPModel_JuPedSim::WaypointDesc* getNextWaypoint(const int offset = 0) const;
         JPS_AgentId getAgentId() const;
 
         /// @brief whether the transportable has finished walking
@@ -204,6 +204,7 @@ private:
     std::vector<SUMOTrafficObject::NumericalID> myAllStoppedTrainIDs;
 
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
+    std::map<JPS_StageId, const MSLane*> myCrossings;
 
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;

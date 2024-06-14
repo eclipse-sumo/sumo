@@ -162,8 +162,10 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
     const JPS_StageId waiting = std::get<0>(waypoint);
     if (waiting != 0) {
         if (myPythonScript != nullptr) {
-            (*myPythonScript) << "journey.add(" << waiting << ")\n"
-                              "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(" << waiting << "))\n";
+            (*myPythonScript) << "journey.add(" << waiting << ")\n";
+            if (predecessor != 0) {
+                (*myPythonScript) << "journey.set_transition_for_stage(" << predecessor << ", jps.Transition.create_fixed_transition(" << waiting << "))\n";
+            }
         }
         if (!addStage(journey, predecessor, agentID, waiting)) {
             return false;
@@ -285,7 +287,7 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
             return nullptr;
         }
         if (startingStage == 0) {
-            startingStage = predecessor;
+            startingStage = std::get<0>(waypoints.front()) == 0 ? predecessor : std::get<0>(waypoints.front());
         }
     }
     JPS_ErrorMessage message = nullptr;
@@ -424,10 +426,24 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
             }
         }
+        for (int offset = 0; offset < 2; offset++) {
+            const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
+            if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
+                const MSLane* const crossing = myCrossings[std::get<0>(*waypoint)];
+                const double speed = person->getSpeed();
+                for (const auto& ili : crossing->getIncomingLanes()) {
+                    // compare to and maybe adapt for MSPModel_Striping.cpp:1264
+                    const bool open = ili.viaLink->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
+                    const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, std::get<0>(*waypoint), &message);
+                    JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
+                }
+                // do the same for crossing->getLinkCont() ?
+            }
+        }
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
         // but at some simstep it should have a maximum distance of v * delta_t / 2 to the waypoint circle.
         const double slack = person->getMaxSpeed() * TS / 2. + POSITION_EPS;
-        if (newPosition.distanceTo2D(std::get<1>(state->getNextWaypoint())) < std::get<2>(state->getNextWaypoint()) + slack) {
+        if (newPosition.distanceTo2D(std::get<1>(*state->getNextWaypoint())) < std::get<2>(*state->getNextWaypoint()) + slack) {
             // If near the last waypoint, remove the agent.
             if (state->advanceNextWaypoint()) {
                 // TODO this only works if the final stage is actually a walk
@@ -1065,6 +1081,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         }
         const auto proxy1 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy1, JPS_WaitingSet_Inactive);
+        myCrossings[crossing.second.first] = crossing.first;
 
         const Position outPos = shape.positionAtOffset(shape.length() - .5);
         std::vector<JPS_Point> pointsOut{{outPos.x(), outPos.y()}};
@@ -1076,6 +1093,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         }
         const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.second, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy2, JPS_WaitingSet_Inactive);
+        myCrossings[crossing.second.second] = crossing.first;
         if (myPythonScript != nullptr) {
             (*myPythonScript) << "ws_in = simulation.add_waiting_set_stage([(" << inPos.x() << "," << inPos.y() << ")])\n"
                               "simulation.get_stage(ws_in).state = jps.stages.WaitingSetState.INACTIVE\n"
@@ -1185,9 +1203,9 @@ const MSEdge* MSPModel_JuPedSim::PState::getNextEdge(const MSStageMoving& stage)
 }
 
 
-const MSPModel_JuPedSim::WaypointDesc&
-MSPModel_JuPedSim::PState::getNextWaypoint() const {
-    return myWaypoints.front();
+const MSPModel_JuPedSim::WaypointDesc*
+MSPModel_JuPedSim::PState::getNextWaypoint(const int offset) const {
+    return offset < (int)myWaypoints.size() ? &myWaypoints[offset] : nullptr;
 }
 
 
