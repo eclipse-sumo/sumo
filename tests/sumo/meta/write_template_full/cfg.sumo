@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 09:23:28 by Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
+<!-- generated on 2024-06-14 10:35:45 by Eclipse SUMO sumo Version v1_20_0+0567-aeb22f13412
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -112,6 +112,7 @@
         <save-state.precision value="2" type="INT" help="Write internal state values with the given precision (default 2)"/>
         <pedestrian.jupedsim.wkt value="" type="FILE" help="The filename to output the JuPedSim network as WKT"/>
         <pedestrian.jupedsim.wkt.geo value="false" type="BOOL" help="Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"/>
+        <pedestrian.jupedsim.py value="" type="FILE" help="The filename to output the JuPedSim setup as Python script"/>
     </output>
 
     <time>
@@ -503,6 +504,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="TIME" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable overlay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

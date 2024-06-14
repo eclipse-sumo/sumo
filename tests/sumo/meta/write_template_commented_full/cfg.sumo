@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 09:23:28 by Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
+<!-- generated on 2024-06-14 10:35:45 by Eclipse SUMO sumo Version v1_20_0+0567-aeb22f13412
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -311,6 +311,9 @@
 
         <!-- Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat) -->
         <pedestrian.jupedsim.wkt.geo value="false" type="BOOL"/>
+
+        <!-- The filename to output the JuPedSim setup as Python script -->
+        <pedestrian.jupedsim.py value="" type="FILE"/>
 
     </output>
 
@@ -1340,6 +1343,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="TIME"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable overlay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
