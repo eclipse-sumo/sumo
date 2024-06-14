@@ -920,10 +920,16 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 if (o->isFileName() && relativeTo != "") {
                     StringVector fileList = StringTokenizer(o->getValueString(), ",").getVector();
                     for (auto& file : fileList) {
-                        file = FileHelpers::fixRelative(
-                                   StringUtils::urlEncode(file, " ;%"),
-                                   StringUtils::urlEncode(relativeTo, " ;%"),
-                                   forceRelative || getBool("save-configuration.relative"));
+                        if (StringUtils::startsWith(file, "${")) {
+                            // there is an environment variable up front, assume it points to an absolute path
+                            // not even forcing relativity makes sense here
+                            file = StringUtils::urlEncode(file, " ;%");
+                        } else {
+                            file = FileHelpers::fixRelative(
+                                       StringUtils::urlEncode(file, " ;%"),
+                                       StringUtils::urlEncode(relativeTo, " ;%"),
+                                       forceRelative || getBool("save-configuration.relative"));
+                        }
                     }
                     os << StringUtils::escapeXML(joinToString(fileList, ','), inComment);
                 } else {
