@@ -429,8 +429,19 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "odometer",               SUMO_ATTR_ODOMETER },
     { "posLat",                 SUMO_ATTR_POSITION_LAT },
     { "speedLat",               SUMO_ATTR_SPEED_LAT },
+    // only usable with SumoXMLAttrMask
     { "arrivalDelay",           SUMO_ATTR_ARRIVALDELAY },
-
+    // emission-output
+    { "CO",                     SUMO_ATTR_CO },
+    { "CO2",                    SUMO_ATTR_CO2 },
+    { "HC",                     SUMO_ATTR_HC },
+    { "PMx",                    SUMO_ATTR_PMX },
+    { "NOx",                    SUMO_ATTR_NOX },
+    { "fuel",                   SUMO_ATTR_FUEL },
+    { "electricity",            SUMO_ATTR_ELECTRICITY },
+    { "route",                  SUMO_ATTR_ROUTE },
+    { "eclass",                 SUMO_ATTR_ECLASS },
+    { "waiting",                SUMO_ATTR_WAITING },
     // Edge
     { "id",                     SUMO_ATTR_ID },
     { "refId",                  SUMO_ATTR_REFID },
@@ -484,7 +495,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "arrivalPosLat",          SUMO_ATTR_ARRIVALPOS_LAT },
     { "arrivalSpeed",           SUMO_ATTR_ARRIVALSPEED },
     { "arrivalEdge",            SUMO_ATTR_ARRIVALEDGE },
-    { "route",                  SUMO_ATTR_ROUTE },
     { "maxSpeed",               SUMO_ATTR_MAXSPEED },
     { "desiredMaxSpeed",        SUMO_ATTR_DESIRED_MAXSPEED },
     { "maxSpeedLat",            SUMO_ATTR_MAXSPEED_LAT },
@@ -990,7 +1000,6 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "startTime",              SUMO_ATTR_STARTTIME },
     { "vehicleClass",           SUMO_ATTR_VEHICLECLASS },
-    { "fuel",                   SUMO_ATTR_FUEL },
     { "origin",                 SUMO_ATTR_ORIGIN },
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },

@@ -620,6 +620,18 @@ enum SumoXMLAttr {
     // only usable with SumoXMLAttrMask
     SUMO_ATTR_ARRIVALDELAY       = 64,
 
+    // emission-output
+    SUMO_ATTR_CO                 = 65,
+    SUMO_ATTR_CO2                = 66,
+    SUMO_ATTR_HC                 = 67,
+    SUMO_ATTR_PMX                = 68,
+    SUMO_ATTR_NOX                = 69,
+    SUMO_ATTR_FUEL               = 70,
+    SUMO_ATTR_ELECTRICITY        = 71,
+    SUMO_ATTR_ROUTE              = 72,
+    SUMO_ATTR_ECLASS             = 73,
+    SUMO_ATTR_WAITING            = 74,
+
     /// @}
 
     /// @name common attributes
@@ -685,7 +697,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_ARRIVALPOS_LAT,
     SUMO_ATTR_ARRIVALSPEED,
     SUMO_ATTR_ARRIVALEDGE,
-    SUMO_ATTR_ROUTE,
     SUMO_ATTR_MAXSPEED,
     SUMO_ATTR_DESIRED_MAXSPEED,
     SUMO_ATTR_MAXSPEED_LAT,
@@ -1364,7 +1375,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_ACTORCONFIG,
     SUMO_ATTR_STARTTIME,
     SUMO_ATTR_VEHICLECLASS,
-    SUMO_ATTR_FUEL,
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,

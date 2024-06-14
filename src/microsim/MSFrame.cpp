@@ -133,6 +133,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("emission-output.step-scaled", new Option_Bool(false));
     oc.addDescription("emission-output.step-scaled", "Output", TL("Write emission values scaled to the step length rather than as per-second values"));
+    oc.doRegister("emission-output.attributes", new Option_StringVector());
+    oc.addDescription("emission-output.attributes", "Output", TL("List attributes that should be included in the emission output"));
 
     oc.doRegister("battery-output", new Option_FileName());
     oc.addDescription("battery-output", "Output", TL("Save the battery values of each vehicle"));
