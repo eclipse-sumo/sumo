@@ -103,7 +103,7 @@ public:
 
     ///@brief recalibrate color scheme according to the current value range
     void buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme, int active, GUIGlObjectType objectType,
-            const GUIVisualizationRainbowSettings& rs) override;
+                           const GUIVisualizationRainbowSettings& rs);
 
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
