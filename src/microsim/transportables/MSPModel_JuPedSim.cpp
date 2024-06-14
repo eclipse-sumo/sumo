@@ -987,7 +987,7 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
 #ifdef DEBUG_GEOMETRY_GENERATION
     dumpGeometry(myGEOSPedestrianNetworkLargestComponent, "pedestrianNetwork.wkt");
 #endif
-    std::string filename = oc.getString("pedestrian.jupedsim.wkt");
+    const std::string filename = oc.getString("pedestrian.jupedsim.wkt");
     if (!filename.empty()) {
         dumpGeometry(myGEOSPedestrianNetworkLargestComponent, filename, oc.getBool("pedestrian.jupedsim.wkt.geo"));
     }
@@ -1048,10 +1048,9 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         myPythonScript = &OutputDevice::getDeviceByOption("pedestrian.jupedsim.py");
         myPythonScript->setPrecision(10);
         (*myPythonScript) << "import jupedsim as jps\nimport shapely\n\n"
-                          "with open('" << oc.getString("pedestrian.jupedsim.wkt") << "') as f: geom = shapely.from_wkt(f.read())\n"
+                          "with open('" << filename << "') as f: geom = shapely.from_wkt(f.read())\n"
                           "simulation = jps.Simulation(dt=" << STEPS2TIME(myJPSDeltaT) << ", model=jps.CollisionFreeSpeedModel(), geometry=geom,\n"
-                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n"
-                          "waiting_sets = {}\n";
+                          "trajectory_writer=jps.SqliteTrajectoryWriter(output_file='out.sql'))\n";
     }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
@@ -1066,10 +1065,6 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
         }
         const auto proxy1 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy1, JPS_WaitingSet_Inactive);
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "ws_in = simulation.add_waiting_set_stage([(" << inPos.x() << "," << inPos.y() << ")])\n"
-                              "simulation.get_stage(ws_in).state = jps.stages.WaitingSetState.INACTIVE\n";
-        }
 
         const Position outPos = shape.positionAtOffset(shape.length() - .5);
         std::vector<JPS_Point> pointsOut{{outPos.x(), outPos.y()}};
@@ -1079,12 +1074,13 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
             JPS_ErrorMessage_Free(message);
             throw ProcessError(error);
         }
-        const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
+        const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.second, &message);
         JPS_WaitingSetProxy_SetWaitingSetState(proxy2, JPS_WaitingSet_Inactive);
         if (myPythonScript != nullptr) {
-            (*myPythonScript) << "ws_out = simulation.add_waiting_set_stage([(" << outPos.x() << "," << outPos.y() << ")])\n"
-                              "simulation.get_stage(ws_out).state = jps.stages.WaitingSetState.INACTIVE\n"
-                              "waiting_sets['" << crossing.first->getID() << "'] = (ws_in, ws_out)\n";
+            (*myPythonScript) << "ws_in = simulation.add_waiting_set_stage([(" << inPos.x() << "," << inPos.y() << ")])\n"
+                              "simulation.get_stage(ws_in).state = jps.stages.WaitingSetState.INACTIVE\n"
+                              "ws_out = simulation.add_waiting_set_stage([(" << outPos.x() << "," << outPos.y() << ")])\n"
+                              "simulation.get_stage(ws_out).state = jps.stages.WaitingSetState.INACTIVE\n";
         }
     }
 }
