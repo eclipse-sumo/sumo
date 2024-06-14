@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+13043-8ab5e90dfbf
+Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -56,6 +56,8 @@ Output Options:
                                         using geo-coordinates (lon/lat)
   --emission-output.step-scaled        Write emission values scaled to the step
                                         length rather than as per-second values
+  --emission-output.attributes STR[]   List attributes that should be included
+                                        in the emission output
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
                                         precision (default 2)
@@ -948,8 +950,6 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
