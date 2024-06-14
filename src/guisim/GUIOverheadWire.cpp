@@ -281,7 +281,6 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
         // push charging power matrix
         GLHelper::pushMatrix();
         // draw charging power
-        const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         const double lineAngle = s.getTextAngle(myFGSignRot);
         glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
         glRotated(-lineAngle, 0, 0, 1);

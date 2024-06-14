@@ -105,7 +105,7 @@ TraCIServerAPI_ChargingStation::processSet(TraCIServer& server, tcpip::Storage& 
                 if (!server.readTypeCheckingInt(inputStorage, value)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_CHARGINGSTATION_VARIABLE, "Setting charge in transit requires an integer.", outputStorage);
                 }
-                libsumo::ChargingStation::setChargeInTransit(id, value);
+                libsumo::ChargingStation::setChargeInTransit(id, value != 0);
             }
             break;
             default:

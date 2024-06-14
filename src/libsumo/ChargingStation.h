@@ -57,7 +57,7 @@ public:
     static void setChargingPower(const std::string& stopID, double chargingpower);
     static void setEfficiency(const std::string& stopID, double efficiency);
     static void setChargeDelay(const std::string& stopID, double delay);
-    static void setChargeInTransit(const std::string& stopID, int value);
+    static void setChargeInTransit(const std::string& stopID, bool value);
 
 #ifndef LIBTRACI
 #ifndef SWIG

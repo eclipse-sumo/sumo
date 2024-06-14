@@ -1046,8 +1046,6 @@ NEMALogic::getPhaseObj(int phaseNum, int ringNum) {
     }
     // the phase must always be found
     throw ProcessError("At traffic signal '" + myID + "' program '" + myProgramID + "' phase '" + toString(phaseNum) + "' not found in ring '" + toString(ringNum) + "'.");
-    // To satisfy the compiler
-    return myPhaseObjs.front();
 }
 
 PhaseTransitionLogic*

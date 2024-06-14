@@ -113,7 +113,7 @@ ChargingStation::setChargeDelay(const std::string& stopID, double delay) {
 }
 
 void
-ChargingStation::setChargeInTransit(const std::string& stopID, int value) {
+ChargingStation::setChargeInTransit(const std::string& stopID, bool value) {
     Dom::setInt(libsumo::VAR_CS_CHARGE_IN_TRANSIT, stopID, value);
 }
 

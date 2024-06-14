@@ -221,7 +221,8 @@ MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                 return true;
             }
         }
-    } else if (myChargingStation == nullptr && (myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL && STEPS2TIME(now - myLastSearch) >= myRepeatInterval))) {
+    } else if (myChargingStation == nullptr &&
+               (myUpdateSoC - currentSoC > DEFAULT_SOC_INTERVAL || (mySearchState == SEARCHSTATE_UNSUCCESSFUL && now - myLastSearch >= myRepeatInterval))) {
         // check if a charging stop is already planned without the device, otherwise reroute inside this device
         if (!alreadyPlannedCharging() && now > myHolder.getDeparture()) {
             rerouteToChargingStation();
@@ -303,7 +304,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         double parkingCapacity = (cs->getParkingArea() != nullptr) ? cs->getParkingArea()->getCapacity() : (cs->getEndLanePosition() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
         double freeParkingCapacity = freeSpaceAtChargingStation(cs);
         double waitingTime = (freeParkingCapacity < 1.) ? DEFAULT_AVG_WAITING_TIME / parkingCapacity : 0.; // TODO: create true waiting time function
-        double chargingTime = cs->getChargeDelay() + expectedConsumption / cs->getChargingPower(false);
+        double chargingTime = STEPS2TIME(cs->getChargeDelay()) + expectedConsumption / cs->getChargingPower(false);
 
         ConstMSEdgeVector routeFrom;
         const MSEdge* const csEdge = &cs->getLane().getEdge();
