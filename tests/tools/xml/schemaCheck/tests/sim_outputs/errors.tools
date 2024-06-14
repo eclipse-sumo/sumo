@@ -1,57 +1,141 @@
-sumo/pedestrian_model/striping/errors/disconnected_route_ignore/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.55' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/errors/disconnected_trip_ignore/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.55' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.67' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.44' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.70' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.29' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/striping/disconnected_route/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-141.54' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/waypoints/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-7.47' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:52:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.51' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:55:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.51' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.73' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:61:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.33' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:64:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.82' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:67:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.82' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:70:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.32' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:73:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.32' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:76:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.39' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.56' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.86' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.94' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:93:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.35' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/two_edges/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.93' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/identical_start_pos/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.93' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-4.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-4.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:59:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:62:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:65:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:68:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:71:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:74:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:83:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:86:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:89:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:92:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:95:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:98:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:104:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:110:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:116:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:119:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:122:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:143:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:182:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:191:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/speed_factor/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-8.84' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/pedestrian_model/jupedsim/waypoint_radius/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-7.47' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/extended/state/load_shifted/tripinfos.sumo.meso:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/extended/state/load_shifted/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/devices/glosa/speedUp/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.15' is not a valid value of the union type 'timeType'.
+sumo/basic/container/triggered/tripinfos.sumo.meso:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'containerinfo', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/basic/container/triggered/tripinfos.sumo.meso:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'transport', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/basic/container/triggered_oldStyle/tripinfos.sumo.meso:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'containerinfo', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/basic/container/triggered_oldStyle/tripinfos.sumo.meso:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'transport', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
 sumo/cf_model/IDM/insert_with_speedLimit_speedFactor0.8/tripinfos.sumo:35:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.06' is not a valid value of the union type 'timeType'.
+sumo/devices/glosa/speedUp/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'timeLoss': '-0.15' is not a valid value of the union type 'timeType'.
+sumo/extended/state/load_shifted/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/extended/state/load_shifted/tripinfos.sumo.meso:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'tripinfo', attribute 'depart': '-10.00' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:57:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:63:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:66:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:69:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:72:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'eclass' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'CO' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'HC' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'NOx' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'fuel' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'electricity' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'noise' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'type' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'pos' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'speed' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'angle' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'x' is required but missing.
+sumo/output/emission-output/attributes/rawdump.sumo:75:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'vehicle': The attribute 'y' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:46:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
@@ -244,7 +328,53 @@ sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:1
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:191:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:193:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'link': The attribute 'averageSpeed' is required but missing.
 sumo/output/examples/cross3ltl_meandata_amitran_filter/aggregated300.sumo.meso:194:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'actorConfig': The attribute 'averageSpeed' is required but missing.
-sumo/basic/container/triggered_oldStyle/tripinfos.sumo.meso:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'containerinfo', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/basic/container/triggered_oldStyle/tripinfos.sumo.meso:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'transport', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/basic/container/triggered/tripinfos.sumo.meso:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'containerinfo', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/basic/container/triggered/tripinfos.sumo.meso:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'transport', attribute 'waitingTime': '-2.60' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/identical_start_pos/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.93' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.56' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.86' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.94' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/larger_net/tripinfos.sumo:93:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.35' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/speed_factor/tripinfos.sumo:44:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-8.84' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/two_edges/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.93' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:47:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-4.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:50:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-4.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:59:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:62:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:65:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:68:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:71:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:74:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:83:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:86:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:89:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:92:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:95:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:98:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:104:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:110:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:116:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:119:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:122:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:143:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.66' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:182:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/vanishing_area/tripinfos.sumo:191:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.16' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.01' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:52:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.51' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:55:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.51' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.73' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:61:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.33' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:64:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.82' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:67:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-1.82' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:70:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.32' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:73:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.32' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/walking_area/tripinfos.sumo:76:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-0.39' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/waypoint_radius/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-7.47' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/jupedsim/waypoints/tripinfos.sumo:49:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-7.47' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:42:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.67' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:45:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.44' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:48:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.70' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/bugs/ticket2060/tripinfos.sumo:51:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-3.29' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/disconnected_route/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-141.54' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/errors/disconnected_route_ignore/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.55' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/pedestrian_model/striping/errors/disconnected_trip_ignore/tripinfos.sumo:43:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'personinfo', attribute 'timeLoss': '-2.55' is not a valid value of the union type 'timeTypeWithErrorValue'.
