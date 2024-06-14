@@ -143,6 +143,7 @@ GNETLSEditorFrame::GNETLSEditorFrame(GNEViewParent* viewParent, GNEViewNet* view
 
 
 GNETLSEditorFrame::~GNETLSEditorFrame() {
+    myTLSPhases->clearPhaseTable();
 }
 
 
@@ -1987,7 +1988,7 @@ GNETLSEditorFrame::TLSPhases::getPhaseTable() const {
 void
 GNETLSEditorFrame::TLSPhases::initPhaseTable() {
     // first clear table
-    myPhaseTable->clearTable();
+    clearPhaseTable();
     if (myTLSEditorParent->myTLSDefinition->getNumberOfTLSDefinitions() > 0) {
         if (myTLSEditorParent->myEditedDef->getType() == TrafficLightType::STATIC) {
             initStaticPhaseTable();
@@ -2007,6 +2008,12 @@ GNETLSEditorFrame::TLSPhases::initPhaseTable() {
         myPhaseTable->hide();
     }
     update();
+}
+
+
+void
+GNETLSEditorFrame::TLSPhases::clearPhaseTable() {
+    myPhaseTable->clearTable();
 }
 
 

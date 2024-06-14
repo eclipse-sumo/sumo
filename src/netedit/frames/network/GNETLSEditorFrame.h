@@ -406,6 +406,9 @@ public:
          */
         void initPhaseTable();
 
+        /// @brief clear phase thable
+        void clearPhaseTable();
+
         /// @brief change phase value (state, name, next, etc.)
         bool changePhaseValue(const int col, const int row, const std::string& value);
 
