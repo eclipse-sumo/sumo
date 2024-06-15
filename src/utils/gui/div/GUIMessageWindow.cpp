@@ -110,8 +110,8 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
 }
 
 SUMOTime
-GUIMessageWindow::getTimeString(const FXString& text, const FXint pos, const FXint /*lineS*/, const FXint /*lineE*/) const {
-    const FXint end = text.find(" ", pos + 1);
+GUIMessageWindow::getTimeString(const FXString& text, const FXint pos) const {
+    const FXint end = text.find_first_of(" ,", pos + 1);
     std::string time;
     if (end >= 0) {
         time = text.mid(pos, end - pos).text();
@@ -173,7 +173,7 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
                 timePos += (int)std::string(TL(" time")).size() + 1;
                 SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
-                    t = getTimeString(candidate, timePos, 0, (int)candidate.length());
+                    t = getTimeString(candidate, timePos);
                     if (t >= 0) {
                         t += myBreakPointOffset;
                         std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
@@ -244,7 +244,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
         const int timeTerm = (int)std::string(TL(" time")).size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
-            t = getTimeString(text, pos + timeTerm, 0, text.length());
+            t = getTimeString(text, pos + timeTerm);
         }
         if (t >= 0) {
             FXString insText = text.left(pos + timeTerm);

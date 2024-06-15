@@ -155,7 +155,7 @@ private:
     const GUIGlObject* getActiveStringObject(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
 
     /// @brief get time string object
-    SUMOTime getTimeString(const FXString& text, const FXint pos, const FXint lineS, const FXint lineE) const;
+    SUMOTime getTimeString(const FXString& text, const FXint pos) const;
 
     /// @brief fill styles
     void fillStyles();
