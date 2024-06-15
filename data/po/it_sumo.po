@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-14 16:08+0000\n"
+"PO-Revision-Date: 2024-06-15 13:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6056,55 +6056,55 @@ msgstr ""
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:207
 msgid "Joining tram edges"
-msgstr ""
+msgstr "Combinazione degli archi tranviari"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:211
 msgid " Joined % tram edges into roads."
-msgstr ""
+msgstr " % archi tranviari sono stati combinati con strade."
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:249
 msgid "Joining junction clusters"
-msgstr ""
+msgstr "Combinazione di quantità di incroci"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:254
 #, c-format
 msgid " Joined % junction cluster(s)."
-msgstr ""
+msgstr " % quantità di incroci sono stati combinati."
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:257
 msgid "Joining junctions with identical coordinates"
-msgstr ""
+msgstr "Combinazione di incroci con le coordinate identiche"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:261
 #, c-format
 msgid " Joined % junctions."
-msgstr ""
+msgstr " % incroci combinati."
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:266
 msgid "Joining lanes"
-msgstr ""
+msgstr "Combinazione di corsie"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:269
 #, c-format
 msgid "   Joined lanes on % edges."
-msgstr ""
+msgstr "   Le corsie di % archi sono stati combinati."
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:279
 #, c-format
 msgid "   % nodes removed."
-msgstr ""
+msgstr "   % nodi sono stati rimossi."
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:299
 msgid "Reducing geometries"
-msgstr ""
+msgstr "Semplificazione della geometria"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:306
 msgid "Joining similar edges"
-msgstr ""
+msgstr "Combinazione di archi simili"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:316
 msgid "guessing opposite direction edges"
-msgstr ""
+msgstr "indovinando gli archi della direzione opposta"
 
 #: D:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:322
 msgid "Splitting geometry edges"
