@@ -51,8 +51,6 @@ except traci.TraCIException:
     traci.simulationStep()
     traci.vehicle.dispatchTaxi("taxi", [reservations[0].id])
 
-
-
 while traci.simulation.getMinExpectedNumber() > 0:
     print("%s all=%s empty=%s pickup=%s dropoff=%s pickup+dropoff=%s" % (
         traci.simulation.getTime(),

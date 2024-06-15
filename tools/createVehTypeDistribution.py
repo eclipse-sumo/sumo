@@ -160,7 +160,7 @@ def main(options):
                                              resampling=options.nrSamplingAttempts,
                                              decimal_places=options.decimalPlaces)
 
-    params = readConfigFile(options);
+    params = readConfigFile(options)
     for param_dict in params.values():
         dist_creator.add_attribute(param_dict)
     if ("speedFactor" in params) and ("speedDev" not in params):

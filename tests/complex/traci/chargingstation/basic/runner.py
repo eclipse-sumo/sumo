@@ -14,7 +14,7 @@
 
 # @file    runner.py
 # @author  Jakob Erdmann
-# author   Mirko Barthauer
+# @author   Mirko Barthauer
 # @date    2020-03-16
 
 
@@ -39,7 +39,7 @@ print("chargingstations", traci.chargingstation.getIDList())
 print("chargingstation count", traci.chargingstation.getIDCount())
 print("stop attributes before setting values:")
 for stop in traci.chargingstation.getIDList():
-    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s power=%.0f efficiency=%.2f chargeDelay=%.2f chargeInTransit=%d" % (
+    print("  stop=%s lane=%s startPos=%s endPos=%s name=%s power=%.0f efficiency=%.2f chargeDelay=%.2f chargeInTransit=%d" % (  # noqa
         stop,
         traci.chargingstation.getLaneID(stop),
         traci.chargingstation.getStartPos(stop),
