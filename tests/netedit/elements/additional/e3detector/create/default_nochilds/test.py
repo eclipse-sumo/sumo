@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

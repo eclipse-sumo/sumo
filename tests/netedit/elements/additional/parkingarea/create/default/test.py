@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

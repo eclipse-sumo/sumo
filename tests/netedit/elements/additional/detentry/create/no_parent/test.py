@@ -35,12 +35,14 @@ netedit.additionalMode()
 netedit.changeElement("detEntry")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detExit")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

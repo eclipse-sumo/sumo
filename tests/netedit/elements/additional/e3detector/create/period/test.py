@@ -38,32 +38,39 @@ netedit.changeElement("entryExitDetector")
 netedit.changeDefaultValue(netedit.attrs.E3.create.period, "dummyFreq")
 
 # try to create E3 with invalid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # set invalid frequency (negative)
 netedit.changeDefaultValue(netedit.attrs.E3.create.period, "-30")
 
 # try to create E3 with different frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # set valid frequency
 netedit.changeDefaultValue(netedit.attrs.E3.create.period, "150.5")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,26 +35,32 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # go to move mode
 netedit.moveMode()
 
 # move element
-netedit.moveElement(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y, 496, 321)
+netedit.moveElement(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                    netedit.positions.additionalElements.centralEdge0.y, 496, 321)
 netedit.moveElement(referencePosition, 496, 321, 375, 321)
 
 # Check undo redo

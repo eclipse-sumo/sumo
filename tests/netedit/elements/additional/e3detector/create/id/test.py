@@ -38,26 +38,32 @@ netedit.changeElement("entryExitDetector")
 netedit.changeDefaultValue(netedit.attrs.E3.create.id, ";;;;;;")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.E3.create.id, "customID")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalB.x, netedit.positions.additionalElements.squaredAdditionalB.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalB.x,
+                  netedit.positions.additionalElements.squaredAdditionalB.y)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x, netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x, netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
+                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

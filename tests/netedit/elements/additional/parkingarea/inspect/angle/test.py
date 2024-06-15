@@ -38,13 +38,15 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
 
 # create parkingArea in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectParkingArea.x, netedit.positions.additionalElements.inspectParkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectParkingArea.x,
+                  netedit.positions.additionalElements.inspectParkingArea.y)
 
 # Change parameter Angle with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspect.angle, "dummyAngle", True)

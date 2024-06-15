@@ -35,25 +35,29 @@ netedit.additionalMode()
 netedit.changeElement("instantInductionLoop")
 
 # Create E1
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # set a invalid  id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "e1i_0")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
+                  netedit.positions.additionalElements.centralEdge1.y)
 
 # set a invalid  id
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, ";;;")
 
 # try to create E1 with invalid id
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # set a valid id
 netedit.changeDefaultValue(netedit.attrs.E1Instant.create.id, "customID")
 
 # create E1 with valid id
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
+                  netedit.positions.additionalElements.centralEdge1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

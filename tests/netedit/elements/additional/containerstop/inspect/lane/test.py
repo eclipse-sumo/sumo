@@ -38,13 +38,15 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
 
 # create containerStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x, netedit.positions.additionalElements.inspectContainerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x,
+                  netedit.positions.additionalElements.inspectContainerStop.y)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.lane, "dummy lane", True)

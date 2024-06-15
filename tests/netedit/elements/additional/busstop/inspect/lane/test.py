@@ -38,13 +38,15 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x,
+                  netedit.positions.additionalElements.inspectBusStop.y)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.lane, "dummy lane", True)

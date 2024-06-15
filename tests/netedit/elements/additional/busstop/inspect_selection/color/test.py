@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x, netedit.positions.additionalElements.inspectBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x,
+                  netedit.positions.additionalElements.inspectBusStop.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.busStop.inspectSelection.colorButton, 5, True)
