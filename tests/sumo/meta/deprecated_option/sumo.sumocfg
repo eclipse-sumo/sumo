@@ -25,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </output>
 
     <random_number>
-        <random value="true"/>
+        <abs-rand value="true"/>
     </random_number>
 
 </sumoConfiguration>
