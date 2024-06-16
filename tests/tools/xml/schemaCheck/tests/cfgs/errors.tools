@@ -1,8 +1,8 @@
-complex/traci/bugs/ticket3505_with_load_offset/sumo.sumocfg:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'load-state.offset', attribute 'value': '-100.0' is not a valid value of the union type 'timeTypeWithErrorValue'.
-sumo/meta/deprecated_option/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
+complex/traci/bugs/ticket3505_with_load_offset/sumo.sumocfg:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'load-state.offset', attribute 'value': '-100.0' is not a valid value of the union type 'timeTypeWithErrorValue'.
+sumo/meta/deprecated_option/sumo.sumocfg:28:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'abs-rand': This element is not expected.
 Error on parsing 'sumo/meta/umlaut/sumo.sumocfg'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/build/schemaCheck.py", line 52, in validate
+  File "/scr1/sumo/tests/../tools/build_config/schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
   File "src/lxml/etree.pyx", line 3536, in lxml.etree.parse
   File "src/lxml/parser.pxi", line 1876, in lxml.etree._parseDocument

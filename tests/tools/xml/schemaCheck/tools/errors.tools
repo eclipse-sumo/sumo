@@ -1,0 +1,6 @@
+contributed/saga/defaults/duarouter.sumocfg:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
+contributed/saga/defaults/osm.netccfg:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
+contributed/saga/defaults/osm.sumocfg:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
+contributed/saga/example/most.duarouter.sumocfg:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
+contributed/saga/example/most.test.sumocfg:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
+contributed/traci4matlab/examples/inter_palmas/tls_actuated/inter_palmas_actuated.sumocfg:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_ELT_1: Element 'configuration': No matching global declaration available for the validation root.
