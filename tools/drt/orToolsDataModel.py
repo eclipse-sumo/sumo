@@ -18,6 +18,8 @@
 """
 Data model for drtOrtools.py to solve a drt problem with the ortools routing solver.
 """
+# needed for type alias in python < 3.9
+from __future__ import annotations
 import os
 import sys
 from dataclasses import dataclass

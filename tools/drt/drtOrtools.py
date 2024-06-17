@@ -22,6 +22,8 @@
 Prototype online DRT algorithm using ortools via TraCI.
 """
 from __future__ import print_function
+# needed for type alias in python < 3.9
+from __future__ import annotations
 
 import os
 import pathlib
