@@ -123,6 +123,10 @@ MESegment::MESegment(const std::string& id,
             usableLanes++;
         }
     }
+    if (usableLanes == 0) {
+        // cars won't drive here. Give sensible tau values capacity for the ignored classes
+        usableLanes = 1;
+    }
     if (multiQueue) {
         if (next == nullptr) {
             for (const MSEdge* const edge : parent.getSuccessors()) {
