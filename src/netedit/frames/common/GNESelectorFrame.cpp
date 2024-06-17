@@ -375,7 +375,7 @@ long
 GNESelectorFrame::SelectionOperation::onCmdClear(FXObject*, FXSelector, void*) {
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
-    // get element to selet/unselect depending of current supermode
+    // get element to select/unselect depending of current supermode
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         ACsToSelectUnselect = processMassiveNetworkElementSelection(false);
@@ -425,7 +425,7 @@ long
 GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) {
     // obtain undoList (only for improve code legibly)
     GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
-    // get element to selet/unselect depending of current supermode
+    // get element to select/unselect depending of current supermode
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
     if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         ACsToSelectUnselect = processMassiveNetworkElementSelection(true);
@@ -534,7 +534,7 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
             }
         }
     }
-    // declare set of checked GLTypes to avoid unnecesary calls to isGLObjectLocked()
+    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
     std::map<GUIGlObjectType, bool> checkedTypes;
     // declare vector in which save ACs to select and unselect
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
@@ -558,7 +558,7 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
 
 std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
 GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() {
-    // declare set of checked GLTypes to avoid unnecesary calls to isGLObjectLocked()
+    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
     std::map<GUIGlObjectType, bool> checkedTypes;
     // declare vector in which save ACs to select and unselect
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
@@ -586,7 +586,7 @@ GNESelectorFrame::SelectionOperation::processMassiveDemandElementSelection() {
 
 std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > >
 GNESelectorFrame::SelectionOperation::processMassiveDataElementSelection() {
-    // declare set of checked GLTypes to avoid unnecesary calls to isGLObjectLocked()
+    // declare set of checked GLTypes to avoid unnecessary calls to isGLObjectLocked()
     std::map<GUIGlObjectType, bool> checkedTypes;
     // declare vector in which save ACs to select and unselect
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
