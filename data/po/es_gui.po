@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-28 15:36+0200\n"
-"PO-Revision-Date: 2024-06-17 10:25+0000\n"
+"PO-Revision-Date: 2024-06-17 10:37+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -11606,7 +11606,7 @@ msgstr "moviendo % de %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:142
 msgid "Parent junctions are in the same position: %, %"
-msgstr ""
+msgstr "Los cruces padre están en la misma posición: %, %"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEEdge.cpp:2348
 msgid "Could not compute smooth shape for edge '%'"
@@ -11672,7 +11672,7 @@ msgstr " de % cruces"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:521
 msgid "Clear connections"
-msgstr ""
+msgstr "Remover conexiones"
 
 #: D:\Repos\sumo/src\netedit\elements\network\GNEJunction.cpp:522
 msgid "Reset connections"
@@ -12221,12 +12221,12 @@ msgstr "cambiar múltiples atributos"
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:386
 #, c-format
 msgid "change % attribute"
-msgstr ""
+msgstr "cambiar atributo %"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:430
 #, c-format
 msgid "Value '%' for attribute % of % isn't valid"
-msgstr ""
+msgstr "El valor '%' del atributo % de % no es válido"
 
 #: D:\Repos\sumo/src\netedit\frames\GNEFrameAttributeModules.cpp:447
 msgid "enable attribute '"
@@ -12869,7 +12869,7 @@ msgstr "Elemento adicional"
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:62
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:153
 msgid "Shape"
-msgstr ""
+msgstr "Forma"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:63
 #: D:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:150
