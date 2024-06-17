@@ -29,15 +29,3 @@ value is also shown in the table.
 | charge delay                             | double          | The time delay before starting charging in s | [getChargeDelay](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getChargeDelay) |
 
 
-Some of the variables can be changed as well during simulation using an input parameter of the type shown in the table below.
-
-<center>
-**Overview of writable ChargingStation Variables**
-</center>
-
-| Variable                                     | ValueType           | Description       |  [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
-| -------------------------------------------- | ------------------- | ----------------- | -------------------------------------------------------------- |
-| power                                    | double          | The charging power in W |  [setChargingPower](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargingPower) |
-| efficiency                               | double          | The charging efficiency | [setEfficiency](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setEfficiency) |
-| charge in transit                        | integer         | Whether the vehicle is forced/not forced to stop for charging | [setChargeInTransit](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargeInTransit) |
-| charge delay                             | double          | The time delay before starting charging in s | [setChargeDelay](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargeDelay) |
