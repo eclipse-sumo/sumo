@@ -38,6 +38,8 @@
 bool GUIMessageWindow::myLocateLinks = true;
 SUMOTime GUIMessageWindow::myBreakPointOffset = TIME2STEPS(-5);
 FXHiliteStyle* GUIMessageWindow::myStyles = new FXHiliteStyle[8];
+std::string GUIMessageWindow::myTimeText;
+std::map<std::string, std::string> GUIMessageWindow::myTypeStrings;
 
 // ===========================================================================
 // FOX callback mapping
@@ -64,6 +66,20 @@ GUIMessageWindow::GUIMessageWindow(FXComposite* parent, GUIMainWindow* mainWindo
     fillStyles();
     // set styles
     setHiliteStyles(myStyles);
+    myTimeText = TL(" time");
+    // see GUIGlObject.cpp
+    myTypeStrings[StringUtils::to_lower_case(TL("edge"))] = "edge";
+    myTypeStrings[StringUtils::to_lower_case(TL("lane"))] = "lane";
+    myTypeStrings[StringUtils::to_lower_case(TL("junction"))] = "junction";
+    myTypeStrings[StringUtils::to_lower_case(TL("vehicle"))] = "vehicle";
+    myTypeStrings[StringUtils::to_lower_case(TL("person"))] = "person";
+    myTypeStrings[StringUtils::to_lower_case(TL("tlLogic"))] = "tlLogic";
+    myTypeStrings[StringUtils::to_lower_case(TL("busStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("trainStop"))] = "busStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("containerStop"))] = "containerStop";
+    myTypeStrings[StringUtils::to_lower_case(TL("chargingStation"))] = "chargingStation";
+    myTypeStrings[StringUtils::to_lower_case(TL("overheadWireSegment"))] = "overheadWireSegment";
+    myTypeStrings[StringUtils::to_lower_case(TL("parkingArea"))] = "parkingArea";
 }
 
 
@@ -86,18 +102,9 @@ GUIMessageWindow::getActiveStringObject(const FXString& text, const FXint pos, c
                 typeS++;
             }
             std::string type(text.mid(typeS + 1, idS - typeS - 1).lower().text());
-            if (type == "tllogic") {
-                type = "tlLogic"; // see GUIGlObject.cpp
-            } else if (type == "busstop" || type == "trainstop") {
-                type = "busStop";
-            } else if (type == "containerstop") {
-                type = "containerStop";
-            } else if (type == "chargingstation") {
-                type = "chargingStation";
-            } else if (type == "overheadwiresegment") {
-                type = "overheadWireSegment";
-            } else if (type == "parkingarea") {
-                type = "parkingArea";
+            const auto& tsIt = myTypeStrings.find(type);
+            if (tsIt != myTypeStrings.end()) {
+                type = tsIt->second;
             }
             const std::string id(text.mid(idS + 2, idE - idS - 2).text());
             const std::string typedID = type + ":" + id;
@@ -168,9 +175,9 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             const int lookback = MIN2(pos, 20);
             const int start = MAX2(lineStart(pos), pos - lookback);
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
-            FXint timePos = candidate.find(TL(" time"));
+            FXint timePos = candidate.find(myTimeText.c_str());
             if (timePos > -1) {
-                timePos += (int)std::string(TL(" time")).size() + 1;
+                timePos += (int)myTimeText.size() + 1;
                 SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
                     t = getTimeString(candidate, timePos);
@@ -240,8 +247,8 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
             pos = text.find("'", pos + 1);
         }
         // find time links
-        pos = text.find(TL(" time"));
-        const int timeTerm = (int)std::string(TL(" time")).size() + 1;
+        pos = text.find(myTimeText.c_str());
+        const int timeTerm = (int)myTimeText.size() + 1;
         SUMOTime t = -1;
         if (pos >= 0) {
             t = getTimeString(text, pos + timeTerm);
