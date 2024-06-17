@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-17 12:50+0200\n"
-"PO-Revision-Date: 2024-06-17 10:25+0000\n"
+"PO-Revision-Date: 2024-06-17 13:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8469,16 +8469,16 @@ msgstr "   % archi caricati."
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:136
 #, c-format
 msgid "The split of edges was performed % times."
-msgstr ""
+msgstr "% volte degli archi sono stati tagliati."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:144
 msgid "Proj projection parameters used: '%'."
-msgstr ""
+msgstr "Parametri utilizzati per la proiezione Prog: '%'."
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:165
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input edge files."
-msgstr ""
+msgstr "Le classi di veicolo '%' dei file ingresso non si usono più."
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
@@ -8502,16 +8502,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIVisumTL.cpp:76
 msgid "invalid node for traffic light '%'"
-msgstr ""
+msgstr "nodo invalido per il semaforo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:85
 msgid ""
 "Target edge '%' is not connected with '%'; the connection cannot be reset."
 msgstr ""
+"L'arco di destinazione '%' non è collegato a '%#; il collegamento non può "
+"essere resettato."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:99
 msgid "Edge '%' has no connection to lane '%'; the connection cannot be reset."
 msgstr ""
+"L'arco '%' non possiede nessun collegamento alla corsia '%'; il collegamento "
+"non può essere resettato."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:267
 msgid "Unable to project shape for connection from edge '%' to edge '%'."
