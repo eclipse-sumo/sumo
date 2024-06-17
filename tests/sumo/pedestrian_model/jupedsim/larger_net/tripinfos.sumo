@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 16:05:50 by Eclipse SUMO sumo Version v1_20_0+0575-2ff3b66ecea
+<!-- generated on 2024-06-17 14:04:06 by Eclipse SUMO sumo Version v1_20_0+0598-2db6a127b44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,8 +59,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="10" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="459.00" waitingTime="0.00" timeLoss="4.06" traveltime="459.00">
         <walk depart="10.00" departPos="0.00" arrival="469.00" arrivalPos="78.30" duration="459.00" routeLength="631.86" timeLoss="4.06" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="18" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="452.00" waitingTime="0.00" timeLoss="7.89" traveltime="452.00">
-        <walk depart="18.00" departPos="0.00" arrival="470.00" arrivalPos="98.57" duration="452.00" routeLength="616.82" timeLoss="7.89" maxSpeed="1.39"/>
+    <personinfo id="18" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="460.00" waitingTime="0.00" timeLoss="15.89" traveltime="460.00">
+        <walk depart="18.00" departPos="0.00" arrival="478.00" arrivalPos="98.57" duration="460.00" routeLength="616.82" timeLoss="15.89" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="541.00" waitingTime="0.00" timeLoss="22.61" traveltime="541.00">
         <walk depart="0.00" departPos="0.00" arrival="541.00" arrivalPos="38.17" duration="541.00" routeLength="719.98" timeLoss="22.61" maxSpeed="1.39"/>
@@ -92,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="3" depart="3.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1099.00" waitingTime="0.00" timeLoss="-3.35" traveltime="1099.00">
         <walk depart="3.00" departPos="0.00" arrival="1102.00" arrivalPos="70.38" duration="1099.00" routeLength="1531.04" timeLoss="-3.35" maxSpeed="1.39"/>
     </personinfo>
-    <personinfo id="5" depart="5.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1375.00" waitingTime="0.00" timeLoss="12.31" traveltime="1375.00">
-        <walk depart="5.00" departPos="0.00" arrival="1380.00" arrivalPos="71.81" duration="1375.00" routeLength="1892.63" timeLoss="12.31" maxSpeed="1.39"/>
+    <personinfo id="5" depart="5.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1374.00" waitingTime="0.00" timeLoss="11.31" traveltime="1374.00">
+        <walk depart="5.00" departPos="0.00" arrival="1379.00" arrivalPos="71.81" duration="1374.00" routeLength="1892.63" timeLoss="11.31" maxSpeed="1.39"/>
     </personinfo>
     <personinfo id="8" depart="8.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="1549.00" waitingTime="0.00" timeLoss="20.71" traveltime="1549.00">
         <walk depart="8.00" departPos="0.00" arrival="1557.00" arrivalPos="116.30" duration="1549.00" routeLength="2122.63" timeLoss="20.71" maxSpeed="1.39"/>
