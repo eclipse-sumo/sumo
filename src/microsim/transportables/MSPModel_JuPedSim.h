@@ -233,4 +233,5 @@ private:
     static JPS_Geometry buildJPSGeometryFromGEOSGeometry(const GEOSGeometry* polygon);
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
+    JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);
 };

@@ -188,7 +188,7 @@ MSPModel_JuPedSim::addWaypoint(JPS_JourneyDescription journey, JPS_StageId& pred
 MSTransportableStateAdapter*
 MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) {
     assert(person->getCurrentStageType() == MSStageType::WALKING);
-    double radius = getRadius(person->getVehicleType());
+    const double radius = getRadius(person->getVehicleType());
     Position departurePosition = Position::INVALID;
     const MSLane* const departureLane = getSidewalk<MSEdge, MSLane>(stage->getRoute().front());
     if (departureLane == nullptr) {
@@ -710,6 +710,11 @@ MSPModel_JuPedSim::buildPedestrianNetwork(MSNet* network) {
             } else if (edge->isCrossing()) {
                 const PositionVector* outlineShape = lane->getOutlineShape();
                 if (outlineShape != nullptr) {
+                    // this is mainly to ensure that we have at least the "normal" crossing, see #15037
+                    dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_FLAT);
+                    if (dilatedLane != nullptr) {
+                        walkableAreas.push_back(dilatedLane);
+                    }
                     dilatedLane = createGeometryFromShape(*outlineShape, edge->getFromJunction()->getID(), edge->getID(), true);
                 } else {
                     dilatedLane = createGeometryFromCenterLine(lane->getShape(), lane->getWidth() / 2.0, GEOSBUF_CAP_ROUND);
@@ -987,6 +992,46 @@ MSPModel_JuPedSim::getRadius(const MSVehicleType& vehType) {
 }
 
 
+JPS_StageId
+MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry) {
+    JPS_ErrorMessage message = nullptr;
+    JPS_StageId waitingStage = 0;
+    const PositionVector& shape = crossing->getShape();
+    const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
+    const double offset = 2 * radius + NUMERICAL_EPS;
+    const double lonOffset = entry ? radius + NUMERICAL_EPS : shape.length() - radius - NUMERICAL_EPS;
+    const Position wPos = shape.positionAtOffset(lonOffset);
+    std::vector<JPS_Point> points{{wPos.x(), wPos.y()}};
+    for (double latOff = offset; latOff < crossing->getWidth() / 2. - offset; latOff += offset) {
+        PositionVector moved(shape);
+        moved.move2side(latOff);
+        const Position wPosOff = moved.positionAtOffset(lonOffset);
+        points.push_back({wPosOff.x(), wPosOff.y()});
+        moved.move2side(-2. * latOff);
+        const Position wPosOff2 = moved.positionAtOffset(lonOffset);
+        points.push_back({wPosOff2.x(), wPosOff2.y()});
+    }
+    waitingStage = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, points.data(), points.size(), &message);
+    if (message != nullptr) {
+        const std::string error = TLF("Error while adding waiting set for % on '%': %",
+                                      entry ? "entry" : "exit", crossing->getID(), JPS_ErrorMessage_GetMessage(message));
+        JPS_ErrorMessage_Free(message);
+        throw ProcessError(error);
+    }
+    const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
+    JPS_WaitingSetProxy_SetWaitingSetState(proxy, JPS_WaitingSet_Inactive);
+    myCrossings[waitingStage] = crossing;
+    if (myPythonScript != nullptr) {
+        (*myPythonScript) << "ws = simulation.add_waiting_set_stage([";
+        for (const JPS_Point& p : points) {
+            (*myPythonScript) << "(" << p.x << "," << p.y << "),";
+        }
+        (*myPythonScript) << "])\nsimulation.get_stage(ws).state = jps.stages.WaitingSetState.INACTIVE\n";
+    }
+    return waitingStage;
+}
+
+
 void
 MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     initGEOS(nullptr, nullptr);
@@ -1070,36 +1115,8 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
     }
     // add waiting sets at crossings
     for (auto& crossing : myCrossingWaits) {
-        const PositionVector& shape = crossing.first->getShape();
-        const Position inPos = shape.positionAtOffset(.5);
-        std::vector<JPS_Point> pointsIn{{inPos.x(), inPos.y()}};
-        crossing.second.first = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsIn.data(), pointsIn.size(), &message);
-        if (message != nullptr) {
-            const std::string error = TLF("Error while adding waiting set for entry on '%': %", crossing.first->getID(), JPS_ErrorMessage_GetMessage(message));
-            JPS_ErrorMessage_Free(message);
-            throw ProcessError(error);
-        }
-        const auto proxy1 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.first, &message);
-        JPS_WaitingSetProxy_SetWaitingSetState(proxy1, JPS_WaitingSet_Inactive);
-        myCrossings[crossing.second.first] = crossing.first;
-
-        const Position outPos = shape.positionAtOffset(shape.length() - .5);
-        std::vector<JPS_Point> pointsOut{{outPos.x(), outPos.y()}};
-        crossing.second.second = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, pointsOut.data(), pointsOut.size(), &message);
-        if (message != nullptr) {
-            const std::string error = TLF("Error while adding waiting set for exit on '%': %", crossing.first->getID(), JPS_ErrorMessage_GetMessage(message));
-            JPS_ErrorMessage_Free(message);
-            throw ProcessError(error);
-        }
-        const auto proxy2 = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, crossing.second.second, &message);
-        JPS_WaitingSetProxy_SetWaitingSetState(proxy2, JPS_WaitingSet_Inactive);
-        myCrossings[crossing.second.second] = crossing.first;
-        if (myPythonScript != nullptr) {
-            (*myPythonScript) << "ws_in = simulation.add_waiting_set_stage([(" << inPos.x() << "," << inPos.y() << ")])\n"
-                              "simulation.get_stage(ws_in).state = jps.stages.WaitingSetState.INACTIVE\n"
-                              "ws_out = simulation.add_waiting_set_stage([(" << outPos.x() << "," << outPos.y() << ")])\n"
-                              "simulation.get_stage(ws_out).state = jps.stages.WaitingSetState.INACTIVE\n";
-        }
+        crossing.second.first = addWaitingSet(crossing.first, true);
+        crossing.second.second = addWaitingSet(crossing.first, false);
     }
 }
 
