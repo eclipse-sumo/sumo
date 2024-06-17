@@ -175,6 +175,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Change Traffic Lights
     State](TraCI/Change_Traffic_Lights_State.md) change a
     traffic lights' state
+  - [Change Charging Station State](TraCI/ChargingStation.md) change a charging stations's attributes
 - Misc
   - [Change Simulation
     State](TraCI/Change_Simulation_State.md) change the
