@@ -92,6 +92,6 @@ Then you should review the changes and `git push` afterwards.
 Changing the translatable string directly in the source code will invalidate the translation because the original string is used
 as a key in the `.po` translation files. By default, the obsolete translations will remain in the `.po` file but won't appear in
 the [Weblate](https://hosted.weblate.org/projects/eclipse-sumo/) anymore. If the original string does not change its meaning, it
-is preferable to use the python script `tools/build_config/updateMessageIDs.py` instead (see [updateMessageIDs.py help](../Tools/Build.md#updatemessageidspy).
+is preferable to use the python script `tools/build_config/updateMessageIDs.py` instead (see [updateMessageIDs.py help](../Tools/Build.md#updatemessageidspy)).
 The script `tools/build_config/obsoleteTranslations.py` (see [obsoleteTranslations.py help](../Tools/Build.md#obsoletetranslationspy)) can be used to
 print the obsolete translations and optionally remove them completely from the `.po` files.
