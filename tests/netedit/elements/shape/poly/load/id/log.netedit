@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a poly.
 Error: Could not build poly with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
 Error: Could not build poly with ID 'poly_0' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.07Aug075746.5998/netedit.gui/shapeelements/poly/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.17Jun171334.27361/netedit.gui/elements/shape/poly/load/id/additionals.add.xml failed.
