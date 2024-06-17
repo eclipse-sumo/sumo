@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-28 15:36+0200\n"
-"PO-Revision-Date: 2024-04-30 14:07+0000\n"
+"PO-Revision-Date: 2024-06-17 10:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.3-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:297
 #: D:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:300
@@ -2428,7 +2428,7 @@ msgstr "cargando actualmente [Wh]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:205
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "tasa de carga máxima [W]"
 
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:209
 #: D:\Repos\sumo/src\guisim\GUIVehicle.cpp:207
@@ -5165,6 +5165,8 @@ msgstr "Agregar clase de vehículo % a los carriles seleccionados"
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
 msgstr ""
+"Todos los carriles ya poseen otro carril en la misma arista con una "
+"restricción a %."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1085
 msgid "% restrictions to % will be added. Continue?"
@@ -5186,7 +5188,7 @@ msgstr "Remover clase de vehículo % de los carriles seleccionados"
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1166
 msgid "The selected lanes and edges don't have a restriction to %."
-msgstr ""
+msgstr "Los carriles y aristas seleccionados no tienen una restricción a %."
 
 #: D:\Repos\sumo/src\netedit\GNEViewNet.cpp:1173
 msgid "% restrictions to % will be removed. Continue?"
@@ -7254,7 +7256,7 @@ msgstr "Un ID opcional para el programa semafórico"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1000
 msgid "Whether this junction is part of a roundabout"
-msgstr ""
+msgstr "Si este cruce forma parte de una rotonda"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1011
 msgid "EdgeType"
@@ -7427,7 +7429,7 @@ msgstr "Especifica para qué clases de vehículos NO aplica el stopOffset."
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1234
 msgid "Whether this edge is part of a roundabout"
-msgstr ""
+msgstr "Si esta arista forma parte de una rotonda"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1245
 #: D:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:67
@@ -7957,7 +7959,7 @@ msgstr "Nombre de la zona de estacionamiento"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1937
 msgid "Accepted badges to access this parkingArea"
-msgstr ""
+msgstr "Credenciales aceptadas para acceder a esta zona de estacionamiento"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:1942
 msgid " The number of parking spaces for road-side parking"
@@ -8886,7 +8888,7 @@ msgstr "La altura del vehículo [m] (solo se usa al dibujar)"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3617
 msgid "The parking badges assigned to the vehicle"
-msgstr ""
+msgstr "Credenciales de parqueo asignadas al vehículo"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3622
 msgid ""
@@ -10479,6 +10481,8 @@ msgid ""
 "Whether pedestrians shall be recorded instead of vehicles. Allowed value is "
 "walk"
 msgstr ""
+"Si se deben registrar peatones en lugar de vehículos. El valor permitido es "
+"walk"
 
 #: D:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:7006
 msgid "List of attribute names that shall be written"
