@@ -12,7 +12,7 @@ The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
 <center>
-**Overview ChargingStation Variables**
+**Overview of readable ChargingStation Variables**
 </center>
 
 | Variable                                     | ValueType           | Description       |  [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
@@ -23,3 +23,21 @@ value is also shown in the table.
 | start pos                                  | double          | The starting position of the stop along the lane measured in m.   | [getStartPos](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getStartPos) |
 | vehicle count                     | integer   | Get the total number of vehicles stopped at the named charging station.  | [getVehicleCount](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getVehicleCount) |
 | vehicle ID                         | stringList          | Get the IDs of vehicles stopped at the named charging station.   | [getVehicleIDs](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getVehicleIDs) |
+| power                                    | double          | The charging power in W |  [getChargingPower](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getChargingPower) |
+| efficiency                               | double          | The charging efficiency | [getEfficiency](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getEfficiency) |
+| charge in transit                        | integer         | Whether the vehicle is forced/not forced to stop for charging | [getChargeInTransit](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getChargeInTransit) |
+| charge delay                             | double          | The time delay before starting charging in s | [getChargeDelay](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-getChargeDelay) |
+
+
+Some of the variables can be changed as well during simulation using an input parameter of the type shown in the table below.
+
+<center>
+**Overview of writable ChargingStation Variables**
+</center>
+
+| Variable                                     | ValueType           | Description       |  [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
+| -------------------------------------------- | ------------------- | ----------------- | -------------------------------------------------------------- |
+| power                                    | double          | The charging power in W |  [setChargingPower](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargingPower) |
+| efficiency                               | double          | The charging efficiency | [setEfficiency](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setEfficiency) |
+| charge in transit                        | integer         | Whether the vehicle is forced/not forced to stop for charging | [setChargeInTransit](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargeInTransit) |
+| charge delay                             | double          | The time delay before starting charging in s | [setChargeDelay](https://sumo.dlr.de/pydoc/traci._chargingstation.html#ChargingStationDomain-setChargeDelay) |
