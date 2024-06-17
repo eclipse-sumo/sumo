@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-17 12:50+0200\n"
-"PO-Revision-Date: 2024-06-03 15:19+0000\n"
+"PO-Revision-Date: 2024-06-17 17:49+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -2424,7 +2424,7 @@ msgstr "caricando attualmente [Wh]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:205
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "rata di caricamento massima [W]"
 
 #: C:\Repos\sumo/src\guisim\GUIVehicle.cpp:209
 msgid "present electric current [A]"
@@ -6198,15 +6198,15 @@ msgstr "Reimposta rimozione della corsia '"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_RegisterJoin.cpp:41
 msgid "Register joined junctions '%'"
-msgstr ""
+msgstr "Registra incroci combinati '%'"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_RegisterJoin.cpp:69
 msgid "Undo register joined junctions"
-msgstr ""
+msgstr "Annulla registrazione di incroci combinati"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_RegisterJoin.cpp:75
 msgid "Redo register joined junctions"
-msgstr ""
+msgstr "Reimposta registrazione di incroci combinati"
 
 #: C:\Repos\sumo/src\netedit\changes\GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
