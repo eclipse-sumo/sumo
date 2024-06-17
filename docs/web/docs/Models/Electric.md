@@ -311,6 +311,7 @@ The internal state of the battery device can be accessed directly using
 [*traci.vehicle.getParameter*](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)
 and
 [*traci.vehicle.setParameter*](../TraCI/Change_Vehicle_State.md#supported_device_parameters).
+Charging stations can be inspected and updated using the respective getter and setter functions inside [*traci.chargingstation*](../TraCI/ChargingStation.md).
 
 Furthermore, the function
 [*traci.vehicle.getElectricityConsumption()*](../TraCI/Vehicle_Value_Retrieval.md#command_0xa4_get_vehicle_variable)
@@ -325,6 +326,15 @@ mWh = traci.vehicle.getDistance(vehID) / float(traci.vehicle.getParameter(vehID,
 remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) * mWh
 ```
 To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
+
+## Reducing the power of a charging station:
+
+If too many consumers connect to the eletrical grid, it may not be able to supply the nominal power of the charging station. A temporary
+power drop of 20% can be modeled using the following sample code:
+```
+prevPower = traci.chargingstation.getPower(chargingStationID) # remember for restoring the full power later
+traci.chargingstation.setPower(chargingStationID, prevPower * 0.8)
+```
 
 # Model Details
 
