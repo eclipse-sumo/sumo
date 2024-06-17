@@ -998,7 +998,7 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
     JPS_StageId waitingStage = 0;
     const PositionVector& shape = crossing->getShape();
     const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
-    const double offset = 2 * radius + NUMERICAL_EPS;
+    const double offset = 2 * radius + POSITION_EPS;
     const double lonOffset = entry ? radius + NUMERICAL_EPS : shape.length() - radius - NUMERICAL_EPS;
     const Position wPos = shape.positionAtOffset(lonOffset);
     std::vector<JPS_Point> points{{wPos.x(), wPos.y()}};
@@ -1010,6 +1010,20 @@ MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry)
         moved.move2side(-2. * latOff);
         const Position wPosOff2 = moved.positionAtOffset(lonOffset);
         points.push_back({wPosOff2.x(), wPosOff2.y()});
+    }
+    Position center = Position::INVALID;
+    if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
+        center = crossing->getIncomingLanes().front().lane->getShape().getCentroid();
+    }
+    if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
+        center = crossing->getLinkCont().front()->getLane()->getShape().getCentroid();
+    }
+    if (center != Position::INVALID) {
+        GEOSGeometry* point = GEOSGeom_createPointFromXY(center.x(), center.y());
+        if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
+            points.push_back({center.x(), center.y()});
+        }
+        GEOSGeom_destroy(point);
     }
     waitingStage = JPS_Simulation_AddStageWaitingSet(myJPSSimulation, points.data(), points.size(), &message);
     if (message != nullptr) {
