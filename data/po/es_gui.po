@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-28 15:36+0200\n"
-"PO-Revision-Date: 2024-06-17 10:41+0000\n"
+"PO-Revision-Date: 2024-06-17 10:46+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -13918,6 +13918,8 @@ msgid ""
 "-Requires EntryExitDetector\n"
 " parent\n"
 msgstr ""
+"-Requiere elemento padre de tipo \n"
+"detector de Entrada/Salida (EntryExitDetector)\n"
 
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:99
 #: D:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:102
