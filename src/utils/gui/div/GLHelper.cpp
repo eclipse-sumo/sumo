@@ -401,7 +401,6 @@ GLHelper::drawBoxLines(const PositionVector& geom,
             setColor(cols[i]);
             glTranslated(geom[i].x(), geom[i].y(), 0);
             drawFilledCircle(width, cornerDetail);
-            glEnd();
             GLHelper::popMatrix();
         }
     }
