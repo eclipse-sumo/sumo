@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-07 14:42+0200\n"
-"PO-Revision-Date: 2024-06-15 13:00+0000\n"
+"PO-Revision-Date: 2024-06-17 10:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4064,18 +4064,22 @@ msgstr "Il taxi '%' giunge alle fine del servizio alle ore %."
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
+"Tutti i clienti sono scesi dal veicolo '%' alle ore % ma ci sono % fermate "
+"rimaste"
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:116
 msgid "Vehicle type for manual driving regime."
-msgstr ""
+msgstr "Tipo di veicolo per la guida manuale."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:118
 msgid "Vehicle type for automated driving regime."
-msgstr ""
+msgstr "Tipo di veicolo a guida autonoma."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:120
 msgid "Average response time needed by a driver to take back control."
 msgstr ""
+"Tempo medio necessario perché un conducente riassume il controllo del "
+"veicolo."
 
 #: D:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:122
 msgid "Recovery rate for the driver's awareness after a ToC."
