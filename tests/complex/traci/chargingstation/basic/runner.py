@@ -56,7 +56,7 @@ for stop in traci.chargingstation.getIDList():
     traci.chargingstation.setChargingPower(stop, 50000.)
     traci.chargingstation.setEfficiency(stop, 1.)
     traci.chargingstation.setChargeDelay(stop, 0.)
-    traci.chargingstation.setChargeInTransit(stop, 1)
+    traci.chargingstation.setChargeInTransit(stop, True)
     print("  stop=%s power=%.0f efficiency=%.2f chargeDelay=%.2f chargeInTransit=%d" % (
         stop,
         traci.chargingstation.getChargingPower(stop),

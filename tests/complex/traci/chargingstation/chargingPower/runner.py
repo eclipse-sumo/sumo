@@ -49,9 +49,9 @@ for step in range(50):
     print("time:", traci.simulation.getTime())
     for stop in traci.chargingstation.getIDList():
         if step % 2 == 0:
-            traci.chargingstation.setChargingPower(stop, "200")
+            traci.chargingstation.setChargingPower(stop, 200)
         else:
-            traci.chargingstation.setChargingPower(stop, "300")
+            traci.chargingstation.setChargingPower(stop, 300)
         print("  stop=%s chargingPower=%s" % (stop, traci.chargingstation.getChargingPower(stop)))
     traci.simulationStep()
 
