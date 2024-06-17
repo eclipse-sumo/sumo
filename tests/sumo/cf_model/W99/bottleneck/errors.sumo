@@ -23,7 +23,7 @@ Warning: Vehicle 'high.105' performs emergency braking on lane 'start_1' with de
 Warning: Vehicle 'high.114' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=223.00.
 Warning: Vehicle 'high.123' performs emergency braking on lane 'middle_1' with decel=7.00, wished=4.00, severity=1.00, time=247.00.
 Warning: Vehicle 'high.132' performs emergency braking on lane 'start_0' with decel=9.00, wished=4.50, severity=1.00, time=258.00.
-Warning: Teleporting vehicle 'high.129'; collision with vehicle 'high.132', lane='start_0', gap=-1.41, time=258.00 stage=move.
+Warning: Teleporting vehicle 'high.129'; collision with vehicle 'high.132', lane='start_0', gap=-1.41, time=258.00, stage=move.
 Warning: Vehicle 'high.129' ends teleporting on edge 'middle', time=258.00.
 Warning: Vehicle 'high.134' performs emergency braking on lane 'start_1' with decel=9.00, wished=4.50, severity=1.00, time=264.00.
 Warning: Vehicle 'high.139' performs emergency braking on lane 'middle_1' with decel=9.00, wished=4.50, severity=1.00, time=283.00.

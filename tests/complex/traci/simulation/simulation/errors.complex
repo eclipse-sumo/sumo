@@ -10,7 +10,7 @@ Error: Answered with error to command 0xab: Unknown from edge 'foo'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
 Error: Answered with error to command 0xab: Invalid depart position 100000.00 for edge 'o'.
-Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-1.36, time=13.00 stage=move.
+Warning: Teleporting vehicle 'collider'; collision with vehicle 'suddenStop', lane='o_0', gap=-1.36, time=13.00, stage=move.
 Warning: Vehicle 'collider' teleports beyond arrival edge 'o', time=13.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=-100.00, offset=68.12), time=16.00.
 Warning: Vehicle 'emergencyStopper' performs emergency stop at the end of lane 'o_0' because there is no connection to the next edge (decel=0.00, offset=100.00), time=17.00.

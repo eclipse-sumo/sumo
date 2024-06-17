@@ -3,19 +3,19 @@ Warning: At NEMA tlLogic '0', actuated phase 3 has no controlling detector
 Warning: At NEMA tlLogic '0, linkIndex 7 has no controlling detector
 Warning: Teleporting vehicle 'NS.0'; waited too long (yield), lane='4si_0', time=447.00.
 Warning: Vehicle 'NS.0' ends teleporting on edge '3o', time=447.00.
-Warning: Teleporting vehicle 'WE.125'; collision with vehicle 'SE.24', lane='2o_0', gap=-6.60, time=723.00 stage=move.
+Warning: Teleporting vehicle 'WE.125'; collision with vehicle 'SE.24', lane='2o_0', gap=-6.60, time=723.00, stage=move.
 Warning: Vehicle 'WE.125' teleports beyond arrival edge '2o', time=723.00.
 Warning: Teleporting vehicle 'NS_1.0'; waited too long (yield), lane='4si_0', time=751.00.
 Warning: Vehicle 'NS_1.0' ends teleporting on edge '3o', time=751.00.
-Warning: Teleporting vehicle 'NW_1.1'; collision with vehicle 'EW_1.109', lane='1o_0', gap=-6.78, time=762.00 stage=move.
+Warning: Teleporting vehicle 'NW_1.1'; collision with vehicle 'EW_1.109', lane='1o_0', gap=-6.78, time=762.00, stage=move.
 Warning: Vehicle 'NW_1.1' teleports beyond arrival edge '1o', time=762.00.
 Warning: Teleporting vehicle 'NS_1.1'; waited too long (yield), lane='4si_0', time=1069.00.
 Warning: Vehicle 'NS_1.1' ends teleporting on edge '3o', time=1069.00.
-Warning: Teleporting vehicle 'SE.48'; collision with vehicle 'WE.248', lane='2o_0', gap=-7.50, time=1210.00 stage=move.
+Warning: Teleporting vehicle 'SE.48'; collision with vehicle 'WE.248', lane='2o_0', gap=-7.50, time=1210.00, stage=move.
 Warning: Vehicle 'SE.48' teleports beyond arrival edge '2o', time=1210.00.
 Warning: Teleporting vehicle 'NS.1'; waited too long (yield), lane='4si_0', time=1373.00.
 Warning: Vehicle 'NS.1' ends teleporting on edge '3o', time=1373.00.
-Warning: Teleporting vehicle 'NW_1.3'; collision with vehicle 'EW_1.274', lane='1o_0', gap=-4.20, time=1378.00 stage=move.
+Warning: Teleporting vehicle 'NW_1.3'; collision with vehicle 'EW_1.274', lane='1o_0', gap=-4.20, time=1378.00, stage=move.
 Warning: Vehicle 'NW_1.3' teleports beyond arrival edge '1o', time=1378.00.
 Warning: Teleporting vehicle 'NS_1.2'; waited too long (yield), lane='4si_0', time=1681.00.
 Warning: Vehicle 'NS_1.2' ends teleporting on edge '3o', time=1681.00.

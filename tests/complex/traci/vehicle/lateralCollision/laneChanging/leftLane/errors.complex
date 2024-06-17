@@ -1,2 +1,2 @@
-Warning: Teleporting vehicle 'left'; collision with vehicle 'collider', lane='e2_2', gap=-7.50, time=6.00 stage=laneChange.
+Warning: Teleporting vehicle 'left'; collision with vehicle 'collider', lane='e2_2', gap=-7.50, time=6.00, stage=laneChange.
 Warning: Vehicle 'left' ends teleporting on edge 'e3', time=6.00.

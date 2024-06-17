@@ -1,4 +1,4 @@
-Warning: Teleporting vehicle '12'; junction collision with vehicle '16', lane=':C_14_0', gap=-1.00, time=168.00 stage=move.
+Warning: Teleporting vehicle '12'; junction collision with vehicle '16', lane=':C_14_0', gap=-1.00, time=168.00, stage=move.
 Warning: Vehicle '12' ends teleporting on edge 'CN', time=168.00.
 Warning: Vehicle '4' collision with person 'p28', lane=':C_2_0', time=187.00, stage=events.
 Warning: Vehicle '4' collision with person 'p29', lane=':C_2_0', time=187.00, stage=events.
@@ -25,7 +25,7 @@ Warning: Vehicle '4' collision with person 'p96', lane=':C_2_0', time=197.00, st
 Warning: Vehicle '4' collision with person 'p94', lane=':C_2_0', time=197.00, stage=events.
 Warning: Vehicle '4' collision with person 'p110', lane=':C_2_0', time=203.00, stage=events.
 Warning: Vehicle '4' collision with person 'p118', lane=':C_2_0', time=211.00, stage=events.
-Warning: Teleporting vehicle '11'; junction collision with vehicle '36', lane=':C_2_0', gap=-1.00, time=255.00 stage=move.
+Warning: Teleporting vehicle '11'; junction collision with vehicle '36', lane=':C_2_0', gap=-1.00, time=255.00, stage=move.
 Warning: Vehicle '11' ends teleporting on edge 'CE', time=255.00.
-Warning: Teleporting vehicle '25'; junction collision with vehicle '8', lane=':C_17_0', gap=-1.00, time=259.00 stage=move.
+Warning: Teleporting vehicle '25'; junction collision with vehicle '8', lane=':C_17_0', gap=-1.00, time=259.00, stage=move.
 Warning: Vehicle '25' ends teleporting on edge 'CE', time=259.00.
