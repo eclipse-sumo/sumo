@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-05-28 15:36+0200\n"
-"PO-Revision-Date: 2024-06-17 10:37+0000\n"
+"PO-Revision-Date: 2024-06-17 10:41+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -13149,11 +13149,11 @@ msgstr "Intervalo [inicio, fin]"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:257
 msgid "<from TAZ>"
-msgstr ""
+msgstr "<desde TAZ>"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:275
 msgid "<to TAZ>"
-msgstr ""
+msgstr "<hacia TAZ>"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNEMatchGenericDataAttribute.cpp:454
 msgid ""
@@ -13485,7 +13485,7 @@ msgstr "invertir selección"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:435
 msgid "reduce network"
-msgstr ""
+msgstr "reducir red"
 
 #: D:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:1008
 msgid "Hierarchy operations"
@@ -13579,7 +13579,7 @@ msgstr "Atributos de los datos"
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:466
 #: D:\Repos\sumo/src\netedit\frames\data\GNEGenericDataFrame.cpp:489
 msgid "<all>"
-msgstr ""
+msgstr "<todo>"
 
 #: D:\Repos\sumo/src\netedit\frames\data\GNEMeanDataFrame.cpp:68
 msgid "MeanData Type"
