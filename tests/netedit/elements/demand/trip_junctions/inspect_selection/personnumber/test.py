@@ -41,8 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleJunction.x,
+                  netedit.positions.demandElements.vehicleJunction.y)
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspectSelection.personNumber, "", False)

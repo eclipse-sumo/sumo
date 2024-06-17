@@ -50,8 +50,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleJunction.x,
+                  netedit.positions.demandElements.vehicleJunction.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.flowJunction.inspect.parameters, False)

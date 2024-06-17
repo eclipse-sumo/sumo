@@ -187,8 +187,8 @@ class demandElements:
 
     # click over single trip or flow over junctions
     class vehicleJunction:
-        x = 160
-        y = 410
+        x = 162
+        y = 405
 
     # click over single trip or flow over TAZ
     class vehicleTAZ:
