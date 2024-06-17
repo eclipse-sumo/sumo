@@ -2,7 +2,7 @@
 title: Change chargingStation State
 ---
 
-# Command 0x45: Change chargingStateion State
+# Command 0x45: Change chargingStation State
 
 |  ubyte   |      string       |       ubyte       | <value_type\> |
 | :------: | :---------------: | :---------------: | :----------: |
