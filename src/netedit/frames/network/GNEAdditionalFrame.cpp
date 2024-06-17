@@ -96,10 +96,10 @@ GNEAdditionalFrame::HelpCreationModule::HelpCreationModule(GNEFrame* frameParent
             addTLString(TL("-Requires at least one Entry\n and one Exit"));
     // E3 Entry
     myHelpMap[SUMO_TAG_DET_ENTRY] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
-                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
+                                    addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n or by selecting from list"));
     // E3 Exit
     myHelpMap[SUMO_TAG_DET_EXIT] = addTLString(TL("-Requires EntryExitDetector\n parent\n")) +
-                                   addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n oder selecting in list"));
+                                   addTLString(TL("-Select EntryExitDetector\n before creating either\n clicking over one in view\n or by selecting from list"));
 }
 
 

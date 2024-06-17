@@ -13937,7 +13937,7 @@ msgid ""
 "-Select EntryExitDetector\n"
 " before creating either\n"
 " clicking over one in view\n"
-" oder selecting in list"
+" or by selecting from list"
 msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEAdditionalFrame.cpp:190
