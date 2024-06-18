@@ -38,19 +38,22 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "500")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
+                  netedit.positions.additionalElements.centralEdge1.y)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # change angle (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "45")

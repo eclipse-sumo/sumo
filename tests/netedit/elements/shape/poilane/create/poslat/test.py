@@ -38,19 +38,22 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "dummyPosLat")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
+                  netedit.positions.additionalElements.centralEdge0.y)
 
 # change pos lat (valid, negative)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "-5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
+                  netedit.positions.additionalElements.centralEdge1.y)
 
 # change pos lat (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "7.5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
+                  netedit.positions.additionalElements.centralEdge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
