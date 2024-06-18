@@ -198,6 +198,9 @@ private:
     /// @brief draw to arrow
     void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
 
+    /// @brief replace plan parent
+    bool replacePlanParent(const std::string& newParentID);
+
     /// @brief pointer to plan element
     GNEDemandElement* myPlanElement;
 

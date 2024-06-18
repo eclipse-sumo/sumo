@@ -2532,10 +2532,7 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        // get created element
-        auto transformedPerson = net->getAttributeCarriers()->retrieveDemandElement(personParameters.tag, personParameters.id);
-        // inspect it
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedPerson);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newPerson);
     }
 }
 
@@ -2576,10 +2573,7 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        // get created element
-        auto transformedPerson = net->getAttributeCarriers()->retrieveDemandElement(personParameters.tag, personParameters.id);
-        // inspect it
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedPerson);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newPerson);
     }
 }
 
@@ -2617,10 +2611,7 @@ GNERouteHandler::transformToContainer(GNEContainer* originalContainer) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        // get created element
-        auto transformedContainer = net->getAttributeCarriers()->retrieveDemandElement(containerParameters.tag, containerParameters.id);
-        // inspect it
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedContainer);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newContainer);
     }
 }
 
@@ -2661,10 +2652,7 @@ GNERouteHandler::transformToContainerFlow(GNEContainer* originalContainer) {
     net->getViewNet()->getUndoList()->end();
     // check if inspect
     if (inspectAfterTransform) {
-        // get created element
-        auto transformedContainer = net->getAttributeCarriers()->retrieveDemandElement(containerParameters.tag, containerParameters.id);
-        // inspect it
-        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(transformedContainer);
+        net->getViewNet()->getViewParent()->getInspectorFrame()->inspectSingleElement(newContainer);
     }
 }
 
