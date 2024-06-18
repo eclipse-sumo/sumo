@@ -996,32 +996,33 @@ JPS_StageId
 MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry) {
     JPS_ErrorMessage message = nullptr;
     JPS_StageId waitingStage = 0;
-    const PositionVector& shape = crossing->getShape();
+    PositionVector shape = crossing->getShape();
     const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
+    shape.extrapolate2D((shape.length() + radius) / shape.length());
     const double offset = 2 * radius + POSITION_EPS;
-    const double lonOffset = entry ? radius + NUMERICAL_EPS : shape.length() - radius - NUMERICAL_EPS;
-    const Position wPos = shape.positionAtOffset(lonOffset);
-    std::vector<JPS_Point> points{{wPos.x(), wPos.y()}};
+    const double lonOffset = entry ? NUMERICAL_EPS : shape.length() - NUMERICAL_EPS;
+    PositionVector pv;
+    pv.push_back(shape.positionAtOffset(lonOffset));
     for (double latOff = offset; latOff < crossing->getWidth() / 2. - offset; latOff += offset) {
         PositionVector moved(shape);
         moved.move2side(latOff);
-        const Position wPosOff = moved.positionAtOffset(lonOffset);
-        points.push_back({wPosOff.x(), wPosOff.y()});
+        pv.push_back(moved.positionAtOffset(lonOffset));
         moved.move2side(-2. * latOff);
         const Position wPosOff2 = moved.positionAtOffset(lonOffset);
-        points.push_back({wPosOff2.x(), wPosOff2.y()});
+        pv.push_back(moved.positionAtOffset(lonOffset));
     }
     Position center = Position::INVALID;
     if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
-        center = crossing->getIncomingLanes().front().lane->getShape().getCentroid();
+        pv.push_back(crossing->getIncomingLanes().front().lane->getShape().getCentroid());
     }
     if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
-        center = crossing->getLinkCont().front()->getLane()->getShape().getCentroid();
+        pv.push_back(crossing->getLinkCont().front()->getLane()->getShape().getCentroid());
     }
-    if (center != Position::INVALID) {
-        GEOSGeometry* point = GEOSGeom_createPointFromXY(center.x(), center.y());
+    std::vector<JPS_Point> points;
+    for (const Position& p : pv) {
+        GEOSGeometry* point = GEOSGeom_createPointFromXY(p.x(), p.y());
         if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
-            points.push_back({center.x(), center.y()});
+            points.push_back({p.x(), p.y()});
         }
         GEOSGeom_destroy(point);
     }
