@@ -216,9 +216,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
         oc.doRegister("arrivalspeed", new Option_String());
         oc.addDescription("arrivalspeed", "Defaults", TL("Assigns a default arrival speed"));
 
-        oc.doRegister("defaults-override", new Option_Bool(false));
-        oc.addDescription("defaults-override", "Defaults", TL("Defaults will override given values"));
     }
+    oc.doRegister("defaults-override", new Option_Bool(false));
+    oc.addDescription("defaults-override", "Defaults", TL("Defaults will override given values"));
 
     // register report options
     oc.doRegister("stats-period", new Option_Integer(-1));

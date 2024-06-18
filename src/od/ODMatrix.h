@@ -117,10 +117,7 @@ public:
      * @param[in] vehicleType The vehicle type to use for the cell's flows
      * @return whether the vehicle could be added
      */
-    bool add(const std::string& id, const SUMOTime depart,
-             const std::string& fromTaz, const std::string& toTaz,
-             const std::string& vehicleType,
-             const bool originIsEdge = false, const bool destinationIsEdge = false);
+    bool add(const SUMOVehicleParameter& veh, bool originIsEdge = false, bool destinationIsEdgeconst = false);
 
     /** @brief Helper function for flow and trip output writing the depart
      *   and arrival attributes
