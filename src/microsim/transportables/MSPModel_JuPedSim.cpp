@@ -426,18 +426,21 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
             }
         }
+        const double speed = person->getSpeed();
         for (int offset = 0; offset < 2; offset++) {
             const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
             if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
-                const MSLane* const crossing = myCrossings[std::get<0>(*waypoint)];
-                const double speed = person->getSpeed();
-                for (const auto& ili : crossing->getIncomingLanes()) {
-                    // compare to and maybe adapt for MSPModel_Striping.cpp:1264
-                    const bool open = ili.viaLink->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
-                    const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, std::get<0>(*waypoint), &message);
-                    JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
+                const JPS_StageId waitingStage = std::get<0>(*waypoint);
+                const MSLane* const crossing = myCrossings[waitingStage];
+                const MSLink* link = crossing->getIncomingLanes().front().viaLink;
+                if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
+                    // we are walking backwards on a traffic light, there is a different link to check
+                    link = crossing->getLinkCont().front();
                 }
-                // do the same for crossing->getLinkCont() ?
+                // compare to and maybe adapt for MSPModel_Striping.cpp:1264
+                const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
+                const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
+                JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
             }
         }
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
