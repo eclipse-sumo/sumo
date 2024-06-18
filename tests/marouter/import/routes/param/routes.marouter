@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  5 21:50:55 2016 by SUMO marouter Version dev-SVN-r20655
+<!-- generated on 2024-06-18 12:33:11 by Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -17,17 +22,18 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</marouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="1" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -35,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="2" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="2" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -43,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="3" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="3" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -51,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="4" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="4" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -59,7 +65,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="5" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="5" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -67,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="6" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="6" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -75,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="7" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="7" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -83,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="8" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="8" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -91,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="9" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="9" type="DEFAULT_VEHTYPE" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -99,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="10" depart="1.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="10" type="DEFAULT_VEHTYPE" depart="1.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>
@@ -107,7 +113,7 @@ SPDX-License-Identifier: EPL-2.0
         <param key="from" value="1"/>
         <param key="to" value="2"/>
     </vehicle>
-    <vehicle id="11" depart="2.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="11" type="DEFAULT_VEHTYPE" depart="2.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.52" probability="9.35000000" edges="middle end"/>
             <route cost="90.54" probability="1.65000000" edges="beg2left left left2end end"/>

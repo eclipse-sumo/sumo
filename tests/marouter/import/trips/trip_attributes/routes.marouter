@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-18 11:33:54 by Eclipse SUMO marouter Version v1_20_0+0595-cde474d0bf6
+<!-- generated on 2024-06-18 12:33:11 by Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,17 +32,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="1" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="1" depart="0.79" departLane="0" departSpeed="desired" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.11" probability="3.00000000" edges="middle end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="2" depart="16.72" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="2" depart="16.72" departLane="free" departPos="42.00" departSpeed="max" arrivalSpeed="10.00" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.11" probability="3.00000000" edges="middle end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="3" depart="18.39" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="3" depart="18.39" departLane="free" departSpeed="max" arrivalLane="1" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.11" probability="3.00000000" edges="middle end"/>
         </routeDistribution>

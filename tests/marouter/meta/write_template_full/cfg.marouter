@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO marouter Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-06-18 12:33:11 by Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
 -->
 
 <marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -92,6 +92,7 @@
     </processing>
 
     <defaults>
+        <defaults-override value="false" type="BOOL" help="Defaults will override given values"/>
         <flow-output.departlane value="free" synonymes="departlane" type="STR" help="Assigns a default depart lane"/>
         <flow-output.departpos value="" synonymes="departpos" type="STR" help="Assigns a default depart position"/>
         <flow-output.departspeed value="max" synonymes="departspeed" type="STR" help="Assigns a default depart speed"/>
