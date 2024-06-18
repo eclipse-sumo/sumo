@@ -38,6 +38,8 @@ geometry_switching
 # geometry generation and WKT output
 geometry_generation
 
+tls
+
 # crossing behavior
 crossing_noPrio
 

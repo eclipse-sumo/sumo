@@ -22,6 +22,7 @@ Data model for drtOrtools.py to solve a drt problem with the ortools routing sol
 from __future__ import annotations
 import os
 import sys
+import typing
 from dataclasses import dataclass
 from enum import Enum
 import numpy as np
@@ -176,7 +177,7 @@ class Node:
 
 
 # use 'type' statement in python version 3.12 or higher
-NodeObject = str | Vehicle | Reservation
+NodeObject = typing.Union[str, Vehicle, Reservation]
 
 
 def create_nodes(reservations: list[Reservation], vehicles: list[Vehicle]) -> list[NodeObject]:

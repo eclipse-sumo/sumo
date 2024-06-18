@@ -38,7 +38,8 @@ netedit.changeElement("poiLane")
 netedit.leftClick(referencePosition, 336, 210)
 
 # create POILane
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
+                  netedit.positions.additionalElements.centralEdge1.y)
 
 # go to inspect mode
 netedit.inspectMode()

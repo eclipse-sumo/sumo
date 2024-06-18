@@ -426,18 +426,21 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                 JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
             }
         }
+        const double speed = person->getSpeed();
         for (int offset = 0; offset < 2; offset++) {
             const WaypointDesc* const waypoint = state->getNextWaypoint(offset);
             if (waypoint != nullptr && std::get<0>(*waypoint) != 0) {
-                const MSLane* const crossing = myCrossings[std::get<0>(*waypoint)];
-                const double speed = person->getSpeed();
-                for (const auto& ili : crossing->getIncomingLanes()) {
-                    // compare to and maybe adapt for MSPModel_Striping.cpp:1264
-                    const bool open = ili.viaLink->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
-                    const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, std::get<0>(*waypoint), &message);
-                    JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
+                const JPS_StageId waitingStage = std::get<0>(*waypoint);
+                const MSLane* const crossing = myCrossings[waitingStage];
+                const MSLink* link = crossing->getIncomingLanes().front().viaLink;
+                if (waitingStage == myCrossingWaits[crossing].second && link->getTLLogic() != nullptr) {
+                    // we are walking backwards on a traffic light, there is a different link to check
+                    link = crossing->getLinkCont().front();
                 }
-                // do the same for crossing->getLinkCont() ?
+                // compare to and maybe adapt for MSPModel_Striping.cpp:1264
+                const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
+                const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
+                JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
             }
         }
         // In the worst case during one SUMO step the person touches the waypoint radius and walks immediately into a different direction,
@@ -996,32 +999,33 @@ JPS_StageId
 MSPModel_JuPedSim::addWaitingSet(const MSLane* const crossing, const bool entry) {
     JPS_ErrorMessage message = nullptr;
     JPS_StageId waitingStage = 0;
-    const PositionVector& shape = crossing->getShape();
+    PositionVector shape = crossing->getShape();
     const double radius = getRadius(*MSNet::getInstance()->getVehicleControl().getVType(DEFAULT_PEDTYPE_ID, nullptr, true));
+    shape.extrapolate2D((shape.length() + radius) / shape.length());
     const double offset = 2 * radius + POSITION_EPS;
-    const double lonOffset = entry ? radius + NUMERICAL_EPS : shape.length() - radius - NUMERICAL_EPS;
-    const Position wPos = shape.positionAtOffset(lonOffset);
-    std::vector<JPS_Point> points{{wPos.x(), wPos.y()}};
+    const double lonOffset = entry ? NUMERICAL_EPS : shape.length() - NUMERICAL_EPS;
+    PositionVector pv;
+    pv.push_back(shape.positionAtOffset(lonOffset));
     for (double latOff = offset; latOff < crossing->getWidth() / 2. - offset; latOff += offset) {
         PositionVector moved(shape);
         moved.move2side(latOff);
-        const Position wPosOff = moved.positionAtOffset(lonOffset);
-        points.push_back({wPosOff.x(), wPosOff.y()});
+        pv.push_back(moved.positionAtOffset(lonOffset));
         moved.move2side(-2. * latOff);
         const Position wPosOff2 = moved.positionAtOffset(lonOffset);
-        points.push_back({wPosOff2.x(), wPosOff2.y()});
+        pv.push_back(moved.positionAtOffset(lonOffset));
     }
     Position center = Position::INVALID;
     if (entry && crossing->getIncomingLanes().size() == 1 && crossing->getIncomingLanes().front().lane->isWalkingArea()) {
-        center = crossing->getIncomingLanes().front().lane->getShape().getCentroid();
+        pv.push_back(crossing->getIncomingLanes().front().lane->getShape().getCentroid());
     }
     if (!entry && crossing->getLinkCont().size() == 1 && crossing->getLinkCont().front()->getLane()->isWalkingArea()) {
-        center = crossing->getLinkCont().front()->getLane()->getShape().getCentroid();
+        pv.push_back(crossing->getLinkCont().front()->getLane()->getShape().getCentroid());
     }
-    if (center != Position::INVALID) {
-        GEOSGeometry* point = GEOSGeom_createPointFromXY(center.x(), center.y());
+    std::vector<JPS_Point> points;
+    for (const Position& p : pv) {
+        GEOSGeometry* point = GEOSGeom_createPointFromXY(p.x(), p.y());
         if (GEOSContains(myGEOSPedestrianNetworkLargestComponent, point)) {
-            points.push_back({center.x(), center.y()});
+            points.push_back({p.x(), p.y()});
         }
         GEOSGeom_destroy(point);
     }
