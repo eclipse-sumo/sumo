@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-14 16:08+0000\n"
+"PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1646,7 +1646,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:137
 msgid "List attributes that should be included in the emission output"
-msgstr ""
+msgstr "In die Emissionsausgabe einzuschließende Attribute angeben"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:140
 msgid "Save the battery values of each vehicle"
@@ -2496,7 +2496,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:581
 msgid "The filename to output the JuPedSim setup as Python script"
-msgstr ""
+msgstr "Dateiname für die Ausgabe des JuPedSim-Setup als Python-Skript"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:585
 msgid ""
@@ -2945,15 +2945,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:1988
 msgid "frontal collision"
-msgstr ""
+msgstr "Frontalkollision"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:1989
 msgid "junction collision"
-msgstr ""
+msgstr "Kollision im Knotenpunkt"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:1989
 msgid "collision"
-msgstr ""
+msgstr "Kollision"
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:1995
 msgid "Vehicle '%'; % with vehicle '%"
@@ -4523,7 +4523,7 @@ msgstr "Suchradius in Form der Reisezeit in Sekunden"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:70
 msgid "Euclidean search distance in meters"
-msgstr ""
+msgstr "Euklidischer Suchradius in Metern"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:72
 msgid "When to trigger a new search if no station has been found"
@@ -6981,8 +6981,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:170
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr ""
-"Richten Sie die ÖV-Haltestellen-ID-Schilder an den entsprechenden Kanten-ID-"
-"Schildern aus"
+"Die ÖV-Haltestellen-ID-Schilder an den entsprechenden Kanten-ID-Schildern "
+"ausrichten"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:207
 msgid "Joining tram edges"
