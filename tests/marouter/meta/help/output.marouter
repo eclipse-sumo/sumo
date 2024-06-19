@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_19_0+1662-cc3005420e0
+Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes.
 
@@ -148,6 +148,7 @@ Processing Options:
   --logit.theta FLOAT                Use FLOAT as (c-)logit's theta
 
 Defaults Options:
+  --defaults-override                Defaults will override given values
   --flow-output.departlane STR       Assigns a default depart lane
   --flow-output.departpos STR        Assigns a default depart position
   --flow-output.departspeed STR      Assigns a default depart speed

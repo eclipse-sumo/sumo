@@ -31,6 +31,7 @@
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNECrossing.h>
 #include <netedit/frames/GNEOverlappedInspection.h>
 #include <netedit/frames/GNETLSTable.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
@@ -1797,10 +1798,21 @@ GNETLSEditorFrame::TLSDefinition::onCmdSaveChanges(FXObject*, FXSelector, void*)
     if (currentJunction != nullptr) {
         const auto oldDefinition = getCurrentTLSDefinition();
         std::vector<NBNode*> nodes = oldDefinition->getNodes();
+        GNEUndoList* undoList = myTLSEditorParent->getViewNet()->getUndoList();
         for (const auto& node : nodes) {
             GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(node->getID());
-            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, oldDefinition, false), true);
-            myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, true), true);
+            undoList->add(new GNEChange_TLS(junction, oldDefinition, false), true);
+            undoList->add(new GNEChange_TLS(junction, myTLSEditorParent->myEditedDef, true), true);
+            // synchronize crossing tl-indices in case they were changed (via onCmdCleanStates)
+            for (const auto& gc : junction->getGNECrossings()) {
+                NBNode::Crossing* c = gc->getNBCrossing();
+                if (c) {
+                    gc->setAttribute(SUMO_ATTR_TLLINKINDEX, toString(c->tlLinkIndex), undoList);
+                    gc->setAttribute(SUMO_ATTR_TLLINKINDEX2, toString(c->tlLinkIndex2), undoList);
+                }
+            }
+
+
         }
         // end change
         myTLSEditorParent->getViewNet()->getUndoList()->end();

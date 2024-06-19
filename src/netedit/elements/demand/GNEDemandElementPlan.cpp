@@ -857,6 +857,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
         case SUMO_ATTR_ENDPOS:
+        case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
             GNEChange_Attribute::changeAttribute(myPlanElement, key, value, undoList);
             break;
@@ -871,6 +872,8 @@ GNEDemandElementPlan::isPlanValid(SumoXMLAttr key, const std::string& value) {
     // continue depending of key
     switch (key) {
         // common attributes
+        case GNE_ATTR_PARENT:
+            return false;
         case SUMO_ATTR_DEPARTPOS:
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
@@ -930,6 +933,9 @@ void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         // Common plan attributes
+        case GNE_ATTR_PARENT:
+            replacePlanParent(value);
+            break;
         case SUMO_ATTR_DEPARTPOS:
             if (value.empty()) {
                 myDepartPosition = -1;
@@ -1448,6 +1454,27 @@ GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const G
             GLHelper::popMatrix();
         }
     }
+}
+
+
+bool
+GNEDemandElementPlan::replacePlanParent(const std::string& newParentID) {
+    std::vector<SumoXMLTag> tags;
+    if (myPlanElement->myTagProperty.isPlanPerson()) {
+        tags.push_back(SUMO_TAG_PERSON);
+        tags.push_back(SUMO_TAG_PERSONFLOW);
+    } else {
+        tags.push_back(SUMO_TAG_CONTAINER);
+        tags.push_back(SUMO_TAG_CONTAINERFLOW);
+    }
+    // search new parent and set it
+    for (const auto& tag : tags) {
+        if (myPlanElement->getNet()->getAttributeCarriers()->retrieveDemandElement(tag, newParentID, false) != nullptr) {
+            myPlanElement->replaceDemandElementParent(tag, newParentID, 0);
+            return true;
+        }
+    }
+    throw ProcessError("Invalid new parent ID");
 }
 
 /****************************************************************************/

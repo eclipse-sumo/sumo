@@ -88,9 +88,9 @@ ROMARouteHandler::myEndElement(int element) {
         } else {
             int quota = getScalingQuota(myScale, myNumLoaded);
             for (int i = 0; i < quota; i++) {
-                const std::string id = i == 0 ? myVehicleParameter->id : myVehicleParameter->id + "." + toString(i);
-                myMatrix.add(id, myVehicleParameter->depart,
-                             myVehicleParameter->fromTaz, myVehicleParameter->toTaz, myVehicleParameter->vtypeid,
+                SUMOVehicleParameter veh = *myVehicleParameter;
+                veh.id = i == 0 ? myVehicleParameter->id : myVehicleParameter->id + "." + toString(i);
+                myMatrix.add(veh,
                              !myVehicleParameter->wasSet(VEHPARS_FROM_TAZ_SET) || myIgnoreTaz,
                              !myVehicleParameter->wasSet(VEHPARS_TO_TAZ_SET) || myIgnoreTaz);
             }

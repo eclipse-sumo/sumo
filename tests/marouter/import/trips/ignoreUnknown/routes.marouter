@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06/01/16 09:17:10 by SUMO marouter Version dev-SVN-r20825
+<!-- generated on 2024-06-18 12:33:11 by Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<marouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -16,75 +21,73 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
     </output>
-
-    <processing>
-        <ignore-errors value="true"/>
-    </processing>
 
     <report>
         <xml-validation value="never"/>
+        <ignore-errors value="true"/>
     </report>
 
-</configuration>
+</marouterConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="63" depart="0.79" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="63" depart="0.79" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="88" depart="16.72" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
+    <vehicle id="88" depart="16.72" departLane="free" departSpeed="max" fromTaz="1" toTaz="3">
         <routeDistribution>
             <route cost="108.50" probability="2.70000000" edges="middle end rend"/>
             <route cost="108.50" probability="0.30000000" edges="beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="9" depart="18.39" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="9" depart="18.39" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="5" depart="55.65" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="5" depart="55.65" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="19" depart="163.02" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
+    <vehicle id="19" depart="163.02" departLane="free" departSpeed="max" fromTaz="1" toTaz="3">
         <routeDistribution>
             <route cost="108.50" probability="2.70000000" edges="middle end rend"/>
             <route cost="108.50" probability="0.30000000" edges="beg2left left left2end end rend"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="92" depart="169.75" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="92" depart="169.75" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="73" depart="186.01" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="73" depart="186.01" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="68" depart="212.57" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="68" depart="212.57" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="27" depart="238.38" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="2" departLane="free" departSpeed="max">
+    <vehicle id="27" depart="238.38" departLane="free" departSpeed="max" fromTaz="1" toTaz="2">
         <routeDistribution>
             <route cost="90.50" probability="6.30000000" edges="middle end"/>
             <route cost="90.50" probability="0.70000000" edges="beg2left left left2end end"/>
         </routeDistribution>
     </vehicle>
-    <vehicle id="98" depart="322.82" type="DEFAULT_VEHTYPE" fromTaz="1" toTaz="3" departLane="free" departSpeed="max">
+    <vehicle id="98" depart="322.82" departLane="free" departSpeed="max" fromTaz="1" toTaz="3">
         <routeDistribution>
             <route cost="108.50" probability="2.70000000" edges="middle end rend"/>
             <route cost="108.50" probability="0.30000000" edges="beg2left left left2end end rend"/>

@@ -17,3 +17,6 @@ fromToJunctions
 
 # use trip attributes fromJunction,toJunction directly
 ignore_taz_fromToJunctions
+
+# check handling of trip attributes
+trip_attributes

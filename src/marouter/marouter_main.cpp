@@ -284,15 +284,16 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                     od.closeTag();
                     sortedOut[c->begin] += od.getString();
                 } else {
-                    for (std::map<SUMOTime, std::vector<std::string> >::const_iterator deps = c->departures.begin(); deps != c->departures.end(); ++deps) {
-                        if (deps->first >= end || deps->first < begin) {
+                    const bool ignoreType = oc.getBool("ignore-vehicle-type");
+                    for (auto deps : c->departures) {
+                        if (deps.first >= end || deps.first < begin) {
                             continue;
                         }
                         const std::string routeDistId = c->origin + "_" + c->destination + "_" + time2string(c->begin) + "_" + time2string(c->end);
-                        for (const std::string& id : deps->second) {
+                        for (const SUMOVehicleParameter& veh : deps.second) {
                             OutputDevice_String od(1);
-                            od.openTag(SUMO_TAG_VEHICLE).writeAttr(SUMO_ATTR_ID, id).writeAttr(SUMO_ATTR_DEPART, time2string(deps->first));
-                            matrix.writeDefaultAttrs(od, oc.getBool("ignore-vehicle-type"), c);
+
+                            veh.write(od, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, ignoreType || veh.vtypeid == DEFAULT_VTYPE_ID ? "" : veh.vtypeid); 
                             od.openTag(SUMO_TAG_ROUTE_DISTRIBUTION);
                             for (RORoute* const r : c->pathsVector) {
                                 r->setCosts(router->recomputeCosts(r->getEdgeVector(), &defaultVehicle, begin));
@@ -306,7 +307,7 @@ computeRoutes(RONet& net, OptionsCont& oc, ODMatrix& matrix) {
                                 }
                             }
                             od.closeTag();
-                            sortedOut[deps->first] += od.getString();
+                            sortedOut[deps.first] += od.getString();
                         }
                     }
                 }
