@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:59+0200\n"
-"PO-Revision-Date: 2024-06-17 15:42+0000\n"
+"PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:302
@@ -10523,6 +10523,8 @@ msgid ""
 "If attributes mask the start and end position, both attributes have to be "
 "defined"
 msgstr ""
+"Si atributos superponen la posición inicial y final, ambos atributos deben "
+"ser definidos"
 
 #: C:\Repos\sumo/src\netedit\elements\GNETagProperties.cpp:144
 msgid "Attributes aren't combinables"
@@ -12181,6 +12183,8 @@ msgstr "Definición"
 #, c-format
 msgid "Opening HelpAttributes dialog for tag '%' showing % attributes"
 msgstr ""
+"Abriendo el cuadro de diálogo HelpAttributes para la etiqueta '%' mostrando "
+"% atributos"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEFrame.cpp:247
 msgid "Closing HelpAttributes dialog for tag '"
@@ -13460,7 +13464,7 @@ msgstr "Guardar lista de elementos seleccionados"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:404
 msgid "clear selection"
-msgstr ""
+msgstr "despejar selección"
 
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:464
 msgid "invert selection"
@@ -15120,11 +15124,13 @@ msgstr "Guardar programa de semáforo como"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
 msgid "Experimental Part"
-msgstr ""
+msgstr "Parte experimental"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
 msgid "Warning: The netedit overhead editor is still in experimental state."
 msgstr ""
+"Advertencia: El editor de catenarias en netedit aún se encuentra en estado "
+"experimental."
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:79
 msgid "Current selected wire isn't valid."
@@ -15259,19 +15265,19 @@ msgstr " tiempo"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:71
 msgid "edge"
-msgstr ""
+msgstr "arista"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:73
 msgid "junction"
-msgstr ""
+msgstr "cruce"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:74
 msgid "vehicle"
-msgstr ""
+msgstr "vehículo"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:75
 msgid "person"
-msgstr ""
+msgstr "persona"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:76
 msgid "tlLogic"
@@ -15279,27 +15285,27 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "parada de bus"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "parada de tren"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "parada de contenedor"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "estación de carga"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:81
 msgid "overheadWireSegment"
-msgstr ""
+msgstr "segmento de catenaria"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "zona de estacionamiento"
 
 #: C:\Repos\sumo/src\utils\gui\div\GUIParameterTableWindow.cpp:76
 msgid "Name"
@@ -15576,7 +15582,7 @@ msgstr "prohibido"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1199
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1564
 msgid "airway"
-msgstr ""
+msgstr "vía aérea"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:690
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1035
@@ -16333,11 +16339,11 @@ msgstr "Recalibrar arcoíris"
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1685
 msgid "min"
-msgstr ""
+msgstr "mín."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1690
 msgid "max"
-msgstr ""
+msgstr "máx."
 
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:1695
 msgid "center"
