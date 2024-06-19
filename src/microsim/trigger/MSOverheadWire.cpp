@@ -663,7 +663,7 @@ MSTractionSubstation::isAnySectionPreviouslyDefined() {
 
 
 void
-MSTractionSubstation::addSolvingCirucitToEndOfTimestepEvents() {
+MSTractionSubstation::addSolvingCircuitToEndOfTimestepEvents() {
     if (!myChargingVehicle) {
         // myCommandForSolvingCircuit = new StaticCommand<MSTractionSubstation>(&MSTractionSubstation::solveCircuit);
         myCommandForSolvingCircuit = new WrappingCommand<MSTractionSubstation>(this, &MSTractionSubstation::solveCircuit);
@@ -692,7 +692,7 @@ MSTractionSubstation::solveCircuit(SUMOTime /*currentTime*/) {
 #endif
 
     // RICE_TODO: verify what happens if eigen is not defined?
-    // Note: addSolvingCirucitToEndOfTimestepEvents() and thus solveCircuit() should be called from notifyMove only if eigen is defined.
+    // Note: addSolvingCircuitToEndOfTimestepEvents() and thus solveCircuit() should be called from notifyMove only if eigen is defined.
     addChargeValueForOutput(WATT2WATTHR(myCircuit->getTotalPowerOfCircuitSources()), myCircuit->getTotalCurrentOfCircuitSources(), myCircuit->getAlphaBest(), myCircuit->getAlphaReason());
 
     for (auto* it : myElecHybrid) {
