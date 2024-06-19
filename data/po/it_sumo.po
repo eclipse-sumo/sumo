@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-17 13:27+0000\n"
+"PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: C:\Repos\sumo/src\activitygen\AGActivityGen.cpp:46
 msgid "Reading input"
@@ -6077,34 +6077,38 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:117
 msgid "Removing unwished edges"
-msgstr ""
+msgstr "Rimozione di archi indesirati"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:124
 #, c-format
 msgid " Removed % edges because by minimum speed."
-msgstr ""
+msgstr " % archi sono stati rimossi a causa della velocità minima."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:129
 #, c-format
 msgid " Removed % edges based on vClass."
-msgstr ""
+msgstr " % archi sono stati rimossi a causa della classe di veicoli."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:134
 msgid "Processing public transport stops"
-msgstr ""
+msgstr "Trattamento delle fermate di trasporto pubblico"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:159
 msgid "Cleaning up public transport stops that are not served by any line"
-msgstr ""
+msgstr "Rimozione di fermate di trasporto pubblico servite da nessuna linea"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:165
 #, c-format
 msgid "Removed % pt stops because they could not be assigned to the network"
 msgstr ""
+"% fermate di trasporto pubblico sono state rimosse perché impossibile di "
+"assegnarle alla rete"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:170
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr ""
+"Allinea i segni dei codici identificativi delle fermate di trasporto "
+"pubblico con i segni corrispondenti degli archi"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:207
 msgid "Joining tram edges"
@@ -6181,12 +6185,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:384
 msgid "Guessed % bike lanes."
-msgstr ""
+msgstr "Indovinate % piste ciclabili."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:395
 #, c-format
 msgid "Guessed % sidewalks."
-msgstr ""
+msgstr "Indovinati % marciapiedi."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:405
 #, c-format
