@@ -62,8 +62,8 @@ are the ones that are used by NavTeq.
 
 Some shape file databases do not contain explicit information about the
 edges' attributes (number of lanes, priority, allowed speed) at all. It
-is possible use [SUMO edge type file](../../SUMO_edge_type_file.md)
-for describing the edges' attributes. In this case, the column to
+is possible to use [SUMO edge type file](../../SUMO_edge_type_file.md)
+to describe the edges' attributes. In this case, the column to
 retrieve an according street's type name from must be named using **--shapefile.type-id** {{DT_IDList}} and a
 [SUMO edge type file](../../SUMO_edge_type_file.md) must be given to
 [netconvert](../../netconvert.md) using **--type-files** {{DT_FILE}}. If something fails with the
@@ -72,7 +72,7 @@ the default [netconvert](../../netconvert.md) values are used. Besides
 this, it is possible to load own [connection
 descriptions](../../Networks/PlainXML.md#connection_descriptions).
 
-If edge length is not specified, the length is computed based on the provided geometry.
+If the edge length is not specified, the length is computed based on the provided geometry.
 
 !!! note
     One can insert own attributes into the database using a GIS. This means, one can also insert own fields for the number of lanes, priority, or allowed speed, naming them as described above.
