@@ -1942,7 +1942,7 @@ GUISUMOAbstractView::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
 
 void
 GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUIColorScheme& scheme,
-        const GUIVisualizationRainbowSettings& rs, double minValue, double maxValue, bool hasMissingData) {
+                                        const GUIVisualizationRainbowSettings& rs, double minValue, double maxValue, bool hasMissingData) {
     if (rs.hideMin && rs.hideMax && minValue == std::numeric_limits<double>::infinity()) {
         minValue = rs.minThreshold;
         maxValue = rs.maxThreshold;
@@ -1976,14 +1976,14 @@ GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUICo
             maxValue = MIN2(rs.maxThreshold - MIN2(1.0, rawRange / 100.0), maxValue);
             scheme.addColor(RGBColor(204, 204, 204), rs.maxThreshold);
         }
-        double range = maxValue - minValue;
+        const double range = maxValue - minValue;
         scheme.addColor(rs.colors.front(), minValue);
-        const int steps = rs.colors.size() - 1;
+        const int steps = (int)rs.colors.size() - 1;
         if (rs.setNeutral) {
-            int steps1 = steps / 2;
-            int steps2 = steps - steps1;
-            int range1 = rs.neutralThreshold - minValue;
-            int range2 = maxValue - rs.neutralThreshold;
+            const int steps1 = steps / 2;
+            const int steps2 = steps - steps1;
+            const double range1 = rs.neutralThreshold - minValue;
+            const double range2 = maxValue - rs.neutralThreshold;
             for (int i = 1; i < steps1; i++) {
                 scheme.addColor(rs.colors[i], (minValue + range1 * i / steps1));
             }
@@ -1991,7 +1991,6 @@ GUISUMOAbstractView::buildMinMaxRainbow(const GUIVisualizationSettings& s, GUICo
             for (int i = 1; i < steps2; i++) {
                 scheme.addColor(rs.colors[steps1 + i], (rs.neutralThreshold + range2 * i / steps2));
             }
-
         } else {
             for (int i = 1; i < steps; i++) {
                 scheme.addColor(rs.colors[i], (minValue + range * i / steps));
