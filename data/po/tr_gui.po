@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-17 12:50+0200\n"
+"POT-Creation-Date: 2024-06-19 10:59+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -440,8 +440,8 @@ msgstr "Simülasyon Adım Gecikmesini Düşür."
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:260
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1408
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2917
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1409
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2929
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save"
 msgstr "Kaydet"
@@ -455,7 +455,7 @@ msgstr "Mevcut Simülasyon Durumunu Dosyaya Kaydet."
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:262
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2915
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2927
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load"
 msgstr "Yükle"
@@ -6214,7 +6214,7 @@ msgid "Graphical editor for road networks and infrastructure."
 msgstr "Yol ağları ve altyapı için grafik düzenleyici."
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:919
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Accept"
 msgstr "Kabul et"
 
@@ -6226,8 +6226,8 @@ msgstr "Değişiklikleri kabul etmeyi kapat"
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:376
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:94
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:921
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1411
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:922
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1412
 msgid "Cancel"
 msgstr "İptal"
 
@@ -10777,10 +10777,10 @@ msgstr "Netedit'te % '%' oluşturulamadı"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "Netedit'te % oluşturulamadı"
@@ -10794,10 +10794,10 @@ msgstr "% '%' mevcut değil."
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2094
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
 #, c-format
 msgid "% doesn't exist."
 msgstr "% yok."
@@ -11063,8 +11063,8 @@ msgstr "ters akım %"
 msgid "Add reverse %"
 msgstr "Ters % ekleyin"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1367
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1380
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1373
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1386
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "'%' kesimi '%' kesimi ile ardışık değil"
 
@@ -11249,15 +11249,15 @@ msgstr ""
 msgid "Via edge '%' doesn't exist."
 msgstr "'%' kesim mevcut değildir."
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3032
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3020
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "'%' id'li % '%' içinde mevcut değil"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3040
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3028
 msgid "invalid probability % in % '%'"
 msgstr "'%' içinde geçersiz olasılık %"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3046
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3034
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -11914,7 +11914,7 @@ msgstr "İncele"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:469
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1399
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1400
 msgid "Delete"
 msgstr "Sil"
 
@@ -14155,8 +14155,8 @@ msgid "Crossing parameters"
 msgstr "Geçit parametreleri"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:485
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1622
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1626
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1623
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1627
 msgid "Create"
 msgstr "Oluştur"
 
@@ -14611,19 +14611,19 @@ msgstr "Kaynak - Alıcıya göre renk"
 msgid "TAZ shape needs at least three points"
 msgstr "TAB şekli en az üç noktaya ihtiyaç duyar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:122
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:123
 msgid "Edit Traffic Light"
 msgstr "Trafik Işığını Düzenle"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:186
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:187
 msgid "Click over a junction to edit a TLS"
 msgstr "Bir TIS'ı düzenlemek için bir kavşağa tıklayın"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:198
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:199
 msgid "Save TLS Changes"
 msgstr "TIS Değişikliklerini Kaydet"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:199
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:200
 msgid ""
 "There are unsaved changes in the currently edited traffic light.\n"
 "Do you want to save it before changing mode?"
@@ -14631,145 +14631,145 @@ msgstr ""
 "Mevcut düzenlenmiş trafik ışığında kaydedilmemiş değişiklikler var.\n"
 "Modu değiştirmeden önce kaydetmek istiyor musunuz?"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:245
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:246
 msgid "tlLogic '%', program '%' could not be built"
 msgstr "tlLogic '%', '%' programı oluşturulamadı"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:258
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2976
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:259
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2988
 msgid "Loaded "
 msgstr "Yüklendi "
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:258
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:259
 msgid " programs"
 msgstr " programlar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:419
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:420
 msgid "Invalid phase index"
 msgstr "Geçersiz faz dizini"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:515
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:516
 msgid "modifying TLS definition"
 msgstr "TIS tanımının değiştirilmesi"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:529
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:530
 msgid "Unsaved modifications. Abort or Save"
 msgstr "Kaydedilmemiş değişiklikler. İptal Et veya Kaydet"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:549
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:550
 msgid "Traffic light Attributes"
 msgstr "Trafik ışığı Özellikleri"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:558
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:559
 msgid "parameters"
 msgstr "parametreler"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Assign E1 detectors"
 msgstr "E1 dedektörlerini ata"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
 msgid "Enable assign E1 mode"
 msgstr "E1 modu atamayı etkinleştir"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Assign E1 detectors to the current TLS"
 msgstr "E1 dedektörlerini geçerli TIS'a ata"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Disable assign E1 mode"
 msgstr "E1 modunu atamayı devre dışı bırak"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:882
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:883
 msgid "Traffic Light"
 msgstr "Trafik Işığı"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:887
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:951
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:888
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:952
 msgid "Junction ID"
 msgstr "Kavşak Kimliği (ID)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:894
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:895
 msgid "TLS ID"
 msgstr "TIS Kimliği (ID)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Join"
 msgstr "Birleştir"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
 msgid "Enable join mode"
 msgstr "Birleştirme modunu etkinleştir"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Join TLS and junctions in the current junction."
 msgstr "Geçerli kavşakta TIS ve kavşakları birleştir."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Disable join mode"
 msgstr "Birleştirme modunu devre dışı bırak"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin"
 msgstr "Ayır"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin current TLS"
 msgstr "Mevcut TIS'ı ayır"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin current TLS."
 msgstr "Mevcut TIS'ı ayır."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:919
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Finish join."
 msgstr "Birleştirmeyi bitir."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:921
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:922
 msgid "Cancel Join."
 msgstr "Katılmayı iptal et."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:958
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:959
 msgid "no junction selected"
 msgstr "seçili kavşak yok"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:980
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:981
 msgid "Junction IDs"
 msgstr "Kavşak Kimlikleri (IDs)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1072
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1073
 msgid "rename TLS"
 msgstr "TLS'yi yeniden adlandır"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1158
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1159
 msgid "change TLS type"
 msgstr "TIS türünü değiştir"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1242
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1243
 msgid "join TLS"
 msgstr "TIS Birleştir"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1304
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1305
 msgid "disjoin TLS"
 msgstr "TIS Ayır"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1383
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1384
 msgid "Traffic Light Programs"
 msgstr "Trafik Işığı Programları"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1397
 msgid "Create TLS"
 msgstr "TIS oluştur"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1397
 msgid "Create a new traffic light program."
 msgstr "Yeni bir trafik ışığı programı oluştur."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1399
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1400
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
@@ -14777,108 +14777,108 @@ msgstr ""
 "Bir trafik ışığı programını sil. Tüm programlar silinirse kavşak öncelikli "
 "kavşağa dönüşür."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1402
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1403
 msgid "Reset single"
 msgstr "Tekli sıfırla"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1402
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1403
 msgid "Reset current TLS program."
 msgstr "Mevcut TIS programını sıfırla."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1405
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1406
 msgid "Reset all"
 msgstr "Tümünü Sıfırla"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1405
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1406
 msgid "Reset all TLS programs."
 msgstr "Tüm TIS programlarını sıfırla."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1408
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1409
 msgid "Save program modifications. (Enter)"
 msgstr "Program değişikliklerini kaydet. (Enter)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1411
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1412
 msgid "Discard program modifications. (Esc)"
 msgstr "Program değişikliklerini çıkar. (Esc)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1505
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1506
 msgid "TLSDefinition cannot be found"
 msgstr "TIS Tanımı bulunamadı"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1560
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1579
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1561
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1580
 msgid "TLS cannot be created"
 msgstr "TIS oluşturulamaz"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1549
 msgid "Traffic Light cannot be created because junction must have"
 msgstr "Kavşak olması gerektiğinden Trafik Işığı oluşturulamıyor"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1549
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1550
 msgid "at least one incoming edge and one outgoing edge."
 msgstr "en az bir giriş ve bir çıkış kesimi."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1561
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1580
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1562
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1581
 msgid "Traffic Light cannot be created because junction"
 msgstr "Kavşak nedeniyle Trafik Işığı oluşturulamıyor"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1562
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1563
 msgid "must have at least one connection."
 msgstr "en az bir bağlantıya sahip olmalıdır."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1581
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1582
 msgid "must have at least one controlled connection."
 msgstr "en az bir kontrollü bağlantıya sahip olmalıdır."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1624
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1625
 msgid "Duplicate"
 msgstr "Yinele"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1664
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1665
 msgid "reset current program"
 msgstr "geçerli programı sıfırla"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1703
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1704
 msgid "reset TLS"
 msgstr "TIS'ı sıfırla"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1864
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1876
 msgid "duplicate program '%' of traffic light '%'"
 msgstr "'%' trafik ışığının '%' programını yinele"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1910
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1922
 msgid "Traffic light does not control any links"
 msgstr "Trafik ışığı herhangi bir bağlantıyı kontrol etmiyor"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1922
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
 msgid "Phases"
 msgstr "Fazlar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid "Clean States"
 msgstr "Evreleri Temizle"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid "Clean unused states from all phase"
 msgstr "Kullanılmayan evreleri tüm fazlardan temizle"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1935
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1947
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Kullanılmayan evreleri tüm fazlardan temizle. (Birden fazla program için "
 "izin verilmez)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Add States"
 msgstr "Evre Ekle"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1940
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
 msgid "Extend the state vector for all phases by one entry"
 msgstr "Tüm fazlar için evre vektörünü bir girişle genişlet"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1941
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1953
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
@@ -14886,11 +14886,11 @@ msgstr ""
 "Tüm fazlar için evre vektörünü bir girişle genişlet. (Yeni dizine bir "
 "bağlantı veya geçit atanana kadar kullanılmaz)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1957
 msgid "Group Sig."
 msgstr "Grup Sin."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1958
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
@@ -14898,7 +14898,7 @@ msgstr ""
 "Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
 "vererek evre tanımını kısaltın"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1947
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1959
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
@@ -14906,16 +14906,16 @@ msgstr ""
 "Aynı sinyal evrelerine sahip bağlantıların aynı dizini kullanmasına izin "
 "vererek evre tanımını kısaltın. (Birden fazla program için izin verilmez)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1963
 msgid "Ungroup Sig."
 msgstr "Sin. Çöz"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1964
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
 "Her bağlantının ayrı bir dizin kullanmasına izin ver (ters evre gruplaması)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1953
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1965
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
@@ -14923,45 +14923,53 @@ msgstr ""
 "Her bağlantının ayrı bir dizin kullanmasına izin verin (ters evre "
 "gruplaması). (Çoklu programlar için izin verilmez)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2087
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2099
 msgid "invalid column"
 msgstr "Geçersiz sütun"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2646
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2658
 msgid "Error deleting phase '"
 msgstr "Faz silinirken hata oluştu '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2911
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 msgid "TLS Program File"
 msgstr "TIS Program Dosyası"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2915
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2927
 msgid "Load TLS program from additional file"
 msgstr "TIS programını ek dosyadan yükle"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2917
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2929
 msgid "Save TLS program to additional file"
 msgstr "TIS programını ek dosyaya kaydet"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2976
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2988
 msgid " new programs for tlLogic '"
 msgstr " tlLogic için yeni programlar '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2981
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2993
 msgid "Updated program '"
 msgstr "Güncellenmiş program '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2981
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2993
 msgid "' for tlLogic '"
 msgstr "' tlLogic için '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2985
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2997
 msgid "No programs found for traffic light '"
 msgstr "Trafik ışığı için program bulunamadı '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:3004
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:3016
 msgid "Save TLS Program as"
 msgstr "TLS Programını Farklı Kaydet"
+
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
+msgid "Experimental Part"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
+msgid "Warning: The netedit overhead editor is still in experimental state."
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:79
 msgid "Current selected wire isn't valid."

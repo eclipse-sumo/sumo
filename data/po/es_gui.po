@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-17 12:50+0200\n"
+"POT-Creation-Date: 2024-06-19 10:59+0200\n"
 "PO-Revision-Date: 2024-06-17 15:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -444,8 +444,8 @@ msgstr "Decrementar delación entre pasos."
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:286
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:281
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:260
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1408
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2917
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1409
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2929
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:67
 msgid "Save"
 msgstr "Guardar"
@@ -459,7 +459,7 @@ msgstr "Guardar el estado actual de la simulación en un archivo."
 #: C:\Repos\sumo/src\netedit\dialogs\GNESingleParametersDialog.cpp:285
 #: C:\Repos\sumo/src\netedit\dialogs\GNEVTypeDistributionsDialog.cpp:280
 #: C:\Repos\sumo/src\netedit\frames\common\GNESelectorFrame.cpp:262
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2915
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2927
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_EditViewport.cpp:65
 msgid "Load"
 msgstr "Cargar"
@@ -6252,7 +6252,7 @@ msgid "Graphical editor for road networks and infrastructure."
 msgstr "Editor gráfico de redes viales e infraestructura."
 
 #: C:\Repos\sumo/src\netedit\dialogs\GNEAdditionalDialog.cpp:62
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:919
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -6264,8 +6264,8 @@ msgstr "Cerrar, aceptando cambios"
 #: C:\Repos\sumo/src\netedit\dialogs\options\GNEOptionsDialog.cpp:376
 #: C:\Repos\sumo/src\netedit\dialogs\tools\GNENetgenerateDialog.cpp:94
 #: C:\Repos\sumo/src\netedit\frames\network\GNEConnectorFrame.cpp:94
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:921
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1411
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:922
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1412
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -10923,10 +10923,10 @@ msgstr "No se pudo crear % '%' en netedit"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "No se pudo construir % en netedit"
@@ -10940,10 +10940,10 @@ msgstr "% '%' no existe."
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2094
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2790
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2801
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2812
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2825
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
 #, c-format
 msgid "% doesn't exist."
 msgstr "% no existe."
@@ -11211,8 +11211,8 @@ msgstr "invertir % actual"
 msgid "Add reverse %"
 msgstr "Agregar % inverso"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1367
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1380
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1373
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1386
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "La arista '%' no es consecutiva a la arista '%'"
 
@@ -11396,15 +11396,15 @@ msgstr "Una parada necesita solo un lugar de parada, arista o carril"
 msgid "Via edge '%' doesn't exist."
 msgstr "La arista intermedia (via) '%' no existe."
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3032
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3020
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "% con ID '%' no existe en % '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3040
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3028
 msgid "invalid probability % in % '%'"
 msgstr "probabilidad no válida % en % '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3046
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3034
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -12061,7 +12061,7 @@ msgstr "Inspeccionar"
 #: C:\Repos\sumo/src\netedit\frames\demand\GNEDistributionFrame.cpp:87
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:103
 #: C:\Repos\sumo/src\netedit\frames\network\GNECreateEdgeFrame.cpp:469
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1399
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1400
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -14306,8 +14306,8 @@ msgid "Crossing parameters"
 msgstr "Parámetros de paso peatonal"
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNECrossingFrame.cpp:485
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1622
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1626
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1623
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1627
 msgid "Create"
 msgstr "Crear"
 
@@ -14764,19 +14764,19 @@ msgid "TAZ shape needs at least three points"
 msgstr ""
 "La forma de la zona de análisis de tráfico necesita al menos tres puntos"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:122
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:123
 msgid "Edit Traffic Light"
 msgstr "Editar semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:186
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:187
 msgid "Click over a junction to edit a TLS"
 msgstr "Haga clic sobre un cruce para editar semáforos"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:198
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:199
 msgid "Save TLS Changes"
 msgstr "Guardar cambios al semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:199
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:200
 msgid ""
 "There are unsaved changes in the currently edited traffic light.\n"
 "Do you want to save it before changing mode?"
@@ -14784,145 +14784,145 @@ msgstr ""
 "Hay cambios sin guardar en el semáforo actual\n"
 "¿Quiere guardarlos antes de cambiar de modo?"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:245
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:246
 msgid "tlLogic '%', program '%' could not be built"
 msgstr "Lógica de semáforo '%', programa '%' no se puede crear"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:258
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2976
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:259
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2988
 msgid "Loaded "
 msgstr "Cargado "
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:258
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:259
 msgid " programs"
 msgstr " programas"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:419
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:420
 msgid "Invalid phase index"
 msgstr "Índice de fase inválido"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:515
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:516
 msgid "modifying TLS definition"
 msgstr "modificación de definición de semáforo (TLS)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:529
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:530
 msgid "Unsaved modifications. Abort or Save"
 msgstr "Cambios no guardados. Cancelar o guardar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:549
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:550
 msgid "Traffic light Attributes"
 msgstr "Atributos del semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:558
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:559
 msgid "parameters"
 msgstr "parámetros"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Assign E1 detectors"
 msgstr "Asignar detector E1"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
 msgid "Enable assign E1 mode"
 msgstr "Activar modo de asignación del E1"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:565
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Assign E1 detectors to the current TLS"
 msgstr "Asignar detector E1 al semáforo actual"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:566
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:567
 msgid "Disable assign E1 mode"
 msgstr "Desactivar modo de asignación del E1"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:882
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:883
 msgid "Traffic Light"
 msgstr "Semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:887
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:951
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:888
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:952
 msgid "Junction ID"
 msgstr "ID del cruce"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:894
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:895
 msgid "TLS ID"
 msgstr "ID del Semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Join"
 msgstr "Juntar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
 msgid "Enable join mode"
 msgstr "Activar modo de unión"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:908
 #: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Join TLS and junctions in the current junction."
 msgstr "Combinar semáforos y cruces en el cruce actual."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:909
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:910
 msgid "Disable join mode"
 msgstr "Desactivar modo de unión"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin"
 msgstr "Separar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin current TLS"
 msgstr "Dividir semáforo actual"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:914
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:915
 msgid "Disjoin current TLS."
 msgstr "Dividir semáforo actual."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:919
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:920
 msgid "Finish join."
 msgstr "Finalizar combinación."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:921
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:922
 msgid "Cancel Join."
 msgstr "Cancelar combinación."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:958
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:959
 msgid "no junction selected"
 msgstr "no hay cruces seleccionados"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:980
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:981
 msgid "Junction IDs"
 msgstr "IDs de los cruces"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1072
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1073
 msgid "rename TLS"
 msgstr "renombrar semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1158
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1159
 msgid "change TLS type"
 msgstr "cambiar tipo de semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1242
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1243
 msgid "join TLS"
 msgstr "combinar semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1304
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1305
 msgid "disjoin TLS"
 msgstr "separar semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1383
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1384
 msgid "Traffic Light Programs"
 msgstr "Programas semafóricos"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1397
 msgid "Create TLS"
 msgstr "Crear semáforo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1396
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1397
 msgid "Create a new traffic light program."
 msgstr "Crear un nuevo programa semafórico."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1399
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1400
 msgid ""
 "Delete a traffic light program. If all programs are deleted the junction "
 "turns into a priority junction."
@@ -14930,108 +14930,108 @@ msgstr ""
 "Eliminar un programa semafórico. Si se eliminan todos los programas, el "
 "cruce se convierte en un cruce prioritario."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1402
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1403
 msgid "Reset single"
 msgstr "Restablecer individual"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1402
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1403
 msgid "Reset current TLS program."
 msgstr "Restablecer el programa semafórico actual."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1405
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1406
 msgid "Reset all"
 msgstr "Restablecer todo"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1405
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1406
 msgid "Reset all TLS programs."
 msgstr "Restablecer todos los programas semafóricos."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1408
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1409
 msgid "Save program modifications. (Enter)"
 msgstr "Guardar modificaciones al programa. (Enter)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1411
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1412
 msgid "Discard program modifications. (Esc)"
 msgstr "Descartar modificaciones al programa. (Esc)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1505
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1506
 msgid "TLSDefinition cannot be found"
 msgstr "La definición de semáforo no se pudo encontrar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1547
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1560
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1579
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1561
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1580
 msgid "TLS cannot be created"
 msgstr "El semáforo no puede ser creado"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1548
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1549
 msgid "Traffic Light cannot be created because junction must have"
 msgstr "El semáforo no puede ser creado porque el cruce debe tener"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1549
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1550
 msgid "at least one incoming edge and one outgoing edge."
 msgstr "al menos una arista entrante y una arista saliente."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1561
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1580
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1562
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1581
 msgid "Traffic Light cannot be created because junction"
 msgstr "El semáforo no puede ser creado porque el cruce"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1562
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1563
 msgid "must have at least one connection."
 msgstr "debe tener por lo menos una conexión."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1581
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1582
 msgid "must have at least one controlled connection."
 msgstr "debe tener por lo menos una conexión controlada."
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1624
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1625
 msgid "Duplicate"
 msgstr "Duplicar"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1664
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1665
 msgid "reset current program"
 msgstr "restablecer programa actual"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1703
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1704
 msgid "reset TLS"
 msgstr "restablecer semáforos"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1864
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1876
 msgid "duplicate program '%' of traffic light '%'"
 msgstr "duplicar programa '%' del semáforo '%'"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1910
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1922
 msgid "Traffic light does not control any links"
 msgstr "El semáforo no controla ningún enlace"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1922
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
 msgid "Phases"
 msgstr "Fases"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1933
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
 msgid "Clean States"
 msgstr "Limpiar estados"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1934
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
 msgid "Clean unused states from all phase"
 msgstr "Eliminar estados no utilizados de todas las fases"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1935
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1947
 msgid "Clean unused states from all phase. (Not allowed for multiple programs)"
 msgstr ""
 "Eliminar estados no utilizados de todas las fases. (No permitido para "
 "múltiples programas)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1939
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
 msgid "Add States"
 msgstr "Añadir estados"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1940
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
 msgid "Extend the state vector for all phases by one entry"
 msgstr "Ampliar el vector de estado para todas las fases por una entrada"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1941
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1953
 msgid ""
 "Extend the state vector for all phases by one entry. (Unused until a "
 "connection or crossing is assigned to the new index)"
@@ -15039,11 +15039,11 @@ msgstr ""
 "Ampliar el vector de estado para todas las fases por una entrada. (No usado "
 "hasta que una conexión o paso peatonal sea asignado al nuevo índice)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1945
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1957
 msgid "Group Sig."
 msgstr "Agrupar señales"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1946
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1958
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index"
@@ -15051,7 +15051,7 @@ msgstr ""
 "Acortar la definición de estado permitiendo que las conexiones con los "
 "mismos estados de señal utilicen el mismo índice"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1947
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1959
 msgid ""
 "Shorten state definition by letting connections with the same signal states "
 "use the same index. (Not allowed for multiple programs)"
@@ -15060,17 +15060,17 @@ msgstr ""
 "mismos estados de señal utilicen el mismo índice. (No permitido para "
 "múltiples programas)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1951
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1963
 msgid "Ungroup Sig."
 msgstr "Desagrupar señales"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1952
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1964
 msgid "Let every connection use a distinct index (reverse state grouping)"
 msgstr ""
 "Dejar que cada conexión use un índice distinto (revertir agrupación de "
 "estados)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1953
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:1965
 msgid ""
 "Let every connection use a distinct index (reverse state grouping). (Not "
 "allowed for multiple programs)"
@@ -15078,45 +15078,53 @@ msgstr ""
 "Dejar que cada conexión use un índice distinto (revertir agrupación de "
 "estados). (No permitido para múltiples programas)"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2087
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2099
 msgid "invalid column"
 msgstr "columna no válida"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2646
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2658
 msgid "Error deleting phase '"
 msgstr "Error al eliminar la fase '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2911
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2923
 msgid "TLS Program File"
 msgstr "Archivo de programa semafórico"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2915
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2927
 msgid "Load TLS program from additional file"
 msgstr "Cargar programa semafórico desde archivo adicional"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2917
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2929
 msgid "Save TLS program to additional file"
 msgstr "Guardar programa semafórico en el archivo adicional"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2976
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2988
 msgid " new programs for tlLogic '"
 msgstr " nuevos programas para la lógica de semáforo '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2981
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2993
 msgid "Updated program '"
 msgstr "Se actualizó el programa '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2981
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2993
 msgid "' for tlLogic '"
 msgstr "' para la lógica de semáforo '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2985
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:2997
 msgid "No programs found for traffic light '"
 msgstr "No se encontraron programas para semáforo '"
 
-#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:3004
+#: C:\Repos\sumo/src\netedit\frames\network\GNETLSEditorFrame.cpp:3016
 msgid "Save TLS Program as"
 msgstr "Guardar programa de semáforo como"
+
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
+msgid "Experimental Part"
+msgstr ""
+
+#: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:69
+msgid "Warning: The netedit overhead editor is still in experimental state."
+msgstr ""
 
 #: C:\Repos\sumo/src\netedit\frames\network\GNEWireFrame.cpp:79
 msgid "Current selected wire isn't valid."
