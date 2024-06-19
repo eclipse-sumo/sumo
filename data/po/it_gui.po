@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:59+0200\n"
-"PO-Revision-Date: 2024-06-17 17:49+0000\n"
+"PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:302
@@ -15523,7 +15523,7 @@ msgstr "marciapiede"
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:679
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1554
 msgid "bike lane"
-msgstr "corsia ciclabile"
+msgstr "pista ciclabile"
 
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:680
 #: C:\Repos\sumo/src\utils\gui\settings\GUIVisualizationSettings.cpp:1555
