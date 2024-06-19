@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <route id="t1" edges="E3 E4 E5">
+        <stop trainStop="ts_0" duration="120"/>
+        <stop trainStop="ts_1" duration="120"/>
+        <stop trainStop="ts_3" duration="120"/>
+    </route>        
+    
+
+    <personFlow id="p1" begin="100" end="300" number="40" >
+        <ride from="E3" trainStop="ts_1" lines="tube1"/>       
+        <walk to="E1" arrivalPos="348"/>
+        <ride busStop="bs_3" lines="pickupf1" />      
+    </personFlow>
+    
+    <flow id="f1" type="tube" route="t1" line="tube1" begin="200" end="700" period="600"/>
+
+    <trip id="b1" type="bus" depart="220" from="E0" to="E6" line="pickupf1" personNumber="0" >
+        <stop busStop="bs_0" duration="1" actType="dummy" />
+        <stop busStop="bs_1" duration="1" actType="dummy" />
+        <stop lane="E1_0" endPos="350" triggered="person"  actType="waiting for f1" />
+        <stop busStop="bs_3" duration="1" actType="dropping passengers" />
+    </trip>
+  
+    <trip id="b2" type="bus" depart="370" from="E0" to="E6">
+            <stop lane="E1_0" endPos="350" duration="10" actType="waiting for f1" />
+    </trip>
+
+</routes>
