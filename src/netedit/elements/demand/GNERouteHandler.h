@@ -162,7 +162,6 @@ public:
     void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
                             const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, const bool friendlyPos,
                             const int parameterSet);
-    /// @}
 
     /// @brief build stop
     void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
@@ -174,6 +173,11 @@ public:
     /// @brief build container plan
     bool buildContainerPlan(const GNEDemandElement* planTemplate, GNEDemandElement* containerParent, GNEAttributesCreator* containerPlanAttributes,
                             GNEPlanCreator* planCreator, const bool centerAfterCreation);
+
+    /// @}
+
+    /// @brief duplicate given plan in new parent
+    void duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandElement* newParent);
 
     /// @brief check if there is already a vehicle (Vehicle, Trip, Flow or Flow) with the given ID
     bool isVehicleIdDuplicated(const std::string& id);
