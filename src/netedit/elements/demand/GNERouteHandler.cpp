@@ -1954,6 +1954,10 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
 void
 GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandElement* newParent) {
     const auto &tagProperty = originalPlan->getTagProperty();
+    // clear and set container object
+    myPlanObject->clear();
+    myPlanObject->setTag(newParent->getTagProperty().getTag());
+    myPlanObject->addStringAttribute(SUMO_ATTR_ID, newParent->getID());
     // declare personPlan object for adding all attributes
     CommonXMLStructure::SumoBaseObject* planObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     planObject->setTag(tagProperty.getTag());
@@ -1977,11 +1981,33 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     const std::string containerStopID = tagProperty.planContainerStop()? originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP) : "";
     const std::string routeID = tagProperty.planRoute()? originalPlan->getAttribute(SUMO_ATTR_ROUTE) : "";
     // path
-    const std::string edgeIDs = tagProperty.planConsecutiveEdges()? originalPlan->getAttribute(SUMO_ATTR_EDGES) : "";
+    const std::vector<std::string> edgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(tagProperty.planConsecutiveEdges()? originalPlan->getAttribute(SUMO_ATTR_EDGES) : "");
+    // other elements
+    planObject->addTimeAttribute(SUMO_ATTR_DURATION, 60);
+    planObject->addTimeAttribute(SUMO_ATTR_UNTIL, 0);
+    planObject->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, 0);
+    planObject->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, -1);
+    planObject->addDoubleAttribute(SUMO_ATTR_ENDPOS, 0);
+    planObject->addDoubleAttribute(SUMO_ATTR_SPEED, 1.39);
+    planObject->addBoolAttribute(SUMO_ATTR_FRIENDLY_POS, false);
     // add rest of attributes
     for (const auto &attrProperty : tagProperty) {
         if (!planObject->hasStringAttribute(attrProperty.getAttr())) {
-            planObject->addStringAttribute(attrProperty.getAttr(), originalPlan->getAttribute(attrProperty.getAttr()));
+            if (attrProperty.isFloat()) {
+                if (!originalPlan->getAttribute(attrProperty.getAttr()).empty()) {
+                    planObject->addDoubleAttribute(attrProperty.getAttr(), originalPlan->getAttributeDouble(attrProperty.getAttr()));
+                }
+            } else if (attrProperty.isSUMOTime()) {
+                if (!originalPlan->getAttribute(attrProperty.getAttr()).empty()) {
+                    planObject->addTimeAttribute(attrProperty.getAttr(), GNEAttributeCarrier::parse<SUMOTime>(originalPlan->getAttribute(attrProperty.getAttr())));
+                }
+            } else if (attrProperty.isBool()) {
+                planObject->addBoolAttribute(attrProperty.getAttr(), GNEAttributeCarrier::parse<bool>(originalPlan->getAttribute(attrProperty.getAttr())));
+            } else if (attrProperty.isList()) {
+                planObject->addStringListAttribute(attrProperty.getAttr(), GNEAttributeCarrier::parse<std::vector<std::string> >(originalPlan->getAttribute(attrProperty.getAttr())));
+            } else {
+                planObject->addStringAttribute(attrProperty.getAttr(), originalPlan->getAttribute(attrProperty.getAttr()));
+            }
         }
     }
     // create plan
@@ -1989,18 +2015,21 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
         buildPersonTrip(planObject,
                         fromEdgeID, fromTAZID, fromJunctionID, fromBusStopID, fromTrainStopID,
                         toEdgeID, toTAZID, toJunctionID, toBusStopID, toTrainStopID,
-                        planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS), planObject->getStringListAttribute(SUMO_ATTR_VTYPES),
-                        planObject->getStringListAttribute(SUMO_ATTR_MODES), planObject->getStringListAttribute(SUMO_ATTR_LINES));
+                        planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS), 
+                        planObject->getStringListAttribute(SUMO_ATTR_VTYPES),
+                        planObject->getStringListAttribute(SUMO_ATTR_MODES),
+                        planObject->getStringListAttribute(SUMO_ATTR_LINES));
     } else if (tagProperty.isPlanWalk()) {
         buildWalk(planObject,
                  fromEdgeID, fromTAZID, fromJunctionID, fromBusStopID, fromTrainStopID,
                  toEdgeID, toTAZID, toJunctionID, toBusStopID, toTrainStopID,
-                 GNEAttributeCarrier::parse<std::vector<std::string> >(edgeIDs), routeID,
+                 edgeIDs, routeID,
                  planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
     } else if (tagProperty.isPlanRide()) {
         buildRide(planObject,
                   fromEdgeID, fromBusStopID, fromTrainStopID, toEdgeID, toBusStopID, toTrainStopID,
-                  planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS), planObject->getStringListAttribute(SUMO_ATTR_LINES));
+                  planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                  planObject->getStringListAttribute(SUMO_ATTR_LINES));
     } else if (tagProperty.isPlanStopPerson()) {
         // set parameters
         int parameterSet = 0;
@@ -2018,13 +2047,11 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
                         planObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                         parameterSet);
     } else if (tagProperty.isPlanTransport()) {
-        buildTransport(planObject,
-                       fromEdgeID, fromContainerStopID, toEdgeID, toContainerStopID,
+        buildTransport(planObject, fromEdgeID, fromContainerStopID, toEdgeID, toContainerStopID,
                        planObject->getStringListAttribute(SUMO_ATTR_LINES),
                        planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
     } else if (tagProperty.isPlanTranship()) {
-        buildTranship(planObject, fromEdgeID, fromContainerStopID, toEdgeID, toContainerStopID,
-                      GNEAttributeCarrier::parse<std::vector<std::string> >(edgeIDs),
+        buildTranship(planObject, fromEdgeID, fromContainerStopID, toEdgeID, toContainerStopID, edgeIDs,
                       planObject->getDoubleAttribute(SUMO_ATTR_SPEED),
                       planObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
                       planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
@@ -2642,24 +2669,22 @@ GNERouteHandler::transformToPerson(GNEPerson* originalPerson) {
     GNERouteHandler routeHandler("", net, true, false);
     // obtain person parameters
     SUMOVehicleParameter personParameters = *originalPerson;
-    // get person plans
-    const auto personPlans = originalPerson->getChildDemandElements();
     // save ID
     const auto ID = personParameters.id;
     // set dummy ID
     personParameters.id = "%dummyID%";
     // begin undo-redo operation
     net->getViewNet()->getUndoList()->begin(originalPerson, "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSON));
-    // create personFlow
-    routeHandler.buildPerson(nullptr, personParameters);
-    // move all person plans to new person
-    for (const auto& personPlan : personPlans) {
-        personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+    // create personFlow and get it
+    routeHandler.buildPerson(nullptr, personParameters);  
+    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, "%dummyID%");
+    // duplicate plans in new person
+    for (const auto& personPlan : originalPerson->getChildDemandElements()) {
+        routeHandler.duplicatePlan(personPlan, newPerson);
     }
     // delete original person plan
     net->deleteDemandElement(originalPerson, net->getViewNet()->getUndoList());
     // restore ID of new person plan
-    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSON, "%dummyID%");
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
     // finish undoList
     net->getViewNet()->getUndoList()->end();
@@ -2688,16 +2713,16 @@ GNERouteHandler::transformToPersonFlow(GNEPerson* originalPerson) {
     personParameters.id = "%dummyID%";
     // begin undo-redo operation
     net->getViewNet()->getUndoList()->begin(originalPerson, "transform " + originalPerson->getTagStr() + " to " + toString(SUMO_TAG_PERSONFLOW));
-    // create personFlow
+    // create personFlow and get it
     routeHandler.buildPersonFlow(nullptr, personParameters);
+    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, "%dummyID%");
     // move all person plans to new person
     for (const auto& personPlan : personPlans) {
-        personPlan->setAttribute(GNE_ATTR_PARENT, "%dummyID%", net->getViewNet()->getUndoList());
+        routeHandler.duplicatePlan(personPlan, newPerson);
     }
     // delete original person plan
     net->deleteDemandElement(originalPerson, net->getViewNet()->getUndoList());
     // restore ID of new person plan
-    auto newPerson = net->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, "%dummyID%");
     newPerson->setAttribute(SUMO_ATTR_ID, ID, net->getViewNet()->getUndoList());
     // enable attributes
     newPerson->enableAttribute(SUMO_ATTR_END, net->getViewNet()->getUndoList());
