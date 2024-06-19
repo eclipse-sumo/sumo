@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-19 12:07+0000\n"
+"PO-Revision-Date: 2024-06-19 13:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3550,7 +3550,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCD.cpp:177
 #, c-format
 msgid "Unknown attribute '%' to write in fcd output."
-msgstr ""
+msgstr "Attributo sconosciuto '%' da emettere in uscita FCD."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_FCDReplay.cpp:61
 msgid "FCD file to read"
@@ -3569,15 +3569,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:50
 msgid "The communication range to the traffic light"
-msgstr ""
+msgstr "Il raggio di communicazione con il semaforo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:53
 msgid "The maximum speed factor when approaching a green light"
-msgstr ""
+msgstr "Il fattore di velocità massimo da usare per avanzare verso il semaforo"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:56
 msgid "Minimum speed when coasting towards a red light"
-msgstr ""
+msgstr "Velocità minima nel rallentare verso un semaforo rosso"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:176
 msgid ""
