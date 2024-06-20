@@ -35,22 +35,22 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
-                  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x,
+                  netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "poi_0")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
-                  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge2_1.x,
+                  netedit.positions.additionalElements.Edge2_1.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "customID")

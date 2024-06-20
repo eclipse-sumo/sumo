@@ -38,8 +38,8 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
 # create chargingStation 1 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # create chargingStation 2 in mode "Center"
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge5.x,

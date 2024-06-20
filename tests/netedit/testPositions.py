@@ -19,31 +19,74 @@
 # GENERAL
 # --------------------------------
 
+class elements:
+
+    class Edge0_0:
+        x = 
+        y = 
+
+    class Edge0_1:
+        x = 
+        y = 
+
+    class Edge1_0:
+        x = 
+        y = 
+    
+    class Edge1_1:
+        x = 
+        y = 
+
+    class Edge2_0:
+        x = 
+        y = 
+
+    class Edge2_1:
+        x = 
+        y =     
+
+    class Edge3_0:
+        x = 
+        y = 
+
+    class Edge3_1:
+        x = 
+        y =     
+
+    class Edge4_0:
+        x = 
+        y = 
+
+    class Edge4_1:
+        x = 
+        y =     
+
+    class Edge5_0:
+        x = 
+        y = 
+
+    class Edge5_1:
+        x = 
+        y =     
+
+    class EdgeCenter0_0:
+        x = 
+        y = 
+
+    class EdgeCenter0_1:
+        x = 
+        y =     
+
+    class EdgeCenter1_0:
+        x = 
+        y = 
+
+    class EdgeCenter1_1:
+        x = 
+        y =     
+
 class additionalElements:
 
-    class centralEdge0:
-        x = 323
-        y = 212
-
-    class centralEdge1:
-        x = 342
-        y = 212
-
-    class centralEdge2:
-        x = 363
-        y = 212
-
-    class centralEdge3:
-        x = 381
-        y = 212
-
-    class centralEdge4:
-        x = 400
-        y = 212
-
-    class centralEdge5:
-        x = 419
-        y = 212        
 
     class inspectBusStop:
         x = 400

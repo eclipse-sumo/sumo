@@ -38,15 +38,15 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.referencesLength, "6")
 
 # create a parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # change reference to "Reference Right"
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Reference Right")
 
 # create a parkingArea in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

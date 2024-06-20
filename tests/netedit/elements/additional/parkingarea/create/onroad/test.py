@@ -38,8 +38,8 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultBoolValue(netedit.attrs.parkingArea.create.onRoad)
 
 # create parkingArea in mode "Reference Left" with different friendly pos
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

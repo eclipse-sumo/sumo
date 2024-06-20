@@ -48,28 +48,28 @@ netedit.changeElement("detEntry")
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
                   netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # select exit detector
 netedit.changeElement("detExit")
 
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
                   netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
-                  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge2_1.x,
+                  netedit.positions.additionalElements.Edge2_1.y)
 
 netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalB.x,
                   netedit.positions.additionalElements.squaredAdditionalB.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge4.x,
-                  netedit.positions.additionalElements.centralEdge4.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge4_1.x,
+                  netedit.positions.additionalElements.Edge4_1.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
+                  netedit.positions.additionalElements.EdgeCenter1_1.y)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "invalidE3", True)
