@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-20 12:43+0000\n"
+"PO-Revision-Date: 2024-06-20 14:29+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1031,6 +1031,9 @@ msgid ""
 "in other vehicle or flow definitions. Please remove all references to route "
 "'%' in case it is internal."
 msgstr ""
+"Las rutas internas reciben un ID que comienza con '!' y no deben ser "
+"referenciadas en otras definiciones de vehículos o flujos. Elimine todas las "
+"referencias a la ruta '%', en caso de que sea interna."
 
 #: C:\Repos\sumo/src\libsumo\Vehicle.cpp:1590
 #, c-format
@@ -1402,10 +1405,14 @@ msgstr "La arista '%' lo prohibe."
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:753
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
+"La velocidad de salida del vehículo '%' es demasiado alta para el tipo de "
+"vehículo '%'."
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:762
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
+"Al vehículo '%' no se le permite arrancar desde ningún carril de la arista "
+"'%'."
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:792
 msgid "Vehicle '%' has no valid route. %"
@@ -1982,6 +1989,8 @@ msgid ""
 "After a vehicle arrives, keep it in memory for the given TIME (for TraCI "
 "access)"
 msgstr ""
+"Tras la llegada de un vehículo, mantenerlo en memoria durante el TIME "
+"indicado (para acceso mediante TraCI)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:406
 msgid "Delay vehicle insertion to stay within the given maximum number"
@@ -2292,11 +2301,11 @@ msgstr "El intervalo de actualización de la simulación JuPedSim (en segundos)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:565
 msgid "The distance to accept the JuPedSim arrival point (in meters)"
-msgstr ""
+msgstr "La distancia para aceptar el punto de llegada de JuPedSim (en metros)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:567
 msgid "The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"
-msgstr ""
+msgstr "El submodelo a usar en JuPedSim (actualmente solo 'CollisionFreeSpeed')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:569
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -2812,7 +2821,7 @@ msgstr " colisión con la persona '%', carril='%', tiempo=%, etapa=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2228
 msgid "Removing vehicle '%' after breaking down, lane='%', time=%."
-msgstr ""
+msgstr "Removiendo el vehículo '%' tras avería, carril='%', tiempo=%."
 
 #: C:\Repos\sumo/src\microsim\MSLane.cpp:2239
 msgid "Teleporting vehicle '%'; beyond end of lane, target lane='%', time=%."
@@ -3016,7 +3025,7 @@ msgstr "Ya existe otro flujo con el ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1072
 msgid "Cannot define % stage without %."
-msgstr ""
+msgstr "No se puede definir la etapa de % sin %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1206
 msgid "The busStop '%' is not known%."
@@ -3059,6 +3068,9 @@ msgid ""
 "A stop must be placed on a busStop, a chargingStation, an "
 "overheadWireSegment, a containerStop, a parkingArea, an edge or a lane%."
 msgstr ""
+"Una parada debe ubicarse sobre una parada de bus, estación de carga, "
+"segmento de catenaria, parada de contenedor, zona de estacionamiento, una "
+"arista o un carril%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1358
 msgid "Deprecated attribute 'pos' in description of stop%."
@@ -3104,7 +3116,7 @@ msgstr "Sin arista destino para %."
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1497
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1580
 msgid "Cannot define person stage without person."
-msgstr ""
+msgstr "No se puede definir una etapa de persona sin persona."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1510
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1136
@@ -3299,6 +3311,8 @@ msgid ""
 "The vType '%' has a 'mass' attribute and a 'vehicleMass' parameter. The "
 "'mass' attribute will take precedence."
 msgstr ""
+"El tipo de vehículo '%' tiene un atributo 'mass' y un parámetro "
+"'vehicleMass'. El atributo 'mass' tendrá prioridad."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:325
 #, c-format
@@ -3307,6 +3321,9 @@ msgid ""
 "the 'mass' attribute (for the empty mass) and the 'loading' parameter, if "
 "needed."
 msgstr ""
+"El tipo de vehículo '%' tiene un parámetro 'vehicleMass', el cual está "
+"obsoleto. Utilice el atributo 'mass' (para la masa vacía) y el parámetro "
+"'loading', si es necesario."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleType.cpp:337
 msgid ""
@@ -3341,6 +3358,9 @@ msgid ""
 "emission class Energy/unknown will be used, please consider setting an "
 "explicit emission class!"
 msgstr ""
+"El dispositivo de batería está activo para el tipo de vehículo '%' pero no "
+"se ha establecido ninguna clase de emisión. Se usará la clase Energy/"
+"unknown. ¡Considere establecer una clase de emisión explícita!"
 
 #: C:\Repos\sumo/src\microsim\cfmodels\MSCFModel_CC.cpp:66
 msgid ""
@@ -3485,6 +3505,8 @@ msgid ""
 "Battery device in vehicle '%' still uses old parameter '%'. Please update to "
 "'device.%'."
 msgstr ""
+"El dispositivo de batería del vehículo '%' todavía usa el antiguo parámetro "
+"'%'. Favor actualizar a 'device.%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:122
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:136
@@ -3505,6 +3527,10 @@ msgid ""
 "Please consider setting an explicit emission class or battery outputs might "
 "be inconsistent with emission outputs!"
 msgstr ""
+"El dispositivo de batería está activo para el vehículo '%' pero no se ha "
+"establecido ninguna clase de emisión. ¡Considere establecer una clase de "
+"emisión explícita o las salidas de la batería podrían ser inconsistentes con "
+"las salidas de emisión!"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:206
 msgid "Battery of vehicle '%' is depleted, time=%."
@@ -3522,6 +3548,8 @@ msgid ""
 "Getting the vehicle mass via parameters is deprecated, please use getMass "
 "for the vehicle or its type."
 msgstr ""
+"Obtener la masa de un vehículo a través de parámetros está obsoleto; utilice "
+"getMass para el vehículo o su tipo."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Battery.cpp:546
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ElecHybrid.cpp:935
@@ -3529,6 +3557,8 @@ msgid ""
 "Setting the vehicle mass via parameters is deprecated, please use setMass "
 "for the vehicle or its type."
 msgstr ""
+"Establecer la masa de un vehículo a través de parámetros está obsoleto; "
+"utilice setMass para el vehículo o su tipo."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_Bluelight.cpp:59
 msgid ""
@@ -4156,6 +4186,8 @@ msgid ""
 "How to deal with a vehicle which has to stop due to low battery: [none, "
 "remove, tow]"
 msgstr ""
+"Cómo proceder con un vehículo que tiene que detenerse por falta de batería: ["
+"none, remove, tow]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:64
 msgid ""
@@ -4890,7 +4922,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:674
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
-msgstr ""
+msgstr "El polígono '%' ha sido ampliado ya que es solo un segmento."
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:682
 #, c-format
@@ -5367,7 +5399,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1045
 msgid "Removing sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Removiendo giro brusco con radio % en el % de la arista '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1046
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1052
@@ -5381,7 +5413,7 @@ msgstr "final"
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1051
 msgid "Found sharp turn with radius % at the % of edge '%'."
-msgstr ""
+msgstr "Se encontró un giro brusco con radio % en el % de la arista '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:1189
 msgid "Could not set connection from '%' to '%'."
@@ -5577,6 +5609,8 @@ msgstr ""
 msgid ""
 "Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."
 msgstr ""
+"Límite de velocidad negativo (%) en el carril '%', use --speed.minimum para "
+"evitar esto."
 
 #: C:\Repos\sumo/src\netbuild\NBEdgeCont.cpp:946
 #, c-format
@@ -5969,6 +6003,8 @@ msgid ""
 "Structures with a circumference above FLOAT threshold are not classified as "
 "roundabout"
 msgstr ""
+"Estructuras con una circunferencia superior al umbral FLOAT no se clasifican "
+"como rotondas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:309
 msgid "Default visibility when approaching a roundabout"
@@ -6357,12 +6393,12 @@ msgstr "Eliminando aristas no deseadas"
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:124
 #, c-format
 msgid " Removed % edges because by minimum speed."
-msgstr ""
+msgstr " Se eliminaron % aristas debido a la velocidad mínima."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:129
 #, c-format
 msgid " Removed % edges based on vClass."
-msgstr ""
+msgstr " Se eliminaron % aristas debido a la clase de vehículo."
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:134
 msgid "Processing public transport stops"
@@ -7525,7 +7561,7 @@ msgstr "La longitud predeterminada de una parada de tren en FLOAT m"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:222
 msgid "Specify custom rules for importing railway signals"
-msgstr ""
+msgstr "Especificar reglas personalizadas para importar señales ferroviarias"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:226
 msgid "Whether additional attributes shall be imported"
@@ -8936,7 +8972,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:227
 #, c-format
 msgid "Edge '%' changed its type; assuming type override is wished."
-msgstr ""
+msgstr "La arista '%' cambió su tipo; se asume que este cambio es deseado."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:315
 msgid "Ignoring self-looped edge '%' at junction '%'"
@@ -9657,7 +9693,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:91
 msgid "The dlr-navteq output format version to write"
-msgstr ""
+msgstr "La versión del formato de salida dlr-navteq a escribir"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:94
 msgid ""
@@ -10664,11 +10700,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:735
 msgid "Discarding container '%' because its plan is empty"
-msgstr ""
+msgstr "Descartando contenedor '%' porque su plan está vacío"
 
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:752
 msgid "Discarding containerFlow '%' because its plan is empty"
-msgstr ""
+msgstr "Descartando flujo de contenedor '%' porque su plan está vacío"
 
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:1052
 msgid "Triggered departure for container '%' requires a unique lines value."
@@ -10830,7 +10866,7 @@ msgstr "El tipo de vehículo no es único."
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:229
 #, c-format
 msgid "Vehicle type '%' is not defined."
-msgstr ""
+msgstr "El tipo de vehículo '%' no está definido."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:253
 msgid "Unreadable file '%'."
@@ -11140,11 +11176,11 @@ msgstr "Escribe todas las advertencias y errores en FILE"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:113
 msgid "Writes timestamps in front of all messages"
-msgstr ""
+msgstr "Escribe la marca temporal delante de todos los mensajes"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:116
 msgid "Writes process ID in front of all messages"
-msgstr ""
+msgstr "Escribe el ID del proceso delante de todos los mensajes"
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:119
 msgid "Language to use in messages"
@@ -11221,6 +11257,9 @@ msgid ""
 "Vehicle type '%' uses the Energy model with parameter "
 "'internalMomentOfInertia' which is deprecated. Use 'rotatingMass' instead."
 msgstr ""
+"El tipo de vehículo '%' utiliza el modelo de energía con el parámetro "
+"'internalMomentOfInertia', el cual está obsoleto. En su lugar, utilice "
+"'rotatingMass'."
 
 #: C:\Repos\sumo/src\utils\emissions\EnergyParams.cpp:196
 msgid "Vehicle device '%' doesn't have a valid value for parameter % (%)."
@@ -11358,7 +11397,7 @@ msgstr "Intentando restar vectores de posición de diferentes longitudes."
 
 #: C:\Repos\sumo/src\utils\geom\PositionVector.cpp:1542
 msgid "Trying to add PositionVectors of different lengths."
-msgstr ""
+msgstr "Intentando sumar vectores de posición de diferentes longitudes."
 
 #: C:\Repos\sumo/src\utils\handlers\AdditionalHandler.cpp:876
 msgid "Invalid charge type '%' defined in chargingStation '%'."
@@ -11567,6 +11606,8 @@ msgid ""
 "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
+"Copyright (C) 2001-2024 Centro Aeroespacial Alemán (DLR) y otros; "
+"https://sumo.dlr.de"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:152
 msgid "Internal request for unknown option '%'!"
@@ -11606,6 +11647,8 @@ msgid ""
 "A value for the option '%' was already set.\n"
 " Possible synonymes: "
 msgstr ""
+"Ya se había establecido un valor para la opción '%'.\n"
+" Posibles sinónimos: "
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:621
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:642
@@ -11733,15 +11776,18 @@ msgstr "Guardando matriz nueva en '%'."
 #: C:\Repos\sumo/src\utils\router\SUMOAbstractRouter.h:222
 #, c-format
 msgid "No connection between edge '%' and edge '%' found."
-msgstr ""
+msgstr "No se encontró conexión entre la arista '%' y la arista '%'."
 
 #: C:\Repos\sumo/src\utils\router\CHRouter.h:272
 msgid "Routing algorithm CH does not support dynamic closing of edges%"
 msgstr ""
+"El algoritmo de enrutamiento CH no soporta el cierre dinámico de aristas%"
 
 #: C:\Repos\sumo/src\utils\router\CHRouterWrapper.h:85
 msgid "Routing algorithm CHWrapper does not support dynamic closing of edges%"
 msgstr ""
+"El algoritmo de enrutamiento CHWrapper no soporta el cierre dinámico de "
+"aristas%"
 
 #: C:\Repos\sumo/src\utils\router\IntermodalNetwork.h:295
 #, c-format
@@ -11776,7 +11822,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\router\IntermodalRouter.h:198
 msgid "No connection between % '%' and % '%' found."
-msgstr ""
+msgstr "No se encontró conexión entre % '%' y % '%'."
 
 #: C:\Repos\sumo/src\utils\router\IntermodalRouter.h:226
 #: C:\Repos\sumo/src\utils\router\PedestrianRouter.h:126
@@ -11944,11 +11990,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:487
 msgid "Speed cannot be negative for stop%."
-msgstr ""
+msgstr "La velocidad no puede ser negativa en la parada%."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:503
 msgid "Invalid duration or end time is given for a stop%."
-msgstr ""
+msgstr "Duración o tiempo de finalización no válido dado para una parada%."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:507
 msgid "Triggers and waypoints cannot be combined%."
