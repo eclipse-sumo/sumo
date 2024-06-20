@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.chargingStation.x, netedit.positions.elements.additionals.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # disable friendlyPos
 netedit.modifyBoolAttribute(netedit.attrs.chargingStation.inspectSelection.friendlyPos, True)

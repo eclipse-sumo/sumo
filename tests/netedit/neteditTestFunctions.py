@@ -1149,19 +1149,22 @@ def moveMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def moveElementHorizontal(referencePosition, startX, startY, endX, endY):
+def moveElementHorizontal(referencePosition, originalPosition, radius):
     """
     @brief move element in horizontal
     """
+    leftClick(referencePosition, originalPosition.x, originalPosition.y)    
     # move element
-    dragDrop(referencePosition, startX, startY, endX, endY)
+    dragDrop(referencePosition, originalPosition.x, originalPosition.y, originalPosition.x + radius.right, originalPosition.y)
+    dragDrop(referencePosition, originalPosition.x + radius.right, originalPosition.y, originalPosition.x + radius.left, originalPosition.y)    
 
-def moveElement(referencePosition, startX, startY, endX, endY):
+def moveElement(referencePosition, originalPosition, radius):
     """
     @brief move element
     """
     # move element
-    dragDrop(referencePosition, startX, startY, endX, endY)    
+    dragDrop(referencePosition, originalPosition.x, originalPosition.y, originalPosition.x + radius.right, originalPosition.y)
+    dragDrop(referencePosition, originalPosition.x + radius.right, originalPosition.y, originalPosition.x + radius.left, originalPosition.y)    
 
 #################################################
     # crossings

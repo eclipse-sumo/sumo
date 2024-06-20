@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.chargingStation.x, netedit.positions.elements.additionals.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "cs_1", True)

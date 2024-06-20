@@ -114,32 +114,28 @@ class elements:
 
     # movement radius
     class movementRadius:
-        up = 5
-        down = -5
-        left = -5
-        right = 5        
+        up = 70
+        down = -70
+        left = -70
+        right = 70       
 
     # additional (for inspect, delete, etc.)
     class additionals:
 
         class busStop:
-            x = 400
-            y = 420
+            x = 322 
+            y = 195
 
         class trainStop:
-            x = 325
-            y = 205
+            x = 343
+            y = 200
 
         class containerStop:
-            x = 326
-            y = 198
-
-        class chargingStation:
-            x = 306
-            y = 258
+            x = 345
+            y = 195
 
         class parkingArea:
-            x = 324
+            x = 343
             y = 190
 
         class e2Detector:
@@ -147,12 +143,12 @@ class elements:
             y = 220
         
         class squaredA:
-            x = 440
-            y = 140
+            x = 437
+            y = 137
 
         class squaredB:
-            x = 440
-            y = 140
+            x = 534
+            y = 137
 
     # demand elements (for inspect, delete, etc.)
     class demands:

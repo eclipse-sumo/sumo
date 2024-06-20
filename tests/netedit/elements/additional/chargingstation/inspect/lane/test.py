@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.chargingStation.x, netedit.positions.elements.additionals.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.lane, "dummy lane", True)
