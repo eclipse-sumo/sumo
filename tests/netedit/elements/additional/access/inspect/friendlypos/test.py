@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 428, 257)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # select Access
 netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, 153, 95)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.accessA.x, netedit.positions.additionalElements.accessA.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # delete Access
-netedit.leftClick(referencePosition, 153, 95)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.accessA.x, netedit.positions.additionalElements.accessA.y)
 
 # Change friendly position
 netedit.modifyBoolAttribute(netedit.attrs.access.inspect.friendlyPos, True)
