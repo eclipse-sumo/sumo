@@ -1149,12 +1149,19 @@ def moveMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
+def moveElementHorizontal(referencePosition, startX, startY, endX, endY):
+    """
+    @brief move element in horizontal
+    """
+    # move element
+    dragDrop(referencePosition, startX, startY, endX, endY)
+
 def moveElement(referencePosition, startX, startY, endX, endY):
     """
     @brief move element
     """
     # move element
-    dragDrop(referencePosition, startX, startY, endX, endY)
+    dragDrop(referencePosition, startX, startY, endX, endY)    
 
 #################################################
     # crossings

@@ -49,11 +49,8 @@ netedit.leftClick(referencePosition, 292, 371)
 # change to move mode
 netedit.moveMode()
 
-# move space
-netedit.moveElement(referencePosition, 293, 348, 523, 278)
-
-# move space
-netedit.moveElement(referencePosition, 520, 278, 406, 121)
+# move
+netedit.moveElement(referencePosition, AAA, BBB, XXX, YYY)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

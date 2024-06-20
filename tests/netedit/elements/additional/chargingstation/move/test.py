@@ -43,11 +43,8 @@ netedit.leftClick(referencePosition, 359, 253)
 # change to move mode
 netedit.moveMode()
 
-# move chargingStation to right
-netedit.moveElement(referencePosition, 359, 253, 274, 253)
-
-# move chargingStation to right
-netedit.moveElement(referencePosition, 274, 253, 431, 253)
+# move
+netedit.moveElementHorizontal(referencePosition, AAA, BBB, XXX, YYY)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

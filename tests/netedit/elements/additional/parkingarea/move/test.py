@@ -43,14 +43,8 @@ netedit.leftClick(referencePosition, 475, 256)
 # change to move mode
 netedit.moveMode()
 
-# move parkingArea to left
-netedit.moveElement(referencePosition, 475, 280, 362, 280)
-
-# move back
-netedit.moveElement(referencePosition, 400, 280, 934, 280)
-
-# move parkingArea to right
-netedit.moveElement(referencePosition, 728, 280, 592, 280)
+# move
+netedit.moveElementHorizontal(referencePosition, AAA, BBB, XXX, YYY)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

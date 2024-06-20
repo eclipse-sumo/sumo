@@ -40,11 +40,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 # change to move mode
 netedit.moveMode()
 
-# move E2 to right
-netedit.moveElement(referencePosition, 450, 258, 583, 258)
-
-# move E2 to left
-netedit.moveElement(referencePosition, 583, 258, 336, 258)
+# move
+netedit.moveElementHorizontal(referencePosition, AAA, BBB, XXX, YYY)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)
