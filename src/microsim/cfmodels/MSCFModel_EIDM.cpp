@@ -210,7 +210,7 @@ MSCFModel_EIDM::patchSpeedBeforeLCEIDM(const MSVehicle* /*veh*/, double vMin, do
         const double minGapStop_EPS = 0.05 + 0.20 * MAX2(0.25, myAccel);
         s += minGapStop_EPS + EIDM_POS_ACC_EPS;
     }
-    const double intensity = MIN2(myAccel, MAX2(vMax - 0.5 * myAccel, 0.0));
+    const double intensity = MIN3(myAccel, 1.5, MAX2(vMax - 0.5 * myAccel, 0.0));
     const double criticality = MIN2(MAX2(s / vars->mys_est - 0.5, -0.4), 0.0);
 
     const double drivingerror = mySigmaerror * vars->myw_error * intensity * (2.75 * 2.75 * criticality * criticality + 1.0);
