@@ -1,15 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 07:41:06.495488 by createVehTypeDistribution.py v1_20_0+0670-88aca8e654b
+  options: config_file.txt <doubleminus>o out.add.xml <doubleminus>size 10 <doubleminus>resampling 100000 <doubleminus>name exampleDist
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   <vTypeDistribution id="exampleDist">
-      <vType id="exampleDist0" foo="0.893"/>
-      <vType id="exampleDist1" foo="0.638"/>
-      <vType id="exampleDist2" foo="0.768"/>
-      <vType id="exampleDist3" foo="0.873"/>
-      <vType id="exampleDist4" foo="0.265"/>
-      <vType id="exampleDist5" foo="0.872"/>
-      <vType id="exampleDist6" foo="0.828"/>
-      <vType id="exampleDist7" foo="0.646"/>
-      <vType id="exampleDist8" foo="0.621"/>
-      <vType id="exampleDist9" foo="0.917"/>
-   </vTypeDistribution>
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" foo="0.893"/>
+        <vType id="exampleDist1" foo="0.638"/>
+        <vType id="exampleDist2" foo="0.768"/>
+        <vType id="exampleDist3" foo="0.873"/>
+        <vType id="exampleDist4" foo="0.265"/>
+        <vType id="exampleDist5" foo="0.872"/>
+        <vType id="exampleDist6" foo="0.828"/>
+        <vType id="exampleDist7" foo="0.646"/>
+        <vType id="exampleDist8" foo="0.621"/>
+        <vType id="exampleDist9" foo="0.917"/>
+    </vTypeDistribution>
 </additional>
