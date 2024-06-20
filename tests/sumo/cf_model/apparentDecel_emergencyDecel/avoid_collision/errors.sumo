@@ -1,4 +1,4 @@
 Warning: Vehicle 'follower' is inserted in emergency situation.
 Warning: Vehicle 'follower' performs emergency braking on lane 'E0_0' with decel=4.00, wished=1.00, severity=1.00, time=0.10.
-Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='E0_0', gap=-0.10, time=0.90 stage=move.
+Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='E0_0', gap=-0.10, time=0.90, stage=move.
 Warning: Vehicle 'follower' teleports beyond arrival edge 'E0', time=0.90.
