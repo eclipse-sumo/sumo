@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-20 15:07:55 by Eclipse SUMO sumo Version v1_20_0+0390-97912575ef5
+<!-- generated on 2024-06-20 17:56:20 by Eclipse SUMO sumo Version v1_20_0+0393-953947b3b06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w7_3_0 T13_0_0 :w1_2_0 :w8_0_0 T14_1_0 :w2_1_0"/>
                 <protectingSwitches links="w9_1 w1_2 w2_1"/>
                 <conflictLinks signals="G_0"/>
-                <foes driveWays="P2.0 P3.0 G.0 G.1 G.2"/>
+                <foes driveWays="P2.0 P3.0 G.2"/>
             </driveWay>
         </link>
     </railSignal>
@@ -128,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_0_0 T10_1_0 :w5_1_0 :w9_2_0 T21_0_0 :N1_1_0"/>
                 <protectingSwitches links="w3_2 w1_3 w5_1 w8_3"/>
                 <conflictLinks signals="N1_0"/>
-                <foes driveWays="F.0 N1.0 B.1 B.2 N2.1 A.1 F.2"/>
+                <foes driveWays="F.0 N1.0 B.1 B.2 N2.1 F.2"/>
             </driveWay>
             <driveWay id="G.1" edges="T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1" core="8">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_0_0 T15_1_0 :w4_1_0 T9_1_0 :N2_0_0 T8_1_0"/>
@@ -137,7 +137,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_0_0 T10_1_0 :w5_1_0 :w9_2_0 T21_0_0 :N1_1_0"/>
                 <protectingSwitches links="w3_2 w5_1 w1_3"/>
                 <conflictLinks signals="N1_0"/>
-                <foes driveWays="F.0 N1.0 B.1 B.2 A.1 F.2"/>
+                <foes driveWays="F.0 N1.0 B.1 B.2 F.2"/>
             </driveWay>
             <driveWay id="G.2" edges="T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_1_0 T21_1_0 :N1_0_0 T20_1_0"/>
