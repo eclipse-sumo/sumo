@@ -848,9 +848,11 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
         // LC won't be completed if vehicle stands
         double maneuverDist = remainingManeuverDist;
         const double vModel = computeSpeedLat(maneuverDist, maneuverDist, urgent);
-        if (vModel > 0) {
+        double result = D / vModel;
+        // make sure that the vehicle isn't braking to a stop during the manuever
+        if (vModel > SUMO_const_haltingSpeed && (vModel + myVehicle.getAcceleration() * result) > SUMO_const_haltingSpeed ) {
             // unless the model tells us something different
-            return D / vModel;
+            return result;
         } else {
             return -1;
         }
