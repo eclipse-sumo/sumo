@@ -69,6 +69,14 @@ class additionalElements:
         x = 290
         y = 220        
 
+    class accessA:
+        x = 784
+        y = 158
+
+    class accessB:
+        x = 876
+        y = 290  
+        
     class squaredAdditionalA:
         x = 440
         y = 140
