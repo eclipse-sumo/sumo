@@ -44,7 +44,7 @@ netedit.changeContainerPlan("tranship", True)
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "dummyTerminate")
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # press enter to create route
@@ -57,7 +57,7 @@ netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminate, "end")
 netedit.typeEnter()
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # set valid arrival pos
@@ -79,7 +79,7 @@ netedit.changeDefaultValue(netedit.attrs.containerFlow.create.terminateOption, "
 netedit.typeEnter()
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # set valid arrival pos

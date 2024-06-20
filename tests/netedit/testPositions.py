@@ -144,7 +144,7 @@ class elements:
             y = 140
 
 
-    class demandElements:
+    class demands:
 
         class TAZGreen:
             x = 525

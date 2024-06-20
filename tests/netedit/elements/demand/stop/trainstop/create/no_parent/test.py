@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopTrainStop")
 
 # try to create stop (don't click over trainStop)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
