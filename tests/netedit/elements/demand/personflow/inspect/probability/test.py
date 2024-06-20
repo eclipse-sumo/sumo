@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x, netedit.positions.elements.demands.person.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.spacing, "dummyTerminate", False)

@@ -45,8 +45,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.typeEnter()
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.vehicleEdge.x,
-                                netedit.positions.demandElements.vehicleEdge.y,
+                                netedit.positions.elements.demands.vehicleEdge.x,
+                                netedit.positions.elements.demands.vehicleEdge.y,
                                 netedit.attrs.flowEmbedded.transformTo,
                                 netedit.attrs.flowEmbedded.transform.vehicleEmbedded)
 

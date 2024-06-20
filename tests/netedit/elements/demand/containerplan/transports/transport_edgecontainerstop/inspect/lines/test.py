@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("transport")
 
 # create transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -59,7 +59,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x, netedit.positions.elements.demands.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transportEdgeContainerStop.inspect.lines, "custom line", False)

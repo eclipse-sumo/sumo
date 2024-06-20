@@ -58,13 +58,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.line, "")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # set empty line
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.line, "customLine")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

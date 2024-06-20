@@ -103,12 +103,13 @@ class elements:
 
     class junction4:
         x = 157
-        y = 237                 
+        y = 237
         
     class junction5:
         x = 503
         y = 233
 
+    # additional (for inspect, delete, etc.)
     class additionals:
 
         class busStop:
@@ -133,7 +134,7 @@ class elements:
 
         class e2Detector:
             x = 290
-            y = 220        
+            y = 220
         
         class squaredA:
             x = 440
@@ -143,45 +144,45 @@ class elements:
             x = 440
             y = 140
 
-
+    # demand elements (for inspect, delete, etc.)
     class demands:
 
         class TAZGreen:
-            x = 525
-            y = 175
+            x = 518
+            y = 160
 
         class TAZRed:
-            x = 720
-            y = 175
+            x = 730
+            y = 177
 
         class busStop:
-            x = 295
-            y = 10
+            x = 296
+            y = 11
 
         class trainStop:
-            x = 720
-            y = 10
+            x = 718
+            y = 8
 
         class containerStop:
-            x = 400
-            y = 0
+            x = 411
+            y = 4
 
         class chargingStation:
-            x = 620
-            y = 25
+            x = 623
+            y =  23
 
         class parkingArea:
             x = 525
             y = 0
 
         class route:
-            x = 440
-            y = 440
+            x = 420
+            y = 439
 
         class routeB:
-            x = 470
-            y = 410
-
+            x = 536
+            y = 409
+##############################
         class containerX:
             x = 470
             y = 400

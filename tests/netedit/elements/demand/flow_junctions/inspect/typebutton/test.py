@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleJunction.x, netedit.positions.demandElements.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x, netedit.positions.elements.demands.vehicleJunction.y)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.type, "custom_vType", False)

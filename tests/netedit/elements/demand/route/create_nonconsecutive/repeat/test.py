@@ -39,7 +39,7 @@ netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")
 
 # try to create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat0.x, netedit.positions.demandElements.edgeRepeat0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat0.x, netedit.positions.elements.demands.edgeRepeat0.y)
 
 # press enter to try to create route
 netedit.typeEnter()

@@ -45,8 +45,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.typeEnter()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.demandElements.container.x,
-                                netedit.positions.demandElements.container.y, netedit.attrs.container.transformTo, 1)
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.container.x,
+                                netedit.positions.elements.demands.container.y, netedit.attrs.container.transformTo, 1)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

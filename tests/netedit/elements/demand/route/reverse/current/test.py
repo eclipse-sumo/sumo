@@ -46,8 +46,8 @@ netedit.inspectMode()
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.route.x,
-                                netedit.positions.demandElements.route.y,
+                                netedit.positions.elements.demands.route.x,
+                                netedit.positions.elements.demands.route.y,
                                 netedit.attrs.route.reverseElement,
                                 netedit.attrs.route.reverse.current)
 

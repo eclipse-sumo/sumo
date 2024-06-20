@@ -45,7 +45,7 @@ netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminate, "dummyTerm
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -58,7 +58,7 @@ netedit.typeEnter()
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "dummy")
@@ -80,7 +80,7 @@ netedit.typeEnter()
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.terminateOption, "22")

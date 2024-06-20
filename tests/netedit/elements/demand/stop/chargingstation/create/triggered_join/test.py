@@ -41,22 +41,22 @@ netedit.changeStopType("stopChargingStation")
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.triggered, "join")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  1, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  1, netedit.positions.elements.demands.chargingStation.y)
 
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.join, ";;;")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  2, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  2, netedit.positions.elements.demands.chargingStation.y)
 
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.join, "customJoin")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  3, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  3, netedit.positions.elements.demands.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

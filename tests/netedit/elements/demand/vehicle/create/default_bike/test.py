@@ -52,7 +52,7 @@ netedit.changeElement("vehicle (over route)")
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.type, "DEFAULT_BIKETYPE")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
