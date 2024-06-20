@@ -7585,7 +7585,7 @@ msgid "Missing node in laneset '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:263
-msgid "Fond laneset-id '%' twice."
+msgid "Found laneset-id '%' twice."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:277

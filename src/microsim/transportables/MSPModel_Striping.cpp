@@ -1181,8 +1181,8 @@ void
 MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane* lane, SUMOTime currentTime, std::set<MSPerson*>& changedLane, int dir, bool debug) {
     const int stripes = numStripes(lane);
     //std::cout << " laneWidth=" << lane->getWidth() << " stripeWidth=" << stripeWidth << " stripes=" << stripes << "\n";
-    Obstacles obs(stripes, Obstacle(dir)); // continously updated
-    NextLanesObstacles nextLanesObs; // continously updated
+    Obstacles obs(stripes, Obstacle(dir)); // continuously updated
+    NextLanesObstacles nextLanesObs; // continuously updated
     sort(pedestrians.begin(), pedestrians.end(), by_xpos_sorter(dir));
 
     Obstacles crossingVehs(stripes, Obstacle(dir));
@@ -1560,7 +1560,7 @@ MSPModel_Striping::getVehicleObstacles(const MSLane* lane, int dir, PState* ped)
                 Obstacle prior = vehObs[s];
                 vehObs[s] = vo;
                 if (s == current && vehFront + SAFETY_GAP < minX) {
-                    // ignore if aleady overlapping while vehicle is still behind
+                    // ignore if already overlapping while vehicle is still behind
                     if (pRelY - pWidth < vehYmax &&
                             pRelY + pWidth > vehYmin && dir == FORWARD) {
                         if (debug) {
@@ -1990,7 +1990,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
                     myWalkingAreaPath = nullptr;
                     myNLI = getNextLane(*this, myLane, oldLane);
                 } else {
-                    // disconnnected route. move to the next edge
+                    // disconnected route. move to the next edge
                     if (OptionsCont::getOptions().getBool("ignore-route-errors")) {
                         // try to determine direction from topology, otherwise maintain current direction
                         const MSEdge* currRouteEdge = *myStage->getRouteStep();
@@ -2080,7 +2080,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                          : (myLane->isNormal() || myLane->isInternal()
                             ? myLane->getVehicleMaxSpeed(myPerson)
                             : myStage->getMaxSpeed(myPerson)));
-    // ultimate goal is to choose the prefered stripe (chosen)
+    // ultimate goal is to choose the preferred stripe (chosen)
     const int current = stripe();
     const int other = otherStripe();
     // compute distances
@@ -2232,7 +2232,7 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
     // XXX ensure that diagonal speed <= vMax
     // avoid deadlocks on narrow sidewalks
     //if (oncoming && xSpeed == 0 && myStage->getWaitingTime(currentTime) > TIME2STEPS(ONCOMIN_PATIENCE)) {
-    //    if DEBUGCOND(*this) std::cout << "  stepping asside to resolve oncoming deadlock\n";
+    //    if DEBUGCOND(*this) std::cout << "  stepping aside to resolve oncoming deadlock\n";
     //    xSpeed = POSITION_EPS; // reset myWaitingTime
     //     if (myDir == FORWARD && chosen < sMax) {
     //         chosen += 1;

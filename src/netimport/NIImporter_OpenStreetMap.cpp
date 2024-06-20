@@ -266,7 +266,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
         insertEdge(e, running, currentFrom, last, passed, nb, first, last);
     }
 
-    /* Collect edges which explictly are part of a roundabout and store the edges of each
+    /* Collect edges which explicitly are part of a roundabout and store the edges of each
      * detected roundabout */
     nb.getEdgeCont().extractRoundabouts();
 
@@ -567,7 +567,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (e->myRailDirection == WAY_UNKNOWN && nodeDirection != WAY_UNKNOWN && nodeDirection != WAY_FORWARD
             && nodeDirection != (WAY_FORWARD | WAY_UNKNOWN)) {
         //std::cout << "way " << e->id << " nodeDirection=" << nodeDirection << " origDirection=" << e->myRailDirection << "\n";
-        // heuristc: assume that the mapped way direction indicates
+        // heuristic: assume that the mapped way direction indicates
         // potential driving direction
         e->myRailDirection = WAY_BOTH;
     }
