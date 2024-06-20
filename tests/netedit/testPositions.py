@@ -21,7 +21,7 @@
 
 class elements:
 
-    class edge0_ped:
+    class edge0Ped:
         x = 402
         y = 470
 
@@ -29,7 +29,7 @@ class elements:
         x = 381
         y = 443
 
-    class edge1_ped:
+    class edge1Ped:
         x = 874
         y = 238
     
@@ -37,7 +37,7 @@ class elements:
         x = 850
         y = 222
 
-    class edge2_ped:
+    class edge2Ped:
         x = 463
         y = -3
 
@@ -45,7 +45,7 @@ class elements:
         x = 494
         y = 26
 
-    class edge3_ped:
+    class edge3Ped:
         x = 409
         y = 89
 
@@ -53,7 +53,7 @@ class elements:
         x = 477
         y = 56
 
-    class edge4_ped:
+    class edge4Ped:
         x = 791
         y = 236
 
@@ -61,7 +61,7 @@ class elements:
         x = 817
         y = 235
 
-    class edge5_ped:
+    class edge5Ped:
         x = 459
         y = 383
 
@@ -69,7 +69,7 @@ class elements:
         x = 515
         y = 413
 
-    class edgeCenter0_ped:
+    class edgeCenter0Ped:
         x = 341 
         y = 276
 
@@ -77,7 +77,7 @@ class elements:
         x = 332
         y = 248
 
-    class edgeCenter1_ped:
+    class edgeCenter1Ped:
         x = 345
         y = 191
 
@@ -111,27 +111,27 @@ class elements:
 
 class additionalElements:
 
-    class inspectBusStop:
+    class busStop:
         x = 400
         y = 420
 
-    class inspectTrainStop:
+    class trainStop:
         x = 325
         y = 205
 
-    class inspectContainerStop:
+    class containerStop:
         x = 326
         y = 198
 
-    class inspectChargingStation:
+    class chargingStation:
         x = 306
         y = 258
 
-    class inspectParkingArea:
+    class parkingArea:
         x = 324
         y = 190
 
-    class inspectE2Detector:
+    class e2Detector:
         x = 290
         y = 220        
 
@@ -153,54 +153,6 @@ class additionalElements:
 
 
 class demandElements:
-
-    class edge0:
-        x = 450
-        y = 440
-
-    class edge1:
-        x = 850
-        y = 230
-
-    class edge2:
-        x = 500
-        y = 28
-
-    class edge3:
-        x = 500
-        y = 55
-
-    class edge4:
-        x = 816
-        y = 230
-
-    class edge5:
-        x = 450
-        y = 410
-
-    class edgeCenter1:
-        x = 360
-        y = 212
-
-    class edgeCenter2:
-        x = 360
-        y = 250
-
-    class junction0:
-        x = 155
-        y = 430
-
-    class junction1:
-        x = 825
-        y = 422
-
-    class junction2:
-        x = 825
-        y = 60
-
-    class junction3:
-        x = 170
-        y = 60
 
     class TAZGreen:
         x = 525
