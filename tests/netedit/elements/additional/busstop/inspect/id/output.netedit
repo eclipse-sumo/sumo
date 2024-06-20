@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 Center
-TestFunctions: Clicked over position 628 - 383
-TestFunctions: Clicked over position 858 - 383
-TestFunctions: Clicked over position 629 - 373
+TestFunctions: Clicked over position 627 - 380
+TestFunctions: Clicked over position 723 - 380
+TestFunctions: Clicked over position 704 - 588
 bs_1
 Id with spaces
 correctID

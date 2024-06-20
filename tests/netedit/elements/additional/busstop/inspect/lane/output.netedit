@@ -3,10 +3,10 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 Center
-TestFunctions: Clicked over position 628 - 383
-TestFunctions: Clicked over position 629 - 373
+TestFunctions: Clicked over position 627 - 380
+TestFunctions: Clicked over position 704 - 588
 dummy lane
-center0_0
+EdgeCenter0_0
 EdgeCenter1_1
 EdgeCenter1_0
 TestFunctions: Clicked over position 304 - 168
