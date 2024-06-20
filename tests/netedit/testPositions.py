@@ -19,6 +19,9 @@
 # GENERAL
 # --------------------------------
 
+from turtle import down, left, up
+
+
 class elements:
 
     class edge0Ped:
@@ -108,6 +111,13 @@ class elements:
     class junction5:
         x = 503
         y = 233
+
+    # movement radius
+    class movementRadius:
+        up = 5
+        down = -5
+        left = -5
+        right = 5        
 
     # additional (for inspect, delete, etc.)
     class additionals:

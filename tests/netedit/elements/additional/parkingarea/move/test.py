@@ -38,13 +38,13 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
 
 # create parkingArea in mode "Center"
-netedit.leftClick(referencePosition, 475, 256)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # change to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElementHorizontal(referencePosition, AAA, BBB, XXX, YYY)
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.parkingArea, netedit.positions.elements.movementRadius)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

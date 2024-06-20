@@ -44,7 +44,7 @@ netedit.changeElement("space")
 netedit.selectAdditionalChild(8, 3)
 
 # create space
-netedit.leftClick(referencePosition, 292, 371)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # Change to delete
 netedit.deleteMode()
