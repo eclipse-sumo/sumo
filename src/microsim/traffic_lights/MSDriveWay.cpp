@@ -518,12 +518,14 @@ bool
 MSDriveWay::flankConflict(const MSDriveWay& other) const {
     for (const MSLane* lane : myForward) {
         for (const MSLane* lane2 : other.myForward) {
-            if (lane == lane2) {
+            // consider also crossing conflicts
+            if (lane == lane2 || lane->getEdge().getFromJunction() == lane2->getEdge().getFromJunction()) {
                 return true;
             }
         }
         for (const MSLane* lane2 : other.myBidi) {
-            if (lane == lane2) {
+            // consider also crossing conflicts
+            if (lane == lane2 || lane->getEdge().getFromJunction() == lane2->getEdge().getToJunction()) {
                 return true;
             }
         }
@@ -1111,7 +1113,7 @@ MSDriveWay::addSwitchFoes(const MSLink* link) {
     auto it = mySwitchDriveWays.find(link);
     if (it != mySwitchDriveWays.end()) {
         for (MSDriveWay* foe : it->second) {
-            if (foe != this) {
+            if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
                 std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
 #endif
