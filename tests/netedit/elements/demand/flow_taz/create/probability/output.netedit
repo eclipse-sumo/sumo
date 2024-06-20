@@ -3,20 +3,20 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to TAZs)
 dummySpacing
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 probability
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 dummy
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 -30
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 20.5
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 0.6
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
