@@ -38,7 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.vTypes, "%%;$$$ %%$$ type.3")
 
 # try to create E2 with invalid vehicle types
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set valid vehicle types
 netedit.changeDefaultValue(netedit.attrs.E2.create.vTypes, "type1 type2 type3")

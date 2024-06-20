@@ -38,7 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "dummySpeedTreshold")
 
 # try to create E2 with invalid speed threshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid speed threshold (negative)
 netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "-14")
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCe
 netedit.changeDefaultValue(netedit.attrs.E2.create.speedThreshold, "2.5")
 
 # create E2 with valid speed threshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

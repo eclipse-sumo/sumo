@@ -39,16 +39,14 @@ netedit.changePersonPlan("walk", False)
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.person.create.id, ";;;;")

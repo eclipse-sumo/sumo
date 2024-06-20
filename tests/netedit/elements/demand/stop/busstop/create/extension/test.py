@@ -44,8 +44,7 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.durationEnable)
 netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.extensionEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.extension, "dummyValue")

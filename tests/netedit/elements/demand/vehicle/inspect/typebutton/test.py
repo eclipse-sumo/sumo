@@ -55,8 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x,
-                  netedit.positions.demandElements.vehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x, netedit.positions.demandElements.vehicleEdge.y)
 
 # change vType with a valid value
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.type, "custom_vType", True)

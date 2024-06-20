@@ -55,8 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect flow over route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x,
-                  netedit.positions.demandElements.vehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleEdge.x, netedit.positions.demandElements.vehicleEdge.y)
 
 # change departLane with an invalid value
 netedit.modifyAttribute(netedit.attrs.routeFlow.inspect.departLane, "", True)

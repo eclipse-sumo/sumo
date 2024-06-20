@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.accessA.x, netedit.positions.additionalElements.accessA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # Change length (invalid, empty)
 netedit.modifyAttribute(netedit.attrs.access.inspectSelection.length, "", True)

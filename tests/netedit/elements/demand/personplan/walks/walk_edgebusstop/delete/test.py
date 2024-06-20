@@ -50,8 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("walk")
 
 # create walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -60,8 +59,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete walkEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopBusStop.x,
-                  netedit.positions.demandElements.planTopBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopBusStop.x, netedit.positions.demandElements.planTopBusStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

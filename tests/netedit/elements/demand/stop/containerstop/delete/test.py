@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -64,8 +62,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

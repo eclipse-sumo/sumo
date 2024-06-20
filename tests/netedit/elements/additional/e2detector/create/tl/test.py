@@ -38,7 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.tl, ";;;;$$$")
 
 # try to create E2 with invalid tl
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set valid tl
 netedit.changeDefaultValue(netedit.attrs.E2.create.tl, "gneJ0")

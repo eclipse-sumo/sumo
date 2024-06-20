@@ -38,7 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "dummyFreq")
 
 # try to create a E2 with invalid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid frequency (negative)
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "-30")
@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCe
 netedit.changeDefaultValue(netedit.attrs.E2.create.period, "120.5")
 
 # create E2 with valid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

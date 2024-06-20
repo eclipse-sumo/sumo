@@ -41,8 +41,7 @@ netedit.changeStopType("waypointChargingStation")
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.speed, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.speed, "")

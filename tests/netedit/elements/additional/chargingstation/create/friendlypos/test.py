@@ -38,8 +38,7 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultBoolValue(netedit.attrs.chargingStation.create.friendlyPos)
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
-                  netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

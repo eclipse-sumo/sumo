@@ -38,10 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
-                  netedit.positions.demandElements.vehicleTAZ.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x,
-                  netedit.positions.demandElements.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x, netedit.positions.demandElements.vehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.TAZRed.x, netedit.positions.demandElements.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,8 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
-                  netedit.positions.demandElements.vehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x, netedit.positions.demandElements.vehicleTAZ.y)
 
 # change departSpeed with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowTAZ.inspect.departSpeed, "", False)

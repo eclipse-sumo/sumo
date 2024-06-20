@@ -50,8 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("walk")
 
 # create walkJunctions
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x, netedit.positions.demandElements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()

@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2 1
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # create E2 2
 netedit.leftClick(referencePosition, 450, 253)

@@ -38,20 +38,20 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select Access detector
 netedit.changeElement("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.accessA.x, netedit.positions.additionalElements.accessA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # go to move mode
 netedit.moveMode()
 
 # move Acces 1
-netedit.moveElement(referencePosition, netedit.positions.additionalElements.accessA.x, netedit.positions.additionalElements.accessA.y, 790, 326)
+netedit.moveElement(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y, 790, 326)
 
 # move Acces 2
 netedit.moveElement(referencePosition, 790, 326, 790, 82)

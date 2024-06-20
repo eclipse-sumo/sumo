@@ -41,8 +41,7 @@ netedit.changeStopType("stopChargingStation")
 netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x, netedit.positions.demandElements.chargingStation.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.durationEnable)

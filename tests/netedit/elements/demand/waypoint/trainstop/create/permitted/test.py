@@ -41,8 +41,7 @@ netedit.changeStopType("waypointTrainStop")
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.permitted, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x,
-                  netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.permitted, "")

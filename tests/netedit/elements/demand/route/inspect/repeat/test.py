@@ -36,8 +36,7 @@ netedit.routeMode()
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat0.x,
-                  netedit.positions.demandElements.edgeRepeat0.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat0.x, netedit.positions.demandElements.edgeRepeat0.y)
 
 # press enter to create route
 netedit.typeEnter()

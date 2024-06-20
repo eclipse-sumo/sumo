@@ -41,8 +41,7 @@ netedit.changeStopType("waypointTrainStop")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointTrainStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x,
-                  netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointTrainStop.create.durationEnable)

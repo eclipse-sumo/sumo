@@ -41,8 +41,7 @@ netedit.changeStopType("stopBusStop")
 netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.durationEnable)

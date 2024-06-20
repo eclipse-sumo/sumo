@@ -35,29 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
-                  netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x,
-                  netedit.positions.additionalElements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "bs_0")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge2_1.x,
-                  netedit.positions.additionalElements.Edge2_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "custom_ID")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge3_1.x,
-                  netedit.positions.additionalElements.Edge3_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3.x, netedit.positions.elements.edge3.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

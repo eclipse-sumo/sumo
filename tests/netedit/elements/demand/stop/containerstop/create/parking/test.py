@@ -38,8 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x, netedit.positions.demandElements.containerStop.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.parking, "true")

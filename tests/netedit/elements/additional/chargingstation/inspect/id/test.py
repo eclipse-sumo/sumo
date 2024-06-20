@@ -38,19 +38,16 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
 # create chargingStation 1 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
-                  netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # create chargingStation 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge5.x,
-                  netedit.positions.additionalElements.centralEdge5.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge5.x, netedit.positions.additionalElements.centralEdge5.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectChargingStation.x,
-                  netedit.positions.additionalElements.inspectChargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.chargingStation.x, netedit.positions.elements.additionals.chargingStation.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.chargingStation.inspect.id, "cs_1", True)

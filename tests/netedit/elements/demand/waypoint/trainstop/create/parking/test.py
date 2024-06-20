@@ -38,8 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointTrainStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x,
-                  netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x, netedit.positions.demandElements.trainStop.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.parking, "true")

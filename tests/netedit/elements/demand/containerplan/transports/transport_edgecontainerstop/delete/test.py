@@ -50,8 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("transport")
 
 # create transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
-                  netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x, netedit.positions.demandElements.container.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -60,8 +59,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
-                  netedit.positions.demandElements.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x, netedit.positions.demandElements.containerPlanEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

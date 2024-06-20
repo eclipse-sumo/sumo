@@ -109,147 +109,139 @@ class elements:
         x = 503
         y = 233
 
-class additionalElements:
+    class additionals:
 
-    class busStop:
-        x = 400
-        y = 420
+        class busStop:
+            x = 400
+            y = 420
 
-    class trainStop:
-        x = 325
-        y = 205
+        class trainStop:
+            x = 325
+            y = 205
 
-    class containerStop:
-        x = 326
-        y = 198
+        class containerStop:
+            x = 326
+            y = 198
 
-    class chargingStation:
-        x = 306
-        y = 258
+        class chargingStation:
+            x = 306
+            y = 258
 
-    class parkingArea:
-        x = 324
-        y = 190
+        class parkingArea:
+            x = 324
+            y = 190
 
-    class e2Detector:
-        x = 290
-        y = 220        
-
-    class accessA:
-        x = 784
-        y = 158
-
-    class accessB:
-        x = 876
-        y = 290  
+        class e2Detector:
+            x = 290
+            y = 220        
         
-    class squaredAdditionalA:
-        x = 440
-        y = 140
+        class squaredA:
+            x = 440
+            y = 140
 
-    class squaredAdditionalB:
-        x = 440
-        y = 140
+        class squaredB:
+            x = 440
+            y = 140
 
 
-class demandElements:
+    class demandElements:
 
-    class TAZGreen:
-        x = 525
-        y = 175
+        class TAZGreen:
+            x = 525
+            y = 175
 
-    class TAZRed:
-        x = 720
-        y = 175
+        class TAZRed:
+            x = 720
+            y = 175
 
-    class busStop:
-        x = 295
-        y = 10
+        class busStop:
+            x = 295
+            y = 10
 
-    class trainStop:
-        x = 720
-        y = 10
+        class trainStop:
+            x = 720
+            y = 10
 
-    class containerStop:
-        x = 400
-        y = 0
+        class containerStop:
+            x = 400
+            y = 0
 
-    class chargingStation:
-        x = 620
-        y = 25
+        class chargingStation:
+            x = 620
+            y = 25
 
-    class parkingArea:
-        x = 525
-        y = 0
+        class parkingArea:
+            x = 525
+            y = 0
 
-    class route:
-        x = 440
-        y = 440
+        class route:
+            x = 440
+            y = 440
 
-    class routeB:
-        x = 470
-        y = 410
+        class routeB:
+            x = 470
+            y = 410
 
-    class containerX:
-        x = 470
-        y = 400
+        class containerX:
+            x = 470
+            y = 400
 
-    class containerPlanEdgeX:
-        x = 197
-        y = 37
+        class containerPlanEdgeX:
+            x = 197
+            y = 37
 
-    class planTopEdgeX:
-        x = 750
-        y = 3
+        class planTopEdgeX:
+            x = 750
+            y = 3
 
-    class planTopBusStopX:
-        x = 750
-        y = 33
+        class planTopBusStopX:
+            x = 750
+            y = 33
 
-    class planTopRideX:
-        x = 750
-        y = 33
+        class planTopRideX:
+            x = 750
+            y = 33
 
-    class planTopX:
-        x = 720
-        y = 3
+        class planTopX:
+            x = 720
+            y = 3
 
-    # vehicle (over edge/route)
-    class vehicleEdge:
-        x = 185
-        y = 440
+        # vehicle (over edge/route)
+        class vehicleEdge:
+            x = 185
+            y = 440
 
-    # click over single trip or flow over junctions
-    class vehicleJunction:
-        x = 162
-        y = 405
+        # click over single trip or flow over junctions
+        class vehicleJunction:
+            x = 162
+            y = 405
 
-    # click over single trip or flow over TAZ
-    class vehicleTAZ:
-        x = 525
-        y = 230
+        # click over single trip or flow over TAZ
+        class vehicleTAZ:
+            x = 525
+            y = 230
 
-    # click over single person / flow over edges
-    class person:
-        x = 150
-        y = 470
+        # click over single person / flow over edges
+        class person:
+            x = 150
+            y = 470
 
-    # click stop/waypoint over edge
-    class stopEdgeX:
-        x = 256
-        y = 35
+        # click stop/waypoint over edge
+        class stopEdgeX:
+            x = 256
+            y = 35
 
-    # click over plan that ends in junction
-    class planJunctionX:
-        x = 134
-        y = 52
+        # click over plan that ends in junction
+        class planJunctionX:
+            x = 134
+            y = 52
 
-    # click over plan in busStop
-    class planBusStopX:
-        x = 318
-        y = 14
+        # click over plan in busStop
+        class planBusStopX:
+            x = 318
+            y = 14
 
-    # click over plan in edge
-    class planEdgeX:
-        x = 197
-        y = 36
+        # click over plan in edge
+        class planEdgeX:
+            x = 197
+            y = 36

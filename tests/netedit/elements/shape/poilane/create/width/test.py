@@ -38,22 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.width, "dummyWidth")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
-                  netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # change width (invalid, negative)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.width, "-2")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x,
-                  netedit.positions.additionalElements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # change width (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.width, "2.5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.Edge2_1.x,
-                  netedit.positions.additionalElements.Edge2_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,13 +38,13 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.length, "dummyLenght")
 
 # try to create E2 with invalid length
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid  length (0)
 netedit.changeDefaultValue(netedit.attrs.E2.create.length, "0")
 
 # try to create E2 with invalid length
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid  length (negative)
 netedit.changeDefaultValue(netedit.attrs.E2.create.length, "-12")
@@ -56,7 +56,7 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCe
 netedit.changeDefaultValue(netedit.attrs.E2.create.length, "5")
 
 # create E2 with valid length
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x, netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

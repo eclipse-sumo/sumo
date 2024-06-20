@@ -41,8 +41,7 @@ netedit.changeStopType("stopBusStop")
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.tripID, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x, netedit.positions.demandElements.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.tripID, "")

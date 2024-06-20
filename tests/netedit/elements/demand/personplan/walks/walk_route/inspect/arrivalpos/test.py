@@ -56,12 +56,10 @@ netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, n
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x, netedit.positions.demandElements.person.y)
 
 # now inspect plan top
-netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x,
-                  netedit.positions.demandElements.planTopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.demandElements.planTopEdge.x, netedit.positions.demandElements.planTopEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.walkRoute.inspect.arrivalPos, "dummy", True)

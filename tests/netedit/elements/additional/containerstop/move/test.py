@@ -38,15 +38,14 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
 
 # create containerStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter1_1.x,
-                  netedit.positions.additionalElements.EdgeCenter1_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # change to move mode
 netedit.moveMode()
 
 # move containerStop to right
-netedit.moveElement(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x,
-                    netedit.positions.additionalElements.inspectContainerStop.y, 544, 280)
+netedit.moveElement(referencePosition, netedit.positions.elements.additionals.containerStop.x,
+                    netedit.positions.elements.additionals.containerStop.y, 544, 280)
 
 # move containerStop back
 netedit.moveElement(referencePosition, 544, 280, 337, 280)
