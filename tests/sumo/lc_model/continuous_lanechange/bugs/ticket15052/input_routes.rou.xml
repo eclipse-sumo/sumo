@@ -1,0 +1,22 @@
+<routes>
+    <vType id="foe" length="4" width="1.8" height="1.5" maxSpeed="55.55" emergencyDecel="9" color="1,0,0" speedFactor="1" desiredMaxSpeed = "31.2" speedDev="0" lcStrategic="30.0" lcMaxSpeedLatStanding="0" lcMaxDistLatStanding="0"/>
+    <vType id="roadBlock" length="4.5" width="1.8" height="1.5" maxSpeed="55.55" emergencyDecel="9" color="0,1,0.2610605" speedFactor="1" desiredMaxSpeed = "31.2" speedDev="0" />
+
+    <route id="straight" edges="13" />
+
+    <vehicle id="obstacle0" type="roadBlock" route="straight" depart="0" departEdge="0" departLane="0" departPos="350">
+        <stop lane="13_0" endPos="350" until="250"/>
+    </vehicle>
+    <vehicle id="obstacle1" type="roadBlock" route="straight" depart="0" departEdge="0" departLane="1" departPos="350">
+        <stop lane="13_1" endPos="350" until="250"/>
+    </vehicle>
+    <vehicle id="obstacle2" type="roadBlock" route="straight" depart="0" departEdge="0" departLane="2" departPos="350">
+        <stop lane="13_2" endPos="350" until="250"/>
+    </vehicle>
+    <vehicle id="obstacle3" type="roadBlock" route="straight" depart="0" departEdge="0" departLane="3" departPos="350">
+        <stop lane="13_3" endPos="350" until="250"/>
+    </vehicle>
+
+
+    <flow id="type1" begin="0" end="250" period="6" type="foe" route="straight" />
+</routes>
