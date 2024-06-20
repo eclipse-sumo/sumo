@@ -40,6 +40,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIGlobalViewObjectsHandler.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
@@ -267,6 +268,9 @@ GUIGlObject::setNode(osg::Node* node) {
 void
 GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, bool addSeparator) {
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), myIcon, nullptr, 0);
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy test coordinates to clipboard"), nullptr, ret, MID_COPY_TEST_COORDINATES);
+    }
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }

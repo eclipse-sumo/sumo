@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 11:02:40 by Eclipse SUMO netedit Version v1_20_0+0676-9354d7bf8c3
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-467.04,500.00,1.15,500.00" origBoundary="-214.39,0.85,16.25,1001.96" projParameter="!"/>
+
+    <type id="Motorway" priority="-1" numLanes="4" speed="31.29"/>
+
+    <edge id="13" from="0" to="12" priority="-1" type="Motorway" shape="-466.54,500.00 1.15,500.00">
+        <lane id="13_0" index="0" speed="31.29" length="467.69" width="3.65" shape="-467.04,487.23 0.65,487.23"/>
+        <lane id="13_1" index="1" speed="31.29" length="467.69" width="3.65" shape="-467.04,490.88 0.65,490.88"/>
+        <lane id="13_2" index="2" disallow="truck" speed="31.29" length="467.69" width="3.65" shape="-467.04,494.52 0.65,494.52"/>
+        <lane id="13_3" index="3" disallow="truck" speed="31.29" length="467.69" width="3.65" shape="-467.04,498.18 0.65,498.18"/>
+    </edge>
+
+    <junction id="0" type="dead_end" x="-467.04" y="500.00" incLanes="" intLanes="" shape="-467.04,500.00 -467.04,485.40" fringe="outer"/>
+    <junction id="12" type="dead_end" x="0.65" y="500.00" incLanes="13_0 13_1 13_2 13_3" intLanes="" shape="0.65,485.40 0.65,500.00"/>
+
+    <roundabout nodes="12" edges="13"/>
+
+</net>

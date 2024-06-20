@@ -45,6 +45,7 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,               GUIGLObjectPopupMenu::onCmdCopyName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME,         GUIGLObjectPopupMenu::onCmdCopyTypedName),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_EDGE_NAME,          GUIGLObjectPopupMenu::onCmdCopyEdgeName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_TEST_COORDINATES,   GUIGLObjectPopupMenu::onCmdCopyTestCoordinates),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_POSITION,    GUIGLObjectPopupMenu::onCmdCopyCursorPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_CURSOR_GEOPOSITION, GUIGLObjectPopupMenu::onCmdCopyCursorGeoPosition),
     FXMAPFUNC(SEL_COMMAND,  MID_COPY_VIEW_GEOBOUNDARY,   GUIGLObjectPopupMenu::onCmdCopyViewGeoBoundary),
@@ -69,7 +70,8 @@ GUIGLObjectPopupMenu::GUIGLObjectPopupMenu(GUIMainWindow& app, GUISUMOAbstractVi
     myObject(&o),
     myApplication(&app),
     myPopupType(PopupType::ATTRIBUTES),
-    myNetworkPosition(parent.getPositionInformation()) {
+    myNetworkPosition(parent.getPositionInformation()),
+    myTestCoordinates((toString(parent.getWindowCursorPosition().x() - 24.0) + " " + toString(parent.getWindowCursorPosition().y() - 25.0))) {
 }
 
 
@@ -170,6 +172,17 @@ GUIGLObjectPopupMenu::onCmdCopyEdgeName(FXObject*, FXSelector, void*) {
         throw ProcessError(TL("Object must be a lane"));
     } else {
         GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getParentName());
+    }
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdCopyTestCoordinates(FXObject*, FXSelector, void*) {
+    if (myObject) {
+        GUIUserIO::copyToClipboard(*myParent->getApp(), myTestCoordinates);
+    } else {
+        throw ProcessError("Object is NULL");
     }
     return 1;
 }

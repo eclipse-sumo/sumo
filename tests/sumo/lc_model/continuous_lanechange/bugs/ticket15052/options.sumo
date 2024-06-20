@@ -1,0 +1,5 @@
+--no-step-log --net-file=net.net.xml -r input_routes.rou.xml
+--lanechange.duration 5 
+--step-length 0.2
+--lanechange-output lanechanges.xml
+-t

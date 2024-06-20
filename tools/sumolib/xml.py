@@ -266,7 +266,7 @@ def _handle_namespace(tag, ignoreXmlns):
     return tag
 
 
-def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
+def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False, ignoreXmlns=False):
     """
     Parses the given element_names from xmlfile and yield compound objects for
@@ -301,7 +301,7 @@ def parse(xmlfile, element_names, element_attrs=None, attr_conversions=None,
     kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
     for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
         tag = _handle_namespace(parsenode.tag, ignoreXmlns)
-        if tag in element_names:
+        if element_names is None or tag in element_names:
             yield _get_compound_object(parsenode, element_types,
                                        tag, element_attrs,
                                        attr_conversions, heterogeneous, warn,

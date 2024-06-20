@@ -1,35 +1,40 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 07:41:06.438106 by createVehTypeDistribution.py v1_20_0+0670-88aca8e654b
+  options: config_file.txt <doubleminus>o out.add.xml <doubleminus>size 10 <doubleminus>name paramDist
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   <vTypeDistribution id="paramDist">
-      <vType id="paramDist0" bla="bla">
-         <param key="foo" value="3.245"/>
-      </vType>
-      <vType id="paramDist1" bla="bla">
-         <param key="foo" value="2.503"/>
-      </vType>
-      <vType id="paramDist2" bla="bla">
-         <param key="foo" value="4.255"/>
-      </vType>
-      <vType id="paramDist3" bla="bla">
-         <param key="foo" value="2.862"/>
-      </vType>
-      <vType id="paramDist4" bla="bla">
-         <param key="foo" value="2.024"/>
-      </vType>
-      <vType id="paramDist5" bla="bla">
-         <param key="foo" value="3.565"/>
-      </vType>
-      <vType id="paramDist6" bla="bla">
-         <param key="foo" value="1.832"/>
-      </vType>
-      <vType id="paramDist7" bla="bla">
-         <param key="foo" value="4.738"/>
-      </vType>
-      <vType id="paramDist8" bla="bla">
-         <param key="foo" value="2.675"/>
-      </vType>
-      <vType id="paramDist9" bla="bla">
-         <param key="foo" value="4.182"/>
-      </vType>
-   </vTypeDistribution>
+    <vTypeDistribution id="paramDist">
+        <vType id="paramDist0" bla="bla">
+            <param key="foo" value="3.245"/>
+        </vType>
+        <vType id="paramDist1" bla="bla">
+            <param key="foo" value="2.503"/>
+        </vType>
+        <vType id="paramDist2" bla="bla">
+            <param key="foo" value="4.255"/>
+        </vType>
+        <vType id="paramDist3" bla="bla">
+            <param key="foo" value="2.862"/>
+        </vType>
+        <vType id="paramDist4" bla="bla">
+            <param key="foo" value="2.024"/>
+        </vType>
+        <vType id="paramDist5" bla="bla">
+            <param key="foo" value="3.565"/>
+        </vType>
+        <vType id="paramDist6" bla="bla">
+            <param key="foo" value="1.832"/>
+        </vType>
+        <vType id="paramDist7" bla="bla">
+            <param key="foo" value="4.738"/>
+        </vType>
+        <vType id="paramDist8" bla="bla">
+            <param key="foo" value="2.675"/>
+        </vType>
+        <vType id="paramDist9" bla="bla">
+            <param key="foo" value="4.182"/>
+        </vType>
+    </vTypeDistribution>
 </additional>

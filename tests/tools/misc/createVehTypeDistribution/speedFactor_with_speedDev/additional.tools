@@ -1,15 +1,20 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-20 07:41:06.496793 by createVehTypeDistribution.py v1_20_0+0670-88aca8e654b
+  options: config_file.txt <doubleminus>o out.add.xml <doubleminus>size 10 <doubleminus>name exampleDist
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-   <vTypeDistribution id="exampleDist">
-      <vType id="exampleDist0" speedFactor="1.094" speedDev="0.251"/>
-      <vType id="exampleDist1" speedFactor="0.634" speedDev="0.113"/>
-      <vType id="exampleDist2" speedFactor="2.886" speedDev="0.236"/>
-      <vType id="exampleDist3" speedFactor="2.605" speedDev="0.390"/>
-      <vType id="exampleDist4" speedFactor="3.574" speedDev="0.296"/>
-      <vType id="exampleDist5" speedFactor="2.562" speedDev="0.074"/>
-      <vType id="exampleDist6" speedFactor="0.012" speedDev="0.073"/>
-      <vType id="exampleDist7" speedFactor="0.462" speedDev="0.130"/>
-      <vType id="exampleDist8" speedFactor="1.172" speedDev="0.188"/>
-      <vType id="exampleDist9" speedFactor="1.329" speedDev="0.263"/>
-   </vTypeDistribution>
+    <vTypeDistribution id="exampleDist">
+        <vType id="exampleDist0" speedFactor="1.094" speedDev="0.251"/>
+        <vType id="exampleDist1" speedFactor="0.634" speedDev="0.113"/>
+        <vType id="exampleDist2" speedFactor="2.886" speedDev="0.236"/>
+        <vType id="exampleDist3" speedFactor="2.605" speedDev="0.390"/>
+        <vType id="exampleDist4" speedFactor="3.574" speedDev="0.296"/>
+        <vType id="exampleDist5" speedFactor="2.562" speedDev="0.074"/>
+        <vType id="exampleDist6" speedFactor="0.012" speedDev="0.073"/>
+        <vType id="exampleDist7" speedFactor="0.462" speedDev="0.130"/>
+        <vType id="exampleDist8" speedFactor="1.172" speedDev="0.188"/>
+        <vType id="exampleDist9" speedFactor="1.329" speedDev="0.263"/>
+    </vTypeDistribution>
 </additional>
