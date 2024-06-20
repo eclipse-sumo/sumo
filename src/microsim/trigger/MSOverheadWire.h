@@ -243,7 +243,7 @@ private:
 
 /**
 * @class MSTractionSubstation
-* @brief Traction substaction powering one or more overhead wire sections
+* @brief Traction substation powering one or more overhead wire sections
 */
 class MSTractionSubstation : public Named {
 public:
@@ -298,7 +298,7 @@ public:
 
     bool isAnySectionPreviouslyDefined();
 
-    void addSolvingCirucitToEndOfTimestepEvents();
+    void addSolvingCircuitToEndOfTimestepEvents();
     SUMOTime solveCircuit(SUMOTime currentTime);
 
     /// @brief add charge value for output

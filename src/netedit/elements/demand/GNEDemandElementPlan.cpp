@@ -739,6 +739,11 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
                     return myArrivalPosition;
                 }
             }
+        case SUMO_ATTR_DEPARTPOS:
+            return myDepartPosition;
+        case SUMO_ATTR_ENDPOS:
+        case SUMO_ATTR_ARRIVALPOS:
+            return myArrivalPosition;
         default:
             throw InvalidArgument(myPlanElement->getTagStr() + " doesn't have a doubleattribute of type '" + toString(key) + "'");
     }

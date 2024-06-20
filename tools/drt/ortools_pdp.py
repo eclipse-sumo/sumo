@@ -22,9 +22,9 @@ Capacitated vehicle routing problem with pickup and delivery.
 Based on https://developers.google.com/optimization/routing/pickup_delivery#complete_programs
 """
 
-from __future__ import print_function
 # needed for type alias in python < 3.9
 from __future__ import annotations
+from typing import List, Dict, Tuple
 
 import numpy as np
 
@@ -33,8 +33,8 @@ from ortools.constraint_solver import pywrapcp
 import orToolsDataModel
 
 Node = int
-Route = list[Node]
-ORToolsSolution = dict[int, tuple[Route, int]]
+Route = List[Node]
+ORToolsSolution = Dict[int, Tuple[Route, int]]
 
 
 def get_solution(data: orToolsDataModel.ORToolsDataModel, manager: pywrapcp.RoutingIndexManager,

@@ -160,6 +160,7 @@ class GNEDataSet;
 class GNEGenericData;
 class GNEEdgeData;
 class GNEEdgeRelData;
+class GNETAZRelData;
 
 // ===========================================================================
 // classes and structs definitions
@@ -297,6 +298,9 @@ struct GNEViewNetHelper {
         /// @brief get edge rel data element or a pointer to nullptr
         GNEEdgeRelData* getEdgeRelDataElementFront() const;
 
+        /// @brief get TAZ rel data element or a pointer to nullptr
+        GNETAZRelData* getTAZRelDataElementFront() const;
+
         /// @brief get vector with GL objects
         const std::vector<GUIGlObject*>& getGLObjects() const;
 
@@ -385,6 +389,9 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the edge relation datas
             std::vector<GNEEdgeRelData*> edgeRelDatas;
+
+            /// @brief vector with the TAZ relation datas
+            std::vector<GNETAZRelData*> TAZRelDatas;
 
         private:
             /// @brief Invalidated copy constructor.

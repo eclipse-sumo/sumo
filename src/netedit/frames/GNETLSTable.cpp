@@ -32,7 +32,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 
-#define EXTRAMARGING 1
+#define EXTRAMARGIN 1
 #define DEFAULTWIDTH 190
 
 // ===========================================================================
@@ -1144,20 +1144,20 @@ GNETLSTable::Column::getColumnMinimumWidth() {
         columnWidth = 30;
     } else if (isTextFieldColumn()) {
         // calculate top label width
-        columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGING);
+        columnWidth = myTopLabel->getFont()->getTextWidth(myTopLabel->getText().text(), myTopLabel->getText().length() + EXTRAMARGIN);
         // iterate over all textFields and check widths
         for (const auto& row : myTable->myRows) {
             // get text field
             const auto textField = row->getCells().at(myIndex)->getTextField();
             // get textField width
-            const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGING);
+            const auto textFieldWidth = textField->getFont()->getTextWidth(textField->getText().text(), textField->getText().length() + EXTRAMARGIN);
             // compare widths
             if (textFieldWidth > columnWidth) {
                 columnWidth = textFieldWidth;
             }
         }
         // calculate bot label width
-        const auto botLabelWidth = myBotLabel->getFont()->getTextWidth(myBotLabel->getText().text(), myBotLabel->getText().length() + EXTRAMARGING);
+        const auto botLabelWidth = myBotLabel->getFont()->getTextWidth(myBotLabel->getText().text(), myBotLabel->getText().length() + EXTRAMARGIN);
         if (botLabelWidth > columnWidth) {
             columnWidth = botLabelWidth;
         }

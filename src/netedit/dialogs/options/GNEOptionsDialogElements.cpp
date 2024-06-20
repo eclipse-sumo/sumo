@@ -34,7 +34,7 @@
 #include "GNEOptionsDialog.h"
 
 
-#define MARGING 4
+#define MARGIN 4
 #define MINNAMEWIDTH 200
 
 // ===========================================================================
@@ -84,7 +84,7 @@ GNEOptionsDialogElements::InputOption::InputOption(GNEOptionsDialog* GUIDialogOp
 
 void
 GNEOptionsDialogElements::InputOption::adjustNameSize() {
-    const int nameWidth = myNameLabel->getFont()->getTextWidth(myNameLabel->getText().text(), myNameLabel->getText().length() + MARGING);
+    const int nameWidth = myNameLabel->getFont()->getTextWidth(myNameLabel->getText().text(), myNameLabel->getText().length() + MARGIN);
     if (nameWidth > MINNAMEWIDTH) {
         myNameLabel->setWidth(nameWidth);
     }

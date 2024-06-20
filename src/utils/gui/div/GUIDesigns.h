@@ -38,7 +38,7 @@ class MFXMenuCheckIcon;
 #define GUIDesignFramesAreaDefaultWidth 220
 
 /// @brief right margin for frame area
-#define GUIDesignFrameAreaMarging 2
+#define GUIDesignFrameAreaMargin 2
 
 /// @brief elements with big images
 #define GUIDesignBigSizeElement 138
@@ -372,7 +372,7 @@ class MFXMenuCheckIcon;
 /// @name General design for netedit frames
 /// @{
 /// @brief design for frames area
-#define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMarging, DEFAULT_SPACING, DEFAULT_SPACING
+#define GUIDesignFrameArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y), 0, 0, 0, 0, DEFAULT_SPACING, GUIDesignFrameAreaMargin, DEFAULT_SPACING, DEFAULT_SPACING
 
 /// @brief design for view area
 #define GUIDesignViewnArea                      (FRAME_SUNKEN | LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y), 0, 0, 0, 0, 0, 0, 0, 0

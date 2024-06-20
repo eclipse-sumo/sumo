@@ -21,9 +21,9 @@
 """
 Prototype online DRT algorithm using ortools via TraCI.
 """
-from __future__ import print_function
 # needed for type alias in python < 3.9
 from __future__ import annotations
+from typing import List, Dict, Tuple
 
 import os
 import pathlib
@@ -46,10 +46,10 @@ PENALTY_FACTOR: float = 5  # factor on penalty for rejecting requests
 
 
 # use 'type' statement in python version 3.12 or higher
-RequestOrder = list[str]
+RequestOrder = List[str]
 Cost = int
-NodeOrder = list[int]
-TranslatedSolutions = dict[int, tuple[RequestOrder, Cost, NodeOrder]]
+NodeOrder = List[int]
+TranslatedSolutions = Dict[int, Tuple[RequestOrder, Cost, NodeOrder]]
 
 # TODO: solution_requests is not needed as input
 

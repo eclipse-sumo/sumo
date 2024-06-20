@@ -127,7 +127,7 @@ private:
                          double freeSpeedErrorCoefficient,
                          double maximalReactionTime);
 
-    /// @brief Initializeses the driver state parameters
+    /// @brief Initialises the driver state parameters
     void initDriverState();
 
 private:

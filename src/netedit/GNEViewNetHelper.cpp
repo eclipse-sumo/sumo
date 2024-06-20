@@ -24,6 +24,7 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEWalkingArea.h>
@@ -477,6 +478,17 @@ GNEViewNetHelper::ViewObjectsSelector::getEdgeRelDataElementFront() const {
     }
 }
 
+
+GNETAZRelData*
+GNEViewNetHelper::ViewObjectsSelector::getTAZRelDataElementFront() const {
+    if (myViewObjects.TAZRelDatas.size() > 0) {
+        return myViewObjects.TAZRelDatas.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
 const std::vector<GUIGlObject*>&
 GNEViewNetHelper::ViewObjectsSelector::getGLObjects() const {
     return myViewObjects.GUIGlObjects;
@@ -540,6 +552,7 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::clearElements() {
     genericDatas.clear();
     edgeDatas.clear();
     edgeRelDatas.clear();
+    TAZRelDatas.clear();
 }
 
 
@@ -706,6 +719,15 @@ GNEViewNetHelper::ViewObjectsSelector::ViewObjectsContainer::filterElements(cons
                 itEdgeRelDatas = edgeRelDatas.erase(itEdgeRelDatas);
             } else {
                 itEdgeRelDatas++;
+            }
+        }
+        // remove from TAZRelDatas
+        auto itTAZRelDatas = TAZRelDatas.begin();
+        while (itTAZRelDatas != TAZRelDatas.end()) {
+            if ((*itTAZRelDatas)->getGUIGlObject() == object) {
+                itTAZRelDatas = TAZRelDatas.erase(itTAZRelDatas);
+            } else {
+                itTAZRelDatas++;
             }
         }
     }
@@ -983,6 +1005,25 @@ GNEViewNetHelper::ViewObjectsSelector::updateGenericDataElements(ViewObjectsCont
                 container.genericDatas.push_back(edgeRelData);
                 container.attributeCarriers.push_back(edgeRelData);
                 container.GUIGlObjects.push_back(edgeRelData);
+            }
+            break;
+        }
+        case GLO_TAZRELDATA: {
+            // cast TAZRelData
+            auto TAZRelData = dynamic_cast<GNETAZRelData*>(myViewNet->getNet()->getAttributeCarriers()->retrieveGenericData(glObject));
+            // check front element
+            if (glObject == myViewNet->getFrontGLObject()) {
+                // insert at front
+                container.TAZRelDatas.insert(container.TAZRelDatas.begin(), TAZRelData);
+                container.genericDatas.insert(container.genericDatas.begin(), TAZRelData);
+                container.attributeCarriers.insert(container.attributeCarriers.begin(), TAZRelData);
+                container.GUIGlObjects.insert(container.GUIGlObjects.begin(), TAZRelData);
+            } else {
+                // insert at back
+                container.TAZRelDatas.push_back(TAZRelData);
+                container.genericDatas.push_back(TAZRelData);
+                container.attributeCarriers.push_back(TAZRelData);
+                container.GUIGlObjects.push_back(TAZRelData);
             }
             break;
         }

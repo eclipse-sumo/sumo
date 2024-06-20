@@ -23,7 +23,7 @@
 
 #include "GNENetgenerateDialog.h"
 
-#define MARGING 4
+#define MARGIN 4
 #define MAXNUMCOLUMNS 4
 #define NUMROWSBYCOLUMN 20
 

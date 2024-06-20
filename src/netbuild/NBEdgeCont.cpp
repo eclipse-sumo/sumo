@@ -779,7 +779,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont& dc) {
     for (EdgeVector::iterator j = toRemove.begin(); j != toRemove.end(); ++j) {
         erase(dc, *j);
     }
-    return toRemove.size();
+    return (int)toRemove.size();
 }
 
 

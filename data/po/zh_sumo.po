@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-17 12:50+0200\n"
+"POT-Creation-Date: 2024-06-19 10:58+0200\n"
 "PO-Revision-Date: 2024-04-19 06:39+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1171,26 +1171,26 @@ msgid ""
 "stochastic method ('SUE')."
 msgstr "确定性的用户平衡（'UE'）还没有实现，使用随机方法（'SUE'）。"
 
-#: C:\Repos\sumo/src\marouter\marouter_main.cpp:323
+#: C:\Repos\sumo/src\marouter\marouter_main.cpp:324
 #: C:\Repos\sumo/src\od2trips_main.cpp:315
 msgid "No output file given."
 msgstr "没有给出输出文件。"
 
-#: C:\Repos\sumo/src\marouter\marouter_main.cpp:340
+#: C:\Repos\sumo/src\marouter\marouter_main.cpp:341
 msgid ""
 "Import O/D-matrices for macroscopic traffic assignment to generate SUMO "
 "routes."
 msgstr "为宏观交通分配导入O/D矩阵，生成SUMO路径。"
 
-#: C:\Repos\sumo/src\marouter\marouter_main.cpp:376
+#: C:\Repos\sumo/src\marouter\marouter_main.cpp:377
 msgid "No districts loaded, will use edge ids!"
 msgstr "没有加载区域，将使用路段ID!"
 
-#: C:\Repos\sumo/src\marouter\marouter_main.cpp:387
+#: C:\Repos\sumo/src\marouter\marouter_main.cpp:388
 msgid "No valid vehicles loaded."
 msgstr "没有加载有效的车辆。"
 
-#: C:\Repos\sumo/src\marouter\marouter_main.cpp:390
+#: C:\Repos\sumo/src\marouter\marouter_main.cpp:391
 #: C:\Repos\sumo/src\od2trips_main.cpp:285
 msgid "Loading failed."
 msgstr "加载失败。"
@@ -4654,84 +4654,80 @@ msgstr ""
 msgid "Error during iteration %: %"
 msgstr "迭代 % 时出错: %"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:485
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:488
 msgid "Person '%' in vanishing area '%' was removed from the simulation."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:566
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:569
 msgid "Error while generating geometry for carriages."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:577
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1000
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:580
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1063
 #, c-format
 msgid ""
 "While generating geometry % connected components were detected, %% of total "
 "pedestrian area is covered by the largest."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:641
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:644
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:660
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:663
 msgid ""
 "Polygon '%' at junction '%' had some equal consecutive points removed: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:669
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:672
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:671
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:674
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:679
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:682
 #, c-format
 msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
 "not simple."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:684
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:687
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:801
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:809
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:936
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:944
 msgid "Error while generating geometry: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1021
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1034
+msgid "Error while adding waiting set for % on '%': %"
+msgstr ""
+
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1084
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1033
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1096
 msgid "Unknown JuPedSim model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1037
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1100
 msgid "Error creating the pedestrian model: %"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1043
+#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1106
 msgid "Error creating the simulation: %"
-msgstr ""
-
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1078
-msgid "Error while adding waiting set for entry on '%': %"
-msgstr ""
-
-#: C:\Repos\sumo/src\microsim\transportables\MSPModel_JuPedSim.cpp:1090
-msgid "Error while adding waiting set for exit on '%': %"
 msgstr ""
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel_Striping.cpp:125
@@ -10184,7 +10180,7 @@ msgid ""
 "light"
 msgstr ""
 
-#: C:\Repos\sumo/src\router\ROFrame.cpp:220
+#: C:\Repos\sumo/src\router\ROFrame.cpp:221
 msgid "Defaults will override given values"
 msgstr "预设值将覆盖给定值"
 
