@@ -78,7 +78,7 @@ if test -e $SUMO_BINDIR/sumo && test $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Mak
   rm -rf $TEXTTEST_TMP/*
   if test ${FILEPREFIX::6} == "extra_"; then
     tests/runExtraTests.py --gui "b $FILEPREFIX" &> $TESTLOG
-  elif test "$FILEPREFIX" == "netedit"; then
+  elif test "$FILEPREFIX" == "extraNetedit"; then
     tests/runTests.sh -a neteditcheckoutput -b $FILEPREFIX -name $TESTLABEL >> $TESTLOG 2>&1
   else
     tests/runTests.sh -b $FILEPREFIX -name $TESTLABEL &> $TESTLOG
@@ -131,7 +131,7 @@ echo "--" >> $STATUSLOG
 
 # netedit tests
 if test -e $SUMO_BINDIR/netedit && test $SUMO_BINDIR/netedit -nt build/$FILEPREFIX/Makefile; then
-  if test "$FILEPREFIX" == "gcc4_64" || test "$FILEPREFIX" == "netedit"; then
+  if test "$FILEPREFIX" == "gcc4_64" || test "$FILEPREFIX" == "extraNetedit"; then
     tests/runNeteditDailyTests.sh -b ${FILEPREFIX}netedit -name $TESTLABEL >> $TESTLOG 2>&1
     tests/runTests.sh -b ${FILEPREFIX} -name $TESTLABEL -coll >> $TESTLOG 2>&1
   fi
