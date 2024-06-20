@@ -21,72 +21,95 @@
 
 class elements:
 
-    class Edge0_0:
-        x = 
-        y = 
+    class edge0_ped:
+        x = 402
+        y = 470
 
-    class Edge0_1:
-        x = 
-        y = 
+    class edge0:
+        x = 381
+        y = 443
 
-    class Edge1_0:
-        x = 
-        y = 
+    class edge1_ped:
+        x = 874
+        y = 238
     
-    class Edge1_1:
-        x = 
-        y = 
+    class edge1:
+        x = 850
+        y = 222
 
-    class Edge2_0:
-        x = 
-        y = 
+    class edge2_ped:
+        x = 463
+        y = -3
 
-    class Edge2_1:
-        x = 
-        y =     
+    class edge2:
+        x = 494
+        y = 26
 
-    class Edge3_0:
-        x = 
-        y = 
+    class edge3_ped:
+        x = 409
+        y = 89
 
-    class Edge3_1:
-        x = 
-        y =     
+    class edge3:
+        x = 477
+        y = 56
 
-    class Edge4_0:
-        x = 
-        y = 
+    class edge4_ped:
+        x = 791
+        y = 236
 
-    class Edge4_1:
-        x = 
-        y =     
+    class edge4:
+        x = 817
+        y = 235
 
-    class Edge5_0:
-        x = 
-        y = 
+    class edge5_ped:
+        x = 459
+        y = 383
 
-    class Edge5_1:
-        x = 
-        y =     
+    class edge5:
+        x = 515
+        y = 413
 
-    class EdgeCenter0_0:
-        x = 
-        y = 
+    class edgeCenter0_ped:
+        x = 341 
+        y = 276
 
-    class EdgeCenter0_1:
-        x = 
-        y =     
+    class edgeCenter0:
+        x = 332
+        y = 248
 
-    class EdgeCenter1_0:
-        x = 
-        y = 
+    class edgeCenter1_ped:
+        x = 345
+        y = 191
 
-    class EdgeCenter1_1:
-        x = 
-        y =     
+    class edgeCenter1:
+        x = 345
+        y = 221
+
+    class junction0:
+        x = 154
+        y = 430
+
+    class junction1:
+        x = 839
+        y = 428
+
+    class junction2:
+        x = 837
+        y = 38
+
+    class junction3:
+        x = 154
+        y = 35
+
+    class junction4:
+        x = 157
+        y = 237                 
+        
+    class junction5:
+        x = 503
+        y = 233
 
 class additionalElements:
-
 
     class inspectBusStop:
         x = 400
