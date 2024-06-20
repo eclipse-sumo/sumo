@@ -39,8 +39,8 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
                   netedit.positions.additionalElements.centralEdge0.y)
 
 # create E1 2
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
-                  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge4.x,
+                  netedit.positions.additionalElements.centralEdge4.y)
 
 # go to inspect mode
 netedit.inspectMode()

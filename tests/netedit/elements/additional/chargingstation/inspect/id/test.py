@@ -42,7 +42,8 @@ netedit.leftClick(referencePosition, netedit.positions.additionalElements.centra
                   netedit.positions.additionalElements.centralEdge0.y)
 
 # create chargingStation 2 in mode "Center"
-netedit.leftClick(referencePosition, 134, 244)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge5.x,
+                  netedit.positions.additionalElements.centralEdge5.y)
 
 # go to inspect mode
 netedit.inspectMode()

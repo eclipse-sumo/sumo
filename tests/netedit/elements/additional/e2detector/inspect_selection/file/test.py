@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, 582, 180)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectE2Detector.x, netedit.positions.additionalElements.inspectE2Detector.y)
 
 # Change parameter file with an non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.file, "%;;%%&%%%&&", True)

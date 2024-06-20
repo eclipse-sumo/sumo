@@ -22,28 +22,32 @@
 class additionalElements:
 
     class centralEdge0:
-        x = 324
-        y = 215
+        x = 323
+        y = 212
 
     class centralEdge1:
-        x = 361
-        y = 215
+        x = 342
+        y = 212
 
     class centralEdge2:
-        x = 401
-        y = 215
+        x = 363
+        y = 212
 
     class centralEdge3:
-        x = 439
-        y = 215
+        x = 381
+        y = 212
 
     class centralEdge4:
-        x = 554
-        y = 215
+        x = 400
+        y = 212
+
+    class centralEdge5:
+        x = 419
+        y = 212        
 
     class inspectBusStop:
-        x = 325
-        y = 205
+        x = 400
+        y = 420
 
     class inspectTrainStop:
         x = 325
@@ -60,6 +64,10 @@ class additionalElements:
     class inspectParkingArea:
         x = 324
         y = 190
+
+    class inspectE2Detector:
+        x = 290
+        y = 220        
 
     class squaredAdditionalA:
         x = 440

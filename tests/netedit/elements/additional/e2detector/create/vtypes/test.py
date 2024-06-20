@@ -38,13 +38,13 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.vTypes, "%%;$$$ %%$$ type.3")
 
 # try to create E2 with invalid vehicle types
-netedit.leftClick(referencePosition, 427, 253)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x, netedit.positions.additionalElements.centralEdge0.y)
 
 # set valid vehicle types
 netedit.changeDefaultValue(netedit.attrs.E2.create.vTypes, "type1 type2 type3")
 
 # create E2 with valid vehicle types
-netedit.leftClick(referencePosition, 381, 253)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x, netedit.positions.additionalElements.centralEdge1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
