@@ -60,6 +60,7 @@ public:
 
     /// @brief Wether there is a flank conflict with the given driveway
     bool flankConflict(const MSDriveWay& other) const;
+    bool crossingConflict(const MSDriveWay& other) const;
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true, const SUMOVehicle* ego = nullptr) const;
