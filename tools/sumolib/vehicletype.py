@@ -21,20 +21,16 @@
 
 from __future__ import absolute_import
 import os
-import sys
+import json
 import re
-import xml.dom.minidom
 import random
-from sumolib.files.additional import write_additional_minidom
 try:
     from typing import Any, List, Tuple, Union
 except ImportError:
     # there are python2 versions on MacOS coming without typing
     pass
 
-"""
-Creates a vehicle type distribution with a number of representative car-following parameter sets.
-"""
+import sumolib
 
 
 class _FixDistribution(object):
@@ -229,15 +225,12 @@ class CreateVehTypeDistribution:
     def create_veh_dist(self, xml_dom):
         # type: (xml.dom.minidom.Document) -> xml.dom.minidom.Element
         # create the vehicleDist node
-        vtype_dist_node = xml_dom.createElement("vTypeDistribution")
-        vtype_dist_node.setAttribute("id", self.name)
+        vtype_dist_node = xml_dom.addChild("vTypeDistribution", {"id": self.name})
 
         # create the vehicle types
         for i in range(self.size):
-            veh_type_node = xml_dom.createElement("vType")
-            veh_type_node.setAttribute("id", self.name + str(i))
+            veh_type_node = vtype_dist_node.addChild("vType", {"id": self.name + str(i)})
             self._generate_vehType(xml_dom, veh_type_node)
-            vtype_dist_node.appendChild(veh_type_node)
 
         return vtype_dist_node
 
@@ -247,13 +240,10 @@ class CreateVehTypeDistribution:
         vtype_dist_node = self.create_veh_dist(xml_dom)
         if existing_file:
             self._handle_existing(xml_dom, vtype_dist_node)
-            with open(file_path, 'w') as f:
-                dom_string = xml_dom.toprettyxml()
-                # super annoying but this makes re-writing the xml a little bit prettier
-                f.write(os.linesep.join([s for s in dom_string.splitlines() if s.strip()]))
-        else:
-            write_additional_minidom(xml_dom, vtype_dist_node, file_path=file_path)
-        sys.stdout.write("Output written to %s" % file_path)
+        with sumolib.openz(file_path, 'w') as f:
+            sumolib.xml.writeHeader(f)
+            f.write(xml_dom.toXML())
+        print("Output written to %s" % file_path)
 
     def _handle_existing(self, xml_dom, veh_dist_node):
         # type: (xml.dom.minidom.Document, xml.dom.minidom.Element) -> None
@@ -272,25 +262,21 @@ class CreateVehTypeDistribution:
         # type: (xml.dom.minidom.Document, xml.dom.minidom.Element) -> xml.dom.minidom.Node
         for attr in self.attributes:
             if attr.is_param:
-                param_node = xml_dom.createElement("param")
-                param_node.setAttribute("key", attr.name)
-                param_node.setAttribute(
-                    "value", attr.d_obj.sampleValueString(self.decimal_places))
-                veh_type_node.appendChild(param_node)
+                veh_type_node.addChild("param",
+                                       {"key": attr.name, "value": attr.d_obj.sampleValueString(self.decimal_places)})
             else:
-                veh_type_node.setAttribute(
-                    attr.name, attr.d_obj.sampleValueString(self.decimal_places))
+                veh_type_node.setAttribute(attr.name, attr.d_obj.sampleValueString(self.decimal_places))
 
     @staticmethod
     def _check_existing(file_path):
         # type: (str) -> Tuple[xml.dom.minidom.Document, bool]
         if os.path.exists(file_path):
             try:
-                return xml.dom.minidom.parse(file_path), True
+                return sumolib.xml.parse(file_path), True
             except Exception as e:
                 raise ValueError("Cannot parse existing %s. Error: %s" % (file_path, e))
         else:
-            return xml.dom.minidom.Document(), False
+            return sumolib.xml.create_document("additional"), False
 
     def save_myself(self, file_path):
         # type: (str) -> None
@@ -300,9 +286,7 @@ class CreateVehTypeDistribution:
         Args:
             file_path (str): path to save json to
         """
-        import json
-
-        with open(file_path, "w") as f:
+        with sumolib.openz(file_path, "w") as f:
             f.write(
                 json.dumps(
                     self,
@@ -339,5 +323,8 @@ class CreateMultiVehTypeDistributions(CreateVehTypeDistribution):
             file_path (str): Path to the file to write to
         """
         xml_dom, _ = self._check_existing(file_path)
-        veh_dist_nodes = [dist.create_veh_dist(xml_dom=xml_dom) for dist in self.distributions]
-        write_additional_minidom(xml_dom, veh_dist_nodes, file_path=file_path)
+        with sumolib.openz(file_path, 'w') as f:
+            sumolib.xml.writeHeader(f, root="additional")
+            for dist in self.distributions:
+                f.write(dist.create_veh_dist(xml_dom=xml_dom).toXML())
+            print("</additional>", file=f)
