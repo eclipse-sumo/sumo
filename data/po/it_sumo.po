@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-19 13:26+0000\n"
+"PO-Revision-Date: 2024-06-20 14:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2183,12 +2183,13 @@ msgstr "Larghezza massima da prenotare per pedoni della direzione opposta"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:556
 msgid "Interpret departPosLat for walks in legacy style"
-msgstr ""
+msgstr "Interpreta departPosLat per cammini nel vecchio modo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:559
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the walkingarea"
 msgstr ""
+"Genera INT punti intermedi per appianare le corsie dentro le aree pedonali"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:563
 msgid "The update interval of the JuPedSim simulation (in seconds)"
