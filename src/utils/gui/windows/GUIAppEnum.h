@@ -451,6 +451,8 @@ enum {
     MID_COPY_NAME,
     /// @brief Copy typed object name - popup entry
     MID_COPY_TYPED_NAME,
+    /// @brief Copy test coordinates
+    MID_COPY_TEST_COORDINATES,
     /// @brief Copy edge name (for lanes only)
     MID_COPY_EDGE_NAME,
     /// @brief Copy cursor position - popup entry
