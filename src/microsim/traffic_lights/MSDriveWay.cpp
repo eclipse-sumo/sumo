@@ -1105,7 +1105,7 @@ MSDriveWay::addFoes(const MSLink* link) {
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
         for (MSDriveWay* foe : rs->retrieveDriveWays(link->getTLIndex())) {
-            if (foe != this) {
+            if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
                 std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
 #endif
