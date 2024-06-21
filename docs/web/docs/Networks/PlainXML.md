@@ -184,8 +184,8 @@ error and will yield in a program stop:
 - `traffic_light`: The junction is
   controlled by a traffic light (priority rules are used to avoid
   collisions if conflicting links have green light at the same time).
-- `right_before_left`: Vehicles yield to traffic coming from the right. (This is automatically flipped when building [lefthand](../FAQ.md#can_sumo_simulate_lefthand_traffic) networks)
-- `left_before_right`: Vehicles yield to traffic coming from the left. (Only known to be needed for [Madagascar](https://www.countryreports.org/country/Madagascar/traffic.htm) where cars drive on the right but yield for the left side)
+- `right_before_left`: Vehicles yield to traffic coming from the right. (This is automatically flipped when building [lefthand](../FAQ.md#can_sumo_simulate_lefthand_traffic) networks).
+- `left_before_right`: Vehicles yield to traffic coming from the left. (Only known to be needed for [Madagascar](https://www.countryreports.org/country/Madagascar/traffic.htm) where cars drive on the right but yield for the left side).
 - `unregulated`: The junction is completely
   unregulated - all vehicles may pass without braking; Collision
   detection on the intersection is disabled but collisions beyond the
@@ -196,9 +196,9 @@ error and will yield in a program stop:
   collisions within the intersection will never be detected.
 - `priority_stop`: This works like a
   *priority*-junction but vehicles on minor links always have to stop
-  before passing
+  before passing.
 - `allway_stop`: This junction works like
-  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop)
+  an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop).
 - `rail_signal`: This junction is
   controlled by a [rail signal](../Simulation/Rail_signals.md).
   This type of junction/control is only useful for rails.
@@ -207,7 +207,7 @@ error and will yield in a program stop:
   [zipper-style (late merging)](https://en.wikipedia.org/wiki/Merge_%28traffic%29).
 - `rail_crossing`: This junction models a
   rail road crossing. It will allow trains to pass unimpeded and will
-  restrict vehicles via traffic signals when a train is approaching..
+  restrict vehicles via traffic signals when a train is approaching.
 - `traffic_light_right_on_red`: The
   junction is controlled by a traffic light as for type
   *traffic_light*. Additionally, right-turning vehicles may drive in
