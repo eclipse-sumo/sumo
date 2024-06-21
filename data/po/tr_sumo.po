@@ -8220,7 +8220,7 @@ msgid "Non-numerical value for brunnel_type of link '%'."
 msgstr "'%' bağlantısının tünel_türü için sayısal olmayan değer."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
-msgid "Non-numerical value for street_type of link '%')."
+msgid "Non-numerical value for street_type of link '%'."
 msgstr "'%' bağlantısının sokak_tipi için sayısal olmayan değer)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351

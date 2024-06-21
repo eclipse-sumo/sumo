@@ -326,7 +326,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
             priority -= 2; // parking/service access assume lowered curb
         }
     } catch (NumberFormatException&) {
-        throw ProcessError(TLF("Non-numerical value for street_type of link '%').", id));
+        throw ProcessError(TLF("Non-numerical value for street_type of link '%'.", id));
     }
     // street name
     std::string streetName = getStreetNameFromIDs(

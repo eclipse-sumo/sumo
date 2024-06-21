@@ -8605,7 +8605,7 @@ msgid "Non-numerical value for brunnel_type of link '%'."
 msgstr "Nicht nummerischer Wert für brunnel_type vom Link '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
-msgid "Non-numerical value for street_type of link '%')."
+msgid "Non-numerical value for street_type of link '%'."
 msgstr "Nicht nummerischer Wert für street_type vom Link '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351

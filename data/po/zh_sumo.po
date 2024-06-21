@@ -7645,7 +7645,7 @@ msgid "Non-numerical value for brunnel_type of link '%'."
 msgstr "路段 '%' 的桥/隧道类型(brunnel_type)为非数字值。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
-msgid "Non-numerical value for street_type of link '%')."
+msgid "Non-numerical value for street_type of link '%'."
 msgstr "路段 '%' 的街道类型(street_type)为非数字值。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351
