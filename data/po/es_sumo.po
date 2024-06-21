@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 13:50+0000\n"
+"PO-Revision-Date: 2024-06-21 14:26+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5257,7 +5257,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:371
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "Se encontraron % nodos ferroviarios marcados como buffer_stop"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:381
 msgid "Found % bidirectional rail edges"
@@ -5374,7 +5374,7 @@ msgstr "¡No se pudo establecer la conexión!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:440
 msgid "For edge '%': could not compute shape."
-msgstr ""
+msgstr "Para la arista '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:433
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:461
@@ -5385,7 +5385,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:458
 #, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr ""
+msgstr "La arista '%' necesita al menos un carril."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:464
 msgid "Invalid edge id '%'."
@@ -6312,7 +6312,7 @@ msgstr "No se puede cargar el archivo GeoTIFF."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "No se pudo analizar la geo información de %."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
@@ -7933,16 +7933,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "Valor no numérico de x-position en el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "Valor no numérico de y-position en el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:230
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "No se pudo proyectar coordenadas para el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
@@ -7959,15 +7959,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "Valor no numérico de form_of_way del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "Valor no numérico de brunnel_type del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
 msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgstr "Valor no numérico de street_type del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
@@ -8530,7 +8530,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:272
 #, c-format
 msgid "The traffic light '%' is not known."
-msgstr ""
+msgstr "El semáforo '%' no es conocido."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:290
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:292
@@ -8543,7 +8543,7 @@ msgstr "No se construyó la arista '%' en prohibición."
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:353
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input network."
-msgstr ""
+msgstr "Clase(s) de vehículo obsoleta(s) '%' en la red proporcionada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:411
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1692
@@ -8571,7 +8571,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:638
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "El carril encontrado '%' no está dentro de un elemento arista."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:643
 msgid "Renaming lane '%' to '%'."
@@ -8647,7 +8647,7 @@ msgstr "Se produjo un nodo duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el distrito %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
@@ -8655,7 +8655,7 @@ msgstr "Se produjo un distrito duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:458
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:475
@@ -9000,7 +9000,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el carril '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:472
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
@@ -11898,7 +11898,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for PoI '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
 #, c-format
