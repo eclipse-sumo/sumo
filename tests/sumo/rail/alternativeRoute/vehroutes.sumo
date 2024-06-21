@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-21 19:27:57 by Eclipse SUMO sumo Version v1_16_0+1526-5bb58df
+<!-- generated on 2024-06-21 11:07:34 by Eclipse SUMO sumo Version v1_20_0+0395-f053e26a707
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="rail3" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="109.00">
+    <vehicle id="rail3" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="124.00">
         <routeDistribution>
             <route replacedOnEdge="T12_1" reason="railSignal:F_0" replacedAtTime="37.00" probability="0" edges="T12_1 T11_1 T28_1 T10_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
             <route replacedOnEdge="T11_1" replacedOnIndex="1" reason="device.rerouting" replacedAtTime="41.00" probability="0" edges="T12_1 T11_1 T28_1 T4_1 T3_1 T2_1 T27_1 T14_1 T29_1 T18_1 T17_1"/>
@@ -52,11 +52,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="38.89" speedFactor="1.0000" arrival="155.00">
+    <vehicle id="rail2" type="REDosto7" depart="40.00" departLane="0" departSpeed="27.9089" speedFactor="1.0000" arrival="159.00">
         <route edges="T17_0 T18_0 T29_0 T19_0 T20_0 T21_0 T30_0 T22_0 T23_0 T24_0"/>
     </vehicle>
 
-    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="204.00">
+    <vehicle id="rail1" type="Freight" depart="1.00" departLane="0" departSpeed="33.3333" speedFactor="1.0000" arrival="208.00">
         <route edges="T1_0 T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0 T25_0 T26_0"/>
     </vehicle>
 
@@ -76,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="rail8" type="REDosto7" depart="1301.00" departLane="0" departSpeed="19.67" speedFactor="1.0000" arrival="1405.00">
+    <vehicle id="rail8" type="REDosto7" depart="1301.00" departLane="0" departSpeed="9.3894" speedFactor="1.0000" arrival="1408.00">
         <route edges="T26_1 T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1"/>
     </vehicle>
 

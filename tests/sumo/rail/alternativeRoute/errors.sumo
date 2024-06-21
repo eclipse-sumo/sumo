@@ -1,7 +1,6 @@
 Warning: Invalid approach information to rail signal 'junction 'P2', link 0' after rerouting for vehicle 'rail3' first driveway edge 'T7_1' time=37.00.
 Warning: Vehicle 'rail1' performs emergency stop at the end of lane 'T8_0_0' because of a red traffic light (decel=-20.73, offset=11.76), time=66.00.
 Warning: Teleporting vehicle 'rail3'; frontal collision with vehicle 'rail1', lane='T8_0_0', gap=-1.00, time=73.00 stage=move.
-Warning: Vehicle 'rail3' ends teleporting on edge 'T7_1', time=75.00.
-Warning: Teleporting vehicle 'rail3'; collision with vehicle 'rail1', lane='T8_0_0', gap=-1.00, time=76.00 stage=move.
-Warning: Vehicle 'rail3' ends teleporting on edge 'T14_1', time=76.00.
-Warning: Vehicle 'rail3' ends teleporting on edge 'T18_1', time=77.00.
+Warning: Vehicle 'rail3' ends teleporting on edge 'T27_1', time=80.00.
+Warning: Teleporting vehicle 'rail3'; collision with vehicle 'rail1', lane='T8_0_0', gap=-1.00, time=81.00 stage=move.
+Warning: Vehicle 'rail3' ends teleporting on edge 'T29_1', time=81.00.
