@@ -40,11 +40,8 @@ netedit.createSquaredShape(referencePosition, 500, 331, 600, True)
 # go to move mode
 netedit.moveMode()
 
-# move vertex Shape
-netedit.moveElement(referencePosition, 403, 330, 403, 425)
-
-# move vertex Shape
-netedit.moveElement(referencePosition, 497, 138, 593, 138)
+# move
+netedit.moveElement(referencePosition, AAA, netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

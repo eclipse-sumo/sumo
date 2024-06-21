@@ -38,25 +38,20 @@ netedit.changeElement("entryExitDetector")
 netedit.changeDefaultBoolValue(netedit.attrs.E3.create.expectArrival)
 
 # try to create E3 with invalid timeTreshold
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
-                  netedit.positions.additionalElements.squaredAdditionalA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
-                  netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.squaredAdditionalA.x,
-                  netedit.positions.additionalElements.squaredAdditionalA.y)
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
-                  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

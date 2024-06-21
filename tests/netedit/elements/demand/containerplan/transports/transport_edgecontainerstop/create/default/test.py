@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,8 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("transport")
 
 # create transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
-                  netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
 
 # press enter to create route
 netedit.typeEnter()

@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to edges)")
 
 # try to create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create flow
 netedit.typeEnter()
@@ -48,8 +48,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flow.create.id, ";;;;;;%%")
 
 # try to create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create flow
 netedit.typeEnter()
@@ -58,8 +58,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flow.create.id, "")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create flow
 netedit.typeEnter()
@@ -68,8 +68,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flow.create.id, "f_0")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create flow
 netedit.typeEnter()
@@ -78,8 +78,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flow.create.id, "customID")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create flow
 netedit.typeEnter()

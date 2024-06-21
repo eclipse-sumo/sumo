@@ -38,14 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
-                  netedit.positions.demandElements.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x, netedit.positions.elements.demands.stopEdge.y)
 
 # check undo
 netedit.undo(referencePosition, 1)
@@ -54,8 +53,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x,
-                  netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # check undo
 netedit.undo(referencePosition, 1)
@@ -64,8 +62,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
-                  netedit.positions.demandElements.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x, netedit.positions.elements.demands.stopEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

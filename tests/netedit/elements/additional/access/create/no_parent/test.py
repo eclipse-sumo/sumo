@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 428, 257)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select Access detector
 netedit.changeElement("access")
 
 # try to create Access without select child
-netedit.leftClick(referencePosition, 152, 95)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

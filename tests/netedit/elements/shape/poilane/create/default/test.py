@@ -35,8 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poi with default values
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,14 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.stopEdge.x,
-                  netedit.positions.demandElements.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x, netedit.positions.elements.demands.stopEdge.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.permitted, "permitA permitB", True)

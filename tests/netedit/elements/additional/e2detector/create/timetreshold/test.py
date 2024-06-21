@@ -38,19 +38,19 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "dummyTimeTreshold")
 
 # try to create E2 with invalid time threshold
-netedit.leftClick(referencePosition, 427, 253)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid time threshold (negative)
 netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "-12")
 
 # try to create E2 with invalid time threshold
-netedit.leftClick(referencePosition, 381, 253)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # set valid time threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "10.5")
 
 # create E2 with valid time threshold
-netedit.leftClick(referencePosition, 427, 253)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

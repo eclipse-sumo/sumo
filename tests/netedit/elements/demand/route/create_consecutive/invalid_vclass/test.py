@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 netedit.leftClick(referencePosition, 68, 160)
 netedit.leftClick(referencePosition, 190, 236)
 

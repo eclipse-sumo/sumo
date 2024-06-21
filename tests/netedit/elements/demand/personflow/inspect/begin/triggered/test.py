@@ -41,8 +41,8 @@ netedit.changePersonPlan("ride", False)
 netedit.changeElement("personFlow")
 
 # create person using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create person
 netedit.typeEnter()
@@ -51,8 +51,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.demandElements.person.x,
-                  netedit.positions.demandElements.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x, netedit.positions.elements.demands.person.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspect.begin, "", False)

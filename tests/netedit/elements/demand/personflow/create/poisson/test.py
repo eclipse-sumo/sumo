@@ -44,9 +44,8 @@ netedit.changePersonPlan("walk", True)
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacing, "dummySpacing")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,8 +60,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "dummy")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -77,8 +76,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.spacingOption, "1.2")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()

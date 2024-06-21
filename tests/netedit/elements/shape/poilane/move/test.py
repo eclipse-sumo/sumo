@@ -40,14 +40,8 @@ netedit.leftClick(referencePosition, 358, 215)
 # go to move mode
 netedit.moveMode()
 
-# move POILane to right
-netedit.moveElement(referencePosition, 358, 215, 569, 215)
-
-# move POILane to left
-netedit.moveElement(referencePosition, 569, 215, 293, 215)
-
-# move POILane to left
-netedit.moveElement(referencePosition, 293, 215, 705, 215)
+# move
+netedit.moveElement(referencePosition, AAA, netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

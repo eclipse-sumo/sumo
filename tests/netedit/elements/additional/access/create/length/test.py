@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, 428, 257)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select Access detector
 netedit.changeElement("access")
@@ -48,13 +48,13 @@ netedit.changeDefaultValue(netedit.attrs.access.create.length, "dummyLenght")
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "-4")
 
 # Try to create Access
-netedit.leftClick(referencePosition, 152, 143)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # set valid length
 netedit.changeDefaultValue(netedit.attrs.access.create.length, "3.5")
 
 # Create access
-netedit.leftClick(referencePosition, 152, 95)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

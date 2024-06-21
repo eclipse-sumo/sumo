@@ -38,16 +38,16 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # create person using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create person
 netedit.typeEnter()
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.person.x,
-                                netedit.positions.demandElements.person.y,
+                                netedit.positions.elements.demands.person.x,
+                                netedit.positions.elements.demands.person.y,
                                 netedit.attrs.person.transformTo, 1)
 
 # Check undo

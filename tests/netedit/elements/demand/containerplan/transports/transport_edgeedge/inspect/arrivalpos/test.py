@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("transport")
 
 # create transportEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -59,8 +59,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transportEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerPlanEdge.x,
-                  netedit.positions.demandElements.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x, netedit.positions.elements.demands.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspect.arrivalPos, "dummy", False)

@@ -4,16 +4,16 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
 walk
 dummyTerminate
-TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 599 - 178
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 600 - 179
 end
-TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 599 - 178
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 600 - 179
 dummy
 -30
 20.5
-TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 599 - 178
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 600 - 179
 22
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

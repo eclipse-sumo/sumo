@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -64,8 +62,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

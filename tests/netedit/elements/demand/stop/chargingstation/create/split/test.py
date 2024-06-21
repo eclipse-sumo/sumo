@@ -41,22 +41,21 @@ netedit.changeStopType("stopChargingStation")
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.split, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.split, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  1, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  1, netedit.positions.elements.demands.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.split, "customSplit")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  2, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  2, netedit.positions.elements.demands.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

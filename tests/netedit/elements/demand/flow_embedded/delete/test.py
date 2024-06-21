@@ -38,9 +38,9 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,7 +61,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -70,7 +70,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

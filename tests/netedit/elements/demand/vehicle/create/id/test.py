@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -49,31 +49,31 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # try create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # set invalid id
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "%%%%;;%%")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # set empty id
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "v_0")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # set empty id
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.id, "customID")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

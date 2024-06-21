@@ -38,8 +38,8 @@ netedit.routeMode()
 netedit.changeRouteMode("dummyMode")
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,8 +48,8 @@ netedit.typeEnter()
 netedit.changeRouteMode("consecutive edges")
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
 
 # press enter to create route
 netedit.typeEnter()

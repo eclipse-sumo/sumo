@@ -41,22 +41,21 @@ netedit.changeStopType("waypointContainerStop")
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
-                  1, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x +
+                  1, netedit.positions.elements.demands.containerStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointContainerStop.create.tripID, "tripID")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x +
-                  2, netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x +
+                  2, netedit.positions.elements.demands.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

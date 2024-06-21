@@ -35,9 +35,8 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edgeRepeat0.x,
-                  netedit.positions.demandElements.edgeRepeat0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat0.x, netedit.positions.elements.demands.edgeRepeat0.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -46,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # Change parameter repeat with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.repeat, "", False)

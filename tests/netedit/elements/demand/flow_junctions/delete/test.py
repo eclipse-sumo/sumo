@@ -38,10 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # create route using two junctions
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,8 +48,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -63,8 +60,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete junction with demand elements
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -73,8 +69,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

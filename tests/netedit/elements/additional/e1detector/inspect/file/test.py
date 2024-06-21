@@ -35,15 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Change parameter file with an non valid value
 netedit.modifyAttribute(netedit.attrs.E1.inspect.file, "%%%;:..&&%$%$", True)

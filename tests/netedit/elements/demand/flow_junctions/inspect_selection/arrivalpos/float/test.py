@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleJunction.x,
-                  netedit.positions.demandElements.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x, netedit.positions.elements.demands.vehicleJunction.y)
 
 # change arrivalPos with an invalid value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.arrivalPos, "", False)

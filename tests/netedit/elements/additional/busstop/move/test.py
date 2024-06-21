@@ -38,17 +38,13 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # change to move mode
 netedit.moveMode()
 
-# move busStop to right
-netedit.moveElement(referencePosition, 430, 280, 544, 280)
-
-# move busStop back
-netedit.moveElement(referencePosition, 544, 280, 337, 280)
+# move
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.busStop, netedit.positions.elements.movementRadius)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

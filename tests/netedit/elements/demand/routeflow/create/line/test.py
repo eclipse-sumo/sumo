@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,19 +52,19 @@ netedit.changeElement("flow (over route)")
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.line, "%%%%%%")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # set valid Line
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.line, "")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # set empty line
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.line, "customLine")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.route.x, netedit.positions.demandElements.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

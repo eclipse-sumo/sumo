@@ -3,17 +3,17 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 trip (from-to junctions)
 dummyPos
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 -12
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 center
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 20
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

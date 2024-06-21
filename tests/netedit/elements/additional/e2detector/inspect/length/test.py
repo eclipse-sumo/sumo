@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2
-netedit.leftClick(referencePosition, 520, 210)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 480, 210)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectE2Detector.x, netedit.positions.additionalElements.inspectE2Detector.y)
 
 # Change parameter length with a non valid value(dummy)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.length, "dummyLength", True)

@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
-                  netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x, netedit.positions.elements.demands.parkingArea.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
-                  netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x, netedit.positions.elements.demands.parkingArea.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopParkingArea.inspect.jump, "dummyValue", False)

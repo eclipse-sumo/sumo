@@ -38,8 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Change boolean parameter friendlypos
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.friendlyPos, "dummyTrue", True)

@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -49,12 +49,12 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.vehicleEdge.x,
-                                netedit.positions.demandElements.vehicleEdge.y,
+                                netedit.positions.elements.demands.vehicleEdge.x,
+                                netedit.positions.elements.demands.vehicleEdge.y,
                                 netedit.attrs.routeFlow.transformTo,
                                 netedit.attrs.routeFlow.transform.trip)
 

@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge1.x, netedit.positions.demandElements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -46,8 +46,8 @@ netedit.inspectMode()
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.route.x,
-                                netedit.positions.demandElements.route.y,
+                                netedit.positions.elements.demands.route.x,
+                                netedit.positions.elements.demands.route.y,
                                 netedit.attrs.route.reverseElement,
                                 netedit.attrs.route.reverse.add)
 

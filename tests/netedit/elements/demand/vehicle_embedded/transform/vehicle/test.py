@@ -38,16 +38,16 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (embedded route)")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # transform
 netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.demandElements.vehicleEdge.x,
-                                netedit.positions.demandElements.vehicleEdge.y,
+                                netedit.positions.elements.demands.vehicleEdge.x,
+                                netedit.positions.elements.demands.vehicleEdge.y,
                                 netedit.attrs.vehicleEmbedded.transformTo,
                                 netedit.attrs.vehicleEmbedded.transform.vehicle)
 

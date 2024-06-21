@@ -38,15 +38,13 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectBusStop.x,
-                  netedit.positions.additionalElements.inspectBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x, netedit.positions.elements.additionals.busStop.y)
 
 # Change parameter personCapacity with a non valid value (throw warning)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.personCapacity, "dummyPersonCapacity", True)

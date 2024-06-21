@@ -38,7 +38,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 475, 256)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, 382, 256)
@@ -48,7 +48,7 @@ netedit.changeElement("space")
 
 # create first space
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
-netedit.leftClick(referencePosition, 292, 371)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # create second space
 netedit.leftClick(referencePosition, 472, 371)

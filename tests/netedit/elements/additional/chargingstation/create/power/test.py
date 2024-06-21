@@ -38,22 +38,19 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "dummyPower")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid power (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "-300")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
-                  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # set valid power
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.power, "2500.5")
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

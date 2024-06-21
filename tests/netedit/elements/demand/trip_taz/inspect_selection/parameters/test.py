@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.demandElements.vehicleTAZ.x,
-                  netedit.positions.demandElements.vehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ.x, netedit.positions.elements.demands.vehicleTAZ.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.tripTAZ.inspectSelection.parameters, False)

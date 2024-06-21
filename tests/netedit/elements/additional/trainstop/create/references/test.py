@@ -35,22 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("trainStop")
 
 # create trainStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Reference Right")
 
 # create trainStop in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge1.x,
-                  netedit.positions.additionalElements.centralEdge1.y)
+netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
 # create trainStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge2.x,
-                  netedit.positions.additionalElements.centralEdge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

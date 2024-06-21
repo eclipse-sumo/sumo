@@ -1,18 +1,18 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-TestFunctions: Clicked over position 754 - 608
-TestFunctions: Clicked over position 1154 - 398
-TestFunctions: Clicked over position 804 - 196
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Clicked over position 798 - 194
 vehicle (over route)
 dummyLane
-TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 685 - 611
 -12
-TestFunctions: Clicked over position 754 - 608
+TestFunctions: Clicked over position 685 - 611
 random
-TestFunctions: Clicked over position 744 - 608
+TestFunctions: Clicked over position 724 - 607
 20
-TestFunctions: Clicked over position 744 - 608
+TestFunctions: Clicked over position 724 - 607
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

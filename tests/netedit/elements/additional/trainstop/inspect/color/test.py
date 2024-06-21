@@ -38,15 +38,13 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
 # create trainStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectTrainStop.x,
-                  netedit.positions.additionalElements.inspectTrainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop.x, netedit.positions.elements.additionals.trainStop.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.trainStop.inspect.colorButton, 5, True)

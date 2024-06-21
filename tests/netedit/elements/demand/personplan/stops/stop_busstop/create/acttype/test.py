@@ -38,9 +38,8 @@ netedit.personMode()
 netedit.changePersonPlan("walk", False)
 
 # create route using one edge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,22 +51,19 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "dummy")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.actType, "singing")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

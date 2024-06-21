@@ -41,29 +41,28 @@ netedit.changeStopType("stopLane")
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.jump, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
-                  6, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
+                  6, netedit.positions.elements.edge2.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.jump, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
-                  4, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
+                  4, netedit.positions.elements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.jump, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x +
-                  2, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
+                  2, netedit.positions.elements.edge2.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.jump, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x,
-                  netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,36 +38,31 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "dummyRoadSideCapacity")
 
 # try to create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid roadSideCapacity (empty"
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "")
 
 # try to create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid roadSideCapacity (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "-3")
 
 # try to create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set invalid roadSideCapacity (double)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "2.5")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # set valid roadSideCapacity
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.roadSideCapacity, "3")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.centralEdge0.x,
-                  netedit.positions.additionalElements.centralEdge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

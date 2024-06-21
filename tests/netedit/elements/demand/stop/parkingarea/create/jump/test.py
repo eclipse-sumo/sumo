@@ -38,36 +38,35 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x,
-                  netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x, netedit.positions.elements.demands.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.jump, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
-                  2, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
+                  2, netedit.positions.elements.demands.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.jump, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
-                  3, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
+                  3, netedit.positions.elements.demands.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.jump, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
-                  4, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
+                  4, netedit.positions.elements.demands.parkingArea.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.jump, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.parkingArea.x +
-                  5, netedit.positions.demandElements.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
+                  5, netedit.positions.elements.demands.parkingArea.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -45,8 +45,8 @@ netedit.typeEnter()
 # go to move mode
 netedit.moveMode()
 
-# move E2 to left taking the first lane
-netedit.moveElement(referencePosition, 426, 253, 496, 253)
+# move
+netedit.moveElementHorizontal(referencePosition, AAA, netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

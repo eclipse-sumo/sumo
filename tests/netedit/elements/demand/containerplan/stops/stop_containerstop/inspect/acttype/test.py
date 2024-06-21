@@ -38,8 +38,8 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge0.x, netedit.positions.demandElements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -51,8 +51,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("stop")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.containerStop.x,
-                  netedit.positions.demandElements.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,7 +60,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.demandElements.edge2.x, netedit.positions.demandElements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.actType, "singing", False)

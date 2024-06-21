@@ -1,3 +1,3 @@
 Error: Attribute 'id' is missing in definition of a instantInductionLoop.
 Error: Could not build instantInductionLoop with ID 'E1_01' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.detectors.22May115309.2054/netedit.daily.additional.detectors/additionalelements/e1instantdetector/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/e1instantdetector/load/id/additionals.add.xml failed.

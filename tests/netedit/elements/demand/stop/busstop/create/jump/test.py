@@ -38,36 +38,35 @@ netedit.stopMode()
 netedit.changeStopType("stopBusStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x,
-                  netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.jump, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
-                  2, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x +
+                  2, netedit.positions.elements.demands.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.jump, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
-                  3, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x +
+                  3, netedit.positions.elements.demands.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.jump, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
-                  4, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x +
+                  4, netedit.positions.elements.demands.busStop.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopBusStop.create.jump, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.busStop.x +
-                  5, netedit.positions.demandElements.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x +
+                  5, netedit.positions.elements.demands.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

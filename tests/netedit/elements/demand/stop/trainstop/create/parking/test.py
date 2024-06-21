@@ -38,15 +38,14 @@ netedit.stopMode()
 netedit.changeStopType("stopTrainStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x,
-                  netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.parking, "true")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.demandElements.trainStop.x +
-                  2, netedit.positions.demandElements.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
+                  2, netedit.positions.elements.demands.trainStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

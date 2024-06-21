@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- E2 A -->
-    <laneAreaDetector id="E2_A" lane="EdgeCenter0_0" pos="5" length="5" period="120.00" file="fileA.txt" name="A" vTypes="Type1 Type2 Type3" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" tl="gneJ0">
+    <laneAreaDetector id="E2_A" lane="EdgeCenter1_1" pos="24.43" length="10" period="120.00" file="fileA.txt" name="A" vTypes="Type1 Type2 Type3" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" tl="gneJ0">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA3" value="valueA2"/>
         <param key="KeyA2" value="valueA3"/>

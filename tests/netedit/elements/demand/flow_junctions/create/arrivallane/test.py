@@ -41,10 +41,8 @@ netedit.changeElement("flow (from-to junctions)")
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalLane, "dummyLane")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -53,10 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalLane, "-12")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -65,10 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalLane, "random")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -77,10 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.arrivalLane, "20")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction0.x,
-                  netedit.positions.demandElements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.demandElements.junction3.x,
-                  netedit.positions.demandElements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
 
 # press enter to create trip
 netedit.typeEnter()

@@ -3,17 +3,17 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to junctions)
 dummyContainerNumber
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 -12
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 3.5
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 13
-TestFunctions: Clicked over position 459 - 598
-TestFunctions: Clicked over position 474 - 228
+TestFunctions: Clicked over position 458 - 598
+TestFunctions: Clicked over position 458 - 203
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

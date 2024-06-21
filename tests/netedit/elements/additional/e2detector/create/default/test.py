@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 427, 253)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

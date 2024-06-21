@@ -38,8 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerstops
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectContainerStop.x,
-                  netedit.positions.additionalElements.inspectContainerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x, netedit.positions.elements.additionals.containerStop.y)
 
 # Set container capacity
 netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.containerCapacity, "50", True)

@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.demandElements.container.x,
-                  netedit.positions.demandElements.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.containerFlow.inspectSelection.colorButton, 5, False)

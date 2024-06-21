@@ -41,43 +41,42 @@ netedit.changeStopType("waypointChargingStation")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x,
-                  netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  1, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  1, netedit.positions.elements.demands.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  2, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  2, netedit.positions.elements.demands.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  3, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  3, netedit.positions.elements.demands.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  4, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  4, netedit.positions.elements.demands.chargingStation.y)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.demandElements.chargingStation.x +
-                  5, netedit.positions.demandElements.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x +
+                  5, netedit.positions.elements.demands.chargingStation.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
