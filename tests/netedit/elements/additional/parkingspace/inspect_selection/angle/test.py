@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking spaces
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x, netedit.positions.elements.additionals.parkingSpace.y)
 
 # Change parameter angle with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspectSelection.angle, "dummyAngle", False)
