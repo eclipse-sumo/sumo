@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-20 14:29+0000\n"
+"PO-Revision-Date: 2024-06-21 09:56+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1698,7 +1698,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:222
 msgid "Save personinfo and containerinfo to separate FILE"
-msgstr ""
+msgstr "Guardar personinfo y containerinfo en FILE"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:226
 msgid "Save single vehicle route info into FILE"
@@ -2916,7 +2916,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:968
 #, c-format
 msgid "Another vehicle type (or distribution) with the id '%' exists."
-msgstr ""
+msgstr "Ya existe otro tipo (o distribución) de vehículo con el ID '%'."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:325
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:330
@@ -3061,7 +3061,7 @@ msgstr "El carril '%' para una parada no es conocido%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1330
 msgid "Could not map stop position '%' to the network%."
-msgstr ""
+msgstr "No se pudo asignar la posición de la parada '%' en la red%."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:1347
 msgid ""
@@ -3296,6 +3296,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\MSVehicle.cpp:7594
 msgid "Action steps are out of sync for loaded vehicle '%'."
 msgstr ""
+"Los pasos de acción no están sincronizados para el vehículo cargado '%'."
 
 #: C:\Repos\sumo/src\microsim\MSVehicleControl.cpp:524
 msgid "Vehicle '%' aborted waiting %."
@@ -3862,6 +3863,8 @@ msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
 msgstr ""
+"Especifica qué medidas se registrarán (como una secuencia de IDs separados "
+"por espacios o comas ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""
@@ -4547,6 +4550,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:189
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
 msgstr ""
+"No se pudo determinar la parada de taxis para el vehículo '%' en el tiempo=%"
 
 #: C:\Repos\sumo/src\microsim\devices\MSRoutingEngine.cpp:97
 msgid "Rerouting is useless if the edge weights do not get updated!"
@@ -5338,7 +5342,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:1360
 msgid "Added % rail signals at % stops."
-msgstr ""
+msgstr "Se agregaron % señales ferroviarias en % paradas."
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -6334,7 +6338,7 @@ msgstr "No se pudieron cargar IDs desde '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:123
 msgid "Invalid lane id '%' (missing '_')."
-msgstr ""
+msgstr "ID de carril '%' no válido (falta '_')."
 
 #: C:\Repos\sumo/src\netbuild\NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
@@ -7298,6 +7302,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:124
 msgid "Spider networks with many arms should use option spider.omit-center"
 msgstr ""
+"Las redes telaraña con muchas ramas deberían usar la opción spider.omit-"
+"center"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:127
 msgid "Spider networks need at least one circle."
@@ -8229,7 +8235,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2617
 msgid "Ignoring object without id at edge '%'."
-msgstr ""
+msgstr "Ignorando objeto sin ID en la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2635
 msgid "Repeat without object at edge '%'."
@@ -8665,7 +8671,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:594
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:629
 msgid "A duplicate edge id occurred (ID='%')."
-msgstr ""
+msgstr "Se produjo un ID de arista duplicado (ID='%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:614
 msgid ""
@@ -9244,31 +9250,31 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "El grupo de señales '%' no se pudo asignar al semáforo '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:392
 msgid "The signal '%' could not be assigned to tl '%'."
-msgstr ""
+msgstr "La señal '%' no se pudo asignar al semáforo '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:399
 msgid "Could not set % of % traffic lights."
-msgstr ""
+msgstr "No se pudo establecer % de % semáforos."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:402
 #, c-format
 msgid "Could not set % of % groups."
-msgstr ""
+msgstr "No se pudo establecer % de % grupos."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:405
 #, c-format
 msgid "Could not set % of % signals."
-msgstr ""
+msgstr "No se pudo establecer % de % señales."
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp:84
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:93
 #, c-format
 msgid "Unsupported LSA-Type '%' occurred."
-msgstr ""
+msgstr "Tipo de semáforo '%' no soportado."
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgeberdefinition.cpp:73
 msgid "Omitting unknown traffic light."
@@ -9277,23 +9283,23 @@ msgstr "Omitiendo semáforo desconocido."
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:142
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:170
 msgid "VAS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Los semáforos VAS no son soportados (lsa=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:154
 msgid "VSPLUS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Los semáforos VSPLUS no son soportados (lsa=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:162
 msgid "TRENDS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Los semáforos TRENDS no son soportados (lsa=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:178
 msgid "TL traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Los semáforos TL no son soportados (lsa=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:186
 msgid "POS traffic lights are not supported (lsa=%)"
-msgstr ""
+msgstr "Los semáforos POS no son soportados (lsa=%)"
 
 #: C:\Repos\sumo/src\netimport\vissim\typeloader\NIVissimSingleTypeParser_Signalgruppendefinition.cpp:194
 msgid "externally defined traffic lights are not supported (lsa=%)"
@@ -9332,7 +9338,7 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RONet.cpp:223
 #, c-format
 msgid "A TAZ with id '%' already exists. Not building junction TAZ."
-msgstr ""
+msgstr "Ya existe una TAZ con ID '%'. No se creará la TAZ de cruce."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:231
 msgid ""
@@ -9556,7 +9562,7 @@ msgstr "Tipo de semáforo no válido '%'"
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:348
 #, c-format
 msgid "Another logic with id '%' and programID '%' exists."
-msgstr ""
+msgstr "Ya existe otra lógica con ID '%' y programID '%'."
 
 #: C:\Repos\sumo/src\netload\NLJunctionControlBuilder.cpp:474
 msgid "Traffic lights could not be built."
@@ -9714,7 +9720,7 @@ msgstr "Escribir los nombres originales, si se proporcionan, como parámetro"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:103
 msgid "Writes street signs as POIs to FILE"
-msgstr ""
+msgstr "Escribir las señales de tráfico como puntos de interés en FILE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:107
 msgid "Writes public transport stops to FILE"
@@ -9727,6 +9733,7 @@ msgstr "Escribir líneas de transporte público en FILE"
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:111
 msgid "Clean-up pt stops that are not served by any line"
 msgstr ""
+"Remover las paradas de transporte público a las que no llega ninguna línea"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:114
 msgid "Writes parking areas to FILE"
@@ -9734,7 +9741,7 @@ msgstr "Escribir zonas de estacionamiento en FILE"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:117
 msgid "Analyze topology of the railway network"
-msgstr ""
+msgstr "Analizar la topología de la red ferroviaria"
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:121
 msgid ""
@@ -9864,7 +9871,7 @@ msgstr "Guardar viajes entre cruces"
 #: C:\Repos\sumo/src\od2trips_main.cpp:129
 #: C:\Repos\sumo/src\router\ROFrame.cpp:116
 msgid "Defines the begin time; Previous trips will be discarded"
-msgstr ""
+msgstr "Define el tiempo de inicio; Se descartarán viajes anteriores"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:132
 #: C:\Repos\sumo/src\router\ROFrame.cpp:119
@@ -9879,7 +9886,7 @@ msgstr "Distribuir los viajes de manera uniforme en cada período de tiempo"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:143
 msgid "Always choose source and sink edge which are not identical"
-msgstr ""
+msgstr "Elegir siempre aristas fuente y sumidero que no sean idénticas"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:149
 msgid "Defines the prefix for vehicle names"
@@ -9887,7 +9894,7 @@ msgstr "Definir el prefijo para los nombres de los vehículos"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:162
 msgid "Disable console output of current time step"
-msgstr ""
+msgstr "Deshabilitar la salida de consola para el instante de tiempo actual"
 
 #: C:\Repos\sumo/src\od2trips_main.cpp:193
 msgid "No TAZ input file (-n) specified."
@@ -10254,7 +10261,7 @@ msgstr "Define qué columnas forman el ID del tipo (lista separada por comas)"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:137
 msgid "A running number will be used as id"
-msgstr ""
+msgstr "Se usará un número consecutivo como ID"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:140
 msgid "Extract all additional columns as params"
@@ -10265,6 +10272,8 @@ msgid ""
 "[auto|true|false]. Forces the 'fill' status to the given value. Default "
 "'auto' tries to determine it from the data type"
 msgstr ""
+"[auto|true|false]. Fuerza el estado de 'fill' al valor dado. El valor "
+"predeterminado 'auto' intenta determinar el estado a partir del tipo de dato"
 
 #: C:\Repos\sumo/src\polyconvert\polyconvert_main.cpp:148
 msgid "Reads types from FILE"
@@ -10403,7 +10412,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:63
 msgid "Use FILE as SUMO-network to route on"
-msgstr ""
+msgstr "Usar FILE como red de SUMO para las rutas"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:66
 msgid "Write vehicles that reference routes by their id"
@@ -10432,7 +10441,7 @@ msgstr "Continuar si no se puede construir una ruta"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
-msgstr ""
+msgstr "Reducir el número de alternativas a INT"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
@@ -10493,6 +10502,8 @@ msgstr ""
 msgid ""
 "Comma separated list of param keys to compare for additional restrictions"
 msgstr ""
+"Lista separada por comas, de claves de parámetros para comparar "
+"restricciones adicionales"
 
 #: C:\Repos\sumo/src\router\ROFrame.cpp:186
 msgid "Interpolate edge weights at interval boundaries"
@@ -10606,7 +10617,7 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RONet.cpp:528
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "Ya existe otra persona con el ID '%'."
 
 #: C:\Repos\sumo/src\router\RONet.cpp:637
 msgid ""
@@ -10774,34 +10785,42 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:91
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr ""
+msgstr "Define el tipo de vehículo que se usará para los parámetros de emisión."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:95
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
 msgstr ""
+"Si se establece, la aceleración se calculará en lugar de ser leída desde el "
+"archivo. "
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:98
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
 msgstr ""
+"Si se establece, la aceleración para el tiempo t se calculará usando v(t+1) -"
+" v(t) en lugar de v(t) - v(t-1). "
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:101
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
 msgstr ""
+"Si se establece, la aceleración para el tiempo t se establece en 0 si la "
+"velocidad es 0. "
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:104
 msgid "If set, the first line of the read file is skipped."
-msgstr ""
+msgstr "Si se establece, se omitirá la primera línea del archivo leído."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:107
 msgid "If set, the given speed is interpreted as being given in km/h."
-msgstr ""
+msgstr "Si se establece, la velocidad dada se interpretará como dada en km/h."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:110
 msgid "If set, the fourth column is read and used as slope (in deg)."
 msgstr ""
+"Si se establece, se leerá la cuarta columna y se usará como pendiente (en "
+"grados)."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:113
 msgid ""
@@ -10812,6 +10831,7 @@ msgstr ""
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:118
 msgid "Defines the file to write the emission cycle results into."
 msgstr ""
+"Define el archivo en el que escribir los resultados del ciclo de emisión."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:121
 msgid "Defines the attributes to write."
@@ -10819,7 +10839,7 @@ msgstr "Definir los atributos a escribir."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:124
 msgid "Save the emission values of each vehicle in XML"
-msgstr ""
+msgstr "Guardar los valores de emisiones de cada vehículo en XML"
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:128
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
@@ -10916,7 +10936,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:99
 msgid "Defines the velocity step size (in m/s)."
-msgstr ""
+msgstr "Define el tamaño del paso de velocidad (en m/s)."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:101
 msgid ""
@@ -10930,7 +10950,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:105
 msgid "Defines the acceleration step size (in m/s^2)."
-msgstr ""
+msgstr "Define el tamaño del paso de aceleración (en m/s^2)."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:107
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
@@ -10942,7 +10962,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:111
 msgid "Defines the slope step size (in deg)."
-msgstr ""
+msgstr "Define el tamaño del paso de pendiente (en grados)."
 
 #: C:\Repos\sumo/src\tools\emissionsMap_main.cpp:116
 msgid ""
@@ -11195,6 +11215,8 @@ msgid ""
 "Prefix which is applied to all output files. The special string 'TIME' is "
 "replaced by the current time."
 msgstr ""
+"Prefijo que se aplica a todos los archivos de salida. La cadena especial "
+"'TIME' se reemplaza por la hora actual."
 
 #: C:\Repos\sumo/src\utils\common\SystemFrame.cpp:128
 msgid "Defines the number of digits after the comma for floating point output"
@@ -11360,6 +11382,8 @@ msgid ""
 "Determine the UTM zone (for a universal transversal mercator projection "
 "based on the WGS84 ellipsoid)"
 msgstr ""
+"Determinar la zona UTM (para una proyección transversal universal de "
+"Mercator basada en el elipsoide WGS84)"
 
 #: C:\Repos\sumo/src\utils\geom\GeoConvHelper.cpp:304
 msgid "Uses STR as proj.4 definition for projection"
