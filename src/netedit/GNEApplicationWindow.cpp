@@ -1951,6 +1951,8 @@ GNEApplicationWindow::onCmdProcessButton(FXObject*, FXSelector sel, void*) {
             }
         }
     }
+    // refresh to update undo-redo button
+    myViewNet->getViewParent()->getGNEAppWindows()->forceRefresh();
     return 1;
 }
 
