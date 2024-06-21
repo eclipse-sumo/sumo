@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 13:14+0000\n"
+"PO-Revision-Date: 2024-06-21 13:50+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1416,7 +1416,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:792
 msgid "Vehicle '%' has no valid route. %"
-msgstr ""
+msgstr "El vehículo '%' no tiene una ruta válida. %"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:855
 msgid ""
@@ -2882,7 +2882,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:396
 msgid "Simulation version % started with time: %."
-msgstr ""
+msgstr "Versión de simulación % iniciada con tiempo: %."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:1473
 msgid ""
@@ -2942,7 +2942,7 @@ msgstr "La ruta '%' no tiene aristas."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:436
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " para el vehículo '%' con clase %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:441
 msgid ""
@@ -4545,7 +4545,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:163
 #, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "El vehículo '%' termina inactivo en una vía sin salida"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:189
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
@@ -4841,7 +4841,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\NEMAController.cpp:965
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "Estoy empezando en las fases coordinadas"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel.h:188
 msgid "moveTo is ignored by the current movement model"
@@ -6158,7 +6158,7 @@ msgstr "Todos los nodos serán no regulados"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:686
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "No regular los nodos en STR[]"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:690
 msgid "Do not regulate district nodes"
@@ -6680,7 +6680,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1182
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "Para el cruce '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1884
 msgid "Something went wrong during the building of a connection..."
@@ -7144,10 +7144,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
 msgstr ""
+"Tomar el número de carriles de manera aleatoria de [1,default.lanenumber]"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
 msgstr ""
+"Tomar la prioridad de arista de manera aleatoria de [1,default.priority]"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
@@ -7230,11 +7232,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:162
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "La longitud máxima para cada arista"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:167
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "La longitud mínima para cada arista"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
@@ -7294,10 +7296,13 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_rig"
+"ht_on_red|priority_stop|allway_stop|...] Determina el tipo de cruce (ver "
+"wiki/Networks/PlainXML#Node_types)"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
-msgstr ""
+msgstr "Redes telaraña requieren de al menos 3 ramas."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:124
 msgid "Spider networks with many arms should use option spider.omit-center"
@@ -7307,7 +7312,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:127
 msgid "Spider networks need at least one circle."
-msgstr ""
+msgstr "Redes telaraña requieren de al menos un círculo."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:135
 #, c-format
@@ -8326,7 +8331,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:994
 msgid "Tag element on wrong XML hierarchy level."
-msgstr ""
+msgstr "Elemento de etiqueta en un nivel de jerarquía XML incorrecto."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1054
 msgid "Value of key '%' is invalid ('%') in node '%'."
@@ -10159,7 +10164,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:206
 msgid "Assembled polygon from relation '%' (name:%)%"
-msgstr ""
+msgstr "Polígono ensamblado de la relación '%' (nombre:%)%"
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:208
 msgid ""
@@ -11503,11 +11508,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
-msgstr ""
+msgstr "Los elementos de datos no pueden cargar atributos como parámetros"
 
 #: C:\Repos\sumo/src\utils\handlers\MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
-msgstr ""
+msgstr "Los elementos MeanData no pueden cargar atributos como parámetros"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:410
 msgid ""
