@@ -572,6 +572,8 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myCopyTemplateButton = GUIDesigns::buildFXButton(getCollapsableFrame(), "", "", "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
     // Create copy template button
     myClearTemplateButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("clear Edge Template"), "", "", nullptr, this, MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GUIDesignButton);
+    // hidden by default
+    hide();
 }
 
 
@@ -579,26 +581,19 @@ GNEInspectorFrame::TemplateEditor::~TemplateEditor() {
 }
 
 
-void
+bool
 GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
-    // show template editor only if we're editing an edge in Network mode
-    if ((myInspectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) &&
-            (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
-        // show "Set As Template"
-        if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            mySetTemplateButton->show();
-            mySetTemplateButton->setText((TLF("Set edge '%' as Template", myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID())).c_str());
+    // show template editor only if we're editing an edge in Network mode AND we have at least one inspected edge
+    if (myInspectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
+        for (const auto& AC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+            if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+                // update buttons and show module
+                updateButtons();
+                show();
+                return true;
+            }
         }
-        // update buttons
-        updateButtons();
-        // show module
-        show();
     }
-}
-
-
-void
-GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
     // hide template editor
     hide();
 }
@@ -664,16 +659,15 @@ GNEInspectorFrame::TemplateEditor::clearTemplate() {
 
 long
 GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*) {
-    // first check that there is exactly an inspected edge
-    if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() != 1) {
-        throw ProcessError(TL("Only one edge must be inspected"));
+    // apply to all selected edges
+    for (const auto& AC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            // set template
+            setEdgeTemplate(myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(AC->getID()));
+            // update buttons
+            updateButtons();
+        }
     }
-    // retrieve edge ID (and throw exception if edge doesn't exist)
-    GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID());
-    // set template
-    setEdgeTemplate(edge);
-    // update buttons
-    updateButtons();
     return 1;
 }
 
@@ -715,15 +709,21 @@ GNEInspectorFrame::TemplateEditor::onCmdClearTemplate(FXObject*, FXSelector, voi
 
 void
 GNEInspectorFrame::TemplateEditor::updateButtons() {
+    const auto& inspectedACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
+    // only show set template button if we have exactly one inspected edge
+    if (inspectedACs.size() == 1) {
+        mySetTemplateButton->setText((TLF("Set edge '%' as Template", inspectedACs.front()->getID())).c_str());
+        mySetTemplateButton->show();
+    } else {
+        mySetTemplateButton->hide();
+    }
     // enable or disable clear buttons depending of myEdgeTemplate
     if (myEdgeTemplate) {
-        // get inspected ACs
-        const auto& ACs = myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers();
         // update caption of copy button
-        if (ACs.size() == 1) {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into edge '" + ACs.front()->getID() + "'").c_str());
+        if (inspectedACs.size() == 1) {
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into edge '" + inspectedACs.front()->getID() + "'").c_str());
         } else {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into " + toString(ACs.size()) + " selected edges").c_str());
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate->getID() + "' into " + toString(inspectedACs.size()) + " selected edges").c_str());
         }
         // enable set and clear buttons
         myCopyTemplateButton->enable();
@@ -1023,7 +1023,6 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
-    myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data

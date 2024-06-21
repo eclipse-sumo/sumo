@@ -203,10 +203,7 @@ public:
         ~TemplateEditor();
 
         /// @brief show template editor
-        void showTemplateEditor();
-
-        /// @brief hide template editor
-        void hideTemplateEditor();
+        bool showTemplateEditor();
 
         /// @brief get edge template (to copy attributes from)
         GNEEdgeTemplate* getEdgeTemplate() const;
@@ -242,7 +239,7 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
-        /// @brief update buttons
+        /// @brief update frame buttons
         void updateButtons();
 
     private:
