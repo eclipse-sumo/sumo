@@ -209,7 +209,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--parking-output** {{DT_FILE}} | Writes parking areas to FILE |
 | **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
-| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 | **--opendrive-output.lefthand-left** {{DT_BOOL}} | Write lanes in lefthand networks on the left side (positive indices); *default:* **false** |
 | **--opendrive-output.shape-match-dist** {{DT_FLOAT}} | Match loaded shapes to the closest edge within FLOAT and export as road objects; *default:* **-1** |
 

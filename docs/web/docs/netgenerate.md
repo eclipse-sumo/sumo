@@ -118,7 +118,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output.street-names** {{DT_BOOL}} | Street names will be included in the output (if available); *default:* **false** |
 | **--output.original-names** {{DT_BOOL}} | Writes original names, if given, as parameter; *default:* **false** |
 | **--street-sign-output** {{DT_FILE}} | Writes street signs as POIs to FILE |
-| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
+| **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 
 ### Processing
 

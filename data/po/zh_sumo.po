@@ -9441,7 +9441,7 @@ msgstr "写出在路网输入內且不受 polyconvert 支持的形状 (OpenDRIVE
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:126
 msgid ""
-"Builds parameterized curves whenever the angular change  between straight "
+"Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr "当直线段之间的角度变化超过 FLOAT 度时,构建参数化曲线"
 

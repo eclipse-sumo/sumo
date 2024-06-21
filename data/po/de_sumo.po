@@ -10540,7 +10540,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:126
 msgid ""
-"Builds parameterized curves whenever the angular change  between straight "
+"Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
 "Erstellt parametrisierte Kurven, wenn die Winkeländerung zwischen geraden "

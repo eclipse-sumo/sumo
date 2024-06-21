@@ -127,7 +127,7 @@ Output Options:
                                         parameter
   --street-sign-output FILE            Writes street signs as POIs to FILE
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
-                                        whenever the angular change  between
+                                        whenever the angular change between
                                         straight segments exceeds FLOAT degrees
 
 Processing Options:
