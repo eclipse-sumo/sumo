@@ -1,0 +1,3 @@
+Warning: Vehicle 'bike0' with device.taxi should have vClass taxi instead of 'bicycle'.
+Warning: Vehicle 'bike1' with device.taxi should have vClass taxi instead of 'bicycle'.
+munmap_chunk(): invalid pointer

@@ -2155,15 +2155,15 @@ void
 GNELane::buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
     // Create basic commands
     std::string edgeDescPossibleMulti = toString(SUMO_TAG_EDGE);
-    const int edgeSelSize = myParentEdge->isAttributeCarrierSelected() ? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
-    if (edgeSelSize && myParentEdge->isAttributeCarrierSelected() && (edgeSelSize > 1)) {
-        edgeDescPossibleMulti = toString(edgeSelSize) + " " + toString(SUMO_TAG_EDGE) + "s";
+    const int numSelectedEdges = myParentEdge->isAttributeCarrierSelected() ? myNet->getAttributeCarriers()->getNumberOfSelectedEdges() : 0;
+    if ((numSelectedEdges > 0) && myParentEdge->isAttributeCarrierSelected() && (numSelectedEdges > 1)) {
+        edgeDescPossibleMulti = toString(numSelectedEdges) + " " + toString(SUMO_TAG_EDGE) + "s";
     }
     // create menu pane for edge operations
     FXMenuPane* edgeOperations = new FXMenuPane(ret);
     ret->insertMenuPaneChild(edgeOperations);
-    if (edgeSelSize > 0) {
-        new FXMenuCascade(ret, TLF("Template operations (% selected)", toString(edgeSelSize)).c_str(), nullptr, edgeOperations);
+    if (numSelectedEdges > 0) {
+        new FXMenuCascade(ret, TLF("Template operations (% selected)", toString(numSelectedEdges)).c_str(), nullptr, edgeOperations);
     } else {
         new FXMenuCascade(ret, TL("Template operations"), nullptr, edgeOperations);
     }
@@ -2174,7 +2174,6 @@ GNELane::buildTemplateOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
     if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate() == nullptr) {
         applyTemplate->disable();
     }
-
 }
 
 

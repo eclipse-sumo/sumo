@@ -78,7 +78,7 @@
         <output.street-names value="false" type="BOOL" help="Street names will be included in the output (if available)"/>
         <output.original-names value="false" type="BOOL" help="Writes original names, if given, as parameter"/>
         <street-sign-output value="" type="FILE" help="Writes street signs as POIs to FILE"/>
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees"/>
     </output>
 
     <processing>

@@ -92,7 +92,7 @@ Output Options:
                                         network input and that are not supported
                                         by polyconvert (OpenDRIVE)
   --opendrive-output.straight-threshold FLOAT  Builds parameterized curves
-                                        whenever the angular change  between
+                                        whenever the angular change between
                                         straight segments exceeds FLOAT degrees
   --opendrive-output.lefthand-left     Write lanes in lefthand networks on the
                                         left side (positive indices)

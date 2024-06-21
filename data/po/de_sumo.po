@@ -4157,11 +4157,11 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
-"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
+"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "Gibt an, welche Maße geschrieben werden (als durch Leerzeichen oder Kommata "
 "getrennte Abfolge von IDs aus der Menge ('TTC', 'DRAC', 'PET', "
-"'PPET','MDRAC'))"
+"'PPET', 'MDRAC'))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""
@@ -9875,7 +9875,7 @@ msgid "Lane sizes differ for connection '%'."
 msgstr "Fahrstreifengrößen unterscheiden sich für die Verbindung '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
-msgid "NIVissimConnectionCluster:More than a single node"
+msgid "NIVissimConnectionCluster: More than a single node"
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:662
@@ -10278,7 +10278,7 @@ msgstr "Unbekannte Zufahrtskante '%' im Konflikt."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1518
 #, c-format
-msgid "Unknown to-edge '%' in connflict."
+msgid "Unknown to-edge '%' in conflict."
 msgstr "Unbekannte Ausfahrtskante '%' im Konflikt."
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1523
@@ -10540,7 +10540,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:126
 msgid ""
-"Builds parameterized curves whenever the angular change  between straight "
+"Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
 "Erstellt parametrisierte Kurven, wenn die Winkeländerung zwischen geraden "

@@ -63,7 +63,7 @@
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
         <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
         <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
-        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
+        <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change between straight segments exceeds FLOAT degrees"/>
         <opendrive-output.lefthand-left value="false" type="BOOL" help="Write lanes in lefthand networks on the left side (positive indices)"/>
         <opendrive-output.shape-match-dist value="-1" type="FLOAT" help="Match loaded shapes to the closest edge within FLOAT and export as road objects"/>
     </output>

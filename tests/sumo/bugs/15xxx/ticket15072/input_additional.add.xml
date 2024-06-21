@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-12 16:15:04 by Eclipse SUMO netedit Version 1.20.0
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <parkingArea id="parkingLot" lane="1940_0" startPos="25.00" endPos="70.00">
+        <space x="730.00" y="1680.00" length="2" angle="315"/>
+        <space x="735.00" y="1680.00" length="2" angle="315"/>
+        <space x="740.00" y="1680.00" length="2" angle="315"/>
+        <space x="745.00" y="1680.00" length="2" angle="315"/>
+    </parkingArea>
+
+    <parkingArea id="parkingLot2" lane="474_0" startPos="50.00" endPos="90.00">
+        <space x="1350.00" y="1090.00" length="2" angle="315"/>
+    </parkingArea>
+
+    <parkingArea id="parkingLot3" lane="199_0" startPos="50.00" endPos="90.00">
+        <space x="1300.00" y="490.00" length="2" angle="315"/>
+    </parkingArea>
+
+    <rerouter id="rr0" edges="1940 474 199">
+        <interval begin="0" end="1:0:0:0">
+            <parkingAreaReroute id="parkingLot2" visible = "1"/>
+             <parkingAreaReroute id="parkingLot3" visible = "1"/>
+            <parkingAreaReroute id="parkingLot" visible = "1"/>
+        </interval>
+    </rerouter>
+</additional>

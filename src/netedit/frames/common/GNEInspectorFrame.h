@@ -203,7 +203,7 @@ public:
         ~TemplateEditor();
 
         /// @brief show template editor
-        void showTemplateEditor();
+        bool showTemplateEditor();
 
         /// @brief hide template editor
         void hideTemplateEditor();
@@ -242,7 +242,7 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
-        /// @brief update buttons
+        /// @brief update frame buttons
         void updateButtons();
 
     private:

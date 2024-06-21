@@ -3649,7 +3649,7 @@ msgstr "将路径搜寻的线程(threads)数调整为仿真的线程(threads)数
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
-"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
+"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "指定记录哪些测量值（以空格或逗号分隔的 ID 序列"
 "（'TTC'、'DRAC'、'PET'、'PPET'、'MDRAC'））"
@@ -8832,7 +8832,7 @@ msgid "Lane sizes differ for connection '%'."
 msgstr "连接线(connection) '%' 车道大小(lane sizes)不同。"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
-msgid "NIVissimConnectionCluster:More than a single node"
+msgid "NIVissimConnectionCluster: More than a single node"
 msgstr "NIVissimConnectionCluster: 不止一个节点"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:662
@@ -9212,7 +9212,7 @@ msgstr "冲突中未知的起始路段(from-edge) '%' 。"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1518
 #, c-format
-msgid "Unknown to-edge '%' in connflict."
+msgid "Unknown to-edge '%' in conflict."
 msgstr "冲突中未知的到达路段(to-edge) '%' 。"
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1523
@@ -9441,7 +9441,7 @@ msgstr "写出在路网输入內且不受 polyconvert 支持的形状 (OpenDRIVE
 
 #: C:\Repos\sumo/src\netwrite\NWFrame.cpp:126
 msgid ""
-"Builds parameterized curves whenever the angular change  between straight "
+"Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr "当直线段之间的角度变化超过 FLOAT 度时,构建参数化曲线"
 
