@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 10:37+0000\n"
+"PO-Revision-Date: 2024-06-21 13:14+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5689,11 +5689,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "La fricción predeterminada sobre una arista"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "La prioridad predeterminada de una arista"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:74
 msgid "The default edge type"
@@ -5701,7 +5701,7 @@ msgstr "El tipo de arista predeterminado"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "El ancho predeterminado de las aceras agregadas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:80
 msgid "The default width of added bike lanes"
@@ -6154,7 +6154,7 @@ msgstr "Remueve aristas aisladas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:681
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "Todos los nodos serán no regulados"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:686
 msgid "Do not regulate nodes in STR[]"
@@ -6162,7 +6162,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:690
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "No regular nodos de distrito"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:696
 msgid "Enable ramp-guessing"
@@ -6728,7 +6728,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3844
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "Solicitud de cruce desconocido '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3860
 msgid "Request for unknown crossing for the given Edges"
@@ -8108,7 +8108,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:285
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:323
 msgid "Could not build node '%'."
-msgstr ""
+msgstr "No se pudo construir el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:422
 msgid "Ignoring road '%' without geometry."
@@ -10690,7 +10690,7 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:228
 #, c-format
 msgid "Found % outside container element"
-msgstr ""
+msgstr "% encontrado fuera del elemento contenedor"
 
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:352
 msgid "No probability for route %, using default."
@@ -12034,7 +12034,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:555
 msgid "Invalid 'index' for stop%."
-msgstr ""
+msgstr "'index' no válido para la parada%."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
