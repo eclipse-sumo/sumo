@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 09:56+0000\n"
+"PO-Revision-Date: 2024-06-21 13:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -397,19 +397,21 @@ msgstr "La deviazione standard della velocità dei veicoli"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:231
 msgid "Defines the begin time; Previous defs will be discarded"
-msgstr ""
+msgstr "Definisce l'ora iniziale; definizioni anteriori verranno scartate"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:234
 msgid "Defines the end time; Later defs will be discarded; Defaults to one day"
 msgstr ""
+"Definisce l'ora finale; definizioni posteriori verranno scartate; Valore "
+"standard: un giorno"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:239
 msgid "Lists detectors with no flow (enable -v)"
-msgstr ""
+msgstr "Elenca rivelatori senra flusso (attiva con -v)"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:242
 msgid "Prints aggregated detector flows"
-msgstr ""
+msgstr "Stampa i flussi di rivelatori aggregati"
 
 #: C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:246
 #: C:\Repos\sumo/src\router\ROFrame.cpp:228
