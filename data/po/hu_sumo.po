@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-19 10:58+0200\n"
+"POT-Creation-Date: 2024-06-21 16:48+0200\n"
 "PO-Revision-Date: 2023-06-10 19:38+0000\n"
 "Last-Translator: ovari <ovari123@zoho.com>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -3519,7 +3519,7 @@ msgstr ""
 msgid "Minimum speed when coasting towards a red light"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:176
+#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:177
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
@@ -4688,7 +4688,7 @@ msgstr ""
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:293
+#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:279
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
@@ -7391,15 +7391,15 @@ msgstr ""
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:374
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:388
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
 msgstr ""
@@ -9580,6 +9580,7 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:279
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:271
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:389
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
 msgstr ""
 
@@ -11267,10 +11268,6 @@ msgstr ""
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
-msgid "Unable to project coordinates for PoI '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202

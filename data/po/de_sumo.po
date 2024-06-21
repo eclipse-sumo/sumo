@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-19 10:58+0200\n"
+"POT-Creation-Date: 2024-06-21 16:48+0200\n"
 "PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -4052,7 +4052,7 @@ msgstr ""
 msgid "Minimum speed when coasting towards a red light"
 msgstr "Mindestgeschwindigkeit beim Annähern auf eine rote LSA"
 
-#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:176
+#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:177
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
@@ -4160,8 +4160,8 @@ msgid ""
 "sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "Gibt an, welche Maße geschrieben werden (als durch Leerzeichen oder Kommata "
-"getrennte Abfolge von IDs aus der Menge ('TTC', 'DRAC', 'PET', "
-"'PPET', 'MDRAC'))"
+"getrennte Abfolge von IDs aus der Menge ('TTC', 'DRAC', 'PET', 'PPET', "
+"'MDRAC'))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""
@@ -5448,7 +5448,7 @@ msgstr "arrivalPos für geklonten Fußweg mit routeDistribution '%' angepasst"
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr "departLane für geklonten Fußweg mit routeDistribution '%' angepasst"
 
-#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:293
+#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:279
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
@@ -8506,19 +8506,19 @@ msgstr "Die Kante '%' ist nicht einzigartig."
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr "Kante '%' ist nicht einzigartig. Umbenennung der Kante zu '%'."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr ""
 "Kante '%' konnte nicht erstellt werden. Ein Kante mit der gleichen ID "
 "existiert bereits."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:374
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr ""
 "Kante '-%' konnte nicht erstellt werden. Ein Kante mit der gleichen ID "
 "existiert bereits."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:388
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO wurde ohne GDAL Unterstützung kompiliert."
@@ -10919,6 +10919,7 @@ msgstr "Fehlende ID unter '%'"
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:279
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:271
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:389
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
 msgstr "Unfähig Koordinaten für den Pol '%' zu projizieren."
 
@@ -12802,10 +12803,6 @@ msgstr ""
 "Für PoI '%' liegen (Länge, Breite) vor, aber es wurde im Nez kein "
 "geografisches Konvertierungsverfahren angegeben."
 
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
-msgid "Unable to project coordinates for PoI '%'."
-msgstr "Koordinaten für den Pol '%' können nicht projiziert werden."
-
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
 #, c-format
 msgid "PoI '%' already exists."
@@ -13200,6 +13197,9 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
+
+#~ msgid "Unable to project coordinates for PoI '%'."
+#~ msgstr "Koordinaten für den Pol '%' können nicht projiziert werden."
 
 #, c-format
 #~ msgid "Battery of vehicle '%' is depleted."

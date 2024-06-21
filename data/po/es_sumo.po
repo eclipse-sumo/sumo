@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-19 10:58+0200\n"
+"POT-Creation-Date: 2024-06-21 16:48+0200\n"
 "PO-Revision-Date: 2024-06-21 14:26+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -2305,7 +2305,8 @@ msgstr "La distancia para aceptar el punto de llegada de JuPedSim (en metros)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:567
 msgid "The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"
-msgstr "El submodelo a usar en JuPedSim (actualmente solo 'CollisionFreeSpeed')"
+msgstr ""
+"El submodelo a usar en JuPedSim (actualmente solo 'CollisionFreeSpeed')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:569
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -3758,7 +3759,7 @@ msgstr "El factor de velocidad máxima al acercarse a un semáforo en verde"
 msgid "Minimum speed when coasting towards a red light"
 msgstr "Velocidad mínima al avanzar por inercia hacia un semáforo en rojo"
 
-#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:176
+#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:177
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
@@ -4189,8 +4190,8 @@ msgid ""
 "How to deal with a vehicle which has to stop due to low battery: [none, "
 "remove, tow]"
 msgstr ""
-"Cómo proceder con un vehículo que tiene que detenerse por falta de batería: ["
-"none, remove, tow]"
+"Cómo proceder con un vehículo que tiene que detenerse por falta de batería: "
+"[none, remove, tow]"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_StationFinder.cpp:64
 msgid ""
@@ -5023,7 +5024,7 @@ msgstr ""
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:293
+#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:279
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
@@ -7296,9 +7297,9 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
-"[traffic_light|priority|right_before_left|left_before_right|traffic_light_rig"
-"ht_on_red|priority_stop|allway_stop|...] Determina el tipo de cruce (ver "
-"wiki/Networks/PlainXML#Node_types)"
+"[traffic_light|priority|right_before_left|left_before_right|"
+"traffic_light_right_on_red|priority_stop|allway_stop|...] Determina el tipo "
+"de cruce (ver wiki/Networks/PlainXML#Node_types)"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
@@ -7872,15 +7873,15 @@ msgstr "La arista '%' no es única."
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr "La arista '%' no es única. Renombrando arista a '%'."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr "No se pudo crear la arista '%'. Ya existe una arista con el mismo ID."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:374
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr "No se pudo crear la arista '-%'. Ya existe una arista con el mismo ID."
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:388
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
 msgstr "SUMO se compiló sin soporte de GDAL."
@@ -10114,6 +10115,7 @@ msgstr "Falta ID en '%'"
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:279
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:271
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:389
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
 msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
@@ -10794,7 +10796,8 @@ msgstr ""
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:91
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr "Define el tipo de vehículo que se usará para los parámetros de emisión."
+msgstr ""
+"Define el tipo de vehículo que se usará para los parámetros de emisión."
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:95
 msgid ""
@@ -10808,8 +10811,8 @@ msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
 msgstr ""
-"Si se establece, la aceleración para el tiempo t se calculará usando v(t+1) -"
-" v(t) en lugar de v(t) - v(t-1). "
+"Si se establece, la aceleración para el tiempo t se calculará usando v(t+1) "
+"- v(t) en lugar de v(t) - v(t-1). "
 
 #: C:\Repos\sumo/src\tools\emissionsDrivingCycle_main.cpp:101
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
@@ -11639,8 +11642,8 @@ msgid ""
 "Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://"
 "sumo.dlr.de"
 msgstr ""
-"Copyright (C) 2001-2024 Centro Aeroespacial Alemán (DLR) y otros; "
-"https://sumo.dlr.de"
+"Copyright (C) 2001-2024 Centro Aeroespacial Alemán (DLR) y otros; https://"
+"sumo.dlr.de"
 
 #: C:\Repos\sumo/src\utils\options\OptionsCont.cpp:152
 msgid "Internal request for unknown option '%'!"
@@ -11895,10 +11898,6 @@ msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
-
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
-msgid "Unable to project coordinates for PoI '%'."
-msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
 #, c-format
@@ -12247,6 +12246,9 @@ msgstr ""
 #: C:\Repos\sumo/src\utils\xml\XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Se produjo un error no especificado al analizar '%'"
+
+#~ msgid "Unable to project coordinates for PoI '%'."
+#~ msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #, c-format
 #~ msgid "Battery of vehicle '%' is depleted."
