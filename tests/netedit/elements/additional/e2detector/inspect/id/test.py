@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 450, 253)
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.inspectE2Detector.x, netedit.positions.additionalElements.inspectE2Detector.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x, netedit.positions.elements.additionals.e2Detector.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.id, "e2_1", True)

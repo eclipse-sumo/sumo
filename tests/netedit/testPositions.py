@@ -139,8 +139,8 @@ class elements:
             y = 190
 
         class e2Detector:
-            x = 290
-            y = 220
+            x = 310
+            y = 218
         
         class squaredA:
             x = 437
