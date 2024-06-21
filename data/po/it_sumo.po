@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-20 14:29+0000\n"
+"PO-Revision-Date: 2024-06-21 09:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3299,24 +3299,26 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:172
 #, c-format
 msgid "Device '%' cannot save state"
-msgstr ""
+msgstr "L'attrezzo '%' non è capace di salvare il suo stato"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:211
 msgid ""
 "Invalid distribution / float value '%' for parameter '%' in vehicle '%'."
 msgstr ""
+"Distribuzione / valore numerico in virgola mobile '%' invalido per il "
+"parametro '%' del veicolo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:223
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Valore booleano '%' invalido per il parametro #%' del veicolo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice.cpp:235
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
-msgstr ""
+msgstr "Valore temporale '%' invalido per il parametro '%' del veicolo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:65
 msgid "The range of the bt receiver"
-msgstr ""
+msgstr "Il raggio del ricevitore Bluetooth"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
@@ -4206,23 +4208,26 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:161
 msgid "ToC device is not supported by the mesoscopic simulation."
-msgstr ""
+msgstr "L'attrezzo ToC non è supportato nella simulazione mesoscopica."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:200
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.measures'"
-msgstr ""
+msgstr "Valore invalido '%' per il parametro di veicolo 'ssm.measures'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:206
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.measures'"
-msgstr ""
+msgstr "Valore invalido '%' per il parametro di tipo di veicolo 'ssm.measures'"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:220
 msgid ""
 "Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in "
 "the admissible range [0,0.5]. Truncated to %."
 msgstr ""
+"Il valore % dato per il parametro 'dynamicMRMProbability' dell'attrezzo ToC "
+"non si trova nell'intervallo admissibile [0,0.5]. Pertanto è stato cambiato "
+"a %."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:246
 msgid ""
@@ -7163,23 +7168,25 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:197
 msgid "Import lane-specific access restrictions"
-msgstr ""
+msgstr "Importa autorizzazioni specifiche alle corsie"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:201
 msgid "Import bike lanes and fix directions and permissions on bike paths"
 msgstr ""
+"Importa piste ciclabili e correggi direzioni e autorizzazioni su pista "
+"ciclabili"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:204
 msgid "Import sidewalks"
-msgstr ""
+msgstr "Importa marciapiedi"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:207
 msgid "Import crossings"
-msgstr ""
+msgstr "Importa passaggi pedonali"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:210
 msgid "Import turning arrows from OSM to help with connection building"
-msgstr ""
+msgstr "Importa frecce di svolta da OSM per la creazione di collegamenti"
 
 #: C:\Repos\sumo/src\netimport\NIFrame.cpp:213
 msgid "The default length of a public transport stop in FLOAT m"
