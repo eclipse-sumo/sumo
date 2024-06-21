@@ -8832,7 +8832,7 @@ msgid "Lane sizes differ for connection '%'."
 msgstr "连接线(connection) '%' 车道大小(lane sizes)不同。"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
-msgid "NIVissimConnectionCluster:More than a single node"
+msgid "NIVissimConnectionCluster: More than a single node"
 msgstr "NIVissimConnectionCluster: 不止一个节点"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:662
