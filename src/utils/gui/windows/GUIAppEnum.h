@@ -272,6 +272,8 @@ enum {
     MID_HOTKEY_SHIFT_F10_SUMOOPTIONSMENU,
     /// @brief focus upper element of current frame (only used in netedit)
     MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,
+    /// @brief clear selection
+    MID_HOTKEY_SHIFT_ESC_CLEARSELECTION,
 
     /// @}
 
