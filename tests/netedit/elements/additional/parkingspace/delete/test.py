@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 382, 256)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select space
 netedit.changeElement("space")
@@ -53,7 +53,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, 292, 347)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # delete first loaded parkingArea
 netedit.leftClick(referencePosition, 360, 8)
