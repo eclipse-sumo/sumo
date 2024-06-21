@@ -205,6 +205,9 @@ public:
         /// @brief show template editor
         bool showTemplateEditor();
 
+        /// @brief hide template editor
+        void hideTemplateEditor();
+
         /// @brief get edge template (to copy attributes from)
         GNEEdgeTemplate* getEdgeTemplate() const;
 

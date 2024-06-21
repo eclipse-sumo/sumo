@@ -572,8 +572,6 @@ GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFr
     myCopyTemplateButton = GUIDesigns::buildFXButton(getCollapsableFrame(), "", "", "", nullptr, this, MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY, GUIDesignButton);
     // Create copy template button
     myClearTemplateButton = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("clear Edge Template"), "", "", nullptr, this, MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GUIDesignButton);
-    // hidden by default
-    hide();
 }
 
 
@@ -594,6 +592,12 @@ GNEInspectorFrame::TemplateEditor::showTemplateEditor() {
             }
         }
     }
+    return false;
+}
+
+
+void
+GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
     // hide template editor
     hide();
 }
@@ -1023,6 +1027,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditor->hideParametersEditor();
     myAdditionalDialog->hideAdditionalDialog();
+    myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
