@@ -9,3 +9,7 @@ slowDown_no
 
 # drive a bit faster to catch the green light
 speedUp
+
+# failing GLOSA device after passing first junction
+# (#15011)
+junction_before_tls
