@@ -9524,7 +9524,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1518
 #, c-format
-msgid "Unknown to-edge '%' in connflict."
+msgid "Unknown to-edge '%' in conflict."
 msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1523

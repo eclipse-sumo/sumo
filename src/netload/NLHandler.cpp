@@ -1515,7 +1515,7 @@ NLHandler::addConflict(const SUMOSAXAttributes& attrs) {
     }
     MSEdge* to = MSEdge::dictionary(toID);
     if (to == nullptr) {
-        WRITE_ERRORF(TL("Unknown to-edge '%' in connflict."), toID);
+        WRITE_ERRORF(TL("Unknown to-edge '%' in conflict."), toID);
         return;
     }
     if (fromLaneIdx < 0 || fromLaneIdx >= (int)from->getLanes().size() ||
