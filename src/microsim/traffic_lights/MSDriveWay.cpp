@@ -890,6 +890,8 @@ MSDriveWay::findFlankProtection(MSLink* link, double length, LaneVisitedMap& vis
 #ifdef DEBUG_CHECK_FLANKS
         std::cout << "   flank guarded by " << link->getTLLogic()->getID() << "\n";
 #endif
+        // @note, technically it's enough to collect links from foe driveways
+        // but this also adds "unused" conflict links which may aid comprehension
         myConflictLinks.push_back(link);
         addFoes(link);
     } else if (length > MAX_BLOCK_LENGTH) {
@@ -1032,11 +1034,20 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 
     // make foes unique and symmetrical
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
+    std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
     dw->myFoes.clear();
     dw->myFoes.insert(dw->myFoes.end(), uniqueFoes.begin(), uniqueFoes.end());
     for (MSDriveWay* foe : dw->myFoes) {
         foe->myFoes.push_back(dw);
+        foe->addConflictLink(link);
+        for (auto ili : foe->myForward.front()->getIncomingLanes()) {
+            if (ili.viaLink->getTLLogic() != nullptr) {
+                uniqueCLink.insert(ili.viaLink);
+            }
+        }
     }
+    dw->myConflictLinks.clear();
+    dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
     return dw;
 }
 
@@ -1134,4 +1145,13 @@ MSDriveWay::addSwitchFoes(const MSLink* link) {
     }
 }
 
+
+void
+MSDriveWay::addConflictLink(const MSLink* link) {
+    if (link->getTLLogic() != nullptr) {
+        if (std::find(myConflictLinks.begin(), myConflictLinks.end(), link) == myConflictLinks.end()) {
+            myConflictLinks.push_back(const_cast<MSLink*>(link));
+        }
+    }
+}
 /****************************************************************************/

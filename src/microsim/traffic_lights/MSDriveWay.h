@@ -218,6 +218,9 @@ protected:
     /// @brief add all driveWays that pass the given link as foes
     void addSwitchFoes(const MSLink* link);
 
+    /// @brief add symmetical conflict link for foes when building a new driveway
+    void addConflictLink(const MSLink* link);
+
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
 
