@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 10:37+0000\n"
+"PO-Revision-Date: 2024-06-21 14:26+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1416,7 +1416,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:792
 msgid "Vehicle '%' has no valid route. %"
-msgstr ""
+msgstr "El vehículo '%' no tiene una ruta válida. %"
 
 #: C:\Repos\sumo/src\microsim\MSBaseVehicle.cpp:855
 msgid ""
@@ -2882,7 +2882,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:396
 msgid "Simulation version % started with time: %."
-msgstr ""
+msgstr "Versión de simulación % iniciada con tiempo: %."
 
 #: C:\Repos\sumo/src\microsim\MSNet.cpp:1473
 msgid ""
@@ -2942,7 +2942,7 @@ msgstr "La ruta '%' no tiene aristas."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:436
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " para el vehículo '%' con clase %."
 
 #: C:\Repos\sumo/src\microsim\MSRouteHandler.cpp:441
 msgid ""
@@ -4545,7 +4545,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:163
 #, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "El vehículo '%' termina inactivo en una vía sin salida"
 
 #: C:\Repos\sumo/src\microsim\devices\MSIdling.cpp:189
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
@@ -4841,7 +4841,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\traffic_lights\NEMAController.cpp:965
 msgid "I am starting in the coordinated phases"
-msgstr ""
+msgstr "Estoy empezando en las fases coordinadas"
 
 #: C:\Repos\sumo/src\microsim\transportables\MSPModel.h:188
 msgid "moveTo is ignored by the current movement model"
@@ -5257,7 +5257,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:371
 msgid "Found % railway nodes marked as buffer_stop"
-msgstr ""
+msgstr "Se encontraron % nodos ferroviarios marcados como buffer_stop"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Railway.cpp:381
 msgid "Found % bidirectional rail edges"
@@ -5374,7 +5374,7 @@ msgstr "¡No se pudo establecer la conexión!"
 
 #: C:\Repos\sumo/src\netbuild\NBAlgorithms_Ramps.cpp:440
 msgid "For edge '%': could not compute shape."
-msgstr ""
+msgstr "Para la arista '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:433
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:461
@@ -5385,7 +5385,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:458
 #, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr ""
+msgstr "La arista '%' necesita al menos un carril."
 
 #: C:\Repos\sumo/src\netbuild\NBEdge.cpp:464
 msgid "Invalid edge id '%'."
@@ -5689,11 +5689,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "La fricción predeterminada sobre una arista"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "La prioridad predeterminada de una arista"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:74
 msgid "The default edge type"
@@ -5701,7 +5701,7 @@ msgstr "El tipo de arista predeterminado"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "El ancho predeterminado de las aceras agregadas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:80
 msgid "The default width of added bike lanes"
@@ -6154,15 +6154,15 @@ msgstr "Remueve aristas aisladas"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:681
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "Todos los nodos serán no regulados"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:686
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "No regular los nodos en STR[]"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:690
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "No regular nodos de distrito"
 
 #: C:\Repos\sumo/src\netbuild\NBFrame.cpp:696
 msgid "Enable ramp-guessing"
@@ -6312,7 +6312,7 @@ msgstr "No se puede cargar el archivo GeoTIFF."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:303
 msgid "Could not parse geo information from %."
-msgstr ""
+msgstr "No se pudo analizar la geo información de %."
 
 #: C:\Repos\sumo/src\netbuild\NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
@@ -6680,7 +6680,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1182
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "Para el cruce '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1884
 msgid "Something went wrong during the building of a connection..."
@@ -6728,7 +6728,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3844
 msgid "Request for unknown crossing '%'"
-msgstr ""
+msgstr "Solicitud de cruce desconocido '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3860
 msgid "Request for unknown crossing for the given Edges"
@@ -7144,10 +7144,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
 msgstr ""
+"Tomar el número de carriles de manera aleatoria de [1,default.lanenumber]"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:71
 msgid "Draw edge priority randomly from [1,default.priority]"
 msgstr ""
+"Tomar la prioridad de arista de manera aleatoria de [1,default.priority]"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
@@ -7230,11 +7232,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:162
 msgid "The maximum distance for each edge"
-msgstr ""
+msgstr "La longitud máxima para cada arista"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:167
 msgid "The minimum distance for each edge"
-msgstr ""
+msgstr "La longitud mínima para cada arista"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
@@ -7294,10 +7296,13 @@ msgid ""
 "traffic_light_right_on_red|priority_stop|allway_stop|...] Determines "
 "junction type (see wiki/Networks/PlainXML#Node_types)"
 msgstr ""
+"[traffic_light|priority|right_before_left|left_before_right|traffic_light_rig"
+"ht_on_red|priority_stop|allway_stop|...] Determina el tipo de cruce (ver "
+"wiki/Networks/PlainXML#Node_types)"
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:120
 msgid "Spider networks need at least 3 arms."
-msgstr ""
+msgstr "Redes telaraña requieren de al menos 3 ramas."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:124
 msgid "Spider networks with many arms should use option spider.omit-center"
@@ -7307,7 +7312,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:127
 msgid "Spider networks need at least one circle."
-msgstr ""
+msgstr "Redes telaraña requieren de al menos un círculo."
 
 #: C:\Repos\sumo/src\netgen\netgen_main.cpp:135
 #, c-format
@@ -7928,16 +7933,16 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
-msgstr ""
+msgstr "Valor no numérico de x-position en el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:226
 msgid "Non-numerical value for y-position in node %."
-msgstr ""
+msgstr "Valor no numérico de y-position en el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:230
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:321
 msgid "Unable to project coordinates for node %."
-msgstr ""
+msgstr "No se pudo proyectar coordenadas para el nodo %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:240
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:242
@@ -7954,15 +7959,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
-msgstr ""
+msgstr "Valor no numérico de form_of_way del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:316
 msgid "Non-numerical value for brunnel_type of link '%'."
-msgstr ""
+msgstr "Valor no numérico de brunnel_type del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:329
-msgid "Non-numerical value for street_type of link '%')."
-msgstr ""
+msgid "Non-numerical value for street_type of link '%'."
+msgstr "Valor no numérico de street_type del enlace '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
@@ -8108,7 +8113,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:285
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:323
 msgid "Could not build node '%'."
-msgstr ""
+msgstr "No se pudo construir el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:422
 msgid "Ignoring road '%' without geometry."
@@ -8326,7 +8331,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:994
 msgid "Tag element on wrong XML hierarchy level."
-msgstr ""
+msgstr "Elemento de etiqueta en un nivel de jerarquía XML incorrecto."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1054
 msgid "Value of key '%' is invalid ('%') in node '%'."
@@ -8525,7 +8530,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:272
 #, c-format
 msgid "The traffic light '%' is not known."
-msgstr ""
+msgstr "El semáforo '%' no es conocido."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:290
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:292
@@ -8538,7 +8543,7 @@ msgstr "No se construyó la arista '%' en prohibición."
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:353
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input network."
-msgstr ""
+msgstr "Clase(s) de vehículo obsoleta(s) '%' en la red proporcionada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:411
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1692
@@ -8566,7 +8571,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:638
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "El carril encontrado '%' no está dentro de un elemento arista."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:643
 msgid "Renaming lane '%' to '%'."
@@ -8642,7 +8647,7 @@ msgstr "Se produjo un nodo duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el distrito %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
@@ -8650,7 +8655,7 @@ msgstr "Se produjo un distrito duplicado ('%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:458
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:475
@@ -8995,7 +9000,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el carril '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:472
 msgid "Ignoring 'split' because it cannot be assigned to an edge"
@@ -10159,7 +10164,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:206
 msgid "Assembled polygon from relation '%' (name:%)%"
-msgstr ""
+msgstr "Polígono ensamblado de la relación '%' (nombre:%)%"
 
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:208
 msgid ""
@@ -10690,7 +10695,7 @@ msgstr ""
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:228
 #, c-format
 msgid "Found % outside container element"
-msgstr ""
+msgstr "% encontrado fuera del elemento contenedor"
 
 #: C:\Repos\sumo/src\router\RORouteHandler.cpp:352
 msgid "No probability for route %, using default."
@@ -11503,11 +11508,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\handlers\DataHandler.cpp:111
 msgid "Data elements cannot load attributes as params"
-msgstr ""
+msgstr "Los elementos de datos no pueden cargar atributos como parámetros"
 
 #: C:\Repos\sumo/src\utils\handlers\MeanDataHandler.cpp:54
 msgid "MeanData elements cannot load attributes as params"
-msgstr ""
+msgstr "Los elementos MeanData no pueden cargar atributos como parámetros"
 
 #: C:\Repos\sumo/src\utils\handlers\RouteHandler.cpp:410
 msgid ""
@@ -11893,7 +11898,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for PoI '%'."
-msgstr ""
+msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
 #, c-format
@@ -12034,7 +12039,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMORouteHandler.cpp:555
 msgid "Invalid 'index' for stop%."
-msgstr ""
+msgstr "'index' no válido para la parada%."
 
 #: C:\Repos\sumo/src\utils\vehicle\SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
