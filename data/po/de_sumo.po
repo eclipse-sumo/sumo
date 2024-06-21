@@ -4157,11 +4157,11 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
-"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
+"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "Gibt an, welche Maße geschrieben werden (als durch Leerzeichen oder Kommata "
 "getrennte Abfolge von IDs aus der Menge ('TTC', 'DRAC', 'PET', "
-"'PPET','MDRAC'))"
+"'PPET', 'MDRAC'))"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:240
 msgid ""

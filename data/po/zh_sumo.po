@@ -3649,7 +3649,7 @@ msgstr "将路径搜寻的线程(threads)数调整为仿真的线程(threads)数
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
-"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
+"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "指定记录哪些测量值（以空格或逗号分隔的 ID 序列"
 "（'TTC'、'DRAC'、'PET'、'PPET'、'MDRAC'））"

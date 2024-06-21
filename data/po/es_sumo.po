@@ -3861,7 +3861,7 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:238
 msgid ""
 "Specifies which measures will be logged (as a space or comma-separated "
-"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET','MDRAC'))"
+"sequence of IDs in ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
 msgstr ""
 "Especifica qué medidas se registrarán (como una secuencia de IDs separados "
 "por espacios o comas ('TTC', 'DRAC', 'PET', 'PPET', 'MDRAC'))"
