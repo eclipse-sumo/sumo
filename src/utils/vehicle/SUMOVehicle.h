@@ -296,6 +296,9 @@ public:
 
     /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
      */
+    virtual bool isStopped() const = 0;
+    /** @brief Returns whether the vehicle is at a stop and waiting for a person or container to continue
+     */
     virtual bool isStoppedTriggered() const = 0;
 
     /** @brief Returns whether the vehicle is at a stop and parking

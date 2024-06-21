@@ -48,6 +48,7 @@
 //#define DEBUG_SIGNALSTATE_PRIORITY
 //#define DEBUG_FIND_PROTECTION
 //#define DEBUG_ADD_FOES
+//#define DEBUG_SIGNALSTATE
 
 #define DEBUG_COND DEBUG_HELPER(this)
 //#define DEBUG_HELPER(obj) ((obj)->isSelected())
@@ -85,8 +86,8 @@ MSDriveWay::init() {
 
 MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         MSMoveReminder("DriveWay_" + (temporary ? "tmp" : toString(myGlobalDriveWayIndex))),
+        Named(id),
         myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
-        myID(id),
         myMaxFlankLength(0),
         myActive(nullptr),
         myProtectedBidi(nullptr),
@@ -390,6 +391,64 @@ MSDriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store, con
     }
     return false;
 }
+
+
+bool
+MSDriveWay::foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const {
+    for (const MSDriveWay* foeDW : myFoes) {
+        if (!foeDW->myTrains.empty()) {
+#ifdef DEBUG_SIGNALSTATE
+            if (gDebugFlag4) {
+                std::cout << SIMTIME << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
+                if (joinVehicle != "") {
+                    std::cout << "  joinVehicle=" << joinVehicle << "\n";
+                }
+            }
+#endif
+            if (foeDW->myTrains.size() == 1) {
+                SUMOVehicle* foe = *foeDW->myTrains.begin();
+                if (joinVehicle != "") {
+                    if (foe->getID() == joinVehicle && foe->isStopped()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore join-target '" << joinVehicle << "\n";
+                        }
+#endif
+                        continue;
+                    }
+                }
+                if (ego != nullptr) {
+                    /*
+                    if (foe == ego && std::find(myBidi.begin(), myBidi.end(), lane) != myBidi.end()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore ego as oncoming '" << ego->getID() << "\n";
+                        }
+#endif
+                        continue;
+                    }
+                    */
+                    if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
+                        }
+#endif
+                        continue;
+                    }
+                }
+            }
+            if (MSRailSignal::storeVehicles() && store) {
+                for (SUMOVehicle* foe : foeDW->myTrains) {
+                    MSRailSignal::blockingVehicles().push_back(foe);
+                }
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
 
 bool
 MSDriveWay::deadlockLaneOccupied(bool store) const {

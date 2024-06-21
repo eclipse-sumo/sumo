@@ -36,7 +36,7 @@ class MSLink;
 /**
  * @class MSDriveWay
  */
-class MSDriveWay : public MSMoveReminder {
+class MSDriveWay : public MSMoveReminder, public Named {
 public:
     typedef std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation> Approaching;
     typedef std::set<const MSLane*, ComparatorNumericalIdLess> LaneSet;
@@ -64,6 +64,9 @@ public:
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true, const SUMOVehicle* ego = nullptr) const;
+
+    /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
+    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const; 
 
     /// @brief Whether any of the conflict links have approaching vehicles
     bool conflictLinkApproached() const;
@@ -120,9 +123,6 @@ protected:
 
     /// @brief global driveway index
     int myNumericalID;
-
-    /// @brief driveway name
-    std::string myID;
 
     /// @brief the maximum flank length searched while building this driveway
     double myMaxFlankLength;
