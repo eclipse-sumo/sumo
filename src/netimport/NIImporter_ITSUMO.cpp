@@ -260,7 +260,7 @@ NIImporter_ITSUMO::Handler::myEndElement(int element) {
                     WRITE_ERRORF(TL("Missing node in laneset '%'."), myParameter["lanesetID"]);
                 } else {
                     if (myLaneSets.find(id) != myLaneSets.end()) {
-                        WRITE_ERRORF(TL("Fond laneset-id '%' twice."), id);
+                        WRITE_ERRORF(TL("Found laneset-id '%' twice."), id);
                     } else {
                         double vSum = 0;
                         for (std::vector<Lane>::iterator j = myCurrentLanes.begin(); j != myCurrentLanes.end(); ++j) {

@@ -36,7 +36,13 @@ class Test_Init(unittest.TestCase):
         del os.environ['SUMO_BINARY']
         self.assertIn('sumo', sumolib.checkBinary('sumo'))
         del os.environ['SUMO_HOME']
-        self.assertEqual('sumo', sumolib.checkBinary('sumo', ''))
+        try:
+            # try whether the eclipse-sumo wheel is installed
+            import sumo
+            self.assertIn('sumo', sumolib.checkBinary('sumo'))
+            self.assertIn('python', sumolib.checkBinary('sumo'))
+        except ImportError:
+            self.assertEqual('sumo', sumolib.checkBinary('sumo', ''))
 
     def test_intTime(self):
         self.assertEqual(1, sumolib._intTime('1.0'))

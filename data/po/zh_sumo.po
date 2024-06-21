@@ -7745,7 +7745,7 @@ msgid "Missing node in laneset '%'."
 msgstr "车道集合(laneset) '%' 內缺少节点。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:263
-msgid "Fond laneset-id '%' twice."
+msgid "Found laneset-id '%' twice."
 msgstr "已发现两次车道集合识别名(laneset-id) '%'。"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:277

@@ -8713,7 +8713,7 @@ msgid "Missing node in laneset '%'."
 msgstr "Fehlender Knoten im Fahrstreifensatz '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:263
-msgid "Fond laneset-id '%' twice."
+msgid "Found laneset-id '%' twice."
 msgstr "Fahrstreifensatz-ID '%' zweimal gefunden."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_ITSUMO.cpp:277

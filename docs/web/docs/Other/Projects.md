@@ -107,7 +107,7 @@ Addresses the environmental footprint in the transport sector by developing a ne
   demonstrator is included with SUMO.
 - [DRIVE C2X](https://web.archive.org/web/20170311043037/https://www.drive-c2x.eu/project) Driving implementation
   and evaluation of C2X communication technology
-- [MENDEL](https://www.busundbahn.de/fileadmin/user_upload/Dossiers/Elektrobusse/DNV_2019_12_Naumann_FA_WA.pdf) modeling electric
+- [MENDEL](https://ikt-em-projekte.de/projekte/mendel-minimal-belastung-elektrischer-netze/) modeling electric
   buses and optimizing charging with respect to grid load
 
 ## At other Institutions

@@ -48,6 +48,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/network/GNEEdgeTemplate.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/data/GNEMeanData.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
@@ -1151,12 +1152,27 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     }
     const double lefthandSign = lefthand ? -1 : 1;
     std::vector<GNEJunction*> newJunctions;
+    GNEEdge* templateEdge = nullptr;
     GNEEdge* prevOpposite = nullptr;
     // split incoming/outgoing edges
     for (GNEEdge* edge : edges) {
         GNEJunction* newJunction = nullptr;
         if (edge == prevOpposite) {
             newJunction = newJunctions.back();
+        }
+        // update template (most "important" incoming edge)
+        if (edge->getToJunction() == junction) {
+            if (templateEdge == nullptr) {
+                templateEdge = edge;
+            } else {
+                NBEdge* tpl = templateEdge->getNBEdge();
+                NBEdge* e = edge->getNBEdge();
+                if (tpl->getNumLanes() < e->getNumLanes()
+                        || (tpl->getNumLanes() == e->getNumLanes()
+                            && tpl->getPriority() < e->getPriority())) {
+                    templateEdge = edge;
+                }
+            }
         }
         //std::cout << " edge=" << edge->getID() << " prevOpposite=" << Named::getIDSecure(prevOpposite) << " newJunction=" << Named::getIDSecure(newJunction) << "\n";
         prevOpposite = edge->getOppositeEdges().size() > 0 ? edge->getOppositeEdges().front() : nullptr;
@@ -1192,6 +1208,10 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
         //std::cout << " newEdge=" << newEdge->getID() << " angle1=" << angle1 << " angle2=" << angle2 << " angleDiff=" << angleDiff
         //    << " numSegments=" << numSegments << " innerGeom=" << innerGeom << "\n";
         newEdge->setAttribute(SUMO_ATTR_SHAPE, toString(innerGeom), undoList);
+        if (templateEdge) {
+            GNEEdgeTemplate t(templateEdge);
+            newEdge->copyTemplate(&t, undoList);
+        }
     }
     undoList->end();
 }

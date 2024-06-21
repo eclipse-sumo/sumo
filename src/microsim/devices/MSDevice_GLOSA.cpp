@@ -109,6 +109,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
 #endif
         if (myNextTLSLink->haveGreen()) {
+            myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
             if (timeToJunction > timeToSwitch) {
                 if (myMaxSpeedFactor > myVeh.getChosenSpeedFactor()) {
                     const double vMax2 = vMax / myVeh.getChosenSpeedFactor() * myMaxSpeedFactor;
@@ -270,7 +271,7 @@ MSDevice_GLOSA::time_to_junction_at_continuous_accel(double d, double v) {
 
 
 void
-MSDevice_GLOSA::adaptSpeed(double distance, double timeToJunction, double timeToSwitch) {
+MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double timeToSwitch) {
     // ensure that myVehicle arrives at the
     // junction with maximum speed when it switches to green
     // car performs a slowDown at time z to speed x for duration y
@@ -279,57 +280,76 @@ MSDevice_GLOSA::adaptSpeed(double distance, double timeToJunction, double timeTo
     // b) maximize x -> this saves fuel but wastes road
     // c) compromise: b) but only when distance to junction is below a threshold
 
-    const double vMax = myVeh.getLane()->getVehicleMaxSpeed(&myVeh);
-    if (timeToJunction < timeToSwitch
-            && myVeh.getSpeed() > myMinSpeed) {
-        // need to start/continue maneuver
-        const double t = timeToSwitch;
-        const double a = myVeh.getCarFollowModel().getMaxAccel();
-        const double d = myVeh.getCarFollowModel().getMaxDecel();
-        const double u = myMinSpeed;
-        const double w = vMax;
-        const double s = distance;
-        const double v = myVeh.getSpeed();
-        // x : target speed
-        // y : slow down duration
-        // s is composed of 1 trapezoid (decel), 1 rectangle (maintain), 1 trapezoid (accel)
-        // s = (v^2-x^2)/2d + x*(y-(v-x)/d) + (w^2-x^2)/2a
-        // y = t - (w-x)/d
-        // solution for x curtesy of mathomatic.org
-        const double sign0 = -1; // XXX hack
-        const double root_argument = a * d * ((2.0 * d * (s - (w * t))) - ((v - w) * (v - w)) + (a * ((d * (t * t)) + (2.0 * (s - (t * v))))));
-        if (root_argument < 0) {
-#ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%", root_argument, s, t, v);
-#endif
-            return;
-        }
-        const double x = (((a * (v - (d * t))) + (d * w) - sign0 * sqrt(root_argument)) / (d + a));
-        const double y = t - (w - x) / d;
-        if (!(x >= u && x <= w && y > 0 && y < t)) {
-#ifdef DEBUG_GLOSA
-            WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%", x, y, s, t, v);
-#endif
-            return;
-        }
-        const double targetSpeed = x;
-        const double duration = y;
-#ifdef DEBUG_GLOSA
-        if (DEBUG_COND) {
-            std::cout << "  targetSpeed=" << targetSpeed << " duration=" << duration << "\n";
-        }
-#endif
-        std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
-        myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
-    } else {
-        // end maneuver
-        std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
-        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), vMax));
-        myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+    const double vMax = myVeh.getLane()->getSpeedLimit() * myOriginalSpeedFactor;
+
+    // need to start/continue maneuver
+    const double t = timeToSwitch;
+    const double a = myVeh.getCarFollowModel().getMaxAccel();
+    const double u = myMinSpeed;
+    const double w = vMax;
+    const double s = distance;
+    const double v = myVeh.getSpeed();
+    // x : target speed
+    // y : slow down duration
+    // s is composed of 1 trapezoid (decel), 1 rectangle (maintain), 1 trapezoid (accel)
+    // s = (v^2-x^2)/2d + x*(t-y-(w-x)/a) + (w^2-x^2)/2a
+    // y = (v-x)/d
+    // solution for x curtesy of mathomatic.org
+
+    // First, we calculate targetSpeed assuming we are driving that speed already (v=x)
+    // If this results in targetSpeed < currentSpeed, then we need to decelerate (and vice versa)
+    const double rootConst = a * a * t * t - 2.0 * a * w * t + 2 * a * s;
+    double vConst = 0;
+    if (rootConst >= 0) {
+        vConst = sqrt(rootConst) - a * t + w;
     }
+    double d = myVeh.getCarFollowModel().getMaxDecel();
+    if (v < vConst) {
+        d = a;
+    }
+
+    // Second, we calculate the correct targetSpeed, knowing if we need to accelerate or decelerate
+    const double sign0 = -1; // quadratic formula solution x1 (choose solution with higher speed)
+    const double root_argument = a * d * ((2.0 * d * (s - (w * t))) - ((v - w) * (v - w)) + (a * ((d * (t * t)) + (2.0 * (s - (t * v))))));
+    if (root_argument < 0) {
+#ifdef DEBUG_GLOSA
+        WRITE_WARNINGF("GLOSA error 1 root_argument=% s=% t=% v=%", root_argument, s, t, v);
+#endif
+        return;
+    }
+    const double x = (((a * (v - (d * t))) + (d * w) - sign0 * sqrt(root_argument)) / (d + a));
+    double y = (v - x) / d;
+    if (v < x) {
+        y = (x - v) / d;
+    }
+    if (s < (w * w - x * x) / 2.0 / a) {
+        // end maneuver
+        myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+        //std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+        //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
+        //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), vMax));
+        //myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+    }
+    if (!(x >= u && x <= w && y < t)) {
+#ifdef DEBUG_GLOSA
+        WRITE_WARNINGF("GLOSA error 2 x=% y=% s=% t=% v=%", x, y, s, t, v);
+#endif
+        // end maneuver
+        myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+        return;
+    }
+    const double targetSpeed = x;
+    const double duration = y;
+#ifdef DEBUG_GLOSA
+    if (DEBUG_COND) {
+        std::cout << "  targetSpeed=" << targetSpeed << " duration=" << duration << "\n";
+    }
+#endif
+    myVeh.setChosenSpeedFactor(targetSpeed / myVeh.getLane()->getSpeedLimit());
+    //std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+    //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
+    //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
+    //myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
 }
 
 

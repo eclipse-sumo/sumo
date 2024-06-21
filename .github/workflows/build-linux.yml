@@ -45,7 +45,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install libunwind-dev  # to work around https://bugs.launchpad.net/ubuntu/+source/google-glog/+bug/1991919
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libfmt-dev
         sudo apt-get install libgtest-dev libgoogle-perftools-dev libgl2ps-dev python3-dev python3-setuptools swig
         sudo apt-get install maven ccache libv8-dev gettext
         sudo pip3 install texttest
