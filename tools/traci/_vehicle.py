@@ -1476,6 +1476,8 @@ class VehicleDomain(VTypeDomain):
         (once for pickup and once for drop-off) and the list encodes ride
         sharing of passengers (in pickup and drop-off order)
         """
+        if isinstance(reservations, str):
+            reservations = [reservations]
         self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
