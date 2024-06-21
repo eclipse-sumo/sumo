@@ -8,6 +8,7 @@ title: ChangeLog
 
 - sumo
   - Fixed invalid error when loading a trip directly after a route with `repeat` #14992 (regression in 1.20.0)
+  - Persons joining edge via access don't collide with vehicles again #15030 (regression in 1.20.0)
   - personInfo total duration now includes ride waiting time #14887
   - Fixed jump-related bug when there are two stops on the same edge #14883
   - Fixed saving/loading of maximum time value from state #14904
@@ -27,7 +28,12 @@ title: ChangeLog
   - Fixed crash when loading misconfigured NEMA controller #15001
   - Fixed invalid stopping when loading a route with attribute `repeat` and a single stop #13639
   - Fixed invalid density in edgedata-output in sublane simulation #15017
-  - Fixed invalid behavior by GLOSA device when there are junctions ahead of a traffic light within **device.glosa.range** #15011 
+  - Fixed invalid behavior by GLOSA device when there are junctions ahead of a traffic light within **device.glosa.range** #15011
+  - Removal of JuPedSim-pedestrians in vanishing area with period < 1 is now working. #14900
+  - No more cooperative speed adaptation when setting lcCooperative=-1. #14871
+  - Fixed invalid initial blinker for continuous lanechange in lefthand network #15058
+  - Now avoiding orthogonal sliding in continous lane change model with attribute `lcMaxSpeedLatStanding="0"` #15052
+  - GLOSA device now follows intended 3-phase speed trajectory (decel, constant, accel) instead of (decel, accel) #15067 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -39,17 +45,21 @@ title: ChangeLog
  
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
+  - Fixed crash when attempting to transform person to personFlow #15040 (regression in 1.19.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
   - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
   - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
   - Button "center" in "locate additional" dialog is working again #14986 (regression in 1.20.0)
   - Selecting lanes and edges via context menu is working again #14965 (regression in 1.20.0)
   - Inspected trips show the route again #14964 (regression in 1.20.0)
+  - Selection rectangle now consides element locks again. #15010 (regression in 1.20.0)
+  - TazRelations can be inspected again #15019 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
   - Fixed invalid junction contour #15002, #14488
-  - Fixed crash when loading another network while the traffic light frame has an active traffic light #15004 
+  - Fixed crash when loading another network while the traffic light frame has an active traffic light #15004
+  - Fixed uncontrolled pedestrian crossings after using 'Clean States' #15047 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -59,7 +69,12 @@ title: ChangeLog
   - Fixed placement of chargingStation and ParkingArea symbol in lefthand networks #14744, #14959
   - Fixed invalid angle for infrastructure text label in lefthand networks #14743, #14955
   - Fixed invalid scaling of aircraft when zoomed out #14899
-  - "Set breakpoint" can no longer cause a crash when no network is loaded #15003 
+  - "Set breakpoint" can no longer cause a crash when no network is loaded #15003
+  - Message window "time link" is now working for vehicle-person-collision warning #14931
+  - Fixed crash on right-click in "color edge by inclination" mode #14856 
+
+- meso
+  - Fixed invalid segment properties when an edge does not allow passenger cars #15020 
 
 - TraCI
   - Fixed handling of large time input values #14793
@@ -82,26 +97,36 @@ title: ChangeLog
   - Loaded polygons can be used to influence [jupedsim agents](Simulation/Pedestrians.md#model_jupedsim) #14325
   - PHEMlight5 parameters can now be configured with [generic parameters](Simulation/GenericParameters.md) #14285
   - Electric vehicles now support [defining variable charge rate](Models/Electric.md#defining_electric_vehicles) #14860
-  - The new option **--emission-output.attributes** can now be used to customize the output #12850 
+  - The new option **--emission-output.attributes** can now be used to customize the output #12850
+  - Jupedsim pedestrian model now waits at pedestrian crossings #15012
+  - EIDM model now has a fixed upper boundary to drivererror-intensity to avoid issues for vehicles with high acceleration. #15066
+  - GLOSA device now uses speedFactor to set it's target speed when slowing down to improve interaction with carFollowModels #15067 
  
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
   - Mode for editing overhead wires now warns about experimental state #14974
   - Using check boxes in submenu now keeps the menu open #15009
-  - Loading a single file without options now supports .sumocfg files #15015 
+  - Loading a single file without options now supports .sumocfg files #15015
+  - Add new vClass icons #14646
+  - Convert-to-roundabout function now sets roundabout edge properties based on incoming edges #15069 
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
-  - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483 
+  - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483
+  - Improved rendering speed on right-click #15035 
 
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
   - OSM import now warns if ways, nodes or relations are out of order #14892
   - OSM import now handles trolleybus routes #14932 
 
+- marouter
+  - Loaded trip attributes (i.e. departLane and departSpeed) are now preserved #15049 
+
 - traci
   - The new sumo option ** --keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
-  - Fixed missing leader/follower information in lanechange output after forced change. #14912 
+  - Fixed missing leader/follower information in lanechange output after forced change. #14912
+  - chargingStation attributes can now be modified #12772 
 
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
