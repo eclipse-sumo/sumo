@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 10:27+0000\n"
+"PO-Revision-Date: 2024-06-21 10:37+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9143,7 +9143,7 @@ msgstr "No se pudo abrir el archivo vissim '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:241
 msgid "Could not build connection between '%' and '%'."
-msgstr ""
+msgstr "No se pudo construir la conexión entre '%' y '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:248
 msgid "Lane sizes differ for connection '%'."
