@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-19 12:07+0000\n"
+"PO-Revision-Date: 2024-06-21 16:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -2051,7 +2051,7 @@ msgstr "Prüft nicht, ob es zu Unfällen kommt"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:382
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr "Umgang mit Kollisionen: [keine, warnen, teleportieren, entfernen]"
+msgstr "Umgang mit Kollisionen: [none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:385
 msgid ""
