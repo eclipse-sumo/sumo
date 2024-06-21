@@ -111,7 +111,7 @@ MSDriveWay::~MSDriveWay() {
             foe->myFoes.erase(it);
         } else if (myNumericalID != -1) {
 #ifdef DRIVEWAY_SANITY_CHECK
-            WRITE_WARNINGF("Driveway % (%) has does not show up in foes of foe driveway % (%).", myID, myNumericalID, foe->myID, foe->getNumericalID());
+            WRITE_WARNINGF("Driveway % (%) does not show up in foes of foe driveway % (%).", myID, myNumericalID, foe->myID, foe->getNumericalID());
 #endif
         }
     }
