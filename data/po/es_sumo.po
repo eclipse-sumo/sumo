@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 09:56+0000\n"
+"PO-Revision-Date: 2024-06-21 10:27+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9147,20 +9147,20 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnection.cpp:248
 msgid "Lane sizes differ for connection '%'."
-msgstr ""
+msgstr "Los tamaños de carril difieren para la conexión '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:496
 msgid "NIVissimConnectionCluster:More than a single node"
-msgstr ""
+msgstr "NIVissimConnectionCluster: Más de un nodo"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimConnectionCluster.cpp:662
 msgid "NIVissimConnectionCluster: how to get an edge's position?"
-msgstr ""
+msgstr "NIVissimConnectionCluster: ¿Cómo obtener la posición de una arista?"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:205
 #, c-format
 msgid "Could not build district '%' - edge '%' is missing."
-msgstr ""
+msgstr "No se pudo construir el distrito '%' - falta la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:360
 msgid ""
@@ -9172,7 +9172,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:526
 #, c-format
 msgid "The referenced speed distribution '%' is not known."
-msgstr ""
+msgstr "Se desconoce la distribución de velocidad referenciada '%'."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:378
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDistrictConnection.cpp:385
@@ -9237,16 +9237,20 @@ msgstr ""
 #, c-format
 msgid "Could not set tls signal at edge '%' - the edge was not built."
 msgstr ""
+"No se pudo aplicar la señal semafórica en la arista '%' - la arista no fue "
+"creada."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:152
 msgid "Edge '%': Lanes were not assigned."
-msgstr ""
+msgstr "Arista '%': Los carriles no fueron asignados."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:375
 msgid ""
 "Error on adding a traffic light\n"
 " Must be a multiple id ('%')"
 msgstr ""
+"Error al agregar un semáforo\n"
+" Debe ser una ID múltiple ('%')"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:383
 msgid "The signal group '%' could not be assigned to tl '%'."
