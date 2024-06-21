@@ -2572,12 +2572,21 @@ GNEViewNet::onCmdEdgeUseAsTemplate(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdEgeApplyTemplate(FXObject*, FXSelector, void*) {
-    GNEEdge* edge = getEdgeAtPopupPosition();
-    if ((edge != nullptr) && myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate()) {
+    GNEEdge* edgeAtPosition = getEdgeAtPopupPosition();
+    if ((edgeAtPosition != nullptr) && myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate()) {
         // begin copy template
-        myUndoList->begin(edge, TL("copy edge template"));
-        // copy template
-        edge->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+        myUndoList->begin(edgeAtPosition, TL("copy edge template"));
+        if (edgeAtPosition->isAttributeCarrierSelected()) {
+            // copy template in all selected edges
+            for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
+                if (edge.second.second->isAttributeCarrierSelected()) {
+                    edge.second.second->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+                }
+            }
+        } else {
+            // copy template
+            edgeAtPosition->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+        }
         // end copy template
         myUndoList->end();
         // update view (to see visual changes)
