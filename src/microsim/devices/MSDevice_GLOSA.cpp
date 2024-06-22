@@ -339,10 +339,9 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
         return;
     }
     const double targetSpeed = x;
-    const double duration = y;
 #ifdef DEBUG_GLOSA
     if (DEBUG_COND) {
-        std::cout << "  targetSpeed=" << targetSpeed << " duration=" << duration << "\n";
+        std::cout << "  targetSpeed=" << targetSpeed << " duration=" << y << "\n";
     }
 #endif
     myVeh.setChosenSpeedFactor(targetSpeed / myVeh.getLane()->getSpeedLimit());
