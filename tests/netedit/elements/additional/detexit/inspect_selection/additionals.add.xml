@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Exit A -->
     <entryExitDetector id="E3_0" period="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="7.5,3">
-        <detExit lane="EdgeCenter1_1" pos="32.82" friendlyPos="0">
+        <detExit lane="EdgeCenter1_1" pos="21.71" friendlyPos="0">
             <param key="KeyA1" value="valueA1"/>
             <param key="KeyA3" value="valueA2"/>
             <param key="KeyA2" value="valueA3"/>
@@ -11,7 +11,7 @@
 
     <!-- Exit B -->
     <entryExitDetector id="E3_1" period="100.00" file="fileB.txt" timeThreshold="1.00" speedThreshold="1.39" pos="17.5,3">
-        <detExit lane="EdgeCenter1_1" pos="20" friendlyPos="1">
+        <detExit lane="EdgeCenter0_1" pos="20" friendlyPos="1">
             <param key="KeyB1" value="valueB1"/>
             <param key="KeyB3" value="valueB2"/>
             <param key="KeyB2" value="valueB3"/>

@@ -41,7 +41,7 @@ netedit.changeElement("parkingArea")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 382, 256)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select space
 netedit.changeElement("space")
@@ -51,13 +51,13 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # create second space
-netedit.leftClick(referencePosition, 472, 371)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, 292, 347)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x, netedit.positions.elements.additionals.parkingSpace.y)
 
 # Change parameter 8 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.parent, "dummyParent", False)

@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, 292, 347)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x, netedit.positions.elements.additionals.parkingSpace.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.parkingSpace.inspect.parameters, False)

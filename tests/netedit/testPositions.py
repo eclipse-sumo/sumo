@@ -138,10 +138,14 @@ class elements:
             x = 343
             y = 190
 
+        class parkingSpace:
+            x = 437
+            y = 120
+
         class e2Detector:
-            x = 290
-            y = 220
-        
+            x = 310
+            y = 218
+  
         class squaredA:
             x = 437
             y = 137

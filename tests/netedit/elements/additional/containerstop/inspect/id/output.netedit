@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerStop
 Center
-TestFunctions: Clicked over position 734 - 424
-TestFunctions: Clicked over position 801 - 425
-TestFunctions: Clicked over position 734 - 448
+TestFunctions: Clicked over position 649 - 389
+TestFunctions: Clicked over position 1121 - 403
+TestFunctions: Clicked over position 649 - 363
 ct_1
 Id with spaces
 correctID

@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, 292, 347)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x, netedit.positions.elements.additionals.parkingSpace.y)
 
 # Change parameter 0 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "dummyPosition", False)

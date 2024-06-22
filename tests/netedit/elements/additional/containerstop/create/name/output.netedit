@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerStop
 custom container stop name
-TestFunctions: Clicked over position 734 - 424
+TestFunctions: Clicked over position 649 - 389
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

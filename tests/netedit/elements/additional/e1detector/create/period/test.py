@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.E1.create.period, "-30")
 
 # try to create E1 with invalid frequency
-netedit.leftClick(referencePosition, netedit.positions.additionalElements.EdgeCenter0_1.x, netedit.positions.additionalElements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
 
 # set a valid frequency
 netedit.changeDefaultValue(netedit.attrs.E1.create.period, "150")
