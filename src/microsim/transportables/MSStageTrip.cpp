@@ -117,17 +117,18 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
         pars.back()->id = transportable->getID() + "_" + toString(pars.size() - 1);
     }
     if (pars.empty()) {
-        // TODO currently this does not support multiple modes
         if ((myModeSet & SVC_PASSENGER) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->id = transportable->getID() + "_0";
             pars.back()->departProcedure = DepartDefinition::TRIGGERED;
-        } else if ((myModeSet & SVC_TAXI) != 0) {
+        }
+        if ((myModeSet & SVC_TAXI) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
             pars.back()->id = transportable->getID() + "_taxi";
             pars.back()->line = "taxi";
-        } else if ((myModeSet & SVC_BICYCLE) != 0) {
+        }
+        if ((myModeSet & SVC_BICYCLE) != 0) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
             pars.back()->id = transportable->getID() + "_b0";
@@ -143,11 +144,11 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
             vehPar->departPos = myDepartPos;
             vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
         }
-        pars.back()->parametersSet |= VEHPARS_ARRIVALPOS_SET;
-        pars.back()->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
-        pars.back()->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
-        pars.back()->arrivalSpeedProcedure = ArrivalSpeedDefinition::GIVEN;
-        pars.back()->arrivalSpeed = 0;
+        vehPar->parametersSet |= VEHPARS_ARRIVALPOS_SET;
+        vehPar->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
+        vehPar->parametersSet |= VEHPARS_ARRIVALSPEED_SET;
+        vehPar->arrivalSpeedProcedure = ArrivalSpeedDefinition::GIVEN;
+        vehPar->arrivalSpeed = 0;
         MSVehicleType* type = vehControl.getVType(vehPar->vtypeid);
         if (type->getVehicleClass() != SVC_IGNORING && (origin->getPermissions() & type->getVehicleClass()) == 0 && !isTaxi) {
             WRITE_WARNINGF(TL("Ignoring vehicle type '%' when routing person '%' because it is not allowed on the start edge."), type->getID(), transportable->getID());
