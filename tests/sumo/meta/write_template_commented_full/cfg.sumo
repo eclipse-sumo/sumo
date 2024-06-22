@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 10:35:45 by Eclipse SUMO sumo Version v1_20_0+0567-aeb22f13412
+<!-- generated on 2024-06-22 06:50:11 by Eclipse SUMO sumo Version v1_20_0+0728-a7ae95217c1
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -906,7 +906,7 @@
         <!-- The &apos;ssm&apos; devices are set deterministic using a fraction of 1000 -->
         <device.ssm.deterministic value="false" type="BOOL"/>
 
-        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;)) -->
+        <!-- Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;, &apos;MDRAC&apos;)) -->
         <device.ssm.measures value="" type="STR"/>
 
         <!-- Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged. -->

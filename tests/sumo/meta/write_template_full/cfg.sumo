@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-14 10:35:45 by Eclipse SUMO sumo Version v1_20_0+0567-aeb22f13412
+<!-- generated on 2024-06-22 06:50:11 by Eclipse SUMO sumo Version v1_20_0+0728-a7ae95217c1
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -328,7 +328,7 @@
         <device.ssm.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;ssm&apos; device"/>
         <device.ssm.explicit value="" synonymes="device.ssm.knownveh" type="STR[]" help="Assign a &apos;ssm&apos; device to named vehicles"/>
         <device.ssm.deterministic value="false" type="BOOL" help="The &apos;ssm&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;,&apos;MDRAC&apos;))"/>
+        <device.ssm.measures value="" type="STR" help="Specifies which measures will be logged (as a space or comma-separated sequence of IDs in (&apos;TTC&apos;, &apos;DRAC&apos;, &apos;PET&apos;, &apos;PPET&apos;, &apos;MDRAC&apos;))"/>
         <device.ssm.thresholds value="" type="STR" help="Specifies space or comma-separated thresholds corresponding to the specified measures (see documentation and watch the order!). Only events exceeding the thresholds will be logged."/>
         <device.ssm.trajectories value="false" type="BOOL" help="Specifies whether trajectories will be logged (if false, only the extremal values and times are reported)."/>
         <device.ssm.range value="50" type="FLOAT" help="Specifies the detection range in meters. For vehicles below this distance from the equipped vehicle, SSM values are traced."/>

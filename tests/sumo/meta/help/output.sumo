@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
+Eclipse SUMO sumo Version v1_20_0+0728-a7ae95217c1
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -182,6 +182,8 @@ Output Options:
                                         network as WKT
   --pedestrian.jupedsim.wkt.geo        Whether to output JuPedSim network as
                                         WKT using geo-coordinates (lon/lat)
+  --pedestrian.jupedsim.py FILE        The filename to output the JuPedSim
+                                        setup as Python script
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
@@ -628,8 +630,8 @@ SSM Device Options:
                                         using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
                                         (as a space or comma-separated sequence
-                                        of IDs in ('TTC', 'DRAC', 'PET',
-                                        'PPET','MDRAC'))
+                                        of IDs in ('TTC', 'DRAC', 'PET', 'PPET',
+                                        'MDRAC'))
   --device.ssm.thresholds STR          Specifies space or comma-separated
                                         thresholds corresponding to the
                                         specified measures (see documentation
@@ -950,6 +952,8 @@ GUI Only Options:
                                         position
   --tracker-interval TIME              The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
