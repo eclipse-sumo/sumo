@@ -46,6 +46,31 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/** @brief where mode changes are possible
+*/
+enum ModeChangeOptions {
+    /// @brief parking areas
+    PARKING_AREAS = 1,
+    /// @brief public transport stops and access
+    PT_STOPS = 2,
+    /// @brief junctions with edges allowing the additional mode
+    ALL_JUNCTIONS = 2 << 2,
+    /// @brief taxi customer may exit at parking areas
+    TAXI_DROPOFF_PARKING_AREAS = 2 << 3,
+    /// @brief taxi customer may exit at public transport stops
+    TAXI_DROPOFF_PT = 2 << 4,
+    /// @brief taxi customer may exit anywhere
+    TAXI_DROPOFF_ANYWHERE = 2 << 5,
+    /// @brief taxi customer may be picked up at parking areas
+    TAXI_PICKUP_PARKING_AREAS = 2 << 6,
+    /// @brief taxi customer may be picked up at public transport stops
+    TAXI_PICKUP_PT = 2 << 7,
+    /// @brief taxi customer may be picked up anywhere
+    TAXI_PICKUP_ANYWHERE = 2 << 8
+};
+
+
+
 /// @brief the intermodal network storing edges, connections and the mappings to the "real" edges
 template<class E, class L, class N, class V>
 class IntermodalNetwork {
@@ -57,25 +82,6 @@ private:
     typedef std::pair<_IntermodalEdge*, _IntermodalEdge*> EdgePair;
 
 public:
-    /** @brief where mode changes are possible
-    */
-    enum ModeChangeOptions {
-        /// @brief parking areas
-        PARKING_AREAS = 1,
-        /// @brief public transport stops and access
-        PT_STOPS = 2,
-        /// @brief junctions with edges allowing the additional mode
-        ALL_JUNCTIONS = 4,
-        /// @brief taxi customer may exit anywhere
-        TAXI_DROPOFF_ANYWHERE = 8,
-        /// @brief taxi customer may be picked up anywhere
-        TAXI_PICKUP_ANYWHERE = 16,
-        /// @brief taxi customer may be picked up at public transport stop
-        TAXI_PICKUP_PT = 32,
-        /// @brief taxi customer may be picked up at public transport stop
-        TAXI_DROPOFF_PT = 64
-    };
-
     /* @brief build the pedestrian part of the intermodal network (once)
      * @param edges The list of MSEdge or ROEdge to build from
      * @param numericalID the start number for the creation of new edges

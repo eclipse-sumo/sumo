@@ -243,7 +243,7 @@ MSPerson::getNextEdgePtr() const {
 
 
 void
-MSPerson::reroute(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
+MSPerson::replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int firstIndex, int nextIndex) {
     assert(nextIndex > firstIndex);
     //std::cout << SIMTIME << " reroute person " << getID()
     //    << "  newEdges=" << toString(newEdges)

@@ -79,6 +79,10 @@ public:
 
     std::string getStageSummary(const bool isPerson) const;
 
+    std::vector<SUMOVehicle*> getVehicles(MSVehicleControl& vehControl, MSTransportable* transportable, const MSEdge* origin);
+
+    const std::string reroute(const SUMOTime t, MSTransportableRouter& router, MSTransportable* const transportable, const MSEdge* origin, const MSEdge* destination);
+
     /// logs end of the step
     const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 

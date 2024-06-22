@@ -329,6 +329,8 @@ public:
         return getArrivalEdge();
     }
 
+    bool reroute(SUMOTime t, const std::string& info, MSTransportableRouter& router, const bool onInit = false, const bool withTaz = false, const bool silent = false, const MSEdge* sink = nullptr);
+
     /// Replaces the current route by the given one
     bool replaceRoute(ConstMSRoutePtr route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true, std::string* msgReturn = nullptr);
 

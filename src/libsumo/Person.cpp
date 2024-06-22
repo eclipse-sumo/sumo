@@ -800,7 +800,7 @@ Person::rerouteTraveltime(const std::string& personID) {
         // @note: maybe this should be done automatically by the router
         newEdges.insert(newEdges.begin(), from);
     }
-    p->reroute(newEdges, departPos, firstIndex, nextIndex);
+    p->replaceWalk(newEdges, departPos, firstIndex, nextIndex);
 }
 
 

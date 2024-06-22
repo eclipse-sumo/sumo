@@ -31,15 +31,16 @@
 #include <microsim/MSEventControl.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/WrappingCommand.h>
 #include <utils/common/StaticCommand.h>
 #include <utils/common/StringUtils.h>
-#include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/router/DijkstraRouter.h>
 #include <utils/router/AStarRouter.h>
 #include <utils/router/CHRouter.h>
 #include <utils/router/CHRouterWrapper.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 
 //#define DEBUG_SEPARATE_TURNS
 #define DEBUG_COND(obj) (obj->isSelected())
@@ -419,7 +420,10 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     if (MSNet::getInstance()->hasBidiEdges()) {
         railRouter = new RailwayRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, true, false, oc.getFloat("railway.max-train-length"));
     }
-    myRouterProvider = new MSRouterProvider(router, nullptr, nullptr, railRouter);
+    const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc);
+    const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+    MSTransportableRouter* transRouter = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, 0);
+    myRouterProvider = new MSRouterProvider(router, nullptr, transRouter, railRouter);
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
     MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
@@ -458,6 +462,38 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
     }
     try {
         vehicle.reroute(currentTime, info, router, onInit, myWithTaz, silent);
+    } catch (ProcessError&) {
+        if (!silent) {
+            if (!prohibited.empty()) {
+                router.prohibit(MSEdgeVector());
+            }
+            throw;
+        }
+    }
+    if (!prohibited.empty()) {
+        router.prohibit(MSEdgeVector());
+    }
+}
+
+
+void
+MSRoutingEngine::reroute(MSTransportable& t, const SUMOTime currentTime, const std::string& info,
+                         const bool onInit, const bool silent, const MSEdgeVector& prohibited) {
+    MSTransportableRouter& router = getIntermodalRouterTT(t.getRNGIndex(), prohibited);
+#ifndef THREAD_POOL
+#ifdef HAVE_FOX
+    MFXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
+    if (threadPool.size() > 0) {
+        // threadPool.add(new RoutingTask(t, currentTime, info, onInit, silent, prohibited));
+        return;
+    }
+#endif
+#endif
+    if (!prohibited.empty()) {
+        router.prohibit(prohibited);
+    }
+    try {
+        t.reroute(currentTime, info, router, onInit, myWithTaz, silent);
     } catch (ProcessError&) {
         if (!silent) {
             if (!prohibited.empty()) {

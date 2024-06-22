@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-19 10:59+0200\n"
+"POT-Creation-Date: 2024-06-21 16:48+0200\n"
 "PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -24,34 +24,34 @@ msgstr ""
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2229
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2230
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:2232
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:515
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:519
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:523
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1579
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1580
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:517
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:521
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:525
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1581
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1582
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1583
 msgid "N/A"
 msgstr "N/A"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:299
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:516
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:518
 msgid "Original coordinate (before coordinate transformation in netconvert)"
 msgstr ""
 "Coordenadas originales (antes de la transformación de coordenadas en "
 "netconvert)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:302
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:520
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:522
 msgid "Network coordinate"
 msgstr "Coordenadas de la red"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:330
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:539
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:541
 msgid "Ready."
 msgstr "Listo."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:453
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1333
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1335
 msgid "&File"
 msgstr "&Archivo"
 
@@ -97,7 +97,7 @@ msgid "Load edge related data for visualization."
 msgstr "Cargar datos relacionados a la arista, para visualización."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:471
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1020
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1022
 msgid "&Reload"
 msgstr "&Recargar"
 
@@ -134,17 +134,17 @@ msgid "Close the simulation."
 msgstr "Cerrar la simulación."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:489
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1354
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1356
 msgid "&Quit"
 msgstr "&Salir"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:489
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1354
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1356
 msgid "Quit the Application."
 msgstr "Cerrar la aplicación."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:498
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1369
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1371
 msgid "&Edit"
 msgstr "&Edición"
 
@@ -265,7 +265,7 @@ msgid "Toggle full screen mode on/off."
 msgstr "Alternar modo de pantalla completa."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:543
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1405
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1407
 msgid "&Locate"
 msgstr "&Localizar"
 
@@ -469,7 +469,7 @@ msgid "Load simulation state for the current network from file."
 msgstr "Cargar estado de la simulación desde un archivo para la red actual."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:602
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1470
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1472
 msgid "&Window"
 msgstr "&Ventana"
 
@@ -576,7 +576,7 @@ msgid "Clear the message window."
 msgstr "Limpiar la ventana de mensajes."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:646
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1476
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1478
 msgid "&Help"
 msgstr "&Ayuda"
 
@@ -768,10 +768,10 @@ msgstr "Abrir archivo de formas (shapes)"
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1093
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1121
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4822
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4870
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4908
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4943
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4836
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4884
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4922
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4957
 #, c-format
 msgid "Loading of % failed."
 msgstr "La carga de % falló."
@@ -797,7 +797,7 @@ msgid "Quick-Reloading."
 msgstr "Recarga-rápida."
 
 #: C:\Repos\sumo/src\gui\GUIApplicationWindow.cpp:1168
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1092
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1094
 msgid "Already loading!"
 msgstr "¡Actualmente cargando!"
 
@@ -1866,7 +1866,7 @@ msgid "Add rerouter"
 msgstr "Agregar rerouter"
 
 #: C:\Repos\sumo/src\guisim\GUILane.cpp:1024
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2187
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2186
 msgid "Select reachable"
 msgstr "Seleccionar accesibilidad"
 
@@ -1936,7 +1936,7 @@ msgstr ""
 "entrada.\n"
 
 #: C:\Repos\sumo/src\guisim\GUINet.cpp:470
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:164
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:165
 msgid "Copy view geo-boundary to clipboard"
 msgstr "Copiar el límite geográfico de la vista al portapapeles"
 
@@ -2546,205 +2546,205 @@ msgstr ""
 msgid "This system has no OpenGL support. Exiting."
 msgstr "Este sistema no tiene soporte para OpenGL. Saliendo."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:478
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:480
 msgid "A microscopic, multi-modal traffic simulation."
 msgstr "Una simulación de tráfico microscópica y multi-modal."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:511
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:513
 msgid "Recomputing"
 msgstr "Computando"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:512
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:514
 msgid "Recomputing is needed"
 msgstr "Es necesario recalcular"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:524
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:526
 msgid "Test coordinate"
 msgstr "Coordenadas para tests"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:838
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:861
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:840
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:863
 msgid "loading TLS Programs from '"
 msgstr "cargando programa TLS desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:903
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:905
 msgid "Loaded edge types from '"
 msgstr "Tipos de arista cargados desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:905
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:938
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:907
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:940
 msgid "load edgeTypes"
 msgstr "cargar tipos de arista"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:936
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:938
 msgid "Reloaded edge types from '"
 msgstr "Tipos de arista recargados desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:993
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:995
 msgid "Reloading netedit config file '"
 msgstr "Recargando archivo de configuración de netedit '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:997
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:999
 msgid "Reloading sumo config file '"
 msgstr "Recargando archivo de configuración de sumo '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1001
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1062
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1003
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1064
 msgid "Reloading network file '"
 msgstr "Recargando archivo de red '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1017
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1019
 msgid "&Reload Netedit config"
 msgstr "&Recargar configuración de netedit"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1018
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1020
 msgid "&Reload Sumo config"
 msgstr "&Recargar configuración de sumo"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1019
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1021
 msgid "&Reload Network"
 msgstr "&Recargar red"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1264
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1266
 msgid "Loading of '"
 msgstr "La carga de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1269
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1271
 msgid "'"
 msgstr "'"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1269
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1271
 msgid "' loaded."
 msgstr "' cargado."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1358
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1360
 msgid "&Modes"
 msgstr "&Modos"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1394
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1396
 msgid "L&ock"
 msgstr "&Bloquear"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1401
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1403
 msgid "&Processing"
 msgstr "&Procesar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1426
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
 msgid "&Tools"
 msgstr "&Herramientas"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1428
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
 msgid "Detectors"
 msgstr "Detectores"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1429
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1431
 msgid "Districts"
 msgstr "Distritos"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1430
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
 msgid "DRT"
 msgstr "Transporte a demanda (DRT)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1432
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
 msgid "CityBrain"
 msgstr "CityBrain"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1433
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1435
 msgid "GTFS"
 msgstr "GTFS"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1434
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
 msgid "Vissim"
 msgstr "Vissim"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1435
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
 msgid "Visum"
 msgstr "Visum"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1436
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
 msgid "Import"
 msgstr "Importar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1437
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
 msgid "Net"
 msgstr "Red"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1438
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1440
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:696
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:2918
 #: C:\Repos\sumo/src\netedit\elements\GNEAttributeCarrier.cpp:3445
 msgid "Route"
 msgstr "Ruta"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1439
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
 msgid "Output"
 msgstr "Salida"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1441
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1443
 msgid "TLS"
 msgstr "Semáforo (TLS)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1442
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
 msgid "Turn-defs"
 msgstr "Definiciones de giro (Turn-defs)"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1443
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1445
 msgid "Visualization"
 msgstr "Visualización"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1444
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1446
 msgid "XML"
 msgstr "XML"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1532
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1534
 msgid "Network computed"
 msgstr "Red computada"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1536
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1538
 msgid "Press F5"
 msgstr "Presione F5"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1537
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1539
 msgid "Network requires recomputing"
 msgstr "Se requiere recalcular la red"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1606
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1608
 msgid "Loading console arguments"
 msgstr "Cargando argumentos de consola"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1634
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1636
 msgid "Creating new network."
 msgstr "Creando red nueva."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1645
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1647
 msgid "Trying to load an empty network"
 msgstr "Intentando cargar una red vacía"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1661
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1663
 msgid "Loading network file '"
 msgstr "Abriendo archivo de red '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1673
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1675
 msgid "Trying to load an empty configuration"
 msgstr "Intentando cargar una configuración vacía"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1689
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1691
 msgid "Loading configuration file '"
 msgstr "Abriendo archivo de configuración '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1719
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1721
 msgid "Select Import Options"
 msgstr "Seleccionar opciones de importación"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1725
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1727
 msgid "Loading OSM file '"
 msgstr "Cargando archivo OSM '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1745
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1747
 msgid "Recompute with volatile options"
 msgstr "Recalcular con opciones volátiles"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1746
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1748
 msgid ""
 "Changes produced in the net due a recomputing with volatile options cannot "
 "be undone. Continue?"
@@ -2752,38 +2752,38 @@ msgstr ""
 "Los cambios producidos en la red durate la recalculación con opciones "
 "volátiles no se pueden deshacer. Continuar?"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1984
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2044
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:1988
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2048
 msgid "Running "
 msgstr "Ejecutando "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2007
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2011
 msgid "Loading network '"
 msgstr "Cargando red '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2007
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2016
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2011
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2020
 msgid "' in SUMO-GUI"
 msgstr "' en sumo-gui"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2016
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2020
 msgid "Loading sumo config '"
 msgstr "Cargando configuración de sumo '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2362
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2376
 msgid "Netedit options"
 msgstr "Opciones de netedit"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2379
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2393
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1874
 msgid "Sumo options"
 msgstr "Opciones de sumo"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2396
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2410
 msgid "Netgenerate options"
 msgstr "Opciones de netgenerate"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2413
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2427
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1267
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:456
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:107
@@ -2791,7 +2791,7 @@ msgstr "Opciones de netgenerate"
 msgid "Undo"
 msgstr "Deshacer"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2445
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:2459
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1270
 #: C:\Repos\sumo/src\netedit\GNEUndoList.cpp:503
 #: C:\Repos\sumo/src\netedit\GNEViewParent.cpp:110
@@ -2799,259 +2799,259 @@ msgstr "Deshacer"
 msgid "Redo"
 msgstr "Rehacer"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3183
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3197
 msgid "Saving Network failed!"
 msgstr "¡El guardado de la red falló!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3189
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3203
 msgid "Network saved in '"
 msgstr "Red guardada en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3195
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3209
 msgid "Could not save network in '"
 msgstr "No se pudo guardar la red en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3251
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3265
 msgid "Plain XML saved with prefix '"
 msgstr "Xml plano guardado con prefijo '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3256
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3270
 msgid "Saving plain xml failed!"
 msgstr "¡El guardado en xml plano falló!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3280
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3294
 msgid "Joined junctions saved to '"
 msgstr "Unión de cruces (joined junctions) guardado en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3285
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3299
 msgid "Saving joined junctions failed!"
 msgstr "¡El guardado de las unión de cruces (joined junctions) falló!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3325
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3339
 msgid "Netedit configuration saved in '"
 msgstr "Configuración de netedit guardada en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3331
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3345
 msgid "Could not save netedit configuration in '"
 msgstr "No se pudo guardar la configuración de netedit en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3417
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3431
 msgid "SUMO configuration saved in '"
 msgstr "Configuración de sumo guardada en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3425
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3439
 msgid "Could not save SUMO configuration in '"
 msgstr "No se puede guardar la configuración de sumo en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3479
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3493
 msgid "TLS Programs saved in '"
 msgstr "Programa de semáforos guardado en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3484
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3498
 msgid "Saving TLS Programs failed!"
 msgstr "¡El guardado de los programas de los semáforos falló!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3527
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3541
 msgid "EdgeType saved in '"
 msgstr "EdgeType guardado en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3532
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3546
 msgid "Saving edgeTypes failed!"
 msgstr "¡El guardado de los edgeTypes falló!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3636
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3650
 msgid "load additionals from '"
 msgstr "Cargar elementos adicionales desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3640
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1335
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3654
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1355
 msgid "Loading of additional file failed: "
 msgstr "La carga de elementos adicionales falló: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3646
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1337
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3660
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1357
 msgid "Loading of additional file successfully: "
 msgstr "Elementos adicionales cargados con éxito: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3686
 msgid "reloading additionals from '"
 msgstr "recarga de elementos adicionales desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3677
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3691
 msgid "Reloading of additional file failed: "
 msgstr "Fallo en la recarga de elementos adicionales: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3728
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3742
 msgid "Additionals saved in '"
 msgstr "Elementos adicionales guardados en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3737
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3751
 msgid "Saving additionals failed!"
 msgstr "¡El guardado de los elementos adicionales ha fallado!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3792
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3806
 msgid "JuPedSim elements saved in '"
 msgstr "Elementos JuPedSim guardados en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3801
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3815
 msgid "Saving JuPedSim elements failed!"
 msgstr "¡El guardado de los elementos JuPedSim ha fallado!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3840
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4858
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4863
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3854
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4872
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4877
 msgid "loading demand elements from '"
 msgstr "Cargando elementos de demanda desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3844
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1346
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3858
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1366
 msgid "Loading of route file failed: "
 msgstr "Fallo en la carga de archivo de rutas: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3850
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1348
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3864
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1368
 msgid "Loading of route file successfully: "
 msgstr "Elementos de ruta cargados con éxito: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3876
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3890
 msgid "reloading demand elements from '%'"
 msgstr "recargando elementos de demanda desde '%'"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3881
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3895
 msgid "Reloading of route file failed: "
 msgstr "La recarga del archivo de demanda falló: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3939
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3953
 msgid "Demand elements saved in '"
 msgstr "Elementos de demanda guardados en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3948
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:3962
 msgid "Saving demand elements failed!"
 msgstr "¡El guardado de los elementos de demanda ha fallado!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4021
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4933
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4035
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4947
 msgid "loading data elements from '"
 msgstr "carga de elementos de datos de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4025
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1357
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4039
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1377
 msgid "Loading of data file failed: "
 msgstr "La carga de elementos de datos falló: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4031
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1359
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4045
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1379
 msgid "Loading of data file successfully: "
 msgstr "Elementos de datos cargados con éxito: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4061
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4075
 msgid "reloading data elements from '"
 msgstr "recarga de elementos de datos desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4066
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4080
 msgid "Reloading of data file failed: "
 msgstr "La recarga de elementos de datos falló: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4116
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4130
 msgid "Data elements saved in '"
 msgstr "Elementos de datos guardaos en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4121
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4135
 msgid "Saving data elements failed!"
 msgstr "¡El guardado de los elementos de datos ha fallado!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4194
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4208
 msgid "load meanDatas from '"
 msgstr "carga de meanDatas de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4198
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1368
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4212
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1388
 msgid "Loading of meandata file failed: "
 msgstr "La carga de meanDatas falló: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4204
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4235
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1370
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4218
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4249
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1390
 msgid "Loading of meandata file successfully: "
 msgstr "MeanDatas cargados con éxito: "
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4230
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4244
 msgid "reloading meanDatas from '"
 msgstr "recarga de meanDatas desde '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4282
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4296
 msgid "MeanDatas saved in '"
 msgstr "MeanDatas guardados en '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4287
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4301
 msgid "Saving meanData failed!"
 msgstr "¡El guardado de los elementos meanData ha fallado!"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4337
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4351
 msgid "Confirm close Network"
 msgstr "Confirmar cierre de la red"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4338
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4352
 msgid "You have unsaved changes in the network."
 msgstr "Tiene cambios sin guardar en la red."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4339
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4405
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4449
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4493
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4537
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4353
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4419
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4463
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4507
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4551
 msgid "Do you wish to close and discard all changes?"
 msgstr "¿Quiere cerrar y descartar todos los cambios?"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4403
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4417
 msgid "Save additional elements before close"
 msgstr "Guardar elementos adicionales antes de cerrar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4404
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4418
 msgid "You have unsaved additional elements."
 msgstr "Tiene elementos adicionales sin guardar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4447
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4461
 msgid "Save demand elements before close"
 msgstr "Guardar elementos adicionales antes de cerrar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4448
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4462
 msgid "You have unsaved demand elements."
 msgstr "Tiene elementos de demanda sin guardar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4491
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4505
 msgid "Save data elements before close"
 msgstr "Guardar elementos de datos antes de cerrar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4492
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4506
 msgid "You have unsaved data elements."
 msgstr "Tiene elementos de datos sin guardar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4535
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4549
 msgid "Save meanData elements before close"
 msgstr "Guardar elementos meanData antes de cerrar"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4536
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4550
 msgid "You have unsaved meanData elements."
 msgstr "Tiene elementos meanData sin guardar."
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4809
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4823
 msgid "loading additional elements from '"
 msgstr "abriendo elementos adicionales de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4815
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4829
 msgid "loading additionals from '"
 msgstr "abriendo elementos adicionales de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4896
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4910
 msgid "loading meanDatas from '"
 msgstr "abriendo elementos meanData de '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4901
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4915
 msgid "loading meandatas from '"
 msgstr "abriendo elementos meanDatas from '"
 
-#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4938
+#: C:\Repos\sumo/src\netedit\GNEApplicationWindow.cpp:4952
 msgid "Loading data elements from '"
 msgstr "Cargando elementos de datos de '"
 
@@ -3207,7 +3207,7 @@ msgid "Close the network."
 msgstr "Cerrar la red."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:355
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1851
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1892
 msgid "Save Netedit Config"
 msgstr "Guardar configuración de netedit"
 
@@ -3232,7 +3232,7 @@ msgid "Reload netedit configuration."
 msgstr "Recargar configuración de netedit."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:373
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1897
 msgid "Save Sumo Config"
 msgstr "Guardar configuración de sumo"
 
@@ -3679,17 +3679,17 @@ msgstr "Crear MeanData para aristas o carriles."
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:844
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1029
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2297
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2622
 msgid "Show grid"
 msgstr "Mostrar rejilla"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:849
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1034
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1160
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2304
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2588
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2859
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2345
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2629
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2900
 msgid "Hide junction shape"
 msgstr "Ocultar las formas de los cruces"
 
@@ -3699,8 +3699,8 @@ msgstr "Dibujar vehículos repartidos en el carril o en posición de partida"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:859
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1175
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2318
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2878
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2359
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2919
 msgid "Show demand elements"
 msgstr "Mostrar elementos de demanda"
 
@@ -3709,12 +3709,12 @@ msgid "Clicking should target lanes"
 msgstr "Cliquear debe referirse a carriles"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:869
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2331
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2372
 msgid "Show connections over junctions"
 msgstr "Mostrar conexiones sobre los cruces"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:874
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2379
 msgid "Hide connections"
 msgstr "Ocultar conexiones"
 
@@ -3723,7 +3723,7 @@ msgid "Show sub-additional elements"
 msgstr "Mostrar elementos sub-adicionales"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:884
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2352
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
 msgid "Show TAZ elements"
 msgstr "Mostrar elementos de zona de análisis de tráfico (TAZ)"
 
@@ -3758,29 +3758,29 @@ msgid "Create an edge in the opposite direction"
 msgstr "Crear una arista en la dirección opuesta"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1039
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2595
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
 msgid "Draw vehicles spread/depart position"
 msgstr "Dibujar vehículos separados / posición de salida"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1044
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1170
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2602
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2872
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2643
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2913
 msgid "Show shapes"
 msgstr "Mostrar formas (shapes)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1049
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2609
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2650
 msgid "Show all trips"
 msgstr "Mostrar todos los viajes (trips)"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1054
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2616
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2657
 msgid "Show all person plans"
 msgstr "Mostrar todos los planes de personas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1059
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2623
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2664
 msgid "Lock selected person"
 msgstr "Bloquear persona seleccionada"
 
@@ -3789,22 +3789,22 @@ msgid "Show all container plans"
 msgstr "Mostrar todos los planes de contenedor"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1069
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2637
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2678
 msgid "Lock selected container"
 msgstr "Bloquear contenedor seleccionado"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1074
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2685
 msgid "Show non-inspected demand elements"
 msgstr "Mostrar elementos de demanda no inspeccionados"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1079
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2651
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
 msgid "Show number of overlapped routes"
 msgstr "Mostrar número de rutas superpuestas"
 
 #: C:\Repos\sumo/src\netedit\GNEApplicationWindowHelper.cpp:1165
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2866
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2907
 msgid "Show additionals"
 msgstr "Mostrar elementos adicionales"
 
@@ -4751,213 +4751,213 @@ msgstr ""
 msgid "Failed to reset options."
 msgstr "Error al restablecer las opciones."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:314
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:315
 msgid "create edge"
 msgstr "crear arista"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:373
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:374
 msgid "delete junction"
 msgstr "eliminar cruce"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:415
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:416
 msgid "delete edge"
 msgstr "eliminar arista"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:488
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:489
 msgid "replace edge"
 msgstr "reemplazar arista"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:584
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:585
 msgid "delete lane"
 msgstr "eliminar carril"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:619
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:620
 msgid "delete connection"
 msgstr "eliminar conexión"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:634
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:635
 msgid "delete crossing"
 msgstr "eliminar paso peatonal (crossing)"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:652
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:681
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:703
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:716
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:729
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:759
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:653
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:682
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:704
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:717
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:730
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:760
 msgid "delete "
 msgstr "eliminar "
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:675
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:676
 msgid "Trying to delete a default Vehicle Type"
 msgstr "Intentando eliminar un tipo de vehículo predeterminado"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:768
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2983
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:769
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2992
 msgid "duplicate lane"
 msgstr "duplicar carril"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:887
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:888
 msgid "split edge"
 msgstr "dividir arista"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1004
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1005
 msgid "split edges"
 msgstr "dividir aristas"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1026
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1027
 msgid "reverse edge"
 msgstr "invertir arista"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1043
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1044
 msgid "add reversed edge"
 msgstr "añadir arista inversa"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1077
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1078
 msgid "merge junctions"
 msgstr "combinar cruces"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1113
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1114
 msgid "select roundabout"
 msgstr "seleccionar rotonda (roundabout)"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1129
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1130
 msgid "create roundabout"
 msgstr "crear rotonda (roundabout)"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1304
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1324
 msgid "Forced computing junctions with volatile options ..."
 msgstr "Forzar computación de los cruces con opciones volátiles..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1306
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1326
 msgid "Forced computing junctions ..."
 msgstr "Forzar computación de los cruces ..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1313
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1333
 msgid "Computing junctions with volatile options ..."
 msgstr "Computar cruces con opciones volátiles..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1315
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1335
 msgid "Computing junctions ..."
 msgstr "Computar cruces ..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1378
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1398
 msgid "Finished computing junctions."
 msgstr "Computación de cruces finalizada."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1384
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1404
 msgid "Computing demand elements ..."
 msgstr "Computando elementos de demanda..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1398
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1418
 msgid "Finished computing demand elements."
 msgstr "Computación de elementos de demanda finalizada."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1404
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1424
 msgid "Computing data elements ..."
 msgstr "Computar elementos de datos ..."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1411
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1431
 msgid "Finished computing data elements."
 msgstr "Computación de elementos de datos finalizada."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1490
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1509
 msgid "Position of joined junction"
 msgstr "Posición de la unión de cruces"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1491
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1510
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 "Hay otro cruce no seleccionado en la misma posición que la unión de cruces."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1492
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1511
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "Se combinará con los demás cruces seleccionados. ¿Continuar?"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1611
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1621
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1625
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1635
 msgid "Clear crossings"
 msgstr "Limpiar pasos peatonales"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1612
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1626
 msgid "There are no invalid crossings to remove."
 msgstr "No hay pasos peatonales inválidos que eliminar."
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1622
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1636
 msgid "Crossings will be cleared. Continue?"
 msgstr "Los pasos peatonales serán removidos. ¿Continuar?"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1633
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1647
 msgid "clear crossings"
 msgstr "Limpiar pasos peatonales"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1646
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1660
 msgid "clear junctions"
 msgstr "limpiar cruces"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1674
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1688
 msgid "clear unused routes"
 msgstr "limpiar rutas no usadas"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1729
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1743
 msgid "merge routes"
 msgstr "unir rutas"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1783
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1797
 msgid "adjust person plans"
 msgstr "ajustar planes de personas"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1823
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1837
 msgid "remove invalid demand elements"
 msgstr "eliminar elementos de demanda inválidos"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1838
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1852
 msgid "replace junction by geometry"
 msgstr "reemplazar cruce por geometría"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1883
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1897
 msgid "Junction isn't removable"
 msgstr "el cruce no se puede eliminar"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1895
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1909
 msgid "split junction"
 msgstr "dividir cruce"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1935
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1949
 msgid "Could not rename split node to '%'"
 msgstr "No se puede renombrar el cruce dividido a '%'"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1974
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:1988
 msgid "clear junction connections"
 msgstr "limpiar conexiones de cruces"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1986
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2000
 msgid "reset junction connections"
 msgstr "resetear conexiones de cruces"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:1997
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2011
 msgid "clear additional elements"
 msgstr "limpiar elementos adicionales"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2010
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2024
 msgid "clear demand elements"
 msgstr "limpiar elementos de demanda"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2023
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2037
 msgid "clear data elements"
 msgstr "limpiar elementos de datos"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2034
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2048
 msgid "clear meanData elements"
 msgstr "limpiar elementos meanData"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2373
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2470
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2387
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2484
 msgid "Duplicated ID"
 msgstr "ID duplicada"
 
-#: C:\Repos\sumo/src\netedit\GNENet.cpp:2760
+#: C:\Repos\sumo/src\netedit\GNENet.cpp:2774
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 "El tamaño de la red excede un año luz. Por favor revisa las entradas de "
@@ -5054,7 +5054,7 @@ msgid "Remove from Selected"
 msgstr "Remover de selección"
 
 #: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:542
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:300
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:304
 msgid "Add to Selected"
 msgstr "Agregar a la selección"
 
@@ -5262,302 +5262,302 @@ msgstr "reiniciar longitudes de arista"
 msgid "copy edge template"
 msgstr "copiar plantilla de arista"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2599
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2608
 msgid "simplify shapes"
 msgstr "simplificar formas (shapes)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2643
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2652
 msgid "close polygon shapes"
 msgstr "cerrar formas de los polígonos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2676
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2685
 msgid "open polygon shapes"
 msgstr "abrir formas de los polígonos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2727
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2736
 msgid "select within polygon boundary"
 msgstr "seleccionar dentro del area del polígono"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2772
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2781
 #, c-format
 msgid "No lanes around % to attach it"
 msgstr "No hay carriles alrededor de % para adjuntar"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2795
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2804
 msgid "attach POI into lane"
 msgstr "adjuntar punto de interés al carril"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2808
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2817
 msgid "release POI from lane"
 msgstr "desanclar punto de interés del carril"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2827
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2836
 msgid "reverse % '%'"
 msgstr "invertir % '%'"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2841
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2850
 msgid "add reverse '%'"
 msgstr "agregar '%' opuesto"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2870
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2879
 msgid "change edge Geometry Point position"
 msgstr "cambiar posición del punto geométrico de la arista"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2902
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2911
 msgid "change polygon Geometry Point position"
 msgstr "cambiar posición del punto geométrico del polígono"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2922
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2931
 msgid "change TAZ Geometry Point position"
 msgstr ""
 "cambiar la posición del punto geométrico de la zona de análisis de tráfico"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2946
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2955
 msgid "reset end points of selected edges"
 msgstr "restablecer puntos finales de las aristas seleccionadas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2957
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2966
 msgid "reset end points of edge '"
 msgstr "restablecer puntos finales de la arista '"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2976
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:2985
 msgid "duplicate selected lanes"
 msgstr "duplicar carriles seleccionados"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3013
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3022
 msgid "reset custom lane shapes"
 msgstr "restablecer formas personalizadas de carril"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3020
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3029
 msgid "reset custom lane shape"
 msgstr "restablecer forma personalizada de carril"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3036
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3045
 msgid "reset opposite lanes"
 msgstr "restablecer carriles opuestos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3043
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3052
 msgid "reset opposite lane"
 msgstr "restablecer carril opuesto"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3102
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3111
 msgid "select lane reachability"
 msgstr "seleccionar accesibilidad del carril"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3316
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3325
 msgid "reset edge endpoints"
 msgstr "restablecer puntos finales de la arista"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3361
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3628
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3663
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3686
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3370
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3637
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3672
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3695
 msgid "Grid is still active, press ctrl+g to deactivate"
 msgstr "La cuadrícula aún está activa, presione ctrl+g para desactivarla"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3380
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3389
 msgid "reset custom junction shapes"
 msgstr "restablecer formas de cruce personalizadas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3387
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3396
 msgid "reset custom junction shape"
 msgstr "restablecer forma de cruce personalizada"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3498
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3507
 msgid "clear connections of selected junctions"
 msgstr "remover conexiones en los cruces seleccionados"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3530
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3539
 msgid "reset connections of selected junctions"
 msgstr "restablecer conexiones en los cruces seleccionados"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3554
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3581
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3563
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:3590
 msgid "add TLS in multiple junctions"
 msgstr "añadir semáforo (TLS) en múltiples cruces"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5624
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5633
 msgid "Shift + click to create two additionals in the same position"
 msgstr "Shift + clic para crear dos elementos adicionales en la misma posición"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5868
+#: C:\Repos\sumo/src\netedit\GNEViewNet.cpp:5877
 msgid "Control + click to create two stop in the same position"
 msgstr "Control + clic para crear dos paradas en la misma posición"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1371
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1392
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1412
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1433
 msgid "moving selection"
 msgstr "mover selección"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1578
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1619
 msgid "Selection width:"
 msgstr "Ancho de la selección:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1579
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1620
 msgid " height:"
 msgstr " altura:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1580
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1621
 msgid " diagonal:"
 msgstr " diagonal:"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1737
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1778
 msgid "selection using rectangle"
 msgstr "Selección usando un rectángulo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1770
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1811
 #, c-format
 msgid "Invalid windows size-format: %for option 'window-size'"
 msgstr "Formato de tamaño de ventana inválido: % para opción 'window-size'"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1851
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1892
 msgid "Save Netedit Config. (Ctrl+Shift+E)"
 msgstr "Guardar configuración de netedit. (Ctrl+Shift+E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1856
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1897
 msgid "Save Sumo Config. (Ctrl+Shift+S)"
 msgstr "Guardar configuración de sumo. (Ctrl+Shift+S)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1861
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1902
 msgid "Save network"
 msgstr "Guardar red"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1861
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1902
 msgid "Save network. (Ctrl+S)"
 msgstr "Guardar red. (Ctrl+S)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1869
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1910
 msgid "Save individual files"
 msgstr "Guardar archivos individuales"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1869
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1910
 msgid "Save individual files."
 msgstr "Guardar archivos individuales."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1874
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1915
 msgid "Save additional elements"
 msgstr "Guardar elementos adicionales"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1874
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1915
 msgid "Save additional elements. (Ctrl+Shift+A)"
 msgstr "Guardar elementos adicionales. (Ctrl+Shift+A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1879
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1920
 msgid "Save demand elements"
 msgstr "Guardar elementos de demanda"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1879
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1920
 msgid "Save demand elements. (Ctrl+Shift+D)"
 msgstr "Guardar elementos de demanda. (Ctrl+Shift+D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1884
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1925
 msgid "Save data elements"
 msgstr "Guardar elementos de datos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1884
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1925
 msgid "Save data elements. (Ctrl+Shift+B)"
 msgstr "Guardar elementos de datos. (Ctrl+Shift+B)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1889
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1930
 msgid "Save mean data elements"
 msgstr "Guardar elementos meanData"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1889
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1930
 msgid "Save mean data elements. (Ctrl+Shift+M)"
 msgstr "Guardar elementos meanData. (Ctrl+Shift+M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1922
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1963
 msgid "Switch between seconds and HH:MM:SS"
 msgstr "Cambiar entre segundos y HH:MM:SS"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1982
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:60
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:146
 msgid "Network"
 msgstr "Red"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1982
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
 msgid "Edit network elements"
 msgstr "Editar elementos de red"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1982
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2023
 msgid "Set mode for editing network elements. (F2)"
 msgstr "Establecer modo para editar elementos de red. (F2)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2028
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:68
 #: C:\Repos\sumo/src\netedit\frames\common\GNEElementSet.cpp:159
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2147
 msgid "Demand"
 msgstr "Demanda"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2028
 msgid "Edit traffic demand elements"
 msgstr "Editar elementos de demanda de tráfico"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1987
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2028
 msgid "Set mode for editing traffic demand. (F3)"
 msgstr "Establecer modo para editar demanda de tráfico. (F3)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1992
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2033
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ViewSettings.cpp:2291
 msgid "Data"
 msgstr "Datos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1992
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2033
 msgid "Edit data elements"
 msgstr "Editar elementos de datos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:1992
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2033
 msgid "Set mode for editing data demand. (F4)"
 msgstr "Establecer modo para editar elementos de datos. (F4)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2000
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2041
 msgid "Change netedit view"
 msgstr "Cambiar la interfaz de netedit"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2000
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2041
 msgid "Change netedit view."
 msgstr "Cambiar la interfaz gráfica de netedit."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2046
 msgid "Set default view"
 msgstr "Usar la interfaz predeterminada"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2005
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2046
 msgid "Set default view."
 msgstr "Usar la interfaz gráfica predeterminada."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2010
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2051
 msgid "Set JuPedSim view"
 msgstr "Usar la interfaz especial para JuPedSim"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2010
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2051
 msgid "Set JuPedSim view."
 msgstr "Usar la interfaz gráfica especial para JuPedSim."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2024
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2065
 msgid "Mode already selected"
 msgstr "Modo ya seleccionado"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2109
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2150
 msgid "Network mode already selected"
 msgstr "Modo de red ya seleccionado"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2114
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2155
 msgid "Save modifications in TLS before change mode"
 msgstr "Guardar modificaciones en semáforos (TLS) antes de cambiar de modo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2159
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2200
 msgid "Demand mode already selected"
 msgstr "Modo de demanda ya seleccionado"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2194
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2235
 msgid "Data mode already selected"
 msgstr "Modo de datos ya seleccionado"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2297
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2581
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2622
 msgid ""
 "Show grid and restrict movement to the grid - define grid size in "
 "visualization options. (Ctrl+G)"
@@ -5565,62 +5565,62 @@ msgstr ""
 "Mostrar cuadrícula y restringir el movimiento a la cuadrícula - El tamaño de "
 "la cuadrícula se puede modificar en las opciones de visualización. (Ctrl + G)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2304
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2588
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2859
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2345
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2629
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2900
 msgid "Toggle hiding junction shape. (Ctrl+J)"
 msgstr "Alternar si mostrar o no las formas de los cruces. (Ctrl+J)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2311
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2352
 msgid "Draw vehicles spread in lane or depart position"
 msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2311
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2595
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2352
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2636
 msgid "Draw vehicles spread in lane or in depart position."
 msgstr "Dibujar vehículos extendidos en el carril o en la posición de inicio."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2318
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2878
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2359
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2919
 msgid "Toggle show demand elements."
 msgstr "Alternar mostrar elementos de demanda."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2325
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2366
 msgid "Clicks target lanes"
 msgstr "Clics seleccionan carriles"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2325
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2366
 msgid ""
 "Toggle whether clicking should inspect/select/delete lanes instead of edges."
 msgstr ""
 "Alternar si cliquear debe inspeccionar/seleccionar/eliminar carriles en "
 "lugar de aristas."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2331
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2372
 msgid "Toggle show connections over junctions."
 msgstr "Alternar mostrar conexiones sobre cruces."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2338
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2379
 msgid "Toggle hide connections."
 msgstr "Alternar ocultar conexiones."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2345
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2386
 msgid "Show additional sub-elements"
 msgstr "Mostar sub-elementos adicionales"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2345
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2386
 msgid "Toggle show additional sub-elements."
 msgstr "Alternar mostrar sub-elementos adicionales."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2352
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
 msgid "Toggle show TAZ elements."
 msgstr "Alternar mostrar elementos de zona de análisis de tráfico (TAZ)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2359
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2400
 msgid "Automatic select junctions"
 msgstr "Seleccionar cruces automáticamente"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2359
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2400
 msgid ""
 "Toggle whether selecting multiple edges should automatically select their "
 "junctions."
@@ -5628,11 +5628,11 @@ msgstr ""
 "Alternar si al seleccionar multiples aristas también se deban seleccionar o "
 "no sus cruces."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2366
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2407
 msgid "Apply state to all phases"
 msgstr "Aplicar estado a todas las fases"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2366
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2407
 msgid ""
 "Toggle whether clicking should apply state changes to all phases of the "
 "current TLS plan."
@@ -5640,340 +5640,340 @@ msgstr ""
 "Alternar si clicar debe aplicar o no los cambios de estado a todas las fases "
 "del plan actual del semáforo (TLS)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2414
 msgid "Automatic merging junction"
 msgstr "Unir cruce automáticamente"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2373
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2414
 msgid "Toggle ask for confirmation before merging junction."
 msgstr "Alternar entre preguntar o no antes de unir un cruce."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2379
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid "Show bubbles"
 msgstr "Mostrar burbujas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2379
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2420
 msgid "Toggle show bubbles over junctions shapes."
 msgstr "Alternar entre mostrar o no burbujas sobre la forma de los cruces."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2386
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2427
 msgid "Move elevation"
 msgstr "Mover elevación"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2386
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2427
 msgid "Apply mouse movement to elevation instead of x,y position."
 msgstr ""
 "Aplicar movimiento del ratón a la elevación en lugar de la las posiciones x "
 "e y."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2434
 msgid "Edge chain mode"
 msgstr "Modo cadenas de arista"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2434
 msgid "Create consecutive edges with a single click (hit ESC to cancel chain)."
 msgstr ""
 "Crear aristas consecutivas con un solo clic (pulse ESC para cancelar la "
 "cadena)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2400
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2441
 msgid "Edge opposite direction"
 msgstr "Arista en dirección opuesta"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2400
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2441
 msgid "Automatically create an edge in the opposite direction."
 msgstr "Crear una arista en la dirección opuesta automáticamente."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2602
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2872
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2643
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2913
 msgid "Toggle show shapes (Polygons and POIs)."
 msgstr ""
 "Alternar entre mostrar o no formas (shapes) (Polígonos y puntos de interés)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2609
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2650
 msgid "Toggle show all trips (requires updated demand - F5)."
 msgstr ""
 "Alternar entre mostrar o no todos los viajes (Requiere actualizar demanda - "
 "F5)."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2616
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2657
 msgid "Toggle show all person plans."
 msgstr "Alternar entre mostrar o no todos los planes para personas."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2623
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2664
 msgid "Toggle lock selected person."
 msgstr "Alternar entre bloquear o no a la persona seleccionada."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2630
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
 msgid "Show all containers plans"
 msgstr "Mostar todos los planes para contendores"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2630
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2671
 msgid "Toggle show all container plans."
 msgstr "Alterna entre mostrar o no todos los planes para contenedores."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2637
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2678
 msgid "Toggle lock selected container."
 msgstr "Alternar entre bloquear o no el contenedor seleccionado."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2644
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2685
 msgid "Toggle show non-inspected demand elements."
 msgstr "Alternar entre mostrar o no elementos de demanda no inspeccionados."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2651
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2692
 msgid "Toggle show number of overlapped routes."
 msgstr "Alternar mostrar o no el número de rutas superpuestas."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2866
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2907
 msgid "Toggle show additionals."
 msgstr "Alternar entre mostrar o no elementos adicionales."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2884
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2925
 msgid "Draw TAZREL drawing mode"
 msgstr "Modo para dibujar TAZRel"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2884
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2925
 msgid "Toggle draw TAZREL drawing mode."
 msgstr "Alternar el modo para dibujar TAZRels."
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2890
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2931
 msgid "Toggle draw TAZ fill"
 msgstr "Alternar entre dibujar o no los TAZ rellenos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2896
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2937
 msgid "Toggle draw TAZRel only from"
 msgstr "Alternar entre mostrar o no solamente los TAZRel de origen"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2902
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:2943
 msgid "Toggle draw TAZRel only to"
 msgstr "Alternar entre mostrar o no solamente los TAZRel de destino"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3383
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3424
 msgid "Inspect mode"
 msgstr "Modo de inspección"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3383
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3424
 msgid "Mode for inspect elements and change their attributes. (I)"
 msgstr "Modo para inspeccionar elementos y cambiar sus atributos. (I)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3388
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3429
 msgid "Delete mode"
 msgstr "Modo de borrado"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3388
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3429
 msgid "Mode for deleting elements. (D)"
 msgstr "Modo para borrar elementos. (D)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3434
 msgid "Select mode"
 msgstr "Modo de selección"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3393
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3434
 msgid "Mode for selecting elements. (S)"
 msgstr "Modo para seleccionar elementos. (S)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3449
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3602
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3490
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3643
 msgid "Move mode"
 msgstr "Modo de movimiento"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3449
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3602
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3490
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3643
 msgid "Mode for moving elements. (M)"
 msgstr "Modo para mover elementos. (M)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3454
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3495
 msgid "Edge mode"
 msgstr "Modo de arista"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3454
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3495
 msgid "Mode for creating junctions and edges. (E)"
 msgstr "Modo para crear cruces y aristas. (E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3459
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3500
 msgid "Traffic light mode"
 msgstr "Modo de semáforos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3459
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3500
 msgid "Mode for editing traffic lights over junctions. (T)"
 msgstr "Modo para editar semáforos (TLS) sobre cruces. (T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3464
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3505
 msgid "Connection mode"
 msgstr "Modo de conexiones"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3464
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3505
 msgid "Mode for edit connections between lanes. (C)"
 msgstr "Modo para editar conexiones entre carriles. (C)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3469
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3510
 msgid "Prohibition mode"
 msgstr "Modo de prohibiciones"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3469
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3510
 msgid "Mode for editing connection prohibitions. (H)"
 msgstr "Modo para editar conexiones prohibidas. (H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Crossing mode"
 msgstr "Modo de cruces peatonales"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3474
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3515
 msgid "Mode for creating crossings between edges. (R)"
 msgstr "Modo para crear pasos peatonales entre aristas. (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3520
 msgid "Additional mode"
 msgstr "Modo de elementos adicionales"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3479
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3520
 msgid "Mode for creating additional elements. (A)"
 msgstr "Modo para crear elementos adicionales. (A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3484
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3525
 msgid "Wire mode"
 msgstr "Modo de catenarias"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3484
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3525
 msgid "Mode for editing overhead wires. (W)"
 msgstr "Modo para editar catenarias. (W)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3489
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3530
 msgid "TAZ mode"
 msgstr "Modo de zonas de análisis de tráfico (TAZ)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3489
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3530
 msgid "Mode for creating Traffic Assignment Zones. (Z)"
 msgstr "Modo para crear zonas de análisis de tráfico (TAZ). (Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3494
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3535
 msgid "Polygon mode"
 msgstr "Modo de polígonos"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3494
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3535
 msgid "Mode for creating polygons and POIs. (P)"
 msgstr "Modo para crear polígonos y puntos de interés (POI). (P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3499
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3540
 msgid "Decal mode"
 msgstr "Modo de imágenes de fondo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3499
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3540
 msgid "Mode for editing decals. (U)"
 msgstr "Modo para establecer imágenes de fondo. (U)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3607
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3648
 #: C:\Repos\sumo/src\netedit\frames\demand\GNERouteFrame.cpp:52
 msgid "Route mode"
 msgstr "Modo rutas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3607
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3648
 msgid "Mode for creating routes. (R)"
 msgstr "Modo para crear rutas. (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3612
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3653
 msgid "Route distribution mode"
 msgstr "Modo de distribución de rutas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3612
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3653
 msgid "Mode for creating and editing rout distributions. (W)"
 msgstr "Modo para crear y editar distribuciones de rutas. (W)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3617
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3658
 msgid "Vehicle mode"
 msgstr "Modo de vehículo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3617
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3658
 msgid "Mode for creating vehicles. (V)"
 msgstr "Modo para crear vehículos. (V)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3622
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3663
 msgid "Type mode"
 msgstr "Modo de tipo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3622
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3663
 msgid "Mode for creating types (of vehicles, persons and containers). (T)"
 msgstr "Modo para crear tipos (de vehículos, personas y contendores). (T)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3627
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3668
 msgid "Type distribution mode"
 msgstr "Modo de distribuciones de tipo"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3627
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3668
 msgid "Mode for creating and editing type distribution. (U)"
 msgstr "Modo para crear y editar distribuciones de tipo. (U)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3632
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3673
 msgid "Stop mode"
 msgstr "Modo de paradas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3632
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3673
 msgid "Mode for creating stops. (A)"
 msgstr "Modo para crear paradas. (A)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3637
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
 msgid "Person mode"
 msgstr "Modo de personas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3637
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3678
 msgid "Mode for creating persons. (P)"
 msgstr "Modo para crear personas. (P)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3642
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Person plan mode"
 msgstr "Modo de planes de personas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3642
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3683
 msgid "Mode for creating person plans. (L)"
 msgstr "Modo para crear planes de personas. (L)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3647
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3688
 msgid "Container mode"
 msgstr "Modo de contenedores"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3647
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3688
 msgid "Mode for creating containers. (C)"
 msgstr "Modo para crear contenedores. (C)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3693
 msgid "Container plan mode"
 msgstr "Modo de planes de contenedores"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3652
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3693
 msgid "Mode for creating container plans. (H)"
 msgstr "Modo para crear planes para contenedores. (H)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3795
 msgid "Edge data mode"
 msgstr "Modo de datos sobre aristas (edgeData)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3754
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3795
 msgid "Mode for creating edge datas. (E)"
 msgstr "Modo para crear datos de aristas (edgeDatas). (E)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3759
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3800
 msgid "Edge relation data mode"
 msgstr "Modo de relación entre aristas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3759
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3800
 msgid "Mode for creating edge relation datas. (R)"
 msgstr "Modo para crear datos de relación entre aristas (edgeRelDatas). (R)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3764
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3805
 msgid "TAZ relation data mode"
 msgstr "Modo de relación entre zonas de análisis de tráfico"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3764
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3805
 msgid "Mode for creating TAZ relation datas. (Z)"
 msgstr ""
 "Modo para crear datos de relación entre zonas de análisis de tráfico "
 "(TAZRelDatas). (Z)"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3769
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3810
 msgid "MeanData mode"
 msgstr "Ir al modo de meanDatas"
 
-#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3769
+#: C:\Repos\sumo/src\netedit\GNEViewNetHelper.cpp:3810
 msgid "Mode for MeanData elements. (M)"
 msgstr "Modo para crear y editar meanDatas. (M)"
 
@@ -10925,10 +10925,10 @@ msgstr "No se pudo crear % '%' en netedit"
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:116
 #: C:\Repos\sumo/src\netedit\elements\data\GNEMeanDataHandler.cpp:132
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2936
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2947
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2958
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2971
 #, c-format
 msgid "Could not build % in netedit"
 msgstr "No se pudo construir % en netedit"
@@ -10942,10 +10942,10 @@ msgstr "% '%' no existe."
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2094
 #: C:\Repos\sumo/src\netedit\elements\additional\GNEAdditionalHandler.cpp:2112
 #: C:\Repos\sumo/src\netedit\elements\data\GNEDataHandler.cpp:258
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2778
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2789
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2800
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2813
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2936
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2947
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2958
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2971
 #, c-format
 msgid "% doesn't exist."
 msgstr "% no existe."
@@ -11213,8 +11213,8 @@ msgstr "invertir % actual"
 msgid "Add reverse %"
 msgstr "Agregar % inverso"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1373
-#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1386
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1378
+#: C:\Repos\sumo/src\netedit\elements\demand\GNEDemandElementPlan.cpp:1391
 msgid "Edge '%' is not consecutive with edge '%'"
 msgstr "La arista '%' no es consecutiva a la arista '%'"
 
@@ -11237,9 +11237,9 @@ msgstr "copiar % '%'"
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:106
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:139
 #: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:224
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1928
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1952
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1964
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2088
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2112
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2124
 msgid "There is another % with the same ID='%'."
 msgstr "Ya existe otro % con el mismo ID='%'."
 
@@ -11393,20 +11393,20 @@ msgstr ""
 msgid "A stop requires only a stoppingPlace, edge or lane"
 msgstr "Una parada necesita solo un lugar de parada, arista o carril"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:1940
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:2100
 #, c-format
 msgid "Via edge '%' doesn't exist."
 msgstr "La arista intermedia (via) '%' no existe."
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3020
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3178
 msgid "% with id '%' doesn't exist in % '%'"
 msgstr "% con ID '%' no existe en % '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3028
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3186
 msgid "invalid probability % in % '%'"
 msgstr "probabilidad no válida % en % '%'"
 
-#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3034
+#: C:\Repos\sumo/src\netedit\elements\demand\GNERouteHandler.cpp:3192
 msgid ""
 "Invalid type distribution probabilities in % '%'. Must have the same number "
 "of elements"
@@ -11901,7 +11901,7 @@ msgstr "Usar arista como plantilla"
 msgid "Apply template"
 msgstr "Aplicar plantilla"
 
-#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2192
+#: C:\Repos\sumo/src\netedit\elements\network\GNELane.cpp:2191
 msgid "Select reachable (compute junctions)"
 msgstr "Seleccionar accesibilidad (computar cruces)"
 
@@ -12047,13 +12047,13 @@ msgstr "El tipo de vehículo por defecto '%' no se puede eliminar"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:319
 #: C:\Repos\sumo/src\netedit\frames\GNENeteditAttributes.cpp:57
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:278
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:282
 #: C:\Repos\sumo/src\utils\gui\windows\GUIDialog_ChooserAbstract.cpp:84
 msgid "Center"
 msgstr "Centrar"
 
 #: C:\Repos\sumo/src\netedit\frames\GNEElementTree.cpp:326
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1093
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:1097
 msgid "Inspect"
 msgstr "Inspeccionar"
 
@@ -12960,37 +12960,33 @@ msgstr "Usar como plantilla"
 msgid "clear Edge Template"
 msgstr "Limpiar plantilla de arista"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:590
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:719
 #, c-format
 msgid "Set edge '%' as Template"
 msgstr "Establecer arista '%' como plantilla"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:669
-msgid "Only one edge must be inspected"
-msgstr "Solo una arista debe ser inspeccionada"
-
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:733
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:737
 msgid "No edge Template Set"
 msgstr "No se ha establecido una plantilla de arista"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:745
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:748
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:749
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:752
 msgid "Additional dialog"
 msgstr "Ventana adicional"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:764
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:768
 msgid "Open rerouter dialog"
 msgstr "Abrir ventana para rerouters"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:770
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:774
 msgid "Open calibrator dialog"
 msgstr "Abrir ventana para calibradores"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:776
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:780
 msgid "Open calibrator lane dialog"
 msgstr "Abrir ventan para calibratos sobre carril"
 
-#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:782
+#: C:\Repos\sumo/src\netedit\frames\common\GNEInspectorFrame.cpp:786
 msgid "Open VSS dialog"
 msgstr "Abrir ventana para VSS"
 
@@ -15403,48 +15399,52 @@ msgstr "Seleccionar elemento"
 msgid "Mark front element"
 msgstr "Marcar elemento frontal"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:170
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGLObjectPopupMenu.cpp:172
 msgid "Object must be a lane"
 msgstr "El objeto debe ser un carril"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:287
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:272
+msgid "Copy test coordinates to clipboard"
+msgstr ""
+
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:291
 msgid "Copy name to clipboard"
 msgstr "Copiar el nombre al portapapeles"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:288
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:292
 msgid "Copy typed name to clipboard"
 msgstr "Copiar el nombre y tipo al portapapeles"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:298
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:302
 msgid "Remove From Selected"
 msgstr "Remover de la selección"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:310
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:314
 msgid "Show Parameter"
 msgstr "Mostrar parámetros"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:319
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:323
 msgid "Show Type Parameter"
 msgstr "Mostrar parámetros del tipo"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:328
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:332
 msgid "Copy cursor position to clipboard"
 msgstr "Copiar posición del cursor al portapapeles"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:330
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:334
 msgid "Copy cursor geo-position to clipboard"
 msgstr "Copiar posición geográfica del cursor al portapapeles"
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:334
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:338
 msgid "Show cursor geo-position in "
 msgstr "Mostrar posición geográfica del cursor en "
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:352
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:356
 msgid "Open Manipulator..."
 msgstr "Abrir manipulador..."
 
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:391
-#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:414
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:395
+#: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:418
 msgid "type: %"
 msgstr "tipo: %"
 
@@ -16985,6 +16985,9 @@ msgstr "(Sin proyección definida)"
 #: C:\Repos\sumo/src\utils\gui\windows\GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "No se pudieron convertir las coordenadas en %."
+
+#~ msgid "Only one edge must be inspected"
+#~ msgstr "Solo una arista debe ser inspeccionada"
 
 #~ msgid "hide below"
 #~ msgstr "ocultar menor a"

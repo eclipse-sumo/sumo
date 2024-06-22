@@ -46,6 +46,12 @@ MSTransportableDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("person-device.rerouting.period", new Option_String("0", "TIME"));
     oc.addSynonyme("person-device.rerouting.period", "person-device.routing.period", true);
     oc.addDescription("person-device.rerouting.period", "Routing", TL("The period with which the person shall be rerouted"));
+
+    oc.doRegister("person-device.rerouting.mode", new Option_String("0"));
+    oc.addDescription("person-device.rerouting.mode", "Routing", TL("Set routing flags (8 ignores temporary blockages)"));
+
+    oc.doRegister("person-device.rerouting.scope", new Option_String("stage"));
+    oc.addDescription("person-device.rerouting.scope", "Routing", TL("Which part of the person plan is to be replaced (stage, sequence, trip, stop, or plan)"));
 }
 
 
@@ -54,10 +60,12 @@ MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTr
     const OptionsCont& oc = OptionsCont::getOptions();
     if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false, true)) {
         // route computation is enabled
-        const SUMOTime period = string2time(oc.getString("person-device.rerouting.period"));
-        MSRoutingEngine::initWeightUpdate();
-        // build the device
-        into.push_back(new MSTransportableDevice_Routing(p, "routing_" + p.getID(), period));
+        const SUMOTime period = getTimeParam(p, oc, "rerouting.period", string2time(oc.getString("person-device.rerouting.period")));
+        if (period > 0) {
+            MSRoutingEngine::initWeightUpdate();
+            // build the device
+            into.push_back(new MSTransportableDevice_Routing(p, "routing_" + p.getID(), period));
+        }
     }
 }
 
@@ -67,12 +75,11 @@ MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTr
 // ---------------------------------------------------------------------------
 MSTransportableDevice_Routing::MSTransportableDevice_Routing(MSTransportable& holder, const std::string& id, SUMOTime period)
     : MSTransportableDevice(holder, id), myPeriod(period), myLastRouting(-1), myRerouteCommand(0) {
-    if (holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
-        // if we don't update the edge weights, we might as well reroute now and hopefully use our threads better
-        const SUMOTime execTime = MSRoutingEngine::hasEdgeUpdates() ? holder.getParameter().depart : -1;
-        MSNet::getInstance()->getInsertionEvents()->addEvent(new WrappingCommand<MSTransportableDevice_Routing>(this, &MSTransportableDevice_Routing::wrappedRerouteCommandExecute), execTime);
-        // the event will deschedule and destroy itself so it does not need to be stored
-    }
+    const OptionsCont& oc = OptionsCont::getOptions();
+    myScope = getStringParam(holder, oc, "rerouting.scope", oc.getString("person-device.rerouting.scope"));
+    // no need for initial routing here, personTrips trigger it themselves
+    MSNet::getInstance()->getInsertionEvents()->addEvent(new WrappingCommand<MSTransportableDevice_Routing>(this, &MSTransportableDevice_Routing::wrappedRerouteCommandExecute), SIMSTEP + period);
+    // the event will deschedule and destroy itself so it does not need to be stored
 }
 
 
@@ -92,14 +99,14 @@ MSTransportableDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime
 
 
 void
-MSTransportableDevice_Routing::reroute(const SUMOTime currentTime, const bool /* onInit */) {
+MSTransportableDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
     MSRoutingEngine::initEdgeWeights(SVC_PEDESTRIAN);
     //check whether the weights did change since the last reroute
     if (myLastRouting >= MSRoutingEngine::getLastAdaptation()) {
         return;
     }
     myLastRouting = currentTime;
-//    MSRoutingEngine::reroute(myHolder, currentTime, onInit);
+    MSRoutingEngine::reroute(myHolder, currentTime, "person-device.rerouting", onInit);
 }
 
 

@@ -172,6 +172,7 @@ public:
      */
     static bool isInternalRouteID(const std::string& id);
 
+    static int parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi = false);
 private:
     /**@brief parse ID
      * @return empty string if ID obtained from attrs isn't valid

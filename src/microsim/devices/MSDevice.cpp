@@ -179,8 +179,8 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 
 
 std::string
-MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
-    const std::string key = "device." + paramName;
+MSDevice::getStringParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
+    const std::string key = (v.isVehicle() ? "device." : "person-device") + paramName;
     if (v.getParameter().hasParameter(key)) {
         return v.getParameter().getParameter(key, "");
     } else if (v.getVehicleType().getParameter().hasParameter(key)) {
@@ -203,7 +203,7 @@ MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, const std:
 
 
 double
-MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required) {
+MSDevice::getFloatParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required) {
     const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return Distribution_Parameterized(val).sample();
@@ -215,7 +215,7 @@ MSDevice::getFloatParam(const SUMOVehicle& v, const OptionsCont& oc, const std::
 
 
 bool
-MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required) {
+MSDevice::getBoolParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required) {
     const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return StringUtils::toBool(val);
@@ -227,7 +227,7 @@ MSDevice::getBoolParam(const SUMOVehicle& v, const OptionsCont& oc, const std::s
 
 
 SUMOTime
-MSDevice::getTimeParam(const SUMOVehicle& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required) {
+MSDevice::getTimeParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required) {
     const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
     try {
         return string2time(val);

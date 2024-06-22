@@ -189,7 +189,7 @@ ShapeHandler::addPOI(const SUMOSAXAttributes& attrs, const bool ignorePruning, c
                     success = gch->x2cartesian_const(pos);
                 }
                 if (!success) {
-                    WRITE_ERRORF(TL("Unable to project coordinates for PoI '%'."), id);
+                    WRITE_ERRORF(TL("Unable to project coordinates for POI '%'."), id);
                     return;
                 }
             }

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-19 10:58+0200\n"
-"PO-Revision-Date: 2024-06-21 13:14+0000\n"
+"POT-Creation-Date: 2024-06-21 16:48+0200\n"
+"PO-Revision-Date: 2024-06-21 16:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1825,50 +1825,58 @@ msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
 msgstr ""
+"Se si deve usare il metodo ballistico per l'aggiornamento delle posizioni "
+"dei veicoli (il metodo standard è quello Eulero semi-implicito)."
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:357
 msgid ""
 "Whether vehicles that depart between simulation steps should extrapolate the "
 "depart position"
 msgstr ""
+"Se la posizione di partenza di veicoli che partono tra due passi di "
+"simulazione deve essere estrapolata"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:360
 msgid "Defines the number of threads for parallel simulation"
-msgstr ""
+msgstr "Definisce il numero di thread per la simulazione parallela"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:363
 msgid ""
 "Defines the resolution in m when handling lateral positioning within a lane "
 "(with -1 all vehicles drive at the center of their lane"
 msgstr ""
+"Definisce la risoluzione in metri per la posizione laterale all'interno di "
+"una corsia (con -1 ogni veicolo al centro della sua corsia)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:367
 #: C:\Repos\sumo/src\router\ROFrame.cpp:142
 msgid "Load routes for the next number of seconds ahead"
-msgstr ""
+msgstr "Carica itinerari e veicoli per questo numero di secondi in anticipo"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:370
 #: C:\Repos\sumo/src\router\ROFrame.cpp:145
 msgid "Disable (junction) internal links"
-msgstr ""
+msgstr "Disattiva corsie interne degli incroci"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:373
 msgid ""
 "Ignore vehicles which block the junction after they have been standing for "
 "SECONDS (-1 means never ignore)"
 msgstr ""
+"Ignora veicoli che bloccano l'incrocio dopo un'attesa di SECONDS (ignorarli "
+"mai con -1)"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:376
 msgid "Do not check whether routes are connected"
-msgstr ""
+msgstr "Non controllare se gli itinerari sono connessi"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:379
 msgid "Do not check whether accidents occur"
-msgstr ""
+msgstr "Non controllare se degli incidenti stradali sono accaduti"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:382
 msgid "How to deal with collisions: [none,warn,teleport,remove]"
-msgstr ""
+msgstr "Come procedere dopo un incidente stradale: [none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:385
 msgid ""
@@ -3584,7 +3592,7 @@ msgstr "Il fattore di velocità massimo da usare per avanzare verso il semaforo"
 msgid "Minimum speed when coasting towards a red light"
 msgstr "Velocità minima nel rallentare verso un semaforo rosso"
 
-#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:176
+#: C:\Repos\sumo/src\microsim\devices\MSDevice_GLOSA.cpp:177
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
 msgstr ""
@@ -4775,7 +4783,7 @@ msgstr ""
 msgid "Adjusting departLane for cloned walk with routeDistribution '%'"
 msgstr ""
 
-#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:293
+#: C:\Repos\sumo/src\microsim\transportables\MSStageWalking.cpp:279
 msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
@@ -7495,15 +7503,15 @@ msgstr ""
 msgid "Edge '%' is not unique. Renaming subsequent edge to '%'."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:354
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:368
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:374
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr ""
 
-#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:382
+#: C:\Repos\sumo/src\netimport\NIImporter_ArcView.cpp:388
 #: C:\Repos\sumo/src\polyconvert\PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
 msgstr ""
@@ -9686,6 +9694,7 @@ msgstr ""
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:279
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:271
 #: C:\Repos\sumo/src\polyconvert\PCLoaderVisum.cpp:389
+#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
 msgstr ""
 
@@ -11373,10 +11382,6 @@ msgstr ""
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
-msgstr ""
-
-#: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:192
-msgid "Unable to project coordinates for PoI '%'."
 msgstr ""
 
 #: C:\Repos\sumo/src\utils\shapes\ShapeHandler.cpp:202
