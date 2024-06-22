@@ -33,6 +33,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
+#include <utils/router/IntermodalNetwork.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -1746,6 +1747,56 @@ SUMOVehicleParserHelper::processActionStepLength(double given) {
 bool
 SUMOVehicleParserHelper::isInternalRouteID(const std::string& id) {
     return id.substr(0, 1) == "!";
+}
+
+
+int
+SUMOVehicleParserHelper::parseCarWalkTransfer(const OptionsCont& oc, const bool hasTaxi) {
+    int carWalk = 0;
+    for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
+        if (opt == "parkingAreas") {
+            carWalk |= ModeChangeOptions::PARKING_AREAS;
+        } else if (opt == "ptStops") {
+            carWalk |= ModeChangeOptions::PT_STOPS;
+        } else if (opt == "allJunctions") {
+            carWalk |= ModeChangeOptions::ALL_JUNCTIONS;
+        } else {
+            WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+        }
+    }
+    const StringVector taxiDropoff = oc.getStringVector("persontrip.transfer.taxi-walk");
+    const StringVector taxiPickup = oc.getStringVector("persontrip.transfer.walk-taxi");
+    if (taxiDropoff.empty() && hasTaxi) {
+        carWalk |= ModeChangeOptions::TAXI_DROPOFF_ANYWHERE;
+    } else {
+        for (const std::string& opt : taxiDropoff) {
+            if (opt == "parkingAreas") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_PARKING_AREAS;
+            } else if (opt == "ptStops") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_PT;
+            } else if (opt == "allJunctions") {
+                carWalk |= ModeChangeOptions::TAXI_DROPOFF_ANYWHERE;
+            } else {
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+            }
+        }
+    }
+    if (taxiPickup.empty() && hasTaxi) {
+        carWalk |= ModeChangeOptions::TAXI_PICKUP_ANYWHERE;
+    } else {
+        for (const std::string& opt : taxiPickup) {
+            if (opt == "parkingAreas") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_PARKING_AREAS;
+            } else if (opt == "ptStops") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_PT;
+            } else if (opt == "allJunctions") {
+                carWalk |= ModeChangeOptions::TAXI_PICKUP_ANYWHERE;
+            } else {
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+            }
+        }
+    }
+    return carWalk;
 }
 
 

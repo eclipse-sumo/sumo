@@ -59,6 +59,7 @@
 #include <utils/router/IntermodalRouter.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteLoaderControl.h>
+#include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
 #include <libsumo/Helper.h>
@@ -1505,39 +1506,9 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
     const OptionsCont& oc = OptionsCont::getOptions();
     const int key = rngIndex * oc.getInt("thread-rngs") + routingMode;
     if (myIntermodalRouter.count(key) == 0) {
-        int carWalk = 0;
-        for (const std::string& opt : oc.getStringVector("persontrip.transfer.car-walk")) {
-            if (opt == "parkingAreas") {
-                carWalk |= MSTransportableRouter::Network::PARKING_AREAS;
-            } else if (opt == "ptStops") {
-                carWalk |= MSTransportableRouter::Network::PT_STOPS;
-            } else if (opt == "allJunctions") {
-                carWalk |= MSTransportableRouter::Network::ALL_JUNCTIONS;
-            }
-        }
-        // XXX there is currently no reason to combine multiple values, thus getValueString rather than getStringVector
-        const std::string& taxiDropoff = oc.getValueString("persontrip.transfer.taxi-walk");
-        const std::string& taxiPickup = oc.getValueString("persontrip.transfer.walk-taxi");
-        if (taxiDropoff == "") {
-            if (MSDevice_Taxi::getTaxi() != nullptr) {
-                carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_ANYWHERE;
-            }
-        } else if (taxiDropoff == "ptStops") {
-            carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_PT;
-        } else if (taxiDropoff == "allJunctions") {
-            carWalk |= MSTransportableRouter::Network::TAXI_DROPOFF_ANYWHERE;
-        }
-        if (taxiPickup == "") {
-            if (MSDevice_Taxi::getTaxi() != nullptr) {
-                carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE;
-            }
-        } else if (taxiPickup == "ptStops") {
-            carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_PT;
-        } else if (taxiPickup == "allJunctions") {
-            carWalk |= MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE;
-        }
+        const int carWalk = SUMOVehicleParserHelper::parseCarWalkTransfer(oc, MSDevice_Taxi::getTaxi() != nullptr);
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
-        double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
+        const double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
             myIntermodalRouter[key] = new MSTransportableRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode, new FareModul());
         } else {
@@ -1575,7 +1546,7 @@ MSNet::adaptIntermodalRouter(MSTransportableRouter& router) {
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
     myInstance->getVehicleControl().adaptIntermodalRouter(router);
     // add access to transfer from walking to taxi-use
-    if ((router.getCarWalkTransfer() & MSTransportableRouter::Network::TAXI_PICKUP_ANYWHERE) != 0) {
+    if ((router.getCarWalkTransfer() & ModeChangeOptions::TAXI_PICKUP_ANYWHERE) != 0) {
         for (MSEdge* edge : myInstance->getEdgeControl().getEdges()) {
             if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
                 router.getNetwork()->addCarAccess(edge, SVC_TAXI, taxiWait);

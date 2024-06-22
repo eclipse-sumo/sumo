@@ -362,10 +362,20 @@ MSTransportable::setSpeed(double speed) {
 bool
 MSTransportable::replaceRoute(ConstMSRoutePtr newRoute, const std::string& /* info */, bool /* onInit */, int /* offset */, bool /* addRouteStops */, bool /* removeStops */, std::string* /* msgReturn */) {
     if (isPerson()) {
-        static_cast<MSPerson*>(this)->reroute(newRoute->getEdges(), getPositionOnLane(), 0, 1);
+        static_cast<MSPerson*>(this)->replaceWalk(newRoute->getEdges(), getPositionOnLane(), 0, 1);
         return true;
     }
     return false;
+}
+
+
+bool
+MSTransportable::reroute(SUMOTime t, const std::string& info, MSTransportableRouter& router, const bool onInit, const bool withTaz, const bool silent, const MSEdge* sink) {
+    MSStageTrip* trip = getCurrentStage()->getTrip();
+    if (trip == nullptr) {
+        return false;
+    }
+    return trip->reroute(t, router, this, getEdge(), getRerouteDestination()) == "";
 }
 
 

@@ -590,12 +590,12 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                         }
                         edges.insert(edges.end(), std::make_move_iterator(it.edges.begin()), std::make_move_iterator(it.edges.end()));
                         if (!edges.empty()) {
-                            static_cast<MSPerson&>(tObject).reroute(edges, tObject.getPositionOnLane(), 0, 1);
+                            static_cast<MSPerson&>(tObject).replaceWalk(edges, tObject.getPositionOnLane(), 0, 1);
                         }
                     }
                 } else {
                     // maybe the pedestrian model still finds a way (JuPedSim)
-                    static_cast<MSPerson&>(tObject).reroute({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, 1);
+                    static_cast<MSPerson&>(tObject).replaceWalk({tObject.getEdge(), newEdge}, tObject.getPositionOnLane(), 0, 1);
                 }
             }
         }
@@ -645,11 +645,11 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                     edges.insert(edges.end(), std::make_move_iterator(it.edges.begin()), std::make_move_iterator(it.edges.end()));
                 }
                 if (!edges.empty()) {
-                    static_cast<MSPerson&>(tObject).reroute(edges, tObject.getPositionOnLane(), 0, 1);
+                    static_cast<MSPerson&>(tObject).replaceWalk(edges, tObject.getPositionOnLane(), 0, 1);
                 }
             } else {
                 // maybe the pedestrian model still finds a way (JuPedSim)
-                static_cast<MSPerson&>(tObject).reroute({tObject.getEdge(), newEdge, lastEdge}, tObject.getPositionOnLane(), 0, 1);
+                static_cast<MSPerson&>(tObject).replaceWalk({tObject.getEdge(), newEdge, lastEdge}, tObject.getPositionOnLane(), 0, 1);
             }
         }
     }
