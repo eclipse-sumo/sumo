@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.inspectMode()
 
 # inspect first trainStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop.x, netedit.positions.elements.additionals.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop.x,
+                  netedit.positions.elements.additionals.trainStop.y)
 
 # Change parameter 5 with a non valid value (throw warning)
 netedit.modifyAttribute(netedit.attrs.trainStop.inspect.lines, "line1, line2", True)

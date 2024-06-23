@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x, netedit.positions.elements.demands.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x,
+                  netedit.positions.elements.demands.stopEdge.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointLane.inspect.actType, "dummy", True)

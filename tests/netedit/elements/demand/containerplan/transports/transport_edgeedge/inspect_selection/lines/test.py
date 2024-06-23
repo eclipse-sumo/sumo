@@ -44,7 +44,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect transportEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x, netedit.positions.elements.demands.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x,
+                  netedit.positions.elements.demands.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transportEdgeEdge.inspectSelection.lines, "custom line", False)

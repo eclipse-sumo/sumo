@@ -41,7 +41,8 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x, netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x,
+                  netedit.positions.elements.demands.parkingArea.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.actType, "")

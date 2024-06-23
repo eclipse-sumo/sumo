@@ -48,7 +48,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
+                  netedit.positions.elements.demands.container.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.terminate, "dummyTerminate", False)

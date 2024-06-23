@@ -41,7 +41,8 @@ netedit.changeStopType("waypointChargingStation")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
+                  netedit.positions.elements.demands.chargingStation.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointChargingStation.create.durationEnable)

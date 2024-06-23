@@ -61,7 +61,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transhipEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x, netedit.positions.elements.demands.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x,
+                  netedit.positions.elements.demands.containerPlanEdge.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

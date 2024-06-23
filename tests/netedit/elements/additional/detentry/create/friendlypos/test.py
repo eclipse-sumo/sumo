@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # select entry detector
 netedit.changeElement("detEntry")
@@ -44,13 +45,15 @@ netedit.changeElement("detEntry")
 netedit.changeDefaultBoolValue(netedit.attrs.entryExit.create.friendlyPos)
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # select exit detector
 netedit.changeElement("detExit")
 
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
 
 # Check undo redo

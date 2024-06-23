@@ -42,13 +42,15 @@ netedit.changeElement("space")
 
 # create space
 netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x, netedit.positions.elements.additionals.parkingSpace.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace.x,
+                  netedit.positions.elements.additionals.parkingSpace.y)
 
 # Change parameter 0 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingSpace.inspect.pos, "dummyPosition", False)

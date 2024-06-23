@@ -41,7 +41,8 @@ netedit.changeStopType("waypointBusStop")
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.speed, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.speed, "")

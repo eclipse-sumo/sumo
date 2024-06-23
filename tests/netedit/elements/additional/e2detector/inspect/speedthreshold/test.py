@@ -41,7 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x, netedit.positions.elements.additionals.e2Detector.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x,
+                  netedit.positions.elements.additionals.e2Detector.y)
 
 # Change parameter SpeedTreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspect.speedThreshold, "dummySpeedTreshold", True)

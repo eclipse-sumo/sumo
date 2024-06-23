@@ -51,31 +51,36 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("stop")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultBoolValue(netedit.attrs.stopPlanStoppingPlace.create.untilEnable)
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "dummy")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "-20")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.stopPlanStoppingPlace.create.until, "30.2")
 
 # create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # press enter to create route
 netedit.typeEnter()

@@ -41,7 +41,8 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
+                  netedit.positions.elements.demands.trainStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopTrainStop.create.durationEnable)

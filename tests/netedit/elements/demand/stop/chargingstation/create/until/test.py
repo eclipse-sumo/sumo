@@ -44,7 +44,8 @@ netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopChargingStation.create.untilEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
+                  netedit.positions.elements.demands.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.until, "dummyValue")

@@ -44,7 +44,8 @@ netedit.changeElement("space")
 netedit.selectAdditionalChild(8, 3)
 
 # create space
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # Change to delete
 netedit.deleteMode()
@@ -53,7 +54,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # delete first loaded parkingArea
 netedit.leftClick(referencePosition, 360, 8)

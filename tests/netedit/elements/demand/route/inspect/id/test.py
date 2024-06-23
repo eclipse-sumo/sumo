@@ -51,7 +51,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # Change parameter id with a non valid value (empty)
 netedit.modifyAttribute(netedit.attrs.route.inspect.id, "", False)

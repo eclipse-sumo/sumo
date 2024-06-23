@@ -44,7 +44,8 @@ netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.durationEnab
 netedit.changeDefaultBoolValue(netedit.attrs.waypointBusStop.create.untilEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.until, "dummyValue")

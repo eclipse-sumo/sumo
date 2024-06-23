@@ -35,7 +35,7 @@ class elements:
     class edge1Ped:
         x = 874
         y = 238
-    
+
     class edge1:
         x = 850
         y = 222
@@ -73,7 +73,7 @@ class elements:
         y = 413
 
     class edgeCenter0Ped:
-        x = 341 
+        x = 341
         y = 276
 
     class edgeCenter0:
@@ -107,7 +107,7 @@ class elements:
     class junction4:
         x = 157
         y = 237
-        
+
     class junction5:
         x = 503
         y = 233
@@ -117,13 +117,13 @@ class elements:
         up = 70
         down = -70
         left = -70
-        right = 70       
+        right = 70
 
     # additional (for inspect, delete, etc.)
     class additionals:
 
         class busStop:
-            x = 322 
+            x = 322
             y = 195
 
         class trainStop:
@@ -145,7 +145,7 @@ class elements:
         class e2Detector:
             x = 310
             y = 218
-  
+
         class squaredA:
             x = 437
             y = 137
@@ -179,7 +179,7 @@ class elements:
 
         class chargingStation:
             x = 623
-            y =  23
+            y = 23
 
         class parkingArea:
             x = 525
@@ -193,6 +193,7 @@ class elements:
             x = 536
             y = 409
 ##############################
+
         class containerX:
             x = 470
             y = 400

@@ -55,7 +55,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
+                  netedit.positions.elements.demands.container.y)
 
 # change ID with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "", False)

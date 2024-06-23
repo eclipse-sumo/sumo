@@ -48,7 +48,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x, netedit.positions.elements.demands.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x,
+                  netedit.positions.elements.demands.vehicleJunction.y)
 
 # change departSpeed with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripJunction.inspect.departSpeed, "", False)

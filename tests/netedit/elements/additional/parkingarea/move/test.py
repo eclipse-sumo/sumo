@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.moveMode()
 
 # move
-netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.parkingArea, netedit.positions.elements.movementRadius)
+netedit.moveElementHorizontal(
+    referencePosition, netedit.positions.elements.additionals.parkingArea, netedit.positions.elements.movementRadius)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

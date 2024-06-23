@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x, netedit.positions.elements.demands.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x,
+                  netedit.positions.elements.demands.person.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.person.inspectSelection.colorButton, 5, False)

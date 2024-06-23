@@ -49,7 +49,8 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # transform
 netedit.contextualMenuOperation(referencePosition,

@@ -41,7 +41,8 @@ netedit.changeStopType("stopContainerStop")
 netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.durationEnable)
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.stopContainerStop.create.durationEnable)

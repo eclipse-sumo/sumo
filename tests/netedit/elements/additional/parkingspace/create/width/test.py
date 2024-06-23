@@ -45,25 +45,29 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "dummyWidth")
 
 # try to create area
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # set invalid width (empty)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "")
 
 # try to create area
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x, netedit.positions.elements.additionals.squaredB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x,
+                  netedit.positions.elements.additionals.squaredB.y)
 
 # set invalid width (negative)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "-3")
 
 # try to create area
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # set valid width
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.width, "2.5")
 
 # create area
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x, netedit.positions.elements.additionals.squaredB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x,
+                  netedit.positions.elements.additionals.squaredB.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

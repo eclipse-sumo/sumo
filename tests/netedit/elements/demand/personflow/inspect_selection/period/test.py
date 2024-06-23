@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x, netedit.positions.elements.demands.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x,
+                  netedit.positions.elements.demands.person.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.personFlow.inspectSelection.spacing, "dummyTerminate", False)
