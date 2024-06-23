@@ -19,8 +19,6 @@
 # GENERAL
 # --------------------------------
 
-from turtle import down, left, up
-
 
 class elements:
 
