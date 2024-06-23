@@ -375,7 +375,8 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
     if (trip == nullptr) {
         return false;
     }
-    return trip->reroute(t, router, this, getEdge(), getRerouteDestination()) == "";
+    MSStageWaiting start(getEdge(), nullptr, -1, t, getEdgePos(), "start", true);
+    return trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination()) == "";
 }
 
 

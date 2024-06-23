@@ -166,24 +166,10 @@ MSStageTrip::getVehicles(MSVehicleControl& vehControl, MSTransportable* transpor
 
 
 const std::string
-MSStageTrip::reroute(const SUMOTime t, MSTransportableRouter& router, MSTransportable* const transportable, const MSEdge* origin, const MSEdge* destination) {
+MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTransportable* const transportable, MSStage* previous, const MSEdge* origin, const MSEdge* destination) {
     if (origin->isTazConnector() && origin->getSuccessors().size() == 0) {
         // previous stage ended at a taz sink-edge
         origin = transportable->getNextStage(-1)->getDestination();
-    }
-    MSStage* previous;
-    SUMOTime time = t;
-    if (transportable->getCurrentStageIndex() == 0) {
-        myDepartPos = transportable->getParameter().departPos;
-        if (transportable->getParameter().departPosProcedure == DepartPosDefinition::RANDOM) {
-            // TODO we should probably use the rng of the lane here
-            myDepartPos = RandHelper::rand(origin->getLength());
-        }
-        previous = new MSStageWaiting(origin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
-        time = transportable->getParameter().depart;
-    } else {
-        previous = transportable->getNextStage(-1);
-        myDepartPos = previous->getArrivalPos();
     }
     MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
     double minCost = std::numeric_limits<double>::max();
@@ -338,7 +324,18 @@ MSStageTrip::reroute(const SUMOTime t, MSTransportableRouter& router, MSTranspor
 const std::string
 MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
     MSStage::setArrived(net, transportable, now, vehicleArrived);
-    return reroute(now, net->getIntermodalRouter(0), transportable, myOrigin, myDestination);
+    if (transportable->getCurrentStageIndex() == 0) {
+        myDepartPos = transportable->getParameter().departPos;
+        if (transportable->getParameter().departPosProcedure == DepartPosDefinition::RANDOM) {
+            // TODO we should probably use the rng of the lane here
+            myDepartPos = RandHelper::rand(myOrigin->getLength());
+        }
+        MSStageWaiting start(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
+        return reroute(transportable->getParameter().depart, net->getIntermodalRouter(0), transportable, &start, myOrigin, myDestination);
+    }
+    MSStage* previous = transportable->getNextStage(-1);
+    myDepartPos = previous->getArrivalPos();
+    return reroute(now, net->getIntermodalRouter(0), transportable, previous, myOrigin, myDestination);
 }
 
 
