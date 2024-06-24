@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 10:16+0000\n"
+"PO-Revision-Date: 2024-06-24 10:21+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8260,7 +8260,7 @@ msgstr "Ignorando el valor pRange no válido '%' para la vía '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2484
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "Ignorando la señal faltante '%' en el controlador '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2522
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2729
@@ -8279,6 +8279,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2700
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
+"No se pudo establecer la proyección (%). Esto se puede ignorar con --ignore-"
+"errors."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
 #, c-format
@@ -8288,10 +8290,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2819
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr ""
+"Paréntesis no coincidentes en la definición de geometría para la vía '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2823
 msgid "Double geometry information for road '%'"
-msgstr ""
+msgstr "Información de geometría doble para la vía '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:156
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:104
@@ -8301,7 +8304,7 @@ msgstr "No se pudo abrir el archivo osm '%'."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:168
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "Se encontraron y sustituyeron % nodos osm."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
