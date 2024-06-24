@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 09:02+0000\n"
+"PO-Revision-Date: 2024-06-24 11:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1883,26 +1883,32 @@ msgid ""
 "How to deal with collisions between vehicle and pedestrian: [none,warn,"
 "teleport,remove]"
 msgstr ""
+"Come procedere dopo una collisione tra veicolo e pedone: "
+"[none,warn,teleport,remove]"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:388
 msgid ""
 "Let vehicle stop for TIME before performing collision.action (except for "
 "action 'none')"
 msgstr ""
+"Lascia il veicolo rimanere fermo per TIME prima di eseguire l'azione "
+"collision.action (eccetto per l'azione 'none')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:391
 msgid ""
 "Let vehicle stop for TIME before performing intermodal-collision.action "
 "(except for action 'none')"
 msgstr ""
+"Lascia il veicolo rimanere fermo per TIME prima di eseguire l'azione "
+"intermodal-collision.action (eccetto per l'azione 'none')"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:394
 msgid "Enables collisions checks on junctions"
-msgstr ""
+msgstr "Attiva controllo di collisioni su incroci"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:397
 msgid "Increase or decrease sensitivity for junction collision check"
-msgstr ""
+msgstr "Alza o abbassa la sensitività del controllo di collisioni su incroci"
 
 #: C:\Repos\sumo/src\microsim\MSFrame.cpp:400
 msgid ""
