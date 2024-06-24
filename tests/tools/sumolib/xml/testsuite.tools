@@ -13,6 +13,9 @@ parse_nested2
 # parsing nested XML with different child elements
 parse_structured
 
+# parsing nested XML with different child elements
+parse_structured_optional
+
 # parsing route XML with different child elements
 parse_structured_routes
 
