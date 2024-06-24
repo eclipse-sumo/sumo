@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 11:14+0000\n"
+"PO-Revision-Date: 2024-06-24 12:36+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8989,18 +8989,18 @@ msgstr "No se conoce el nodo '%' en el paso peatonal."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
-msgstr ""
+msgstr "No se especificaron aristas para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:364
 #, c-format
 msgid "Edge '%' for crossing at node '%' is not known."
-msgstr ""
+msgstr "No se conoce la arista '%' para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:372
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:450
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:455
 msgid "Edge '%' does not touch node '%'."
-msgstr ""
+msgstr "La arista '%' no toca el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:385
 #, c-format
@@ -9009,7 +9009,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:390
 msgid "Unable to project shape for crossing at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:403
 msgid "Crossing with edges '%' already exists at node '%'."
@@ -9026,7 +9026,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:467
 msgid "Unable to project shape for walkingArea at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma para el área peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
@@ -9044,11 +9044,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:393
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr ""
+msgstr "'%' está obsoleto, utilice '%' en su lugar."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:403
 msgid "Lane index is larger than number of lanes (edge '%')."
-msgstr ""
+msgstr "El índice de carril es mayor al número de carriles (arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
@@ -9080,7 +9080,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Ignorando tipo de propagación desconocido '%' para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:674
 #, c-format
@@ -9089,7 +9089,7 @@ msgstr "Se produjo una arista duplicada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:683
 msgid "An important information is missing in edge '%'."
-msgstr ""
+msgstr "Hace falta una información importante en la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:705
 #, c-format
@@ -9098,7 +9098,7 @@ msgstr "Arista desconocida '%' en la rotonda."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Posición faltante (en el nodo con ID='%')."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:184
 msgid "Could not insert node though checked this before (id='%')."
@@ -9106,15 +9106,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:213
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma de nodo en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:321
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "Tipo de semáforo desconocido '%' en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:330
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "Layout de semáforo desconocido '%' en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:341
 msgid "Changing traffic light type '%' to '%' for tl '%'."
@@ -9123,7 +9123,7 @@ msgstr "Cambiando tipo de semáforo de '%' a '%' en '%'."
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:159
 #, c-format
 msgid "Edge '%' for stop '%' not found"
-msgstr ""
+msgstr "No se encuentra la arista '%' para la parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:167
 #, c-format
@@ -9151,27 +9151,27 @@ msgstr "Ruta encontrada por fuera de la definición de línea"
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:305
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
-msgstr ""
+msgstr "No se encuentra la arista '%' en la ruta de la línea '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:324
 msgid "Stop '%' within line '%' not found"
-msgstr ""
+msgstr "No se encuentra la parada '%' en la línea '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:340
 msgid "Stop '%' within route '%' not found"
-msgstr ""
+msgstr "No se encuentra la parada '%' en la ruta '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:46
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1753
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
-msgstr ""
+msgstr "No se conoce el carril '%' donde se colocará el punto de interés '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:59
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1766
 #, c-format
 msgid "lane position % for poi '%' is not valid."
-msgstr ""
+msgstr "la posición de carril % para el punto de interés '%' no es válida."
 
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
@@ -9257,7 +9257,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:237
 #, c-format
 msgid "Could not prohibit '%' - it was not built."
-msgstr ""
+msgstr "No se pudo prohibir '%' - no fue creado."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:243
 msgid "Could not prohibit '%' by '%'."
@@ -9288,7 +9288,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
 msgid "What about distribution '%' "
-msgstr ""
+msgstr "Qué pasa con la distribución '%' "
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format
@@ -9372,11 +9372,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:86
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr ""
+msgstr "Intentando establecer el esfuerzo para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:101
 msgid "Trying to set the travel time for the unknown edge '%'."
 msgstr ""
+"Intentando establecer el tiempo de viaje para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:130
 msgid "Invalid network, no network version declared."
