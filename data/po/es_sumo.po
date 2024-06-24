@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 10:42+0000\n"
+"PO-Revision-Date: 2024-06-24 11:01+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8653,7 +8653,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:953
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr ""
+msgstr "Tipo de semáforo '%' no conocido en la lógica semafórica '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:967
 msgid "found phase without tl-logic"
@@ -8661,7 +8661,7 @@ msgstr "se encontró una fase sin lógica semafórica"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:975
 msgid "Phase duration for tl-logic '%/%' must be positive."
-msgstr ""
+msgstr "La duración de fase para la lógica semafórica '%/%' debe ser positiva."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1031
 msgid "Missing connection divider in prohibition attribute '%'"
@@ -8683,11 +8683,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr ""
+msgstr "Un valor en % debe ser numérico pero no lo es (ID='%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
-msgstr ""
+msgstr "Uno de los valores requeridos ('%') está faltando en %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
@@ -8714,12 +8714,13 @@ msgstr "Se produjo una arista duplicada ('%')."
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
 msgstr ""
+"El conector entrante '%' no se construirá - no estaría conectado a la red."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:584
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:618
 #, c-format
 msgid "The district '%' could not be built."
-msgstr ""
+msgstr "El distrito '%' no se pudo construir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:594
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:629
@@ -8730,6 +8731,7 @@ msgstr "Se produjo un ID de arista duplicado (ID='%')."
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
 msgstr ""
+"El conector saliente '%' no se construirá - no estaría conectado a la red."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:665
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:671
@@ -8763,7 +8765,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:856
 msgid "Ups - could not insert node!"
-msgstr ""
+msgstr "¡Vaya - no se pudo insertar el nodo!"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:917
 #, c-format
@@ -8883,7 +8885,7 @@ msgstr "Entrada desconocida '%' en el mapa de idiomas de VISUM"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
-msgstr ""
+msgstr " Se eliminaron % semáforos antes de cargar el XML plano"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:112
 msgid "No nodes loaded."
