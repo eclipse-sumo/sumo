@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-21 16:47+0000\n"
+"PO-Revision-Date: 2024-06-24 09:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4244,20 +4244,24 @@ msgid ""
 "If any openGap parameters for the ToC model are specified, then at least one "
 "of toc.ogNewTimeHeadway and toc.ogNewSpaceHeadway must be defined."
 msgstr ""
+"Se uno dei parametri openGap è stato specificato anche almeno uno dei due "
+"parametri toc.ogNewTimeHeadway e toc.ogNewSpaceHeadway deve essere definito."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:578
 msgid "Ignoring unknown safe spot '%' for vehicle '%'."
-msgstr ""
+msgstr "Ignoro il luogo sicuro sconosciuto '%' per il veicolo '%'."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:731
 #, c-format
 msgid "vType '%' for vehicle '%' is not known."
-msgstr ""
+msgstr "Il tipo di veicolo '%' del veicolo '%' è sconosciuto."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:933
 msgid ""
 "Setting device.toc.currentAwareness during automated mode has no effect."
 msgstr ""
+"Impostare device.toc.currentAwareness mentre ci si trova in modo automatico "
+"non produce alcun effetto."
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:950
 #, c-format
@@ -4265,6 +4269,8 @@ msgid ""
 "Value of dynamicToCThreshold must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"Il valore di dynamicToCThreshold deve essere non negativo. (Il valore dato % "
+"per veicolo % verrà ignorato)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:961
 #, c-format
@@ -4272,6 +4278,8 @@ msgid ""
 "Value of dynamicMRMProbability must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"Il valore di dynamicMRMProbability deve essere non negativo. (Il valore dato "
+"% per veicolo % verrà ignorato)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:975
 #, c-format
@@ -4279,11 +4287,13 @@ msgid ""
 "Value of maxPreparationAccel must be non-negative. (Given value % for "
 "vehicle % is ignored)"
 msgstr ""
+"Il valore di maxPreparationAccel deve essere non negativo. (Il valore dato % "
+"per veicolo % verrà ignorato)"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1016
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_ToC.cpp:1037
 msgid "Unknown ToCState '%'"
-msgstr ""
+msgstr "Stato ToC '%' sconosciuto"
 
 #: C:\Repos\sumo/src\microsim\devices\MSDispatch.cpp:100
 msgid ""
