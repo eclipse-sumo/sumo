@@ -8993,8 +8993,8 @@ msgid "Could not build edge '%'; would connect same node."
 msgstr "無法構建路段 '%'； 將連接到相同的節點。"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
-msgid "What about distribution '%' "
-msgstr "分配 '%' 呢? "
+msgid "What about distribution '%'"
+msgstr "分配 '%' 呢?"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format

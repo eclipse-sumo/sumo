@@ -9532,8 +9532,8 @@ msgid "Could not build edge '%'; would connect same node."
 msgstr "'%' kenarı oluşturulamadı; aynı düğümü bağlayacaktı."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
-msgid "What about distribution '%' "
-msgstr "Peki ya dağıtım '%' "
+msgid "What about distribution '%'"
+msgstr "Peki ya dağıtım '%'"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format
