@@ -1,2 +1,2 @@
-timestep(time='0.00', vehicle=[vehicle(id='p0_0', speed=None, lane=None)], person=[person(id='p0', speed=None, edge=None)])
-timestep(time='1.00', vehicle=[vehicle(id='p0_0', speed=None, lane=None)], person=[person(id='p0', speed=None, edge=None)])
+timestep(time='0.00', vehicle=[vehicle(id='p0_0', x='390.15', y='401.65', angle='270.00', type='DEFAULT_VEHTYPE', speed='0.00', pos='5.10', lane='1/1to0/1_0')], person=[person(id='p0', x='390.15', y='401.65', angle='270.00', speed='0.00', pos='5.10', edge='1/1to0/1')])
+timestep(time='1.00', vehicle=[vehicle(id='p0_0', x='388.16', y='401.65', angle='270.00', type='DEFAULT_VEHTYPE', speed='1.99', pos='7.09', lane='1/1to0/1_0')], person=[person(id='p0', x='388.16', y='401.65', angle='270.00', speed=None, pos='7.09', edge='1/1to0/1')])

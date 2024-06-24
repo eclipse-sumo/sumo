@@ -26,7 +26,8 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 from sumolib.xml import parse_fast_structured  # noqa
 
-nested = OrderedDict((('vehicle', ['id', 'speed', 'lane']), ('person', ['id', 'speed', 'edge'])))
+nested = OrderedDict((('vehicle', ['id', 'x', 'y', 'angle', 'type', 'speed', 'pos', 'lane']),
+    ('person', ['id', 'x', 'y', 'angle', 'speed', 'pos', 'edge'])))
 for step in parse_fast_structured("input_data.xml", 'timestep', ['time'],
         nested, optional=True):
     print(step)
