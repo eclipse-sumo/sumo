@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 09:02+0000\n"
+"PO-Revision-Date: 2024-06-24 10:16+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7137,22 +7137,28 @@ msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección x de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección y de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección z de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:63
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "Define la probabilidad de construir una arista contraria"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
@@ -7167,34 +7173,35 @@ msgstr ""
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
 msgstr ""
+"Elegir el tipo de arista aleatoriamente de entre todos los tipos cargados"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red tipo cuadrícula"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:85
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "El número de cruces en ambas direcciones"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:90
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "La longitud de las calles en ambas direcciones"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:95
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "El número de cruces en la dirección x; Sobrescribe --grid-number"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:100
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "El número de cruces en la dirección y; Sobrescribe --grid-number"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:105
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "La longitud de calles horizontales; Sobrescribe --grid-length"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:110
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "La longitud de calles verticales; Sobrescribe --grid-length"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:114
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:147
@@ -7202,30 +7209,36 @@ msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
 msgstr ""
+"La longitud de las calles anexas al límite; 0 significa que no hay calles "
+"anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:117
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La longitud de las calles anexas al límite en la dirección x; 0 significa "
+"que no hay calles anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:119
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La longitud de las calles anexas al límite en la dirección y; 0 significa "
+"que no hay calles anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:124
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red tipo telaraña"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:129
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "El número de ejes dentro de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:134
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "El número de círculos de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:139
 msgid "The distances between the circles"
@@ -7233,15 +7246,15 @@ msgstr "Las distancias entre los círculos"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:144
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "Omitir el nodo central de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red aleatoria"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:157
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "Especifica cuántas veces se agregará una arista a la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:162
 msgid "The maximum distance for each edge"
@@ -8134,7 +8147,7 @@ msgstr "Ignorando la calle '%' sin geometría."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:446
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr ""
+msgstr "No se pudieron aplicar los desplazamientos de carril para la arista '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:637
 #, c-format
@@ -8144,12 +8157,12 @@ msgstr "La arista '%' no tiene carriles."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:678
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la arista de salida '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:688
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la arista de llegada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:714
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:717
@@ -8162,11 +8175,13 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Controlar múltiples cruces mediante el mismo controlador '%' actualmente no "
+"está implementado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:791
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "La arista '%' tiene señales pero no hay secciones de carril."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:813
 msgid "Ambiguous start of connection."
@@ -8180,7 +8195,7 @@ msgstr "Final ambiguo de la conexión."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:858
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:905
 msgid "Could not find edge '%' for signal '%'."
-msgstr ""
+msgstr "No se pudo encontrar la arista '%' para la señal '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:879
 msgid ""
@@ -8202,7 +8217,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1397
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la vía entrante '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1440
 msgid "Could not find node '%'."
@@ -8215,7 +8230,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1714
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
-msgstr ""
+msgstr "Las secciones la arista '%' no están ordenadas correctamente."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1726
 msgid ""
@@ -8226,10 +8241,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1769
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
+"No se pudo calcular la geometría espiral para la arista '%' (cDot=% "
+"longitud=%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1818
 msgid "Could not compute spiral geometry for edge '%' (%)."
-msgstr ""
+msgstr "No se pudo calcular la geometría espiral para la arista '%' (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2090
 msgid ""
@@ -8239,7 +8256,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2405
 msgid "Ignoring invalid pRange value '%' for road '%'."
-msgstr ""
+msgstr "Ignorando el valor pRange no válido '%' para la vía '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2484
 msgid "Ignoring missing signal '%' in controller '%'."
