@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-24 12:41:25 by Eclipse SUMO sumo Version v1_20_0+0742-8e463e8c57d
+<!-- generated on 2024-06-24 12:45:52 by Eclipse SUMO sumo Version v1_20_0+0745-559283a1f33
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </timestep>
     <timestep time="12.00">
         <vehicle id="WE.0" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7637.63" CO="0.88" HC="0.32" NOx="64.50" PMx="1.46" fuel="2454.23" electricity="0.00" noise="67.05" route="!WE" type="t0" waiting="2.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
-        <vehicle id="WE.1" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="-31663.48" CO="-3.38" HC="0.32" NOx="-375.18" PMx="1.45" fuel="-10180.24" electricity="0.00" noise="48.74" route="!WE" type="t0" waiting="0.00" lane="WC_1" pos="90.81" speed="0.37" angle="90.00" x="90.81" y="98.35"/>
+        <vehicle id="WE.1" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.32" NOx="0.00" PMx="1.45" fuel="0.00" electricity="0.00" noise="48.74" route="!WE" type="t0" waiting="0.00" lane="WC_1" pos="90.81" speed="0.37" angle="90.00" x="90.81" y="98.35"/>
     </timestep>
     <timestep time="13.00">
         <vehicle id="WE.0" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7750.94" CO="0.89" HC="0.32" NOx="65.80" PMx="1.46" fuel="2490.66" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="3.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
@@ -145,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <timestep time="25.00">
         <vehicle id="WE.0" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="15.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
         <vehicle id="WE.1" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="13.00" lane="WC_1" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="98.35"/>
-        <vehicle id="WE.2" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="-36201.60" CO="-3.94" HC="0.32" NOx="-429.24" PMx="1.45" fuel="-11639.14" electricity="0.00" noise="46.21" route="!WE" type="t0" waiting="0.00" lane="WC_0" pos="76.21" speed="0.24" angle="90.00" x="76.21" y="95.05"/>
+        <vehicle id="WE.2" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.32" NOx="0.00" PMx="1.45" fuel="0.00" electricity="0.00" noise="46.21" route="!WE" type="t0" waiting="0.00" lane="WC_0" pos="76.21" speed="0.24" angle="90.00" x="76.21" y="95.05"/>
         <vehicle id="WE.3" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="68.11" route="!WE" type="t0" waiting="0.00" lane="WC_0" pos="50.39" speed="10.78" angle="90.00" x="50.39" y="95.05"/>
         <vehicle id="WE.4" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="74.31" route="!WE" type="t0" waiting="0.00" lane="WC_0" pos="25.42" speed="13.32" angle="90.00" x="25.42" y="95.05"/>
     </timestep>
@@ -181,7 +181,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.0" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="20.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
         <vehicle id="WE.1" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="18.00" lane="WC_1" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="98.35"/>
         <vehicle id="WE.2" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7684.76" CO="0.88" HC="0.32" NOx="65.04" PMx="1.46" fuel="2469.38" electricity="0.00" noise="67.08" route="!WE" type="t0" waiting="4.00" lane="WC_0" pos="76.45" speed="0.00" angle="90.00" x="76.45" y="95.05"/>
-        <vehicle id="WE.3" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="-29146.96" CO="-3.13" HC="0.32" NOx="-348.22" PMx="1.45" fuel="-9371.23" electricity="0.00" noise="49.75" route="!WE" type="t0" waiting="0.00" lane="WC_1" pos="76.39" speed="0.31" angle="90.00" x="76.39" y="98.35"/>
+        <vehicle id="WE.3" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.32" NOx="0.00" PMx="1.45" fuel="0.00" electricity="0.00" noise="49.75" route="!WE" type="t0" waiting="0.00" lane="WC_1" pos="76.39" speed="0.31" angle="90.00" x="76.39" y="98.35"/>
         <vehicle id="WE.4" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="51.25" route="!WE" type="t0" waiting="0.00" lane="WC_0" pos="61.93" speed="1.50" angle="90.00" x="61.93" y="95.05"/>
     </timestep>
     <timestep time="31.00">
@@ -189,7 +189,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <vehicle id="WE.1" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="19.00" lane="WC_1" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="98.35"/>
         <vehicle id="WE.2" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7747.19" CO="0.89" HC="0.32" NOx="65.76" PMx="1.46" fuel="2489.45" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="5.00" lane="WC_0" pos="76.45" speed="0.00" angle="90.00" x="76.45" y="95.05"/>
         <vehicle id="WE.3" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="4700.57" CO="0.55" HC="0.32" NOx="31.03" PMx="1.46" fuel="1510.03" electricity="0.00" noise="65.62" route="!WE" type="t0" waiting="1.00" lane="WC_1" pos="76.44" speed="0.04" angle="90.00" x="76.44" y="98.35"/>
-        <vehicle id="WE.4" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="-9078.06" CO="-1.00" HC="0.32" NOx="-126.00" PMx="1.46" fuel="-2919.51" electricity="0.00" noise="58.84" route="!WE" type="t0" waiting="1.00" lane="WC_0" pos="61.95" speed="0.02" angle="90.00" x="61.95" y="95.05"/>
+        <vehicle id="WE.4" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="0.00" CO="0.00" HC="0.32" NOx="0.00" PMx="1.46" fuel="0.00" electricity="0.00" noise="58.84" route="!WE" type="t0" waiting="1.00" lane="WC_0" pos="61.95" speed="0.02" angle="90.00" x="61.95" y="95.05"/>
     </timestep>
     <timestep time="32.00">
         <vehicle id="WE.0" eclass="HBEFA4/UBus_Artic_gt18t_Euro-VIs_D-E" CO2="7752.00" CO="0.89" HC="0.32" NOx="65.81" PMx="1.46" fuel="2491.00" electricity="0.00" noise="67.11" route="!WE" type="t0" waiting="22.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
