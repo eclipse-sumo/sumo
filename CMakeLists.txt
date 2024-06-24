@@ -858,9 +858,7 @@ set_property(TARGET examples PROPERTY FOLDER "doc")
 find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     add_custom_target(game
-        COMMAND ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/tools/game/minwait.py
         COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
-        COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_BINARY_DIR}/sumo-game.zip" --format=zip "."
     )
 endif()
 

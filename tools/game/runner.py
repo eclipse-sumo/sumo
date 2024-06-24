@@ -39,8 +39,8 @@ except ImportError:
 from xml.dom import pulldom
 from collections import defaultdict
 
-SUMO_HOME = os.environ.get('SUMO_HOME',
-                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
+SUMO_HOME = os.environ.get('SUMO_HOME', os.path.join(_THIS_DIR, '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.translation import addLanguageOption, setLanguage, TL  # noqa
@@ -56,6 +56,9 @@ _DEBUG = True if "debug" in sys.argv else False
 _SCORES = 30
 BASE = os.path.dirname(sys.argv[0])
 _LANGUAGE_CAPTIONS = {}
+if not os.path.exists(sumolib.translation.LOCALEDIR) and os.path.exists(os.path.join(_THIS_DIR, 'locale')):
+    # monkey patch locale dir for the SUMO game
+    sumolib.translation.LOCALEDIR = os.path.join(_THIS_DIR, 'locale')
 
 
 def updateLocalMessages():
