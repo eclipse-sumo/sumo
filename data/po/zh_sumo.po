@@ -8578,7 +8578,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr "无效的车道编号 (路段 %)。"
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr "路段车道编号出現非数值 (路段 %)。"
 
 #: C:\Repos\sumo/src\netimport\NITypeLoader.cpp:62

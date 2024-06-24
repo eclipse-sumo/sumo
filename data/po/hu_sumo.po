@@ -8399,7 +8399,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NITypeLoader.cpp:62

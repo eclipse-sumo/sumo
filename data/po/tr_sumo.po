@@ -9191,7 +9191,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr "Geçersiz şerit numarası (kesim '%')."
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
 "Oluşan bir kenarın şerit numarası için sayısal olmayan değer (kenar '%'."
 

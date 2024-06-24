@@ -9601,7 +9601,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr "Ungültige Fahrstreifennummer (Kante '%')."
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
 "Nicht numerischer Wert für eine Fahrstreifennummer entdeckt (Kante '%')."
 
