@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 11:01+0000\n"
+"PO-Revision-Date: 2024-06-24 12:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4836,16 +4836,18 @@ msgstr ""
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:213
 msgid "Unknown vehicle type '%' in calibrator '%'."
-msgstr ""
+msgstr "Tipo di veicolo sconosciuto '%' in calibrator '%'."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:216
 msgid "Mandatory attribute missing in definition of calibrator '%'."
-msgstr ""
+msgstr "Attributo obbligatorio mancante nella definizione di calibrator '%'."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:218
 msgid ""
 "Non-numeric value for numeric attribute in definition of calibrator '%'."
 msgstr ""
+"Valore non numerico usato per un attributo numerico nella definizione di "
+"calibrator '%'."
 
 #: C:\Repos\sumo/src\microsim\trigger\MSCalibrator.cpp:221
 msgid ""
