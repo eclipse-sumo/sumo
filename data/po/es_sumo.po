@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 11:01+0000\n"
+"PO-Revision-Date: 2024-06-24 11:14+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8956,7 +8956,7 @@ msgstr "No se pudo abrir el archivo-% '%'."
 
 #: C:\Repos\sumo/src\netimport\NIVisumTL.cpp:76
 msgid "invalid node for traffic light '%'"
-msgstr ""
+msgstr "nodo no válido para el semáforo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:85
 msgid ""
@@ -8974,6 +8974,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:267
 msgid "Unable to project shape for connection from edge '%' to edge '%'."
 msgstr ""
+"No se pudo proyectar la forma para la conexión de la arista '%' a la arista "
+"'%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
@@ -8983,7 +8985,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:347
 #, c-format
 msgid "Node '%' in crossing is not known."
-msgstr ""
+msgstr "No se conoce el nodo '%' en el paso peatonal."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
