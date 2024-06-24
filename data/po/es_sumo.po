@@ -6698,7 +6698,7 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
-"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
 "no se encontró área peatonal)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3057
@@ -6706,7 +6706,7 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
-"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
 "no hay carriles para vehículos a cruzar)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3076
@@ -6714,7 +6714,7 @@ msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
-"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
 "forma no válida)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3217
