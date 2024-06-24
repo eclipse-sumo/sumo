@@ -7870,9 +7870,9 @@ msgstr "La distanza massima di ogni arco"
 msgid "The minimum distance for each edge"
 msgstr "La distanza minima di ogni arco"
 
-#: src/netgen/NGFrame.cpp:172 C:\Repos\sumo/src\netgen\NGFrame.cpp:172
+#: C:\Repos\sumo/src\netgen\NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "L'angolo minimo tra ogni paio di strade (bidirezionali) in DEGREES"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:177
 msgid "The number of tries for creating each node"
