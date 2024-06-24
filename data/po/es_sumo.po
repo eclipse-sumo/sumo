@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-21 14:26+0000\n"
+"PO-Revision-Date: 2024-06-24 09:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6424,6 +6424,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:170
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr ""
+"Alinear las señales de ID de parada con las señales de ID de arista "
+"correspondientes"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:207
 msgid "Joining tram edges"
@@ -6620,7 +6622,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:684
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "Encontrando accesos a las paradas de trenes"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:707
 msgid ""
@@ -6664,20 +6666,24 @@ msgstr "No se pudo utilizar una forma personalizada para la conexión %."
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:821
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
+"La forma personalizada tiene distancia % al carril entrante en la conexión %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:838
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
+"La forma personalizada tiene distancia % al carril saliente en la conexión %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1037
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
+"El cruce '%' es demasiado complicado (% conexiones, máx. %); se establecerá "
+"en %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1178
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
-msgstr ""
+msgstr "La forma del cruce '%' tiene una distancia % a su posición dada."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1182
 msgid "For junction '%': could not compute shape."
@@ -6685,25 +6691,31 @@ msgstr "Para el cruce '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1884
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "Algo salió mal durante la construcción de una conexión..."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:2891
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
+"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"no se encontró área peatonal)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3057
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
+"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"no hay carriles para vehículos a cruzar)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3076
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
+"Descartando el cruce peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"forma no válida)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3217
 msgid ""
@@ -6733,11 +6745,11 @@ msgstr "Solicitud de cruce desconocido '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3860
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Solicitud de cruce desconocido para las aristas dadas"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3885
 msgid "Request for unknown walkingarea '%'."
-msgstr ""
+msgstr "Solicitud de área peatonal desconocida '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:322
 msgid "Removed a road without junctions: %."
