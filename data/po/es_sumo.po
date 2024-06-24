@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-24 10:21+0000\n"
+"PO-Revision-Date: 2024-06-24 10:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8361,6 +8361,7 @@ msgstr "No se pudo agregar la arista '-%'."
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
+"El atributo 'id' en la definición de un nodo no es del tipo long long int."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:994
 msgid "Tag element on wrong XML hierarchy level."
@@ -8383,16 +8384,22 @@ msgstr "La información de geometría referenciada (ref='%') no es conocida"
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
+"Usando el ancho de carril predeterminado para la arista '%' ya que la clave "
+"'%' no pudo ser analizada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1463
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Usando el ancho de carril predeterminado para la arista '%' ya que el valor "
+"'%' no pudo ser analizado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1469
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Usando el ancho predeterminado para la arista '%' ya que el valor '%' no "
+"pudo ser analizado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1505
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -8460,6 +8467,8 @@ msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
+"Plataforma '%' en relación: '%' es dado como polígono, lo cual no es "
+"soportado actualmente."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2046
 #, c-format
@@ -8467,11 +8476,15 @@ msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
+"La plataforma referenciada: '%' en relación: '%' está dañada. El archivo OSM "
+"está probablemente incompleto."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2093
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
+"La línea de transporte público '%' en la relación % parece estar dividida, "
+"se conservará solo la primera parte."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2128
 msgid ""
@@ -8513,14 +8526,16 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2468
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
+"Descartando el tipo inutilizable '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2513
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
+"Descartando el tipo combinado '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2528
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Agregando nuevo tipo '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2563
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
@@ -8532,7 +8547,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2615
 msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "El valor de railway:position no es numérico ('%') en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2723
 msgid ""
@@ -8557,7 +8572,7 @@ msgstr "No se pudo insertar la arista '%'."
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:318
 #, c-format
 msgid "Unknown edge '%' given in connection."
-msgstr ""
+msgstr "Arista desconocida '%' dada en la conexión."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:232
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:272
@@ -8595,11 +8610,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:555
 msgid "Could not add program '%' for traffic light '%'"
-msgstr ""
+msgstr "No se pudo agregar el programa '%' para el semáforo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:625
 msgid "Unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Tipo de propagación '%' no conocido para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:638
 #, c-format
