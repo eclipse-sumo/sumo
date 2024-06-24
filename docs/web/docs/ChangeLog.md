@@ -85,7 +85,7 @@ title: ChangeLog
   - traceExporter.py: fixed inconsistent trj-output #14925
   - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988 
 
-### Enhancments
+### Enhancements
 
 - sumo
   - Improved speed of writing xml output by 60% #14994, #8905
