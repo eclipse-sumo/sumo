@@ -121,12 +121,12 @@ class elements:
     class additionals:
 
         class busStop:
-            x = 322
-            y = 195
+            x = 344 
+            y = 204
 
         class trainStop:
             x = 343
-            y = 200
+            y = 204
 
         class containerStop:
             x = 345
