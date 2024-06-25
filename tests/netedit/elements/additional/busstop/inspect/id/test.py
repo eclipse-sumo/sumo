@@ -41,8 +41,8 @@ netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
 
 # create busStop 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.centralEdge5.x,
-                  netedit.positions.elements.additionals.centralEdge5.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5.x,
+                  netedit.positions.elements.edge5.y)
 
 # go to inspect mode
 netedit.inspectMode()
