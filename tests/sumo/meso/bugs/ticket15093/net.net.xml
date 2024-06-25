@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-25 16:45:26 by Eclipse SUMO netedit Version v1_20_0+0809-06b6ecb6f1c
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumocfg-file value="sumo.sumocfg"/>
+        <additional-files value="additional.add.xml"/>
+        <route-files value="vehroute.xml"/>
+        <sumo-net-file value="/localdata1/debug/15093/test_example/small.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/localdata1/debug/15093/test_example/small.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <building_defaults>
+        <default.spreadtype value="roadCenter"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.ignore-internal-junction-jam value="1"/>
+    </tls_building>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+    <netedit>
+        <ignore.routeelements value="false"/>
+    </netedit>
+
+</neteditConfiguration>
+-->
+
+<net version="1.20" spreadType="roadCenter" junctionCornerDetail="5" limitTurnSpeed="5.50" tlsIgnoreInternalJunctionJam="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-452365.25,-5233788.68" convBoundary="8501.23,15261.80,9299.66,15544.83" origBoundary="8.117297,47.248649,8.715583,47.513003" projParameter="+proj=utm +zone=32 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +north"/>
+
+    <type id="highway.motorway" priority="14" numLanes="2" speed="33.33" allow="passenger taxi bus delivery truck" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="1" speed="22.22" allow="passenger taxi bus delivery truck" oneway="1"/>
+
+    <edge id="14363195" from="3861631266" to="524694950" priority="9" type="highway.motorway_link" spreadType="center" shape="8809.31,15420.08 8751.81,15447.13 8726.66,15458.19 8677.83,15479.36 8582.82,15526.59">
+        <lane id="14363195_0" index="0" allow="passenger taxi bus delivery truck" speed="22.22" length="194.04" shape="8745.50,15449.91 8726.66,15458.19 8677.83,15479.36 8582.82,15526.59">
+            <param key="origId" value="14363195"/>
+        </lane>
+        <param key="highway" value="motorway_link"/>
+        <param key="lanes" value="1"/>
+        <param key="oneway" value="yes"/>
+    </edge>
+    <edge id="438520596" from="7164891823" to="7164891816" priority="14" type="highway.motorway" spreadType="center" shape="9299.66,15261.80 9279.32,15265.42 9266.90,15267.92 9260.56,15269.20 9213.94,15279.82 9169.66,15291.12 9121.20,15305.52 9044.95,15331.10 9011.21,15343.88 8935.32,15373.36">
+        <lane id="438520596_0" index="0" allow="passenger taxi bus delivery truck" speed="22.22" length="381.78" acceleration="1" shape="9299.94,15263.38 9279.62,15266.99 9267.22,15269.49 9260.90,15270.76 9214.32,15281.38 9170.09,15292.66 9121.68,15307.05 9045.49,15332.61 9011.78,15345.37 8939.62,15373.41">
+            <param key="origId" value="438520596 382961602"/>
+        </lane>
+        <lane id="438520596_1" index="1" allow="passenger taxi bus delivery truck" speed="22.22" length="381.78" shape="9299.38,15260.22 9279.02,15263.85 9266.58,15266.35 9260.22,15267.64 9213.56,15278.26 9169.23,15289.58 9120.72,15303.99 9044.41,15329.59 9010.64,15342.39 8938.46,15370.42">
+            <param key="origId" value="438520596 382961602"/>
+        </lane>
+        <param key="highway" value="motorway"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="80"/>
+        <param key="oneway" value="yes"/>
+    </edge>
+    <edge id="46197181" from="3861631266" to="7216582933" priority="14" type="highway.motorway" spreadType="center" shape="8809.31,15420.08 8674.56,15472.05 8591.19,15505.87 8544.77,15525.56 8501.23,15544.83">
+        <lane id="46197181_0" index="0" allow="passenger taxi bus delivery truck" speed="22.22" length="275.83" shape="8744.21,15446.90 8675.15,15473.54 8591.80,15507.35 8545.41,15527.03 8501.88,15546.29">
+            <param key="origId" value="46197181"/>
+        </lane>
+        <lane id="46197181_1" index="1" allow="passenger taxi bus delivery truck" speed="22.22" length="275.83" shape="8743.06,15443.92 8673.97,15470.56 8590.58,15504.39 8544.13,15524.09 8500.58,15543.37">
+            <param key="origId" value="46197181"/>
+        </lane>
+        <param key="highway" value="motorway"/>
+        <param key="lanes" value="2"/>
+        <param key="maxspeed" value="80"/>
+        <param key="oneway" value="yes"/>
+    </edge>
+    <edge id="767378478" from="7164891816" to="3861631266" priority="14" type="highway.motorway" spreadType="center">
+        <lane id="767378478_0" index="0" allow="passenger taxi bus delivery truck" speed="22.22" length="191.10" shape="8932.69,15377.75 8776.54,15435.64">
+            <param key="origId" value="767378478"/>
+        </lane>
+        <lane id="767378478_1" index="1" allow="passenger taxi bus delivery truck" speed="22.22" length="191.10" shape="8931.58,15374.75 8775.43,15432.64">
+            <param key="origId" value="767378478"/>
+        </lane>
+        <lane id="767378478_2" index="2" allow="passenger taxi bus delivery truck" speed="22.22" length="191.10" shape="8930.46,15371.75 8774.31,15429.64">
+            <param key="origId" value="767378478"/>
+        </lane>
+        <param key="highway" value="motorway"/>
+        <param key="lanes" value="3"/>
+        <param key="maxspeed" value="80"/>
+        <param key="oneway" value="yes"/>
+        <param key="turn:lanes" value="through|through|slight_right"/>
+    </edge>
+
+    <junction id="3861631266" type="priority" x="8809.31" y="15420.08" incLanes="767378478_0 767378478_1 767378478_2" intLanes="" shape="8777.09,15437.14 8773.76,15428.14 8742.49,15442.42 8744.79,15448.39 8746.18,15451.35">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+        <param key="highway" value="motorway_junction"/>
+        <param key="name" value="Zürich Altstetten"/>
+    </junction>
+    <junction id="524694950" type="dead_end" x="8582.82" y="15526.59" incLanes="14363195_0" intLanes="" shape="8583.53,15528.02 8582.11,15525.16"/>
+    <junction id="7164891816" type="priority" x="8935.32" y="15373.36" incLanes="438520596_0 438520596_1" intLanes="" shape="8940.20,15374.90 8937.88,15368.93 8934.98,15369.61 8933.90,15369.61 8932.82,15369.61 8931.55,15369.76 8929.91,15370.25 8933.24,15379.25 8935.91,15377.82 8936.73,15377.10 8937.55,15376.37 8938.63,15375.64">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="7164891823" type="dead_end" x="9299.66" y="15261.80" incLanes="" intLanes="" shape="9299.10,15258.65 9300.22,15264.95"/>
+    <junction id="7216582933" type="dead_end" x="8501.23" y="15544.83" incLanes="46197181_0 46197181_1" intLanes="" shape="8502.53,15547.76 8499.93,15541.90"/>
+
+    <connection from="438520596" to="767378478" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="438520596" to="767378478" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="438520596" to="767378478" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="767378478" to="14363195" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="767378478" to="46197181" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="767378478" to="46197181" fromLane="2" toLane="1" dir="s" state="M"/>
+
+</net>

@@ -38,3 +38,6 @@ ticket8931
 
 # load network with opposite-direction information
 ticket10252
+
+# invalid laneData when running with meso-lane-queue
+ticket15093
