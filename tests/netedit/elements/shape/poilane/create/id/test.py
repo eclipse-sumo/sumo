@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
-                  netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
+                  netedit.positions.elements.edgeCenter0.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "poi_0")

@@ -41,8 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Reference Right")
 
 # create containerStop in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
-                  netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
+                  netedit.positions.elements.edgeCenter0.y)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")

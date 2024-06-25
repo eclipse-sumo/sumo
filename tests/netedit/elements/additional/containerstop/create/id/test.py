@@ -47,8 +47,8 @@ netedit.leftClick(referencePosition, 255, 250)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
-                  netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
+                  netedit.positions.elements.edgeCenter0.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")

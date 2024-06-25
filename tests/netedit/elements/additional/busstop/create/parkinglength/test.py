@@ -44,8 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "-7.5")
 
 # try to create busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
-                  netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
+                  netedit.positions.elements.edgeCenter0.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.busStop.create.parkingLength, "3")
