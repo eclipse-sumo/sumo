@@ -1,17 +1,16 @@
-Loading net-file from 'net.net.xml' ... done (1ms).
-Loading state from 'input_meso_state.xml' ... 
+Loading net-file from 'net.net.xml' ... done (0ms).
+Loading state from 'input_meso_state.xml' ...
 Removed 1 vehicles while loading state.
-done (1ms).
+ done (0ms).
 Loading done.
-Simulation version v1_14_1+2087-e274d38 started with time: 10.00.
-Simulation ended at time: 39.00
+Simulation version v1_20_0+0793-91f7adb8122 started with time: 10.00.
+Simulation ended at time: 39.00.
 Reason: All vehicles have left the simulation.
-Performance: 
+Performance:
  Duration: 0.00s
  Real time factor: 14500
  UPS: 14000.000000
-Vehicles: 
+Vehicles:
  Inserted: 1 (Loaded: 2)
  Running: 0
  Waiting: 0
-
