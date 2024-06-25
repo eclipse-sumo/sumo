@@ -672,9 +672,9 @@ MSNet::writeSummaryOutput() {
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     // report the end when wished
-    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+    WRITE_MESSAGE(TLF("Simulation ended at time: %.", time2string(getCurrentTimeStep())));
     if (reason != "") {
-        WRITE_MESSAGE("Reason: " + reason);
+        WRITE_MESSAGE(TL("Reason: ") + reason);
     }
     myDetectorControl->close(myStep);
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
@@ -928,21 +928,21 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
         case MSNet::SIMSTATE_RUNNING:
             return "";
         case MSNet::SIMSTATE_END_STEP_REACHED:
-            return "The final simulation step has been reached.";
+            return TL("The final simulation step has been reached.");
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            return "All vehicles have left the simulation.";
+            return TL("All vehicles have left the simulation.");
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            return "TraCI requested termination.";
+            return TL("TraCI requested termination.");
         case MSNet::SIMSTATE_ERROR_IN_SIM:
-            return "An error occurred (see log).";
+            return TL("An error occurred (see log).");
         case MSNet::SIMSTATE_INTERRUPTED:
-            return "Interrupted.";
+            return TL("Interrupted.");
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
-            return "Too many teleports.";
+            return TL("Too many teleports.");
         case MSNet::SIMSTATE_LOADING:
-            return "TraCI issued load command.";
+            return TL("TraCI issued load command.");
         default:
-            return "Unknown reason.";
+            return TL("Unknown reason.");
     }
 }
 
