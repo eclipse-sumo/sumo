@@ -152,6 +152,20 @@ class elements:
             x = 534
             y = 137
 
+        class shapeA:
+            x = 304
+            y = 133  
+
+        class shapeB:
+            x = 459
+            y = 133  
+
+        class shapeC:
+            x = 650
+            y = 133 
+
+        shapeSize = 200                                                               
+
     # demand elements (for inspect, delete, etc.)
     class demands:
 
