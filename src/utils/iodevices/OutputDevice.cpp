@@ -292,9 +292,9 @@ OutputDevice::postWriteHook() {}
 
 
 void
-OutputDevice::inform(const std::string& msg, const char progress) {
-    if (progress != 0) {
-        getOStream() << msg << progress;
+OutputDevice::inform(const std::string& msg, const bool progress) {
+    if (progress) {
+        getOStream() << msg;
     } else {
         getOStream() << msg << '\n';
     }

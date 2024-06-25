@@ -445,7 +445,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (myLogExecutionTime) {
         const long duration = now - mySimBeginMillis;
         // print performance notice
-        msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
+        msg << "Performance:\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
             if (TraCIServer::getInstance() != nullptr) {
                 msg << " TraCI-Duration: " << elapsedMs2string(myTraCIMillis) << "\n";
@@ -461,7 +461,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         // print vehicle statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                                            " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
-        msg << "Vehicles: " << "\n"
+        msg << "Vehicles:\n"
             << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
@@ -490,7 +490,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
-            msg << "Persons: " << "\n"
+            msg << "Persons:\n"
                 << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
             if (myPersonControl->getJammedNumber() > 0) {
@@ -508,7 +508,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
-            msg << "Containers: " << "\n"
+            msg << "Containers:\n"
                 << " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
@@ -529,7 +529,9 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         msg << MSDevice_Tripinfo::printStatistics();
     }
-    return msg.str();
+    std::string result = msg.str();
+    result.erase(result.end() - 1);
+    return result;
 }
 
 
