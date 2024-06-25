@@ -1,5 +1,5 @@
 [2023-09-10 15:35:10.246] [PID: 504425] Loading net-file from 'net.net.xml' ... done (1ms).
 [2023-09-10 15:35:10.247] [PID: 504425] Loading done.
 [2023-09-10 15:35:10.258] [PID: 504425] Simulation version v1_18_0+1478-9621c80b0d6 started with time: 0.00.
-[2023-09-10 15:35:10.259] [PID: 504425] Simulation ended at time: 100.00
+[2023-09-10 15:35:10.259] [PID: 504425] Simulation ended at time: 100.00.
 [2023-09-10 15:35:10.259] [PID: 504425] Reason: The final simulation step has been reached.

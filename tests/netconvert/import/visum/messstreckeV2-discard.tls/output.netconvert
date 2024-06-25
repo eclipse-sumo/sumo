@@ -46,7 +46,7 @@ Parsing HALTEPUNKT ... done.
 Removing self-loops ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin ... done (0ms).
+Moving network to origin ... done (1ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
@@ -64,8 +64,8 @@ Computing traffic light control information ... done (0ms).
 Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... 
-done (1ms).
+Building inner edges ...
+ done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:

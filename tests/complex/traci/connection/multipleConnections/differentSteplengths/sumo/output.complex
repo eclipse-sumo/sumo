@@ -1,8 +1,8 @@
 ----------- SUMO ends first -----------
-   -------- numClients: 4  --------    
+   -------- numClients: 4  --------
  Run 0
 Loading configuration ... done.
-***Starting server on port 56523 ***
+***Starting server on port 47705 ***
   waiting for 4 clients...
 Starting process 1 with steplength 0.1
   client connected
@@ -13,10 +13,10 @@ Starting process 3 with steplength 1.7
 Starting process 4 with steplength 2.0
   client connected
 Loading net-file from 'input_net.net.xml' ... done (3ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
-Simulation ended at time: 101.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 101.00.
 Reason: TraCI requested termination.
 Process 1 ended at step 99.0
 Process 1 was informed about 3 entered vehicles
@@ -28,7 +28,7 @@ Process 4 ended at step 100.0
 Process 4 was informed about 3 entered vehicles
  Run 1
 Loading configuration ... done.
-***Starting server on port 56523 ***
+***Starting server on port 47705 ***
   waiting for 4 clients...
 Starting process 1 with steplength 2.0
   client connected
@@ -38,11 +38,11 @@ Starting process 3 with steplength 1.0
   client connected
 Starting process 4 with steplength 0.1
   client connected
-Loading net-file from 'input_net.net.xml' ... done (4ms).
+Loading net-file from 'input_net.net.xml' ... done (2ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
-Simulation ended at time: 101.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 101.00.
 Reason: TraCI requested termination.
 Process 1 ended at step 100.0
 Process 1 was informed about 3 entered vehicles
@@ -53,10 +53,10 @@ Process 3 was informed about 3 entered vehicles
 Process 4 ended at step 99.0
 Process 4 was informed about 3 entered vehicles
 ----------- TraCI ends first -----------
-   -------- numClients: 4  --------    
+   -------- numClients: 4  --------
  Run 0
 Loading configuration ... done.
-***Starting server on port 56523 ***
+***Starting server on port 47705 ***
   waiting for 4 clients...
 Starting process 1 with steplength 0.1
   client connected
@@ -66,11 +66,11 @@ Starting process 3 with steplength 1.7
   client connected
 Starting process 4 with steplength 2.0
   client connected
-Loading net-file from 'input_net.net.xml' ... done (2ms).
-Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
+Loading net-file from 'input_net.net.xml' ... done (3ms).
+Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
-Simulation ended at time: 101.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 101.00.
 Reason: TraCI requested termination.
 Process 1 ended at step 99.0
 Process 1 was informed about 3 entered vehicles
@@ -82,7 +82,7 @@ Process 4 ended at step 100.0
 Process 4 was informed about 3 entered vehicles
  Run 1
 Loading configuration ... done.
-***Starting server on port 56523 ***
+***Starting server on port 47705 ***
   waiting for 4 clients...
 Starting process 1 with steplength 2.0
   client connected
@@ -92,11 +92,11 @@ Starting process 3 with steplength 1.0
   client connected
 Starting process 4 with steplength 0.1
   client connected
-Loading net-file from 'input_net.net.xml' ... done (3ms).
+Loading net-file from 'input_net.net.xml' ... done (2ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00.
-Simulation ended at time: 101.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 101.00.
 Reason: TraCI requested termination.
 Process 1 ended at step 100.0
 Process 1 was informed about 3 entered vehicles

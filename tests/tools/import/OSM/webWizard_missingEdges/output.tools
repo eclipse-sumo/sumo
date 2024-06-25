@@ -1,11 +1,11 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (4ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (10ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (2ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (22ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (9ms).
+Parsing nodes from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (4ms).
+Parsing relations from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (3ms).
+Parsing edges from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/osm_bbox.osm.xml' ... done (3ms).
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/test'.
+Building scenario in '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/test'.
 generating trips...
 Cannot extend route to fringe for line '9445421' (not enough edges given)
 Cannot extend route to fringe for line '9445422' (not enough edges given)
@@ -22,23 +22,23 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (65ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (44ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.30Apr180957.259025/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (9ms).
+Loading net-file from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/test/osm.net.xml.gz' ... done (18ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/test/osm.poly.xml.gz' ... done (18ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard_missingEdges/test/osm_stops.add.xml' ... done (17ms).
 Loading done.
-Simulation version v1_19_0+2011-624920fe92d started with time: 0.00.
-Simulation ended at time: 2002.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 2002.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 0.11s
- Real time factor: 18367
- UPS: 49357.798165
- UPS-Persons: 15954.128440
-Vehicles: 
+Performance:
+ Duration: 0.13s
+ Real time factor: 15166.7
+ UPS: 40757.575758
+ UPS-Persons: 13174.242424
+Vehicles:
  Inserted: 9
  Running: 0
  Waiting: 0
-Persons: 
+Persons:
  Inserted: 6
  Running: 0
 Statistics (avg of 8):
@@ -64,7 +64,6 @@ Ride Statistics (avg of 2 rides):
  RouteLength: 851.17
  Duration: 240.00
  Bus: 2
-
 DijkstraRouter answered 27 queries and explored 5.89 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 5 queries and explored 3.60 edges on average.

@@ -1,6 +1,6 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing nodes from osm-file 'osm.xml' ... done (0ms).
-Parsing edges from osm-file 'osm.xml' ... done (0ms).
+Parsing edges from osm-file 'osm.xml' ... done (1ms).
 Removing duplicate edges ... done.
 Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurrence for edge '10860201').
  Import done:
@@ -9,7 +9,7 @@ Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurr
    4 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
-Removing empty nodes ... done (0ms).
+Removing empty nodes ... done (1ms).
    0 nodes removed.
 Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
@@ -29,8 +29,8 @@ Computing traffic light control information ... done (0ms).
 Computing node logics ... done (0ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... 
-done (0ms).
+Building inner edges ...
+ done (0ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -43,5 +43,5 @@ Summary:
   Applied offset     : -405213.33,-5803545.51
   Converted boundary : 0.00,0.00,14260.81,350.76
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (2ms).
 Success.

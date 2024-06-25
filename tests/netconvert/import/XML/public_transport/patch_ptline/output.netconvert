@@ -1,9 +1,9 @@
 Parsing nodes from 'input_plain.nod.xml' ... done.
 Parsing edges from 'input_plain.edg.xml' ... done.
 Parsing public transport stops from 'input_ptstops.xml' ... done.
-Parsing public transport lines from 'input_ptlines.xml' ... 
+Parsing public transport lines from 'input_ptlines.xml' ...
 Duplicate ptLine id occurred ('test'); assuming overwriting is wished.
-done.
+ done.
  Import done:
    6 nodes loaded.
    4 edges loaded.
@@ -17,7 +17,7 @@ Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (0ms).
+Computing node shapes ... done (1ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).

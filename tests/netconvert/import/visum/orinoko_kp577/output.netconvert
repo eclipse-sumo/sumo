@@ -18,8 +18,8 @@ Found: $PHASE: at line 5216
 Found: $FAHRSTREIFEN: at line 5276
 Found: $FAHRSTREIFENABBIEGER: at line 5293
 Parsing VSYS ... done.
-Parsing STRECKENTYP ... 
-done.
+Parsing STRECKENTYP ...
+ done.
 Parsing KNOTEN ... done.
 Parsing BEZIRK ... done.
 Parsing PUNKT ... done.
@@ -36,8 +36,8 @@ Parsing SIGNALGRUPPEZUABBIEGER ... done.
 Parsing TEILFLAECHENELEMENT ... done.
 Parsing PHASE ... done.
 Parsing FAHRSTREIFENABBIEGER ... done.
-Parsing HALTEPUNKT ... 
-done.
+Parsing HALTEPUNKT ...
+ done.
  Import done:
    29 districts loaded.
    49 nodes loaded.
@@ -46,24 +46,24 @@ done.
 Removing self-loops ... done (0ms).
 Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin ... done (1ms).
+Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (2ms).
+Computing node shapes ... done (1ms).
 Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
-Computing approaching lanes ... done (0ms).
+Computing approaching lanes ... done (1ms).
 Dividing of lanes on approached lanes ... done (0ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (1ms).
-Computing traffic light logics ... 
-done (1ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ...
+ done (1ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -77,5 +77,5 @@ Summary:
   Applied offset     : -4436760.00,-5472772.50
   Converted boundary : 0.00,0.00,4020.00,3207.50
 -----------------------------------------------------
-Writing network ... done (7ms).
+Writing network ... done (4ms).
 Success.

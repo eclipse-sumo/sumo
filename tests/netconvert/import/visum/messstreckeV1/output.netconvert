@@ -63,8 +63,8 @@ Computing traffic light control information ... done (0ms).
 Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... 
-done (1ms).
+Building inner edges ...
+ done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -76,5 +76,5 @@ Summary:
   Applied offset     : -414.43,1203.74
   Converted boundary : 0.00,0.00,2522.62,826.48
 -----------------------------------------------------
-Writing network ... done (7ms).
+Writing network ... done (4ms).
 Success.
