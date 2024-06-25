@@ -1,9 +1,9 @@
 first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
---> work position: 
+--> work position:
   |-> in city: 790
   |-> out city: 80
   |-> in+out city: 870
---> population: 
+--> population:
   |-> city households: 500
   |-> city people: 1000
     |-> city single: 190 / (in) couple: 620
