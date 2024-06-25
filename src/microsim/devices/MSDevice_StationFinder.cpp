@@ -105,12 +105,12 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     initRescueCommand();
     myReserveFactor = MAX2(1., getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1));
     myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 1.));
-    myRadius = getTimeParam(holder, oc, "stationfinder.radius", 180000);
+    myRadius = getTimeParam(holder, oc, "stationfinder.radius");
     myMaxEuclideanDistance = getFloatParam(holder, oc, "stationfinder.maxEuclideanDistance", -1);
-    myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat", 60000);
+    myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat");
     myMaxChargePower = getFloatParam(holder, oc, "stationfinder.maxChargePower", 80000.);
     myChargeType = CHARGETYPE_CHARGING;
-    myWaitForCharge = getTimeParam(holder, oc, "stationfinder.waitForCharge", 600000);
+    myWaitForCharge = getTimeParam(holder, oc, "stationfinder.waitForCharge");
     myTargetSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.saturatedChargeLevel", 80.), 1.));
     mySearchSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.needToChargeLevel", 40.), 1.));
     if (mySearchSoC <= myEmptySoC) {

@@ -252,10 +252,7 @@ MSPerson::replaceWalk(const ConstMSEdgeVector& newEdges, double departPos, int f
     //    << " departPos=" << getEdgePos()
     //    << " arrivalPos=" <<  getNextStage(nextIndex - 1)->getArrivalPos()
     //    << "\n";
-    MSStage* toBeReplaced = getNextStage(nextIndex - 1);
-    if (newEdges.back() != toBeReplaced->getDestination()) {
-
-    }
+    MSStage* const toBeReplaced = getNextStage(nextIndex - 1);
     MSStageWalking* newStage = new MSStageWalking(getID(), newEdges,
             toBeReplaced->getDestinationStop(), -1,
             -1,

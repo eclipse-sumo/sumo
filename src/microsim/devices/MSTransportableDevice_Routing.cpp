@@ -51,7 +51,7 @@ MSTransportableDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.addDescription("person-device.rerouting.mode", "Routing", TL("Set routing flags (8 ignores temporary blockages)"));
 
     oc.doRegister("person-device.rerouting.scope", new Option_String("stage"));
-    oc.addDescription("person-device.rerouting.scope", "Routing", TL("Which part of the person plan is to be replaced (stage, sequence, trip, stop, or plan)"));
+    oc.addDescription("person-device.rerouting.scope", "Routing", TL("Which part of the person plan is to be replaced (stage, sequence, or trip)"));
 }
 
 
@@ -60,7 +60,7 @@ MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTr
     const OptionsCont& oc = OptionsCont::getOptions();
     if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false, true)) {
         // route computation is enabled
-        const SUMOTime period = getTimeParam(p, oc, "rerouting.period", string2time(oc.getString("person-device.rerouting.period")));
+        const SUMOTime period = getTimeParam(p, oc, "rerouting.period");
         if (period > 0) {
             MSRoutingEngine::initWeightUpdate();
             // build the device
