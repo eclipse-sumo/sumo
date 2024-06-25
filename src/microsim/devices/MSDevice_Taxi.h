@@ -288,6 +288,8 @@ private:
     // @brief the maximum container capacity in the fleet
     static int myMaxContainerCapacity;
 
+    static std::set<std::string> myVClassWarningVTypes;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Taxi(const MSDevice_Taxi&);
