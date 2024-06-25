@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 15:08+0200\n"
-"PO-Revision-Date: 2024-06-24 12:36+0000\n"
+"PO-Revision-Date: 2024-06-25 15:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7823,16 +7823,22 @@ msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
 msgstr ""
+"Falta el campo obligatorio '%' o '%' (agregue el campo o configure la opción "
+"--shapefile.use-defaults-on-failure)."
 
 #: src/netimport/NIImporter_ArcView.cpp:249
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr ""
+"La geometría de carretera debe ser de tipo 'linestring' o 'linestring25D' ("
+"se encontró '%')"
 
 #: src/netimport/NIImporter_ArcView.cpp:261
 #: src/polyconvert/PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
 msgstr ""
+"No se encontró ningún sistema de coordenadas y las coordenadas parecen ya "
+"proyectadas."
 
 #: src/netimport/NIImporter_ArcView.cpp:264
 #: src/polyconvert/PCLoaderArcView.cpp:93
@@ -7897,6 +7903,8 @@ msgstr "Cargando nombres de las calles"
 #: src/netimport/NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
 msgstr ""
+"La salida no contendrá los nombres de las calles porque no se encontró el "
+"archivo '%'"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
@@ -7920,11 +7928,11 @@ msgstr "Cargando restricciones de tiempo"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "Valor no numérico para el estado intermedio en el nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "Valor no numérico para el número de geometrías en el nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
@@ -7950,7 +7958,7 @@ msgstr "No se pudo agregar el nodo '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "Falta la cadena de versión en el archivo '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
@@ -7966,11 +7974,11 @@ msgstr "Valor no numérico de street_type del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "Valor no numérico para SPEED_RESTRICTION del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "Valor no numérico para el número de carriles del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:549
@@ -8103,7 +8111,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:221
 msgid "Could not find signal reference '%'."
-msgstr ""
+msgstr "No se pudo encontrar la referencia de señal '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:285
 #: src/netimport/NIImporter_OpenDrive.cpp:323
@@ -8196,6 +8204,8 @@ msgstr "No se pudo encontrar el nodo '%'."
 #: src/netimport/NIImporter_OpenDrive.cpp:1533
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr ""
+"Geometría no coincidente para la arista '%' entre los segmentos de geometría "
+"% y %."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1714
 #, c-format
@@ -8460,6 +8470,8 @@ msgstr ""
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
+"Se ignora la línea de transporte público sin paradas en la relación %. El "
+"archivo OSM está probablemente incompleto."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2134
 msgid "Ignoring duplicate PT line '%'."
@@ -8610,7 +8622,7 @@ msgstr "El cruce '%' aparece al menos dos veces en el archivo de entrada."
 
 #: src/netimport/NIImporter_SUMO.cpp:851
 msgid "Invalid lane index '%' for connection from '%'."
-msgstr ""
+msgstr "Índice de carril no válido '%' para la conexión desde '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:941
 msgid "Definition of tl-logic '%' was not finished."
@@ -8910,7 +8922,7 @@ msgstr ""
 
 #: src/netimport/NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
-msgstr ""
+msgstr "Número de carril no válido (arista '%')."
 
 #: src/netimport/NINavTeqHelper.cpp:94
 msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
@@ -8973,7 +8985,7 @@ msgstr "La arista '%' no toca el nodo '%'."
 #: src/netimport/NIXMLConnectionsHandler.cpp:385
 #, c-format
 msgid "Crossing at controlled node '%' must be prioritized"
-msgstr ""
+msgstr "El paso peatonal en el cruce controlado '%' debe ser priorizado"
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:390
 msgid "Unable to project shape for crossing at node '%'."
@@ -8981,16 +8993,16 @@ msgstr "No se pudo proyectar la forma para el paso peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:403
 msgid "Crossing with edges '%' already exists at node '%'."
-msgstr ""
+msgstr "Paso peatonal con aristas '%' ya existe en el cruce '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:435
 msgid "No edges specified for walkingArea at node '%'."
-msgstr ""
+msgstr "No hay aristas especificadas para el área peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:441
 #, c-format
 msgid "Edge '%' for walkingArea at node '%' is not known."
-msgstr ""
+msgstr "No se conoce la arista '%' para el área peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:467
 msgid "Unable to project shape for walkingArea at node '%'."
@@ -8999,6 +9011,8 @@ msgstr "No se pudo proyectar la forma para el área peatonal en el nodo '%'."
 #: src/netimport/NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Se produjo un ID de arista duplicado ('%'); asumiendo que se desea "
+"sobrescribir."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
@@ -9110,6 +9124,8 @@ msgstr "Arista '%' para el acceso a la parada '%' no encontrada"
 #: src/netimport/NIXMLPTHandler.cpp:234
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Se produjo un ID duplicado de línea de transporte público ptLine ('%'); "
+"asumiendo que se desea sobrescribir."
 
 #: src/netimport/NIXMLPTHandler.cpp:275
 msgid "Found route outside line definition"
@@ -9149,7 +9165,7 @@ msgstr ""
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
-msgstr ""
+msgstr "Índice de carril no válido '%' para la arista '%'."
 
 #: src/netimport/NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
@@ -9189,6 +9205,8 @@ msgid ""
 "No streams assigned at district'%'.\n"
 " Using default speed 200km/h"
 msgstr ""
+"No hay flujos asignados en el distrito'%'.\n"
+" Usando la velocidad predeterminada de 200 km/h"
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:377
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:526
@@ -9386,7 +9404,7 @@ msgstr "Carga finalizada."
 
 #: src/netload/NLBuilder.cpp:395
 msgid "Wrong number of state file names!"
-msgstr ""
+msgstr "¡Número incorrecto de nombres de archivos de estado!"
 
 #: src/netload/NLBuilder.cpp:430
 msgid "Loading % from '%'"
@@ -9408,10 +9426,12 @@ msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
+"El tipo de estado de red 'hbefa' está obsoleto. Utilice el tipo 'emissions' "
+"en su lugar."
 
 #: src/netload/NLEdgeControlBuilder.cpp:199
 msgid "Asymmetrical neigh lane '%' for lane '%'"
-msgstr ""
+msgstr "Carril vecino asimétrico '%' para el carril '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:218
 #, c-format
@@ -11052,15 +11072,15 @@ msgstr ""
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
 msgid " done (%ms)."
-msgstr ""
+msgstr " terminado (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:192
 msgid " done."
-msgstr ""
+msgstr " terminado."
 
 #: src/utils/common/MsgHandler.cpp:195
 msgid " failed."
-msgstr ""
+msgstr " falló."
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
