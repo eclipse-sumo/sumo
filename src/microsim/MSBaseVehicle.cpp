@@ -1476,15 +1476,6 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
                 }
                 ok = false;
             } else {
-                if (it != stop.edge) {
-                    double brakeGap = i == 0 ? getBrakeGap() : 0;
-                    if (endPos >= lastPos + brakeGap) {
-                        if (!silent) {
-                            WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                                          + toString(it - myCurrEdge) + " edges " + err);
-                        }
-                    }
-                }
                 start = stop.edge;
             }
         }
