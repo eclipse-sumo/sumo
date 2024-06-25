@@ -1,0 +1,7 @@
+{CLEAR}
+--no-step-log --no-duration-log --net-file=net.net.xml
+-r input_routes.rou.xml
+--device.taxi.dispatch-period 30
+--stop-output stopinfos.xml
+--fcd-output fcd.xml
+--device.fcd.probability 0
