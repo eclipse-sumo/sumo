@@ -1849,7 +1849,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:301
 msgid "Write stop output for stops which have not ended at simulation end"
 msgstr ""
-"Haltausgang für Halte, die bei Simulationsende noch nicht beendet sind "
+"Halteausgabe für Halte, die bei Simulationsende noch nicht beendet sind "
 "schreiben"
 
 #: src/microsim/MSFrame.cpp:304
