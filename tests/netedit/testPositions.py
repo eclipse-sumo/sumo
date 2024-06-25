@@ -164,6 +164,10 @@ class elements:
             x = 650
             y = 133 
 
+        class shapeD:
+            x = 650
+            y = 233             
+
         shapeSize = 200                                                               
 
     # demand elements (for inspect, delete, etc.)

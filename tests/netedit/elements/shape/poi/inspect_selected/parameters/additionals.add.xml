@@ -50,12 +50,12 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_1" color="red" layer="202.00" x="-4.00" y="10.00">
+    <poi id="POI_1" color="red" layer="202.00" x="-20.00" y="10.00">
         <param key="keyA1" value="valueA1"/>
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </poi>
-    <poi id="POI_2" color="red" layer="202.00" x="4.00" y="10.00">
+    <poi id="POI_2" color="red" layer="202.00" x="-4.00" y="10.00">
         <param key="keyB1" value="valueB1"/>
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>
