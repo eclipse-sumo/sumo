@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-25 16:54+0000\n"
+"PO-Revision-Date: 2024-06-25 22:44+0000\n"
 "Last-Translator: Michael Behrisch <oss@behrisch.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2344,7 +2344,7 @@ msgstr "aktuell geladene Energie [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:205
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "maximale Ladeleistung [W]"
 
 #: src/guisim/GUIVehicle.cpp:209
 msgid "present electric current [A]"
@@ -5845,7 +5845,7 @@ msgstr "Modus zum Erstellen von Kantenbeziehungsdaten. (R)"
 
 #: src/netedit/GNEViewNetHelper.cpp:3805
 msgid "TAZ relation data mode"
-msgstr ""
+msgstr "Verkehrsumlegungszonenbeziehungsdatenmodus"
 
 #: src/netedit/GNEViewNetHelper.cpp:3805
 msgid "Mode for creating TAZ relation datas. (Z)"
@@ -6087,15 +6087,15 @@ msgstr "Fahrstreifen löschen wiederholen '"
 
 #: src/netedit/changes/GNEChange_RegisterJoin.cpp:41
 msgid "Register joined junctions '%'"
-msgstr ""
+msgstr "Registriere vereinigte Knoten '%'"
 
 #: src/netedit/changes/GNEChange_RegisterJoin.cpp:69
 msgid "Undo register joined junctions"
-msgstr ""
+msgstr "Registrierung vereinigter Knoten rückgängig machen"
 
 #: src/netedit/changes/GNEChange_RegisterJoin.cpp:75
 msgid "Redo register joined junctions"
-msgstr ""
+msgstr "Registrierung vereinigter Knoten wiederholen"
 
 #: src/netedit/changes/GNEChange_TLS.cpp:172
 msgid "Undo create TLS '"
@@ -8210,7 +8210,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2602
 msgid "CalibratorLane"
-msgstr ""
+msgstr "Kalibrator-Fahrstreifen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2612
 msgid "The id of lane in the simulation network"
@@ -8222,7 +8222,7 @@ msgstr "Name vom Kalibrator-Fahrstreifen"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2661
 msgid "CalibratorFlow"
-msgstr ""
+msgstr "Kalibrator-Fluss"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2666
 #: src/netedit/elements/GNEAttributeCarrier.cpp:3903
@@ -8302,7 +8302,7 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2761
 msgid "If rerouter is optional"
-msgstr ""
+msgstr "Falls der Rerouter optional ist"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:2773
 msgid "Rerouter (Edge)"
