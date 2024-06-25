@@ -82,7 +82,6 @@ Warning: Vehicle 'flowA.36' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.36' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.37' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.37' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Choosing new speed factor 1.25 for vehicle 'flowA.33' to match departure speed 12.00 (max 11.82).
 Warning: Vehicle 'flowA.38' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.38' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.39' will not be able to arrive at the given lane 'Edge2_0'!
@@ -155,7 +154,6 @@ Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Choosing new speed factor 1.22 for vehicle 'flowA.69' to match departure speed 12.00 (max 11.43).
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.73' will not be able to arrive at the given lane 'Edge2_0'!
@@ -202,7 +200,6 @@ Warning: Vehicle 'flowA.92' will not be able to arrive at the given lane 'Edge2_
 Warning: Vehicle 'flowA.92' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.93' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.93' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.30' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.31' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.32' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.33' will not be able to arrive at the given lane 'Edge2_0'!
