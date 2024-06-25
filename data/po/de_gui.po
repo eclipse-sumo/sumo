@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 15:08+0200\n"
-"PO-Revision-Date: 2024-06-03 07:55+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"PO-Revision-Date: 2024-06-25 16:54+0000\n"
+"Last-Translator: Michael Behrisch <oss@behrisch.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2229 src/gui/GUIApplicationWindow.cpp:2230
@@ -15193,31 +15193,31 @@ msgstr "Person"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
-msgstr ""
+msgstr "LSA-Logik"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "Bushaltepunkt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "Zughaltepunkt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "Containerhalt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "Ladestation"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:81
 msgid "overheadWireSegment"
-msgstr ""
+msgstr "Oberleitungsabschnitt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "Parkplatz"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:76
 msgid "Name"
