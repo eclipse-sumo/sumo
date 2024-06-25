@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-05-08 12:21:24 by Eclipse SUMO netconvert Version v1_17_0+0156-3599970
+<!-- generated on 2024-06-25 12:43:42 by Eclipse SUMO netconvert Version v1_20_0+0790-8b05aee863b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -44,11 +44,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Mon May  8 12:21:24 2023" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Jun 25 12:43:42 2024" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="92.80000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -294,14 +294,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_3" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_3" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_4" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_4" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_5" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_5" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
         </signals>
         <userData code="sumoId" value="EC"/>
@@ -347,14 +347,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_6" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_6" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_7" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_7" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_8" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_8" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
         </signals>
         <userData code="sumoId" value="NC"/>
@@ -400,14 +400,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_0" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_0" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_1" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_1" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_2" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_2" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
         </signals>
         <userData code="sumoId" value="SC"/>
@@ -453,14 +453,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_10" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_10" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="30" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_11" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_11" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="20" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
-            <signal id="C_9" s="92.80" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_9" s="92.80000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
             </signal>
         </signals>
         <userData code="sumoId" value="WC"/>

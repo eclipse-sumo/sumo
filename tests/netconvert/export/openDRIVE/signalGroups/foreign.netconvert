@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-11-09 09:14:33 by Eclipse SUMO netconvert Version v1_15_0+0059-0e246af
+<!-- generated on 2024-06-25 12:43:42 by Eclipse SUMO netconvert Version v1_20_0+0790-8b05aee863b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="input_net.net.xml"/>
@@ -44,11 +44,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <OpenDRIVE>
-    <header revMajor="1" revMinor="4" name="" version="1.00" date="Wed Nov  9 09:14:33 2022" north="200.00" south="0.00" east="200.00" west="0.00"/>
+    <header revMajor="1" revMinor="4" name="" version="1.00" date="Tue Jun 25 12:43:42 2024" north="200.00" south="0.00" east="200.00" west="0.00"/>
     <road name="" length="89.60000000" id="50" junction="-1">
         <link>
             <predecessor elementType="junction" elementId="1"/>
@@ -262,12 +262,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_2" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
-                <validity fromLane="0" toLane="0"/>
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_2" s="89.60000000" t="-4.80000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
-            <signal id="C_3" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_3" s="89.60000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
         </signals>
         <userData code="sumoId" value="EC"/>
@@ -313,12 +313,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_0" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
-                <validity fromLane="0" toLane="0"/>
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_0" s="89.60000000" t="-4.80000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
-            <signal id="C_1" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_1" s="89.60000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
         </signals>
         <userData code="sumoId" value="NC"/>
@@ -364,12 +364,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_4" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
-                <validity fromLane="0" toLane="0"/>
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_4" s="89.60000000" t="-4.80000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
-            <signal id="C_5" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_5" s="89.60000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
         </signals>
         <userData code="sumoId" value="SC"/>
@@ -415,12 +415,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lanes>
         <objects/>
         <signals>
-            <signal id="C_6" s="89.60" t="-4.80" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78" width="0.26">
-                <validity fromLane="0" toLane="0"/>
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_6" s="89.60000000" t="-4.80000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="50" height="0.78000000" width="0.26000000">
+                <validity fromLane="-2" toLane="-2"/>
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
-            <signal id="C_7" s="89.60" t="-1.60" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78" width="0.26">
-                <validity fromLane="1" toLane="1"/>
+            <signal id="C_7" s="89.60000000" t="-1.60000000" orientation="+" dynamic="yes" zOffset="5" country="OpenDRIVE" type="1000011" subtype="10" height="0.78000000" width="0.26000000">
+                <validity fromLane="-1" toLane="-1"/>
             </signal>
         </signals>
         <userData code="sumoId" value="WC"/>
@@ -455,7 +455,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -494,7 +494,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -503,7 +503,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -542,7 +542,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -582,7 +582,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -621,7 +621,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -660,7 +660,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -669,7 +669,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -708,7 +708,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -748,7 +748,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -787,7 +787,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -826,7 +826,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -835,7 +835,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -874,7 +874,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -914,7 +914,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -953,7 +953,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="solid" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -992,7 +992,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1001,7 +1001,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-2"/>
                             <successor id="-2"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="broken" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1040,7 +1040,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1080,7 +1080,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1120,7 +1120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1160,7 +1160,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1200,7 +1200,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
@@ -1240,7 +1240,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                             <predecessor id="-1"/>
                             <successor id="-1"/>
                         </link>
-                        <width sOffset="0" a="3.20" b="0" c="0" d="0"/>
+                        <width sOffset="0" a="3.20" b="0.00" c="0.00" d="0.00"/>
                         <roadMark sOffset="0" type="none" weight="standard" color="standard" width="0.13"/>
                         <speed sOffset="0" max="13.89"/>
                     </lane>
