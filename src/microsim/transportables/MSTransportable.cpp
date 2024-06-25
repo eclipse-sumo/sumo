@@ -375,18 +375,28 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
     if (trip == nullptr) {
         return false;
     }
+    // find the final stage of the trip
     int tripEndOffset = -1;
-    for (int i = getNumRemainingStages(); i >= 0; i--) {
+    for (int i = getNumRemainingStages() - 1; i >= 0; i--) {
         if (getNextStage(i)->getTrip() == trip) {
             tripEndOffset = i;
             break;
         }
     }
+    std::vector<MSStage*> stages;
     MSStageWaiting start(getEdge(), nullptr, -1, t, getEdgePos(), "start", true);
-    if (trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination()) == "") {
-        for (int i = tripEndOffset; i >= 0; i--) {
+    if (trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination(), stages) == "") {
+        // remove future stages of the trip
+        for (int i = tripEndOffset; i >= 1; i--) {
             removeStage(i);
         }
+        // insert new stages of the rerouting
+        int idx = 1;
+        for (MSStage* stage : stages) {
+            appendStage(stage, idx++);
+        }
+        // abort the current stage
+        removeStage(0);
         return true;
     }
     return false;
