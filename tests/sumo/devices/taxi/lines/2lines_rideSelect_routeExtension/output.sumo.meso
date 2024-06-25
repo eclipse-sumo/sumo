@@ -1,18 +1,18 @@
-Loading net-file from 'net.net.xml' ... done (17ms).
+Loading net-file from 'net.net.xml' ... done (8ms).
 Loading done.
-Simulation version v1_18_0+0084-35bb20c started with time: 0.00.
-Simulation ended at time: 207.00
+Simulation version v1_20_0+0816-6bffe6d98f6 started with time: 0.00.
+Simulation ended at time: 207.00.
 Reason: All vehicles have left the simulation.
-Performance: 
+Performance:
  Duration: 0.00s
- Real time factor: 69000
- UPS: 138000.000000
- UPS-Persons: 97333.333333
-Vehicles: 
+ Real time factor: 207000
+ UPS: 414000.000000
+ UPS-Persons: 292000.000000
+Vehicles:
  Inserted: 2
  Running: 2
  Waiting: 0
-Persons: 
+Persons:
  Inserted: 2
  Running: 0
 Statistics (avg of 2):
@@ -28,6 +28,5 @@ Ride Statistics (avg of 2 rides):
  RouteLength: 1047.20
  Duration: 77.00
  Taxi: 2
-
 DijkstraRouter answered 9 queries and explored 19.22 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
