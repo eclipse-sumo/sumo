@@ -50,6 +50,6 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_1" color="red" layer="202.00" width="5" x="-4.00" y="10.00"/>
-    <poi id="POI_2" color="red" layer="202.00" width="7" x="4.00" y="10.00"/>
+    <poi id="POI_1" color="red" layer="202.00" width="5" x="-20.00" y="10.00"/>
+    <poi id="POI_2" color="red" layer="202.00" width="7" x="-4.00" y="10.00"/>
 </additional>

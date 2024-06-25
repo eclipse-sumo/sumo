@@ -35,16 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create first POI
-netedit.leftClick(referencePosition, 292, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # create second POI
-netedit.leftClick(referencePosition, 337, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
+                  netedit.positions.elements.additionals.shapeB.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 292, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.poi.inspect.id, "poi_1", False)

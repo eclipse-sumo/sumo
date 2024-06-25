@@ -35,13 +35,15 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create first POI
-netedit.leftClick(referencePosition, 360, 99)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 360, 99)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.poiGeo.inspect.colorButton, 5, False)

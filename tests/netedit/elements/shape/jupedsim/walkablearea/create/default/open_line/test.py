@@ -35,7 +35,8 @@ netedit.shapeMode()
 netedit.changeElement("jupedsim.walkable_area")
 
 # create open line polygon (area 0)
-netedit.createLineShape(referencePosition, 210, 136, 200, 200, False)
+netedit.createLineShape(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y,
+                        netedit.positions.elements.additionals.shapeSize, netedit.positions.elements.additionals.shapeSize, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

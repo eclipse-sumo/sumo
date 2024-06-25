@@ -32,16 +32,19 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first POI
-netedit.leftClick(referencePosition, 451, 119)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # select second POI
-netedit.leftClick(referencePosition, 542, 119)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
+                  netedit.positions.elements.additionals.shapeB.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 451, 119)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # Change parameter 9 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.poi.inspectSelection.angle, "dummyAngle", False)

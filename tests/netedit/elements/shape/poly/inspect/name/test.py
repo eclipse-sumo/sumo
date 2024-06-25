@@ -35,13 +35,15 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, 116, 139, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, 116, 139)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # Change parameter 6 with a non valid value
 netedit.modifyAttribute(netedit.attrs.poly.inspect.name, "%%%$$$;;", False)

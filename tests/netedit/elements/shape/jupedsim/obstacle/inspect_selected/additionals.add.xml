@@ -50,12 +50,12 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="jps.obstacle_0" type="jupedsim.obstacle" name="areaA" shape="-10.00,10.00 -10.00,20.00 -30.00,20.00 -30.00,10.00 -10.00,10.00">
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" name="areaA" shape="-4.000000,10.000000 -4.000000,20.000000 -14.000000,20.000000 -14.000000,10.000000 -4.000000,10.000000">
         <param key="keyA1" value="valueA1"/>
         <param key="keyA2" value="valueA2"/>
         <param key="keyA3" value="valueA3"/>
     </poly>
-    <poly id="jps.obstacle_1" type="jupedsim.obstacle" name="areaB" shape="30.00,10.00 30.00,20.00 10.00,20.00 10.00,10.00 30.00,10.00">
+    <poly id="jps.obstacle_1" type="jupedsim.obstacle" name="areaB" shape="-20.000000,10.000000 -20.000000,20.000000 -30.000000,20.000000 -30.000000,10.000000 -20.000000,10.000000">
         <param key="keyB1" value="valueB1"/>
         <param key="keyB2" value="valueB2"/>
         <param key="keyB3" value="valueB3"/>

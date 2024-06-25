@@ -38,19 +38,22 @@ netedit.changeElement("poiGeo")
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "dummyHeight")
 
 # try to create poi
-netedit.leftClick(referencePosition, 292, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # change height (invalid, negative)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "-3")
 
 # try to create poi
-netedit.leftClick(referencePosition, 337, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
+                  netedit.positions.elements.additionals.shapeB.y)
 
 # change height (valid)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "4.4")
 
 # create poi
-netedit.leftClick(referencePosition, 383, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
+                  netedit.positions.elements.additionals.shapeC.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -1,3 +1,3 @@
 Error: Attribute 'shape' is missing in definition of poly 'jps.obstacle_0'.
 Error: Attribute 'shape' in definition of poly 'jps.obstacle_1' is not a valid list of positions.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.03Aug115532.11857/netedit.gui/shapeelements/jupedsim/obstacle/load/shape/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.25Jun154708.9521/netedit.gui/elements/shape/jupedsim/obstacle/load/shape/additionals.add.xml failed.

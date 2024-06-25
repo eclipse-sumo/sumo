@@ -35,7 +35,8 @@ netedit.shapeMode()
 netedit.changeElement("jupedsim.walkable_area")
 
 # create open polygon
-netedit.createSquaredShape(referencePosition, 210, 136, 200, False)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

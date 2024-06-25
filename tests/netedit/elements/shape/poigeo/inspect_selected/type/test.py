@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 451, 119)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # Change parameter 4 with a valid value
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspectSelection.type, "<<myOwnType>>", False)

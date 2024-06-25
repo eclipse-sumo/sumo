@@ -35,7 +35,8 @@ netedit.shapeMode()
 netedit.changeElement("jps.obstacle")
 
 # create polygon with default values
-netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # go to delete mode
 netedit.deleteMode()

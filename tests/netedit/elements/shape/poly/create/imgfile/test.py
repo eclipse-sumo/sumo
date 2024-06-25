@@ -44,19 +44,22 @@ netedit.changeDefaultBoolValue(netedit.attrs.poly.create.fill)
 netedit.changeDefaultValue(netedit.attrs.poly.create.imgFile, "%%$%$&$%$%$")
 
 # try to create polygon
-netedit.createSquaredShape(referencePosition, 210, 136, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # change imgfile (inexistent)
 netedit.changeDefaultValue(netedit.attrs.poly.create.imgFile, "paris.ico")
 
 # try to create polygon
-netedit.createSquaredShape(referencePosition, 401, 136, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC.x,
+                           netedit.positions.elements.additionals.shapeC.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # change imgfile (valid)
 netedit.changeDefaultValue(netedit.attrs.poly.create.imgFile, "berlin_icon.ico")
 
 # create polygon
-netedit.createSquaredShape(referencePosition, 592, 136, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
+                           netedit.positions.elements.additionals.shapeB.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

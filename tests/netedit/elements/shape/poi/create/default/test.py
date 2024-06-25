@@ -35,7 +35,8 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create poi with default values
-netedit.leftClick(referencePosition, 292, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

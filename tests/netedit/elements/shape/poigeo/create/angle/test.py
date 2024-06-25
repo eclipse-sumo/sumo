@@ -38,25 +38,29 @@ netedit.changeElement("poiGeo")
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.angle, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, 292, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.angle, "500")
 
 # create POI
-netedit.leftClick(referencePosition, 337, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
+                  netedit.positions.elements.additionals.shapeB.y)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.angle, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, 383, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
+                  netedit.positions.elements.additionals.shapeC.y)
 
 # change angle (valid)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.angle, "45")
 
 # create POI
-netedit.leftClick(referencePosition, 428, 117)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD.x,
+                  netedit.positions.elements.additionals.shapeD.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
