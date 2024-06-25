@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:12:01 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2024-06-25 12:09:12 by Eclipse SUMO sumo Version v1_20_0+0788-93e743413c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -34,14 +34,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <personinfo id="0" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="227.00" waitingTime="64.00" timeLoss="17.97" traveltime="163.00">
-        <ride waitingTime="64.00" vehicle="taxi" depart="65.00" arrival="228.00" arrivalPos="5.00" duration="163.00" routeLength="1195.00" timeLoss="17.97"/>
+    <personinfo id="0" depart="1.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="226.00" waitingTime="63.00" timeLoss="18.07" traveltime="163.00">
+        <ride waitingTime="63.00" vehicle="taxi" depart="64.00" arrival="227.00" arrivalPos="5.00" duration="163.00" routeLength="1193.56" timeLoss="18.07"/>
     </personinfo>
-    <tripinfo id="taxi" depart="1.00" departLane="A1B1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="230.00" routeLength="1199.90" waitingTime="5.00" waitingCount="2" stopTime="121.00" timeLoss="22.62" rerouteNo="2" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
-        <taxi customers="1" occupiedDistance="1195.00" occupiedTime="106.00"/>
+    <tripinfo id="taxi" depart="1.00" departLane="A1B1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="229.00" routeLength="1199.90" waitingTime="3.00" waitingCount="2" stopTime="121.00" timeLoss="21.62" rerouteNo="2" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+        <taxi customers="1" occupiedDistance="1193.56" occupiedTime="106.00"/>
     </tripinfo>
 </tripinfos>
