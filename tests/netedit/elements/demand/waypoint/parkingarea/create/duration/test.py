@@ -41,7 +41,8 @@ netedit.changeStopType("waypointParkingArea")
 netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x, netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x,
+                  netedit.positions.elements.demands.parkingArea.y)
 
 # enable duration
 netedit.changeDefaultBoolValue(netedit.attrs.waypointParking.create.durationEnable)

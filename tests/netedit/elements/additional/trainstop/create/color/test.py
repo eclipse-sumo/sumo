@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.color, "Vlue")
 
 # try to create trainStop
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.color, "red")

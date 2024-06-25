@@ -85,7 +85,7 @@ title: ChangeLog
   - traceExporter.py: fixed inconsistent trj-output #14925
   - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988 
 
-### Enhancments
+### Enhancements
 
 - sumo
   - Improved speed of writing xml output by 60% #14994, #8905
@@ -124,7 +124,7 @@ title: ChangeLog
   - Loaded trip attributes (i.e. departLane and departSpeed) are now preserved #15049 
 
 - traci
-  - The new sumo option ** --keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
+  - The new sumo option **--keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
   - Fixed missing leader/follower information in lanechange output after forced change. #14912
   - chargingStation attributes can now be modified #12772 
 

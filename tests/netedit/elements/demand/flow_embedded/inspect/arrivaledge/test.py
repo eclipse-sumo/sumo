@@ -48,7 +48,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge.x, netedit.positions.elements.demands.vehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge.x,
+                  netedit.positions.elements.demands.vehicleEdge.y)
 
 # change edge
 netedit.modifyAttribute(netedit.attrs.flowEmbedded.inspect.arrivalEdge, "dummyEdge", False)

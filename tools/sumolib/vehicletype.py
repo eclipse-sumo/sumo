@@ -224,14 +224,19 @@ class CreateVehTypeDistribution:
         self.attributes.append(attribute)
 
     def create_veh_dist(self, xml_dom):
-        # type: (xml.dom.minidom.Document) -> xml.dom.minidom.Element
+        # type: (sumolib.xml.CompoundObject) -> sumolib.xml.CompoundObject
         # create the vehicleDist node
         vtype_dist_node = xml_dom.addChild("vTypeDistribution", {"id": self.name})
 
         # create the vehicle types
         for i in range(self.size):
             veh_type_node = vtype_dist_node.addChild("vType", {"id": self.name + str(i)})
-            self._generate_vehType(xml_dom, veh_type_node)
+            for attr in self.attributes:
+                if attr.is_param:
+                    veh_type_node.addChild("param", {"key": attr.name,
+                                                     "value": attr.d_obj.sampleValueString(self.decimal_places)})
+                else:
+                    veh_type_node.setAttribute(attr.name, attr.d_obj.sampleValueString(self.decimal_places))
 
         return vtype_dist_node
 
@@ -247,7 +252,7 @@ class CreateVehTypeDistribution:
         print("Output written to %s" % file_path)
 
     def _handle_existing(self, xml_dom, veh_dist_node):
-        # type: (xml.dom.minidom.Document, xml.dom.minidom.Element) -> None
+        # type: (sumolib.xml.CompoundObject, sumolib.xml.CompoundObject) -> None
         existingDistNodes = xml_dom.getElementsByTagName("vTypeDistribution")
         replaceNode = None
         for existingDistNode in existingDistNodes:
@@ -259,18 +264,9 @@ class CreateVehTypeDistribution:
         else:
             xml_dom.documentElement.appendChild(veh_dist_node)
 
-    def _generate_vehType(self, xml_dom, veh_type_node):
-        # type: (xml.dom.minidom.Document, xml.dom.minidom.Element) -> xml.dom.minidom.Node
-        for attr in self.attributes:
-            if attr.is_param:
-                veh_type_node.addChild("param",
-                                       {"key": attr.name, "value": attr.d_obj.sampleValueString(self.decimal_places)})
-            else:
-                veh_type_node.setAttribute(attr.name, attr.d_obj.sampleValueString(self.decimal_places))
-
     @staticmethod
     def _check_existing(file_path):
-        # type: (str) -> Tuple[xml.dom.minidom.Document, bool]
+        # type: (str) -> Tuple[sumolib.xml.CompoundObject, bool]
         if os.path.exists(file_path):
             try:
                 return sumolib.xml.parse(file_path), True

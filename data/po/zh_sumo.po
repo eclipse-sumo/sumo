@@ -8578,7 +8578,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr "无效的车道编号 (路段 %)。"
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr "路段车道编号出現非数值 (路段 %)。"
 
 #: C:\Repos\sumo/src\netimport\NITypeLoader.cpp:62
@@ -8914,8 +8914,8 @@ msgid "Could not build edge '%'; would connect same node."
 msgstr "无法构建路段 '%'； 将连接到相同的节点。"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
-msgid "What about distribution '%' "
-msgstr "分配 '%' 呢? "
+msgid "What about distribution '%'"
+msgstr "分配 '%' 呢?"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format

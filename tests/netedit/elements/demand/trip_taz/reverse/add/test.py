@@ -38,8 +38,10 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # create trip using two TAZs
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ.x, netedit.positions.elements.demands.vehicleTAZ.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ.x,
+                  netedit.positions.elements.demands.vehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create route
 netedit.typeEnter()

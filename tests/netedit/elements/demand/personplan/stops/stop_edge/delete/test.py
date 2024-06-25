@@ -60,7 +60,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.deleteMode()
 
 # delete StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planTop.x, netedit.positions.elements.demands.planTop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planTop.x,
+                  netedit.positions.elements.demands.planTop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

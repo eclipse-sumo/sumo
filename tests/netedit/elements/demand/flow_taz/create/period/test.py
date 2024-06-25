@@ -41,8 +41,10 @@ netedit.changeElement("flow (from-to TAZs)")
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacing, "dummySpacing")
 
 # try to create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x, netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
+                  netedit.positions.elements.demands.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -51,8 +53,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacing, "period")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x, netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
+                  netedit.positions.elements.demands.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -61,8 +65,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "dummy")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x, netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
+                  netedit.positions.elements.demands.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -71,8 +77,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "-30")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x, netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
+                  netedit.positions.elements.demands.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -81,8 +89,10 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.spacingOption, "20.5")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x, netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x, netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
+                  netedit.positions.elements.demands.TAZGreen.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
+                  netedit.positions.elements.demands.TAZRed.y)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()

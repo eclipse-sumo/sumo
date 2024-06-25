@@ -45,7 +45,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x, netedit.positions.elements.demands.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x,
+                  netedit.positions.elements.demands.person.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)

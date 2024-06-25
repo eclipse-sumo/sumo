@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
+                  netedit.positions.elements.demands.container.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspectSelection.begin, "", False)

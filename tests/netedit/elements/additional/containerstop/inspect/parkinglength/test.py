@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x, netedit.positions.elements.additionals.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x,
+                  netedit.positions.elements.additionals.containerStop.y)
 
 # Change parameter length with a non valid value (throw warning)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.parkingLength, "dummylength", True)

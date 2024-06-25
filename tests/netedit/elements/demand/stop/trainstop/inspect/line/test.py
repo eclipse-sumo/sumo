@@ -38,13 +38,15 @@ netedit.stopMode()
 netedit.changeStopType("stopTrainStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
+                  netedit.positions.elements.demands.trainStop.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
+                  netedit.positions.elements.demands.trainStop.y)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopTrainStop.inspect.line, "dummy", False)

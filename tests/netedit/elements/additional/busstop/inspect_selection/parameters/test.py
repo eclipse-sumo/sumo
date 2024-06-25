@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x, netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
+                  netedit.positions.elements.additionals.busStop.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.busStop.inspectSelection.parameters, True)

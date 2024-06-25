@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x, netedit.positions.elements.additionals.e2Detector.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x,
+                  netedit.positions.elements.additionals.e2Detector.y)
 
 # Change parameter JamThreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2.inspectSelection.jamThreshold, "dummyJamThreshold", True)

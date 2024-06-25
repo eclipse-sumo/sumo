@@ -1018,6 +1018,11 @@ as hard as it can. At a value of 0, the driver will only perform
 maneuvers that do not force other vehicles to slow down. Intermediate
 values interpolate smoothly between these extremes.
 
+
+#### Impatience for Pedestrians
+
+The impatience concept is also used when pedestrians cross a street without having priority. Just as for cars, the current impatience is computed from the *baseImpatience* (as configured in the vType) and the current *waitingTime*. The *timeToMaxImpatience* is hard-coded as 120s. Impatient pedestrians may cross the street even though it forces cars to brake. Setting impatience in the `vType` to a negative value or `off` can be used to make pedestrians more patient.
+
 ### Transient Parameters
 
 Junction model parameters that are expected to change during the simulation are modelled via [generic parameters](Simulation/GenericParameters.md). The following parameters are supported (via xml input and `traci.vehicle.setParameter`):

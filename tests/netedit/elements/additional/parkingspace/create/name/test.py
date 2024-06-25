@@ -45,7 +45,8 @@ netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
 netedit.changeDefaultValue(netedit.attrs.parkingSpace.create.name, "customName")
 
 # create area
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x, netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
+                  netedit.positions.elements.additionals.squaredA.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

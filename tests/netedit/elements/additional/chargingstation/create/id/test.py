@@ -41,7 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, ";;;;;;;;;;;;;;;;")
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "cs_0")
@@ -53,7 +54,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.id, "custom_ID")
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

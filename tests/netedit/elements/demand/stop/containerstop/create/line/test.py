@@ -41,7 +41,8 @@ netedit.changeStopType("stopContainerStop")
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.line, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopContainerStop.create.line, "")

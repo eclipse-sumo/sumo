@@ -111,7 +111,12 @@ public:
             }
         }
         const double* f = myFunctionParameter[index][e];
-        return (f[0] + f[1] * v + f[2] * a + f[3] * v * v + f[4] * v * v * v + f[5] * a * v + f[6] * a * v * v) / scale;
+        double result = (f[0] + f[1] * v + f[2] * a + f[3] * v * v + f[4] * v * v * v + f[5] * a * v + f[6] * a * v * v) / scale;
+        if (e != PollutantsInterface::ELEC) {
+            // no negative emissions
+            result = MAX2(0.0, result);
+        }
+        return result;
     }
 
 

@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "7.5")
 
 # try to create containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.containerCapacity, "3")

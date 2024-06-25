@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E2s
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x, netedit.positions.elements.additionals.e2Detector.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x,
+                  netedit.positions.elements.additionals.e2Detector.y)
 
 # Change boolean parameter friendly pos
 netedit.modifyBoolAttribute(netedit.attrs.E2.inspectSelection.friendlyPos, True)

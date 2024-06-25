@@ -41,7 +41,8 @@ netedit.changeStopType("stopBusStop")
 netedit.changeDefaultBoolValue(netedit.attrs.stopBusStop.create.onDemand)
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

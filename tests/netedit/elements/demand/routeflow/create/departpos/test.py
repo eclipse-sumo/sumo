@@ -58,19 +58,22 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "-12")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # set valid depart pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "random_free")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # set valid depart pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.departPos, "20")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-21 14:26+0000\n"
+"PO-Revision-Date: 2024-06-24 12:36+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6424,6 +6424,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:170
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr ""
+"Alinear las señales de ID de parada con las señales de ID de arista "
+"correspondientes"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:207
 msgid "Joining tram edges"
@@ -6620,7 +6622,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:684
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "Encontrando accesos a las paradas de trenes"
 
 #: C:\Repos\sumo/src\netbuild\NBNetBuilder.cpp:707
 msgid ""
@@ -6664,20 +6666,24 @@ msgstr "No se pudo utilizar una forma personalizada para la conexión %."
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:821
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
+"La forma personalizada tiene distancia % al carril entrante en la conexión %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:838
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
+"La forma personalizada tiene distancia % al carril saliente en la conexión %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1037
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
+"El cruce '%' es demasiado complicado (% conexiones, máx. %); se establecerá "
+"en %."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1178
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
-msgstr ""
+msgstr "La forma del cruce '%' tiene una distancia % a su posición dada."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1182
 msgid "For junction '%': could not compute shape."
@@ -6685,25 +6691,31 @@ msgstr "Para el cruce '%': no se pudo calcular la forma."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:1884
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "Algo salió mal durante la construcción de una conexión..."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:2891
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr ""
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"no se encontró área peatonal)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3057
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr ""
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"no hay carriles para vehículos a cruzar)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3076
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
+"Descartando el paso peatonal no válido '%' en el cruce '%' con aristas [%] ("
+"forma no válida)."
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3217
 msgid ""
@@ -6733,11 +6745,11 @@ msgstr "Solicitud de cruce desconocido '%'"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3860
 msgid "Request for unknown crossing for the given Edges"
-msgstr ""
+msgstr "Solicitud de cruce desconocido para las aristas dadas"
 
 #: C:\Repos\sumo/src\netbuild\NBNode.cpp:3885
 msgid "Request for unknown walkingarea '%'."
-msgstr ""
+msgstr "Solicitud de área peatonal desconocida '%'."
 
 #: C:\Repos\sumo/src\netbuild\NBNodeCont.cpp:322
 msgid "Removed a road without junctions: %."
@@ -7125,22 +7137,28 @@ msgid ""
 "Apply random spatial perturbation in x direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección x de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:55
 msgid ""
 "Apply random spatial perturbation in y direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección y de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:57
 msgid ""
 "Apply random spatial perturbation in z direction according the the given "
 "distribution"
 msgstr ""
+"Aplicar perturbación espacial aleatoria en la dirección z de acuerdo con la "
+"distribución dada"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:63
 msgid "Defines the probability to build a reverse edge"
-msgstr ""
+msgstr "Define la probabilidad de construir una arista contraria"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:67
 msgid "Draw lane numbers randomly from [1,default.lanenumber]"
@@ -7155,34 +7173,35 @@ msgstr ""
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:74
 msgid "Draw edge type randomly from all loaded types"
 msgstr ""
+"Elegir el tipo de arista aleatoriamente de entre todos los tipos cargados"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:80
 msgid "Forces NETGEN to build a grid-like network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red tipo cuadrícula"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:85
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "El número de cruces en ambas direcciones"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:90
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "La longitud de las calles en ambas direcciones"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:95
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "El número de cruces en la dirección x; Sobrescribe --grid-number"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:100
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "El número de cruces en la dirección y; Sobrescribe --grid-number"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:105
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "La longitud de calles horizontales; Sobrescribe --grid-length"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:110
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "La longitud de calles verticales; Sobrescribe --grid-length"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:114
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:147
@@ -7190,30 +7209,36 @@ msgid ""
 "The length of streets attached at the boundary; 0 means no streets are "
 "attached"
 msgstr ""
+"La longitud de las calles anexas al límite; 0 significa que no hay calles "
+"anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:117
 msgid ""
 "The length of streets attached at the boundary in x direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La longitud de las calles anexas al límite en la dirección x; 0 significa "
+"que no hay calles anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:119
 msgid ""
 "The length of streets attached at the boundary in y direction; 0 means no "
 "streets are attached"
 msgstr ""
+"La longitud de las calles anexas al límite en la dirección y; 0 significa "
+"que no hay calles anexas"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:124
 msgid "Forces NETGEN to build a spider-net-like network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red tipo telaraña"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:129
 msgid "The number of axes within the net"
-msgstr ""
+msgstr "El número de ejes dentro de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:134
 msgid "The number of circles of the net"
-msgstr ""
+msgstr "El número de círculos de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:139
 msgid "The distances between the circles"
@@ -7221,15 +7246,15 @@ msgstr "Las distancias entre los círculos"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:144
 msgid "Omit the central node of the network"
-msgstr ""
+msgstr "Omitir el nodo central de la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:152
 msgid "Forces NETGEN to build a random network"
-msgstr ""
+msgstr "Forzar a NETGEN a construir una red aleatoria"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:157
 msgid "Describes how many times an edge shall be added to the net"
-msgstr ""
+msgstr "Especifica cuántas veces se agregará una arista a la red"
 
 #: C:\Repos\sumo/src\netgen\NGFrame.cpp:162
 msgid "The maximum distance for each edge"
@@ -8122,7 +8147,7 @@ msgstr "Ignorando la calle '%' sin geometría."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:446
 msgid "Could not apply laneOffsets for edge '%'"
-msgstr ""
+msgstr "No se pudieron aplicar los desplazamientos de carril para la arista '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:637
 #, c-format
@@ -8132,12 +8157,12 @@ msgstr "La arista '%' no tiene carriles."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:678
 #, c-format
 msgid "While setting connections: from-edge '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la arista de salida '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:688
 #, c-format
 msgid "While setting connections: to-edge '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la arista de llegada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:714
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:717
@@ -8150,11 +8175,13 @@ msgid ""
 "Controlling multiple junctions by the same controller '%' is currently not "
 "implemented."
 msgstr ""
+"Controlar múltiples cruces mediante el mismo controlador '%' actualmente no "
+"está implementado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:791
 #, c-format
 msgid "Edge '%' has signals but no lane sections."
-msgstr ""
+msgstr "La arista '%' tiene señales pero no hay secciones de carril."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:813
 msgid "Ambiguous start of connection."
@@ -8168,7 +8195,7 @@ msgstr "Final ambiguo de la conexión."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:858
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:905
 msgid "Could not find edge '%' for signal '%'."
-msgstr ""
+msgstr "No se pudo encontrar la arista '%' para la señal '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:879
 msgid ""
@@ -8190,7 +8217,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1397
 #, c-format
 msgid "While setting connections: incoming road '%' is not known."
-msgstr ""
+msgstr "Al configurar conexiones: no se conoce la vía entrante '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1440
 msgid "Could not find node '%'."
@@ -8203,7 +8230,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1714
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
-msgstr ""
+msgstr "Las secciones la arista '%' no están ordenadas correctamente."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1726
 msgid ""
@@ -8214,10 +8241,12 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1769
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr ""
+"No se pudo calcular la geometría espiral para la arista '%' (cDot=% "
+"longitud=%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:1818
 msgid "Could not compute spiral geometry for edge '%' (%)."
-msgstr ""
+msgstr "No se pudo calcular la geometría espiral para la arista '%' (%)."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2090
 msgid ""
@@ -8227,11 +8256,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2405
 msgid "Ignoring invalid pRange value '%' for road '%'."
-msgstr ""
+msgstr "Ignorando el valor pRange no válido '%' para la vía '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2484
 msgid "Ignoring missing signal '%' in controller '%'."
-msgstr ""
+msgstr "Ignorando la señal faltante '%' en el controlador '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2522
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2729
@@ -8250,6 +8279,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2700
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr ""
+"No se pudo establecer la proyección (%). Esto se puede ignorar con --ignore-"
+"errors."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2704
 #, c-format
@@ -8259,10 +8290,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2819
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr ""
+"Paréntesis no coincidentes en la definición de geometría para la vía '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenDrive.cpp:2823
 msgid "Double geometry information for road '%'"
-msgstr ""
+msgstr "Información de geometría doble para la vía '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:156
 #: C:\Repos\sumo/src\polyconvert\PCLoaderOSM.cpp:104
@@ -8272,7 +8304,7 @@ msgstr "No se pudo abrir el archivo osm '%'."
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:168
 #, c-format
 msgid "Found and substituted % osm nodes."
-msgstr ""
+msgstr "Se encontraron y sustituyeron % nodos osm."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:192
 msgid "Removing duplicate edges"
@@ -8329,6 +8361,7 @@ msgstr "No se pudo agregar la arista '-%'."
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
+"El atributo 'id' en la definición de un nodo no es del tipo long long int."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:994
 msgid "Tag element on wrong XML hierarchy level."
@@ -8351,16 +8384,22 @@ msgstr "La información de geometría referenciada (ref='%') no es conocida"
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
+"Usando el ancho de carril predeterminado para la arista '%' ya que la clave "
+"'%' no pudo ser analizada."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1463
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Usando el ancho de carril predeterminado para la arista '%' ya que el valor "
+"'%' no pudo ser analizado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1469
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Usando el ancho predeterminado para la arista '%' ya que el valor '%' no "
+"pudo ser analizado."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:1505
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -8428,6 +8467,8 @@ msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
+"Plataforma '%' en relación: '%' es dado como polígono, lo cual no es "
+"soportado actualmente."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2046
 #, c-format
@@ -8435,11 +8476,15 @@ msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
+"La plataforma referenciada: '%' en relación: '%' está dañada. El archivo OSM "
+"está probablemente incompleto."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2093
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
+"La línea de transporte público '%' en la relación % parece estar dividida, "
+"se conservará solo la primera parte."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2128
 msgid ""
@@ -8481,14 +8526,16 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2468
 msgid "Discarding unusable type '%' (first occurrence for edge '%')."
 msgstr ""
+"Descartando el tipo inutilizable '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2513
 msgid "Discarding compound type '%' (first occurrence for edge '%')."
 msgstr ""
+"Descartando el tipo combinado '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2528
 msgid "Adding new type '%' (first occurrence for edge '%')."
-msgstr ""
+msgstr "Agregando nuevo tipo '%' (primera aparición para la arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2563
 msgid "Ambiguous railway kilometrage direction for way '%' (assuming forward)"
@@ -8500,7 +8547,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2615
 msgid "Value of railway:position is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "El valor de railway:position no es numérico ('%') en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_OpenStreetMap.cpp:2723
 msgid ""
@@ -8525,7 +8572,7 @@ msgstr "No se pudo insertar la arista '%'."
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:318
 #, c-format
 msgid "Unknown edge '%' given in connection."
-msgstr ""
+msgstr "Arista desconocida '%' dada en la conexión."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:232
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:272
@@ -8563,11 +8610,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:555
 msgid "Could not add program '%' for traffic light '%'"
-msgstr ""
+msgstr "No se pudo agregar el programa '%' para el semáforo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:625
 msgid "Unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Tipo de propagación '%' no conocido para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:638
 #, c-format
@@ -8606,7 +8653,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:953
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr ""
+msgstr "Tipo de semáforo '%' no conocido en la lógica semafórica '%'."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:967
 msgid "found phase without tl-logic"
@@ -8614,7 +8661,7 @@ msgstr "se encontró una fase sin lógica semafórica"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:975
 msgid "Phase duration for tl-logic '%/%' must be positive."
-msgstr ""
+msgstr "La duración de fase para la lógica semafórica '%/%' debe ser positiva."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_SUMO.cpp:1031
 msgid "Missing connection divider in prohibition attribute '%'"
@@ -8636,11 +8683,11 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr ""
+msgstr "Un valor en % debe ser numérico pero no lo es (ID='%')."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
-msgstr ""
+msgstr "Uno de los valores requeridos ('%') está faltando en %."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
@@ -8667,12 +8714,13 @@ msgstr "Se produjo una arista duplicada ('%')."
 msgid ""
 "Incoming connector '%' will not be build - would be not connected to network."
 msgstr ""
+"El conector entrante '%' no se construirá - no estaría conectado a la red."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:584
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:618
 #, c-format
 msgid "The district '%' could not be built."
-msgstr ""
+msgstr "El distrito '%' no se pudo construir."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:594
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:629
@@ -8683,6 +8731,7 @@ msgstr "Se produjo un ID de arista duplicado (ID='%')."
 msgid ""
 "Outgoing connector '%' will not be build - would be not connected to network."
 msgstr ""
+"El conector saliente '%' no se construirá - no estaría conectado a la red."
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:665
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:671
@@ -8716,7 +8765,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:856
 msgid "Ups - could not insert node!"
-msgstr ""
+msgstr "¡Vaya - no se pudo insertar el nodo!"
 
 #: C:\Repos\sumo/src\netimport\NIImporter_VISUM.cpp:917
 #, c-format
@@ -8836,7 +8885,7 @@ msgstr "Entrada desconocida '%' en el mapa de idiomas de VISUM"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:103
 msgid " Removed % traffic lights before loading plain-XML"
-msgstr ""
+msgstr " Se eliminaron % semáforos antes de cargar el XML plano"
 
 #: C:\Repos\sumo/src\netimport\NILoader.cpp:112
 msgid "No nodes loaded."
@@ -8898,7 +8947,7 @@ msgid "Invalid lane number (edge '%')."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NINavTeqHelper.cpp:94
-msgid "Non-numerical value for an edge's lane number occurred (edge '%'."
+msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NITypeLoader.cpp:62
@@ -8907,7 +8956,7 @@ msgstr "No se pudo abrir el archivo-% '%'."
 
 #: C:\Repos\sumo/src\netimport\NIVisumTL.cpp:76
 msgid "invalid node for traffic light '%'"
-msgstr ""
+msgstr "nodo no válido para el semáforo '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:85
 msgid ""
@@ -8925,6 +8974,8 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:267
 msgid "Unable to project shape for connection from edge '%' to edge '%'."
 msgstr ""
+"No se pudo proyectar la forma para la conexión de la arista '%' a la arista "
+"'%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
@@ -8934,22 +8985,22 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:347
 #, c-format
 msgid "Node '%' in crossing is not known."
-msgstr ""
+msgstr "No se conoce el nodo '%' en el paso peatonal."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
-msgstr ""
+msgstr "No se especificaron aristas para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:364
 #, c-format
 msgid "Edge '%' for crossing at node '%' is not known."
-msgstr ""
+msgstr "No se conoce la arista '%' para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:372
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:450
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:455
 msgid "Edge '%' does not touch node '%'."
-msgstr ""
+msgstr "La arista '%' no toca el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:385
 #, c-format
@@ -8958,7 +9009,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:390
 msgid "Unable to project shape for crossing at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma para el paso peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:403
 msgid "Crossing with edges '%' already exists at node '%'."
@@ -8975,7 +9026,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLConnectionsHandler.cpp:467
 msgid "Unable to project shape for walkingArea at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma para el área peatonal en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
@@ -8993,11 +9044,11 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:393
 #, c-format
 msgid "'%' is deprecated, please use '%' instead."
-msgstr ""
+msgstr "'%' está obsoleto, utilice '%' en su lugar."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:403
 msgid "Lane index is larger than number of lanes (edge '%')."
-msgstr ""
+msgstr "El índice de carril es mayor al número de carriles (arista '%')."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:447
 msgid "Unable to project coordinates for lane '%'."
@@ -9029,7 +9080,7 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:616
 msgid "Ignoring unknown spreadType '%' for edge '%'."
-msgstr ""
+msgstr "Ignorando tipo de propagación desconocido '%' para la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:674
 #, c-format
@@ -9038,7 +9089,7 @@ msgstr "Se produjo una arista duplicada '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:683
 msgid "An important information is missing in edge '%'."
-msgstr ""
+msgstr "Hace falta una información importante en la arista '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLEdgesHandler.cpp:705
 #, c-format
@@ -9047,7 +9098,7 @@ msgstr "Arista desconocida '%' en la rotonda."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:151
 msgid "Missing position (at node ID='%')."
-msgstr ""
+msgstr "Posición faltante (en el nodo con ID='%')."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:184
 msgid "Could not insert node though checked this before (id='%')."
@@ -9055,15 +9106,15 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:213
 msgid "Unable to project node shape at node '%'."
-msgstr ""
+msgstr "No se pudo proyectar la forma de nodo en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:321
 msgid "Unknown traffic light type '%' for node '%'."
-msgstr ""
+msgstr "Tipo de semáforo desconocido '%' en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:330
 msgid "Unknown traffic light layout '%' for node '%'."
-msgstr ""
+msgstr "Layout de semáforo desconocido '%' en el nodo '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLNodesHandler.cpp:341
 msgid "Changing traffic light type '%' to '%' for tl '%'."
@@ -9072,7 +9123,7 @@ msgstr "Cambiando tipo de semáforo de '%' a '%' en '%'."
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:159
 #, c-format
 msgid "Edge '%' for stop '%' not found"
-msgstr ""
+msgstr "No se encuentra la arista '%' para la parada '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:167
 #, c-format
@@ -9100,27 +9151,27 @@ msgstr "Ruta encontrada por fuera de la definición de línea"
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:305
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
-msgstr ""
+msgstr "No se encuentra la arista '%' en la ruta de la línea '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:324
 msgid "Stop '%' within line '%' not found"
-msgstr ""
+msgstr "No se encuentra la parada '%' en la línea '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLPTHandler.cpp:340
 msgid "Stop '%' within route '%' not found"
-msgstr ""
+msgstr "No se encuentra la parada '%' en la ruta '%'"
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:46
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1753
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
-msgstr ""
+msgstr "No se conoce el carril '%' donde se colocará el punto de interés '%'."
 
 #: C:\Repos\sumo/src\netimport\NIXMLShapeHandler.cpp:59
 #: C:\Repos\sumo/src\netload\NLHandler.cpp:1766
 #, c-format
 msgid "lane position % for poi '%' is not valid."
-msgstr ""
+msgstr "la posición de carril % para el punto de interés '%' no es válida."
 
 #: C:\Repos\sumo/src\netimport\NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
@@ -9206,7 +9257,7 @@ msgstr ""
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:237
 #, c-format
 msgid "Could not prohibit '%' - it was not built."
-msgstr ""
+msgstr "No se pudo prohibir '%' - no fue creado."
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimDisturbance.cpp:243
 msgid "Could not prohibit '%' by '%'."
@@ -9236,8 +9287,8 @@ msgid "Could not build edge '%'; would connect same node."
 msgstr ""
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimEdge.cpp:532
-msgid "What about distribution '%' "
-msgstr ""
+msgid "What about distribution '%'"
+msgstr "Qué pasa con la distribución '%'"
 
 #: C:\Repos\sumo/src\netimport\vissim\tempstructs\NIVissimTL.cpp:138
 #, c-format
@@ -9321,11 +9372,12 @@ msgstr ""
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:86
 msgid "Trying to set the effort for the unknown edge '%'."
-msgstr ""
+msgstr "Intentando establecer el esfuerzo para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:101
 msgid "Trying to set the travel time for the unknown edge '%'."
 msgstr ""
+"Intentando establecer el tiempo de viaje para la arista desconocida '%'."
 
 #: C:\Repos\sumo/src\netload\NLBuilder.cpp:130
 msgid "Invalid network, no network version declared."

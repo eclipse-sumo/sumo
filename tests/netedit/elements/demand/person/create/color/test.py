@@ -39,7 +39,8 @@ netedit.changePersonPlan("walk", False)
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # set invalid person number
 netedit.changeColorUsingDialog(netedit.attrs.person.create.colorButton, 5)
@@ -49,7 +50,8 @@ netedit.typeEnter()
 
 # create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.person.create.color, "Vlue")

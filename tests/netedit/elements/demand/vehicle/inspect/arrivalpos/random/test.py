@@ -49,13 +49,15 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge.x, netedit.positions.elements.demands.vehicleEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge.x,
+                  netedit.positions.elements.demands.vehicleEdge.y)
 
 # change arrivalPos with an invalid value
 netedit.modifyAttribute(netedit.attrs.vehicle.inspect.arrivalPos, "", True)

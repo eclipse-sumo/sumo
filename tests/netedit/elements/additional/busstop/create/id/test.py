@@ -41,7 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.busStop.create.id, "bs_0")

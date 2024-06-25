@@ -41,7 +41,8 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
+                  netedit.positions.elements.demands.trainStop.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.actType, "")

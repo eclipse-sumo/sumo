@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "-12")
 
 # try to create E2 with invalid time threshold
-netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x, netedit.positions.elements.EdgeCenter0_1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.EdgeCenter0_1.x,
+                  netedit.positions.elements.EdgeCenter0_1.y)
 
 # set valid time threshold
 netedit.changeDefaultValue(netedit.attrs.E2.create.timeThreshold, "10.5")

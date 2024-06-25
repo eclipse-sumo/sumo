@@ -41,7 +41,8 @@ netedit.changeStopType("stopChargingStation")
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.actType, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x, netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
+                  netedit.positions.elements.demands.chargingStation.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.actType, "")

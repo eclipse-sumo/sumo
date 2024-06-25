@@ -45,7 +45,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x, netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
+                  netedit.positions.elements.demands.route.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.route.inspect.parameters, False)

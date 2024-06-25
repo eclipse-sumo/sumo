@@ -529,7 +529,7 @@ NIVissimEdge::getRealSpeed(int distNo) {
     assert(dist != 0);
     double speed = dist->getMax();
     if (speed < 0 || speed > 1000) {
-        WRITE_WARNINGF(TL("What about distribution '%' "), toString<int>(distNo));
+        WRITE_WARNINGF(TL("What about distribution '%'"), toString<int>(distNo));
     }
     return speed;
 }

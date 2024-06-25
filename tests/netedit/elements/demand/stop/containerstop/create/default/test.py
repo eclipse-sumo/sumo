@@ -38,7 +38,8 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

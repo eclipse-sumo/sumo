@@ -59,7 +59,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x, netedit.positions.elements.demands.containerPlanEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge.x,
+                  netedit.positions.elements.demands.containerPlanEdge.y)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdgeEdge.inspect.speed, "dummySpeed", False)

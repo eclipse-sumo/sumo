@@ -57,7 +57,8 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x, netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
+                  netedit.positions.elements.additionals.busStop.y)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -67,7 +68,8 @@ netedit.deleteMode()
 
 # delete both busStop and access
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x, netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
+                  netedit.positions.elements.additionals.busStop.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -44,7 +44,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea.x, netedit.positions.elements.additionals.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea.x,
+                  netedit.positions.elements.additionals.parkingArea.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.parkingArea.inspect.parameters, True)

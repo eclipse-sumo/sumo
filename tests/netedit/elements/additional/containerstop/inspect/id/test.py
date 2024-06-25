@@ -47,7 +47,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge4.x, netedit
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x, netedit.positions.elements.additionals.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x,
+                  netedit.positions.elements.additionals.containerStop.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.containerStop.inspect.id, "ct_1", True)

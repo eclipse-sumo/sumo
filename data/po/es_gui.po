@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-21 16:48+0200\n"
-"PO-Revision-Date: 2024-06-19 12:07+0000\n"
+"PO-Revision-Date: 2024-06-24 09:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15405,7 +15405,7 @@ msgstr "El objeto debe ser un carril"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:272
 msgid "Copy test coordinates to clipboard"
-msgstr ""
+msgstr "Copiar coordenadas de prueba al portapapeles"
 
 #: C:\Repos\sumo/src\utils\gui\globjects\GUIGlObject.cpp:291
 msgid "Copy name to clipboard"

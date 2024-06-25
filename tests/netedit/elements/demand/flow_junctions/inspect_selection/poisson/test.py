@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x, netedit.positions.elements.demands.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x,
+                  netedit.positions.elements.demands.vehicleJunction.y)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspectSelection.terminate, "end", False)

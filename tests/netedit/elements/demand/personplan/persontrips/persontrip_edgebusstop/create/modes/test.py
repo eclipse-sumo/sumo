@@ -50,7 +50,8 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("personTrip")
 
 # create personTripEdgeBusStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x, netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
+                  netedit.positions.elements.demands.busStop.y)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.personTripEdgeBusStop.create.modes, "dummy")

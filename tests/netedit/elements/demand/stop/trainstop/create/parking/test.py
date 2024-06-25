@@ -38,7 +38,8 @@ netedit.stopMode()
 netedit.changeStopType("stopTrainStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
+                  netedit.positions.elements.demands.trainStop.y)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.parking, "true")

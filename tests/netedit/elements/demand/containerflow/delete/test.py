@@ -48,7 +48,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x, netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
+                  netedit.positions.elements.demands.container.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)

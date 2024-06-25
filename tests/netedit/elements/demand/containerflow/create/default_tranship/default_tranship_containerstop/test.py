@@ -42,7 +42,8 @@ netedit.changeContainerPlan("tranship", True)
 
 # create route using edge and containerStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x, netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
+                  netedit.positions.elements.demands.containerStop.y)
 
 # press enter to create route
 netedit.typeEnter()
