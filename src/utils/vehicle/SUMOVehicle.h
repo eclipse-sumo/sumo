@@ -328,6 +328,9 @@ public:
     */
     virtual MSStop& getNextStop() = 0;
 
+    /// @brief mark vehicle as active
+    virtual void unregisterWaiting() = 0;
+
     /** @brief Returns parameters of the next stop or nullptr **/
     virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
 

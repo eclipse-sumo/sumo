@@ -734,6 +734,9 @@ public:
     */
     virtual bool resumeFromStopping() = 0;
 
+    /// @brief mark vehicle as active
+    void unregisterWaiting();
+
     /// @brief deletes the next stop at the given index if it exists
     bool abortNextStop(int nextStopIndex = 0);
 
