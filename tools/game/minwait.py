@@ -65,8 +65,9 @@ def main():
                         if "phase" in line:
                             line = line.replace('duration="10000"', 'duration="10" minDur="%s" maxDur="10000"' % minDur)
                         tls_out.write(line)
-                subprocess.call([sumolib.checkBinary(sumo), "-c", config, "-a", ",".join(add).replace(tls, tls_out.name),
-                                '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
+                subprocess.call([sumolib.checkBinary(sumo), "-c", config,
+                                 "-a", ",".join(add).replace(tls, tls_out.name),
+                                 '--duration-log.statistics', '--statistic-output', scen_path + '.stats.xml',
                                  '-v', 'false', '--no-warnings', '--no-step-log',
                                  '--tripinfo-output.write-unfinished'])
                 score = computeScoreFromWaitingTime(scen_path)
