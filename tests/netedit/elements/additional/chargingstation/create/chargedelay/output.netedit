@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 chargingStation
 dummyChargeDelay
-TestFunctions: Clicked over position 627 - 380
+TestFunctions: Clicked over position 649 - 389
 -50
-TestFunctions: Clicked over position 646 - 380
+TestFunctions: Clicked over position 636 - 416
 20.5
-TestFunctions: Clicked over position 627 - 380
+TestFunctions: Clicked over position 649 - 389
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -3,15 +3,15 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 containerStop
 dummyLenght
-TestFunctions: Clicked over position 734 - 424
+TestFunctions: Clicked over position 649 - 389
 -20
-TestFunctions: Clicked over position 801 - 425
+TestFunctions: Clicked over position 636 - 416
 5
-TestFunctions: Clicked over position 848 - 425
+TestFunctions: Clicked over position 636 - 416
 Reference Right
-TestFunctions: Clicked over position 710 - 425
+TestFunctions: Clicked over position 798 - 194
 Center
-TestFunctions: Clicked over position 800 - 425
+TestFunctions: Clicked over position 781 - 224
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

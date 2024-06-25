@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
 Center
 TestFunctions: Clicked over position 649 - 389
-TestFunctions: Clicked over position 626 - 363
+TestFunctions: Clicked over position 648 - 372
 dummyGenericParameters
 key1|key2|key3
 key1=value1|key2=value2|key3=value3

@@ -3,33 +3,33 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to TAZs)
 dummyTerminate
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 end-number
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 dummy
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 -30
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 20.5
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 22
 dummy
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 -30
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 20.5
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 51
-TestFunctions: Clicked over position 829 - 343
-TestFunctions: Clicked over position 1024 - 343
+TestFunctions: Clicked over position 822 - 328
+TestFunctions: Clicked over position 1034 - 345
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully
