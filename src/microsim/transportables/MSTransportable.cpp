@@ -489,7 +489,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
 #endif
     assert(getCurrentStageType() == MSStageType::DRIVING);
     if (!myAmPerson) {
-        WRITE_WARNING(TL("parkingAreaReroute not support for containers"));
+        WRITE_WARNING(TL("parkingAreaReroute not supported for containers"));
         return;
     }
     if (getDestination() == &orig->getLane().getEdge()) {
