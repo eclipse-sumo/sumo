@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 15:08+0200\n"
-"PO-Revision-Date: 2024-06-24 12:36+0000\n"
+"PO-Revision-Date: 2024-06-25 15:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -341,7 +341,7 @@ msgstr "Distanza attesa tra due record successivi"
 
 #: src/dfrouter/RODFFrame.cpp:185 C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:185
 msgid "Write calibrators to FILE"
-msgstr ""
+msgstr "Scrivi calibrator in FILE"
 
 #: src/dfrouter/RODFFrame.cpp:188 C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:188
 msgid "Include routes in the output which have no vehicles"
@@ -352,6 +352,8 @@ msgid ""
 "Checks whether detectors with calculated flow 0 can attract additional "
 "traffic"
 msgstr ""
+"Controlla se dei rivelatori con un flusso calcolato di 0 possono attrarre "
+"traffico in più"
 
 #: src/dfrouter/RODFFrame.cpp:195 C:\Repos\sumo/src\dfrouter\RODFFrame.cpp:195
 msgid "Removes empty detectors from the list"
@@ -4431,13 +4433,14 @@ msgstr ""
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4126
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.trajectories'."
-msgstr ""
+msgstr "Valore invalido '%# del parametro di veicolo 'ssm.trajectories'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4132
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4132
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.trajectories'."
 msgstr ""
+"Valore invalido '%' del parametro di tipo di veicolo 'ssm.trajectories'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4137
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4137
@@ -4445,6 +4448,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.trajectories'. "
 "Using default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.trajectories', quindi "
+"vieni usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4166
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4166
@@ -4452,6 +4457,8 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.measures'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.measures', quindi "
+"vieni usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4183
 #: C:\Repos\sumo/src\microsim\devices\MSDevice_SSM.cpp:4183
