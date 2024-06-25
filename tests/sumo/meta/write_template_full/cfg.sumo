@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-22 07:38:15 by Eclipse SUMO sumo Version v1_20_0+0729-ab64f6648a3
+<!-- generated on 2024-06-25 12:42:17 by Eclipse SUMO sumo Version v1_20_0+0787-e3785b4abcb
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -242,7 +242,7 @@
         <person-device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
         <person-device.rerouting.period value="0" synonymes="person-device.routing.period" type="TIME" help="The period with which the person shall be rerouted"/>
         <person-device.rerouting.mode value="0" type="STR" help="Set routing flags (8 ignores temporary blockages)"/>
-        <person-device.rerouting.scope value="stage" type="STR" help="Which part of the person plan is to be replaced (stage, sequence, trip, stop, or plan)"/>
+        <person-device.rerouting.scope value="stage" type="STR" help="Which part of the person plan is to be replaced (stage, sequence, or trip)"/>
     </routing>
 
     <report>

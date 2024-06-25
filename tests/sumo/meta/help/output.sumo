@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0729-ab64f6648a3
+Eclipse SUMO sumo Version v1_20_0+0787-e3785b4abcb
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -489,8 +489,7 @@ Routing Options:
   --person-device.rerouting.mode STR   Set routing flags (8 ignores temporary
                                         blockages)
   --person-device.rerouting.scope STR  Which part of the person plan is to be
-                                        replaced (stage, sequence, trip, stop,
-                                        or plan)
+                                        replaced (stage, sequence, or trip)
 
 Report Options:
   -v, --verbose                        Switches to verbose output

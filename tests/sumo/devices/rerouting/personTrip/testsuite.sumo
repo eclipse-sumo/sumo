@@ -55,10 +55,12 @@ busstop
 # public transport via bustops, person arrives very early
 busstop_early
 
-# public transport via bustops but the person departs to late to use a bus
+# public transport via bus stops but the person departs to late to use a bus
+#
 busstop_too_late
 
-# public transport via bustops but the person misses barely misses the last bus
+# public transport via bus stops but the person barely misses the last bus
+#
 busstop_too_late2
 
 # public transport via bustops, two busses at the same time
