@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 15:08+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2024-06-24 09:02+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -1469,15 +1469,15 @@ msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
 "Die Abfahrtskante % von Fahrzeug % wird ignoriert (% Kanten auf seiner Route)"
 
-#: src/microsim/MSBaseVehicle.cpp:2280 src/microsim/MSBaseVehicle.cpp:2271
+#: src/microsim/MSBaseVehicle.cpp:2271
 msgid "Could not interpret routing.mode '%'"
 msgstr "'%' konnte nicht als routing.mode erkannt werden"
 
-#: src/microsim/MSBaseVehicle.h:947 src/microsim/MSBaseVehicle.h:944
+#: src/microsim/MSBaseVehicle.h:947
 msgid "getLeader not yet implemented for meso"
 msgstr "getLeader nicht implementiert für die mesoskopische Simulation"
 
-#: src/microsim/MSBaseVehicle.h:961 src/microsim/MSBaseVehicle.h:958
+#: src/microsim/MSBaseVehicle.h:961
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower nicht implementiert für die mesoskopische Simulation"
 
@@ -3017,47 +3017,47 @@ msgstr ""
 msgid "Simulation version % started with time: %."
 msgstr "Simulationsversion % startet mit der Zeit: %."
 
-#: src/microsim/MSNet.cpp:675
+#: src/microsim/MSNet.cpp:677
 msgid "Simulation ended at time: %."
 msgstr "Simulation zur Zeit % beendet."
 
-#: src/microsim/MSNet.cpp:679 src/microsim/MSNet.cpp:677
+#: src/microsim/MSNet.cpp:679
 msgid "Reason: "
 msgstr ""
 
-#: src/microsim/MSNet.cpp:933 src/microsim/MSNet.cpp:931
+#: src/microsim/MSNet.cpp:933
 msgid "The final simulation step has been reached."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:935 src/microsim/MSNet.cpp:933
+#: src/microsim/MSNet.cpp:935
 msgid "All vehicles have left the simulation."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:937 src/microsim/MSNet.cpp:935
+#: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:939 src/microsim/MSNet.cpp:937
+#: src/microsim/MSNet.cpp:939
 msgid "An error occurred (see log)."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:941 src/microsim/MSNet.cpp:939
+#: src/microsim/MSNet.cpp:941
 msgid "Interrupted."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:943 src/microsim/MSNet.cpp:941
+#: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:945 src/microsim/MSNet.cpp:943
+#: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:947 src/microsim/MSNet.cpp:945
+#: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1476 src/microsim/MSNet.cpp:1474
+#: src/microsim/MSNet.cpp:1476
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
@@ -3066,12 +3066,11 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:1616 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:236 src/tools/emissionsDrivingCycle_main.cpp:221
-#: src/microsim/MSNet.cpp:1614
 #, c-format
 msgid "Loading of % failed."
 msgstr "Laden von % fehlgeschlagen."
 
-#: src/microsim/MSNet.cpp:1636 src/microsim/MSNet.cpp:1634
+#: src/microsim/MSNet.cpp:1636
 #, c-format
 msgid "Loading state from '%' failed."
 msgstr "Laden vom Stand '%' ist fehlgeschlagen."
@@ -3187,8 +3186,7 @@ msgstr ""
 "Route '%' zusammengeführt werden"
 
 #: src/microsim/MSRouteHandler.cpp:806
-#: src/microsim/transportables/MSTransportable.cpp:406
-#: src/microsim/transportables/MSTransportable.cpp:393
+#: src/microsim/transportables/MSTransportable.cpp:416
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -3678,7 +3676,7 @@ msgstr ""
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
 msgstr "Ungültiger boolscher Wert '%' von Parameter '%' im Fahrzeug '%'."
 
-#: src/microsim/devices/MSDevice.cpp:236 src/microsim/devices/MSDevice.cpp:235
+#: src/microsim/devices/MSDevice.cpp:236
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
 msgstr "Ungültige Zeitangabe '%' für Parameter '%' im Fahrzeug '%'."
 
@@ -4557,7 +4555,6 @@ msgstr ""
 "Der Parameter '%' wird von der Einrichtung des Typs '%' nicht unterstützt"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:85
-#: src/microsim/devices/MSDevice_Taxi.cpp:84
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
@@ -4566,40 +4563,33 @@ msgstr ""
 "routeExtension|traci]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:88
-#: src/microsim/devices/MSDevice_Taxi.cpp:87
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr "Informationen vom Versandalgorithmus in FILE schreiben"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:91
-#: src/microsim/devices/MSDevice_Taxi.cpp:90
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
 "Parameter des Dispositionsalgorithmus im Format SCHLÜSSEL1:WERT1[,SCHLÜSSEL2:"
 "WERT] laden"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:94
-#: src/microsim/devices/MSDevice_Taxi.cpp:93
 msgid "The period between successive calls to the dispatcher"
 msgstr "Der Zeitraum zwischen aufeinanderfolgenden Aufrufen der Disposition"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:97
-#: src/microsim/devices/MSDevice_Taxi.cpp:96
 msgid "The behavior of idle taxis [stop|randomCircling]"
 msgstr "Das Verhalten von untätigen Taxis [stop|randomCircling]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:100
-#: src/microsim/devices/MSDevice_Taxi.cpp:99
 msgid "Write information from the idling algorithm to FILE"
 msgstr "Informationen aus dem Leerlaufalgorithmus in FILE schreiben"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:118
-#: src/microsim/devices/MSDevice_Taxi.cpp:117
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
 "Fahrzeug '%' mit 'device.taxi' sollte Fahrzeugklasse Taxi statt '%' haben."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:126
-#: src/microsim/devices/MSDevice_Taxi.cpp:124
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
@@ -4608,39 +4598,33 @@ msgstr ""
 "% ist nicht als Taxi nutzbar."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:151
-#: src/microsim/devices/MSDevice_Taxi.cpp:149
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
 msgstr "Abfertigungsalgorithmus %' ist nicht bekannt"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:366
-#: src/microsim/devices/MSDevice_Taxi.cpp:347
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
 "Ungültige erneute Abfertigung des existierenden Kunden '%' mit einer neuen "
 "Reservierung"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:399
-#: src/microsim/devices/MSDevice_Taxi.cpp:380
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
 msgstr ""
 "Bei der erneuten Abfertigung wurde die Abholung für den bestehenden Kunden "
 "'%' nicht erwähnt"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:512
-#: src/microsim/devices/MSDevice_Taxi.cpp:493
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
 "Taxistand für das Fahrzeug '%' konnte nicht zu % hinzugefügt werden. Zeit=% "
 "Fehler=%."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:721
-#: src/microsim/devices/MSDevice_Taxi.cpp:702
 msgid "Taxi '%' reaches scheduled end of service at time=%."
 msgstr "Taxi '%' erreicht planmäßiges Betriebsende zur Zeit=%."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:794
-#: src/microsim/devices/MSDevice_Taxi.cpp:775
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
@@ -5443,7 +5427,7 @@ msgstr "Das Ändern einer transportablen ID ist nicht zulässig"
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr "% teleportiert '%'; hat zu lange gewartet, von Kante '%', zur Zeit=%."
 
-#: src/microsim/transportables/MSTransportable.cpp:482
+#: src/microsim/transportables/MSTransportable.cpp:492
 msgid "parkingAreaReroute not supported for containers"
 msgstr "parkingAreaReroute wird für Container nicht unterstützt"
 
@@ -10582,6 +10566,119 @@ msgid ""
 msgstr ""
 "Ignoriere Option \"proj.plain-geo\", da keine geo-conversion definiert wurde"
 
+#: src/od/ODAmitranHandler.cpp:48
+msgid "Invalid duration for timeSlice starting %."
+msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
+
+#: src/od/ODDistrictCont.cpp:72
+#, c-format
+msgid "Could not access network file '%' to load."
+msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
+
+#: src/od/ODDistrictHandler.cpp:130
+msgid "'probability' must be positive (in definition of % '%')."
+msgstr "'probability' muss positiv sein (in der Definition von % '%')."
+
+#: src/od/ODMatrix.cpp:84
+msgid "Missing origin '%' and destination '%' (% vehicles)."
+msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:90
+msgid "Missing origin '%' (% vehicles)."
+msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:95
+msgid "Missing destination '%' (% vehicles)."
+msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
+
+#: src/od/ODMatrix.cpp:101
+#, c-format
+msgid "District '%' has no source."
+msgstr "Bezirk '%' hat keine Quelle."
+
+#: src/od/ODMatrix.cpp:105
+#, c-format
+msgid "District '%' has no sink."
+msgstr "Bezirk '%' hat kein Ziel."
+
+#: src/od/ODMatrix.cpp:197
+msgid ""
+"Cannot find different source and sink edge for origin '%' and destination "
+"'%'."
+msgstr ""
+"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
+"nicht gefunden werden."
+
+#: src/od/ODMatrix.cpp:372 src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
+msgid ""
+"Flow density of % vehicles per second, cannot be represented with a simple "
+"probability. Falling back to even spacing."
+msgstr ""
+"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
+"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
+"zurückgefallen."
+
+#: src/od/ODMatrix.cpp:442
+msgid "End of file while reading %."
+msgstr "Dateiende beim Lesen von %."
+
+#: src/od/ODMatrix.cpp:469
+msgid "Broken period definition '%'."
+msgstr "Ungültige Perioden-Definition '%'."
+
+#: src/od/ODMatrix.cpp:483
+msgid "Broken factor: '%'."
+msgstr "Gebrochener Faktor: '%'."
+
+#: src/od/ODMatrix.cpp:517
+#, c-format
+msgid "Missing line with % district names."
+msgstr "Fehlende Zeile mit % Bezirksnamen."
+
+#: src/od/ODMatrix.cpp:527
+msgid "Missing line for district %."
+msgstr "Fehlende Zeile für Bezirk %."
+
+#: src/od/ODMatrix.cpp:541
+msgid "More entries than districts found."
+msgstr "Mehr Einträge als Bezirke gefunden."
+
+#: src/od/ODMatrix.cpp:546 src/od/ODMatrix.cpp:594
+msgid "Not numeric vehicle number in line '%'."
+msgstr "Keine nummerische Fahrzeuganzahl in Zeile '%'."
+
+#: src/od/ODMatrix.cpp:592
+msgid "Missing at least one information in line '%'."
+msgstr "Mindestens eine Information in Zeile '%' fehlt."
+
+#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
+msgid "Could not open '%'."
+msgstr "Konnte '%' nicht öffnen."
+
+#: src/od/ODMatrix.cpp:666 src/od/ODMatrix.cpp:672
+#, c-format
+msgid "'%' does not contain the needed information about the time described."
+msgstr ""
+"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
+
+#: src/od/ODMatrix.cpp:682 src/od/ODMatrix.cpp:695
+#, c-format
+msgid "Could not access matrix file '%' to load."
+msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:722
+#, c-format
+msgid "Could not access route file '%' to load."
+msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
+
+#: src/od/ODMatrix.cpp:739
+msgid "Assuming 24 entries for a day timeline, but got %."
+msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
+
+#: src/od/ODMatrix.cpp:749
+msgid "Broken time line definition: missing a value in '%'."
+msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
+
 #: src/od2trips_main.cpp:80
 msgid "Loads TAZ (districts; also from networks) from FILE(s)"
 msgstr "Ladet Verkehrsumlegungszone (Bezirke; auch von Netzen) aus FILE(s)"
@@ -10684,120 +10781,6 @@ msgstr "Keine Bezirke geladen."
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
 msgstr "Keine Fahrzeuge geladen."
-
-#: src/od/ODAmitranHandler.cpp:48
-msgid "Invalid duration for timeSlice starting %."
-msgstr "Ungültige Dauer für den Zeitabschnitt ab %."
-
-#: src/od/ODDistrictCont.cpp:72
-#, c-format
-msgid "Could not access network file '%' to load."
-msgstr "Zugriff auf Netz-Datei '%' zum Laden nicht möglich."
-
-#: src/od/ODDistrictHandler.cpp:130
-msgid "'probability' must be positive (in definition of % '%')."
-msgstr "'probability' muss positiv sein (in der Definition von % '%')."
-
-#: src/od/ODMatrix.cpp:84
-msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr "Fehlender Start '%' und Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:90
-msgid "Missing origin '%' (% vehicles)."
-msgstr "Fehlender Ursprung '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:95
-msgid "Missing destination '%' (% vehicles)."
-msgstr "Fehlendes Ziel '%' (% Fahrzeuge)."
-
-#: src/od/ODMatrix.cpp:101
-#, c-format
-msgid "District '%' has no source."
-msgstr "Bezirk '%' hat keine Quelle."
-
-#: src/od/ODMatrix.cpp:105
-#, c-format
-msgid "District '%' has no sink."
-msgstr "Bezirk '%' hat kein Ziel."
-
-#: src/od/ODMatrix.cpp:197
-msgid ""
-"Cannot find different source and sink edge for origin '%' and destination "
-"'%'."
-msgstr ""
-"Unterschiedliche Quell- und Zielkante für den Ursprung '%' und Ziel '%' kann "
-"nicht gefunden werden."
-
-#: src/od/ODMatrix.cpp:372 /src/od/ODMatrix.cpp:392 src/od/ODMatrix.cpp:418
-#: src/od/ODMatrix.cpp:392
-msgid ""
-"Flow density of % vehicles per second, cannot be represented with a simple "
-"probability. Falling back to even spacing."
-msgstr ""
-"Flussdichte von % Fahrzeugen pro Sekunde kann nicht als einfache "
-"Wahrscheinlichkeit dargestellt werden. Es wird auf einfache Abstände "
-"zurückgefallen."
-
-#: src/od/ODMatrix.cpp:442
-msgid "End of file while reading %."
-msgstr "Dateiende beim Lesen von %."
-
-#: src/od/ODMatrix.cpp:469
-msgid "Broken period definition '%'."
-msgstr "Ungültige Perioden-Definition '%'."
-
-#: src/od/ODMatrix.cpp:483
-msgid "Broken factor: '%'."
-msgstr "Gebrochener Faktor: '%'."
-
-#: src/od/ODMatrix.cpp:517
-#, c-format
-msgid "Missing line with % district names."
-msgstr "Fehlende Zeile mit % Bezirksnamen."
-
-#: src/od/ODMatrix.cpp:527
-msgid "Missing line for district %."
-msgstr "Fehlende Zeile für Bezirk %."
-
-#: src/od/ODMatrix.cpp:541
-msgid "More entries than districts found."
-msgstr "Mehr Einträge als Bezirke gefunden."
-
-#: src/od/ODMatrix.cpp:546 /src/od/ODMatrix.cpp:594 src/od/ODMatrix.cpp:594
-msgid "Not numeric vehicle number in line '%'."
-msgstr "Keine nummerische Fahrzeuganzahl in Zeile '%'."
-
-#: src/od/ODMatrix.cpp:592
-msgid "Missing at least one information in line '%'."
-msgstr "Mindestens eine Information in Zeile '%' fehlt."
-
-#: src/od/ODMatrix.cpp:655 src/utils/options/OptionsIO.cpp:154
-msgid "Could not open '%'."
-msgstr "Konnte '%' nicht öffnen."
-
-#: src/od/ODMatrix.cpp:666 /src/od/ODMatrix.cpp:672 src/od/ODMatrix.cpp:672
-#, c-format
-msgid "'%' does not contain the needed information about the time described."
-msgstr ""
-"'%' enthält nicht die benötigten Informationen für die beschriebene Zeit."
-
-#: src/od/ODMatrix.cpp:682 /src/od/ODMatrix.cpp:695 src/od/ODMatrix.cpp:695
-#, c-format
-msgid "Could not access matrix file '%' to load."
-msgstr "Kein Zugriff auf die Matrix-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:722
-#, c-format
-msgid "Could not access route file '%' to load."
-msgstr "Kein Zugriff auf die Routen-Datei '%' zum Laden."
-
-#: src/od/ODMatrix.cpp:739
-msgid "Assuming 24 entries for a day timeline, but got %."
-msgstr "Nehme 24 Einträge für eine Tages-Zeitlinie an, aber bekam %."
-
-#: src/od/ODMatrix.cpp:749
-msgid "Broken time line definition: missing a value in '%'."
-msgstr "Gebrochene Zeitlinien-Definition: fehlender Wert in '%'."
 
 #: src/osgview/GUIOSGBuilder.cpp:471 src/utils/options/OptionsIO.cpp:168
 msgid "Could not load '%'."
@@ -11325,7 +11308,7 @@ msgstr "Routen zwischen den Zeitschritten % und % gefunden."
 msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr "Der Lader für % aus Datei '%' konnte nicht initialisiert werden (%)."
 
-#: src/router/ROLoader.cpp:282 src/utils/common/MsgHandler.cpp:195
+#: src/router/ROLoader.cpp:282
 msgid "failed."
 msgstr "fehlgeschlagen."
 
@@ -11506,7 +11489,7 @@ msgid "A microscopic, multi-modal traffic simulation."
 msgstr ""
 "Grafische Version der mikroskopischen, multimodalen Verkehrssimulation SUMO."
 
-#: src/sumo_main.cpp:114 /src/sumo_main.cpp:123 src/sumo_main.cpp:123
+#: src/sumo_main.cpp:114 src/sumo_main.cpp:123
 msgid "Quitting (on error)."
 msgstr "Abbruch wegen Fehler."
 
@@ -13124,24 +13107,15 @@ msgstr ""
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Unbekannter Fehler beim Einlesen von '%' aufgetreten"
 
-#: src/utils/common/MsgHandler.cpp:190
 #, c-format
-msgid "done (%ms)."
-msgstr "abgeschlossen (%ms)."
+#~ msgid "done (%ms)."
+#~ msgstr "abgeschlossen (%ms)."
 
-#: src/utils/common/MsgHandler.cpp:192
-msgid "done."
-msgstr "abgeschlossen."
+#~ msgid "done."
+#~ msgstr "abgeschlossen."
 
-#: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
-msgid ""
-"Which part of the person plan is to be replaced (stage, sequence, trip, "
-"stop, or plan)"
-msgstr ""
-
-#: src/microsim/transportables/MSTransportable.cpp:469
-msgid "parkingAreaReroute not support for containers"
-msgstr "parkingAreaReroute wird für Container nicht unterstützt"
+#~ msgid "parkingAreaReroute not support for containers"
+#~ msgstr "parkingAreaReroute wird für Container nicht unterstützt"
 
 #~ msgid "Unable to project coordinates for PoI '%'."
 #~ msgstr "Koordinaten für den Pol '%' können nicht projiziert werden."

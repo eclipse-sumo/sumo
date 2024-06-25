@@ -113,7 +113,7 @@ void
 GUISelectedStorage::select(GUIGlID id, bool update) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::select (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::select (id=" + toString(id) + ").");
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -130,7 +130,7 @@ void
 GUISelectedStorage::deselect(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::deselect (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
     }
     GUIGlObjectType type = object->getType();
     GUIGlObjectStorage::gIDStorage.unblockObject(id);
@@ -147,7 +147,7 @@ void
 GUISelectedStorage::toggleSelection(GUIGlID id) {
     GUIGlObject* object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
     if (!object) {
-        throw ProcessError(TLF("Unknown object in GUISelectedStorage::toggleSelection (id=%).", toString(id)));
+        throw ProcessError("Unknown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
     }
 
     bool selected = isSelected(object->getType(), id);
@@ -200,7 +200,7 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
     int numIgnored = 0;
     int numMissing = 0;
     if (!strm.good()) {
-        msgOut = "Could not open '" + filename + "'.\n";
+        msgOut = TLF("Could not open '%'.\n", filename);
         return result;
     }
     while (strm.good()) {
@@ -218,7 +218,7 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
             if (type != GLO_MAX && (object->getType() != type)) {
                 numIgnored++;
                 if (numIgnored + numMissing <= maxErrors) {
-                    msg << "Ignoring item '" << line << "' because of invalid type " << toString(object->getType()) << "\n";
+                    msg << TLF("Ignoring item '%' because of invalid type %\n", line, toString(object->getType()));
                 }
             } else {
                 result.insert(object->getGlID());
@@ -226,14 +226,14 @@ GUISelectedStorage::loadIDs(const std::string& filename, std::string& msgOut, GU
         } else {
             numMissing++;
             if (numIgnored + numMissing <= maxErrors) {
-                msg << "Item '" + line + "' not found\n";
+                msg << TLF("Item '%' not found\n", line);
             }
             continue;
         }
     }
     strm.close();
     if (numIgnored + numMissing > maxErrors) {
-        msg << "...\n" << numIgnored << " objects ignored, " << numMissing << " objects not found\n";
+        msg << "...\n" << TLF("% objects ignored, % objects not found\n", numIgnored, numMissing);
     }
     msgOut = msg.str();
     return result;
