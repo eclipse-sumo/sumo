@@ -2042,9 +2042,9 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
                                    TLF("Simulation ended at time: %. (%)",
                                        time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())));
         // build the text
-        const std::string text = "Simulation ended at time: " + time2string(ec->getTimeStep()) +
-                                 ".\nReason: " + MSNet::getStateMessage(ec->getReason()) +
-                                 "\nDo you want to close all open files and views?";
+        const std::string text = TLF("Simulation ended at time: %.", time2string(ec->getTimeStep())) + "\n" +
+                                 TL("Reason:") + MSNet::getStateMessage(ec->getReason()) + "\n" +
+                                 TL("Do you want to close all open files and views?");
         FXuint answer = FXMessageBox::question(this, MBOX_YES_NO, TL("Simulation ended"), "%s", text.c_str());
         if (answer == 1) { //1:yes, 2:no, 4:esc
             closeAllWindows();

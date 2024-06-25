@@ -445,7 +445,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (myLogExecutionTime) {
         const long duration = now - mySimBeginMillis;
         // print performance notice
-        msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
+        msg << "Performance:\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
             if (TraCIServer::getInstance() != nullptr) {
                 msg << " TraCI-Duration: " << elapsedMs2string(myTraCIMillis) << "\n";
@@ -461,7 +461,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
         // print vehicle statistics
         const std::string discardNotice = ((myVehicleControl->getLoadedVehicleNo() != myVehicleControl->getDepartedVehicleNo()) ?
                                            " (Loaded: " + toString(myVehicleControl->getLoadedVehicleNo()) + ")" : "");
-        msg << "Vehicles: " << "\n"
+        msg << "Vehicles:\n"
             << " Inserted: " << myVehicleControl->getDepartedVehicleNo() << discardNotice << "\n"
             << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
             << " Waiting: " << myInserter->getWaitingVehicleNo() << "\n";
@@ -490,7 +490,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             msg << " Emergency Braking: " << myVehicleControl->getEmergencyBrakingCount() << "\n";
         }
         if (myPersonControl != nullptr && myPersonControl->getLoadedNumber() > 0) {
-            msg << "Persons: " << "\n"
+            msg << "Persons:\n"
                 << " Inserted: " << myPersonControl->getLoadedNumber() << "\n"
                 << " Running: " << myPersonControl->getRunningNumber() << "\n";
             if (myPersonControl->getJammedNumber() > 0) {
@@ -508,7 +508,7 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
             }
         }
         if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
-            msg << "Containers: " << "\n"
+            msg << "Containers:\n"
                 << " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
                 << " Running: " << myContainerControl->getRunningNumber() << "\n";
             if (myContainerControl->getJammedNumber() > 0) {
@@ -529,7 +529,9 @@ MSNet::generateStatistics(const SUMOTime start, const long now) {
     if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         msg << MSDevice_Tripinfo::printStatistics();
     }
-    return msg.str();
+    std::string result = msg.str();
+    result.erase(result.end() - 1);
+    return result;
 }
 
 
@@ -672,9 +674,9 @@ MSNet::writeSummaryOutput() {
 void
 MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     // report the end when wished
-    WRITE_MESSAGE("Simulation ended at time: " + time2string(getCurrentTimeStep()));
+    WRITE_MESSAGE(TLF("Simulation ended at time: %.", time2string(getCurrentTimeStep())));
     if (reason != "") {
-        WRITE_MESSAGE("Reason: " + reason);
+        WRITE_MESSAGE(TL("Reason: ") + reason);
     }
     myDetectorControl->close(myStep);
     if (MSStopOut::active() && OptionsCont::getOptions().getBool("stop-output.write-unfinished")) {
@@ -928,21 +930,21 @@ MSNet::getStateMessage(MSNet::SimulationState state) {
         case MSNet::SIMSTATE_RUNNING:
             return "";
         case MSNet::SIMSTATE_END_STEP_REACHED:
-            return "The final simulation step has been reached.";
+            return TL("The final simulation step has been reached.");
         case MSNet::SIMSTATE_NO_FURTHER_VEHICLES:
-            return "All vehicles have left the simulation.";
+            return TL("All vehicles have left the simulation.");
         case MSNet::SIMSTATE_CONNECTION_CLOSED:
-            return "TraCI requested termination.";
+            return TL("TraCI requested termination.");
         case MSNet::SIMSTATE_ERROR_IN_SIM:
-            return "An error occurred (see log).";
+            return TL("An error occurred (see log).");
         case MSNet::SIMSTATE_INTERRUPTED:
-            return "Interrupted.";
+            return TL("Interrupted.");
         case MSNet::SIMSTATE_TOO_MANY_TELEPORTS:
-            return "Too many teleports.";
+            return TL("Too many teleports.");
         case MSNet::SIMSTATE_LOADING:
-            return "TraCI issued load command.";
+            return TL("TraCI issued load command.");
         default:
-            return "Unknown reason.";
+            return TL("Unknown reason.");
     }
 }
 

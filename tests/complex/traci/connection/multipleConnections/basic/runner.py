@@ -102,7 +102,7 @@ if __name__ == '__main__':
     clientRange = [2, 5]
     print("----------- SUMO ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i)
@@ -111,7 +111,7 @@ if __name__ == '__main__':
 
     print("----------- TraCI ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i)

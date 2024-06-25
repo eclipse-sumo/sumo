@@ -1,9 +1,9 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... done (4ms).
-Parsing edges from osm-file 'osm.xml' ... done (24ms).
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done (6ms).
+Parsing edges from osm-file 'osm.xml' ... done (4ms).
 Removing duplicate edges ... done.
-Parsing relations from osm-file 'osm.xml' ... 
-done (27ms).
+Parsing relations from osm-file 'osm.xml' ...
+ done (2ms).
  Import done:
    94 nodes loaded.
    35 types loaded.
@@ -14,22 +14,22 @@ Removing empty nodes ... done (0ms).
    7 nodes removed.
 Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
-Assigning nodes to traffic lights ... done (0ms).
+Assigning nodes to traffic lights ... done (1ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
-Computing edge shapes ... done (1ms).
+Computing node shapes ... done (3ms).
+Computing edge shapes ... done (2ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (1ms).
 Computing approached edges ... done (0ms).
 Guessing and setting roundabouts ... done (0ms).
 Computing approaching lanes ... done (0ms).
-Dividing of lanes on approached lanes ... done (27ms).
+Dividing of lanes on approached lanes ... done (1ms).
 Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Computing traffic light control information ... done (0ms).
 Computing node logics ... done (1ms).
-Computing traffic light logics ... 
-done (0ms).
+Computing traffic light logics ...
+ done (0ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -44,5 +44,5 @@ Summary:
   Applied offset     : -399345.66,-5809365.64
   Converted boundary : 0.00,0.00,1737.68,767.39
 -----------------------------------------------------
-Writing network ... done (24ms).
+Writing network ... done (13ms).
 Success.

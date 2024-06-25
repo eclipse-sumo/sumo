@@ -1,13 +1,13 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml' ... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertBicycle.typ.xml' ... done.
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvertPedestrians.typ.xml' ... done.
 Parsing nodes from osm-file 'osm.xml.gz' ... done (1ms).
-Parsing edges from osm-file 'osm.xml.gz' ... done (1ms).
+Parsing edges from osm-file 'osm.xml.gz' ... done (2ms).
 Removing duplicate edges ... done.
 Adding new type 'cycleway.track|highway.secondary' (first occurrence for edge '79523623').
-Parsing relations from osm-file 'osm.xml.gz' ... 
-done (44ms).
+Parsing relations from osm-file 'osm.xml.gz' ...
+ done (15ms).
  Removed 5 traffic lights before loading plain-XML
  Import done:
    24 nodes loaded.
@@ -16,20 +16,20 @@ done (44ms).
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Processing public transport stops ... done (0ms).
-Revising public transport stops based on pt lines ... 
-done (0ms).
+Revising public transport stops based on pt lines ...
+ done (0ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Joining junction clusters ... done (0ms).
  Joined 2 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (0ms).
    5 nodes removed.
 Moving network to origin ... done (0ms).
-Computing turning directions ... 
-done (0ms).
+Computing turning directions ...
+ done (1ms).
 Assigning nodes to traffic lights ... done (0ms).
 Guessing and setting on-/off-ramps ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
+Computing node shapes ... done (0ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Guessed 12 pedestrian crossings.
@@ -42,10 +42,10 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Joining traffic light nodes ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (0ms).
+Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges ... done (12ms).
+Building inner edges ... done (1ms).
 Find accesses for pt rail stops ... done (0ms).
 -----------------------------------------------------
 Summary:
@@ -59,5 +59,5 @@ Summary:
   Applied offset     : -403109.10,-5812345.94
   Converted boundary : 0.00,0.00,354.46,642.70
 -----------------------------------------------------
-Writing network ... done (3ms).
+Writing network ... done (4ms).
 Success.

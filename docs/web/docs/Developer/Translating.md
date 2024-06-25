@@ -43,19 +43,20 @@ The same string may have different meanings in different contexts or may need a 
 due to limited space in the GUI. For this reason the `TLC` macro can be used, where the context can be
 mentioned: It contains first the context and then the string as parameters like in `TLC("Simulation", "Stop")`.
 Below is the list of context identifiers currently in use:
+
 - Simulation
 - Labels
 
 # Using translations
 
-Until we have a sufficient amount of translated strings the translations are disabled by default.
-If you want to activate them nevertheless, you need to make sure the gettext tools and
-internationalization library are installed. For Windows we have them in the SUMOLibraries, for Linux they
-are probably already installed, if not use the equivalent of `sudo apt install gettext` on your system.
+Translations are enabled by default. The needed gettext tools and
+internationalization library are probably already installed on Linux.
+If not use the equivalent of `sudo apt install gettext` on your system.
 It is also a good idea to do `sudo apt install locales-all` to make sure all the needed locales are on your system.
+For Windows we have everything in the SUMOLibraries.
 
-The translation strings are split into two files for each language residing in `$SUMO_HOME/data/po`,
-one for GUI stuff and one for the command line applications.
+The translation strings are split into three files for each language residing in `$SUMO_HOME/data/po`,
+one for GUI stuff, one for the command line applications and one for the python tools.
 While it is possible to edit these files directly, it is discouraged to avoid merge conflicts with the
 Weblate translations. These files still need to be compiled to be usable. Currently this is done manually
 by calling `tools/build_config/i18n.py`. This script also does a full scan of the `src` dir and checks for new

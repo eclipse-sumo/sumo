@@ -1,18 +1,17 @@
 Loading configuration ... done.
-***Starting server on port 44841 ***
-Loading net-file from 'input_net.net.xml' ... done (2ms).
+***Starting server on port 59599 ***
+Loading net-file from 'input_net.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_14_1+1638-3dfb534e134 started with time: 0.00.
-Simulation ended at time: 1.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 1.00.
 Reason: TraCI requested termination.
-Performance: 
+Performance:
  Duration: 0.00s
  TraCI-Duration: 0.00s
  Real time factor: 1000
  UPS: 0.000000
-Vehicles: 
+Vehicles:
  Inserted: 0 (Loaded: 1)
  Running: 0
  Waiting: 0
-
  Retrying in 1 seconds

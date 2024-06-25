@@ -180,7 +180,7 @@ MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 
 std::string
 MSDevice::getStringParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt, bool required) {
-    const std::string key = (v.isVehicle() ? "device." : "person-device") + paramName;
+    const std::string key = (v.isVehicle() ? "device." : "person-device.") + paramName;
     if (v.getParameter().hasParameter(key)) {
         return v.getParameter().getParameter(key, "");
     } else if (v.getVehicleType().getParameter().hasParameter(key)) {
@@ -227,13 +227,14 @@ MSDevice::getBoolParam(const SUMOTrafficObject& v, const OptionsCont& oc, const 
 
 
 SUMOTime
-MSDevice::getTimeParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const SUMOTime deflt, bool required) {
-    const std::string val = getStringParam(v, oc, paramName, toString(deflt), required);
+MSDevice::getTimeParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName) {
+    const std::string key = (v.isVehicle() ? "device." : "person-device.") + paramName;
+    const std::string val = getStringParam(v, oc, paramName, oc.getString(key), false);
     try {
         return string2time(val);
     } catch (const ProcessError&) {
         WRITE_ERRORF(TL("Invalid time value '%' for parameter '%' in vehicle '%'."), val, "device." + paramName, v.getID());
-        return deflt;
+        return string2time(oc.getString(key));
     }
 }
 

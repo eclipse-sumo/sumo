@@ -175,7 +175,7 @@ MsgHandler::beginProcessMsg(std::string msg, bool addType) {
     msg = build(msg, addType);
     // inform all other receivers
     for (auto i : myRetrievers) {
-        i->inform(msg, ' ');
+        i->inform(msg, true);
         myAmProcessingProcess = true;
     }
     // set the information that something occurred
@@ -187,12 +187,12 @@ void
 MsgHandler::endProcessMsg2(bool success, long duration) {
     if (success) {
         if (duration > -1) {
-            endProcessMsg(TLF("done (%ms).", toString(duration)));
+            endProcessMsg(TLF(" done (%ms).", toString(duration)));
         } else {
-            endProcessMsg(TL("done."));
+            endProcessMsg(TL(" done."));
         }
     } else {
-        endProcessMsg(TL("failed."));
+        endProcessMsg(TL(" failed."));
     }
 }
 

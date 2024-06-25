@@ -704,9 +704,9 @@ SUMOVehicleParameter::parsePersonModes(const std::string& modes, const std::stri
             modeSet |= SVC_BUS;
         } else {
             if (id.empty()) {
-                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"bicycle\" or \"public\")";
+                error = "Unknown person mode '" + mode + "'. Must be a combination of (\"car\", \"taxi\", \"bicycle\" or \"public\")";
             } else {
-                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"bicycle\" or \"public\")";
+                error = "Unknown person mode '" + mode + "' for " + element + " '" + id + "';\n must be a combination of (\"car\", \"taxi\", \"bicycle\" or \"public\")";
             }
             return false;
         }

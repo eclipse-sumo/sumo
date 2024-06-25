@@ -1,4 +1,3 @@
 Warning: Vehicle 'bikeA' with device.taxi should have vClass taxi instead of 'bicycle'.
-Warning: Vehicle 'bikeB' with device.taxi should have vClass taxi instead of 'bicycle'.
 Warning: Vehicle 'bikeA' aborted waiting for a person that will never come.
 Warning: Vehicle 'bikeB' aborted waiting for a person that will never come.

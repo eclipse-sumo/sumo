@@ -1,8 +1,8 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'data/osm_bbox.osm.xml.gz' ... done (25ms).
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'data/osm_bbox.osm.xml.gz' ... done (3ms).
 Parsing edges from osm-file 'data/osm_bbox.osm.xml.gz' ... done (2ms).
 Removing duplicate edges ... done.
-Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (75ms).
+Parsing relations from osm-file 'data/osm_bbox.osm.xml.gz' ... done (16ms).
  Removed 6 traffic lights before loading plain-XML
  Import done:
    48 nodes loaded.
@@ -13,17 +13,17 @@ Removing self-loops ... done (0ms).
 Processing public transport stops ... done (0ms).
 Revising public transport stops based on pt lines ... done (0ms).
 Align pt stop id signs with corresponding edge id signs ... done (0ms).
-Joining junction clusters ... done (36ms).
+Joining junction clusters ... done (1ms).
  Joined 2 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (0ms).
    12 nodes removed.
 Moving network to origin ... done (0ms).
 Computing turning directions ... done (0ms).
-Assigning nodes to traffic lights ... done (2ms).
-Guessing and setting on-/off-ramps ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Guessing and setting on-/off-ramps ... done (1ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (1ms).
-Computing edge shapes ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (1ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
 Computing approached edges ... done (0ms).
@@ -34,9 +34,9 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Joining traffic light nodes ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (0ms).
-Computing traffic light logics ... 
-done (1ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ...
+ done (1ms).
  2 traffic light(s) computed.
 Building inner edges ... done (1ms).
 Find accesses for pt rail stops ... done (1ms).
@@ -54,5 +54,5 @@ Summary:
   Applied offset     : -605011.17,-5790381.46
   Converted boundary : 0.00,0.00,145.39,312.65
 -----------------------------------------------------
-Writing network ... done (26ms).
+Writing network ... done (3ms).
 Success.

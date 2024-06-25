@@ -1610,6 +1610,15 @@ MSBaseVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorM
 }
 
 
+void
+MSBaseVehicle::unregisterWaiting() {
+    if (myAmRegisteredAsWaiting) {
+        MSNet::getInstance()->getVehicleControl().unregisterOneWaiting();
+        myAmRegisteredAsWaiting = false;
+    }
+}
+
+
 bool
 MSBaseVehicle::abortNextStop(int nextStopIndex) {
     if (hasStops() && nextStopIndex < (int)myStops.size()) {

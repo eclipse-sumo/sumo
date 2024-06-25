@@ -3,13 +3,13 @@ Loading additional-files from 'input_additional2.add.xml' ... done (0ms).
 Loading additional-files from 'input_additional3.add.xml' ... done (0ms).
 Loading done.
 Simulation version v1_20_0+0319-5a9f5015b64 started with time: 0.00.
-Simulation ended at time: 4316.00
+Simulation ended at time: 4316.00.
 Reason: All vehicles have left the simulation.
-Performance: 
+Performance:
  Duration: 1.14s
  Real time factor: 3802.64
  UPS: 367034.361233
-Vehicles: 
+Vehicles:
  Inserted: 1699 (Loaded: 3189)
  Running: 0
  Waiting: 0
@@ -21,4 +21,3 @@ Statistics (avg of 1699):
  WaitingTime: 172.05
  TimeLoss: 214.73
  DepartDelay: 6.48
-

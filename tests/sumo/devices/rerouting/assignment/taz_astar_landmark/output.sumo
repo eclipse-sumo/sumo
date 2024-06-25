@@ -1,17 +1,16 @@
-Loading net-file from 'net.net.xml' ... done (89ms).
+Loading net-file from 'net.net.xml' ... done (99ms).
 Loading additional-files from 'input_districts.taz.xml' ... done (0ms).
 Loading done.
-Simulation version v1_15_0+1660-1444c9881dc started with time: 0.00.
-Simulation ended at time: 67.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 67.00.
 Reason: All vehicles have left the simulation.
-Performance: 
+Performance:
  Duration: 0.01s
- Real time factor: 11166.7
- UPS: 11000.000000
-Vehicles: 
+ Real time factor: 8375
+ UPS: 8250.000000
+Vehicles:
  Inserted: 1
  Running: 0
  Waiting: 0
-
 AStarRouter answered 1 queries and explored 78.00 edges on average.
 AStarRouter spent 0.00s answering queries (0.00ms on average).

@@ -1,16 +1,16 @@
 Loading net ... done.
 Loaded 266 edges.
-Reading input ... first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
-done.
+Reading input ...first completed in getStreet() of City: Consolidation of data not needed in ActivityGen any more
+ done.
 Consolidating statistics ... done.
 Building street representation ... done.
-Generating work positions ... --> work position: 
+Generating work positions ...--> work position:
   |-> in city: 790
   |-> out city: 80
   |-> in+out city: 870
-done.
+ done.
 Building bus lines ... done.
-Generating population ... --> population: 
+Generating population ...--> population:
   |-> city households: 500
   |-> city people: 1000
     |-> city single: 190 / (in) couple: 620
@@ -19,12 +19,12 @@ Generating population ... --> population:
       |-> retired: 240
     |-> city children: 190
       |-> estimation: 190
-done.
+ done.
 Allocating schools ... done.
-Allocating work places ...   |-> working people: 730
+Allocating work places ...  |-> working people: 730
     |-> working people in city: 530
     |-> working people from outside: 200
-done.
+ done.
 Allocating car places ... done.
 no problem during bus line trip generation...
 after public transportation: 248

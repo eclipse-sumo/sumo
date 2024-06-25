@@ -106,7 +106,7 @@ if __name__ == '__main__':
     SUMOsteplengths = [0.1, 0.5]
     print("----------- SUMO ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i, ", SUMO-steplength=", SUMOsteplengths[i])
@@ -115,7 +115,7 @@ if __name__ == '__main__':
 
     print("----------- TraCI ends first -----------")
     for numClients in clientRange:
-        print("   -------- numClients: %s  --------    " % numClients)
+        print("   -------- numClients: %s  --------" % numClients)
         sys.stdout.flush()
         for i in range(0, runNr):
             print(" Run %s" % i, ", SUMO-steplength=", SUMOsteplengths[i])

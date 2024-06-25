@@ -39,7 +39,7 @@ def countWrittenTrips(fname):
 def lastLine(fname):
     with open(fname) as f:
         lines = f.readlines()
-    return None if len(lines) == 0 else lines[-1]
+    return None if len(lines) == 0 else lines[-1].strip()
 
 
 sumo = sumolib.checkBinary('sumo')

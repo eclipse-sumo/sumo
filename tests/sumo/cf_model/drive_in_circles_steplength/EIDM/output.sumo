@@ -3,13 +3,13 @@ Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading additional-files from 'input_additional2.add.xml' ... done (1ms).
 Loading done.
 Simulation version v1_14_1+0775-edc6051 started with time: 0.00.
-Simulation ended at time: 300.00
+Simulation ended at time: 300.00.
 Reason: The final simulation step has been reached.
-Performance: 
+Performance:
  Duration: 0.62s
  Real time factor: 484.653
  UPS: 118368.336026
-Vehicles: 
+Vehicles:
  Inserted: 26 (Loaded: 60)
  Running: 26
  Waiting: 34
@@ -21,4 +21,3 @@ Statistics (avg of 26):
  TimeLoss: 6.53
  DepartDelay: 5.69
  DepartDelayWaiting: 257.50
-

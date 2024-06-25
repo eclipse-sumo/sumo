@@ -80,7 +80,7 @@ GUIBusStop::initShape(PositionVector& fgShape,
     const double lgf = myLane.getLengthGeometryFactor(secondaryShape);
     fgShape = myLane.getShape(secondaryShape);
     fgShape = fgShape.getSubpart(lgf * myBegPos, lgf * myEndPos);
-    fgShape.move2side((myLane.getWidth() + myWidth) * 0.45 * offsetSign);
+    fgShape.move2side(((myLane.getWidth() + myWidth) * 0.5 - 0.2) * offsetSign);
     fgShapeRotations.reserve(fgShape.size() - 1);
     fgShapeLengths.reserve(fgShape.size() - 1);
     int e = (int) fgShape.size() - 1;

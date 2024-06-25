@@ -1,7 +1,7 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
-Parsing nodes from osm-file 'osm.xml' ... 
+Parsing types from '/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ...
 Found and substituted 1 osm nodes.
-done (0ms).
+ done (1ms).
 Parsing edges from osm-file 'osm.xml' ... done (0ms).
 Removing duplicate edges ... done.
  Import done:
@@ -10,8 +10,8 @@ Removing duplicate edges ... done.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
-Finding isolated roads ... 
-done (0ms).
+Finding isolated roads ...
+ done (0ms).
 Removing empty nodes and geometry nodes ... done (0ms).
    2 nodes removed.
 Moving network to origin ... done (0ms).
@@ -19,7 +19,7 @@ Computing turning directions ... done (0ms).
 Assigning nodes to traffic lights ... done (0ms).
 Guessing and setting on-/off-ramps ... done (0ms).
 Sorting nodes' edges ... done (0ms).
-Computing node shapes ... done (0ms).
+Computing node shapes ... done (1ms).
 Computing edge shapes ... done (0ms).
 Computing node types ... done (0ms).
 Computing priorities ... done (0ms).
@@ -31,7 +31,7 @@ Processing turnarounds ... done (0ms).
 Rechecking of lane endings ... done (0ms).
 Joining traffic light nodes ... done (0ms).
 Computing traffic light control information ... done (0ms).
-Computing node logics ... done (0ms).
+Computing node logics ... done (1ms).
 Computing traffic light logics ... done (0ms).
  3 traffic light(s) computed.
 Building inner edges ... done (0ms).
@@ -47,5 +47,5 @@ Summary:
   Applied offset     : -662333.88,-5415139.00
   Converted boundary : 0.00,0.00,1048.06,902.40
 -----------------------------------------------------
-Writing network ... done (1ms).
+Writing network ... done (2ms).
 Success.

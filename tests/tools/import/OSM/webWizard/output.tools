@@ -1,9 +1,9 @@
 Success.
 Written configuration to 'osm.polycfg'
-Parsing network projection from 'osm.net.xml.gz' ... done (7ms).
-Parsing nodes from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (244ms).
-Parsing relations from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (172ms).
-Parsing edges from osm-file '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (187ms).
+Parsing network projection from 'osm.net.xml.gz' ... done (10ms).
+Parsing nodes from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (563ms).
+Parsing relations from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (451ms).
+Parsing edges from osm-file '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/osm_bbox.osm.xml' ... done (478ms).
 Assembled polygon from relation '3619' (name:Altes Museum)
 Assembled polygon from relation '6647' (name:Humboldt-Universität zu Berlin)
 Assembled polygon from relation '23745' (name:Altes Stadthaus)
@@ -141,7 +141,7 @@ Assembled polygon from relation '8249214' (name:Hof V)
 Assembled polygon from relation '8249215' (name:)
 Assembled polygon from relation '8249216' (name:)
 Success.
-Building scenario in '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/test'.
+Building scenario in '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/test'.
 generating trips...
 Skipping line '2194813' because it only drives at night
 Skipping line '2194814' because it only drives at night
@@ -172,24 +172,24 @@ Success.
 Success.
 Success.
 Written configuration to 'osm.sumocfg'
-Loading net-file from '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (258ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (103ms).
-Loading additional-files from '/home/erdm_ja/.texttest/tmp/tools.20Jun074320.3255348/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (8ms).
+Loading net-file from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/test/osm.net.xml.gz' ... done (670ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/test/osm.poly.xml.gz' ... done (363ms).
+Loading additional-files from '/home/behr_mi/.texttest/tmp/dynamic_gui.25Jun103413.181884/tools/import/OSM/webWizard/test/osm_stops.add.xml' ... done (23ms).
 Loading done.
-Simulation version v1_20_0+0670-88aca8e654b started with time: 0.00.
-Simulation ended at time: 3111.00
+Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation ended at time: 3111.00.
 Reason: All vehicles have left the simulation.
-Performance: 
- Duration: 1.12s
- Real time factor: 2780.16
- UPS: 128193.923146
- UPS-Persons: 131345.844504
-Vehicles: 
+Performance:
+ Duration: 4.97s
+ Real time factor: 625.578
+ UPS: 28845.566057
+ UPS-Persons: 29554.795898
+Vehicles:
  Inserted: 414
  Running: 0
  Waiting: 0
  Teleports: 1 (Collisions: 1)
-Persons: 
+Persons:
  Inserted: 183
  Running: 0
  Jammed: 1
@@ -218,8 +218,7 @@ Ride Statistics (avg of 172 rides):
  Bus: 61
  Train: 105
  Aborted: 6
-
 DijkstraRouter answered 6497 queries and explored 10.39 edges on average.
-DijkstraRouter spent 0.01s answering queries (0.00ms on average).
+DijkstraRouter spent 0.03s answering queries (0.00ms on average).
 DijkstraRouter answered 259 queries and explored 580.42 edges on average.
-DijkstraRouter spent 0.03s answering queries (0.10ms on average).
+DijkstraRouter spent 0.28s answering queries (1.09ms on average).

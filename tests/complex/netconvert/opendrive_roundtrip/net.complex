@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:55:19 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-06-25 12:43:38 by Eclipse SUMO netconvert Version v1_20_0+0790-8b05aee863b
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <type-files value="input_types.typ.xml"/>
@@ -12,7 +12,7 @@
         <no-turnarounds.except-deadend value="true"/>
     </junctions>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -892,17 +892,17 @@
             <param key="signalID" value="261599791_0"/>
         </lane>
         <lane id=":3_0_1" index="1" disallow="pedestrian" speed="27.78" length="0.24" width="3.20" shape="34.34,177.86 34.07,177.90">
-            <param key="signalID" value="261599791_0"/>
+            <param key="signalID" value="261599791_1 261599791_2"/>
         </lane>
     </edge>
     <edge id=":3_2" function="internal">
         <lane id=":3_2_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" width="3.20" shape="34.34,177.86 33.04,177.22 32.55,176.48">
-            <param key="signalID" value="261599791_0"/>
+            <param key="signalID" value="261599791_1 261599791_2"/>
         </lane>
     </edge>
     <edge id=":3_6" function="internal">
         <lane id=":3_6_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" width="3.20" shape="32.55,176.48 32.84,175.63 33.93,174.69">
-            <param key="signalID" value="261599791_0"/>
+            <param key="signalID" value="261599791_1 261599791_2"/>
         </lane>
     </edge>
     <edge id=":3_3" function="internal">
@@ -910,17 +910,17 @@
             <param key="signalID" value="261599791_3"/>
         </lane>
         <lane id=":3_3_1" index="1" disallow="pedestrian" speed="27.78" length="0.34" width="3.20" shape="33.62,174.73 33.93,174.69">
-            <param key="signalID" value="261599791_3"/>
+            <param key="signalID" value="261599791_4 261599791_5"/>
         </lane>
     </edge>
     <edge id=":3_5" function="internal">
         <lane id=":3_5_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" width="3.20" shape="33.62,174.73 34.92,175.35 35.43,176.09">
-            <param key="signalID" value="261599791_3"/>
+            <param key="signalID" value="261599791_4 261599791_5"/>
         </lane>
     </edge>
     <edge id=":3_7" function="internal">
         <lane id=":3_7_0" index="0" disallow="pedestrian" speed="3.65" length="2.34" width="3.20" shape="35.43,176.09 35.15,176.94 34.07,177.90">
-            <param key="signalID" value="261599791_3"/>
+            <param key="signalID" value="261599791_4 261599791_5"/>
         </lane>
     </edge>
     <edge id=":30_0" function="internal">
@@ -1272,27 +1272,27 @@
             <param key="signalID" value="32266935_4 32266935_5"/>
         </lane>
         <lane id=":4_5_1" index="1" disallow="pedestrian" speed="27.78" length="14.57" width="3.20" shape="486.35,121.67 471.82,123.24">
-            <param key="signalID" value="32266935_4 32266935_5"/>
+            <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
         </lane>
     </edge>
     <edge id=":4_7" function="internal">
         <lane id=":4_7_0" index="0" disallow="pedestrian" speed="8.50" length="3.70" width="3.20" shape="486.35,121.67 482.67,121.35">
-            <param key="signalID" value="32266935_4 32266935_5"/>
+            <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
         </lane>
     </edge>
     <edge id=":4_8" function="internal">
         <lane id=":4_8_0" index="0" disallow="pedestrian" speed="3.65" length="1.44" width="3.20" shape="486.35,121.67 485.08,120.99">
-            <param key="signalID" value="32266935_4 32266935_5"/>
+            <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
         </lane>
     </edge>
     <edge id=":4_20" function="internal">
         <lane id=":4_20_0" index="0" disallow="pedestrian" speed="8.50" length="12.51" width="3.20" shape="482.67,121.35 482.44,121.33 479.51,119.49 477.55,116.14 476.58,111.30">
-            <param key="signalID" value="32266935_4 32266935_5"/>
+            <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
         </lane>
     </edge>
     <edge id=":4_21" function="internal">
         <lane id=":4_21_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" width="3.20" shape="485.08,120.99 484.61,120.23 484.94,119.39 486.06,118.49">
-            <param key="signalID" value="32266935_4 32266935_5"/>
+            <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
         </lane>
     </edge>
     <edge id=":4_9" function="internal">
@@ -1335,27 +1335,27 @@
             <param key="signalID" value="32266935_13 32266935_14"/>
         </lane>
         <lane id=":4_14_1" index="1" disallow="pedestrian" speed="27.78" length="14.77" width="3.20" shape="471.43,120.06 486.06,118.49">
-            <param key="signalID" value="32266935_13 32266935_14"/>
+            <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
         </lane>
     </edge>
     <edge id=":4_16" function="internal">
         <lane id=":4_16_0" index="0" disallow="pedestrian" speed="8.61" length="3.88" width="3.20" shape="471.43,120.06 475.29,120.33">
-            <param key="signalID" value="32266935_13 32266935_14"/>
+            <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
         </lane>
     </edge>
     <edge id=":4_17" function="internal">
         <lane id=":4_17_0" index="0" disallow="pedestrian" speed="3.65" length="1.44" width="3.20" shape="471.43,120.06 472.71,120.71">
-            <param key="signalID" value="32266935_13 32266935_14"/>
+            <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
         </lane>
     </edge>
     <edge id=":4_24" function="internal">
         <lane id=":4_24_0" index="0" disallow="pedestrian" speed="8.61" length="13.18" width="3.20" shape="475.29,120.33 475.44,120.34 478.46,122.26 480.48,125.85 481.50,131.09">
-            <param key="signalID" value="32266935_13 32266935_14"/>
+            <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
         </lane>
     </edge>
     <edge id=":4_25" function="internal">
         <lane id=":4_25_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" width="3.20" shape="472.71,120.71 473.21,121.46 472.91,122.30 471.82,123.24">
-            <param key="signalID" value="32266935_13 32266935_14"/>
+            <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
         </lane>
     </edge>
     <edge id=":40_0" function="internal">
@@ -2122,7 +2122,9 @@
         <lane id=":64_10_0" index="0" disallow="pedestrian" speed="3.65" length="3.23" width="3.20" shape="1140.47,49.78 1140.94,50.54 1140.61,51.37 1139.49,52.28"/>
     </edge>
     <edge id=":65_0" function="internal">
-        <lane id=":65_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" width="3.20" shape="1739.06,18.29 1739.78,19.54 1739.79,20.43 1739.08,20.97 1737.65,21.16"/>
+        <lane id=":65_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" width="3.20" shape="1739.06,18.29 1739.78,19.54 1739.79,20.43 1739.08,20.97 1737.65,21.16">
+            <param key="signalID" value="94487954_0"/>
+        </lane>
     </edge>
     <edge id=":66_0" function="internal">
         <lane id=":66_0_0" index="0" disallow="pedestrian" speed="6.52" length="8.87" width="3.20" shape="1115.96,63.08 1115.44,60.71 1114.29,59.06 1112.51,58.12 1110.11,57.90"/>
@@ -2919,11 +2921,11 @@
         <phase duration="3"  state="yyyyyy"/>
         <phase duration="5"  state="rrrrrr"/>
         <param key="linkSignalID:0" value="261599791_0"/>
-        <param key="linkSignalID:1" value="261599791_0"/>
-        <param key="linkSignalID:2" value="261599791_0"/>
+        <param key="linkSignalID:1" value="261599791_1 261599791_2"/>
+        <param key="linkSignalID:2" value="261599791_1 261599791_2"/>
         <param key="linkSignalID:3" value="261599791_3"/>
-        <param key="linkSignalID:4" value="261599791_3"/>
-        <param key="linkSignalID:5" value="261599791_3"/>
+        <param key="linkSignalID:4" value="261599791_4 261599791_5"/>
+        <param key="linkSignalID:5" value="261599791_4 261599791_5"/>
     </tlLogic>
     <tlLogic id="4" type="static" programID="0" offset="0">
         <phase duration="42" state="rrrrGGGggrrrrGGGgg"/>
@@ -2937,22 +2939,23 @@
         <param key="linkSignalID:12" value="32266935_10 32266935_11 32266935_12 32266935_9"/>
         <param key="linkSignalID:13" value="32266935_13 32266935_14"/>
         <param key="linkSignalID:14" value="32266935_13 32266935_14"/>
-        <param key="linkSignalID:15" value="32266935_13 32266935_14"/>
-        <param key="linkSignalID:16" value="32266935_13 32266935_14"/>
-        <param key="linkSignalID:17" value="32266935_13 32266935_14"/>
+        <param key="linkSignalID:15" value="32266935_15 32266935_16 32266935_17"/>
+        <param key="linkSignalID:16" value="32266935_15 32266935_16 32266935_17"/>
+        <param key="linkSignalID:17" value="32266935_15 32266935_16 32266935_17"/>
         <param key="linkSignalID:2" value="32266935_0 32266935_1 32266935_2 32266935_3"/>
         <param key="linkSignalID:3" value="32266935_0 32266935_1 32266935_2 32266935_3"/>
         <param key="linkSignalID:4" value="32266935_4 32266935_5"/>
         <param key="linkSignalID:5" value="32266935_4 32266935_5"/>
-        <param key="linkSignalID:6" value="32266935_4 32266935_5"/>
-        <param key="linkSignalID:7" value="32266935_4 32266935_5"/>
-        <param key="linkSignalID:8" value="32266935_4 32266935_5"/>
+        <param key="linkSignalID:6" value="32266935_6 32266935_7 32266935_8"/>
+        <param key="linkSignalID:7" value="32266935_6 32266935_7 32266935_8"/>
+        <param key="linkSignalID:8" value="32266935_6 32266935_7 32266935_8"/>
         <param key="linkSignalID:9" value="32266935_10 32266935_11 32266935_12 32266935_9"/>
     </tlLogic>
     <tlLogic id="65" type="static" programID="0" offset="0">
         <phase duration="82" state="G"/>
         <phase duration="3"  state="y"/>
         <phase duration="5"  state="r"/>
+        <param key="linkSignalID:0" value="94487954_0"/>
     </tlLogic>
 
     <junction id="1" type="priority" x="472.79" y="47.30" incLanes="-835_0" intLanes=":1_0_0" shape="472.67,47.31 469.48,47.59 472.67,47.31">
@@ -3864,22 +3867,22 @@
         <param key="signalID" value="32266935_13 32266935_14"/>
     </connection>
     <connection from="-751" to="-831" fromLane="1" toLane="1" via=":4_14_1" tl="4" linkIndex="15" dir="s" state="O">
-        <param key="signalID" value="32266935_13 32266935_14"/>
+        <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
     </connection>
     <connection from="-751" to="-832" fromLane="1" toLane="0" via=":4_16_0" tl="4" linkIndex="16" dir="l" state="o">
-        <param key="signalID" value="32266935_13 32266935_14"/>
+        <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
     </connection>
     <connection from="-751" to="-838" fromLane="1" toLane="1" via=":4_17_0" tl="4" linkIndex="17" dir="t" state="o">
-        <param key="signalID" value="32266935_13 32266935_14"/>
+        <param key="signalID" value="32266935_15 32266935_16 32266935_17"/>
     </connection>
     <connection from="-752" to="-751" fromLane="0" toLane="0" via=":3_3_0" tl="3" linkIndex="3" dir="s" state="O">
         <param key="signalID" value="261599791_3"/>
     </connection>
     <connection from="-752" to="-751" fromLane="1" toLane="1" via=":3_3_1" tl="3" linkIndex="4" dir="s" state="O">
-        <param key="signalID" value="261599791_3"/>
+        <param key="signalID" value="261599791_4 261599791_5"/>
     </connection>
     <connection from="-752" to="-839" fromLane="1" toLane="1" via=":3_5_0" tl="3" linkIndex="5" dir="t" state="o">
-        <param key="signalID" value="261599791_3"/>
+        <param key="signalID" value="261599791_4 261599791_5"/>
     </connection>
     <connection from="-753" to="-831" fromLane="0" toLane="0" via=":4_9_0" tl="4" linkIndex="9" dir="r" state="o">
         <param key="signalID" value="32266935_10 32266935_11 32266935_12 32266935_9"/>
@@ -4129,7 +4132,9 @@
     <connection from="-827" to="-917" fromLane="0" toLane="0" via=":62_0_0" dir="r" state="M"/>
     <connection from="-827" to="-826" fromLane="0" toLane="0" via=":62_1_0" dir="s" state="M"/>
     <connection from="-827" to="-933" fromLane="0" toLane="0" via=":62_2_0" dir="t" state="m"/>
-    <connection from="-828" to="-934" fromLane="1" toLane="1" via=":65_0_0" tl="65" linkIndex="0" dir="t" state="O"/>
+    <connection from="-828" to="-934" fromLane="1" toLane="1" via=":65_0_0" tl="65" linkIndex="0" dir="t" state="O">
+        <param key="signalID" value="94487954_0"/>
+    </connection>
     <connection from="-829" to="-828" fromLane="0" toLane="0" via=":64_4_0" dir="s" state="M"/>
     <connection from="-829" to="-828" fromLane="1" toLane="1" via=":64_4_1" dir="s" state="M"/>
     <connection from="-829" to="-836" fromLane="1" toLane="0" via=":64_6_0" dir="l" state="m"/>
@@ -4158,10 +4163,10 @@
         <param key="signalID" value="261599791_0"/>
     </connection>
     <connection from="-838" to="-839" fromLane="1" toLane="1" via=":3_0_1" tl="3" linkIndex="1" dir="s" state="O">
-        <param key="signalID" value="261599791_0"/>
+        <param key="signalID" value="261599791_1 261599791_2"/>
     </connection>
     <connection from="-838" to="-751" fromLane="1" toLane="1" via=":3_2_0" tl="3" linkIndex="2" dir="t" state="o">
-        <param key="signalID" value="261599791_0"/>
+        <param key="signalID" value="261599791_1 261599791_2"/>
     </connection>
     <connection from="-839" to="-752" fromLane="1" toLane="1" via=":5_0_0" dir="t" state="M"/>
     <connection from="-840" to="-763" fromLane="0" toLane="0" via=":2_0_0" dir="r" state="M"/>
@@ -4453,13 +4458,13 @@
         <param key="signalID" value="32266935_4 32266935_5"/>
     </connection>
     <connection from="-937" to="-838" fromLane="1" toLane="1" via=":4_5_1" tl="4" linkIndex="6" dir="s" state="O">
-        <param key="signalID" value="32266935_4 32266935_5"/>
+        <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
     </connection>
     <connection from="-937" to="-840" fromLane="1" toLane="0" via=":4_7_0" tl="4" linkIndex="7" dir="l" state="o">
-        <param key="signalID" value="32266935_4 32266935_5"/>
+        <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
     </connection>
     <connection from="-937" to="-831" fromLane="1" toLane="1" via=":4_8_0" tl="4" linkIndex="8" dir="t" state="o">
-        <param key="signalID" value="32266935_4 32266935_5"/>
+        <param key="signalID" value="32266935_6 32266935_7 32266935_8"/>
     </connection>
     <connection from="-938" to="-885" fromLane="0" toLane="0" via=":69_3_0" dir="r" state="m"/>
     <connection from="-938" to="-884" fromLane="0" toLane="0" via=":69_4_0" dir="l" state="m"/>
