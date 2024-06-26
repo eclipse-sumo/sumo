@@ -5,7 +5,7 @@ title: CodeStyle
 # Automated style checking
 
 The easiest way to enforce the SUMO code style for C++ and Python
-is to enable the [pre-commit checks](GitStuff.md#git-commit-hooks).
+is to enable the [pre-commit checks](GitStuff.md#git_commit_hooks).
 
 # C++ Code
 

@@ -331,7 +331,7 @@ sudo cmake --install build
 ```
 
 Now you should make sure GEOS is installed (`sudo apt-get install libgeos-dev`) and
-continue with the [standard build procedure above](#building-the-sumo-binaries-with-cmake).
+continue with the [standard build procedure above](#building_the_sumo_binaries_with_cmake).
 
 ### Tweaking the JuPedSim build
 
@@ -352,7 +352,7 @@ To tweak or debug the jupedsim build you can also change the configuration to De
 and also enable multithreading (with `-j4`) as usual with CMake. If you have different jupedsim versions or choose a
 different install path, you can notify CMake where JuPedSim is installed by setting `JUPEDSIM_CUSTOMDIR` when calling CMake.
 
-For further remarks on the use of JuPedSim inside SUMO, please consult [the documentation on the model](../Simulation/Pedestrians.md#jupedsim).
+For further remarks on the use of JuPedSim inside SUMO, please consult [the documentation on the model](../Simulation/Pedestrians.md#model_jupedsim).
 
 ## Troubleshooting
 

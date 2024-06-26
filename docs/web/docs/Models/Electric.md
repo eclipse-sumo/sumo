@@ -78,7 +78,7 @@ An example of a vehicle with electric attribute (those are the values for a city
 </routes>
 ```
 
-If a vehicle has a battery device (and is not [tracking fuel](#tracking-fuel-consumption-for-non-electrical-vehicles))
+If a vehicle has a battery device (and is not [tracking fuel](#tracking_fuel_consumption_for_non-electrical_vehicles))
 and no explicit `emissionClass` is defined, it will be assigned the emission class `Energy/unknown`.
 It will not use the [default emission class](../Vehicle_Type_Parameter_Defaults.md) derived from the vehicle class then.
 This is for backward compatibility and will issue a warning because in general it is preferable to set the emission class explicitly.

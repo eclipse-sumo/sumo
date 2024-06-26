@@ -183,7 +183,7 @@ Modes available in the *Demand Supermode*:
 - [Routes](editModesDemand.md#route_mode)
 - [Vehicles](editModesDemand.md#vehicle_mode)
 - [Vehicle Types](editModesDemand.md#vehicle_type_mode)
-- [Stops](editModesDemand.md#stop_mode)
+- [Stops](editModesDemand.md#stops_mode)
 - [Person Types](editModesDemand.md#person_type_mode)
 - [Persons](editModesDemand.md#person_mode)
 - [Person Plans](editModesDemand.md#person_plan_mode)
@@ -193,7 +193,7 @@ Modes available in the *Demand Supermode*:
 Modes available in the *Data Supermode*:
 
 - [Edge Data](editModesData.md#edge_data_mode)
-- [Edge Relation](editModesData.md#edge_rel_data_mode)
+- [Edge Relation](editModesData.md#edge_relation_mode)
 - [TAZ Relation](editModesData.md#taz_relation_mode)
 
 # [Elements](elements.md)

@@ -455,7 +455,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - netedit
   - *split junction* is now working reliably in intermodal networks. Issue #4999
-  - Fixed crash when copying edge template with lane-specific attributes. Issue #5005
+  - Fixed crash when [copying edge template](../Netedit/editModesCommon.md#edge_template) with lane-specific attributes. Issue #5005
   - Fixed index of created lanes when adding restricted lanes with context menu. This is partly a regression fix and partly an improvement over the earlier behavior. Issue #5006
   - Inspection contour now works correctly for spread bidirectional rail edges. Issue #5064
   - Now showing correct edge length when using *endOffset*. Issue #5066
