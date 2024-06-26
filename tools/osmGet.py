@@ -159,7 +159,10 @@ def readCompressed(options, conn, urlpath, query, roadTypesJSON, getShapes, file
     print(response.status, response.reason)
     if response.status == 200:
         with open(filename, "wb") as out:
-            lines = gzip.decompress(response.read())
+            if response.getheader('Content-Encoding') == 'gzip':
+                lines = gzip.decompress(response.read())
+            else:
+                lines = response.read()
             declClose = lines.find(b'>') + 1
             lines = (lines[:declClose]
                      + b"\n"
