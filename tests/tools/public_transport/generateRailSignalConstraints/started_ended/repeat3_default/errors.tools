@@ -1,3 +1,2 @@
 Vehicle t3 (00:17:30, 00:19:40, 00:17:30, 00:19:40) overtaken by t2 (00:18:20, 00:18:50, 00:18:20, 00:18:50) at stop stop_c (index 0)
 Vehicle t3 was overtaken and starts to ignore schedule at stop stop_2c (index 1)
-    Stop stop_2c (index 1) has 'started' and 'ended' and will be kept.

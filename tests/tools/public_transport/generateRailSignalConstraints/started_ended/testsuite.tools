@@ -15,3 +15,6 @@ simple_oldStyle
 
 # stops with started/ended should never be marked invalid
 repeat3_noabort
+
+# stops with started/ended also  marked invalid
+repeat3_default
