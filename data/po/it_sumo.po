@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-26 10:33+0000\n"
+"PO-Revision-Date: 2024-06-26 11:39+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6351,15 +6351,17 @@ msgstr ""
 
 #: src/netbuild/NBNode.cpp:812 src/netbuild/NBNode.cpp:830
 msgid "Could not use custom shape for connection %."
-msgstr ""
+msgstr "Non ho potuto usare la forma del collegamento %."
 
 #: src/netbuild/NBNode.cpp:821
 msgid "Custom shape has distance % to incoming lane for connection %."
 msgstr ""
+"La forma personalizzata dista % dalla corsia entrante del collegamento %."
 
 #: src/netbuild/NBNode.cpp:838
 msgid "Custom shape has distance % to outgoing lane for connection %."
 msgstr ""
+"La forma personalizzata dista % dalla corsia uscente del collegamento %."
 
 #: src/netbuild/NBNode.cpp:1037
 msgid ""
@@ -6377,7 +6379,7 @@ msgstr ""
 
 #: src/netbuild/NBNode.cpp:1884
 msgid "Something went wrong during the building of a connection..."
-msgstr ""
+msgstr "Qualcosa è andato storto durante la creazione di un collegamento..."
 
 #: src/netbuild/NBNode.cpp:2891
 msgid ""
