@@ -739,6 +739,9 @@ public:
         return myAmFringe;
     }
 
+    /// @brief return whether this edge prohibits changing for the given vClass when starting on the given lane index
+    bool hasChangeProhibitions(SUMOVehicleClass svc, int index) const;
+
     /// @brief whether this lane is selected in the GUI
     virtual bool isSelected() const {
         return false;
