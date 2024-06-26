@@ -273,6 +273,15 @@ public:
         myTrip = trip;
     }
 
+    virtual bool equals(const MSStage& s) const {
+        return myDestination == s.myDestination &&
+               myDestinationStop == s.myDestinationStop &&
+               myArrivalPos == s.myArrivalPos &&
+               myArrivalPosLat == s.myArrivalPosLat &&
+               myType == s.myType &&
+               myGroup == s.myGroup;
+    }
+
 protected:
     /// the next edge to reach by getting transported
     const MSEdge* myDestination;

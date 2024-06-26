@@ -392,8 +392,28 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
     MSStageWaiting start(getEdge(), getCurrentStage()->getOriginStop(), -1, t, getEdgePos(), "start", true);
     if (trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination(), stages) == "") {
         // check whether the new plan actually differs
-        if ((int)stages.size() == tripEndOffset + 1) {
-
+        while (tripEndOffset >= 0 && !stages.empty() && stages.back()->equals(*getNextStage(tripEndOffset))) {
+            delete stages.back();
+            stages.pop_back();
+            tripEndOffset--;
+        }
+        bool abortCurrent = true;
+        // check whether the future route of the current stage is identical to the route
+        if (!stages.empty() && stages.front()->isWalk() && getCurrentStage()->isWalk()) {
+            // TODO this check should be done for rides as well
+            MSStageMoving* s = static_cast<MSStageMoving*>(getCurrentStage());
+            int routeIndex = (int)(s->getRouteStep() - s->getRoute().begin());
+            ConstMSEdgeVector oldEdges = s->getEdges();
+            oldEdges.erase(oldEdges.begin(), oldEdges.begin() + routeIndex);
+            ConstMSEdgeVector newEdges = stages.front()->getEdges();
+            if (newEdges == oldEdges) {
+                delete stages.front();
+                stages.erase(stages.begin());
+                abortCurrent = false;
+            }
+        }
+        if (stages.empty()) {
+            return false;
         }
         // remove future stages of the trip
         for (int i = tripEndOffset; i >= 1; i--) {
@@ -404,8 +424,9 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
         for (MSStage* stage : stages) {
             appendStage(stage, idx++);
         }
-        // abort the current stage
-        removeStage(0);
+        if (abortCurrent) {
+            removeStage(0);
+        }
         return true;
     }
     return false;

@@ -189,6 +189,17 @@ public:
      */
     void loadState(MSTransportable* transportable, std::istringstream& state);
 
+    bool equals(const MSStage& s) const {
+        if (!MSStage::equals(s)) {
+            return false;
+        }
+        // this is safe because MSStage already checked that the type fits
+        const MSStageDriving& sd = static_cast<const MSStageDriving&>(s);
+        return myOrigin == sd.myOrigin &&
+               myLines == sd.myLines &&
+               myIntendedVehicleID == sd.myIntendedVehicleID;
+    }
+
 protected:
     /// the origin edge
     const MSEdge* myOrigin;

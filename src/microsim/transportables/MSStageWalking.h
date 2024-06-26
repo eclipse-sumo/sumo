@@ -139,6 +139,15 @@ public:
 
     SUMOTime getTimeLoss(const MSTransportable* transportable) const;
 
+    bool equals(const MSStage& s) const {
+        if (!MSStageMoving::equals(s)) {
+            return false;
+        }
+        // this is safe because MSStage already checked that the type fits
+        const MSStageWalking& sw = static_cast<const MSStageWalking&>(s);
+        return myWalkingTime == sw.myWalkingTime;
+    }
+
 private:
     /// @brief compute total walking distance
     double walkDistance(bool partial = false) const;
