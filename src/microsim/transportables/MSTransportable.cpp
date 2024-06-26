@@ -373,6 +373,11 @@ bool
 MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransportableRouter& router, const bool /* onInit */, const bool /* withTaz */, const bool /* silent */, const MSEdge* /* sink */) {
     MSStageTrip* trip = getCurrentStage()->getTrip();
     if (trip == nullptr) {
+        // TODO this should be possible after factoring out MSStageTrip::reroute
+        return false;
+    }
+    if (getCurrentStage()->getVehicle() != nullptr) {
+        // TODO rerouting during a ride still needs to be implemented
         return false;
     }
     // find the final stage of the trip
@@ -384,8 +389,12 @@ MSTransportable::reroute(SUMOTime t, const std::string& /* info */, MSTransporta
         }
     }
     std::vector<MSStage*> stages;
-    MSStageWaiting start(getEdge(), nullptr, -1, t, getEdgePos(), "start", true);
+    MSStageWaiting start(getEdge(), getCurrentStage()->getOriginStop(), -1, t, getEdgePos(), "start", true);
     if (trip->reroute(t, router, this, &start, getEdge(), getRerouteDestination(), stages) == "") {
+        // check whether the new plan actually differs
+        if ((int)stages.size() == tripEndOffset + 1) {
+
+        }
         // remove future stages of the trip
         for (int i = tripEndOffset; i >= 1; i--) {
             removeStage(i);

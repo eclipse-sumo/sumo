@@ -183,7 +183,7 @@ MSStageTrip::reroute(const SUMOTime time, MSTransportableRouter& router, MSTrans
         if (MSGlobals::gUseMesoSim && prevStop != nullptr) {
             departPos = (prevStop->getBeginLanePosition() + prevStop->getEndLanePosition()) / 2.;
         }
-        if (router.compute(origin, destination, departPos, myOriginStop == nullptr ? "" : myOriginStop->getID(),
+        if (router.compute(origin, destination, departPos, prevStop == nullptr ? "" : prevStop->getID(),
                            myArrivalPos, myDestinationStop == nullptr ? "" : myDestinationStop->getID(),
                            transportable->getMaxSpeed() * myWalkFactor, vehicle, myModeSet, time, result)) {
             double totalCost = 0;
@@ -331,7 +331,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
             // TODO we should probably use the rng of the lane here
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
-        MSStageWaiting start(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
+        MSStageWaiting start(myOrigin, myOriginStop, -1, transportable->getParameter().depart, myDepartPos, "start", true);
         result = reroute(transportable->getParameter().depart, net->getIntermodalRouter(0), transportable, &start, myOrigin, myDestination, stages);
     } else {
         MSStage* previous = transportable->getNextStage(-1);
