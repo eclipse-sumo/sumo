@@ -114,7 +114,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
 
 - sumo-gui
   - Added the possibility to load view settings and
-    [decals](../sumo-gui.md#using_decals_within_sumo-gui) from
+    [decals](../sumo-gui.md#showing_background_images) from
     a configuration file (implemented [request 2168007: add possibility to load view settings file with start of gui](https://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)).
     Added the possibility to generate snapshots on startup, defined
     in a configuration file.
@@ -211,7 +211,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - debugged size info ("legend") drawing
   - solved bug 2519761: guisim crashes on "show all routes"
   - changed how decals are aligned (see
-    [sumo-gui\#Using_Decals_within_sumo-gui](../sumo-gui.md#using_decals_within_sumo-gui))
+    [sumo-gui\#showing_background_images](../sumo-gui.md#showing_background_images))
   - Consolidated the startup-options **--suppress-end-info** and
     **--quit-on-end**: **--suppress-end-info** was removed, the
     application quits after performing the simulation when
@@ -257,7 +257,7 @@ title: Changes in the 2009 releases (versions 0.10.0, 0.10.1, 0.10.2, 0.10.3, 0.
   - solved bug 1993983: Errors in User Documentation
 
 - TAPAS
-  - see [TAPASCologne Change Log](../Data/Scenarios/TAPASCologne.md#change_log)
+  - see [TAPASCologne ChangeLog](../Data/Scenarios/TAPASCologne.md#changelog)
 
 
 ## Version 0.10.1 (11.01.2009)

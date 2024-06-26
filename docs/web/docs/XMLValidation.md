@@ -40,7 +40,7 @@ disabled for the network input by default (because networks should not
 be edited by hand and therefore be valid anyway).
 
 !!! note
-    If you have large auto-generated inputs you may consider disabling schema validation altogether. See also [this FAQ](FAQ.md#whats_the_deal_with_schema_resolution_warnings_errors)
+    If you have large auto-generated inputs you may consider disabling schema validation altogether. See also [this FAQ](FAQ.md#whats_the_deal_with_schema_resolution_warnings_xsd_errors)
 
 # Adding a schema declaration
 
@@ -75,7 +75,7 @@ following table:
 
 The schema files can be found in the {{SUMO}}/data/xsd directory of your SUMO
 installation. If the [environment variable *SUMO_HOME* is
-set](Basics/Basic_Computer_Skills.md#additional_environment_variables),
+set](Basics/Basic_Computer_Skills.md#sumo_home),
 these files will be used when validating inputs.
 
 Otherwise, the files are loaded from

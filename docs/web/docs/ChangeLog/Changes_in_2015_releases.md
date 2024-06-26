@@ -149,7 +149,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     terminate the simulation when the number was exceeded. To avoid
     a large number of delayed vehicles it is recommended to use the
     option **--max-depart-delay** {{DT_TIME}}. #1958
-  - Traffic detectors which are generated for [actuated traffic lights now support additional parameters](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
+  - Traffic detectors which are generated for [actuated traffic lights now support additional parameters](../Simulation/Traffic_Lights.md#type_actuated)
     to allow writing output files the same way as [regular detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md). #1839
   - Angles in simulation output and TraCI results now conform to
     *Navigational Standards* with *0* pointing towards the North and
@@ -160,7 +160,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Int and float options can now be set in the
     *Processing-\>Options* dialog.
   - Added many lane- and junction-coloring modes already known from
-    [sumo-gui](../sumo-gui.md#edge2fLane_visualisation_settings.md). #1756
+    [sumo-gui](../sumo-gui.md#edgelane_visualisation_settings). #1756
   - Pedestrian crossings are now supported when editing traffic
     light plans.
   - Attributes of pedestrian crossings can now be modified.
@@ -172,16 +172,16 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     unchecking *Select edges*. #1895
   - A lane (or a selections of lanes) can now be duplicated by
     selecting *Duplicate lane* from the context menu. #1896
-  - *Selection Mode* now allows [additional operators](../Netedit/index.md#select) when matching against a
+  - *Selection Mode* now allows [additional operators](../Netedit/editModesCommon.md#select) when matching against a
     non-numerical attribute. #1923
   - Added new option *Copy edge name to clipboard* to the lane
     popup-menu.
   - Junction attribute *keepClear* is now supported.
   - Custom junction shapes can now be drawn by selecting *Set custom
     shape* from the junction popup-menu. This will create a
-    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../Netedit/index.md#modifiable_poly)
+    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../Netedit/neteditPopupFunctions.md#modifiable_poly)
   - Added *reload* menu option. #2029
-  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../Netedit/index.md#traffic_lights).
+  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../Netedit/editModesNetwork.md#traffic_lights).
 
 - sumo-gui
   - Persons can now be tracked by selecting *Start Tracking* from
@@ -246,9 +246,9 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     heuristic was always active). #1930
   - Street names are now imported form
     [OpenDrive](../Networks/Import/OpenDRIVE.md).
-  - Now including sumo edge-ids in [OpenDrive export](../Networks/Further_Outputs.md#opendrive_road_networks)
+  - Now including sumo edge-ids in [OpenDrive export](../Networks/Further_Outputs.md#opendrive_road_objects)
     if option **--output.original-names** is given (as `<userData sumoId="sumo_edge_id"/>`).
-  - Now using more lane types in [OpenDrive export](../Networks/Further_Outputs.md#opendrive_road_networks).
+  - Now using more lane types in [OpenDrive export](../Networks/Further_Outputs.md#opendrive_road_objects).
   - Added option **--default.junctions.radius** {{DT_FLOAT}} for setting the default `radius` of
     [nodes](../Networks/PlainXML.md#node_descriptions). #1987
   - Added option **--tls.left-green.time** {{DT_TIME}} to configure the default duration for the
@@ -282,7 +282,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     [traceExporter.py](../Tools/TraceExporter.md). When this is
     set vehicles will not be destroyed until the end of the fcd-file
     even when disappearing for a few simulation steps..
-  - The [osmWebWizard.py](../Tools/Import/OSM.md#serverpy)
+  - The [osmWebWizard.py](../Tools/Import/OSM.md#osmwebwizardpy)
     import script is now more robust in finding a suitable output
     directory and recovering from errors.
   - Added new tool
@@ -301,7 +301,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
 - Documentation
   - Online documentation of
     [TraCI4J](https://github.com/egueli/TraCI4J) can now be found at traci4j-javadoc (outdated link removed)
-  - The section on [Additional netconvert outputs was completely rewritten](../Networks/Further_Outputs.md#further_outputs).
+  - The section on [Additional netconvert outputs was completely rewritten](../Networks/Further_Outputs.md).
   - Added a [new page on XML Validation](../XMLValidation.md)
   - Added [documentation for the C++ TraCI API client](../TraCI/C++TraCIAPI.md)
   - Added documentation on [route probe detectors](../Simulation/Output/RouteProbe.md) (which was
@@ -474,7 +474,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     from being treated as on- or off-ramps. #1763
   - Now importing signalized pedestrian crossings from
     [OSM](../Networks/Import/OpenStreetMap.md) (`<tag k="crossing" v="traffic_signals"/>`).
-  - added new option **--default.junctions.keep-clear** {{DT_BOOL}} and new attributes `<node keepClear="..."/> <connection keepClear="..."/>` [for allowing drivers to drive onto an intersection despite the risk of blocking it for cross-traffic](../Simulation/Intersections.md#netconvert_options_for_allowing_drivers_to_drive_onto_intersections). #1290
+  - added new option **--default.junctions.keep-clear** {{DT_BOOL}} and new attributes `<node keepClear="..."/> <connection keepClear="..."/>` [for allowing drivers to drive onto an intersection despite the risk of blocking it for cross-traffic](../Simulation/Intersections.md#netconvert_options_for_allowing_drivers_to_drive_onto_an_intersections). #1290
   - pedestrian crossings may be removed using the [new attribute `discard`](../Networks/PlainXML.md#pedestrian_crossings).
   - when splitting an edge, the new node is not removed by option **--geometry.remove**
     even when speed and lane count remain unchanged. #1842
@@ -771,7 +771,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
 - Tools
   - [cutRoutes.py](../Tools/Routes.md#cutroutespy) now sorts
     unmodified departure times correctly.
-  - [server.py](../Tools/Import/OSM.md#serverpy) no longer
+  - [server.py](../Tools/Import/OSM.md#osmwebwizardpy) no longer
     creates disconnected routes. Also, trains will no longer be
     generated on inappropriate edges.
   - [sort_routes.py](../Tools/Routes.md#sort_routespy) now
@@ -819,7 +819,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Can now color lanes *by height at segment start* and by *by
     inclination at segment start*. This allows investigating the
     3D-geometry in detail.
-  - [Added `param`](../Simulation/Traffic_Lights.md#additional_parameters)
+  - [Added `param`](../Simulation/Traffic_Lights.md#parameters)
     *show-detectors* that allows showing detectors of *actuated*
     traffic lights in the GUI.
   - When drawing streets with exaggerated width, the edge in one
@@ -860,7 +860,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - Added option **--junctions.corner-detail** {{DT_INT}} which can be used to generate rounded intersection
     corners. #1606
   - user-defined shapes for internal lanes, crossings and
-    walkingareas are now supported via [the new `customShape`-element in *.con.xml* files](../Networks/PlainXML.md#custom_shapes_for_internal_lanes_crossings_and_walkingareas) #1607
+    walkingareas are now supported via the new `customShape`-element in *.con.xml* files #1607
   - right-turning road vehicles will now wait within the
     intersection when yielding to straight-going bicycles. #1255
 
@@ -895,9 +895,8 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
     for keeping the original vehicle IDs instead of a running index.
     For some output formats such as *NS2* this only works if the
     vehicle IDs are numeric to begin with.
-  - [route2trips.py](../Tools/Trip.md#route2tripspy) now
-    preserves `vType` elements.
-  - [server.py](../Tools/Import/OSM.md#serverpy) now starts
+  - `route2trips.py` now preserves `vType` elements.
+  - [server.py](../Tools/Import/OSM.md#osmwebwizardpy) now starts
     with 'real world' gui settings and initial delay of 20. Also,
     the trip generation settings have been tweaked for realism (i.e.
     shorter pedestrian trips, longer train routes)

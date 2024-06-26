@@ -9,7 +9,7 @@ in [sumo](sumo.md). It is still a stub and needs be expanded.
 
 ## Links
 
-- [Publications on car-following models](Publications.md#car-following_models)
+- [Publications on car-following models](Publications.md#publications_using_sumo)
 - [How to implement a new car-following model](Developer/How_To/Car-Following_Model.md)
 - [More implementation notes on car-following models](Developer/Implementation_Notes/Vehicle_Models.md)
 

@@ -9,7 +9,7 @@ routes that may be used by [sumo](sumo.md) using shortest path
 computation; When called iteratively **duarouter** performs [dynamic
 user assignment (DUA)](Demand/Dynamic_User_Assignment.md). This
 is facilitated by the tool
-[duaiterate.py](Tools/Assign.md#dua-iteratepy) which converges
+[duaIterate.py](Tools/Assign.md#duaiteratepy) which converges
 to an equilibrium state (DUE).
 
 - **Purpose:**

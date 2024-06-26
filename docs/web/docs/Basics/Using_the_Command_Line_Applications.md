@@ -385,9 +385,8 @@ Many [tools](../Tools/index.md) that are distributed by SUMO (in the
 {{SUMO}}/tools folder are written in the [python](https://www.python.org/)
 programming language. To use them, **Python 3.7 or later** must be [installed on your computer](https://www.python.org/downloads/).
 
-Then you need to make sure that the [environment variable *SUMO_HOME*](#additional_environment_variables) is set. The
-easiest way is to open the command-line window using
-[start-command-line.bat](#sumo_0123_and_later).
+Then you need to make sure that the [environment variable *SUMO_HOME*](Basic_Computer_Skills.md#sumo_home) is set. The
+easiest way is to open the command-line window using **start-command-line.bat**.
 
 Furthermore you need to make sure that your computer knows where to find
 the python tools. The easiest (but somewhat cumbersome) method is to run
@@ -398,4 +397,4 @@ C:\Users\yourname>D:\path_to_sumo\tools\randomTrips.py  ... arguments ...
 ```
 
 Alternatively, you can add the directory in which the tool lies to your
-[PATH-Variable](#configuring_path_settings).
+[PATH-Variable](Basic_Computer_Skills.md#configuring_path_settings).

@@ -109,7 +109,7 @@ Using python tools, conversion of .net.xml files into further formats is support
   information or filter stops when reducing the network size.
 - [Public transport
   lines](Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_information_extraction): Automatically updated when reducing network extent.
-- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#embedding_road_objects))
+- [Shape definitions](Simulation/Shapes.md) to be embedded in network output that supports this ([OpenDRIVE](Networks/Further_Outputs.md#opendrive_road_objects))
 - [Elevation Data files](Networks/Elevation.md#including_elevation_data_in_a_network)
 
 ## Export
@@ -131,7 +131,7 @@ The following list ouf output is explained in more detail at
 - Railway topology output: A file for analyzing the topology of
   railway networks in regard to bi-directional track usage
 - [OpenDrive road objects](Networks/Further_Outputs.md#opendrive_road_objects)
-- [VISUM districts](Networks/Further_Outputs.md#visum-districts)
+- [VISUM districts](Networks/Further_Outputs.md#visum_districts)
 
 # Options
 

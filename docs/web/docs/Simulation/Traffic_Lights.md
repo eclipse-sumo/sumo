@@ -369,10 +369,11 @@ shown/hidden by right-clicking on an actuated traffic light and
 selecting the corresponding menu entry.
 
 The detectors used by an actuated traffic light will be colored to indicate their status:
+
 - green color indicates that the detector is used to determine the length of the current phase
 - white color indicates that the detector is not used in the current phase
 - red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
-- magenta color indicates and active [override](../sumo-gui.md#activating_detectors)
+- magenta color indicates and active [override](../sumo-gui.md#activating_detectors).
 
 
 ### Custom Detectors
