@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2022-10-09 17:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -1293,11 +1293,11 @@ msgstr ""
 msgid "Could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.h:944
+#: src/microsim/MSBaseVehicle.h:947
 msgid "getLeader not yet implemented for meso"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.h:958
+#: src/microsim/MSBaseVehicle.h:961
 msgid "getFollower not yet implemented for meso"
 msgstr ""
 
@@ -2602,58 +2602,58 @@ msgstr ""
 msgid "Simulation version % started with time: %."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:675
+#: src/microsim/MSNet.cpp:677
 msgid "Simulation ended at time: %."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:677
+#: src/microsim/MSNet.cpp:679
 msgid "Reason: "
 msgstr ""
 
-#: src/microsim/MSNet.cpp:931
+#: src/microsim/MSNet.cpp:933
 msgid "The final simulation step has been reached."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:933
+#: src/microsim/MSNet.cpp:935
 msgid "All vehicles have left the simulation."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:935
+#: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:937
+#: src/microsim/MSNet.cpp:939
 msgid "An error occurred (see log)."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:939
+#: src/microsim/MSNet.cpp:941
 msgid "Interrupted."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:941
+#: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:943
+#: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:945
+#: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1474
+#: src/microsim/MSNet.cpp:1476
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1614 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1616 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:236 src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1634
+#: src/microsim/MSNet.cpp:1636
 #, c-format
 msgid "Loading state from '%' failed."
 msgstr ""
@@ -2753,7 +2753,7 @@ msgid ""
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:806
-#: src/microsim/transportables/MSTransportable.cpp:393
+#: src/microsim/transportables/MSTransportable.cpp:416
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -3167,7 +3167,7 @@ msgstr ""
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
 msgstr ""
 
-#: src/microsim/devices/MSDevice.cpp:235
+#: src/microsim/devices/MSDevice.cpp:236
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
 msgstr ""
 
@@ -3892,64 +3892,64 @@ msgstr ""
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:84
+#: src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:87
+#: src/microsim/devices/MSDevice_Taxi.cpp:88
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:90
+#: src/microsim/devices/MSDevice_Taxi.cpp:91
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:93
+#: src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The period between successive calls to the dispatcher"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:96
+#: src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "The behavior of idle taxis [stop|randomCircling]"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:99
+#: src/microsim/devices/MSDevice_Taxi.cpp:100
 msgid "Write information from the idling algorithm to FILE"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:117
+#: src/microsim/devices/MSDevice_Taxi.cpp:118
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:124
+#: src/microsim/devices/MSDevice_Taxi.cpp:126
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:149
+#: src/microsim/devices/MSDevice_Taxi.cpp:151
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:347
+#: src/microsim/devices/MSDevice_Taxi.cpp:366
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:380
+#: src/microsim/devices/MSDevice_Taxi.cpp:399
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:493
+#: src/microsim/devices/MSDevice_Taxi.cpp:512
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:702
+#: src/microsim/devices/MSDevice_Taxi.cpp:721
 msgid "Taxi '%' reaches scheduled end of service at time=%."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:775
+#: src/microsim/devices/MSDevice_Taxi.cpp:794
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
@@ -4164,8 +4164,7 @@ msgstr ""
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
-"Which part of the person plan is to be replaced (stage, sequence, trip, "
-"stop, or plan)"
+"Which part of the person plan is to be replaced (stage, sequence, or trip)"
 msgstr ""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
@@ -4632,8 +4631,8 @@ msgstr ""
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 
-#: src/microsim/transportables/MSTransportable.cpp:469
-msgid "parkingAreaReroute not support for containers"
+#: src/microsim/transportables/MSTransportable.cpp:492
+msgid "parkingAreaReroute not supported for containers"
 msgstr ""
 
 #: src/microsim/transportables/MSTransportableControl.cpp:75
@@ -9889,7 +9888,7 @@ msgstr ""
 msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr ""
 
-#: src/router/ROLoader.cpp:282 src/utils/common/MsgHandler.cpp:195
+#: src/router/ROLoader.cpp:282
 msgid "failed."
 msgstr ""
 
@@ -10337,11 +10336,15 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
-msgid "done (%ms)."
+msgid " done (%ms)."
 msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:192
-msgid "done."
+msgid " done."
+msgstr ""
+
+#: src/utils/common/MsgHandler.cpp:195
+msgid " failed."
 msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:290

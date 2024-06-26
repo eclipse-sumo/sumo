@@ -139,7 +139,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
     begin or end to park or stop, see
     [TraCI/Simulation_Value_Retrieval](../TraCI/Simulation_Value_Retrieval.md)
     (was #353)
-  - added [new command *lane change mode (0xb6)*](../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6d) to control
+  - added [new command *lane change mode (0xb6)*](../TraCI/Change_Vehicle_State.md#lane_change_mode_0xb6) to control
     conflict resolution between TraCI-lane-changing request and
     lane-changing decisions by the laneChangeModel. It also allows
     to override safety constraints and to trigger cooperative speed
@@ -458,8 +458,8 @@ removed because it was outdated
 
 - Simulation
   - added support for traffic-actuated traffic lights (see
-    [Simulation/Traffic_Lights\#Loading_new_TLS-Programs](../Simulation/Traffic_Lights.md#loading_new_program),
-    [Networks/PlainXML\#Node_Descriptions](../Networks/PlainXML.md#node_descriptions))
+    [Simulation/Traffic_Lights\#loading_a_new_program](../Simulation/Traffic_Lights.md#loading_a_new_program),
+    [Networks/PlainXML\#node_descriptions](../Networks/PlainXML.md#node_descriptions))
   - added support for microscopic calibrators. These trigger-type
     objects can be used to increase or reduce traffic volume and to
     regulate speeds at selected edges. Using calibrators it becomes

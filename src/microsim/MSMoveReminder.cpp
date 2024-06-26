@@ -53,7 +53,7 @@ MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double l
     if (entryTime > currentTime) {
         return; // calibrator may insert vehicles a tiny bit into the future; ignore those
     }
-    auto j = myLastVehicleUpdateValues.find(&veh);
+    auto j = myLastVehicleUpdateValues.find(veh.getNumericalID());
     if (j != myLastVehicleUpdateValues.end()) {
         // the vehicle already has reported its values before; use these
         // however, if this was called from prepareDetectorForWriting the time
@@ -68,15 +68,15 @@ MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double l
     if ((entryTime < leaveTime) && (entryPos <= leavePos)) {
         const double timeOnLane = STEPS2TIME(currentTime - entryTime);
         const double speed = (leavePos - entryPos) / STEPS2TIME(leaveTime - entryTime);
-        myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, double>(currentTime, entryPos + speed * timeOnLane);
+        myLastVehicleUpdateValues[veh.getNumericalID()] = std::pair<SUMOTime, double>(currentTime, entryPos + speed * timeOnLane);
         assert(timeOnLane >= 0);
         notifyMoveInternal(veh, timeOnLane, timeOnLane, speed, speed, speed * timeOnLane, speed * timeOnLane, 0.);
     } else {
-        // it would be natrual to
+        // it would be natural to
         // assert(entryTime == leaveTime);
         // assert(entryPos == leavePos);
         // However, in the presence of calibrators, vehicles may jump a bit
-        myLastVehicleUpdateValues[&veh] = std::pair<SUMOTime, double>(leaveTime, leavePos);
+        myLastVehicleUpdateValues[veh.getNumericalID()] = std::pair<SUMOTime, double>(leaveTime, leavePos);
     }
     if (cleanUp) {
         // clean up after the vehicle has left the area of this reminder
@@ -87,7 +87,7 @@ MSMoveReminder::updateDetector(SUMOTrafficObject& veh, double entryPos, double l
 
 void
 MSMoveReminder::removeFromVehicleUpdateValues(SUMOTrafficObject& veh) {
-    myLastVehicleUpdateValues.erase(&veh);
+    myLastVehicleUpdateValues.erase(veh.getNumericalID());
 }
 
 

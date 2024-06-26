@@ -325,14 +325,15 @@ MEVehicle::processStop() {
         lastPos = stop.pars.endPos;
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
+        if (hadStop && MSStopOut::active()) {
+            stop.reached = true;
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+        }
         if (net->hasPersons()) {
             net->getPersonControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
         }
         if (net->hasContainers()) {
             net->getContainerControl().loadAnyWaiting(&mySegment->getEdge(), this, dummy, dummy);
-        }
-        if (hadStop && MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
         resumeFromStopping();
         hadStop = true;

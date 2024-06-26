@@ -32,18 +32,20 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to poly mode and select poly
-netedit.changeElement("jupedsim.walkable_area")
+netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.jpsWalkableArea.inspect.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.poly.inspect.parameters, False)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

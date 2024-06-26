@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
-"PO-Revision-Date: 2024-06-24 12:36+0000\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
+"PO-Revision-Date: 2024-06-25 15:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1338,7 +1338,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:731
 msgid "No connection between edge '%' and edge '%'."
-msgstr ""
+msgstr "No hay conexión entre la arista '%' y la arista '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:741
 #, c-format
@@ -1369,7 +1369,7 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:869
 msgid "Vehicle '%' will not be able to arrive at the given position!"
-msgstr ""
+msgstr "¡El vehículo '%' no podrá llegar a la posición indicada!"
 
 #: src/microsim/MSBaseVehicle.cpp:889
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
@@ -1390,13 +1390,13 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2271
 msgid "Could not interpret routing.mode '%'"
-msgstr ""
+msgstr "No se pudo interpretar el routing.mode '%'"
 
-#: src/microsim/MSBaseVehicle.h:944
+#: src/microsim/MSBaseVehicle.h:947
 msgid "getLeader not yet implemented for meso"
 msgstr "getLeader aún no está implementado para la simulación mesoscópica"
 
-#: src/microsim/MSBaseVehicle.h:958
+#: src/microsim/MSBaseVehicle.h:961
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower aún no está implementado para la simulación mesoscópica"
 
@@ -1487,6 +1487,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:132
 msgid "Save the positions in emission output using geo-coordinates (lon/lat)"
 msgstr ""
+"Guardar las posiciones en la salida de emisiones utilizando coordenadas "
+"geográficas (lon/lat)"
 
 #: src/microsim/MSFrame.cpp:135
 msgid ""
@@ -1496,7 +1498,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:137
 msgid "List attributes that should be included in the emission output"
-msgstr ""
+msgstr "Enumerar los atributos que deben incluirse en la salida de emisión"
 
 #: src/microsim/MSFrame.cpp:140
 msgid "Save the battery values of each vehicle"
@@ -1516,7 +1518,7 @@ msgstr "Escribir los valores elecHybrid con la precisión dada (por defecto 2)"
 
 #: src/microsim/MSFrame.cpp:149
 msgid "Write elecHybrid values into one aggregated file"
-msgstr ""
+msgstr "Guardar los valores elecHybrid en un archivo agregado"
 
 #: src/microsim/MSFrame.cpp:152
 msgid "Write data of charging stations"
@@ -1576,7 +1578,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:179
 msgid "List attributes that should be included in the FCD output"
-msgstr ""
+msgstr "Enumerar los atributos que deben incluirse en la salida FCD"
 
 #: src/microsim/MSFrame.cpp:181
 msgid "List shape names that should be used to filter the FCD output"
@@ -1586,24 +1588,30 @@ msgstr ""
 msgid ""
 "Restrict SSM device output to the edge selection from the given input file"
 msgstr ""
+"Restringir la salida del dispositivo SSM a la selección de aristas del "
+"archivo de entrada dado"
 
 #: src/microsim/MSFrame.cpp:187
 msgid "Save a lot of information for each timestep (very redundant)"
 msgstr ""
+"Guardar mucha información para cada instante de tiempo (muy redundante)"
 
 #: src/microsim/MSFrame.cpp:190
 msgid "Save the vehicle queues at the junctions (experimental)"
-msgstr ""
+msgstr "Guardar las filas de vehículos en los cruces (experimental)"
 
 #: src/microsim/MSFrame.cpp:192
 msgid "Save vehicle queues with the given period"
-msgstr ""
+msgstr "Guardar filas de vehículos con el periodo dado"
 
 #: src/microsim/MSFrame.cpp:195
 msgid ""
 "Save complete vehicle positions inclusive speed values in the VTK Format "
 "(usage: /path/out will produce /path/out_$TIMESTEP$.vtp files)"
 msgstr ""
+"Guardar posiciones completas del vehículo, incluidos los valores de "
+"velocidad, en el formato VTK (uso: /path/out producirá archivos /path/"
+"out_$TIMESTEP$.vtp)"
 
 #: src/microsim/MSFrame.cpp:197
 msgid "Save the vehicle trajectories in the Amitran format"
@@ -1773,7 +1781,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:323
 msgid "Use TIME[] as times at which a network state written"
-msgstr ""
+msgstr "Usar TIME[] como momentos en los cuales guardar el estado de red"
 
 #: src/microsim/MSFrame.cpp:325
 msgid "save state repeatedly after TIME period"
@@ -2415,7 +2423,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:711
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr ""
+msgstr "Habilitar semáforo mesoscópico y manejo de cruces prioritarios"
 
 #: src/microsim/MSFrame.cpp:725
 msgid "Enable mesoscopic overtaking"
@@ -2548,6 +2556,8 @@ msgid ""
 "option movereminder-output.vehicles requires option movereminder-output to "
 "be set"
 msgstr ""
+"La opción movereminder-output.vehicles requiere que se configure la opción "
+"movereminder-output"
 
 #: src/microsim/MSFrame.cpp:940
 msgid ""
@@ -2664,7 +2674,7 @@ msgstr "El vehículo '%' se inserta en una situación de emergencia."
 
 #: src/microsim/MSLane.cpp:802
 msgid "Vehicle '%' will not be able to depart using the given velocity (%)!"
-msgstr ""
+msgstr "¡El vehículo '%' no podrá partir utilizando la velocidad indicada (%)!"
 
 #: src/microsim/MSLane.cpp:818
 msgid ""
@@ -2676,6 +2686,8 @@ msgid ""
 "Vehicle '%' is inserted too fast and will violate the speed limit on a lane "
 "'%'."
 msgstr ""
+"El vehículo '%' se inserta demasiado rápido y violará el límite de velocidad "
+"en el carril '%'."
 
 #: src/microsim/MSLane.cpp:1082
 msgid ""
@@ -2707,21 +2719,27 @@ msgstr ""
 
 #: src/microsim/MSLane.cpp:2057
 msgid "Removing % participants: vehicle '%', vehicle '%"
-msgstr ""
+msgstr "Eliminando % participantes: vehículo '%', vehículo '%'"
 
 #: src/microsim/MSLane.cpp:2070
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr ""
+"Manteniendo % participantes controlados a distancia: vehículo '%', vehículo "
+"'%'"
 
 #: src/microsim/MSLane.cpp:2072
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr ""
+"Eliminando participante %: vehículo '%', manteniendo el vehículo controlado "
+"remotamente '%'"
 
 #: src/microsim/MSLane.cpp:2075
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr ""
+"Manteniendo el participante controlado remotamente: vehículo '%', eliminando "
+"vehículo '%'"
 
 #: src/microsim/MSLane.cpp:2086
 msgid ", latGap="
@@ -2816,58 +2834,58 @@ msgstr ""
 msgid "Simulation version % started with time: %."
 msgstr "Versión de simulación % iniciada con tiempo: %."
 
-#: src/microsim/MSNet.cpp:675
-msgid "Simulation ended at time: %."
-msgstr ""
-
 #: src/microsim/MSNet.cpp:677
-msgid "Reason: "
-msgstr ""
+msgid "Simulation ended at time: %."
+msgstr "La simulación finalizó en el tiempo: %."
 
-#: src/microsim/MSNet.cpp:931
-msgid "The final simulation step has been reached."
-msgstr ""
+#: src/microsim/MSNet.cpp:679
+msgid "Reason: "
+msgstr "Razón: "
 
 #: src/microsim/MSNet.cpp:933
-msgid "All vehicles have left the simulation."
-msgstr ""
+msgid "The final simulation step has been reached."
+msgstr "Se ha llegado al paso final de la simulación."
 
 #: src/microsim/MSNet.cpp:935
+msgid "All vehicles have left the simulation."
+msgstr "Todos los vehículos han abandonado la simulación."
+
+#: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:937
-msgid "An error occurred (see log)."
-msgstr ""
-
 #: src/microsim/MSNet.cpp:939
-msgid "Interrupted."
-msgstr ""
+msgid "An error occurred (see log)."
+msgstr "Se produjo un error (ver registro)."
 
 #: src/microsim/MSNet.cpp:941
+msgid "Interrupted."
+msgstr "Interrumpido."
+
+#: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:943
+#: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:945
+#: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
-msgstr ""
+msgstr "Razón desconocida."
 
-#: src/microsim/MSNet.cpp:1474
+#: src/microsim/MSNet.cpp:1476
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1614 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1616 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:236 src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
 msgstr "La carga de % falló."
 
-#: src/microsim/MSNet.cpp:1634
+#: src/microsim/MSNet.cpp:1636
 #, c-format
 msgid "Loading state from '%' failed."
 msgstr "Error al cargar el estado desde '%'."
@@ -2969,7 +2987,7 @@ msgid ""
 msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:806
-#: src/microsim/transportables/MSTransportable.cpp:393
+#: src/microsim/transportables/MSTransportable.cpp:416
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr ""
@@ -3411,7 +3429,7 @@ msgstr ""
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
 msgstr "Valor booleano '%' no válido para el parámetro '%' en el vehículo '%'."
 
-#: src/microsim/devices/MSDevice.cpp:235
+#: src/microsim/devices/MSDevice.cpp:236
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
 msgstr ""
 "Valor de tiempo '%' no válido para el parámetro '%' en el vehículo '%'."
@@ -4234,7 +4252,7 @@ msgstr ""
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr "El parámetro '%' no es soportado por el dispositivo de tipo '%'"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:84
+#: src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
@@ -4242,35 +4260,35 @@ msgstr ""
 "El algoritmo de despacho [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:87
+#: src/microsim/devices/MSDevice_Taxi.cpp:88
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr "Escribir información del algoritmo de despacho en FILE"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:90
+#: src/microsim/devices/MSDevice_Taxi.cpp:91
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr ""
 "Cargar parámetros del algoritmo de despacho en formato KEY1:VALUE1[,KEY2:"
 "VALUE]"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:93
+#: src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The period between successive calls to the dispatcher"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:96
+#: src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "The behavior of idle taxis [stop|randomCircling]"
 msgstr "El comportamiento de los taxis inactivos [stop|randomCircling]"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:99
+#: src/microsim/devices/MSDevice_Taxi.cpp:100
 msgid "Write information from the idling algorithm to FILE"
 msgstr "Escribir información del algoritmo de inactividad en FILE"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:117
+#: src/microsim/devices/MSDevice_Taxi.cpp:118
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
 "El vehículo '%' con dispositivo device.taxi debería tener la clase de "
 "vehículo taxi en lugar de '%'."
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:124
+#: src/microsim/devices/MSDevice_Taxi.cpp:126
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
@@ -4278,30 +4296,30 @@ msgstr ""
 "El vehículo '%' con personCapacity % y containerCapacity % no se puede "
 "utilizar como taxi."
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:149
+#: src/microsim/devices/MSDevice_Taxi.cpp:151
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
 msgstr "El algoritmo de despacho '%' no es conocido"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:347
+#: src/microsim/devices/MSDevice_Taxi.cpp:366
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:380
+#: src/microsim/devices/MSDevice_Taxi.cpp:399
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:493
+#: src/microsim/devices/MSDevice_Taxi.cpp:512
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr ""
 "No se pudo agregar la parada de taxi para el vehículo '%' a %. tiempo=% "
 "error=%."
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:702
+#: src/microsim/devices/MSDevice_Taxi.cpp:721
 msgid "Taxi '%' reaches scheduled end of service at time=%."
 msgstr "El taxi '%' llega al final del servicio programado en el tiempo=%."
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:775
+#: src/microsim/devices/MSDevice_Taxi.cpp:794
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr ""
@@ -4529,8 +4547,7 @@ msgstr ""
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
-"Which part of the person plan is to be replaced (stage, sequence, trip, "
-"stop, or plan)"
+"Which part of the person plan is to be replaced (stage, sequence, or trip)"
 msgstr ""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
@@ -5003,8 +5020,8 @@ msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr ""
 "Teletransportando % '%'; esperó demasiado, desde la arista '%', tiempo =%."
 
-#: src/microsim/transportables/MSTransportable.cpp:469
-msgid "parkingAreaReroute not support for containers"
+#: src/microsim/transportables/MSTransportable.cpp:492
+msgid "parkingAreaReroute not supported for containers"
 msgstr ""
 
 #: src/microsim/transportables/MSTransportableControl.cpp:75
@@ -7790,16 +7807,22 @@ msgid ""
 "Required field '%' or '%' is missing (add fields or set option --shapefile."
 "use-defaults-on-failure)."
 msgstr ""
+"Falta el campo obligatorio '%' o '%' (agregue el campo o configure la opción "
+"--shapefile.use-defaults-on-failure)."
 
 #: src/netimport/NIImporter_ArcView.cpp:249
 msgid ""
 "Road geometry must be of type 'linestring' or 'linestring25D' (found '%')"
 msgstr ""
+"La geometría de carretera debe ser de tipo 'linestring' o "
+"'linestring25D' (se encontró '%')"
 
 #: src/netimport/NIImporter_ArcView.cpp:261
 #: src/polyconvert/PCLoaderArcView.cpp:90
 msgid "No coordinate system found and coordinates look already projected."
 msgstr ""
+"No se encontró ningún sistema de coordenadas y las coordenadas parecen ya "
+"proyectadas."
 
 #: src/netimport/NIImporter_ArcView.cpp:264
 #: src/polyconvert/PCLoaderArcView.cpp:93
@@ -7864,6 +7887,8 @@ msgstr "Cargando nombres de las calles"
 #: src/netimport/NIImporter_DlrNavteq.cpp:95
 msgid "Output will not contain street names because the file '%' was not found"
 msgstr ""
+"La salida no contendrá los nombres de las calles porque no se encontró el "
+"archivo '%'"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:100
 msgid "Loading edges"
@@ -7887,11 +7912,11 @@ msgstr "Cargando restricciones de tiempo"
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:210
 msgid "Non-numerical value for intermediate status in node %."
-msgstr ""
+msgstr "Valor no numérico para el estado intermedio en el nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:215
 msgid "Non-numerical value for number of geometries in node %."
-msgstr ""
+msgstr "Valor no numérico para el número de geometrías en el nodo %."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:222
 msgid "Non-numerical value for x-position in node %."
@@ -7917,7 +7942,7 @@ msgstr "No se pudo agregar el nodo '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:299
 msgid "Missing version string in file '%'."
-msgstr ""
+msgstr "Falta la cadena de versión en el archivo '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:309
 msgid "Non-numerical value for form_of_way of link '%'."
@@ -7933,11 +7958,11 @@ msgstr "Valor no numérico de street_type del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:351
 msgid "Non-numerical value for the SPEED_RESTRICTION of link '%'."
-msgstr ""
+msgstr "Valor no numérico para SPEED_RESTRICTION del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:366
 msgid "Non-numerical value for the number of lanes of link '%'."
-msgstr ""
+msgstr "Valor no numérico para el número de carriles del enlace '%'."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:420
 #: src/netimport/NIImporter_OpenDrive.cpp:549
@@ -8070,7 +8095,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenDrive.cpp:221
 msgid "Could not find signal reference '%'."
-msgstr ""
+msgstr "No se pudo encontrar la referencia de señal '%'."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:285
 #: src/netimport/NIImporter_OpenDrive.cpp:323
@@ -8163,6 +8188,8 @@ msgstr "No se pudo encontrar el nodo '%'."
 #: src/netimport/NIImporter_OpenDrive.cpp:1533
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr ""
+"Geometría no coincidente para la arista '%' entre los segmentos de geometría "
+"% y %."
 
 #: src/netimport/NIImporter_OpenDrive.cpp:1714
 #, c-format
@@ -8427,6 +8454,8 @@ msgstr ""
 msgid ""
 "PT line in relation % with no stops ignored. Probably OSM file is incomplete."
 msgstr ""
+"Se ignora la línea de transporte público sin paradas en la relación %. El "
+"archivo OSM está probablemente incompleto."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2134
 msgid "Ignoring duplicate PT line '%'."
@@ -8577,7 +8606,7 @@ msgstr "El cruce '%' aparece al menos dos veces en el archivo de entrada."
 
 #: src/netimport/NIImporter_SUMO.cpp:851
 msgid "Invalid lane index '%' for connection from '%'."
-msgstr ""
+msgstr "Índice de carril no válido '%' para la conexión desde '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:941
 msgid "Definition of tl-logic '%' was not finished."
@@ -8877,11 +8906,13 @@ msgstr ""
 
 #: src/netimport/NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
-msgstr ""
+msgstr "Número de carril no válido (arista '%')."
 
 #: src/netimport/NINavTeqHelper.cpp:94
 msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
+"Se produjo un valor no numérico para el número de carriles en una arista "
+"(arista '%')."
 
 #: src/netimport/NITypeLoader.cpp:62
 msgid "Could not open %-file '%'."
@@ -8938,7 +8969,7 @@ msgstr "La arista '%' no toca el nodo '%'."
 #: src/netimport/NIXMLConnectionsHandler.cpp:385
 #, c-format
 msgid "Crossing at controlled node '%' must be prioritized"
-msgstr ""
+msgstr "El paso peatonal en el cruce controlado '%' debe ser priorizado"
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:390
 msgid "Unable to project shape for crossing at node '%'."
@@ -8946,16 +8977,16 @@ msgstr "No se pudo proyectar la forma para el paso peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:403
 msgid "Crossing with edges '%' already exists at node '%'."
-msgstr ""
+msgstr "Paso peatonal con aristas '%' ya existe en el cruce '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:435
 msgid "No edges specified for walkingArea at node '%'."
-msgstr ""
+msgstr "No hay aristas especificadas para el área peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:441
 #, c-format
 msgid "Edge '%' for walkingArea at node '%' is not known."
-msgstr ""
+msgstr "No se conoce la arista '%' para el área peatonal en el nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:467
 msgid "Unable to project shape for walkingArea at node '%'."
@@ -8964,6 +8995,8 @@ msgstr "No se pudo proyectar la forma para el área peatonal en el nodo '%'."
 #: src/netimport/NIXMLEdgesHandler.cpp:222
 msgid "Duplicate edge id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Se produjo un ID de arista duplicado ('%'); asumiendo que se desea "
+"sobrescribir."
 
 #: src/netimport/NIXMLEdgesHandler.cpp:227
 #, c-format
@@ -9075,6 +9108,8 @@ msgstr "Arista '%' para el acceso a la parada '%' no encontrada"
 #: src/netimport/NIXMLPTHandler.cpp:234
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
 msgstr ""
+"Se produjo un ID duplicado de línea de transporte público ptLine ('%'); "
+"asumiendo que se desea sobrescribir."
 
 #: src/netimport/NIXMLPTHandler.cpp:275
 msgid "Found route outside line definition"
@@ -9114,7 +9149,7 @@ msgstr ""
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:331
 msgid "Invalid lane index '%' for edge '%'."
-msgstr ""
+msgstr "Índice de carril no válido '%' para la arista '%'."
 
 #: src/netimport/NIXMLTypesHandler.cpp:85
 msgid "Invalid lane spread type '%'. Using default 'right'"
@@ -9154,6 +9189,8 @@ msgid ""
 "No streams assigned at district'%'.\n"
 " Using default speed 200km/h"
 msgstr ""
+"No hay flujos asignados en el distrito'%'.\n"
+" Usando la velocidad predeterminada de 200 km/h"
 
 #: src/netimport/vissim/tempstructs/NIVissimDistrictConnection.cpp:377
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:526
@@ -9351,7 +9388,7 @@ msgstr "Carga finalizada."
 
 #: src/netload/NLBuilder.cpp:395
 msgid "Wrong number of state file names!"
-msgstr ""
+msgstr "¡Número incorrecto de nombres de archivos de estado!"
 
 #: src/netload/NLBuilder.cpp:430
 msgid "Loading % from '%'"
@@ -9373,10 +9410,12 @@ msgid ""
 "The netstate type 'hbefa' is deprecated. Please use the type 'emissions' "
 "instead."
 msgstr ""
+"El tipo de estado de red 'hbefa' está obsoleto. Utilice el tipo 'emissions' "
+"en su lugar."
 
 #: src/netload/NLEdgeControlBuilder.cpp:199
 msgid "Asymmetrical neigh lane '%' for lane '%'"
-msgstr ""
+msgstr "Carril vecino asimétrico '%' para el carril '%'"
 
 #: src/netload/NLEdgeControlBuilder.cpp:218
 #, c-format
@@ -9564,6 +9603,7 @@ msgstr "No se pudieron construir semáforos."
 msgid ""
 "% edges of the primary network did not occur in the alternative-net-file"
 msgstr ""
+"% aristas de la red principal no aparecen en el archivo alternativo de red"
 
 #: src/netload/NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
@@ -9571,15 +9611,15 @@ msgstr "Los vaporizers son obsoletos. Use rerouters en su lugar."
 
 #: src/netload/NLTriggerBuilder.cpp:84
 msgid "Unknown edge ('%') referenced in a vaporizer."
-msgstr ""
+msgstr "Arista desconocida ('%') referenciada en un vaporizador."
 
 #: src/netload/NLTriggerBuilder.cpp:93
 msgid "A vaporization begin time is negative (edge id='%')."
-msgstr ""
+msgstr "Un tiempo de inicio de vaporización es negativo (ID de arista='%')."
 
 #: src/netload/NLTriggerBuilder.cpp:97
 msgid "A vaporization ends before it starts (edge id='%')."
-msgstr ""
+msgstr "Una vaporización termina antes de haber iniciado (ID de arista='%')."
 
 #: src/netload/NLTriggerBuilder.cpp:199
 msgid ""
@@ -10546,7 +10586,7 @@ msgstr ""
 msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr ""
 
-#: src/router/ROLoader.cpp:282 src/utils/common/MsgHandler.cpp:195
+#: src/router/ROLoader.cpp:282
 msgid "failed."
 msgstr "falló."
 
@@ -11014,12 +11054,16 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
-msgid "done (%ms)."
-msgstr "hecho (%ms)."
+msgid " done (%ms)."
+msgstr " terminado (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:192
-msgid "done."
-msgstr "terminado."
+msgid " done."
+msgstr " terminado."
+
+#: src/utils/common/MsgHandler.cpp:195
+msgid " failed."
+msgstr " falló."
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
@@ -12205,6 +12249,13 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "Se produjo un error no especificado al analizar '%'"
+
+#, c-format
+#~ msgid "done (%ms)."
+#~ msgstr "hecho (%ms)."
+
+#~ msgid "done."
+#~ msgstr "terminado."
 
 #~ msgid "Unable to project coordinates for PoI '%'."
 #~ msgstr "No se pueden proyectar coordenadas para el punto de interés '%'."

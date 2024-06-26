@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2022-10-12 11:05+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -14655,16 +14655,22 @@ msgstr ""
 msgid "Dynamic"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:116
-msgid "Unknown object in GUISelectedStorage::select (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:203
+msgid "Could not open '%'.\n"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:133
-msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:221
+msgid "Ignoring item '%' because of invalid type %\n"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:150
-msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:229
+#, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:236
+#, c-format
+msgid "% objects ignored, % objects not found\n"
 msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74

@@ -173,7 +173,7 @@ the offsets given).
 
 ### Building Defaults
 
-See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#Node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
+See the [docs](Networks/PlainXML.md) for more info on [junction types](Networks/PlainXML.md#node_types) and [edge types](Networks/PlainXML.md#type_descriptions).
 
 | Option | Description |
 |--------|-------------|

@@ -69,7 +69,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Routing in the Simulation](Demand/Automatic_Routing.md)
 - [Computing Dynamic User Assignment](Demand/Dynamic_User_Assignment.md)
 - [Generating pedestrian traffic demand](Simulation/Pedestrians.md#generating_pedestrian_demand)
-- [Generate a vehicle type distribution to model the fleet](Tools/Misc.md#createvehtypedistributionspy)
+- [Generate a vehicle type distribution to model the fleet](Tools/Misc.md#createvehtypedistributionpy)
 
 ### Data sources for demand generation
 

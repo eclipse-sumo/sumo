@@ -278,7 +278,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         double lastPos = -1;
         stops = getStopEdges(firstPos, lastPos, jumps);
         if (stops.size() > 0) {
-            const double sourcePos = onInit ? 0 : getPositionOnLane();
+            double sourcePos = onInit ? 0 : getPositionOnLane();
+            if (MSGlobals::gUseMesoSim && isStopped()) {
+                sourcePos = getNextStop().pars.endPos;
+            }
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos && (
@@ -1273,7 +1276,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             }
 #ifdef DEBUG_ADD_STOP
             if (DEBUG_COND) {
-                std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " index=" << (int)(prevStopEdge - myRoute->begin())
+                std::cout << " (@end) prevStopEdge=" << (*prevStopEdge)->getID() << " prevStopPos=" << prevStopPos << " index=" << (int)(prevStopEdge - myRoute->begin())
                           << " foundIndex=" << (stop.edge == myRoute->end() ? -1 : (int)(stop.edge - myRoute->begin())) << "\n";
             }
 #endif
@@ -1476,15 +1479,6 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
                 }
                 ok = false;
             } else {
-                if (it != stop.edge) {
-                    double brakeGap = i == 0 ? getBrakeGap() : 0;
-                    if (endPos >= lastPos + brakeGap) {
-                        if (!silent) {
-                            WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                                          + toString(it - myCurrEdge) + " edges " + err);
-                        }
-                    }
-                }
                 start = stop.edge;
             }
         }

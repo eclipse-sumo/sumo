@@ -283,7 +283,7 @@ protected:
 #endif
 
 private:
-    std::map<SUMOTrafficObject*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    std::map<long long int, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
 
 
 private:

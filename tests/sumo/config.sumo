@@ -9,6 +9,7 @@ copy_test_path:three_split.net.xml
 copy_test_path:motorway.net.xml
 copy_test_path:lefthand.net.xml
 copy_test_path:input_routes.rou.xml
+copy_test_path:input_routes.rou.xml.gz
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_routes3.rou.xml
 copy_test_path:input_additional.add.xml

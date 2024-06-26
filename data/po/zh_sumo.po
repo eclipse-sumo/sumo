@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2024-04-19 06:39+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -1305,11 +1305,11 @@ msgstr "忽略有当前路线车辆超出边缘"
 msgid "Could not interpret routing.mode '%'"
 msgstr "无法解释路由模式（routing.mode） '%'"
 
-#: src/microsim/MSBaseVehicle.h:944
+#: src/microsim/MSBaseVehicle.h:947
 msgid "getLeader not yet implemented for meso"
 msgstr "getLeader还没有在meso实现"
 
-#: src/microsim/MSBaseVehicle.h:958
+#: src/microsim/MSBaseVehicle.h:961
 msgid "getFollower not yet implemented for meso"
 msgstr "getFollower还没有在meso实现"
 
@@ -2652,58 +2652,58 @@ msgstr "仅在使用內部车道进行仿真时,才可以使用选项 weights.se
 msgid "Simulation version % started with time: %."
 msgstr "仿真版本%开始时间：%。"
 
-#: src/microsim/MSNet.cpp:675
+#: src/microsim/MSNet.cpp:677
 msgid "Simulation ended at time: %."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:677
+#: src/microsim/MSNet.cpp:679
 msgid "Reason: "
 msgstr ""
 
-#: src/microsim/MSNet.cpp:931
+#: src/microsim/MSNet.cpp:933
 msgid "The final simulation step has been reached."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:933
+#: src/microsim/MSNet.cpp:935
 msgid "All vehicles have left the simulation."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:935
+#: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:937
+#: src/microsim/MSNet.cpp:939
 msgid "An error occurred (see log)."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:939
+#: src/microsim/MSNet.cpp:941
 msgid "Interrupted."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:941
+#: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:943
+#: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:945
+#: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
 msgstr ""
 
-#: src/microsim/MSNet.cpp:1474
+#: src/microsim/MSNet.cpp:1476
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr "TraCI和Triggers不能使用路径算法'%'，使用'astar'代替。"
 
-#: src/microsim/MSNet.cpp:1614 src/netload/NLBuilder.cpp:432
+#: src/microsim/MSNet.cpp:1616 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:236 src/tools/emissionsDrivingCycle_main.cpp:221
 #, c-format
 msgid "Loading of % failed."
 msgstr "加载%失败。"
 
-#: src/microsim/MSNet.cpp:1634
+#: src/microsim/MSNet.cpp:1636
 #, c-format
 msgid "Loading state from '%' failed."
 msgstr "从'%'载入状态失败。"
@@ -2803,7 +2803,7 @@ msgid ""
 msgstr "无法将车辆 '%' 的车辆停靠点合并到隐式定义的路径中 '%'"
 
 #: src/microsim/MSRouteHandler.cpp:806
-#: src/microsim/transportables/MSTransportable.cpp:393
+#: src/microsim/transportables/MSTransportable.cpp:416
 msgid ""
 "Person '%' receives type '%' which implicitly uses unsuitable vClass '%'."
 msgstr "人'%'收到类型'%'，隐含地使用不合适的vClass'%'。"
@@ -3234,7 +3234,7 @@ msgstr "车辆 '%' 的参数 '%' 的分布或浮点值无效。"
 msgid "Invalid boolean value '%' for parameter '%' in vehicle '%'."
 msgstr "车辆 '%' 的参数 '%' 的布尔值无效。"
 
-#: src/microsim/devices/MSDevice.cpp:235
+#: src/microsim/devices/MSDevice.cpp:236
 msgid "Invalid time value '%' for parameter '%' in vehicle '%'."
 msgstr "车辆 '%' 的参数 '%' 的时间值无效。"
 
@@ -3982,65 +3982,65 @@ msgstr ""
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:84
+#: src/microsim/devices/MSDevice_Taxi.cpp:85
 msgid ""
 "The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|"
 "traci]"
 msgstr "調度演算法 [greedy|greedyClosest|greedyShared|routeExtension|traci]"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:87
+#: src/microsim/devices/MSDevice_Taxi.cpp:88
 msgid "Write information from the dispatch algorithm to FILE"
 msgstr "将调度算法的信息写到文档中"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:90
+#: src/microsim/devices/MSDevice_Taxi.cpp:91
 msgid "Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"
 msgstr "以 KEY1:VALUE1[,KEY2:VALUE] 的格式载入调度演算法的参数"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:93
+#: src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The period between successive calls to the dispatcher"
 msgstr "逐次呼叫调度器之间的时间间隔"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:96
+#: src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "The behavior of idle taxis [stop|randomCircling]"
 msgstr "无载客出租车的行为[停车|巡游揽客]"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:99
+#: src/microsim/devices/MSDevice_Taxi.cpp:100
 msgid "Write information from the idling algorithm to FILE"
 msgstr "将空置算法的信息写入文档中"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:117
+#: src/microsim/devices/MSDevice_Taxi.cpp:118
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
 "带有device.taxi的车辆'%'应该有车辆类别（vClass ）出租车（taxi）而不是'%'。"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:124
+#: src/microsim/devices/MSDevice_Taxi.cpp:126
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
 msgstr "车辆'%'的人员载量%和货箱容量%不能作为出租车使用。"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:149
+#: src/microsim/devices/MSDevice_Taxi.cpp:151
 #, c-format
 msgid "Dispatch algorithm '%' is not known"
 msgstr "调度算法'%'不详"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:347
+#: src/microsim/devices/MSDevice_Taxi.cpp:366
 msgid "Invalid Re-dispatch for existing customer '%' with a new reservation"
 msgstr "现有客戶   '%' 新预约的重新派送(re-dispatch)无效"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:380
+#: src/microsim/devices/MSDevice_Taxi.cpp:399
 msgid "Re-dispatch did not mention pickup for existing customer '%'"
 msgstr "重新派送未提及接取现有客户'%'"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:493
+#: src/microsim/devices/MSDevice_Taxi.cpp:512
 msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 msgstr "无法为车辆'%'添加出租车停靠点至%。时间=% 错误=%。"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:702
+#: src/microsim/devices/MSDevice_Taxi.cpp:721
 msgid "Taxi '%' reaches scheduled end of service at time=%."
 msgstr "出租车'%'在时间=%时达到预定的服务终点。"
 
-#: src/microsim/devices/MSDevice_Taxi.cpp:775
+#: src/microsim/devices/MSDevice_Taxi.cpp:794
 msgid ""
 "All customers left vehicle '%' at time=% but there are % remaining stops"
 msgstr "所有客户在时间=%时离开车辆'%'，但还有%的剩余站点"
@@ -4261,8 +4261,7 @@ msgstr "该人应改道的期间"
 
 #: src/microsim/devices/MSTransportableDevice_Routing.cpp:54
 msgid ""
-"Which part of the person plan is to be replaced (stage, sequence, trip, "
-"stop, or plan)"
+"Which part of the person plan is to be replaced (stage, sequence, or trip)"
 msgstr ""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
@@ -4766,8 +4765,8 @@ msgstr "不允许更换可运输的ID"
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
 msgstr "移送(teleporting) % '%； 等待太久，从路段 '%', 时间=%。"
 
-#: src/microsim/transportables/MSTransportable.cpp:469
-msgid "parkingAreaReroute not support for containers"
+#: src/microsim/transportables/MSTransportable.cpp:492
+msgid "parkingAreaReroute not supported for containers"
 msgstr "停车区域重新引导(parkingAreaReroute)不支持货柜"
 
 #: src/microsim/transportables/MSTransportableControl.cpp:75
@@ -10138,7 +10137,7 @@ msgstr "在时间步长 % 和 % 之间找到的路径。"
 msgid "The loader for % from file '%' could not be initialised (%)."
 msgstr "% 的载入器(位于文件 '%' 中)无法进行初始化 (%)。"
 
-#: src/router/ROLoader.cpp:282 src/utils/common/MsgHandler.cpp:195
+#: src/router/ROLoader.cpp:282
 msgid "failed."
 msgstr "失败。"
 
@@ -10591,12 +10590,16 @@ msgstr "无法转换地理位置, 因为路网沒有地理参考系统(geo-refer
 
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
-msgid "done (%ms)."
-msgstr "完成 (%毫秒)。"
+msgid " done (%ms)."
+msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:192
-msgid "done."
-msgstr "完成。"
+msgid " done."
+msgstr ""
+
+#: src/utils/common/MsgHandler.cpp:195
+msgid " failed."
+msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
@@ -11761,6 +11764,13 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "当解析'%'时,发生未指定的错误"
+
+#, c-format
+#~ msgid "done (%ms)."
+#~ msgstr "完成 (%毫秒)。"
+
+#~ msgid "done."
+#~ msgstr "完成。"
 
 #~ msgid "Unable to project coordinates for PoI '%'."
 #~ msgstr "无法投影兴趣点(PoI) '%' 的坐标。"

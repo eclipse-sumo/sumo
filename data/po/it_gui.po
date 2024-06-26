@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2024-06-19 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -15189,17 +15189,23 @@ msgstr "Valore"
 msgid "Dynamic"
 msgstr "Dinamico"
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:116
-msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr "Oggetto sconosciuto in GUISelectedStorage::select (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:203
+msgid "Could not open '%'.\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:133
-msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr "Oggetto sconosciuto in GUISelectedStorage::deselect (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:221
+msgid "Ignoring item '%' because of invalid type %\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:150
-msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr "Oggetto sconosciuto in GUISelectedStorage::toggleSelection (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:229
+#, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:236
+#, c-format
+msgid "% objects ignored, % objects not found\n"
+msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
@@ -16853,6 +16859,15 @@ msgstr "(nessuna proiezione definita)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "Non è stato possibile convertire le coordinate in %."
+
+#~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
+#~ msgstr "Oggetto sconosciuto in GUISelectedStorage::select (id=%)."
+
+#~ msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
+#~ msgstr "Oggetto sconosciuto in GUISelectedStorage::deselect (id=%)."
+
+#~ msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
+#~ msgstr "Oggetto sconosciuto in GUISelectedStorage::toggleSelection (id=%)."
 
 #~ msgid "Only one edge must be inspected"
 #~ msgstr "Un arco solo deve essere ispezionato"

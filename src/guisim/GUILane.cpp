@@ -1056,8 +1056,8 @@ GUILane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& view) {
     ret->mkItem(TL("type"), false, myLaneType);
     ret->mkItem(TL("priority"), false, myEdge->getPriority());
     ret->mkItem(TL("distance [km]"), false, myEdge->getDistance() / 1000);
-    ret->mkItem(TL("allowed vehicle class"), false, getVehicleClassNames(myPermissions));
-    ret->mkItem(TL("disallowed vehicle class"), false, getVehicleClassNames(~myPermissions));
+    ret->mkItem(TL("allowed vehicle class"), false, StringUtils::wrapText(getVehicleClassNames(myPermissions), 60));
+    ret->mkItem(TL("disallowed vehicle class"), false, StringUtils::wrapText(getVehicleClassNames(~myPermissions), 60));
     ret->mkItem(TL("permission code"), false, myPermissions);
     ret->mkItem(TL("color value"), true, new FunctionBinding<GUILane, double>(this, &GUILane::getColorValueForTracker));
     if (myBidiLane != nullptr) {

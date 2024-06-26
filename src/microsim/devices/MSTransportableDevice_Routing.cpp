@@ -78,7 +78,8 @@ MSTransportableDevice_Routing::MSTransportableDevice_Routing(MSTransportable& ho
     const OptionsCont& oc = OptionsCont::getOptions();
     myScope = getStringParam(holder, oc, "rerouting.scope", oc.getString("person-device.rerouting.scope"));
     // no need for initial routing here, personTrips trigger it themselves
-    MSNet::getInstance()->getInsertionEvents()->addEvent(new WrappingCommand<MSTransportableDevice_Routing>(this, &MSTransportableDevice_Routing::wrappedRerouteCommandExecute), SIMSTEP + period);
+    myRerouteCommand = new WrappingCommand<MSTransportableDevice_Routing>(this, &MSTransportableDevice_Routing::wrappedRerouteCommandExecute);
+    MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, SIMSTEP + period);
     // the event will deschedule and destroy itself so it does not need to be stored
 }
 

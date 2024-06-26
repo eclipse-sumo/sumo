@@ -52,7 +52,7 @@ title: ChangeLog
   - Button "center" in "locate additional" dialog is working again #14986 (regression in 1.20.0)
   - Selecting lanes and edges via context menu is working again #14965 (regression in 1.20.0)
   - Inspected trips show the route again #14964 (regression in 1.20.0)
-  - Selection rectangle now consides element locks again. #15010 (regression in 1.20.0)
+  - Selection rectangle now considers element locks again. #15010 (regression in 1.20.0)
   - TazRelations can be inspected again #15019 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948

@@ -414,10 +414,6 @@ Warning: Choosing new speed factor 1.44 for vehicle 'flowA.99' to match departur
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.97' to match departure speed 20.00 (max 12.13).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.98' to match departure speed 20.00 (max 14.80).
 Warning: Choosing new speed factor 1.44 for vehicle 'flowB.99' to match departure speed 20.00 (max 11.51).
-Warning: Vehicle 'flowA.20' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.21' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.22' will not be able to arrive at the given lane 'Edge2_0'!
-Warning: Vehicle 'flowA.23' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.24' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.25' will not be able to arrive at the given lane 'Edge2_0'!
 Warning: Vehicle 'flowA.26' will not be able to arrive at the given lane 'Edge2_0'!

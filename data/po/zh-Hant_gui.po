@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -14727,17 +14727,23 @@ msgstr "值"
 msgid "Dynamic"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:116
-msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr "在GUISelectedStorage::select (id=%)內的未知物件。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:203
+msgid "Could not open '%'.\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:133
-msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr "在GUISelectedStorage::deselect (id=%)內的未知物件。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:221
+msgid "Ignoring item '%' because of invalid type %\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:150
-msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr "在GUISelectedStorage::toggleSelection (id=%)內的未知物件。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:229
+#, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:236
+#, c-format
+msgid "% objects ignored, % objects not found\n"
+msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
@@ -16385,6 +16391,15 @@ msgstr "投影方式未定義"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "無法將座標轉換為%單位。"
+
+#~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
+#~ msgstr "在GUISelectedStorage::select (id=%)內的未知物件。"
+
+#~ msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
+#~ msgstr "在GUISelectedStorage::deselect (id=%)內的未知物件。"
+
+#~ msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
+#~ msgstr "在GUISelectedStorage::toggleSelection (id=%)內的未知物件。"
 
 #~ msgid "Only one edge must be inspected"
 #~ msgstr "僅有一個路段必須被檢視"

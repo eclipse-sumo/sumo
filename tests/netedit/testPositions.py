@@ -121,7 +121,7 @@ class elements:
     class additionals:
 
         class busStop:
-            x = 344 
+            x = 344
             y = 204
 
         class trainStop:
@@ -154,21 +154,21 @@ class elements:
 
         class shapeA:
             x = 304
-            y = 133  
+            y = 133
 
         class shapeB:
             x = 459
-            y = 133  
+            y = 133
 
         class shapeC:
             x = 650
-            y = 133 
+            y = 133
 
         class shapeD:
             x = 650
-            y = 233             
+            y = 233
 
-        shapeSize = 200                                                               
+        shapeSize = 200
 
     # demand elements (for inspect, delete, etc.)
     class demands:
@@ -210,7 +210,7 @@ class elements:
             y = 409
 
         class container:
-            x = 161 
+            x = 161
             y = 476
 
         class vehicleEdge:
@@ -226,9 +226,9 @@ class elements:
             y = 230
 
         class person:
-            x = 161 
+            x = 161
             y = 474
-                        
+
         class stopEdgeX:
             x = 256
             y = 35

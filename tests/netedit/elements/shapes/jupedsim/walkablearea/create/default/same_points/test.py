@@ -32,13 +32,11 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("jps.walkableArea")
+netedit.changeElement("jupedsim.walkable_area")
 
 # create polygon with default values
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
-
-# create polygon clicking in the same points
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
 "PO-Revision-Date: 2024-03-12 10:13+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -14723,17 +14723,23 @@ msgstr "值"
 msgid "Dynamic"
 msgstr "动态"
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:116
-msgid "Unknown object in GUISelectedStorage::select (id=%)."
-msgstr "GUISelectedStorage::select(id=%)中的未知对象。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:203
+msgid "Could not open '%'.\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:133
-msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
-msgstr "GUISelectedStorage::deselect (id=%)中的未知对象。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:221
+msgid "Ignoring item '%' because of invalid type %\n"
+msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:150
-msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
-msgstr "GUISelectedStorage::toggleSelection（id=%）中的未知对象。"
+#: src/utils/gui/div/GUISelectedStorage.cpp:229
+#, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:236
+#, c-format
+msgid "% objects ignored, % objects not found\n"
+msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
@@ -16381,6 +16387,15 @@ msgstr "(未定義投影方式)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "无法转换以%为单位的坐标。"
+
+#~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
+#~ msgstr "GUISelectedStorage::select(id=%)中的未知对象。"
+
+#~ msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
+#~ msgstr "GUISelectedStorage::deselect (id=%)中的未知对象。"
+
+#~ msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
+#~ msgstr "GUISelectedStorage::toggleSelection（id=%）中的未知对象。"
 
 #~ msgid "Only one edge must be inspected"
 #~ msgstr "只有一路段必须被检查"

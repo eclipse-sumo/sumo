@@ -35,12 +35,14 @@ netedit.shapeMode()
 netedit.changeElement("jps.obstacle")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x, netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
+                  netedit.positions.elements.additionals.shapeA.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.jpsObstacle.inspect.parameters, False)

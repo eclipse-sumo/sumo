@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-06-25 08:39+0200\n"
-"PO-Revision-Date: 2024-06-03 07:55+0000\n"
-"Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
+"POT-Creation-Date: 2024-06-25 18:49+0200\n"
+"PO-Revision-Date: 2024-06-25 16:54+0000\n"
+"Last-Translator: Michael Behrisch <oss@behrisch.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
 "gui-netedit/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2229 src/gui/GUIApplicationWindow.cpp:2230
@@ -854,19 +854,19 @@ msgstr "'%' geladen."
 
 #: src/gui/GUIApplicationWindow.cpp:2042
 msgid "Simulation ended at time: %. (%)"
-msgstr "Simulation zur Zeit % (%) beendet"
+msgstr "Simulation zur Zeit % beendet. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2045
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "Simulation zur Zeit % beendet."
 
 #: src/gui/GUIApplicationWindow.cpp:2046
 msgid "Reason:"
-msgstr ""
+msgstr "Grund:"
 
 #: src/gui/GUIApplicationWindow.cpp:2047
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "Alle Dateien und Ansichten schließen?"
 
 #: src/gui/GUIApplicationWindow.cpp:2048
 msgid "Simulation ended"
@@ -15177,47 +15177,47 @@ msgstr " Zeit"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:71
 msgid "edge"
-msgstr ""
+msgstr "Kante"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:73
 msgid "junction"
-msgstr ""
+msgstr "Knotenpunkt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:74
 msgid "vehicle"
-msgstr ""
+msgstr "Fahrzeug"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:75
 msgid "person"
-msgstr ""
+msgstr "Person"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
-msgstr ""
+msgstr "LSA-Logik"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
-msgstr ""
+msgstr "Bushaltepunkt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:78
 msgid "trainStop"
-msgstr ""
+msgstr "Zughaltepunkt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:79
 msgid "containerStop"
-msgstr ""
+msgstr "Containerhalt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:80
 msgid "chargingStation"
-msgstr ""
+msgstr "Ladestation"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:81
 msgid "overheadWireSegment"
-msgstr ""
+msgstr "Oberleitungsabschnitt"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:82
 msgid "parkingArea"
-msgstr ""
+msgstr "Parkplatz"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:76
 msgid "Name"
@@ -15231,16 +15231,22 @@ msgstr "Wert"
 msgid "Dynamic"
 msgstr "Dynamisch"
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:116
-msgid "Unknown object in GUISelectedStorage::select (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:203
+msgid "Could not open '%'.\n"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:133
-msgid "Unknown object in GUISelectedStorage::deselect (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:221
+msgid "Ignoring item '%' because of invalid type %\n"
 msgstr ""
 
-#: src/utils/gui/div/GUISelectedStorage.cpp:150
-msgid "Unknown object in GUISelectedStorage::toggleSelection (id=%)."
+#: src/utils/gui/div/GUISelectedStorage.cpp:229
+#, c-format
+msgid "Item '%' not found\n"
+msgstr ""
+
+#: src/utils/gui/div/GUISelectedStorage.cpp:236
+#, c-format
+msgid "% objects ignored, % objects not found\n"
 msgstr ""
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
