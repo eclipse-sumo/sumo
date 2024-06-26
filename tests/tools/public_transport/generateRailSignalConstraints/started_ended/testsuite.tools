@@ -12,3 +12,6 @@ simple_oldStyle
 
 # with a train that is scheduled to wait for 3 others and is waited on by 3 more (ended replaces until)
 3stops_oldStyle
+
+# stops with started/ended should never be marked invalid
+repeat3_noabort
