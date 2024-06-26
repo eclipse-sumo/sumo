@@ -42,7 +42,7 @@ consumption.
 ## Model Parameters
 
 MMPEVEM shares a lot of SUMO's
-[native electric vehicle parameters](Electric.md#defining-electric-vehicles) and
+[native electric vehicle parameters](Electric.md#defining_electric_vehicles) and
 introduces only a couple of new ones. You can find exemplary vehicle type
 definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
@@ -68,7 +68,7 @@ definitions at `{SUMO_HOME}/data/emissions/MMPEVEM`[^1].
 
 [^1]: For the sake of compatibility, the XMLs in
   `{SUMO_HOME}/data/emissions/MMPEVEM` contain all
-  [native electric vehicle parameters](Electric.md#defining-electric-vehicles).
+  [native electric vehicle parameters](Electric.md#defining_electric_vehicles).
 [^2]: All operating points result in a power loss of 0 W in the default map.
 
 

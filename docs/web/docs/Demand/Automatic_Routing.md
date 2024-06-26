@@ -89,7 +89,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [sumo-gui](../sumo-gui.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)

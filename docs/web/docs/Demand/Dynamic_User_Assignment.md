@@ -83,7 +83,7 @@ routes by a configurable algorithm described below.
 ## Route-Choice algorithm
 
 The two methods which are implemented are called
-[Gawron](../Publications.md#traffic_assignment) and
+[Gawron](../Publications.md#publications_using_sumo) and
 [Logit](https://en.wikipedia.org/wiki/Discrete_choice) in the following.
 The input for each of the methods is a weight or cost function \(w\) on
 the edges of the net, coming from the simulation or default costs (in
