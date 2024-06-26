@@ -14,6 +14,6 @@ time: 10.0
 time: 30.0
    parking.rerouteCount : 1
    parking.memory.IDList : parkA0A1 parkA1A2 parkA2A3 parkB1B2 parkC2C3
-   parking.memory.score : 1.00  occupied 0.98 0.98
+   parking.memory.score : 1.00  occupied 0.68 0.69
    parking.memory.blockedAtTime : -0.00 11.00 18.00 -0.00 -0.00
    parking.memory.blockedAtTimeLocal : -0.00 11.00 18.00 -0.00 -0.00

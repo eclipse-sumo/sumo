@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-16 14:50:34 by Eclipse SUMO sumo Version v1_10_0+2325-f0a137e
+<!-- generated on 2024-06-26 13:46:44 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -27,12 +32,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -51,8 +55,8 @@ SPDX-License-Identifier: EPL-2.0
 
     <vehicle id="egoVeh" depart="triggered" arrival="508.00">
         <routeDistribution>
-            <route replacedOnEdge="C0C1" reason="rr1:parkingAreaReroute" replacedAtTime="9.00" probability="0" edges="C0C1 C1C2 C2B2 B2A2 A2A3 A3B3 B3C3 C3C2 C2C3"/>
-            <route edges="C0C1 C1B1 B1A1 A1A2 A2A3 A3B3 B3C3 C3C2 C2C3"/>
+            <route replacedOnEdge="C0C1" reason="rr1:parkingAreaReroute" replacedAtTime="9.00" probability="0" edges="C0C1 C1C2 C2B2 B2A2 A2A3 A3B3 B3B2 B2C2 C2C3"/>
+            <route edges="C0C1 C1B1 B1A1 A1A2 A2A3 A3B3 B3B2 B2C2 C2C3"/>
         </routeDistribution>
         <stop parkingArea="parkA1A2" duration="10.00" triggered="person"/>
         <stop parkingArea="parkA2A3" duration="10.00"/>
