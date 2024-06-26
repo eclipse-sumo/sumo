@@ -605,6 +605,9 @@ MSFrame::fillOptions() {
     oc.doRegister("weights.tls-penalty", new Option_Float(0));
     oc.addDescription("weights.tls-penalty", "Routing", TL("Apply scaled travel time penalties based on green split when computing minimum routing costs for internal lanes at traffic lights"));
 
+    oc.doRegister("weights.turnaround-penalty", new Option_Float(5.0));
+    oc.addDescription("weights.turnaround-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for turnaround internal lanes"));
+
     oc.doRegister("weights.priority-factor", new Option_Float(0));
     oc.addDescription("weights.priority-factor", "Routing", TL("Consider edge priorities in addition to travel times, weighted by factor"));
 
@@ -1110,6 +1113,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gEmergencyDecelWarningThreshold = oc.getFloat("emergencydecel.warning-threshold");
     MSGlobals::gMinorPenalty = oc.getFloat("weights.minor-penalty");
     MSGlobals::gTLSPenalty = oc.getFloat("weights.tls-penalty");
+    MSGlobals::gTurnaroundPenalty = oc.getFloat("weights.turnaround-penalty");
 
     MSGlobals::gModelParkingManoeuver = oc.getBool("parking.maneuver");
 

@@ -152,6 +152,8 @@ public:
     static double gMinorPenalty;
     /// scaled (minimum) time penalty for passing a tls link when routing
     static double gTLSPenalty;
+    /// (minimum) time penalty for passing a turnaround link when routing
+    static double gTurnaroundPenalty;
 
     /// whether parking simulation includes manoeuver time and any associated lane blocking
     static bool gModelParkingManoeuver;

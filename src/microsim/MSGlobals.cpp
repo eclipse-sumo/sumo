@@ -83,6 +83,7 @@ double MSGlobals::gEmergencyDecelWarningThreshold(1);
 
 double MSGlobals::gMinorPenalty(0);
 double MSGlobals::gTLSPenalty(0);
+double MSGlobals::gTurnaroundPenalty(0);
 
 bool MSGlobals::gModelParkingManoeuver;
 
