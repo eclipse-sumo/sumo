@@ -1410,7 +1410,7 @@ MSVehicle::getRerouteOrigin() const {
         return myCurrEdge + 1;
     }
     if (myLane != nullptr) {
-        return myLane->isInternal() ? myCurrEdge + 1 : myCurrEdge;
+        return myLane->isInternal() || myLane->getEdge().hasChangeProhibitions(getVClass(), myLane->getIndex()) ? myCurrEdge + 1 : myCurrEdge;
     }
     return myCurrEdge;
 }

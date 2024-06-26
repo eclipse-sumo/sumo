@@ -1299,6 +1299,20 @@ MSEdge::hasMinorLink() const {
     return false;
 }
 
+bool
+MSEdge::hasChangeProhibitions(SUMOVehicleClass svc, int index) const {
+    if (myLanes->size() == 1) {
+        return false;
+    }
+    for (const MSLane* const l : *myLanes) {
+        if (l->getIndex() <= index && !l->allowsChangingRight(svc) && l->getIndex() > 0) {
+            return true;
+        } else if (l->getIndex() >= index && !l->allowsChangingLeft(svc) && l->getIndex() < (myLanes->size() - 1)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void
 MSEdge::checkAndRegisterBiDirEdge(const std::string& bidiID) {
