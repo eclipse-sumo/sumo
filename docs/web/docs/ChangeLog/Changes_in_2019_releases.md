@@ -9,13 +9,13 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 - Simulation
   - Fixed crash when setting a negative value for option **--device.rerouting.pre-period** Issue #6012
   - Avoiding unnecessary rerouting while trips and flows are delayed from insertion. Issue #6013
-  - Lanechange reason is now written in lanechange-output when using the [simple continuous lanechange model](../Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #6014
+  - Lanechange reason is now written in lanechange-output when using the [simple continuous lane-change model](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #6014
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
   - Fixed invalid cooperative speed adjustment in sublane model. Issues #6266, #6267
   - Fixed crash related to parkingAreaReroute. Issue #6283
   - Fixed startup delay in railway simulation when begin time is set to a high value. Issue #6321
   - Fixed invalid state file names when using human-readable times. Issue #6365
-  - Fixed invalid energy usage (battery parameters ignored) in emission-ouput, full-output, tripinfo-output and edgeData-emissions. Issue #6364, #6359
+  - Fixed invalid energy usage (battery parameters ignored) in emission-output, full-output, tripinfo-output and edgeData-emissions. Issue #6364, #6359
 
 - netedit
   - Fixed crash when defining walks between disconnected locations. Issue #5369
@@ -290,7 +290,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 - Simulation
   - Added junction model parameter *jmDriveAfterYellowTime* to configure driving at yellow behavior. Issue #5474
   - calibrators now accept attribute *vTypes* to restrict their application (insertion/removal) to selected vehicle types. Issue #3082
-  - Vehicle [`<stops>`s](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) now support the optional attributes tripId and line to track the current state when serving a cyclical public transport route. Issue #5280, Issue #5514
+  - Vehicle [`<stops>`s](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints) now support the optional attributes tripId and line to track the current state when serving a cyclical public transport route. Issue #5280, Issue #5514
   - Added vehicle class *rail_fast* to model [High-Speed-Rail](https://en.wikipedia.org/wiki/High-speed_rail) Issue #5525
   - Netstate-output now includes attribute *speedLat* when using a [model for lateral dynamics](../Simulation/SublaneModel.md). Issue #5636
   - Pedestrians now switch to *jam resolving* behavior earlier when jammed on a pedestrian crossing. The time threshold can be configured with the new option **--pedestrian.striping.jamtime.crossing** {{DT_TIME}} (default 10s) Issue #5662
@@ -364,10 +364,10 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
     only night-service lines are exported. Issue #5548
   - Improving UTF8 support for xml2csv.py and csv2xml.py. Issue #5538, Issue #5588
   - Added a new tool
-    [generateTurnRatios.py](../Tools/Misc.md#generateturnratiospy)
+    [generateTurnRatios.py](../Tools/Turns.md#generateturnratiospy)
     for generating turning ratios according to a given route file. Issue #1666
   - The option cost modifier in
-    [duaIterate.py](../Tools/Assign.md#dua-iteratepy) is
+    [duaIterate.py](../Tools/Assign.md#duaiteratepy) is
     removed, since it is used for specific projects. Ticket #5594 is open
     to check the respective content for publication and to extend
     the cost modifier function.
@@ -455,7 +455,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - netedit
   - *split junction* is now working reliably in intermodal networks. Issue #4999
-  - Fixed crash when [copying edge template](../Netedit/index.md#edge_template) with lane-specific attributes. Issue #5005
+  - Fixed crash when copying edge template with lane-specific attributes. Issue #5005
   - Fixed index of created lanes when adding restricted lanes with context menu. This is partly a regression fix and partly an improvement over the earlier behavior. Issue #5006
   - Inspection contour now works correctly for spread bidirectional rail edges. Issue #5064
   - Now showing correct edge length when using *endOffset*. Issue #5066
@@ -534,7 +534,7 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
 
 - sumo-gui
   - Major improvement in rendering speed
-  - Can [now load edge-data](../sumo-gui.md#newer_versions) ([edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [marouter-output](../marouter.md#macroscopic_outputs.md), [randomTrips-weights](../Tools/Trip.md#customized_weights)) for visualization (time-varying edge colors). Issue #4916
+  - Can [now load edge-data](../sumo-gui.md#loading_data) ([edgeData-output](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [marouter-output](../marouter.md#macroscopic_outputs), [randomTrips-weights](../Tools/Trip.md#customized_weights)) for visualization (time-varying edge colors). Issue #4916
   - The current phase index can now optionally be shown for traffic-light controlled junctions. If a name was set for the current phase it is shown as well. Issue #4927
   - The current lane-changing state is now included in the vehicle parameter dialog. Issue #5038
   - Reloading is now disabled while running as TraCI-server. Issue #5052
@@ -552,12 +552,12 @@ title: Changes in the 2019 releases (versions 1.2.0, 1.3.0, 1.3.1 and 1.4.0)
     - railSignal state indicator is now drawn with an offset to indicate the applicable track direction. Issue #5070
     - Junction shapes are now longer drawn for railway switches at default GUI settings. Issue #1655
     - Drawing bidirectional railways in *spread* style is now supported. Edge IDs are also drawn at an offset to improve readability.
-    - The visual length of railway carriages and locomotive [can now be configured](../Simulation/Railways.md#visualisation). Issue #1233
+    - The visual length of railway carriages and locomotive [can now be configured](../Simulation/Railways.md#visualization). Issue #1233
 
 - netconvert
   - Improved junction joining heuristic to prevent superfluous joins. Issue #4987
   - [OpenDrive road objects](../Networks/Import/OpenDRIVE.md#road_objects) can now be imported Issue #4646
-  - Road objects can now be embedded when [generating OpenDRIVE output](../Networks/Further_Outputs.md#embedding_road_objects).
+  - Road objects can now be embedded when [generating OpenDRIVE output](../Networks/Further_Outputs.md#opendrive_road_objects).
   - Attribute *endOffset* can now be used to move the signal position for bidirectional rail edges. Issue #5063
   - Minimum phase duration for actuated traffic lights now takes road speed into account to improve traffic light efficiency. Issue #5127
   - all `<node>`-attributes are now also supported within a `<join>` element to affect the joined node. Issue #1982

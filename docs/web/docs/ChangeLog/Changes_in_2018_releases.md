@@ -427,7 +427,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     vType attributes from option **--trip-attributes** when generating persons.
   - Removed singularities at the distribution boundaries generated
     by
-    [createVehTypeDistributions.py](../Tools/Misc.md#createvehtypedistributionspy) Issue #4193
+    [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy) Issue #4193
 
 
 ### Enhancements
@@ -660,7 +660,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     which allows plotting various combinations of time, distance,
     speed and acceleration for all trajectories in a given **--fcd-output** file.
   - added script
-    [averageRuns.py](../Tools/Misc.md#averagerunspy) for
+    [averageRuns.py](../Tools/Misc.md#averagetripstatisticspy) for
     running a scenario multiple times with different random seeds
     and computing trip statistics
   - webWizard now correctly builds regions with left-hand traffic Issue #3928
@@ -668,7 +668,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     [generateTLSE3Detectors.py](../Tools/Output.md#generatetlse3detectorspy)
     that make it suitable for generating various kind of junction
     related output. Issue #1622
-  - [createVehTypeDistributions.py](../Tools/Misc.md#createvehtypedistributionspy)
+  - [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy)
     now also allows to generate vehicle parameter distributions. Issue #4171
   - Added function simpla.createGap() Issue #4172
   - sumolib now supports lane.getWidth(). Issue #3842
@@ -683,8 +683,8 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
 - Documentation
   - Added [documentation on joined traffic lights and defining
     signal groups](../Simulation/Traffic_Lights.md).
-  - Added [documentation on the simple continous lane-change
-    model](../Simulation/SublaneModel.md#simple_continous_lane-change_model).
+  - Added [documentation on the simple continuous lane-change
+    model](../Simulation/SublaneModel.md#simple_continuous_lane-change_model).
   - Documented all supported [routing
     algorithms](../Simulation/Routing.md#routing_algorithms).
 
