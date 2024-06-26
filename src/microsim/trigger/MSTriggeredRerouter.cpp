@@ -59,7 +59,6 @@
 #include <mesosim/MESegment.h>
 
 //#define DEBUG_REROUTER
-//#define DEBUG_PARKING
 #define DEBUGCOND (veh.isSelected())
 //#define DEBUGCOND (true)
 //#define DEBUGCOND (veh.getID() == "")

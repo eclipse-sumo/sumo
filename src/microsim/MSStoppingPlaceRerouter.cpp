@@ -16,7 +16,7 @@
 /// @date    Mon, 17 June 2024
 ///
 // The StoppingPlaceRerouter provides an interface to structure the rerouting
-// to the best StoppingPlace according to the evaluation criteria and
+// to the best StoppingPlace according to the evaluation components and
 // associated weights.
 /****************************************************************************/
 #pragma once
@@ -31,6 +31,8 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSStoppingPlaceRerouter.h"
 
+//#define DEBUG_STOPPINGPLACE
+#define DEBUGCOND (veh.isSelected())
 
 
 ///@brief Constructor
@@ -85,6 +87,12 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                     rememberBlockedStoppingPlace(veh, stoppingPlace.first, &stoppingPlace.first->getLane().getEdge() == veh.getEdge());
                 }
             }
+#ifdef DEBUG_STOPPINGPLACE
+            if (DEBUGCOND) {
+                //std::cout << SIMTIME << " << " veh=" << veh.getID()
+                //    << " dest=" << (destStoppingPlace == nullptr)? "null" : destStoppingPlace->getID() << " stopAnywhere=" << stopAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " stay on original route\n";
+            }
+#endif
         }
     } else {
         double bestDist = std::numeric_limits<double>::max();
@@ -107,6 +115,12 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 }
             }
         }
+#ifdef DEBUG_STOPPINGPLACE
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " veh=" << veh.getID()
+                      << " dest=" << (destStoppingPlace == nullptr) ? "null" : destStoppingPlace->getID() << " stopAnywhere=" << stopAnywhere << " parkingReroutes=" << veh.getNumberParkingReroutes() << " alongTheWay=" << Named::getIDSecure(onTheWay) << "\n";
+        }
+#endif
     }
     if (!destVisible && onTheWay == nullptr) {
         return nullptr;
@@ -118,6 +132,15 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
         newDestination = (destStoppingPlace != nullptr && &destStoppingPlace->getLane().getEdge() == route.getLastEdge()
                           && veh.getArrivalPos() >= destStoppingPlace->getBeginLanePosition()
                           && veh.getArrivalPos() <= destStoppingPlace->getEndLanePosition());
+
+#ifdef DEBUG_STOPPINGPLACE
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " veh=" << veh.getID()
+                      << " newDest=" << newDestination
+                      << " onTheWay=" << Named::getIDSecure(onTheWay)
+                      << "\n";
+        }
+#endif
 
         std::map<MSStoppingPlace*, ConstMSEdgeVector> newRoutes;
         std::map<MSStoppingPlace*, ConstMSEdgeVector> stopApproaches;
@@ -173,6 +196,11 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                     // assume it's still occupied
                     occupancy = capacity;
                     blockedTimes.push_back(std::make_tuple(blockedTime, stoppingPlaceCandidates[i].first, i));
+#ifdef DEBUG_STOPPINGPLACE
+                    if (DEBUGCOND) {
+                        std::cout << "    altStoppingPlace=" << stoppingPlaceCandidates[i].first->getID() << " was blocked at " << time2string(blockedTime) << "\n";
+                    }
+#endif
                 }
             }
             if (occupancy < getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first)) {
@@ -210,6 +238,11 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 // prefering one or the other based on estimated occupancy
                 double occupancy = RandHelper::rand(getStoppingPlaceCapacity(sp));
                 if (evaluateDestination(veh, brakeGap, newDestination, sp, occupancy, prob, router, stoppingPlaces, newRoutes, stopApproaches, maxValues)) {
+#ifdef DEBUG_STOPPINGPLACE
+                    if (DEBUGCOND) {
+                        std::cout << "    altStoppingPlace=" << sp->getID() << " targeting occupied stopping place based on blockTime " << STEPS2TIME(std::get<0>(item)) << " among " << blockedTimes.size() << " alternatives\n";
+                    }
+#endif
                     numAlternatives = 1;
                     break;
                 }
@@ -236,6 +269,11 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                          );
                 for (auto item : candidates) {
                     if (evaluateDestination(veh, brakeGap, newDestination, item.second, 0, 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues)) {
+#ifdef DEBUG_STOPPINGPLACE
+                        if (DEBUGCOND) {
+                            std::cout << "    altStoppingPlace=" << item.second->getID() << " targeting occupied stopping place (based on pure randomness) among " << candidates.size() << " alternatives\n";
+                        }
+#endif
                         numAlternatives = 1;
                         break;
                     }
@@ -243,6 +281,12 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             }
         }
         MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
+
+#ifdef DEBUG_STOPPINGPLACE
+        if (DEBUGCOND) {
+            std::cout << "  maxValues=" << joinToString(maxValues, " ", ":") << "\n";
+        }
+#endif
 
         // minimum cost to get the parking area
         double minStoppingPlaceCost = 0.0;
@@ -300,11 +344,29 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 nearStoppingPlace = it->first;
                 newRoute = newRoutes[nearStoppingPlace];
             }
+#ifdef DEBUG_STOPPINGPLACE
+            if (DEBUGCOND) {
+                std::cout << "    altStoppingPlace=" << it->first->getID() << " score=" << stoppingPlaceCost << " vals=" << joinToString(stoppingPlaceValues, " ", ":") << "\n";
+            }
+#endif
         }
         if (myStoppingType == SUMO_TAG_PARKING_AREA) {
             veh.setNumberParkingReroutes(veh.getNumberParkingReroutes() + 1);
         }
+    } else {
+#ifdef DEBUG_STOPPINGPLACE
+        if (DEBUGCOND) {
+            std::cout << SIMTIME << " veh=" << veh.getID() << " dest=" << destStoppingPlace->getID() << " sufficient space\n";
+        }
+#endif
     }
+
+#ifdef DEBUG_STOPPINGPLACE
+    if (DEBUGCOND) {
+        std::cout << "  stoppingPlaceResult=" << Named::getIDSecure(nearStoppingPlace) << "\n";
+    }
+#endif
+
     return nearStoppingPlace;
 }
 
@@ -429,6 +491,12 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
             if (stoppingPlaceValues["timefrom"] > maxValues["timefrom"]) {
                 maxValues["timefrom"] = stoppingPlaceValues["timefrom"];
             }
+
+            // add some additional/custom target function components
+            if (!evaluateCustomComponents(veh, brakeGap, newDestination, alternative, occupancy, prob, router, stoppingPlaceValues, stoppingPlaceApproaches[alternative], newEdges, maxValues)) {
+                return false;
+            }
+
             stoppingPlaces[alternative] = stoppingPlaceValues;
             newRoutes[alternative] = newEdges;
 
@@ -441,6 +509,14 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
     }
     // unreachable
     return false;
+}
+
+
+bool
+MSStoppingPlaceRerouter::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative,
+        double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
+        ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues) {
+    return true;
 }
 
 
