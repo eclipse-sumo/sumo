@@ -7,5 +7,8 @@ ticket15077
 # negative emissions in HBEFA4
 ticket15079
 
+# deadlock with lanechange prohibition and rerouting
+ticket15098
+
 # collision
 ticket15100
