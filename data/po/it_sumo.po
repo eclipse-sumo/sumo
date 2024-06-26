@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-25 15:25+0000\n"
+"PO-Revision-Date: 2024-06-26 10:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -402,7 +402,7 @@ msgstr "Stampa i flussi di rivelatori aggregati"
 
 #: src/dfrouter/RODFFrame.cpp:246 src/router/ROFrame.cpp:228
 msgid "Disable console output of route parsing step"
-msgstr ""
+msgstr "Disattiva uscita della lettura degli itinerari nella console"
 
 #: src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
@@ -445,26 +445,29 @@ msgstr ""
 
 #: src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
-msgstr ""
+msgstr " Non ho potuto creare un elenco dei flussi anteriori."
 
 #: src/dfrouter/RODFNet.cpp:504
 msgid " Could not build list of latter flows."
-msgstr ""
+msgstr " Non ho potuto creare un elenco degli ultimi flussi."
 
 #: src/dfrouter/RODFNet.cpp:591
 msgid "Removed detector '%' because no flows for him exist."
 msgstr ""
+"Il rivelatore '%' è stato rimosso perché non ci sono flussi al suo riguardo."
 
 #: src/dfrouter/RODFNet.cpp:614
 #, c-format
 msgid "Detector '%' has no flow."
-msgstr ""
+msgstr "Il rivelatore '%' non ha alcun flusso."
 
 #: src/dfrouter/RODFNet.cpp:693
 #, c-format
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
+"Uscita dal processo di associare il rivelatore '%' a un'origine per causa "
+"della soglia di archi visti."
 
 #: src/dfrouter/RODFNet.cpp:790
 #, c-format
@@ -472,6 +475,8 @@ msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Uscita dal processo di associare il rivelatore '%' a una destinazione per "
+"causa della soglia di archi visti."
 
 #: src/dfrouter/RODFNet.cpp:864
 #, c-format
@@ -479,14 +484,20 @@ msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Uscita dal processo di associare il rivelatore '%' a un'origine sbagliata "
+"per causa della soglia di archi visti."
 
 #: src/dfrouter/RODFNet.cpp:997
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
 msgstr ""
+"Il fattore di velocità medio per PKW (autovettura) è % mentre quello massimo "
+"è %."
 
 #: src/dfrouter/RODFNet.cpp:1001
 msgid "Average speedFactor for LKW is % maximum speedFactor is %."
 msgstr ""
+"Il fattore di velocità medio per LKW (autocarro) è % mentre quello massimo è "
+"%."
 
 #: src/dfrouter/dfrouter_main.cpp:70
 msgid "No detector file given (use --detector-files <FILE>)."
