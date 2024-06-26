@@ -46,3 +46,6 @@ on_ramp
 
 # see #14866
 swapped_edges
+
+# see #15103
+angled_merge
