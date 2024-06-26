@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-08 13:18:46 by Eclipse SUMO sumo Version v1_17_0+0835-aca5534
+<!-- generated on 2024-06-26 13:47:13 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -46,11 +46,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.taxi.idle-algorithm value="taxistand"/>
     </taxi_device>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <person id="p0" depart="0.00" arrival="209.00">
+    <person id="p0" depart="0.00" arrival="213.00">
         <ride from="B2C2" to="A0B0" arrivalPos="287.60" lines="taxi"/>
     </person>
 
@@ -65,11 +65,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <vehicle id="trip_1" type="taxi" depart="0.00">
         <routeDistribution>
             <route replacedOnEdge="A2B2" reason="taxi:taxistand" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2"/>
-            <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2B1 B1B0 B0C0 C0B0 B0B1 B1B2 B2C2"/>
+            <route replacedOnEdge="A2B2" reason="taxi:prepare_dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2B1 B1B0 B0C0 C0C1 C1B1 B1B2 B2C2"/>
             <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 A0B0"/>
-            <route replacedOnEdge="A0B0" replacedOnIndex="6" reason="taxi:taxistand" replacedAtTime="210.00" probability="0" edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0"/>
-            <route replacedOnEdge="B0C0" replacedOnIndex="7" reason="rr0:parkingAreaReroute" replacedAtTime="215.00" probability="0" edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0B0 B0A0 A0A1 A1A0 A0B0"/>
-            <route edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0 B0C0 C0D0 D0E0 E0E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0"/>
+            <route replacedOnEdge="A0B0" replacedOnIndex="6" reason="taxi:taxistand" replacedAtTime="214.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0"/>
+            <route replacedOnEdge="B0C0" replacedOnIndex="7" reason="rr0:parkingAreaReroute" replacedAtTime="219.00" probability="0" edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0C1 C1B1 B1A1 A1A0 A0B0"/>
+            <route edges="A2B2 B2C2 C2C1 C1B1 B1A1 A1A0 A0B0 B0C0 C0D0 D0E0 E0E1 E1E2 E2D2 D2C2 C2B2 B2A2 A2A1 A1A0 A0B0"/>
         </routeDistribution>
         <stop lane="B2C2_1" permitted="p0" actType="pickup p0 (0)"/>
         <stop lane="A0B0_1" actType="dropOff p0 (0)"/>
