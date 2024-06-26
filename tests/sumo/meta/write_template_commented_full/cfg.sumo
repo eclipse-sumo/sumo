@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-25 12:42:17 by Eclipse SUMO sumo Version v1_20_0+0787-e3785b4abcb
+<!-- generated on 2024-06-26 13:46:35 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -566,6 +566,9 @@
 
         <!-- Match positions to junctions instead of edges -->
         <mapmatch.junctions value="false" type="BOOL"/>
+
+        <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
+        <weights.turnaround-penalty value="5" type="FLOAT"/>
 
         <!-- Use FLOAT as a factor on walking speed against vehicle traffic direction -->
         <persontrip.walk-opposite-factor value="1" type="FLOAT"/>

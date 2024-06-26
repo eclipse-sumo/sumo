@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0787-e3785b4abcb
+Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -402,6 +402,9 @@ Processing Options:
                                         network
   --mapmatch.junctions                 Match positions to junctions instead of
                                         edges
+  --weights.turnaround-penalty FLOAT   Apply the given time penalty when
+                                        computing routing costs for turnaround
+                                        internal lanes
   --persontrip.walk-opposite-factor FLOAT  Use FLOAT as a factor on walking
                                         speed against vehicle traffic direction
 
