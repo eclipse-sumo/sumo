@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="bus" from="beg" to="end" line="busDirect" depart="0">
+        <stop busStop="beg_0" until="60"/>
+        <stop busStop="end_0" until="160"/>
+    </trip>
+
+    <trip id="bus2" from="beg" to="end" line="busDetour" depart="300">
+        <stop busStop="beg_0" until="360"/>
+        <stop busStop="left_0" until="460"/>
+        <stop busStop="end_0" until="560"/>
+    </trip>
+
+    <vType id="slow" vClass="pedestrian" maxSpeed="0.7"/>
+    <person id="p0" depart="0" departPos="200" type="slow">
+        <personTrip from="beg" to="end" modes="public"/>
+    </person>
+</routes>
