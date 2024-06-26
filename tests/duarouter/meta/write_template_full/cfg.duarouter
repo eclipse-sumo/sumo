@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO duarouter Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
 -->
 
 <duarouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -70,6 +70,7 @@
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand the end of the last loaded weight interval to infinity"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <weights.tls-penalty value="0" type="FLOAT" help="Apply the given time penalty when computing routing costs across a traffic light"/>
+        <weights.turnaround-penalty value="5" type="FLOAT" help="Apply the given time penalty when computing routing costs for turnaround internal lanes"/>
         <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
         <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>

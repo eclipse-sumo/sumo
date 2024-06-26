@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_20_0+0639-1b593282dad
+Eclipse SUMO marouter Version v1_20_0+0837-89657f7d4be
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes.
 
@@ -93,6 +93,9 @@ Processing Options:
   --weights.tls-penalty FLOAT        Apply the given time penalty when
                                       computing routing costs across a traffic
                                       light
+  --weights.turnaround-penalty FLOAT  Apply the given time penalty when
+                                      computing routing costs for turnaround
+                                      internal lanes
   --aggregation-interval TIME        Defines the time interval when aggregating
                                       single vehicle input; Defaults to one hour
   --capacities.default               Ignore edge priorities when calculating

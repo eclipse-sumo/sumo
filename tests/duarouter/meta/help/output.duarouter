@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_19_0+1662-cc3005420e0
+Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -116,6 +116,9 @@ Processing Options:
   --weights.tls-penalty FLOAT         Apply the given time penalty when
                                        computing routing costs across a traffic
                                        light
+  --weights.turnaround-penalty FLOAT  Apply the given time penalty when
+                                       computing routing costs for turnaround
+                                       internal lanes
   --weights.random-factor FLOAT       Edge weights for routing are dynamically
                                        disturbed by a random factor drawn
                                        uniformly from [1,FLOAT)
