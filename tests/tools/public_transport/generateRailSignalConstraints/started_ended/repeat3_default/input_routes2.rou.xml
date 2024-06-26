@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep  9 10:11:50 2020 by Eclipse SUMO duarouter Version v1_7_0+0007-9073c1719d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml.rou.xml"/>
+        <alternatives-output value="input_routes.rou.xml.rou.alt.xml"/>
+    </output>
+
+    <report>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="50.00" vClass="rail"/>
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_c" arrival="100.00" duration="30.00" until="130.00" started="100" ended="130"/>
+    </vehicle>
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
+        <route edges="d e c"/>
+        <stop busStop="stop_c" arrival="50.00" duration="30.00" until="80.00" started="50" ended="80"/>
+    </vehicle>
+    <vehicle id="t2" type="train" depart="1000.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_c" arrival="1100.00" duration="30.00" until="1130.00" started="1100" ended="1130"/>
+    </vehicle>
+    <vehicle id="t3" type="train" depart="1020.00" departSpeed="max">
+        <route edges="d e c 2a 2b 2c 3a 3b 3c"/>
+        <stop busStop="stop_c" arrival="1050.00" duration="30.00" until="1180.00" started="1050" ended="1180"/>
+        <stop busStop="stop_2c" arrival="1250.00" duration="30.00" until="1280.00" started="1250" ended="1280"/>
+        <stop busStop="stop_3c" arrival="1450.00" duration="30.00" until="1480.00"/>
+    </vehicle>
+    <vehicle id="t4" type="train" depart="2000.00" departSpeed="max">
+        <route edges="a b c"/>
+        <stop busStop="stop_c" arrival="2100.00" duration="30.00" until="2130.00"/>
+    </vehicle>
+    <vehicle id="t5" type="train" depart="2020.00" departSpeed="max">
+        <route edges="d e c"/>
+        <stop busStop="stop_c" arrival="2050.00" duration="30.00" until="2080.00"/>
+    </vehicle>
+    <vehicle id="t6" type="train" depart="2020.00" departSpeed="max">
+        <route edges="2d 2e 2c"/>
+        <stop busStop="stop_2c" arrival="2050.00" duration="30.00" until="2080.00"/>
+    </vehicle>
+    <vehicle id="t7" type="train" depart="2020.00" departSpeed="max">
+        <route edges="3d 3e 3c"/>
+        <stop busStop="stop_3c" arrival="2050.00" duration="30.00" until="2080.00"/>
+    </vehicle>
+</routes>

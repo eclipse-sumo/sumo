@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO jtrrouter Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-06-26 13:30:33 by Eclipse SUMO jtrrouter Version v1_20_0+0837-89657f7d4be
 -->
 
 <jtrrouterConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -140,6 +140,9 @@
 
         <!-- Apply the given time penalty when computing routing costs across a traffic light -->
         <weights.tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply the given time penalty when computing routing costs for turnaround internal lanes -->
+        <weights.turnaround-penalty value="5" type="FLOAT"/>
 
         <!-- Routes are cut off when the route edges to net edges ratio is larger than FLOAT -->
         <max-edges-factor value="2" type="FLOAT"/>
