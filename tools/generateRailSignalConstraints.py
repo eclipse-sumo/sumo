@@ -183,6 +183,11 @@ def get_options(args=None):
                         category="processing",
                         help="Abort generation of constraints for a stop "
                         "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
+    parser.add_argument("--abort-unordered.keep-actual",
+                        dest="abortUnorderedKeepActual", action="store_true", default=False,
+                        category="processing",
+                        help="Keep constraints for a stop with 'started' and 'ended' value even after "
+                        "the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
     parser.add_argument("--premature-threshold", category="processing", default=600, dest="prematureThreshold",
                         help="Ignore schedule if a train leaves a station ahead of schedule by " +
                         "more than the threshold value")
@@ -625,12 +630,12 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
             if not (stop.hasAttribute("arrival") and stop.hasAttribute("until")):
                 continue
 
+            started = parseTime(stop.started) if stop.hasAttribute("started") else None
             ended = parseTime(stop.ended) if stop.hasAttribute("ended") else None
             until = parseTime(stop.until)
             parking = parseBool(stop.getAttributeSecure("parking", "false"))
             if not overtaken:
                 arrival = parseTime(stop.arrival)
-                started = parseTime(stop.started) if stop.hasAttribute("started") else None
                 for edgesBefore2, stop2 in stopRoutes[stop.busStop]:
                     if stop2.vehID == stop.vehID:
                         continue
@@ -710,12 +715,17 @@ def markOvertaken(options, vehicleStopRoutes, stopRoutes):
                 #        (stop.vehID, stop.busStop,
                 #            humanReadableTime(parseTime(stop.arrival)),
                 #            humanReadableTime(parseTime(stop.until))))
-                stop.setAttribute("invalid", True)
                 if not ignored:
                     print("Vehicle %s was overtaken and starts to ignore schedule at stop %s (index %s)" %
                           (stop.vehID, stop.busStop, i),
                           file=sys.stderr)
                     ignored = True
+                if started is not None and ended is not None and options.abortUnorderedKeepActual:
+                    print("    Stop %s (index %s) has 'started' and 'ended' and will be kept." %
+                          (stop.busStop, i),
+                          file=sys.stderr)
+                else:
+                    stop.setAttribute("invalid", True)
 
             if overtaken > 0:
                 overtaken += 1
