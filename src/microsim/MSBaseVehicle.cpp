@@ -278,7 +278,10 @@ MSBaseVehicle::reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<M
         double lastPos = -1;
         stops = getStopEdges(firstPos, lastPos, jumps);
         if (stops.size() > 0) {
-            const double sourcePos = onInit ? 0 : getPositionOnLane();
+            double sourcePos = onInit ? 0 : getPositionOnLane();
+            if (MSGlobals::gUseMesoSim && isStopped()) {
+                sourcePos = getNextStop().pars.endPos;
+            }
             // avoid superfluous waypoints for first and last edge
             const bool skipFirst = stops.front() == source && (source != getEdge() || sourcePos + getBrakeGap() <= firstPos + NUMERICAL_EPS);
             const bool skipLast = stops.back() == sink && myArrivalPos >= lastPos && (

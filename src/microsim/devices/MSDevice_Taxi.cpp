@@ -333,6 +333,7 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             // parking stop must be ended normally
             MSStop& stop = myHolder.getNextStop();
             stop.duration = 0;
+            lastPos = stop.pars.endPos;
             if (myHolder.isStoppedTriggered()) {
                 stop.triggered = false;
                 stop.containerTriggered = false;
@@ -616,6 +617,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
     if (stopPos < lastPos && stopPos + NUMERICAL_EPS >= lastPos) {
         stopPos = lastPos;
     }
+    bool addedEdge = false;
 
     if (stops.empty()) {
         // check brakeGap
@@ -640,6 +642,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
             // circle back to stopEdge
             //std::cout << SIMTIME << " taxi=" << getID() << " brakeGap=" << brakeGap << " distToStop=" << distToStop << "\n";
             edges.push_back(stopEdge);
+            addedEdge = true;
         }
     }
 
@@ -656,7 +659,8 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
             return;
         }
     }
-    if (stopEdge != edges.back() || stopPos < lastPos) {
+    if (!addedEdge && (stopEdge != edges.back() || stopPos < lastPos)) {
+        //std::cout << SIMTIME << " stopPos=" << stopPos << " lastPos=" << lastPos << "\n";
         edges.push_back(stopEdge);
     }
     lastPos = stopPos;
