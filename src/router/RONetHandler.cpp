@@ -45,14 +45,15 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty) :
+RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty, double turnaroundPenalty) :
     SUMOSAXHandler("sumo-network"),
     myNet(net),
     myNetworkVersion(0, 0),
     myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty),
-    myTLSPenalty(tlsPenalty)
+    myTLSPenalty(tlsPenalty),
+    myTurnaroundPenalty(turnaroundPenalty)
 {}
 
 
@@ -326,6 +327,9 @@ RONetHandler::parseConnection(const SUMOSAXAttributes& attrs) {
         LinkState state = SUMOXMLDefinitions::LinkStates.get(attrs.get<std::string>(SUMO_ATTR_STATE, nullptr, ok));
         if (state == LINKSTATE_MINOR || state == LINKSTATE_EQUAL || state == LINKSTATE_STOP || state == LINKSTATE_ALLWAY_STOP) {
             via->setTimePenalty(myMinorPenalty);
+        }
+        if (dir == toString(LinkDirection::TURN) || dir == toString(LinkDirection::TURN_LEFTHAND)) {
+            via->setTimePenalty(myTurnaroundPenalty);
         }
         if (tlID != "") {
             via->setTimePenalty(myTLSPenalty);

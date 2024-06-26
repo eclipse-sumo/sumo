@@ -116,7 +116,8 @@ ROLoader::loadNet(RONet& toFill, ROAbstractEdgeBuilder& eb) {
     PROGRESS_BEGIN_MESSAGE(TL("Loading net"));
     RONetHandler handler(toFill, eb, !myOptions.exists("no-internal-links") || myOptions.getBool("no-internal-links"),
                          myOptions.exists("weights.minor-penalty") ? myOptions.getFloat("weights.minor-penalty") : 0,
-                         myOptions.exists("weights.tls-penalty") ? myOptions.getFloat("weights.tls-penalty") : 0);
+                         myOptions.exists("weights.tls-penalty") ? myOptions.getFloat("weights.tls-penalty") : 0,
+                         myOptions.exists("weights.turnaround-penalty") ? myOptions.getFloat("weights.turnaround-penalty") : 0);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file, true)) {
         PROGRESS_FAILED_MESSAGE();

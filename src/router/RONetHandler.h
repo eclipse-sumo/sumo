@@ -54,7 +54,7 @@ public:
      * @param[in] net The network instance to fill
      * @param[in] eb The abstract edge builder to use
      */
-    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty);
+    RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty, double tlsPenalty, double turnaroundPenalty);
 
 
     /// @brief Destructor
@@ -213,6 +213,7 @@ protected:
     /// @brief time penalty for passing a minor link
     const double myMinorPenalty;
     const double myTLSPenalty;
+    const double myTurnaroundPenalty;
 
     /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
     std::map<ROEdge*, std::string> myBidiEdges;

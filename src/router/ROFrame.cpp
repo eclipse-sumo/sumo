@@ -196,6 +196,9 @@ ROFrame::fillOptions(OptionsCont& oc, const bool isDUA, const bool isMA) {
     oc.doRegister("weights.tls-penalty", new Option_Float(0));
     oc.addDescription("weights.tls-penalty", "Processing", TL("Apply the given time penalty when computing routing costs across a traffic light"));
 
+    oc.doRegister("weights.turnaround-penalty", new Option_Float(5.0));
+    oc.addDescription("weights.turnaround-penalty", "Processing", TL("Apply the given time penalty when computing routing costs for turnaround internal lanes"));
+
     if (!isMA) {
         // register defaults options
         oc.doRegister("departlane", new Option_String());
