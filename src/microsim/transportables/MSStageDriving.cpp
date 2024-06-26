@@ -104,8 +104,6 @@ MSStageDriving::init(MSTransportable* transportable) {
         myReservationCommand = new BookReservation(transportable, earliestPickupTime, this);
         MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myReservationCommand, reservationTime);
     }
-
-
 }
 
 
@@ -248,13 +246,13 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             const int pCap = startVeh->getVehicleType().getParameter().personCapacity;
             if (startVeh->getPersonNumber() >= pCap) {
                 WRITE_WARNING(TLF("Vehicle '%' exceeds personCapacity % when placing triggered person '%', time=%",
-                            startVeh->getID(), pCap, transportable->getID(), time2string(SIMSTEP)));
+                                  startVeh->getID(), pCap, transportable->getID(), time2string(SIMSTEP)));
             }
         } else {
             const int cCap = startVeh->getVehicleType().getParameter().containerCapacity;
             if (startVeh->getContainerNumber() >= cCap) {
                 WRITE_WARNING(TLF("Vehicle '%' exceeds containerCapacity % when placing triggered container '%', time=%",
-                            startVeh->getID(), cCap, transportable->getID(), time2string(SIMSTEP)));
+                                  startVeh->getID(), cCap, transportable->getID(), time2string(SIMSTEP)));
             }
         }
         myDeparted = now;
@@ -570,6 +568,7 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
     }
 }
 
+
 void
 MSStageDriving::abort(MSTransportable* t) {
     myDestinationStop = nullptr;
@@ -585,6 +584,7 @@ MSStageDriving::abort(MSTransportable* t) {
         tc.abortWaitingForVehicle(t);
         MSDevice_Taxi::removeReservation(t, getLines(), myWaitingEdge, myWaitingPos, myDestination, getArrivalPos(), myGroup);
         myDestination = myWaitingEdge;
+        myDestinationStop = myOriginStop;
     }
 }
 
