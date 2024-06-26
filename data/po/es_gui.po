@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-24 09:02+0000\n"
+"PO-Revision-Date: 2024-06-26 07:41+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15201,21 +15201,21 @@ msgstr "Dinámico"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:203
 msgid "Could not open '%'.\n"
-msgstr ""
+msgstr "No se pudo abrir '%'.\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:221
 msgid "Ignoring item '%' because of invalid type %\n"
-msgstr ""
+msgstr "Ignorando elemento '%' debido al tipo no válido %\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:229
 #, c-format
 msgid "Item '%' not found\n"
-msgstr ""
+msgstr "Elemento '%' no encontrado\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:236
 #, c-format
 msgid "% objects ignored, % objects not found\n"
-msgstr ""
+msgstr "% objetos ignorados, % objetos no encontrados\n"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
