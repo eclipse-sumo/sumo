@@ -1307,7 +1307,7 @@ MSEdge::hasChangeProhibitions(SUMOVehicleClass svc, int index) const {
     for (const MSLane* const l : *myLanes) {
         if (l->getIndex() <= index && !l->allowsChangingRight(svc) && l->getIndex() > 0) {
             return true;
-        } else if (l->getIndex() >= index && !l->allowsChangingLeft(svc) && l->getIndex() < (myLanes->size() - 1)) {
+        } else if (l->getIndex() >= index && !l->allowsChangingLeft(svc) && l->getIndex() < (int)(myLanes->size() - 1)) {
             return true;
         }
     }
