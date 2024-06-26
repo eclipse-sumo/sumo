@@ -54,7 +54,7 @@
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="-10.00,-20.00" convBoundary="0.00,10.00,60.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="-10.00,-20.00" convBoundary="0.00,10.00,60.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":Junction1_0" function="internal">
         <lane id=":Junction1_0_0" index="0" allow="pedestrian bicycle" speed="7.75" length="13.65" width="2.00" shape="53.30,5.80 58.07,6.16 61.48,7.22 63.52,9.01 64.20,11.50"/>
