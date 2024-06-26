@@ -10,6 +10,6 @@ DijkstraRouter answered 359 queries and explored 2.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 DijkstraRouter answered 359 queries and explored 2.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
-AStarRouter answered 1 queries and explored 91.00 edges on average.
+AStarRouter answered 1 queries and explored 49.00 edges on average.
 AStarRouter spent 0.00s answering queries (0.00ms on average).
 Success.
