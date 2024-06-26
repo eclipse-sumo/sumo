@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-25 15:25+0000\n"
+"PO-Revision-Date: 2024-06-26 14:03+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2852,7 +2852,7 @@ msgstr "Todos los vehículos han abandonado la simulación."
 
 #: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
-msgstr ""
+msgstr "TraCI solicitó la terminación."
 
 #: src/microsim/MSNet.cpp:939
 msgid "An error occurred (see log)."
@@ -2864,11 +2864,11 @@ msgstr "Interrumpido."
 
 #: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
-msgstr ""
+msgstr "Demasiados teleports."
 
 #: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
-msgstr ""
+msgstr "TraCI emitió un comando de carga."
 
 #: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
@@ -4549,6 +4549,8 @@ msgstr ""
 msgid ""
 "Which part of the person plan is to be replaced (stage, sequence, or trip)"
 msgstr ""
+"Qué parte del plan de la persona se va a reemplazar (etapa, secuencia o "
+"viaje)"
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:157
 msgid "Invalid engine map type. Only \"poly\" is supported for now"
@@ -9785,6 +9787,8 @@ msgid ""
 "Builds parameterized curves whenever the angular change between straight "
 "segments exceeds FLOAT degrees"
 msgstr ""
+"Construir curvas parametrizadas siempre que el cambio angular entre "
+"segmentos rectos exceda los FLOAT grados"
 
 #: src/netwrite/NWFrame.cpp:130
 msgid "Write lanes in lefthand networks on the left side (positive indices)"
@@ -12059,7 +12063,7 @@ msgstr ""
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:269
 msgid "Undefined end for % '%', defaulting to 24hour duration."
-msgstr ""
+msgstr "Final no definido para % '%', usando duración de 24 horas."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:403
 msgid "Invalid % id '%'."
@@ -12078,6 +12082,8 @@ msgstr ""
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1189
 msgid "maneuverAngleTimes format for vType '%' % contains an invalid triplet."
 msgstr ""
+"El formato maneuverAngleTimes para el tipo de vehículo '%' % contiene un "
+"triplete no válido."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1198
 #, c-format
@@ -12085,6 +12091,8 @@ msgid ""
 "Triplet '%' for vType '%' maneuverAngleTimes cannot be parsed as 'int double "
 "double'"
 msgstr ""
+"El triplete '%' para el tipo de vehículo '%' maneuverAngleTimes no puede "
+"leerse como 'int double double'"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1224
 msgid "Unknown car-following model % when parsing vType '%'"
@@ -12118,31 +12126,38 @@ msgstr ""
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1567
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Atributo no válido del modelo de cambio de carril %. No se puede leer como "
+"float"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1584
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
+"Atributo no válido del modelo de cambio de carril %. Debe ser igual o mayor "
+"a 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1595
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Atributo no válido del modelo de cambio de carril %. Debe ser mayor a 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1606
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
+"Atributo no válido del modelo de cambio de carril %. Debe estar entre -1 y 1"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1638
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
-msgstr ""
+msgstr "Atributo no válido del modelo de cruce %. No se puede leer como float"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1647
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
+"Atributo no válido del modelo de cruce %. Sólo se permiten valores entre "
+"[0-1]"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1653
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "Atributo no válido del modelo de cruce %. Debe ser igual o mayor a 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1683
 msgid "The vehicle class '%' for % '%' is not known."
@@ -12167,6 +12182,7 @@ msgstr "Parámetro de parada no definido"
 #: src/utils/xml/CommonXMLStructure.cpp:540
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
 msgstr ""
+"Intentando obtener el atributo de tipo % indefinido '%' en SUMOBaseObject '%'"
 
 #: src/utils/xml/GenericHandler.cpp:83 src/utils/xml/GenericSAXHandler.cpp:105
 msgid "Found root element '%' in file '%' (expected '%')."
@@ -12232,7 +12248,7 @@ msgstr ""
 
 #: src/utils/xml/XMLSubSys.cpp:180
 msgid "Runtime error: % while parsing '%'"
-msgstr ""
+msgstr "Error en tiempo de ejecución: % al analizar '%'"
 
 #: src/utils/xml/XMLSubSys.cpp:182
 msgid "Error occurred: % while parsing '%'"
