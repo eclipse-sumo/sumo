@@ -166,8 +166,13 @@ void MSEdge::recalcCache() {
     } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
-            myEmptyTraveltime += MSGlobals::gMinorPenalty;
-            myTimePenalty = MSGlobals::gMinorPenalty;
+            if (link->isTurnaround()) {
+                myEmptyTraveltime += MSGlobals::gTurnaroundPenalty;
+                myTimePenalty = MSGlobals::gTurnaroundPenalty;
+            } else {
+                myEmptyTraveltime += MSGlobals::gMinorPenalty;
+                myTimePenalty = MSGlobals::gMinorPenalty;
+            }
         }
     }
 }
