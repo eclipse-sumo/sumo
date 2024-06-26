@@ -173,8 +173,6 @@ determined by source detectors alone.
   - If sink detectors measure no flow at all, all vehicles will
     drive to one (arbitrary) sink
 
-The number of will be determined by
-
 ## Generating Vehicles
 
 If flow definitions were supplied, we can let the dfrouter save the

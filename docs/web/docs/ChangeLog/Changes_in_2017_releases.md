@@ -122,7 +122,7 @@ title: Changes in the 2017 releases (versions 0.29.0, 0.30.0, 0.31.0 and 0.32.0)
       stop
   - emissionsDrivingCycle now uses the slope values from the correct
     time step when forward calculation of acceleration is enabled
-  - [generateTurnDefs.py](../Tools/Misc.md#generateturndefspy)
+  - [generateTurnDefs.py](../Tools/Turns.md#generateturndefspy)
     now writes interval information. Thanks to Srishti Dhamija for
     the patch. #3712
 
@@ -494,7 +494,7 @@ also helper scripts in preparation at [{{SUMO}}/tools/build_config]({{Source}}to
   - Emergency vehicles (`vClass="emergency"`) may always overtake on the right.
   - The default car following model can now be specified on the
     command line with **--carfollow.model**. #3142
-  - Routing with **--routing-algorithm astar** is now working efficiently when using [traffic assignment zones](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz). #3144
+  - Routing with **--routing-algorithm astar** is now working efficiently when using [traffic assignment zones](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz). #3144
   - [Lanechange-output](../Simulation/Output/Lanechange.md) now
     includes the *type* of the changing and the longitudinal gaps on
     the target lane. #3156
@@ -566,7 +566,7 @@ also helper scripts in preparation at [{{SUMO}}/tools/build_config]({{Source}}to
     scale the output network. #3351
 
 - netedit
-  - [POIs and Polygons](../Netedit/index.md#pois_and_polygons) can
+  - [POIs and Polygons](../Netedit/elementsShape.md#polygon) can
     now be defined with a new editing mode. #1667
   - Minimum and maximum phase duration for actuated traffic lights
     can now be defined. #831
@@ -588,7 +588,7 @@ also helper scripts in preparation at [{{SUMO}}/tools/build_config]({{Source}}to
 
 - duarouter
   - Routing with **--routing-algorithm astar** is now working efficiently when using [traffic
-    assignment zones](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz). #3144
+    assignment zones](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz). #3144
   - Stops on internal lanes are now supported. #3174
   - Pedestrian `<walk>`s may now be defined using attribute *route*. #3302
 
@@ -634,7 +634,7 @@ These option were used to set a scaling factor by negative powers of
 ten but now **--proj.scale** sets the scaling factor directly (the previous value
 **5** now corresponds to **1e-5**)
 - default *detector-gap* for [actuated traffic
-lights](../Simulation/Traffic_Lights.md#based_on_time_gaps) is
+lights](../Simulation/Traffic_Lights.md#type_actuated) is
 now 2.0s. #3340
 - default *minGapLat* value (used by the [sublane
 model](../Simulation/SublaneModel.md) is now 0.6m (down from
@@ -736,7 +736,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
   - Refactored implementation of [E2 detectors](../Simulation/Output/Lanearea_Detectors_(E2).md).
     These may now be defined to span over a sequence of lanes,
     XML-attribute `cont` is deprecated. #1491, #1877, #2773, #2871
-  - Added [traffic light type "delay_based"](../Simulation/Traffic_Lights.md#based_on_time_loss)
+  - Added [traffic light type "delay_based"](../Simulation/Traffic_Lights.md#type_delay_based)
     which implements an alternative algorithm to type "actuated".
   - Added option **--time-to-impatience** {{DT_TIME}} which defines the waiting time until driver
     impatience grows from 0 to 1. Formerly this was tied to the
@@ -813,7 +813,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
   - When creating or moving edge and junction geometry, positions
     can now be [restricted to a regular grid](../Netedit/index.md#background_grid) (i.e. multiples of
     100). #2776
-  - [Custom edge geometry endpoints](../Netedit/index.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
+  - [Custom edge geometry endpoints](../Netedit/neteditUsageExamples.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
     values can now be entered in inspect mode. #2012
 
 - TraCI
@@ -945,7 +945,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
   - Fixed slow operation when switching between move-mode and other
     modes in a large network.
   - Fixed slow operation when move junctions in large networks. #2699
-  - Selecting objects by [matching against attributes](../Netedit/index.md#match_attribute) now works on
+  - Selecting objects by [matching against attributes](../Netedit/editModesCommon.md#match_attribute) now works on
     windows. #2675
   - Fixed crash when setting custom geometry endpoints. #2693
   - Fixed shortcuts #2694
@@ -960,7 +960,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
   - Fixed bug that was causing interface lag when right-clicking in
     networks with detailed geometry.
   - Configuring the visualisation of generated induction loops for
-    [actuated traffic lights](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
+    [actuated traffic lights](../Simulation/Traffic_Lights.md#type_actuated)
     is now working. #2639
   - Fixed crash when coloring lanes by occupancy. #2850
 
@@ -1165,7 +1165,7 @@ model](../Simulation/SublaneModel.md) is now 0.6m (down from
 - Documentation
   - Added description of the [Object Locator](../sumo-gui.md#selecting_objects)-menu
   - Added documentation of [visualizing road access permissions](../sumo-gui.md#road_access_permissions)
-  - Added documentation of [crossings](../Netedit/index.md#crossings) in netedit
+  - Added documentation of [crossings](../Netedit/editModesNetwork.md#crossings) in netedit
   - Added documentation for the [MESO-model](../Simulation/Meso.md#model_description)
   - Extended documentation of the [sublane-model](../Simulation/SublaneModel.md)
   - Added [TraCI performance information](../TraCI.md#performance)

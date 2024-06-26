@@ -184,7 +184,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 - tools
   - cutRoutes.py: Fixed mixed usage of trainStop and busStop. Issue #8982
   - cutRoutes.py: Handles flows without end time
-  - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy)
+  - [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy)
     - Initial tripId set via vehicle param is now used. Issue #8959
     - Now using correct tripId when generating constraints for intermediate stop. Issue #8960
     - Fixed crash when there are two stops on the same edge. Issue #8958 (regression in 1.10)
@@ -312,11 +312,11 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 
 - tools
   - cutRoutes.py: Can now handle multiple additional and public transport files in input. Issue #8997
-  - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) now supports options **--comment.stop --comment.time --comment.all** for extended annotation of generated constraints. Issue #8963
+  - [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) now supports options **--comment.stop --comment.time --comment.all** for extended annotation of generated constraints. Issue #8963
   - Added tool [addTAZ.py](../Tools/Routes.md#addtazpy) for adding taz information to route files. Issue #8884
   - osmWebWizard.py now imports all bicycle lane data when building scenario with bicycle traffic. Issue #9071
   - osmWebWizard.py uses improved pedestrian routing on shared space. Issue #9100
-  - osmWebWizard.py now [avoids duplicate sidewalks](../Networks/Import/OpenStreetMap.md#sidwalks_from_osm) when building a simulation with persons. Rebuild network with **--osm.sidewalks False** to replicate the old behavior (for areas that lack OSM sidewalk data). Issue #9444
+  - osmWebWizard.py now [avoids duplicate sidewalks](../Networks/Import/OpenStreetMap.md#sidewalks_from_osm) when building a simulation with persons. Rebuild network with **--osm.sidewalks False** to replicate the old behavior (for areas that lack OSM sidewalk data). Issue #9444
   - [gridDistricts.py](../Tools/District.md#griddistrictspy) now supports option **--vclass** for filtering taz edges in multi-modal networks. Issue #9127
   - Added tool [route2OD.py](../Tools/Routes.md#route2odpy) which generates a [tazRelation-file (OD-Matrix)](../Demand/Importing_O/D_Matrices.md#tazrelation_format) from a taz-file and route-file. Issue #9117
   - Major speedup in GTFS import with [gtfs2pt](../Tools/Import/GTFS.md). Issue #9136
@@ -434,7 +434,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 - tools
   - sumolib function 'parse_fast_nested' can now (again) ignore intermediate child elements (i.e. to parse vehicle and route if the route is inside a routeDistribution element). Issue #8508 (regression in 1.9.2)
   - routeSampler.py: Fixed crashing when using **--geh-ok** or when setting more threads than intervals. Issue #8755
-  - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy)
+  - [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy)
      - Fixed crash when loading stops define by edge instead of lane. Issue #8937
      - No longer generates constraint where a train waits for itself. Issue #8935
      - Fixed invalid constraint signal id if a train reverses directly after stopping. Issue #8936
@@ -493,8 +493,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
 - tools
   - [cutRoutes.py](../Tools/Routes.md#cutroutespy) now handles vehicle attributes 'arrivalEdge' and 'departEdge'. Issue #8644
   - Added new tool [stateReplay.py](../Tools/Misc.md#statereplaypy) to visually observe a simulation that is running without gui (i.e. on a remote server).
-  - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribute 'started', 'ended'). Issue #8610
-  - [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) now generates insertionPredecessor constraint to fix the insertion order after a parking-stop. Issue #8736
+  - [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) can now make use of post-facto stop timing data (attribute 'started', 'ended'). Issue #8610
+  - [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) now generates insertionPredecessor constraint to fix the insertion order after a parking-stop. Issue #8736
   - Added netdiff.py option **--remove-plain** to automatically clean up temporary files. Issue #8712
   - [gtfs2pt.py](../Tools/Import/GTFS.md) vTypes are now written as a separated output file. The name of the file can be defined with **--vtype-output**. Issue #8646
   - Added option **--dpi** to plot_summary.py and other plotting tools. Issue #8761
@@ -767,7 +767,7 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Detectors for actuated traffic lights can now be selectively disabled by setting the special id 'NO_DETECTOR' for a lane. #7919
   - Setting vehicle attribute `arrivalLane="random"` and `"first"` is now supported. Issue #7932
   - Added new option **--collision-output** to write information on collisions to an XML file. Issue #7990.
-  - Actuated traffic lights based on detector gaps now support [custom detection gaps per lane](../Simulation/Traffic_Lights.md#lane-specific_max-gap). Issue #7997
+  - Actuated traffic lights based on detector gaps now support [custom detection gaps per lane](../Simulation/Traffic_Lights.md#lane-specific_detector_settings). Issue #7997
   - Improved computational efficiency of bluelight device. Issue #7206
   - Added option **--save-state.precision** to configure the numerical precision when saving simulation state. Issue #8115
   - busStop attribute personCapacity can now cause pedestrian jams when the busStop is filled to capacity. Issue #3706
@@ -872,8 +872,8 @@ title: Changes in the 2021 releases (versions 1.9.0, 1.9.1, 1.9.2, 1.10.0 and 1.
   - Added [new tools](../Tools/Import/GTFS.md) to support GTFS import. Issue #4596
   - The tool [gridDistricts.py](../Tools/District.md#griddistrictspy) can be used to generated a grid of districts (TAZs) for a given network. #7946
   - [netcheck.py](../Tools/Net.md#netcheckpy) now supports option **--print-types** to analyze the edge types of the different network components. Issue #8097
-  - The tool [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
-  - The tool [generateRailSignalConstraints.py](../Simulation/Railways.md#generaterailsignalconstraintspy) can now generate redundant constraints by setting option **--redundant TIME**. Issue #8456
+  - The tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) can now handle inconsistent schedule input without generating deadlocking constraints when setting option **--abort-unordered**. Issue #7436, #8246, #8278
+  - The tool [generateRailSignalConstraints.py](../Tools/Railways.md#generaterailsignalconstraintspy) can now generate redundant constraints by setting option **--redundant TIME**. Issue #8456
   - When loading additional weights in for [duaIterate.py](../Demand/Dynamic_User_Assignment.md#iterative_assignment_dynamic_user_equilibrium), the new option **--addweights.once** controls whether the weights are to be effective in every iteration or not. The new default is to apply them in every iteration whereas previously, they were applied only in the first iteration. Issue #8249
   - Added new tool [splitRandom.py](../Tools/Routes.md#splitrandompy). to split route files into random subsets. Issue #8324
   - Added new tool [changeAttribute.py](../Tools/Xml.md#changeattributepy) to add/change/remove xml attributes. Issue #8339
