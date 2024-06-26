@@ -212,6 +212,12 @@ public:
     /// @brief ask the vehicle when it has seen the stopping place
     virtual SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) = 0;
 
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    virtual int getNumberStoppingPlaceReroutes(SUMOVehicle& veh) = 0;
+
+    /// @brief update the number of reroutes for the vehicle
+    virtual void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) = 0;
+
     /// @brief read target function weights for this vehicle
     virtual StoppingPlaceParamMap_t collectWeights(SUMOVehicle& veh);
 

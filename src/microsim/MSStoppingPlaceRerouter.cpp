@@ -188,7 +188,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             double occupancy = getStoppingPlaceOccupancy(stoppingPlaceCandidates[i].first);
             if (!visible && (stoppingPlaceKnowledge == 0 || stoppingPlaceKnowledge < RandHelper::rand(veh.getRNG()))) {
                 double capacity = getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first);
-                const double minOccupancy = MIN2(capacity - NUMERICAL_EPS, (veh.getNumberParkingReroutes() * capacity / stoppingPlaceFrustration));
+                const double minOccupancy = MIN2(capacity - NUMERICAL_EPS, (getNumberStoppingPlaceReroutes(veh) * capacity / stoppingPlaceFrustration));
                 occupancy = RandHelper::rand(minOccupancy, capacity);
                 // previously visited?
                 SUMOTime blockedTime = sawBlockedStoppingPlace(veh, stoppingPlaceCandidates[i].first, false);
@@ -350,9 +350,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             }
 #endif
         }
-        if (myStoppingType == SUMO_TAG_PARKING_AREA) {
-            veh.setNumberParkingReroutes(veh.getNumberParkingReroutes() + 1);
-        }
+        setNumberStoppingPlaceReroutes(veh, getNumberStoppingPlaceReroutes(veh) + 1);
     } else {
 #ifdef DEBUG_STOPPINGPLACE
         if (DEBUGCOND) {

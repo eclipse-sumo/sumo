@@ -202,6 +202,12 @@ public:
     /// @brief get the time the ParkingArea was considered full from this vehicle
     SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local);
 
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);
+
+    /// @brief update the number of reroutes for the vehicle
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value);
+
     /// @brief search for an alternative ParkingArea
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute);

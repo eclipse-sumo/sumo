@@ -725,6 +725,18 @@ MSTriggeredRerouter::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* 
 }
 
 
+int
+MSTriggeredRerouter::getNumberStoppingPlaceReroutes(SUMOVehicle& veh) {
+    return veh.getNumberParkingReroutes();
+}
+
+
+void
+MSTriggeredRerouter::setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) {
+    veh.setNumberParkingReroutes(value);
+}
+
+
 MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) {
