@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-26 11:39+0000\n"
+"PO-Revision-Date: 2024-06-26 12:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -415,26 +415,26 @@ msgstr ""
 #: src/dfrouter/RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr ""
+msgstr " % rivelatori di origine"
 
 #: src/dfrouter/RODFNet.cpp:144
 #, c-format
 msgid " % sink detectors"
-msgstr ""
+msgstr " % rivelatori di destinazione"
 
 #: src/dfrouter/RODFNet.cpp:145
 #, c-format
 msgid " % in-between detectors"
-msgstr ""
+msgstr " % rivelatori di mezzo"
 
 #: src/dfrouter/RODFNet.cpp:146
 #, c-format
 msgid " % invalid detectors"
-msgstr ""
+msgstr " % rivelatori invalidi"
 
 #: src/dfrouter/RODFNet.cpp:281
 msgid "Could not close route for '%'"
-msgstr ""
+msgstr "Non ho potuto chiudere l'itinerario per '%'"
 
 #: src/dfrouter/RODFNet.cpp:439
 #, c-format
