@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-26 14:01:08 by Eclipse SUMO sumo Version v1_20_0+0837-89657f7d4be
+<!-- generated on 2024-06-26 16:05:58 by Eclipse SUMO sumo Version v1_20_0+0843-37d07bff3d9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,23 +45,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="bus" depart="0.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="165.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="2.19" duration="165.00" routeLength="1994.90" waitingTime="1.00" waitingCount="1" stopTime="30.00" timeLoss="27.58" rerouteNo="1" devices="tripinfo_bus routing_bus" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="bus2" depart="300.00" departLane="beg_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="560.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="1.58" duration="260.00" routeLength="3007.22" waitingTime="3.00" waitingCount="3" stopTime="113.00" timeLoss="38.78" rerouteNo="1" devices="tripinfo_bus2 routing_bus2 person_bus2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <personinfo id="p0" depart="0.00" type="slow" speedFactor="1.00" duration="908.00" waitingTime="3821.00" timeLoss="-1261.76" traveltime="1627.01">
-        <walk depart="0.00" departPos="200.00" arrival="50.00" arrivalPos="250.00" duration="50.00" routeLength="50.00" timeLoss="-21.43" maxSpeed="0.70"/>
-        <walk depart="50.00" departPos="231.82" arrival="79.00" arrivalPos="250.00" duration="29.00" routeLength="18.18" timeLoss="3.04" maxSpeed="0.70"/>
-        <ride waitingTime="829.00" vehicle="NULL" depart="-1" arrival="100.00" arrivalPos="250.00" duration="100.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <ride waitingTime="808.00" vehicle="NULL" depart="-1" arrival="150.00" arrivalPos="250.00" duration="150.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <ride waitingTime="758.00" vehicle="NULL" depart="-1" arrival="200.00" arrivalPos="250.00" duration="200.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <ride waitingTime="708.00" vehicle="NULL" depart="-1" arrival="250.00" arrivalPos="250.00" duration="250.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <ride waitingTime="658.00" vehicle="NULL" depart="-1" arrival="300.00" arrivalPos="250.00" duration="300.00" routeLength="-1.00" timeLoss="-0.00"/>
-        <ride waitingTime="60.00" vehicle="bus2" depart="360.00" arrival="510.00" arrivalPos="499.99" duration="150.00" routeLength="2512.37" timeLoss="26.63"/>
-        <walk depart="510.00" departPos="499.99" arrival="550.00" arrivalPos="250.00" duration="40.00" routeLength="249.99" timeLoss="-317.12" maxSpeed="0.70"/>
-        <walk depart="550.00" departPos="474.87" arrival="600.00" arrivalPos="250.00" duration="50.00" routeLength="224.87" timeLoss="-271.25" maxSpeed="0.70"/>
-        <walk depart="600.00" departPos="443.78" arrival="650.00" arrivalPos="250.00" duration="50.00" routeLength="193.78" timeLoss="-226.83" maxSpeed="0.70"/>
-        <walk depart="650.00" departPos="411.93" arrival="700.00" arrivalPos="250.00" duration="50.00" routeLength="161.93" timeLoss="-181.33" maxSpeed="0.70"/>
-        <walk depart="700.00" departPos="380.01" arrival="750.00" arrivalPos="250.00" duration="50.00" routeLength="130.01" timeLoss="-135.73" maxSpeed="0.70"/>
-        <walk depart="750.00" departPos="348.77" arrival="800.00" arrivalPos="250.00" duration="50.00" routeLength="98.77" timeLoss="-91.10" maxSpeed="0.70"/>
-        <walk depart="800.00" departPos="317.50" arrival="850.00" arrivalPos="250.00" duration="50.00" routeLength="67.50" timeLoss="-46.43" maxSpeed="0.70"/>
-        <walk depart="850.00" departPos="286.08" arrival="900.00" arrivalPos="250.00" duration="50.00" routeLength="36.08" timeLoss="-1.55" maxSpeed="0.70"/>
-        <walk depart="900.00" departPos="254.67" arrival="908.00" arrivalPos="250.00" duration="8.00" routeLength="4.67" timeLoss="1.33" maxSpeed="0.70"/>
+    <personinfo id="p0" depart="0.00" type="slow" speedFactor="1.00" duration="908.00" waitingTime="281.00" timeLoss="75.08" traveltime="627.00">
+        <walk depart="0.00" departPos="200.00" arrival="79.00" arrivalPos="250.00" duration="79.00" routeLength="50.00" timeLoss="7.57" maxSpeed="0.70"/>
+        <ride waitingTime="281.00" vehicle="bus2" depart="360.00" arrival="510.00" arrivalPos="499.99" duration="150.00" routeLength="2512.37" timeLoss="26.63"/>
+        <walk depart="510.00" departPos="499.99" arrival="908.00" arrivalPos="250.00" duration="398.00" routeLength="249.99" timeLoss="40.88" maxSpeed="0.70"/>
     </personinfo>
 </tripinfos>
