@@ -1,3 +1,3 @@
 Error: Unknown vehicle class 'dummyAllow' encountered.
 Warning: SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring 'disallow'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/rerouterelements/closingreroute/load/disallow/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141222.28750/netedit.gui/elements/additionals/rerouterelements/closingreroute/load/disallow/additionals.add.xml failed.

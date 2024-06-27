@@ -1,4 +1,4 @@
 Error: Attribute 'timeThreshold' in definition of rerouter 'rerouter_1' is empty.
 Error: Attribute 'timeThreshold' in definition of rerouter 'rerouter_2' is not a valid time value.
 Error: Could not build rerouter with ID 'rerouter_3' in netedit; Attribute timeThreshold cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/rerouter/load/timetreshold/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141222.28750/netedit.gui/elements/additionals/rerouter/load/timetreshold/additionals.add.xml failed.

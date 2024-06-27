@@ -1,4 +1,4 @@
-Error: 'lane' and 'length' must be defined together in a lane area detector.
+Error: A single lane area detector requieres two parameters of those 'pos', 'endPos' and 'length'.
 Error: Could not build laneAreaDetector with ID 'E2_02' in netedit; Attribute length cannot be negative.
 Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Invalid position over lane.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e2detector/load/length/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141210.28545/netedit.gui/elements/additionals/e2detector/load/length/additionals.add.xml failed.

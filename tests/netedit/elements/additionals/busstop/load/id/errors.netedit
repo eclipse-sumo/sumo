@@ -2,4 +2,4 @@ Error: Attribute 'id' is missing in definition of a busStop.
 Error: Could not build busStop with ID 'ID with spaces' in netedit; ID contains invalid characters.
 Error: Could not build busStop with ID 'busStop_00' in netedit; Declared twice.
 Error: Could not build trainStop with ID 'busStop_00' in netedit; Declared twice.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun165738.22028\netedit.gui\elements\additional\busstop\load\id\additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141156.28054/netedit.gui/elements/additionals/busstop/load/id/additionals.add.xml failed.
