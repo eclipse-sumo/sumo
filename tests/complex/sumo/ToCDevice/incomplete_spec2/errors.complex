@@ -1,16 +1,16 @@
-Error: Missing parameter 'device.toc.automatedType' for vehicle 'ToC_veh
+Error: Missing parameter 'device.toc.automatedType' for vehicle 'ToC_veh'.
 Quitting (on error).
 Traceback (most recent call last):
-  File "/home/micha/programming/sumo/tests/../tests/complex/sumo/ToCDevice/incomplete_spec2/runner.py", line 115, in <module>
+  File "/home/behr_mi/sumo/tests/../tests/complex/sumo/ToCDevice/incomplete_spec2/runner.py", line 115, in <module>
     traci.start([sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--no-step-log", "true"])
-  File "/home/micha/sumo/tools/traci/main.py", line 147, in start
+  File "/home/behr_mi/sumo/tools/traci/main.py", line 147, in start
     result = init(sumoPort, numRetries, "localhost", label, sumoProcess, doSwitch, traceFile, traceGetters)
-  File "/home/micha/sumo/tools/traci/main.py", line 119, in init
+  File "/home/behr_mi/sumo/tools/traci/main.py", line 119, in init
     return con.getVersion()
-  File "/home/micha/sumo/tools/traci/connection.py", line 382, in getVersion
+  File "/home/behr_mi/sumo/tools/traci/connection.py", line 381, in getVersion
     result = self._sendCmd(command, None, None)
-  File "/home/micha/sumo/tools/traci/connection.py", line 231, in _sendCmd
+  File "/home/behr_mi/sumo/tools/traci/connection.py", line 231, in _sendCmd
     return self._sendExact()
-  File "/home/micha/sumo/tools/traci/connection.py", line 137, in _sendExact
+  File "/home/behr_mi/sumo/tools/traci/connection.py", line 137, in _sendExact
     raise FatalTraCIError("Connection closed by SUMO.")
 traci.exceptions.FatalTraCIError: Connection closed by SUMO.
