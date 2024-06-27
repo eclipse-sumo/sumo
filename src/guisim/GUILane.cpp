@@ -545,21 +545,28 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
     const bool detailZoom = s.scale * exaggeration > 5;
     const bool drawDetails = (detailZoom || s.junctionSize.minSize == 0 || hasRailSignal);
     const bool drawRails = drawAsRailway(s);
-    if (isCrossing) {
-        // draw internal lanes on top of junctions
-        glTranslated(0, 0, GLO_JUNCTION + 0.1);
-    } else if (isWalkingArea) {
-        // draw internal lanes on top of junctions
-        glTranslated(0, 0, GLO_JUNCTION + 0.3);
-    } else if (isWaterway(myPermissions)) {
-        // draw waterways below normal roads
-        glTranslated(0, 0, getType() - 0.2);
+    const PositionVector& baseShape = getShape(s2);
+    if (s.trueZ) {
+        glTranslated(0, 0, baseShape.getMinZ());
     } else {
-        glTranslated(0, 0, getType());
+        if (isCrossing) {
+            // draw internal lanes on top of junctions
+            glTranslated(0, 0, GLO_JUNCTION + 0.1);
+        } else if (isWalkingArea) {
+            // draw internal lanes on top of junctions
+            glTranslated(0, 0, GLO_JUNCTION + 0.3);
+        } else if (isWaterway(myPermissions)) {
+            // draw waterways below normal roads
+            glTranslated(0, 0, getType() - 0.2);
+        } else if (myPermissions == SVC_SUBWAY) {
+            // draw subways further below
+            glTranslated(0, 0, getType() - 0.4);
+        } else {
+            glTranslated(0, 0, getType());
+        }
     }
     // set lane color
     const RGBColor color = setColor(s);
-    const PositionVector& baseShape = getShape(s2);
     auto& shapeColors = getShapeColors(s2);
     if (MSGlobals::gUseMesoSim) {
         shapeColors.clear();
