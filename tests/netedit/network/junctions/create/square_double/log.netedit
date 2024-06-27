@@ -1,8 +1,0 @@
-Warning: Edge '-E0' is not connected to outgoing edges at junction 'J0'.
-Warning: Lane '-E3_0' is not connected from any incoming edge at junction 'J0'.
-Warning: Edge 'E0' is not connected to outgoing edges at junction 'J1'.
-Warning: Edge 'E1' is not connected to outgoing edges at junction 'J2'.
-Warning: Lane 'E1_0' is not connected from any incoming edge at junction 'J1'.
-Warning: Edge 'E2' is not connected to outgoing edges at junction 'J3'.
-Warning: Lane 'E2_0' is not connected from any incoming edge at junction 'J2'.
-Warning: Lane 'E3_0' is not connected from any incoming edge at junction 'J3'.
