@@ -1070,6 +1070,9 @@ MSLink::computeFoeArrivalTimeBraking(SUMOTime arrivalTime, const SUMOVehicle* fo
         // foe enters the junction in the same step
         return foeArrivalTime;
     }
+    if (arrivalTime % DELTA_T > 0) {
+        arrivalTime = arrivalTime - (arrivalTime % DELTA_T) + DELTA_T;
+    }
     //arrivalTime += DELTA_T - arrivalTime % DELTA_T;
     const double m = foe->getVehicleType().getCarFollowModel().getMaxDecel() * impatience;
     const double dt = STEPS2TIME(foeArrivalTime - arrivalTime);
