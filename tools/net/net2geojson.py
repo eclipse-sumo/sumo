@@ -123,6 +123,15 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
+        feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
+        if geomType == 'lane':
+            feature["properties"]["allowedVehicles"] = ','.join(net.getLane(id).getPermissions())
+            feature["properties"]["laneIndex"] = net.getLane(id).getIndex()
+
+        else:
+            feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+
+        
         if options.boundary:
             geometry = sumolib.geomhelper.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
