@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-27 10:48+0000\n"
+"PO-Revision-Date: 2024-06-27 14:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7982,7 +7982,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1505
 msgid "Using minimum lane number from list (%) for edge '%'."
-msgstr ""
+msgstr "Uso del numero minimo di corsie dall'elenco (%) per arco '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1507
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1511
@@ -7991,7 +7991,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1560
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1570
 msgid "Value of key '%' is not numeric ('%') in edge '%'."
-msgstr ""
+msgstr "Il valore della chiave '%' non è numerico nell'arco '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1567
 msgid "Ignoring track count % for edge '%'."
