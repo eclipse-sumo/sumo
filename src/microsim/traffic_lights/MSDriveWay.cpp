@@ -106,6 +106,9 @@ MSDriveWay::~MSDriveWay() {
         const_cast<MSLane*>(lane)->removeMoveReminder(this);
     }
     for (MSDriveWay* foe : myFoes) {
+        if (foe == this) {
+            continue;
+        }
         auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
         if (it != foe->myFoes.end()) {
             foe->myFoes.erase(it);
@@ -193,6 +196,12 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
             joinVehicle = stop->join;
         }
     }
+    UNUSED_PARAMETER(occupied);
+    /*
+    if (foeDriveWayOccupied(joinVehicle, true, closest.first)) {
+        return false;
+    }
+    */
     if (conflictLaneOccupied(joinVehicle, true, closest.first)) {
         for (const MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
@@ -645,7 +654,10 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
 
     std::vector<std::string> foes;
     for (MSDriveWay* dw : myFoes) {
-        foes.push_back(dw->myID);
+        if (dw != this) {
+            // every driveway is it's own foe but we don't need to write this
+            foes.push_back(dw->myID);
+        }
     }
     if (foes.size() > 0) {
         od.openTag("foes");
@@ -1112,6 +1124,10 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     dw->myConflictLinks.clear();
     dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
+    // every driveway is it's own foe
+    if (!rs->isMovingBlock()) {
+        dw->myFoes.push_back(dw);
+    }
     return dw;
 }
 
