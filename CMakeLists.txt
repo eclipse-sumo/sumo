@@ -466,7 +466,7 @@ else (FREETYPE_FOUND)
 endif (FREETYPE_FOUND)
 
 if (SUMO_LIBRARIES AND WIN32)
-    find_package(fmt PATHS ${fmt_PATH})
+    find_package(fmt PATHS ${fmt_PATH} NO_DEFAULT_PATH)
     if (fmt_FOUND)
         message(STATUS "Found FMT (SUMOLibraries): " ${fmt_DIR})
         include_directories(SYSTEM "${fmt_PATH}/include")
