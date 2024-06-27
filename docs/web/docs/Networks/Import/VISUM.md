@@ -110,16 +110,15 @@ links to further information of interest.
 - Most [VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) networks
   do not contain definitions of traffic lights positions; Still,
   [netconvert](../../netconvert.md) is able to [guess tls
-  positions](../../netconvert.md#guessingtlspositions) and to [guess
-  tls programs](../../netconvert.md#guessingtlsprograms).
+  positions](../../netconvert.md#tls_building) and to [guess
+  tls programs](../../netconvert.md#tls_building).
 - Also, we have not seen a
   [VISUM](https://www.ptvgroup.com/en/solutions/products/ptv-visum/) network where
   on- and off-ramps where available for highways.
   [netconvert](../../netconvert.md) is able to [guess on- and
-  off-ramps](../../netconvert.md#guessingramps).
-- In addition to the network, further descriptions of [lane-to-lane or
-  edge-to-edge connections](../../netconvert.md#settingconnections)
-  may be read.
+  off-ramps](../../netconvert.md#ramp_guessing).
+- In addition to the network, further descriptions of lane-to-lane or
+  edge-to-edge connections may be read.
 
 Other possibilities of [netconvert](../../netconvert.md), such as
 projection of geo-coordinates, should not apply when working with

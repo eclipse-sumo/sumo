@@ -6,7 +6,7 @@ title: Bluetooth
 
 [sumo](../sumo.md) supports the simulation of wireless onboard
 devices to facilitate a sensor mechanism which relies on the detection
-of radio signals (usually Bluetooth or WLAN) emitted by the vehicle.
+of radio signals (usually Bluetooth or Wi-Fi) emitted by the vehicle.
 Every vehicle can act as a sender and/or a receiving device. The
 parameters of the detection (e.g. the range and detection probability)
 can be configured and a log of the detection events can be written. It
@@ -107,4 +107,4 @@ in the following table.
 To simulate detection events between vehicles and a road-side-unit
 (RSU), it is convenient to place a stopped vehicle at the side of the
 road. This can be accomplished by by setting [attribute
-*parking="true"*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+*parking="true"*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
