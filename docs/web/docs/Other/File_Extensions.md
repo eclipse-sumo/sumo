@@ -54,7 +54,7 @@ corresponding executable with "cfg" appended)
     [description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md))
   - **\*.rou.alt.xml**: route alternatives file
     ([xsd](https://sumo.dlr.de/xsd/routes_file.xsd),
-    [description](../Demand/Dynamic_User_Assignment.md#general_behavior))
+    [description](../Demand/Dynamic_User_Assignment.md))
   - **\*.add.xml**:
     [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) - {{AdditionalFile}}
     ([xsd](https://sumo.dlr.de/xsd/additional_file.xsd), missing description)

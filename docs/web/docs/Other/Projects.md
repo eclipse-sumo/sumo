@@ -145,13 +145,13 @@ Addresses the environmental footprint in the transport sector by developing a ne
   examples.
   publications: [Piorkowski, Raya, Lugo, Papadimitratos, Grossglauser,
   Hubaux
-  2007](../Publications.md#piorkowskirayalugopapadimitratosgrossglauserhubaux2007)
+  2007](../Publications.md#publications_using_sumo)
 - [Veins - "Vehicles in Network Simulation"](https://veins.car2x.org/)
   by Christoph Sommer from the Department of Computer Science,
   University of Erlangen, Germany
-  publications: [Sommer, Yao, German, Dressler, 2008](../Publications.md#sommeryaogermandressler2008), [Sommer,
+  publications: [Sommer, Yao, German, Dressler, 2008](../Publications.md#publications_using_sumo), [Sommer,
   Yao, German, Dressler, 2008
-  (2)](../Publications.md#sommeryaogermandressler2008_2)
+  (2)](../Publications.md#publications_using_sumo)
 - "Assessment of traffic regulation policies for the minimization of
   pollutants emissions"
   by Mauro Bianchi at [CEFRIEL](https://www.cefriel.it/), Italy.
@@ -183,18 +183,18 @@ Addresses the environmental footprint in the transport sector by developing a ne
   by David N. Cottingham, Jonathan J. Davies, & Alastair R. Beresford
   from the University of Cambridge, UK
   publications: [Cottingham, Davies, Beresford,
-  2005](../Publications.md#cottinghamdaviesberesford2005)
+  2005](../Publications.md#publications_using_sumo)
 - GPS-Route by Stefan Edelkamp, Shahidd Jabar and Tilman Mehrer (supervisors)
   from the University of Dortmund, Germany
   many thanks go to students who have extendended SUMO: Maik
   Drozdzynski, Andreas Gaubatz and Miguel Liebe
-  publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#edelkampjabarmehrer2005)
+  publications: [Edelkamp, Jabar, Mehrer, 2005](../Publications.md#publications_using_sumo)
 - [Rapid Generation of Realistic Simulation for VANET](https://web.archive.org/web/20230609155720/https://lens.csie.ncku.edu.tw/index.php/research-projects/past/18-rapid-vanet)
   by Feliz Karnadi, Zhi Hai Mo, and Kun Chan Lan from the University
   of New South Wales, Sydney, Australia
   many thanks for extending SUMO\!
   publications: [Karnadi, Mo, Lan,
-  2005](../Publications.md#karnadimolan2005)
+  2005](../Publications.md#publications_using_sumo)
 - ["iTranSIM - Simulation-based Vehicle
   Location"](https://www.cs.tcd.ie/publications/tech-reports/reports.07/TCD-CS-2007-56.pdf)
   by Tino Morenz; Master thesis; 2008

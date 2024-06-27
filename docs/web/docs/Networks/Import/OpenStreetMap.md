@@ -333,7 +333,7 @@ junction](#junctions). However, if the junctions should stay
 separate, it is possible to at least generate a joint controller by
 setting the option **--tls.join**. For fine-tuning of joint traffic lights, the
 attribute `tl` can be [customized for individual
-nodes](#node_descriptions). The joined traffic lights get the id
+nodes](#junctions). The joined traffic lights get the id
 *joinedS_id0_id1* where *id0* and *id1* are the junction ids. If there are
 more nodes in the join than given by **--max-join-ids** (default 4)
 the id will be abbreviated to something like *joinedS_id0_id1_id2_id3_#5more*

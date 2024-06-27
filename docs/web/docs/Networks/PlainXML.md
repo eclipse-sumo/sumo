@@ -274,7 +274,7 @@ The right-of-way rules are indicated in [sumo-gui by the colored bars at the end
 *junctions-\>show lane to lane connections*.
 
 The right-of-way relationship between any two connections ca be shown in
-[netedit using right-of-way mode](../Netedit/index.md#right-of-way).
+[netedit using right-of-way mode](../Netedit/editModesNetwork.md#prohibitions).
 
 If a vehicle is braking in the simulation, the responsible foe vehicle
 (if any) can also be [identified directly](../sumo-gui.md#right_of_way).
@@ -310,7 +310,7 @@ Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [netconvert](../netconvert.md) supports the option **--junctions.join** to find such
 clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../Netedit/index.md#processing_menu_options).
-It is even possible to [undo joins](../Netedit/index.md#junction) that were computed automatically.
+It is even possible to [undo joins](../Netedit/elementsNetwork.md#junctions) that were computed automatically.
 The new junction will get the id *cluster_id0_id1*. If there are more nodes in the cluster than given by **--max-join-ids** (default 4)
 the id will be abbreviated to something like *cluster_id0_id1_id2_id3_#5more* (for a 9 node cluster).
 

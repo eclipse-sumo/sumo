@@ -39,7 +39,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - customizing the functionality of [actuated traffic lights](../Simulation/Traffic_Lights.md#additional_parameters)
 - configurating the [visualization](Railways.md#trains) of trains
 - configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
-- tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+- tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
 - customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area)
 - customizing emission model [PHEMligh5 parameters](../Models/Emissions/PHEMlight5.md#dynamic_modification_of_parameters)
