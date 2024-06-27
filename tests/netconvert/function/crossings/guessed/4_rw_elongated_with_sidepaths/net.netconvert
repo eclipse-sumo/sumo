@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-30 18:10:08 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
+<!-- generated on 2024-06-27 14:13:04 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -150,16 +150,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_20_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="10.46" length="10.74" shape="173.44,141.34 173.83,140.97 181.58,134.33"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c0" function="crossing" crossingEdges="872241219#6">
-        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c0_0" index="0" allow="pedestrian" speed="2.78" length="1.60" width="4.00" shape="161.74,159.27 160.62,160.41" outlineShape="163.17,160.67 162.05,161.81 159.19,159.01 160.31,157.87 163.17,160.67"/>
+        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c0_0" index="0" allow="pedestrian" speed="2.78" length="1.60" width="4.00" shape="161.74,159.27 160.62,160.41" outlineShape="163.17,160.67 162.05,161.81 159.19,159.01 160.31,157.87"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c1" function="crossing" crossingEdges="26547171#0">
-        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c1_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="165.74,137.19 172.81,130.69" outlineShape="164.31,135.78 166.82,133.48 167.85,134.63 171.46,129.22 172.70,130.41 173.92,131.22 174.82,131.56 167.09,138.66 164.39,135.72 164.25,135.86"/>
+        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c1_0" index="0" allow="pedestrian" speed="2.78" length="9.60" width="4.00" shape="165.74,137.19 172.81,130.69" outlineShape="164.31,135.78 166.82,133.48 167.85,134.63 171.46,129.22 172.70,130.41 173.92,131.22 174.82,131.56 167.09,138.66 164.39,135.72"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c2" function="crossing" crossingEdges="872231980">
         <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c2_0" index="0" allow="pedestrian" speed="2.78" length="1.60" width="4.00" shape="149.98,148.58 151.19,147.53" outlineShape="148.67,147.06 149.88,146.02 152.49,149.04 151.28,150.09 149.99,145.99 148.67,147.06 151.28,150.09"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c3" function="crossing" crossingEdges="283317454">
-        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="151.26,147.83 156.06,143.60" outlineShape="149.94,146.33 154.74,142.10 157.38,145.10 154.74,142.10 157.38,145.10 149.96,151.64 150.55,150.57 150.92,149.02 150.72,147.61 149.94,146.33"/>
+        <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_c3_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="151.26,147.83 156.06,143.60" outlineShape="149.94,146.33 154.74,142.10 157.38,145.10 154.74,142.10 157.38,145.10 149.96,151.64 150.55,150.57 150.92,149.02 150.72,147.61"/>
     </edge>
     <edge id=":cluster_2008877556_2008877559_206191834_283017357_#4more_w0" function="walkingarea">
         <lane id=":cluster_2008877556_2008877559_206191834_283017357_#4more_w0_0" index="0" allow="pedestrian" speed="2.78" length="28.84" width="4.00" shape="160.31,157.87 163.17,160.67 182.54,140.76 183.93,139.33"/>

@@ -23,19 +23,19 @@
 class network:
 
     class junction:
-        
+
         class positionA:
-            x = 257 
+            x = 257
             y = 424
-            
+
         class positionA_2:
-            x = 308 
-            y = 377           
+            x = 308
+            y = 377
 
         class positionB:
             x = 734
             y = 426
-            
+
         class positionB_2:
             x = 691
             y = 384
@@ -46,7 +46,7 @@ class network:
 
         class positionC_2:
             x = 691
-            y = 90         
+            y = 90
 
         class positionD:
             x = 259
@@ -54,11 +54,12 @@ class network:
 
         class positionD_2:
             x = 309
-            y = 92                  
-                                      
+            y = 92
+
         class positionE:
             x = 498
-            y = 236    
+            y = 236
+
 
 class elements:
 

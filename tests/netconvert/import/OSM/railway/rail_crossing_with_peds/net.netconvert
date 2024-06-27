@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-30 18:10:01 by Eclipse SUMO netconvert Version v1_19_0+2011-624920fe92d
+<!-- generated on 2024-06-27 14:12:55 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_247120010_267009909_291194164_291194165_5_0" index="0" allow="rail_urban" speed="27.78" length="10.47" shape="2013.52,748.31 2016.49,738.26"/>
     </edge>
     <edge id=":cluster_247120010_267009909_291194164_291194165_c0" function="crossing" crossingEdges="441932173#4 441932172#1 22955557#1 27006469#1">
-        <lane id=":cluster_247120010_267009909_291194164_291194165_c0_0" index="0" allow="pedestrian" speed="2.78" length="22.53" width="4.00" shape="2001.30,741.92 2023.70,739.56" outlineShape="2001.09,739.93 2023.49,737.57 2025.27,741.41 2025.46,738.53 2023.57,737.61 2023.91,741.55 2001.51,743.91 2001.09,739.93"/>
+        <lane id=":cluster_247120010_267009909_291194164_291194165_c0_0" index="0" allow="pedestrian" speed="2.78" length="22.53" width="4.00" shape="2001.30,741.92 2023.70,739.56" outlineShape="2001.09,739.93 2023.49,737.57 2025.27,741.41 2025.46,738.53 2023.57,737.61 2023.91,741.55 2001.51,743.91"/>
     </edge>
     <edge id=":cluster_247120010_267009909_291194164_291194165_w0" function="walkingarea">
         <lane id=":cluster_247120010_267009909_291194164_291194165_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.99" width="4.00" shape="2025.03,744.91 2025.25,741.72 2025.46,738.53 2023.49,737.57 2023.91,741.55"/>

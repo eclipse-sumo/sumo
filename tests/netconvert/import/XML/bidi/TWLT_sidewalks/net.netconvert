@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:32 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-06-27 14:12:53 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <ignore-errors.edge-type value="true"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-401154.82,-5810651.34" convBoundary="0.00,0.00,90.48,51.46" origBoundary="13.510966,52.428677,13.569823,52.453865" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id=":257749657_c0" function="crossing" crossingEdges="-178028204#3 178028204#3">
-        <lane id=":257749657_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="1.36,-3.77 -3.30,4.62" outlineShape="3.11,-2.79 -1.55,5.59 -5.05,3.65 -0.38,-4.74 3.11,-2.79"/>
+        <lane id=":257749657_c0_0" index="0" allow="pedestrian" speed="2.78" length="9.59" width="4.00" shape="1.36,-3.77 -3.30,4.62" outlineShape="3.11,-2.79 -1.55,5.59 -5.05,3.65 -0.38,-4.74"/>
     </edge>
     <edge id=":257749657_w0" function="walkingarea">
         <lane id=":257749657_w0_0" index="0" allow="pedestrian" speed="2.78" length="2.50" width="4.00" shape="-0.38,-4.74 3.11,-2.79 4.57,-5.41"/>

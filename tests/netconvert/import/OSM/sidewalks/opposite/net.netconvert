@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-23 09:34:25 by Eclipse SUMO netconvert Version v1_19_0+1900-d72e6ec8654
+<!-- generated on 2024-06-27 14:12:57 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,10 +11,10 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
+        <type-files value="/home/behr_mi/sumo/data/typemap/osmNetconvert.typ.xml,/home/behr_mi/sumo/data/typemap/osmNetconvertPedestrians.typ.xml"/>
         <osm-files value="osm.xml"/>
     </input>
 
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -122,7 +122,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":23126_7_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="20.21" length="3.79" shape="80.46,42.29 84.20,41.71"/>
     </edge>
     <edge id=":23126_c0" function="crossing" crossingEdges="1762 -1762">
-        <lane id=":23126_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.45" width="4.00" shape="82.25,40.04 82.86,46.46" outlineShape="84.24,39.85 84.85,46.28 84.06,46.84 83.48,47.68 83.15,48.82 80.87,46.65 80.26,40.23 80.30,40.63 80.71,40.47 84.24,39.85"/>
+        <lane id=":23126_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.45" width="4.00" shape="82.25,40.04 82.86,46.46" outlineShape="84.24,39.85 84.85,46.28 84.06,46.84 83.48,47.68 83.15,48.82 80.87,46.65 80.26,40.23 80.30,40.63 80.71,40.47"/>
     </edge>
     <edge id=":23126_w0" function="walkingarea">
         <lane id=":23126_w0_0" index="0" allow="pedestrian" speed="2.78" length="18.46" width="3.00" shape="64.82,47.89 63.28,50.47 79.14,59.93 80.67,57.35"/>
@@ -152,7 +152,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":7301_2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.26" length="12.02" shape="57.77,95.29 55.06,96.24 52.58,95.82 50.32,94.04 48.28,90.89"/>
     </edge>
     <edge id=":7301_c0" function="crossing" crossingEdges="1696 -1696">
-        <lane id=":7301_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.63,92.14 56.84,97.68" outlineShape="55.36,91.14 58.57,96.67 57.30,97.52 56.34,98.39 55.72,99.29 55.63,99.57 51.09,91.74 51.95,92.05 52.96,92.06 54.09,91.75 55.36,91.14"/>
+        <lane id=":7301_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="53.63,92.14 56.84,97.68" outlineShape="55.36,91.14 58.57,96.67 57.30,97.52 56.34,98.39 55.72,99.29 55.63,99.57 51.09,91.74 51.95,92.05 52.96,92.06 54.09,91.75"/>
     </edge>
     <edge id=":7301_w0" function="walkingarea">
         <lane id=":7301_w0_0" index="0" allow="pedestrian" speed="2.78" length="13.45" width="3.00" shape="46.85,91.61 44.17,92.96 50.26,104.97 52.93,103.60"/>
@@ -188,7 +188,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":9334_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="9.48" length="14.99" shape="91.20,70.15 95.20,67.24 98.78,65.59 101.96,65.19 104.73,66.06"/>
     </edge>
     <edge id=":9334_c0" function="crossing" crossingEdges="-1696 1696">
-        <lane id=":9334_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="95.82,72.53 91.70,67.63" outlineShape="94.29,73.82 90.17,68.92 91.31,67.80 92.01,66.74 92.25,65.73 92.09,64.99 97.50,71.42 96.13,72.36 94.29,73.82"/>
+        <lane id=":9334_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="95.82,72.53 91.70,67.63" outlineShape="94.29,73.82 90.17,68.92 91.31,67.80 92.01,66.74 92.25,65.73 92.09,64.99 97.50,71.42 96.13,72.36"/>
     </edge>
     <edge id=":9334_w0" function="walkingarea">
         <lane id=":9334_w0_0" index="0" allow="pedestrian" speed="2.78" length="5.12" width="4.00" shape="94.29,73.82 95.58,75.35 100.80,72.80 102.31,70.21 101.48,69.95 100.44,70.04 99.21,70.47 97.77,71.24 96.13,72.36"/>
@@ -212,7 +212,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":9428_3_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="6.20" length="4.38" shape="137.82,136.54 137.21,136.40 133.71,137.75"/>
     </edge>
     <edge id=":9428_c0" function="crossing" crossingEdges="-1760 1760">
-        <lane id=":9428_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.53" width="4.00" shape="136.23,138.20 134.34,131.94" outlineShape="134.32,138.78 132.42,132.52 133.54,132.44 135.27,131.64 136.20,131.20 136.25,131.36 138.14,137.62 138.34,139.65 137.94,138.73 137.17,138.34 136.01,138.48 134.32,138.78"/>
+        <lane id=":9428_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.53" width="4.00" shape="136.23,138.20 134.34,131.94" outlineShape="134.32,138.78 132.42,132.52 133.54,132.44 135.27,131.64 136.20,131.20 136.25,131.36 138.14,137.62 138.34,139.65 137.94,138.73 137.17,138.34 136.01,138.48"/>
     </edge>
     <edge id=":9428_w0" function="walkingarea">
         <lane id=":9428_w0_0" index="0" allow="pedestrian" speed="2.78" length="15.60" width="3.00" shape="141.10,143.84 144.01,144.56 147.65,129.23 144.68,128.83 144.23,131.78 143.75,134.22 143.24,136.21 142.65,138.18 141.96,140.58"/>
@@ -290,7 +290,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":cluster_24848_6746_5_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.92" length="15.55" shape="56.60,142.61 60.61,141.52 63.87,142.19 66.38,144.63 68.15,148.84"/>
     </edge>
     <edge id=":cluster_24848_6746_c0" function="crossing" crossingEdges="1643 -1643">
-        <lane id=":cluster_24848_6746_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="69.17,146.49 62.98,148.14" outlineShape="69.68,148.42 63.50,150.07 63.39,150.07 63.50,150.04 63.01,148.67 62.39,147.63 61.63,146.94 60.84,146.64 69.47,144.34 69.29,145.70 69.70,148.45"/>
+        <lane id=":cluster_24848_6746_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.40" width="4.00" shape="69.17,146.49 62.98,148.14" outlineShape="69.68,148.42 63.50,150.07 63.39,150.07 63.50,150.04 63.01,148.67 62.39,147.63 61.63,146.94 60.84,146.64 69.47,144.34 69.29,145.70"/>
     </edge>
     <edge id=":cluster_24848_6746_w0" function="walkingarea">
         <lane id=":cluster_24848_6746_w0_0" index="0" allow="pedestrian" speed="2.78" length="3.29" width="4.00" shape="58.57,146.99 59.81,149.72 61.57,150.57 63.50,150.04 63.01,148.67 62.39,147.63 61.63,146.94 60.74,146.60 59.72,146.62"/>

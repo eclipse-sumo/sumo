@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-08 16:12:51 by Eclipse SUMO netconvert Version v1_19_0+1720-a3ca558d345
+<!-- generated on 2024-06-27 14:13:03 by Eclipse SUMO netconvert Version v1_20_0+0884-42872f29db1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_plain.nod.xml"/>
@@ -33,7 +33,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
@@ -70,7 +70,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <crossing node="C" edges="SC" priority="1" width="4.50" outlineShape="107.19,78.75 113.59,78.77 113.75,81.81 114.05,83.27 107.18,83.25 107.19,78.75 107.18,83.25"/>
     <crossing node="C" edges="CS" priority="1" width="4.50" outlineShape="88.46,78.84 95.06,78.82 107.19,78.75 107.18,83.25 97.23,83.30 94.98,83.32 88.58,83.34 88.56,78.84 87.06,78.85 84.06,78.86 77.41,83.68 78.75,86.36 79.42,87.70 82.22,86.19 84.51,84.69 86.24,83.24"/>
     <crossing node="C" edges="WC" priority="1" width="4.50" outlineShape="82.28,93.43 79.38,87.61 79.42,87.70 82.22,86.19 83.33,85.46 83.45,85.69 86.31,91.42 82.28,93.43 86.28,91.38 86.37,93.47"/>
-    <crossing node="C" edges="CW" priority="1" width="4.50" outlineShape="80.37,110.93 82.75,104.99 86.91,106.71 82.76,104.98 86.91,106.71 83.68,114.76 82.80,113.18 81.60,111.74 80.37,110.93"/>
+    <crossing node="C" edges="CW" priority="1" width="4.50" outlineShape="80.37,110.93 82.75,104.99 86.91,106.71 82.76,104.98 86.91,106.71 83.68,114.76 82.80,113.18 81.60,111.74"/>
     <walkingArea node="C" edges="SC" width="5.00"/>
     <walkingArea node="C" edges="CW WC" shape="86.91,106.71 70.07,99.68 86.28,91.38"/>
 </connections>

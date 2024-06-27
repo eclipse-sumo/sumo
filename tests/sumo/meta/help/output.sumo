@@ -347,6 +347,9 @@ Processing Options:
                                         started times when given
   --pedestrian.model STR               Select among pedestrian models
                                         ['nonInteracting', 'striping', 'remote']
+  --pedestrian.timegap-crossing FLOAT  Minimal acceptable gap (in seconds)
+                                        between two vehicles before starting to
+                                        cross
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
                                         segmenting a sidewalk (meters) for use
                                         with model 'striping'

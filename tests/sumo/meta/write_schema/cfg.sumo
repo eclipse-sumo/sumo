@@ -212,6 +212,7 @@
             <xsd:element name="use-stop-ended" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="use-stop-started" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.model" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.timegap-crossing" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.stripe-width" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.mingap-to-vehicle" type="floatOptionType" minOccurs="0"/>

@@ -167,10 +167,10 @@ ticket11996
 # invalid plain output
 ticket12086
 
-# prohibitions fail for edge id with '_' 
+# prohibitions fail for edge id with '_'
 ticket12419
 
-# prohibitions fail for edge id with '_' 
+# prohibitions fail for edge id with '_'
 ticket12419b
 
 # handling abstract projection in input
@@ -194,3 +194,6 @@ ticket9874b
 
 # crash involving roundabout deletion
 ticket14930
+
+# self overlapping outline
+ticket15111

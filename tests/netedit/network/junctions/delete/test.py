@@ -35,17 +35,25 @@ netedit.createEdgeMode()
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # create a complex intersection
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x, netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x, netedit.positions.network.junction.positionB.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x, netedit.positions.network.junction.positionC.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
+                  netedit.positions.network.junction.positionC.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x, netedit.positions.network.junction.positionD.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -57,7 +65,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # remove center edge
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -72,11 +81,16 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # remove all junctions
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x, netedit.positions.network.junction.positionE.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA_2.x, netedit.positions.network.junction.positionA_2.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB_2.x, netedit.positions.network.junction.positionB_2.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC_2.x, netedit.positions.network.junction.positionC_2.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD_2.x, netedit.positions.network.junction.positionD_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA_2.x,
+                  netedit.positions.network.junction.positionA_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB_2.x,
+                  netedit.positions.network.junction.positionB_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC_2.x,
+                  netedit.positions.network.junction.positionC_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD_2.x,
+                  netedit.positions.network.junction.positionD_2.y)
 
 # rebuild network
 netedit.rebuildNetwork()

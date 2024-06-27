@@ -1065,11 +1065,11 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                             Position relBack = path->shape.transformToVectorCoordinates(veh->getBackPosition(), true);
                             if (relFront == Position::INVALID) {
                                 WRITE_WARNINGF("Could not vehicle '%' front position % onto walkingarea '%' path=%, time=%.",
-                                        veh->getID(), veh->getPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
+                                               veh->getID(), veh->getPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
                             }
                             if (relBack == Position::INVALID) {
                                 WRITE_WARNINGF("Could not vehicle '%' back position % onto walkingarea '%' path=%, time=%.",
-                                        veh->getID(), veh->getBackPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
+                                               veh->getID(), veh->getBackPosition(), lane->getID(), path->shape, time2string(SIMSTEP));
                             }
                             PositionVector relCenter;
                             relCenter.push_back(relFront);
@@ -1249,7 +1249,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
             DEBUG_PRINT(currentObs);
         }
         // time gap to pass the intersection ahead of a vehicle.
-        const double passingClearanceTime = 2;
+        const double passingClearanceTime = p.myPerson->getFloatParam("pedestrian.timegap-crossing");
         const double passingLength = p.getLength() + passingClearanceTime * speed;
         // check link state
         if DEBUGCOND(p) {
