@@ -3586,6 +3586,9 @@ NBNode::buildCrossingOutlines() {
         c->outlineShape.append(side2, POSITION_EPS);
         c->outlineShape.append(side4, POSITION_EPS);
         c->outlineShape.removeDoublePoints();
+        if (c->outlineShape.back().almostSame(c->outlineShape.front())) {
+            c->outlineShape.pop_back();
+        }
         // DEBUG
 #ifdef DEBUG_CROSSING_OUTLINE
         std::cout << "  side1=" << side1 << "\n  side2=" << side2 << "\n  side3=" << side3 << "\n  side4=" << side4 << "\n";
