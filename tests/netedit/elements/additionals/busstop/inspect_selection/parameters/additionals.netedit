@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-25 11:36:49 by Eclipse SUMO netedit Version v1_20_0+0810-10da16f3700
+<!-- generated on 2024-06-27 15:03:15 by Eclipse SUMO netedit Version v1_20_0+0901-b4abc0c1027
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,13 +16,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
     <busStop id="busStopA" name="busStop" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71" friendlyPos="true" lines="line1 line2" personCapacity="10" parkingLength="12.00">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </busStop>
     <busStop id="busStopB" name="busStop" lane="EdgeCenter0_1" startPos="15.00" endPos="20.00" lines="line3 line4" personCapacity="20" parkingLength="15.00">
-        <param key="key1" value="valueInvalid%;%$&lt;&gt;$$%"/>
-        <param key="key2" value="value2"/>
-        <param key="key3" value="value3"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
     </busStop>
 </additional>

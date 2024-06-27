@@ -1,4 +1,4 @@
 Error: Attribute 'personCapacity' in definition of busStop 'busStop_02' Invalid Number Format (long long integer format) dummyPersonCapacity.
 Error: Could not build busStop with ID 'busStop_03' in netedit; Attribute personCapacity cannot be negative.
 Error: Attribute 'personCapacity' in definition of busStop 'busStop_04' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.04Jun165738.22028\netedit.gui\elements\additional\busstop\load\personcapacity\additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141156.28054/netedit.gui/elements/additionals/busstop/load/personcapacity/additionals.add.xml failed.

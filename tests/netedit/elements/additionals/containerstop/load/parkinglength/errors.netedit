@@ -1,3 +1,3 @@
 Error: Attribute 'parkingLength' in definition of containerStop 'containerStop_02' Invalid Number Format (double) dummyparkingLength.
 Error: Could not build containerStop with ID 'containerStop_03' in netedit; Attribute parkingLength cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081353.35498/netedit.gui/elements/additional/containerstop/load/parkinglength/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141205.28349/netedit.gui/elements/additionals/containerstop/load/parkinglength/additionals.add.xml failed.

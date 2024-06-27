@@ -2,4 +2,4 @@ Error: Could not build entryExitDetector with ID 'entryExitDetector_0' in netedi
 Error: Attribute 'id' is missing in definition of a entryExitDetector.
 Error: 'detEntry' must be defined within the definition of a 'e3Detector' (found '').
 Error: 'detExit' must be defined within the definition of a 'e3Detector' (found '').
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e3detector/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141214.28645/netedit.gui/elements/additionals/e3detector/load/id/additionals.add.xml failed.

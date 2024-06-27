@@ -1,4 +1,4 @@
 Error: Attribute 'probability' in definition of rerouter 'rerouter_1' is empty.
 Error: Attribute 'probability' in definition of rerouter 'rerouter_2' Invalid Number Format (double) dummyProbability.
 Error: Could not build rerouter with ID 'rerouter_3' in netedit; Attribute probability cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/rerouter/load/probability/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141222.28750/netedit.gui/elements/additionals/rerouter/load/probability/additionals.add.xml failed.

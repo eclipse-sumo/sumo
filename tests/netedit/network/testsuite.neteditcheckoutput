@@ -1,20 +1,13 @@
-# crossings
-crossings
-
-# edges
-edges
-
-# junctions
 junctions
 
-# connections
-connections
+crossings
 
-# prohibitions
-#prohibitions
+edges
 
-# lanes
 lanes
 
-# traffic lights
+connections
+
+#prohibitions
+
 trafficlights

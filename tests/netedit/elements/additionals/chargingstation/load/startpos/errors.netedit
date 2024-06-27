@@ -1,3 +1,3 @@
 Error: Attribute 'startPos' in definition of chargingStation 'chargingStation_1' Invalid Number Format (double) dummyStartPosition.
 Error: Could not build chargingStation with ID 'chargingStation_3' in netedit; Invalid position over lane.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081353.35498/netedit.gui/elements/additional/chargingstation/load/startpos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141202.28250/netedit.gui/elements/additionals/chargingstation/load/startpos/additionals.add.xml failed.

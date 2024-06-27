@@ -1,4 +1,4 @@
 Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_02' Invalid Number Format (long long integer format) dummyPersonCapacity.
 Error: Could not build containerStop with ID 'containerStop_03' in netedit; Attribute containerCapacity cannot be negative.
 Error: Attribute 'containerCapacity' in definition of containerStop 'containerStop_04' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081353.35498/netedit.gui/elements/additional/containerstop/load/containercapacity/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141205.28349/netedit.gui/elements/additionals/containerstop/load/containercapacity/additionals.add.xml failed.

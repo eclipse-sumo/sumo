@@ -1,4 +1,4 @@
 Error: Attribute 'personCapacity' in definition of trainStop 'trainStop_02' Invalid Number Format (long long integer format) dummyPersonCapacity.
 Error: Could not build trainStop with ID 'trainStop_03' in netedit; Attribute personCapacity cannot be negative.
 Error: Attribute 'personCapacity' in definition of trainStop 'trainStop_04' Invalid Number Format (long long integer format) 2.5.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081345.34828/netedit.gui/elements/additional/trainstop/load/personcapacity/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141159.28152/netedit.gui/elements/additionals/trainstop/load/personcapacity/additionals.add.xml failed.

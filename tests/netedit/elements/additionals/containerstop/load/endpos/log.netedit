@@ -2,4 +2,4 @@ Error: Attribute 'endPos' in definition of containerStop 'containerStop_02' Inva
 Error: Could not build containerStop with ID 'containerStop_03' in netedit; Invalid position over lane.
 Error: Could not build containerStop with ID 'containerStop_04' in netedit; Invalid position over lane.
 Error: Could not build containerStop with ID 'containerStop_05' in netedit; Invalid position over lane.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_06Jun081353.35498/netedit.gui/elements/additional/containerstop/load/endpos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141205.28349/netedit.gui/elements/additionals/containerstop/load/endpos/additionals.add.xml failed.

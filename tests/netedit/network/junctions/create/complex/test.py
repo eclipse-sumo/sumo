@@ -38,51 +38,48 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a circular road
-netedit.leftClick(referencePosition, 157, 125)
-netedit.leftClick(referencePosition, 261, 125)
-netedit.leftClick(referencePosition, 365, 125)
-netedit.leftClick(referencePosition, 365, 231)
-netedit.leftClick(referencePosition, 365, 335)
-netedit.leftClick(referencePosition, 261, 335)
-netedit.leftClick(referencePosition, 157, 335)
-netedit.leftClick(referencePosition, 157, 231)
-netedit.leftClick(referencePosition, 157, 125)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
+                  netedit.positions.network.junction.positionC.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
 netedit.cancelEdge()
 
 # disable chain mode
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a complex intersection
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 157, 145)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, 263, 220)
-netedit.leftClick(referencePosition, 261, 115)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 365, 125)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
+                  netedit.positions.network.junction.positionC.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 365, 231)
-
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 365, 335)
-
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 261, 335)
-
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 157, 335)
-
-netedit.leftClick(referencePosition, 263, 230)
-netedit.leftClick(referencePosition, 157, 231)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(referencePosition, 16)
-netedit.redo(referencePosition, 16)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

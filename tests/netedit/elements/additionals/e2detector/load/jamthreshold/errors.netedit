@@ -1,3 +1,3 @@
 Error: Attribute 'jamThreshold' in definition of laneAreaDetector 'E2_02' Invalid Number Format (double) dummyJamThreshold.
 Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Attribute jamThreshold cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e2detector/load/jamthreshold/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141210.28545/netedit.gui/elements/additionals/e2detector/load/jamthreshold/additionals.add.xml failed.

@@ -28,42 +28,81 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# Change to create edge mode
+netedit.createEdgeMode()
+
+# select two-way mode
+netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
+
+# create a complex intersection
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
+                  netedit.positions.network.junction.positionC.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+
 # rebuild network
 netedit.rebuildNetwork()
 
 # Change to delete mode
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
+# disable 'protect elements'
 netedit.protectElements(referencePosition)
 
-# remove one way edge
-netedit.leftClick(referencePosition, 187, 60)
-
-# remove two way edges
-netedit.leftClick(referencePosition, 437, 60)
-
-# remove two way edges
-netedit.leftClick(referencePosition, 806, 60)
-
-# remove square
-netedit.leftClick(referencePosition, 186, 173)
-netedit.leftClick(referencePosition, 315, 295)
-
-# remove circular road
-netedit.leftClick(referencePosition, 616, 312)
+# remove center edge
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(referencePosition, 6)
+netedit.undo(referencePosition, 1)
+
+# rebuild network
+netedit.rebuildNetwork()
+
+# Change to delete mode
+netedit.deleteMode()
+
+# remove all junctions
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionE.x,
+                  netedit.positions.network.junction.positionE.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA_2.x,
+                  netedit.positions.network.junction.positionA_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB_2.x,
+                  netedit.positions.network.junction.positionB_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC_2.x,
+                  netedit.positions.network.junction.positionC_2.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD_2.x,
+                  netedit.positions.network.junction.positionD_2.y)
+
+# rebuild network
+netedit.rebuildNetwork()
+
+# Check undo
+netedit.undo(referencePosition, 9)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(referencePosition, 6)
+netedit.redo(referencePosition, 9)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

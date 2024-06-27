@@ -1,5 +1,5 @@
-Error: Attribute 'pos' is missing in definition of laneAreaDetector 'E2_01'.
+Error: A single lane area detector requieres two parameters of those 'pos', 'endPos' and 'length'.
 Error: Attribute 'pos' in definition of laneAreaDetector 'E2_02' Invalid Number Format (double) dummyPosition.
 Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Invalid position over lane.
 Error: Could not build laneAreaDetector with ID 'E2_04' in netedit; Invalid position over lane.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150655.2113/netedit.gui/elements/additional/e2detector/load/pos/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun141210.28545/netedit.gui/elements/additionals/e2detector/load/pos/additionals.add.xml failed.
