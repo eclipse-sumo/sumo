@@ -185,22 +185,25 @@ public:
     }
 
     /// @brief Return the number of occupied places of the ParkingArea
-    double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
+    double getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
+
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea);
 
     /// @brief Return the number of places the ParkingArea provides
-    double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace);
+    double getStoppingPlaceCapacity(MSStoppingPlace* parkingArea);
 
     /// @brief store the blocked ParkingArea in the vehicle
-    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked);
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* parkingArea, bool blocked);
 
     /// @brief store the score of the ParkingArea in the vehicle
-    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score);
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* parkingArea, const std::string& score);
 
     /// @brief reset all stored ParkingArea scores for this vehicle
     void resetStoppingPlaceScores(SUMOVehicle& veh);
 
     /// @brief get the time the ParkingArea was considered full from this vehicle
-    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local);
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* parkingArea, bool local);
 
     /// @brief ask how many times already the vehicle has been rerouted to another stopping place
     int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);

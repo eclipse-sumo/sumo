@@ -134,7 +134,7 @@ public:
     ///@brief Constructor
     MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "",
     StoppingPlaceParamMap_t evalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, },
-    StoppingPlaceParamSwitchMap_t invertParams = { {"probability", true}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true }, });
+    StoppingPlaceParamSwitchMap_t invertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true }, });
 
     // Destructor
     virtual ~MSStoppingPlaceRerouter() {}
@@ -196,6 +196,9 @@ public:
 
     /// @brief Return the number of occupied places of the StoppingPlace
     virtual double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) = 0;
+
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    virtual double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) = 0;
 
     /// @brief Return the number of places the StoppingPlace provides
     virtual double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) = 0;
@@ -266,10 +269,12 @@ private:
     MSStoppingPlaceRerouter() = delete;
 
 public:
-    const StoppingPlaceParamMap_t myEvalParams;
     const StoppingPlaceParamSwitchMap_t myInvertParams;
-    StoppingPlaceParamSwitchMap_t myNormParams;
     const SumoXMLTag myStoppingType;
+
+protected:
+    StoppingPlaceParamMap_t myEvalParams;
+    StoppingPlaceParamSwitchMap_t myNormParams;
 
 private:
     const std::string myParamPrefix;

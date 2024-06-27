@@ -695,21 +695,27 @@ MSTriggeredRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* parkingArea) {
 
 
 double
-MSTriggeredRerouter::getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) {
-    MSParkingArea* pa = dynamic_cast<MSParkingArea*>(stoppingPlace);
+MSTriggeredRerouter::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* parkingArea) {
+    return dynamic_cast<MSParkingArea*>(parkingArea)->getLastStepOccupancy();
+}
+
+
+double
+MSTriggeredRerouter::getStoppingPlaceCapacity(MSStoppingPlace* parkingArea) {
+    MSParkingArea* pa = dynamic_cast<MSParkingArea*>(parkingArea);
     return pa->getCapacity();
 }
 
 
 void
-MSTriggeredRerouter::rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) {
-    veh.rememberBlockedParkingArea(stoppingPlace, blocked);
+MSTriggeredRerouter::rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* parkingArea, bool blocked) {
+    veh.rememberBlockedParkingArea(parkingArea, blocked);
 }
 
 
 void
-MSTriggeredRerouter::rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) {
-    veh.rememberParkingAreaScore(place, score);
+MSTriggeredRerouter::rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* parkingArea, const std::string& score) {
+    veh.rememberParkingAreaScore(parkingArea, score);
 }
 
 
@@ -720,8 +726,8 @@ MSTriggeredRerouter::resetStoppingPlaceScores(SUMOVehicle& veh) {
 
 
 SUMOTime
-MSTriggeredRerouter::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) {
-    return veh.sawBlockedParkingArea(place, local);
+MSTriggeredRerouter::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* parkingArea, bool local) {
+    return veh.sawBlockedParkingArea(parkingArea, local);
 }
 
 
