@@ -527,6 +527,9 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.model", new Option_String("striping"));
     oc.addDescription("pedestrian.model", "Processing", TL("Select among pedestrian models ['nonInteracting', 'striping', 'remote']"));
 
+    oc.doRegister("pedestrian.timegap-crossing", new Option_Float(2.));
+    oc.addDescription("pedestrian.timegap-crossing", "Processing", TL("Minimal acceptable gap (in seconds) between two vehicles before starting to cross"));
+
     oc.doRegister("pedestrian.striping.stripe-width", new Option_Float(0.64));
     oc.addDescription("pedestrian.striping.stripe-width", "Processing", TL("Width of parallel stripes for segmenting a sidewalk (meters) for use with model 'striping'"));
 

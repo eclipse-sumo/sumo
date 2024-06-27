@@ -438,7 +438,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                     link = crossing->getLinkCont().front();
                 }
                 // compare to and maybe adapt for MSPModel_Striping.cpp:1264
-                const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + 2 * speed, person->getImpatience(), speed, 0, 0, nullptr, false, person);
+                const double passingClearanceTime = person->getFloatParam("pedestrian.timegap-crossing");
+                const bool open = link->opened(time - DELTA_T, speed, speed, person->getVehicleType().getLength() + passingClearanceTime * speed,
+                                               person->getImpatience(), speed, 0, 0, nullptr, false, person);
                 const auto proxy = JPS_Simulation_GetWaitingSetProxy(myJPSSimulation, waitingStage, &message);
                 JPS_WaitingSetProxy_SetWaitingSetState(proxy, open ? JPS_WaitingSet_Inactive : JPS_WaitingSet_Active);
             }
