@@ -99,20 +99,28 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), myVeh(dynamic_cast<MSVehicle&>(holder)),
       myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
       myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
-    OptionsCont& oc = OptionsCont::getOptions();
-    myRescueTime = getFloatParam(holder, oc, "stationfinder.rescueTime", 1800.);
-    initRescueAction(holder, oc, "stationfinder.rescueAction", myRescueAction);
+    myRescueTime = STEPS2TIME(holder.getTimeParam("device.stationfinder.rescueTime"));
+    const std::string action = holder.getStringParam("device.stationfinder.rescueAction");
+    if (action == "remove") {
+        myRescueAction = RESCUEACTION_REMOVE;
+    }  else if (action == "tow") {
+        myRescueAction = RESCUEACTION_TOW;
+    } else if (action == "none") {
+        myRescueAction = RESCUEACTION_NONE;
+    } else {
+        WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), action);
+    }
     initRescueCommand();
-    myReserveFactor = MAX2(1., getFloatParam(holder, oc, "stationfinder.reserveFactor", 1.1));
-    myEmptySoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.emptyThreshold", 5.), 1.));
-    myRadius = getTimeParam(holder, oc, "stationfinder.radius");
-    myMaxEuclideanDistance = getFloatParam(holder, oc, "stationfinder.maxEuclideanDistance", -1);
-    myRepeatInterval = getTimeParam(holder, oc, "stationfinder.repeat");
-    myMaxChargePower = getFloatParam(holder, oc, "stationfinder.maxChargePower", 80000.);
+    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", 1.1));
+    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", 5.), 1.));
+    myRadius = holder.getTimeParam("device.stationfinder.radius");
+    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", -1);
+    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat");
+    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", 80000.);
     myChargeType = CHARGETYPE_CHARGING;
-    myWaitForCharge = getTimeParam(holder, oc, "stationfinder.waitForCharge");
-    myTargetSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.saturatedChargeLevel", 80.), 1.));
-    mySearchSoC = MAX2(0., MIN2(getFloatParam(holder, oc, "stationfinder.needToChargeLevel", 40.), 1.));
+    myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
+    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", 80.), 1.));
+    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", 40.), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
@@ -527,16 +535,4 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
 }
 
 
-void
-MSDevice_StationFinder::initRescueAction(const SUMOVehicle& v, const OptionsCont& oc, const std::string& option, RescueAction& myAction) {
-    const std::string action = getStringParam(v, oc, option, "remove");
-    if (action == "remove") {
-        myAction = RESCUEACTION_REMOVE;
-    }  else if (action == "tow") {
-        myAction = RESCUEACTION_TOW;
-    } else if (action == "none") {
-        myAction = RESCUEACTION_NONE;
-    } else {
-        WRITE_ERROR(TLF("Invalid % '%'.", option, action));
-    }
-}
+/****************************************************************************/

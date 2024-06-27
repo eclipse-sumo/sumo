@@ -255,7 +255,7 @@ MSDevice_Taxi::cleanup() {
 MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
     MSVehicleDevice(holder, id) {
     std::string defaultServiceEnd = toString(1e15);
-    const std::string algo = getStringParam(holder, OptionsCont::getOptions(), "taxi.idle-algorithm", "", false);
+    const std::string algo = holder.getStringParam("device.taxi.idle-algorithm");
     if (algo == "stop") {
         myIdleAlgorithm = new MSIdling_Stop();
     } else if (algo == "randomCircling") {
@@ -266,7 +266,7 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
                                          ? myHolder.getParameter().depart
                                          : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
     } else if (algo == "taxistand") {
-        const std::string rerouterID = getStringParam(holder, OptionsCont::getOptions(), "taxi.stands-rerouter", "", false);
+        const std::string rerouterID = holder.getStringParam("device.taxi.stands-rerouter");
         if (rerouterID.empty()) {
             throw ProcessError("Idle algorithm '" + algo + "' requires a rerouter id to be defined using device param 'stands-rerouter' for vehicle '" + myHolder.getID() + "'");
         }
@@ -278,7 +278,7 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
     } else {
         throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
     }
-    myServiceEnd = string2time(getStringParam(holder, OptionsCont::getOptions(), "taxi.end", defaultServiceEnd, false));
+    myServiceEnd = string2time(holder.getStringParam("device.taxi.end", false, defaultServiceEnd));
     myRoutingDevice = static_cast<MSDevice_Routing*>(myHolder.getDevice(typeid(MSDevice_Routing)));
 }
 
@@ -486,11 +486,11 @@ MSDevice_Taxi::dispatchShared(std::vector<const Reservation*> reservations) {
             stops.back().parametersSet |= STOP_PERMITTED_SET;
             if (stops.back().duration == -1) {
                 // keep dropOffDuration if the stop is dropOff and pickUp
-                stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", 0, false));
+                stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.pickUpDuration", false, 0));
             }
         } else {
             prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, res->toStop, "dropOff " + toString(res->persons) + " (" + res->id + ")", res, isPickup);
-            stops.back().duration = TIME2STEPS(getFloatParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", 60, false)); // pay and collect bags
+            stops.back().duration = TIME2STEPS(myHolder.getFloatParam("device.taxi.dropOffDuration", false, 60)); // pay and collect bags
         }
     }
 #ifdef DEBUG_DISPATCH
@@ -673,7 +673,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
         stop.startPos = stopPos;
         stop.endPos = MAX2(stopPos, MIN2(myHolder.getVehicleType().getLength(), stopEdge->getLength()));
     }
-    stop.parking = SUMOVehicleParameter::parseParkingType(getStringParam(myHolder, OptionsCont::getOptions(), "taxi.parking", "true", false));
+    stop.parking = SUMOVehicleParameter::parseParkingType(myHolder.getStringParam("device.taxi.parking", false, "true"));
     stop.actType = action;
     stop.index = STOP_INDEX_END;
     // In case of prebooking if person is not there/ comes to late for pickup set maximum waiting time:
@@ -869,9 +869,9 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
     } else if (key == "currentCustomers") {
         return joinNamedToStringSorting(myCustomers, " ");
     } else if (key == "pickUpDuration") {
-        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.pickUpDuration", "0", false);
+        return myHolder.getStringParam("device.taxi.pickUpDuration", false, "0");
     } else if (key == "dropOffDuration") {
-        return getStringParam(myHolder, OptionsCont::getOptions(), "taxi.dropOffDuration", "60", false);
+        return myHolder.getStringParam("device.taxi.dropOffDuration", false, "60");
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }

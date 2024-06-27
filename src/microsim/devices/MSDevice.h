@@ -149,31 +149,6 @@ public:
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
 
-    /// @name Helper methods for parsing parameters
-    /// @{
-    /** @brief Retrieve a string parameter for the device.
-     * @param v the traffic object holding the device and possible parameters (the vtype is checked as well)
-     * @param oc the options to check
-     * @param paramName the parameter name without the "device."-prefix
-     * @param deflt the default value to take if the parameter is not set (the default in the oc is ignored)
-     * @param required whether it is an error if the parameter is not set
-     * @return the string value
-     */
-    static std::string getStringParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const std::string& deflt = "", bool required = false);
-    static double getFloatParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const double deflt, bool required = false);
-    static bool getBoolParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName, const bool deflt, bool required = false);
-    /** @brief Retrieve a time parameter for the device.
-     *
-     * In contrast to the other functions, this one assumes that there always exists an option in the oc with the name
-     * and it has a sensible default there.
-     * @param v the traffic object holding the device and possible parameters (the vtype is checked as well)
-     * @param oc the options to check
-     * @param paramName the parameter name without the "device."-prefix
-     * @return the time value
-     */
-    static SUMOTime getTimeParam(const SUMOTrafficObject& v, const OptionsCont& oc, const std::string& paramName);
-    /// @}
-
 protected:
     /// @name Helper methods for device assignment
     /// @{

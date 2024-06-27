@@ -64,8 +64,8 @@ MSDevice_Battery::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
         const double actualBatteryCapacity = readParameterValue(v, SUMO_ATTR_ACTUALBATTERYCAPACITY, "battery.chargeLevel", maximumBatteryCapacity * DEFAULT_CHARGE_RATIO);
         const double stoppingThreshold = readParameterValue(v, SUMO_ATTR_STOPPINGTHRESHOLD, "battery.stoppingThreshold", 0.1);
         const double maximumChargeRate = readParameterValue(v, SUMO_ATTR_MAXIMUMCHARGERATE, "battery.maximumChargeRate", 150000.);
-        const std::string chargeLevelTable = getStringParam(v, OptionsCont::getOptions(), "battery.chargeLevelTable", "");
-        const std::string chargeCurveTable = getStringParam(v, OptionsCont::getOptions(), "battery.chargeCurveTable", "");
+        const std::string chargeLevelTable = v.getStringParam("device.battery.chargeLevelTable");
+        const std::string chargeCurveTable = v.getStringParam("device.battery.chargeCurveTable");
 
         // battery constructor
         MSDevice_Battery* device = new MSDevice_Battery(v, "battery_" + v.getID(),
@@ -92,7 +92,7 @@ MSDevice_Battery::readParameterValue(SUMOVehicle& v, const SumoXMLAttr& attr, co
         }
         return StringUtils::toDouble(v.getParameter().getParameter(oldParam, "0"));
     }
-    return getFloatParam(v, OptionsCont::getOptions(), paramName, defaultVal);
+    return v.getFloatParam("device." + paramName, false, defaultVal);
 }
 
 

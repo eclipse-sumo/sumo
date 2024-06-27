@@ -62,9 +62,9 @@ MSDevice_GLOSA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*
     OptionsCont& oc = OptionsCont::getOptions();
     if (!MSGlobals::gUseMesoSim && equippedByDefaultAssignmentOptions(oc, "glosa", v, false)) {
         MSDevice_GLOSA* device = new MSDevice_GLOSA(v, "glosa_" + v.getID(),
-                getFloatParam(v, OptionsCont::getOptions(), "glosa.min-speed", 5, true),
-                getFloatParam(v, OptionsCont::getOptions(), "glosa.range", 100, true),
-                getFloatParam(v, OptionsCont::getOptions(), "glosa.max-speedfactor", 1.1, true));
+                v.getFloatParam("device.glosa.min-speed", true),
+                v.getFloatParam("device.glosa.range", true),
+                v.getFloatParam("device.glosa.max-speedfactor", true));
         into.push_back(device);
     }
 }
@@ -177,7 +177,7 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
             WRITE_WARNINGF(TL("Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"),
                            val, myNextTLSLink->getTLLogic()->getID());
         }
-        myRange = MIN2(getFloatParam(myVeh, OptionsCont::getOptions(), "glosa.range", 100, true), tlsRange);
+        myRange = MIN2(myVeh.getFloatParam("device.glosa.range", true), tlsRange);
     }
 
 #ifdef DEBUG_GLOSA

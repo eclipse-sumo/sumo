@@ -148,8 +148,15 @@ public:
     /** @brief Returns the vehicle's type definition
      * @return The vehicle's type definition
      */
-    inline const MSVehicleType& getVehicleType() const  {
+    inline const MSVehicleType& getVehicleType() const {
         return *myType;
+    }
+
+    /** @brief Returns the vehicle's type parameter
+     * @return The vehicle's type parameter
+     */
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return myType->getParameter();
     }
 
     /** @brief Returns the vehicle's access class

@@ -116,9 +116,8 @@ private:
 
     /// @name Helpers for parameter parsing
     /// @{
-    static double getDynamicMRMProbability(const SUMOVehicle& v, const OptionsCont& oc);
-    static std::string getOutputFilename(const SUMOVehicle& v, const OptionsCont& oc);
-    static OpenGapParams getOpenGapParams(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getDynamicMRMProbability(const SUMOVehicle& v);
+    static OpenGapParams getOpenGapParams(const SUMOVehicle& v);
 
     static ToCState _2ToCState(const std::string&);
     static std::string _2string(ToCState state);
