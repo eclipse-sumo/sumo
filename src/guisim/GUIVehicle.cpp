@@ -375,7 +375,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
         }
         curCLength = (i == trainHelper.getFirstCarriageNo() ? trainHelper.getFirstCarriageLength() : trainHelper.getCarriageLength());
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
         double halfWidth = trainHelper.getHalfWidth();
         std::string imgFile = getVType().getImgFile();
@@ -442,7 +446,11 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     }
     if (getVType().getGuiShape() == SUMOVehicleShape::RAIL_CAR) {
         GLHelper::pushMatrix();
-        glTranslated(front.x(), front.y(), getType());
+        if (s.trueZ) {
+            glTranslated(front.x(), front.y(), front.z() + 1);
+        } else {
+            glTranslated(front.x(), front.y(), getType());
+        }
         glRotated(angle, 0, 0, 1);
         drawAction_drawVehicleBlinker(curCLength);
         drawAction_drawVehicleBrakeLight(curCLength);

@@ -1853,6 +1853,16 @@ PositionVector::getMaxGrade(double& maxJump) const {
 }
 
 
+double
+PositionVector::getMinZ() const {
+    double minZ = std::numeric_limits<double>::max();
+    for (const Position& i : *this) {
+        minZ = MIN2(minZ, i.z());
+    }
+    return minZ;
+}
+
+
 PositionVector
 PositionVector::bezier(int numPoints) {
     // inspired by David F. Rogers

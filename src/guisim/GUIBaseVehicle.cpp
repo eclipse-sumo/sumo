@@ -437,7 +437,11 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     Position p1 = pos;
     const double degAngle = RAD2DEG(angle + M_PI / 2.);
     const double length = getVType().getLength();
-    glTranslated(p1.x(), p1.y(), getType());
+    if (s.trueZ) {
+        glTranslated(p1.x(), p1.y(), p1.z() + 1);
+    } else {
+        glTranslated(p1.x(), p1.y(), getType());
+    }
     glRotated(degAngle, 0, 0, 1);
     RGBColor col = setColor(s);
     // scale
