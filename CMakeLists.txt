@@ -406,8 +406,8 @@ if (SUMO_LIBRARIES AND WIN32)
         file(GLOB MSVC_DLLS "${SUMO_LIBRARIES}/runtimes/*.dll")
         list(APPEND SUMO_LIBRARIES_DLL ${MSVC_DLLS})
     endif(INSTALL_DLL_RUNTIMES)
-    # set fmt dir
-    file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?")
+    # set fmt dir depending of msvc toolset version
+    file(GLOB fmt_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/fmt-??.?.?/v${MSVC_TOOLSET_VERSION}")
     # declare flag for use google test
     set(USE_GOOGLETEST true)
     # check if use google test
