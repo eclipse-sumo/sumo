@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-02 14:11:35 by Eclipse SUMO netconvert Version v1_19_0+1620-8aaf8f08ffd
+<!-- generated on 2024-06-27 09:33:47 by Eclipse SUMO netconvert Version v1_20_0+0869-20920131d49
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -82,10 +82,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":25726537_2_1" index="1" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="7.30" length="11.40" shape="66.60,391.12 64.33,393.19 62.10,394.31 59.91,394.46 57.78,393.64"/>
     </edge>
     <edge id=":4360243469_0" function="internal">
-        <lane id=":4360243469_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="11.69" length="8.03" shape="180.44,419.22 179.51,421.43 178.81,423.00 178.54,424.59 178.90,426.86"/>
+        <lane id=":4360243469_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="13.79" length="11.28" shape="180.44,419.22 179.45,422.24 179.01,424.67 179.11,427.13 179.77,430.23"/>
     </edge>
     <edge id=":4360243469_1" function="internal">
-        <lane id=":4360243469_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="9.02" length="7.40" shape="176.22,420.04 176.79,420.70 177.43,422.06 178.13,424.11 178.90,426.86"/>
+        <lane id=":4360243469_1_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="10.83" length="10.84" shape="176.22,420.04 176.84,420.91 177.65,422.90 178.62,426.01 179.77,430.23"/>
     </edge>
     <edge id=":5331010309_0" function="internal">
         <lane id=":5331010309_0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="9.39" length="6.90" shape="133.83,408.83 135.68,407.92 136.97,407.21 137.93,406.20 138.80,404.43"/>
@@ -117,7 +117,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="149824197_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="80.86" shape="192.66,488.85 196.03,504.94 200.33,527.11 203.22,543.75 207.75,568.28"/>
     </edge>
     <edge id="20428609#0" from="4360243469" to="1128851576" priority="11" type="highway.secondary" spreadType="center" shape="178.40,424.93 182.54,440.93 191.19,481.84">
-        <lane id="20428609#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="49.11" shape="178.90,426.86 182.54,440.93 189.69,474.76"/>
+        <lane id="20428609#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="45.63" shape="179.77,430.23 182.54,440.93 189.69,474.76"/>
     </edge>
     <edge id="20429779#0" from="5331010309" to="4360243469" priority="11" type="highway.secondary" spreadType="center" shape="137.06,408.94 141.92,410.41 172.21,419.56 175.29,421.36 178.40,424.93">
         <lane id="20429779#0_0" index="0" disallow="tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone" speed="27.78" length="36.54" shape="140.73,408.38 142.38,408.88 172.85,418.08 176.22,420.04"/>
@@ -191,7 +191,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
     <junction id="33360492" type="dead_end" x="187.03" y="0.00" incLanes="" intLanes="" shape="183.97,-0.94 190.09,0.94"/>
     <junction id="33360519" type="dead_end" x="260.10" y="22.44" incLanes="5011573#0_0" intLanes="" shape="258.58,21.96 261.63,22.92"/>
-    <junction id="4360243469" type="traffic_light" x="178.40" y="424.93" incLanes="394648768#0_0 20429779#0_0 20429779#0_1" intLanes=":4360243469_0_0 :4360243469_1_0" shape="177.35,427.26 180.45,426.46 180.20,423.96 180.44,423.07 180.85,422.19 181.38,421.14 181.95,419.75 178.93,418.68 178.55,419.34 178.31,419.45 178.05,419.43 177.76,419.26 177.45,418.96 172.42,423.39 175.02,425.01 175.96,425.70 176.67,426.31 177.13,426.83">
+    <junction id="4360243469" type="traffic_light" x="178.40" y="424.93" incLanes="394648768#0_0 20429779#0_0 20429779#0_1" intLanes=":4360243469_0_0 :4360243469_1_0" shape="178.22,430.63 181.32,429.82 180.81,427.71 180.54,426.10 180.52,424.74 180.75,423.39 181.23,421.81 181.95,419.75 178.93,418.68 178.55,419.34 178.31,419.45 178.05,419.43 177.76,419.26 177.45,418.96 172.42,423.39 175.12,425.39 176.18,426.54 177.05,427.80 177.73,429.16">
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="00" foes="01" cont="0"/>
     </junction>
