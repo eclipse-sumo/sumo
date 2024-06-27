@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-26 12:14+0000\n"
+"PO-Revision-Date: 2024-06-27 10:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -7908,32 +7908,39 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:660
 msgid "Skipping edge '%' because it has zero lanes."
-msgstr ""
+msgstr "L'arco '%' verrà omesso perché non ha corsie."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:700
 msgid "Skipping edge '%' because it has speed %."
-msgstr ""
+msgstr "L'arco '%' verrà omesso perché ha il limite di velocità %."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:822
 msgid ""
 "Forward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:forward key ('%'). Using default width values."
 msgstr ""
+"Il numero di corsie in avanti dell'arco '%' ('%') non corrisponde con il "
+"numero definito nella chiave width:lanes:forward ('%'). Il valore di "
+"larghezza standard verrà usato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:875
 msgid ""
 "Backward lanes count for edge '%' ('%') is not matching the number of lanes "
 "defined in width:lanes:backward key ('%'). Using default width values."
 msgstr ""
+"Il numero di corsie in indietro dell'arco '%' ('%') non corrisponde con il "
+"numero definito nella chiave width:lanes:backward ('%'). Il valore di "
+"larghezza standard verrà usato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:888
 msgid "Could not add edge '-%'."
-msgstr ""
+msgstr "Non ho potuto aggiungere l'arco '-%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:988
 msgid ""
 "Attribute 'id' in the definition of a node is not of type long long int."
 msgstr ""
+"L'attributo 'id' nella definizione del nodo non è del tipo long long int."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:994
 msgid "Tag element on wrong XML hierarchy level."
@@ -7941,31 +7948,37 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1054
 msgid "Value of key '%' is invalid ('%') in node '%'."
-msgstr ""
+msgstr "Il valore della chiave '%' è invalido ('%') nel nodo '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1059
 msgid "Value of key '%' is not numeric ('%') in node '%'."
-msgstr ""
+msgstr "Il valore della chiave '%' non è numerico ('%') nel nodo '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1206
 #: src/polyconvert/PCLoaderOSM.cpp:578
 msgid "The referenced geometry information (ref='%') is not known"
-msgstr ""
+msgstr "La informazione geometrica referenziata (ref='%') è sconosciuta"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1460
 #, c-format
 msgid "Using default lane width for edge '%' as key '%' could not be parsed."
 msgstr ""
+"Uso della larghezza di corsia standard nell'arco '%' poiché la chiave '%' "
+"non poteva essere analizzata."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1463
 #, c-format
 msgid "Using default lane width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Uso della larghezza di corsia standard nell'arco '%' poiché il valore '%' "
+"non poteva essere analizzato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1469
 #, c-format
 msgid "Using default width for edge '%' as value '%' could not be parsed."
 msgstr ""
+"Uso della larghezza standard nell'arco '%' poiché il valore '%' non poteva "
+"essere analizzato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1505
 msgid "Using minimum lane number from list (%) for edge '%'."
@@ -8473,7 +8486,7 @@ msgstr "Parametri utilizzati per la proiezione Prog: '%'."
 #: src/netimport/NILoader.cpp:165
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input edge files."
-msgstr "Le classi di veicolo '%' dei file ingresso non si usono più."
+msgstr "Le classi di veicolo '%' dei file ingresso non si usano più."
 
 #: src/netimport/NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
@@ -8485,11 +8498,12 @@ msgstr ""
 
 #: src/netimport/NINavTeqHelper.cpp:90
 msgid "Invalid lane number (edge '%')."
-msgstr ""
+msgstr "Numero invalido di corsie (arco '%')."
 
 #: src/netimport/NINavTeqHelper.cpp:94
 msgid "Non-numerical value for an edge's lane number occurred (edge '%')."
 msgstr ""
+"Un valore non numerico per il numero di corsie è stato trovato (arco '%')."
 
 #: src/netimport/NITypeLoader.cpp:62
 msgid "Could not open %-file '%'."
@@ -8519,26 +8533,31 @@ msgstr ""
 #: src/netimport/NIXMLConnectionsHandler.cpp:275
 msgid "Could not set loaded connection from lane '%' to lane '%'."
 msgstr ""
+"Non ho potuto creare il collegamento caricato dalla corsia '%' alla corsia "
+"'%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:347
 #, c-format
 msgid "Node '%' in crossing is not known."
-msgstr ""
+msgstr "Il nodo '%' usato nel passaggio pedonale è sconosciuto."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:356
 msgid "No edges specified for crossing at node '%'."
 msgstr ""
+"Gli archi da attraversare con il passaggio pedonale nel nodo '%' non sono "
+"stati specificati."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:364
 #, c-format
 msgid "Edge '%' for crossing at node '%' is not known."
 msgstr ""
+"L'arco '%' da attraversare col passaggio pedonale nel nodo '%' è sconosciuto."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:372
 #: src/netimport/NIXMLConnectionsHandler.cpp:450
 #: src/netimport/NIXMLConnectionsHandler.cpp:455
 msgid "Edge '%' does not touch node '%'."
-msgstr ""
+msgstr "L'arco '%' non tocca il nodo '%'."
 
 #: src/netimport/NIXMLConnectionsHandler.cpp:385
 #, c-format
