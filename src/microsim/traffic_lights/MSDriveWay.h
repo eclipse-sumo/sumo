@@ -66,7 +66,7 @@ public:
     bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true, const SUMOVehicle* ego = nullptr) const;
 
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
-    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const; 
+    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const;
 
     /// @brief Whether any of the conflict links have approaching vehicles
     bool conflictLinkApproached() const;
@@ -118,6 +118,10 @@ public:
 
     /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
     static std::string getClickableTLLinkID(const MSLink* link);
+
+    static void buildDepartureDriveway(const SUMOVehicle* veh);
+
+    static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
 protected:
 
@@ -255,12 +259,15 @@ private:
     std::vector<const MSLink*> myForwardSwitches;
 
     static int myGlobalDriveWayIndex;
+    static int myDepartDriveWayIndex;
     static int myNumWarnings;
     static bool myWriteVehicles;
 
     /// @brief all driveways passing the given switch (used to look up flank foes)
     static std::map<const MSLink*, std::vector<MSDriveWay*> > mySwitchDriveWays;
 
+    /// @brief all driveways that do not start at a rail signal (and are only used at departure)
+    static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDriveways;
 
 };
 

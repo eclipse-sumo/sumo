@@ -55,15 +55,18 @@
 #define DEBUG_HELPER(obj) ((obj)->getID() == "")
 //#define DEBUG_HELPER(obj) (true)
 
-#define DEBUG_COND_DW (dw->myNumericalID == 5)
+//#define DEBUG_COND_DW (dw->myNumericalID == 5)
+#define DEBUG_COND_DW (true)
 
 // ===========================================================================
 // static value definitions
 // ===========================================================================
 int MSDriveWay::myGlobalDriveWayIndex(0);
+int MSDriveWay::myDepartDriveWayIndex(0);
 int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
+std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
 
 // ---------------------------------------------------------------------------
 // static initialisation methods
@@ -122,6 +125,13 @@ MSDriveWay::~MSDriveWay() {
         std::vector<MSDriveWay*>& dws = mySwitchDriveWays[link];
         dws.erase(std::find(dws.begin(), dws.end(), this));
     }
+    if (myLane != nullptr) {
+        const MSEdge* first = &myLane->getEdge();
+        if (first->getFromJunction()->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+            std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
+            dws.erase(std::find(dws.begin(), dws.end(), this));
+        }
+    }
 }
 
 
@@ -133,7 +143,7 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
     if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (match(sveh.getRoute(), firstIt)) {
+        if (myTrains.count(&sveh) == 0 &&  match(sveh.getRoute(), firstIt)) {
             myTrains.insert(&sveh);
             if (myWriteVehicles) {
                 myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
@@ -1082,7 +1092,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
-        std::cout << "  buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ") at railSignal=" << Named::getIDSecure(link->getTLLogic())
+        std::cout << SIMTIME << " buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ") at railSignal=" << Named::getIDSecure(link->getTLLogic())
                   << "\n    route=" << toString(dw->myRoute)
                   << "\n    forward=" << toString(dw->myForward)
                   << "\n    bidi=" << toString(dw->myBidi)
@@ -1255,4 +1265,40 @@ MSDriveWay::addConflictLink(const MSLink* link) {
         }
     }
 }
+
+
+void
+MSDriveWay::buildDepartureDriveway(const SUMOVehicle* veh) {
+    const MSEdge* edge = veh->getEdge();
+    for (MSDriveWay* dw : myDepartureDriveways[edge]) {
+        if (dw->match(veh->getRoute(), veh->getCurrentRouteEdge())) {
+            return;
+        }
+    }
+    const std::string id = edge->getFromJunction()->getID() + "." + toString(myDepartDriveWayIndex++);
+    // @todo
+    //MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
+    //myDepartureDriveways[edge].push_back(dw);
+}
+
+
+void
+MSDriveWay::writeDepatureBlocks(OutputDevice& od, bool writeVehicles) {
+    for (auto item  : myDepartureDriveways) {
+        const MSEdge* edge = item.first;
+        if (item.second.size() > 0) {
+            od.openTag("departJunction");
+            od.writeAttr(SUMO_ATTR_ID, edge->getFromJunction()->getID());
+            for (const MSDriveWay* dw : item.second) {
+                if (writeVehicles) {
+                    dw->writeBlockVehicles(od);
+                } else {
+                    dw->writeBlocks(od);
+                }
+            }
+            od.closeTag(); // departJunction
+        }
+    }
+}
+
 /****************************************************************************/

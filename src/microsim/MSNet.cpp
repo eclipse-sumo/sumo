@@ -1415,6 +1415,7 @@ MSNet::writeRailSignalBlocks() const {
                 rs->writeBlocks(output, false);
             }
         }
+        MSDriveWay::writeDepatureBlocks(output, false);
     }
     if (OptionsCont::getOptions().isSet("railsignal-vehicle-output")) {
         OutputDevice& output = OutputDevice::getDeviceByOption("railsignal-vehicle-output");
@@ -1424,6 +1425,7 @@ MSNet::writeRailSignalBlocks() const {
                 rs->writeBlocks(output, true);
             }
         }
+        MSDriveWay::writeDepatureBlocks(output, true);
     }
 }
 
