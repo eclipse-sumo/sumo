@@ -1,5 +1,6 @@
 Reading up to time step: 0.00Reading up to time step: 200.00Success.
 Calculate travel time between edges with duarouter
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -18,10 +19,6 @@ Dispatch: taxiA_1y_1z
 Run dispatcher
 New reservations: ['2']
 Pending reservations: []
-Solve DARP with simple_rerouting
-
-Run dispatcher
-Pending reservations: ['2']
 Solve DARP with simple_rerouting
 
 Run dispatcher
