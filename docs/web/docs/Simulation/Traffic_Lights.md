@@ -13,7 +13,7 @@ additional program definitions. Also,
 definitions which describe when and how a set of traffic lights can
 switch from one program to another. Both will be discussed in the
 following subchapters. Another possibility is to edit traffic light plans
-visually in [netedit](../Netedit/index.md#traffic_lights).
+visually in [netedit](../Netedit/editModesNetwork.md#traffic_lights).
 
 # Automatically Generated TLS-Programs
 
@@ -107,7 +107,7 @@ option **--tls.red.time**.
 
 To get traffic lights that adapt to demand dynamically, built the
 network with option **--tls.default-type actuated**. This will automatically generate [actuated
-traffic lights](#actuated_traffic_lights).
+traffic lights](#type_actuated).
 
 !!! note
     If the network was created by [osmWebWizard.py](../Tutorials/OSMWebWizard.md) the traffic lights are 'actuated' by default
@@ -801,7 +801,7 @@ For an easier import than editing the XML by hand, some tools exists in
   phases for each controlled edge-to-edge connection. Splitting into
   smaller SUMO-phases because other signals change is done
   automatically.
-- [tls_csvSignalGroup.py](../Tools/tls.md#tls_csvsignalgrouppy):
+- [tls_csvSignalGroups.py](../Tools/tls.md#tls_csvsignalgroupspy):
   this tool further simplifies descriptions because it allows to
   define the start and end times of green-phases per signal group (up
   to 2 green phases, actually) and the transitions (yellow,
@@ -814,7 +814,7 @@ using a graphical user interface.
 # Modifying Existing TLS-Programs
 
 To modify the program of a traffic light it is generally necessary to
-[load a new program](#loading_new_tls-programs). However, in
+[load a new program](#loading_a_new_program). However, in
 the special case that only the offset shall be modified it is also
 possible to specify a new offset for an existing traffic light id and
 programID:

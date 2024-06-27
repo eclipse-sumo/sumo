@@ -19,7 +19,7 @@ This is a special case of the above method. Vehicles with incomplete
 routes automatically receive a *rerouting device* and are rerouted once
 when entering the network. In some scenarios this is a practical
 [*one-shot*-approach to route assignment](../Demand/Dynamic_User_Assignment.md#oneshot-assignment)
-that avoids time-consuming [iterative assignment](../Demand/Dynamic_User_Assignment.md#general_behavior).
+that avoids time-consuming [iterative assignment](../Demand/Dynamic_User_Assignment.md).
 
 ## Alternative Route Signage
 
@@ -43,13 +43,13 @@ can be used to compute simple walks as well as [itineraries for public transport
 # Alternative Destinations
 
 By using [`<rerouter>`-definitions](../Simulation/Rerouter.md), vehicles can be routed
-to alternative destinations. A different method is to use [traffic assignment zones (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz).
+to alternative destinations. A different method is to use [traffic assignment zones (TAZ)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz).
 This allows vehicles to change their destination to the best alternative
 from a list of potential destinations.
 
 # Handling of temporary obstructions
 
-By using [`<rerouter>`-definitions](../Simulation/Rerouter.md) of type `<closingReroute allow="..."/>` (or `<closingLaneReroute allow="..."/>` if all lanes are closed) it is possible change road permissions temporarily (i.e. to model construction sites). By default, the simulation will raise an error when loading a route that passes a closed edge or if routing to the destination failes because of an obstruction.
+By using [`<rerouter>`-definitions](../Simulation/Rerouter.md) of type `<closingReroute allow="..."/>` (or `<closingLaneReroute allow="..."/>` if all lanes are closed) it is possible change road permissions temporarily (i.e. to model construction sites). By default, the simulation will raise an error when loading a route that passes a closed edge or if routing to the destination fails because of an obstruction.
 By setting a vehicle routing mode that includes bit-flag *traci.constants.ROUTING_MODE_IGNORE_TRANSIENT_PERMISSIONS*, this behavior can be changed. Instead vehicles will ignore obstructions until reaching the closed edge and then wait there (potentially [teleporting](Why_Vehicles_are_teleporting.md) after **--time-to-teleport* is reached).
 
 Setting the routing mode (to ignore blockage) can be accomplished in the following ways:
@@ -226,7 +226,7 @@ when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}.
 
-- When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks
+- When used with [duarouter](../duarouter.md), edge permissions are ignored so this should only be used in unimodal networks.
 - When used with [sumo](../sumo.md), the computed routes are only valid for the default 'passenger' class.
 
 ## CHWrapper
@@ -237,4 +237,4 @@ enabling routing in multi modal scenarios
 # Further Options that affect routing
 
 - **--weights.minor-penalty FLOAT** : set a fixed time penalty for passing junctions without having right-of-way (default 1.5s)
-- **--persontrip.walk-opposite-factor FLOAT** : set penality speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)
+- **--persontrip.walk-opposite-factor FLOAT** : set penalty speed factor for walking against the flow of vehicular traffic (see [pedestrian routing](Pedestrians.md#pedestrian_routing)) (default 1)
