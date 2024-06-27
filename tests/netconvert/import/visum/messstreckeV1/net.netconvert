@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:02 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-06-27 09:21:40 by Eclipse SUMO netconvert Version v1_20_0+0869-20920131d49
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <visum-file value="visum.net"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -75,19 +75,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":15_4_0" index="0" allow="pedestrian passenger" speed="11.85" length="11.30" shape="1525.66,557.25 1527.82,554.81 1529.58,552.96 1531.63,551.70 1534.65,551.06"/>
     </edge>
     <edge id=":16_0" function="internal">
-        <lane id=":16_0_0" index="0" allow="pedestrian passenger" speed="7.17" length="4.48" shape="1564.95,553.16 1563.91,552.36 1563.08,551.94 1562.16,551.81 1560.85,551.89"/>
+        <lane id=":16_0_0" index="0" allow="pedestrian passenger" speed="10.06" length="9.21" shape="1568.53,556.15 1566.52,554.24 1565.06,552.81 1563.42,551.99 1560.85,551.89"/>
     </edge>
     <edge id=":16_1" function="internal">
-        <lane id=":16_1_0" index="0" allow="pedestrian passenger" speed="8.69" length="6.19" shape="1567.78,544.56 1566.99,550.70"/>
+        <lane id=":16_1_0" index="0" allow="pedestrian passenger" speed="10.91" length="9.98" shape="1567.78,544.56 1567.97,547.55 1568.04,549.75 1568.68,551.64 1570.57,553.69"/>
     </edge>
     <edge id=":16_2" function="internal">
-        <lane id=":16_2_0" index="0" allow="pedestrian passenger" speed="6.39" length="5.59" shape="1564.61,544.99 1564.70,547.85 1564.11,549.95 1563.73,550.35"/>
+        <lane id=":16_2_0" index="0" allow="pedestrian passenger" speed="6.39" length="5.73" shape="1564.61,544.99 1564.70,547.85 1564.11,549.95 1563.64,550.45"/>
     </edge>
     <edge id=":16_4" function="internal">
-        <lane id=":16_4_0" index="0" allow="pedestrian passenger" speed="6.39" length="3.37" shape="1563.73,550.35 1562.83,551.30 1560.85,551.89"/>
+        <lane id=":16_4_0" index="0" allow="pedestrian passenger" speed="6.39" length="3.24" shape="1563.64,550.45 1562.83,551.30 1560.85,551.89"/>
     </edge>
     <edge id=":16_3" function="internal">
-        <lane id=":16_3_0" index="0" allow="pedestrian passenger" speed="8.85" length="7.04" shape="1560.56,548.70 1562.62,548.58 1564.07,548.78 1565.37,549.44 1566.99,550.70"/>
+        <lane id=":16_3_0" index="0" allow="pedestrian passenger" speed="11.25" length="11.63" shape="1560.56,548.70 1563.69,548.84 1566.00,549.82 1568.09,551.49 1570.57,553.69"/>
     </edge>
     <edge id=":17_0" function="internal">
         <lane id=":17_0_0" index="0" allow="pedestrian passenger" speed="3.65" length="4.67" shape="1737.49,692.78 1737.90,694.16 1737.69,695.03 1736.87,695.39 1735.44,695.24"/>
@@ -324,7 +324,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-14_0" index="0" allow="pedestrian passenger" speed="13.89" length="159.50" shape="1415.66,672.75 1525.66,557.25"/>
     </edge>
     <edge id="-15" from="17" to="16" priority="-1" type="0">
-        <lane id="-15_0" index="0" allow="pedestrian passenger" speed="13.89" length="221.93" shape="1735.44,695.24 1564.95,553.16"/>
+        <lane id="-15_0" index="0" allow="pedestrian passenger" speed="13.89" length="217.27" shape="1735.44,695.24 1568.53,556.15"/>
     </edge>
     <edge id="-16" from="16" to="15" priority="-1" type="0">
         <lane id="-16_0" index="0" allow="pedestrian passenger" speed="13.89" length="26.02" shape="1560.85,551.89 1534.94,554.24"/>
@@ -405,7 +405,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="14_0" index="0" allow="pedestrian passenger" speed="13.89" length="159.50" shape="1527.98,559.45 1417.97,674.95"/>
     </edge>
     <edge id="15" from="16" to="17" priority="-1" type="0">
-        <lane id="15_0" index="0" allow="pedestrian passenger" speed="13.89" length="221.93" shape="1566.99,550.70 1737.49,692.78"/>
+        <lane id="15_0" index="0" allow="pedestrian passenger" speed="13.89" length="217.27" shape="1570.57,553.69 1737.49,692.78"/>
     </edge>
     <edge id="16" from="15" to="16" priority="-1" type="0">
         <lane id="16_0" index="0" allow="pedestrian passenger" speed="13.89" length="26.02" shape="1534.65,551.06 1560.56,548.70"/>
@@ -503,7 +503,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="3" response="00000" foes="00010" cont="0"/>
         <request index="4" response="00000" foes="00010" cont="0"/>
     </junction>
-    <junction id="16" type="priority" x="1563.68" y="550.02" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_1_0 :16_4_0 :16_3_0" shape="1563.92,554.39 1568.02,549.47 1567.54,547.97 1568.06,547.26 1568.72,546.46 1569.25,545.52 1569.36,544.34 1563.02,545.21 1562.83,546.15 1562.48,546.50 1561.97,546.78 1561.28,546.98 1560.42,547.11 1561.00,553.48 1562.17,553.44 1562.59,553.52 1562.98,553.69 1563.40,553.97">
+    <junction id="16" type="priority" x="1563.68" y="550.02" incLanes="-15_0 18_0 18_1 16_0" intLanes=":16_0_0 :16_1_0 :16_4_0 :16_3_0" shape="1567.50,557.37 1571.60,552.46 1569.71,550.08 1569.48,548.95 1569.48,547.70 1569.50,546.21 1569.36,544.34 1563.02,545.21 1562.83,546.15 1562.48,546.50 1561.97,546.78 1561.28,546.98 1560.42,547.11 1561.00,553.48 1563.72,553.80 1564.57,554.39 1565.36,555.21 1566.27,556.22">
         <request index="0" response="0000" foes="0100" cont="0"/>
         <request index="1" response="0000" foes="1000" cont="0"/>
         <request index="2" response="0001" foes="1001" cont="1"/>
@@ -626,7 +626,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junction>
 
     <junction id=":15_5_0" type="internal" x="1532.95" y="554.01" incLanes=":15_1_0 -14_0" intLanes=":15_2_0 :15_2_1 :15_4_0"/>
-    <junction id=":16_4_0" type="internal" x="1563.73" y="550.35" incLanes=":16_2_0 -15_0" intLanes=":16_0_0 :16_3_0"/>
+    <junction id=":16_4_0" type="internal" x="1563.64" y="550.45" incLanes=":16_2_0 -15_0" intLanes=":16_0_0 :16_3_0"/>
     <junction id=":2_8_0" type="internal" x="455.69" y="575.90" incLanes=":2_5_0 -22_0 -22_1" intLanes=":2_0_0 :2_1_0 :2_1_1 :2_7_0"/>
     <junction id=":3_15_0" type="internal" x="902.28" y="544.58" incLanes=":3_3_0 -21_0 -21_1" intLanes=":3_5_0 :3_6_0 :3_7_0 :3_8_0 :3_8_1 :3_13_0 :3_14_0"/>
     <junction id=":3_16_0" type="internal" x="892.12" y="544.55" incLanes=":3_10_0 -24_0 -24_1" intLanes=":3_0_0 :3_1_0 :3_1_1 :3_5_0 :3_6_0 :3_13_0 :3_14_0"/>

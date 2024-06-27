@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-26 15:59:20 by Eclipse SUMO netconvert Version v1_20_0+0855-d20d932ea2e
+<!-- generated on 2024-06-27 09:21:36 by Eclipse SUMO netconvert Version v1_20_0+0869-20920131d49
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,17 +39,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <location netOffset="-300.00,50.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="a" from="J3" to="C" priority="-1">
-        <lane id="a_0" index="0" speed="13.89" length="113.66" shape="-0.72,98.57 95.80,50.31"/>
+        <lane id="a_0" index="0" speed="13.89" length="111.80" shape="-0.72,98.57 95.80,50.31"/>
     </edge>
     <edge id="b" from="J4" to="C" priority="-1">
-        <lane id="b_0" index="0" speed="13.89" length="105.45" shape="0.72,-1.43 92.30,44.36"/>
+        <lane id="b_0" index="0" speed="13.89" length="111.80" shape="0.72,-1.43 92.30,44.36"/>
     </edge>
     <edge id="end" from="C" to="J6" priority="-1">
-        <lane id="end_0" index="0" speed="13.89" length="108.04" shape="95.86,45.20 200.00,45.20"/>
-        <lane id="end_1" index="1" speed="13.89" length="108.04" shape="95.86,48.40 200.00,48.40"/>
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="101.50,45.20 200.00,45.20"/>
+        <lane id="end_1" index="1" speed="13.89" length="100.00" shape="101.50,48.40 200.00,48.40"/>
     </edge>
 
-    <junction id="C" type="priority" x="100.00" y="50.00" incLanes="b_0 a_0" intLanes="" shape="95.86,50.00 95.86,43.60 94.76,43.57 94.38,43.51 94.01,43.39 93.58,43.21 93.01,42.93 91.58,45.79 94.12,47.21 94.88,47.77 95.29,48.24 95.36,48.61 95.08,48.88 96.51,51.74">
+    <junction id="C" type="priority" x="100.00" y="50.00" incLanes="b_0 a_0" intLanes="" shape="101.50,50.00 101.50,43.60 98.25,43.85 97.09,43.98 95.96,43.95 94.67,43.64 93.01,42.93 91.58,45.79 94.12,47.21 94.88,47.77 95.29,48.24 95.36,48.61 95.08,48.88 96.51,51.74 98.27,50.77 98.90,50.43 99.56,50.19 100.38,50.05">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>

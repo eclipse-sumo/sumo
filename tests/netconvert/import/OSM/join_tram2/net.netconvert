@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-04-28 22:31:06 by Eclipse SUMO netconvert Version v1_19_0+1959-e51fd22bc0f
+<!-- generated on 2024-06-27 09:29:51 by Eclipse SUMO netconvert Version v1_20_0+0869-20920131d49
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <osm-files value="osm.xml"/>
@@ -44,7 +44,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -2217,7 +2217,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="309121427#1" from="1365387666" to="3144398501" priority="17" type="railway.tram" spreadType="center">
-        <lane id="309121427#1_0" index="0" allow="tram" speed="13.89" length="5.39" shape="1371.27,1208.32 1369.11,1208.95">
+        <lane id="309121427#1_0" index="0" allow="tram" speed="13.89" length="5.39" shape="1371.27,1208.32 1369.53,1208.83">
             <param key="origId" value="309121427"/>
         </lane>
     </edge>
@@ -2287,7 +2287,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </lane>
     </edge>
     <edge id="309121430#7" from="3144398501" to="3144381718" priority="17" type="railway.tram" spreadType="center" shape="1367.70,1209.36 1372.42,1206.17 1380.73,1201.94">
-        <lane id="309121430#7_0" index="0" allow="tram" speed="2.78" length="15.00" shape="1368.78,1208.63 1368.86,1208.58">
+        <lane id="309121430#7_0" index="0" allow="tram" speed="2.78" length="15.01" shape="1368.91,1208.54 1369.08,1208.43">
             <param key="origId" value="309121430"/>
         </lane>
     </edge>
@@ -5356,7 +5356,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="3144398501" type="priority" x="1367.70" y="1209.36" incLanes="309121427#1_0 309121430#6_0" intLanes="" shape="1370.02,1210.35 1367.99,1207.23 1365.98,1208.25 1365.17,1208.39 1364.32,1208.42 1363.30,1208.46 1361.98,1208.59 1362.45,1211.76 1363.14,1212.81 1365.54,1215.01">
+    <junction id="3144398501" type="priority" x="1367.70" y="1209.36" incLanes="309121427#1_0 309121430#6_0" intLanes="" shape="1370.43,1210.23 1368.35,1206.99 1366.21,1208.12 1365.36,1208.30 1364.47,1208.37 1363.39,1208.44 1361.98,1208.59 1362.45,1211.76 1363.14,1212.81 1365.54,1215.01">
         <request index="0" response="10" foes="10"/>
         <request index="1" response="00" foes="01"/>
     </junction>
