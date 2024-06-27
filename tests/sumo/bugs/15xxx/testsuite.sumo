@@ -1,6 +1,9 @@
 # access uses wrong lateral pos
 ticket15030
 
+# not using the empty parking area
+ticket15072
+
 # spurious warning
 ticket15077
 
