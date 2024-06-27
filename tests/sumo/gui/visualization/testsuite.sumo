@@ -30,5 +30,7 @@ img_formats
 
 # aircraft visualisation / reversing
 aircraft
-
 paradeOSG
+
+# draw objects at their true z level
+trueZ
