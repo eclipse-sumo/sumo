@@ -1,21 +1,21 @@
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes2.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '000/iteration_000_input_routes2.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
-Loading net-file from '000/../input_net.net.xml' ... done (5ms).
-Loading additional-files from '000/../edgedata.add.xml' ... done (4ms).
+['/home/micha/sumo/bin/sumo', '-c', '000/iteration_000.sumocfg']
+Loading net-file from '000/../input_net.net.xml' ... done (3ms).
+Loading additional-files from '000/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_20_0+0888-6eda30f32d3 started with time: 0.00.
 Simulation ended at time: 4627.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 2.66s
- Real time factor: 1742.75
- UPS: 119646.704331
+ Duration: 2.88s
+ Real time factor: 1607.16
+ UPS: 110337.617228
 Vehicles:
  Inserted: 1000
  Running: 0
@@ -28,25 +28,25 @@ Statistics (avg of 1000):
  TimeLoss: 258.51
  DepartDelay: 863.17
 DijkstraRouter answered 468 queries and explored 5.70 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.01ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes2_000.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '001/iteration_001_input_routes2_000.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
+['/home/micha/sumo/bin/sumo', '-c', '001/iteration_001.sumocfg']
 Loading net-file from '001/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '001/../edgedata.add.xml' ... done (0ms).
+Loading additional-files from '001/../edgedata.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_20_0+0888-6eda30f32d3 started with time: 0.00.
 Simulation ended at time: 2897.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.70s
- Real time factor: 1702.12
- UPS: 161336.075206
+ Duration: 1.55s
+ Real time factor: 1870.24
+ UPS: 177271.788250
 Vehicles:
  Inserted: 1000
  Running: 0
@@ -61,23 +61,23 @@ Statistics (avg of 1000):
 DijkstraRouter answered 540 queries and explored 5.94 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes2_001.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '002/iteration_002_input_routes2_001.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
-Loading net-file from '002/../input_net.net.xml' ... done (2ms).
+['/home/micha/sumo/bin/sumo', '-c', '002/iteration_002.sumocfg']
+Loading net-file from '002/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '002/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_20_0+0888-6eda30f32d3 started with time: 0.00.
 Simulation ended at time: 2589.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.85s
- Real time factor: 1398.7
- UPS: 154238.249595
+ Duration: 0.99s
+ Real time factor: 2615.15
+ UPS: 288378.787879
 Vehicles:
  Inserted: 1000
  Running: 0
@@ -90,66 +90,66 @@ Statistics (avg of 1000):
  TimeLoss: 207.26
  DepartDelay: 103.11
 DijkstraRouter answered 719 queries and explored 7.32 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.01ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes2_002.duarcfg']
+['/home/micha/sumo/bin/duarouter', '-c', '003/iteration_003_input_routes2_002.duarcfg']
 Success.
 -------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
-Loading net-file from '003/../input_net.net.xml' ... done (2ms).
+['/home/micha/sumo/bin/sumo', '-c', '003/iteration_003.sumocfg']
+Loading net-file from '003/../input_net.net.xml' ... done (1ms).
 Loading additional-files from '003/../edgedata.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
+Simulation version v1_20_0+0888-6eda30f32d3 started with time: 0.00.
+Simulation ended at time: 2588.00.
+Reason: All vehicles have left the simulation.
+Performance:
+ Duration: 0.85s
+ Real time factor: 3037.56
+ UPS: 334159.624413
+Vehicles:
+ Inserted: 1000
+ Running: 0
+ Waiting: 0
+Statistics (avg of 1000):
+ RouteLength: 1189.57
+ Speed: 5.52
+ Duration: 284.70
+ WaitingTime: 79.85
+ TimeLoss: 206.71
+ DepartDelay: 83.35
+DijkstraRouter answered 626 queries and explored 6.12 edges on average.
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
+-------------------------------------------------------------------------------
+['/home/micha/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/home/micha/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes2_003.duarcfg']
+Success.
+-------------------------------------------------------------------------------
+['/home/micha/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
+Loading net-file from '004/../input_net.net.xml' ... done (1ms).
+Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
+Loading done.
+Simulation version v1_20_0+0888-6eda30f32d3 started with time: 0.00.
 Simulation ended at time: 2590.00.
 Reason: All vehicles have left the simulation.
 Performance:
- Duration: 1.81s
- Real time factor: 1431.73
- UPS: 158310.116086
+ Duration: 0.83s
+ Real time factor: 3112.98
+ UPS: 338733.173077
 Vehicles:
  Inserted: 1000
  Running: 0
  Waiting: 0
 Statistics (avg of 1000):
- RouteLength: 1189.94
- Speed: 5.51
- Duration: 286.38
- WaitingTime: 80.36
- TimeLoss: 208.34
- DepartDelay: 83.34
-DijkstraRouter answered 627 queries and explored 6.13 edges on average.
+ RouteLength: 1188.25
+ Speed: 5.54
+ Duration: 281.83
+ WaitingTime: 78.82
+ TimeLoss: 204.04
+ DepartDelay: 90.91
+DijkstraRouter answered 585 queries and explored 6.12 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
--------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes_003.duarcfg']
-Success.
--------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/duarouter', '-c', '004/iteration_004_input_routes2_003.duarcfg']
-Success.
--------------------------------------------------------------------------------
-['/home/behr_mi/sumo/bin/sumo', '-c', '004/iteration_004.sumocfg']
-Loading net-file from '004/../input_net.net.xml' ... done (2ms).
-Loading additional-files from '004/../edgedata.add.xml' ... done (0ms).
-Loading done.
-Simulation version v1_20_0+0782-2de3bc16e35 started with time: 0.00.
-Simulation ended at time: 2603.00.
-Reason: All vehicles have left the simulation.
-Performance:
- Duration: 1.84s
- Real time factor: 1413.14
- UPS: 153722.041260
-Vehicles:
- Inserted: 1000
- Running: 0
- Waiting: 0
-Statistics (avg of 1000):
- RouteLength: 1186.49
- Speed: 5.58
- Duration: 283.16
- WaitingTime: 81.74
- TimeLoss: 205.59
- DepartDelay: 93.30
-DijkstraRouter answered 584 queries and explored 5.98 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.01ms on average).

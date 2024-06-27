@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-31 17:28:51 by Eclipse SUMO sumo Version v1_20_0+0319-5a9f5015b64
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-06-27 21:34:51 by Eclipse SUMO sumo Version v1_20_0+0888-6eda30f32d3
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net2.net.xml"/>
@@ -22,13 +22,13 @@
     </report>
 
     <traci_server>
-        <remote-port value="45687"/>
+        <remote-port value="60559"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="ego2" depart="10.00" departLane="EC_0" departPos="10.00" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="CW_1" arrivalPos="50.00" arrivalSpeed="13.03" duration="14.00" routeLength="150.40" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.01" rerouteNo="0" devices="tripinfo_ego2" vType="t0" speedFactor="0.94" vaporized=""/>
-    <tripinfo id="ego" depart="7.00" departLane="EC_0" departPos="10.00" departSpeed="0.00" departDelay="0.00" arrival="149.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="14.72" duration="142.00" routeLength="150.40" waitingTime="124.00" waitingCount="1" stopTime="0.00" timeLoss="130.91" rerouteNo="0" devices="tripinfo_ego" vType="t0" speedFactor="1.06" vaporized=""/>
+    <tripinfo id="ego" depart="7.00" departLane="EC_0" departPos="10.00" departSpeed="0.00" departDelay="0.00" arrival="151.00" arrivalLane="CW_0" arrivalPos="50.00" arrivalSpeed="14.72" duration="144.00" routeLength="150.40" waitingTime="127.00" waitingCount="1" stopTime="0.00" timeLoss="132.95" rerouteNo="0" devices="tripinfo_ego" vType="t0" speedFactor="1.06" vaporized=""/>
 </tripinfos>
