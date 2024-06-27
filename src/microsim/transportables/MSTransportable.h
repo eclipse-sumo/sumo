@@ -31,6 +31,7 @@
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOTrafficObject.h>
 #include <microsim/MSRouterDefs.h>
+#include <microsim/MSVehicleType.h>
 #include "MSStage.h"
 
 
@@ -41,7 +42,6 @@ class MSEdge;
 class MSLane;
 class MSNet;
 class MSStoppingPlace;
-class MSVehicleType;
 class OutputDevice;
 class SUMOVehicleParameter;
 class SUMOVehicle;
@@ -143,6 +143,13 @@ public:
 
     inline const MSVehicleType& getVehicleType() const {
         return *myVType;
+    }
+
+    /** @brief Returns the object's "vehicle" type parameter
+     * @return The object's type parameter
+     */
+    inline const SUMOVTypeParameter& getVTypeParameter() const {
+        return myVType->getParameter();
     }
 
     /// @brief returns the associated RNG

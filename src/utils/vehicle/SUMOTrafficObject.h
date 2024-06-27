@@ -15,11 +15,12 @@
 /// @author  Jakob Erdmann
 /// @date    Mon, 25 Mar 2019
 ///
-// Abstract base class for vehicle and person representations
+// Abstract base class for vehicle, person, and container representations
 /****************************************************************************/
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <vector>
 #include <typeinfo>
 #include <memory>
@@ -33,6 +34,7 @@
 // ===========================================================================
 class MSVehicleType;
 class SUMOVehicleParameter;
+class SUMOVTypeParameter;
 class MSEdge;
 class MSLane;
 class Position;
@@ -89,6 +91,11 @@ public:
      * @return The vehicle's type
      */
     virtual const MSVehicleType& getVehicleType() const = 0;
+
+    /** @brief Returns the object's "vehicle" type parameter
+     * @return The type parameter
+     */
+    virtual const SUMOVTypeParameter& getVTypeParameter() const = 0;
 
     /** @brief Replaces the current vehicle type by the one given
     *
@@ -232,5 +239,38 @@ public:
     /// @brief Returns a device of the given type if it exists or nullptr if not
     virtual MSDevice* getDevice(const std::type_info& type) const = 0;
 
+    /// @name Helper methods for parsing parameters from the object itself, it's type or the global OptionsCont
+    /// @{
+    /** @brief Retrieve a string parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the string value
+     */
+    std::string getStringParam(const std::string& paramName, const bool required = false, const std::string& deflt = "") const;
 
+    /** @brief Retrieve a floating point parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the float value
+     */
+    double getFloatParam(const std::string& paramName, const bool required = false, const double deflt = INVALID_DOUBLE) const;
+
+    /** @brief Retrieve a boolean parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the bool value
+     */
+    bool getBoolParam(const std::string& paramName, const bool required = false, const bool deflt = false) const;
+
+    /** @brief Retrieve a time parameter for the traffic object.
+     * @param paramName the parameter name
+     * @param required whether it is an error if the parameter is not set
+     * @param deflt the default value to take if the parameter is not set (the default in the OptionsCont takes precedence)
+     * @return the time value
+     */
+    SUMOTime getTimeParam(const std::string& paramName, const bool required = false, const SUMOTime deflt = SUMOTime_MIN) const;
+    /// @}
 };

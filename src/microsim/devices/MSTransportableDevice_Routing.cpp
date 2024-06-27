@@ -60,7 +60,7 @@ MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTr
     const OptionsCont& oc = OptionsCont::getOptions();
     if (p.getParameter().wasSet(VEHPARS_FORCE_REROUTE) || equippedByDefaultAssignmentOptions(oc, "rerouting", p, false, true)) {
         // route computation is enabled
-        const SUMOTime period = getTimeParam(p, oc, "rerouting.period");
+        const SUMOTime period = p.getTimeParam("person-device.rerouting.period");
         if (period > 0) {
             MSRoutingEngine::initWeightUpdate();
             // build the device
@@ -75,8 +75,7 @@ MSTransportableDevice_Routing::buildDevices(MSTransportable& p, std::vector<MSTr
 // ---------------------------------------------------------------------------
 MSTransportableDevice_Routing::MSTransportableDevice_Routing(MSTransportable& holder, const std::string& id, SUMOTime period)
     : MSTransportableDevice(holder, id), myPeriod(period), myLastRouting(-1), myRerouteCommand(0) {
-    const OptionsCont& oc = OptionsCont::getOptions();
-    myScope = getStringParam(holder, oc, "rerouting.scope", oc.getString("person-device.rerouting.scope"));
+    myScope = holder.getStringParam("person-device.rerouting.scope");
     // no need for initial routing here, personTrips trigger it themselves
     myRerouteCommand = new WrappingCommand<MSTransportableDevice_Routing>(this, &MSTransportableDevice_Routing::wrappedRerouteCommandExecute);
     MSNet::getInstance()->getInsertionEvents()->addEvent(myRerouteCommand, SIMSTEP + period);

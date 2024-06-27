@@ -2263,7 +2263,7 @@ MSBaseVehicle::initTransientModelParams() {
             setCarFollowModelParameter(item.first, item.second);
         }
     }
-    const std::string routingModeStr = MSDevice::getStringParam(*this, OptionsCont::getOptions(), "rerouting.mode", "0", false);
+    const std::string routingModeStr = getStringParam("device.rerouting.mode");
     try {
         int routingMode = StringUtils::toInt(routingModeStr);
         if (routingMode != libsumo::ROUTING_MODE_DEFAULT) {

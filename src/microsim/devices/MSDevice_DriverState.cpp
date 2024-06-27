@@ -46,13 +46,6 @@
 
 
 // ===========================================================================
-// parameter defaults
-// ===========================================================================
-
-// see DriverStateDefaults in MSDriverState
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
@@ -90,72 +83,20 @@ MSDevice_DriverState::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleD
     OptionsCont& oc = OptionsCont::getOptions();
     // ToC device implies driverstate
     if (equippedByDefaultAssignmentOptions(oc, "driverstate", v, false) || equippedByDefaultAssignmentOptions(oc, "toc", v, false)) {
-        const double minAwareness = getMinAwareness(v, oc);
-        const double initialAwareness = getInitialAwareness(v, oc);
-        const double errorTimeScaleCoefficient = getErrorTimeScaleCoefficient(v, oc);
-        const double errorNoiseIntensityCoefficient = getErrorNoiseIntensityCoefficient(v, oc);
-        const double speedDifferenceErrorCoefficient = getSpeedDifferenceErrorCoefficient(v, oc);
-        const double speedDifferenceChangePerceptionThreshold = getSpeedDifferenceChangePerceptionThreshold(v, oc);
-        const double headwayChangePerceptionThreshold = getHeadwayChangePerceptionThreshold(v, oc);
-        const double headwayErrorCoefficient = getHeadwayErrorCoefficient(v, oc);
-        const double freeSpeedErrorCoefficient = getFreeSpeedErrorCoefficient(v, oc);
-        const double maximalReactionTime = getMaximalReactionTime(v, oc);
         // build the device
         MSDevice_DriverState* device = new MSDevice_DriverState(v, "driverstate" + v.getID(),
-                minAwareness,
-                initialAwareness,
-                errorTimeScaleCoefficient,
-                errorNoiseIntensityCoefficient,
-                speedDifferenceErrorCoefficient,
-                speedDifferenceChangePerceptionThreshold,
-                headwayChangePerceptionThreshold,
-                headwayErrorCoefficient,
-                freeSpeedErrorCoefficient,
-                maximalReactionTime);
+                v.getFloatParam("device.driverstate.minAwareness"),
+                v.getFloatParam("device.driverstate.initialAwareness"),
+                v.getFloatParam("device.driverstate.errorTimeScaleCoefficient"),
+                v.getFloatParam("device.driverstate.errorNoiseIntensityCoefficient"),
+                v.getFloatParam("device.driverstate.speedDifferenceErrorCoefficient"),
+                v.getFloatParam("device.driverstate.speedDifferenceChangePerceptionThreshold"),
+                v.getFloatParam("device.driverstate.headwayChangePerceptionThreshold"),
+                v.getFloatParam("device.driverstate.headwayErrorCoefficient"),
+                v.getFloatParam("device.driverstate.freeSpeedErrorCoefficient"),
+                v.getFloatParam("device.driverstate.maximalReactionTime"));
         into.push_back(device);
     }
-}
-
-
-double
-MSDevice_DriverState::getMinAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.minAwareness", DriverStateDefaults::minAwareness, false);
-}
-double
-MSDevice_DriverState::getInitialAwareness(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.initialAwareness", DriverStateDefaults::initialAwareness, false);
-}
-double
-MSDevice_DriverState::getErrorTimeScaleCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.errorTimeScaleCoefficient", DriverStateDefaults::errorTimeScaleCoefficient, false);
-}
-double
-MSDevice_DriverState::getErrorNoiseIntensityCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.errorNoiseIntensityCoefficient", DriverStateDefaults::errorNoiseIntensityCoefficient, false);
-}
-double
-MSDevice_DriverState::getSpeedDifferenceErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.speedDifferenceErrorCoefficient", DriverStateDefaults::speedDifferenceErrorCoefficient, false);
-}
-double
-MSDevice_DriverState::getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.speedDifferenceChangePerceptionThreshold", DriverStateDefaults::speedDifferenceChangePerceptionThreshold, false);
-}
-double
-MSDevice_DriverState::getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.headwayChangePerceptionThreshold", DriverStateDefaults::headwayChangePerceptionThreshold, false);
-}
-double
-MSDevice_DriverState::getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.headwayErrorCoefficient", DriverStateDefaults::headwayErrorCoefficient, false);
-}
-double
-MSDevice_DriverState::getFreeSpeedErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.freeSpeedErrorCoefficient", DriverStateDefaults::freeSpeedErrorCoefficient, false);
-}
-double
-MSDevice_DriverState::getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc) {
-    return getFloatParam(v, oc, "driverstate.maximalReactionTime", -1.0, false);
 }
 
 
