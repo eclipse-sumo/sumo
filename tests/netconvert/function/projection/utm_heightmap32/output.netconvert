@@ -1,4 +1,4 @@
-Parsing from GeoTIFF 'heightmap.tif' ... 
+Parsing from GeoTIFF 'heightmap.tif' ...
 Read geotiff heightmap with size 84,180 for geo boundary [12.00,48.00,12.07,48.15] with elevation range [470.00,623.00].
  done (parsed 15120 features, Boundary: 10000000000.00,10000000000.00,-10000000000.00,-10000000000.00).
 Parsing nodes from 'input_nodes.nod.xml' ... done.
@@ -42,5 +42,5 @@ Summary:
   Applied offset     : -277843.65,-5330206.51
   Converted boundary : 0.00,0.00,3330.25,3904.56
 -----------------------------------------------------
-Writing network ... done (0ms).
+Writing network ... done (1ms).
 Success.
