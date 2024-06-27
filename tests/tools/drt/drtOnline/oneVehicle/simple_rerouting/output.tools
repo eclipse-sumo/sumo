@@ -18,52 +18,55 @@ Run dispatcher
 New reservations: ['4', '5', '6']
 Pending reservations: ['3']
 Solve DARP with simple_rerouting
+Solve ILP
+Dispatch: taxiA_2y_5y_1y_0z_1z_2z_5z
 
 Run dispatcher
 New reservations: ['7', '8', '9']
-Pending reservations: ['3', '4', '5', '6']
+Pending reservations: ['3', '4', '6']
 Solve DARP with simple_rerouting
 
 Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '8', '9']
-Solve DARP with simple_rerouting
-
-Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '8', '9']
-Solve DARP with simple_rerouting
-
-Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '8', '9']
-Solve DARP with simple_rerouting
-Solve ILP
-Dispatch: taxiA_0z_8y_8z_1z_2z
-
-Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '9']
+Pending reservations: ['3', '4', '6', '7', '8', '9']
 Solve DARP with simple_rerouting
 Solve ILP
 
 Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '9']
+Pending reservations: ['3', '4', '6', '7', '8', '9']
+Solve DARP with simple_rerouting
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['3', '4', '6', '7', '8', '9']
+Solve DARP with simple_rerouting
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['3', '4', '6', '7', '8', '9']
 Solve DARP with simple_rerouting
 
 Run dispatcher
-Pending reservations: ['3', '4', '5', '6', '7', '9']
+Pending reservations: ['3', '4', '6', '7', '8', '9']
 Solve DARP with simple_rerouting
-Reservation 6 (person ('6',)) cannot be served
 
 Run dispatcher
-Pending reservations: ['3', '4', '5', '7', '9']
+Pending reservations: ['3', '4', '6', '7', '8', '9']
 Solve DARP with simple_rerouting
 Reservation 3 (person ('3',)) cannot be served
 Reservation 4 (person ('4',)) cannot be served
-Reservation 5 (person ('5',)) cannot be served
-Reservation 7 (person ('7',)) cannot be served
+Reservation 6 (person ('6',)) cannot be served
 Solve ILP
 
 Run dispatcher
-Pending reservations: ['9']
+Pending reservations: ['7', '8', '9']
 Solve DARP with simple_rerouting
+Solve ILP
+
+Run dispatcher
+Pending reservations: ['7', '8', '9']
+Solve DARP with simple_rerouting
+Reservation 7 (person ('7',)) cannot be served
+Reservation 8 (person ('8',)) cannot be served
 Reservation 9 (person ('9',)) cannot be served
 Solve ILP
 

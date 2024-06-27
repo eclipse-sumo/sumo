@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -44,12 +45,12 @@ reservation 1 has a maximum (hard) pickup time at 900
 Start solving the problem.
 Objective: 2235
 Route for vehicle 0:
-     5 (L: 0, C: 0, T: (1,310))
- ->  1 (L: 1, C: 588, T: (43,352))
- ->  3 (L: 2, C: 1174, T: (85,394))
- ->  4 (L: 1, C: 1559, T: (176,485))
- ->  2 (L: 0, C: 2235, T: (291,600))
- ->  0 (L: 0, C: 2235, T: (291,600))
+     5 (L: 0, C: 0, T: (1,307))
+ ->  1 (L: 1, C: 588, T: (43,349))
+ ->  3 (L: 2, C: 1174, T: (85,391))
+ ->  4 (L: 1, C: 1559, T: (176,482))
+ ->  2 (L: 0, C: 2235, T: (294,600))
+ ->  0 (L: 0, C: 2235, T: (294,600))
 Costs of the route: 2235
 
 Total cost of the routes: 2235
@@ -112,10 +113,10 @@ veh 0: [3]
 Objective: 1240
 Route for vehicle 0:
      4 (L: 1, C: 0, T: (180,180))
- ->  1 (L: 2, C: 470, T: (219,219))
- ->  3 (L: 1, C: 855, T: (310,310))
- ->  2 (L: 0, C: 1240, T: (400,400))
- ->  0 (L: 0, C: 1240, T: (400,400))
+ ->  1 (L: 2, C: 470, T: (222,222))
+ ->  3 (L: 1, C: 855, T: (313,313))
+ ->  2 (L: 0, C: 1240, T: (403,403))
+ ->  0 (L: 0, C: 1240, T: (403,403))
 Costs of the route: 1240
 
 Total cost of the routes: 1240

@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -45,20 +46,20 @@ reservation 1 has a maximum (hard) pickup time at 900
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective: 3014
+Objective: 3038
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (1,35))
  ->  3 (L: 1, C: 888, T: (65,99))
  ->  4 (L: 0, C: 1273, T: (156,190))
- ->  1 (L: 1, C: 2334, T: (242,487))
- ->  2 (L: 0, C: 3014, T: (355,600))
- ->  0 (L: 0, C: 3014, T: (355,600))
-Costs of the route: 3014
+ ->  1 (L: 1, C: 2358, T: (244,487))
+ ->  2 (L: 0, C: 3038, T: (357,600))
+ ->  0 (L: 0, C: 3038, T: (357,600))
+Costs of the route: 3038
 
-Total cost of the routes: 3014
+Total cost of the routes: 3038
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['1', '1', '0', '0']
-Costs for v0: 3014
+Costs for v0: 3038
 timestep: 30.0
 Reservations being picked up: ['0', '1']
 Taxis picking up: ('v0',)

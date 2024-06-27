@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
@@ -50,9 +51,9 @@ Route for vehicle 0:
      5 (L: 0, C: 0, T: (1,35))
  ->  1 (L: 1, C: 588, T: (43,77))
  ->  2 (L: 0, C: 1268, T: (156,190))
- ->  3 (L: 1, C: 2243, T: (233,509))
- ->  4 (L: 0, C: 2628, T: (324,600))
- ->  0 (L: 0, C: 2628, T: (324,600))
+ ->  3 (L: 1, C: 2243, T: (237,509))
+ ->  4 (L: 0, C: 2628, T: (328,600))
+ ->  0 (L: 0, C: 2628, T: (328,600))
 Costs of the route: 2628
 
 Total cost of the routes: 2628

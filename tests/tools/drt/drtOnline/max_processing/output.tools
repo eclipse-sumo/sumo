@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 
 Run dispatcher
 New reservations: ['0']
@@ -9,22 +10,22 @@ Run dispatcher
 New reservations: ['1', '2', '3']
 Pending reservations: []
 Solve DARP with exhaustive_search
-Dispatch: taxiA_0y_2y_1y_0z_1z_2z
+Dispatch: taxiA_0y_1y_3y_3z_0z_1z
 
 Run dispatcher
 New reservations: ['4', '5', '6']
-Pending reservations: ['3']
+Pending reservations: ['2']
 Solve DARP with exhaustive_search
-Dispatch: taxiA_2y_1y_0z_1z_5y_2z_5z
+Dispatch: taxiA_1y_3y_4y_3z_0z_1z_4z
 
-Processing time for reservation 3 -person ('3',)- was exceeded. Reservation can not be served
+Processing time for reservation 2 -person ('2',)- was exceeded. Reservation can not be served
 
 Run dispatcher
 New reservations: ['7', '8', '9']
-Pending reservations: ['4', '6']
+Pending reservations: ['5', '6']
 Solve DARP with exhaustive_search
 
-Processing time for reservation 4 -person ('4',)- was exceeded. Reservation can not be served
+Processing time for reservation 5 -person ('5',)- was exceeded. Reservation can not be served
 
 Processing time for reservation 6 -person ('6',)- was exceeded. Reservation can not be served
 
