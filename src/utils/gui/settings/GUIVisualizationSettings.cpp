@@ -554,6 +554,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     angle(0),
     dither(false),
     fps(false),
+    trueZ(false),
     backgroundColor(RGBColor::WHITE),
     showGrid(false), gridXSize(100), gridYSize(100),
     laneShowBorders(false), showBikeMarkings(true), showLinkDecals(true),
@@ -1771,6 +1772,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_OPENGL);
     dev.writeAttr("dither", dither);
     dev.writeAttr("fps", fps);
+    dev.writeAttr("trueZ", trueZ);
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("disableDottedContours", disableDottedContours);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
@@ -2030,6 +2032,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (fps != v2.fps) {
+        return false;
+    }
+    if (trueZ != v2.trueZ) {
         return false;
     }
     if (drawBoundaries != v2.drawBoundaries) {

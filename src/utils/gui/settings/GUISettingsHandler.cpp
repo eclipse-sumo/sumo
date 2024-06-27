@@ -124,6 +124,7 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
         case SUMO_TAG_VIEWSETTINGS_OPENGL:
             mySettings.dither = StringUtils::toBool(attrs.getStringSecure("dither", toString(mySettings.dither)));
             mySettings.fps = StringUtils::toBool(attrs.getStringSecure("fps", toString(mySettings.fps)));
+            mySettings.trueZ = StringUtils::toBool(attrs.getStringSecure("trueZ", toString(mySettings.trueZ)));
             mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
             mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
             mySettings.disableDottedContours = StringUtils::toBool(attrs.getStringSecure("disableDottedContours", toString(mySettings.disableDottedContours)));

@@ -682,6 +682,9 @@ public:
     /// @brief Information whether frames-per-second should be drawn
     bool fps;
 
+    /// @brief drawl all objects according to their z data
+    bool trueZ;
+
     /// @name Background visualization settings
     /// @{
 

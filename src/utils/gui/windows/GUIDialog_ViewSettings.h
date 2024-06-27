@@ -469,6 +469,7 @@ protected:
     /// @brief openGL
     FXCheckButton* myDither = nullptr;
     FXCheckButton* myFPS = nullptr;
+    FXCheckButton* myTrueZ = nullptr;
     FXCheckButton* myDrawBoundaries = nullptr;
     FXCheckButton* myForceDrawForRectangleSelection = nullptr;
     FXCheckButton* myDisableDottedContours = nullptr;
