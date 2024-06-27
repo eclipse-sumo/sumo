@@ -218,6 +218,9 @@ protected:
     /// @brief add all driveWays that pass the given link as foes
     void addSwitchFoes(const MSLink* link);
 
+    /// @brief derive foe driveways based on myBidi
+    void addBidiFoes(const MSRailSignal* ownSignal);
+
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
 
