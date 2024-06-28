@@ -28,7 +28,7 @@ The script will keep running so you can build multiple scenarios in your
 web-browser. Stop the script when you're done to free up the port again.
 
 !!! caution
-    The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#additional_environment_variables).
+    The script requires the environment variable *SUMO_HOME* to be set [as explained here](../../Basics/Basic_Computer_Skills.md#sumo_home).
 
 # osmGet.py
 

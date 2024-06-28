@@ -29,7 +29,6 @@
 #include <utils/emissions/EnergyParams.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/vehicle/SUMOVehicle.h>
-#include "MSStoppingPlaceRerouter.h"
 #include "MSRoute.h"
 #include "MSMoveReminder.h"
 #include "MSVehicleType.h"
@@ -45,6 +44,7 @@ class MSDevice_Emissions;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
 class MSChargingStation;
+class StoppingPlaceMemory;
 
 
 // ===========================================================================

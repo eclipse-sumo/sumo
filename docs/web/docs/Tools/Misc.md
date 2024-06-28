@@ -66,7 +66,7 @@ the data set. The following is recommenced:
 # createScreenshotSequence.py
 
 This script helps in the process of creating a movie by taking screenshots repeatedly and moving the viewport during the simulation. There are other ways to capture videos from sumo-gui such as using
-external screen capture software or using the internal screenshot feature. The screenshot sequence obtained from this script can be joined into a video using appropiate video software.
+external screen capture software or using the internal screenshot feature. The screenshot sequence obtained from this script can be joined into a video using appropriate video software.
 
 Example:
 ```
@@ -112,11 +112,11 @@ to work. It provides the following options:
 # extractTest.py
 
 This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so, you can either:
-- [download the complete sumo package](../Downloads.md#all-inclusive-tarball) and call:
+- [download the complete sumo package](../Downloads.md#sources) and call:
 ```
 python tools/extractTest.py <path to test directory>
 ```
-- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse-sumo/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
+- or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse-sumo/sumo/blob/main/tests/sumo/extended/rerouter/use_routing_device)) into the form and get a zip containing all the files.
 
 # generateParkingAreas.py
 
@@ -197,7 +197,7 @@ Additional options:
 # generateStationEdges.py
 
 This script generates a pedestrian edge for each public transport stop
-(in the form of *.nod.xml* and *.edg.xml* files. The output is suitable
+(in the form of *.nod.xml* and *.edg.xml* files). The output is suitable
 for extending rail-only networks with the bare minimum of pedestrian
 infrastructure for departing, changing trains and arriving. Example:
 

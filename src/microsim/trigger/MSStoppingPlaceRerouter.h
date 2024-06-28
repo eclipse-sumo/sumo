@@ -28,8 +28,8 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "MSNet.h"
-#include "MSStoppingPlace.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSStoppingPlace.h>
 
 class MSEdge;
 
@@ -269,14 +269,10 @@ private:
     ///@brief Constructor
     MSStoppingPlaceRerouter() = delete;
 
-public:
-    const StoppingPlaceParamSwitchMap_t myInvertParams;
-    const SumoXMLTag myStoppingType;
-
 protected:
+    const SumoXMLTag myStoppingType;
+    const std::string myParamPrefix;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
-
-private:
-    const std::string myParamPrefix;
+    const StoppingPlaceParamSwitchMap_t myInvertParams;
 };

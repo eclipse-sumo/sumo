@@ -186,20 +186,12 @@ protected:
     static const double DIST_BEHIND;
     static const double DIST_OVERLAP;
 
-    class lane_by_numid_sorter {
-    public:
-        /// comparing operation
-        bool operator()(const MSLane* l1, const MSLane* l2) const {
-            return l1->getNumericalID() < l2->getNumericalID();
-        }
-    };
-
     struct Obstacle;
     class PState;
     typedef std::vector<PState*> Pedestrians;
-    typedef std::map<const MSLane*, Pedestrians, lane_by_numid_sorter> ActiveLanes;
+    typedef std::map<const MSLane*, Pedestrians, ComparatorNumericalIdLess> ActiveLanes;
     typedef std::vector<Obstacle> Obstacles;
-    typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
+    typedef std::map<const MSLane*, Obstacles, ComparatorNumericalIdLess> NextLanesObstacles;
     typedef std::map<const MSLane*, double> MinNextLengths;
 
     struct NextLaneInfo {
@@ -527,7 +519,7 @@ private:
 
     static void addCloserObstacle(Obstacles& obs, double x, int stripe, int numStripes, const std::string& id, double width, int dir, ObstacleType type);
 
-    /// @brief retrieves the pedestian vector for the given lane (may be empty)
+    /// @brief retrieves the pedestrian vector for the given lane (may be empty)
     Pedestrians& getPedestrians(const MSLane* lane);
 
     /* @brief compute stripe-offset to transform relY values from a lane with origStripes into a lane wit destStrips

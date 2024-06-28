@@ -19,7 +19,6 @@
 // to the best StoppingPlace according to the evaluation components and
 // associated weights.
 /****************************************************************************/
-#pragma once
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
@@ -31,7 +30,6 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSStoppingPlaceRerouter.h"
 
-#define DEBUG_STOPPINGPLACE
 #define DEBUGCOND (veh.isSelected())
 
 
@@ -435,8 +433,6 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
                 WRITE_WARNINGF(TL("Invalid distance computation for vehicle '%' to stopping place '%' at time=%."),
                                veh.getID(), alternative->getID(), time2string(SIMSTEP));
             }
-            const double occ = getStoppingPlaceOccupancy(alternative); // lastStepOccupancy vs. occupancy !!!
-            const double cap = getStoppingPlaceCapacity(alternative);
             const double endPos = getStoppingPlaceOccupancy(alternative) == getStoppingPlaceCapacity(alternative)
                                   ? alternative->getLastFreePos(veh, veh.getPositionOnLane() + brakeGap)
                                   : alternative->getEndLanePosition();
@@ -490,9 +486,9 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
 
 
 bool
-MSStoppingPlaceRerouter::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative,
-        double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
-        ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues) {
+MSStoppingPlaceRerouter::evaluateCustomComponents(SUMOVehicle& /*veh*/, double /*brakeGap*/, bool /*newDestination*/, MSStoppingPlace* /*alternative*/,
+        double /*occupancy*/, double /*prob*/, SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, StoppingPlaceParamMap_t& /*stoppingPlaceValues*/,
+        ConstMSEdgeVector& /*newRoute*/, ConstMSEdgeVector& /*stoppingPlaceApproach*/, StoppingPlaceParamMap_t& /*maxValues*/) {
     return true;
 }
 

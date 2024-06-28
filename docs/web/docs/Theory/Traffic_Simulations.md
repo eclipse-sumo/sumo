@@ -11,10 +11,10 @@ models simulate the movement of every single vehicle on the street,
 mostly assuming that the behavior of the vehicle depends on both, the
 vehicle's physical abilities to move and the driver's controlling
 behavior (see
-[ChowdhurySantenSchadschneider2000](../Publications.md#chowdhurysantenschadschneider2000)).
+[ChowdhurySantenSchadschneider2000](../Publications.md#publications_using_sumo)).
 Within SUMO, the microscopic model developed by Stefan Krauß is used
-(see [Krauss1998_1](../Publications.md#krauss1998_1),
-[Krauss1998_2](../Publications.md#krauss1998_2)), extended by some
+(see [Krauss1998_1](../Publications.md#publications_using_sumo),
+[Krauss1998_2](../Publications.md#publications_using_sumo)), extended by some
 further assumptions. *Mesoscopic* simulations are located at the
 boundary between microscopic and macroscopic simulations. Herein,
 vehicle movement is mostly simulated using queue approaches and single
@@ -58,4 +58,4 @@ benefit of using them. Solutions for this problem are known to traffic
 research as *user assignment*. For solving this, several approaches are
 available and SUMO uses the *dynamic user assignment* (DUA) approach
 developed by Christian Gawron (see
-[Gawron1998_1](../Publications.md#gawron1998_1)).
+[Gawron1998_1](../Publications.md#publications_using_sumo)).

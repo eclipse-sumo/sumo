@@ -1,0 +1,6 @@
+Warning: Polygon ':E_w0' at junction 'E' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':N_w0' at junction 'N' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':S_w0' at junction 'S' has been replaced by its convex hull as it is not simple.
+Warning: Polygon ':W_w0' at junction 'W' has been replaced by its convex hull as it is not simple.
+Warning: Teleporting vehicle 'cWE.2'; waited too long (yield), lane='WC_3', time=322.00.
+Warning: Vehicle 'cWE.2' ends teleporting on edge 'CE', time=322.00.

@@ -124,7 +124,7 @@ yourplain.con.xml
 yourplain.tll.xml
 ```
 
-You can edit these files and then reassamble the network by loading
+You can edit these files and then reassemble the network by loading
 some or all of them:
 
 ```
@@ -166,7 +166,7 @@ see
 Furthermore, actuated traffic control can also be set, either based on
 time gaps or time loss. More information about actuated traffic control
 and settings can be found at
-[Simulation/Traffic_Lights\#Actuated_Traffic_Lights](../Simulation/Traffic_Lights.md#actuated_traffic_lights)).
+[Simulation/Traffic_Lights\#Actuated_Traffic_Lights](../Simulation/Traffic_Lights.md#type_actuated)).
 
 # Manage Scenarios
 

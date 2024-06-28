@@ -50,7 +50,7 @@ Call option **--help** for additional details.
 Finds edges that are opposites of each other and puts them in a common
 district (TAZ). This can be used to improve routing in conjunction with
 [trip attributes fromTaz and
-toTaz](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz).
+toTaz](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignment_zones_taz).
 
 ```
 python tools/generateBidiDistricts.py <net-file>
@@ -74,7 +74,7 @@ instead use the attributes *fromTaz* and *toTaz*:
 
 ```xml
 <trip id="someTrip" from="123" to="456" depart="0"/>
-<trip id="someTripWithBidiTaz fromTaz="123" toTaz="456"/>
+<trip id="someTripWithBidiTaz" fromTaz="123" toTaz="456"/>
 ```
 
 The second definition would allow departure from either edge *123*' or
