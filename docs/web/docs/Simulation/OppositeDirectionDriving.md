@@ -47,9 +47,9 @@ to additional checks in regard to
   overtaking)
 - The required safety-buffers can be calibrated using the vehicle type
   attribute *lcOpposite*
-- The number of lanes of the forward edge (only [emergency vehicles](./Emergency.md##vehicle_class_emergency) will overtake through the opposite direction if they are on a multi-lane edge)
+- The number of lanes of the forward edge (only [emergency vehicles](Emergency.md#vehicle_class_emergency) will overtake through the opposite direction if they are on a multi-lane edge)
 
-Vehicles may also stop on the opposite side by defining a `<stop>` with a lane index that lies to the left of the leftmost forward direction lane (i.e. index 3  if the forward edge has lane indices 0,1,2.
+Vehicles may also stop on the opposite side by defining a `<stop>` with a lane index that lies to the left of the leftmost forward direction lane (i.e. index 3  if the forward edge has lane indices 0,1,2).
 
 # Limitations
 

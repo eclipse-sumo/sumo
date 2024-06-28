@@ -92,7 +92,7 @@ Visualization of bidirectional tracks has a distinct [style and dedicated settin
    - this is highly recommended when using connection mode to define connections among bidirectional tracks as it's otherwise hard to distinguish the affected edges
    - the pre-defined gui setting scheme 'rail' automatically activates the *spread ...* setting.
 - To find (and highlight) all bidirectional tracks, use [attribute
-  selection](../Netedit/index.md#match_attribute) and search for
+  selection](../Netedit/editModesCommon.md#match_attribute) and search for
   attribute *bidi* with a value of *1*
 - Create bidirectional tracks [as explained
   here](../Netedit/neteditUsageExamples.md#creating_bidirectional_railway_tracks)
@@ -116,7 +116,7 @@ The priority values can either be assigned by the user or computed heuristically
 
 #### Priority from partially restricted directionality
 
-If some of the tracks in the network are uni-directional these can be used to define the main direction and this property can be extroplated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.direction-priority**. The assigned priority values are:
+If some of the tracks in the network are uni-directional these can be used to define the main direction and this property can be extrapolated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.direction-priority**. The assigned priority values are:
 
 - 4: unidirectional track
 - 3: main direction of bidirectional track
@@ -126,7 +126,7 @@ If some of the tracks in the network are uni-directional these can be used to de
 
 #### Priority from partially defined values
 
-If some of the tracks in the network have priority values defined (by convention with the values 0 and 4) these can be used to define the main direction and this property can be extroplated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.extendn-priority**. The assigned priority for the other network edges also range from 1 to 3 just as above.
+If some of the tracks in the network have priority values defined (by convention with the values 0 and 4) these can be used to define the main direction and this property can be extrapolated based on geometry (straightness) and topology (switches) onto the rest of the network This is done by setting the option **--railway.topology.extend-priority**. The assigned priority for the other network edges also range from 1 to 3 just as above.
 
 ### Importing bidirectional tracks from OSM
 
@@ -214,7 +214,7 @@ The distance value along an edge is computed as:
   |edgeDistance + vehiclePos|
 ```
 
-Edge distance is imported from OSM and can also be be set along a route in [netedit](../Netedit/index.md#route)
+Edge distance is imported from OSM and can also be be set along a route in [netedit](../Netedit/elementsDemand.md#route)
 
 The distances value can be written in [fcd-output](Output/FCDOutput.md#further_options) using option **--fcd-output.distance**. It may then be used for plotting by [plot_trajectories.py](../Tools/Visualization.md#plot_trajectoriespy) using the code `k` (i.e. -t kt). The distances can also be visualized in sumo-gui (color edges by distance).
 
@@ -312,7 +312,7 @@ met:
       When importing public transport stops with option **--ptstop-output**, all bidirectional edges with a public transport stop will have the necessary turn-around connection and thus be eligible for reversing.
 
 # Portion working
-Trains can be split and joined (divided and coupled) at stops. If a person or container travels in a train that is split or joined and wants to continue travelling in the new part, it requires a distinct `<ride>` or `<transport>` element in it's plan. No delay for boarding or loading will occur in the simulation for this.
+Trains can be split and joined (divided and coupled) at stops. If a person or container travels in a train that is split or joined and wants to continue traveling in the new part, it requires a distinct `<ride>` or `<transport>` element in it's plan. No delay for boarding or loading will occur in the simulation for this.
 
 ## Splitting a train
 To split a train, the following input definition can be used. The rear half of the train is defined as a new vehicle which depart value **split**. The train train that is being split must define the 'split' attribute in its stop definition referencing the id of the rear half.

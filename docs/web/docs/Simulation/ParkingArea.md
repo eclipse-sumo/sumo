@@ -96,7 +96,7 @@ the edges "e1, e2, e3" of the vehicles route.
 
 For a complete list of attributes for the "stop"-element of a vehicle
 see
-[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+[Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
 # Modelling Maneuvering Times when Entering and Leaving the Parking Space
 

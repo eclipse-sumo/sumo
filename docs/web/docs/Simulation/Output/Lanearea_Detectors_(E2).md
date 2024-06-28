@@ -77,8 +77,8 @@ The complete list of attributes is:
 | **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
 | period (alias freq) | int                | The aggregation period for aggregation collected data. If neither *period* nor *tl* are set, data will be aggregated over the whole simulation      |
-| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *period* or *tl* must be specified   |
-| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). This is only used together with *tl*.   |
+| tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_lane_area_detectors). Either *period* or *tl* must be specified   |
+| to             | id                      | The id of an outgoing lane that [triggers aggregation in conjunction with traffic light switching](../../Simulation/Output/Traffic_Lights.md#coupled_lane_area_detectors). This is only used together with *tl*.   |
 | timeThreshold  | float                   | The time-based threshold that describes how much time has to pass until a vehicle is recognized as halting; *in s, default: 1s*.      |
 | speedThreshold | float                   | The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting; *in m/s, default: 5/3.6m/s*.   |
 | jamThreshold   | float                   | The maximum distance to the next standing vehicle in order to make this vehicle count as a participant to the jam; *in m, default: 10m*.     |
@@ -113,7 +113,7 @@ As a lane area detector covers a lane and vehicles are sorted on these,
 it is possible to recognize jams along the detector's area and measure
 them. Because more than one jam may take place at the area at one time,
 the values cover as well averaged measures of all jams
-("jamLengthIn...Sum") as explicite measures of the longest (maximum)
+("jamLengthIn...Sum") as explicit measures of the longest (maximum)
 jam. For the longest jam, both averaged ("meanMaxJamLengthIn...") and
 maximum ("maxJamLengthIn...") values are written. \[Note\] Note
 
@@ -123,7 +123,7 @@ because the place between vehicle is also taken into account.
 Besides jam computation, the durations vehicles are halting are
 collected. They are both collected over the whole time span a vehicle is
 on the detector area ("...HaltingDuration" and "haltingDurationSum"),
-and explicite for each interval ("...IntervalHaltingDuration" and
+and explicit for each interval ("...IntervalHaltingDuration" and
 "intervalHaltingDurationSum").
 
 The values are described in the following table.

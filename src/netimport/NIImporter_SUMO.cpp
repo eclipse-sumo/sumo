@@ -372,6 +372,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
             }
         }
+        myNetBuilder.setHaveNetworkCrossings(myPedestrianCrossings.size() > 0);
         // add walking area custom shapes
         for (const auto& item : myWACustomShapes) {
             std::string nodeID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(item.first);

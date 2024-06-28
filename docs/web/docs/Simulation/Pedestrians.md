@@ -151,7 +151,7 @@ pedestrian traffic.
 
 Crossings may be defined explicitly in plain XML input when describing
 [connections (plain.con.xml) using the XML element `crossings`](../Networks/PlainXML.md#pedestrian_crossings).
-They can also be placed with [netedit](../Netedit/index.md#crossings).
+They can also be placed with [netedit](../Netedit/editModesNetwork.md#crossings).
 
 The second available method for adding crossing information to a network
 is with the [netconvert](../netconvert.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
@@ -325,7 +325,7 @@ There are several situations in which pedestrian jams are possible
 - trying to reach a busStop when it has reached its `personCapacity` limit
 - oncoming traffic on narrow sidewalks
 
-There are several mitigations to prevent the frequency of jams and to resolve them after they have occured
+There are several mitigations to prevent the frequency of jams and to resolve them after they have occurred
 
 - on crossings and walkingareas, pedestrians reserve 1/3 of the road space for oncoming traffic (configurable with option **--pedestrian.striping.reserve-oncoming.junctions**)
 - on normal lanes / sidewalks, such a reservation can be activated with option **--pedestrian.striping.reserve-oncoming**
@@ -339,7 +339,7 @@ JuPedSim is a pedestrian simulator developed by the Jülich Research Center. It 
 
 ### Installation
 
-If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [the build instructions](../Installing/Windows_Build.md#how-to-build-jupedsim-and-then-build-sumo-with-jupedsim). If you are on Linux or MacOS, you need to [build JuPedSim, then build SUMO](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim).
+If you are on Windows, the latest release of JuPedSim is distributed together with the SUMO software distribution so no additional steps are required. Alternatively, if you want to build the latest JuPedSim version available on Windows, please have a look at [the build instructions](../Installing/Windows_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim). If you are on Linux or MacOS, you need to [build JuPedSim, then build SUMO](../Installing/Linux_Build.md#how_to_build_jupedsim_and_then_build_sumo_with_jupedsim).
 
 ### Use
 
@@ -498,7 +498,7 @@ can be generated which use cases they have and what is to be expected concerning
 - Non-interacting model: Persons walk on the sidewalk and jump over junctions
 
 You could think of other subtypes here which have only walking areas and no crossings or the other way round but this would make things too complicated.
-The one property which distinguishs these networks from the next type is the presence of at least one walking area.
+The one property which distinguishes these networks from the next type is the presence of at least one walking area.
 
 ## Full pedestrian infrastructure
 
