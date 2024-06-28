@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
 
 # change ID (Duplicated)
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.id, "gneJ1", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.id, "JunctionTop", False)
 
 # change ID empty)
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.id, "", False)
