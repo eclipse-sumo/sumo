@@ -111,16 +111,16 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
         WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), action);
     }
     initRescueCommand();
-    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", 1.1));
-    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", 5.), 1.));
-    myRadius = holder.getTimeParam("device.stationfinder.radius");
-    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", -1);
-    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat");
-    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", 80000.);
+    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", false, 1.1));
+    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", false, 5.), 1.));
+    myRadius = holder.getTimeParam("device.stationfinder.radius", false, 180000);
+    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", false, -1);
+    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat", false, 60000);
+    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", false, 80000.);
     myChargeType = CHARGETYPE_CHARGING;
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
-    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", 80.), 1.));
-    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", 40.), 1.));
+    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", false, 80.), 1.));
+    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", false, 40.), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
