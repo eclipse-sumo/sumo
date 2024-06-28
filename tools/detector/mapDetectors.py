@@ -50,6 +50,8 @@ def get_options(args=None):
                            help="Read detector x-coordinate (lon) from the given column")
     optParser.add_argument("-y", "--latitude-column", default="lat", dest="lat",
                            help="Read detector y-coordinate (lat) from the given column")
+    optParser.add_argument("--max-radius", type=float, default="1000", dest="maxRadius",
+                           help="specify maximum distance error when mapping coordinates")
     optParser.add_argument("--vclass", default="passenger",
                            help="only consider edges that permit the given vClass")
     optParser.add_argument("--det-output-file", dest="detOut", default="detector.out.xml", category="output",
@@ -89,12 +91,13 @@ def main():
 
             lanes = []
             radius = 0.1
-            while not lanes and radius <= 1000:
+            factor = 10
+            while not lanes and radius <= options.maxRadius:
                 lanes = net.getNeighboringLanes(x, y, radius, True)
                 lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
-                radius *= 10
+                radius *= factor
             if not lanes:
-                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, radius))
+                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, options.maxRadius))
                 continue
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
