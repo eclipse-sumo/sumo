@@ -56,7 +56,7 @@ def parse_args():
                     help="Export boundary shapes instead of center-lines")
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                     help="exports all time intervals (by default only the first is exported)")
-    op.add_argument("--extra-features", action="store_true", default=False, dest="extraFeatures",
+    op.add_argument("--extra-attributes", action="store_true", default=False, dest="extraAttributes",
                     help="exports extra attributes from edge and lane such as speed, number of lanes and allowed vehicles)")
 
     try:
@@ -125,7 +125,7 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
-        if options.extraFeatures:
+        if options.extraAttributes:
             feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
             if geomType == 'lane':
                 feature["properties"]["allowedVehicles"] = ','.join(net.getLane(id).getPermissions())
