@@ -37,10 +37,12 @@ geometry_switching
 
 # geometry generation and WKT output
 geometry_generation
-
 tls
 
 # crossing behavior
 crossing_noPrio
+
+# crossing behavior
+crossing_Prio
 
 #improper_walk_via_bus_stop_access
