@@ -22,6 +22,7 @@
 #include <config.h>
 
 #include <utils/common/WrappingCommand.h>
+#include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include "MSVehicleDevice.h"
 
 
@@ -51,7 +52,7 @@ class MSStoppingPlace;
  *
  * @see MSDevice
  */
-class MSDevice_StationFinder : public MSVehicleDevice {
+class MSDevice_StationFinder : public MSVehicleDevice, MSStoppingPlaceRerouter {
 public:
     enum ChargeType {
         CHARGETYPE_CHARGING,
@@ -155,6 +156,52 @@ public:
 
     std::string getParameter(const std::string& key) const;
 
+    /** @brief Compute some custom target function components
+     *
+     * @param[in] veh the concerned vehicle
+     * @param[in] brakeGap the distance before which the vehicle cannot stop
+     * @param[in] newDestination whether the destination changed
+     * @param[in] alternative the stopping place to evaluate
+     * @param[in] occupancy occupancy of the stopping place
+     * @param[in] router the router to use for evaluation if needed
+     * @param[in,out] stoppingPlaceValues the data structure to write the evaluation values to
+     * @param[in] newRoute the complete route to the destination passing by the stopping place
+     * @param[in] stoppingPlaceApproach the route to the stopping place
+     * @return false if the stopping place cannot be used according to the custom evaluation components
+     */
+    bool evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination,
+                                  MSStoppingPlace* alternative, double occupancy, double prob,
+                                  SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
+                                  ConstMSEdgeVector& newRoute,
+                                  ConstMSEdgeVector& stoppingPlaceApproach,
+                                  StoppingPlaceParamMap_t& maxValues);
+
+    /// @brief Return the number of occupied places of the StoppingPlace
+    double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
+
+    /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
+
+    /// @brief Return the number of places the StoppingPlace provides
+    double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace);
+
+    /// @brief store the blocked stopping place in the vehicle
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked);
+
+    /// @brief store the stopping place score in the vehicle
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score);
+
+    /// @brief forget all stopping place score for this vehicle
+    void resetStoppingPlaceScores(SUMOVehicle& veh);
+
+    /// @brief ask the vehicle when it has seen the stopping place
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local);
+
+    /// @brief ask how many times already the vehicle has been rerouted to another stopping place
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);
+
+    /// @brief update the number of reroutes for the vehicle
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value);
 
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()

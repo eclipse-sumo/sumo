@@ -97,8 +97,13 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), myVeh(dynamic_cast<MSVehicle&>(holder)),
-      myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
-      myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "charging", {
+    {"waitingTime", 1.}, {"chargingTime", 1.}
+}, { {"waitingTime", true}, {"chargingTime", true} }),
+myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
+myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+    myEvalParams["waitingTime"] = 1.;
+    myEvalParams["chargingTime"] = 1.;
     myRescueTime = STEPS2TIME(holder.getTimeParam("device.stationfinder.rescueTime"));
     const std::string action = holder.getStringParam("device.stationfinder.rescueAction");
     if (action == "remove") {
@@ -532,6 +537,65 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
         return toString(estimateConsumption() * myReserveFactor);
     }
     throw InvalidArgument(TLF("Parameter '%' is not supported for device of type '%'", key, deviceName()));
+}
+
+
+bool
+MSDevice_StationFinder::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative, double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues, ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues) {
+    return true;
+}
+
+
+double
+MSDevice_StationFinder::getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
+    return 0.0;
+}
+
+
+double
+MSDevice_StationFinder::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
+    return 0.0;
+}
+
+
+double
+MSDevice_StationFinder::getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) {
+    return 1.;
+}
+
+
+void
+MSDevice_StationFinder::rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) {
+    veh.rememberBlockedChargingStation(stoppingPlace, blocked);
+}
+
+
+void
+MSDevice_StationFinder::rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) {
+    veh.rememberChargingStationScore(place, score);
+}
+
+
+void
+MSDevice_StationFinder::resetStoppingPlaceScores(SUMOVehicle& veh) {
+    veh.resetChargingStationScores();
+}
+
+
+SUMOTime
+MSDevice_StationFinder::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) {
+    return veh.sawBlockedChargingStation(place, local);
+}
+
+
+int
+MSDevice_StationFinder::getNumberStoppingPlaceReroutes(SUMOVehicle& veh) {
+    return 0;
+}
+
+
+void
+MSDevice_StationFinder::setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) {
 }
 
 
