@@ -47,20 +47,23 @@
     </link>
 </railSignal>
 <departJunction id="gneJ5">
-    <driveWay id="gneJ5.1">
+    <driveWay id="gneJ5.1"/>
+    <driveWay id="gneJ5.4">
         <entry id="ICE0" time="16250.00" reason="0"/>
         <exit id="ICE0" time="16327.00" reason="1"/>
     </driveWay>
 </departJunction>
 <departJunction id="gneJ10">
-    <driveWay id="gneJ10.2">
+    <driveWay id="gneJ10.3"/>
+    <driveWay id="gneJ10.5">
         <entry id="RB2" time="16250.00" reason="0"/>
-        <exit id="RB2" time="16281.00" reason="1"/>
+        <exit id="RB2" time="16340.00" reason="1"/>
     </driveWay>
 </departJunction>
 <departJunction id="gneJ7">
-    <driveWay id="gneJ7.0">
+    <driveWay id="gneJ7.0"/>
+    <driveWay id="gneJ7.2">
         <entry id="RB1" time="16000.00" reason="0"/>
-        <exit id="RB1" time="16102.00" reason="1"/>
+        <exit id="RB1" time="16150.00" reason="1"/>
     </driveWay>
 </departJunction>

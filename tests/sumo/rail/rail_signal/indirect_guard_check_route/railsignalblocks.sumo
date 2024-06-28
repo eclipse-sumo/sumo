@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 09:34:37 by Eclipse SUMO sumo Version v1_20_0+0403-5270330ea96
+<!-- generated on 2024-06-28 14:09:55 by Eclipse SUMO sumo Version v1_20_0+0407-4533c402c3c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -107,6 +107,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links=""/>
             <conflictLinks signals="s5_0"/>
         </driveWay>
+        <driveWay id="e3.2" edges="TL2_0 t8_0 t9_0 t10_0 t11_0 TR2_0">
+            <forward lanes="TL2_0_0 :s5_1_0 t8_0_0"/>
+            <bidi lanes="TL2_1_0 :s5_0_0 t8_1_0 :s6_0_0 t9_1_0 :w2_1_0 t10_1_0 :s7_0_0 t11_1_0 :s8_0_0 TR2_1_0"/>
+            <flank lanes=":w2_0_0 t13_1_0 :w1_1_0"/>
+            <protectingSwitches links="w1_1"/>
+            <conflictLinks signals=""/>
+        </driveWay>
     </departJunction>
     <departJunction id="e2">
         <driveWay id="e2.1" edges="TR1_1">
@@ -115,6 +122,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":s4_1_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="s4_0"/>
+        </driveWay>
+        <driveWay id="e2.3" edges="TR1_1 t5_1 t4_1 t3_1 t2_1 TL1_1">
+            <forward lanes="TR1_1_0 :s4_0_0 t5_1_0"/>
+            <bidi lanes="TR1_0_0 :s4_1_0 t5_0_0 :s3_1_0 t4_0_0 :w1_3_0 t3_0_0 :s2_1_0 t2_0_0 :s1_1_0 TL1_0_0"/>
+            <flank lanes=":w1_2_0 t13_0_0 :w2_3_0"/>
+            <protectingSwitches links="w2_3"/>
+            <conflictLinks signals=""/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
