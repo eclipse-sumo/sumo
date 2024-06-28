@@ -26,4 +26,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <output-file value="net.net.xml"/>
     </output>
 
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
 </netconvertConfiguration>
