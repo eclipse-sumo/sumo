@@ -94,7 +94,7 @@ def main():
                 lanes = [(d, lane) for lane, d in lanes if lane.allows(options.vclass)]
                 radius *= 10
             if not lanes:
-                sys.stderr.write("Could not find road for detector %s within %sm radius" % (detID, radius))
+                sys.stderr.write("Could not find road for detector %s within %sm radius\n" % (detID, radius))
                 continue
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
