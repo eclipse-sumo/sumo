@@ -31,8 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select all edges with allow = "private" and remove it
-netedit.selectItems("Network", "edge", "allow", "private")
+# select all edges with allow = "all" and remove it
+# (we cannot use "=all" since "all" is expanded to include all vClassess)
+netedit.selectItems("Network", "edge", "allow", "all")
 netedit.deleteSelectedItems()
 
 # recompute

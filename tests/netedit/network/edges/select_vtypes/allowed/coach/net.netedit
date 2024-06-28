@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.09.2019 13:07:48 by Eclipse SUMO netedit Version v1_3_1+0518-618d6833cc
+<!-- generated on 26.04.2019 15:38:30 by Eclipse SUMO netedit Version v1_2_0+0025-6204dba46c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,14 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\routes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +45,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Sep130358.2208/netedit.gui/netElements/edges/select_vtypes/allowed/coach\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_26Apr121940.3416/netedit.gui/netElements/edges/select_vtypes/allowed/all\log.txt"/>
     </report>
 
 </configuration>
@@ -57,6 +57,9 @@
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">
         <lane id="-gneE14_0" index="0" allow="bus" speed="13.89" length="20.00" shape="0.00,28.40 20.00,28.40"/>
+    </edge>
+    <edge id="-gneE15" from="gneJ8" to="gneJ7" priority="1">
+        <lane id="-gneE15_0" index="0" allow="coach" speed="13.89" length="20.00" shape="20.00,21.60 0.00,21.60"/>
     </edge>
     <edge id="-gneE16" from="gneJ20" to="gneJ19" priority="1">
         <lane id="-gneE16_0" index="0" allow="pedestrian" speed="13.89" length="20.00" shape="50.00,21.60 30.00,21.60"/>
@@ -151,8 +154,8 @@
     <junction id="gneJ3" type="dead_end" x="20.00" y="40.00" incLanes="gneE13_0" intLanes="" shape="20.00,36.80 20.00,40.00"/>
     <junction id="gneJ4" type="dead_end" x="0.00" y="30.00" incLanes="gneE14_0" intLanes="" shape="0.00,30.00 0.00,33.20 0.00,30.00"/>
     <junction id="gneJ5" type="dead_end" x="20.00" y="30.00" incLanes="-gneE14_0" intLanes="" shape="20.00,30.00 20.00,26.80 20.00,30.00"/>
-    <junction id="gneJ7" type="dead_end" x="0.00" y="20.00" incLanes="" intLanes="" shape="0.00,20.00 0.00,16.80"/>
-    <junction id="gneJ8" type="dead_end" x="20.00" y="20.00" incLanes="gneE15_0" intLanes="" shape="20.00,16.80 20.00,20.00"/>
+    <junction id="gneJ7" type="dead_end" x="0.00" y="20.00" incLanes="-gneE15_0" intLanes="" shape="0.00,20.00 0.00,23.20 0.00,20.00"/>
+    <junction id="gneJ8" type="dead_end" x="20.00" y="20.00" incLanes="gneE15_0" intLanes="" shape="20.00,20.00 20.00,16.80 20.00,20.00"/>
     <junction id="gneJ9" type="dead_end" x="30.00" y="40.00" incLanes="-gneE18_0" intLanes="" shape="30.00,40.00 30.00,43.20 30.00,40.00"/>
 
 </net>
