@@ -53,6 +53,7 @@
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
+#include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIDesigns.h>

@@ -28,8 +28,8 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "MSNet.h"
-#include "MSStoppingPlace.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSStoppingPlace.h>
 
 class MSEdge;
 

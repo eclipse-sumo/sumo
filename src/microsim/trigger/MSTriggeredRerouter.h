@@ -30,7 +30,7 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/distribution/RandomDistributor.h>
 #include <microsim/MSMoveReminder.h>
-#include <microsim/MSStoppingPlaceRerouter.h>
+#include "MSStoppingPlaceRerouter.h"
 
 
 // ===========================================================================

@@ -19,7 +19,6 @@
 // to the best StoppingPlace according to the evaluation components and
 // associated weights.
 /****************************************************************************/
-#pragma once
 #include <utils/vehicle/SUMOVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSGlobals.h>
@@ -31,7 +30,6 @@
 #include <microsim/trigger/MSChargingStation.h>
 #include "MSStoppingPlaceRerouter.h"
 
-#define DEBUG_STOPPINGPLACE
 #define DEBUGCOND (veh.isSelected())
 
 

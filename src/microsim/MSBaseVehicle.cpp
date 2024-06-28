@@ -43,6 +43,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/trigger/MSChargingStation.h>
+#include <microsim/trigger/MSStoppingPlaceRerouter.h>
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
