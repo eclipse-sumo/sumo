@@ -54,7 +54,27 @@ public:
     void remove(MSTransportableStateAdapter* state) override;
     SUMOTime execute(SUMOTime time);
 
+    /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
+     * @param[in] ego The object that inquires about blockage (and may electively ignore foes)
+     * @param[in] lane The crossing to check
+     * @param[in] vehside The offset to the vehicle side near the start of the crossing
+     * @param[in] vehWidth The width of the vehicle
+     * @param[in] oncomingGap The distance which the vehicle wants to keep from oncoming pedestrians
+     * @param[in] collectBlockers The list of persons blocking the crossing
+     * @return Whether the vehicle must wait
+     */
+    bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+                       double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
+
+    /// @brief whether the given lane has pedestrians on it
+    bool hasPedestrians(const MSLane* lane);
+
+    /// @brief whether movements on intersections are modelled
     bool usingInternalLanes() override;
+
+    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
+
     bool usingShortcuts() override {
         return myHaveAdditionalWalkableAreas;
     }
@@ -99,7 +119,17 @@ private:
         MSStageMoving* getStage() const;
         void setStage(MSStageMoving* const stage);
 
-        MSPerson* getPerson() const;
+        inline MSPerson* getPerson() const {
+            return myPerson;
+        }
+
+        inline MSLane* getLane() const {
+            return myLane;
+        }
+
+        inline void setLane(MSLane* lane) {
+            myLane = lane;
+        }
 
         void setLanePosition(double lanePosition);
         double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
@@ -141,6 +171,7 @@ private:
     private:
         MSPerson* myPerson;
         MSStageMoving* myStage;
+        MSLane* myLane;
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
@@ -206,6 +237,10 @@ private:
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
     std::map<JPS_StageId, const MSLane*> myCrossings;
 
+    typedef std::map<const MSLane*, std::vector<PState*>, ComparatorNumericalIdLess> ActiveLanes;
+    /// @brief store of all lanes which have pedestrians on them
+    ActiveLanes myActiveLanes;
+
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
@@ -215,6 +250,7 @@ private:
     static const RGBColor PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR;
     static const std::string PEDESTRIAN_NETWORK_ID;
     static const std::string PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID;
+    static const std::vector<MSPModel_JuPedSim::PState*> noPedestrians;
 
     void initialize(const OptionsCont& oc);
     void tryPedestrianInsertion(PState* state, const Position& p);
@@ -234,4 +270,7 @@ private:
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
     JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);
+
+    /// @brief retrieves the pedestrian vector for the given lane (may be empty)
+    const std::vector<PState*>& getPedestrians(const MSLane* lane);
 };

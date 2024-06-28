@@ -60,6 +60,8 @@ const RGBColor MSPModel_JuPedSim::PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_COLOR =
 const std::string MSPModel_JuPedSim::PEDESTRIAN_NETWORK_ID = "jupedsim.pedestrian_network";
 const std::string MSPModel_JuPedSim::PEDESTRIAN_NETWORK_CARRIAGES_AND_RAMPS_ID = "jupedsim.pedestrian_network.carriages_and_ramps";
 
+const std::vector<MSPModel_JuPedSim::PState*> MSPModel_JuPedSim::noPedestrians;
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -340,6 +342,10 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
 void
 MSPModel_JuPedSim::remove(MSTransportableStateAdapter* state) {
     PState* pstate = static_cast<PState*>(state);
+    if (pstate->getLane() != nullptr) {
+        auto& peds = myActiveLanes[pstate->getLane()];
+        peds.erase(std::find(peds.begin(), peds.end(), pstate));
+    }
     if (pstate->getStage() != nullptr) {
         pstate->getStage()->setPState(nullptr);  // we need to remove the old state reference to avoid double deletion
     }
@@ -410,6 +416,14 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
                            forwardRoute, 0, person->getVClass(), true, bestDistance, &candidateLane, candidateLaneLongitudinalPosition, routeOffset);
 
         if (found) {
+            if (candidateLane != state->getLane()) {
+                if (state->getLane() != nullptr) {
+                    auto& peds = myActiveLanes[state->getLane()];
+                    peds.erase(std::find(peds.begin(), peds.end(), state));
+                }
+                myActiveLanes[candidateLane].push_back(state);
+                state->setLane(candidateLane);
+            }
             state->setLanePosition(candidateLaneLongitudinalPosition);
         }
 
@@ -608,8 +622,67 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
 
 bool
+MSPModel_JuPedSim::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
+                                 double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
+    for (const PState* ped : getPedestrians(lane)) {
+        const double leaderFrontDist = vehSide - ped->getEdgePos(*ped->getStage(), SIMSTEP);
+        const double leaderBackDist = leaderFrontDist + ped->getPerson()->getVehicleType().getLength();
+        if (leaderBackDist >= -vehWidth
+                && (leaderFrontDist < 0
+                    // give right of way to (close) approaching pedestrians unless they are standing
+                    || (leaderFrontDist <= oncomingGap/* && ped.myWaitingTime < TIME2STEPS(2.0)*/))) {
+            if (MSLink::ignoreFoe(ego, ped->getPerson())) {
+                continue;
+            }
+            // found one pedestrian that is not completely past the crossing point
+            //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped.myPerson->getID() << " dir=" << ped.myDir << " pX=" << ped.myRelX << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
+            if (collectBlockers == nullptr) {
+                return true;
+            } else {
+                collectBlockers->push_back(ped->getPerson());
+            }
+        }
+    }
+    if (collectBlockers == nullptr) {
+        return false;
+    } else {
+        return collectBlockers->size() > 0;
+    }
+}
+
+
+bool
+MSPModel_JuPedSim::hasPedestrians(const MSLane* lane) {
+    return getPedestrians(lane).size() > 0;
+}
+
+
+bool
 MSPModel_JuPedSim::usingInternalLanes() {
     return MSGlobals::gUsingInternalLanes && MSNet::getInstance()->hasInternalLinks();
+}
+
+
+PersonDist
+MSPModel_JuPedSim::nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime, bool bidi) {
+    PersonDist result(nullptr, std::numeric_limits<double>::max());
+    for (const PState* ped : getPedestrians(lane)) {
+        // account for distance covered by oncoming pedestrians
+        /*        double relX2 = ped.myRelX - (ped.myDir == FORWARD ? 0 : stopTime * ped.myPerson->getMaxSpeed());
+                double dist = ((relX2 - minPos) * (bidi ? -1 : 1)
+                               - (ped.myDir == FORWARD ? ped.myPerson->getVehicleType().getLength() : 0));
+                const bool aheadOfVehicle = bidi ? ped.myRelX < minPos : ped.myRelX > minPos;
+                if (aheadOfVehicle && dist < result.second) {
+                    const double center = lane->getWidth() - (ped.myRelY + stripeWidth * 0.5);
+                    const double halfWidth = 0.5 * ped.myPerson->getVehicleType().getWidth();
+                    const bool overlap = (center + halfWidth > minRight && center - halfWidth < maxLeft);
+                    if (overlap) {
+                        result.first = ped->getPerson();
+                        result.second = dist;
+                    }
+                }*/
+    }
+    return result;
 }
 
 
@@ -1141,13 +1214,23 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
 }
 
 
+const std::vector<MSPModel_JuPedSim::PState*>&
+MSPModel_JuPedSim::getPedestrians(const MSLane* lane) {
+    const auto it = myActiveLanes.find(lane);
+    if (it != myActiveLanes.end()) {
+        return (it->second);
+    }
+    return noPedestrians;
+}
+
+
 // ===========================================================================
 // MSPModel_Remote::PState method definitions
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
                                   JPS_JourneyId journeyId, JPS_StageId stageId,
                                   const std::vector<WaypointDesc>& waypoints)
-    : myPerson(person), myStage(stage), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
+    : myPerson(person), myStage(stage), myLane(nullptr), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
       myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
 }
 
@@ -1202,11 +1285,6 @@ MSStageMoving* MSPModel_JuPedSim::PState::getStage() const {
 void
 MSPModel_JuPedSim::PState::setStage(MSStageMoving* const stage) {
     myStage = stage;
-}
-
-
-MSPerson* MSPModel_JuPedSim::PState::getPerson() const {
-    return myPerson;
 }
 
 
