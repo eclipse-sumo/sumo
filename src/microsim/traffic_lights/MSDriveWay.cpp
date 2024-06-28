@@ -52,8 +52,8 @@
 
 #define DEBUG_COND DEBUG_HELPER(this)
 //#define DEBUG_HELPER(obj) ((obj)->isSelected())
-#define DEBUG_HELPER(obj) ((obj)->getID() == "")
-//#define DEBUG_HELPER(obj) (true)
+//#define DEBUG_HELPER(obj) ((obj)->getID() == "")
+#define DEBUG_HELPER(obj) (true)
 
 //#define DEBUG_COND_DW (dw->myNumericalID == 5)
 #define DEBUG_COND_DW (true)
@@ -709,7 +709,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
     const std::string warnID = origin ? getClickableTLLinkID(origin) : "lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    MSTrafficLightLogic* originRS = origin ? origin->getTLLogic() : nullptr;
+    const MSTrafficLightLogic* originRS = origin ? origin->getTLLogic() : nullptr;
     gDebugFlag4 = DEBUG_HELPER(orignRS);
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
@@ -1102,7 +1102,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
-        std::cout << SIMTIME << " buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ") at railSignal=" << Named::getIDSecure(link->getTLLogic())
+        std::cout << SIMTIME << " buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ")"
                   << "\n    route=" << toString(dw->myRoute)
                   << "\n    forward=" << toString(dw->myForward)
                   << "\n    bidi=" << toString(dw->myBidi)
@@ -1214,6 +1214,15 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
     if (match && itDwRoute == myRoute.end()
             && (itRoute == route.end() || myFoundSignal || myFoundReversal)) {
         //std::cout << "  using dw=" << "\n";
+        if (myFoundReversal && itRoute != route.end()) {
+            // check whether the current route requires an extended driveway
+            const MSEdge* next = *itRoute;
+            const MSEdge* prev = myRoute.back();
+            if (prev->getBidiEdge() != next && prev->getBidiEdge() != nullptr
+                    && prev->isConnectedTo(*next, (SUMOVehicleClass)(SVC_RAIL_CLASSES & prev->getPermissions()))) {
+                return false;
+            }
+        }
         return true;
     }
     return false;
