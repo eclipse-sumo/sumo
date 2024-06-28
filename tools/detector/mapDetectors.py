@@ -98,8 +98,9 @@ def main():
                 continue
             lanes.sort(key=lambda x: x[0])
             best = lanes[0][1]
-            pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape())
-            outf.write('    <inductionLoop id="%s" lane="%s" pos="%s" file="%s" freq="%s"/>\n' % (
+            pos = min(best.getLength(),
+                      sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint((x, y), best.getShape()))
+            outf.write('    <inductionLoop id="%s" lane="%s" pos="%.2f" file="%s" freq="%s"/>\n' % (
                        detID, best.getID(), pos, options.detOut, options.interval))
 
         outf.write('</additional>\n')
