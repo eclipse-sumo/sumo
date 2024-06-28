@@ -54,10 +54,10 @@ values would not be known.
 | `arrivalSpeed` | m/s                  | The speed the vehicle had when reaching the destination               |
 | `duration`     | (simulation) seconds | The time the vehicle needed to accomplish the route             |
 | `routeLength`  | m                    | The length of the vehicle's route                        |
-| `waitingTime`  | s                    | The time in which the vehicle speed was below or equal 0.1 m/s (scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) do not count)          |
+| `waitingTime`  | s                    | The time in which the vehicle speed was below or equal 0.1 m/s (scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints) do not count)          |
 | `waitingCount` | \#                   | The number of times the vehicle speed went below or equal 0.1 m/s |
-| `stopTime`     | s                    | The time in which the vehicle was taking a planned [stop](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops)      |
-| `timeLoss`     | seconds              | The time lost due to driving below the ideal speed. (ideal speed includes [the individual speedFactor](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions); slowdowns due to intersections etc. will incur timeLoss, scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) do not count) |
+| `stopTime`     | s                    | The time in which the vehicle was taking a planned [stop](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)      |
+| `timeLoss`     | seconds              | The time lost due to driving below the ideal speed. (ideal speed includes [the individual speedFactor](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions); slowdowns due to intersections etc. will incur timeLoss, scheduled [stops](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints) do not count) |
 | `rerouteNo`    | \#                   | The number the vehicle has been rerouted              |
 | `devices`      | \[ID\]\*             | List of devices the vehicle had. Each device is separated from the others by a ';'.      |
 | `vtype`        | ID                   | The type of the vehicle          |
@@ -155,8 +155,8 @@ The attributes within the stages have the following meaning:
 | `duration`    | (simulation) seconds | For walking and stopping, this is time spent in that stage. For a riding stage, this **only** is the time spent inside the vehicle.  (-1 if the stage did not start or the person did not enter the vehicle)    |
 | `actType`     | string               | The activity description of a stop                                                                                               |
 | `waitingTime` | (simulation) seconds | The time spent waiting for a vehicle                                                                                             |
-| `routeLength` | m | the distance travelled in that stage|
-| `timeLoss` | s | the time lost due to travelling at speed below the maximum speed in that stage. For a `<ride>` this is the timeLoss of the vehicle during the ride|
+| `routeLength` | m | the distance traveled in that stage|
+| `timeLoss` | s | the time lost due to traveling at speed below the maximum speed in that stage. For a `<ride>` this is the timeLoss of the vehicle during the ride|
 | `maxSpeed` | s | the maximum speed permitted in that stage|
 
 ## Aggregated Output

@@ -71,7 +71,7 @@ change to the `baseDir` in a terminal and start sumo (with graphical
 user interface) there by typing `sumo -c circles.sumocfg`. (If this does
 not start sumo, you might have to add the SUMO/bin directory to your
 PATH or set the environment variable `SUMO_HOME`
-([how to](../Basics/Basic_Computer_Skills.md#sumo_home)).
+([how to](../Basics/Basic_Computer_Skills.md#sumo_home))).
 
 <img src="../images/StartAttempt1.PNG" alt="First attempt to run the simulation" width="500">
 
@@ -304,12 +304,12 @@ A net with two loops
     Destination](../Simulation/Rerouter.md#assigning_a_new_destination)),
     observe merging at the location where both loops are connected.
 4.  Insert more vehicles, lower the simulation [time-step
-    length](../Simulation/Basic_Definition.md#defining_the_time_step_length_and_integration_method)
+    length](../Simulation/Basic_Definition.md#defining_the_time_step_length)
     and try to observe stop-and-go waves, experiment with different
     [car-following models](../Car-Following-Models.md), [color the
     vehicles](../sumo-gui.md#vehicle_visualisation_settings) by
     speed.
 
-If you create solutions for the exercises post them on this page\!
+If you create solutions for the exercises post them on this page!
 
 Back to [Tutorials](index.md)

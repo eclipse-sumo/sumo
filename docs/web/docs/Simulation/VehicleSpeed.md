@@ -119,7 +119,7 @@ the next edge on a vehicles route, the vehicle will decelerate and stop.
 # Stops
 
 Vehicles will decelerate when approaching the position of a
-[`stop`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+[`stop`-definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 
 # Acceleration / Deceleration constraints
 

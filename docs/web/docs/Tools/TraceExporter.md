@@ -108,7 +108,7 @@ the application,
 
 | Option                | Description                                 |
 |-----------------------|---------------------------------------------|
-| **--shawn-output** {{DT_FILE}} | Generates a Shawn snaphot file named {{DT_FILE}} |
+| **--shawn-output** {{DT_FILE}} | Generates a Shawn snapshot file named {{DT_FILE}} |
 
 ### ns2/ns3
 
@@ -205,8 +205,6 @@ Several options allow to fine-tune the processing.
 
 - This [tutorial on using
   TraceExporter](../Tutorials/Trace_File_Generation.md)
-- [working around bugs in version
-  0.19.0](../FAQ.md#traceexporterpy_fails_to_work_properly_in_verson_0190)
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
 <span style="float: right; margin-top: -5px;"><a href="https://web.archive.org/web/20191005024529/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../images/FP7-small.gif" alt="Seventh Framework Programme"></a>

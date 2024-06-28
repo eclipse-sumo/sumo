@@ -267,9 +267,9 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
   - All car-following models now respect the vType-attribute
     *emergencyDecel* as an absolute bound on deceleration. Issue #3556
   - Fixed some issues when using [continous lane
-    change](../Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #3767, Issue #3769, Issue #3770, Issue #3771, Issue #4364
+    change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #3767, Issue #3769, Issue #3770, Issue #3771, Issue #4364
   - Fixed back-and-forth changing when using [continous lane
-    change](../Simulation/SublaneModel.md#simple_continous_lane-change_model). Issue #4010
+    change](../Simulation/SublaneModel.md#simple_continuous_lane-change_model). Issue #4010
   - Fixed loading of teleporting vehicles from simulation state in
     *.sbx* format. Issue #3787
   - Fixed invalid vehicle counts by E2-detector related to

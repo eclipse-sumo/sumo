@@ -68,11 +68,11 @@ with Phases:
 | value type double | Duration in seconds | value type *double* | unused | value type *double* | unused | value type *string* | State (light/priority-tuple) |
 
 !!! note
-    For more information about what value should be put in each of the fields mentioned above, see [Tutorials/TraCI4Traffic_Lights#Further_Notes](../Tutorials/TraCI4Traffic_Lights.md#further_notes). Remember that you can check which integer value is associated with particular value type [here](../TraCI/Protocol.md#data_types).
+    For more information about what value should be put in each of the fields mentioned above, see [Tutorials/TraCI4Traffic_Lights#Appendix](../Tutorials/TraCI4Traffic_Lights.md#appendix). Remember that you can check which integer value is associated with particular value type [here](../TraCI/Protocol.md#data_types).
 
 # Setting Traffic light parameters (0x7e)
 
-Traffic lights support setting of additinal parameters using the [generic
+Traffic lights support setting of additional parameters using the [generic
 parameter setting call](../TraCI/GenericParameters.md#set_parameter).
 
 |      key        | value type (expressed as string) | supported by tlType |  description |

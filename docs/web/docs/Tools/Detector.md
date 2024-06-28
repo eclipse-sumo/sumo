@@ -106,7 +106,7 @@ input counts with the outputs of flowrouter.py and
 
 # flowFromEdgeData
 
-This script is similar to [flowFromRoutes](#flowFromRoutes). It generates traffic counts for detectors but uses [edgeData files](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) as input instead of routes.
+This script is similar to [flowFromRoutes.py](#flowfromroutespy). It generates traffic counts for detectors but uses [edgeData files](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) as input instead of routes.
 It requires the use of an input flow file and then performs a comparison between input flows and edgdata flows
 ```
 <SUMO_HOME>/tools/detector/flowFromEdgeData.py -d detectors.xml -e edgedata.xml -f flows.txt

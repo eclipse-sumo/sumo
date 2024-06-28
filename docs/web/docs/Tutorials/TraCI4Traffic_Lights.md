@@ -88,12 +88,12 @@ the signal dependent on the actual simulation state. For this task TraCI
 offers commands which are described in the corresponding article
 [TraCI](../TraCI.md) in detail. For this example we will use only
 four commands: [Simulation
-Step](../TraCI/Control-related_commands.md#command_0x01:_simulation_step),
+Step](../TraCI/Control-related_commands.md#command_0x02_simulation_step),
 [Get Induction Loop
-Variable](../TraCI/Induction_Loop_Value_Retrieval.md#command_0xa0:_get_induction_loop_variable),
+Variable](../TraCI/Induction_Loop_Value_Retrieval.md#command_0xa0_get_induction_loop_variable),
 [Change Traffic Lights
 State](../TraCI/Change_Traffic_Lights_State.md) and
-[Close](../TraCI/Control-related_commands.md#command_0x7F:_close).
+[Close](../TraCI/Control-related_commands.md#command_0x7f_close).
 
 The commands are embedded in TCP messages but the direct client server
 communication is opaque to the user. The four commands needed in this
@@ -114,8 +114,7 @@ section we will show the composition of a command using the example of
 This method sets the phase of a traffic light, so it gets the ID of the
 traffic light and the new phase as parameter. The phase definitions can
 be read from the sumo network and are described in [Simulation/Traffic
-Lights\#Loading new
-TLS-Programs](../Simulation/Traffic_Lights.md#loading_new_tls-programs).
+Lights\#Loading a new Program](../Simulation/Traffic_Lights.md#loading_a_new_program).
 If the phase is already the current one, it is restarted from the
 beginning. The command is described at [TraCI/Change Traffic Lights
 State](../TraCI/Change_Traffic_Lights_State.md).

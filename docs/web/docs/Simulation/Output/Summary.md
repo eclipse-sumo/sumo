@@ -5,7 +5,7 @@ title: Summary
 This output contains the simulation-wide number of vehicles that are
 loaded, inserted, running, waiting to be inserted, have reached their
 destination and how long they needed to finish the route. The last value
-is normalised over all vehicles that have reached their destination so
+is normalized over all vehicles that have reached their destination so
 far.
 
 ## Instantiating within the Simulation
@@ -53,7 +53,7 @@ is given in the table below.
 | meanTravelTime    | s                    | The mean travel time of all vehicles that have left the simulation within the previous and the reported time;-1 if no vehicle has been removed from the simulation, yet |
 | meanSpeed         | m/s                  | The mean speed over all vehicles in the network (which are not waiting at a `<stop>`).                                                                                          |
 | meanSpeedRelative |                      | The mean speed over all vehicles in the network relative to the speed limit (which are not waiting at a `<stop>`).                                                              |
-| duration          | ms                   | The computation time for that simulation step in milliseconds).                                                                                                         |
+| duration          | ms                   | The computation time for that simulation step (in milliseconds).                                                                                                         |
 
 ## Visualization examples
 
@@ -61,4 +61,4 @@ is given in the table below.
 
 ![plot-running](../../images/plot-running.png)
 
-Generated with [plotXMLAttributes.py](../../Tools/Visualization.md##multiple_timelines_from_summary-output).
+Generated with [plotXMLAttributes.py](../../Tools/Visualization.md#multiple_timelines_from_summary-output).

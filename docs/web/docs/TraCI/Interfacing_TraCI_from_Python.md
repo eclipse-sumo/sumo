@@ -28,7 +28,7 @@ import traci
 ```
 
 This assumes that the [environment variable
-**SUMO_HOME**](../Basics/Basic_Computer_Skills.md#additional_environment_variables)
+**SUMO_HOME**](../Basics/Basic_Computer_Skills.md#sumo_home)
 is set before running the script. Alternatively, you can declare the
 path to *sumo/tools* directly as in the line
 
@@ -371,7 +371,7 @@ gdb --args sumoD -c debug.sumocfg
 ```
 
 (where sumoD is sumo [compiled in debug
-mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake_recommended))
+mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake))
 
 ### Generating a log of all traci commands
 To share a traci scenario (i.e. in a bug report) it may be useful to separate the logic of the traci script from the actual commands.
@@ -389,7 +389,7 @@ Possibly, the arguments given to `traci.start` generated an error when launching
 
 `traci.exceptions.FatalTraCIError: Could not connect.`
 
-To diagnose the problem, add options for writing a log file `traci.start` (i.e. `traci.start(['sumo', '-c', 'example.sumocfg', '--log', 'logfile.txt'])`
+To diagnose the problem, add options for writing a log file `traci.start` (i.e. `traci.start(['sumo', '-c', 'example.sumocfg', '--log', 'logfile.txt'])`)
 After the script fails to start, look into the written logfile and fix the error reported therein.
 
 
