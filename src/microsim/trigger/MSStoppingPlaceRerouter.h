@@ -132,9 +132,7 @@ public:
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
 
     ///@brief Constructor
-    MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "",
-    StoppingPlaceParamMap_t evalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, },
-    StoppingPlaceParamSwitchMap_t invertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true }, });
+    MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "", StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
 
     // Destructor
     virtual ~MSStoppingPlaceRerouter() {}
@@ -274,5 +272,5 @@ protected:
     const std::string myParamPrefix;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
-    const StoppingPlaceParamSwitchMap_t myInvertParams;
+    StoppingPlaceParamSwitchMap_t myInvertParams;
 };

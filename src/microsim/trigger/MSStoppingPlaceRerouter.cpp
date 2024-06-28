@@ -34,7 +34,13 @@
 
 
 ///@brief Constructor
-MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix, StoppingPlaceParamMap_t evalParams, StoppingPlaceParamSwitchMap_t invertParams) : myEvalParams(evalParams), myInvertParams(invertParams), myStoppingType(stoppingType), myParamPrefix(paramPrefix) {
+MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) : myStoppingType(stoppingType), myParamPrefix(paramPrefix) {
+    myEvalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
+    myInvertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
+    for (auto param : addEvalParams) {
+        myEvalParams[param.first] = param.second;
+        myInvertParams[param.first] = (addInvertParams.count(param.first) > 0) ? addInvertParams[param.first] : false;
+    }
     for (auto param : myEvalParams) {
         myNormParams.insert({param.first, param.first != "probability"});
     }
