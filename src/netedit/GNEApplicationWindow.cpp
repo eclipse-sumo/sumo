@@ -3715,46 +3715,40 @@ long
 GNEApplicationWindow::onCmdSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if there is something to save
-    if (myNet->getAttributeCarriers()->getNumberOfAdditionals() == 0) {
+    // check if we have to set the output filename
+    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("additional-files").empty()) {
+        neteditOptions.set("additional-files", *(static_cast<std::string*>(ptr)) + ".add.xml");
+    }
+    if (myNet->getSavingStatus()->isAdditionalsSaved() && (sel != MID_GNE_FORCESAVE)) {
         // nothing to save
         return 1;
+    } else if (neteditOptions.getString("additional-files").empty()) {
+        // choose file to save
+        return onCmdSaveAdditionalsAs(sender, sel, ptr);
     } else {
-        // check if we have to set the output filename
-        if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("additional-files").empty()) {
-            neteditOptions.set("additional-files", *(static_cast<std::string*>(ptr)) + ".add.xml");
-        }
-        if (myNet->getSavingStatus()->isAdditionalsSaved() && (sel != MID_GNE_FORCESAVE)) {
-            // nothing to save
-            return 1;
-        } else if (neteditOptions.getString("additional-files").empty()) {
-            // choose file to save
-            return onCmdSaveAdditionalsAs(sender, sel, ptr);
-        } else {
-            // Start saving additionals
-            getApp()->beginWaitCursor();
-            try {
-                // compute before saving (for detectors positions)
-                myNet->computeNetwork(this);
-                // save additionals
-                myNet->saveAdditionals();
-                // show info
-                WRITE_MESSAGE(TL("Additionals saved in '") + neteditOptions.getString("additional-files") + "'");
-                // end saving additionals
-                getApp()->endWaitCursor();
-                // restore focus
-                setFocus();
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
-            }
+        // Start saving additionals
+        getApp()->beginWaitCursor();
+        try {
+            // compute before saving (for detectors positions)
+            myNet->computeNetwork(this);
+            // save additionals
+            myNet->saveAdditionals();
+            // show info
+            WRITE_MESSAGE(TL("Additionals saved in '") + neteditOptions.getString("additional-files") + "'");
+            // end saving additionals
             getApp()->endWaitCursor();
-            return 1;
+            // restore focus
+            setFocus();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving additionals'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving additionals failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving additionals' with 'OK'");
         }
+        getApp()->endWaitCursor();
+        return 1;
     }
 }
 
@@ -3918,54 +3912,39 @@ long
 GNEApplicationWindow::onCmdSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if we have modified defaul vTypes
-    bool modifiedDefaultVTypes = false;
-    // count the number of default vTypes
-    for (const auto& vType : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
-        if ((vType.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE) == GNEAttributeCarrier::True) &&
-                (vType.second->getAttribute(GNE_ATTR_DEFAULT_VTYPE_MODIFIED) == GNEAttributeCarrier::True)) {
-            modifiedDefaultVTypes = true;
-        }
+    // check if we have to set the output filename
+    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("route-files").empty()) {
+        neteditOptions.set("route-files", *(static_cast<std::string*>(ptr)) + ".rou.xml");
     }
-    // check if there is something for saving
-    if ((myNet->getAttributeCarriers()->getNumberOfDemandElements() == 0) && !modifiedDefaultVTypes) {
-        // nothing to save
+    // check saving conditions
+    if (myNet->getSavingStatus()->isDemandElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
         return 1;
+    } else if (neteditOptions.getString("route-files").empty()) {
+        return onCmdSaveDemandElementsAs(sender, sel, ptr);
     } else {
-        // check if we have to set the output filename
-        if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("route-files").empty()) {
-            neteditOptions.set("route-files", *(static_cast<std::string*>(ptr)) + ".rou.xml");
-        }
-        // check saving conditions
-        if (myNet->getSavingStatus()->isDemandElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
-            return 1;
-        } else if (neteditOptions.getString("route-files").empty()) {
-            return onCmdSaveDemandElementsAs(sender, sel, ptr);
-        } else {
-            // Start saving demand elements
-            getApp()->beginWaitCursor();
-            try {
-                // compute before saving
-                myNet->computeNetwork(this);
-                // save demand elements
-                myNet->saveDemandElements();
-                // show info
-                WRITE_MESSAGE(TL("Demand elements saved in '") + neteditOptions.getString("route-files") + "'");
-                // end saving demand elements
-                getApp()->endWaitCursor();
-                // restore focus
-                setFocus();
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
-            }
+        // Start saving demand elements
+        getApp()->beginWaitCursor();
+        try {
+            // compute before saving
+            myNet->computeNetwork(this);
+            // save demand elements
+            myNet->saveDemandElements();
+            // show info
+            WRITE_MESSAGE(TL("Demand elements saved in '") + neteditOptions.getString("route-files") + "'");
+            // end saving demand elements
             getApp()->endWaitCursor();
-            return 1;
+            // restore focus
+            setFocus();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving demand elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving demand elements failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving demand elements' with 'OK'");
         }
+        getApp()->endWaitCursor();
+        return 1;
     }
 }
 
@@ -4106,42 +4085,36 @@ long
 GNEApplicationWindow::onCmdSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
     // get option container
     auto& neteditOptions = OptionsCont::getOptions();
-    // check if there is something for saving
-    if (myNet->getAttributeCarriers()->getNumberOfGenericDatas() == 0) {
+    // check if we have to set the output filename
+    if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("data-files").empty()) {
+        neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".dat.xml");
+    }
+    if (myNet->getSavingStatus()->isDataElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
         // nothing to save
         return 1;
+    } else if (neteditOptions.getString("data-files").empty()) {
+        return onCmdSaveDataElementsAs(sender, sel, ptr);
     } else {
-        // check if we have to set the output filename
-        if ((sel == MID_GNE_FORCESAVE) && neteditOptions.getString("data-files").empty()) {
-            neteditOptions.set("data-files", *(static_cast<std::string*>(ptr)) + ".dat.xml");
+        // Start saving data elements
+        getApp()->beginWaitCursor();
+        try {
+            // save data elements
+            myNet->saveDataElements();
+            // write einfo
+            WRITE_MESSAGE(TL("Data elements saved in '") + neteditOptions.getString("data-files") + "'");
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
         }
-        if (myNet->getSavingStatus()->isDataElementsSaved() && (sel != MID_GNE_FORCESAVE)) {
-            // nothing to save
-            return 1;
-        } else if (neteditOptions.getString("data-files").empty()) {
-            return onCmdSaveDataElementsAs(sender, sel, ptr);
-        } else {
-            // Start saving data elements
-            getApp()->beginWaitCursor();
-            try {
-                // save data elements
-                myNet->saveDataElements();
-                // write einfo
-                WRITE_MESSAGE(TL("Data elements saved in '") + neteditOptions.getString("data-files") + "'");
-            } catch (IOError& e) {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Opening FXMessageBox 'error saving data elements'");
-                // open error message box
-                FXMessageBox::error(this, MBOX_OK, TL("Saving data elements failed!"), "%s", e.what());
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'error saving data elements' with 'OK'");
-            }
-            // end saving
-            getApp()->endWaitCursor();
-            // restore focus
-            setFocus();
-            return 1;
-        }
+        // end saving
+        getApp()->endWaitCursor();
+        // restore focus
+        setFocus();
+        return 1;
     }
 }
 

@@ -42,6 +42,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/trigger/MSChargingStation.h>
 #include "MSGlobals.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleType.h"
@@ -140,6 +141,7 @@ MSBaseVehicle::~MSBaseVehicle() {
     }
     delete myEnergyParams;
     delete myParkingMemory;
+    delete myChargingMemory;
     checkRouteRemoval();
     delete myParameter;
 }
@@ -2410,46 +2412,73 @@ MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) 
     }
 }
 
+
 void
-MSBaseVehicle::rememberBlockedParkingArea(const MSParkingArea* pa, bool local) {
+MSBaseVehicle::rememberBlockedParkingArea(const MSStoppingPlace* pa, bool local) {
     if (myParkingMemory == nullptr) {
-        myParkingMemory = new ParkingMemory();
+        myParkingMemory = new StoppingPlaceMemory();
     }
-    (*myParkingMemory)[pa].blockedAtTime = SIMSTEP;
-    if (local) {
-        (*myParkingMemory)[pa].blockedAtTimeLocal = SIMSTEP;
-    }
+    myParkingMemory->rememberBlockedStoppingPlace(pa, local);
 }
+
 
 void
 MSBaseVehicle::resetParkingAreaScores() {
     if (myParkingMemory != nullptr) {
-        for (auto& item : *myParkingMemory) {
-            item.second.score = "";
-        }
+        myParkingMemory->resetStoppingPlaceScores();
     }
 }
 
+
 void
-MSBaseVehicle::rememberParkingAreaScore(const MSParkingArea* pa, const std::string& score) {
-    if (myParkingMemory == nullptr) {
-        myParkingMemory = new ParkingMemory();
+MSBaseVehicle::rememberChargingStationScore(const MSStoppingPlace* cs, const std::string& score) {
+    if (myChargingMemory == nullptr) {
+        myChargingMemory = new StoppingPlaceMemory();
     }
-    (*myParkingMemory)[pa].score = score;
+    myChargingMemory->rememberStoppingPlaceScore(cs, score);
+}
+
+
+void
+MSBaseVehicle::resetChargingStationScores() {
+    if (myChargingMemory != nullptr) {
+        myChargingMemory->resetStoppingPlaceScores();
+    }
+}
+
+
+void
+MSBaseVehicle::rememberParkingAreaScore(const MSStoppingPlace* pa, const std::string& score) {
+    if (myParkingMemory == nullptr) {
+        myParkingMemory = new StoppingPlaceMemory();
+    }
+    myParkingMemory->rememberStoppingPlaceScore(pa, score);
 }
 
 
 SUMOTime
-MSBaseVehicle::sawBlockedParkingArea(const MSParkingArea* pa, bool local) const {
+MSBaseVehicle::sawBlockedParkingArea(const MSStoppingPlace* pa, bool local) const {
     if (myParkingMemory == nullptr) {
         return -1;
     }
-    auto it = myParkingMemory->find(pa);
-    if (it == myParkingMemory->end()) {
-        return -1;
-    } else {
-        return local ? it->second.blockedAtTimeLocal : it->second.blockedAtTime;
+    return myParkingMemory->sawBlockedStoppingPlace(pa, local);
+}
+
+
+void MSBaseVehicle::rememberBlockedChargingStation(const MSStoppingPlace* cs, bool local) {
+    if (myChargingMemory == nullptr) {
+        myChargingMemory = new StoppingPlaceMemory();
     }
+    myChargingMemory->rememberBlockedStoppingPlace(cs, local);
+}
+
+
+SUMOTime
+MSBaseVehicle::sawBlockedChargingStation(const MSStoppingPlace* cs, bool local) const {
+    if (myChargingMemory == nullptr) {
+        return -1;
+    }
+    return myChargingMemory->sawBlockedStoppingPlace(cs, local);
 }
 
 
