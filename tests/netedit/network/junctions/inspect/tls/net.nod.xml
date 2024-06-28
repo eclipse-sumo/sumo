@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-28 12:05:51 by Eclipse SUMO netedit Version v1_20_0+0903-50ed8d6b852
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+
+    <node id="J0" x="-25.00" y="25.00" type="dead_end"/>
+    <node id="J1" x="-25.00" y="-25.00" type="dead_end"/>
+    <node id="J2" x="25.00" y="25.00" type="dead_end"/>
+    <node id="J3" x="25.00" y="-25.00" type="dead_end"/>
+    <node id="JunctionBot" x="0.00" y="-25.00" type="dead_end"/>
+    <node id="JunctionCenter" x="0.00" y="0.00" type="traffic_light" tl="JunctionCenter" name="center"/>
+    <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
+    <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
+    <node id="JunctionLeft" x="-25.00" y="0.00" type="traffic_light" tl="JunctionLeft" tlType="actuated" radius="2.00" fringe="outer" name="left"/>
+    <node id="JunctionRight" x="25.00" y="0.00" type="priority"/>
+    <node id="JunctionTop" x="0.00" y="25.00" type="dead_end"/>
+</nodes>

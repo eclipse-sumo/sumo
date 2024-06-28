@@ -56,9 +56,13 @@ class network:
             x = 309
             y = 92
 
-        class positionE:
+        class center:
             x = 498
             y = 236
+
+        class left:
+            x = 278
+            y = 237
 
 
 class elements:
