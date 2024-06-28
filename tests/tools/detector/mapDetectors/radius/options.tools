@@ -1,0 +1,2 @@
+-n input_net.net.xml -d data.txt -o out.add.xml -i customID --delimiter ,
+--max-radius 10000
