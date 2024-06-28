@@ -1,2 +1,2 @@
-Error: At traffic signal 'Center' program '0' no phase named '2' was found
-Quitting (on error).
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E5_1'! Truncated detector at length 17.8.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E7_1'! Truncated detector at length 17.8.
