@@ -33,7 +33,7 @@
 
     <edge id="E44" from="J38" to="J39" priority="-1" numLanes="1" speed="13.89" disallow="rail_urban"/>
 	
-    <edge id="-E44" from="J39" to="J38" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="-E44" from="J39" to="J38" priority="-1" numLanes="1" speed="13.89" allow="all"/>
 	
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
 	
