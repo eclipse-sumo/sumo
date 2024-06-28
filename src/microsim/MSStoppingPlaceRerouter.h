@@ -229,9 +229,10 @@ public:
      * @param[in] veh the concerned vehicle
      * @param[in] param the name of the stopping place search param, excluding the param prefix (e.g. "parking.")
      * @param[in] defaultWeight value to return in case the param hasn't been defined for the vehicle
+     * @param[in] warn whether a warning message shall be issued if the param is not defined for the vehicle
      * @return param value
      */
-    double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight);
+    double getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight, const bool warn = false);
 
     /** @brief keep track of the maximum values of each component
      *

@@ -497,74 +497,6 @@ MSStoppingPlaceRerouter::evaluateCustomComponents(SUMOVehicle& veh, double brake
 }
 
 
-double
-MSStoppingPlaceRerouter::getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
-    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
-        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(stoppingPlace);
-        return pa->getOccupancy();
-    } else {
-        return stoppingPlace->getEndLanePosition() - stoppingPlace->getLastFreePos();
-    }
-}
-
-
-double
-MSStoppingPlaceRerouter::getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) {
-    if (myStoppingType == SUMO_TAG_PARKING_AREA) {
-        MSParkingArea* pa = dynamic_cast<MSParkingArea*>(stoppingPlace);
-        return pa->getCapacity();
-    } else {
-        // must be a charging station
-        // check if it is connected to a parking
-        MSChargingStation* cs = dynamic_cast<MSChargingStation*>(stoppingPlace);
-        if (cs->getParkingArea() != nullptr) {
-            return cs->getParkingArea()->getCapacity();
-        }
-        return stoppingPlace->getEndLanePosition() - stoppingPlace->getBeginLanePosition();
-    }
-}
-
-
-//void
-//MSStoppingPlaceRerouter::rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) {
-//    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
-//        veh.rememberBlockedChargingStation(stoppingPlace, blocked);
-//    } else {
-//        veh.rememberBlockedParkingArea(stoppingPlace, blocked);
-//    }
-//}
-
-
-//void
-//MSStoppingPlaceRerouter::rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) {
-//    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
-//        veh.rememberChargingStationScore(place, score);
-//    } else {
-//        veh.rememberParkingAreaScore(place, score);
-//    }
-//}
-
-
-//void
-//MSStoppingPlaceRerouter::resetStoppingPlaceScores(SUMOVehicle& veh) {
-//    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
-//        veh.resetChargingStationScores();
-//    } else {
-//        veh.resetParkingAreaScores();
-//    }
-//}
-
-
-//SUMOTime
-//MSStoppingPlaceRerouter::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) {
-//    if (myStoppingType == SUMO_TAG_CHARGING_STATION) {
-//        return veh.sawBlockedChargingStation(place, local);
-//    } else {
-//        return veh.sawBlockedParkingArea(place, local);
-//    }
-//}
-
-
 MSStoppingPlaceRerouter::StoppingPlaceParamMap_t
 MSStoppingPlaceRerouter::collectWeights(SUMOVehicle& veh) {
     MSStoppingPlaceRerouter::StoppingPlaceParamMap_t result;
@@ -578,7 +510,7 @@ MSStoppingPlaceRerouter::collectWeights(SUMOVehicle& veh) {
 
 
 double
-MSStoppingPlaceRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight) {
+MSStoppingPlaceRerouter::getWeight(SUMOVehicle& veh, const std::string param, const double defaultWeight, const bool warn) {
     // get custom vehicle parameter
     const std::string key = myParamPrefix + "." + param;
     if (veh.getParameter().hasParameter(key)) {
@@ -597,7 +529,9 @@ MSStoppingPlaceRerouter::getWeight(SUMOVehicle& veh, const std::string param, co
             }
         }
     }
-    WRITE_MESSAGEF("Vehicle '%' does not supply vehicle parameter '%'. Using default of %\n", veh.getID(), key, toString(defaultWeight));
+    if (warn) {
+        WRITE_MESSAGEF("Vehicle '%' does not supply vehicle parameter '%'. Using default of %\n", veh.getID(), key, toString(defaultWeight));
+    }
     return defaultWeight;
 }
 
@@ -618,7 +552,7 @@ MSStoppingPlaceRerouter::getTargetValue(const StoppingPlaceParamMap_t& absValues
     for (StoppingPlaceParamMap_t::const_iterator sc = absValues.begin(); sc != absValues.end(); ++sc) {
         double weight = weights.at(sc->first);
         double val = sc->second;
-        if (norm.at(sc->first)) {
+        if (norm.at(sc->first) && maxValues.at(sc->first) > 0.) {
             val /= maxValues.at(sc->first);
         }
         cost += (invert.at(sc->first)) ? weight * (1. - val) : weight * val;
