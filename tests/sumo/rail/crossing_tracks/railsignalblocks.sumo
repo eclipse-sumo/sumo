@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-21 11:07:34 by Eclipse SUMO sumo Version v1_20_0+0395-f053e26a707
+<!-- generated on 2024-06-28 09:34:37 by Eclipse SUMO sumo Version v1_20_0+0403-5270330ea96
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -101,4 +101,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <railSignal id="s7">
         <link linkIndex="0" from="T13_0_0" to=":s7_1_0"/>
     </railSignal>
+    <departJunction id="e5">
+        <driveWay id="e5.0" edges="TL1_0">
+            <forward lanes="TL1_0_0"/>
+            <bidi lanes="TL1_1_0"/>
+            <flank lanes=":s5_0_0 T11_1_0 :s6_0_0 T12_1_0 :w2_0_0 T16_1_0 :k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0 :w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="e4">
+        <driveWay id="e4.1" edges="TR2_1">
+            <forward lanes="TR2_1_0"/>
+            <bidi lanes="TR2_0_0"/>
+            <flank lanes=":s4_1_0 T8_0_0 :k1_3_0 T15_0_0 :w1_2_0"/>
+            <protectingSwitches links="w1_2"/>
+            <conflictLinks signals=""/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

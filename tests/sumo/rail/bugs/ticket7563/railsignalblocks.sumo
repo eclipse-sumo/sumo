@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-27 14:32:17 by Eclipse SUMO sumo Version v1_20_0+0399-3c678c104b8
+<!-- generated on 2024-06-28 09:40:25 by Eclipse SUMO sumo Version v1_20_0+0403-5270330ea96
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links="gneJ3_0"/>
                 <conflictLinks signals="C_0"/>
-                <foes driveWays="C.0"/>
+                <foes driveWays="C.0 gneJ7.1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="C.0"/>
+                <foes driveWays="C.0 gneJ7.1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -71,8 +71,37 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ8_1_0 gneE1_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="B.0 A.1"/>
+                <foes driveWays="B.0 gneJ9.2 A.1"/>
             </driveWay>
         </link>
     </railSignal>
+    <departJunction id="gneJ0">
+        <driveWay id="gneJ0.0" edges="gneE0">
+            <forward lanes="gneE0_0"/>
+            <bidi lanes=""/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ9">
+        <driveWay id="gneJ9.2" edges="gneE12">
+            <forward lanes="gneE12_0"/>
+            <bidi lanes=""/>
+            <flank lanes=":gneJ9_0_0 gneE11_0 :gneJ8_0_0 gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"/>
+            <protectingSwitches links="gneJ3_0"/>
+            <conflictLinks signals="C_0"/>
+            <foes driveWays="C.0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ7">
+        <driveWay id="gneJ7.1" edges="gneE7 gneE8 gneE9 gneE10">
+            <forward lanes="gneE7_0"/>
+            <bidi lanes="gneE6_0 :C_1_0 gneE5_0 :gneJ3_2_0 gneE2_0 :B_1_0 gneE1.100_0"/>
+            <flank lanes=":gneJ8_1_0 gneE1_0 :A_0_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals="A_0"/>
+            <foes driveWays="B.0 A.1"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

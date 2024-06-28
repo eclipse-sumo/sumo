@@ -48,3 +48,15 @@
         </driveWay>
     </link>
 </railSignal>
+<departJunction id="J7">
+    <driveWay id="J7.0">
+        <entry id="v_0" time="0.00" reason="0"/>
+        <entry id="v_1" time="21.00" reason="0"/>
+        <exit id="v_0" time="28.00" reason="1"/>
+        <entry id="v_2" time="43.00" reason="0"/>
+        <exit id="v_1" time="52.00" reason="1"/>
+        <entry id="v_3" time="69.00" reason="0"/>
+        <exit id="v_2" time="82.00" reason="1"/>
+        <exit id="v_3" time="116.00" reason="1"/>
+    </driveWay>
+</departJunction>
