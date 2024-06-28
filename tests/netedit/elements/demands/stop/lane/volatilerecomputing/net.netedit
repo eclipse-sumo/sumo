@@ -125,7 +125,7 @@
         <lane id=":Junction4_4_0" index="0" allow="bus" speed="6.44" length="4.70" width="3.00" shape="-31.50,2.50 -32.00,2.75 -33.12,4.31 -33.50,6.50"/>
     </edge>
     <edge id=":Junction4_c0" function="crossing" crossingEdges="EdgeBike1 EdgeBike0">
-        <lane id=":Junction4_c0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="4.00" shape="-31.00,4.50 -39.00,4.50" outlineShape="-31.00,6.50 -39.00,6.50 -40.43,2.50 -40.62,2.99 -41.00,6.50 -39.00,6.50 -39.00,2.50 -31.00,2.50 -28.78,3.17 -29.44,3.39 -30.12,3.88 -30.61,4.56 -30.90,5.43 -31.00,6.50"/>
+        <lane id=":Junction4_c0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="4.00" shape="-31.00,4.50 -39.00,4.50" outlineShape="-31.00,6.50 -39.00,6.50 -40.43,2.50 -40.62,2.99 -41.00,6.50 -39.00,6.50 -39.00,2.50 -31.00,2.50 -28.78,3.17 -29.44,3.39 -30.12,3.88 -30.61,4.56 -30.90,5.43"/>
     </edge>
     <edge id=":Junction4_w0" function="walkingarea">
         <lane id=":Junction4_w0_0" index="0" allow="pedestrian" speed="2.78" length="10.95" width="4.00" shape="-27.50,-3.00 -27.50,-5.00 -31.62,-4.68 -35.00,-3.72 -37.62,-2.12 -39.50,0.11 -40.62,2.99 -41.00,6.50 -39.00,6.50 -38.68,3.60 -37.72,1.22 -36.12,-0.62 -33.89,-1.94 -31.01,-2.74"/>
