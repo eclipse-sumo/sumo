@@ -379,6 +379,11 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         deleteDemandElement(junction->getChildDemandElements().front(), undoList);
     }
     // delete all crossings vinculated with junction
+    if (myNeedRecompute) {
+        // deletion of NBCrossings only works if the GNECrossings have been built
+        // updateGeometryAfterNetbuild is the easiest way to do this
+        junction->updateGeometryAfterNetbuild(true);
+    }
     while (junction->getGNECrossings().size() > 0) {
         deleteCrossing(junction->getGNECrossings().front(), undoList);
     }
