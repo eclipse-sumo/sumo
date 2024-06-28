@@ -747,7 +747,8 @@ MSParkingArea*
 MSTriggeredRerouter::rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                         SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) {
     std::vector<StoppingPlaceVisible> parks = rerouteDef->parkProbs.getVals();
-    return dynamic_cast<MSParkingArea*>(reroute(parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, rerouteDef->closed));
+    StoppingPlaceParamMap_t addInput = {};
+    return dynamic_cast<MSParkingArea*>(reroute(parks, rerouteDef->parkProbs.getProbs(), veh, newDestination, newRoute, addInput, rerouteDef->closed));
 }
 
 

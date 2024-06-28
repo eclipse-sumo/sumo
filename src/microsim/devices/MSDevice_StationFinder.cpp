@@ -97,13 +97,18 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), myVeh(dynamic_cast<MSVehicle&>(holder)),
-      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "charging", {
+      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "charging", true, false, {
     {"waitingTime", 1.}, {"chargingTime", 1.}
-}, { {"waitingTime", true}, {"chargingTime", true} }),
+}, { {"waitingTime", false}, {"chargingTime", false} }),
 myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
 myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
-    myEvalParams["waitingTime"] = 1.;
-    myEvalParams["chargingTime"] = 1.;
+    // consider whole path to/from a charging station in the search
+    myEvalParams["timeto"] = 1.;
+    myNormParams["timeto"] = false;
+    myEvalParams["timefrom"] = 1.;
+    myNormParams["timefrom"] = false;
+    myNormParams["chargingTime"] = false;
+    myNormParams["waitingTime"] = false;
     myRescueTime = STEPS2TIME(holder.getTimeParam("device.stationfinder.rescueTime"));
     const std::string action = holder.getStringParam("device.stationfinder.rescueAction");
     if (action == "remove") {
@@ -268,7 +273,7 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 
 MSChargingStation*
-MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
+MSDevice_StationFinder::findChargingStationOld(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
     const MSEdge* const start = myHolder.getEdge();
     double minTargetValue = std::numeric_limits<double>::max();
     MSChargingStation* minStation = nullptr;
@@ -338,6 +343,52 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
             }
         }
     }
+    return minStation;
+}
+
+
+MSChargingStation*
+MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
+    const MSEdge* const start = myHolder.getEdge();
+    double minTargetValue = std::numeric_limits<double>::max();
+    MSChargingStation* minStation = nullptr;
+    const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
+
+    //  first evaluate all routes from the current edge to all charging stations in bulk mode
+    double maxTT = STEPS2TIME(myRadius);
+    // filter possible charging stations
+
+    std::vector<StoppingPlaceVisible> candidates;
+    for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
+        MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
+        if (cs->getEfficency() < NUMERICAL_EPS) {
+            continue;
+        }
+        if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {
+            // skip stations where the linked parking area does not grant access to the device holder
+            continue;
+        }
+        if (skipOccupied && freeSpaceAtChargingStation(cs) < 1.) {
+            continue;
+        }
+        if (skipVisited && std::find(myPassedChargingStations.begin(), myPassedChargingStations.end(), cs) != myPassedChargingStations.end()) {
+            // skip recently visited
+            continue;
+        }
+        if (constrainTT && myMaxEuclideanDistance > 0 && stop.second->getLane().geometryPositionAtOffset(stop.second->getBeginLanePosition()).distanceTo2D(myHolder.getPosition()) > myMaxEuclideanDistance) {
+            // skip probably too distant charging stations
+            continue;
+        }
+        candidates.push_back({cs, false});
+    }
+    ConstMSEdgeVector newRoute;
+    StoppingPlaceParamMap_t addInput = { {"expectedConsumption", expectedConsumption} };
+    std::vector<double> probs(candidates.size(), 1.);
+    bool newDestination;
+    myCheckValidity = constrainTT;
+    MSStoppingPlace* bestCandidate = reroute(candidates, probs, myHolder, newDestination, newRoute, addInput);
+    myCheckValidity = true;
+    minStation = dynamic_cast<MSChargingStation*>(bestCandidate);
     return minStation;
 }
 
@@ -429,7 +480,6 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
 #endif
         return myRepeatInterval;
     }
-
 
     // teleport to the charging station, stop there for charging
     myChargingStation = cs;
@@ -541,26 +591,64 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
 
 
 bool
-MSDevice_StationFinder::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative, double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues, ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues) {
+MSDevice_StationFinder::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative, double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues, ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues, StoppingPlaceParamMap_t& addInput) {
+    // estimated waiting time and charging time
+    MSChargingStation* cs = dynamic_cast<MSChargingStation*>(alternative);
+    double parkingCapacity = (cs->getParkingArea() != nullptr) ? cs->getParkingArea()->getCapacity() : (cs->getEndLanePosition() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
+    double freeParkingCapacity = freeSpaceAtChargingStation(cs);
+    stoppingPlaceValues["waitingTime"] = (freeParkingCapacity < 1.) ? DEFAULT_AVG_WAITING_TIME / parkingCapacity : 0.;
+    stoppingPlaceValues["chargingTime"] = STEPS2TIME(cs->getChargeDelay()) + addInput["expectedConsumption"] / cs->getChargingPower(false);
     return true;
+}
+
+
+bool
+MSDevice_StationFinder::validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues) {
+    if (stoppingPlaceValues["timeto"] > STEPS2TIME(myRadius)) {
+        return false;
+    }
+    return true;
+}
+
+
+bool
+MSDevice_StationFinder::useStoppingPlace(MSStoppingPlace* stoppingPlace) {
+    return true;
+}
+
+
+SUMOAbstractRouter<MSEdge, SUMOVehicle>& MSDevice_StationFinder::getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) {
+    return MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), prohibited);
 }
 
 
 double
 MSDevice_StationFinder::getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
-    return 0.0;
+    MSChargingStation* cs = dynamic_cast<MSChargingStation*>(stoppingPlace);
+    if (cs->getParkingArea() != nullptr) {
+        return cs->getParkingArea()->getOccupancy();
+    }
+    return (cs->getEndLanePosition() - cs->getLastFreePos()) / (myHolder.getLength() + myHolder.getVehicleType().getMinGap());
 }
 
 
 double
 MSDevice_StationFinder::getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) {
-    return 0.0;
+    MSChargingStation* cs = dynamic_cast<MSChargingStation*>(stoppingPlace);
+    if (cs->getParkingArea() != nullptr) {
+        return cs->getParkingArea()->getLastStepOccupancy();
+    }
+    return (cs->getEndLanePosition() - cs->getLastFreePos()) / (myHolder.getLength() + myHolder.getVehicleType().getMinGap());
 }
 
 
 double
 MSDevice_StationFinder::getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) {
-    return 1.;
+    MSChargingStation* cs = dynamic_cast<MSChargingStation*>(stoppingPlace);
+    if (cs->getParkingArea() != nullptr) {
+        return cs->getParkingArea()->getCapacity();
+    }
+    return (cs->getEndLanePosition() - cs->getBeginLanePosition()) / (myHolder.getLength() + myHolder.getVehicleType().getMinGap());
 }
 
 

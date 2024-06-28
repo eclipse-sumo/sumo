@@ -167,6 +167,8 @@ public:
      * @param[in,out] stoppingPlaceValues the data structure to write the evaluation values to
      * @param[in] newRoute the complete route to the destination passing by the stopping place
      * @param[in] stoppingPlaceApproach the route to the stopping place
+     * @param[in] maxValues the maximum values of the components
+     * @param[in] addInput external input data
      * @return false if the stopping place cannot be used according to the custom evaluation components
      */
     bool evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination,
@@ -174,7 +176,17 @@ public:
                                   SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
                                   ConstMSEdgeVector& newRoute,
                                   ConstMSEdgeVector& stoppingPlaceApproach,
-                                  StoppingPlaceParamMap_t& maxValues);
+                                  StoppingPlaceParamMap_t& maxValues,
+                                  StoppingPlaceParamMap_t& addInput) override;
+
+    /// @brief Whether the stopping place should be discarded due to its results from the component evaluation
+    bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues);
+
+    /// @brief Whether the stopping place should be included in the search (can be used to add an additional filter)
+    bool useStoppingPlace(MSStoppingPlace* stoppingPlace);
+
+    /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited);
 
     /// @brief Return the number of occupied places of the StoppingPlace
     double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
@@ -226,7 +238,9 @@ private:
      * @param[in] skipOccupied whether to skip fully occupied charging stations
      * @return The found charging station, otherwise nullptr
      */
+    MSChargingStation* findChargingStationOld(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
     MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
+
 
     /** @brief reroute to a charging station
      *

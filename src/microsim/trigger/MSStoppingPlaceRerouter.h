@@ -132,7 +132,7 @@ public:
     typedef std::pair<MSStoppingPlace*, bool> StoppingPlaceVisible;
 
     ///@brief Constructor
-    MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "", StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
+    MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix = "", bool checkValidity = false, bool checkVisibility = true, StoppingPlaceParamMap_t addEvalParams = {}, StoppingPlaceParamSwitchMap_t addInvertParams = {});
 
     // Destructor
     virtual ~MSStoppingPlaceRerouter() {}
@@ -148,8 +148,7 @@ public:
      * @return the best stopping place according to the target function or nullptr
      */
     MSStoppingPlace* reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
-                             bool& newDestination, ConstMSEdgeVector& newRoute, const MSEdgeVector& closedEdges = {});
-
+                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& addInput, const MSEdgeVector& closedEdges = {});
     /** @brief compute the target function for a single alternative
      *
      * @param[in] veh the concerned vehicle
@@ -163,6 +162,7 @@ public:
      * @param[in,out] newRoutes the data structure to write the chosen route to/from the stopping place to
      * @param[in,out] stoppingPlaceApproaches the data structure to write the chosen route to the stopping place to
      * @param[in,out] maxValues maximum values for all evaluation components
+     * @param[in] addInput external input data
      * @return false if the stopping place cannot be used
      */
     virtual bool evaluateDestination(SUMOVehicle& veh, double brakeGap, bool newDestination,
@@ -170,7 +170,8 @@ public:
                                      SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceMap_t& stoppingPlaces,
                                      std::map<MSStoppingPlace*, ConstMSEdgeVector>& newRoutes,
                                      std::map<MSStoppingPlace*, ConstMSEdgeVector>& stoppingPlaceApproaches,
-                                     StoppingPlaceParamMap_t& maxValues);
+                                     StoppingPlaceParamMap_t& maxValues,
+                                     StoppingPlaceParamMap_t& addInput);
 
     /** @brief Compute some custom target function components
      *
@@ -183,6 +184,8 @@ public:
      * @param[in,out] stoppingPlaceValues the data structure to write the evaluation values to
      * @param[in] newRoute the complete route to the destination passing by the stopping place
      * @param[in] stoppingPlaceApproach the route to the stopping place
+     * @param[in] maxValues the maximum values of the components
+     * @param[in] addInput external input data
      * @return false if the stopping place cannot be used according to the custom evaluation components
      */
     virtual bool evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination,
@@ -190,7 +193,19 @@ public:
                                           SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues,
                                           ConstMSEdgeVector& newRoute,
                                           ConstMSEdgeVector& stoppingPlaceApproach,
-                                          StoppingPlaceParamMap_t& maxValues);
+                                          StoppingPlaceParamMap_t& maxValues,
+                                          StoppingPlaceParamMap_t& addInput) {
+        return true;
+    };
+
+    /// @brief Whether the stopping place should be discarded due to its results from the component evaluation (allows to check for min/max thresholds and other non-linear relations)
+    virtual bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues);
+
+    /// @brief Whether the stopping place should be included in the search (can be used to add an additional filter)
+    virtual bool useStoppingPlace(MSStoppingPlace* stoppingPlace);
+
+    /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
+    virtual SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited = {});
 
     /// @brief Return the number of occupied places of the StoppingPlace
     virtual double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) = 0;
@@ -270,6 +285,8 @@ private:
 protected:
     const SumoXMLTag myStoppingType;
     const std::string myParamPrefix;
+    const bool myCheckVisibility;
+    bool myCheckValidity;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
     StoppingPlaceParamSwitchMap_t myInvertParams;
