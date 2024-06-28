@@ -35,16 +35,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first junction
-netedit.leftClick(referencePosition, 500, 230)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
 
 # select select second junction
-netedit.leftClick(referencePosition, 185, 230)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.left.x, referencePosition, netedit.positions.network.junction.left.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, 500, 230)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
 
 # set invalid value
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.tlType, "dummyTLS", False)

@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
 
 # change ID (Duplicated)
 netedit.modifyAttribute(netedit.attrs.junction.inspect.id, "gneJ1", False)

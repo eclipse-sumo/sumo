@@ -60,6 +60,9 @@ class network:
             x = 498
             y = 236
 
+        class left:
+            x = 278
+            y = 237            
 
 class elements:
 
