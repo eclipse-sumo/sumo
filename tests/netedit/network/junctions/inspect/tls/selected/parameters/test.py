@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
 
 # select select second junction
 netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.left.x, referencePosition, netedit.positions.network.junction.left.y)
@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, referencePosition, netedit.positions.networ
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.junction.inspectSelectionTLS.parameters, False)

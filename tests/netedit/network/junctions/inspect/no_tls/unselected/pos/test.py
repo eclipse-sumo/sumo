@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 time.sleep(3)
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionCenter.x, netedit.positions.network.junction.positionCenter.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
 
 # change position with a non valid value
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", False)
