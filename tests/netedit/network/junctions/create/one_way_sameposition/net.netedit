@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-27 16:04:13 by Eclipse SUMO netedit Version v1_20_0+0881-deec7a44f8f
+<!-- generated on 2024-06-28 13:43:57 by Eclipse SUMO netedit Version v1_20_0+1039-25f5ab4053c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/net.net.xml"/>
     </output>
 
     <processing>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.27Jun160139.30304\netedit.gui\network\junctions\create\one_way_sameposition\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun134123.15888/netedit.gui/network/junctions/create/one_way_sameposition/log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
 
     <edge id="E0" from="J0" to="J1" priority="-1">
-        <lane id="E0_0" index="0" speed="13.89" length="40.00" shape="26.60,-20.00 26.60,20.00"/>
+        <lane id="E0_0" index="0" speed="13.89" length="50.00" shape="-25.00,-21.60 25.00,-21.60"/>
     </edge>
     <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
         <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
@@ -84,8 +84,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="dead_end" x="25.00" y="-20.00" incLanes="" intLanes="" shape="25.00,-20.00 28.20,-20.00"/>
-    <junction id="J1" type="dead_end" x="25.00" y="20.00" incLanes="E0_0" intLanes="" shape="28.20,20.00 25.00,20.00"/>
+    <junction id="J0" type="dead_end" x="-25.00" y="-20.00" incLanes="" intLanes="" shape="-25.00,-20.00 -25.00,-23.20"/>
+    <junction id="J1" type="dead_end" x="25.00" y="-20.00" incLanes="E0_0" intLanes="" shape="25.00,-23.20 25.00,-20.00"/>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
