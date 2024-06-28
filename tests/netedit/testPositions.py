@@ -62,7 +62,8 @@ class network:
 
         class left:
             x = 278
-            y = 237            
+            y = 237
+
 
 class elements:
 

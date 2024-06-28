@@ -35,16 +35,19 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # select select second junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.left.x, netedit.positions.network.junction.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.left.x,
+                  netedit.positions.network.junction.left.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # set invalidvalid fringe
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.fringe, "dummyFringe", False)

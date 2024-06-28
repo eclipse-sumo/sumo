@@ -32,7 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x, netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # change type of junction (should not be possible due is a dead_end)
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "traffic_light", False)

@@ -6,23 +6,23 @@ emergency
 
 authority
 
-army 
+army
 
 vip
 
-pedestrian 
+pedestrian
 
 passenger
 
-hov 
+hov
 
-taxi 
+taxi
 
 bus
 
-coach 
+coach
 
-delivery 
+delivery
 
 truck
 
@@ -34,9 +34,9 @@ moped
 
 bicycle
 
-evehicle 
+evehicle
 
-tram 
+tram
 
 rail_urban
 
@@ -44,7 +44,7 @@ rail
 
 rail_electric
 
-rail_fast 
+rail_fast
 
 ship
 
@@ -54,13 +54,13 @@ cable_car
 
 subway
 
-aircraft 
+aircraft
 
 wheelchair
 
-scooter 
+scooter
 
-drone 
+drone
 
 custom1
 
