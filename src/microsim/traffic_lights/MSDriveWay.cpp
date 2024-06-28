@@ -67,6 +67,7 @@ int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
+std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
 
 // ---------------------------------------------------------------------------
 // static initialisation methods
@@ -131,6 +132,10 @@ MSDriveWay::~MSDriveWay() {
             std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
             dws.erase(std::find(dws.begin(), dws.end(), this));
         }
+    }
+    if (myForward.size() > 0) {
+        std::vector<MSDriveWay*>& dws = myEndingDriveways[&myForward.back()->getEdge()];
+        dws.erase(std::find(dws.begin(), dws.end(), this));
     }
 }
 
@@ -1141,9 +1146,18 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     dw->myConflictLinks.clear();
     dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
-    // every driveway is it's own foe
+    const MSEdge* lastEdge = &dw->myForward.back()->getEdge();
+    myEndingDriveways[lastEdge].push_back(dw);
     if (!rs || !rs->isMovingBlock()) {
-        dw->myFoes.push_back(dw);
+        // every driveway is it's own foe (also all driveways that depart in the same block)
+        for (MSDriveWay* sameEnd : myEndingDriveways[lastEdge]) {
+            if (uniqueFoes.count(sameEnd) == 0) {
+                dw->myFoes.push_back(sameEnd);
+                if (sameEnd != dw) {
+                    sameEnd->myFoes.push_back(dw);
+                }
+            }
+        }
     }
     return dw;
 }

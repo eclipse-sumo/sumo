@@ -269,6 +269,9 @@ private:
     /// @brief all driveways that do not start at a rail signal (and are only used at departure)
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDriveways;
 
+    /// @brief all driveways that end on the given edge
+    static std::map<const MSEdge*, std::vector<MSDriveWay*> > myEndingDriveways;
+
 };
 
 
