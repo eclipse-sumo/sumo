@@ -269,14 +269,10 @@ private:
     ///@brief Constructor
     MSStoppingPlaceRerouter() = delete;
 
-public:
-    const StoppingPlaceParamSwitchMap_t myInvertParams;
-    const SumoXMLTag myStoppingType;
-
 protected:
+    const SumoXMLTag myStoppingType;
+    const std::string myParamPrefix;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
-
-private:
-    const std::string myParamPrefix;
+    const StoppingPlaceParamSwitchMap_t myInvertParams;
 };
