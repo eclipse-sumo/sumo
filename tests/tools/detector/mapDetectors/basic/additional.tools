@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-06-28 12:20:12.671629 by mapDetectors.py v1_20_0+0904-22c3c7cb745
+<configuration>
+    <net-file value="input_net.net.xml"/>
+    <detector-file value="data.txt"/>
+    <delimiter value=","/>
+    <output-file value="out.add.xml"/>
+    <id-column value="customID"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <inductionLoop id="8032" lane="323916051#2_0" pos="44.240532212969015" file="detector.out.xml" freq="3600"/>
+    <inductionLoop id="8026" lane="323916051#2_0" pos="12.208092092355486" file="detector.out.xml" freq="3600"/>
+</additional>
