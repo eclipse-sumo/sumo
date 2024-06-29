@@ -158,10 +158,10 @@ public:
     virtual ~MSTransportableStateAdapter() {};
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    virtual double getEdgePos(const MSStageMoving& stage, SUMOTime now) const = 0;
+    virtual double getEdgePos(SUMOTime now) const = 0;
 
     /// @brief return the walking direction (FORWARD, BACKWARD)
-    virtual int getDirection(const MSStageMoving& stage, SUMOTime now) const = 0;
+    virtual int getDirection() const = 0;
 
     /// @brief return the network coordinate of the transportable
     virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const = 0;
@@ -170,7 +170,7 @@ public:
     virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const = 0;
 
     /// @brief return the time the transportable spent standing
-    virtual SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const = 0;
+    virtual SUMOTime getWaitingTime() const = 0;
 
     /// @brief return the current speed of the transportable
     virtual double getSpeed(const MSStageMoving& stage) const = 0;

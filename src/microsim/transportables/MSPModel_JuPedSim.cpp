@@ -625,7 +625,7 @@ bool
 MSPModel_JuPedSim::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
                                  double oncomingGap, std::vector<const MSPerson*>* collectBlockers) {
     for (const PState* ped : getPedestrians(lane)) {
-        const double leaderFrontDist = vehSide - ped->getEdgePos(*ped->getStage(), SIMSTEP);
+        const double leaderFrontDist = vehSide - ped->getEdgePos(SIMSTEP);
         const double leaderBackDist = leaderFrontDist + ped->getPerson()->getVehicleType().getLength();
         if (leaderBackDist >= -vehWidth
                 && (leaderFrontDist < 0
@@ -1293,17 +1293,17 @@ void MSPModel_JuPedSim::PState::setLanePosition(double lanePosition) {
 }
 
 
-double MSPModel_JuPedSim::PState::getEdgePos(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
+double MSPModel_JuPedSim::PState::getEdgePos(SUMOTime /* now */) const {
     return myLanePosition;
 }
 
 
-int MSPModel_JuPedSim::PState::getDirection(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
+int MSPModel_JuPedSim::PState::getDirection() const {
     return UNDEFINED_DIRECTION;
 }
 
 
-SUMOTime MSPModel_JuPedSim::PState::getWaitingTime(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
+SUMOTime MSPModel_JuPedSim::PState::getWaitingTime() const {
     return 0;
 }
 
