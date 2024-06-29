@@ -47,7 +47,7 @@
 #define DEBUGID1 ""
 #define DEBUGID2 ""
 //#define DEBUGCOND(PED) (false)
-//#define DEBUGCOND(PED) ((PED).myPerson->getID() == DEBUGID1 || (PED).myPerson->getID() == DEBUGID2)
+//#define DEBUGCOND(PED) ((PED).getPerson()->getID() == DEBUGID1 || (PED).getPerson()->getID() == DEBUGID2)
 #define DEBUGCOND(PED) ((PED).getPerson()->isSelected())
 #define DEBUGCOND2(LANE) ((LANE)->isSelected())
 //#define LOG_ALL 1
@@ -802,8 +802,7 @@ MSPModel_Striping::getNextLaneObstacles(NextLanesObstacles& nextLanesObs, const
 
 void
 MSPModel_Striping::transformToCurrentLanePositions(Obstacles& obs, int currentDir, int nextDir, double currentLength, double nextLength) {
-    for (int ii = 0; ii < (int)obs.size(); ++ii) {
-        Obstacle& o = obs[ii];
+    for (Obstacle& o : obs) {
         if (currentDir == FORWARD) {
             if (nextDir == FORWARD) {
                 o.xFwd += currentLength;
@@ -1060,7 +1059,7 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         if (p.getDirection() != dir || changedLane.count(p.getPerson()) != 0 || p.getRemotePosition() != Position::INVALID) {
             if (!p.isWaitingToEnter() && !p.isJammed()) {
                 //if DEBUGCOND(p) {
-                //    std::cout << "   obs=" << p.getPerson()->getID() << "  y=" << p.myPosLat << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
+                //    std::cout << "   obs=" << p.getPerson()->getID() << "  y=" << p.getPosLat() << "  stripe=" << p.stripe() << " oStripe=" << p.otherStripe() << "\n";
                 //}
                 Obstacle o(p);
                 if (p.getDirection() != dir && p.getSpeed(*p.getStage()) == 0.) {
@@ -2232,10 +2231,10 @@ void
 MSPModel_Striping::PState::reverse(const double pathLength, const double usableWidth) {
     myEdgePos = pathLength - myEdgePos;
     myPosLat = usableWidth - myPosLat;
-    myDir = !myWalkingAreaPath->dir;
-    mySpeed = -mySpeed;
+    myDir = -myWalkingAreaPath->dir;
     mySpeedLat = -mySpeedLat;
 }
+
 
 void
 MSPModel_Striping::PState::reset(const double edgePos, const double latPos) {

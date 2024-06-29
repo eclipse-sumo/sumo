@@ -201,7 +201,7 @@ protected:
         Obstacle(int dir, double dist = DIST_FAR_AWAY);
         /// @brief create an obstacle from ped for ego moving in dir
         Obstacle(const PState& ped);
-        /// @brief create an obstacle from explict values
+        /// @brief create an obstacle from explicit values
         Obstacle(double _x, double _speed, ObstacleType _type, const std::string& _description, const double width = 0., const SUMOVehicle* veh = nullptr)
             : xFwd(_x + width / 2.), xBack(_x - width / 2.), speed(_speed), type(_type), description(_description), vehicle(veh) {};
 
@@ -211,7 +211,7 @@ protected:
         double xBack;
         /// @brief speed relative to lane direction (positive means in the same direction)
         double speed;
-        /// @brief whether this obstacle denotes a border or a pedestrian
+        /// @brief whether this obstacle denotes a border, a vehicle or a pedestrian
         ObstacleType type;
         /// @brief the id / description of the obstacle
         std::string description;
