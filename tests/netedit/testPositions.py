@@ -75,7 +75,7 @@ class network:
 
         class leftTop:
             x = 400
-            y = 200            
+            y = 200
 
         class leftBot:
             x = 400
@@ -83,17 +83,17 @@ class network:
 
         class rightTop:
             x = 600
-            y = 220            
+            y = 220
 
         class rightBot:
             x = 600
-            y = 250    
+            y = 250
 
     class crossing:
 
         class left:
             x = 450
-            y = 225            
+            y = 225
 
         class right:
             x = 543
@@ -101,7 +101,8 @@ class network:
 
         class center:
             x = 400
-            y = 400            
+            y = 400
+
 
 class elements:
 
