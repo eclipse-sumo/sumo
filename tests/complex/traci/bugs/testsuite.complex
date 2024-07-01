@@ -148,3 +148,6 @@ ticket13384
 
 # follower overtakes leader slowing down to a non-official stop (v=0)
 ticket13710
+
+# older moveToXY overwrites changeTarget 
+ticket15123
