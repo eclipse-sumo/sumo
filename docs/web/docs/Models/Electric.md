@@ -28,7 +28,7 @@ vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devi
 
 Additional properties of the vehicle and its electrical components must
 then be defined via [parameters of the vehicle or its
-type](../Simulation/GenericParameters.md).
+type](../Simulation/GenericParameters.md). Some property can only be defined for the vehicle type.
 
 These values have the following meanings (the defaults are from the Kia below):
 
@@ -37,7 +37,7 @@ These values have the following meanings (the defaults are from the Kia below):
 | maximumBatteryCapacity            | float      | 35000 (Wh)        | Maximum battery capacity *E<sub>max</sub>*              |
 | maximumPower                      | float      | 150000 (W)        | Maximum power which the vehicle can reach (unused)      |
 | vehicleMass                       | float      | 1830 (kg)         | Vehicle mass *m<sub>veh</sub>* (deprecated)             |
-| loading                           | float      | 0 (kg)            | Additional mass                                         |
+| loading                           | float      | 0 (kg)            | Additional mass **(to be defined in the vehicle type)**     |
 | frontSurfaceArea                  | float      | 2.6 (m<sup>2</sup>) | Front surface area *A<sub>veh</sub>*                  |
 | airDragCoefficient                | float      | 0.35              | Air drag coefficient *c<sub>w</sub>*                    |
 | rotatingMass                      | float      | 40 (kg)           | (Equivalent) mass of internal rotating elements         |
