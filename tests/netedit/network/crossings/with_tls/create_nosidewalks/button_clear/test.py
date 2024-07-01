@@ -48,5 +48,8 @@ netedit.crossingClearEdges()
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
+# press space to fix crossings
+netedit.typeSpace()
+
 # quit netedit
 netedit.quit(neteditProcess)

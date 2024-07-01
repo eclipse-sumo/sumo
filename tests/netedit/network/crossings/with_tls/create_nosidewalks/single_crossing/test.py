@@ -38,8 +38,9 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
                   netedit.positions.network.junction.center.y)
 
-# try to create single crossing (fail)
-netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "4")
+# select two left edges and create
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
 netedit.createCrossing(True)
 
 # save Netedit config
