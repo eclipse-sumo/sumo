@@ -31,8 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select all lanes with disallow = "rail_electric" and remove it
-netedit.selectItems("Network", "lane", "disallow", "=rail_electric")
+# select all edges with allow = "all" and remove it
+# (we cannot use "=all" since "all" is expanded to include all vClassess)
+netedit.selectItems("Network", "lane", "allow", "rail_electric")
 netedit.deleteSelectedItems()
 
 # recompute

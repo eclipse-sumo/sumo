@@ -3,8 +3,8 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 Network
 lane
-disallow
-=moped
+allow
+moped
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

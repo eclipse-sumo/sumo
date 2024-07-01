@@ -64,6 +64,12 @@ class network:
             x = 278
             y = 237
 
+    class edge:
+
+        class centerA:
+            x = 500
+            y = 429
+
 
 class elements:
 

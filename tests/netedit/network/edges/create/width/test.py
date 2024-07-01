@@ -35,22 +35,28 @@ netedit.createEdgeMode()
 netedit.changeDefaultValue(netedit.attrs.edge.create.width, "dummy")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 80, 100)
-netedit.leftClick(referencePosition, 510, 100)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.width, "-50")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 80, 175)
-netedit.leftClick(referencePosition, 500, 175)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
+                  netedit.positions.network.junction.positionC.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.width, "23.5")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 80, 250)
-netedit.leftClick(referencePosition, 500, 250)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
+                  netedit.positions.network.junction.positionD.y)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

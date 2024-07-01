@@ -41,8 +41,10 @@ netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.remove)
 netedit.changeDefaultBoolValue(netedit.attrs.edge.createLane.add)
 
 # Create two nodes
-netedit.leftClick(referencePosition, 80, 100)
-netedit.leftClick(referencePosition, 510, 100)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)
