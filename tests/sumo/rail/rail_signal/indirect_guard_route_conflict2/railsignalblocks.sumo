@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 14:09:55 by Eclipse SUMO sumo Version v1_20_0+0407-4533c402c3c
+<!-- generated on 2024-07-01 15:55:00 by Eclipse SUMO sumo Version v1_20_0+0409-41434e86abd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B.P1_0"/>
-                <foes driveWays="B.A.0 A.1"/>
+                <foes driveWays="A.0 B.A.0 A.1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -89,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":B.A_0_0 T13_1_0 :w3_0_0 T4_1_0 :B.P1_0_0 :w3_1_0 T14_1_0 :B.P2_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="B.P2_0 B.P1_0"/>
-            <foes driveWays="A.1"/>
+            <foes driveWays="B.P2.0 A.1"/>
         </driveWay>
         <driveWay id="A.1" edges="T12_0 T13_0 T14_0 T15_0 T16_0 T17_0 T18_0" core="5">
             <forward lanes="T12_0_0"/>

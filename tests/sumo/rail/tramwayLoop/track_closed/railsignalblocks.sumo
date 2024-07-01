@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 14:17:37 by Eclipse SUMO sumo Version v1_20_0+0407-4533c402c3c
+<!-- generated on 2024-07-01 15:55:00 by Eclipse SUMO sumo Version v1_20_0+0409-41434e86abd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -236,7 +236,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_2_0 T41_0_0 :w5_0_0 T27_1_0 :s23_0_0 T28_1_0 :w9_0_0 :w9_1_0"/>
                 <protectingSwitches links="w9_0 w9_1"/>
                 <conflictLinks signals=""/>
-                <foes driveWays="s29.0"/>
+                <foes driveWays="e1.0 s29.0 e1.1 e1.2"/>
             </driveWay>
         </link>
     </railSignal>
@@ -506,7 +506,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="Tdepot_0_0"/>
             <flank lanes=":w9_1_0 :w9_4_0"/>
             <protectingSwitches links="w9_1 w9_4"/>
-            <conflictLinks signals=""/>
+            <conflictLinks signals="s22_0"/>
+            <foes driveWays="s22.1"/>
         </driveWay>
         <driveWay id="e1.1" edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1">
             <forward lanes="Tdepot_1_0 :w9_3_0 T37_1_0"/>
@@ -515,13 +516,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":w9_0_0 :w9_1_0"/>
             <protectingSwitches links="w5_2 w9_0 w9_1"/>
             <conflictLinks signals="s22_0"/>
+            <foes driveWays="s22.1"/>
         </driveWay>
         <driveWay id="e1.2" edges="Tdepot_1 T38_1 T39_0">
             <forward lanes="Tdepot_1_0 :w9_2_0 T38_1_0"/>
             <bidi lanes="Tdepot_0_0 :w9_1_0 T38_0_0 :s30_0_0 T39_1_0"/>
             <flank lanes=":w9_4_0 :w9_5_0"/>
             <protectingSwitches links="w9_4 w9_5"/>
-            <conflictLinks signals=""/>
+            <conflictLinks signals="s22_0"/>
+            <foes driveWays="s22.1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
