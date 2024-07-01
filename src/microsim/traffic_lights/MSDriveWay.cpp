@@ -1279,6 +1279,12 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
                 addFoes(ili.viaLink);
             }
         }
+        const MSEdge* bidiEdge = &bidi->getEdge();
+        if (myDepartureDriveways.count(bidiEdge) != 0) {
+            for (MSDriveWay* foe : myDepartureDriveways[bidiEdge]) {
+                myFoes.push_back(foe);
+            }
+        }
     }
 }
 
