@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-01 11:20+0000\n"
+"PO-Revision-Date: 2024-07-01 12:25+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1328,34 +1328,37 @@ msgstr "No se permite cambiar el ID de un vehículo"
 
 #: src/microsim/MSBaseVehicle.cpp:320
 msgid "Vehicle '%' is not allowed on any lane of via edge '%'."
-msgstr ""
+msgstr "El vehículo '%' no está permitido en ningún carril de la arista '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:351
 msgid "Vehicle '%' has no valid route from edge '%' to stop edge '%'."
 msgstr ""
+"El vehículo '%' no tiene una ruta válida desde la arista '%' hasta la arista "
+"de parada '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:395
 #, c-format
 msgid "Vehicle '%' has no valid route."
-msgstr ""
+msgstr "El vehículo '%' no tiene una ruta válida."
 
 #: src/microsim/MSBaseVehicle.cpp:397
 msgid "Removing vehicle '%' which has no valid route."
-msgstr ""
+msgstr "Eliminando el vehículo '%' que no tiene ruta válida."
 
 #: src/microsim/MSBaseVehicle.cpp:412
 #, c-format
 msgid "No route for vehicle '%' found."
-msgstr ""
+msgstr "No se encontró ninguna ruta para el vehículo '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:482
 #, c-format
 msgid "current edge '%' not found in new route"
-msgstr ""
+msgstr "la arista actual '%' no fue encontrada en la nueva ruta"
 
 #: src/microsim/MSBaseVehicle.cpp:495
 msgid "Vehicle is on junction-internal edge leading elsewhere"
 msgstr ""
+"El vehículo está en una arista interna del cruce que conduce a otra parte"
 
 #: src/microsim/MSBaseVehicle.cpp:508
 msgid ""
@@ -1485,7 +1488,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:101
 msgid "Removes vehicles with the given IDs from the loaded state"
-msgstr ""
+msgstr "Eliminar los vehículos con las IDs proporcionadas del estado cargado"
 
 #: src/microsim/MSFrame.cpp:104 src/router/ROFrame.cpp:134
 msgid ""
@@ -1557,7 +1560,7 @@ msgstr "Escribir datos de estaciones de carga"
 
 #: src/microsim/MSFrame.cpp:155
 msgid "Write data of overhead wire segments"
-msgstr ""
+msgstr "Guardar datos de los segmentos de catenaria"
 
 #: src/microsim/MSFrame.cpp:158
 msgid "Write data of electrical substation stations"
@@ -1820,7 +1823,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:327
 msgid "Keep only the last INT periodic state files"
-msgstr ""
+msgstr "Mantener solo los últimos INT archivos de estado periódicos"
 
 #: src/microsim/MSFrame.cpp:329
 msgid "Prefix for network states"
@@ -1872,6 +1875,8 @@ msgid ""
 "Whether to use ballistic method for the positional update of vehicles "
 "(default is a semi-implicit Euler method)."
 msgstr ""
+"Si se utiliza el método balístico para la actualización posicional de los "
+"vehículos (el valor predeterminado es un método de Euler semi-implícito)."
 
 #: src/microsim/MSFrame.cpp:357
 msgid ""
