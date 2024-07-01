@@ -53,18 +53,18 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.changeDefaultValue(netedit.attrs.edge.create.numLanes, "5.5")
 
 # Create two nodes
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.positionA.x,
+netedit.leftClick(referencePosition,netedit.positions.network.junction.positionA.x,
                   netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.positionD.x,
+netedit.leftClick(referencePosition,netedit.positions.network.junction.positionD.x,
                   netedit.positions.network.junction.positionD.y)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.numLanes, "3")
 
 # Create two nodes
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.positionB.x,
+netedit.leftClick(referencePosition,netedit.positions.network.junction.positionB.x,
                   netedit.positions.network.junction.positionB.y)
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.network.junction.positionC.x,
+netedit.leftClick(referencePosition,netedit.positions.network.junction.positionC.x,
                   netedit.positions.network.junction.positionC.y)
 
 # Check undo and redo
