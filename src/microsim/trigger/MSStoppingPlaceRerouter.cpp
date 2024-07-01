@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    StoppingPlaceRerouter.cpp
+/// @file    MSStoppingPlaceRerouter.cpp
 /// @author  Mirko Barthauer
 /// @date    Mon, 17 June 2024
 ///
