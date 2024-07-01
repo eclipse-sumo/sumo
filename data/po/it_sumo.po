@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-01 09:40+0000\n"
+"PO-Revision-Date: 2024-07-01 12:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1651,11 +1651,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:271
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "Includi archi interni nell'uscita"
 
 #: src/microsim/MSFrame.cpp:275
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "Salva gli itinerari di persone e di contenitori nel FILE distinto"
 
 #: src/microsim/MSFrame.cpp:278
 msgid "Save links states into FILE"
@@ -2221,13 +2221,15 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:591 src/router/ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "Assegna posizioni a incroci invece di archi"
 
 #: src/microsim/MSFrame.cpp:603
 msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
 msgstr ""
+"Applica la data penalità temporale per corsie interne senza precedenza nel "
+"calcolo dei costi minimi degli itinerari"
 
 #: src/microsim/MSFrame.cpp:606
 msgid ""
