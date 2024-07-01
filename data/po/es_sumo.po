@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-26 14:03+0000\n"
+"PO-Revision-Date: 2024-07-01 07:54+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.7-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -460,6 +460,8 @@ msgstr "El detector '%' no tiene flujo."
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
+"Dejando de verificar si se es una fuente para el detector '%' debido al "
+"límite de arista vista."
 
 #: src/dfrouter/RODFNet.cpp:790
 #, c-format
@@ -467,6 +469,8 @@ msgid ""
 "Quitting checking for being a destination for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Dejando de verificar si se es un destino para el detector '%' debido al "
+"límite de arista vista."
 
 #: src/dfrouter/RODFNet.cpp:864
 #, c-format
@@ -474,6 +478,8 @@ msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
 msgstr ""
+"Dejando de verificar si se es una fuente falsa para el detector '%' debido "
+"al límite de arista vista."
 
 #: src/dfrouter/RODFNet.cpp:997
 msgid "Average speedFactor for PKW is % maximum speedFactor is %."
@@ -581,7 +587,7 @@ msgstr "Escribir viajes con coordenadas geográficas"
 
 #: src/duarouter/RODUAFrame.cpp:84
 msgid "Write trips with fromJunction and toJunction"
-msgstr ""
+msgstr "Guardar viajes incluyendo fromJunction y toJunction"
 
 #: src/duarouter/RODUAFrame.cpp:87
 msgid "Include the cost attribute in route output"
