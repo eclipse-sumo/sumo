@@ -57,7 +57,7 @@ def parse_args():
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                     help="exports all time intervals (by default only the first is exported)")
     op.add_argument("--extra-attributes", action="store_true", default=False, dest="extraAttributes",
-                    help="exports extra attributes from edge and lane such as speed, number of lanes and allowed vehicles)")
+                    help="Exports extra attributes from edge and lane such as max speed, number of lanes and allowed vehicles)")
 
     try:
         options = op.parse_args()
