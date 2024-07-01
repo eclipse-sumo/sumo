@@ -110,11 +110,13 @@ private:
         /// @brief abstract methods inherited from PedestrianState
         /// @{
         /// @brief return the offset from the start of the current edge measured in its natural direction
-        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
-        int getDirection(const MSStageMoving& stage, SUMOTime now) const;
+        double getEdgePos(SUMOTime now) const;
+        int getDirection() const;
         virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
         virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+        SUMOTime getWaitingTime() const {
+            return 0;
+        }
         double getSpeed(const MSStageMoving& stage) const;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         /// @}

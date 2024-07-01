@@ -132,9 +132,9 @@ private:
         }
 
         void setLanePosition(double lanePosition);
-        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
-        int getDirection(const MSStageMoving& stage, SUMOTime now) const override;
-        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
+        double getEdgePos(SUMOTime now) const override;
+        int getDirection() const override;
+        SUMOTime getWaitingTime() const override;
         double getSpeed(const MSStageMoving& stage) const override;
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
         const MSPModel_JuPedSim::WaypointDesc* getNextWaypoint(const int offset = 0) const;

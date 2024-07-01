@@ -63,12 +63,12 @@ MSStageMoving::getEdges() const {
 
 double
 MSStageMoving::getEdgePos(SUMOTime now) const {
-    return myPState == nullptr ? myDepartPos : myPState->getEdgePos(*this, now);
+    return myPState == nullptr ? myDepartPos : myPState->getEdgePos(now);
 }
 
 int
 MSStageMoving::getDirection() const {
-    return myPState == nullptr ? MSPModel::UNDEFINED_DIRECTION : myPState->getDirection(*this, MSNet::getInstance()->getCurrentTimeStep());
+    return myPState == nullptr ? MSPModel::UNDEFINED_DIRECTION : myPState->getDirection();
 }
 
 
@@ -83,8 +83,8 @@ MSStageMoving::getAngle(SUMOTime now) const {
 }
 
 SUMOTime
-MSStageMoving::getWaitingTime(SUMOTime now) const {
-    return myPState == nullptr ? 0 : myPState->getWaitingTime(*this, now);
+MSStageMoving::getWaitingTime(SUMOTime) const {
+    return myPState == nullptr ? 0 : myPState->getWaitingTime();
 }
 
 double

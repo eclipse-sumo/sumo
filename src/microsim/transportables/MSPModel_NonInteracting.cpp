@@ -35,17 +35,10 @@
 
 
 // ===========================================================================
-// DEBUGGING HELPERS
-// ===========================================================================
-#define DEBUG1 "disabled"
-#define DEBUG2 "disabled"
-#define DEBUGCOND(PEDID) (PEDID == DEBUG1 || PEDID == DEBUG2)
-
-
-// ===========================================================================
 // static members
 // ===========================================================================
 const double MSPModel_NonInteracting::CState::LATERAL_OFFSET(0);
+
 
 // ===========================================================================
 // MSPModel_NonInteracting method definitions
@@ -102,7 +95,7 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0; // descheduled
     }
     const MSEdge* old = myParent.getEdge();
-    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getPState()->getDirection(myParent, currentTime));
+    const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime, myParent.getPState()->getDirection());
     if (arrived) {
         myModel->registerArrived();
         return 0;
@@ -157,13 +150,13 @@ MSPModel_NonInteracting::PState::computeDuration(const MSEdge* prev, const MSSta
 
 
 double
-MSPModel_NonInteracting::PState::getEdgePos(const MSStageMoving&, SUMOTime now) const {
+MSPModel_NonInteracting::PState::getEdgePos(SUMOTime now) const {
     //std::cout << SIMTIME << " lastEntryTime=" << myLastEntryTime << " pos=" << (myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / myCurrentDuration * (now - myLastEntryTime)) << "\n";
     return myCurrentBeginPos + (myCurrentEndPos - myCurrentBeginPos) / (double)myCurrentDuration * (double)(now - myLastEntryTime);
 }
 
 int
-MSPModel_NonInteracting::PState::getDirection(const MSStageMoving& /*stage*/, SUMOTime /*now*/) const {
+MSPModel_NonInteracting::PState::getDirection() const {
     if (myCurrentBeginPos == myCurrentEndPos) {
         return UNDEFINED_DIRECTION;
     } else {
@@ -185,24 +178,18 @@ MSPModel_NonInteracting::PState::getPosition(const MSStageMoving& stage, SUMOTim
     }
     const double lateral_offset = (lane->allowsVehicleClass(SVC_PEDESTRIAN) ? 0 : SIDEWALK_OFFSET
                                    * (MSGlobals::gLefthand ? -1 : 1));
-    return stage.getLanePosition(lane, getEdgePos(stage, now), lateral_offset);
+    return stage.getLanePosition(lane, getEdgePos(now), lateral_offset);
 }
 
 
 double
 MSPModel_NonInteracting::PState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
     //std::cout << SIMTIME << " rawAngle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) << " angle=" << stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 180 : 0) << "\n";
-    double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? M_PI : 0);
+    double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(now)) + (myCurrentEndPos < myCurrentBeginPos ? M_PI : 0);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
     return angle;
-}
-
-
-SUMOTime
-MSPModel_NonInteracting::PState::getWaitingTime(const MSStageMoving&, SUMOTime) const {
-    return 0;
 }
 
 
@@ -241,7 +228,7 @@ MSPModel_NonInteracting::CState::getPosition(const MSStageMoving& stage, SUMOTim
 
 double
 MSPModel_NonInteracting::CState::getAngle(const MSStageMoving& stage, SUMOTime now) const {
-    double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(stage, now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
+    double angle = stage.getEdgeAngle(stage.getEdge(), getEdgePos(now)) + (myCurrentEndPos < myCurrentBeginPos ? 1.5 * M_PI : 0.5 * M_PI);
     if (angle > M_PI) {
         angle -= 2 * M_PI;
     }
