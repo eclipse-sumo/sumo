@@ -1,51 +1,67 @@
 all
 
-army
+private
+
+emergency
 
 authority
 
-bicycle
+army
+
+vip
+
+pedestrian
+
+passenger
+
+hov
+
+taxi
 
 bus
 
 coach
 
-custom1
-
-custom2
-
 delivery
 
-emergency
+truck
 
-evehicle
-
-hov
-
-moped
+trailer
 
 motorcycle
 
-passenger
+moped
 
-pedestrian
+bicycle
 
-private
+evehicle
+
+tram
+
+rail_urban
 
 rail
 
 rail_electric
 
-rail_urban
+rail_fast
 
 ship
 
-taxi
+container
 
-trailer
+cable_car
 
-tram
+subway
 
-truck
+aircraft
 
-vip
+wheelchair
+
+scooter
+
+drone
+
+custom1
+
+custom2
