@@ -311,7 +311,6 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
     if (state == nullptr) {
         state = new PState(static_cast<MSPerson*>(person), stage, journeyId, startingStage, waypoints);
         state->setLanePosition(stage->getDepartPos() + radius + POSITION_EPS);
-        state->setPreviousPosition(departurePosition);
         state->setPosition(departurePosition.x(), departurePosition.y());
         state->setAngle(departureLane->getShape().rotationAtOffset(stage->getDepartPos()));
         myPedestrianStates.push_back(state);
@@ -395,7 +394,6 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
 
         // Updates the agent position.
         const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, state->getAgentId(), nullptr);
-        state->setPreviousPosition(state->getPosition(*stage, DELTA_T));
         const JPS_Point position = JPS_Agent_GetPosition(agent);
         state->setPosition(position.x, position.y);
 
@@ -1229,9 +1227,9 @@ MSPModel_JuPedSim::getPedestrians(const MSLane* lane) {
 // ===========================================================================
 MSPModel_JuPedSim::PState::PState(MSPerson* person, MSStageMoving* stage,
                                   JPS_JourneyId journeyId, JPS_StageId stageId,
-                                  const std::vector<WaypointDesc>& waypoints)
-    : myPerson(person), myStage(stage), myLane(nullptr), myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints),
-      myAgentId(0), myPosition(0, 0), myAngle(0), myWaitingToEnter(true) {
+                                  const std::vector<WaypointDesc>& waypoints) :
+    MSPModel_InteractingState(person, stage, nullptr),
+    myJourneyId(journeyId), myStageId(stageId), myWaypoints(waypoints), myAgentId(0) {
 }
 
 
@@ -1252,64 +1250,13 @@ MSPModel_JuPedSim::PState::~PState() {
 }
 
 
-Position MSPModel_JuPedSim::PState::getPosition(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
-    return myPosition;
-}
-
-
 void MSPModel_JuPedSim::PState::setPosition(double x, double y) {
-    myPosition.set(x, y);
-}
-
-
-void MSPModel_JuPedSim::PState::setPreviousPosition(Position previousPosition) {
-    myPreviousPosition = previousPosition;
-}
-
-
-double MSPModel_JuPedSim::PState::getAngle(const MSStageMoving& /* stage */, SUMOTime /* now */) const {
-    return myAngle;
-}
-
-
-void MSPModel_JuPedSim::PState::setAngle(double angle) {
-    myAngle = angle;
-}
-
-
-MSStageMoving* MSPModel_JuPedSim::PState::getStage() const {
-    return myStage;
-}
-
-
-void
-MSPModel_JuPedSim::PState::setStage(MSStageMoving* const stage) {
-    myStage = stage;
-}
-
-
-void MSPModel_JuPedSim::PState::setLanePosition(double lanePosition) {
-    myLanePosition = lanePosition;
-}
-
-
-double MSPModel_JuPedSim::PState::getEdgePos(SUMOTime /* now */) const {
-    return myLanePosition;
-}
-
-
-int MSPModel_JuPedSim::PState::getDirection() const {
-    return UNDEFINED_DIRECTION;
-}
-
-
-SUMOTime MSPModel_JuPedSim::PState::getWaitingTime() const {
-    return 0;
-}
-
-
-double MSPModel_JuPedSim::PState::getSpeed(const MSStageMoving& /* stage */) const {
-    return myPosition.distanceTo2D(myPreviousPosition) / STEPS2TIME(DELTA_T);
+    if (myRemoteXYPos != Position::INVALID) {
+        mySpeed = myRemoteXYPos.distanceTo2D(Position(x, y)) / STEPS2TIME(DELTA_T);
+    } else {
+        mySpeed = 0.;
+    }
+    myRemoteXYPos.set(x, y);
 }
 
 
@@ -1324,6 +1271,4 @@ MSPModel_JuPedSim::PState::getNextWaypoint(const int offset) const {
 }
 
 
-JPS_AgentId MSPModel_JuPedSim::PState::getAgentId() const {
-    return myAgentId;
-}
+/****************************************************************************/

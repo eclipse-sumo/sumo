@@ -210,6 +210,10 @@ public:
         return myPerson->getID();
     }
 
+    /// @brief return the current orientation in degrees
+    virtual double getAngle(const MSStageMoving&, SUMOTime) const {
+        return myAngle;
+    }
 
 protected:
     /// @brief the person who is being represented
