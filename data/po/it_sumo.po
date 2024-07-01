@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-29 13:09+0000\n"
+"PO-Revision-Date: 2024-07-01 09:40+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -406,11 +406,11 @@ msgstr "Disattiva uscita della lettura degli itinerari nella console"
 
 #: src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
-msgstr ""
+msgstr "Assegnazione dei tipi di rivelatori"
 
 #: src/dfrouter/RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "Tipi di rivelatori assegnati:"
 
 #: src/dfrouter/RODFNet.cpp:143
 #, c-format
@@ -442,6 +442,8 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"Il rivelatore '%' non ha flussi.\n"
+" Cerco di ricostruirlo."
 
 #: src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
