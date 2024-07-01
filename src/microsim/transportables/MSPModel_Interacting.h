@@ -43,10 +43,10 @@ public:
     ~MSPModel_Interacting();
 
     /// @brief Resets pedestrians when quick-loading state
-    void clearState();
+    virtual void clearState();
 
     /// @brief remove the specified person from the pedestrian simulation
-    void remove(MSTransportableStateAdapter* state);
+    virtual void remove(MSTransportableStateAdapter* state);
 
     /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
      * @param[in] ego The object that inquires about blockage (and may electively ignore foes)

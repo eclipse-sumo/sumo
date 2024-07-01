@@ -93,16 +93,14 @@ MSPModel_Interacting::blockedAtDist(const SUMOTrafficObject* ego, const MSLane* 
             //std::cout << SIMTIME << " blocking pedestrian foeLane=" << lane->getID() << " ped=" << ped->getPerson()->getID() << " dir=" << ped->getDirection() << " pX=" << ped->getEdgePos(0) << " pL=" << ped.getLength() << " fDTC=" << distToCrossing << " lBD=" << leaderBackDist << "\n";
             if (collectBlockers == nullptr) {
                 return true;
-            } else {
-                collectBlockers->push_back(ped->getPerson());
             }
+            collectBlockers->push_back(ped->getPerson());
         }
     }
     if (collectBlockers == nullptr) {
         return false;
-    } else {
-        return collectBlockers->size() > 0;
     }
+    return collectBlockers->size() > 0;
 }
 
 
@@ -168,9 +166,8 @@ MSPModel_Interacting::getPedestrians(const MSLane* lane) {
     if (it != myActiveLanes.end()) {
         //std::cout << " found lane=" << lane->getID() << " n=" << it->second.size() << "\n";
         return (it->second);
-    } else {
-        return noPedestrians;
     }
+    return noPedestrians;
 }
 
 
