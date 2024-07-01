@@ -38,11 +38,11 @@ netedit.crossingMode()
 netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
                   netedit.positions.network.junction.center.y)
 
-# select two left edges and create crossing in edges 3 and 7
+# select two left edges and try to create crossing in edges 3 and 7
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
                   netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop.x,
+                  netedit.positions.network.edge.rightTop.y)
 netedit.createCrossing(True)
 netedit.rebuildNetwork()
 
@@ -55,6 +55,9 @@ netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# press space to remove invalid crossing
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)
