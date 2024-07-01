@@ -20,6 +20,9 @@
 # --------------------------------
 
 # network
+from tkinter import Y
+
+
 class network:
 
     class junction:
@@ -70,6 +73,27 @@ class network:
             x = 500
             y = 429
 
+        class leftTop:
+            x = 500
+            y = 429            
+
+        class leftBot:
+            x = 500
+            y = 429            
+
+    class crossing:
+
+        class left:
+            x = 500
+            y = 429            
+
+        class right:
+            x = 500
+            y = 429 
+
+        class center
+            x = 400
+            y = 400            
 
 class elements:
 

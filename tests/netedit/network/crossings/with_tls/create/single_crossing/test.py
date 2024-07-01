@@ -35,7 +35,8 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, 500, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # try to create single crossing (fail)
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.edges, "4")

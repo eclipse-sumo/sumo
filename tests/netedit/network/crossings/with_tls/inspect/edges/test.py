@@ -38,7 +38,8 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 415, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # set invalid edge
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "dummy Edges", True)
@@ -50,7 +51,8 @@ netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3 7 1", True)
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 320, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
@@ -60,7 +62,8 @@ netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "4 8", True)
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 320, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # Change Edges to a single edge
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3", True)

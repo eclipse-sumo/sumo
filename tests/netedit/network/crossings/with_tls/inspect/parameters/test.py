@@ -38,7 +38,8 @@ netedit.setZoom("50", "50", "50")
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 415, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.crossing.inspectTLS.parameters, True)
