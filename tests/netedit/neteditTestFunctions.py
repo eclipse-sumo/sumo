@@ -1230,38 +1230,28 @@ def modifyCrossingDefaultBoolValue(numtabs):
     typeSpace()
 
 
-def crossingClearEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
+def crossingClearEdges():
     """
     @brief clear crossing
     """
     # focus current frame
     focusOnFrame()
-    if (useSelectedEdges and thereIsSelectedEdges):
-        # jump to clear button
-        for _ in range(attrs.crossing.clearEdgesSelected):
-            typeTab()
-    else:
-        # jump to clear button
-        for _ in range(attrs.crossing.clearEdges):
-            typeTab()
+    # jump to clear button
+    for _ in range(attrs.crossing.clearEdges):
+        typeTab()
     # type space to activate button
     typeSpace()
 
 
-def crossingInvertEdges(useSelectedEdges=False, thereIsSelectedEdges=False):
+def crossingInvertEdges():
     """
     @brief invert crossing
     """
     # focus current frame
     focusOnFrame()
-    if (useSelectedEdges and thereIsSelectedEdges):
-        # jump to clear button
-        for _ in range(attrs.crossing.clearEdgesSelected):
-            typeTab()
-    else:
-        # jump to clear button
-        for _ in range(attrs.crossing.clearEdges):
-            typeTab()
+    # jump to invert button
+    for _ in range(attrs.crossing.invertEdges):
+        typeTab()
     # type space to activate button
     typeSpace()
 

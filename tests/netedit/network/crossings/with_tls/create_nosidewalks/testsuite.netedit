@@ -1,6 +1,9 @@
 # create crossings with default values
 default
 
+# create crossing with shortcut enter
+default_shortcut
+
 # create crossings with default values but invalid
 default_invalid
 

@@ -36,7 +36,8 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(referencePosition, 500, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # wait for output
 time.sleep(4)

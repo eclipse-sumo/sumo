@@ -31,36 +31,38 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 415, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # set invalid edge
 netedit.modifyAttribute(netedit.attrs.crossing.inspect.edges, "dummy Edges", True)
 
 # Change Edges adding a new edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspect.edges, "3 7 1", True)
+netedit.modifyAttribute(netedit.attrs.crossing.inspect.edges, "-E1 E0", True)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 320, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # Change Edges with the same edges as another crossing (Duplicate
 # crossings aren't allowed, see Ticket #4043
 netedit.modifyAttribute(netedit.attrs.crossing.inspect.edges, "4 8", True)
 
+XX
+
 # rebuild network
 netedit.rebuildNetwork()
 
 # inspect crossing again after recomputing
-netedit.leftClick(referencePosition, 320, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # Change Edges to a single edge
 netedit.modifyAttribute(netedit.attrs.crossing.inspect.edges, "3", True)

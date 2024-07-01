@@ -31,14 +31,12 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, 415, 225)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
+                  netedit.positions.network.crossing.left.y)
 
 # Change linkindex2 with a non valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.linkIndex2, "dummylinkIndex", True)
