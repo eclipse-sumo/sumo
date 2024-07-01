@@ -38,11 +38,14 @@ netedit.createEdgeMode()
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # Create two nodes
-netedit.leftClick(referencePosition, 113, 239)
-netedit.leftClick(referencePosition, 537, 241)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
+                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
+                  netedit.positions.network.junction.positionB.y)
 
 # split both edge
-netedit.leftClickShift(referencePosition, 325, 230)
+netedit.leftClickAltShift(referencePosition, netedit.positions.network.edge.centerA.x,
+                          netedit.positions.network.edge.centerA.y)
 
 # rebuild network
 netedit.rebuildNetwork()
