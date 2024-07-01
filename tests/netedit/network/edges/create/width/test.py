@@ -53,9 +53,9 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.changeDefaultValue(netedit.attrs.edge.create.width, "23.5")
 
 # Create two nodes
-netedit.leftClick(referencePosition,netedit.positions.network.junction.positionA.x,
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
                   netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition,netedit.positions.network.junction.positionD.x,
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
                   netedit.positions.network.junction.positionD.y)
 
 # Check undo and redo

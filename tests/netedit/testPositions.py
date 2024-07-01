@@ -69,7 +69,8 @@ class network:
         class centerA:
             x = 500
             y = 429
-         
+
+
 class elements:
 
     class edge0Ped:
