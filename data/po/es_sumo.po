@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-01 07:54+0000\n"
+"PO-Revision-Date: 2024-07-01 09:40+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -638,7 +638,7 @@ msgstr "Usar FLOAT como alfa de Gawron"
 #: src/duarouter/RODUAFrame.cpp:124 src/jtrrouter/ROJTRFrame.cpp:62
 #: src/marouter/ROMAFrame.cpp:213
 msgid "Write exit times (weights) for each edge"
-msgstr ""
+msgstr "Guardar tiempos de salida (ponderados) para cada arista"
 
 #: src/duarouter/RODUAFrame.cpp:127 src/microsim/MSFrame.cpp:253
 msgid "Include total route length in the output"
@@ -658,7 +658,7 @@ msgstr "La probabilidad de mantener la ruta antigua"
 
 #: src/duarouter/RODUAFrame.cpp:139
 msgid "Route all public transport input"
-msgstr ""
+msgstr "Definir rutas para todas las entradas de transporte público"
 
 #: src/duarouter/RODUAFrame.cpp:142 src/marouter/ROMAFrame.cpp:202
 msgid "Choose a route choice method: gawron, logit, or lohse"
@@ -694,6 +694,8 @@ msgstr ""
 msgid ""
 "Use FLOAT as a factor on walking speed against vehicle traffic direction"
 msgstr ""
+"Usar FLOAT como factor de velocidad al caminar en contra de la dirección del "
+"tráfico de vehículos"
 
 #: src/duarouter/RODUAFrame.cpp:170 src/microsim/MSFrame.cpp:631
 msgid "Where taxis can drop off customers ('allJunctions, 'ptStops')"
@@ -899,12 +901,16 @@ msgid ""
 "Lanes filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"El filtro de carriles solo es factible para el contexto del dominio "
+"'vehicle' (el actual es '%'), ignorando el filtro..."
 
 #: src/libsumo/Helper.cpp:1170
 msgid ""
 "Turn filter is only feasible for context domain 'vehicle' (current is '%'), "
 "ignoring filter..."
 msgstr ""
+"El filtro de giro solo es factible para el contexto del dominio 'vehicle' ("
+"el actual es '%'), ignorando el filtro..."
 
 #: src/libsumo/Helper.cpp:1235
 msgid ""
@@ -972,6 +978,8 @@ msgstr "Parámetro no soportado '%'"
 #: src/libsumo/Vehicle.cpp:1332
 msgid "Waypoint (speed = %) at index % does not support triggers"
 msgstr ""
+"El punto de referencia (velocidad = %) en el índice % no admite "
+"desencadenantes"
 
 #: src/libsumo/Vehicle.cpp:1366
 msgid ""
