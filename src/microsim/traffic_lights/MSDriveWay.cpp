@@ -1128,9 +1128,9 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
     std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
     dw->myFoes.clear();
-    dw->myFoes.insert(dw->myFoes.end(), uniqueFoes.begin(), uniqueFoes.end());
-    for (MSDriveWay* foe : dw->myFoes) {
+    for (MSDriveWay* foe : uniqueFoes) {
         foe->myFoes.push_back(dw);
+        dw->myFoes.push_back(foe);
         if (link) {
             foe->addConflictLink(link);
         }
