@@ -74,24 +74,32 @@ class network:
             y = 429
 
         class leftTop:
-            x = 500
-            y = 429            
+            x = 400
+            y = 200            
 
         class leftBot:
-            x = 500
-            y = 429            
+            x = 400
+            y = 250
+
+        class rightTop:
+            x = 600
+            y = 220            
+
+        class rightBot:
+            x = 600
+            y = 250    
 
     class crossing:
 
         class left:
-            x = 500
-            y = 429            
+            x = 450
+            y = 225            
 
         class right:
-            x = 500
-            y = 429 
+            x = 543
+            y = 232
 
-        class center
+        class center:
             x = 400
             y = 400            
 

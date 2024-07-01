@@ -458,7 +458,7 @@ class crossing:
         parameters = 7
 
     clearEdges = 3
-    clearEdgesSelected = 4
+    invertEdges = 4
     firstField = 5
 
 
