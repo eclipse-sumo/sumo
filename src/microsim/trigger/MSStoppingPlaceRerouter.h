@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    StoppingPlaceRerouter.h
+/// @file    MSStoppingPlaceRerouter.h
 /// @author  Mirko Barthauer
 /// @date    Mon, 17 June 2024
 ///
-// The StoppingPlaceRerouter provides an interface to structure the rerouting
+// The MSStoppingPlaceRerouter provides an interface to structure the rerouting
 // to the best StoppingPlace according to the evaluation components and
 // associated weights.
 /****************************************************************************/
