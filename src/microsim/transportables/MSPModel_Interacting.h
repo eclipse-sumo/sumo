@@ -60,6 +60,17 @@ public:
     bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
                        double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
 
+    /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or nullptr
+     * @param[in] lane the lane to check
+     * @param[in] minPos The minimum offset along the lane after which to check
+     * @param[in] minRight The rightmost border of the vehicle (0 indicates driving on the right border)
+     * @param[in] maxLeft The leftmost border of the vehicle
+     * @param[in] stopTime The time it would take the vehicle to come to a stop
+     * @param[in] bidi Whether the vehicle is driving against the flow
+     * @return The closest person (or nullptr) and the distance to it
+     */
+    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
+
     /// @brief whether the given lane has pedestrians on it
     bool hasPedestrians(const MSLane* lane);
 
@@ -69,14 +80,12 @@ public:
 
     static bool usingInternalLanesStatic();
 
-    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
-
-    /// @brief return the number of active objects
+    /// @brief return the number of active pedestrians
     int getActiveNumber() {
         return myNumActivePedestrians;
     }
 
+    /// @brief increase the number of active pedestrians
     void registerActive() {
         myNumActivePedestrians++;
     }
@@ -84,6 +93,7 @@ public:
     /// @brief unregister pedestrian approach with the junction model
     static void unregisterCrossingApproach(const MSPModel_InteractingState& ped, const MSLane* crossing);
 
+    /// @brief placeholder function for the stripe width
     virtual double getStripeWidth() {
         return 0.;
     }
@@ -115,6 +125,7 @@ protected:
 
 /**
  * @class MSPModel_InteractingState
+ * This contains trivial implementations and members for the most used access methods
  * @brief Container for pedestrian state and individual position update function
  */
 class MSPModel_InteractingState : public MSTransportableStateAdapter {
@@ -133,52 +144,77 @@ public:
 
     /// @brief abstract methods inherited from MSTransportableStateAdapter
     /// @{
+    /// @brief return the offset from the start of the current edge measured in its natural direction
     inline double getEdgePos(SUMOTime /* now */) const {
         return myEdgePos;
     }
+
+    /// @brief return the walking direction (FORWARD, BACKWARD, UNDEFINED_DIRECTION)
     inline int getDirection() const {
         return myDir;
     }
+
+    /// @brief return the time the transportable spent standing
     inline SUMOTime getWaitingTime() const {
         return myWaitingTime;
     }
+
+    /// @brief return the current speed of the transportable
     inline double getSpeed(const MSStageMoving& /* stage */) const {
         return mySpeed;
     }
+
     /// @brief whether the transportable is jammed
     inline bool isJammed() const {
         return myAmJammed;
     }
+
+    /// @brief the current lane of the transportable
     inline const MSLane* getLane() const {
         return myLane;
     }
     /// @}
 
+    /// @brief placeholder function for the accessing the next crossing
     virtual const MSLane* getNextCrossing() const {
         return nullptr;
     }
+
+    /// @brief return the lateral offset
     inline double getPosLat() const {
         return myPosLat;
     }
+
+    /// @brief return the represented person
     inline MSPerson* getPerson() const {
         return myPerson;
     }
+
+    /// @brief return the current stage
     inline MSStageMoving* getStage() const {
         return myStage;
     }
+
+    /// @brief whether the person still waits to entere the network
     inline bool isWaitingToEnter() const {
         return myWaitingToEnter;
     }
+
+    /// @brief return the remote position if being controlled by TraCI or JuPedSim
     inline const Position& getRemotePosition() const {
         return myRemoteXYPos;
     }
+
+    /// @brief return ID of the person (or sometimes vehicle) being represented
     virtual const std::string& getID() const {
         return myPerson->getID();
     }
 
 
 protected:
+    /// @brief the person who is being represented
     MSPerson* myPerson = nullptr;
+    /// @brief the current stage of this pedestrian
     MSStageMoving* myStage = nullptr;
     /// @brief the current lane of this pedestrian
     const MSLane* myLane = nullptr;
