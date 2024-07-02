@@ -220,7 +220,7 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
     }
     UNUSED_PARAMETER(occupied);
     /*
-    if (foeDriveWayOccupied(joinVehicle, true, closest.first)) {
+    if (foeDriveWayOccupied(joinVehicle, true, closest.first, occupied)) {
         return false;
     }
     */
@@ -425,7 +425,7 @@ MSDriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store, con
 
 
 bool
-MSDriveWay::foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const {
+MSDriveWay::foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const {
     for (const MSDriveWay* foeDW : myFoes) {
         if (!foeDW->myTrains.empty()) {
 #ifdef DEBUG_SIGNALSTATE
@@ -473,6 +473,14 @@ MSDriveWay::foeDriveWayOccupied(const std::string& joinVehicle, bool store, cons
                 for (SUMOVehicle* foe : foeDW->myTrains) {
                     MSRailSignal::blockingVehicles().push_back(foe);
                 }
+            }
+            for (const SUMOVehicle* foe : foeDW->myTrains) {
+                occupied.push_back(const_cast<MSEdge*>(foe->getEdge()));
+                MSEdge* bidi = const_cast<MSEdge*>(foe->getEdge()->getBidiEdge());
+                if (bidi != nullptr) {
+                    occupied.push_back(bidi);
+                }
+                /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
             }
             return true;
         }

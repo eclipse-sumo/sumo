@@ -71,7 +71,7 @@ public:
     bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true, const SUMOVehicle* ego = nullptr) const;
 
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
-    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const;
+    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
 
     /// @brief Whether any of the conflict links have approaching vehicles
     bool conflictLinkApproached() const;
