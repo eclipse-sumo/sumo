@@ -1,4 +1,4 @@
-mkdocs>=1.4.3
+mkdocs>=1.6.0
 mkdocs-macros-plugin>=0.2.4
 mdx_gh_links
 pymdown-extensions

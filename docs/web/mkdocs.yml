@@ -27,6 +27,12 @@ theme:
     search: 83    # s
     edit: 69      # e
 
+validation:
+  links:
+    absolute_links: info
+    anchors: warn
+    unrecognized_links: warn
+
 plugins:
   - git-revision-date:
       as_datetime: true

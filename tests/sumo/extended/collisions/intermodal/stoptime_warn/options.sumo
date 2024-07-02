@@ -6,3 +6,4 @@
 --collision.check-junctions
 --intermodal-collision.action warn
 --intermodal-collision.stoptime 30
+--collision-output collisions.xml

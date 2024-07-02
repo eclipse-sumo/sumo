@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-06-27 14:36+0000\n"
+"PO-Revision-Date: 2024-07-01 14:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -406,11 +406,11 @@ msgstr "Disattiva uscita della lettura degli itinerari nella console"
 
 #: src/dfrouter/RODFNet.cpp:113
 msgid "Computing detector types"
-msgstr ""
+msgstr "Assegnazione dei tipi di rivelatori"
 
 #: src/dfrouter/RODFNet.cpp:142
 msgid "Computed detector types:"
-msgstr ""
+msgstr "Tipi di rivelatori assegnati:"
 
 #: src/dfrouter/RODFNet.cpp:143
 #, c-format
@@ -442,6 +442,8 @@ msgid ""
 "Detector '%' has no flows.\n"
 " Trying to rebuild."
 msgstr ""
+"Il rivelatore '%' non ha flussi.\n"
+" Cerco di ricostruirlo."
 
 #: src/dfrouter/RODFNet.cpp:467
 msgid " Could not build list of previous flows."
@@ -1649,11 +1651,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:271
 msgid "Include internal edges in the output"
-msgstr ""
+msgstr "Includi archi interni nell'uscita"
 
 #: src/microsim/MSFrame.cpp:275
 msgid "Save person and container routes to separate FILE"
-msgstr ""
+msgstr "Salva gli itinerari di persone e di contenitori nel FILE distinto"
 
 #: src/microsim/MSFrame.cpp:278
 msgid "Save links states into FILE"
@@ -2219,19 +2221,23 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:591 src/router/ROFrame.cpp:166
 msgid "Match positions to junctions instead of edges"
-msgstr ""
+msgstr "Assegna posizioni a incroci invece di archi"
 
 #: src/microsim/MSFrame.cpp:603
 msgid ""
 "Apply the given time penalty when computing minimum routing costs for minor-"
 "link internal lanes"
 msgstr ""
+"Applica la data penalità temporale per corsie interne senza precedenza nel "
+"calcolo dei costi minimi degli itinerari"
 
 #: src/microsim/MSFrame.cpp:606
 msgid ""
 "Apply scaled travel time penalties based on green split when computing "
 "minimum routing costs for internal lanes at traffic lights"
 msgstr ""
+"Applica penalità di tempo di percorrenza basate su quote di verde per corsie "
+"interne regolate con semafori nel calcolo p dei costi minimi degli itinerari"
 
 #: src/microsim/MSFrame.cpp:612
 msgid ""
@@ -10165,48 +10171,50 @@ msgstr ""
 
 #: src/router/RONetHandler.cpp:138
 msgid "Unknown node '%'."
-msgstr ""
+msgstr "Nodo sconosciuto '%'."
 
 #: src/router/RONetHandler.cpp:244
 msgid "Ignoring lane '%' with broken shape."
-msgstr ""
+msgstr "La corsia '%' con la forma rotta viene ignorata."
 
 #: src/router/RONetHandler.cpp:281
 msgid "Skipping isolated junction '%'."
-msgstr ""
+msgstr "L'incrocio isolato '%' viene omesso."
 
 #: src/router/RONetHandler.cpp:301
 #, c-format
 msgid "unknown from-edge '%' in connection"
-msgstr ""
+msgstr "l'arco iniziale '%' del collegamento è sconosciuto"
 
 #: src/router/RONetHandler.cpp:304
 #, c-format
 msgid "unknown to-edge '%' in connection"
-msgstr ""
+msgstr "l'arco terminale '%' del collegamento è sconosciuto"
 
 #: src/router/RONetHandler.cpp:321
 #, c-format
 msgid "unknown via-edge '%' in connection"
-msgstr ""
+msgstr "l'arco di mezzo '%' del collegamento è sconosciuto"
 
 #: src/router/RONetHandler.cpp:379
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
-msgstr ""
+msgstr "L'accesso invalido dall'arco '%' vietato ai pedoni viene ignorato."
 
 #: src/router/RORouteDef.cpp:123
 msgid "Repaired route of vehicle '%'."
-msgstr ""
+msgstr "L'itinerario del veicolo '%' è stato corretto."
 
 #: src/router/RORouteDef.cpp:222
 msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
 msgstr ""
+"Ci sono archi di fermate che non facevano parte dell'itinerario originale "
+"del veicolo '%'."
 
 #: src/router/RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
-msgstr ""
+msgstr "L'arco '%' è sconnesso dall'arco '%' del veicolo '%'."
 
 #: src/router/RORouteHandler.cpp:204
 msgid "Triggered departure for person '%' requires starting with a ride."
@@ -10531,11 +10539,11 @@ msgstr ""
 
 #: src/utils/common/LinearApproxHelpers.cpp:34
 msgid "Cannot determine the minimum value from an empty map."
-msgstr ""
+msgstr "Non si può calcolare il valore minimo da un dizionario vuoto."
 
 #: src/utils/common/LinearApproxHelpers.cpp:49
 msgid "Cannot determine the maximum value from an empty map."
-msgstr ""
+msgstr "Non si può calcolare il valore massimo da un dizionario vuoto."
 
 #: src/utils/common/LinearApproxHelpers.cpp:100
 #: src/utils/common/LinearApproxHelpers.cpp:133
@@ -10575,27 +10583,27 @@ msgstr ""
 
 #: src/utils/common/MsgHandler.cpp:310
 msgid "Warning: "
-msgstr ""
+msgstr "Avvertimento: "
 
 #: src/utils/common/MsgHandler.cpp:311
 msgid "Error: "
-msgstr ""
+msgstr "Errore: "
 
 #: src/utils/common/Parameterised.cpp:106
 msgid "Invalid conversion from string to double (%)"
-msgstr ""
+msgstr "Conversione invalida da string a double (%)"
 
 #: src/utils/common/Parameterised.cpp:109
 msgid "Invalid conversion from string to double (empty value)"
-msgstr ""
+msgstr "Conversione invalida da string a double (valore vuoto)"
 
 #: src/utils/common/Parameterised.cpp:128
 msgid "Invalid conversion from string to doubles (%)"
-msgstr ""
+msgstr "Conversione invalida da string a doubles (%)"
 
 #: src/utils/common/Parameterised.cpp:131
 msgid "Invalid conversion from string to doubles (empty value)"
-msgstr ""
+msgstr "Conversione invalida da string a doubles (valore vuoto)"
 
 #: src/utils/common/Parameterised.cpp:208
 msgid "Invalid format of parameter (%)"

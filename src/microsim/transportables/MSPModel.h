@@ -50,6 +50,22 @@ typedef std::pair<const MSPerson*, double> PersonDist;
  */
 class MSPModel {
 public:
+    // @brief walking directions
+    static const int FORWARD;
+    static const int BACKWARD;
+    static const int UNDEFINED_DIRECTION;
+
+    // @brief the safety gap to keep between the car and the pedestrian in all directions
+    static const double SAFETY_GAP;
+
+    /// @brief the offset for computing person positions when walking on edges without a sidewalk
+    static const double SIDEWALK_OFFSET;
+
+    /// @brief the default lateral offset for persons when starting a walk
+    static const double UNSPECIFIED_POS_LAT;
+
+    /// @brief magic value to encode randomized lateral offset for persons when starting a walk
+    static const double RANDOM_POS_LAT;
 
     virtual ~MSPModel() {};
 
@@ -96,14 +112,14 @@ public:
         return false;
     }
 
-    /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
+    /** @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or nullptr
      * @param[in] lane the lane to check
      * @param[in] minPos The minimum offset along the lane after which to check
      * @param[in] minRight The rightmost border of the vehicle (0 indicates driving on the right border)
      * @param[in] maxLeft The leftmost border of the vehicle
      * @param[in] stopTime The time it would take the vehicle to come to a stop
      * @param[in] bidi Whether the vehicle is driving against the flow
-     * @return The closest person and the distance to it
+     * @return The closest person (or nullptr) and the distance to it
      */
     virtual PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false) {
         UNUSED_PARAMETER(lane);
@@ -114,29 +130,6 @@ public:
         UNUSED_PARAMETER(bidi);
         return PersonDist(nullptr, -1);
     }
-
-    // @brief walking directions
-    static const int FORWARD;
-    static const int BACKWARD;
-    static const int UNDEFINED_DIRECTION;
-
-    // @brief the safety gap to keep between the car and the pedestrian in all directions
-    static const double SAFETY_GAP;
-
-    /// @brief the offset for computing person positions when walking on edges without a sidewalk
-    static const double SIDEWALK_OFFSET;
-
-    /// @brief the default lateral offset for persons when starting a walk
-    static const double UNSPECIFIED_POS_LAT;
-
-    /// @brief magic value to encode randomized lateral offset for persons when starting a walk
-    static const double RANDOM_POS_LAT;
-
-    /* @brief return the arrival direction if the route may be traversed with the given starting direction.
-     * param[out] passedEdges: the number of edges that were successfully traversed
-     * returns UNDEFINED_DIRECTION if the route cannot be traversed
-     */
-    static int canTraverse(int dir, const ConstMSEdgeVector& route, int& passedEdges);
 
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
@@ -149,6 +142,11 @@ public:
     /// @brief return the number of active objects
     virtual int getActiveNumber() = 0;
 
+    /* @brief return the arrival direction if the route may be traversed with the given starting direction.
+     * param[out] passedEdges: the number of edges that were successfully traversed
+     * returns UNDEFINED_DIRECTION if the route cannot be traversed
+     */
+    static int canTraverse(int dir, const ConstMSEdgeVector& route, int& passedEdges);
 };
 
 
@@ -158,9 +156,9 @@ public:
     virtual ~MSTransportableStateAdapter() {};
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    virtual double getEdgePos(SUMOTime now) const = 0;
+    virtual double getEdgePos(SUMOTime now = 0) const = 0;
 
-    /// @brief return the walking direction (FORWARD, BACKWARD)
+    /// @brief return the walking direction (FORWARD, BACKWARD, UNDEFINED_DIRECTION)
     virtual int getDirection() const = 0;
 
     /// @brief return the network coordinate of the transportable

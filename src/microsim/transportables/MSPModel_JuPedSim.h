@@ -28,7 +28,7 @@
 #include <geos_c.h>
 #include <jupedsim/jupedsim.h>
 #include "microsim/MSNet.h"
-#include "MSPModel.h"
+#include "MSPModel_Interacting.h"
 
 
 // ===========================================================================
@@ -45,7 +45,7 @@ class OutputDevice;
  * @brief A pedestrian following model that acts as a proxy for pedestrian models
  * provided by the JuPedSim third-party simulation framework.
  */
-class MSPModel_JuPedSim : public MSPModel {
+class MSPModel_JuPedSim : public MSPModel_Interacting {
 public:
     MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net);
     ~MSPModel_JuPedSim();
@@ -54,32 +54,10 @@ public:
     void remove(MSTransportableStateAdapter* state) override;
     SUMOTime execute(SUMOTime time);
 
-    /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
-     * @param[in] ego The object that inquires about blockage (and may electively ignore foes)
-     * @param[in] lane The crossing to check
-     * @param[in] vehside The offset to the vehicle side near the start of the crossing
-     * @param[in] vehWidth The width of the vehicle
-     * @param[in] oncomingGap The distance which the vehicle wants to keep from oncoming pedestrians
-     * @param[in] collectBlockers The list of persons blocking the crossing
-     * @return Whether the vehicle must wait
-     */
-    bool blockedAtDist(const SUMOTrafficObject* ego, const MSLane* lane, double vehSide, double vehWidth,
-                       double oncomingGap, std::vector<const MSPerson*>* collectBlockers);
-
-    /// @brief whether the given lane has pedestrians on it
-    bool hasPedestrians(const MSLane* lane);
-
-    /// @brief whether movements on intersections are modelled
-    bool usingInternalLanes() override;
-
-    /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
-    PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0, bool bidi = false);
-
     bool usingShortcuts() override {
         return myHaveAdditionalWalkableAreas;
     }
-    void registerArrived();
-    int getActiveNumber() override;
+    void registerArrived(const JPS_AgentId agentID);
     void clearState() override;
 
     class Event : public Command {
@@ -100,54 +78,49 @@ private:
     * @class PState
     * @brief Holds pedestrian state and performs updates
     */
-    class PState : public MSTransportableStateAdapter {
+    class PState : public MSPModel_InteractingState {
     public:
         PState(MSPerson* person, MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<WaypointDesc>& waypoints);
         ~PState() override;
 
         void reinit(MSStageMoving* stage, JPS_JourneyId journeyId, JPS_StageId stageId, const std::vector<WaypointDesc>& waypoints);
 
-        Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
+        inline Position getPosition(const MSStageMoving&, SUMOTime) const override {
+            return myRemoteXYPos;
+        }
         void setPosition(double x, double y);
 
-        Position getPreviousPosition() const;
-        void setPreviousPosition(Position previousPosition);
-
-        double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
-        void setAngle(double angle);
-
-        MSStageMoving* getStage() const;
-        void setStage(MSStageMoving* const stage);
-
-        inline MSPerson* getPerson() const {
-            return myPerson;
+        inline void setAngle(double angle) {
+            myAngle = angle;
         }
 
-        inline MSLane* getLane() const {
-            return myLane;
+        inline void setStage(MSStageMoving* const stage) {
+            myStage = stage;
         }
 
         inline void setLane(MSLane* lane) {
             myLane = lane;
         }
 
-        void setLanePosition(double lanePosition);
-        double getEdgePos(SUMOTime now) const override;
-        int getDirection() const override;
-        SUMOTime getWaitingTime() const override;
-        double getSpeed(const MSStageMoving& stage) const override;
+        inline void setLanePosition(double lanePosition) {
+            myEdgePos = lanePosition;
+        }
         const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
-        const MSPModel_JuPedSim::WaypointDesc* getNextWaypoint(const int offset = 0) const;
-        JPS_AgentId getAgentId() const;
 
-        /// @brief whether the transportable has finished walking
-        bool isFinished() const override {
-            return myWaypoints.empty();
+        const MSPModel_JuPedSim::WaypointDesc* getNextWaypoint(const int offset = 0) const;
+
+        inline JPS_AgentId getAgentId() const {
+            return myAgentId;
         }
 
         void setAgentId(JPS_AgentId id) {
             myAgentId = id;
             myWaitingToEnter = false;
+        }
+
+        /// @brief whether the transportable has finished walking
+        bool isFinished() const override {
+            return myWaypoints.empty();
         }
 
         JPS_JourneyId getJourneyId() const {
@@ -159,30 +132,17 @@ private:
             return myStageId;
         }
 
-        bool isWaitingToEnter() const {
-            return myWaitingToEnter;
-        }
-
         bool advanceNextWaypoint() {
             myWaypoints.erase(myWaypoints.begin());
             return myWaypoints.empty();
         }
 
     private:
-        MSPerson* myPerson;
-        MSStageMoving* myStage;
-        MSLane* myLane;
         /// @brief id of the journey, needed for modifying it
         JPS_JourneyId myJourneyId;
         JPS_StageId myStageId;
         std::vector<MSPModel_JuPedSim::WaypointDesc> myWaypoints;
         JPS_AgentId myAgentId;
-        Position myPosition;
-        Position myPreviousPosition; // Will be initialized to zero automatically.
-        double myAngle;
-        double myLanePosition;
-        /// @brief whether the pedestrian is waiting to start its walk
-        bool myWaitingToEnter;
     };
 
     /// @brief The network on which the simulation runs.
@@ -197,7 +157,6 @@ private:
     /// @brief Threshold to decide if a pedestrian has ended its journey or not.
     const double myExitTolerance;
 
-    int myNumActivePedestrians = 0;
     std::vector<PState*> myPedestrianStates;
 
     /// @brief The GEOS polygon containing all computed connected components of the pedestrian network.
@@ -237,10 +196,6 @@ private:
     std::map<const MSLane*, std::pair<JPS_StageId, JPS_StageId> > myCrossingWaits;
     std::map<JPS_StageId, const MSLane*> myCrossings;
 
-    typedef std::map<const MSLane*, std::vector<PState*>, ComparatorNumericalIdLess> ActiveLanes;
-    /// @brief store of all lanes which have pedestrians on them
-    ActiveLanes myActiveLanes;
-
     static const int GEOS_QUADRANT_SEGMENTS;
     static const double GEOS_MITRE_LIMIT;
     static const double GEOS_MIN_AREA;
@@ -270,7 +225,4 @@ private:
     static void dumpGeometry(const GEOSGeometry* polygon, const std::string& filename, bool useGeoCoordinates = false);
     static double getRadius(const MSVehicleType& vehType);
     JPS_StageId addWaitingSet(const MSLane* const crossing, const bool entry);
-
-    /// @brief retrieves the pedestrian vector for the given lane (may be empty)
-    const std::vector<PState*>& getPedestrians(const MSLane* lane);
 };
