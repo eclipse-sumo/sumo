@@ -1,3 +1,5 @@
+Warning: Invalid pedestrian topology: crossing ':588181343_c2' across [24241762#1] has no target.
+Warning: Discarding invalid crossing ':588181343_c0' at junction '588181343' with edges [-24241762#1] (no walkingarea found).
 Warning: Ambiguity in turnarounds computation at junction '1130114721'.
 Warning: Ambiguity in turnarounds computation at junction '1206481791'.
 Warning: Ambiguity in turnarounds computation at junction '1206481808'.
@@ -30,6 +32,7 @@ Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0.
 Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10m short.
+Warning: Unused state in tlLogic 'joinedS_5', program '0' at tl-index 13
 Warning: 16 total messages of type: Ambiguity in turnarounds computation at junction '%'.
 Warning: 6 total messages of type: Found angle of % degrees at edge '%', segment %.
 Warning: 22 total messages of type: Found sharp turn with radius % at the % of edge '%'.
