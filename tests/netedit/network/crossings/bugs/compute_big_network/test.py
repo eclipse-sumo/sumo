@@ -33,13 +33,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # wait 30 seconds (for slow computers)
-time.sleep(30)
+time.sleep(15)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # wait 30 seconds (for slow computers)
-time.sleep(30)
+time.sleep(15)
 
 # quit netedit
 netedit.quit(neteditProcess)
