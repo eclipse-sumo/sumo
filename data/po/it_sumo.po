@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-01 14:18+0000\n"
+"PO-Revision-Date: 2024-07-02 09:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9113,16 +9113,16 @@ msgstr ""
 #: src/netload/NLHandler.cpp:1421
 #, c-format
 msgid "Unknown from-edge '%' in connection."
-msgstr ""
+msgstr "L'Arco iniziale '%' del collegamento è sconosciuto."
 
 #: src/netload/NLHandler.cpp:1427
 #, c-format
 msgid "Unknown to-edge '%' in connection."
-msgstr ""
+msgstr "L'arco terminale '%' del collegamento è sconosciuto."
 
 #: src/netload/NLHandler.cpp:1432
 msgid "Invalid lane index in connection from '%' to '%'."
-msgstr ""
+msgstr "Indice di corsia invalido nel collegamento da '%' a '%'."
 
 #: src/netload/NLHandler.cpp:1513
 #, c-format
