@@ -47,28 +47,28 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 397, 150)
 
 # Change length with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "dummyLength", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.length, "dummyLength", True)
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "-4", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.length, "-4", True)
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.length, "0", True)
 
 # Change length with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.length, "11", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.length, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()
 
 # Check undo
-netedit.undo(referencePosition, 4)
+netedit.undo(referencePosition, 1)
 
 # rebuild
 netedit.rebuildNetwork()
 
 # Check redo
-netedit.redo(referencePosition, 4)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

@@ -8,6 +8,8 @@ uncontrolled
 
 visibility
 
+linkindex
+
 allow
 
 disallow
@@ -27,3 +29,5 @@ indirect
 type
 
 parameters
+
+linkindex2

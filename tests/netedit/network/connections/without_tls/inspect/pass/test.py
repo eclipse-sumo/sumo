@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, 397, 150)
 
 # Change pass
-netedit.modifyBoolAttribute(netedit.attrs.connection.inspect.passC, True)
+netedit.modifyBoolAttribute(netedit.attrs.connection.inspectTLS.passC, True)
 
 # rebuild
 netedit.rebuildNetwork()

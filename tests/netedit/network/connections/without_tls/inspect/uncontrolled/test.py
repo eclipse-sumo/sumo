@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, 397, 150)
 
 # Change uncontrolled
-netedit.modifyBoolAttribute(netedit.attrs.connection.inspect.uncontrolled, True)
+netedit.modifyBoolAttribute(netedit.attrs.connection.inspectTLS.uncontrolled, True)
 
 # rebuild
 netedit.rebuildNetwork()

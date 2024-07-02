@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:03:57 by Eclipse SUMO netedit Version v1_12_0+1796-1793b31114e
+<!-- generated on 2022-03-31 10:14:42 by Eclipse SUMO netedit Version v1_12_0+1796-1793b31114e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\additionals.xml"/>
-        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\additionals.xml"/>
-        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\routes.xml"/>
-        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\routes.xml"/>
-        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\datas.xml"/>
-        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\datas.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\routes.xml"/>
+        <data-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\datas.xml"/>
+        <dataelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\gui-settings.xml"/>
         <window-size value="936,697"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.3_from_31Mar092025.7268\netedit.gui\netElements\connections\inspect\changeright\log.txt"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_31Mar101006.512\netedit.gui\netElements\connections\inspect_TLS\changeright\log.txt"/>
     </report>
 
 </configuration>
@@ -94,10 +94,17 @@
         <lane id="8_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="100.00,51.60 60.40,51.60"/>
     </edge>
 
+    <tlLogic id="Center" type="static" programID="0" offset="0">
+        <phase duration="42" state="GGGgrrrrGGGgrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+        <phase duration="42" state="rrrrGGGgrrrrGGGg"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+    </tlLogic>
+
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="1_0 1_1" intLanes="" shape="50.00,0.00 43.60,0.00 50.00,0.00"/>
     <junction id="B" type="dead_end" x="50.00" y="100.00" incLanes="2_0 2_1" intLanes="" shape="50.00,100.00 56.40,100.00 50.00,100.00"/>
     <junction id="C" type="dead_end" x="0.00" y="50.00" incLanes="3_0 3_1" intLanes="" shape="0.00,50.00 0.00,56.40 0.00,50.00"/>
-    <junction id="Center" type="priority" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes="" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18">
+    <junction id="Center" type="traffic_light" x="50.00" y="50.00" incLanes="6_0 6_1 8_0 8_1 5_0 5_1 7_0 7_1" intLanes="" shape="43.60,60.40 56.40,60.40 56.84,58.18 57.40,57.40 58.18,56.84 59.18,56.51 60.40,56.40 60.40,43.60 58.18,43.16 57.40,42.60 56.84,41.82 56.51,40.82 56.40,39.60 43.60,39.60 43.16,41.82 42.60,42.60 41.82,43.16 40.82,43.49 39.60,43.60 39.60,56.40 41.82,56.84 42.60,57.40 43.16,58.18 43.49,59.18">
         <request index="0"  response="0000000000000000" foes="0000000001100000"/>
         <request index="1"  response="0000000000000000" foes="1111100011100000"/>
         <request index="2"  response="0000000000000000" foes="1111100011100000"/>
@@ -117,21 +124,21 @@
     </junction>
     <junction id="D" type="dead_end" x="100.00" y="50.00" incLanes="4_0 4_1" intLanes="" shape="100.00,50.00 100.00,43.60 100.00,50.00"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="5" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="5" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="5" to="3" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="6" to="3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" changeRight="authority army vip passenger hov taxi bus coach bicycle tram" dir="s" state="M"/>
-    <connection from="6" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="6" to="4" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="7" to="1" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="7" to="4" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="7" to="4" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="7" to="2" fromLane="1" toLane="1" dir="l" state="m"/>
-    <connection from="8" to="2" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="8" to="3" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="8" to="3" fromLane="1" toLane="1" dir="s" state="m"/>
-    <connection from="8" to="1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="5" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="8" dir="r" state="O"/>
+    <connection from="5" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="9" dir="s" state="O"/>
+    <connection from="5" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="10" dir="s" state="O"/>
+    <connection from="5" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="11" dir="l" state="o"/>
+    <connection from="6" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="0" dir="r" state="O"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" changeRight="authority army vip passenger hov taxi bus coach bicycle tram" tl="Center" linkIndex="1" dir="s" state="O"/>
+    <connection from="6" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="2" dir="s" state="O"/>
+    <connection from="6" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="3" dir="l" state="o"/>
+    <connection from="7" to="1" fromLane="0" toLane="0" tl="Center" linkIndex="12" dir="r" state="o"/>
+    <connection from="7" to="4" fromLane="0" toLane="0" tl="Center" linkIndex="13" dir="s" state="o"/>
+    <connection from="7" to="4" fromLane="1" toLane="1" tl="Center" linkIndex="14" dir="s" state="o"/>
+    <connection from="7" to="2" fromLane="1" toLane="1" tl="Center" linkIndex="15" dir="l" state="o"/>
+    <connection from="8" to="2" fromLane="0" toLane="0" tl="Center" linkIndex="4" dir="r" state="o"/>
+    <connection from="8" to="3" fromLane="0" toLane="0" tl="Center" linkIndex="5" dir="s" state="o"/>
+    <connection from="8" to="3" fromLane="1" toLane="1" tl="Center" linkIndex="6" dir="s" state="o"/>
+    <connection from="8" to="1" fromLane="1" toLane="1" tl="Center" linkIndex="7" dir="l" state="o"/>
 
 </net>
