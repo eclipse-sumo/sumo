@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 09:42+0000\n"
+"PO-Revision-Date: 2024-07-02 10:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2743,7 +2743,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:935
 msgid "All vehicles have left the simulation."
-msgstr ""
+msgstr "Tutti i veicoli sono usciti dalla simulazione."
 
 #: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
