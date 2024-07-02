@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-02 10:43:06 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2024-07-02 10:44:30 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\crossings\without_tls\inspect_selected\net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\network\crossings\without_tls\inspect_selected\net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,6 +43,23 @@
     <pedestrian>
         <walkingareas value="0"/>
     </pedestrian>
+
+    <netedit>
+        <ignore-supermode-question value="true"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\gui-settings.xml"/>
+        <window-size value="1280, 720"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.02Jul104339.10596\netedit.gui\network\crossings\without_tls\inspect_selected\priority\log.txt"/>
+    </report>
 
 </neteditConfiguration>
 -->
@@ -188,19 +219,19 @@
         <request index="2"  response="100000000000000010" foes="100000000010100010" cont="1"/>
         <request index="3"  response="000000000000000000" foes="001110000010100000" cont="0"/>
         <request index="4"  response="010000001000000000" foes="010000001000000000" cont="0"/>
-        <request index="5"  response="010000101000001111" foes="110000101001001111" cont="0"/>
+        <request index="5"  response="110000101000001111" foes="110000101001001111" cont="0"/>
         <request index="6"  response="010000101000100000" foes="010000101000100000" cont="0"/>
-        <request index="7"  response="010000101000001110" foes="110000101000001110" cont="0"/>
+        <request index="7"  response="110000101000001110" foes="110000101000001110" cont="0"/>
         <request index="8"  response="010000000000000000" foes="010010000000000000" cont="1"/>
         <request index="9"  response="000000000000000000" foes="001010010011110000" cont="0"/>
         <request index="10" response="010000001000000000" foes="011010001000000000" cont="1"/>
         <request index="11" response="000000000000000000" foes="001010000011100000" cont="0"/>
-        <request index="12" response="000000000000000010" foes="100000000000000010" cont="0"/>
-        <request index="13" response="010000111100001010" foes="110100111100001010" cont="0"/>
-        <request index="14" response="000010000000001010" foes="100010000000001010" cont="0"/>
-        <request index="15" response="010000111000001010" foes="110000111000001010" cont="0"/>
+        <request index="12" response="100000000000000010" foes="100000000000000010" cont="0"/>
+        <request index="13" response="110000111100001010" foes="110100111100001010" cont="0"/>
+        <request index="14" response="100010000000001010" foes="100010000000001010" cont="0"/>
+        <request index="15" response="110000111000001010" foes="110000111000001010" cont="0"/>
         <request index="16" response="000000000000000000" foes="001010010111110000" cont="0"/>
-        <request index="17" response="001111000010100000" foes="001111000010100101" cont="0"/>
+        <request index="17" response="000000000000000000" foes="001111000010100101" cont="0"/>
     </junction>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -264,7 +295,7 @@
     <connection from="E3" to=":J3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_c0" to=":Junction5_w1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_c1" to=":Junction5_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction5_w0" to=":Junction5_c1" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from=":Junction5_w0" to=":Junction5_c1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E0" to=":Junction5_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w1" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
