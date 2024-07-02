@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 14:26+0000\n"
+"PO-Revision-Date: 2024-07-02 14:47+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -3625,6 +3625,8 @@ msgid ""
 "Set the distance at which other drivers react to the blue light and siren "
 "sound"
 msgstr ""
+"Establece la distancia a la que otros conductores reaccionan a la luz azul y "
+"al sonido de la sirena"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
@@ -3643,7 +3645,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:68
 msgid "Time scale for the error process."
-msgstr ""
+msgstr "Escala de tiempo para el proceso de error."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:70
 msgid "Noise intensity driving the error process."
@@ -3718,6 +3720,8 @@ msgid ""
 "The resistivity of overhead wire segment connected to vehicle % is < 0. Set "
 "to 1e-6."
 msgstr ""
+"La resistividad del segmento de catenaria conectada al vehículo % es <0. Se "
+"establece en 1e-6."
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:420
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:516
@@ -3726,6 +3730,8 @@ msgstr ""
 msgid ""
 "Overhead wire solver is on, but the Eigen library has not been compiled in!"
 msgstr ""
+"El solucionador de catenaria está activado, ¡pero la biblioteca Eigen no se "
+"ha compilado!"
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:636
 #: src/utils/traction_wire/Circuit.cpp:880
@@ -3784,6 +3790,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_FCD.cpp:158
 msgid "Could not load names of edges for filtering fcd-output from '%'."
 msgstr ""
+"No se pudieron cargar los nombres de las aristas para filtrar la salida fcd "
+"desde '%'."
 
 #: src/microsim/devices/MSDevice_FCD.cpp:177
 #, c-format
@@ -3967,10 +3975,11 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:254
 msgid "Whether to write positions (coordinates) for each timestep"
 msgstr ""
+"Si escribir o no las posiciones (coordenadas) para cada instante de tiempo"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:256
 msgid "Whether to write lanes and their positions for each timestep"
-msgstr ""
+msgstr "Si escribir o no carriles y sus posiciones para cada instante de tiempo"
 
 #: src/microsim/devices/MSDevice_SSM.cpp:258
 msgid ""
@@ -3983,6 +3992,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:269
 msgid "Could not load names of edges for filtering SSM device output from '%'."
 msgstr ""
+"No se pudieron cargar los nombres de las aristas para filtrar la salida del "
+"dispositivo SSM desde '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:963
 msgid ""
