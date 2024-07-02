@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
+<!-- generated on 2024-07-02 16:49:23 by Eclipse SUMO sumo Version v1_20_0+0421-a1b7554f8d0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J2.0.0"/>
+                <foes driveWays="J2.0.0 J1.0"/>
             </driveWay>
             <subDriveWay id="J1.0.0" edges="">
                 <forward lanes=":J1_1_0 E1_0 :J2_1_0"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0.0 J0.0"/>
+                <foes driveWays="J1.0.0 J1.0.0 J0.1"/>
             </driveWay>
             <subDriveWay id="J2.0.0" edges="">
                 <forward lanes=":J2_0_0 -E1_0 :J1_0_0"/>
@@ -69,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="J0">
-        <driveWay id="J0.0" edges="E0 E1 E2">
+        <driveWay id="J0.1" edges="E0 E1 E2">
             <forward lanes="E0_0"/>
             <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0"/>
             <flank lanes=""/>
@@ -77,5 +77,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals=""/>
             <foes driveWays="J2.0"/>
         </driveWay>
+    </departJunction>
+    <departJunction id="J1">
+        <driveWay id="J1.0" edges="E1 E2">
+            <forward lanes="E1_0 :J2_1_0 E2_0"/>
+            <bidi lanes="-E1_0 :J2_0_0 -E2_0"/>
+            <flank lanes=":J1_1_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals="J1_0"/>
+            <foes driveWays="J2.0.0 J1.0"/>
+        </driveWay>
+        <subDriveWay id="J1.0.0" edges="">
+            <forward lanes="E1_0 :J2_1_0"/>
+        </subDriveWay>
     </departJunction>
 </railsignal-block-output>
