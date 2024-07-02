@@ -60,7 +60,7 @@ netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape, "dummySha
 
 # Change shape with a valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape,
-                        "42.60,56.52 48.25,55.65 51.97,53.13 51.86,49.56 49.29,45.45 42.87,43.86", True)
+                        "-5.50,4.00 0.00,4.00 0.00,-4.00 -5.50,-4.00", True)
 
 # Check undos
 netedit.undo(referencePosition, 2)
