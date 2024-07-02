@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 09:42+0000\n"
+"PO-Revision-Date: 2024-07-02 10:47+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2252,6 +2252,9 @@ msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
 msgstr ""
+"Tiempo (en segundos) tras el cual los peatones empiezan a estrujar a través "
+"de un atasco cuando se utiliza el modelo 'striping' (los valores no "
+"positivos desactivan el estrujamiento)"
 
 #: src/microsim/MSFrame.cpp:542
 msgid ""
@@ -2259,12 +2262,18 @@ msgid ""
 "on a pedestrian crossing when using model 'striping' (non-positive values "
 "disable squeezing)"
 msgstr ""
+"Tiempo (en segundos) tras el cual los peatones comienzan a estrujar a través "
+"de un atasco mientras se encuentran en un paso peatonal, cuando se utiliza "
+"el modelo 'striping' (los valores no positivos desactivan el estrujamiento)"
 
 #: src/microsim/MSFrame.cpp:544
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
 msgstr ""
+"Tiempo (en segundos) tras el cual los peatones empiezan a estrujar a través "
+"de un atasco mientras se encuentran en un carril estrecho, cuando se utiliza "
+"el modelo 'striping'"
 
 #: src/microsim/MSFrame.cpp:547
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
@@ -2279,6 +2288,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:553
 msgid "Maximum width in m to reserve for oncoming pedestrians"
 msgstr ""
+"Anchura máxima, en metros, a reservar para los peatones que vienen en "
+"sentido contrario"
 
 #: src/microsim/MSFrame.cpp:556
 msgid "Interpret departPosLat for walks in legacy style"
@@ -2306,28 +2317,30 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:569
 msgid "The neighbor repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "La fuerza de repulsión del vecino del modelo JuPedSim"
 
 #: src/microsim/MSFrame.cpp:571
 msgid "The neighbor repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "El rango de repulsión del vecino del modelo JuPedSim (en metros)"
 
 #: src/microsim/MSFrame.cpp:573
 msgid "The geometry repulsion strength of the JuPedSim model"
-msgstr ""
+msgstr "La fuerza de repulsión de la geometría del modelo JuPedSim"
 
 #: src/microsim/MSFrame.cpp:575
 msgid "The geometry repulsion range of the JuPedSim model (in meters)"
-msgstr ""
+msgstr "El rango de repulsión de la geometría del modelo JuPedSim (en metros)"
 
 #: src/microsim/MSFrame.cpp:577
 msgid "The filename to output the JuPedSim network as WKT"
-msgstr ""
+msgstr "El nombre de archivo donde exportar la red JuPedSim como WKT"
 
 #: src/microsim/MSFrame.cpp:579
 msgid ""
 "Whether to output JuPedSim network as WKT using geo-coordinates (lon/lat)"
 msgstr ""
+"Si exportar o no la red JuPedSim como WKT usando coordenadas geográficas ("
+"lon/lat)"
 
 #: src/microsim/MSFrame.cpp:581
 msgid "The filename to output the JuPedSim setup as Python script"
@@ -2340,6 +2353,8 @@ msgid ""
 "Tolerance to apply when matching pedestrian and vehicle positions on "
 "boarding at individual stops"
 msgstr ""
+"Tolerancia entre las posiciones de peatones y vehículos al abordar en "
+"paradas individuales"
 
 #: src/microsim/MSFrame.cpp:588 src/router/ROFrame.cpp:163
 msgid ""
@@ -2400,6 +2415,8 @@ msgstr "Determina desde dónde cargar las definiciones de PHEMlight"
 #: src/tools/emissionsMap_main.cpp:126
 msgid "Enable fleet age modelling with the given reference year in PHEMlight5"
 msgstr ""
+"Habilitar el modelado de antigüedad de la flota con el año de referencia "
+"dado en PHEMlight5"
 
 #: src/microsim/MSFrame.cpp:660 src/router/ROFrame.cpp:96
 #: src/tools/emissionsDrivingCycle_main.cpp:141
@@ -2412,6 +2429,8 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:669
 msgid "Disable performance reports for individual simulation steps"
 msgstr ""
+"Deshabilitar los informes de rendimiento para los pasos individuales de la "
+"simulación"
 
 #: src/microsim/MSFrame.cpp:672
 msgid "Enable statistics on vehicle trips"
@@ -2419,7 +2438,7 @@ msgstr "Habilitar estadísticas sobre viajes en vehículo"
 
 #: src/microsim/MSFrame.cpp:675
 msgid "Disable console output of current simulation step"
-msgstr ""
+msgstr "Deshabilitar la salida en consola del paso actual de la simulación"
 
 #: src/microsim/MSFrame.cpp:678
 msgid "Number of simulation steps between step-log outputs"
