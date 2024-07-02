@@ -1,6 +1,7 @@
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across [3 7 1] has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across [3 7 1] has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across [3 7 1] has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across [3 7 1] has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across [3] has no target.
-Warning: 13 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c1' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c1' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c1' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c1' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':Junction5_c1' across [E0] has no target.
+Warning: Unused state in tlLogic 'Junction5', program '0' at tl-index 17
+Warning: 6 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

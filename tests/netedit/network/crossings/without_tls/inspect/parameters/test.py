@@ -45,6 +45,9 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
                   netedit.positions.network.edge.leftBot.y)
 netedit.typeEnter()
 
+# Rebuild network
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
