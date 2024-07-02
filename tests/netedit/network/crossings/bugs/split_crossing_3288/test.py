@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # Rebuild network
 netedit.rebuildNetwork()
 
@@ -38,50 +35,63 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, 498, 236)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 150, 221)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 150, 250)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 700, 221)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop.x,
+                  netedit.positions.network.edge.rightTop.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 700, 250)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot.x,
+                  netedit.positions.network.edge.rightBot.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 445, 70)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft.x,
+                  netedit.positions.network.edge.topLeft.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 516, 70)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight.x,
+                  netedit.positions.network.edge.topRight.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 445, 400)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft.x,
+                  netedit.positions.network.edge.botLeft.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, 516, 400)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight.x,
+                  netedit.positions.network.edge.botRight.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # Check undo redo
-netedit.checkUndoRedo(referencePosition)
+netedit.undo(referencePosition, 8)
+
+netedit.rebuildNetwork()
+
+netedit.redo(referencePosition, 8)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
