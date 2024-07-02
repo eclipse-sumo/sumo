@@ -146,6 +146,7 @@ protected:
     /// @brief whether this driveway ends its forward section with a rail signal (and thus comprises a full block)
     bool myFoundSignal;
     bool myFoundReversal;
+    bool myIsSubDriveway;
 
     /* @brief the actual driveway part up to the next railsignal (halting position)
      * This must be free of other trains */
@@ -225,6 +226,9 @@ protected:
     /// @brief derive foe driveways based on myBidi
     void addBidiFoes(const MSRailSignal* ownSignal);
 
+    /// @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
+    void buildSubFoe(MSDriveWay* foe);
+
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
 
@@ -254,6 +258,11 @@ private:
     };
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
+
+    /* @brief shortened versions of this driveway to be used as foes instead of the long original
+     * (ends as soon as the train has left a particular conflict section)
+     * they are never attached to a LinkInfo and thus never the target of the match() function */
+    std::vector<MSDriveWay*> mySubDriveWays;
 
     /// @brief track own occurences in mySwitchDriveWays for cleanup in destructor
     std::vector<const MSLink*> myForwardSwitches;

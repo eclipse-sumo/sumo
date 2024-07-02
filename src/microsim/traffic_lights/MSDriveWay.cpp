@@ -97,7 +97,8 @@ MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         myProtectedBidi(nullptr),
         myCoreSize(0),
         myFoundSignal(false),
-        myFoundReversal(false)
+        myFoundReversal(false),
+        myIsSubDriveway(false)
 {}
 
 
@@ -116,7 +117,7 @@ MSDriveWay::~MSDriveWay() {
         auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
         if (it != foe->myFoes.end()) {
             foe->myFoes.erase(it);
-        } else if (myNumericalID != -1) {
+        } else if (myNumericalID != -1 && !foe->myIsSubDriveway) {
 #ifdef DRIVEWAY_SANITY_CHECK
             WRITE_WARNINGF("Driveway % (%) does not show up in foes of foe driveway % (%).", myID, myNumericalID, foe->myID, foe->getNumericalID());
 #endif
@@ -133,7 +134,7 @@ MSDriveWay::~MSDriveWay() {
             dws.erase(std::find(dws.begin(), dws.end(), this));
         }
     }
-    if (myForward.size() > 0) {
+    if (myNumericalID != -1 && myForward.size() > 0) {
         std::vector<MSDriveWay*>& dws = myEndingDriveways[&myForward.back()->getEdge()];
         dws.erase(std::find(dws.begin(), dws.end(), this));
     }
@@ -629,7 +630,7 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
 
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
-    od.openTag("driveWay");
+    od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
     od.writeAttr(SUMO_ATTR_ID, myID);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
     if (myCoreSize != (int)myRoute.size()) {
@@ -638,54 +639,60 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("forward");
     od.writeAttr(SUMO_ATTR_LANES, toString(myForward));
     od.closeTag();
-    od.openTag("bidi");
-    od.writeAttr(SUMO_ATTR_LANES, toString(myBidi));
-    if (myBidiExtended.size() > 0) {
-        od.lf();
-        od << "                   ";
-        od.writeAttr("deadlockCheck", toString(myBidiExtended));
-    }
-    od.closeTag();
-    od.openTag("flank");
-    od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
-    od.closeTag();
+    if (!myIsSubDriveway) {
+        od.openTag("bidi");
+        od.writeAttr(SUMO_ATTR_LANES, toString(myBidi));
+        if (myBidiExtended.size() > 0) {
+            od.lf();
+            od << "                   ";
+            od.writeAttr("deadlockCheck", toString(myBidiExtended));
+        }
+        od.closeTag();
+        od.openTag("flank");
+        od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
+        od.closeTag();
 
-    od.openTag("protectingSwitches");
-    std::vector<std::string> links;
-    for (MSLink* link : myProtectingSwitches) {
-        links.push_back(getJunctionLinkID(link));
-    }
-    od.writeAttr("links", joinToString(links, " "));
-    od.closeTag();
+        od.openTag("protectingSwitches");
+        std::vector<std::string> links;
+        for (MSLink* link : myProtectingSwitches) {
+            links.push_back(getJunctionLinkID(link));
+        }
+        od.writeAttr("links", joinToString(links, " "));
+        od.closeTag();
 
-    od.openTag("conflictLinks");
+        od.openTag("conflictLinks");
 
-    std::vector<std::string> signals;
-    for (MSLink* link : myConflictLinks) {
-        signals.push_back(getTLLinkID(link));
-    }
-    od.writeAttr("signals", joinToString(signals, " "));
-    od.closeTag();
+        std::vector<std::string> signals;
+        for (MSLink* link : myConflictLinks) {
+            signals.push_back(getTLLinkID(link));
+        }
+        od.writeAttr("signals", joinToString(signals, " "));
+        od.closeTag();
 
-    std::vector<std::string> foes;
-    for (MSDriveWay* dw : myFoes) {
-        if (dw != this) {
-            // every driveway is it's own foe but we don't need to write this
-            foes.push_back(dw->myID);
+        std::vector<std::string> foes;
+        for (MSDriveWay* dw : myFoes) {
+            if (dw != this) {
+                // every driveway is it's own foe but we don't need to write this
+                foes.push_back(dw->myID);
+            }
+        }
+        if (foes.size() > 0) {
+            od.openTag("foes");
+            od.writeAttr("driveWays", joinToString(foes, " "));
+            od.closeTag();
         }
     }
-    if (foes.size() > 0) {
-        od.openTag("foes");
-        od.writeAttr("driveWays", joinToString(foes, " "));
-        od.closeTag();
-    }
     od.closeTag(); // driveWay
+
+    for (const MSDriveWay* sub : mySubDriveWays) {
+        sub->writeBlocks(od);
+    }
 }
 
 
 void
 MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
-    od.openTag("driveWay");
+    od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
     od.writeAttr(SUMO_ATTR_ID, myID);
     for (const VehicleEvent& ve : myVehicleEvents) {
         od.openTag(ve.isEntry ? "entry" : "exit");
@@ -695,6 +702,10 @@ MSDriveWay::writeBlockVehicles(OutputDevice& od) const {
         od.closeTag(); // event
     }
     od.closeTag(); // driveWay
+
+    for (const MSDriveWay* sub : mySubDriveWays) {
+        sub->writeBlockVehicles(od);
+    }
 }
 
 
@@ -1128,9 +1139,18 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
     std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
     dw->myFoes.clear();
+    const MSEdge* lastEdge = &dw->myForward.back()->getEdge();
     for (MSDriveWay* foe : uniqueFoes) {
-        foe->myFoes.push_back(dw);
-        dw->myFoes.push_back(foe);
+        const MSEdge* foeLastEdge = &foe->myForward.back()->getEdge();
+        if (foeLastEdge == lastEdge
+                || std::find(foe->myBidi.begin(), foe->myBidi.end(), dw->myForward.back()) != foe->myBidi.end() 
+                || std::find(dw->myBidi.begin(), dw->myBidi.end(), foe->myForward.back()) != dw->myBidi.end()) {
+            foe->myFoes.push_back(dw);
+            dw->myFoes.push_back(foe);
+        } else {
+            foe->buildSubFoe(dw);
+            dw->buildSubFoe(foe);
+        }
         if (link) {
             foe->addConflictLink(link);
         }
@@ -1146,7 +1166,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     dw->myConflictLinks.clear();
     dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
-    const MSEdge* lastEdge = &dw->myForward.back()->getEdge();
     myEndingDriveways[lastEdge].push_back(dw);
     if (!rs || !rs->isMovingBlock()) {
         // every driveway is it's own foe (also all driveways that depart in the same block)
@@ -1286,6 +1305,42 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
             }
         }
     }
+}
+
+
+void
+MSDriveWay::buildSubFoe(MSDriveWay* foe) {
+    // we already know that the last edge of this driveway doesn't impact the foe
+    int subLast = myForward.size() - 2;
+    while (subLast >= 0) {
+        const MSLane* lane = myForward[subLast];
+        MSDriveWay tmp("tmp", true);
+        tmp.myForward.push_back(lane);
+        if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) ||
+                std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) {
+            break;
+        }
+        subLast--;
+    }
+    if (subLast < 0) {
+        WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
+        return;
+    }
+    int subSize = subLast + 1;
+    for (MSDriveWay* cand : mySubDriveWays) {
+        if ((int)cand->myForward.size() == subSize) {
+            // can re-use existing sub-driveway
+            foe->myFoes.push_back(cand);
+            return;
+        }
+    }
+    MSDriveWay* sub = new MSDriveWay(getID() + "." + toString(mySubDriveWays.size()));
+    sub->myLane = myLane;
+    sub->myIsSubDriveway = true;
+    myLane->addMoveReminder(sub);
+    sub->myForward.insert(sub->myForward.begin(), myForward.begin(), myForward.begin() + subSize);
+    foe->myFoes.push_back(sub);
+    mySubDriveWays.push_back(sub);
 }
 
 
