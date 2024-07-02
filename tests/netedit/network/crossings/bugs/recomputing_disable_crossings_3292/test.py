@@ -28,28 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# zoom in central node
-netedit.setZoom("50", "50", "50")
-
 # Rebuild network
 netedit.rebuildNetwork()
 
 # set crossing mode
 netedit.crossingMode()
 
-# select     central node
-netedit.leftClick(referencePosition, 460, 243)
+# select central node
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(referencePosition, 226, 184)
-netedit.leftClick(referencePosition, 226, 291)
-netedit.createCrossing(False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
-# select two right edges and create crossing in edges 4 and 8
-netedit.leftClick(referencePosition, 690, 184)
-netedit.leftClick(referencePosition, 690, 291)
-netedit.createCrossing(False)
+# select two left edges and create crossing in edges 3 and 7
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop.x,
+                  netedit.positions.network.edge.rightTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot.x,
+                  netedit.positions.network.edge.rightBot.y)
+netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # Check undo redo
@@ -57,9 +59,6 @@ netedit.checkUndoRedo(referencePosition)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
-
-# press space to fix crossings
-netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)
