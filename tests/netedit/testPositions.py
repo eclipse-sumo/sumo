@@ -75,7 +75,7 @@ class network:
 
         class leftTop:
             x = 400
-            y = 200
+            y = 220
 
         class leftBot:
             x = 400
@@ -98,6 +98,14 @@ class network:
         class right:
             x = 543
             y = 232
+
+        class left_norec:
+            x = 470
+            y = 230
+
+        class right_norec:
+            x = 510
+            y = 230
 
         class center:
             x = 400
