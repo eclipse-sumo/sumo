@@ -111,6 +111,32 @@ class network:
             x = 400
             y = 400
 
+    class connection:
+
+        class connectionA:
+            x = 450
+            y = 225
+
+        class connectionB:
+            x = 543
+            y = 232
+
+        class laneUpLeft:
+            x = 470
+            y = 230
+
+        class laneUpRight:
+            x = 510
+            y = 230
+
+        class laneDownLeft:
+            x = 470
+            y = 230
+
+        class laneDownRight:
+            x = 510
+            y = 230           
+
 
 class elements:
 
