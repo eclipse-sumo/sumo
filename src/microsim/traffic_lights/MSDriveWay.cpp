@@ -68,6 +68,7 @@ int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
+std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
 
 // ---------------------------------------------------------------------------
@@ -132,6 +133,8 @@ MSDriveWay::~MSDriveWay() {
         const MSEdge* first = &myLane->getEdge();
         if (first->getFromJunction()->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
             std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
+            dws.erase(std::find(dws.begin(), dws.end(), this));
+            dws = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
             dws.erase(std::find(dws.begin(), dws.end(), this));
         }
     }
@@ -1311,6 +1314,11 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
                 myFoes.push_back(foe);
             }
         }
+        if (myDepartureDrivewaysEnds.count(bidiEdge) != 0) {
+            for (MSDriveWay* foe : myDepartureDrivewaysEnds[bidiEdge]) {
+                myFoes.push_back(foe);
+            }
+        }
     }
 }
 
@@ -1376,6 +1384,7 @@ MSDriveWay::buildDepartureDriveway(const SUMOVehicle* veh) {
     const std::string id = edge->getFromJunction()->getID() + "." + toString(myDepartDriveWayIndex++);
     MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
     myDepartureDriveways[edge].push_back(dw);
+    myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
 }
 
 
