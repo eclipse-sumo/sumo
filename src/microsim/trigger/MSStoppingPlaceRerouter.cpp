@@ -82,7 +82,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
     const int stopAnywhere = (int)getWeight(veh, "anywhere", -1);
     // check whether we are ready to accept any free stopping place along the
     // way to our destination
-    if ((stopAnywhere < 0 || (stopAnywhere > getNumberStoppingPlaceReroutes(veh)) && myStoppingType == SUMO_TAG_PARKING_AREA)) {
+    if (stopAnywhere < 0 || stopAnywhere > getNumberStoppingPlaceReroutes(veh)) {
         if (!destVisible) {
             // cannot determine destination occupancy, only register visibly full
             for (const StoppingPlaceVisible& stoppingPlace : stoppingPlaceCandidates) {
