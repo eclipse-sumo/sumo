@@ -1,0 +1,50 @@
+<railSignal id="A">
+    <link linkIndex="0" from="-b_0" to="-a_0"/>
+    <link linkIndex="1" from="a_0" to="b_0">
+        <driveWay id="A.0">
+            <entry id="t0" time="124.00" reason="1"/>
+            <exit id="t0" time="188.00" reason="1"/>
+        </driveWay>
+        <subDriveWay id="A.0.0"/>
+    </link>
+</railSignal>
+<railSignal id="D">
+    <link linkIndex="0" from="-b2_0" to="-a2_0">
+        <driveWay id="D.0">
+            <entry id="t1" time="122.00" reason="1"/>
+            <exit id="t1" time="178.00" reason="9"/>
+        </driveWay>
+    </link>
+    <link linkIndex="1" from="a2_0" to="b2_0"/>
+</railSignal>
+<railSignal id="J0">
+    <link linkIndex="0" from="-f_0" to="-e_0"/>
+    <link linkIndex="1" from="e_0" to="f_0">
+        <driveWay id="J0.0">
+            <entry id="t0" time="185.00" reason="1"/>
+            <exit id="t0" time="240.00" reason="9"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="J1">
+    <link linkIndex="0" from="-f2_0" to="-e2_0">
+        <driveWay id="J1.0">
+            <entry id="t1" time="72.00" reason="1"/>
+            <exit id="t1" time="126.00" reason="1"/>
+        </driveWay>
+        <subDriveWay id="J1.0.0"/>
+    </link>
+    <link linkIndex="1" from="e2_0" to="f2_0"/>
+</railSignal>
+<departJunction id="J2">
+    <driveWay id="J2.1">
+        <entry id="t1" time="20.00" reason="0"/>
+        <exit id="t1" time="80.00" reason="1"/>
+    </driveWay>
+</departJunction>
+<departJunction id="gneJ1">
+    <driveWay id="gneJ1.0">
+        <entry id="t0" time="0.00" reason="0"/>
+        <exit id="t0" time="141.00" reason="1"/>
+    </driveWay>
+</departJunction>
