@@ -35,19 +35,22 @@ netedit.rebuildNetwork()
 # go to delete mode
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
 # delete junction
 netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
                   netedit.positions.network.junction.center.y)
 
 # wait for output
-time.sleep(4)
+time.sleep(2)
 
 # check undo
 netedit.undo(referencePosition, 1)
 netedit.rebuildNetwork()
 
 # wait for output
-time.sleep(4)
+time.sleep(2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
