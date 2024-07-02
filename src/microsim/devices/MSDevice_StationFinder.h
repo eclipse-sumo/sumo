@@ -238,7 +238,6 @@ private:
      * @param[in] skipOccupied whether to skip fully occupied charging stations
      * @return The found charging station, otherwise nullptr
      */
-    MSChargingStation* findChargingStationOld(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
     MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
 
 
