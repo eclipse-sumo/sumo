@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 10:47+0000\n"
+"PO-Revision-Date: 2024-07-02 14:26+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2730,11 +2730,12 @@ msgstr "El cruce interno % no tiene carriles entrantes"
 
 #: src/microsim/MSLane.cpp:332
 msgid "Unequal lengths of neigh lane '%' and lane '%' (% != %)."
-msgstr ""
+msgstr "Longitudes desiguales del carril vecino '%' y el carril '%' (% != %)."
 
 #: src/microsim/MSLane.cpp:341
 msgid "Unequal lengths of bidi lane '%' and lane '%' (% != %)."
 msgstr ""
+"Longitudes desiguales del carril bidireccional '%' y el carril '%' (% != %)."
 
 #: src/microsim/MSLane.cpp:796
 #, c-format
@@ -2749,6 +2750,8 @@ msgstr "¡El vehículo '%' no podrá partir utilizando la velocidad indicada (%)
 msgid ""
 "Invalid departPos % given for vehicle '%'. Inserting at lane end instead."
 msgstr ""
+"Posición departPos % no válida proporcionada para el vehículo '%'. En su "
+"lugar, se insertará al final del carril."
 
 #: src/microsim/MSLane.cpp:1078
 msgid ""
@@ -2947,6 +2950,8 @@ msgstr "Razón desconocida."
 msgid ""
 "TraCI and Triggers cannot use routing algorithm '%'. using 'astar' instead."
 msgstr ""
+"TraCI y desencadenantes no pueden utilizar el algoritmo de enrutamiento '%'. "
+"Usando 'astar' en su lugar."
 
 #: src/microsim/MSNet.cpp:1616 src/netload/NLBuilder.cpp:432
 #: src/router/ROLoader.cpp:236 src/tools/emissionsDrivingCycle_main.cpp:221
@@ -2966,7 +2971,7 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:300
 #, c-format
 msgid "Vehicle type distribution '%' is empty."
-msgstr ""
+msgstr "La distribución de tipo de vehículo '%' está vacía."
 
 #: src/microsim/MSRouteHandler.cpp:304 src/microsim/MSRouteHandler.cpp:968
 #, c-format
@@ -2975,15 +2980,17 @@ msgstr "Ya existe otro tipo (o distribución) de vehículo con el ID '%'."
 
 #: src/microsim/MSRouteHandler.cpp:325 src/router/RORouteHandler.cpp:330
 msgid "Ids of internal routes are ignored (vehicle '%')."
-msgstr ""
+msgstr "Se ignoran los IDs de rutas internas (vehículo '%')."
 
 #: src/microsim/MSRouteHandler.cpp:344
 msgid "Invalid reference to route '%' in route %."
-msgstr ""
+msgstr "Referencia no válida a la ruta '%' en la ruta %."
 
 #: src/microsim/MSRouteHandler.cpp:356
 msgid "Attribute 'period' is deprecated for route. Use 'cycleTime' instead."
 msgstr ""
+"El atributo 'period' está obsoleto para rutas. Utilice 'cycleTime' en su "
+"lugar."
 
 #: src/microsim/MSRouteHandler.cpp:360
 msgid "Invalid cost for route '%'."
@@ -3043,6 +3050,8 @@ msgid ""
 "Ignoring child element 'route' for vehicle '%' because attribute 'route' is "
 "set."
 msgstr ""
+"Ignorando el elemento hijo 'route' para el vehículo '%' porque se estableció "
+"el atributo 'route'."
 
 #: src/microsim/MSRouteHandler.cpp:633
 #, c-format
@@ -3145,7 +3154,7 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:1425
 msgid "Stop edge '%' missing in attribute 'via' for % '%'."
-msgstr ""
+msgstr "Falta la arista de parada '%' en el atributo 'via' para % '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1446 src/router/RORouteHandler.cpp:1095
 #: src/router/RORouteHandler.cpp:1214
@@ -3157,6 +3166,8 @@ msgstr ""
 #: src/microsim/MSRouteHandler.cpp:1472
 msgid "Ignoring arrivalPos for % because it is outside the given stop '%'."
 msgstr ""
+"Ignorando posición de llegada arrivalPos para % porque está por fuera de la "
+"parada dada '%'."
 
 #: src/microsim/MSRouteHandler.cpp:1478 src/router/RORouteHandler.cpp:1116
 msgid "No destination edge for %."
@@ -3319,6 +3330,8 @@ msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
+"El vehículo '%' realiza un frenado de emergencia en el carril '%' con "
+"desaceleración=%, deseada=%, severidad=%, tiempo=%."
 
 #: src/microsim/MSVehicle.cpp:5708
 #, c-format
@@ -3331,7 +3344,7 @@ msgstr "El vehículo '%' se salta la parada en el carril '%' tiempo=%."
 
 #: src/microsim/MSVehicle.cpp:7563
 msgid "Error: Invalid vehicles in state (may be a meso state)!"
-msgstr ""
+msgstr "Error: ¡Vehículos en estado no válidos (puede ser un estado meso)!"
 
 #: src/microsim/MSVehicle.cpp:7594
 msgid "Action steps are out of sync for loaded vehicle '%'."
@@ -3371,12 +3384,16 @@ msgid ""
 "Value of 'emergencyDecel' (%) should be higher than 'decel' (%) for vType "
 "'%'."
 msgstr ""
+"El valor de 'emergencyDecel' (%) debe ser mayor que 'decel' (%) para el tipo "
+"de vehículo '%'."
 
 #: src/microsim/MSVehicleType.cpp:340
 msgid ""
 "Value of 'emergencyDecel' (%) is lower than 'apparentDecel' (%) for vType "
 "'%' may cause collisions."
 msgstr ""
+"El valor de 'emergencyDecel' (%) es menor que 'apparentDecel' (%) para el "
+"tipo de vehículo '%', esto puede causar colisiones."
 
 #: src/microsim/MSVehicleType.cpp:462
 #, c-format
@@ -3384,6 +3401,8 @@ msgid ""
 "Value of tau=% in vehicle type '%' lower than simulation step size may cause "
 "collisions."
 msgstr ""
+"El valor de tau=% en el tipo de vehículo '%' es inferior al tamaño del paso "
+"de simulación, esto puede causar colisiones."
 
 #: src/microsim/MSVehicleType.cpp:468
 #, c-format
@@ -3419,7 +3438,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Krauss.cpp:58
 msgid "Rounding 'sigmaStep' to % for vType '%'"
-msgstr ""
+msgstr "Redondeando 'sigmaStep' a % para el tipo de vehículo '%'"
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:86
 msgid "Unknown train type: %. Exiting!"
