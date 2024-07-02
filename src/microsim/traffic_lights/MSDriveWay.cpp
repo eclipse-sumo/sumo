@@ -49,6 +49,7 @@
 //#define DEBUG_FIND_PROTECTION
 //#define DEBUG_ADD_FOES
 //#define DEBUG_SIGNALSTATE
+//#define DEBUG_MOVEREMINDER
 
 #define DEBUG_COND DEBUG_HELPER(this)
 //#define DEBUG_HELPER(obj) ((obj)->isSelected())
@@ -89,7 +90,7 @@ MSDriveWay::init() {
 
 
 MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
-        MSMoveReminder("DriveWay_" + (temporary ? "tmp" : toString(myGlobalDriveWayIndex))),
+        MSMoveReminder("DriveWay_" + (temporary ? "tmp" : id)),
         Named(id),
         myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
         myMaxFlankLength(0),
@@ -145,11 +146,13 @@ bool
 MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
     UNUSED_PARAMETER(reason);
     UNUSED_PARAMETER(enteredLane);
-    //std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
+#ifdef DEBUG_MOVEREMINDER
+    std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
+#endif
     if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
-        if (myTrains.count(&sveh) == 0 &&  match(sveh.getRoute(), firstIt)) {
+        if (myTrains.count(&sveh) == 0 && match(sveh.getRoute(), firstIt)) {
             myTrains.insert(&sveh);
             if (myWriteVehicles) {
                 myVehicleEvents.push_back(VehicleEvent(SIMSTEP, true, veh.getID(), reason));
@@ -165,7 +168,9 @@ bool
 MSDriveWay::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, Notification reason, const MSLane* enteredLane) {
     UNUSED_PARAMETER(reason);
     UNUSED_PARAMETER(enteredLane);
-    //std::cout << SIMTIME << " notifyLeave " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(enteredLane) << " reason=" << toString(reason) << "\n";
+#ifdef DEBUG_MOVEREMINDER
+    std::cout << SIMTIME << " notifyLeave " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(enteredLane) << " reason=" << toString(reason) << "\n";
+#endif
     if (veh.isVehicle()) {
         // leaving network with departure, teleport etc
         if (reason != MSMoveReminder::NOTIFICATION_JUNCTION && reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
@@ -187,7 +192,9 @@ bool
 MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane) {
     UNUSED_PARAMETER(reason);
     UNUSED_PARAMETER(leftLane);
-    //std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
+#ifdef DEBUG_MOVEREMINDER
+    std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
+#endif
     if (veh.isVehicle()) {
         if (leftLane == myForward.back()) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
@@ -1231,7 +1238,7 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == route.end() || myFoundSignal || myFoundReversal)) {
+            && (itRoute == route.end() || myFoundSignal || myFoundReversal || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
         if (myFoundReversal && itRoute != route.end()) {
             // check whether the current route requires an extended driveway
