@@ -5,7 +5,10 @@
             <entry id="t0" time="124.00" reason="1"/>
             <exit id="t0" time="188.00" reason="1"/>
         </driveWay>
-        <subDriveWay id="A.0.0"/>
+        <subDriveWay id="A.0.0">
+            <entry id="t0" time="124.00" reason="1"/>
+            <exit id="t0" time="185.00" reason="1"/>
+        </subDriveWay>
     </link>
 </railSignal>
 <railSignal id="D">
@@ -32,7 +35,10 @@
             <entry id="t1" time="72.00" reason="1"/>
             <exit id="t1" time="126.00" reason="1"/>
         </driveWay>
-        <subDriveWay id="J1.0.0"/>
+        <subDriveWay id="J1.0.0">
+            <entry id="t1" time="72.00" reason="1"/>
+            <exit id="t1" time="121.00" reason="1"/>
+        </subDriveWay>
     </link>
     <link linkIndex="1" from="e2_0" to="f2_0"/>
 </railSignal>
