@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 15:55:00 by Eclipse SUMO sumo Version v1_20_0+0409-41434e86abd
+<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,8 +57,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_1"/>
-                <foes driveWays="A0.1 A.0 B.1 A0.2"/>
+                <foes driveWays="A0.1 A.0 B.1.0 A0.2"/>
             </driveWay>
+            <subDriveWay id="B.0.0" edges="">
+                <forward lanes=":B_0_0 -beg_0"/>
+            </subDriveWay>
         </link>
         <link linkIndex="1" from="-end_0" to=":B_1_0"/>
         <link linkIndex="2" from="beg_0" to=":B_2_0">
@@ -68,8 +71,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="B.0"/>
+                <foes driveWays="B.0.0"/>
             </driveWay>
+            <subDriveWay id="B.1.0" edges="">
+                <forward lanes=":B_2_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ3">

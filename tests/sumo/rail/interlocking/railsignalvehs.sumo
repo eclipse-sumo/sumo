@@ -17,12 +17,14 @@
             <entry id="ICE0" time="16365.00" reason="1"/>
             <exit id="ICE0" time="16597.00" reason="1"/>
         </driveWay>
+        <subDriveWay id="gneJ2.2.0"/>
     </link>
     <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
         <driveWay id="gneJ2.1">
             <entry id="RB1" time="16393.00" reason="1"/>
             <exit id="RB1" time="16474.00" reason="1"/>
         </driveWay>
+        <subDriveWay id="gneJ2.1.0"/>
     </link>
 </railSignal>
 <railSignal id="gneJ3">

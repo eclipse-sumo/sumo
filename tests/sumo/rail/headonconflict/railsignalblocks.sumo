@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 09:34:37 by Eclipse SUMO sumo Version v1_20_0+0403-5270330ea96
+<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,8 +51,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="cluster_gneJ19_gneJ21_1"/>
-                <foes driveWays="cluster_gneJ19_gneJ21.0"/>
+                <foes driveWays="cluster_gneJ19_gneJ21.0.0"/>
             </driveWay>
+            <subDriveWay id="cluster_gneJ19_gneJ21.1.0" edges="">
+                <forward lanes=":cluster_gneJ19_gneJ21_0_0"/>
+            </subDriveWay>
         </link>
         <link linkIndex="1" from="gneE14_0" to=":cluster_gneJ19_gneJ21_1_0">
             <driveWay id="cluster_gneJ19_gneJ21.0" edges="gneE16">
@@ -61,8 +64,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ22_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ22_0"/>
-                <foes driveWays="gneJ22.1 cluster_gneJ19_gneJ21.1"/>
+                <foes driveWays="gneJ22.1 cluster_gneJ19_gneJ21.1.0"/>
             </driveWay>
+            <subDriveWay id="cluster_gneJ19_gneJ21.0.0" edges="">
+                <forward lanes=":cluster_gneJ19_gneJ21_1_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ18">

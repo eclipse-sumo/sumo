@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 15:55:01 by Eclipse SUMO sumo Version v1_20_0+0409-41434e86abd
+<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,16 +52,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":J4_2_0 E30_0 :J9_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="J9_0"/>
-                <foes driveWays="J9.0"/>
+                <foes driveWays="J9.0.0"/>
             </driveWay>
+            <subDriveWay id="J5.0.0" edges="">
+                <forward lanes=":J5_0_0 -E4_0 :J4_0_0 -E8_0"/>
+            </subDriveWay>
             <driveWay id="J5.1" edges="-E4 -E3 -E3.50 -E0">
                 <forward lanes=":J5_0_0 -E4_0 :J4_1_0 -E3_0 :J9_0_0 -E3.50_0 :J1_1_0 -E0_0"/>
                 <bidi lanes=":J5_1_0 E4_0 :J4_2_0 E30_0 :J9_1_0 E3_0 :J1_2_0 E0_0"/>
                 <flank lanes=":J1_0_0 -E6_0 :J7_0_0 :J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"/>
                 <protectingSwitches links="J1_3"/>
                 <conflictLinks signals="J7_0"/>
-                <foes driveWays="J9.0 J0.0 J7.0"/>
+                <foes driveWays="J9.0.0 J0.0 J7.0"/>
             </driveWay>
+            <subDriveWay id="J5.1.0" edges="">
+                <forward lanes=":J5_0_0 -E4_0 :J4_1_0 -E3_0 :J9_0_0 -E3.50_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J7">
@@ -84,8 +90,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":J4_3_0 E8_0 :J8_1_0 E7_0 :J7_1_0 E6_0 :J1_3_0"/>
                 <protectingSwitches links="J1_3"/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J5.0 J6.1 J5.1"/>
+                <foes driveWays="J5.0.0 J6.1 J5.1.0"/>
             </driveWay>
+            <subDriveWay id="J9.0.0" edges="">
+                <forward lanes=":J9_1_0 E30_0 :J4_2_0 E4_0 :J5_1_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="J6">

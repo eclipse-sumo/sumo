@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 09:40:25 by Eclipse SUMO sumo Version v1_20_0+0403-5270330ea96
+<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,8 +46,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="1002_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="2_0"/>
-                <foes driveWays="2.0"/>
+                <foes driveWays="2.0.0"/>
             </driveWay>
+            <subDriveWay id="1.-369015552.0" edges="">
+                <forward lanes="1044_0 1072_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="10">
@@ -61,8 +64,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="1002_0 1068_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="2_0 28_0"/>
-                <foes driveWays="2.0 12.0"/>
+                <foes driveWays="2.0 12.0.0"/>
             </driveWay>
+            <subDriveWay id="11.0.0" edges="">
+                <forward lanes="1052_0 1075_0 1058_0 1077_0 1053_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="12">
@@ -73,8 +79,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="1068_0 1073_0 1084_0 1066_0 1081_0"/>
                 <protectingSwitches links="37_0"/>
                 <conflictLinks signals="28_0 15_0"/>
-                <foes driveWays="11.0 14.1 15.1"/>
+                <foes driveWays="11.0.0 14.1 15.1"/>
             </driveWay>
+            <subDriveWay id="12.0.0" edges="">
+                <forward lanes="1012_0 1034_0 1017_0 1033_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="15">
@@ -98,8 +107,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="1005_0 1006_0 1068_0 1073_0 1084_0 1066_0 1081_0"/>
                 <protectingSwitches links="37_0"/>
                 <conflictLinks signals="6_0 28_0 15_0"/>
-                <foes driveWays="11.0 1.-369015552 15.1"/>
+                <foes driveWays="11.0 1.-369015552.0 15.1"/>
             </driveWay>
+            <subDriveWay id="2.0.0" edges="">
+                <forward lanes="1002_0 1031_0 1001_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="27">
