@@ -35,23 +35,27 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # select first left edge and change their junction
-netedit.leftClick(referencePosition, 400, 215)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "B", False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J0", False)
 netedit.rebuildNetwork()
 
 # select second left edge and change their junction
-netedit.leftClick(referencePosition, 400, 265)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "A", False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J3", False)
 netedit.rebuildNetwork()
 
 # select first right edge and change their junction
-netedit.leftClick(referencePosition, 580, 215)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "B", False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop.x,
+                  netedit.positions.network.edge.rightTop.y)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.toEdge, "J0", False)
 netedit.rebuildNetwork()
 
 # select second right edge and change their junction
-netedit.leftClick(referencePosition, 580, 265)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "A", False)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot.x,
+                  netedit.positions.network.edge.rightBot.y)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J3", False)
 netedit.rebuildNetwork()
 
 # Check undo redo
@@ -64,6 +68,9 @@ netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
+
+# press space to fix crossings
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)
