@@ -52,16 +52,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
 # Change priority
 netedit.modifyBoolAttribute(netedit.attrs.crossing.inspectSelectionTLS.priority, True)
 
-# rebuild network
-netedit.rebuildNetwork()
-
-# Check undos
+# Check undo redo
 netedit.undo(referencePosition, 1)
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# Check redos
 netedit.redo(referencePosition, 1)
 
 # save Netedit config

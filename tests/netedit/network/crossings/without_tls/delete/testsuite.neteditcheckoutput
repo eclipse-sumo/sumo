@@ -1,11 +1,9 @@
-# delete crossing
 basic
 
-# delete junction, undo and redo (net must be the same as original)
+no_recomputing
+
+no_redo
+
 junction
 
-# delete junction, undo, but not redo
 junction_noredo
-
-# delete crossing, undo, but not redo
-noredo

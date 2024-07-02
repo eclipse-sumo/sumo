@@ -1,9 +1,6 @@
 # folder with bugs related to additionals
 additionals
 
-# folder with bugs related to crossings
-crossings
-
 # folder with bugs related to processing
 grid
 
@@ -13,12 +10,12 @@ processing
 # folder with bugs related to viewport
 viewport
 
-# in revision [24081] was solved a bug, that provoke a crash 
+# in revision [24081] was solved a bug, that provoke a crash
 # when the position of a node was changed using inspector node,
 # due a call to computesinglenode(...)
 revision24081
 
-# loading a net.xml with prohibitions and deleting edges fails 
+# loading a net.xml with prohibitions and deleting edges fails
 ticket1711
 
 # warm about unsaved additionals
@@ -33,7 +30,7 @@ ticket3900
 # after recomputing green verge change to bikelanes
 ticket4528
 
-# crash after sequence of undo-redo, recomputings and join junctions 
+# crash after sequence of undo-redo, recomputings and join junctions
 ticket5552
 
 # Crash after undo lane deletion

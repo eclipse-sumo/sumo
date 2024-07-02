@@ -31,6 +31,21 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
+# set crossing mode
+netedit.crossingMode()
+
+# select central node
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
+
+# select two left edges and create crossing in edges 3 and 7
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.typeEnter()
+netedit.rebuildNetwork()
+
 # go to delete mode
 netedit.deleteMode()
 

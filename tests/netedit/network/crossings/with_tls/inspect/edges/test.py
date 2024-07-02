@@ -31,6 +31,23 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
+# set crossing mode
+netedit.crossingMode()
+
+# select central node
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
+
+# select two left edges and create crossing in edges 3 and 7
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.typeEnter()
+
+# Rebuild network
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
@@ -41,47 +58,23 @@ netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
 # set invalid edge
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "dummy Edges", True)
 
+# Change set
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E2 -E2", True)
+
 # Change Edges adding a new edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3 7 1", True)
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E0", True)
 
-# rebuild network
-netedit.rebuildNetwork()
-
-# inspect crossing again after recomputing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
-
-# Change Edges with the same edges as another crossing (Duplicate
-# crossings aren't allowed, see Ticket #4043
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "4 8", True)
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# inspect crossing again after recomputing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
-
-# Change Edges to a single edge
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "3", True)
-
-# rebuild network
-netedit.rebuildNetwork()
+# Change Edges adding a new edge
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.edges, "E0 -E0", True)
 
 # Check undos
-netedit.undo(referencePosition, 2)
-
-# rebuild network
-netedit.rebuildNetwork()
+netedit.undo(referencePosition, 3)
 
 # Check redos
-netedit.redo(referencePosition, 2)
+netedit.redo(referencePosition, 3)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
-
-# press space to fix crossings
-netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

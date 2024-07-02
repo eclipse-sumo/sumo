@@ -58,16 +58,8 @@ netedit.modifyAttribute(netedit.attrs.crossing.inspectSelectionTLS.linkIndex2, "
 # Change linkindex2 with a valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspectSelectionTLS.linkIndex2, "1", True)
 
-# rebuild network
-netedit.rebuildNetwork()
-
-# Check undos
+# Check undo redo
 netedit.undo(referencePosition, 1)
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# Check redos
 netedit.redo(referencePosition, 1)
 
 # save Netedit config

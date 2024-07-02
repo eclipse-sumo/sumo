@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 13:55:35 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2024-07-02 10:43:11 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -62,6 +62,6 @@
 
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
-    <crossing node="Junction5" edges="E2 -E2" priority="0" width="4.00" shape="6.00,-6.00 2.00,-6.00 2.00,-2.00 6.00,-2.00 6.00,2.00 2.00,2.00 2.00,6.00 6.00,6.00" outlineShape="7.50,-4.00 8.00,-4.00 8.00,4.00 7.50,4.00 6.00,8.00 0.00,8.00 0.00,0.00 4.00,0.00 0.00,0.00 0.00,-8.00 6.00,-8.00"/>
+    <crossing node="Junction5" edges="E2 -E2" priority="1" width="5.00" shape="6.00,-6.00 2.00,-6.00 2.00,-2.00 6.00,-2.00 6.00,2.00 2.00,2.00 2.00,6.00 6.00,6.00" outlineShape="7.50,-4.50 8.50,-4.50 8.50,4.50 7.50,4.50 6.00,8.50 -0.50,8.50 -0.50,-0.50 3.50,-0.50 3.50,0.50 -0.50,0.50 -0.50,-8.50 6.00,-8.50"/>
     <crossing node="Junction5" edges="E1 -E1" priority="0" width="4.00" outlineShape="-7.50,4.10 -7.50,-4.10 -6.43,-4.10 -5.56,-4.39 -4.87,-4.88 -4.39,-5.56 -4.17,-6.22 -3.50,-4.00 -3.50,4.00 -4.17,6.22 -4.39,5.56 -4.87,4.88 -5.56,4.39 -6.43,4.10"/>
 </connections>

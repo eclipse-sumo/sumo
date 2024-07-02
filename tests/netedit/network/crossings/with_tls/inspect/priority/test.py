@@ -31,6 +31,23 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # Rebuild network
 netedit.rebuildNetwork()
 
+# set crossing mode
+netedit.crossingMode()
+
+# select central node
+netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
+                  netedit.positions.network.junction.center.y)
+
+# select two left edges and create crossing in edges 3 and 7
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
+                  netedit.positions.network.edge.leftTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
+                  netedit.positions.network.edge.leftBot.y)
+netedit.typeEnter()
+
+# Rebuild network
+netedit.rebuildNetwork()
+
 # go to inspect mode
 netedit.inspectMode()
 
@@ -41,17 +58,11 @@ netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
 # Change priority
 netedit.modifyBoolAttribute(netedit.attrs.crossing.inspectTLS.priority, True)
 
-# rebuild network
-netedit.rebuildNetwork()
-
 # Check undos
-netedit.undo(referencePosition, 1)
-
-# rebuild network
-netedit.rebuildNetwork()
+netedit.undo(referencePosition, 2)
 
 # Check redos
-netedit.redo(referencePosition, 1)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
