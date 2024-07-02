@@ -119,10 +119,6 @@ MSDriveWay::~MSDriveWay() {
         auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
         if (it != foe->myFoes.end()) {
             foe->myFoes.erase(it);
-        } else if (myNumericalID != -1 && !foe->myIsSubDriveway) {
-#ifdef DRIVEWAY_SANITY_CHECK
-            WRITE_WARNINGF("Driveway % (%) does not show up in foes of foe driveway % (%).", myID, myNumericalID, foe->myID, foe->getNumericalID());
-#endif
         }
     }
     for (const MSLink* link : myForwardSwitches) {
@@ -638,6 +634,20 @@ MSDriveWay::crossingConflict(const MSDriveWay& other) const {
     return false;
 }
 
+
+bool
+MSDriveWay::bidiBlockedBy(const MSDriveWay& other) const {
+    for (const MSLane* lane : myBidi) {
+        for (const MSLane* lane2 : other.myForward) {
+            if (lane == lane2) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
@@ -1152,12 +1162,27 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     const MSEdge* lastEdge = &dw->myForward.back()->getEdge();
     for (MSDriveWay* foe : uniqueFoes) {
         const MSEdge* foeLastEdge = &foe->myForward.back()->getEdge();
-        if (foeLastEdge == lastEdge
-                || std::find(foe->myBidi.begin(), foe->myBidi.end(), dw->myForward.back()) != foe->myBidi.end() 
-                || std::find(dw->myBidi.begin(), dw->myBidi.end(), foe->myForward.back()) != dw->myBidi.end()) {
-            foe->myFoes.push_back(dw);
-            dw->myFoes.push_back(foe);
+        const bool sameLast = foeLastEdge == lastEdge;
+        const bool dwOnFoeBidi = std::find(foe->myBidi.begin(), foe->myBidi.end(), dw->myForward.back()) != foe->myBidi.end();
+        const bool foeOnDwBidi = std::find(dw->myBidi.begin(), dw->myBidi.end(), foe->myForward.back()) != dw->myBidi.end();
+        if (sameLast || dwOnFoeBidi || foeOnDwBidi) {
+#ifdef DEBUG_BUILD_DRIVEWAY
+            if (DEBUG_COND_DW) {
+                std::cout << " symmetrical full-length foe " << foe->getID() << " dwOnFoeBidi=" << dwOnFoeBidi << " foeOnDwBidi=" << foeOnDwBidi << "\n";
+            }
+#endif
+            if (sameLast || foe->bidiBlockedBy(*dw)) {
+                foe->myFoes.push_back(dw);
+            }
+            if (sameLast || dw->bidiBlockedBy(*foe)) {
+                dw->myFoes.push_back(foe);
+            }
         } else {
+#ifdef DEBUG_BUILD_DRIVEWAY
+            if (DEBUG_COND_DW) {
+                std::cout << " symmetrical buildSubFoe for foe " << foe->getID() << "\n";
+            }
+#endif
             foe->buildSubFoe(dw);
             dw->buildSubFoe(foe);
         }
