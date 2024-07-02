@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-01 12:25+0000\n"
+"PO-Revision-Date: 2024-07-02 09:42+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1688,7 +1688,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:230
 msgid "Write the exit times for all edges"
-msgstr ""
+msgstr "Guardar los tiempos de salida para todas las aristas"
 
 #: src/microsim/MSFrame.cpp:234
 msgid "Write the last route only"
@@ -1709,6 +1709,7 @@ msgstr "Escribir costos para todas las rutas"
 #: src/microsim/MSFrame.cpp:249
 msgid "Write the output with the intended instead of the real departure time"
 msgstr ""
+"Guardar la salida con el tiempo de salida previsto en lugar del tiempo real"
 
 #: src/microsim/MSFrame.cpp:256
 msgid ""
@@ -1717,11 +1718,12 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:259
 msgid "Skip vehroute output for public transport vehicles"
-msgstr ""
+msgstr "Saltar salida de ruta para vehículos de transporte público"
 
 #: src/microsim/MSFrame.cpp:262
 msgid "Include invalid routes and route stubs in vehroute output"
 msgstr ""
+"Incluir rutas no válidas y trozos de ruta en la salida de rutas de vehículos"
 
 #: src/microsim/MSFrame.cpp:265
 msgid "Include information about edges between stops"
@@ -2104,6 +2106,7 @@ msgstr "Apaga todos los semáforos."
 #: src/microsim/MSFrame.cpp:472
 msgid "Sets default visibility for actuation detectors"
 msgstr ""
+"Establece la visibilidad predeterminada para los detectores de actuación"
 
 #: src/microsim/MSFrame.cpp:475
 msgid "Sets default jam-threshold parameter for all actuation detectors"
@@ -2115,7 +2118,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:481
 msgid "Sets default range for detecting delayed vehicles"
-msgstr ""
+msgstr "Establece el rango predeterminado para detectar vehículos retrasados"
 
 #: src/microsim/MSFrame.cpp:484
 msgid "Minimum deceleration when braking at yellow"
@@ -2124,6 +2127,8 @@ msgstr "Desaceleración mínima al frenar en amarillo"
 #: src/microsim/MSFrame.cpp:487
 msgid "Let railsignals operate in moving-block mode by default"
 msgstr ""
+"Permitir que las señales ferroviarias funcionen en modo moving-block de "
+"forma predeterminada"
 
 #: src/microsim/MSFrame.cpp:490
 msgid ""
@@ -2169,6 +2174,9 @@ msgid ""
 "sets the value either to the same as the deceleration value, a vClass-class "
 "specific default or the given FLOAT in m/s^2"
 msgstr ""
+"Seleccionar el valor para emergencyDecel entre ('decel', 'default', FLOAT), "
+"que establece el valor igual al de desaceleración, o un valor predeterminado "
+"específico de la clase de vehículo o a un FLOAT dado en m/s^2"
 
 #: src/microsim/MSFrame.cpp:506
 msgid "Use Kirchhoff's laws for solving overhead wire circuit"
@@ -2179,12 +2187,16 @@ msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
 msgstr ""
+"Habilitar la recuperación desde el vehículo equipado con dispositivo "
+"elecHybrid hacia la catenaria."
 
 #: src/microsim/MSFrame.cpp:512
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
 msgstr ""
+"Habilitar los límites de corriente de la subestación de carga durante la "
+"resolución del circuito eléctrico de la catenaria."
 
 #: src/microsim/MSFrame.cpp:515
 msgid ""
@@ -2232,6 +2244,8 @@ msgid ""
 "Minimal gap / safety buffer (in meters) from a pedestrian to another vehicle "
 "for use with model 'striping'"
 msgstr ""
+"Espacio mínimo/ de seguridad (en metros) entre un peatón y otro vehículo "
+"para usar con el modelo 'striping'"
 
 #: src/microsim/MSFrame.cpp:540
 msgid ""
