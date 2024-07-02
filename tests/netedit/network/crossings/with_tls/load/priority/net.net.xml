@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 13:48:31 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
-<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-02 13:13:07 by Eclipse SUMO netconvert Version v1_20_0+1086-2e1dca775a5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\crossings\with_tls\load\priority\net.net.xml"/>
+        <node-files value=".\netedit\network\crossings\with_tls\load\priority\net.nod.xml"/>
+        <edge-files value=".\netedit\network\crossings\with_tls\load\priority\net.edg.xml"/>
+        <connection-files value=".\netedit\network\crossings\with_tls\load\priority\net.con.xml"/>
+        <tllogic-files value=".\netedit\network\crossings\with_tls\load\priority\net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\network\crossings\with_tls\load\priority\net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value=".\netedit\network\crossings\with_tls\load\priority\net.net.xml"/>
     </output>
 
+    <projection>
+        <proj value="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    </projection>
+
     <processing>
-        <geometry.min-radius.fix.railways value="false"/>
-        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <lefthand value="0"/>
     </processing>
 
-    <junctions>
-        <no-internal-links value="false"/>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.50"/>
-        <rectangular-lane-cut value="0"/>
-    </junctions>
+    <report>
+        <verbose value="true"/>
+    </report>
 
-    <pedestrian>
-        <walkingareas value="0"/>
-    </pedestrian>
-
-</neteditConfiguration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -196,18 +203,18 @@
         <request index="2"  response="10000000000000010" foes="10000000010100010" cont="1"/>
         <request index="3"  response="00100000000000000" foes="01110000010100000" cont="0"/>
         <request index="4"  response="00000001000000000" foes="00000001000000000" cont="0"/>
-        <request index="5"  response="00000101000001111" foes="10000101001001111" cont="0"/>
+        <request index="5"  response="10000101000001111" foes="10000101001001111" cont="0"/>
         <request index="6"  response="00000101000100000" foes="00000101000100000" cont="1"/>
-        <request index="7"  response="00000101000001110" foes="10000101000001110" cont="0"/>
+        <request index="7"  response="10000101000001110" foes="10000101000001110" cont="0"/>
         <request index="8"  response="00000000000000000" foes="00010000000000000" cont="0"/>
         <request index="9"  response="00000000001000000" foes="01010010011110000" cont="0"/>
         <request index="10" response="00000001000000000" foes="01010001000000000" cont="1"/>
         <request index="11" response="00000000001000000" foes="01010000011100000" cont="0"/>
-        <request index="12" response="00000000000000010" foes="10000000000000010" cont="0"/>
-        <request index="13" response="00000111100001010" foes="10100111100001010" cont="0"/>
-        <request index="14" response="00010000000001010" foes="10010000000001010" cont="1"/>
-        <request index="15" response="00000111000001010" foes="10000111000001010" cont="0"/>
-        <request index="16" response="01111000010100000" foes="01111000010100101" cont="0"/>
+        <request index="12" response="10000000000000010" foes="10000000000000010" cont="0"/>
+        <request index="13" response="10000111100001010" foes="10100111100001010" cont="0"/>
+        <request index="14" response="10010000000001010" foes="10010000000001010" cont="1"/>
+        <request index="15" response="10000111000001010" foes="10000111000001010" cont="0"/>
+        <request index="16" response="00000000000000000" foes="01111000010100101" cont="0"/>
     </junction>
     <junction id="JunctionExtern0" type="priority" x="-60.00" y="0.00" incLanes="EdgeExternTop_0" intLanes=":JunctionExtern0_0_0" shape="-60.00,0.00 -60.00,3.00 -60.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -272,7 +279,7 @@
     <connection from=":J3_w0" to="-E3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="E3" to=":J3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_c0" to=":Junction5_w3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":Junction5_w0" to=":Junction5_c0" fromLane="0" toLane="0" tl="Junction5" linkIndex="16" dir="s" state="m"/>
+    <connection from=":Junction5_w0" to=":Junction5_c0" fromLane="0" toLane="0" tl="Junction5" linkIndex="16" dir="s" state="M"/>
     <connection from=":Junction5_w0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="-E0" to=":Junction5_w0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":Junction5_w1" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
