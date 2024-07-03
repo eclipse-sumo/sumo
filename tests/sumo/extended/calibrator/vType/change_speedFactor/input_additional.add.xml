@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="t2" accel="1" sigma="0.8" speedFactor="2" speedDev="0.2"/>
+    <calibrator id="c1" lane="middle_0" pos="0">
+        <flow begin="0"    end="3600" type="t2"/>
+    </calibrator>
+</additional>

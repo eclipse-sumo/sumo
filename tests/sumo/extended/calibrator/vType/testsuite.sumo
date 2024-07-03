@@ -9,3 +9,9 @@ type_and_speed
 
 # only calibrate a specific vehicle type
 vTypes
+
+# new type has a wider and shifted speedFactor distribution
+change_speedFactor
+
+# original type had speedDev 0 but new type has not
+change_speedFactor_origDev0
