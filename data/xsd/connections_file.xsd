@@ -6,13 +6,16 @@
     <xsd:element name="connections" type="connectionsType"/>
 
     <xsd:complexType name="connectionsType">
-        <xsd:choice minOccurs="0" maxOccurs="unbounded">
-            <xsd:element name="connection" type="connectionType"/>
-            <xsd:element name="prohibition" type="prohibitionType"/>
-            <xsd:element name="delete" type="deleteType"/>
-            <xsd:element name="crossing" type="crossingType"/>
-            <xsd:element name="walkingArea" type="walkingAreaType"/>
-        </xsd:choice>
+        <xsd:sequence>
+            <xsd:element name="location" type="locationType" minOccurs="0" maxOccurs="1"/>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="connection" type="connectionType"/>
+                <xsd:element name="prohibition" type="prohibitionType"/>
+                <xsd:element name="delete" type="deleteType"/>
+                <xsd:element name="crossing" type="crossingType"/>
+                <xsd:element name="walkingArea" type="walkingAreaType"/>
+            </xsd:choice>
+        </xsd:sequence>
         <xsd:attribute name="version" use="optional">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
