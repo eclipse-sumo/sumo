@@ -197,3 +197,6 @@ ticket14930
 
 # self overlapping outline
 ticket15111
+
+# custom node shape projected twice
+ticket15137
