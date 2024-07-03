@@ -78,3 +78,6 @@ custom_tll
 
 # railway crossing with pedestrian crossings
 rail_crossing
+
+# see #15136
+custom_shape_proj
