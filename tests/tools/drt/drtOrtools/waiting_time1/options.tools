@@ -1,1 +1,1 @@
---waiting-time 40 --fix-allocation
+--waiting-time 40 --drf 3 --fix-allocation

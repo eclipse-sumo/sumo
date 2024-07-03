@@ -3,7 +3,7 @@ Simulation parameters:
   interval: 30
   time_limit: 10
   cost_type: CostType.DISTANCE
-  drf: 1.5
+  drf: 3.0
   waiting_time: 40.0
   fix_allocation: True
 timestep: 0.0
@@ -14,11 +14,12 @@ Start creating the model.
 dp reservations: ['0', '1']
 do reservations: []
 Reservation 0 starts at edge B0C0
-Reservation 1 starts at edge C0D0
-Reservation 0 ends at edge C1D1
-Reservation 1 ends at edge D0D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 0 ends at edge C1C2
+Reservation 1 ends at edge C0B0
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -29,8 +30,8 @@ allow to reject new reservation 0
 pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (hard) max cost 1020
-reservation 1: direct route cost 385 and (hard) max cost 578
+reservation 0: direct route cost 485 and (hard) max cost 1455
+reservation 1: direct route cost 480 and (hard) max cost 1440
  Add dropoff constraints...
  Add "no re-allocation" constraints...
  Add capacity constraints...
@@ -46,7 +47,7 @@ reservation 1 has a maximum (hard) pickup time at 40
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective: 15132
+Objective: 800000
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (1,600))
  ->  0 (L: 0, C: 0, T: (1,600))
@@ -64,11 +65,12 @@ Start creating the model.
 dp reservations: ['0', '1']
 do reservations: []
 Reservation 0 starts at edge B0C0
-Reservation 1 starts at edge C0D0
-Reservation 0 ends at edge C1D1
-Reservation 1 ends at edge D0D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 0 ends at edge C1C2
+Reservation 1 ends at edge C0B0
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -79,8 +81,8 @@ allow to reject new reservation 0
 pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (hard) max cost 1020
-reservation 1: direct route cost 385 and (hard) max cost 578
+reservation 0: direct route cost 485 and (hard) max cost 1455
+reservation 1: direct route cost 480 and (hard) max cost 1440
  Add dropoff constraints...
  Add "no re-allocation" constraints...
  Add capacity constraints...
@@ -98,7 +100,7 @@ reservation 1 has a maximum (hard) pickup time at 40
 Start solving the problem.
 Initial solution:
 veh 0: []
-Objective: 15132
+Objective: 800000
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (30,600))
  ->  0 (L: 0, C: 0, T: (30,600))
@@ -116,6 +118,7 @@ Start creating the model.
 Reservations rejected: ['0', '1']
 dp reservations: []
 do reservations: []
+Penalty factor is 1
 Start solving the problem.
  Register distance callback.
  Create time dimension.

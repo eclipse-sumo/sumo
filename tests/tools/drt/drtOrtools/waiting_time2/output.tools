@@ -3,8 +3,8 @@ Simulation parameters:
   interval: 30
   time_limit: 10
   cost_type: CostType.DISTANCE
-  drf: 1.5
-  waiting_time: 60.0
+  drf: 3.0
+  waiting_time: 80.0
   fix_allocation: True
 timestep: 0.0
 Reservations waiting: ['0', '1']
@@ -14,11 +14,12 @@ Start creating the model.
 dp reservations: ['0', '1']
 do reservations: []
 Reservation 0 starts at edge B0C0
-Reservation 1 starts at edge C0D0
-Reservation 0 ends at edge C1D1
-Reservation 1 ends at edge D0D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 0 ends at edge C1C2
+Reservation 1 ends at edge C0B0
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -29,8 +30,8 @@ allow to reject new reservation 0
 pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (hard) max cost 1020
-reservation 1: direct route cost 385 and (hard) max cost 578
+reservation 0: direct route cost 485 and (hard) max cost 1455
+reservation 1: direct route cost 480 and (hard) max cost 1440
  Add dropoff constraints...
  Add "no re-allocation" constraints...
  Add capacity constraints...
@@ -41,23 +42,23 @@ hard time window for node 3: [1, 600]
 hard time window for node 4: [1, 600]
 hard time window for node 5: [1, 600]
  Add waiting time constraints...
-reservation 0 has a maximum (hard) pickup time at 60
-reservation 1 has a maximum (hard) pickup time at 60
+reservation 0 has a maximum (hard) pickup time at 80
+reservation 1 has a maximum (hard) pickup time at 80
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective: 8834
+Objective: 401073
 Route for vehicle 0:
-     5 (L: 0, C: 0, T: (1,18))
- ->  1 (L: 1, C: 588, T: (43,60))
- ->  2 (L: 0, C: 1268, T: (156,600))
- ->  0 (L: 0, C: 1268, T: (156,600))
-Costs of the route: 1268
+     5 (L: 0, C: 0, T: (1,38))
+ ->  1 (L: 1, C: 588, T: (43,80))
+ ->  2 (L: 0, C: 1073, T: (142,600))
+ ->  0 (L: 0, C: 1073, T: (142,600))
+Costs of the route: 1073
 
-Total cost of the routes: 1268
+Total cost of the routes: 1073
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '0']
-Costs for v0: 1268
+Costs for v0: 1073
 timestep: 30.0
 Reservations waiting: ['1']
 Reservations being picked up: ['0']
@@ -67,11 +68,12 @@ Start creating the model.
 dp reservations: ['0', '1']
 do reservations: []
 Reservation 0 starts at edge B0C0
-Reservation 1 starts at edge C0D0
-Reservation 0 ends at edge C1D1
-Reservation 1 ends at edge D0D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 0 ends at edge C1C2
+Reservation 1 ends at edge C0B0
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 900
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -81,8 +83,8 @@ pickup/dropoff nodes: 1/2
 pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (soft) max cost 1020
-reservation 1: direct route cost 385 and (hard) max cost 578
+reservation 0: direct route cost 485 and (soft) max cost 1455
+reservation 1: direct route cost 480 and (hard) max cost 1440
  Add dropoff constraints...
  Add "no re-allocation" constraints...
 reservation 0 in veh id=0
@@ -94,25 +96,25 @@ hard time window for node 3: [30, 600]
 hard time window for node 4: [30, 600]
 hard time window for node 5: [30, 600]
  Add waiting time constraints...
-reservation 0 has a maximum (soft) pickup time at 60
-reservation 1 has a maximum (hard) pickup time at 60
+reservation 0 has a maximum (soft) pickup time at 80
+reservation 1 has a maximum (hard) pickup time at 80
 ## Done
  Set solution heuristic...
 Start solving the problem.
 Initial solution:
 veh 0: [1, 2]
-Objective: 8532
+Objective: 180771
 Route for vehicle 0:
      5 (L: 0, C: 0, T: (30,30))
  ->  1 (L: 1, C: 286, T: (51,51))
- ->  2 (L: 0, C: 966, T: (164,164))
- ->  0 (L: 0, C: 966, T: (164,164))
-Costs of the route: 966
+ ->  2 (L: 0, C: 771, T: (150,150))
+ ->  0 (L: 0, C: 771, T: (150,150))
+Costs of the route: 771
 
-Total cost of the routes: 966
+Total cost of the routes: 771
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '0']
-Costs for v0: 966
+Costs for v0: 771
 timestep: 60.0
 Reservations waiting: ['1']
 Reservations en route: ['0']
@@ -121,11 +123,12 @@ Solve CPDP
 Start creating the model.
 dp reservations: ['1']
 do reservations: ['0']
-Reservation 1 starts at edge C0D0
-Reservation 1 ends at edge D0D1
-Drop-off of reservation 0 at edge C1D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 1 ends at edge C0B0
+Drop-off of reservation 0 at edge C1C2
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 900
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -134,8 +137,8 @@ Start solving the problem.
 pickup/dropoff nodes: 2/3
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 1: direct route cost 385 and (hard) max cost 578
-reservation 0: direct route cost 680 and (soft) max cost 1020, already used costs 324
+reservation 1: direct route cost 480 and (hard) max cost 1440
+reservation 0: direct route cost 485 and (soft) max cost 1455, already used costs 324
  Add dropoff constraints...
 reservation 0 in veh v0(0), droppoff node: 1
  Add "no re-allocation" constraints...
@@ -146,23 +149,23 @@ hard time window for node 2: [60, 600]
 hard time window for node 3: [60, 600]
 hard time window for node 4: [60, 600]
  Add waiting time constraints...
-reservation 1 has a maximum (hard) pickup time at 60
+reservation 1 has a maximum (hard) pickup time at 80
 ## Done
  Set solution heuristic...
 Start solving the problem.
 Initial solution:
 veh 0: [1]
-Objective: 7946
+Objective: 180186
 Route for vehicle 0:
      4 (L: 1, C: 0, T: (60,60))
- ->  1 (L: 0, C: 380, T: (148,148))
- ->  0 (L: 0, C: 380, T: (148,148))
-Costs of the route: 380
+ ->  1 (L: 0, C: 186, T: (133,133))
+ ->  0 (L: 0, C: 186, T: (133,133))
+Costs of the route: 186
 
-Total cost of the routes: 380
+Total cost of the routes: 186
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0']
-Costs for v0: 380
+Costs for v0: 186
 timestep: 90.0
 Reservations waiting: ['1']
 Reservations en route: ['0']
@@ -172,15 +175,16 @@ Start creating the model.
 Reservations rejected: ['1']
 dp reservations: []
 do reservations: ['0']
-Drop-off of reservation 0 at edge C1D1
-Reservation 0 has direct route costs 680
+Drop-off of reservation 0 at edge C1C2
+Reservation 0 has direct route costs 485
+Penalty factor is 90
 Start solving the problem.
  Register distance callback.
  Create time dimension.
  Add distance constraints...
  Add pickup and delivery constraints...
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (soft) max cost 1020, already used costs 675
+reservation 0: direct route cost 485 and (soft) max cost 1455, already used costs 480
  Add dropoff constraints...
 reservation 0 in veh v0(0), droppoff node: 1
  Add "no re-allocation" constraints...
@@ -194,17 +198,17 @@ hard time window for node 2: [90, 600]
 Start solving the problem.
 Initial solution:
 veh 0: [1]
-Objective: 286
+Objective: 86
 Route for vehicle 0:
      2 (L: 1, C: 0, T: (90,90))
- ->  1 (L: 0, C: 286, T: (111,111))
- ->  0 (L: 0, C: 286, T: (111,111))
-Costs of the route: 286
+ ->  1 (L: 0, C: 86, T: (96,96))
+ ->  0 (L: 0, C: 86, T: (96,96))
+Costs of the route: 86
 
-Total cost of the routes: 286
+Total cost of the routes: 86
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0']
-Costs for v0: 286
+Costs for v0: 86
 timestep: 120.0
 Reservations en route: ['0']
 Taxis occupied: ('v0',)

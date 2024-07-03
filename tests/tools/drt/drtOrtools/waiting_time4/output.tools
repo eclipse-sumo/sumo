@@ -1,10 +1,9 @@
- Retrying in 1 seconds
 Simulation parameters:
   end: 600.0
   interval: 30
   time_limit: 10
   cost_type: CostType.DISTANCE
-  drf: 1.5
+  drf: 3.0
   waiting_time: 300.0
   fix_allocation: True
 timestep: 0.0
@@ -15,11 +14,12 @@ Start creating the model.
 dp reservations: ['0', '1']
 do reservations: []
 Reservation 0 starts at edge B0C0
-Reservation 1 starts at edge C0D0
-Reservation 0 ends at edge C1D1
-Reservation 1 ends at edge D0D1
-Reservation 0 has direct route costs 680
-Reservation 1 has direct route costs 385
+Reservation 1 starts at edge C2C1
+Reservation 0 ends at edge C1C2
+Reservation 1 ends at edge C0B0
+Reservation 0 has direct route costs 485
+Reservation 1 has direct route costs 480
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -30,8 +30,8 @@ allow to reject new reservation 0
 pickup/dropoff nodes: 3/4
 allow to reject new reservation 1
  Add direct route factor constraints...
-reservation 0: direct route cost 680 and (hard) max cost 1020
-reservation 1: direct route cost 385 and (hard) max cost 578
+reservation 0: direct route cost 485 and (hard) max cost 1455
+reservation 1: direct route cost 480 and (hard) max cost 1440
  Add dropoff constraints...
  Add "no re-allocation" constraints...
  Add capacity constraints...
@@ -47,20 +47,20 @@ reservation 1 has a maximum (hard) pickup time at 300
 ## Done
  Set solution heuristic...
 Start solving the problem.
-Objective: 2628
+Objective: 1729
 Route for vehicle 0:
-     5 (L: 0, C: 0, T: (1,64))
- ->  1 (L: 1, C: 588, T: (43,106))
- ->  2 (L: 0, C: 1268, T: (156,219))
- ->  3 (L: 1, C: 2243, T: (237,300))
- ->  4 (L: 0, C: 2628, T: (328,600))
- ->  0 (L: 0, C: 2628, T: (328,600))
-Costs of the route: 2628
+     5 (L: 0, C: 0, T: (1,140))
+ ->  1 (L: 1, C: 588, T: (43,182))
+ ->  2 (L: 0, C: 1073, T: (142,281))
+ ->  3 (L: 1, C: 1249, T: (161,300))
+ ->  4 (L: 0, C: 1729, T: (258,600))
+ ->  0 (L: 0, C: 1729, T: (258,600))
+Costs of the route: 1729
 
-Total cost of the routes: 2628
+Total cost of the routes: 1729
 Start interpreting the solution for SUMO.
 Dispatching v0 with ['0', '0', '1', '1']
-Costs for v0: 2628
+Costs for v0: 1729
 timestep: 30.0
 Reservations being picked up: ['0', '1']
 Taxis picking up: ('v0',)
@@ -83,14 +83,11 @@ Taxis picking up: ('v0',)
 Taxis occupied: ('v0',)
 Taxis occupied and picking up: ('v0',)
 timestep: 150.0
-Reservations being picked up: ['1']
-Reservations en route: ['0']
-Taxis picking up: ('v0',)
+Reservations en route: ['1']
 Taxis occupied: ('v0',)
-Taxis occupied and picking up: ('v0',)
 timestep: 180.0
-Reservations being picked up: ['1']
-Taxis picking up: ('v0',)
+Reservations en route: ['1']
+Taxis occupied: ('v0',)
 timestep: 210.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
@@ -98,8 +95,7 @@ timestep: 240.0
 Reservations en route: ['1']
 Taxis occupied: ('v0',)
 timestep: 270.0
-Reservations en route: ['1']
-Taxis occupied: ('v0',)
+Taxis empty: ('v0',)
 timestep: 300.0
 Taxis empty: ('v0',)
 timestep: 330.0

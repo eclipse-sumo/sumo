@@ -1,4 +1,3 @@
- Retrying in 1 seconds
 Simulation parameters:
   end: 900.0
   interval: 30
@@ -44,6 +43,7 @@ Reservation 6 has direct route costs 1364
 Reservation 7 has direct route costs 575
 Reservation 8 has direct route costs 276
 Reservation 9 has direct route costs 1565
+Penalty factor is 3000
 Start solving the problem.
  Register distance callback.
  Create time dimension.

@@ -17,6 +17,7 @@ do reservations: []
 Reservation 0 starts at edge B0C0
 Reservation 0 ends at edge C1D1
 Reservation 0 has direct route costs 680
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -73,6 +74,7 @@ Reservation 1 ends at edge D0D1
 Reservation 0 ends at edge C1D1
 Reservation 1 has direct route costs 385
 Reservation 0 has direct route costs 680
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.
@@ -166,6 +168,7 @@ Drop-off of reservation 0 at edge C1D1
 Reservation 2 has direct route costs 485
 Reservation 1 has direct route costs 385
 Reservation 0 has direct route costs 680
+Penalty factor is 2000
 Start solving the problem.
  Register distance callback.
  Create time dimension.

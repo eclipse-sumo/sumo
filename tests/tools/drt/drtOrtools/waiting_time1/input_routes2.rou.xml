@@ -4,9 +4,9 @@
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
-        <ride from="B0C0" to="C1D1" lines="taxi"/>
+        <ride from="B0C0" to="C1C2" lines="taxi"/>
     </person>
     <person id="1" depart="0.00">
-        <ride from="C0D0" to="D0D1" lines="taxi"/>
+        <ride from="C2C1" to="C0B0" lines="taxi"/>
     </person>
 </routes>
