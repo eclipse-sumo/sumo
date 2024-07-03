@@ -881,7 +881,7 @@ title: Changes in the 2015 releases (versions 0.23.0, 0.24.0 and 0.25.0)
   - the attribute panel is now updated on undo/redo/recompute. #696
   - when creating a reverse edge with spread type *center*, the new
     edge is shifted sideways and given new endpoints.
-  - can now move the view in 'Create Edge'-mode by holding <CTRL\>
+  - can now move the view in 'Create Edge'-mode by holding <kbd>Ctrl</kbd>
 
 - Tools
   - [sort_routes.py](../Tools/Routes.md#sort_routespy) now

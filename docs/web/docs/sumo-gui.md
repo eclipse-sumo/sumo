@@ -84,7 +84,7 @@ Pressing the left mouse button within the view and moving the mouse with
 the button pressed, will shift the network. Moving the mouse up and down
 while pressing the right mouse button changes the zoom of the network.
 It is also possible to change the zoom by using the mouse wheel (holding
-*<SHIFT\>* increases the zooming speed and holding *<CTRL\>* lowers it).
+<kbd>Shift</kbd> increases the zooming speed and holding <kbd>Ctrl</kbd> lowers it).
 Zooming is either focused on the center of the screen or on the cursor
 position. The zoom style can be selected with the
 ![icon_zoomstyle.png](images/icon_zoomstyle.png "Zoomstyle") button.
@@ -117,29 +117,29 @@ methods:
 - via menu *Edit-\>Breakpoints*
 - by setting option **--breakpoints TIME1,TIME2,...**
 - by loading [Configuration Files](#configuration_files) with breakpoint information
-- by clicking on an underlined time value in the message/warning log area. The breakpoint will be set 5s *before* the time value. This offset is configurable via the 'Settings'-menu (**CTRL+H**). To investigate the reason for a teleport warning, setting the offset to 305s before the teleport event is recommended.
+- by clicking on an underlined time value in the message/warning log area. The breakpoint will be set 5s *before* the time value. This offset is configurable via the 'Settings'-menu (<kbd>Ctrl</kbd> + <kbd>H</kbd>). To investigate the reason for a teleport warning, setting the offset to 305s before the teleport event is recommended.
 
 ## Keyboard Shortcuts
 
 Various menu items are accessible via keyboard shortcuts. These are
-documented directly in the menu. (i.e. Ctrl-l Ctrl-e opens the edge
-locator, Ctrl-d performs a single simulation step). Additional shortcuts
+documented directly in the menu. (i.e. <kbd>Ctrl</kbd> + <kbd>l</kbd>, <kbd>Ctrl</kbd> + <kbd>e</kbd> opens the edge
+locator, <kbd>Ctrl</kbd> + <kbd>d</kbd> performs a single simulation step). Additional shortcuts
 are listed below:
 
-- Ctrl-LeftClick: toggle selection status of object under cursor
-- Arrow Keys: move the view
-- Ctrl + Arrow keys: move the view less
-- Alt + Arrow keys: move the view a lot
-- PageUp / PageDow: change simulation delay
+- <kbd>Ctrl</kbd> + <kbd>LeftClick</kbd>: toggle selection status of object under cursor
+- <kbd>Arrow keys</kbd>: move the view
+- <kbd>Ctrl</kbd> + <kbd>Arrow keys</kbd>: move the view less
+- <kbd>Alt</kbd> + <kbd>Arrow keys</kbd>: move the view a lot
+- <kbd>Page Up</kbd> / <kbd>Page Down</kbd>: change simulation delay
 - \+/-, Keypad +/-: zoom in/out
 - Home/Keypad Home: recenter view
-- F9: open view settings dialog
-- Shift-LeftClick:
+- <kbd>F9</kbd>: open view settings dialog
+- <kbd>Shift</kbd> + <kbd>LeftClick</kbd>:
   - vehicle: start tracking
   - rerouter: change routeProbReroute probabilities
 - Double-LeftClick: stop tracking
-- Ctrl + J: toggle 'show junction shapes'
-- Ctrl + K: toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**)
+- <kbd>Ctrl</kbd> + <kbd>J</kbd>: toggle 'show junction shapes'
+- <kbd>Ctrl</kbd> + <kbd>K</kbd>: toggle 'show secondary edge shape' (loaded with option **--alternative-net-file**)
 
 ## Object Properties / Right-Click-Functions
 
@@ -1116,7 +1116,7 @@ output or in error messages. The following visualization settings are
 helpful:
 
 - Junction settings:
-  - disable *draw junction shape* (toggle with hotkey CTRL+J)
+  - disable *draw junction shape* (toggle with hotkey <kbd>Ctrl</kbd> + <kbd>J</kbd>)
   - *show internal edge name*
   - *show internal junction name*
   - *show link junction index* (to see the correspondence between IDs and link indices)

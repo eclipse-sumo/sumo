@@ -46,7 +46,7 @@ title: Changes in the 2014 releases (versions 0.20.0, 0.21.0 and 0.22.0)
   - Fixed rerouting close to junctions
 
 - sumo-gui
-  - Single-stepping the simulation with hotkey (*Ctrl-D*) is now
+  - Single-stepping the simulation with hotkey (<kbd>Ctrl</kbd> + <kbd>D</kbd>) is now
         working as smoothly as intended.
   - Changing simulation delay via mousewheel now works when the
         pointer is on top of the dial.

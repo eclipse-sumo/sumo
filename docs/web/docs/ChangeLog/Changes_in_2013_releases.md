@@ -124,7 +124,7 @@ title: Changes in the 2013 releases (versions 0.17.0, 0.17.1, 0.18.0 and 0.19.0)
   - when drawing a vehicles route, the lanes which the vehicle
     intends to use are highlighted where this is known (previously
     the rightmost lane was always used).
-  - Added hotkeys Ctrl-A, Ctrl-S, Ctrl-D for running, stopping and
+  - Added hotkeys <kbd>Ctrl</kbd> + <kbd>A</kbd>, <kbd>Ctrl</kbd> + <kbd>S</kbd>, <kbd>Ctrl</kbd> + <kbd>D</kbd> for running, stopping and
     stepping the simulation
   - Added a menu for opening the object locator dialogs. Using the
     menu hotkeys allows searching for simulation objects without

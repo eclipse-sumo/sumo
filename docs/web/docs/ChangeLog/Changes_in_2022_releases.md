@@ -852,9 +852,9 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Added menu entry 'Simulation->Load' to quick-load a saved state for the current network.
   - The keys pgdup/pgdown can now be used to change simulation delay (their former functionality of quick-panning the view was taken up by alt+arrows). Issue #10199
   - Greatly improved rendering speed of polygons. Issue #10240
-  - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
+  - Hotkey <kbd>Ctrl</kbd> + <kbd>j</kbd> now toggles drawing of junction shapes. Issue #10362
   - Background images (decals) now support environment variable resolution in their paths. Issue #10371
-  - The *space* key can be used to toggle run/stop. Issue #10068
+  - The <kbd>space</kbd> key can be used to toggle run/stop. Issue #10068
   - Improved visibility of vehicles with exaggerated size on multi-lane roads with exaggerated size. Issue #10483
   - Vehicle length no longer affects size when drawing as circles. Issue #10629
   - Improved positioning when drawing persons as circles. Issue #10608
@@ -875,7 +875,7 @@ title: Changes in the 2022 releases (versions 1.12.0, 1.13.0, 1.14.0, 1.14.1 and
   - Parent elements (i.e. the busStop of an `<access>`) can now be set by clicking in the view. Issue #9652
   - In vType frame, an orange contour is drawn around vehicles with the current selected vType. Issue #10356
   - Improved feedback after reloading additionals. Issue #9362
-  - Hotkey **Ctrl+j** now toggles drawing of junction shapes. Issue #10362
+  - Hotkey <kbd>Ctrl</kbd> + <kbd>j</kbd> now toggles drawing of junction shapes. Issue #10362
   - Added 'smooth shape' to the connections context menu. Issue #10352
   - Deleting lanes in now works in create-edge mode. Issue #10409
   - Saving (compressed) networks with '.net.xml.gz' extension is now possible. Issue #10624

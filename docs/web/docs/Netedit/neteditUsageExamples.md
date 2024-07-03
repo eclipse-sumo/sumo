@@ -66,7 +66,7 @@ Afterwards, you will have to recompute the junction shape to see how it looks (F
   - Or [create a new edge with new junctions in create-edge mode](editModesNetwork.md#create_edges)
 2.  switch to [select mode](editModesCommon.md#select)
 3.  select the original junction and the new junction near it
-4.  Menu *Processing -> Join Selected Junctions (F7)*
+4.  Menu *Processing -> Join Selected Junctions* (<kbd>F7</kbd>)
 
 This will create a single joined junction but keep the endpoints at the original junction positions.
 
@@ -93,7 +93,7 @@ The reverse operation to *Setting a custom geometry endpoint* as explained above
 ## Converting a roundabout into a simple intersection
 
 1. select all junctions that are part of the roundabout
-2. join selected junctions (F7)
+2. join selected junctions (<kbd>F7</kbd>)
 3. select all edges that connected to the joined intersection
 4. right-click selection and select 'edge operations'->'restore geometry endpoints'
 
@@ -194,8 +194,8 @@ To change this, the following steps have to be taken:
 ## Creating a zipper merge
 
 1. use inspect mode to set junction type to 'zipper'.
-2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with CTRL+Click to override conflict protection.
-3. optionally: use inspect mode and enable 'show connections' (Alt+5). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
+2. use connection mode to add 2 connections which enter the zipper junction with the same target lane. The second connection must be created with <kbd>Ctrl</kbd> + <kbd>click</kbd> to override conflict protection.
+3. optionally: use inspect mode and enable 'show connections' (<kbd>Alt</kbd> + <kbd>5</kbd>). Click on the zipper connections (brown) and customize 'visibilityDistance' to set the range where vehicles start zipper merging.
 
 ![](../images/neteditZipper.png)
 
@@ -205,11 +205,11 @@ After deleting connections at a junction of type traffic_light, the traffic ligh
 This stability implies that the length of the phase state may be longer than needed and the list of used can contain gaps (where the unused states are).
 To clean up the states:
 
-1. enter traffic light mode (T)
+1. enter traffic light mode (<kbd>T</kbd>)
 2. click on the junction
 3. press the 'Clean States' button (this shortens the state and re-assigns indices to controlled connections)
 4. save the program
-5. recompute the network (F5) to see updated tls indices (when inspecting connections or drawing 'tls link index')
+5. recompute the network (<kbd>F5</kbd>) to see updated tls indices (when inspecting connections or drawing 'tls link index')
 
 ## Deleting all sidewalks
 
@@ -218,7 +218,7 @@ To clean up the states:
   - Object type: Lane
   - Attribute: allow
   - Value: "=pedestrian"
-3. press the `<del>` key
+3. press the <kbd>del</kbd> key
 
 ## Duplicating rightmost lane on all edges
 
@@ -246,7 +246,7 @@ There is also another solution in case you want to add special lanes to your edg
 
 1. create a network with two lanes in each direction (on the road that should have a TWLT)
 2. select all edges that belong to that road using *select mode*
-3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit ENTER)
+3. switch to *move mode*, enter the value of -1.6 in the the 'shift value' input field and press 'Apply shift value' (or hit <kbd>enter</kbd>)
   - explanation: This makes it so that the inside lanes in both directions are directly on top of each other
 4. go to inspect mode and inspect the selection of edges
 5. activate the 'isBidi' checkbox

@@ -63,7 +63,7 @@ When a new junction is created, or their edges are modified, a set of new connec
 | <span style="background:#00FF00">Target</span>          | The lane is already connected from the source lane.                                             | Remove connection                                                                                                       |
 | <span style="background:#008800">Possible Target</span> | The lane is not yet connected.                                                                  | Add connection (with shift-click, set `pass="true"`)                                                                                 |
 | <span style="background:#FF00FF">Target (pass)</span>   | The lane already connected and this connection is forcibly set to have priority (attribute `pass="true"`)    | Remove connection                                                                                                       |
-| <span style="background:#FFFF00">Conflict</span>        | The lane is not yet connected. Adding a connection would be unusual for some reason (see below) | Print reason for conflict in status bar. (with ctrl-click add connection, with ctr+shift+click create connection with `pass="true"`) |
+| <span style="background:#FFFF00">Conflict</span>        | The lane is not yet connected. Adding a connection would be unusual for some reason (see below) | Print reason for conflict in status bar. (with <kbd>Ctrl</kbd> + <kbd>click</kbd> add connection, with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>click</kbd> create connection with `pass="true"`) |
 
 To deselect the source edge or cancel the declared connections press **<ESC\>** or click the *Cancel*-Button. To confirm the change press **<ENTER\>** or click the *OK*-Button.
 

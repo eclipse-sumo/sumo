@@ -342,9 +342,9 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Added junction context-menu option *select roundabout*. Issue #5606
   - Added junction context-menu option *convert to roundabout*. Issue #7030
   - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103
-  - Selection mode now supports Ctrl+click to strictly move the view. Issue #7239
+  - Selection mode now supports <kbd>Ctrl</kbd> + <kbd>click</kbd> to strictly move the view. Issue #7239
   - Improving loading speed of polygons. Issue #7287
-  - Elements can now be marked as 'front element' (F11) to facilitate working with overlapped objects in move mode and traffic light mode. Issue #4903, #5781
+  - Elements can now be marked as 'front element' (<kbd>F11</kbd>) to facilitate working with overlapped objects in move mode and traffic light mode. Issue #4903, #5781
   - LaneAreaDetectors with multiple lanes can now be created. Issue #7475
 
 - sumo-gui
@@ -659,7 +659,7 @@ title: Changes in the 2020 releases (versions 1.5.0, 1.6.0, 1.7.0 and 1.8.0)
   - Geometry points are now clearly distinguished from junctions by color and size. Issue #6514
   - Traffic light mode now allows grouping and ungrouping signals. Issue #2958
   - Traffic light mode 'Clean States' function now also compactifies state and removes all unused indices. Issue #3828
-  - The background grid size can now be increased and decreased with hotkeys CTRL+PAGE_UP, CTRL+PAGE_DOWN. Issue #6542
+  - The background grid size can now be increased and decreased with hotkeys <kbd>Ctrl</kbd> + <kbd>Page Up</kbd>, <kbd>Ctrl</kbd> + <kbd>Page Down</kbd>. Issue #6542
   - Demand objects (vehicles, routes, ...) can now be located by ID. Issue #5110
 
 - netconvert

@@ -21,7 +21,7 @@ This is the preferred tool. It is fast does not need a special build and the fla
 The process is as follows:
 
 - Install perf tools `sudo apt install linux-tools-$(uname -r)`.
-- Run `perf record` to check whether you are actually allowed to record kernel events (you might need to abort the call with Ctrl+c).
+- Run `perf record` to check whether you are actually allowed to record kernel events (you might need to abort the call with <kbd>Ctrl</kbd> + <kbd>c</kbd>).
   - If not and you want to enable it permanently do `sudo sh -c 'echo "kernel.perf_event_paranoid = -1\nkernel.kptr_restrict = 0" >> /etc/sysctl.conf'`.
 - Run `perf record --call-graph dwarf sumo -c test.sumocfg`. This will generate a file named perf.data.
 - Inspect interactively with `perf report`.

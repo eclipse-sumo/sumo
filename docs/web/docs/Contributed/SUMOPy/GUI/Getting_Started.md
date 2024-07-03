@@ -94,8 +94,8 @@ The following mouse-key combination allow to navigate the network:
 
 | Action      | Key-Mouse                                  |
 | ----------- | ------------------------------------------ |
-| Zoom in/Out | Hold down `<CTRL>` + `<Wheel>`                 |
-| Panning     | Hold down `<CTRL>` + `<SHIFT>` + `<Button-Left>` |
+| Zoom in/Out | Hold down <kbd>Ctrl</kbd> + <kbd>Wheel</kbd>                 |
+| Panning     | Hold down <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Button-Left</kbd> |
 
 ### Simulating the scenario
 
@@ -182,15 +182,15 @@ python sumopy-gui.py workdir/scenario.obj|
 ### Importing SUMO XML files at start
 
 An initial import of existing SUMO XML files with rootname scenario| and
-located in directory workdir| can be accomplished with
+located in directory workdir can be accomplished with
 
 ```
-python sumopy-gui.py scenario workdir|
+python sumopy-gui.py scenario workdir
 ```
 
 ## Importing and Editing networks
 
-if needed, the network should be modified *before* moving on to demand modeling (see Sec.\[sec<sub>d</sub>emand\]).
+if needed, the network should be modified *before* moving on to demand modeling.
 
 ### Importing nets and buildings
 
@@ -219,16 +219,16 @@ prior to importing it.
 
 ### Editing with SUMO’s netedit
 
-The recommended way to edit the network is via netedit|, which is
-provided with SUMO from version 0.25. SUMO’s netedit| can be called by
+The recommended way to edit the network is via netedit, which is
+provided with SUMO from version 0.25. SUMO’s netedit can be called by
 choosing the menu
 
 `Network>Edit with netedit`
 
-netedit| will be fired up with the network ready to be edited. The use
-of netedit| is documented here: <https://sumo.dlr.de/docs/netedit.html>. After
-editing, the network must be saved within netedit| be pressing <CTRL>-s
-or with File\>save|. Then netedit| can be closed and the modified
+netedit will be fired up with the network ready to be edited. The use
+of netedit is documented here: <https://sumo.dlr.de/docs/netedit.html>. After
+editing, the network must be saved within netedit| be pressing <kbd>Ctrl</kbd> + <kbd>s</kbd>
+or with File\>save. Then netedit can be closed and the modified
 network will be reimported into SUMOPy.
 
 ### Editing with SUMO’s netedit on background maps
@@ -251,10 +251,10 @@ it is highly recommended to press the Apply| Button prior to downloading
 the maps. This will calculate the number of tiles which are going to be
 downloaded. This is important to know, because Google maps prevent IPs
 from downloading too many maps of an area. Therefore do not exceed about
-300 tiles\! Note further that, dependent on the performance of your
-computer, netedit| may run into problems to handle too large map areas.
+300 tiles! Note further that, dependent on the performance of your
+computer, netedit may run into problems to handle too large map areas.
 
-After the maps are downloaded, netedit| can be called with
+After the maps are downloaded, netedit can be called with
 
 `Network>Edit with netedit on map`
 
@@ -271,6 +271,5 @@ capability to edit the network
   “cut back” to a certain radius. This measure may facilitate the
   verification of connections between lanes at junctions.
 
-<!-- end list -->
 
 1.  In SUMOPy Maps are managed by the landuse object

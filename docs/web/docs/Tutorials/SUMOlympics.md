@@ -17,13 +17,13 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 <img src="../images/sumolympics_netedit_1.PNG" width="1000"/>
 
 Open netedit and create a new network and add a single
-edge by pressing `e` for entering the edge creation mode and clicking on
+edge by pressing <kbd>e</kbd> for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to the inspection mode
-(press `i`) and click on the starting point of the edge (at the location
+(press <kbd>i</kbd>) and click on the starting point of the edge (at the location
 of your first click). Now enter `0,0` in the textfield labeled `pos` in
 the inspector panel on the left (see figure). Do the same for the edge's
 endpoint, setting its position to `1000,0`. Now save your network under
-the name `sumolympics.net.xml` (press `Ctrl+Shift-S`).
+the name `sumolympics.net.xml` (press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>).
 
 Now we have a long road, which will be the stage of our competition. The
 participants in the competition will be transportation modes, i.e.,
@@ -61,7 +61,7 @@ creating the edge. Effectively, we have created a 100 meter running
 track for the competitors with a 900 meter holding area for each of the
 competing modes. Now check the check box "select edges" again and rename
 the two edges to "beg" and "end" (in the inspector panel). Save your
-network (`Ctrl-S`).
+network (<kbd>Ctrl</kbd> + <kbd>S</kbd>).
 
 # Defining the competing vehicles (types and flows)
 
@@ -157,7 +157,7 @@ lane width).
 <img src="../images/sumolympics_netedit_4.png" width="1000"/>
 
 First we create a traffic light on the
-junction between the edges "beg" and "end" with netedit: Press `t` to
+junction between the edges "beg" and "end" with netedit: Press <kbd>t</kbd> to
 enter the traffic light editing mode. Click on the junction, then on
 "Create TLS" in the left panel. Below, under the label phases, type
 "rrrrr" for the first phase ("r" for red) and set its duration to 100
@@ -165,7 +165,7 @@ enter the traffic light editing mode. Click on the junction, then on
 densely. For the second phase enter "GGGGG" (yes, "G" for green) and set
 its duration to 1000 (i.e. until the end of the simulation run). Now run
 the simulation again to see the bikes outrun the cars. See? We should
-all use our bikes more often\!
+all use our bikes more often!
 
 If you have noticed a warning (like "Warning: Missing yellow phase in
 tlLogic 'gneJ2', program '0' for tl-index 0 when switching to phase 0")
@@ -181,6 +181,6 @@ lights](../Simulation/Traffic_Lights.md).
 
 <img src="../images/sumolympics_sumogui_2.png" width="1000"/>
 
-Grab some popcorn and start the simulation\!
+Grab some popcorn and start the simulation!
 
 Back to [Tutorials](index.md).

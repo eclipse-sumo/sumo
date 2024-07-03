@@ -17,8 +17,8 @@ below.
 
 Building a network with XML-Files is not recommended, so we will use
 netedit for this step. First open [netedit](../Netedit/index.md) and create
-edges to form a closed loop. To do that press `Ctrl-N` to create a new network
-and then press `e` to enter the edge editing mode. Now create a closed loop of
+edges to form a closed loop. To do that press <kbd>Ctrl</kbd> + <kbd>N</kbd> to create a new network
+and then press <kbd>e</kbd> to enter the edge editing mode. Now create a closed loop of
 edges (you might consider to check 'chain' just right from the edit-mode
 selection, see figure).
 
@@ -26,7 +26,7 @@ selection, see figure).
 
 The result should look more or less like shown in the figure. The
 important thing is the circular shape. Now save the network somewhere
-(`Ctrl-Shift-S`) in an empty directory (we will refer to that place by
+(<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>) in an empty directory (we will refer to that place by
 `baseDir`). Use `circles.net.xml` as the name for the created net-file.
 
 ## Create vehicles and run SUMO
@@ -91,10 +91,10 @@ attributes `to` and `from`, and provide corresponding edge-ids to the
 flow.
 
 The edge-ids can be inspected and modified in netedit: open your
-network-file `circles.net.xml` and press `i` to enter the inspect-mode.
+network-file `circles.net.xml` and press <kbd>i</kbd> to enter the inspect-mode.
 Left-click on an arbitrary edge and rename it to `edge1` (see figure below).
 Left-click on a different edge and rename it to `edge2`. Then save your network
-(`Ctrl-S`).
+(<kbd>Ctrl</kbd> + <kbd>S</kbd>).
 
 <img src="../images/NameEdges.PNG" alt="Renaming an edge in netedit" width="500">
 
@@ -190,7 +190,7 @@ the network created to continue with the tutorial.
 
 ## Create vehicles and run SUMO
 
-First we have to change the mode to "demand" by pressing `F3` and then press
+First we have to change the mode to "demand" by pressing <kbd>F3</kbd> and then press
 `r` for switch to "create route" mode. We can either choose to create a route by
 clicking over "consecutive edges" or "non consecutive edges", which will find
 the shortest path between the non consecutive edges given. For this test, we
@@ -200,16 +200,16 @@ id box. In this case, we will leave the default "id" `route_0`.
 First we have to click on the first edge of our route (let's take one of the
 upper edges) and then click on the last edge of the route (let's choose one
 of the lower edges). An orange path connecting both edges has been created. To
-create the route we have to press the "create route" button or the `Enter` key.
+create the route we have to press the "create route" button or the <kbd>Enter</kbd> key.
 Route creation can be aborted using the "abort creation" button or pressing the
-`ESC` key.
+<kbd>ESC</kbd> key.
 
 <img src="../images/tutorialCirclesCreateRoute.gif" alt="CreateRoute" width="600">
 
 Create a route with netedit.
 
 Now we have to create a flow of vehicles that will drive along this route. For
-this, we press `v` to go to the vehicles mode and then select over the vehicles
+this, we press <kbd>V</kbd> to go to the vehicles mode and then select over the vehicles
 list "flow (over route)". We leave the default values for "id" (`flow_0`) and
 "begin" (`0`). If we scroll through the list we will find more flow attributes. In
 this case, we want to simulate 5 vehicles after each other, so we set `0` as
@@ -217,14 +217,14 @@ this case, we want to simulate 5 vehicles after each other, so we set `0` as
 route we have created and a vehicle will appear at the beginning of the route.
 
 As a last step, we have to save all demand elements created (route and flow) by
-pressing `Ctrl-Shift-D` and enter the file name, in this case `circles.rou.xml`.
+pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>D</kbd> and enter the file name, in this case `circles.rou.xml`.
 
 <img src="../images/tutorialCirclesCreateFlow.gif" alt="CreateFlow" width="600">
 
 Create a flow with netedit.
 
 After saving the route, we can run the simulation with sumo-gui by pressing
-`Ctrl-T`. Change the delay (e.g. to 100) to be able to see the vehicles driving
+<kbd>Ctrl</kbd> + <kbd>T</kbd>. Change the delay (e.g. to 100) to be able to see the vehicles driving
 and click the play button
 (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")). As we can see, the
 five vehicles drive from the first edge to the last one given and then
@@ -238,7 +238,7 @@ Open sumo-gui.
 ## Circular rerouting
 
 Let's go back to netedit to add a rerouter. First we change to the network mode
-(`F2`) and then press `a` to enter the additional edit-mode. From the
+(<kbd>F2</kbd>) and then press <kbd>A</kbd> to enter the additional edit-mode. From the
 "Additional element" drop-down menu on the left select `rerouter`. We need to
 add two rerouters:
 
@@ -276,8 +276,8 @@ Now don´t forget to add the second rerouter. For this we will follow the same
 steps but remember to replace the edges.
 
 Once we have created both rerouters, we save them in an additional file by
-pressing `Ctrl-Shift-A` and enter the file name, in this case `circles.add.xml`.
-Now we can run the simulation again by pressing `Ctrl-T` to open sumo-gui and
+pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> and enter the file name, in this case `circles.add.xml`.
+Now we can run the simulation again by pressing <kbd>Ctrl</kbd> + <kbd>T</kbd> to open sumo-gui and
 click the play button (![Image:icon_play.png](../images/icon_play.png "Image:icon_play.png")).
 Now the vehicles are driving in circles until the end time given (3600 seconds).
 

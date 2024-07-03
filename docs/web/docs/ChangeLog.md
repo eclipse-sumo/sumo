@@ -937,7 +937,7 @@ title: ChangeLog
   - Dynamically modified values for `latAlignment` (i.e. when preparing to turn) are now listed in the type-parameter dialog. Issue #12579
   - The attribute value that is used for scaling edge widths can now be drawn as an annotation. Issue #12544
   - Statistic output now includes person teleport count. Issue #12271
-  - Option **--alternative-net-file** can now be used to load secondary network shapes. Hotkey CTRL+K can be used to switch between primary and secondary shapes. This is intended to support rail simulations where geographical and abstract shapes are available. Issue #11551
+  - Option **--alternative-net-file** can now be used to load secondary network shapes. Hotkey <kbd>Ctrl</kbd> + <kbd>K</kbd> can be used to switch between primary and secondary shapes. This is intended to support rail simulations where geographical and abstract shapes are available. Issue #11551
   - Added `.gif`-file support to 3D view. Issue #12672
   - Improved position and scale of vehicle lights in 3D View #12752
   - Add 3D person shapes for 3D View. Issue #11144

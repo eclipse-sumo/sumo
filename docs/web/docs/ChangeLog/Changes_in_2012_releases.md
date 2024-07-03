@@ -338,7 +338,7 @@ some applications. For benchmark values see
   - renamed XML-element **reset** to **delete** to better reflect
     its purpose
 - sumo-gui
-  - Changed close-simulation hotkey from Ctrl-C to Ctrl-W to better
+  - Changed close-simulation hotkey from <kbd>Ctrl</kbd> + <kbd>C</kbd> to <kbd>Ctrl</kbd> + <kbd>W</kbd> to better
     conform to interface standards
 - Tools
   - python module sumolib.output now has a method *parse* which

@@ -538,7 +538,7 @@ title: Changes in the 2018 releases (versions 1.0.0, 1.0.1 and 1.1.0)
     the functionality of *cleanup states*. Issue #3846
   - netedit now flags connection targets with incompatible
     permissions as *conflict* and only creates them with
-    *<ctrl\>+<click\>*. Issue #3823
+    <kbd>Ctrl</kbd> + <kbd>click</kbd>. Issue #3823
   - Traffic light indices are now drawn for pedestrian crossings
     when enabled via gui settings. Issue #3814
   - Now ParkingAreas and ParkingSpaces can be created in netedit. Issue #3104
