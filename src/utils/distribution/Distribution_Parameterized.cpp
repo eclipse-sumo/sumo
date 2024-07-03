@@ -129,6 +129,15 @@ Distribution_Parameterized::getMax() const {
 }
 
 
+double
+Distribution_Parameterized::getMin() const {
+    if (myParameter[1] <= 0.) {
+        return myParameter[0];
+    }
+    return myParameter.size() > 2 ? myParameter[2] : -std::numeric_limits<double>::infinity();
+}
+
+
 std::vector<double>&
 Distribution_Parameterized::getParameter() {
     return myParameter;

@@ -67,6 +67,9 @@ public:
     /// @brief Returns the maximum value of this distribution
     double getMax() const;
 
+    /// @brief Returns the minimum value of this distribution
+    double getMin() const;
+
     /// @brief Returns the parameters of this distribution
     std::vector<double>& getParameter();
 

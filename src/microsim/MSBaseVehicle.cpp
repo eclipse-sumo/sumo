@@ -2307,6 +2307,9 @@ MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
         const double newMu = type->getSpeedFactor().getParameter()[0];
         const double newDev = type->getSpeedFactor().getParameter()[1];
         myChosenSpeedFactor = newMu + distPoint * newDev;
+        // respect distribution limits
+        myChosenSpeedFactor = MIN2(myChosenSpeedFactor, type->getSpeedFactor().getMax());
+        myChosenSpeedFactor = MAX2(myChosenSpeedFactor, type->getSpeedFactor().getMin());
     }
     myType = type;
     if (myEnergyParams != nullptr) {
