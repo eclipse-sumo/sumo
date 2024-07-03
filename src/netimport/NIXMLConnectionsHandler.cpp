@@ -51,7 +51,9 @@ NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec, NBNodeCont& nc,
     myTLLogicCont(tlc),
     myHaveWarnedAboutDeprecatedLanes(false),
     myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
-                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()) {}
+                      MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+    myLastParameterised(nullptr) {
+}
 
 
 NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {}
@@ -164,7 +166,30 @@ NIXMLConnectionsHandler::myStartElement(int element,
     if (element == SUMO_TAG_WALKINGAREA) {
         addWalkingArea(attrs);
     }
+    if (element == SUMO_TAG_PARAM) {
+        if (myLastParameterised != nullptr) {
+            bool ok = true;
+            const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+            // circumventing empty string test
+            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+            myLastParameterised->setParameter(key, val);
+        }
+    }
 }
+
+
+void
+NIXMLConnectionsHandler::myEndElement(int element) {
+    switch (element) {
+        case SUMO_TAG_CONNECTION:
+        case SUMO_TAG_CROSSING:
+            myLastParameterised = nullptr;
+            break;
+        default:
+            break;
+    }
+}
+
 
 
 NBConnection
@@ -419,7 +444,8 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
                 node->removeCrossing(edges);
             }
         }
-        node->addCrossing(edges, width, priority, tlIndex, tlIndex2, customShape);
+        NBNode::Crossing* c = node->addCrossing(edges, width, priority, tlIndex, tlIndex2, customShape);
+        myLastParameterised = c;
     }
 }
 

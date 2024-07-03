@@ -71,6 +71,14 @@ protected:
      */
     void myStartElement(int element,
                         const SUMOSAXAttributes& attrs);
+
+    /** @brief Called when a closing tag occurs
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
+    void myEndElement(int element);
     //@}
 
 private:
@@ -149,6 +157,9 @@ private:
 
     /// @brief the handler for loading errors
     MsgHandler* const myErrorMsgHandler;
+
+    /// @brief last item the could receive parameters
+    Parameterised* myLastParameterised;
 
 private:
     /// @brief invalidated copy constructor
