@@ -20,8 +20,6 @@
 # --------------------------------
 
 # network
-from tkinter import Y
-
 
 class network:
 
@@ -110,6 +108,48 @@ class network:
         class center:
             x = 400
             y = 400
+
+    class connection:
+
+        class connectionA:
+            x = 420
+            y = 200
+
+        class connectionB:
+            x = 458
+            y = 240
+
+        class laneUpLeft:
+            x = 460
+            y = 10
+
+        class laneUpRight:
+            x = 530
+            y = 10
+
+        class laneDownLeft:
+            x = 450
+            y = 450
+
+        class laneDownRight:
+            x = 530
+            y = 450
+
+        class laneLeftTop:
+            x = 240
+            y = 195
+
+        class laneLeftBot:
+            x = 240
+            y = 270
+
+        class laneRightTop:
+            x = 750
+            y = 195
+
+        class laneRightBot:
+            x = 750
+            y = 270         
 
 
 class elements:
