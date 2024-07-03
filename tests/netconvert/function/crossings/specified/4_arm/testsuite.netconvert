@@ -34,6 +34,9 @@ customTLIndex2
 # 4 arm junction with 1 crossing (with custom shape), shifted by normalization
 1_customshape_normalized
 
+# 4 arm junction with 1 crossing that has params
+1_crossing_param
+
 # 4 arm junction with crossings on 2 opposite sides
 2_opposite
 
