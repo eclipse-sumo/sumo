@@ -236,7 +236,7 @@ Right clicking over an element will open a popup-menu with functions and operati
 
 
 !!! note
-        Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
+    Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
 
 - Editing [walkingarea shapes](../Networks/PlainXML.md#walking_areas)
 - Integration of [netgenerate](../netgenerate.md)
