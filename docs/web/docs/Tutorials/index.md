@@ -30,7 +30,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 * [SUMO 2021](https://sumo.dlr.de/daily/sumo2021_tutorial.zip): traffic light layout, indirect left turn, TAZ, OD-traffic, GTFS
 * [SUMO 2022](https://sumo.dlr.de/daily/sumo2022_tutorial.zip): network editing, flows, opposite driving, pedestrian crossings, parking search
 * [SUMO 2023](https://sumo.dlr.de/daily/sumo2023_tutorial.zip): graphical diff, personFlow, plotting tools, analyzing repeated runs
-* [SUMO 2024](https://sumo.dlr.de/daily/sumo2024_tutorial.zip): Debugging simulation warnings, pedestrian models, flying taxis
+* [SUMO 2024](https://sumo.dlr.de/daily/sumo2024_tutorial.zip): debugging simulation warnings, pedestrian models, flying taxis (a transcription is available [here](2024.md#transcription))
 
 ## Videos
 
@@ -50,6 +50,7 @@ The SUMO User Conference is an annual event organized by the German Aerospace Ce
 <br>
 
 <a class="no-arrow-link" data-youtube href="https://www.youtube.com/watch?v=9WCGxJDdY9s">Watch the 2024 Tutorial</a>
+(a transcription is available [here](2024.md#transcription))
 
 # Advanced Tutorials
 * [Hello SUMO](Hello_SUMO.md) - The simplest net and a single car set up "by hand"
