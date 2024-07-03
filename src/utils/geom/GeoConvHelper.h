@@ -110,7 +110,7 @@ public:
     /// @brief registers the coordinate transformation as having been loaded from the given file
     static void setLoadedPlain(const std::string& nodFile, const GeoConvHelper& loaded);
 
-    static GeoConvHelper* getLoadedPlain(const std::string& edgFile);
+    static GeoConvHelper* getLoadedPlain(const std::string& plainFile, const std::string& suffix=".edg.xml");
 
     /// @brief @brief resets loaded location elements
     static void resetLoaded();

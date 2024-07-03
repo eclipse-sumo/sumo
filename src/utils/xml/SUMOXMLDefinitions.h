@@ -216,6 +216,8 @@ enum SumoXMLTag {
     SUMO_TAG_SEGMENT,
     /// @brief delete certain element (note: DELETE is a macro)
     SUMO_TAG_DEL,
+    /// @brief root element of connections file
+    SUMO_TAG_CONNECTIONS,
     /// @brief stop for vehicles
     SUMO_TAG_STOP,
     /// @brief stop placed over a lane

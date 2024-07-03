@@ -126,6 +126,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "wautJunction",                           SUMO_TAG_WAUT_JUNCTION },
     { "segment",                                SUMO_TAG_SEGMENT },
     { "delete",                                 SUMO_TAG_DEL },
+    { "connections",                            SUMO_TAG_CONNECTIONS },
     { "stop",                                   SUMO_TAG_STOP },
     { "stopBusStop",                            GNE_TAG_STOP_BUSSTOP },
     { "stopTrainStop",                          GNE_TAG_STOP_TRAINSTOP },

@@ -34,6 +34,7 @@ class NBEdgeCont;
 class NBNodeCont;
 class NBTrafficLightLogicCont;
 class MsgHandler;
+class GeoConvHelper;
 
 
 // ===========================================================================
@@ -170,6 +171,9 @@ private:
 
     /// @brief the handler for loading errors
     MsgHandler* const myErrorMsgHandler;
+
+    /// @brief The coordinate transformation which was used compute the custom shape coordinates for connections and crossings
+    GeoConvHelper* myLocation;
 
     /// @brief last item the could receive parameters
     Parameterised* myLastParameterised;

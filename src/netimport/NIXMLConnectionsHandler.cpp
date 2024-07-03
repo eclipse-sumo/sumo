@@ -24,21 +24,23 @@
 
 #include <string>
 #include <iostream>
-#include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBNode.h>
 #include <netbuild/NBNetBuilder.h>
-#include <utils/common/StringTokenizer.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include "NIImporter_SUMO.h"
+#include "NIXMLConnectionsHandler.h"
 
 
 // ===========================================================================
@@ -52,17 +54,28 @@ NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont& ec, NBNodeCont& nc,
     myHaveWarnedAboutDeprecatedLanes(false),
     myErrorMsgHandler(OptionsCont::getOptions().getBool("ignore-errors.connections") ?
                       MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+    myLocation(nullptr),
     myLastParameterised(nullptr) {
 }
 
 
-NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {}
+NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {
+    delete myLocation;
+}
 
 
 void
 NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_CONNECTIONS:
+            // infer location for legacy networks that don't have location information
+            myLocation = GeoConvHelper::getLoadedPlain(getFileName(), ".con.xml");
+            break;
+        case SUMO_TAG_LOCATION:
+            delete myLocation;
+            myLocation = NIImporter_SUMO::loadLocation(attrs, false);
+            break;
         case SUMO_TAG_DEL:
             delConnection(attrs);
             break;
@@ -202,8 +215,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
         if (attrs.hasAttribute(SUMO_ATTR_CHANGE_RIGHT)) {
             changeRight = parseVehicleClasses(attrs.get<std::string>(SUMO_ATTR_CHANGE_RIGHT, nullptr, ok), "");
         }
-
-        if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape)) {
+        if (attrs.hasAttribute(SUMO_ATTR_SHAPE) && !NBNetBuilder::transformCoordinates(customShape, true, myLocation)) {
             WRITE_ERRORF(TL("Unable to project shape for connection from edge '%' to edge '%'."), from->getID(), to->getID());
         }
         if (!ok) {
@@ -410,7 +422,7 @@ NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
         priority = true;
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
-    if (!NBNetBuilder::transformCoordinates(customShape)) {
+    if (!NBNetBuilder::transformCoordinates(customShape, true, myLocation)) {
         WRITE_ERRORF(TL("Unable to project shape for crossing at node '%'."), node->getID());
     }
     if (discard) {
@@ -488,7 +500,7 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     }
     PositionVector customShape = attrs.getOpt<PositionVector>(SUMO_ATTR_SHAPE, nullptr, ok, PositionVector::EMPTY);
     double customWidth = attrs.getOpt<double>(SUMO_ATTR_WIDTH, nullptr, ok, NBEdge::UNSPECIFIED_WIDTH);
-    if (!NBNetBuilder::transformCoordinates(customShape)) {
+    if (!NBNetBuilder::transformCoordinates(customShape, true, myLocation)) {
         WRITE_ERRORF(TL("Unable to project shape for walkingArea at node '%'."), node->getID());
     }
     node->addWalkingAreaShape(edges, customShape, customWidth);
