@@ -42,7 +42,7 @@ import sumolib  # noqa
 import traci  # noqa
 
 SPEED_DEFAULT = 20  # default vehicle speed in m/s
-PENALTY_FACTOR: float = 5  # factor on penalty for rejecting requests
+PENALTY_FACTOR = 'dynamic'  # factor on penalty for rejecting requests
 
 
 # use 'type' statement in python version 3.12 or higher
@@ -68,7 +68,7 @@ def dispatch(time_limit: int, solution_requests: TranslatedSolutions,
 
 def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostType,
                       drf: float, waiting_time: int, end: int,
-                      fix_allocation: bool, solution_requests: TranslatedSolutions | None, penalty: int,
+                      fix_allocation: bool, solution_requests: TranslatedSolutions | None, penalty_factor: str | int,
                       data_reservations: list[orToolsDataModel.Reservation],
                       timestep: float, verbose: bool) -> orToolsDataModel.ORToolsDataModel:
     """Creates the data for the problem."""
@@ -137,6 +137,10 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
     # get time windows
     time_windows = [orToolsDataModel.get_time_window_of_node_object(node_object, node, end)
                     for node, node_object in enumerate(node_objects)]
+    
+    penalty = orToolsDataModel.get_penalty(penalty_factor, cost_matrix)
+    if verbose:
+        print(f'Penalty factor is {penalty}')
 
     data = orToolsDataModel.ORToolsDataModel(
         depot=0,
@@ -155,44 +159,12 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
         fix_allocation=fix_allocation,
         max_time=end,
         initial_routes=solution_requests,
-        penalty=int(penalty),
+        penalty=penalty,
         reservations=reservations,
-        vehicles=vehicles
+        vehicles=vehicles,
+        cost_type = cost_type
     )
     return data
-
-
-def get_network_path(sumo_config: str) -> pathlib.Path:
-    """Get path to SUMO network from config file."""
-    sumo_config = pathlib.Path(sumo_config)
-    net_file = list(sumolib.xml.parse(sumo_config, "net-file"))
-    net_filename = net_file[0].getAttribute("value")
-    net_path = pathlib.Path(net_filename)
-    if net_path.is_absolute():
-        return net_path
-    else:
-        return sumo_config.parent / net_path
-
-
-def get_network_dimension(sumo_config: str, cost_type: orToolsDataModel.CostType) -> float:
-    """Get the rough network dimension."""
-    net_path = get_network_path(sumo_config)
-    net = sumolib.net.readNet(net_path)
-    # diameter of bounding box
-    diameter = net.getBBoxDiameter()
-    if cost_type.name == "DISTANCE":
-        dimension = diameter
-    if cost_type.name == "TIME":
-        # convert distance to time assuming default speed
-        dimension = diameter / SPEED_DEFAULT
-    return dimension
-
-
-def get_penalty(sumo_config: str, cost_type: orToolsDataModel.CostType, penalty_factor: float = PENALTY_FACTOR) -> int:
-    """Define penalty for rejecting requests."""
-    dimension = get_network_dimension(sumo_config, cost_type)
-    penalty = dimension * penalty_factor
-    return int(penalty)
 
 
 def get_max_time() -> int:
@@ -239,7 +211,7 @@ def solution_by_requests(solution_ortools: ortools_pdp.ORToolsSolution | None,
     return solution_requests
 
 
-def run(penalty: int, end: int = None, interval: int = 30, time_limit: float = 10,
+def run(penalty_factor: str|int, end: int = None, interval: int = 30, time_limit: float = 10,
         cost_type: orToolsDataModel.CostType = orToolsDataModel.CostType.DISTANCE,
         drf: float = 1.5, waiting_time: int = 900, fix_allocation: bool = False, verbose: bool = False):
     """
@@ -247,8 +219,9 @@ def run(penalty: int, end: int = None, interval: int = 30, time_limit: float = 1
 
     Parameters
     ----------
-    penalty: int
-        Penalty for rejecting requests.
+    penalty_factor: 'dynamic' | int
+        Penalty for rejecting requests or exceeding drf, time windows and waiting times.
+        If 'dynamic' then the factor is set depending on the maximum cost.
     end : int, optional
         Final time step of simulation. The default is 90000.
         This option can be ignored by giving a negative value.
@@ -326,7 +299,7 @@ def run(penalty: int, end: int = None, interval: int = 30, time_limit: float = 1
             if verbose:
                 print('Start creating the model.')
             data = create_data_model(fleet, cost_type, drf, waiting_time, int(end),
-                                     fix_allocation, solution_requests, penalty, data_reservations, timestep, verbose)
+                                     fix_allocation, solution_requests, penalty_factor, data_reservations, timestep, verbose)
             data_reservations = data.reservations
             solution_requests = dispatch(time_limit, solution_requests, data, verbose)
             if solution_requests is not None:
@@ -348,6 +321,15 @@ def run(penalty: int, end: int = None, interval: int = 30, time_limit: float = 1
     # Finish
     traci.close()
     sys.stdout.flush()
+
+
+def dynamic_or_int(value):
+    if value == 'dynamic':
+        return value
+    try:
+        return int(value)
+    except ValueError:
+        raise ValueError(f"Wrong value for penalty factor '{value}'. Must be 'dynamic' or an integer.")
 
 
 def get_arguments() -> argparse.Namespace:
@@ -375,8 +357,8 @@ def get_arguments() -> argparse.Namespace:
                     "does not change anymore")
     ap.add_argument("-w", "--waiting-time", type=ap.time, default=900,
                     help="maximum waiting time to serve a request in s")
-    ap.add_argument("-p", "--penalty-factor", type=float, default=PENALTY_FACTOR,
-                    help="factor on penalty for rejecting requests")
+    ap.add_argument("-p", "--penalty-factor", type=dynamic_or_int, default=PENALTY_FACTOR,
+                    help="factor on penalty for rejecting requests, must be 'dynamic' or an integer (e.g. 100000)")
     ap.add_argument("--trace-file", type=ap.file,
                     help="log file for TraCI debugging")
     return ap.parse_args()
@@ -416,8 +398,5 @@ if __name__ == "__main__":
     # subprocess and then the python script connects and runs
     traci.start([arguments.sumoBinary, "-c", arguments.sumo_config], traceFile=arguments.trace_file)
 
-    # get penalty
-    penalty = get_penalty(arguments.sumo_config, arguments.cost_type, arguments.penalty_factor)
-
-    run(penalty, arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
+    run(arguments.penalty_factor, arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
         arguments.waiting_time, arguments.fix_allocation, arguments.verbose)

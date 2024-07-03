@@ -26,13 +26,17 @@ import typing
 from dataclasses import dataclass
 from enum import Enum
 import numpy as np
+import math
+
+import drtOrtools
 
 # SUMO modules
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import traci  # noqa
-
+import traci._person
+import traci._simulation
 
 class CostType(Enum):
     DISTANCE = 1
@@ -49,16 +53,16 @@ class Vehicle:
     start_node: int = None
     end_node: int = None
 
-    def get_person_capacity(self):
+    def get_person_capacity(self) -> int:
         return traci.vehicle.getPersonCapacity(self.id_vehicle)
 
-    def get_type_ID(self):
+    def get_type_ID(self) -> str:
         return traci.vehicle.getTypeID(self.id_vehicle)
 
     def get_edge(self) -> str:
         return traci.vehicle.getRoadID(self.id_vehicle)
 
-    def get_person_id_list(self):
+    def get_person_id_list(self) -> list[str]:
         return traci.vehicle.getPersonIDList(self.id_vehicle)
 
 
@@ -67,7 +71,7 @@ class Reservation:
     """
     Represents a request for a transportation.
     """
-    reservation: traci.person.Reservation
+    reservation: traci._person.Reservation
     from_node: int = None
     to_node: int = None
     direct_route_cost: int = None
@@ -98,7 +102,7 @@ class Reservation:
     def get_id(self) -> str:
         return self.reservation.id
 
-    def get_persons(self):
+    def get_persons(self) -> list[str]:
         return self.reservation.persons
 
     def update_direct_route_cost(self, type_vehicle: str, cost_matrix: list[list[int]] = None,
@@ -109,7 +113,7 @@ class Reservation:
             self.direct_route_cost = cost_matrix[self.from_node][self.to_node]
         else:
             # TODO: use 'historical data' from dict in get_cost_matrix instead
-            route = traci.simulation.findRoute(self.get_from_edge(), self.get_to_edge(), vType=type_vehicle)
+            route: traci._simulation.Stage = traci.simulation.findRoute(self.get_from_edge(), self.get_to_edge(), vType=type_vehicle)
             if cost_type == CostType.TIME:
                 self.direct_route_cost = round(route.travelTime)
             elif cost_type == CostType.DISTANCE:
@@ -119,7 +123,7 @@ class Reservation:
 
     def update_current_route_cost(self, cost_type: CostType = CostType.DISTANCE):
         person_id = self.reservation.persons[0]
-        stage = traci.person.getStage(person_id, 0)
+        stage: traci._simulation.Stage = traci.person.getStage(person_id, 0)
         # stage type '3' is defined as 'driving'
         assert stage.type == 3
         if cost_type == CostType.DISTANCE:
@@ -155,9 +159,19 @@ class ORToolsDataModel:
     penalty: int
     reservations: list[Reservation]
     vehicles: list[Vehicle]
+    cost_type: CostType
 
     def __str__(self):
         return f'number of vehicles: {self.num_vehicles}, ...'
+    
+    def get_penalty(self, explicitly_time_related: bool = False) -> int:
+        """Returns penalty. If explicitly time related, it depends on the CostType of the data."""
+        if not explicitly_time_related:
+            return self.penalty
+        if self.cost_type == CostType.DISTANCE:
+            return round(self.penalty * drtOrtools.SPEED_DEFAULT)
+        else:
+            return self.penalty
 
 
 @dataclass
@@ -216,6 +230,7 @@ def create_vehicles(fleet: list[str]) -> list[Vehicle]:
 def create_new_reservations(data_reservations: list[Reservation]) -> list[Reservation]:
     """create Reservations that not already exist"""
     sumo_reservations = traci.person.getTaxiReservations(0)  # TODO: state 1 should be enough
+    
     data_reservations_ids = [res.get_id() for res in data_reservations]
     new_reservations = []
     for res in sumo_reservations:
@@ -226,7 +241,7 @@ def create_new_reservations(data_reservations: list[Reservation]) -> list[Reserv
 
 def update_reservations(data_reservations: list[Reservation]) -> list[Reservation]:
     """update the Reservation.reservation and also remove Reservations that are completed"""
-    sumo_reservations = traci.person.getTaxiReservations(0)
+    sumo_reservations: tuple[traci._person.Reservation] = traci.person.getTaxiReservations(0)
     updated_reservations = []
     for data_reservation in data_reservations:
         new_res = [res for res in sumo_reservations if res.id == data_reservation.get_id()]
@@ -339,7 +354,7 @@ def get_cost_matrix(node_objects: list[NodeObject], cost_type: CostType):
                 cost_matrix[ii][jj] = cost_dict[(edge_from, edge_to)]
                 continue
             # TODO: findRoute is not needed between two vehicles
-            route = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
+            route: traci._simulation.Stage = traci.simulation.findRoute(edge_from, edge_to, vType=type_vehicle)
             time_matrix[ii][jj] = round(route.travelTime)
             if isinstance(from_node_object, Reservation) and from_node_object.is_from_node(ii):
                 time_matrix[ii][jj] += pickUpDuration  # add pickup_duration
@@ -402,3 +417,27 @@ def get_reservation_by_node(reservations: list[Reservation], node: int) -> Reser
         if reservation.is_from_node(node) or reservation.is_to_node(node):
             return reservation
     return None
+
+
+def get_penalty(penalty_factor: str | int, cost_matrix: list[list[int]]) -> int :
+    if penalty_factor == 'dynamic':
+        max_cost = max(max(sublist) for sublist in cost_matrix)
+        return round_up_to_next_power_of_10(max_cost)
+    else:
+        return penalty_factor
+    
+
+def round_up_to_next_power_of_10(n: int) -> int:
+    if n < 0:
+        raise ValueError(f"Input '{n}' must be a positive integer")
+    if n == 0:
+        return 1
+    # Determine the number of digits of the input value
+    num_digits = math.floor(math.log10(n)) + 1
+    scale = 10 ** (num_digits - 1)
+    leading_digit = n // scale
+    # If the input value is not already a power of 10, increase the leading digit by 1
+    if n % scale != 0:
+        leading_digit += 1
+    rounded_value = leading_digit * scale
+    return rounded_value

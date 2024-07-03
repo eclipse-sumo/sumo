@@ -30,6 +30,7 @@ import numpy as np
 
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
+import drtOrtools
 import orToolsDataModel
 
 Node = int
@@ -147,7 +148,7 @@ def add_transportation_requests_constraint(data: orToolsDataModel.ORToolsDataMod
             # allows to reject the order but gives penalty
             if verbose:
                 print(f'allow to reject new reservation {request.get_id()}')
-            routing.AddDisjunction([pickup_index, delivery_index], data.penalty, 2)
+            routing.AddDisjunction([pickup_index, delivery_index], 10*data.get_penalty(True), 2)
 
 
 def add_direct_route_factor_constraint(data: orToolsDataModel.ORToolsDataModel,
@@ -174,7 +175,7 @@ def add_direct_route_factor_constraint(data: orToolsDataModel.ORToolsDataModel,
         direct_route_cost_drf = solver.IntConst(round(direct_route_cost * data.drf))
         delivery_index = manager.NodeToIndex(request.to_node)
         distance_dimension.SetCumulVarSoftUpperBound(delivery_index, round(
-            direct_route_cost * data.drf - request.current_route_cost), 10)
+            direct_route_cost * data.drf - request.current_route_cost), 100*data.get_penalty())
         if verbose:
             print(f"reservation {request.get_id()}: direct route cost {direct_route_cost} and "
                   f"(soft) max cost {direct_route_cost_drf.Value()}, already used costs {request.current_route_cost}")
@@ -214,8 +215,7 @@ def add_soft_direct_route_factor_constraint(routing: pywrapcp.RoutingModel,
         matrix_costs,  # reasonable maximum slack
         True,          # force start request costs with 0
         request_cost_dimension_name)
-    request_cost_dimension = routing.GetDimensionOrDie(request_cost_dimension_name)
-    assert type(request_cost_dimension) == pywrapcp.RoutingDimension
+    request_cost_dimension: pywrapcp.RoutingDimension = routing.GetDimensionOrDie(request_cost_dimension_name)
     pickup_index = manager.NodeToIndex(request.from_node)
     delivery_index = manager.NodeToIndex(request.to_node)
     route_start = distance_dimension.CumulVar(pickup_index)
@@ -225,7 +225,7 @@ def add_soft_direct_route_factor_constraint(routing: pywrapcp.RoutingModel,
     request_cost_dimension.SetCumulVarSoftUpperBound(
         delivery_index,
         round(request.direct_route_cost * data.drf),
-        10
+        100*data.get_penalty()
     )
     if verbose:
         print(f"reservation {request.get_id()}: direct route cost {request.direct_route_cost} and "
@@ -343,8 +343,8 @@ def add_time_windows_constraint(data: orToolsDataModel.ORToolsDataModel,
         if location_idx in old_requests_nodes:
             if verbose:
                 print(f'soft time window for node {location_idx}: [{time_window[0]}, {time_window[1]}]')
-            time_dimension.SetCumulVarSoftLowerBound(index, time_window[0], 100)
-            time_dimension.SetCumulVarSoftUpperBound(index, time_window[1], 100)
+            time_dimension.SetCumulVarSoftLowerBound(index, time_window[0], 100*data.get_penalty(True))
+            time_dimension.SetCumulVarSoftUpperBound(index, time_window[1], 100*data.get_penalty(True))
             # time_dimension.CumulVar(index).SetRange(time_window[0], time_window[1])
 
     # TODO: check if the followwing is needed
@@ -392,7 +392,7 @@ def add_waiting_time_constraints(data: orToolsDataModel.ORToolsDataModel,
             time_dimension.SetCumulVarSoftUpperBound(
                 pickup_index,
                 maximum_pickup_time,
-                100)  # cost = coefficient * (cumulVar - maximum_pickup_time)
+                100*data.get_penalty(True))  # cost = coefficient * (cumulVar - maximum_pickup_time)
             if verbose:
                 print(f"reservation {request.get_id()} has a maximum (soft) pickup time at {maximum_pickup_time}")
 
