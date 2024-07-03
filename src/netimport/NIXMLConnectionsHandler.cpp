@@ -62,118 +62,33 @@ NIXMLConnectionsHandler::~NIXMLConnectionsHandler() {}
 void
 NIXMLConnectionsHandler::myStartElement(int element,
                                         const SUMOSAXAttributes& attrs) {
-    if (element == SUMO_TAG_DEL) {
-        bool ok = true;
-        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
-        std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
-        if (!ok) {
-            return;
-        }
-        // these connections were removed when the edge was deleted
-        if (myEdgeCont.wasRemoved(from) || myEdgeCont.wasRemoved(to)) {
-            return;
-        }
-        NBEdge* fromEdge = myEdgeCont.retrieve(from);
-        NBEdge* toEdge = myEdgeCont.retrieve(to);
-        if (fromEdge == nullptr) {
-            myErrorMsgHandler->informf("The connection-source edge '%' to reset is not known.", from);
-            return;
-        }
-        if (toEdge == nullptr) {
-            myErrorMsgHandler->informf("The connection-destination edge '%' to reset is not known.", to);
-            return;
-        }
-        if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::EDGE2EDGES) {
-            WRITE_WARNINGF(TL("Target edge '%' is not connected with '%'; the connection cannot be reset."), toEdge->getID(), fromEdge->getID());
-            return;
-        }
-        int fromLane = -1; // Assume all lanes are to be reset.
-        int toLane = -1;
-        if (attrs.hasAttribute(SUMO_ATTR_LANE)
-                || attrs.hasAttribute(SUMO_ATTR_FROM_LANE)
-                || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
-            if (!parseLaneInfo(attrs, fromEdge, toEdge, &fromLane, &toLane)) {
-                return;
+    switch (element) {
+        case SUMO_TAG_DEL:
+            delConnection(attrs);
+            break;
+        case SUMO_TAG_CONNECTION:
+            parseConnection(attrs);
+            break;
+        case SUMO_TAG_PROHIBITION: 
+            addProhibition(attrs);
+            break;
+        case SUMO_TAG_CROSSING: 
+            addCrossing(attrs);
+            break;
+        case SUMO_TAG_WALKINGAREA:
+            addWalkingArea(attrs);
+            break;
+        case SUMO_TAG_PARAM: 
+            if (myLastParameterised != nullptr) {
+                bool ok = true;
+                const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+                // circumventing empty string test
+                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                myLastParameterised->setParameter(key, val);
             }
-            // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
-            // In this case it's ok to encounter invalid lance indices
-            if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2EDGES) {
-                WRITE_WARNINGF(TL("Edge '%' has no connection to lane '%'; the connection cannot be reset."), fromEdge->getID(), toEdge->getLaneID(toLane));
-            }
-        }
-        fromEdge->removeFromConnections(toEdge, fromLane, toLane, true);
-    }
-
-    if (element == SUMO_TAG_CONNECTION) {
-        bool ok = true;
-        std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "connection", ok);
-        std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "connection", ok, "");
-        if (!ok || myEdgeCont.wasIgnored(from) || myEdgeCont.wasIgnored(to)) {
-            return;
-        }
-        // extract edges
-        NBEdge* fromEdge = myEdgeCont.retrieve(from);
-        NBEdge* toEdge = to.length() != 0 ? myEdgeCont.retrieve(to) : nullptr;
-        // check whether they are valid
-        if (fromEdge == nullptr) {
-            myErrorMsgHandler->inform("The connection-source edge '" + from + "' is not known.");
-            return;
-        }
-        if (toEdge == nullptr && to.length() != 0) {
-            myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
-            return;
-        }
-        // parse optional lane information
-        if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
-            parseLaneBound(attrs, fromEdge, toEdge);
-        } else {
-            fromEdge->addEdge2EdgeConnection(toEdge);
-            fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
-            if (attrs.hasAttribute(SUMO_ATTR_PASS)
-                    || attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)
-                    || attrs.hasAttribute(SUMO_ATTR_CONTPOS)
-                    || attrs.hasAttribute(SUMO_ATTR_VISIBILITY_DISTANCE)
-                    || attrs.hasAttribute(SUMO_ATTR_SPEED)
-                    || attrs.hasAttribute(SUMO_ATTR_LENGTH)
-                    || attrs.hasAttribute(SUMO_ATTR_UNCONTROLLED)
-                    || attrs.hasAttribute(SUMO_ATTR_SHAPE)
-                    || attrs.hasAttribute(SUMO_ATTR_ALLOW)
-                    || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
-                WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '"
-                            + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
-            }
-        }
-    }
-    if (element == SUMO_TAG_PROHIBITION) {
-        bool ok = true;
-        std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, nullptr, ok, "");
-        std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, nullptr, ok, "");
-        if (!ok) {
-            return;
-        }
-        NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
-        NBConnection prohibitedC = parseConnection("prohibited", prohibited);
-        if (prohibitorC == NBConnection::InvalidConnection || prohibitedC == NBConnection::InvalidConnection) {
-            // something failed
-            return;
-        }
-        NBNode* n = prohibitorC.getFrom()->getToNode();
-        n->addSortedLinkFoes(prohibitorC, prohibitedC);
-    }
-    if (element == SUMO_TAG_CROSSING) {
-        addCrossing(attrs);
-    }
-    if (element == SUMO_TAG_WALKINGAREA) {
-        addWalkingArea(attrs);
-    }
-    if (element == SUMO_TAG_PARAM) {
-        if (myLastParameterised != nullptr) {
-            bool ok = true;
-            const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-            // circumventing empty string test
-            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            myLastParameterised->setParameter(key, val);
-        }
+            break;
+        default:
+            break;
     }
 }
 
@@ -193,7 +108,7 @@ NIXMLConnectionsHandler::myEndElement(int element) {
 
 
 NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string& defRole, const std::string& def) {
+NIXMLConnectionsHandler::parseConnectionDef(const std::string& defRole, const std::string& def) {
     // split from/to
     const std::string::size_type div = def.find("->");
     if (div == std::string::npos) {
@@ -356,6 +271,90 @@ NIXMLConnectionsHandler::parseLaneDefinition(const SUMOSAXAttributes& attributes
     return ok;
 }
 
+void
+NIXMLConnectionsHandler::delConnection(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
+    std::string to = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+    if (!ok) {
+        return;
+    }
+    // these connections were removed when the edge was deleted
+    if (myEdgeCont.wasRemoved(from) || myEdgeCont.wasRemoved(to)) {
+        return;
+    }
+    NBEdge* fromEdge = myEdgeCont.retrieve(from);
+    NBEdge* toEdge = myEdgeCont.retrieve(to);
+    if (fromEdge == nullptr) {
+        myErrorMsgHandler->informf("The connection-source edge '%' to reset is not known.", from);
+        return;
+    }
+    if (toEdge == nullptr) {
+        myErrorMsgHandler->informf("The connection-destination edge '%' to reset is not known.", to);
+        return;
+    }
+    if (!fromEdge->isConnectedTo(toEdge) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::EDGE2EDGES) {
+        WRITE_WARNINGF(TL("Target edge '%' is not connected with '%'; the connection cannot be reset."), toEdge->getID(), fromEdge->getID());
+        return;
+    }
+    int fromLane = -1; // Assume all lanes are to be reset.
+    int toLane = -1;
+    if (attrs.hasAttribute(SUMO_ATTR_LANE)
+            || attrs.hasAttribute(SUMO_ATTR_FROM_LANE)
+            || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
+        if (!parseLaneInfo(attrs, fromEdge, toEdge, &fromLane, &toLane)) {
+            return;
+        }
+        // we could be trying to reset a connection loaded from a sumo net and which has become obsolete.
+        // In this case it's ok to encounter invalid lance indices
+        if (!fromEdge->hasConnectionTo(toEdge, toLane) && fromEdge->getStep() >= NBEdge::EdgeBuildingStep::LANES2EDGES) {
+            WRITE_WARNINGF(TL("Edge '%' has no connection to lane '%'; the connection cannot be reset."), fromEdge->getID(), toEdge->getLaneID(toLane));
+        }
+    }
+    fromEdge->removeFromConnections(toEdge, fromLane, toLane, true);
+}
+
+void
+NIXMLConnectionsHandler::parseConnection(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::string from = attrs.get<std::string>(SUMO_ATTR_FROM, "connection", ok);
+    std::string to = attrs.getOpt<std::string>(SUMO_ATTR_TO, "connection", ok, "");
+    if (!ok || myEdgeCont.wasIgnored(from) || myEdgeCont.wasIgnored(to)) {
+        return;
+    }
+    // extract edges
+    NBEdge* fromEdge = myEdgeCont.retrieve(from);
+    NBEdge* toEdge = to.length() != 0 ? myEdgeCont.retrieve(to) : nullptr;
+    // check whether they are valid
+    if (fromEdge == nullptr) {
+        myErrorMsgHandler->inform("The connection-source edge '" + from + "' is not known.");
+        return;
+    }
+    if (toEdge == nullptr && to.length() != 0) {
+        myErrorMsgHandler->inform("The connection-destination edge '" + to + "' is not known.");
+        return;
+    }
+    // parse optional lane information
+    if (attrs.hasAttribute(SUMO_ATTR_LANE) || attrs.hasAttribute(SUMO_ATTR_FROM_LANE) || attrs.hasAttribute(SUMO_ATTR_TO_LANE)) {
+        parseLaneBound(attrs, fromEdge, toEdge);
+    } else {
+        fromEdge->addEdge2EdgeConnection(toEdge);
+        fromEdge->getToNode()->invalidateTLS(myTLLogicCont, true, false);
+        if (attrs.hasAttribute(SUMO_ATTR_PASS)
+                || attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)
+                || attrs.hasAttribute(SUMO_ATTR_CONTPOS)
+                || attrs.hasAttribute(SUMO_ATTR_VISIBILITY_DISTANCE)
+                || attrs.hasAttribute(SUMO_ATTR_SPEED)
+                || attrs.hasAttribute(SUMO_ATTR_LENGTH)
+                || attrs.hasAttribute(SUMO_ATTR_UNCONTROLLED)
+                || attrs.hasAttribute(SUMO_ATTR_SHAPE)
+                || attrs.hasAttribute(SUMO_ATTR_ALLOW)
+                || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
+            WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '"
+                    + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
+        }
+    }
+}
 
 void
 NIXMLConnectionsHandler::addCrossing(const SUMOSAXAttributes& attrs) {
@@ -495,5 +494,22 @@ NIXMLConnectionsHandler::addWalkingArea(const SUMOSAXAttributes& attrs) {
     node->addWalkingAreaShape(edges, customShape, customWidth);
 }
 
+void
+NIXMLConnectionsHandler::addProhibition(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    std::string prohibitor = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITOR, nullptr, ok, "");
+    std::string prohibited = attrs.getOpt<std::string>(SUMO_ATTR_PROHIBITED, nullptr, ok, "");
+    if (!ok) {
+        return;
+    }
+    NBConnection prohibitorC = parseConnectionDef("prohibitor", prohibitor);
+    NBConnection prohibitedC = parseConnectionDef("prohibited", prohibited);
+    if (prohibitorC == NBConnection::InvalidConnection || prohibitedC == NBConnection::InvalidConnection) {
+        // something failed
+        return;
+    }
+    NBNode* n = prohibitorC.getFrom()->getToNode();
+    n->addSortedLinkFoes(prohibitorC, prohibitedC);
+}
 
 /****************************************************************************/
