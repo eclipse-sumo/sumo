@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 15:18:00 by Eclipse SUMO sumo Version v1_20_0+0370-0825f8501ad
+<!-- generated on 2024-07-04 15:15:32 by Eclipse SUMO sumo Version v1_20_0+0439-a8f3c62bd15
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -188,6 +188,7 @@
             <xsd:element name="sloppy-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="eager-insert" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="emergency-insert" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="insertion-checks" type="strOptionType" minOccurs="0"/>
             <xsd:element name="random-depart-offset" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.duration" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="lanechange.overtake-right" type="boolOptionType" minOccurs="0"/>

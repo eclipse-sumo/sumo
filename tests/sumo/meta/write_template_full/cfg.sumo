@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-06 15:18:00 by Eclipse SUMO sumo Version v1_20_0+0370-0825f8501ad
+<!-- generated on 2024-07-04 15:15:32 by Eclipse SUMO sumo Version v1_20_0+0439-a8f3c62bd15
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -156,6 +156,7 @@
         <sloppy-insert value="false" type="BOOL" help="Whether insertion on an edge shall not be repeated in same step once failed"/>
         <eager-insert value="false" type="BOOL" help="Whether each vehicle is checked separately for insertion on an edge"/>
         <emergency-insert value="false" type="BOOL" help="Allow inserting a vehicle in a situation which requires emergency braking"/>
+        <insertion-checks value="all" type="STR" help="Override default value for vehicle attribute insertionChecks"/>
         <random-depart-offset value="0" type="TIME" help="Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"/>
         <lanechange.duration value="0" type="TIME" help="Duration of a lane change maneuver (default 0)"/>
         <lanechange.overtake-right value="false" type="BOOL" help="Whether overtaking on the right on motorways is permitted"/>

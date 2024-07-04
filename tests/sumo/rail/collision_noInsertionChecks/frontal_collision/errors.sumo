@@ -1,0 +1,2 @@
+Warning: Vehicle 'RE2'; collision with vehicle 'RE1', lane='-c_0', gap=-1.00, time=106.00 stage=move.
+Warning: Vehicle 'RE1'; collision with vehicle 'RE2', lane='d_0', gap=-1.00, time=106.00 stage=move.

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0370-0825f8501ad
+Eclipse SUMO sumo Version v1_20_0+0439-a8f3c62bd15
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -281,6 +281,8 @@ Processing Options:
                                         separately for insertion on an edge
   --emergency-insert                   Allow inserting a vehicle in a situation
                                         which requires emergency braking
+  --insertion-checks STR               Override default value for vehicle
+                                        attribute insertionChecks
   --random-depart-offset TIME          Each vehicle receives a random offset to
                                         its depart value drawn uniformly from
                                         [0, TIME]
