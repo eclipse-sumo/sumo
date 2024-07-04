@@ -26,7 +26,6 @@ from __future__ import absolute_import
 import os
 import sys
 import csv
-import io
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
@@ -71,9 +70,9 @@ def get_options(args=None):
 def main():
     options = get_options()
     net = sumolib.net.readNet(options.netfile)
-    with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "additional", options=options)
-        inputf = io.open(options.detfile, encoding="utf8")
+    with sumolib.openz(options.outfile, 'w') as outf:
+        sumolib.writeXMLHeader(outf, root="additional", options=options)
+        inputf = sumolib.openz(options.detfile)
         reader = csv.DictReader(inputf, delimiter=options.delimiter)
         checkedFields = False
         for row in reader:

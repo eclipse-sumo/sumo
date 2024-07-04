@@ -294,10 +294,10 @@ def openz(fileOrURL, mode="r", **kwargs):
     """
     Opens transparently files, URLs and gzipped files for reading and writing.
     Special file names "stdout" and "stderr" are handled as well.
-    Also enforces UTF8 on text output / input.
+    Also enforces UTF8 on text output / input and should handle BOMs in input.
     Should be compatible with python 2 and 3.
     """
-    encoding = kwargs.get("encoding", "utf8")
+    encoding = kwargs.get("encoding", "utf8" if "w" in mode else "utf-8-sig")
     try:
         if fileOrURL.startswith("http://") or fileOrURL.startswith("https://"):
             return io.BytesIO(urlopen(fileOrURL).read())
