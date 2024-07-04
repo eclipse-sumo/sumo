@@ -97,6 +97,9 @@ to work. It provides the following options:
 - **--selection-file**: Network [selection file](../sumo-gui.md#selecting_objects) to restrict the area where charging stations shall be created to the referenced edges
 - **--vclass**: Only use edges which allow the given [vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class)
 - **--output-file**: The new additional file with charging station and parking area definitions
+- **--include-existing**: Consider existing charging stations from additional files in the computation of needed ones using **--probability** and **--density** and output them again
+- **--only-roadside**: Only consider roadside parking to place charging stations (cannot be used together with **--only-parking-lot**)
+- **--only-parking-lot**: Only consider parking lot spaces to place charging stations (cannot be used together with **--only-roadside**)
 - **--probability**: Probability for parking areas along an edge to receive charging infrastructure
 - **--density**: Share of the total parking spaces along an edge to be equipped with charging points
 - **--power**: Power attribute of charging stations to create (see [charging station attributes](../Models/Electric.md#charging_stations))
