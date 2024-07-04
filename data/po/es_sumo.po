@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-04 13:39+0000\n"
+"PO-Revision-Date: 2024-07-04 13:46+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5399,6 +5399,8 @@ msgstr "No se pudo encontrar la arista bidireccional para la arista '%'"
 #: src/netbuild/NBAlgorithms_Railway.cpp:640
 msgid "Found % reversible edge sequences between broken rail nodes"
 msgstr ""
+"Se encontraron % secuencias de aristas reversibles entre nodos ferroviarios "
+"rotos"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:672
 msgid "Reversed % sequences (count by length: %)"
@@ -5457,6 +5459,8 @@ msgid ""
 "Edge '%' was loaded with undefined priority (%) but has unambiguous main "
 "direction (no bidi edge)"
 msgstr ""
+"La arista '%' se cargó con una prioridad indefinida (%) pero tiene una "
+"dirección principal inequívoca (no es bidireccional)"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1360
 msgid "Added % rail signals at % stops."
