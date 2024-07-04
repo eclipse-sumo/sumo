@@ -769,6 +769,9 @@ MSFrame::fillOptions() {
     oc.doRegister("alternative-net-file", 'N', new Option_FileName());
     oc.addDescription("alternative-net-file", "GUI Only", TL("Load a secondary road network for abstract visualization from FILE"));
 
+    oc.doRegister("selection-file", new Option_FileName());
+    oc.addDescription("selection-file", "GUI Only", TL("Load pre-selected elements from FILE"));
+
     oc.doRegister("demo", 'D', new Option_Bool(false));
     oc.addDescription("demo", "GUI Only", TL("Restart the simulation after ending (demo mode)"));
 

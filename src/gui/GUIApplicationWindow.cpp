@@ -1919,12 +1919,18 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
                 myRunThread->getBreakpoints().assign(breakpoints.begin(), breakpoints.end());
                 myRunThread->getBreakpointLock().unlock();
             }
+            if (!OptionsCont::getOptions().isDefault("selection-file")) {
+                std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"));
+                if (msg != "") {
+                    WRITE_ERRORF("Errors while loading selection: %", msg.c_str());
+                }
+            }
             myTLSGame = OptionsCont::getOptions().getString("game.mode") == "tls";
             if (OptionsCont::getOptions().getBool("game")) {
                 if (myTLSGame) {
-                    setTitle("SUMO Interactive Traffic Light");
+                    setTitle(TL("SUMO Interactive Traffic Light"));
                 } else {
-                    setTitle("SUMO Interactive Demand-Responsive-Transport");
+                    setTitle(TL("SUMO Interactive Demand-Responsive-Transport"));
                 }
                 onCmdGaming(nullptr, 0, nullptr);
             } else {
