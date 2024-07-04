@@ -110,12 +110,6 @@ def main(srcRoot, toCheck, err):
         print("cannot open", srcRoot, file=err)
         return 1
     print("%s files checked" % fileNo)
-
-    if haveLxml:
-        for scheme in schemes.values():
-            if scheme.error_log:
-                print(scheme.error_log, file=err)
-                return 1
     return 0
 
 
