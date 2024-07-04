@@ -1,6 +1,10 @@
 # one vehicle slows down to avoid stopping on red
 slowDown
 
+# one vehicle slows down to avoid stopping on red,
+# an  alternative program was loaded
+slowDown_2ndProg
+
 # tls is configured with low range so slowDow is not feasible
 slowDown_no_tlsRange
 
