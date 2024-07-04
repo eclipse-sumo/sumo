@@ -43,6 +43,7 @@
 #define DRIVEWAY_SANITY_CHECK
 
 //#define DEBUG_BUILD_DRIVEWAY
+//#define DEBUG_BUILD_SUBDRIVEWAY
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_CHECK_FLANKS
 //#define DEBUG_SIGNALSTATE_PRIORITY
@@ -634,7 +635,7 @@ bool
 MSDriveWay::crossingConflict(const MSDriveWay& other) const {
     for (const MSLane* lane : myForward) {
         for (const MSLane* lane2 : other.myForward) {
-            if (lane->getEdge().getFromJunction() == lane2->getEdge().getFromJunction()) {
+            if (lane->isNormal() && lane2->isNormal() && lane->getEdge().getToJunction() == lane2->getEdge().getToJunction()) {
                 return true;
             }
         }
@@ -1319,7 +1320,9 @@ MSDriveWay::addSwitchFoes(const MSLink* link) {
         for (MSDriveWay* foe : it->second) {
             if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
+                std::cout << "   foe=" << foe->myID
+                    << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this)
+                    << " cc1=" << crossingConflict(*foe) << " cc2=" << foe->crossingConflict(*this) << "\n";
 #endif
                 myFoes.push_back(foe);
             }
@@ -1364,6 +1367,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp("tmp", true);
         tmp.myForward.push_back(lane);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+        std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << tmp.flankConflict(*foe) << " cc=" << tmp.crossingConflict(*foe)
+            << " bc=" << (std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) << "\n";
+#endif
         if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) ||
                 std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) {
             break;
@@ -1395,6 +1402,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
     sub->myCoreSize = sub->myRoute.size();
     foe->myFoes.push_back(sub);
     mySubDriveWays.push_back(sub);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+    std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
+#endif
 }
 
 
