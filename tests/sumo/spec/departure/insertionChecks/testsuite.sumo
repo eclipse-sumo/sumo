@@ -4,5 +4,8 @@ stop
 # remove check on gap to leader
 leaderGap
 
+# remove check on gap to leader with option
+leaderGap_option
+
 # remove check on gap to follower
 followerGap
