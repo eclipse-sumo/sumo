@@ -706,10 +706,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
 
         std::vector<std::string> foes;
         for (MSDriveWay* dw : myFoes) {
-            if (dw != this) {
-                // every driveway is it's own foe but we don't need to write this
-                foes.push_back(dw->myID);
-            }
+            foes.push_back(dw->myID);
         }
         if (foes.size() > 0) {
             od.openTag("foes");
