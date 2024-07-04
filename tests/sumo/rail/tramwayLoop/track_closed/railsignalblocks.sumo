@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-02 16:49:23 by Eclipse SUMO sumo Version v1_20_0+0421-a1b7554f8d0
+<!-- generated on 2024-07-04 11:06:23 by Eclipse SUMO sumo Version v1_20_0+0424-37361c7ee1c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="s13_0 s24_0"/>
                 <foes driveWays="s24.0 s25.0.0"/>
             </driveWay>
-            <subDriveWay id="s14.0.0" edges="">
+            <subDriveWay id="s14.0.0" edges="T18_1 T43_1 T32_1 T31_1">
                 <forward lanes=":s14_0_0 T18_1_0 :w3_1_0 T43_1_0 :w8_0_0 T32_1_0 :s25_0_0 T31_1_0"/>
             </subDriveWay>
         </link>
@@ -233,7 +233,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="s29_0"/>
                 <foes driveWays="s29.0.0"/>
             </driveWay>
-            <subDriveWay id="s22.0.0" edges="">
+            <subDriveWay id="s22.0.0" edges="T26_0 T44_0">
                 <forward lanes=":s22_0_0 T26_0_0 :w4_1_0 T44_0_0 :w5_3_0"/>
             </subDriveWay>
             <driveWay id="s22.1" edges="T26_0 T44_0 T36_0 T37_0 Tdepot_0">
@@ -244,7 +244,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
                 <foes driveWays="e1.0 s29.0.0 e1.2 e1.3"/>
             </driveWay>
-            <subDriveWay id="s22.1.0" edges="">
+            <subDriveWay id="s22.1.0" edges="T26_0 T44_0 T36_0 T37_0">
                 <forward lanes=":s22_0_0 T26_0_0 :w4_1_0 T44_0_0 :w5_2_0 T36_0_0 :s29_1_0 T37_0_0"/>
             </subDriveWay>
         </link>
@@ -283,7 +283,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="s14_0"/>
                 <foes driveWays="s14.0.0"/>
             </driveWay>
-            <subDriveWay id="s25.0.0" edges="">
+            <subDriveWay id="s25.0.0" edges="T32_0">
                 <forward lanes=":s25_1_0 T32_0_0 :w8_2_0"/>
             </subDriveWay>
         </link>
@@ -358,7 +358,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="s10_0 s22_0"/>
                 <foes driveWays="s22.0.0 s10.0 s22.1.0"/>
             </driveWay>
-            <subDriveWay id="s29.0.0" edges="">
+            <subDriveWay id="s29.0.0" edges="T36_1 T44_1 T41_1">
                 <forward lanes=":s29_0_0 T36_1_0 :w5_1_0 T44_1_0 :w4_0_0 T41_1_0"/>
             </subDriveWay>
         </link>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-02 10:17:01 by Eclipse SUMO sumo Version v1_20_0+0412-39c2ad4aa23
+<!-- generated on 2024-07-04 11:06:23 by Eclipse SUMO sumo Version v1_20_0+0424-37361c7ee1c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -66,10 +66,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="G_0 P3_0 P2_0"/>
                 <foes driveWays="P2.0.1 P3.0.1 G.2 P1.0.0"/>
             </driveWay>
-            <subDriveWay id="A.1.0" edges="">
+            <subDriveWay id="A.1.0" edges="T18_0 T29_0 T19_0">
                 <forward lanes=":A_1_0 T18_0_0 :w7_2_0 T29_0_0 :w8_2_0 T19_0_0"/>
             </subDriveWay>
-            <subDriveWay id="A.1.1" edges="">
+            <subDriveWay id="A.1.1" edges="T18_0 T29_0 T19_0">
                 <forward lanes=":A_1_0 T18_0_0 :w7_2_0 T29_0_0 :w8_2_0 T19_0_0 :P1_1_0"/>
             </subDriveWay>
         </link>
@@ -85,10 +85,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="F_0 P3_0 G_0"/>
                 <foes driveWays="F.0 P2.0.0 P3.0.0 G.0 P2.1.1 B.2 G.1 F.2"/>
             </driveWay>
-            <subDriveWay id="B.1.0" edges="">
+            <subDriveWay id="B.1.0" edges="T5_0 T6_0 T27_0 T7_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0 :w3_2_0 T7_0_0 :P2_1_0"/>
             </subDriveWay>
-            <subDriveWay id="B.1.1" edges="">
+            <subDriveWay id="B.1.1" edges="T5_0 T6_0 T27_0 T7_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0 :w3_2_0 T7_0_0"/>
             </subDriveWay>
             <driveWay id="B.2" edges="T5_0 T6_0 T27_0 T7_0 T8_0 T9_0 T15_0 T30_0">
@@ -100,10 +100,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="F_0 G_0 P3_0"/>
                 <foes driveWays="F.0 P2.0.0 P3.0.0 G.0 P2.1.1 B.1 G.1 F.2"/>
             </driveWay>
-            <subDriveWay id="B.2.0" edges="">
+            <subDriveWay id="B.2.0" edges="T5_0 T6_0 T27_0 T7_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0 :w3_2_0 T7_0_0 :P2_1_0"/>
             </subDriveWay>
-            <subDriveWay id="B.2.1" edges="">
+            <subDriveWay id="B.2.1" edges="T5_0 T6_0 T27_0 T7_0">
                 <forward lanes=":B_1_0 T5_0_0 :w1_3_0 T6_0_0 :w2_3_0 T27_0_0 :w3_2_0 T7_0_0"/>
             </subDriveWay>
         </link>
@@ -119,7 +119,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B_0 N3_0 G_0"/>
                 <foes driveWays="N2.0.0 B.1 G.0 B.2 N2.1.0 G.1 F.2"/>
             </driveWay>
-            <subDriveWay id="F.0.0" edges="">
+            <subDriveWay id="F.0.0" edges="T11_1 T28_1 T10_1 T9_1">
                 <forward lanes=":F_0_0 T11_1_0 :w6_0_0 T28_1_0 :w5_1_0 T10_1_0 :w4_0_0 T9_1_0 :N2_0_0"/>
             </subDriveWay>
             <driveWay id="F.1" edges="T11_1 T28_1 T4_1 T3_1 T2_1 T27_1 T14_1 T29_1 T18_1 T17_1" core="5">
@@ -138,7 +138,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B_0 G_0 N3_0"/>
                 <foes driveWays="N2.0.0 B.1 G.0 B.2 N2.1.0 G.1 F.0"/>
             </driveWay>
-            <subDriveWay id="F.2.0" edges="">
+            <subDriveWay id="F.2.0" edges="T11_1 T28_1 T10_1 T9_1">
                 <forward lanes=":F_0_0 T11_1_0 :w6_0_0 T28_1_0 :w5_1_0 T10_1_0 :w4_0_0 T9_1_0 :N2_0_0"/>
             </subDriveWay>
         </link>
@@ -154,10 +154,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="F_0 B_0 N1_0"/>
                 <foes driveWays="N2.0.2 F.0 N1.0.0 B.1 B.2 N2.1.1 G.1 F.2"/>
             </driveWay>
-            <subDriveWay id="G.0.0" edges="">
+            <subDriveWay id="G.0.0" edges="T25_1 T30_1 T15_1 T9_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_0_0 T15_1_0 :w4_1_0 T9_1_0 :N2_0_0"/>
             </subDriveWay>
-            <subDriveWay id="G.0.1" edges="">
+            <subDriveWay id="G.0.1" edges="T25_1 T30_1 T15_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_0_0 T15_1_0"/>
             </subDriveWay>
             <driveWay id="G.1" edges="T25_1 T30_1 T15_1 T9_1 T8_1 T7_1 T27_1 T14_1 T29_1 T18_1 T17_1" core="8">
@@ -169,10 +169,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="F_0 B_0 N1_0"/>
                 <foes driveWays="N2.0.2 F.0 N1.0.0 B.1 B.2 N2.1.1 G.0 F.2"/>
             </driveWay>
-            <subDriveWay id="G.1.0" edges="">
+            <subDriveWay id="G.1.0" edges="T25_1 T30_1 T15_1 T9_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_0_0 T15_1_0 :w4_1_0 T9_1_0 :N2_0_0"/>
             </subDriveWay>
-            <subDriveWay id="G.1.1" edges="">
+            <subDriveWay id="G.1.1" edges="T25_1 T30_1 T15_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_0_0 T15_1_0"/>
             </subDriveWay>
             <driveWay id="G.2" edges="T25_1 T30_1 T21_1 T20_1 T19_1 T29_1 T18_1 T17_1">
@@ -184,10 +184,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="A_0 N2_0"/>
                 <foes driveWays="N2.0.2 N1.0.0 N2.1.1 A.1"/>
             </driveWay>
-            <subDriveWay id="G.2.0" edges="">
+            <subDriveWay id="G.2.0" edges="T25_1 T30_1 T21_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_1_0 T21_1_0"/>
             </subDriveWay>
-            <subDriveWay id="G.2.1" edges="">
+            <subDriveWay id="G.2.1" edges="T25_1 T30_1 T21_1">
                 <forward lanes=":G_0_0 T25_1_0 :w10_0_0 T30_1_0 :w9_1_0 T21_1_0 :N1_0_0"/>
             </subDriveWay>
         </link>
@@ -202,7 +202,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="G_0 N3_0 N2_0"/>
                 <foes driveWays="N2.0.1 G.0.1 N2.1 G.1.1 G.2.1"/>
             </driveWay>
-            <subDriveWay id="N1.0.0" edges="">
+            <subDriveWay id="N1.0.0" edges="T21_0 T30_0 T22_0">
                 <forward lanes=":N1_1_0 T21_0_0 :w9_2_0 T30_0_0 :w10_2_0 T22_0_0"/>
             </subDriveWay>
         </link>
@@ -217,13 +217,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="N1_0 F_0"/>
                 <foes driveWays="e5.3 F.0.0 N1.0.0 G.0.0 e5.6 e5.8 G.1.0 G.2.0 F.2.0 e5.9"/>
             </driveWay>
-            <subDriveWay id="N2.0.0" edges="">
+            <subDriveWay id="N2.0.0" edges="T9_0 T15_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0"/>
             </subDriveWay>
-            <subDriveWay id="N2.0.1" edges="">
+            <subDriveWay id="N2.0.1" edges="T9_0 T15_0 T30_0 T25_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_1_0 T25_0_0"/>
             </subDriveWay>
-            <subDriveWay id="N2.0.2" edges="">
+            <subDriveWay id="N2.0.2" edges="T9_0 T15_0 T30_0 T25_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_1_0 T25_0_0 :G_1_0"/>
             </subDriveWay>
             <driveWay id="N2.1" edges="T9_0 T15_0 T30_0 T22_0 T23_0">
@@ -234,10 +234,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="F_0 N1_0 G_0 N3_0"/>
                 <foes driveWays="F.0.0 N1.0 G.0.0 G.1.0 G.2.0 F.2.0"/>
             </driveWay>
-            <subDriveWay id="N2.1.0" edges="">
+            <subDriveWay id="N2.1.0" edges="T9_0 T15_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0"/>
             </subDriveWay>
-            <subDriveWay id="N2.1.1" edges="">
+            <subDriveWay id="N2.1.1" edges="T9_0 T15_0 T30_0 T22_0">
                 <forward lanes=":N2_1_0 T9_0_0 :w4_2_0 T15_0_0 :w9_3_0 T30_0_0 :w10_2_0 T22_0_0"/>
             </subDriveWay>
         </link>
@@ -255,7 +255,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="P3_0 P2_0"/>
                 <foes driveWays="e3.2 P2.0 e3.5 P3.0 A.1.1"/>
             </driveWay>
-            <subDriveWay id="P1.0.0" edges="">
+            <subDriveWay id="P1.0.0" edges="T19_1 T29_1 T18_1">
                 <forward lanes=":P1_0_0 T19_1_0 :w8_1_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0"/>
             </subDriveWay>
         </link>
@@ -270,10 +270,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B_0 P1_0 P3_0"/>
                 <foes driveWays="e3.2 B.0.0 A.0.0 e3.5 P3.0 B.1.0 B.2.0 A.1.0 P1.0"/>
             </driveWay>
-            <subDriveWay id="P2.0.0" edges="">
+            <subDriveWay id="P2.0.0" edges="T7_1 T27_1 T14_1">
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_1_0 T14_1_0"/>
             </subDriveWay>
-            <subDriveWay id="P2.0.1" edges="">
+            <subDriveWay id="P2.0.1" edges="T7_1 T27_1 T14_1 T29_1 T18_1">
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_1_0 T14_1_0 :w8_0_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0"/>
             </subDriveWay>
             <driveWay id="P2.1" edges="T7_1 T27_1 T6_1 T5_1 T1_1">
@@ -284,10 +284,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="P3_0"/>
                 <foes driveWays="e1.0 e1.4 P3.0.0 B.1.0 e1.7 B.2.0"/>
             </driveWay>
-            <subDriveWay id="P2.1.0" edges="">
+            <subDriveWay id="P2.1.0" edges="T7_1 T27_1 T6_1">
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_0_0 T6_1_0"/>
             </subDriveWay>
-            <subDriveWay id="P2.1.1" edges="">
+            <subDriveWay id="P2.1.1" edges="T7_1 T27_1 T6_1 T5_1">
                 <forward lanes=":P2_0_0 T7_1_0 :w3_1_0 T27_1_0 :w2_0_0 T6_1_0 :w1_0_0 T5_1_0 :B_0_0"/>
             </subDriveWay>
         </link>
@@ -302,10 +302,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B_0 P1_0 P2_0"/>
                 <foes driveWays="e3.2 B.0.1 P2.0 A.0.0 e3.5 B.1.1 P2.1.0 B.2.1 A.1.0 P1.0"/>
             </driveWay>
-            <subDriveWay id="P3.0.0" edges="">
+            <subDriveWay id="P3.0.0" edges="T2_1 T27_1 T14_1">
                 <forward lanes=":P3_0_0 T2_1_0 :w3_0_0 T27_1_0 :w2_1_0 T14_1_0"/>
             </subDriveWay>
-            <subDriveWay id="P3.0.1" edges="">
+            <subDriveWay id="P3.0.1" edges="T2_1 T27_1 T14_1 T29_1 T18_1">
                 <forward lanes=":P3_0_0 T2_1_0 :w3_0_0 T27_1_0 :w2_1_0 T14_1_0 :w8_0_0 T29_1_0 :w7_1_0 T18_1_0 :A_0_0"/>
             </subDriveWay>
         </link>
