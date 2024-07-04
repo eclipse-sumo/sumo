@@ -1458,7 +1458,7 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
             return dw;
         }
     }
-    const std::string id = edge->getFromJunction()->getID() + "." + toString(myDepartDriveWayIndex++);
+    const std::string id = edge->getFromJunction()->getID() + ".d" + toString(myDepartDriveWayIndex++);
     MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
     myDepartureDriveways[edge].push_back(dw);
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
