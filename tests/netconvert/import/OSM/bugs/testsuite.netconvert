@@ -86,10 +86,10 @@ ticket10777
 # join looses tram connection
 ticket10826
 
-# crash when (always) processing pt stuff 
+# crash when (always) processing pt stuff
 ticket11803
 
-# crash when (always) processing pt stuff 
+# crash when (always) processing pt stuff
 ticket11839
 
 # interpretation of empty osm.turn-lanes value
@@ -133,3 +133,6 @@ ticket14785b
 
 # exit on broken OSM
 ticket14892
+
+# warning on traffic light
+ticket15150
