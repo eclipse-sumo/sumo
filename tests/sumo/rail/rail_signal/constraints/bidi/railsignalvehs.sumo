@@ -43,13 +43,13 @@
     <link linkIndex="1" from="e2_0" to="f2_0"/>
 </railSignal>
 <departJunction id="J2">
-    <driveWay id="J2.1">
+    <driveWay id="J2.d1">
         <entry id="t1" time="20.00" reason="0"/>
         <exit id="t1" time="80.00" reason="1"/>
     </driveWay>
 </departJunction>
 <departJunction id="gneJ1">
-    <driveWay id="gneJ1.0">
+    <driveWay id="gneJ1.d0">
         <entry id="t0" time="0.00" reason="0"/>
         <exit id="t0" time="141.00" reason="1"/>
     </driveWay>

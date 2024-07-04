@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 17:07:14 by Eclipse SUMO sumo Version v1_20_0+0446-6bc500e45b2
+<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J2.0 J1.0.0 J0.0"/>
+                <foes driveWays="J2.0 J1.0.0 J0.d0"/>
             </driveWay>
             <subDriveWay id="J2.0.0" edges="-E1">
                 <forward lanes=":J2_0_0 -E1_0 :J1_0_0"/>
@@ -69,13 +69,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="J0">
-        <driveWay id="J0.0" edges="E0 E1 E2">
+        <driveWay id="J0.d0" edges="E0 E1 E2">
             <forward lanes="E0_0"/>
             <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0"/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="J2.0 J0.0"/>
+            <foes driveWays="J2.0 J0.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

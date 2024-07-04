@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
+<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,29 +46,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_0_0 -E0_0 :J0_0_0 -E1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.0 J2.0"/>
+                <foes driveWays="A.d0 J2.0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="end_0" to=":J2_1_0"/>
     </railSignal>
     <departJunction id="C">
-        <driveWay id="C.1" edges="-end2 -end -beg" core="2">
+        <driveWay id="C.d1" edges="-end2 -end -beg" core="2">
             <forward lanes="-end2_0"/>
             <bidi lanes="end2_0 :J2_1_0 end_0 :B_2_0"/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="C.1"/>
+            <foes driveWays="C.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
-        <driveWay id="A.0" edges="beg E0 E1">
+        <driveWay id="A.d0" edges="beg E0 E1">
             <forward lanes="beg_0 :B_3_0 E0_0 :J0_1_0 E1_0"/>
             <bidi lanes="-beg_0 :B_0_0 -E0_0 :J0_0_0 -E1_0"/>
             <flank lanes=":B_1_0 -end_0 :J2_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="J2_0"/>
-            <foes driveWays="A.0 J2.0"/>
+            <foes driveWays="A.d0 J2.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

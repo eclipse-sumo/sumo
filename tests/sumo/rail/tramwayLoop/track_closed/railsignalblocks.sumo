@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
+<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -250,7 +250,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_2_0 T41_0_0 :w5_0_0 T27_1_0 :s23_0_0 T28_1_0 :w9_0_0 :w9_1_0"/>
                 <protectingSwitches links="w9_0 w9_1"/>
                 <conflictLinks signals=""/>
-                <foes driveWays="s29.0.0 e1.0 e1.1 s22.1"/>
+                <foes driveWays="s29.0.0 e1.d0 e1.d1 s22.1"/>
             </driveWay>
             <subDriveWay id="s22.1.0" edges="T26_0 T44_0 T36_0">
                 <forward lanes=":s22_0_0 T26_0_0 :w4_1_0 T44_0_0 :w5_2_0 T36_0_0 :s29_1_0"/>
@@ -524,22 +524,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="e1">
-        <driveWay id="e1.0" edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1">
+        <driveWay id="e1.d0" edges="Tdepot_1 T37_1 T36_1 T44_1 T41_1">
             <forward lanes="Tdepot_1_0 :w9_3_0 T37_1_0"/>
             <bidi lanes="Tdepot_0_0 :w9_4_0 T37_0_0 :s29_1_0 T36_0_0 :w5_2_0"
                     deadlockCheck="T44_0_0 :w4_2_0 T41_0_0 :w4_1_0 T26_0_0 :s22_0_0"/>
             <flank lanes=":w9_0_0 :w9_1_0"/>
             <protectingSwitches links="w5_2 w9_0 w9_1"/>
             <conflictLinks signals="s22_0"/>
-            <foes driveWays="e1.0 s22.1"/>
+            <foes driveWays="e1.d0 s22.1"/>
         </driveWay>
-        <driveWay id="e1.1" edges="Tdepot_1 T38_1 T39_0">
+        <driveWay id="e1.d1" edges="Tdepot_1 T38_1 T39_0">
             <forward lanes="Tdepot_1_0 :w9_2_0 T38_1_0"/>
             <bidi lanes="Tdepot_0_0 :w9_1_0 T38_0_0 :s30_0_0 T39_1_0"/>
             <flank lanes=":w9_4_0 :w9_5_0"/>
             <protectingSwitches links="w9_4 w9_5"/>
             <conflictLinks signals="s22_0"/>
-            <foes driveWays="e1.1 s22.1"/>
+            <foes driveWays="e1.d1 s22.1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

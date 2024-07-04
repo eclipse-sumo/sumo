@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
+<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="e_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="D_0"/>
-                <foes driveWays="gneJ3.0 A.0 D.0"/>
+                <foes driveWays="gneJ3.d0 A.0 D.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -58,38 +58,38 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="b_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0 gneJ3.0 D.0"/>
+                <foes driveWays="A.0 gneJ3.d0 D.0"/>
             </driveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ1">
-        <driveWay id="gneJ1.1" edges="a">
+        <driveWay id="gneJ1.d1" edges="a">
             <forward lanes="a_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="gneJ1.1"/>
+            <foes driveWays="gneJ1.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ3">
-        <driveWay id="gneJ3.0" edges="c">
+        <driveWay id="gneJ3.d0" edges="c">
             <forward lanes="c_0"/>
             <bidi lanes=""/>
             <flank lanes="b_0 e_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="D_0 A_0"/>
-            <foes driveWays="gneJ3.0 A.0 D.0"/>
+            <foes driveWays="gneJ3.d0 A.0 D.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ5">
-        <driveWay id="gneJ5.2" edges="d">
+        <driveWay id="gneJ5.d2" edges="d">
             <forward lanes="d_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="gneJ5.2"/>
+            <foes driveWays="gneJ5.d2"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

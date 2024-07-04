@@ -49,7 +49,7 @@
     </link>
 </railSignal>
 <departJunction id="J7">
-    <driveWay id="J7.0">
+    <driveWay id="J7.d0">
         <entry id="v_0" time="0.00" reason="0"/>
         <entry id="v_1" time="21.00" reason="0"/>
         <exit id="v_0" time="28.00" reason="1"/>
