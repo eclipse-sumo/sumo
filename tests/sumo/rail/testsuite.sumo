@@ -67,3 +67,6 @@ crossing
 
 # test for various types of train collision
 collision
+
+# test for various types of train collision without enforcing insertion checks
+collision_noInsertionChecks
