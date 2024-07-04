@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 14:26+0000\n"
+"PO-Revision-Date: 2024-07-04 12:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2072,24 +2072,31 @@ msgid ""
 "Enable recuperation from the vehicle equipped with elecHybrid device into "
 "the overhead wire."
 msgstr ""
+"Attiva il recupero dal veicolo attrezzato con elecHybrid verso la catenaria."
 
 #: src/microsim/MSFrame.cpp:512
 msgid ""
 "Enable current limits of traction substation during solving the overhead "
 "wire electrical circuit."
 msgstr ""
+"Attiva i limiti di corrente della sottostazione elettrica durante la "
+"risoluzione del circuito elettrico della catenaria."
 
 #: src/microsim/MSFrame.cpp:515
 msgid ""
 "Sets the fraction of emergency decel capability that must be used to trigger "
 "a warning."
 msgstr ""
+"Imposta la quota della capacità di decelerazione di emergenza che provoca un "
+"avvertimento."
 
 #: src/microsim/MSFrame.cpp:518
 msgid ""
 "Whether parking simulation includes maneuvering time and associated lane "
 "blocking"
 msgstr ""
+"Se la simulazione del parcheggiamento include il tempo di manovra e la "
+"corsia bloccata durante la manovra"
 
 #: src/microsim/MSFrame.cpp:521
 msgid "Override stop until times with stop ended times when given"
@@ -2480,12 +2487,16 @@ msgid ""
 "The option 'sloppy-insert' is deprecated, because it is now activated by "
 "default, see the new option 'eager-insert'."
 msgstr ""
+"L'opzione 'sloppy-insert' non si usa più perché è ormai attivata "
+"automaticamente, vedi la nuova opzione 'eager-insert'."
 
 #: src/microsim/MSFrame.cpp:943
 msgid ""
 "Only one of the options 'lanechange.duration' or 'lateral-resolution' may be "
 "given."
 msgstr ""
+"Soltanto una delle opzione 'lanechange.duration' e 'lateral-resolution' può "
+"essere data."
 
 #: src/microsim/MSFrame.cpp:947
 msgid "Sublane dynamics are not supported by mesoscopic simulation"
@@ -2496,17 +2507,21 @@ msgid ""
 "The option 'ignore-accidents' is deprecated. Use 'collision.action none' "
 "instead."
 msgstr ""
+"L'opzione 'ignore-accidents' non si usa più. Utilizza invece "
+"'collision.action none'."
 
 #: src/microsim/MSFrame.cpp:964
 msgid ""
 "The option tripinfo-output.write-undeparted implies tripinfo-output.write-"
 "unfinished."
 msgstr ""
+"L'opzione tripinfo-output-write-undeparted richiede di attivare ugualmente "
+"tripinfo-output.write-unfinished."
 
 #: src/microsim/MSFrame.cpp:986
 #, c-format
 msgid "Unknown model '%' for option 'carfollow.model'."
-msgstr ""
+msgstr "Modello '%' sconosciuto nell'opzione 'carfollow.model'."
 
 #: src/microsim/MSFrame.cpp:995
 #, c-format
@@ -2514,6 +2529,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'"
 msgstr ""
+"Valore invalido '%' per l'opzione 'default.emergencydecel'. Deve essere un "
+"valore FLOAT oppure 'default' o 'decel'"
 
 #: src/microsim/MSFrame.cpp:1001
 msgid "You need a non-negative delay."
