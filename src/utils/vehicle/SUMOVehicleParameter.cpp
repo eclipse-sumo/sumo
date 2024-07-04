@@ -189,8 +189,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_CALIBRATORSPEED_SET)) {
         dev.writeAttr(SUMO_ATTR_SPEED, calibratorSpeed);
     }
-    // speed (only used by calibrators)
-    if (insertionChecks != (int)InsertionCheck::ALL) {
+    // insertionChecks
+    if (wasSet(VEHPARS_INSERTION_CHECKS_SET) && insertionChecks != (int)InsertionCheck::ALL) {
         std::vector<std::string> checks;
         if (insertionChecks == (int)InsertionCheck::NONE) {
             checks.push_back(toString(InsertionCheck::NONE));

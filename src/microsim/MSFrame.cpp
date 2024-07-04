@@ -457,6 +457,9 @@ MSFrame::fillOptions() {
     oc.doRegister("emergency-insert", new Option_Bool(false));
     oc.addDescription("emergency-insert", "Processing", TL("Allow inserting a vehicle in a situation which requires emergency braking"));
 
+    oc.doRegister("insertion-checks", new Option_String("all"));
+    oc.addDescription("insertion-checks", "Processing", TL("Override default value for vehicle attribute insertionChecks"));
+
     oc.doRegister("random-depart-offset", new Option_String("0", "TIME"));
     oc.addDescription("random-depart-offset", "Processing", TL("Each vehicle receives a random offset to its depart value drawn uniformly from [0, TIME]"));
 
@@ -1078,6 +1081,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gOverheadWireSolver = oc.getBool("overhead-wire.solver");
     MSGlobals::gOverheadWireRecuperation = oc.getBool("overhead-wire.recuperation");
     MSGlobals::gOverheadWireCurrentLimits = oc.getBool("overhead-wire.substation-current-limits");
+    MSGlobals::gInsertionChecks = SUMOVehicleParameter::parseInsertionChecks(oc.getString("insertion-checks"));
 
     MSLane::initCollisionOptions(oc);
 

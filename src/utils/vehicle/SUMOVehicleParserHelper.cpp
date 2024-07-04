@@ -682,6 +682,7 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
     }
     // parse insertion checks
     if (attrs.hasAttribute(SUMO_ATTR_INSERTIONCHECKS)) {
+        ret->parametersSet |= VEHPARS_INSERTION_CHECKS_SET;
         bool ok = true;
         std::string checks = attrs.get<std::string>(SUMO_ATTR_INSERTIONCHECKS, ret->id.c_str(), ok);
         if (!ok) {

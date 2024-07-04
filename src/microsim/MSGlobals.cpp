@@ -99,4 +99,6 @@ SUMOTime MSGlobals::gStartupWaitThreshold(0);
 
 bool MSGlobals::gHaveEmissions(false);
 
+int MSGlobals::gInsertionChecks(0);
+
 /****************************************************************************/

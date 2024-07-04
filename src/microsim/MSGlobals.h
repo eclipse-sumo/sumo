@@ -176,4 +176,7 @@ public:
 
     /// @brief Whether emission output of some type is needed (files or GUI)
     static bool gHaveEmissions;
+
+    /// @brief The default value for insertion checks
+    static int gInsertionChecks;
 };
