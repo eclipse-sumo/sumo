@@ -37,29 +37,25 @@ netedit.selectMode()
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
+# lock all
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.lockAll)
 
-# clear selection
-netedit.selectionClear()
-
-# lock edges
+# unlock edges
 netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.edges)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 590, 460)
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition,
+                           netedit.positions.selection.rectangleMediumA.x,
+                           netedit.positions.selection.rectangleMediumA.y,
+                           netedit.positions.selection.rectangleMediumB.x,
+                           netedit.positions.selection.rectangleMediumB.y)
 
-# clear selection
-netedit.selectionClear()
+# remove elements
+netedit.deleteSelectedItems()
 
-# select no
-netedit.typeTwoKeys('alt', 'o')
-
-# lock edges
-netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.edges)
-
-# check undo and redo
-netedit.checkUndoRedo(referencePosition)
+# check undo redo
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

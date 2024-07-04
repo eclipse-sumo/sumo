@@ -34,23 +34,30 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.junctions)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.edges)
+
+# lock edges
+netedit.lockSelection(netedit.attrs.selection.lockSelectionNetwork.crossings)
+
 # show connections
 netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
+# Rebuild network
+netedit.rebuildNetwork()
 
-# clear selection
-netedit.selectionClear()
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition,
+                           netedit.positions.selection.rectangleSmallA.x,
+                           netedit.positions.selection.rectangleSmallA.y,
+                           netedit.positions.selection.rectangleSmallB.x,
+                           netedit.positions.selection.rectangleSmallB.y)
 
-# hidde connections
-netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
-
-# use a rectangle to check add mode
-netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
-
-# clear selection
-netedit.selectionClear()
+# remove elements
+netedit.deleteSelectedItems()
 
 # check undo and redo
 netedit.checkUndoRedo(referencePosition)

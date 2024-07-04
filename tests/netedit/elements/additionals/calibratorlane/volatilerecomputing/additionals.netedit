@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-21 09:40:32 by Eclipse SUMO netedit Version v1_16_0+0488-c85d0c5ea0d
+<!-- generated on 2024-07-03 14:36:17 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Calibrators -->
-    <calibrator id="ca_0" edge="E0" pos="0.00"/>
-    <calibrator id="ca_1" edge="top" pos="0.00"/>
-    <calibrator id="ca_2" edge="E5" pos="0.00"/>
-    <calibrator id="ca_3" edge="E4" pos="0.00"/>
-    <calibrator id="ca_4" edge="E1" pos="0.00"/>
-    <calibrator id="ca_5" edge="bot" pos="0.00"/>
-    <calibrator id="calibrator_center0_3" lane="EdgeCenter0_0" pos="0.00" period="100.00" output="calibrator_center0_3.txt"/>
-    <calibrator id="calibrator_EdgeCenter1_2" lane="EdgeCenter1_0" pos="0.00" period="100.00" output="calibrator_EdgeCenter1_2.txt"/>
+    <calibrator id="ca_0" lane="EdgeExternBot_0" pos="87.50"/>
+    <calibrator id="ca_1" lane="Edge5_1" pos="30.00"/>
+    <calibrator id="ca_2" lane="EdgeExternTop_0" pos="87.50"/>
+    <calibrator id="ca_3" lane="Edge0_1" pos="35.00"/>
+    <calibrator id="ca_4" lane="Edge2_1" pos="30.00"/>
+    <calibrator id="ca_5" lane="Edge3_1" pos="27.50"/>
+    <calibrator id="ca_6" lane="EdgeCenter1_1" pos="17.27"/>
+    <calibrator id="ca_7" lane="EdgeCenter0_1" pos="12.95"/>
 </additional>

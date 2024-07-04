@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 13:59:47 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+<!-- generated on 2024-07-03 14:35:11 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <instantInductionLoop id="e1i_0" lane="EdgeCenter0_0" pos="29.00" file="e1i_0.xml"/>
-    <instantInductionLoop id="e1i_1" lane="EdgeCenter0_0" pos="21.00" file="e1i_1.xml"/>
-    <instantInductionLoop id="e1i_10" lane="Edge3_1" pos="29.00" file="e1i_10.xml"/>
-    <instantInductionLoop id="e1i_11" lane="Edge3_1" pos="21.00" file="e1i_11.xml"/>
-    <instantInductionLoop id="e1i_2" lane="EdgeCenter1_1" pos="31.00" file="e1i_2.xml"/>
-    <instantInductionLoop id="e1i_3" lane="EdgeCenter1_1" pos="19.00" file="e1i_3.xml"/>
-    <instantInductionLoop id="e1i_4" lane="EdgeCenter1_1" pos="15.00" file="e1i_4.xml"/>
-    <instantInductionLoop id="e1i_5" lane="EdgeCenter1_1" pos="33.00" file="e1i_5.xml"/>
-    <instantInductionLoop id="e1i_6" lane="EdgeCenter1_0" pos="13.00" file="e1i_6.xml"/>
-    <instantInductionLoop id="e1i_7" lane="EdgeCenter1_0" pos="35.00" file="e1i_7.xml"/>
-    <instantInductionLoop id="e1i_8" lane="Edge5_1" pos="13.00" file="e1i_8.xml"/>
-    <instantInductionLoop id="e1i_9" lane="Edge5_1" pos="35.00" file="e1i_9.xml"/>
+    <instantInductionLoop id="e1i_0" lane="EdgeExternBot_0" pos="22.24" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="EdgeExternTop_0" pos="152.76" file="e1i_1.xml"/>
+    <instantInductionLoop id="e1i_10" lane="EdgeCenter1_1" pos="17.27" file="e1i_10.xml"/>
+    <instantInductionLoop id="e1i_11" lane="EdgeCenter0_1" pos="30.23" file="e1i_11.xml"/>
+    <instantInductionLoop id="e1i_12" lane="Edge5_1" pos="40.00" file="e1i_12.xml"/>
+    <instantInductionLoop id="e1i_13" lane="Edge0_1" pos="25.00" file="e1i_13.xml"/>
+    <instantInductionLoop id="e1i_2" lane="EdgeExternBot_0" pos="57.17" file="e1i_2.xml"/>
+    <instantInductionLoop id="e1i_3" lane="EdgeExternBot_0" pos="117.83" file="e1i_3.xml"/>
+    <instantInductionLoop id="e1i_4" lane="EdgeExternBot_0" pos="152.76" file="e1i_4.xml"/>
+    <instantInductionLoop id="e1i_5" lane="EdgeExternTop_0" pos="22.24" file="e1i_5.xml"/>
+    <instantInductionLoop id="e1i_6" lane="EdgeExternTop_0" pos="57.17" file="e1i_6.xml"/>
+    <instantInductionLoop id="e1i_7" lane="EdgeExternTop_0" pos="117.83" file="e1i_7.xml"/>
+    <instantInductionLoop id="e1i_8" lane="Edge2_1" pos="40.00" file="e1i_8.xml"/>
+    <instantInductionLoop id="e1i_9" lane="Edge3_1" pos="17.50" file="e1i_9.xml"/>
 </additional>

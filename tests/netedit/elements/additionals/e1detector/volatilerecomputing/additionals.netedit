@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-14 13:59:47 by Eclipse SUMO netedit Version v1_16_0+0177-c72433bc6bd
+<!-- generated on 2024-07-03 14:31:44 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="EdgeCenter0_0" pos="29.00" period="300.00" file="e1_0.xml"/>
-    <inductionLoop id="e1_1" lane="EdgeCenter0_0" pos="21.00" period="300.00" file="e1_1.xml"/>
-    <inductionLoop id="e1_10" lane="Edge3_1" pos="29.00" period="300.00" file="e1_10.xml"/>
-    <inductionLoop id="e1_11" lane="Edge3_1" pos="21.00" period="300.00" file="e1_11.xml"/>
-    <inductionLoop id="e1_2" lane="EdgeCenter1_1" pos="31.00" period="300.00" file="e1_2.xml"/>
-    <inductionLoop id="e1_3" lane="EdgeCenter1_1" pos="19.00" period="300.00" file="e1_3.xml"/>
-    <inductionLoop id="e1_4" lane="EdgeCenter1_1" pos="15.00" period="300.00" file="e1_4.xml"/>
-    <inductionLoop id="e1_5" lane="EdgeCenter1_1" pos="33.00" period="300.00" file="e1_5.xml"/>
-    <inductionLoop id="e1_6" lane="EdgeCenter1_0" pos="13.00" period="300.00" file="e1_6.xml"/>
-    <inductionLoop id="e1_7" lane="EdgeCenter1_0" pos="35.00" period="300.00" file="e1_7.xml"/>
-    <inductionLoop id="e1_8" lane="Edge5_1" pos="13.00" period="300.00" file="e1_8.xml"/>
-    <inductionLoop id="e1_9" lane="Edge5_1" pos="35.00" period="300.00" file="e1_9.xml"/>
+    <inductionLoop id="e1_0" lane="EdgeExternBot_0" pos="22.24" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="EdgeExternTop_0" pos="152.76" period="300.00" file="e1_1.xml"/>
+    <inductionLoop id="e1_10" lane="EdgeCenter1_1" pos="17.27" period="300.00" file="e1_10.xml"/>
+    <inductionLoop id="e1_11" lane="EdgeCenter0_1" pos="30.23" period="300.00" file="e1_11.xml"/>
+    <inductionLoop id="e1_12" lane="Edge2_1" pos="40.00" period="300.00" file="e1_12.xml"/>
+    <inductionLoop id="e1_13" lane="Edge3_1" pos="17.50" period="300.00" file="e1_13.xml"/>
+    <inductionLoop id="e1_2" lane="EdgeExternTop_0" pos="117.83" period="300.00" file="e1_2.xml"/>
+    <inductionLoop id="e1_3" lane="EdgeExternTop_0" pos="57.17" period="300.00" file="e1_3.xml"/>
+    <inductionLoop id="e1_4" lane="EdgeExternTop_0" pos="22.24" period="300.00" file="e1_4.xml"/>
+    <inductionLoop id="e1_5" lane="EdgeExternBot_0" pos="152.76" period="300.00" file="e1_5.xml"/>
+    <inductionLoop id="e1_6" lane="EdgeExternBot_0" pos="57.17" period="300.00" file="e1_6.xml"/>
+    <inductionLoop id="e1_7" lane="EdgeExternBot_0" pos="117.83" period="300.00" file="e1_7.xml"/>
+    <inductionLoop id="e1_8" lane="Edge5_1" pos="40.00" period="300.00" file="e1_8.xml"/>
+    <inductionLoop id="e1_9" lane="Edge0_1" pos="25.00" period="300.00" file="e1_9.xml"/>
 </additional>

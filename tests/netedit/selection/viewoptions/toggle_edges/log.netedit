@@ -1,0 +1,12 @@
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
+Warning: Edge '-E9' is not connected to outgoing edges at junction 'J0'.
+Warning: Lane 'E0_1' is not connected from any incoming edge at junction 'J0'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Discarding invalid crossing ':J0_c1' at junction 'J0' with edges [E1 -E1] (no vehicle lanes to cross).
+Warning: Edge '-E9' is not connected to outgoing edges at junction 'J0'.
+Warning: Lane 'E0_1' is not connected from any incoming edge at junction 'J0'.
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Unused state in tlLogic 'J0', program '0' at tl-index 1
+Warning: 6 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

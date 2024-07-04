@@ -1,46 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 14.09.2018 15:24:48 by Eclipse SUMO netedit Version UNKNOWN
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:\projects\sumo\tests\netedit\additionalElements\e3detector\volatileRecomputing\input_net.net.xml"/>
-    </output>
-
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-</configuration>
+<!-- generated on 2024-07-03 14:14:38 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <entryExitDetector id="entryExitDetector_0" pos="10.0,10.0" period="100.00" file="entryExitDetector_0.txt">
-        <detEntry lane="Edge3_1" pos="13.82"/>
-        <detEntry lane="Edge5_1" pos="42.11"/>
-        <detExit lane="EdgeCenter0_0" pos="38.04"/>
-        <detExit lane="EdgeCenter1_1" pos="34.51"/>
+    <!-- Detectors -->
+    <entryExitDetector id="e3_0" pos="0.00,10.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="Edge2_1" pos="50.00"/>
+        <detEntry lane="Edge3_1" pos="7.50"/>
+        <detEntry lane="EdgeCenter1_1" pos="34.55"/>
+        <detEntry lane="EdgeCenter0_1" pos="12.95"/>
+        <detEntry lane="Edge5_1" pos="50.00"/>
+        <detEntry lane="Edge0_1" pos="15.00"/>
+        <detExit lane="Edge2_1" pos="20.00"/>
+        <detExit lane="Edge3_1" pos="37.50"/>
+        <detExit lane="EdgeCenter1_1" pos="17.27"/>
+        <detExit lane="EdgeCenter0_1" pos="30.23"/>
+        <detExit lane="Edge5_1" pos="20.00"/>
+        <detExit lane="Edge0_1" pos="45.00"/>
     </entryExitDetector>
-    <entryExitDetector id="entryExitDetector_1" pos="5.0,5.0" period="100.00" file="entryExitDetector_1.txt">
-        <detEntry lane="Edge3_1" pos="4.97"/>
-        <detEntry lane="Edge5_1" pos="19.61"/>
-        <detExit lane="EdgeCenter1_0" pos="23.22"/>
-        <detExit lane="EdgeCenter1_1" pos="3.55"/>
+    <entryExitDetector id="e3_1" pos="0.00,-10.00" period="300.00" file="e3_1.xml">
+        <detEntry lane="EdgeExternBot_0" pos="57.17"/>
+        <detEntry lane="EdgeExternTop_0" pos="117.83"/>
+        <detEntry lane="EdgeExternTop_0" pos="152.76"/>
+        <detEntry lane="EdgeExternBot_0" pos="22.24"/>
+        <detExit lane="EdgeExternTop_0" pos="57.17"/>
+        <detExit lane="EdgeExternTop_0" pos="22.24"/>
+        <detExit lane="EdgeExternBot_0" pos="152.76"/>
+        <detExit lane="EdgeExternBot_0" pos="117.84"/>
     </entryExitDetector>
 </additional>

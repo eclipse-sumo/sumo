@@ -18,7 +18,6 @@
 # import common functions for netedit tests
 import os
 import sys
-import time
 
 testRoot = os.path.join(os.environ.get('SUMO_HOME', '.'), 'tests')
 neteditTestRoot = os.path.join(
@@ -36,30 +35,17 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition, 30, 0, 370, 350)
+netedit.selectionRectangle(referencePosition,
+                           netedit.positions.selection.rectangleMediumA.x,
+                           netedit.positions.selection.rectangleMediumA.y,
+                           netedit.positions.selection.rectangleMediumB.x,
+                           netedit.positions.selection.rectangleMediumB.y)
 
-# invert selection to select only extern nodes and delete it
+# invert selected elements
 netedit.selectionInvert()
+
+# delete selected elements
 netedit.deleteSelectedItems()
-
-# extra wait for debug
-time.sleep(3)
-
-# check undo and redo
-netedit.undo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
-
-netedit.redo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
-
-netedit.redo(referencePosition, 1)
-
-# extra wait for debug
-time.sleep(3)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

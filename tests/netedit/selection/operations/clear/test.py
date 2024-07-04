@@ -34,11 +34,17 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
-# first check that invert works
-netedit.selectionInvert()
+# use a rectangle to select central elements
+netedit.selectionRectangle(referencePosition,
+                           netedit.positions.selection.rectangleMediumA.x,
+                           netedit.positions.selection.rectangleMediumA.y,
+                           netedit.positions.selection.rectangleMediumB.x,
+                           netedit.positions.selection.rectangleMediumB.y)
 
-# invert again and delete selected items (all must be unselected)
-netedit.selectionInvert()
+# clear selected elements
+netedit.selectionClear()
+
+# delete selected elements
 netedit.deleteSelectedItems()
 
 # save Netedit config

@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-17 14:58:32 by Eclipse SUMO netedit Version v1_16_0+2120-e9fed2373cf
+<!-- generated on 2024-07-03 14:33:30 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <entryExitDetector id="entryExitDetector_0" pos="10.00,10.00" period="100.00" file="entryExitDetector_0.txt">
-        <detEntry lane="Edge3_1" pos="13.82"/>
-        <detEntry lane="Edge5_1" pos="42.11" friendlyPos="1"/>
-        <detExit lane="EdgeCenter0_0" pos="38.04"/>
-        <detExit lane="EdgeCenter1_1" pos="34.51"/>
+    <entryExitDetector id="e3_0" pos="0.00,10.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="Edge2_1" pos="50.00"/>
+        <detEntry lane="Edge3_1" pos="7.50"/>
+        <detEntry lane="EdgeCenter1_1" pos="34.55"/>
+        <detEntry lane="EdgeCenter0_1" pos="12.95"/>
+        <detEntry lane="Edge5_1" pos="50.00"/>
+        <detEntry lane="Edge0_1" pos="15.00"/>
+        <detExit lane="Edge2_1" pos="20.00"/>
+        <detExit lane="Edge3_1" pos="37.50"/>
+        <detExit lane="EdgeCenter1_1" pos="17.27"/>
+        <detExit lane="EdgeCenter0_1" pos="30.23"/>
+        <detExit lane="Edge5_1" pos="20.00"/>
+        <detExit lane="Edge0_1" pos="45.00"/>
     </entryExitDetector>
-    <entryExitDetector id="entryExitDetector_1" pos="5.00,5.00" period="100.00" file="entryExitDetector_1.txt">
-        <detEntry lane="Edge3_1" pos="4.97"/>
-        <detEntry lane="Edge5_1" pos="19.61"/>
-        <detExit lane="EdgeCenter1_0" pos="23.22"/>
-        <detExit lane="EdgeCenter1_1" pos="3.55"/>
+    <entryExitDetector id="e3_1" pos="0.00,-10.00" period="300.00" file="e3_1.xml">
+        <detEntry lane="EdgeExternBot_0" pos="57.17"/>
+        <detEntry lane="EdgeExternTop_0" pos="117.83"/>
+        <detEntry lane="EdgeExternTop_0" pos="152.76"/>
+        <detEntry lane="EdgeExternBot_0" pos="22.24"/>
+        <detExit lane="EdgeExternTop_0" pos="57.17"/>
+        <detExit lane="EdgeExternTop_0" pos="22.24"/>
+        <detExit lane="EdgeExternBot_0" pos="152.76"/>
+        <detExit lane="EdgeExternBot_0" pos="117.84"/>
     </entryExitDetector>
 </additional>

@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 15:51:12 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
+<!-- generated on 2024-07-04 13:30:04 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- StoppingPlaces -->
-    <busStop id="busStop" lane="3_1" startPos="0.20" endPos="10.20"/>
-    <!-- Detectors -->
-    <inductionLoop id="detector1" lane="6_1" pos="36.66" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector2" lane="6_1" pos="26.66" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector3" lane="2_1" pos="4.87" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector4" lane="2_1" pos="5.87" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector5" lane="4_1" pos="6.40" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector6" lane="4_1" pos="7.40" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector7" lane="7_2" pos="36.48" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector8" lane="7_2" pos="26.48" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <!-- Other additionals -->
+    <rerouter id="rr_0" edges="" pos="-10.00,18.00"/>
+    <rerouter id="rr_1" edges="" pos="10.00,-18.00"/>
     <!-- Shapes -->
-    <poly id="poly" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
-    <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
-    <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
-    <poi id="POI_2" color="red" layer="3.00" x="29.00" y="72.00" width="0.00" height="0.00"/>
-    <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
-    <poi id="POI_4" color="red" layer="3.00" lane="6_1" pos="28.00" width="0.00" height="0.00"/>
-    <poi id="POI_5" color="red" layer="3.00" lane="3_1" pos="12.90" width="0.00" height="0.00"/>
-    <!-- TAZs -->
-    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <poi id="poi_0" color="red" layer="202.00" x="-26.00" y="8.00"/>
+    <poi id="poi_1" color="red" layer="202.00" x="-26.00" y="-8.00"/>
+    <poi id="poi_10" color="red" layer="202.00" lon="0.000234" lat="-0.000180"/>
+    <poi id="poi_11" color="red" layer="202.00" lon="-0.000234" lat="-0.000180"/>
+    <poi id="poi_2" color="red" layer="202.00" x="26.00" y="-8.00"/>
+    <poi id="poi_3" color="red" layer="202.00" x="26.00" y="8.00"/>
+    <poi id="poi_8" color="red" layer="202.00" lon="-0.000234" lat="0.000180"/>
+    <poi id="poi_9" color="red" layer="202.00" lon="0.000234" lat="0.000180"/>
 </additional>

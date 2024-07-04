@@ -1,19 +1,11 @@
-# default values of selection
 default
 
-# default values of selection (button)
-default_button
-
-# select using click
 click
 
-# select differents busstops
-additional_basic
+parameters
 
-# check that undo-redo of elements works correctly
 undo_redo
 
-# try to select elements with wrong parameters
 wrong_parameters
 
 contextual_menu

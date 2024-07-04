@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-03-02 15:46:35 by Eclipse SUMO netedit Version v1_16_0+0946-47763bcb329
+<!-- generated on 2024-07-03 14:32:17 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
-    <laneAreaDetector id="e2_0" lane="EdgeCenter0_0" pos="14.00" length="10.00" period="300.00" file="e2_0.xml"/>
-    <laneAreaDetector id="e2_1" lane="EdgeCenter0_0" pos="26.00" length="10.00" period="300.00" file="e2_1.xml"/>
-    <laneAreaDetector id="e2_10" lane="Edge3_1" pos="14.00" length="10.00" period="300.00" file="e2_10.xml"/>
-    <laneAreaDetector id="e2_11" lane="Edge5_1" pos="26.00" length="10.00" period="300.00" file="e2_11.xml"/>
-    <laneAreaDetector id="e2_2" lane="EdgeCenter1_1" pos="26.00" length="10.00" period="300.00" file="e2_2.xml"/>
-    <laneAreaDetector id="e2_3" lane="EdgeCenter1_1" pos="14.00" length="10.00" period="300.00" file="e2_3.xml"/>
-    <laneAreaDetector id="e2_4" lane="EdgeCenter1_1" pos="26.00" length="10.00" period="300.00" file="e2_4.xml"/>
-    <laneAreaDetector id="e2_5" lane="EdgeCenter1_1" pos="14.00" length="10.00" period="300.00" file="e2_5.xml"/>
-    <laneAreaDetector id="e2_6" lane="EdgeCenter1_0" pos="14.00" length="10.00" period="300.00" file="e2_6.xml"/>
-    <laneAreaDetector id="e2_7" lane="EdgeCenter1_0" pos="26.00" length="10.00" period="300.00" file="e2_7.xml"/>
-    <laneAreaDetector id="e2_8" lane="Edge5_1" pos="14.00" length="10.00" period="300.00" file="e2_8.xml"/>
-    <laneAreaDetector id="e2_9" lane="Edge3_1" pos="26.00" length="10.00" period="300.00" file="e2_9.xml"/>
+    <laneAreaDetector id="e2_0" lane="EdgeExternTop_0" pos="112.83" length="10.00" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lane="EdgeExternTop_0" pos="52.17" length="10.00" period="300.00" file="e2_1.xml"/>
+    <laneAreaDetector id="e2_10" lane="EdgeCenter1_1" pos="12.27" length="10.00" period="300.00" file="e2_10.xml"/>
+    <laneAreaDetector id="e2_11" lane="EdgeCenter0_1" pos="25.23" length="10.00" period="300.00" file="e2_11.xml"/>
+    <laneAreaDetector id="e2_12" lane="Edge2_1" pos="35.00" length="10.00" period="300.00" file="e2_12.xml"/>
+    <laneAreaDetector id="e2_14" lane="Edge3_1" pos="12.50" length="10.00" period="300.00" file="e2_14.xml"/>
+    <laneAreaDetector id="e2_2" lane="EdgeExternTop_0" pos="147.76" length="10.00" period="300.00" file="e2_2.xml"/>
+    <laneAreaDetector id="e2_3" lane="EdgeExternBot_0" pos="17.24" length="10.00" period="300.00" file="e2_3.xml"/>
+    <laneAreaDetector id="e2_4" lane="EdgeExternBot_0" pos="52.17" length="10.00" period="300.00" file="e2_4.xml"/>
+    <laneAreaDetector id="e2_5" lane="EdgeExternBot_0" pos="112.83" length="10.00" period="300.00" file="e2_5.xml"/>
+    <laneAreaDetector id="e2_6" lane="EdgeExternBot_0" pos="147.76" length="10.00" period="300.00" file="e2_6.xml"/>
+    <laneAreaDetector id="e2_7" lane="EdgeExternTop_0" pos="17.24" length="10.00" period="300.00" file="e2_7.xml"/>
+    <laneAreaDetector id="e2_8" lane="Edge5_1" pos="35.00" length="10.00" period="300.00" file="e2_8.xml"/>
+    <laneAreaDetector id="e2_9" lane="Edge0_1" pos="20.00" length="10.00" period="300.00" file="e2_9.xml"/>
 </additional>

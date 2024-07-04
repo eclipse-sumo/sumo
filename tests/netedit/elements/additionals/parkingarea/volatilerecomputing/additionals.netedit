@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-07 14:38:44 by Eclipse SUMO netedit Version v1_16_0+0024-1134bf4b789
+<!-- generated on 2024-07-03 14:36:50 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <parkingArea id="pa_0" lane="EdgeCenter0_0" startPos="28.00" endPos="38.00"/>
-    <parkingArea id="pa_1" lane="EdgeCenter0_0" startPos="12.00" endPos="22.00"/>
-    <parkingArea id="pa_10" lane="EdgeCenter1_0" startPos="12.00" endPos="22.00"/>
-    <parkingArea id="pa_12" lane="EdgeCenter1_0" startPos="28.00" endPos="38.00"/>
-    <parkingArea id="pa_2" lane="EdgeCenter1_1" startPos="14.00" endPos="24.00"/>
-    <parkingArea id="pa_3" lane="EdgeCenter1_1" startPos="26.00" endPos="36.00"/>
-    <parkingArea id="pa_4" lane="Edge3_1" startPos="12.00" endPos="22.00"/>
-    <parkingArea id="pa_5" lane="Edge3_1" startPos="28.00" endPos="38.00"/>
-    <parkingArea id="pa_6" lane="Edge5_1" startPos="12.00" endPos="22.00"/>
-    <parkingArea id="pa_7" lane="Edge5_1" startPos="28.00" endPos="38.00"/>
-    <parkingArea id="pa_8" lane="EdgeCenter1_1" startPos="26.00" endPos="36.00"/>
-    <parkingArea id="pa_9" lane="EdgeCenter1_1" startPos="14.00" endPos="24.00"/>
+    <parkingArea id="pa_0" lane="EdgeExternBot_0" startPos="52.17" endPos="62.17"/>
+    <parkingArea id="pa_1" lane="EdgeExternBot_0" startPos="112.83" endPos="122.83"/>
+    <parkingArea id="pa_10" lane="Edge5_1" startPos="25.00" endPos="35.00"/>
+    <parkingArea id="pa_11" lane="Edge0_1" startPos="30.00" endPos="40.00"/>
+    <parkingArea id="pa_12" lane="EdgeCenter1_1" startPos="29.55" endPos="39.55"/>
+    <parkingArea id="pa_13" lane="EdgeCenter0_1" startPos="7.95" endPos="17.95"/>
+    <parkingArea id="pa_2" lane="EdgeExternTop_0" startPos="52.17" endPos="62.17"/>
+    <parkingArea id="pa_3" lane="EdgeExternTop_0" startPos="112.83" endPos="122.83"/>
+    <parkingArea id="pa_4" lane="EdgeExternTop_0" startPos="147.76" endPos="157.76"/>
+    <parkingArea id="pa_5" lane="EdgeExternBot_0" startPos="17.24" endPos="27.24"/>
+    <parkingArea id="pa_6" lane="EdgeExternBot_0" startPos="147.76" endPos="157.76"/>
+    <parkingArea id="pa_7" lane="EdgeExternTop_0" startPos="17.24" endPos="27.24"/>
+    <parkingArea id="pa_8" lane="Edge2_1" startPos="25.00" endPos="35.00"/>
+    <parkingArea id="pa_9" lane="Edge3_1" startPos="22.50" endPos="32.50"/>
 </additional>

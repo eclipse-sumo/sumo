@@ -21,6 +21,46 @@
 
 # network
 
+
+class selection:
+
+    class edge:
+        x = 513
+        y = 92
+
+    class lane:
+        x = 586
+        y = 213
+
+    class junction:
+        x = 498
+        y = 236
+
+    class rectangleSmallA:
+        x = 410
+        y = 147
+
+    class rectangleSmallB:
+        x = 587
+        y = 323
+
+    class rectangleMediumA:
+        x = 304
+        y = 94
+
+    class rectangleMediumB:
+        x = 694
+        y = 373
+
+    class rectangleLargeA:
+        x = 129
+        y = 4
+
+    class rectangleLargeB:
+        x = 867
+        y = 463
+
+
 class network:
 
     class junction:
@@ -149,7 +189,7 @@ class network:
 
         class laneRightBot:
             x = 750
-            y = 270         
+            y = 270
 
 
 class elements:

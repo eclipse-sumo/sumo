@@ -31,6 +31,7 @@ import testPositions as positions  # noqa
 
 # define delay before every operation
 DELAY_KEY = 0.2
+DELAY_DRAGDROP = 3
 DELAY_KEY_TAB = 0.2
 DELAY_MOUSE_MOVE = 0.5
 DELAY_MOUSE_CLICK = 1
@@ -304,7 +305,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
     time.sleep(DELAY_KEY)
     # drag mouse to X of 100, Y of 200 while holding down left mouse button
-    pyautogui.dragTo(tromPosition[0], tromPosition[1], 1, button='left')
+    pyautogui.dragTo(tromPosition[0], tromPosition[1], DELAY_DRAGDROP, button='left')
     # wait before every operation
     time.sleep(DELAY_KEY)
 
@@ -2113,20 +2114,6 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     time.sleep(DELAY_KEY)
     # Release Shift key
     typeKeyUp('shift')
-    # wait for gl debug
-    time.sleep(DELAY_SELECT)
-
-
-def selectionApply():
-    """
-    @brief apply selection
-    """
-    # focus current frame
-    focusOnFrame()
-    for _ in range(16):
-        typeTab()
-    # type space to select clear option
-    typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
 

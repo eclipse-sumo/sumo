@@ -34,8 +34,12 @@ netedit.selectMode()
 # save selection
 netedit.loadSelection()
 
+# delete selected elements
+netedit.deleteSelectedItems()
+
 # check undo-redo
-netedit.checkUndoRedo(referencePosition)
+netedit.undo(referencePosition, 1)
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

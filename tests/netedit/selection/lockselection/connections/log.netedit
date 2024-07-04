@@ -1,0 +1,14 @@
+Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Edge '-E0' is not connected to outgoing edges at junction 'J0'.
+Warning: Edge '-E1' is not connected to outgoing edges at junction 'J0'.
+Warning: Lane '-E12_1' is not connected from any incoming edge at junction 'J0'.
+Warning: Edge '-E9' is not connected to outgoing edges at junction 'J0'.
+Warning: Lane 'E0_1' is not connected from any incoming edge at junction 'J0'.
+Warning: Lane 'E1_1' is not connected from any incoming edge at junction 'J0'.
+Warning: Edge 'E12' is not connected to outgoing edges at junction 'J0'.
+Warning: Edge '-E0' is not connected to outgoing edges at junction 'J0'.
+Warning: The traffic light 'J0' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'J0'
+Warning: 8 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 14 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

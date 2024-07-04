@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-02-10 10:15:59 by Eclipse SUMO netedit Version v1_16_0+0110-c1da63f18a0
+<!-- generated on 2024-07-03 14:31:10 by Eclipse SUMO netedit Version v1_20_0+0977-3d26a690048
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <containerStop id="ct_0" lane="EdgeCenter0_0" startPos="35.00" endPos="45.00"/>
-    <containerStop id="ct_1" lane="EdgeCenter0_0" startPos="5.00" endPos="15.00"/>
-    <containerStop id="ct_10" lane="Edge5_1" startPos="10.00" endPos="20.00"/>
-    <containerStop id="ct_11" lane="Edge5_1" startPos="30.00" endPos="40.00"/>
-    <containerStop id="ct_2" lane="EdgeCenter1_0" startPos="5.00" endPos="15.00"/>
-    <containerStop id="ct_3" lane="EdgeCenter1_0" startPos="35.00" endPos="45.00"/>
-    <containerStop id="ct_4" lane="EdgeCenter1_1" startPos="30.00" endPos="40.00"/>
-    <containerStop id="ct_5" lane="EdgeCenter1_1" startPos="10.00" endPos="20.00"/>
-    <containerStop id="ct_6" lane="EdgeCenter1_1" startPos="30.00" endPos="40.00"/>
-    <containerStop id="ct_7" lane="EdgeCenter1_1" startPos="10.00" endPos="20.00"/>
-    <containerStop id="ct_8" lane="Edge3_1" startPos="30.00" endPos="40.00"/>
-    <containerStop id="ct_9" lane="Edge3_1" startPos="10.00" endPos="20.00"/>
+    <containerStop id="ct_0" lane="EdgeExternTop_0" startPos="62.28" endPos="72.28"/>
+    <containerStop id="ct_1" lane="EdgeExternTop_0" startPos="102.72" endPos="112.72"/>
+    <containerStop id="ct_10" lane="Edge5_1" startPos="25.00" endPos="35.00"/>
+    <containerStop id="ct_11" lane="Edge0_1" startPos="30.00" endPos="40.00"/>
+    <containerStop id="ct_12" lane="EdgeCenter1_1" startPos="29.55" endPos="39.55"/>
+    <containerStop id="ct_13" lane="EdgeCenter0_1" startPos="7.95" endPos="17.95"/>
+    <containerStop id="ct_2" lane="EdgeExternBot_0" startPos="62.28" endPos="72.28"/>
+    <containerStop id="ct_3" lane="EdgeExternBot_0" startPos="102.72" endPos="112.72"/>
+    <containerStop id="ct_4" lane="EdgeExternBot_0" startPos="147.76" endPos="157.76"/>
+    <containerStop id="ct_5" lane="EdgeExternTop_0" startPos="17.24" endPos="27.24"/>
+    <containerStop id="ct_6" lane="EdgeExternTop_0" startPos="147.76" endPos="157.76"/>
+    <containerStop id="ct_7" lane="EdgeExternBot_0" startPos="17.24" endPos="27.24"/>
+    <containerStop id="ct_8" lane="Edge2_1" startPos="25.00" endPos="35.00"/>
+    <containerStop id="ct_9" lane="Edge3_1" startPos="22.50" endPos="32.50"/>
 </additional>

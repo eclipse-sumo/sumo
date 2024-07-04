@@ -1,26 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-06-03 16:06:30 by Eclipse SUMO netedit Version v1_13_0+0610-e5b7f68bfcb
+<!-- generated on 2024-07-04 15:00:00 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="-E10" file="rp_0.xml"/>
+    <routeProbe id="rp_1" begin="0.00" period="3600.00" edge="E7" file="rp_1.xml"/>
+    <routeProbe id="rp_2" begin="0.00" period="3600.00" edge="E6" file="rp_2.xml"/>
+    <routeProbe id="rp_3" begin="0.00" period="3600.00" edge="-E11" file="rp_3.xml"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" edge="E10" pos="0.00"/>
+    <calibrator id="ca_1" edge="E6" pos="0.00"/>
+    <calibrator id="ca_2" edge="-E7" pos="0.00"/>
+    <calibrator id="ca_3" edge="-E11" pos="0.00"/>
+    <!-- StoppingPlaces -->
+    <trainStop id="ts_0" lane="E5_0"/>
+    <trainStop id="ts_1" lane="E8_0"/>
+    <trainStop id="ts_2" lane="E4_0"/>
+    <trainStop id="ts_3" lane="E2_0"/>
+    <containerStop id="ct_0" lane="E10_0" startPos="4.80" endPos="14.80"/>
+    <containerStop id="ct_1" lane="E11_0" startPos="5.80" endPos="15.80"/>
+    <containerStop id="ct_2" lane="-E7_0" startPos="4.80" endPos="14.80"/>
+    <containerStop id="ct_4" lane="-E6_0" startPos="5.80" endPos="15.80"/>
+    <chargingStation id="cs_0" lane="E6_0" startPos="4.80" endPos="14.80"/>
+    <chargingStation id="cs_1" lane="-E10_0" startPos="5.80" endPos="15.80"/>
+    <chargingStation id="cs_2" lane="-E11_0" startPos="4.80" endPos="14.80"/>
+    <chargingStation id="cs_3" lane="E7_0" startPos="5.80" endPos="15.80"/>
+    <parkingArea id="pa_0" lane="-E4_0">
+        <space x="-26.00" y="10.00"/>
+    </parkingArea>
+    <parkingArea id="pa_1" lane="-E2_0">
+        <space x="26.00" y="10.00"/>
+    </parkingArea>
+    <parkingArea id="pa_2" lane="-E8_0">
+        <space x="26.00" y="-18.00"/>
+    </parkingArea>
+    <parkingArea id="pa_3" lane="-E5_0">
+        <space x="-26.00" y="-18.00"/>
+    </parkingArea>
     <!-- Detectors -->
-    <inductionLoop id="detector1" lane="3_1" pos="30.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector2" lane="3_2" pos="5.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector3" lane="8_1" pos="35.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector4" lane="8_2" pos="10.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector5" lane="4_1" pos="30.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector6" lane="4_2" pos="5.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector7" lane="7_1" pos="35.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
-    <inductionLoop id="detector8" lane="7_2" pos="10.00" period="100.00" file="E1Output.txt" friendlyPos="1"/>
+    <laneAreaDetector id="e2_4" lanes="E4_1 E5_1" pos="5.80" endPos="4.80" period="300.00" file="e2_4.xml"/>
+    <laneAreaDetector id="e2_5" lanes="E8_1 E2_1" pos="5.80" endPos="4.80" period="300.00" file="e2_5.xml"/>
+    <entryExitDetector id="e3_0" pos="-22.00,14.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="-E4_0" pos="4.80"/>
+        <detExit lane="E10_0" pos="19.80"/>
+    </entryExitDetector>
+    <entryExitDetector id="e3_1" pos="22.00,14.00" period="300.00" file="e3_1.xml">
+        <detEntry lane="-E2_0" pos="9.80"/>
+        <detExit lane="E11_0" pos="4.80"/>
+    </entryExitDetector>
+    <entryExitDetector id="e3_2" pos="22.00,-14.00" period="300.00" file="e3_2.xml">
+        <detEntry lane="-E8_0" pos="4.80"/>
+        <detExit lane="-E7_0" pos="19.80"/>
+    </entryExitDetector>
+    <entryExitDetector id="e3_3" pos="-22.00,-14.00" period="300.00" file="e3_3.xml">
+        <detEntry lane="-E5_0" pos="9.80"/>
+        <detExit lane="-E6_0" pos="4.80"/>
+    </entryExitDetector>
+    <!-- Other additionals -->
+    <rerouter id="rr_0" edges="" pos="-10.00,18.00"/>
+    <rerouter id="rr_1" edges="" pos="10.00,-18.00"/>
+    <variableSpeedSign id="vs_1" lanes="-E5_0" pos="-22.00,-10.00"/>
+    <variableSpeedSign id="vs_2" lanes="-E2_0" pos="22.00,10.00"/>
+    <vaporizer id="-E10" begin="0.00" end="3600.00"/>
+    <vaporizer id="-E11" begin="0.00" end="3600.00"/>
+    <vaporizer id="E6" begin="0.00" end="3600.00"/>
+    <vaporizer id="E7" begin="0.00" end="3600.00"/>
     <!-- Shapes -->
-    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
-    <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
-    <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
-    <poi id="POI_2" color="red" layer="3.00" x="29.00" y="72.00" width="0.00" height="0.00"/>
-    <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
-    <poi id="POI_4" color="red" layer="3.00" lane="6_1" pos="28.00" width="0.00" height="0.00"/>
-    <poi id="POI_5" color="red" layer="3.00" lane="3_1" pos="12.90" width="0.00" height="0.00"/>
+    <poly id="po_0" color="red" fill="1" layer="0.00" shape="-12.000000,12.000000 -12.000000,8.000000 -8.000000,8.000000 -8.000000,12.000000 -12.000000,12.000000"/>
+    <poly id="po_1" color="red" fill="1" layer="0.00" shape="8.000000,12.000000 8.000000,8.000000 12.000000,8.000000 12.000000,12.000000 8.000000,12.000000"/>
+    <poly id="po_2" color="red" fill="1" layer="0.00" shape="8.000000,-8.000000 8.000000,-12.000000 12.000000,-12.000000 12.000000,-8.000000 8.000000,-8.000000"/>
+    <poly id="po_3" color="red" fill="1" layer="0.00" shape="-8.000000,-8.000000 -12.000000,-8.000000 -12.000000,-12.000000 -8.000000,-12.000000 -8.000000,-8.000000"/>
+    <poi id="poi_0" color="red" layer="202.00" x="-26.00" y="8.00"/>
+    <poi id="poi_1" color="red" layer="202.00" x="-26.00" y="-8.00"/>
+    <poi id="poi_10" color="red" layer="202.00" lon="0.000234" lat="-0.000180"/>
+    <poi id="poi_11" color="red" layer="202.00" lon="-0.000234" lat="-0.000180"/>
+    <poi id="poi_2" color="red" layer="202.00" x="26.00" y="-8.00"/>
+    <poi id="poi_3" color="red" layer="202.00" x="26.00" y="8.00"/>
+    <poi id="poi_8" color="red" layer="202.00" lon="-0.000234" lat="0.000180"/>
+    <poi id="poi_9" color="red" layer="202.00" lon="0.000234" lat="0.000180"/>
     <!-- TAZs -->
-    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <taz id="taz_0" shape="-18.00,-14.00 -18.00,-16.00 -8.00,-16.00 -8.00,-14.00 -18.00,-14.00" fill="1" color="green">
+        <tazSource id="-E6" weight="1.00"/>
+        <tazSink id="-E6" weight="1.00"/>
+    </taz>
+    <taz id="taz_1" shape="8.00,-14.00 8.00,-16.00 18.00,-16.00 18.00,-14.00 8.00,-14.00" fill="1" color="green">
+        <tazSource id="-E7" weight="1.00"/>
+        <tazSink id="-E7" weight="1.00"/>
+    </taz>
+    <taz id="taz_2" shape="18.00,14.00 8.00,14.00 8.00,16.00 18.00,16.00 18.00,14.00" fill="1" color="green">
+        <tazSource id="E11" weight="1.00"/>
+        <tazSink id="E11" weight="1.00"/>
+    </taz>
+    <taz id="taz_3" shape="-8.00,14.00 -18.00,14.00 -18.00,16.00 -8.00,16.00 -8.00,14.00" fill="1" color="green">
+        <tazSource id="E10" weight="1.00"/>
+        <tazSink id="E10" weight="1.00"/>
+    </taz>
+    <!-- JuPedSim elements -->
+    <poly id="jps.walkable_area_0" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-12.000000,-8.000000 -12.000000,-12.000000 -16.000000,-12.000000 -16.000000,-8.000000 -12.000000,-8.000000"/>
+    <poly id="jps.walkable_area_1" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="-12.000000,8.000000 -16.000000,8.000000 -16.000000,12.000000 -12.000000,12.000000 -12.000000,8.000000"/>
+    <poly id="jps.walkable_area_2" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="12.000000,8.000000 16.000000,8.000000 16.000000,12.000000 12.000000,12.000000 12.000000,8.000000"/>
+    <poly id="jps.walkable_area_4" type="jupedsim.walkable_area" color="179,217,255" fill="1" layer="1.00" shape="12.000000,-8.000000 12.000000,-12.000000 16.000000,-12.000000 16.000000,-8.000000 12.000000,-8.000000"/>
+    <poly id="jps.obstacle_0" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="20.000000,12.000000 16.000000,12.000000 16.000000,8.000000 20.000000,8.000000 20.000000,12.000000"/>
+    <poly id="jps.obstacle_1" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="20.000000,-8.000000 16.000000,-8.000000 16.000000,-12.000000 20.000000,-12.000000 20.000000,-8.000000"/>
+    <poly id="jps.obstacle_2" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-16.000000,-8.000000 -20.000000,-8.000000 -20.000000,-12.000000 -16.000000,-12.000000 -16.000000,-8.000000"/>
+    <poly id="jps.obstacle_3" type="jupedsim.obstacle" color="255,204,204" fill="1" layer="2.00" shape="-16.000000,12.000000 -20.000000,12.000000 -20.000000,8.000000 -16.000000,8.000000 -16.000000,12.000000"/>
 </additional>

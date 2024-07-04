@@ -31,10 +31,17 @@ class selection:
         lanes = 3
         connections = 4
         crossings = 5
-        additionals = 6
-        TAZs = 7
-        polygons = 8
-        POIs = 9
+        walkingAreas = 6
+        additionals = 7
+        tazs = 8
+        wires = 9
+        polygons = 10
+        pois = 11
+        walkableAreas = 12
+        obstacles = 13
+        selected = 14
+        lockAll = 15
+        unlockAll = 16
 
 
 class modes:
@@ -55,6 +62,8 @@ class modes:
         mergingJunction = '5'
         showBubbles = '6'
         moveElevation = '7'
+    # select mode
+        automaticSelectJunctions = '9'
 
     class demand:
         grid = '1'
