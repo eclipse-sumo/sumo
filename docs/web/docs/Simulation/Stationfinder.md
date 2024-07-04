@@ -27,11 +27,27 @@ vehicle to charge. The user can configure multiple thresholds to change how diff
 
 ## Charging station target function
 
-When there are more sites to choose from, the device sorts the charging stations according to a target function and chooses the one with the lowest score. The target function works as follows:
-```
-score = travel_time + charging_time + waiting_penalty/charging_points
-```
-The score consists of the travel time to get to the charging station and back to the original route, the charging time considering the charging speed and a penalty time if the charging station is already occupied.
+When there are more sites to choose from, the device sorts the charging stations according to a target function and chooses the one with the lowest score. The target function works the same way as
+[the one for parking search](Rerouter.md#determining_the_alternative_parking_area). Thus it consists of a linear combination of components and corresponding weight factors. The weight factors can be set
+using [generic parameters](GenericParameters.md) either in the vehicle or the vehicle type definition. The available components and their weight factors are described in the table below:
+
+| Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
+| --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
+| charging.probability.weight  | 0             | the influence of the  | yes                        |
+| charging.capacity.weight     | 0             | The total capacity of the charging station                              | yes                        |
+| charging.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
+| charging.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
+| charging.distanceto.weight   | 0             | The road distance to the charging station                                | no                         |
+| charging.timeto.weight       | 1             | The assumed travel time to the charging station                          | no                         |
+| charging.distancefrom.weight | 0             | The road distance from the charging station to the vehicle destination / next stop | no                         |
+| charging.timefrom.weight     | 1             | The assumed travel time from the charging station to the vehicle destination / next stop | no                         |
+| charging.chargingTime.weight | 1             | The assumed charging time at the charging station                       | no                         |
+| charging.waitingTime.weight  | 1             | The assumed waiting time at the charging station for a free charging point | no                         |
+
+When 'charging.probability.weight' is set to a positive value, a random number between 0 and 1 is drawn for each candidate charging station.
+This value is then normalized to the range [0,1] by dividing with the maximum probability value of all charging station elements.
+The inverted normalized value is then multiplied with charging.probability.weight to enter into the candidate score.
+
 
 ## Break down due to lack of energy
 

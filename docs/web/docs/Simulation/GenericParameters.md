@@ -41,7 +41,7 @@ Some parameters are *special* and affect (or reflect) simulation behavior in the
 - configuring vehicle types for use with the [electric vehicle model](../Models/Electric.md)
 - tracking the [public transport 'tripId' that may change at stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints).
 - setting [transient junction model parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#transient_parameters)
-- customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area)
+- customizing [parking search traffic (cruising for parking)](Rerouter.md#rerouting_to_an_alternative_parking_area) and [charging station search](Stationfinder.md#charging_station_target_function)
 - customizing emission model [PHEMlight5 parameters](../Models/Emissions/PHEMlight5.md#dynamic_modification_of_parameters)
 - configuring [parameters of carFollowModel and laneChangeModel  via TraCI](../TraCI/Change_Vehicle_State.md#supported_lanechangemodel_parameters)
 - retrieving [parameters of carFollowModel and laneChangeModel via TraCI](../TraCI/Vehicle_Value_Retrieval.md#supported_lanechangemodel_parameters)
