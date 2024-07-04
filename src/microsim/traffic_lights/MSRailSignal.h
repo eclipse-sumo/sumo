@@ -251,7 +251,6 @@ public:
     static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
     static void initDriveWays(const SUMOVehicle* ego, bool update);
-    static bool isEdgeAfterSignal(const MSEdge* first); 
 
     typedef std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation> Approaching;
     typedef std::map<const MSLane*, int, ComparatorNumericalIdLess> LaneVisitedMap;

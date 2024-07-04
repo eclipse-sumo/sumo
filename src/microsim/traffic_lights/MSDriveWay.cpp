@@ -1431,6 +1431,16 @@ MSDriveWay::addConflictLink(const MSLink* link) {
 const MSDriveWay*
 MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     const MSEdge* edge = veh->getEdge();
+    if (edge->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        for (const MSLane* lane : edge->getLanes()) {
+            for (auto ili : lane->getIncomingLanes()) {
+                const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(ili.viaLink->getTLLogic());
+                if (rs != nullptr) {
+                    return &const_cast<MSRailSignal*>(rs)->retrieveDriveWayForVeh(ili.viaLink->getTLIndex(), veh);
+                }
+            }
+        }
+    }
     for (MSDriveWay* dw : myDepartureDriveways[edge]) {
         if (dw->match(veh->getRoute(), veh->getCurrentRouteEdge())) {
             return dw;

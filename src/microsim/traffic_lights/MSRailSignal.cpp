@@ -379,27 +379,9 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
         }
     }
     const MSEdge* first = edges[departIndex];
-    if (!isEdgeAfterSignal(first)) {
-        MSDriveWay::getDepartureDriveway(ego);
-    }
+    MSDriveWay::getDepartureDriveway(ego);
 }
 
-
-bool
-MSRailSignal::isEdgeAfterSignal(const MSEdge* first) {
-    if (first->getFromJunction()->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
-        return false;
-    }
-    for (const MSLane* lane : first->getLanes()) {
-        for (auto ili : lane->getIncomingLanes()) {
-            const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(ili.viaLink->getTLLogic());
-            if (rs != nullptr) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
 
 bool
 MSRailSignal::hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal) {
