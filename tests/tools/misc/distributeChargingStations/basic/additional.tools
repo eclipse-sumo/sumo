@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="paE1_shift" lane="E1_0" length="8.0" roadsideCapacity="3" startPos="114.28571428571429" endPos="200.0"/>
+    <parkingArea id="paE1" lane="E1_0" length="8.0" roadsideCapacity="4" startPos="0" endPos="114.28571428571429"/>
+    <chargingStation id="CS0" lane="E1_0" startPos="0" endPos="114.28571428571429" power="22000" efficiency="0.95" parkingArea="paE1"/>
+</additional>
