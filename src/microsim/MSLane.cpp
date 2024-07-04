@@ -52,6 +52,7 @@
 #include <microsim/transportables/MSPModel.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <mesosim/MELoop.h>
 #include "MSNet.h"
@@ -854,6 +855,20 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const bool isRail = isRailway(aVehicle->getVClass());
+    /*
+    if (isRail && insertionChecks != (int)InsertionCheck::NONE) {
+        const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
+        MSEdgeVector occupied;
+        if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
+#ifdef DEBUG_INSERTION
+            if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
+                std::cout << "   foe of driveway " + dw->getID() + " has occupied edges " + toString(occupied) << "\n";
+            }
+#endif
+            return false;
+        }
+    }
+    */
     // do not insert if the bidirectional edge is occupied
     if (getBidiLane() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
         if ((insertionChecks & (int)InsertionCheck::BIDI) != 0) {
