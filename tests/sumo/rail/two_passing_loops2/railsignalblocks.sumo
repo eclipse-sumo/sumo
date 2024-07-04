@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
+<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="e1.0 e1.2 w1.1"/>
+                <foes driveWays="e1.0 w1.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T8_0_0" to=":w1_1_0">
@@ -150,7 +150,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_3_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_3"/>
-                <foes driveWays="e2.1 w4.0 e2.3 w4.2"/>
+                <foes driveWays="w4.0 e2.1 w4.2"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="T16_0_0" to=":w4_3_0">
@@ -160,45 +160,29 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w4_2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="w4_2"/>
-                <foes driveWays="e2.1 w4.0 e2.3 w4.2"/>
+                <foes driveWays="w4.0 e2.1 w4.2"/>
             </driveWay>
         </link>
     </railSignal>
     <departJunction id="e2">
-        <driveWay id="e2.1" edges="T18_1">
-            <forward lanes="T18_1_0"/>
-            <bidi lanes="T18_0_0"/>
-            <flank lanes=":B.F_1_0 T17_0_0 :w4_2_0 :w4_3_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="w4_3 w4_2"/>
-            <foes driveWays="e2.1 w4.0 w4.2"/>
-        </driveWay>
-        <driveWay id="e2.3" edges="T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1">
+        <driveWay id="e2.1" edges="T18_1 T17_1 T16_1 T15_1 T14_1 T13_1 T12_1 T11_1">
             <forward lanes="T18_1_0 :B.F_0_0 T17_1_0"/>
             <bidi lanes="T18_0_0 :B.F_1_0 T17_0_0 :w4_3_0 T16_0_0 :B.N2_1_0 T15_0_0 :B.P2_1_0 T14_0_0 :w3_3_0"
                     deadlockCheck="T13_0_0 :B.A_1_0 T12_0_0 :A.F_1_0 T11_0_0 :w2_1_0"/>
             <flank lanes=":w4_2_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="w3_3 w4_2 w2_1"/>
-            <foes driveWays="w4.0 w3.1 e2.3 w4.2"/>
+            <foes driveWays="w4.0 w3.1 e2.1 w4.2"/>
         </driveWay>
     </departJunction>
     <departJunction id="e1">
-        <driveWay id="e1.0" edges="T7_0">
-            <forward lanes="T7_0_0"/>
-            <bidi lanes="T7_1_0"/>
-            <flank lanes=":A.A_0_0 T8_1_0 :w1_0_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="w1_0"/>
-            <foes driveWays="e1.0 w1.1"/>
-        </driveWay>
-        <driveWay id="e1.2" edges="T7_0 T8_0">
+        <driveWay id="e1.0" edges="T7_0 T8_0">
             <forward lanes="T7_0_0 :A.A_1_0 T8_0_0"/>
             <bidi lanes="T7_1_0 :A.A_0_0 T8_1_0"/>
             <flank lanes=":w1_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="w1_0"/>
-            <foes driveWays="e1.2 w1.1"/>
+            <foes driveWays="e1.0 w1.1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

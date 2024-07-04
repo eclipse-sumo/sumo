@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
+<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,39 +52,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <link linkIndex="1" from="E11_0" to=":J13_1_0"/>
     </railSignal>
     <departJunction id="J14">
-        <driveWay id="J14.1" edges="-E12">
-            <forward lanes="-E12_0"/>
-            <bidi lanes="E12_0"/>
-            <flank lanes=":J13_1_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="J13_1"/>
-            <foes driveWays="J14.1 J14.3"/>
-        </driveWay>
-        <driveWay id="J14.3" edges="-E12 -E11 -E10 -E9 -E8">
+        <driveWay id="J14.1" edges="-E12 -E11 -E10 -E9 -E8">
             <forward lanes="-E12_0"/>
             <bidi lanes="E12_0 :J13_1_0 E11_0 :J12_2_0 E10_0 :J11_1_0 E9_0 :J10_1_0 E8_0"/>
             <flank lanes=":J12_3_0 -E18_0 :J17_2_0"/>
             <protectingSwitches links="J17_2"/>
             <conflictLinks signals=""/>
-            <foes driveWays="J14.1 J14.3"/>
+            <foes driveWays="J14.1"/>
         </driveWay>
     </departJunction>
     <departJunction id="J15">
-        <driveWay id="J15.0" edges="E13">
-            <forward lanes="E13_0"/>
-            <bidi lanes="-E13_0"/>
-            <flank lanes=":J16_0_0 -E14_0 :J17_0_0 -E15_0 :J18_0_0 -E16_0 :J19_0_0 -E17_0 :J17_1_0 E18_0 :J12_0_0"/>
-            <protectingSwitches links="J12_0"/>
-            <conflictLinks signals=""/>
-            <foes driveWays="J15.0"/>
-        </driveWay>
-        <driveWay id="J15.2" edges="E13 E14 E15 E16 E17">
+        <driveWay id="J15.0" edges="E13 E14 E15 E16 E17">
             <forward lanes="E13_0 :J16_1_0 E14_0 :J17_3_0 E15_0 :J18_1_0 E16_0 :J19_1_0 E17_0"/>
             <bidi lanes="-E13_0 :J16_0_0 -E14_0 :J17_0_0 -E15_0 :J18_0_0 -E16_0 :J19_0_0 -E17_0"/>
             <flank lanes=":J17_1_0 E18_0 :J12_0_0"/>
             <protectingSwitches links="J12_0"/>
             <conflictLinks signals=""/>
-            <foes driveWays="J15.2"/>
+            <foes driveWays="J15.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

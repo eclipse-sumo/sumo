@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
+<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -76,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B.N1_0_0 T6_1_0 :w4_0_0 :w3_1_0 T14_1_0 :B.P2_0_0"/>
                 <protectingSwitches links="w4_0"/>
                 <conflictLinks signals="B.P2_0"/>
-                <foes driveWays="B.P2.0.0 B.P1.2 B.A.0"/>
+                <foes driveWays="B.P2.0.0 B.A.0 B.P1.2"/>
             </driveWay>
             <subDriveWay id="B.A.0.0" edges="T13_0">
                 <forward lanes=":B.A_1_0 T13_0_0"/>
@@ -103,7 +103,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w2_1_0 T10_0_0 :A.N2_0_0 :w3_0_0 T4_1_0 :B.P1_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B.P1_0 A.N2_0"/>
-                <foes driveWays="A.F.1 B.P2.0 B.A.0.0 A.F.4"/>
+                <foes driveWays="B.P2.0 B.A.0.0 A.F.1"/>
             </driveWay>
             <subDriveWay id="B.P2.0.0" edges="T14_1 T13_1">
                 <forward lanes=":B.P2_0_0 T14_1_0 :w3_1_0 T13_1_0 :B.A_0_0"/>
@@ -111,39 +111,23 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="A.F">
-        <driveWay id="A.F.1" edges="T12_0">
-            <forward lanes="T12_0_0"/>
-            <bidi lanes="T12_1_0"/>
-            <flank lanes=":A.F_1_0 T11_0_0 :w2_1_0 T10_0_0 :A.N2_0_0 :B.A_0_0 T13_1_0 :w3_0_0 T4_1_0 :B.P1_0_0 :w3_1_0 T14_1_0 :B.P2_0_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="B.P2_0 B.P1_0 A.N2_0"/>
-            <foes driveWays="A.F.1 B.P2.0 A.F.4"/>
-        </driveWay>
-        <driveWay id="A.F.4" edges="T12_0 T13_0 T4_0 T5_0">
+        <driveWay id="A.F.1" edges="T12_0 T13_0 T4_0 T5_0">
             <forward lanes="T12_0_0"/>
             <bidi lanes="T12_1_0 :B.A_0_0 T13_1_0 :w3_0_0 T4_1_0 :B.P1_0_0 T5_1_0"/>
             <flank lanes=":A.F_1_0 T11_0_0 :w2_1_0 T10_0_0 :A.N2_0_0 :B.N1_0_0 T6_1_0 :w4_0_0 :w3_1_0 T14_1_0 :B.P2_0_0"/>
             <protectingSwitches links="w4_0"/>
             <conflictLinks signals="B.P2_0 A.N2_0"/>
-            <foes driveWays="B.P2.0 A.F.1 A.F.4"/>
+            <foes driveWays="B.P2.0 A.F.1"/>
         </driveWay>
     </departJunction>
     <departJunction id="B.N2">
-        <driveWay id="B.N2.0" edges="T15_1">
-            <forward lanes="T15_1_0"/>
-            <bidi lanes="T15_0_0"/>
-            <flank lanes=":B.N2_0_0 T16_1_0 :w4_1_0 :B.P2_1_0 T14_0_0 :w3_2_0"/>
-            <protectingSwitches links="w4_1 w3_2"/>
-            <conflictLinks signals=""/>
-            <foes driveWays="B.N2.0 B.N2.3"/>
-        </driveWay>
-        <driveWay id="B.N2.3" edges="T15_1 T14_1 T13_1 T12_1 T11_1 T3_1 T2_1 T1_1 T8_1 T7_1" core="2">
+        <driveWay id="B.N2.0" edges="T15_1 T14_1 T13_1 T12_1 T11_1 T3_1 T2_1 T1_1 T8_1 T7_1" core="2">
             <forward lanes="T15_1_0"/>
             <bidi lanes="T15_0_0 :B.P2_1_0 T14_0_0 :w3_2_0"/>
             <flank lanes=":B.N2_0_0 T16_1_0 :w4_1_0"/>
             <protectingSwitches links="w4_1"/>
             <conflictLinks signals=""/>
-            <foes driveWays="B.N2.0 B.N2.3"/>
+            <foes driveWays="B.N2.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="B.P1">
@@ -152,8 +136,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="T5_1_0"/>
             <flank lanes=":B.N1_0_0 T6_1_0 :w4_0_0 :B.P1_1_0 T4_0_0 :w3_3_0"/>
             <protectingSwitches links="w4_0 w3_3"/>
-            <conflictLinks signals=""/>
-            <foes driveWays="B.P1.2 B.A.0"/>
+            <conflictLinks signals="B.A_0"/>
+            <foes driveWays="B.A.0 B.P1.2"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
