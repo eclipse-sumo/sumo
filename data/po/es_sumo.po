@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-04 12:58+0000\n"
+"PO-Revision-Date: 2024-07-04 13:35+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5008,6 +5008,7 @@ msgstr ""
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
 msgstr ""
+"El polígono '%' en el cruce '%' ha sido ampliado ya que es solo un segmento."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:674
 #, c-format
@@ -5020,15 +5021,19 @@ msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
 "not simple."
 msgstr ""
+"El polígono '%' en el cruce '%' ha sido reemplazado por su casco convexo, ya "
+"que no es simple."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:687
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
-msgstr ""
+msgstr "El polígono '%' en el cruce '%' se omitirá ya que no es simple."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:809
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
+"La unión de áreas transitables menos la unión de obstáculos no es un "
+"polígono simple."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:944
 msgid "Error while generating geometry: %"
@@ -5042,6 +5047,8 @@ msgstr ""
 msgid ""
 "Adapting geometry repulsion default values for jupedsim timestep of 0.02."
 msgstr ""
+"Adaptando los valores predeterminados de repulsión de geometría para el paso "
+"de tiempo de JuPedSim de 0.02."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1096
 msgid "Unknown JuPedSim model: %"
@@ -5061,11 +5068,13 @@ msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
 msgstr ""
+"En el tipo de vehículo Peatón '%' su ancho % es mayor que pedestrian.striping"
+".stripe-width y esto puede causar colisiones con vehículos."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:476
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "La área peatonal no válida '%' no permite la continuación."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1689
 msgid " between edge '%' and edge '%'"
@@ -5074,6 +5083,8 @@ msgstr " entre la arista '%' y la arista '%'"
 #: src/microsim/transportables/MSPModel_Striping.cpp:1691
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
 msgstr ""
+"La persona '%' que camina desde la arista '%' hacia la arista '%' tiene una "
+"desconexión%, tiempo=%."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:2012
 msgid "Disconnected walk for person '%'."
@@ -5081,19 +5092,23 @@ msgstr "Caminata desconectada para la persona '%'."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:2219
 msgid "Person '%' is jammed on edge '%', time=%."
-msgstr ""
+msgstr "La persona '%' está atascada en la arista '%', tiempo=%."
 
 #: src/microsim/transportables/MSStageDriving.cpp:250
 msgid ""
 "Vehicle '%' exceeds personCapacity % when placing triggered person '%', "
 "time=%"
 msgstr ""
+"El vehículo '%' excede la capacidad de personas % al insertar la persona "
+"desencadenada '%', tiempo =%"
 
 #: src/microsim/transportables/MSStageDriving.cpp:256
 msgid ""
 "Vehicle '%' exceeds containerCapacity % when placing triggered container "
 "'%', time=%"
 msgstr ""
+"El vehículo '%' excede la capacidad de contenedores % al insertar el "
+"contenedor desencadenado '%', tiempo =%"
 
 #: src/microsim/transportables/MSStageTrip.cpp:154
 msgid ""
@@ -5120,10 +5135,12 @@ msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
 msgstr ""
+"El modelo peatonal utiliza infraestructura que no está en la red, timeLoss y "
+"routeLength pueden no ser válidos."
 
 #: src/microsim/transportables/MSTransportable.cpp:150
 msgid "Changing a transportable ID is not permitted"
-msgstr ""
+msgstr "No se permite cambiar el ID de un objeto transportable"
 
 #: src/microsim/transportables/MSTransportable.cpp:299
 msgid "Teleporting % '%'; waited too long, from edge '%', time=%."
@@ -5132,7 +5149,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSTransportable.cpp:492
 msgid "parkingAreaReroute not supported for containers"
-msgstr ""
+msgstr "parkingAreaReroute no es compatible con contenedores"
 
 #: src/microsim/transportables/MSTransportableControl.cpp:75
 msgid "Unknown pedestrian model '%'"
@@ -5185,10 +5202,14 @@ msgstr "El calibrador '%' no pudo remover el vehículo '%' en el tiempo=%."
 #: src/microsim/trigger/MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
 msgstr ""
+"No se puede configurar el flujo para el calibrador '%' con intervalo "
+"superpuesto."
 
 #: src/microsim/trigger/MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
 msgstr ""
+"No se puede configurar el flujo para el calibrador '%' con intervalo "
+"negativo."
 
 #: src/microsim/trigger/MSChargingStation.cpp:45
 #: src/microsim/trigger/MSChargingStation.cpp:50
@@ -5223,10 +5244,14 @@ msgid ""
 "Overhead circuit solver requested, but solver support (Eigen) not compiled "
 "in."
 msgstr ""
+"Se solicitó el solucionador de circuitos de catenaria, pero el soporte del "
+"solucionador (Eigen) no se ha compilado."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:579
 msgid "Overhead circuit solver requested, but solver support not compiled in."
 msgstr ""
+"Se solicitó el solucionador de circuitos de catenaria, pero el soporte del "
+"solucionador no se ha compilado."
 
 #: src/microsim/trigger/MSOverheadWire.cpp:690
 #, c-format
@@ -5234,6 +5259,8 @@ msgid ""
 "The requested total power could not be delivered by the overhead wire. Only "
 "% of originally requested power was provided."
 msgstr ""
+"La potencia total solicitada no pudo ser entregada por la catenaria. Solo se "
+"proporcionó el % de la energía solicitada originalmente."
 
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:129
 msgid "MSTriggeredRerouter %: No destination edge id given."
