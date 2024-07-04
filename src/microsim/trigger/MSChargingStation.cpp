@@ -67,7 +67,7 @@ MSChargingStation::MSChargingStation(const std::string& chargingStationID, MSLan
         myChargeDelay = chargeDelay;
     }
     if (getBeginLanePosition() > getEndLanePosition()) {
-        WRITE_WARNING(TLF("ChargingStation with ID='getID()' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
+        WRITE_WARNING(TLF("ChargingStation with ID='%' doesn't have a valid position (% < %).", getID(), toString(getBeginLanePosition()), toString(getEndLanePosition())));
     }
 }
 
