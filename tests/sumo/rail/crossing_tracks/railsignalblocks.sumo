@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 11:26:50 by Eclipse SUMO sumo Version v1_20_0+0426-c65356fa244
+<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,6 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="s2.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -60,6 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="s3.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -71,7 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0 :k1_2_0 T16_0_0 :w2_3_0 :w1_0_0 T1_1_0 :s1_0_0"/>
                 <protectingSwitches links="w2_3"/>
                 <conflictLinks signals="s6_0 s1_0"/>
-                <foes driveWays="s6.0.0"/>
+                <foes driveWays="s6.0.0 s4.0"/>
             </driveWay>
             <subDriveWay id="s4.0.0" edges="T8_1">
                 <forward lanes=":s4_0_0 T8_1_0"/>
@@ -86,6 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="s5.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -97,7 +100,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":k1_1_0 T8_1_0 :s4_0_0 :k1_3_0 T15_0_0 :w1_2_0 :w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
                 <protectingSwitches links="w1_2"/>
                 <conflictLinks signals="s4_0"/>
-                <foes driveWays="s4.0.0"/>
+                <foes driveWays="s6.0 s4.0.0"/>
             </driveWay>
             <subDriveWay id="s6.0.0" edges="T12_0 T16_0">
                 <forward lanes=":s6_1_0 T12_0_0 :w2_3_0 T16_0_0"/>
@@ -114,7 +117,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":s5_0_0 T11_1_0 :s6_0_0 T12_1_0 :w2_0_0 T16_1_0 :k1_0_0 T3_1_0 :s8_0_0 T4_1_0 :s2_0_0 TO1_1_0 :w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="e5.2"/>
+            <foes driveWays="e5.0 e5.2"/>
         </driveWay>
         <driveWay id="e5.2" edges="TL1_0 T11_0 T12_0 T16_0 T3_0 T4_0 TO1_0">
             <forward lanes="TL1_0_0"/>
@@ -122,7 +125,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":w2_1_0 T13_1_0 :s7_0_0 TR1_1_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="e5.0"/>
+            <foes driveWays="e5.0 e5.2"/>
         </driveWay>
     </departJunction>
     <departJunction id="e4">
@@ -132,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":s4_1_0 T8_0_0 :k1_3_0 T15_0_0 :w1_2_0"/>
             <protectingSwitches links="w1_2"/>
             <conflictLinks signals=""/>
-            <foes driveWays="e4.3"/>
+            <foes driveWays="e4.1 e4.3"/>
         </driveWay>
         <driveWay id="e4.3" edges="TR2_1 T8_1 T15_1 T7_1 TL2_1" core="3">
             <forward lanes="TR2_1_0"/>
@@ -140,7 +143,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="e4.1"/>
+            <foes driveWays="e4.1 e4.3"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

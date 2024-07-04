@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 11:26:49 by Eclipse SUMO sumo Version v1_20_0+0426-c65356fa244
+<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -51,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
-                <foes driveWays="E.0 C.1 B.0.0"/>
+                <foes driveWays="A.0 E.0 C.1 B.0.0"/>
             </driveWay>
             <subDriveWay id="A.0.0" edges="T9 T10">
                 <forward lanes=":A_0_0 T9_0 :W1_1_0 T10_0 :B_1_0"/>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0.0"/>
+                <foes driveWays="A.0.0 B.0"/>
             </driveWay>
             <subDriveWay id="B.0.0" edges="-T10">
                 <forward lanes=":B_0_0 -T10_0"/>
@@ -81,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W1_1_0 T9_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0"/>
+                <foes driveWays="A.0 C.1"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="T11_0" to=":C_1_0">
@@ -91,7 +91,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
-                <foes driveWays="E.0"/>
+                <foes driveWays="C.0 E.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -103,7 +103,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W2_0_0 -T14_0 :E_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="E_0"/>
-                <foes driveWays="E.0.0"/>
+                <foes driveWays="D.0 E.0.0"/>
             </driveWay>
             <subDriveWay id="D.0.0" edges="T13">
                 <forward lanes=":D_1_0 T13_0"/>
@@ -118,7 +118,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":W1_1_0 T9_0 :A_0_0 :W2_1_0 -T4_0 :F_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="F_0 A_0"/>
-                <foes driveWays="A.0 C.0 D.0.0"/>
+                <foes driveWays="A.0 C.0 D.0.0 E.0"/>
             </driveWay>
             <subDriveWay id="E.0.0" edges="-T14 -T13">
                 <forward lanes=":E_0_0 -T14_0 :W2_0_0 -T13_0 :D_0_0"/>
@@ -135,6 +135,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
+                <foes driveWays="F.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -145,7 +146,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":E_1_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="E_1"/>
-            <foes driveWays="TR0.2"/>
+            <foes driveWays="TR0.1 TR0.2"/>
         </driveWay>
         <driveWay id="TR0.2" edges="-T15 -T14 -T13 -T12 -T11 -T10 T3" core="2">
             <forward lanes="-T15_0"/>
@@ -153,7 +154,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="TR0.1"/>
+            <foes driveWays="TR0.1 TR0.2"/>
         </driveWay>
     </departJunction>
     <departJunction id="TL0">
@@ -163,6 +164,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
+            <foes driveWays="TL0.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

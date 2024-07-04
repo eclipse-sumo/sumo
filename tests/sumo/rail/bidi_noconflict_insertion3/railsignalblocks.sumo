@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 11:26:50 by Eclipse SUMO sumo Version v1_20_0+0426-c65356fa244
+<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_0_0 -E0_0 :J0_0_0 -E1_0 :J4_2_0 -E2_0 :J5_1_0 -E3_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.1 J3.0.0 A.3"/>
+                <foes driveWays="A.1 J2.0 J3.0.0 A.3"/>
             </driveWay>
             <subDriveWay id="J2.0.0" edges="-end -end.200 -middle">
                 <forward lanes=":J2_0_0 -end_0 :J4_0_0 -end.200_0 :B_1_0 -middle_0 :J3_0_0"/>
@@ -61,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_1_0 -end.200_0 :J4_0_0"/>
                 <protectingSwitches links="J4_0"/>
                 <conflictLinks signals="J2_0"/>
-                <foes driveWays="J2.0.0"/>
+                <foes driveWays="J2.0.0 J3.0"/>
             </driveWay>
             <subDriveWay id="J3.0.0" edges="middle">
                 <forward lanes=":J3_1_0 middle_0"/>
@@ -75,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":J2_1_0 end0_0 :J4_2_0 -E2_0 :J5_1_0 -E3_0 :J4_3_0 end_0 :B_2_0"/>
             <protectingSwitches links="B_2"/>
             <conflictLinks signals=""/>
-            <foes driveWays="C.2"/>
+            <foes driveWays="C.0 C.2"/>
         </driveWay>
         <driveWay id="C.2" edges="-end2 -end -end.200 -middle -beg" core="3">
             <forward lanes="-end2_0"/>
@@ -83,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":J4_2_0 -E2_0 :J5_1_0 -E3_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="C.0"/>
+            <foes driveWays="C.0 C.2"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":J3_0_0 -middle_0 :B_0_0 -E0_0 :J0_0_0 -E1_0 :B_1_0 -end.200_0 :J4_0_0"/>
             <protectingSwitches links="J4_0"/>
             <conflictLinks signals="J2_0"/>
-            <foes driveWays="J2.0 A.3"/>
+            <foes driveWays="A.1 J2.0 A.3"/>
         </driveWay>
         <driveWay id="A.3" edges="beg middle E0 E1">
             <forward lanes="beg_0"/>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":B_1_0 -end.200_0 :J4_0_0"/>
             <protectingSwitches links="J4_0"/>
             <conflictLinks signals="J2_0"/>
-            <foes driveWays="J2.0 A.1"/>
+            <foes driveWays="J2.0 A.1 A.3"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

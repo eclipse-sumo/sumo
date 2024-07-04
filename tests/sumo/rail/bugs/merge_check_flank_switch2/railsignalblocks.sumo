@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-01 15:55:01 by Eclipse SUMO sumo Version v1_20_0+0409-41434e86abd
+<!-- generated on 2024-07-04 13:52:49 by Eclipse SUMO sumo Version v1_20_0+0431-77f2b833ecb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -50,7 +50,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_0_0 b_0 :A_0_0 :C_0_0 d2_0 :D2_0_0"/>
                 <protectingSwitches links="D2_0"/>
                 <conflictLinks signals="A_0 D3_0"/>
-                <foes driveWays="B.0 D3.0"/>
+                <foes driveWays="B.0 A2.0 D3.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -62,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_0_0 b_0 :A_0_0 :B_1_0 b3_0 :B2_0_0"/>
                 <protectingSwitches links="B2_0"/>
                 <conflictLinks signals="A_0 A2_0"/>
-                <foes driveWays="B.0 A2.0"/>
+                <foes driveWays="B.0 A2.0 D3.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -73,6 +73,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
+            <foes driveWays="gneJ3.1"/>
         </driveWay>
     </departJunction>
     <departJunction id="B">
@@ -82,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":B_0_0 b_0 :A_0_0 :B_1_0 b3_0 :B2_0_0 :C_0_0 d2_0 :D2_0_0"/>
             <protectingSwitches links="B2_0 D2_0"/>
             <conflictLinks signals="A_0 D3_0"/>
-            <foes driveWays="A2.0 D3.0"/>
+            <foes driveWays="B.0 A2.0 D3.0"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ7">
@@ -92,6 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
+            <foes driveWays="gneJ7.2"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
