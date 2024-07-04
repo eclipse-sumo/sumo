@@ -1403,6 +1403,20 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
         }
     }
     sub->myCoreSize = sub->myRoute.size();
+
+    // copy trains that are currently on this driveway (and associated entry events)
+    for (SUMOVehicle* veh : myTrains) {
+        if (std::find(sub->myRoute.begin(), sub->myRoute.end(), veh->getEdge()) != sub->myRoute.end()) {
+            sub->myTrains.insert(veh);
+            dynamic_cast<MSBaseVehicle*>(veh)->addReminder(sub);
+            for (const VehicleEvent& ve : myVehicleEvents) {
+                if (ve.id == veh->getID()) {
+                    sub->myVehicleEvents.push_back(ve);
+                }
+            }
+        }
+    }
+
     foe->myFoes.push_back(sub);
     mySubDriveWays.push_back(sub);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
