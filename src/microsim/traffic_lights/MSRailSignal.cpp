@@ -380,7 +380,7 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
     }
     const MSEdge* first = edges[departIndex];
     if (!isEdgeAfterSignal(first)) {
-        MSDriveWay::buildDepartureDriveway(ego);
+        MSDriveWay::getDepartureDriveway(ego);
     }
 }
 

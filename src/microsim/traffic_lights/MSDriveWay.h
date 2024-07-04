@@ -68,10 +68,10 @@ public:
     bool bidiBlockedBy(const MSDriveWay& other) const;
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
-    bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true, const SUMOVehicle* ego = nullptr) const;
+    bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
 
     /// @brief whether any of myFoes is occupied (vehicles that are the target of a join must be ignored)
-    bool foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
+    bool foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const;
 
     /// @brief Whether any of the conflict links have approaching vehicles
     bool conflictLinkApproached() const;
@@ -124,7 +124,7 @@ public:
     /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
     static std::string getClickableTLLinkID(const MSLink* link);
 
-    static void buildDepartureDriveway(const SUMOVehicle* veh);
+    static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh);
 
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 

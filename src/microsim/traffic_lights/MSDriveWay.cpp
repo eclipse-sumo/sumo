@@ -212,20 +212,12 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
 
 bool
 MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
-    std::string joinVehicle = "";
-    if (!MSGlobals::gUseMesoSim) {
-        const SUMOVehicleParameter::Stop* stop = closest.first->getNextStopParameter();
-        if (stop != nullptr) {
-            joinVehicle = stop->join;
-        }
-    }
-    UNUSED_PARAMETER(occupied);
     /*
-    if (foeDriveWayOccupied(joinVehicle, true, closest.first, occupied)) {
+    if (foeDriveWayOccupied(true, closest.first, occupied)) {
         return false;
     }
     */
-    if (conflictLaneOccupied(joinVehicle, true, closest.first)) {
+    if (conflictLaneOccupied(true, closest.first)) {
         for (const MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
                 occupied.push_back(&bidi->getBidiLane()->getEdge());
@@ -302,13 +294,13 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink) const {
         MSRailSignal* foeRS = const_cast<MSRailSignal*>(constFoeRS);
         if (foeRS != nullptr) {
             const MSDriveWay& foeDriveWay = foeRS->retrieveDriveWayForVeh(foeLink->getTLIndex(), foe.first);
-            if (foeDriveWay.conflictLaneOccupied("", false, foe.first) ||
+            if (foeDriveWay.conflictLaneOccupied(false, foe.first) ||
                     foeDriveWay.deadlockLaneOccupied(false) ||
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
-                    if (foeDriveWay.conflictLaneOccupied("", false, foe.first)) {
+                    if (foeDriveWay.conflictLaneOccupied(false, foe.first)) {
                         std::cout << "     foe blocked\n";
                     } else if (!foeRS->constraintsAllow(foe.first)) {
                         std::cout << "     foe constrained\n";
@@ -372,9 +364,16 @@ MSDriveWay::mustYield(const Approaching& veh, const Approaching& foe) {
 
 
 bool
-MSDriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego) const {
+MSDriveWay::conflictLaneOccupied(bool store, const SUMOVehicle* ego) const {
     for (const MSLane* lane : myConflictLanes) {
         if (!lane->isEmpty()) {
+            std::string joinVehicle = "";
+            if (ego != nullptr && !MSGlobals::gUseMesoSim) {
+                const SUMOVehicleParameter::Stop* stop = ego->getNextStopParameter();
+                if (stop != nullptr) {
+                    joinVehicle = stop->join;
+                }
+            }
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
                 std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied ego=" << Named::getIDSecure(ego) << " vehNumber=" << lane->getVehicleNumber() << "\n";
@@ -426,20 +425,27 @@ MSDriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store, con
 
 
 bool
-MSDriveWay::foeDriveWayOccupied(const std::string& joinVehicle, bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const {
+MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector& occupied) const {
     for (const MSDriveWay* foeDW : myFoes) {
         if (!foeDW->myTrains.empty()) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
                 std::cout << SIMTIME << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
-                if (joinVehicle != "") {
-                    std::cout << "  joinVehicle=" << joinVehicle << "\n";
-                }
             }
 #endif
             if (foeDW->myTrains.size() == 1) {
                 SUMOVehicle* foe = *foeDW->myTrains.begin();
+                std::string joinVehicle = "";
+                if (ego != nullptr && !MSGlobals::gUseMesoSim) {
+                    const SUMOVehicleParameter::Stop* stop = ego->getNextStopParameter();
+                    if (stop != nullptr) {
+                        joinVehicle = stop->join;
+                    }
+                }
                 if (joinVehicle != "") {
+#ifdef DEBUG_SIGNALSTATE
+                    std::cout << "  joinVehicle=" << joinVehicle << "\n";
+#endif
                     if (foe->getID() == joinVehicle && foe->isStopped()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4) {
@@ -1422,18 +1428,19 @@ MSDriveWay::addConflictLink(const MSLink* link) {
 }
 
 
-void
-MSDriveWay::buildDepartureDriveway(const SUMOVehicle* veh) {
+const MSDriveWay*
+MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     const MSEdge* edge = veh->getEdge();
     for (MSDriveWay* dw : myDepartureDriveways[edge]) {
         if (dw->match(veh->getRoute(), veh->getCurrentRouteEdge())) {
-            return;
+            return dw;
         }
     }
     const std::string id = edge->getFromJunction()->getID() + "." + toString(myDepartDriveWayIndex++);
     MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
     myDepartureDriveways[edge].push_back(dw);
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
+    return dw;
 }
 
 
