@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
+Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -952,6 +952,7 @@ GUI Only Options:
                                         from FILE
   -N, --alternative-net-file FILE      Load a secondary road network for
                                         abstract visualization from FILE
+  --selection-file FILE                Load pre-selected elements from FILE
   -D, --demo                           Restart the simulation after ending
                                         (demo mode)
   -T, --disable-textures               Do not load background pictures

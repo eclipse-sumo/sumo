@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-26 13:46:35 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
+<!-- generated on 2024-07-04 13:35:00 by Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -578,6 +578,7 @@
             <xsd:element name="breakpoints" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="edgedata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="alternative-net-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="selection-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="disable-textures" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="registry-viewport" type="boolOptionType" minOccurs="0"/>

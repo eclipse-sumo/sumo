@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-26 13:46:35 by Eclipse SUMO sumo Version v1_20_0+0840-6edfc792969
+<!-- generated on 2024-07-04 13:35:00 by Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1337,6 +1337,9 @@
 
         <!-- Load a secondary road network for abstract visualization from FILE -->
         <alternative-net-file value="" synonymes="N" type="FILE"/>
+
+        <!-- Load pre-selected elements from FILE -->
+        <selection-file value="" type="FILE"/>
 
         <!-- Restart the simulation after ending (demo mode) -->
         <demo value="false" synonymes="D" type="BOOL"/>
