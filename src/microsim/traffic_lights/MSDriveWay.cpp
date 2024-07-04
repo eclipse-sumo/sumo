@@ -1448,7 +1448,10 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
                 const MSLink* entry = ili.viaLink->getCorrespondingEntryLink();
                 const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(entry->getTLLogic());
                 if (rs != nullptr) {
-                    return &const_cast<MSRailSignal*>(rs)->retrieveDriveWayForVeh(entry->getTLIndex(), veh);
+                    const MSDriveWay* dw = &const_cast<MSRailSignal*>(rs)->retrieveDriveWayForVeh(entry->getTLIndex(), veh);
+                    if (&dw->myForward.front()->getEdge() == edge) {
+                        return dw;
+                    }
                 }
             }
         }
