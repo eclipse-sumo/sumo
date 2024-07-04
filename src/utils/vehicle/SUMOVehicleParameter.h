@@ -654,6 +654,9 @@ public:
     /// @brief parses parking type value
     static ParkingType parseParkingType(const std::string& value);
 
+    /// @brief parses insertion checks
+    static int parseInsertionChecks(const std::string& value);
+
     /// @brief The vehicle tag
     SumoXMLTag tag;
 
@@ -848,6 +851,4 @@ protected:
     /// @brief check if given insertion checks are valid
     bool areInsertionChecksValid(const std::string& value) const;
 
-    /// @brief parses insertion checks
-    void parseInsertionChecks(const std::string& value);
 };

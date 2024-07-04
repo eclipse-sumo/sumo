@@ -721,7 +721,7 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case SUMO_ATTR_INSERTIONCHECKS:
-            parseInsertionChecks(value);
+            insertionChecks = parseInsertionChecks(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

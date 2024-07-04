@@ -1118,19 +1118,20 @@ SUMOVehicleParameter::areInsertionChecksValid(const std::string& value) const {
 }
 
 
-void
+int
 SUMOVehicleParameter::parseInsertionChecks(const std::string& value) {
     // first reset insertionChecks
-    insertionChecks = 0;
+    int result = 0;
     if (value.empty()) {
-        insertionChecks = (int)InsertionCheck::ALL;
+        return (int)InsertionCheck::ALL;
     } else {
         // split value in substrinsg
         StringTokenizer insertionCheckStrs(value, " ");
         while (insertionCheckStrs.hasNext()) {
-            insertionChecks |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
+            result |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
         }
     }
+    return result;
 }
 
 /****************************************************************************/

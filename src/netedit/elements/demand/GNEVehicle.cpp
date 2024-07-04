@@ -2159,7 +2159,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             parseArrivalPosLat(value, myTagProperty.getTagStr(), id, arrivalPosLat, arrivalPosLatProcedure, error);
             break;
         case SUMO_ATTR_INSERTIONCHECKS:
-            parseInsertionChecks(value);
+            insertionChecks = parseInsertionChecks(value);
             break;
         // Specific of vehicles over routes
         case SUMO_ATTR_ROUTE:
