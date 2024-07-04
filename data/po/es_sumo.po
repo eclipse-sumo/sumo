@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-04 13:35+0000\n"
+"PO-Revision-Date: 2024-07-04 13:39+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5371,7 +5371,7 @@ msgstr "No se pudo agregar la arista bidireccional '%'."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:273
 msgid "Railway nodes by number of incoming,outgoing edges:"
-msgstr ""
+msgstr "Nodos ferroviarios por número de aristas de entrada/salida:"
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:371
 msgid "Found % railway nodes marked as buffer_stop"
