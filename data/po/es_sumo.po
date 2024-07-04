@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-02 14:47+0000\n"
+"PO-Revision-Date: 2024-07-04 12:58+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4795,11 +4795,12 @@ msgstr ""
 #: src/microsim/traffic_lights/MSRailSignal.cpp:106
 #, c-format
 msgid "Rail signal at junction '%' does not control any links"
-msgstr ""
+msgstr "La señal ferroviaria en el cruce '%' no controla ningún enlace"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:1215
 msgid "Found circular block after railSignal % (% edges, length %)"
 msgstr ""
+"Bloqueo circular encontrado después de railSignal % (% aristas, longitud %)"
 
 #: src/microsim/traffic_lights/MSRailSignal.cpp:1326
 msgid "Found circular block at railSignal % (% edges, length %)"
@@ -4834,6 +4835,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneInputLanes: lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Intersección % pheromoneInputLanes: carril % "
+"no permitido"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:182
 #, c-format
@@ -4841,6 +4844,8 @@ msgid ""
 "MSSwarmTrafficLightLogic::init Intersection % pheromoneOutputLanes lane "
 "% not allowed"
 msgstr ""
+"MSSwarmTrafficLightLogic::init Intersección % pheromoneOutputLanes carril % "
+"no permitido"
 
 #: src/microsim/traffic_lights/MSSwarmTrafficLightLogic.cpp:194
 msgid "*** Intersection % will run using MSSwarmTrafficLightLogic ***"
@@ -4868,6 +4873,8 @@ msgid ""
 "The computed factor sum in WAUT '%' at time '%' equals zero;\n"
 " assuming an error in WAUT definition."
 msgstr ""
+"La suma del factor calculado en WAUT '%' en el tiempo '%' es igual a cero;\n"
+" asumiendo un error en la definición WAUT."
 
 #: src/microsim/traffic_lights/MSTrafficLightLogic.cpp:164
 msgid "Unused states in tlLogic '%', program '%' in phase % after tl-index %"
@@ -4922,11 +4929,11 @@ msgstr "Estoy empezando en las fases coordinadas"
 
 #: src/microsim/transportables/MSPModel.h:188
 msgid "moveTo is ignored by the current movement model"
-msgstr ""
+msgstr "moveTo es ignorado por el modelo de movimiento actual"
 
 #: src/microsim/transportables/MSPModel.h:204
 msgid "moveToXY is ignored by the current movement model"
-msgstr ""
+msgstr "moveToXY es ignorado por el modelo de movimiento actual"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:119
 msgid "Error while adding person '%' as JuPedSim agent: %"
@@ -4934,15 +4941,15 @@ msgstr "Error al agregar la persona '%' como agente de JuPedSim: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:133
 msgid "Error while creating fixed transition for person '%': %"
-msgstr ""
+msgstr "Error al crear transición fija para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:139
 msgid "Error while setting transition for person '%': %"
-msgstr ""
+msgstr "Error al establecer transición para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:158
 msgid "Error while adding waypoint for person '%': %"
-msgstr ""
+msgstr "Error al agregar punto de referencia para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:195
 #: src/microsim/transportables/MSPModel_Striping.cpp:180
@@ -4960,11 +4967,11 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:297
 msgid "Error while adding a journey for person '%': %"
-msgstr ""
+msgstr "Error al agregar un viaje para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:331
 msgid "Error while switching to a new journey for person '%': %"
-msgstr ""
+msgstr "Error al cambiar a un nuevo viaje para la persona '%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:358
 msgid "Error during iteration %: %"
@@ -4976,7 +4983,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:569
 msgid "Error while generating geometry for carriages."
-msgstr ""
+msgstr "Error al generar geometría para vagones."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:580
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1063
@@ -4988,12 +4995,14 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:644
 msgid "Polygon '%' at junction '%' will be skipped as it is just a point."
-msgstr ""
+msgstr "El polígono '%' en el cruce '%' se omitirá ya que es solo un punto."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:663
 msgid ""
 "Polygon '%' at junction '%' had some equal consecutive points removed: %"
 msgstr ""
+"Al polígono '%' en el cruce '%' se le quitaron algunos puntos consecutivos "
+"iguales: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:672
 #, c-format
