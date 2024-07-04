@@ -378,7 +378,6 @@ MSRailSignal::initDriveWays(const SUMOVehicle* ego, bool update) {
             }
         }
     }
-    const MSEdge* first = edges[departIndex];
     MSDriveWay::getDepartureDriveway(ego);
 }
 
