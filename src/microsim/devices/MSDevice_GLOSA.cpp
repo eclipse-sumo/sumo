@@ -54,6 +54,15 @@ MSDevice_GLOSA::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.glosa.min-speed", new Option_Float(5.0));
     oc.addDescription("device.glosa.min-speed", "GLOSA Device", TL("Minimum speed when coasting towards a red light"));
+
+    oc.doRegister("device.glosa.add-switchtime", new Option_Float(0.0));
+    oc.addDescription("device.glosa.add-switchtime", "GLOSA Device", TL("Additional time the vehicle shall need to reach the intersection after the signal turns green"));
+
+    oc.doRegister("device.glosa.override-safety", new Option_Bool(false));
+    oc.addDescription("device.glosa.override-safety", "GLOSA Device", TL("Override safety features - ignore the current light state, always follow GLOSA's predicted state"));
+
+    oc.doRegister("device.glosa.ignore-cfmodel", new Option_Bool(false));
+    oc.addDescription("device.glosa.ignore-cfmodel", "GLOSA Device", TL("Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical"));
 }
 
 
@@ -64,7 +73,10 @@ MSDevice_GLOSA::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*
         MSDevice_GLOSA* device = new MSDevice_GLOSA(v, "glosa_" + v.getID(),
                 v.getFloatParam("device.glosa.min-speed", true),
                 v.getFloatParam("device.glosa.range", true),
-                v.getFloatParam("device.glosa.max-speedfactor", true));
+                v.getFloatParam("device.glosa.max-speedfactor", true),
+                v.getFloatParam("device.glosa.add-switchtime", true),
+                v.getBoolParam("device.glosa.override-safety", true),
+                v.getBoolParam("device.glosa.ignore-cfmodel", true));
         into.push_back(device);
     }
 }
@@ -77,14 +89,19 @@ MSDevice_GLOSA::cleanup() {
 // ---------------------------------------------------------------------------
 // MSDevice_GLOSA-methods
 // ---------------------------------------------------------------------------
-MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor) :
+MSDevice_GLOSA::MSDevice_GLOSA(SUMOVehicle& holder, const std::string& id, double minSpeed, double range, double maxSpeedFactor,
+    double addSwitchTime, bool overrideSafety, bool ignoreCFModel) :
     MSVehicleDevice(holder, id),
     myVeh(dynamic_cast<MSVehicle&>(holder)),
     myNextTLSLink(nullptr),
     myDistance(0),
     myMinSpeed(minSpeed),
     myRange(range),
-    myMaxSpeedFactor(maxSpeedFactor)
+    myMaxSpeedFactor(maxSpeedFactor),
+    myAddSwitchTime(addSwitchTime),
+    myOverrideSafety(overrideSafety),
+    myIgnoreCFModel(ignoreCFModel),
+    mySpeedAdviceActive(false)
 
 {
     myOriginalSpeedFactor = myVeh.getChosenSpeedFactor();
@@ -110,6 +127,7 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
 #endif
         if (myNextTLSLink->haveGreen()) {
             myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+            mySpeedAdviceActive = false;
             if (timeToJunction > timeToSwitch) {
                 if (myMaxSpeedFactor > myVeh.getChosenSpeedFactor()) {
                     const double vMax2 = vMax / myVeh.getChosenSpeedFactor() * myMaxSpeedFactor;
@@ -125,11 +143,12 @@ MSDevice_GLOSA::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                         // increase speed factor up to a maximum if necessary and useful
                         // XXX could compute optimal speed factor here
                         myVeh.setChosenSpeedFactor(myMaxSpeedFactor);
+                        mySpeedAdviceActive = true;
                     }
                 }
             }
         } else if (myNextTLSLink->haveRed()) {
-            adaptSpeed(myDistance, timeToJunction, timeToSwitch);
+            adaptSpeed(myDistance, timeToJunction, timeToSwitch + myAddSwitchTime);
         }
     }
     return true; // keep the device
@@ -165,8 +184,9 @@ MSDevice_GLOSA::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifica
         linkIt = MSLane::succLinkSec(myVeh, view, *lane, bestLaneConts);
     }
     if (prevLink != nullptr && myNextTLSLink == nullptr) {
-        // moved passt tls
+        // moved pass tls
         myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+        mySpeedAdviceActive = false;
     } else if (myNextTLSLink != nullptr && prevLink != myNextTLSLink) {
         // approaching new tls
         double tlsRange = 1e10;
@@ -324,11 +344,15 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
     }
     if (s < (w * w - x * x) / 2.0 / a) {
         // end maneuver
-        myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
-        //std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-        //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
-        //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), vMax));
-        //myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+        if (myIgnoreCFModel) {
+            std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+            speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
+            speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(w - x / a), vMax));
+            myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+        } else {
+            myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+        }
+        mySpeedAdviceActive = false;
     }
     if (!(x >= u && x <= w && y < t)) {
 #ifdef DEBUG_GLOSA
@@ -336,19 +360,25 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
 #endif
         // end maneuver
         myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
+        mySpeedAdviceActive = false;
         return;
     }
     const double targetSpeed = x;
+    const double duration = MAX2(y, TS);
 #ifdef DEBUG_GLOSA
     if (DEBUG_COND) {
         std::cout << "  targetSpeed=" << targetSpeed << " duration=" << y << "\n";
     }
 #endif
-    myVeh.setChosenSpeedFactor(targetSpeed / myVeh.getLane()->getSpeedLimit());
-    //std::vector<std::pair<SUMOTime, double> > speedTimeLine;
-    //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
-    //speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
-    //myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+    if (myIgnoreCFModel) {
+        std::vector<std::pair<SUMOTime, double> > speedTimeLine;
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep(), myVeh.getSpeed()));
+        speedTimeLine.push_back(std::make_pair(MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(duration), targetSpeed));
+        myVeh.getInfluencer().setSpeedTimeLine(speedTimeLine);
+    } else {
+        myVeh.setChosenSpeedFactor(targetSpeed / myVeh.getLane()->getSpeedLimit());
+    }
+    mySpeedAdviceActive = true;
 }
 
 
