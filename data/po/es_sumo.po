@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-04 13:46+0000\n"
+"PO-Revision-Date: 2024-07-04 13:57+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5500,7 +5500,7 @@ msgstr "Para la arista '%': no se pudo calcular la forma."
 #: src/netbuild/NBEdge.cpp:433 src/netbuild/NBEdge.cpp:461
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
-msgstr ""
+msgstr "Se desconoce al menos uno de los nodos de la arista '%'."
 
 #: src/netbuild/NBEdge.cpp:458
 #, c-format
@@ -5518,7 +5518,7 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:1033
 msgid "Found angle of % degrees at edge '%', segment %."
-msgstr ""
+msgstr "Ángulo encontrado de % grados en la arista '%', segmento %."
 
 #: src/netbuild/NBEdge.cpp:1045
 msgid "Removing sharp turn with radius % at the % of edge '%'."
@@ -5549,6 +5549,8 @@ msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
 msgstr ""
+"Intersección de giros a la izquierda en el cruce '%' del carril '%' y del "
+"carril '%' (aumente el radio del cruce para evitar esto)."
 
 #: src/netbuild/NBEdge.cpp:1905
 msgid ""
@@ -5598,11 +5600,12 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:3071
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
-msgstr ""
+msgstr "La arista '%' no está conectada a aristas salientes en el cruce '%'."
 
 #: src/netbuild/NBEdge.cpp:3085
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr ""
+"El carril '%' no está conectado a ninguna arista entrante en el cruce '%'."
 
 #: src/netbuild/NBEdge.cpp:3102
 #, c-format
