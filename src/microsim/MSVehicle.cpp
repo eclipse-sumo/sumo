@@ -59,6 +59,7 @@
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/devices/MSDevice_Vehroutes.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
+#include <microsim/devices/MSDevice_GLOSA.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
@@ -2675,6 +2676,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
         double stopDist = MAX2(0., seen - laneStopOffset);
+        if (yellowOrRed && getDevice(typeid(MSDevice_GLOSA)) != nullptr &&
+            static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->getOverrideSafety()) {
+            stopDist = std::numeric_limits<double>::max();
+        }
         if (newStopDist != std::numeric_limits<double>::max()) {
             stopDist = MAX2(stopDist, newStopDist);
         }

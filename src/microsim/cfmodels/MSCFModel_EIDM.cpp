@@ -39,6 +39,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
+#include <microsim/devices/MSDevice_GLOSA.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 
@@ -616,6 +617,12 @@ MSCFModel_EIDM::freeSpeed(const MSVehicle* const veh, double speed, double seen,
 
     VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
 
+    if (veh->getDevice(typeid(MSDevice_GLOSA)) != nullptr &&
+        static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive() &&
+        maxSpeed < speed) {
+        seen = speed * (1 - (vars->v0_old - vars->v0_int) / (vars->v0_old - maxSpeed)) * myTpreview;
+    }
+
     double vSafe, remaining_time, targetDecel;
     double secGap;
     if (onInsertion) {
@@ -737,6 +744,10 @@ MSCFModel_EIDM::internalspeedlimit(MSVehicle* const veh, const double oldV) cons
     std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
     double seen = lane->getLength() - veh->getPositionOnLane();
     double v0 = lane->getVehicleMaxSpeed(veh); // current desired lane speed
+    bool activeGLOSA = false;
+    if (veh->getDevice(typeid(MSDevice_GLOSA)) != nullptr) {
+        activeGLOSA = static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive();
+    }
 
     // @ToDo: nextTurn is only defined in sublane-model calculation?!
     // @ToDo: So cannot use it yet, but the next turn or speed recommendation for the street curvature (e.g. vmax=sqrt(a_transverse*Radius), a_transverse=3-4m/s^2)
@@ -745,7 +756,7 @@ MSCFModel_EIDM::internalspeedlimit(MSVehicle* const veh, const double oldV) cons
 
     // When driving on the last lane/link, the vehicle shouldn't adapt to the lane after anymore.
     // Otherwise we check the <seen> time-distance and whether is lower than myTpreview
-    if (lane->isLinkEnd(link) != 1 && (seen < oldV * myTpreview || seen < v0 * myTpreview / 2)) {
+    if (lane->isLinkEnd(link) != 1 && (seen < oldV * myTpreview || seen < v0 * myTpreview / 2 || activeGLOSA)) {
         double speedlim = 200;
         while (true) { // loop over all upcoming edges/lanes/links until the <seen> time-distance is higher than myTpreview
             if (lane->isLinkEnd(link) != 1 && (seen < oldV * myTpreview || seen < v0 * myTpreview / 2)) { // @ToDo: add && (*link)->havePriority()???
@@ -794,7 +805,11 @@ MSCFModel_EIDM::internalspeedlimit(MSVehicle* const veh, const double oldV) cons
             // @ToDo: Vehicle now decelerates to new Speedlimit before reaching new edge (not /2 anymore)!
             // @ToDo: v0 for changing speed limits when seen < oldV*myTpreview, not seen < oldV*myTpreview/2 anymore!!!
             if (v0 > lane->getVehicleMaxSpeed(veh)) {
-                v0 = lane->getVehicleMaxSpeed(veh);
+                if (!activeGLOSA) {
+                    v0 = lane->getVehicleMaxSpeed(veh);
+                } else {
+                    v0 = MIN2(v0, static_cast<MSDevice_GLOSA*>(veh->getDevice(typeid(MSDevice_GLOSA)))->getOriginalSpeedFactor() * lane->getSpeedLimit());
+                }
             }
             seen += lane->getLength();
             link = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
