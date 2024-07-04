@@ -1158,6 +1158,12 @@ MSLink::setTLState(LinkState state, SUMOTime t) {
 }
 
 
+void
+MSLink::setTLLogic(const MSTrafficLightLogic* logic) {
+    myLogic = logic;
+}
+
+
 bool
 MSLink::isCont() const {
     // when a traffic light is switched off minor roads have their cont status revoked

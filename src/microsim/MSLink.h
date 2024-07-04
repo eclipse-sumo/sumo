@@ -418,6 +418,10 @@ public:
      */
     void setTLState(LinkState state, SUMOTime t);
 
+    /** @brief Sets the currently active tlLogic
+     * @param[in] logic The currently active logic
+     */
+    void setTLLogic(const MSTrafficLightLogic* logic);
 
     /** @brief Returns the connected lane
      *
