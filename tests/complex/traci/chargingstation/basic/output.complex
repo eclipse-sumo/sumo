@@ -1,8 +1,8 @@
 chargingstations ('stop1', 'stop2')
 chargingstation count 2
 stop attributes before setting values:
-  stop=stop1 lane=WC_0 startPos=25.0 endPos=45.0 name=Downtown power=0 efficiency=0.95 chargeDelay=0.00 chargeInTransit=0
-  stop=stop2 lane=CE_0 startPos=35.0 endPos=65.0 name=Main Station power=0 efficiency=0.95 chargeDelay=0.00 chargeInTransit=0
+  stop=stop1 lane=WC_0 startPos=25.0 endPos=45.0 name=Downtown power=22000 efficiency=0.95 chargeDelay=0.00 chargeInTransit=0
+  stop=stop2 lane=CE_0 startPos=35.0 endPos=65.0 name=Main Station power=22000 efficiency=0.95 chargeDelay=0.00 chargeInTransit=0
 stop attributes after setting values:
   stop=stop1 power=50000 efficiency=1.00 chargeDelay=0.00 chargeInTransit=1
   stop=stop2 power=50000 efficiency=1.00 chargeDelay=0.00 chargeInTransit=1
