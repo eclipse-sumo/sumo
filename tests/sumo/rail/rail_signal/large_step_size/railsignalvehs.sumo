@@ -1,0 +1,25 @@
+<railSignal id="gneJ1">
+    <link linkIndex="0" from="gneE0_0" to=":gneJ1_0_0">
+        <driveWay id="gneJ1.0"/>
+    </link>
+</railSignal>
+<railSignal id="gneJ3">
+    <link linkIndex="0" from="gneE2_0" to=":gneJ3_0_0">
+        <driveWay id="gneJ3.0">
+            <entry id="rail1" time="39.00" reason="1"/>
+            <exit id="rail1" time="96.00" reason="1"/>
+            <entry id="rail2" time="99.00" reason="1"/>
+            <exit id="rail2" time="123.00" reason="1"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="gneJ5">
+    <link linkIndex="0" from="gneE4_0" to=":gneJ5_0_0">
+        <driveWay id="gneJ5.0">
+            <entry id="rail1" time="93.00" reason="1"/>
+            <exit id="rail1" time="120.00" reason="9"/>
+            <entry id="rail2" time="123.00" reason="1"/>
+            <exit id="rail2" time="132.00" reason="9"/>
+        </driveWay>
+    </link>
+</railSignal>
