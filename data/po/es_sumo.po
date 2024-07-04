@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-06-25 18:49+0200\n"
-"PO-Revision-Date: 2024-07-04 13:57+0000\n"
+"PO-Revision-Date: 2024-07-04 14:06+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -5701,23 +5701,25 @@ msgstr ""
 
 #: src/netbuild/NBEdgeCont.cpp:885
 msgid "Removing opposite lane '%' for invalid lane '%'."
-msgstr ""
+msgstr "Eliminando el carril opuesto '%' al carril no válido '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:894
 msgid "Removing unknown opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Eliminando el carril opuesto desconocido '%' para la arista '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:899
 msgid "Adapting invalid opposite lane '%' for edge '%' to '%'."
-msgstr ""
+msgstr "Adaptando el carril opuesto no válido '%' para la arista '%' a '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:905
 msgid "Adapting missing opposite lane '%' for edge '%'."
-msgstr ""
+msgstr "Adaptando el carril opuesto faltante '%' para la arista '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:911
 msgid "Averaging edge lengths for lane '%' (length %) and edge '%' (length %)."
 msgstr ""
+"Promediando longitudes de arista para el carril '%' (longitud %) y la arista "
+"'%' (longitud %)."
 
 #: src/netbuild/NBEdgeCont.cpp:924
 msgid "Opposite lane '%' does not connect the same nodes as edge '%'!"
@@ -5741,7 +5743,7 @@ msgstr "El carril '%' tiene una velocidad máxima permitida de 0."
 
 #: src/netbuild/NBEdgeCont.cpp:1457
 msgid "Replacing loaded roundabout '%' with '%'."
-msgstr ""
+msgstr "Reemplazando la rotonda cargada '%' con '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:1846
 msgid "Edge '%' overlaps with edge '%' by %."
@@ -5769,11 +5771,11 @@ msgstr "La conexión '%' tiene una pendiente de %%."
 
 #: src/netbuild/NBEdgeCont.cpp:1916
 msgid "Not joining tram edge '%' with % lanes."
-msgstr ""
+msgstr "No combinando la arista de tranvía '%' con % carriles."
 
 #: src/netbuild/NBEdgeCont.cpp:1994
 msgid "Ambiguous tram edges '%' and '%' for lane '%'."
-msgstr ""
+msgstr "Aristas de tranvía ambiguas '%' y '%' para el carril '%'."
 
 #: src/netbuild/NBEdgeCont.cpp:2148 src/netimport/NIImporter_SUMO.cpp:140
 #: src/netimport/NIXMLEdgesHandler.cpp:554
