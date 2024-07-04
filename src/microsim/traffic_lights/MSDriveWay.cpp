@@ -1145,7 +1145,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
 
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
-        std::cout << SIMTIME << " buildDriveWay " << dw->myID << " (" << dw->myNumericalID << ")"
+        std::cout << SIMTIME << " buildDriveWay " << dw->myID << " link=" << (link == nullptr ? "NULL" : link->getDescription())
                   << "\n    route=" << toString(dw->myRoute)
                   << "\n    forward=" << toString(dw->myForward)
                   << "\n    bidi=" << toString(dw->myBidi)
@@ -1445,9 +1445,10 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     if (edge->getFromJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         for (const MSLane* lane : edge->getLanes()) {
             for (auto ili : lane->getIncomingLanes()) {
-                const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(ili.viaLink->getTLLogic());
+                const MSLink* entry = ili.viaLink->getCorrespondingEntryLink();
+                const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(entry->getTLLogic());
                 if (rs != nullptr) {
-                    return &const_cast<MSRailSignal*>(rs)->retrieveDriveWayForVeh(ili.viaLink->getTLIndex(), veh);
+                    return &const_cast<MSRailSignal*>(rs)->retrieveDriveWayForVeh(entry->getTLIndex(), veh);
                 }
             }
         }
