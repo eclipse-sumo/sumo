@@ -1128,7 +1128,12 @@ SUMOVehicleParameter::parseInsertionChecks(const std::string& value) {
         // split value in substrinsg
         StringTokenizer insertionCheckStrs(value, " ");
         while (insertionCheckStrs.hasNext()) {
-            result |= (int)SUMOXMLDefinitions::InsertionChecks.get(insertionCheckStrs.next());
+            std::string val = insertionCheckStrs.next();
+            if (SUMOXMLDefinitions::InsertionChecks.hasString(val)) {
+                result |= (int)SUMOXMLDefinitions::InsertionChecks.get(val);
+            } else {
+                throw InvalidArgument("Unknown value '" + val + "' in " + toString(SUMO_ATTR_INSERTIONCHECKS) + ".");
+            }
         }
     }
     return result;
