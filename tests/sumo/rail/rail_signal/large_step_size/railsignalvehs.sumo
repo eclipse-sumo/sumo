@@ -23,3 +23,11 @@
         </driveWay>
     </link>
 </railSignal>
+<departJunction id="gneJ1">
+    <driveWay id="gneJ1.d0">
+        <entry id="rail1" time="0.00" reason="0"/>
+        <entry id="rail2" time="9.00" reason="0"/>
+        <exit id="rail1" time="42.00" reason="1"/>
+        <exit id="rail2" time="99.00" reason="1"/>
+    </driveWay>
+</departJunction>
