@@ -650,7 +650,7 @@ NBRailwayTopologyAnalyzer::reverseEdges(NBEdgeCont& ec, NBPTStopCont& sc) {
     for (EdgeVector& seq : seqsToReverse) {
         NBNode* seqStart = seq.front()->getFromNode();
         NBNode* seqEnd = seq.back()->getToNode();
-        // avoid reversing sequenes on both sides of a broken node
+        // avoid reversing sequences on both sides of a broken node
         if (affectedEndpoints.count(seqStart) == 0
                 && affectedEndpoints.count(seqEnd) == 0) {
             affectedEndpoints.insert(seqStart);
@@ -684,7 +684,7 @@ int
 NBRailwayTopologyAnalyzer::addBidiEdgesForBufferStops(NBEdgeCont& ec) {
     std::set<NBNode*> brokenNodes = getBrokenRailNodes(ec);
     std::set<NBNode*> railNodes = getRailNodes(ec);
-    // find buffer stops and ensure that thay are connect to the network in both directions
+    // find buffer stops and ensure that they are connect to the network in both directions
     int numBufferStops = 0;
     int numAddedBidiTotal = 0;
     for (NBNode* node : railNodes) {
@@ -1119,7 +1119,7 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStraightConnectivity(NBEdgeCont& ec, b
         }
         if ((!haveStraightReverse || haveStraight) && (!geometryLike || outRailTo.size() + inRailTo.size() == 2)) {
             // check whether there is a straight edge pointing towards this one at the to-node
-            // and there is no straight outoing edge at the to-node
+            // and there is no straight outgoing edge at the to-node
             haveStraight = false;
             haveStraightReverse = false;
             for (const NBEdge* toStraightCand : inRailTo) {
