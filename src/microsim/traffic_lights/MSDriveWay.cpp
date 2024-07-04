@@ -1214,7 +1214,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->myConflictLinks.clear();
     dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
     myEndingDriveways[lastEdge].push_back(dw);
-    if (!rs || !rs->isMovingBlock()) {
+    if ((!rs || !rs->isMovingBlock()) && (rs || !OptionsCont::getOptions().getBool("railsignal-moving-block"))) {
         // every driveway is it's own foe (also all driveways that depart in the same block)
         for (MSDriveWay* sameEnd : myEndingDriveways[lastEdge]) {
             if (uniqueFoes.count(sameEnd) == 0) {
