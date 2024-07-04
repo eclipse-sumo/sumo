@@ -27,7 +27,7 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 
 with sumolib.openz("tt.txt", "w", encoding="utf-8-sig") as o:
-    print("hello bom", file=o)
+    print(u"hello bom", file=o)
 
 with sumolib.openz("tt.txt", encoding="utf-8") as i:
     a = i.read()
@@ -39,7 +39,7 @@ with sumolib.openz("tt.txt") as i:
 
 
 with sumolib.openz("t2.txt", "w") as o:
-    print("hello bom", file=o)
+    print(u"hello bom", file=o)
 
 with sumolib.openz("t2.txt", encoding="utf-8") as i:
     a = i.read()
