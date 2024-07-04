@@ -1387,6 +1387,12 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
     sub->myIsSubDriveway = true;
     myLane->addMoveReminder(sub);
     sub->myForward.insert(sub->myForward.begin(), myForward.begin(), myForward.begin() + subSize);
+    for (const MSLane* lane : sub->myForward) {
+        if (lane->isNormal()) {
+            sub->myRoute.push_back(&lane->getEdge());
+        }
+    }
+    sub->myCoreSize = sub->myRoute.size();
     foe->myFoes.push_back(sub);
     mySubDriveWays.push_back(sub);
 }
