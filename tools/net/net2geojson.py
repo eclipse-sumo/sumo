@@ -55,7 +55,9 @@ def parse_args():
     op.add_argument("-b", "--boundary", dest="boundary", action="store_true", default=False,
                     help="Export boundary shapes instead of center-lines")
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
-                    help="exports all time intervals (by default only the first is exported)")
+                    help="Exports all time intervals (by default only the first is exported)")
+    op.add_argument("--extra-attributes", action="store_true", default=False, dest="extraAttributes",
+                    help="Exports extra attributes from edge and lane (such as max speed, number of lanes and allowed vehicles)")
 
     try:
         options = op.parse_args()
@@ -123,6 +125,16 @@ if __name__ == "__main__":
                 feature["properties"][ptType] = " ".join(sorted(lines))
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
+        if options.extraAttributes:
+            feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
+            if geomType == 'lane':
+                feature["properties"]["allowedVehicles"] = ','.join(net.getLane(id).getPermissions())
+                feature["properties"]["laneIndex"] = net.getLane(id).getIndex()
+
+            else:
+                feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+
+        
         if options.boundary:
             geometry = sumolib.geomhelper.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
