@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:35:00 by Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
+<!-- generated on 2024-07-05 07:25:09 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -492,6 +492,9 @@
             <xsd:element name="device.glosa.range" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.glosa.max-speedfactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.glosa.min-speed" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.add-switchtime" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.override-safety" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.glosa.ignore-cfmodel" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 

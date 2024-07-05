@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:35:00 by Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
+<!-- generated on 2024-07-05 07:25:09 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -432,6 +432,9 @@
         <device.glosa.range value="100" type="FLOAT" help="The communication range to the traffic light"/>
         <device.glosa.max-speedfactor value="1.1" type="FLOAT" help="The maximum speed factor when approaching a green light"/>
         <device.glosa.min-speed value="5" type="FLOAT" help="Minimum speed when coasting towards a red light"/>
+        <device.glosa.add-switchtime value="0" type="FLOAT" help="Additional time the vehicle shall need to reach the intersection after the signal turns green"/>
+        <device.glosa.override-safety value="false" type="BOOL" help="Override safety features - ignore the current light state, always follow GLOSA&apos;s predicted state"/>
+        <device.glosa.ignore-cfmodel value="false" type="BOOL" help="Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical"/>
     </glosa_device>
 
     <tripinfo_device>

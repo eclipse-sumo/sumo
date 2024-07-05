@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
+Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -838,6 +838,15 @@ GLOSA Device Options:
                                         approaching a green light
   --device.glosa.min-speed FLOAT       Minimum speed when coasting towards a
                                         red light
+  --device.glosa.add-switchtime FLOAT  Additional time the vehicle shall need
+                                        to reach the intersection after the
+                                        signal turns green
+  --device.glosa.override-safety       Override safety features - ignore the
+                                        current light state, always follow
+                                        GLOSA's predicted state
+  --device.glosa.ignore-cfmodel        Vehicles follow a perfect speed
+                                        calculation - ignore speed calculations
+                                        from the CF model if not safety critical
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a

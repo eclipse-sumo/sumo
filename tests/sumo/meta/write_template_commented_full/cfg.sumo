@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:35:00 by Eclipse SUMO sumo Version v1_20_0+1007-00b7dbece58
+<!-- generated on 2024-07-05 07:25:09 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -1175,6 +1175,15 @@
 
         <!-- Minimum speed when coasting towards a red light -->
         <device.glosa.min-speed value="5" type="FLOAT"/>
+
+        <!-- Additional time the vehicle shall need to reach the intersection after the signal turns green -->
+        <device.glosa.add-switchtime value="0" type="FLOAT"/>
+
+        <!-- Override safety features - ignore the current light state, always follow GLOSA&apos;s predicted state -->
+        <device.glosa.override-safety value="false" type="BOOL"/>
+
+        <!-- Vehicles follow a perfect speed calculation - ignore speed calculations from the CF model if not safety critical -->
+        <device.glosa.ignore-cfmodel value="false" type="BOOL"/>
 
     </glosa_device>
 
