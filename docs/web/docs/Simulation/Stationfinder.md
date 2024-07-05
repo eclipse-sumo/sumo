@@ -28,8 +28,9 @@ vehicle to charge. The user can configure multiple thresholds to change how diff
 ## Charging station target function
 
 When there are more sites to choose from, the device sorts the charging stations according to a target function and chooses the one with the lowest score. The target function works the same way as
-[the one for parking search](Rerouter.md#determining_the_alternative_parking_area). Thus it consists of a linear combination of components and corresponding weight factors. The weight factors can be set
-using [generic parameters](GenericParameters.md) either in the vehicle or the vehicle type definition. The available components and their weight factors are described in the table below:
+[the one for parking search](Rerouter.md#determining_the_alternative_parking_area). Thus it consists of a linear combination of components and corresponding weight factors. Each of these parameters must be specified as a child
+element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+The available components and their weight factors are described in the table below:
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
