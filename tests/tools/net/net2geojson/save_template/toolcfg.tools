@@ -8,5 +8,6 @@
     <internal value="False" type="bool" help="Export internal geometries" category="processing"/>
     <junction-coordinates value="False" type="bool" help="Append junction coordinates to edge shapes" category="processing"/>
     <boundary value="False" type="bool" help="Export boundary shapes instead of center-lines" category="processing"/>
-    <edgedata-timeline value="False" type="bool" help="exports all time intervals (by default only the first is exported)" category="processing"/>
+    <edgedata-timeline value="False" type="bool" help="Exports all time intervals (by default only the first is exported)" category="processing"/>
+    <extra-attributes value="False" type="bool" help="Exports extra attributes from edge and lane (such as max speed, number of lanes and allowed vehicles)" category="processing"/>
 </configuration>

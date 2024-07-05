@@ -15,5 +15,10 @@ boundaries
 
 # test importing a network without geo reference
 no_geo
-
 save_template
+
+# write extra attributes
+extra
+
+# write extra attributes for all lanes
+extra_lanes

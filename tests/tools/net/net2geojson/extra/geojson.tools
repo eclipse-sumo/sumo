@@ -21,7 +21,9 @@
             "properties": {
                 "element": "edge",
                 "id": "-142575691#0",
-                "name": "Magnusstra\u00dfe"
+                "maxSpeed": 13.89,
+                "name": "Magnusstra\u00dfe",
+                "numLanes": 2
             },
             "type": "Feature"
         },
@@ -42,7 +44,9 @@
             "properties": {
                 "element": "edge",
                 "id": "128643753#0",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -83,7 +87,9 @@
             "properties": {
                 "element": "edge",
                 "id": "128643753#1",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -108,7 +114,9 @@
             "properties": {
                 "element": "edge",
                 "id": "142575691#0",
-                "name": "Magnusstra\u00dfe"
+                "maxSpeed": 13.89,
+                "name": "Magnusstra\u00dfe",
+                "numLanes": 2
             },
             "type": "Feature"
         },
@@ -149,7 +157,9 @@
             "properties": {
                 "element": "edge",
                 "id": "142575692#0",
-                "name": "Max-Born-Stra\u00dfe"
+                "maxSpeed": 13.89,
+                "name": "Max-Born-Stra\u00dfe",
+                "numLanes": 2
             },
             "type": "Feature"
         },
@@ -190,7 +200,9 @@
             "properties": {
                 "element": "edge",
                 "id": "142575692#2",
-                "name": "Max-Born-Stra\u00dfe"
+                "maxSpeed": 13.89,
+                "name": "Max-Born-Stra\u00dfe",
+                "numLanes": 2
             },
             "type": "Feature"
         },
@@ -239,7 +251,9 @@
             "properties": {
                 "element": "edge",
                 "id": "142575693#0",
-                "name": "Max-Born-Stra\u00dfe"
+                "maxSpeed": 13.89,
+                "name": "Max-Born-Stra\u00dfe",
+                "numLanes": 2
             },
             "type": "Feature"
         },
@@ -284,7 +298,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308542#0",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -317,7 +333,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308542#2",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -342,7 +360,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308542#4",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -363,7 +383,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308542#5",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -448,7 +470,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308542#6",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -481,7 +505,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#0",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -510,7 +536,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#1",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -531,7 +559,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#3",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -552,7 +582,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#7",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -573,7 +605,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#8",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -614,7 +648,9 @@
             "properties": {
                 "element": "edge",
                 "id": "143308546#9",
-                "name": "Rudower Chaussee"
+                "maxSpeed": 13.89,
+                "name": "Rudower Chaussee",
+                "numLanes": 4
             },
             "type": "Feature"
         },
@@ -691,7 +727,9 @@
             "properties": {
                 "element": "edge",
                 "id": "158236729#0",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -736,7 +774,9 @@
             "properties": {
                 "element": "edge",
                 "id": "158236729#1",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -761,7 +801,9 @@
             "properties": {
                 "element": "edge",
                 "id": "206889079#5",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -826,7 +868,9 @@
             "properties": {
                 "element": "edge",
                 "id": "206889079#6",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -871,7 +915,9 @@
             "properties": {
                 "element": "edge",
                 "id": "206889079#7",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -940,7 +986,9 @@
             "properties": {
                 "element": "edge",
                 "id": "220198808#1",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -965,7 +1013,9 @@
             "properties": {
                 "element": "edge",
                 "id": "220198808#2",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1038,7 +1088,9 @@
             "properties": {
                 "element": "edge",
                 "id": "220198810#1",
-                "name": ""
+                "maxSpeed": 13.89,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1075,7 +1127,9 @@
             "properties": {
                 "element": "edge",
                 "id": "312889498",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1104,7 +1158,9 @@
             "properties": {
                 "element": "edge",
                 "id": "328287315",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1125,7 +1181,9 @@
             "properties": {
                 "element": "edge",
                 "id": "81096580#0",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1146,7 +1204,9 @@
             "properties": {
                 "element": "edge",
                 "id": "81096580#3",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1175,7 +1235,9 @@
             "properties": {
                 "element": "edge",
                 "id": "81096589#0",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         },
@@ -1200,7 +1262,9 @@
             "properties": {
                 "element": "edge",
                 "id": "81096589#3",
-                "name": ""
+                "maxSpeed": 2.78,
+                "name": "",
+                "numLanes": 1
             },
             "type": "Feature"
         }
