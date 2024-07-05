@@ -3493,6 +3493,8 @@ msgid ""
 "The number of lanes needs to be specified in the attributes of carFollowing-"
 "CC with the \"lanesCount\" attribute"
 msgstr ""
+"El número de carriles debe especificarse en los atributos de carFollowing-CC "
+"con el atributo \"lanesCount\""
 
 #: src/microsim/cfmodels/MSCFModel_Daniel1.cpp:61
 msgid ""
@@ -3514,28 +3516,36 @@ msgstr "Tipo de tren desconocido: %. ¡Saliendo!"
 msgid ""
 "Invalid size of speedTable for vType '%' (at least 2 values are required)."
 msgstr ""
+"Tamaño no válido de la tabla de velocidades (speedTable) para el tipo de "
+"vehículo '%' (se requieren al menos 2 valores)."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:116
 msgid "Mismatching size of speedTable and tractionTable for vType '%'."
 msgstr ""
+"El tamaño de la tabla de velocidades (speedTable) y la tabla de tracción "
+"(tractionTable) no coincide para el tipo de vehículo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:118
 msgid "Mismatching size of speedTable and resistanceTable for vType '%'."
 msgstr ""
+"El tamaño de la tabla de velocidades (speedTable) y la tabla de resistencia "
+"(resistanceTable) no coincide para el tipo de vehículo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:136
 msgid "Undefined maxPower for vType '%'."
-msgstr ""
+msgstr "Para el tipo de vehículo '%' no está definido maxPower."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:138
 msgid "Undefined maxTraction for vType '%'."
-msgstr ""
+msgstr "Para el tipo de vehículo '%' no está definido maxTraction."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:141
 msgid ""
 "Ignoring tractionTable because maxPower and maxTraction are set for vType "
 "'%'."
 msgstr ""
+"Ignorando la tabla de tracción (tractionTable) porque maxPower y maxTraction "
+"están configurados para el tipo de vehículo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:150
 msgid ""
@@ -3548,24 +3558,32 @@ msgid ""
 "Ignoring resistanceTable because resistance coefficents are set for vType "
 "'%'."
 msgstr ""
+"Ignorando la tabla de resistencia (resistanceTable) porque los coeficientes "
+"de resistencia están configurados para el tipo de vehículo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:157
 msgid ""
 "Either tractionTable or maxPower must be defined for vType '%' with Rail "
 "model type '%'."
 msgstr ""
+"Se debe definir la tabla de tracción (tractionTable) o maxPower para el tipo "
+"de vehículo '%' con el modelo ferroviario tipo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:160
 msgid ""
 "Either resistanceTable or resCoef_constant must be defined for vType '%' "
 "with Rail model type '%'."
 msgstr ""
+"Se debe definir la tabla de resistencia (resistanceTable) o resCoef_constant "
+"para el tipo de vehículo '%' con el modelo ferroviario tipo '%'."
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:337
 msgid ""
 "Anything else than semi implicit euler update is not yet implemented. "
 "Exiting!"
 msgstr ""
+"Aún no se ha implementado nada más que la actualización semi implícita de "
+"Euler. ¡Saliendo!"
 
 #: src/microsim/devices/MSDevice.cpp:172
 #, c-format
@@ -3578,7 +3596,7 @@ msgstr "El alcance del receptor Bluetooth"
 
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:68
 msgid "Whether all recognition point shall be written"
-msgstr ""
+msgstr "Si escribir o no todos los puntos de reconocimiento"
 
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:71
 msgid "The offtime used for calculating detection probability (in seconds)"
@@ -3589,6 +3607,8 @@ msgid ""
 "The vehicle '%' cannot be in the range of vehicle '%', leave, and enter it "
 "in one step."
 msgstr ""
+"El vehículo '%' no puede estar en el rango del vehículo '%', dejarlo e "
+"insértelo en un paso."
 
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:421
 #: src/microsim/devices/MSDevice_BTreceiver.cpp:436
@@ -3681,6 +3701,7 @@ msgstr ""
 #: src/microsim/devices/MSDevice_Bluelight.cpp:61
 msgid "Reduce the minGap for reacting vehicles by the given factor"
 msgstr ""
+"Reducir el minGap, para los vehículos que reaccionan, por el factor dado"
 
 #: src/microsim/devices/MSDevice_Bluelight.cpp:70
 msgid ""
@@ -3704,19 +3725,21 @@ msgstr "Escala de tiempo para el proceso de error."
 msgid "Noise intensity driving the error process."
 msgstr "Intensidad del ruido que impulsa el proceso de error."
 
-#: src/microsim/devices/MSDevice_DriverState.cpp:65
 #: src/microsim/devices/MSDevice_DriverState.cpp:72
 msgid ""
 "General scaling coefficient for applying the error to the perceived speed "
 "difference (error also scales with distance)."
 msgstr ""
+"Coeficiente de escala general para aplicar el error a la diferencia de "
+"velocidad percibida (el error también escala con la distancia)."
 
-#: src/microsim/devices/MSDevice_DriverState.cpp:67
 #: src/microsim/devices/MSDevice_DriverState.cpp:74
 msgid ""
 "General scaling coefficient for applying the error to the perceived distance "
 "(error also scales with distance)."
 msgstr ""
+"Coeficiente de escala general para aplicar el error a la distancia percibida "
+"(el error también escala con la distancia)."
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:69
 #: src/microsim/devices/MSDevice_DriverState.cpp:76
@@ -3846,6 +3869,7 @@ msgstr "Registrar objetos en este radio alrededor de los vehículos equipados"
 #, c-format
 msgid "Specified shape '%' for filtering fcd-output could not be found."
 msgstr ""
+"No se pudo encontrar la forma especificada '%' para filtrar la salida fcd."
 
 #: src/microsim/devices/MSDevice_FCD.cpp:158
 msgid "Could not load names of edges for filtering fcd-output from '%'."
@@ -3866,12 +3890,16 @@ msgstr "Archivo FCD a leer"
 msgid ""
 "The measurement noise parameter which can be applied to the friction device"
 msgstr ""
+"El parámetro de ruido de medición que se puede aplicar al dispositivo de "
+"fricción"
 
 #: src/microsim/devices/MSDevice_Friction.cpp:50
 msgid ""
 "The measurement offset parameter which can be applied to the friction device "
 "-> e.g. to force false measurements"
 msgstr ""
+"El parámetro de compensación de medición que se puede aplicar al dispositivo "
+"de fricción -> por ejemplo para forzar mediciones falsas"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:50
 msgid "The communication range to the traffic light"
