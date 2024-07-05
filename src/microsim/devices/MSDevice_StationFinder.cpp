@@ -96,12 +96,12 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // MSDevice_StationFinder-methods
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
-    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
-      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "charging", true, false, {
-    {"waitingTime", 1.}, {"chargingTime", 1.}
-}, { {"waitingTime", false}, {"chargingTime", false} }), myVeh(dynamic_cast<MSVehicle&>(holder)),
-myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
-myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), 
+      MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "device.stationfinder.charging", true, false, {
+    {"waitingTime", 1.}, {"chargingTime", 1.}}, { {"waitingTime", false}, {"chargingTime", false} }), 
+    myVeh(dynamic_cast<MSVehicle&>(holder)),
+    myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
+    myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
     myEvalParams["distanceto"] = 0.;
     myEvalParams["timeto"] = 1.;
@@ -285,6 +285,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     if (chargingMemory == nullptr) {
         skipVisited = false;
     }
+    const SUMOTime stoppingPlaceMemory = TIME2STEPS(getWeight(myHolder, "memory", 600));
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
         if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower(false) < NUMERICAL_EPS) {
@@ -297,7 +298,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         if (skipOccupied && freeSpaceAtChargingStation(cs) < 1.) {
             continue;
         }
-        if (skipVisited && chargingMemory->sawBlockedStoppingPlace(cs, false)) {
+        if (skipVisited && chargingMemory->sawBlockedStoppingPlace(cs, false) > 0 && SIMSTEP - chargingMemory->sawBlockedStoppingPlace(cs, false) < stoppingPlaceMemory) {
             // skip recently visited
             continue;
         }
