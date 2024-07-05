@@ -33,7 +33,14 @@ title: ChangeLog
   - No more cooperative speed adaptation when setting lcCooperative=-1. #14871
   - Fixed invalid initial blinker for continuous lanechange in lefthand network #15058
   - Now avoiding orthogonal sliding in continous lane change model with attribute `lcMaxSpeedLatStanding="0"` #15052
-  - GLOSA device now follows intended 3-phase speed trajectory (decel, constant, accel) instead of (decel, accel) #15067 
+  - GLOSA device now follows intended 3-phase speed trajectory (decel, constant, accel) instead of (decel, accel) #15067
+  - Fixed negative emissions with HBEFA4 model #15079
+  - Fixed duplicate 'started' and 'ended' values in vehroute-output #15086
+  - Fixed invalid taxi state when receiving a new dispatch while parking #15080
+  - Fixed invalid stopping when a route with a single stop uses attribute `repeat` #13639
+  - Fixed invalid rerouting one edge with change prohibitions #15098
+  - Fixed collision in roundabout in network without internal links #15100
+  - Fixed invalid GLOSA behavior when loading multiple programs for a traffic light #15139 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -41,7 +48,12 @@ title: ChangeLog
   - Fixed bad ramp geometry when two ramps overlap #14839
   - Fixed invalid connection with option **--ramps.guess** if the input defines connections #14833
   - Fixed unsafe waiting position within a junction that conflicts with a pedestrian crossing #14946
-  - Fixed invalid NEMA controllers in written network #15023 
+  - Fixed invalid NEMA controllers in written network #15023
+  - Fixed signal precision, signal lane validity and 0-length edges in xodr output. #15078
+  - Fixed ugly junction shape #15103
+  - Fixed self overlapping crossing outline shape #15111
+  - Crossing parameters are now loaded from plain-xml #15135
+  - Fixed double-projection of node and crossing shapes when setting option **--proj** #15136, #15137
  
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
@@ -55,6 +67,7 @@ title: ChangeLog
   - Selection rectangle now considers element locks again. #15010 (regression in 1.20.0)
   - TazRelations can be inspected again #15019 (regression in 1.20.0)
   - Fixed crash when joining edges with crossings #15073 (regression in 1.20.0)
+  - Fixed crash when removing junction with crossing in loaded network #15112 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
@@ -66,27 +79,34 @@ title: ChangeLog
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
+  - Fixed glitch when drawing carriages on edges with custom length. #15075 (regression in 1.17.0)
   - Fixed crash when saving view settings to registry #14909 (regression in 1.19.0)
   - Fixed bad menu spacing and tiny icons when using display scaling on windows (i.e. for high-pixel-count displays) #14882
   - Fixed translation-related crashes where code relied on hard coded english menu entries. #14710
-  - Fixed placement of chargingStation and ParkingArea symbol in lefthand networks #14744, #14959
+  - Fixed placement of chargingStation and ParkingArea symbol in lefthand networks #14744, #14959, #15110
   - Fixed invalid angle for infrastructure text label in lefthand networks #14743, #14955
   - Fixed invalid scaling of aircraft when zoomed out #14899
   - "Set breakpoint" can no longer cause a crash when no network is loaded #15003
   - Message window "time link" is now working for vehicle-person-collision warning #14931
-  - Fixed crash on right-click in "color edge by inclination" mode #14856 
+  - Fixed crash on right-click in "color edge by inclination" mode #14856
+  - Fixed invalid lateral placement of wide busStops and containerStops #15089 
 
 - meso
-  - Fixed invalid segment properties when an edge does not allow passenger cars #15020 
+  - Fixed invalid segment properties when an edge does not allow passenger cars #15020
+  - Fixed invalid laneData when using option **--meso-multi-queue** #15093 
 
 - TraCI
+  - Fixed ignored calls to `vehicle.changeTarget` and `vehicle.setRoute` after calling `vehicle.moveToXY`. #15123 (regression in 1.13.0)
   - Fixed handling of large time input values #14793
   - Fixed crash when trying to call `traci.vehicle.dispatchTaxi` for an undeparted vehicle #15016 
 
 - tools
+  - osmGet.py: Fixed error downloading data from servers that do not provide gzipped data. #15105 (regression in 1.20.0)
   - generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880
   - traceExporter.py: fixed inconsistent trj-output #14925
-  - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988 
+  - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988
+  - mapDetectors.py: No longer writes invalid lane pos #15117
+  
 
 ### Enhancements
 
@@ -103,7 +123,11 @@ title: ChangeLog
   - The new option **--emission-output.attributes** can now be used to customize the output #12850
   - Jupedsim pedestrian model now waits at pedestrian crossings #15012
   - EIDM model now has a fixed upper boundary to drivererror-intensity to avoid issues for vehicles with high acceleration. #15066
-  - GLOSA device now uses speedFactor to set it's target speed when slowing down to improve interaction with carFollowModels #15067 
+  - GLOSA device now uses speedFactor to set it's target speed when slowing down to improve interaction with carFollowModels #15067
+  - Reduced redundant vClass warnings from taxi device #15090
+  - Added extra penalty for turnarounds during routing, configurable with option **--weights.turnaround-penalty** #4966
+  - Individual speedFactor is now adjusted when switching vehicle type (with calibrators, devices or TraCI) #15076
+  - Added GLOSA options to increase or reduce safety. #15152 
  
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -117,20 +141,25 @@ title: ChangeLog
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
   - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483
-  - Improved rendering speed on right-click #15035 
+  - Improved rendering speed on right-click #15035
+  - Reduce width of lane parameter dialog (by adding linebreaks) #15051 
 
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
   - OSM import now warns if ways, nodes or relations are out of order #14892
-  - OSM import now handles trolleybus routes #14932 
+  - OSM import now handles trolleybus routes #14932
+  - Shapefile import now respects option **--default.spreadtype** #14984 
 
 - marouter
   - Loaded trip attributes (i.e. departLane and departSpeed) are now preserved #15049 
 
+- duarouter
+  - Added extra penalty for turnarounds during routing, configurable with option **--weights.turnaround-penalty** #4966 
+
 - traci
   - The new sumo option **--keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
   - Fixed missing leader/follower information in lanechange output after forced change. #14912
-  - chargingStation attributes can now be modified #12772 
+  - chargingStation attributes can now be modified #12772  
 
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
@@ -138,14 +167,20 @@ title: ChangeLog
   - addStops2Routes.py: Can now create waypoints by setting option **--speed**. #14895
   - traceExporter.py now supports options **-c** and **-C** for loading and saving configuration files #14934
   - generateRailSignalConstraints.py: Added missing constraint for parking vehicles with 'ended' value. #14609
-  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025 
+  - generateRailSignalConstraints.py: Added option **--abort-unordered.keep-actual** which keeps stops after a detected overtaking as valid if they have started/ended values #15065 
+  - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025
+  - mapDetectors.py: Option **--max-radius** can now be used to configure maximum mapping radius #15118
+  - mapDetectors.py: Can now handle CSV with BOM #15116 
 
 ### Miscellaneous
 
 - configuration file root elements are now application-specific #7700
 - Unknown vehicle classes are now ignored by sumo to ensure upwards compatibility when adding classes in the future. Netconvert and duarouter support this behavior by setting option **--ignore-errors** #14993
 - Saving config files now handles environment variables as absolute path #15022
-- `sumolib.checkBinary` now finds sumo binaries installed via pip #14982 
+- `sumolib.checkBinary` now finds sumo binaries installed via pip #14982
+- SUMO game language switch is now woring in the downloadable zip #13440
+- Fixed broken images in game-cross scenario #15083
+- DEFAULT_CONTAINERTYPE now uses vClass `container` #15092 
 
 ## Version 1.20.0 (07.05.2024)
 
