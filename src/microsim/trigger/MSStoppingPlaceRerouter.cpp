@@ -501,6 +501,15 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
 
 
 bool
+MSStoppingPlaceRerouter::evaluateCustomComponents(SUMOVehicle& /*veh*/, double /*brakeGap*/, bool /*newDestination*/,
+        MSStoppingPlace* /*alternative*/, double /*occupancy*/, double /*prob*/, SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/,
+        StoppingPlaceParamMap_t& /*stoppingPlaceValues*/, ConstMSEdgeVector& /*newRoute*/, ConstMSEdgeVector& /*stoppingPlaceApproach*/,
+        StoppingPlaceParamMap_t& /*maxValues*/, StoppingPlaceParamMap_t& /*addInput*/) {
+    return true;
+}
+
+
+bool
 MSStoppingPlaceRerouter::validComponentValues(StoppingPlaceParamMap_t& /* stoppingPlaceValues */) {
     return true;
 }
