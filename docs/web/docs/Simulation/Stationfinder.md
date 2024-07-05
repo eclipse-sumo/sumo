@@ -44,9 +44,11 @@ using [generic parameters](GenericParameters.md) either in the vehicle or the ve
 | charging.chargingTime.weight | 1             | The assumed charging time at the charging station                       | no                         |
 | charging.waitingTime.weight  | 1             | The assumed waiting time at the charging station for a free charging point | no                         |
 
-When 'charging.probability.weight' is set to a positive value, a random number between 0 and 1 is drawn for each candidate charging station.
+Normalization is done by dividing the single value by the maximum value found among all available charging stations within the search range. Inversion means taking the remainder to 1 instead of the normalized value itself.
+
+When `charging.probability.weight` is set to a positive value, a random number between 0 and 1 is drawn for each candidate charging station.
 This value is then normalized to the range [0,1] by dividing with the maximum probability value of all charging station elements.
-The inverted normalized value is then multiplied with charging.probability.weight to enter into the candidate score.
+The inverted normalized value is then multiplied with `charging.probability.weight` to enter into the candidate score.
 
 
 ## Break down due to lack of energy
