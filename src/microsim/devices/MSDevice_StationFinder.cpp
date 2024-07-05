@@ -103,6 +103,7 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
 myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
 myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
+    myEvalParams["distanceto"] = 0.;
     myEvalParams["timeto"] = 1.;
     myEvalParams["timefrom"] = 1.;
     myNormParams["chargingTime"] = true;
@@ -286,7 +287,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     }
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
-        if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower() < NUMERICAL_EPS) {
+        if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower(false) < NUMERICAL_EPS) {
             continue;
         }
         if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {

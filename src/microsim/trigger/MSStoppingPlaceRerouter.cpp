@@ -521,7 +521,7 @@ MSStoppingPlaceRerouter::getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibi
 MSStoppingPlaceRerouter::StoppingPlaceParamMap_t
 MSStoppingPlaceRerouter::collectWeights(SUMOVehicle& veh) {
     MSStoppingPlaceRerouter::StoppingPlaceParamMap_t result;
-    myEvalParams["distanceto"] = getWeight(veh, "distance.weight", 1.);
+    myEvalParams["distanceto"] = getWeight(veh, "distance.weight", myEvalParams["distanceto"]);
     for (auto evalParam : myEvalParams) {
         result[evalParam.first] = getWeight(veh, evalParam.first + ".weight", evalParam.second);
     }
