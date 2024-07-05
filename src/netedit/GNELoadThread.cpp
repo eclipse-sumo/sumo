@@ -304,6 +304,9 @@ GNELoadThread::fillOptions(OptionsCont& neteditOptions) {
     neteditOptions.doRegister("ignore-missing-inputs", new Option_Bool(false));
     neteditOptions.addDescription("ignore-missing-inputs", "Input", TL("Reset path values (additional, route, data...) after loading netedit config"));
 
+    neteditOptions.doRegister("selection-file", new Option_String());
+    neteditOptions.addDescription("selection-file", "Input", TL("Load element selection"));
+
     // TOPIC: Output
 
     neteditOptions.doRegister("tls-file", new Option_String());

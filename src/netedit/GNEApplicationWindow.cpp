@@ -1307,11 +1307,9 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     loadDemandElements();
     loadDataElements();
     loadMeanDataElements();
+    // load selection
     if (!OptionsCont::getOptions().isDefault("selection-file")) {
-        std::string msg = gSelected.load(OptionsCont::getOptions().getString("selection-file"));
-        if (msg != "") {
-            WRITE_ERRORF("Errors while loading selection: %", msg.c_str());
-        }
+        myViewNet->getViewParent()->getSelectorFrame()->getSelectionOperationModul()->loadFromFile(OptionsCont::getOptions().getString("selection-file"));
     }
     // after loading net shouldn't be saved
     if (myNet) {
