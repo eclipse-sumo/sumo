@@ -2,14 +2,14 @@ Loading net-file from 'net3.net.xml' ... done (1ms).
 Loading done.
 Generating initial JuPedSim geometry for pedestrian network ...
  done.
-Simulation version v1_20_0+1024-8cec4604ead started with time: 0.00.
+Simulation version v1_20_0+0793-91f7adb8122 started with time: 0.00.
 Simulation ended at time: 2000.00.
 Reason: The final simulation step has been reached.
 Performance:
- Duration: 36.46s
- Real time factor: 54.8546
- UPS: 34.201865
- UPS-Persons: 671.941854
+ Duration: 77.35s
+ Real time factor: 25.8568
+ UPS: 16.121734
+ UPS-Persons: 320.508345
 Vehicles:
  Inserted: 43
  Running: 0
@@ -26,7 +26,7 @@ Statistics (avg of 43):
  DepartDelay: 0.00
 Pedestrian Statistics (avg of 60 walks):
  RouteLength: 60.27
- Duration: 204.16
- TimeLoss: 160.76
+ Duration: 206.59
+ TimeLoss: 163.19
 DijkstraRouter answered 60 queries and explored 15.00 edges on average.
-DijkstraRouter spent 0.00s answering queries (0.03ms on average).
+DijkstraRouter spent 0.00s answering queries (0.00ms on average).
