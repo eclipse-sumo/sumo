@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-04 12:58+0000\n"
+"PO-Revision-Date: 2024-07-05 12:05+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9931,15 +9931,16 @@ msgstr ""
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:220
 #, c-format
 msgid "The polygon '%' is empty."
-msgstr ""
+msgstr "Il poligono '%' è vuoto."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:224
 msgid "The name of a polygon is missing; it will be discarded."
-msgstr ""
+msgstr "Manca il nome del poligono e per questo verrà omesso."
 
 #: src/polyconvert/PCLoaderOSM.cpp:164
 msgid "Could not import polygon from relation '%' (missing ways)"
 msgstr ""
+"Non ho potuto caricare il poligono della relazione '%' (mancano \"ways\")"
 
 #: src/polyconvert/PCLoaderOSM.cpp:204
 msgid ", (front-to-back dist: %)"
@@ -9947,22 +9948,24 @@ msgstr ""
 
 #: src/polyconvert/PCLoaderOSM.cpp:206
 msgid "Assembled polygon from relation '%' (name:%)%"
-msgstr ""
+msgstr "Poligono costruito dalla relazione '%' (nome:%)%"
 
 #: src/polyconvert/PCLoaderOSM.cpp:208
 msgid ""
 "Could not import polygon from relation '%' (name:% reason: found gap of %m)\n"
 "."
 msgstr ""
+"Non ho potuto caricare il poligono dalla relazione '%' (nome:% ragione: "
+"trovato buco di %m)."
 
 #: src/polyconvert/PCLoaderOSM.cpp:231
 #, c-format
 msgid "Polygon '%' has no shape."
-msgstr ""
+msgstr "Il poligono '%' non ha una forma."
 
 #: src/polyconvert/PCLoaderVisum.cpp:114
 msgid "Could not open visum-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire il file VISUM '%'."
 
 #: src/polyconvert/PCLoaderVisum.cpp:149
 msgid "Unable to project coordinates for point '%'."
