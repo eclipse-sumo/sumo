@@ -104,11 +104,9 @@ myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLast
 myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
     myEvalParams["timeto"] = 1.;
-    myNormParams["timeto"] = false;
     myEvalParams["timefrom"] = 1.;
-    myNormParams["timefrom"] = false;
-    myNormParams["chargingTime"] = false;
-    myNormParams["waitingTime"] = false;
+    myNormParams["chargingTime"] = true;
+    myNormParams["waitingTime"] = true;
     myRescueTime = STEPS2TIME(holder.getTimeParam("device.stationfinder.rescueTime"));
     const std::string action = holder.getStringParam("device.stationfinder.rescueAction");
     if (action == "remove") {
@@ -149,8 +147,6 @@ MSDevice_StationFinder::~MSDevice_StationFinder() {
 bool
 MSDevice_StationFinder::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, double /*newPos*/, double /*newSpeed*/) {
     if (myBattery->getEnergyCharged() > 0. && myChargingStation != nullptr) {
-        // we have started charging thus can forget searched charging stations
-        myPassedChargingStations.clear();
         myArrivalAtChargingStation = -1;
         myChargingStation = nullptr;
         mySearchState = SEARCHSTATE_CHARGING;
@@ -284,6 +280,10 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     // filter possible charging stations
 
     std::vector<StoppingPlaceVisible> candidates;
+    const StoppingPlaceMemory* chargingMemory = myVeh.getChargingMemory();
+    if (chargingMemory == nullptr) {
+        skipVisited = false;
+    }
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
         if (cs->getEfficency() < NUMERICAL_EPS) {
@@ -296,7 +296,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         if (skipOccupied && freeSpaceAtChargingStation(cs) < 1.) {
             continue;
         }
-        if (skipVisited && std::find(myPassedChargingStations.begin(), myPassedChargingStations.end(), cs) != myPassedChargingStations.end()) {
+        if (skipVisited && chargingMemory->sawBlockedStoppingPlace(cs, false)) {
             // skip recently visited
             continue;
         }
@@ -360,7 +360,6 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             }
             std::cout << "\tRoute after scheduling the charging station: " << os2.str() << "\n";
 #endif
-            myPassedChargingStations.push_back(cs);
             myArrivalAtChargingStation = -1;
             mySearchState = SEARCHSTATE_SUCCESSFUL;
 #ifdef DEBUG_STATIONFINDER_REROUTE
@@ -423,7 +422,6 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
     if (!myVeh.insertStop(1, stopPar, "stationfinder:search", true, errorMsg)) {
         WRITE_ERROR(errorMsg);
     }
-    myPassedChargingStations.push_back(cs);
     myRescueCommand->deschedule();
     myRescueCommand = nullptr;
     return 0;

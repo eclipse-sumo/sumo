@@ -35,7 +35,7 @@
 
 ///@brief Constructor
 MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::string paramPrefix, bool checkValidity, bool checkVisibility, StoppingPlaceParamMap_t addEvalParams, StoppingPlaceParamSwitchMap_t addInvertParams) :
-    myStoppingType(stoppingType), myParamPrefix(paramPrefix), myCheckValidity(checkValidity), myCheckVisibility(checkVisibility) {
+    myStoppingType(stoppingType), myParamPrefix(paramPrefix), myCheckValidity(checkValidity), myConsiderDestVisibility(checkVisibility) {
     myEvalParams = { {"probability", 0.}, {"capacity", 0.}, {"timefrom", 0.}, {"timeto", 0.}, {"distancefrom", 0.}, {"distanceto", 1.}, {"absfreespace", 0.}, {"relfreespace", 0.}, };
     myInvertParams = { {"probability", false}, { "capacity", true }, { "timefrom", false }, { "timeto", false }, { "distancefrom", false }, { "distanceto", false }, { "absfreespace", true }, { "relfreespace", true } };
     for (auto param : addEvalParams) {
@@ -127,11 +127,11 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
         }
 #endif
     }
-    if (myCheckVisibility && !destVisible && onTheWay == nullptr) {
+    if (myConsiderDestVisibility && !destVisible && onTheWay == nullptr) {
         return nullptr;
     }
 
-    if (!myCheckVisibility || getLastStepStoppingPlaceOccupancy(destStoppingPlace) >= getStoppingPlaceCapacity(destStoppingPlace) || onTheWay != nullptr) {
+    if (!myConsiderDestVisibility || getLastStepStoppingPlaceOccupancy(destStoppingPlace) >= getStoppingPlaceCapacity(destStoppingPlace) || onTheWay != nullptr) {
         // if the current route ends at the stopping place, the new route will
         // also end at the new stopping place
         newDestination = (destStoppingPlace != nullptr && &destStoppingPlace->getLane().getEdge() == route.getLastEdge()
@@ -193,7 +193,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             }
             const bool visible = stoppingPlaceCandidates[i].second || (stoppingPlaceCandidates[i].first == destStoppingPlace && destVisible);
             double occupancy = getStoppingPlaceOccupancy(stoppingPlaceCandidates[i].first);
-            if (myCheckVisibility && !visible && (stoppingPlaceKnowledge == 0 || stoppingPlaceKnowledge < RandHelper::rand(veh.getRNG()))) {
+            if (!visible && (stoppingPlaceKnowledge == 0 || stoppingPlaceKnowledge < RandHelper::rand(veh.getRNG()))) {
                 double capacity = getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first);
                 const double minOccupancy = MIN2(capacity - NUMERICAL_EPS, (getNumberStoppingPlaceReroutes(veh) * capacity / stoppingPlaceFrustration));
                 occupancy = RandHelper::rand(minOccupancy, capacity);
@@ -258,7 +258,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 //std::cout << "  candidate=" << item.second->getID() << " observed=" << time2string(item.first) << "\n";
             }
             if (numAlternatives == 0) {
-                // take any random target but prefer that that haven't been visited yet
+                // take any random target but prefer one that hasn't been visited yet
                 std::vector<std::pair<SUMOTime, MSStoppingPlace*>> candidates;
                 for (const StoppingPlaceVisible& stoppingPlaceCandidate : stoppingPlaceCandidates) {
                     if (stoppingPlaceCandidate.first == destStoppingPlace) {
