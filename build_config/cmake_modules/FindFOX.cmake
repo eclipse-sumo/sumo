@@ -1,17 +1,17 @@
-# find fox-config program
+# find fox-config program (usually in Linux)
 find_program(FOX_CONFIG fox-config)
-# if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY, needed for compilations
+# if was found, execute it and obtain the variables FOX_CXX_FLAGS and FOX_LIBRARY_RELEASE, needed for compilations
 if(FOX_CONFIG)
     find_program(BASH bash)
     execute_process(COMMAND ${BASH} ${FOX_CONFIG} --cflags
         OUTPUT_VARIABLE FOX_CXX_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND ${BASH} ${FOX_CONFIG} --libs
-        OUTPUT_VARIABLE FOX_LIBRARY OUTPUT_STRIP_TRAILING_WHITESPACE)
+        OUTPUT_VARIABLE FOX_LIBRARY_RELEASE OUTPUT_STRIP_TRAILING_WHITESPACE)
     if(FOX_CXX_FLAGS MATCHES mingw)
         get_filename_component(root_dir "${FOX_CONFIG}" DIRECTORY)
         get_filename_component(root_dir "${root_dir}" DIRECTORY)
         string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_CXX_FLAGS "${FOX_CXX_FLAGS}")
-        string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_LIBRARY "${FOX_LIBRARY}")
+        string(REGEX REPLACE "/mingw../" "${root_dir}/" FOX_LIBRARY_RELEASE "${FOX_LIBRARY_RELEASE}")
     endif()
 endif(FOX_CONFIG)
 
@@ -19,24 +19,39 @@ endif(FOX_CONFIG)
 set(FOX_FOUND FALSE)
 
 # if fox-config was executed successfully, fox was found
-if(FOX_LIBRARY AND FOX_CXX_FLAGS)
+if(FOX_LIBRARY_RELEASE AND FOX_CXX_FLAGS)
     SET(FOX_FOUND TRUE)
 else()
-    # In Windows system, find the fox directory using as hint the environment variable "FOX_INCLUDE_DIR"
+    # In Windows system, find the fox directory using as hint the environment variable "FOX_INCLUDE_DIR" (usually SUMOLibraries)
     FIND_PATH(FOX_INCLUDE_DIR NAMES fx.h HINTS $ENV{FOX_INCLUDE_DIR})
-    # In Windows system, find the fox dll using as hint the environment variable "FOX_LIBRARY"
-    FIND_LIBRARY(FOX_LIBRARY NAMES FOXDLL-1.6 HINTS $ENV{FOX_LIBRARY})
+    # In Windows system, find the fox dll using as hint the environment variable "FOX_LIBRARY_RELEASE"
+    FIND_LIBRARY(FOX_LIBRARY_DEBUG NAMES FOXDLL-1.6d FOX-16d HINTS $ENV{FOX_LIBRARY_DEBUG})
+	FIND_LIBRARY(FOX_LIBRARY_RELEASE NAMES FOXDLL-1.6 FOX-16 HINTS $ENV{FOX_LIBRARY_RELEASE})
     # if both were found, set flag FOX_FOUND to true
-    IF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
+    if (FOX_INCLUDE_DIR AND FOX_LIBRARY_RELEASE)
         SET(FOX_FOUND TRUE)
-    ELSE ()
+    else ()
         if (FOX_FIND_REQUIRED)
-            message(FATAL_ERROR "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY.")
-        endif()
-        SET(FOX_LIBRARY "")
-        message(STATUS "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY.")
-    ENDIF (FOX_INCLUDE_DIR AND FOX_LIBRARY)
-endif()
-IF (NOT FOX_FIND_QUIETLY)
-    message(STATUS "Found Fox: ${FOX_CXX_FLAGS} ${FOX_LIBRARY}")
+            message(FATAL_ERROR "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY_RELEASE.")
+        endif(FOX_FIND_REQUIRED)
+        SET(FOX_LIBRARY_RELEASE "")
+        message(STATUS "Could NOT find Fox. GUI and threading will not be available. If it is installed, try to set the environment variables FOX_INCLUDE_DIR and FOX_LIBRARY_RELEASE.")
+    ENDIF (FOX_INCLUDE_DIR AND FOX_LIBRARY_RELEASE)
+endif(FOX_LIBRARY_RELEASE AND FOX_CXX_FLAGS)
+
+# continue if fox was found
+if(FOX_FOUND)
+	# show found info
+	if (NOT FOX_FIND_QUIETLY)
+		message(STATUS "Found Fox: ${FOX_CXX_FLAGS} ${FOX_LIBRARY_RELEASE}")
+	endif()
+	# if FOX_LIBRARY was not set previously in FOX_CONFIG, set it manually
+    if(NOT FOX_LIBRARY)
+		# only use debug if it was previously found
+		if (FOX_LIBRARY_DEBUG)
+			set(FOX_LIBRARY "debug;${FOX_LIBRARY_DEBUG};optimized;${FOX_LIBRARY_RELEASE}")
+		else()
+			set(FOX_LIBRARY "general;${FOX_LIBRARY_RELEASE}")
+		endif(NOT FOX_LIBRARY)
+    endif()
 endif()
