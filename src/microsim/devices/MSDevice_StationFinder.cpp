@@ -286,7 +286,7 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
     }
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         MSChargingStation* cs = static_cast<MSChargingStation*>(stop.second);
-        if (cs->getEfficency() < NUMERICAL_EPS) {
+        if (cs->getEfficency() < NUMERICAL_EPS || cs->getChargingPower() < NUMERICAL_EPS) {
             continue;
         }
         if (cs->getParkingArea() != nullptr && !cs->getParkingArea()->accepts(&myVeh)) {
