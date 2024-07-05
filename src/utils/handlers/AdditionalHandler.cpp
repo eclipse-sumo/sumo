@@ -1018,7 +1018,7 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lenghtDef) > 2)) {
         writeError(TL("'pos', 'endPos' and 'length' cannot be defined together in a single lane area detector."));
     } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lenghtDef) < 2)) {
-        writeError(TL("A single lane area detector requieres two parameters of those 'pos', 'endPos' and 'length'."));
+        writeError(TL("A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'."));
     } else {
         // needed attributes
         const std::string id = attrs.get<std::string>(SUMO_ATTR_ID, "", parsedOk);

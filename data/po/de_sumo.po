@@ -12241,7 +12241,7 @@ msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:1021
 msgid ""
-"A single lane area detector requieres two parameters of those 'pos', "
+"A single lane area detector requires two parameters of those 'pos', "
 "'endPos' and 'length'."
 msgstr ""
 

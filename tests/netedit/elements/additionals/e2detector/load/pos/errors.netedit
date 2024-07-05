@@ -1,4 +1,4 @@
-Error: A single lane area detector requieres two parameters of those 'pos', 'endPos' and 'length'.
+Error: A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'.
 Error: Attribute 'pos' in definition of laneAreaDetector 'E2_02' Invalid Number Format (double) dummyPosition.
 Error: Could not build laneAreaDetector with ID 'E2_03' in netedit; Invalid position over lane.
 Error: Could not build laneAreaDetector with ID 'E2_04' in netedit; Invalid position over lane.
