@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-05 12:07+0000\n"
+"PO-Revision-Date: 2024-07-06 16:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8921,25 +8921,25 @@ msgstr ""
 #: src/netimport/NIXMLPTHandler.cpp:285 src/netimport/NIXMLPTHandler.cpp:305
 #, c-format
 msgid "Edge '%' in route of line '%' not found"
-msgstr ""
+msgstr "L'arco '%' non è stato trovato nell'itinerario della linea '%'"
 
 #: src/netimport/NIXMLPTHandler.cpp:324
 msgid "Stop '%' within line '%' not found"
-msgstr ""
+msgstr "La fermata '%' della linea '%' non è stata trovata"
 
 #: src/netimport/NIXMLPTHandler.cpp:340
 msgid "Stop '%' within route '%' not found"
-msgstr ""
+msgstr "La fermata '%' dell'itinerario '%' non è stata trovata"
 
 #: src/netimport/NIXMLShapeHandler.cpp:46 src/netload/NLHandler.cpp:1753
 #, c-format
 msgid "Lane '%' to place poi '%' on is not known."
-msgstr ""
+msgstr "La corsia '%' per piazzare il punto di interesse '%' è sconosciuta."
 
 #: src/netimport/NIXMLShapeHandler.cpp:59 src/netload/NLHandler.cpp:1766
 #, c-format
 msgid "lane position % for poi '%' is not valid."
-msgstr ""
+msgstr "La posizione % del punto di interesse '%' lungo la corsia non è valida."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
