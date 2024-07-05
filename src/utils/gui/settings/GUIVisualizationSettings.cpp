@@ -204,11 +204,11 @@ const double GUIVisualizationSettings::MISSING_DATA(std::numeric_limits<double>:
 RGBColor GUIVisualizationSettings::COL_MISSING_DATA(225, 225, 225);
 
 std::map<std::string, std::vector<RGBColor> > GUIVisualizationSettings::RAINBOW_SCHEMES({
-        // cannot use predefined colors to avoid "static initialization order fiasco"
-        {"classic", std::vector<RGBColor>({RGBColor(255,0,0), RGBColor(255,128,0), RGBColor(255,255,0), RGBColor(0,255,0), RGBColor(0,255,255), RGBColor(0,0,255), RGBColor(255,0,255)})}, 
-        {"YlOrRd", std::vector<RGBColor>({RGBColor(255,255,178), RGBColor(254,217,118), RGBColor(254,178,76), RGBColor(253,141,60), RGBColor(252,78,42), RGBColor(227,26,28), RGBColor(177,0,38)})}, 
-        {"RdBu", std::vector<RGBColor>({RGBColor(178,24,43), RGBColor(239,138,98), RGBColor(253,219,199), RGBColor(247,247,247), RGBColor(209,229,240), RGBColor(103,169,207), RGBColor(33,102,172)})}, 
-        });
+    // cannot use predefined colors to avoid "static initialization order fiasco"
+    {"classic", std::vector<RGBColor>({RGBColor(255, 0, 0), RGBColor(255, 128, 0), RGBColor(255, 255, 0), RGBColor(0, 255, 0), RGBColor(0, 255, 255), RGBColor(0, 0, 255), RGBColor(255, 0, 255)})},
+    {"YlOrRd", std::vector<RGBColor>({RGBColor(255, 255, 178), RGBColor(254, 217, 118), RGBColor(254, 178, 76), RGBColor(253, 141, 60), RGBColor(252, 78, 42), RGBColor(227, 26, 28), RGBColor(177, 0, 38)})},
+    {"RdBu", std::vector<RGBColor>({RGBColor(178, 24, 43), RGBColor(239, 138, 98), RGBColor(253, 219, 199), RGBColor(247, 247, 247), RGBColor(209, 229, 240), RGBColor(103, 169, 207), RGBColor(33, 102, 172)})},
+});
 
 // color constants for scheme background
 #define COL_SCHEME_EMISSION RGBColor(255,255,210)
@@ -592,6 +592,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
     scaleLength(true),
     drawReversed(false),
     showParkingInfo(false),
+    showChargingInfo(false),
     vehicleSize(1),
     vehicleName(false, 60, RGBColor(204, 153, 0, 255)),
     vehicleValue(false, 80, RGBColor::CYAN),
@@ -1846,6 +1847,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("scaleLength", scaleLength);
     dev.writeAttr("drawReversed", drawReversed);
     dev.writeAttr("showParkingInfo", showParkingInfo);
+    dev.writeAttr("showChargingInfo", showChargingInfo);
     dev.lf();
     dev << "                 ";
     vehicleName.print(dev, "vehicleName");
@@ -2201,6 +2203,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showParkingInfo != v2.showParkingInfo) {
+        return false;
+    }
+    if (showChargingInfo != v2.showChargingInfo) {
         return false;
     }
     if (vehicleName != v2.vehicleName) {

@@ -1058,7 +1058,7 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
 
 void
 GUIBaseVehicle::drawChargingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const {
-    if (s.showParkingInfo) {
+    if (s.showChargingInfo) {
         const StoppingPlaceMemory* pm = myVehicle.getChargingMemory();
         if (pm != nullptr) {
             for (auto item : *pm) {

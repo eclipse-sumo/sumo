@@ -138,7 +138,7 @@ public:
     public:
         /// @brief constructor
         RainbowPanel(FXComposite* parent, GUIDialog_ViewSettings* target,
-                  const GUIVisualizationRainbowSettings& settings);
+                     const GUIVisualizationRainbowSettings& settings);
 
         /// @brief get settings
         GUIVisualizationRainbowSettings getSettings();
@@ -385,6 +385,7 @@ protected:
     FXCheckButton* myScaleLength = nullptr;
     FXCheckButton* myDrawReversed = nullptr;
     FXCheckButton* myShowParkingInfo = nullptr;
+    FXCheckButton* myShowChargingInfo = nullptr;
     /*FXCheckButton* myShowLaneChangePreference = nullptr;*/
 
     FXComboBox* myVehicleParamKey = nullptr;

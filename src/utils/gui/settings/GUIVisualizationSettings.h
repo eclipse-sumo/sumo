@@ -817,6 +817,9 @@ public:
     /// @brief Set whether parking related information should be shown
     bool showParkingInfo;
 
+    /// @brief Set whether the charging search related information should be shown
+    bool showChargingInfo;
+
     // Setting bundles for controling the size of the drawn vehicles
     GUIVisualizationSizeSettings vehicleSize;
 
