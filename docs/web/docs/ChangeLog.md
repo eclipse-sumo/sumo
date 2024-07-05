@@ -54,12 +54,15 @@ title: ChangeLog
   - Inspected trips show the route again #14964 (regression in 1.20.0)
   - Selection rectangle now considers element locks again. #15010 (regression in 1.20.0)
   - TazRelations can be inspected again #15019 (regression in 1.20.0)
+  - Fixed crash when joining edges with crossings #15073 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
   - Fixed invalid junction contour #15002, #14488
   - Fixed crash when loading another network while the traffic light frame has an active traffic light #15004
-  - Fixed uncontrolled pedestrian crossings after using 'Clean States' #15047 
+  - Fixed uncontrolled pedestrian crossings after using 'Clean States' #15047
+  - Undo-button becomes instantly active after undoable action #14770
+  - Edge context menu function *apply edge template* now applies to the whole selection #14458 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -108,7 +111,8 @@ title: ChangeLog
   - Using check boxes in submenu now keeps the menu open #15009
   - Loading a single file without options now supports .sumocfg files #15015
   - Add new vClass icons #14646
-  - Convert-to-roundabout function now sets roundabout edge properties based on incoming edges #15069 
+  - Convert-to-roundabout function now sets roundabout edge properties based on incoming edges #15069
+  - Hotkey <kbd>ESC</kbd> + <kbd>SHIFT</kbd> can be used to clear the selection regardless of editing mode #14481 
 
 - sumo-gui
   - Traffic light dialog for tracking phases can now scroll to see all links #3862
