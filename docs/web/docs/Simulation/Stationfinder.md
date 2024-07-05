@@ -51,6 +51,21 @@ When `charging.probability.weight` is set to a positive value, a random number b
 This value is then normalized to the range [0,1] by dividing with the maximum probability value of all charging station elements.
 The inverted normalized value is then multiplied with `charging.probability.weight` to enter into the candidate score.
 
+### Further parameters to affect parking behavior
+Each of these parameters must be specified as a child
+element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+Parameter Name         | Default value | Description                                                              |
+| -------------------- | ------------- | ------------------------------------------------------------------------ |
+| charging.frustration  | 100           | increases the preference for visibly free charging stations over time (after x unsuccessful trials, targets with unknown occupancy will assumed to be *almost* full)                                 |
+| charging.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible charging stations with probability x                   |
+
+### Inspect the target function result
+The target function value of each searched charging station of the vehicle can be inspected in [sumo-gui](../sumo-gui.md). Proceed with the following steps to see the results next to the charging stations:
+
+- Open the vehicle visulization settings](../sumo-gui.md#vehicle_visualisation_settings) and check "Show charging info"
+- Move to vehicle of interest and open its context menu by right click, then choose "Show Current Route"
+
+Some charging stations may not show target function results. They may be excluded beforehand due to stationfinder device settings like `radius` and `maxEuclideanDistance`.
 
 ## Break down due to lack of energy
 
