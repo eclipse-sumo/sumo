@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-05 12:05+0000\n"
+"PO-Revision-Date: 2024-07-05 12:07+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9969,19 +9969,19 @@ msgstr "Non ho potuto aprire il file VISUM '%'."
 
 #: src/polyconvert/PCLoaderVisum.cpp:149
 msgid "Unable to project coordinates for point '%'."
-msgstr ""
+msgstr "Non si possono proiettare le coordinate del punto '%'."
 
 #: src/polyconvert/PCLoaderXML.cpp:63
 msgid "Could not open xml-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprile il file XML '%'."
 
 #: src/polyconvert/PCNetProjectionLoader.cpp:55
 msgid "Could not open net-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprile il file di rete '%'."
 
 #: src/polyconvert/PCNetProjectionLoader.cpp:71
 msgid "Could not find projection parameter in net."
-msgstr ""
+msgstr "Non sono stati trovati nella rete i parametri di proiezione."
 
 #: src/polyconvert/PCTypeDefHandler.cpp:80
 msgid "Could not add polygon type '%' (probably the id is already used)."
