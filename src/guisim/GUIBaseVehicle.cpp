@@ -59,6 +59,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GUIBaseVehicle.h"
+#include "GUIChargingStation.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
 #include "GUINet.h"
@@ -1049,6 +1050,27 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
                     const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));
                     Position shift(0, -dist);
                     GLHelper::drawTextSettings(s.vehicleText, item.second.score, pa->getSignPos() + shift, s.scale, s.angle, 1.0);
+                }
+            }
+        }
+    }
+}
+
+void
+GUIBaseVehicle::drawChargingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const {
+    if (s.showParkingInfo) {
+        const StoppingPlaceMemory* pm = myVehicle.getChargingMemory();
+        if (pm != nullptr) {
+            for (auto item : *pm) {
+                const GUIChargingStation* cs = dynamic_cast<const GUIChargingStation*>(item.first);
+                if (item.second.blockedAtTime >= 0) {
+                    std::string seenAgo = time2string(SIMSTEP - item.second.blockedAtTime);
+                    GLHelper::drawTextSettings(s.vehicleValue, seenAgo, cs->getSignPos(), s.scale, s.angle, 1.0);
+                }
+                if (item.second.score != "") {
+                    const double dist = 0.4 * (s.vehicleText.scaledSize(s.scale) + s.vehicleValue.scaledSize(s.scale));
+                    Position shift(0, -dist);
+                    GLHelper::drawTextSettings(s.vehicleText, item.second.score, cs->getSignPos() + shift, s.scale, s.angle, 1.0);
                 }
             }
         }

@@ -1004,6 +1004,10 @@ public:
     const StoppingPlaceMemory* getParkingMemory() const {
         return myParkingMemory;
     }
+
+    const StoppingPlaceMemory* getChargingMemory() const {
+        return myChargingMemory;
+    }
     //@}
 
 protected:
