@@ -15,3 +15,6 @@ searching
 
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 charging
+
+# Two vehicles with different target function weights
+targetFunction
