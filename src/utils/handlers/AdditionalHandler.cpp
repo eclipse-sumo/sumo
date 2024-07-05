@@ -1013,11 +1013,11 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     bool parsedOk = true;
     const int positionDef = attrs.hasAttribute(SUMO_ATTR_POSITION)? 1 : 0;
     const int endPosDef = attrs.hasAttribute(SUMO_ATTR_ENDPOS)? 1 : 0;
-    const int lenghtDef = attrs.hasAttribute(SUMO_ATTR_LENGTH)? 1 : 0;
+    const int lengthDef = attrs.hasAttribute(SUMO_ATTR_LENGTH)? 1 : 0;
     // check attributes
-    if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lenghtDef) > 2)) {
+    if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) > 2)) {
         writeError(TL("'pos', 'endPos' and 'length' cannot be defined together in a single lane area detector."));
-    } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lenghtDef) < 2)) {
+    } else if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) < 2)) {
         writeError(TL("A single lane area detector requires two parameters of those 'pos', 'endPos' and 'length'."));
     } else {
         // needed attributes
@@ -1051,7 +1051,7 @@ AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
                 } else if (endPosDef == 0) {
                     myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
                     myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, length);
-                } else if (lenghtDef == 0) {
+                } else if (lengthDef == 0) {
                     myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_POSITION, position);
                     myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_LENGTH, endPos - position);
                 }
