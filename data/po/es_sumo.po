@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-04 14:06+0000\n"
+"PO-Revision-Date: 2024-07-05 12:30+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1341,7 +1341,7 @@ msgstr ""
 
 #: src/mesosim/MEVehicle.cpp:557 src/mesosim/MEVehicle.cpp:556
 msgid "Error: Invalid vehicles in state (may be a micro state)!"
-msgstr ""
+msgstr "Error: ¡Vehículos en estado no válidos (puede ser un estado micro)!"
 
 #: src/microsim/MSBaseVehicle.cpp:182 src/microsim/MSBaseVehicle.cpp:179
 msgid "Changing a vehicle ID is not permitted"
@@ -12445,19 +12445,20 @@ msgstr "'index' no válido para la parada%."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:45
 msgid "Missing parameter '%' for % '%'."
-msgstr ""
+msgstr "Falta el parámetro '%' para % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:64
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%'."
 msgstr ""
+"Distribución / valor flotante '%' no válido para el parámetro '%' en % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:77
 msgid "Invalid boolean value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "Valor booleano '%' no válido para el parámetro '%' en % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:90
 msgid "Invalid time value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "Valor de tiempo '%' no válido para el parámetro '%' en % '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
