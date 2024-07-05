@@ -1547,9 +1547,8 @@ MSPModel_Striping::PState::PState(MSPerson* person, MSStageMoving* stage, const 
     } else if (myPosLat == RANDOM_POS_LAT) {
         myPosLat = RandHelper::rand() * stripeWidth * (numStripes(lane) - 1);
     } else {
-        // convert vehicle-style posLat (0 is center, left is larger)
-        // into striping coordinates (0 is on the leftmost stripe, right is larger)
-        myPosLat = lane->getWidth() / 2 - myPosLat - stripeWidth / 2;
+        // vehicle to striping coordinate system
+        myPosLat = posLatConversion(myPosLat, lane->getWidth());
     }
     if DEBUGCOND(*this) {
         std::cout << "  added new pedestrian " << myPerson->getID() << " on " << lane->getID() << " myEdgePos=" << myEdgePos << " myPosLat=" << myPosLat << " dir=" << myDir << " route=" << toString(myStage->getRoute()) << "\n";
@@ -2162,7 +2161,7 @@ MSPModel_Striping::PState::getPosition(const MSStageMoving& stage, SUMOTime) con
         // pedestrian has already finished
         return Position::INVALID;
     }
-    const double lateral_offset = myPosLat + (stripeWidth - myLane->getWidth()) * 0.5;
+    const double lateral_offset = -getLatOffset();  // the minus is hunting me in my dreams but seems to be here for historical reasons
     if (myWalkingAreaPath == nullptr) {
         return stage.getLanePosition(myLane, myEdgePos, lateral_offset);
     } else {

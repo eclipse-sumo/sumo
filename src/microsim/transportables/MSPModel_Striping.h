@@ -89,68 +89,77 @@ public:
     /// @brief model parameters
     ///@{
 
-    // @brief the width of a pedstrian stripe
+    /// @brief the width of a pedstrian stripe
     static double stripeWidth;
 
-    // @brief the factor for random slow-down
+    /// @brief the factor for random slow-down
     static double dawdling;
 
-    // @brief the safety buffer to vehicles
+    /// @brief the safety buffer to vehicles
     static double minGapToVehicle;
 
-    // @brief intermediate points to smooth out lanes within the walkingarea
+    /// @brief intermediate points to smooth out lanes within the walkingarea
     static int myWalkingAreaDetail;
 
-    // @brief the time threshold before becoming jammed
+    /// @brief the time threshold before becoming jammed
     static SUMOTime jamTime;
     static SUMOTime jamTimeCrossing;
     static SUMOTime jamTimeNarrow;
 
-    // @brief use old style departPosLat interpretation
+    /// @brief use old style departPosLat interpretation
     static bool myLegacyPosLat;
 
-    // @brief the distance (in seconds) to look ahead for changing stripes
+    /// @brief the distance (in seconds) to look ahead for changing stripes
     static const double LOOKAHEAD_SAMEDIR;
-    // @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
+    /// @brief the distance (in seconds) to look ahead for changing stripes (regarding oncoming pedestrians)
     static const double LOOKAHEAD_ONCOMING;
-    // @brief the distance (in m) to look around for vehicles
+    /// @brief the distance (in m) to look around for vehicles
     static const double LOOKAROUND_VEHICLES;
-    // @brief the distance (in m) to look ahead for obstacles on a subsequent edge
+    /// @brief the distance (in m) to look ahead for obstacles on a subsequent edge
     static const double LOOKAHEAD_ONCOMING_DIST;
 
-    // @brief the utility penalty for moving sideways (corresponds to meters)
+    /// @brief the utility penalty for moving sideways (corresponds to meters)
     static const double LATERAL_PENALTY;
 
-    // @brief the utility penalty for obstructed (physically blocking me) stripes (corresponds to meters)
+    /// @brief the utility penalty for obstructed (physically blocking me) stripes (corresponds to meters)
     static const double OBSTRUCTED_PENALTY;
 
-    // @brief the utility penalty for inappropriate (reserved for oncoming traffic or may violate my min gap) stripes (corresponds to meters)
+    /// @brief the utility penalty for inappropriate (reserved for oncoming traffic or may violate my min gap) stripes (corresponds to meters)
     static const double INAPPROPRIATE_PENALTY;
 
-    // @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
+    /// @brief the utility penalty for oncoming conflicts on stripes (corresponds to meters)
     static const double ONCOMING_CONFLICT_PENALTY;
 
-    // @brief the minimum utility that indicates obstruction
+    /// @brief the minimum utility that indicates obstruction
     static const double OBSTRUCTION_THRESHOLD;
 
-    // @brief the factor by which pedestrian width is reduced when sqeezing past each other
+    /// @brief the factor by which pedestrian width is reduced when sqeezing past each other
     static const double SQUEEZE;
 
-    // @brief fraction of the leftmost lanes to reserve for oncoming traffic
+    /// @brief fraction of the leftmost lanes to reserve for oncoming traffic
     static double RESERVE_FOR_ONCOMING_FACTOR;
     static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
     static double RESERVE_FOR_ONCOMING_MAX;
 
-    // @brief the time pedestrians take to reach maximum impatience
+    /// @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
 
-    // @brief the fraction of forward speed to be used for lateral movemenk
+    /// @brief the fraction of forward speed to be used for lateral movemenk
     static const double LATERAL_SPEED_FACTOR;
 
-    // @brief the minimum distance to the next obstacle in order to start walking after stopped
+    /// @brief the minimum distance to the next obstacle in order to start walking after stopped
     static const double MIN_STARTUP_DIST;
 
     ///@}
+
+    /// @brief Convert the striping to the vehicle lateral position and vice versa.
+    // The striping model uses as lateral position the distance of the center of the pedestrian
+    // to the left boundary of the lane minus a half stripe width, where right is positive.
+    // The vehicle uses the distance to the center of the lane (and left is positive).
+    // The function happens to be self inverse so it can be used to convert in both directions.
+    inline static double posLatConversion(const double posLat, const double laneWidth) {
+        return .5 * (laneWidth - stripeWidth) - posLat;
+    }
 
 
 protected:
@@ -177,11 +186,11 @@ protected:
             dir(UNDEFINED_DIRECTION) {
         }
 
-        // @brief the next lane to be used
+        /// @brief the next lane to be used
         const MSLane* lane;
-        // @brief the link from the current lane to the next lane
+        /// @brief the link from the current lane to the next lane
         const MSLink* link;
-        // @brief the direction on the next lane
+        /// @brief the direction on the next lane
         int dir;
     };
 
@@ -326,6 +335,15 @@ protected:
 
         const MSLane* getNextCrossing() const;
 
+        /// @brief return the lateral offset to the lane center
+        double getLatOffset() const {
+            return posLatConversion(myPosLat, myLane->getWidth());
+        }
+
+        inline double getPosLat() const {
+            return myPosLat;
+        }
+
         double getPathLength() const;
         void reverse(const double pathLength, const double usableWidth);
         void reset(const double edgePos, const double latPos);
@@ -464,10 +482,6 @@ private:
 
     /// @brief register pedestrian approach with the junction model
     static void registerCrossingApproach(const PState& ped, const MSLane* crossing, const MSLane* beforeWA);
-
-    inline double getStripeWidth() {
-        return stripeWidth;
-    }
 
 private:
     /// @brief store for walkinArea elements

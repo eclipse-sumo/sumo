@@ -93,11 +93,6 @@ public:
     /// @brief unregister pedestrian approach with the junction model
     static void unregisterCrossingApproach(const MSPModel_InteractingState& ped, const MSLane* crossing);
 
-    /// @brief placeholder function for the stripe width
-    virtual double getStripeWidth() {
-        return 0.;
-    }
-
 protected:
     typedef std::vector<MSPModel_InteractingState*> Pedestrians;
     typedef std::map<const MSLane*, Pedestrians, ComparatorNumericalIdLess> ActiveLanes;
@@ -180,8 +175,8 @@ public:
         return nullptr;
     }
 
-    /// @brief return the lateral offset
-    inline double getPosLat() const {
+    /// @brief return the lateral offset to the lane center
+    virtual double getLatOffset() const {
         return myPosLat;
     }
 

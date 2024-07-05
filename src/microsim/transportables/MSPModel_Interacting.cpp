@@ -132,7 +132,7 @@ MSPModel_Interacting::nextBlocking(const MSLane* lane, double minPos, double min
                        - (ped->getDirection() == FORWARD ? ped->getPerson()->getVehicleType().getLength() : 0));
         const bool aheadOfVehicle = bidi ? ped->getEdgePos(0) < minPos : ped->getEdgePos(0) > minPos;
         if (aheadOfVehicle && dist < result.second) {
-            const double center = lane->getWidth() - (ped->getPosLat() + getStripeWidth() * 0.5);
+            const double center = ped->getLatOffset() + 0.5 * lane->getWidth();
             const double halfWidth = 0.5 * ped->getPerson()->getVehicleType().getWidth();
             const bool overlap = (center + halfWidth > minRight && center - halfWidth < maxLeft);
 #ifdef DEBUG_INTERACTING
