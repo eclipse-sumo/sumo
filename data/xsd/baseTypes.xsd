@@ -332,6 +332,7 @@
             <xsd:enumeration value="rail_crossing"/>
             <xsd:enumeration value="traffic_light_right_on_red"/>
             <xsd:enumeration value="district"/>
+            <xsd:enumeration value="unknown"/>
         </xsd:restriction>
     </xsd:simpleType>
 
