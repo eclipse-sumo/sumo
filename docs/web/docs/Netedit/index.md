@@ -108,6 +108,7 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
   - in 'Connect'-mode: deselect current lane and cancel all changes
   - in 'Traffic Light'-mode: revert changes to current traffic light
   - when editing a junction shape: abort editing the current junction shape
+- <kbd>ESC</kbd> + <kbd>SHIFT</kbd>: clear the current selection
 - <kbd>DELETE</kbd>: delete all currently selected items
 - <kbd>SHIFT</kbd>:
   - in 'Select'-mode: hold <kbd>SHIFT</kbd> and drag the mouse for rectangle selection
