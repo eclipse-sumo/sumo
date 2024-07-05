@@ -3473,6 +3473,10 @@ msgid ""
 "lanes-by-vclass to ensure default vehicle capacity. Set option --meso-lane-"
 "queue for multi-modal meso simulation"
 msgstr ""
+"La clase de vehículo '%' del tipo de vehículo '%' se establece como ignorada "
+"mediante la opción --meso-ignore-lanes-by-vclass, para garantizar la "
+"capacidad predeterminada del vehículo. Establezca la opción --meso-lane-"
+"queue para simulación mesoscópica multimodal"
 
 #: src/microsim/MSVehicleType.cpp:478
 msgid ""
