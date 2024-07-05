@@ -56,15 +56,11 @@ def parse_args():
                     help="Export boundary shapes instead of center-lines")
     op.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                     help="Exports all time intervals (by default only the first is exported)")
-    op.add_argument("--extra-attributes", action="store_true", default=False, dest="extraAttributes",
-                    help="Exports extra attributes from edge and lane (such as max speed, number of lanes and allowed vehicles)")
+    op.add_argument("-x", "--extra-attributes", action="store_true", default=False, dest="extraAttributes",
+                    help="Exports extra attributes from edge and lane "
+                         "(such as max speed, number of lanes and allowed vehicles)")
 
-    try:
-        options = op.parse_args()
-    except (NotImplementedError, ValueError) as e:
-        print(e, file=sys.stderr)
-        sys.exit(1)
-    return options
+    return op.parse_args()
 
 
 def shape2json(net, geometry, isBoundary):
@@ -128,13 +124,11 @@ if __name__ == "__main__":
         if options.extraAttributes:
             feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
             if geomType == 'lane':
-                feature["properties"]["allowedVehicles"] = ','.join(net.getLane(id).getPermissions())
+                feature["properties"]["allowedVehicles"] = ','.join(sorted(net.getLane(id).getPermissions()))
                 feature["properties"]["laneIndex"] = net.getLane(id).getIndex()
-
             else:
                 feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
 
-        
         if options.boundary:
             geometry = sumolib.geomhelper.line2boundary(geometry, width)
         feature["geometry"] = shape2json(net, geometry, options.boundary)
@@ -153,5 +147,6 @@ if __name__ == "__main__":
     geojson = {}
     geojson["type"] = "FeatureCollection"
     geojson["features"] = features
-    with open(options.outFile, 'w') as outf:
-        outf.write(json.dumps(geojson, sort_keys=True, indent=4, separators=(',', ': ')))
+    with sumolib.openz(options.outFile, 'w') as outf:
+        json.dump(geojson, outf, sort_keys=True, indent=4, separators=(',', ': '))
+        print(file=outf)
