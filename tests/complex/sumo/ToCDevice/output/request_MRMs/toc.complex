@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 24 15:29:28 2020 by Eclipse SUMO Version v1_5_0+0233-a859802e1f
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-07-05 12:04:47 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -22,10 +22,10 @@
     </report>
 
     <traci_server>
-        <remote-port value="36985"/>
+        <remote-port value="37265"/>
     </traci_server>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <ToCDeviceLog>
@@ -36,9 +36,9 @@
     <ToCup id="ToC_veh" t="302.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
     <TOR id="ToC_veh" t="302.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
     <ToCdown id="ToC_veh" t="325.00" lane="4/1to5/1_0" lanePos="360.71" x="803.25" y="2814.45"/>
-    <MRM id="ToC_veh" t="332.00" lane="4/1to5/1_0" lanePos="407.66" x="765.27" y="2786.86"/>
-    <ToCup id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="470.06" x="714.79" y="2750.18"/>
-    <TOR id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="470.06" x="714.79" y="2750.18"/>
-    <ToCdown id="ToC_veh" t="425.00" lane="4/1to5/1_0" lanePos="470.06" x="714.79" y="2750.18"/>
-    <MRM id="ToC_veh" t="452.00" lane="4/1to5/1_0" lanePos="891.63" x="373.74" y="2502.39"/>
+    <MRM id="ToC_veh" t="332.00" lane="4/1to5/1_0" lanePos="409.11" x="764.09" y="2786.00"/>
+    <ToCup id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
+    <TOR id="ToC_veh" t="402.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
+    <ToCdown id="ToC_veh" t="425.00" lane="4/1to5/1_0" lanePos="475.48" x="710.40" y="2746.99"/>
+    <MRM id="ToC_veh" t="452.00" lane="4/1to5/1_0" lanePos="824.84" x="427.76" y="2541.65"/>
 </ToCDeviceLog>
