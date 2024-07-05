@@ -54,8 +54,9 @@ The inverted normalized value is then multiplied with `charging.probability.weig
 ### Further parameters to affect parking behavior
 Each of these parameters must be specified as a child
 element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
-Parameter Name         | Default value | Description                                                              |
-| -------------------- | ------------- | ------------------------------------------------------------------------ |
+
+|Parameter Name         | Default value | Description                                                              |
+| --------------------- | ------------- | ------------------------------------------------------------------------ |
 | charging.frustration  | 100           | increases the preference for visibly free charging stations over time (after x unsuccessful trials, targets with unknown occupancy will assumed to be *almost* full)                                 |
 | charging.knowledge    | 0             | Let driver "guess" the exact occupancy of invisible charging stations with probability x                   |
 
