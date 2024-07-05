@@ -195,8 +195,20 @@ public:
                                           ConstMSEdgeVector& stoppingPlaceApproach,
                                           StoppingPlaceParamMap_t& maxValues,
                                           StoppingPlaceParamMap_t& addInput) {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(brakeGap);
+        UNUSED_PARAMETER(newDestination);
+        UNUSED_PARAMETER(alternative);
+        UNUSED_PARAMETER(occupancy);
+        UNUSED_PARAMETER(prob);
+        UNUSED_PARAMETER(router);
+        UNUSED_PARAMETER(stoppingPlaceValues);
+        UNUSED_PARAMETER(newRoute);
+        UNUSED_PARAMETER(stoppingPlaceApproach);
+        UNUSED_PARAMETER(maxValues);
+        UNUSED_PARAMETER(addInput);
         return true;
-    };
+    }
 
     /// @brief Whether the stopping place should be discarded due to its results from the component evaluation (allows to check for min/max thresholds and other non-linear relations)
     virtual bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues);
@@ -285,8 +297,8 @@ private:
 protected:
     const SumoXMLTag myStoppingType;
     const std::string myParamPrefix;
-    const bool myCheckVisibility;
     bool myCheckValidity;
+    const bool myCheckVisibility;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
     StoppingPlaceParamSwitchMap_t myInvertParams;

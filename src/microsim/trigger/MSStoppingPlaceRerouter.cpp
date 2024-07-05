@@ -501,13 +501,13 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
 
 
 bool
-MSStoppingPlaceRerouter::validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues) {
+MSStoppingPlaceRerouter::validComponentValues(StoppingPlaceParamMap_t& /* stoppingPlaceValues */) {
     return true;
 }
 
 
 bool
-MSStoppingPlaceRerouter::useStoppingPlace(MSStoppingPlace* stoppingPlace) {
+MSStoppingPlaceRerouter::useStoppingPlace(MSStoppingPlace* /* stoppingPlace */) {
     return true;
 }
 

@@ -96,10 +96,10 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // MSDevice_StationFinder-methods
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
-    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), myVeh(dynamic_cast<MSVehicle&>(holder)),
+    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
       MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "charging", true, false, {
     {"waitingTime", 1.}, {"chargingTime", 1.}
-}, { {"waitingTime", false}, {"chargingTime", false} }),
+}, { {"waitingTime", false}, {"chargingTime", false} }), myVeh(dynamic_cast<MSVehicle&>(holder)),
 myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
 myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
@@ -273,14 +273,14 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 
 MSChargingStation*
-MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
-    const MSEdge* const start = myHolder.getEdge();
-    double minTargetValue = std::numeric_limits<double>::max();
+MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
+    // const MSEdge* const start = myHolder.getEdge();
+    // double minTargetValue = std::numeric_limits<double>::max();
     MSChargingStation* minStation = nullptr;
-    const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
+    // const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
 
     //  first evaluate all routes from the current edge to all charging stations in bulk mode
-    double maxTT = STEPS2TIME(myRadius);
+    // double maxTT = STEPS2TIME(myRadius);
     // filter possible charging stations
 
     std::vector<StoppingPlaceVisible> candidates;
@@ -516,7 +516,12 @@ MSDevice_StationFinder::getParameter(const std::string& key) const {
 
 
 bool
-MSDevice_StationFinder::evaluateCustomComponents(SUMOVehicle& veh, double brakeGap, bool newDestination, MSStoppingPlace* alternative, double occupancy, double prob, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, StoppingPlaceParamMap_t& stoppingPlaceValues, ConstMSEdgeVector& newRoute, ConstMSEdgeVector& stoppingPlaceApproach, StoppingPlaceParamMap_t& maxValues, StoppingPlaceParamMap_t& addInput) {
+MSDevice_StationFinder::evaluateCustomComponents(SUMOVehicle& /* veh */, double /* brakeGap */, bool /* newDestination */,
+        MSStoppingPlace* alternative, double /* occupancy */, double /* prob */,
+        SUMOAbstractRouter<MSEdge, SUMOVehicle>& /* router */,
+        StoppingPlaceParamMap_t& stoppingPlaceValues,
+        ConstMSEdgeVector& /* newRoute */, ConstMSEdgeVector& /* stoppingPlaceApproach */,
+        StoppingPlaceParamMap_t& /* maxValues */, StoppingPlaceParamMap_t& addInput) {
     // estimated waiting time and charging time
     MSChargingStation* cs = dynamic_cast<MSChargingStation*>(alternative);
     double parkingCapacity = (cs->getParkingArea() != nullptr) ? cs->getParkingArea()->getCapacity() : (cs->getEndLanePosition() - cs->getBeginLanePosition()) / myHolder.getVehicleType().getParameter().length;
@@ -537,7 +542,7 @@ MSDevice_StationFinder::validComponentValues(StoppingPlaceParamMap_t& stoppingPl
 
 
 bool
-MSDevice_StationFinder::useStoppingPlace(MSStoppingPlace* stoppingPlace) {
+MSDevice_StationFinder::useStoppingPlace(MSStoppingPlace* /* stoppingPlace */) {
     return true;
 }
 
@@ -602,13 +607,13 @@ MSDevice_StationFinder::sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlac
 
 
 int
-MSDevice_StationFinder::getNumberStoppingPlaceReroutes(SUMOVehicle& veh) {
+MSDevice_StationFinder::getNumberStoppingPlaceReroutes(SUMOVehicle& /* veh */) {
     return 0;
 }
 
 
 void
-MSDevice_StationFinder::setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) {
+MSDevice_StationFinder::setNumberStoppingPlaceReroutes(SUMOVehicle& /* veh */, int /* value */) {
 }
 
 
