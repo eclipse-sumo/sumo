@@ -2292,18 +2292,19 @@ MSBaseVehicle::getRouterTT() const {
 void
 MSBaseVehicle::replaceVehicleType(MSVehicleType* type) {
     assert(type != nullptr);
+    // save old parameters before possible type deletion
+    const double oldMu = myType->getSpeedFactor().getParameter()[0];
+    const double oldDev = myType->getSpeedFactor().getParameter()[1];
     if (myType->isVehicleSpecific() && type != myType) {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     // adapt myChosenSpeedFactor to the new type
-    const double oldDev = myType->getSpeedFactor().getParameter()[1];
-    if (oldDev == 0) {
+    if (oldDev == 0.) {
         // old type had speedDev 0, reroll
         myChosenSpeedFactor = type->computeChosenSpeedDeviation(getRNG());
     } else {
         // map old speedFactor onto new distribution
-        const double oldMu = myType->getSpeedFactor().getParameter()[0];
-        double distPoint = (myChosenSpeedFactor - oldMu) / oldDev;
+        const double distPoint = (myChosenSpeedFactor - oldMu) / oldDev;
         const double newMu = type->getSpeedFactor().getParameter()[0];
         const double newDev = type->getSpeedFactor().getParameter()[1];
         myChosenSpeedFactor = newMu + distPoint * newDev;
