@@ -23,7 +23,7 @@ Warning: Vehicle 'collider' ends teleporting on edge '2si', time=117.00.
 Warning: No connection between edge '3fi' and edge 'disconnected' found.
 Warning: No route for vehicle 'failVeh' found.
 Warning: Setting the vehicle mass via parameters is deprecated, please use setMass for the vehicle or its type.
-Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (No device of type 'foo' exists).
+Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.foo.bar' (no device of type 'foo' exists).
 Error: Answered with error to command 0xa4: Vehicle 'elVeh' does not support device parameter 'device.battery.foobar' (Parameter 'foobar' is not supported for device of type 'battery').
 Warning: Getting the vehicle mass via parameters is deprecated, please use getMass for the vehicle or its type.
 Warning: Getting the vehicle mass via parameters is deprecated, please use getMass for the vehicle or its type.
