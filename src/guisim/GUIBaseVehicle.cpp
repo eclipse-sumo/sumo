@@ -1033,7 +1033,7 @@ GUIBaseVehicle::drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, c
 }
 
 void
-GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& /*col*/) const {
+GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s) const {
     if (s.showParkingInfo) {
         const StoppingPlaceMemory* pm = myVehicle.getParkingMemory();
         if (pm != nullptr) {
@@ -1057,7 +1057,7 @@ GUIBaseVehicle::drawParkingInfo(const GUIVisualizationSettings& s, const RGBColo
 }
 
 void
-GUIBaseVehicle::drawChargingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const {
+GUIBaseVehicle::drawChargingInfo(const GUIVisualizationSettings& s) const {
     if (s.showChargingInfo) {
         const StoppingPlaceMemory* pm = myVehicle.getChargingMemory();
         if (pm != nullptr) {

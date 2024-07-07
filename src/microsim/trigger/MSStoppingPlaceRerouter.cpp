@@ -589,3 +589,6 @@ MSStoppingPlaceRerouter::getTargetValue(const StoppingPlaceParamMap_t& absValues
     }
     return cost;
 }
+
+
+/****************************************************************************/

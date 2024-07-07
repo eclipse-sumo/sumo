@@ -181,3 +181,6 @@ MSPModel_Interacting::unregisterCrossingApproach(const MSPModel_InteractingState
     }
 #endif
 }
+
+
+/****************************************************************************/

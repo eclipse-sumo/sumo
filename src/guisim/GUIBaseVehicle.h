@@ -348,9 +348,9 @@ public:
 
     void drawStopLabels(const GUIVisualizationSettings& s, bool noLoop, const RGBColor& col) const;
 
-    void drawParkingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const;
+    void drawParkingInfo(const GUIVisualizationSettings& s) const;
 
-    void drawChargingInfo(const GUIVisualizationSettings& s, const RGBColor& col) const;
+    void drawChargingInfo(const GUIVisualizationSettings& s) const;
     /// @}
 
     const MSBaseVehicle& getVehicle() {

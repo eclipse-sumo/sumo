@@ -726,8 +726,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, ConstMSRoutePtr r
         }
     }
     drawStopLabels(s, noLoop, col);
-    drawParkingInfo(s, col);
-    drawChargingInfo(s, col);
+    drawParkingInfo(s);
+    drawChargingInfo(s);
 }
 
 

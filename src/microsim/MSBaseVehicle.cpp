@@ -1436,15 +1436,7 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
     const std::string err = "for vehicle '" + getID() + "' at time=" + time2string(SIMSTEP);
     int i = 0;
     bool ok = true;
-    double lastPos = getPositionOnLane();
-    if (getLane() != nullptr && getLane()->isInternal()
-            && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
-        // start edge is still incoming to the intersection so lastPos
-        // relative to that edge must be adapted
-        lastPos += (*myCurrEdge)->getLength();
-    }
     for (const MSStop& stop : myStops) {
-        const double endPos = stop.getEndPos(*this);
         MSRouteIterator it;
         const std::string prefix = "Stop " + toString(i) + " on edge '" + stop.lane->getEdge().getID() + "' ";
         if (stop.lane->isInternal()) {
@@ -1456,8 +1448,7 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
                 it = myRoute->end(); // signal failure
             }
         } else {
-            const MSEdge* const stopEdge = &stop.lane->getEdge();
-            it = std::find(start, myRoute->end(), stopEdge);
+            it = std::find(start, myRoute->end(), &stop.lane->getEdge());
         }
         if (it == myRoute->end()) {
             if (!silent) {
@@ -1485,7 +1476,6 @@ MSBaseVehicle::haveValidStopEdges(bool silent) const {
                 start = stop.edge;
             }
         }
-        lastPos = endPos;
         i++;
     }
     return ok;

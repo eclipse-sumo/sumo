@@ -283,8 +283,8 @@ private:
 protected:
     const SumoXMLTag myStoppingType;
     const std::string myParamPrefix;
-    const bool myConsiderDestVisibility;
     bool myCheckValidity;
+    const bool myConsiderDestVisibility;
     StoppingPlaceParamMap_t myEvalParams;
     StoppingPlaceParamSwitchMap_t myNormParams;
     StoppingPlaceParamSwitchMap_t myInvertParams;

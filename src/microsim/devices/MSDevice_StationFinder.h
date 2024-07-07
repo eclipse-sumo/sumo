@@ -122,7 +122,7 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed) override;
 
     /** @brief Computes idling emission values and adds them to the emission sums
         *
@@ -133,12 +133,12 @@ public:
         * @see MSMoveReminder::notifyMove
         * @see PollutantsInterface
         */
-    bool notifyIdle(SUMOTrafficObject& veh);
+    bool notifyIdle(SUMOTrafficObject& veh) override;
 
     /// @}
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "stationfinder";
     }
 
@@ -148,13 +148,13 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::tripInfoOutput
      */
-    void generateOutput(OutputDevice* tripinfoOut) const;
+    void generateOutput(OutputDevice* tripinfoOut) const override;
 
     void setBattery(MSDevice_Battery* battery) {
         myBattery = battery;
     }
 
-    std::string getParameter(const std::string& key) const;
+    std::string getParameter(const std::string& key) const override;
 
     /** @brief Compute some custom target function components
      *
@@ -180,40 +180,40 @@ public:
                                   StoppingPlaceParamMap_t& addInput) override;
 
     /// @brief Whether the stopping place should be discarded due to its results from the component evaluation
-    bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues);
+    bool validComponentValues(StoppingPlaceParamMap_t& stoppingPlaceValues) override;
 
     /// @brief Whether the stopping place should be included in the search (can be used to add an additional filter)
-    bool useStoppingPlace(MSStoppingPlace* stoppingPlace);
+    bool useStoppingPlace(MSStoppingPlace* stoppingPlace) override;
 
     /// @brief Provide the router to use (MSNet::getRouterTT or MSRoutingEngine)
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter(SUMOVehicle& veh, const MSEdgeVector& prohibited) override;
 
     /// @brief Return the number of occupied places of the StoppingPlace
-    double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
+    double getStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) override;
 
     /// @brief Return the number of occupied places of the StoppingPlace from the previous time step
-    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace);
+    double getLastStepStoppingPlaceOccupancy(MSStoppingPlace* stoppingPlace) override;
 
     /// @brief Return the number of places the StoppingPlace provides
-    double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace);
+    double getStoppingPlaceCapacity(MSStoppingPlace* stoppingPlace) override;
 
     /// @brief store the blocked stopping place in the vehicle
-    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked);
+    void rememberBlockedStoppingPlace(SUMOVehicle& veh, const MSStoppingPlace* stoppingPlace, bool blocked) override;
 
     /// @brief store the stopping place score in the vehicle
-    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score);
+    void rememberStoppingPlaceScore(SUMOVehicle& veh, MSStoppingPlace* place, const std::string& score) override;
 
     /// @brief forget all stopping place score for this vehicle
-    void resetStoppingPlaceScores(SUMOVehicle& veh);
+    void resetStoppingPlaceScores(SUMOVehicle& veh) override;
 
     /// @brief ask the vehicle when it has seen the stopping place
-    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local);
+    SUMOTime sawBlockedStoppingPlace(SUMOVehicle& veh, MSStoppingPlace* place, bool local) override;
 
     /// @brief ask how many times already the vehicle has been rerouted to another stopping place
-    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh);
+    int getNumberStoppingPlaceReroutes(SUMOVehicle& veh) override;
 
     /// @brief update the number of reroutes for the vehicle
-    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value);
+    void setNumberStoppingPlaceReroutes(SUMOVehicle& veh, int value) override;
 
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
@@ -226,7 +226,7 @@ protected:
                             const double meanSpeedVehicleOnLane,
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
-                            const double meanLengthOnLane);
+                            const double meanLengthOnLane) override;
 
 private:
     /** @brief central search function for close charging stations
