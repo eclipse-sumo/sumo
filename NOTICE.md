@@ -42,7 +42,7 @@ Font Stash from 2017-09-23 (n/a)
 * Project: https://github.com/memononen/fontstash
 * Source: https://github.com/memononen/fontstash
 
-FOX toolkit (1.6.55)
+FOX toolkit (1.6.58)
 
 * License: LicenseRef-Fox-Toolkit-Addendum-to-License AND
    LicenseRef-Public-Domain AND  X11

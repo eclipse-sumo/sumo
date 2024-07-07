@@ -76,7 +76,7 @@ If Visual Studio fails at first try, it is probably because the SUMOLibraries ar
 
 If you need to modify settings, you can edit the `CMakeCache.txt` by opening it in your favorite text editor or via the *Project->CMake-Cache* menu. The following things might be useful:
 
-- If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/tests/source/repos/SUMOLibraries`) and retry
+- If the libraries are not found, set `SUMO_LIBRARIES:PATH` to something like `C:/Users/tests/source/repos/SUMOLibraries` and retry
 - If a wrong Python interpreter or library is found, edit the PYTHON_* variables
 - If you want to disable building the GUI (Fox) or usage of Proj, set the according library entries to an empty string
 
@@ -95,11 +95,7 @@ SUMO (tested with Visual Studio 2019).
 For details on building your
 own and also on how to use different versions and additional libraries
 see [Installing/Windows_Libraries](../Installing/Windows_Libraries.md).
-Make sure that the subdirectories `fox-1.6.54/lib`, `proj_gdal-1911/bin`
-and `xerces-c-3.2.0/bin` are in PATH. Note: for 32 bits compilations
-folders are `32bits/fox-1.6.54/lib`, `32bits/proj_gdal-1911/bin` and
-`32bits/xerces-c-3.2.0/bin`. You can add both to the path but always add the
-64 bit version first.
+You might not to edit your `CMakeCache.txt` to use the selfmade libraries.
 
 ## Install python packages
 
