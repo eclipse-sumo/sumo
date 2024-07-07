@@ -38,6 +38,7 @@ import traci  # noqa
 import traci._person
 import traci._simulation
 
+
 class CostType(Enum):
     DISTANCE = 1
     TIME = 2
@@ -113,7 +114,8 @@ class Reservation:
             self.direct_route_cost = cost_matrix[self.from_node][self.to_node]
         else:
             # TODO: use 'historical data' from dict in get_cost_matrix instead
-            route: traci._simulation.Stage = traci.simulation.findRoute(self.get_from_edge(), self.get_to_edge(), vType=type_vehicle)
+            route: traci._simulation.Stage = traci.simulation.findRoute(
+                self.get_from_edge(), self.get_to_edge(), vType=type_vehicle)
             if cost_type == CostType.TIME:
                 self.direct_route_cost = round(route.travelTime)
             elif cost_type == CostType.DISTANCE:
@@ -163,7 +165,7 @@ class ORToolsDataModel:
 
     def __str__(self):
         return f'number of vehicles: {self.num_vehicles}, ...'
-    
+
     def get_penalty(self, explicitly_time_related: bool = False) -> int:
         """Returns penalty. If explicitly time related, it depends on the CostType of the data."""
         if not explicitly_time_related:
@@ -230,7 +232,7 @@ def create_vehicles(fleet: list[str]) -> list[Vehicle]:
 def create_new_reservations(data_reservations: list[Reservation]) -> list[Reservation]:
     """create Reservations that not already exist"""
     sumo_reservations = traci.person.getTaxiReservations(0)  # TODO: state 1 should be enough
-    
+
     data_reservations_ids = [res.get_id() for res in data_reservations]
     new_reservations = []
     for res in sumo_reservations:
@@ -419,13 +421,13 @@ def get_reservation_by_node(reservations: list[Reservation], node: int) -> Reser
     return None
 
 
-def get_penalty(penalty_factor: str | int, cost_matrix: list[list[int]]) -> int :
+def get_penalty(penalty_factor: str | int, cost_matrix: list[list[int]]) -> int:
     if penalty_factor == 'dynamic':
         max_cost = max(max(sublist) for sublist in cost_matrix)
         return round_up_to_next_power_of_10(max_cost)
     else:
         return penalty_factor
-    
+
 
 def round_up_to_next_power_of_10(n: int) -> int:
     if n < 0:

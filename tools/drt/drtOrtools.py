@@ -26,7 +26,6 @@ from __future__ import annotations
 from typing import List, Dict, Tuple
 
 import os
-import pathlib
 import sys
 import argparse
 
@@ -137,7 +136,7 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
     # get time windows
     time_windows = [orToolsDataModel.get_time_window_of_node_object(node_object, node, end)
                     for node, node_object in enumerate(node_objects)]
-    
+
     penalty = orToolsDataModel.get_penalty(penalty_factor, cost_matrix)
     if verbose:
         print(f'Penalty factor is {penalty}')
@@ -162,7 +161,7 @@ def create_data_model(sumo_fleet: list[str], cost_type: orToolsDataModel.CostTyp
         penalty=penalty,
         reservations=reservations,
         vehicles=vehicles,
-        cost_type = cost_type
+        cost_type=cost_type
     )
     return data
 
@@ -211,7 +210,7 @@ def solution_by_requests(solution_ortools: ortools_pdp.ORToolsSolution | None,
     return solution_requests
 
 
-def run(penalty_factor: str|int, end: int = None, interval: int = 30, time_limit: float = 10,
+def run(penalty_factor: str | int, end: int = None, interval: int = 30, time_limit: float = 10,
         cost_type: orToolsDataModel.CostType = orToolsDataModel.CostType.DISTANCE,
         drf: float = 1.5, waiting_time: int = 900, fix_allocation: bool = False, verbose: bool = False):
     """
@@ -299,7 +298,8 @@ def run(penalty_factor: str|int, end: int = None, interval: int = 30, time_limit
             if verbose:
                 print('Start creating the model.')
             data = create_data_model(fleet, cost_type, drf, waiting_time, int(end),
-                                     fix_allocation, solution_requests, penalty_factor, data_reservations, timestep, verbose)
+                                     fix_allocation, solution_requests, penalty_factor,
+                                     data_reservations, timestep, verbose)
             data_reservations = data.reservations
             solution_requests = dispatch(time_limit, solution_requests, data, verbose)
             if solution_requests is not None:
@@ -398,5 +398,6 @@ if __name__ == "__main__":
     # subprocess and then the python script connects and runs
     traci.start([arguments.sumoBinary, "-c", arguments.sumo_config], traceFile=arguments.trace_file)
 
-    run(arguments.penalty_factor, arguments.end, arguments.interval, arguments.time_limit, arguments.cost_type, arguments.drf,
+    run(arguments.penalty_factor, arguments.end, arguments.interval,
+        arguments.time_limit, arguments.cost_type, arguments.drf,
         arguments.waiting_time, arguments.fix_allocation, arguments.verbose)

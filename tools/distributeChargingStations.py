@@ -38,7 +38,9 @@ def getOptions(args=None):
     argParser.add_argument("--selection-file", category="input", dest="selectionFile",
                            help="optionally restrict the parking area to the selected net part")
     argParser.add_argument("-o", "--output-file", category="output", dest="outFile",
-                           default="parkingCharging.add.xml", help="define the output filename for charging station definitions (and by default parking areas)")
+                           default="parkingCharging.add.xml",
+                           help="define the output filename for charging station definitions "
+                                "(and by default parking areas)")
     argParser.add_argument("--output-parking-file", category="output", dest="outParkingFile",
                            help="define the output filename for the separate parking additional file")
     argParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
@@ -53,7 +55,8 @@ def getOptions(args=None):
                            help="Minimum number of charging points")
     argParser.add_argument("--max", category="processing", type=int, default=int(1e9),
                            help="Maximum number of charging points")
-    argParser.add_argument("--prefix", category="processing", default="cs", help="prefix for the charging station IDs")
+    argParser.add_argument("--prefix", category="processing", default="cs",
+                           help="prefix for the charging station IDs")
     argParser.add_argument("--suffix", category="processing", default="_shift",
                            help="suffix for ID of splitted parkingArea")
     argParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
@@ -123,7 +126,7 @@ def main(options):
             totalCapacity += capacity
     if options.verbose:
         print("Loaded %d parkings (%d already equipped with charging stations) with a total of %d parking lots." %
-              (paCount, len(equippedParkings), totalCapacity))
+              (paCount, len(existingChargingStations), totalCapacity))
 
     # count already existing charging points per edge
     if options.includeExisting:
@@ -148,12 +151,12 @@ def main(options):
         rootParking = sumolib.xml.create_document("additional") if options.outParkingFile else rootCharging
         rootParking.setChildList(unusedParkings)
         alreadyChecked = []
-        for edge in edge2parkingArea:
+        for edge, parkingAreas in edge2parkingArea.items():
             if (checkSelection and not edge.isSelected()) or edge in alreadyChecked:
                 continue
             randomNumber = random.random()
             if randomNumber < options.probability:
-                capacities = [p[1] for p in edge2parkingArea[edge]]
+                capacities = [p[1] for p in parkingAreas]
                 parkingSum = sum(capacities)
                 if parkingSum < options.min:
                     continue
@@ -167,20 +170,20 @@ def main(options):
                 remainingChargingPoints = chargingPointCount
                 for i in range(len(capacities)):
                     if capacities[i] >= remainingChargingPoints:
-                        addChargingStation(options, rootCharging, rootParking, edge, edge2parkingArea[edge][i][0],
+                        addChargingStation(options, rootCharging, rootParking, edge, parkingAreas[i][0],
                                            remainingChargingPoints, "%s%d" % (options.prefix, csIndex))
                         csIndex += 1
                         remainingChargingPoints = 0
-                        edge2parkingArea[edge].remove(edge2parkingArea[edge][i])
+                        edge2parkingArea[edge].remove(parkingAreas[i])
                         break
                 # then distribute across the parkingAreas in definition order
-                capacities = [p[1] for p in edge2parkingArea[edge]]
+                capacities = [p[1] for p in parkingAreas]
                 for i in range(len(capacities)):
                     installChargingPoints = min(remainingChargingPoints, capacities[i])
-                    addChargingStation(options, rootCharging, rootParking, edge, edge2parkingArea[edge][i][0],
+                    addChargingStation(options, rootCharging, rootParking, edge, parkingAreas[i][0],
                                        installChargingPoints, "%s%d" % (options.prefix, csIndex))
                     # print("added charging station with %d points on parkingArea %s %s" %
-                    #       (installChargingPoints, edge2parkingArea[edge][i][0].id, result))
+                    #       (installChargingPoints, parkingAreas[i][0].id, result))
                     csIndex += 1
                     remainingChargingPoints -= installChargingPoints
                     if remainingChargingPoints == 0:
