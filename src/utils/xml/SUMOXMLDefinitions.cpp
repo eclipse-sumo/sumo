@@ -720,6 +720,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
     { "jmStoplineCrossingGap",  SUMO_ATTR_JM_STOPLINE_CROSSING_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
+    { "jmStopSignWait",         SUMO_ATTR_JM_STOPSIGN_WAIT },
     { "junctionModel.ignoreIDs",    SUMO_ATTR_JM_IGNORE_IDS },
     { "junctionModel.ignoreTypes",  SUMO_ATTR_JM_IGNORE_TYPES },
     { "carFollowModel.ignoreIDs",   SUMO_ATTR_CF_IGNORE_IDS },
