@@ -166,9 +166,8 @@ always use the latest version of SUMO.
 
 ### How do I report erroneous behavior of a SUMO application?
 
-  If you suspect a bug in one of the applications you should report
-  your findings by sending the following items to the [mailing list](Contact.md):
-
+  If you suspect a bug in one of the applications you should collect the following information
+  
 - a description of the SUMO-version and the operating system you are
   using
 - a screenshot or error output showing the unexpected behavior (this
@@ -183,6 +182,9 @@ always use the latest version of SUMO.
   or [osmconvert](Networks/Import/OpenStreetMap.md#osmfilter_osmconvert)
 - a description at which time step (for simulations) and on which
   edge/junction the problem occurs
+
+Provide these items either by opening up a [new issue on github](https://github.com/eclipse-sumo/sumo/issues/new) and attaching the files there or
+by sending the files to the [mailing list](Contact.md)
 
 !!! note
     If you are using an older version of SUMO, please also report whether the problem shows up with the [latest release](Downloads.md).
