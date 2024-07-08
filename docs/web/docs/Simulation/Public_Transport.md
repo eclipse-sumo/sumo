@@ -144,7 +144,7 @@ When defining `until` values for a vehicle and trip, the values denote absolute 
 Note, that seconds or human-readable times may be used.
 
 ```xml
-<trip="bus" from = "beg" to ="end" line="bus" depart="6:0:0">
+<trip="bus" from="beg" to="end" line="bus" depart="6:0:0">
      <stop busStop="busStopA" until="6:30:00"/>
      <stop busStop="busStopB" until="6:32:30"/>
      <stop busStop="busStopC" until="23700"/>
