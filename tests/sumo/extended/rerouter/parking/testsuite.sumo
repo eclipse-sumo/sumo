@@ -16,6 +16,9 @@ roadsideCapacity_short
 # test angled roadside parking (including vehicle positions)
 angled_roadside_parking
 
+# test angled roadside parking (including vehicle positions)
+angled_roadside_parking_trailer
+
 # test what happens if a queue forms and a vehicle wants to exit the parkingarea
 congestion
 
