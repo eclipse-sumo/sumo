@@ -340,6 +340,7 @@ The joining operating consists of having the joining train arrive and disappear 
 The following conditions must be met for the joining operation to take place:
 
 - the continuing train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
+- the joining train has fulfilled its stopping duration (defined by attributes `duration` and `until`)
 - the trains are in close proximity in either of the two ways:
   - the continuing train has its back is on the same lane as the joining train and the gap between them is less than the minGap of the joining train +1m
   - the joining train has its back on the same lane as the continuing train and the gap between the trains is less the minGap of the continuing train +1m
