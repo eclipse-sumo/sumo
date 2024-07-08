@@ -1971,7 +1971,7 @@ MSVehicle::joinTrainPart(MSVehicle* veh) {
     // check if veh is close enough to be joined to the rear of this vehicle
     MSLane* backLane = myFurtherLanes.size() == 0 ? myLane : myFurtherLanes.back();
     double gap = getBackPositionOnLane() - veh->getPositionOnLane();
-    if (isStopped() && myStops.begin()->joinTriggered && backLane == veh->getLane()
+    if (isStopped() && myStops.begin()->duration <= DELTA_T && myStops.begin()->joinTriggered && backLane == veh->getLane()
             && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
         const double newLength = myType->getLength() + veh->getVehicleType().getLength();
         getSingularType().setLength(newLength);
@@ -1992,7 +1992,7 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     // check if veh is close enough to be joined to the front of this vehicle
     MSLane* backLane = veh->myFurtherLanes.size() == 0 ? veh->myLane : veh->myFurtherLanes.back();
     double gap = veh->getBackPositionOnLane(backLane) - getPositionOnLane();
-    if (isStopped() && myStops.begin()->joinTriggered && backLane == getLane()
+    if (isStopped() && myStops.begin()->duration <= DELTA_T && myStops.begin()->joinTriggered && backLane == getLane()
             && gap >= 0 && gap <= getVehicleType().getMinGap() + 1) {
         double skippedLaneLengths = 0;
         if (veh->myFurtherLanes.size() > 0) {
