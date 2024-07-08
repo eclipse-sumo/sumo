@@ -855,8 +855,8 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     double seen = getLength() - pos; // == distance from insertion position until the end of the currentLane
     double dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
     const bool isRail = isRailway(aVehicle->getVClass());
-    /*
-    if (isRail && insertionChecks != (int)InsertionCheck::NONE) {
+    if (isRail && insertionChecks != (int)InsertionCheck::NONE
+            && aVehicle->getParameter().departProcedure != DepartDefinition::SPLIT) {
         const MSDriveWay* dw = MSDriveWay::getDepartureDriveway(aVehicle);
         MSEdgeVector occupied;
         if (dw->foeDriveWayOccupied(false, aVehicle, occupied)) {
@@ -868,7 +868,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             return false;
         }
     }
-    */
     // do not insert if the bidirectional edge is occupied
     if (getBidiLane() != nullptr && isRail && getBidiLane()->getVehicleNumberWithPartials() > 0) {
         if ((insertionChecks & (int)InsertionCheck::BIDI) != 0) {

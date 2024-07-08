@@ -429,7 +429,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
     for (const MSDriveWay* foeDW : myFoes) {
         if (!foeDW->myTrains.empty()) {
 #ifdef DEBUG_SIGNALSTATE
-            if (gDebugFlag4) {
+            if (gDebugFlag4 || DEBUG_COND_DW) {
                 std::cout << SIMTIME << " foeDriveWay " << foeDW->getID() << " occupied ego=" << Named::getIDSecure(ego) << " foeVeh=" << toString(foeDW->myTrains) << "\n";
             }
 #endif
@@ -444,11 +444,13 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 if (joinVehicle != "") {
 #ifdef DEBUG_SIGNALSTATE
-                    std::cout << "  joinVehicle=" << joinVehicle << "\n";
+                    if (gDebugFlag4 || DEBUG_COND_DW) {
+                        std::cout << "  joinVehicle=" << joinVehicle << "\n";
+                    }
 #endif
                     if (foe->getID() == joinVehicle && foe->isStopped()) {
 #ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4) {
+                        if (gDebugFlag4 || DEBUG_COND_DW) {
                             std::cout << "    ignore join-target '" << joinVehicle << "\n";
                         }
 #endif
@@ -468,7 +470,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     */
                     if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
 #ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4) {
+                        if (gDebugFlag4 || DEBUG_COND_DW) {
                             std::cout << "    ignore " << foe->getID() << " for which ego is join-target\n";
                         }
 #endif
