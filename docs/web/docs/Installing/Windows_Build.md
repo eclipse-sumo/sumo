@@ -116,7 +116,8 @@ pip install -r tools\requirements.txt
   - It can be identical to the source path, but we recommend to separate them
   - Build directory will be created if necessary
 - Start configuration by pressing the "Configure" button
-  - Select compiler (the default should do)
+  - Select the compiler (the default should do)
+  - Select the platform `x64`
 - Create the Visual Studio solution by clicking on "Generate"
 - Open the generated solution (.sln file) (e.g. *D:\\projects\\sumo\\cmake-build\\SUMO.sln*) using the File Explorer or by clicking on "Open Project"
 - Build the configurations you want
