@@ -28,6 +28,7 @@ import random
 import gzip
 import codecs
 import io
+from .xml import parse
 try:
     from urllib.request import urlopen
 except ImportError:
@@ -210,6 +211,23 @@ def getSocketStream(port, mode='rb'):
     s.listen(1)
     conn, _ = s.accept()
     return conn.makefile(mode)
+
+
+def getConfigSettings(file, rootNode='sumoConfiguration'):
+    """read config file settings into dictionary"""
+    root = parse(file)
+    ret = {}
+    for childEl in root:
+        print("check element %s" % childEl.name)
+        value1 = childEl.getAttributeSecure('value')
+        if value1 is not None:
+            ret[childEl.name] = value1
+        for secondChildEl in childEl.getChildList():
+            print("\tcheck element %s" % secondChildEl.name)
+            value2 = secondChildEl.getAttributeSecure('value')
+            if value2 is not None:
+                ret[secondChildEl.name] = value2
+    return ret
 
 
 # euclidean distance between two coordinates in the plane
