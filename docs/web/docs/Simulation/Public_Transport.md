@@ -155,12 +155,13 @@ Note, that seconds or human-readable times may be used.
 When defining a vehicle flow the `until` times are absolute times for the first vehicle in the flow. For all later vehicles, the times will be shifted according to later departure times (period * vehicleIndex).
 
 The example below defines a flow that inserts two vehicles. The first vehicle will stop until 10,110,210 and the second vehicle will stop until 310,410,510:
+
 ```xml
-    <flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="301" period="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
-    </flow>
+<flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="301" period="300">
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
+</flow>
 ```
 
 ## Stops in a stand-alone route
@@ -170,9 +171,9 @@ The example below defines a flow that inserts two vehicles. The first vehicle wi
 
 ```xml
 <route id="busRoute" edges="A B C D E">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
 </route>
 
 <flow id="bus" route="busRoute" line="bus" begin="500" end="801" period="300"/>
@@ -185,9 +186,9 @@ To shorten the input description, a route may also be defined with the attribute
 
 ```xml
 <route id="busRoute" edges="A B C D E" repeat="3" cycleTime="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
 </route>
 ```
 
@@ -196,15 +197,15 @@ The `until` times of the stops are shifted by 300s in each cycle and thus the si
 
 ```xml
 <route id="busRoute" edges="A B C D E A B C D E A B C D E" repeat="3" cycleTime="300">
-                <stop busStop="busStopA" until="10"/>
-                <stop busStop="busStopB" until="110"/>
-                <stop busStop="busStopC" until="210"/>
-                <stop busStop="busStopA" until="310"/>
-                <stop busStop="busStopB" until="410"/>
-                <stop busStop="busStopC" until="510"/>
-                <stop busStop="busStopA" until="610"/>
-                <stop busStop="busStopB" until="710"/>
-                <stop busStop="busStopC" until="810"/>
+    <stop busStop="busStopA" until="10"/>
+    <stop busStop="busStopB" until="110"/>
+    <stop busStop="busStopC" until="210"/>
+    <stop busStop="busStopA" until="310"/>
+    <stop busStop="busStopB" until="410"/>
+    <stop busStop="busStopC" until="510"/>
+    <stop busStop="busStopA" until="610"/>
+    <stop busStop="busStopB" until="710"/>
+    <stop busStop="busStopC" until="810"/>
 </route>
 ```
 

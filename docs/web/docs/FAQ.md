@@ -1055,7 +1055,7 @@ The carFollowModels [ACC](Car-Following-Models/ACC.md) and [CACC](Car-Following-
 The default carFollowModel *Krauss* is simple/general enough to allow parameterization for both human and automated driving. The correct parameters however, depend on the user assumptions about the automated fleet:
 
 - possibly, autonomous vehicles must drive more cautiously than human drivers (i.e. with a larger value of the desired time headway `tau`)
-- possibly, autonomous vehicles may drive at lower time headways than human drivers because they have better sensing or faster actuation (i.e. with a lower valuue of the desired time headway `tau`)
+- possibly, autonomous vehicles may drive at lower time headways than human drivers because they have better sensing or faster actuation (i.e. with a lower value of the desired time headway `tau`)
 
 Functions that are meant to capture specific human behaviors can be switched of directly
 - imperfect acceleration, dawdling: `sigma="0"`
@@ -1076,7 +1076,7 @@ to geometry](sumo-gui.md#scaling).
 The [osmWebWizard](Tutorials/OSMWebWizard.md) tool provides the simplest solution to obtain a scenario with background images.
 Selecting the checkbox 'Satellite background' before generating the scenario is sufficient. To select another image provider, the tool [tileGet.py](Tools/Misc.md#tilegetpy) can also be used.
 
-It is important to know that the network projection will be changed from UTM to [Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) if the checkbox "satellite background" is enabled. This is necessary to match the projection of popular satellite image providers. However, this projection has the unwelcome propertie of distorting lengths much more strongly than the default project. Depending on the area being imported, distances could be doubled (or worse).
+It is important to know that the network projection will be changed from UTM to [Mercator](https://en.wikipedia.org/wiki/Web_Mercator_projection) if the checkbox "satellite background" is enabled. This is necessary to match the projection of popular satellite image providers. However, this projection has the unwelcome property of distorting lengths much more strongly than the default project. Depending on the area being imported, distances could be doubled (or worse).
 
 The revert such a projection to UTM, the following commands may be used:
 
