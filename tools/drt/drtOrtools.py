@@ -40,7 +40,6 @@ if 'SUMO_HOME' in os.environ:
 import sumolib  # noqa
 import traci  # noqa
 
-SPEED_DEFAULT = 20  # default vehicle speed in m/s
 PENALTY_FACTOR = 'dynamic'  # factor on penalty for rejecting requests
 
 

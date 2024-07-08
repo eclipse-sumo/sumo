@@ -28,8 +28,6 @@ from enum import Enum
 import numpy as np
 import math
 
-import drtOrtools
-
 # SUMO modules
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -37,6 +35,8 @@ if 'SUMO_HOME' in os.environ:
 import traci  # noqa
 import traci._person
 import traci._simulation
+
+SPEED_DEFAULT = 20  # default vehicle speed in m/s
 
 
 class CostType(Enum):
@@ -171,7 +171,7 @@ class ORToolsDataModel:
         if not explicitly_time_related:
             return self.penalty
         if self.cost_type == CostType.DISTANCE:
-            return round(self.penalty * drtOrtools.SPEED_DEFAULT)
+            return round(self.penalty * SPEED_DEFAULT)
         else:
             return self.penalty
 
