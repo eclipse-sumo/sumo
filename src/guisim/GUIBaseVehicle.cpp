@@ -1139,7 +1139,8 @@ GUIBaseVehicle::drawReversed(const GUIVisualizationSettings& s) const {
 
 bool
 GUIBaseVehicle::drawAction_drawVehicleAsPolyWithCarriagges(const GUIVisualizationSettings& s, double scaledLength, bool asImage) const {
-    if (getVType().getParameter().carriageLength > 0) {
+    if (getVType().getParameter().carriageLength > 0 &&
+            (!myVehicle.isParking() || myVehicle.getNextStop().parkingarea == nullptr || myVehicle.getNextStop().parkingarea->parkOnRoad())) {
         drawAction_drawCarriageClass(s, asImage);
         return true;
     } else {
