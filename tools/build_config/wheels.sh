@@ -19,6 +19,8 @@
 PREFIX=$1
 PLATFORM=$2
 LOG=$PREFIX/wheel.log
+# to make sure we do not use the brew python
+PYTHON=/usr/bin/python3
 
 cd $PREFIX/sumo
 git clean -f -x -d -q . &> $LOG ||(echo "git clean failed"; tail -10 $LOG)
@@ -26,11 +28,17 @@ git pull >> $LOG 2>&1 || (echo "git pull failed"; tail -10 $LOG)
 rm -rf dist dist_native $LOG
 if test $3 == "local"; then
   cp build_config/pyproject.toml .
-  python3 tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
-  python3 -m build --wheel >> $LOG 2>&1
-  python3 tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
-  python3 -m build --wheel tools -o dist >> $LOG 2>&1
-  python3 -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
+  $PYTHON ./tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
+  $PYTHON -m build --wheel >> $LOG 2>&1
+  $PYTHON ./tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
+  $PYTHON -m build --wheel tools -o dist >> $LOG 2>&1
+  $PYTHON -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
+  pushd tools
+  $PYTHON ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
+  $PYTHON -m build --wheel . -o ../dist
+  $PYTHON ./build_config/version.py ./build_config/setup-traci.py ./setup.py
+  $PYTHON -m build --wheel . -o ../dist
+  popd
   mv dist dist_native  # just as backup
 fi
 # the docker script will create _skbuild, dist and wheelhouse dir owned by root but writable for everyone
