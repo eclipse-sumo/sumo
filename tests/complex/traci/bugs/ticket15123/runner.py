@@ -33,7 +33,7 @@ traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
 
 vehID = "ego"
 traci.vehicle.add(vehID, "")
-traci.vehicle.moveToXY(vehID, edgeID="", lane=-1, x=98.17, y=166.49, keepRoute=2)
+traci.vehicle.moveToXY(vehID, edgeID="", laneIndex=-1, x=98.17, y=166.49, keepRoute=2)
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

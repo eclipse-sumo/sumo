@@ -1485,7 +1485,8 @@ class VehicleDomain(VTypeDomain):
            Reasons are defined in module constants and start with REMOVE_'''
         self._setCmd(tc.REMOVE, vehID, "b", reason)
 
-    def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
+    @alias_param("laneIndex", "lane")
+    def moveToXY(self, vehID, edgeID, laneIndex, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1, matchThreshold=100):
         '''Place vehicle at the given x,y coordinates and force its angle to
         the given value (for drawing).
         If the angle is set to INVALID_DOUBLE_VALUE, the vehicle assumes the
@@ -1499,7 +1500,7 @@ class VehicleDomain(VTypeDomain):
         The command fails if no suitable target position is found within the
         distance given by matchThreshold.
         '''
-        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, lane, x, y, angle, keepRoute, matchThreshold)
+        self._setCmd(tc.MOVE_TO_XY, vehID, "tsidddbd", 7, edgeID, laneIndex, x, y, angle, keepRoute, matchThreshold)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None
