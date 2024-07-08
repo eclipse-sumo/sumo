@@ -64,7 +64,7 @@ OSM](../Tutorials/PT_from_OpenStreetMap.md#initial_network_and_public_transit_in
 The value `doors` is currently only used when exiting a train or bus. The starting position for a
 subsequent walk of the exiting passengers will be randomly chosen among the door positions of the train or bus.
 The door positions themselves cannot be defined but they are derived from the number of carriages
-and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages)
+and the number of doors per carriage of the vehicle, see [carriage definition](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#carriages).
 
 # Letting Vehicles stop at a bus stop
 
