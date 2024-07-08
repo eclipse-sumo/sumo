@@ -45,9 +45,9 @@ Font Stash from 2017-09-23 (n/a)
 FOX toolkit (1.6.58)
 
 * License: LicenseRef-Fox-Toolkit-Addendum-to-License AND
-   LicenseRef-Public-Domain AND  X11
+   LicenseRef-Public-Domain AND X11
 * Project: http://www.fox-toolkit.org/
-* Source: ftp://ftp.fox-toolkit.org/pub/fox-1.6.55.zip
+* Source: ftp://ftp.fox-toolkit.org/pub/fox-1.6.58.zip
 
 Google Design Icons (n/a)
 
@@ -65,10 +65,10 @@ OpenStreetMap data files (n/a)
 * License: ODbL-1.0
 * Project: http://www.openstreetmap.org/
 
-Proj4 - (4.9.3)
+Proj - (9.0.0)
 
 * License: MIT AND LicenseRef-Public-Domain AND Apache-2.0
-* Project: https://proj4.org/
+* Project: https://proj.org/
 
 RTree (n/a)
 
@@ -88,11 +88,11 @@ Wix Installation Framework Templates (3.6)
 * Project: https://github.com/AnalogJ/Wix3.6Toolset
 * Source: https://github.com/AnalogJ/Wix3.6Toolset/tree/master/RC0-source/wix36-sources/src/ext/UIExtension/wixlib
 
-Xerces-C++ (3.2.3)
+Xerces-C++ (3.2.4)
 
 * License: Apache-2.0
 * Project: http://xerces.apache.org/xerces-c/
-* Source: https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.3.tar.gz
+* Source: https://dlcdn.apache.org/xerces/c/3/sources/xerces-c-3.2.4.tar.gz
 
 JSON for Modern C++ (3.10.5)
 
@@ -105,6 +105,12 @@ A C++ ZLib wrapper (1.0.6)
 * License: MIT
 * Project: https://github.com/mateidavid/zstr
 * Source: https://github.com/mateidavid/zstr/releases/tag/v1.0.6
+
+FMT (10.2.1)
+
+* License: MIT
+* Project: https://fmt.dev/
+* Source: https://github.com/fmtlib/fmt
 
 ## Cryptography
 
