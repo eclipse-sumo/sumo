@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-04 12:58+0000\n"
+"PO-Revision-Date: 2024-07-08 10:02+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -853,11 +853,11 @@ msgstr "'%' cargado."
 
 #: src/gui/GUIApplicationWindow.cpp:1931
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "Semáforo interactivo SUMO"
 
 #: src/gui/GUIApplicationWindow.cpp:1933
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "Transporte a demanda interactivo SUMO"
 
 #: src/gui/GUIApplicationWindow.cpp:2048
 msgid "Simulation ended at time: %. (%)"
@@ -4414,7 +4414,7 @@ msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:308
 msgid "Load element selection"
-msgstr ""
+msgstr "Abrir selección de elementos"
 
 #: src/netedit/GNELoadThread.cpp:313
 msgid "File in which TLS Programs must be saved"
@@ -16498,7 +16498,7 @@ msgstr "Mostrar información de parqueo"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1971
 msgid "Show charging info"
-msgstr ""
+msgstr "Mostrar información de carga"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1973
 msgid "Draw reversed vehicles in reverse"
