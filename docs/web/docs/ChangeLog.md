@@ -178,7 +178,7 @@ title: ChangeLog
 - Unknown vehicle classes are now ignored by sumo to ensure upwards compatibility when adding classes in the future. Netconvert and duarouter support this behavior by setting option **--ignore-errors** #14993
 - Saving config files now handles environment variables as absolute path #15022
 - `sumolib.checkBinary` now finds sumo binaries installed via pip #14982
-- SUMO game language switch is now woring in the downloadable zip #13440
+- SUMO game language switch is now working in the downloadable zip #13440
 - Fixed broken images in game-cross scenario #15083
 - DEFAULT_CONTAINERTYPE now uses vClass `container` #15092 
 
