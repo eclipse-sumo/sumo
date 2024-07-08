@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 29 00:43:22 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on 2024-07-05 13:48:57 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -32,4 +37,24 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railsignal-block-output>
+    <departJunction id="G">
+        <driveWay id="G.d1" edges="-f -e -d -c -b -a">
+            <forward lanes="-f_0 :F_0_0 -e_0 :E_0_0 -d_0 :D_0_0 -c_0 :C_0_0 -b_0 :B_0_0 -a_0"/>
+            <bidi lanes="f_0 :F_1_0 e_0 :E_1_0 d_0 :D_1_0 c_0 :C_1_0 b_0 :B_1_0 a_0"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="A.d0 G.d1"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="A">
+        <driveWay id="A.d0" edges="a b c d e f">
+            <forward lanes="a_0 :B_1_0 b_0 :C_1_0 c_0 :D_1_0 d_0 :E_1_0 e_0 :F_1_0 f_0"/>
+            <bidi lanes="-a_0 :B_0_0 -b_0 :C_0_0 -c_0 :D_0_0 -d_0 :E_0_0 -e_0 :F_0_0 -f_0"/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="A.d0 G.d1"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

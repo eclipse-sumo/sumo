@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  5 09:18:41 2019 by Eclipse SUMO Version v1_3_1+1270-457c376
+<!-- generated on 2024-07-05 13:48:57 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
     <output>
@@ -34,11 +39,21 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <gui_only>
-        <tracker-interval value="0.5"/>
+        <gui-settings-file value="settings.xml"/>
     </gui_only>
 
 </configuration>
 -->
 
 <railsignal-block-output>
+    <departJunction id="B0">
+        <driveWay id="B0.d0" edges="B0C0 C0D0 D0E0 E0E1 E1D1 D1C1 C1B1">
+            <forward lanes="B0C0_0 :C0_3_0 C0D0_0 :D0_3_0 D0E0_0 :E0_3_0 E0E1_0 :E1_1_0 E1D1_0 :D1_1_0 D1C1_0 :C1_0_0 C1B1_0"/>
+            <bidi lanes="C0B0_0 :C0_0_0 D0C0_0 :D0_0_0 E0D0_0 :E0_0_0 E1E0_0 :E1_2_0 D1E1_0 :D1_2_0 C1D1_0 :C1_1_0 B1C1_0"/>
+            <flank lanes=":B0_2_0 A0B0_0 :A0_2_0 gneE28_0 :A1_3_0 :A0_3_0 A1A0_0 :A1_0_0 -gneE24_0 :A0_1_0 :A1_1_0 B1A1_0 :B1_0_0 :B0_3_0 B1B0_0 :B1_1_0 :B1_2_0 B0B1_0 :B0_0_0 :B1_3_0 A1B1_0 :A1_2_0 :C0_1_0 gneE10_0 :gneJ10_1_0 gneE9_0 :gneJ9_1_0 gneE8_0 :gneJ8_1_0 gneE7_0 :gneJ7_3_0 :D0_1_0 -gneE12_0 :gneJ12_1_0 :D1_3_0 -gneE0_0 :gneJ1_2_0 :E0_1_0 F0E0_0 :F0_0_0 :E1_0_0 F1E1_0 :F1_0_0 F0F1_0 :F0_2_0 -gneE32_0 :gneJ12_0_0 :F0_3_0 E0F0_0 :E0_2_0"/>
+            <protectingSwitches links="A1_3 A0_1 A1_2 gneJ7_3 gneJ12_1 gneJ1_2 F0_0 gneJ12_0"/>
+            <conflictLinks signals=""/>
+            <foes driveWays="B0.d0"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

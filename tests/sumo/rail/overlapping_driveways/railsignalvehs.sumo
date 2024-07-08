@@ -3,12 +3,12 @@
         <driveWay id="J0.0">
             <entry id="v_0" time="20.00" reason="1"/>
             <exit id="v_0" time="40.00" reason="1"/>
-            <entry id="v_1" time="42.00" reason="1"/>
-            <exit id="v_1" time="64.00" reason="1"/>
-            <entry id="v_2" time="66.00" reason="1"/>
+            <entry id="v_1" time="48.00" reason="1"/>
+            <exit id="v_1" time="68.00" reason="1"/>
+            <entry id="v_2" time="76.00" reason="1"/>
             <exit id="v_2" time="96.00" reason="1"/>
-            <entry id="v_3" time="99.00" reason="1"/>
-            <exit id="v_3" time="131.00" reason="1"/>
+            <entry id="v_3" time="104.00" reason="1"/>
+            <exit id="v_3" time="124.00" reason="1"/>
         </driveWay>
     </link>
 </railSignal>
@@ -17,14 +17,14 @@
         <driveWay id="J1.0">
             <entry id="v_0" time="35.00" reason="1"/>
             <exit id="v_0" time="57.00" reason="1"/>
-            <entry id="v_2" time="90.00" reason="1"/>
+            <entry id="v_2" time="91.00" reason="1"/>
             <exit id="v_2" time="152.00" reason="1"/>
         </driveWay>
         <driveWay id="J1.1">
-            <entry id="v_1" time="59.00" reason="1"/>
-            <exit id="v_1" time="82.00" reason="1"/>
-            <entry id="v_3" time="124.00" reason="1"/>
-            <exit id="v_3" time="177.00" reason="1"/>
+            <entry id="v_1" time="63.00" reason="1"/>
+            <exit id="v_1" time="85.00" reason="1"/>
+            <entry id="v_3" time="119.00" reason="1"/>
+            <exit id="v_3" time="180.00" reason="1"/>
         </driveWay>
     </link>
 </railSignal>
@@ -41,22 +41,22 @@
 <railSignal id="J5">
     <link linkIndex="0" from="E4_0" to=":J5_0_0">
         <driveWay id="J5.0">
-            <entry id="v_1" time="78.00" reason="1"/>
-            <exit id="v_1" time="157.00" reason="9"/>
-            <entry id="v_3" time="160.00" reason="1"/>
-            <exit id="v_3" time="264.00" reason="9"/>
+            <entry id="v_1" time="81.00" reason="1"/>
+            <exit id="v_1" time="160.00" reason="9"/>
+            <entry id="v_3" time="163.00" reason="1"/>
+            <exit id="v_3" time="267.00" reason="9"/>
         </driveWay>
     </link>
 </railSignal>
 <departJunction id="J7">
     <driveWay id="J7.d0">
         <entry id="v_0" time="0.00" reason="0"/>
-        <entry id="v_1" time="21.00" reason="0"/>
         <exit id="v_0" time="28.00" reason="1"/>
-        <entry id="v_2" time="43.00" reason="0"/>
-        <exit id="v_1" time="52.00" reason="1"/>
-        <entry id="v_3" time="69.00" reason="0"/>
-        <exit id="v_2" time="82.00" reason="1"/>
-        <exit id="v_3" time="116.00" reason="1"/>
+        <entry id="v_1" time="28.00" reason="0"/>
+        <exit id="v_1" time="56.00" reason="1"/>
+        <entry id="v_2" time="56.00" reason="0"/>
+        <exit id="v_2" time="84.00" reason="1"/>
+        <entry id="v_3" time="84.00" reason="0"/>
+        <exit id="v_3" time="112.00" reason="1"/>
     </driveWay>
 </departJunction>

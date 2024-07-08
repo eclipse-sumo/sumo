@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 13 09:46:40 2019 by Eclipse SUMO Version v1_4_0+0075-5616062
+<!-- generated on 2024-07-05 13:48:57 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -34,4 +40,24 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railsignal-block-output>
+    <departJunction id="gneJ0">
+        <driveWay id="gneJ0.d0" edges="a b e">
+            <forward lanes="a_0 :gneJ1_1_0 b_0 :gneJ2_0_0 e_0"/>
+            <bidi lanes=""/>
+            <flank lanes=":gneJ1_0_0 d_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="gneJ0.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="gneJ4">
+        <driveWay id="gneJ4.d1" edges="d b c">
+            <forward lanes="d_0 :gneJ1_0_0 b_0 :gneJ2_1_0 c_0"/>
+            <bidi lanes=""/>
+            <flank lanes=":gneJ1_1_0 a_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="gneJ4.d1"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

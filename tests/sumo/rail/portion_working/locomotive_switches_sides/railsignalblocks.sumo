@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 13 09:46:40 2019 by Eclipse SUMO Version v1_4_0+0075-5616062
+<!-- generated on 2024-07-05 14:48:24 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
@@ -34,4 +39,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railsignal-block-output>
+    <departJunction id="J1">
+        <driveWay id="J1.d0" edges="E0 E1 E2">
+            <forward lanes="E0_0 :J2_3_0 E1_0 :J3_2_0 E2_0"/>
+            <bidi lanes="-E0_0 :J2_1_0 -E1_0 :J3_1_0 -E2_0"/>
+            <flank lanes=":J2_0_0 -E3_0 :J5_0_0 -E4_0 :J6_0_0 -E5_0 :J3_0_0 :J3_4_0 E5_0 :J6_1_0 E4_0 :J5_1_0 E3_0 :J2_4_0"/>
+            <protectingSwitches links="J3_0"/>
+            <conflictLinks signals=""/>
+            <foes driveWays="J1.d0"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>

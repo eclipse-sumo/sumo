@@ -1,0 +1,29 @@
+<railSignal id="B">
+    <link linkIndex="0" from="-b_0" to=":B_0_0">
+        <driveWay id="B.0">
+            <entry id="t0" time="36.00" reason="1"/>
+            <exit id="t0" time="80.00" reason="5"/>
+        </driveWay>
+    </link>
+    <link linkIndex="1" from="a_0" to=":B_1_0">
+        <driveWay id="B.1"/>
+    </link>
+</railSignal>
+<railSignal id="C">
+    <link linkIndex="0" from="-c_0" to=":C_0_0">
+        <driveWay id="C.0"/>
+    </link>
+    <link linkIndex="1" from="b_0" to=":C_1_0"/>
+</railSignal>
+<departJunction id="C">
+    <driveWay id="C.d1"/>
+</departJunction>
+<departJunction id="A">
+    <driveWay id="A.d2"/>
+</departJunction>
+<departJunction id="B">
+    <driveWay id="B.d0">
+        <entry id="t0" time="0.00" reason="0"/>
+        <exit id="t0" time="18.00" reason="5"/>
+    </driveWay>
+</departJunction>

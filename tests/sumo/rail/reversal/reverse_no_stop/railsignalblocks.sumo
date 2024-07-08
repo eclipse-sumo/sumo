@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 08:43:55 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on 2024-07-05 13:48:57 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -38,4 +43,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railsignal-block-output>
+    <departJunction id="0">
+        <driveWay id="0.d0" edges="beg f h branch">
+            <forward lanes="beg_0 :1_0_0 f_0 :10_1_0 h_0 :11_0_0 branch_0"/>
+            <bidi lanes="-h_0 -branch_0"/>
+            <flank lanes=":11_1_0 -branch_0"/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="0.d0"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>
