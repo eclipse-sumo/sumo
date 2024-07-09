@@ -103,8 +103,8 @@ GUIBusStop::initShape(PositionVector& fgShape,
 
 
 bool
-GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors) {
-    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, doors);
+GUIBusStop::addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit) {
+    const bool added = MSStoppingPlace::addAccess(lane, startPos, endPos, length, exit);
     if (added) {
         myAccessCoords.push_back(lane->geometryPositionAtOffset((startPos + endPos) / 2.));
     }

@@ -182,7 +182,7 @@ GNEAdditionalHandler::buildAccess(const CommonXMLStructure::SumoBaseObject* sumo
         if (GNEAttributeCarrier::canParse<double>(pos)) {
             posDouble = GNEAttributeCarrier::parse<double>(pos);
             validPos = checkLanePosition(posDouble, 0, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos);
-        } else if (pos == "random" || pos == "doors") {
+        } else if (pos == "random" || pos == "doors" || pos == "carriage") {
             posDouble = INVALID_DOUBLE;
         } else if (pos.empty()) {
             posDouble = 0;

@@ -496,14 +496,14 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
         }
         const MSStoppingPlace* const stop = getDestinationStop();
         if (stop != nullptr) {
-            bool useDoors = false;
+            MSStoppingPlace::AccessExit exit = MSStoppingPlace::AccessExit::PLATFORM;
             for (const auto& access : stop->getAllAccessPos()) {
-                if (access.useDoors) {
-                    useDoors = true;
+                if (access.exit != exit) {
+                    exit = access.exit;
                     break;
                 }
             }
-            if (useDoors) {
+            if (exit != MSStoppingPlace::AccessExit::PLATFORM) {
                 MSVehicle* train = dynamic_cast<MSVehicle*>(myVehicle);
                 if (train != nullptr) {
                     MSTrainHelper trainHelper = MSTrainHelper(train);

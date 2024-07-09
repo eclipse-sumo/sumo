@@ -506,6 +506,7 @@
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="random"/>
                     <xsd:enumeration value="doors"/>
+                    <xsd:enumeration value="carriage"/>
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:union>

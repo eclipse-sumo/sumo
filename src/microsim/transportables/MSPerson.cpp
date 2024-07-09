@@ -169,14 +169,22 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                                                     lane->geometryPositionAtOffset(access->endPos),
                                                     prevStop->getLane().geometryPositionAtOffset(arrivalAtBs));
             } else {
-                const OptionsCont& oc = OptionsCont::getOptions();
-                const std::string model = oc.getString("pedestrian.model");
-                if (model != "jupedsim") {
+                const bool useDoors = access->exit == MSStoppingPlace::AccessExit::DOORS ||
+                                      (OptionsCont::getOptions().getString("pedestrian.model") != "jupedsim" && access->exit == MSStoppingPlace::AccessExit::CARRIAGE);
+                if (access->exit == MSStoppingPlace::AccessExit::CARRIAGE) {
+                    const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
+                    const double startPosLat = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePosLat(0) : prior->getArrivalPosLat();
+                    // The start and end attributes of the access stage are equal in this case, but we need to compute the arrival position relatively
+                    // to the current lane and not the lane of the previous stage.
+                    const Position start = prevStop->getLane().geometryPositionAtOffset(startPos, startPosLat);
+                    const Position end = lane->getShape().transformToVectorCoordinates(start);
+                    newStage = new MSPersonStage_Access(accessEdge, prevStop, end.x(), -end.y(), access->length, true, start, start);
+                } else {
                     const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
                     const Position& trainExit = prevStop->getLane().geometryPositionAtOffset(startPos);
-                    const double arrivalPos = access->useDoors ? lane->getShape().nearest_offset_to_point2D(trainExit) : access->endPos;
+                    const double arrivalPos = useDoors ? lane->getShape().nearest_offset_to_point2D(trainExit) : access->endPos;
                     Position platformEntry = lane->geometryPositionAtOffset(arrivalPos);
-                    if (access->useDoors) {
+                    if (useDoors) {
                         // find the closer side of the platform to enter
                         const double halfWidth = lane->getWidth() / 2. - MAX2(getVehicleType().getLength(), getVehicleType().getWidth()) / 2. - POSITION_EPS;
                         platformEntry = lane->geometryPositionAtOffset(arrivalPos, halfWidth);
@@ -187,14 +195,6 @@ MSPerson::checkAccess(const MSStage* const prior, const bool waitAtStop) {
                     }
                     newStage = new MSPersonStage_Access(accessEdge, prevStop, arrivalPos, 0.0, access->length, true,
                                                         trainExit, platformEntry);
-                } else {
-                    const double startPos = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePos(0) : prior->getArrivalPos();
-                    const double startPosLat = prior->getStageType() == MSStageType::TRIP ? prior->getEdgePosLat(0) : prior->getArrivalPosLat();
-                    // The start and end attributes of the access stage are equal in this case, but we need to compute the arrival position relatively
-                    // to the current lane and not the lane of the previous stage.
-                    const Position start = prevStop->getLane().geometryPositionAtOffset(startPos, startPosLat);
-                    const Position end = lane->getShape().transformToVectorCoordinates(start);
-                    newStage = new MSPersonStage_Access(accessEdge, prevStop, end.x(), -end.y(), access->length, true, start, start);
                 }
             }
             myStep = myPlan->insert(myStep, newStage);

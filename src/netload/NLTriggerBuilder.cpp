@@ -536,17 +536,23 @@ NLTriggerBuilder::addAccess(MSNet& /* net */, const SUMOSAXAttributes& attrs) {
     }
     // get the positions
     bool ok = true;
-    const bool random = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, "access", ok) == "random";
-    const bool useDoors = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, "access", ok) == "doors";
-    double startPos = random || useDoors ? 0. : attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
-    double endPos = random || useDoors ? lane->getLength() : startPos;
+    const std::string accessPos = attrs.getOpt<std::string>(SUMO_ATTR_POSITION, "access", ok);
+    const bool random = accessPos == "random";
+    MSStoppingPlace::AccessExit exit = MSStoppingPlace::AccessExit::PLATFORM;
+    if (accessPos == "doors") {
+        exit = MSStoppingPlace::AccessExit::DOORS;
+    } else if (accessPos == "carriage") {
+        exit = MSStoppingPlace::AccessExit::CARRIAGE;
+    }
+    double startPos = random || exit != MSStoppingPlace::AccessExit::PLATFORM ? 0. : attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0);
+    double endPos = random || exit != MSStoppingPlace::AccessExit::PLATFORM ? lane->getLength() : startPos;
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
     if (!ok || (myHandler->checkStopPos(startPos, endPos, lane->getLength(), 0, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position " + attrs.getString(SUMO_ATTR_POSITION) + " for access on lane '" + lane->getID() + "' in stop '" + myCurrentStop->getID() + "'.");
     }
     // add bus stop access
-    if (!myCurrentStop->addAccess(lane, startPos, endPos, length, useDoors)) {
+    if (!myCurrentStop->addAccess(lane, startPos, endPos, length, exit)) {
         throw InvalidArgument("Duplicate access on lane '" + lane->getID() + "' for stop '" + myCurrentStop->getID() + "'");
     }
 }

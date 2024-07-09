@@ -338,7 +338,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
             }
         }
         case SUMO_ATTR_POSITION:
-            if (value.empty() || value == "random" || value == "doors") {
+            if (value.empty() || value == "random" || value == "doors" || value == "carriage") {
                 return true;
             } else {
                 return canParse<double>(value);
@@ -388,7 +388,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             if (value.empty()) {
                 myPositionOverLane = 0;
-            } else if (value == "random" || value == "doors") {
+            } else if (value == "random" || value == "doors" || value == "carriage") {
                 myPositionOverLane = INVALID_DOUBLE;
                 mySpecialPosition = value;
             } else {

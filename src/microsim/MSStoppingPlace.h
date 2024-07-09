@@ -58,12 +58,18 @@ class Position;
  */
 class MSStoppingPlace : public Named, public Parameterised {
 public:
+    enum class AccessExit {
+        PLATFORM,
+        DOORS,
+        CARRIAGE
+    };
+
     struct Access {
         MSLane* const lane;
         const double startPos;
         const double endPos;
         const double length;
-        const bool useDoors;
+        const AccessExit exit;
     };
 
     /** @brief Constructor
@@ -199,7 +205,7 @@ public:
     void removeTransportable(const MSTransportable* p);
 
     /// @brief adds an access point to this stop
-    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const bool doors);
+    virtual bool addAccess(MSLane* const lane, const double startPos, const double endPos, double length, const MSStoppingPlace::AccessExit exit);
 
     /// @brief lanes and positions connected to this stop
     const std::vector<Access>& getAllAccessPos() const {
