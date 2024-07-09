@@ -62,8 +62,8 @@ def getOptions(args=None):
     argParser.add_argument("-s", "--seed", category="processing", type=int, default=42, help="random seed")
     argParser.add_argument("--vclass", category="processing", default="passenger",
                            help="only use edges which permit the given vehicle class")
-    argParser.add_argument("--include-existing", dest="includeExisting", action="store_false",
-                           default=True,
+    argParser.add_argument("--include-existing", dest="includeExisting", action="store_true",
+                           default=False,
                            help="If set, loaded charging stations from input files will contribute to the density")
     argParser.add_argument("--only-roadside", dest="onlyRoadside", action="store_true",
                            default=False, help="Only use roadside parking for charging points")
