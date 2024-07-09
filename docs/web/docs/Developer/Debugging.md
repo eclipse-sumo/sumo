@@ -91,6 +91,7 @@ corresponding macro is activated).
 
 ## Debugging external libraries
 
-Debugging symbols (`.pdb` files) are available for some of the external libraries included in [SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries). To use them in Visual Studio, simply add the path to SUMOLibraries to the "Symbol file locations" in the Options. Do so by going to *Tools* > *Options...* > *Debugging* > *Symbols* and adding your SUMOLibraries path as a new location (see image below).
+Debugging symbols (`.pdb` files) are available **for some** of the external libraries included in [SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries). To use them in Visual Studio, simply add the path of the desired symbol to the "Symbol file locations" in the Options menu. Do so by going to *Tools* > *Options...* > *Debugging* > *Symbols* and adding the path to the `.pdb` file of the desired external library as a new location (see the example image below). The `.pdb` files are usually located in the **lib** or **bin** directory, for each library.
 
-![](../images/ExternalDebuggingSymbols.png)
+![](../images/ExternalDebuggingSymbols.png)<br>
+*Example: Adding the FOX debugging symbol*
