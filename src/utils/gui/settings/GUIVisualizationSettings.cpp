@@ -666,6 +666,20 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 }
 
 
+bool
+GUIVisualizationSettings::checkDrawAdditional(const GUIVisualizationSettings& s, const Detail d, const bool selected) {
+    if (s.drawForViewObjectsHandler) {
+        return true;
+    } else if (s.addSize.constantSize) {
+        return true;
+    } else if (s.addSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
 void
 GUIVisualizationSettings::copy(const GUIVisualizationSettings& s) {
     // just copy. Note: By default = operator is disabled to avoid accidental copies)

@@ -611,6 +611,9 @@ public:
     /// @brief constructor
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
+    /// @brief check if draw additionals
+    static bool checkDrawAdditional(const GUIVisualizationSettings& s, Detail d, const bool selected);
+
     /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
     void copy(const GUIVisualizationSettings& s);
 
