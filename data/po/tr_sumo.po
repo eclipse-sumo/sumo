@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-07-05 13:11+0200\n"
+"POT-Creation-Date: 2024-07-09 16:25+0200\n"
 "PO-Revision-Date: 2023-09-28 14:35+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -951,7 +951,7 @@ msgstr "Yanal konum %'de şerit '%' üzerindeki konum belirlenemedi."
 msgid "Simulation version % started via libsumo with time: %."
 msgstr "Simülasyon Versiyonu % libsumo Kanalıyla % Sürede Başlatıldı."
 
-#: src/libsumo/Simulation.cpp:700
+#: src/libsumo/Simulation.cpp:702
 msgid ""
 "Ignoring vehicle type '%' when performing intermodal routing because it is "
 "not allowed on the start edge '%'."
@@ -1417,8 +1417,108 @@ msgstr "Araç '%' verilen hız ile varamayacaktır!"
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "Rota kesimleri % olan '%' aracı için kalkışKesimi % yok sayılıyor"
 
-#: src/microsim/MSBaseVehicle.cpp:2277
-msgid "Could not interpret routing.mode '%'"
+#: src/microsim/MSBaseVehicle.cpp:1557
+msgid "Invalid stop index % (has % stops)."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1637 src/microsim/MSBaseVehicle.cpp:1760
+#: src/microsim/MSBaseVehicle.cpp:1869
+msgid "invalid nextStopIndex % for % remaining stops"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1641
+msgid "cannot replace reached stop"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1656
+msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1669 src/microsim/MSBaseVehicle.cpp:1881
+msgid "disallowed stop lane '%'"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1688 src/microsim/MSBaseVehicle.cpp:1782
+#: src/microsim/MSBaseVehicle.cpp:1909
+msgid "no route found from edge '%' to stop edge '%'"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1697 src/microsim/MSBaseVehicle.cpp:1918
+msgid "no route found from stop edge '%' to edge '%'"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1709 src/microsim/MSBaseVehicle.cpp:1932
+msgid ""
+"Mesoscopic simulation does not allow stopping on internal edge '%' for "
+"vehicle '%'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1764
+msgid "cannot reroute towards reached stop"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1845
+msgid "unable to replace stop with teleporting"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1873
+msgid "cannot insert stop before the currently reached stop"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:1889
+msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2186
+#, c-format
+msgid "creating device of type '%' is not supported"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2199 src/microsim/MSBaseVehicle.cpp:2211
+#, c-format
+msgid "no device of type '%' exists"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2222
+msgid "Vehicle '%' does not support junctionModel parameter '%'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2268
+msgid "could not interpret routing.mode '%'"
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2351
+msgid "Invalid device parameter '%' for vehicle '%'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2357
+msgid "Vehicle '%' does not support device parameter '%' (%)."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2362
+#, c-format
+msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2369
+msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2374
+#, c-format
+msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2381
+msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2387
+msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
+msgstr ""
+
+#: src/microsim/MSBaseVehicle.cpp:2414
+msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
 #: src/microsim/MSBaseVehicle.h:956
@@ -4733,12 +4833,12 @@ msgstr ""
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr "Araç '%', durağa girmeden '%' kenarında durmayı bitirir, zaman=%."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:141
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:142
 #, c-format
 msgid "Traffic light '%' does not control any links"
 msgstr "Trafik ışığı '%' herhangi bir bağlantıyı kontrol etmez"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:230
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:231
 msgid ""
 "Unknown inductionLoop '%' given as custom detector for actuated tlLogic '%', "
 "program '%."
@@ -4746,24 +4846,24 @@ msgstr ""
 "Çalıştırılan tlLogic '%' için özel dedektör olarak verilen bilinmeyen "
 "indüksiyonDöngüsü '%', program '%."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:243
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:244
 msgid ""
 "At actuated tlLogic '%', minDur % is too short for a detector gap of %m."
 msgstr ""
 "Çalıştırılan tlLogic '%'de, minDur %, %m'lik bir dedektör boşluğu için çok "
 "kısa."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:411
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:412
 msgid "At actuated tlLogic '%', actuated phase % has no controlling detector."
 msgstr ""
 "Uyarımlı tlLogic '%' Değerinde, Uyarımlı % Fazın Kontrol Dedektörü Yok."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:454
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:455
 msgid "At actuated tlLogic '%', linkIndex % has no controlling detector."
 msgstr ""
 "Uyarımlı tlLogic '%' Değerinde, linkIndex % Değerinin Kontrol Dedektörü Yok."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:461
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:462
 msgid ""
 "Invalid link '%' given as linkMaxDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -4771,7 +4871,7 @@ msgstr ""
 "Harekete geçirilen tlLogic '%', program '%' için linkMaxDur parametresi "
 "olarak verilen geçersiz bağlantı '%'."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:471
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:472
 msgid ""
 "Invalid link '%' given as linkMinDur parameter for actuated tlLogic '%', "
 "program '%."
@@ -4779,7 +4879,7 @@ msgstr ""
 "Harekete geçirilen tlLogic '%', program '%' için linkMinDur parametresi "
 "olarak verilen geçersiz bağlantı '%'."
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:948
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:949
 msgid ""
 "At actuated tlLogic '%', transition phase % should not have multiple next "
 "phases"
@@ -4787,32 +4887,32 @@ msgstr ""
 "Çalıştırılan tlLogic '%'de, geçiş fazı %'nin birden fazla sonraki fazı "
 "olmamalıdır"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1106
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1114
 msgid "Unmatched parentheses in condition %'"
 msgstr "'% koşulunda eşleşmeyen parantezler"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1121
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1129
 msgid "Invalid empty condition '%'"
 msgstr "Geçersiz boş koşul '%'"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1136
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1144
 msgid "Unsupported condition '%'"
 msgstr "Desteklenmeyen koşul '%'"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1199
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1207
 msgid "Division by 0 in condition '%'"
 msgstr "'%' koşulunda 0'a bölme"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1250
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1258
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
 msgstr "'%' global koşulunun değiştirilmesi yasaktır"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1262
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1270
 msgid "Invalid empty expression"
 msgstr "Geçersiz boş ifade"
 
-#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1358
+#: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1366
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
 msgstr "tlLogic '%' (%) için '%' koşulları alınırken hata oluştu"
 
@@ -5308,11 +5408,11 @@ msgid ""
 "%."
 msgstr ""
 
-#: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:541
+#: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:550
 msgid "Invalid value '%' for vehicle parameter '%'"
 msgstr "'%' araç parametresi için geçersiz '%' değeri"
 
-#: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:549
+#: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:558
 msgid "Invalid value '%' for vType parameter '%'"
 msgstr "vTür parametresi '%' için geçersiz '%' değeri"
 
@@ -10464,8 +10564,7 @@ msgstr ""
 
 #: src/polyconvert/PCLoaderOSM.cpp:208
 msgid ""
-"Could not import polygon from relation '%' (name:% reason: found gap of %m)\n"
-"."
+"Could not import polygon from relation '%' (name:% reason: found gap of %m)."
 msgstr ""
 
 #: src/polyconvert/PCLoaderOSM.cpp:231
@@ -11582,6 +11681,18 @@ msgstr "Bilinmeyen Eleman"
 msgid "Invalid format of distribution parameterized"
 msgstr "Geçersiz Dağıtım Biçimi Parametreleştirildi"
 
+#: src/utils/distribution/Distribution_Parameterized.cpp:170
+msgid "minimum value % larger than maximum %"
+msgstr ""
+
+#: src/utils/distribution/Distribution_Parameterized.cpp:173
+msgid "minimum value % too large for distribution with mean % and deviation %"
+msgstr ""
+
+#: src/utils/distribution/Distribution_Parameterized.cpp:176
+msgid "maximum value % too small for distribution with mean % and deviation %"
+msgstr ""
+
 #: src/utils/emissions/EnergyParams.cpp:64
 #, c-format
 msgid ""
@@ -11740,8 +11851,8 @@ msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:1021
 msgid ""
-"A single lane area detector requires two parameters of those 'pos', "
-"'endPos' and 'length'."
+"A single lane area detector requires two parameters of those 'pos', 'endPos' "
+"and 'length'."
 msgstr ""
 
 #: src/utils/handlers/AdditionalHandler.cpp:1309
@@ -12384,15 +12495,15 @@ msgstr "dur% için geçersiz 'dizin'."
 msgid "Missing parameter '%' for % '%'."
 msgstr ""
 
-#: src/utils/vehicle/SUMOTrafficObject.cpp:64
-msgid "Invalid distribution / float value '%' for parameter '%' in % '%'."
+#: src/utils/vehicle/SUMOTrafficObject.cpp:69
+msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
 msgstr ""
 
-#: src/utils/vehicle/SUMOTrafficObject.cpp:77
+#: src/utils/vehicle/SUMOTrafficObject.cpp:82
 msgid "Invalid boolean value '%' for parameter '%' in % '%'."
 msgstr ""
 
-#: src/utils/vehicle/SUMOTrafficObject.cpp:90
+#: src/utils/vehicle/SUMOTrafficObject.cpp:95
 msgid "Invalid time value '%' for parameter '%' in % '%'."
 msgstr ""
 
