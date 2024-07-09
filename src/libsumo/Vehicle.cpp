@@ -487,32 +487,32 @@ Vehicle::getNextTLS(const std::string& vehID) {
     std::vector<TraCINextTLSData> result;
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (!vehicle->isOnRoad()) {
-        return result;
-    }
     if (veh != nullptr) {
-        const MSLane* lane = veh->getLane();
-        const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
-        double seen = lane->getLength() - veh->getPositionOnLane();
         int view = 1;
-        std::vector<MSLink*>::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
-        while (!lane->isLinkEnd(linkIt)) {
-            if (!lane->getEdge().isInternal()) {
-                if ((*linkIt)->isTLSControlled()) {
-                    TraCINextTLSData ntd;
-                    ntd.id = (*linkIt)->getTLLogic()->getID();
-                    ntd.tlIndex = (*linkIt)->getTLIndex();
-                    ntd.dist = seen;
-                    ntd.state = (char)(*linkIt)->getState();
-                    result.push_back(ntd);
+        double seen = veh->getEdge()->getLength() - veh->getPositionOnLane();
+        if (vehicle->isOnRoad()) {
+            const MSLane* lane = veh->getLane();
+            const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
+            seen = lane->getLength() - veh->getPositionOnLane();
+            std::vector<MSLink*>::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+            while (!lane->isLinkEnd(linkIt)) {
+                if (!lane->getEdge().isInternal()) {
+                    if ((*linkIt)->isTLSControlled()) {
+                        TraCINextTLSData ntd;
+                        ntd.id = (*linkIt)->getTLLogic()->getID();
+                        ntd.tlIndex = (*linkIt)->getTLIndex();
+                        ntd.dist = seen;
+                        ntd.state = (char)(*linkIt)->getState();
+                        result.push_back(ntd);
+                    }
                 }
+                lane = (*linkIt)->getViaLaneOrLane();
+                if (!lane->getEdge().isInternal()) {
+                    view++;
+                }
+                seen += lane->getLength();
+                linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
             }
-            lane = (*linkIt)->getViaLaneOrLane();
-            if (!lane->getEdge().isInternal()) {
-                view++;
-            }
-            seen += lane->getLength();
-            linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
         }
         // consider edges beyond bestLanes
         const int remainingEdges = (int)(veh->getRoute().end() - veh->getCurrentRouteEdge()) - view;
