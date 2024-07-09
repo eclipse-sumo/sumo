@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-05 12:30+0000\n"
+"PO-Revision-Date: 2024-07-09 14:06+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -2578,7 +2578,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Load pre-selected elements from FILE"
-msgstr ""
+msgstr "Cargar elementos preseleccionados desde FILE"
 
 #: src/microsim/MSFrame.cpp:776 src/microsim/MSFrame.cpp:767
 msgid "Restart the simulation after ending (demo mode)"
@@ -3924,12 +3924,17 @@ msgid ""
 "Override safety features - ignore the current light state, always follow "
 "GLOSA's predicted state"
 msgstr ""
+"Anular funciones de seguridad - ignorar el estado actual de la luz, seguir "
+"siempre el estado predicho por GLOSA"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:65
 msgid ""
 "Vehicles follow a perfect speed calculation - ignore speed calculations from "
 "the CF model if not safety critical"
 msgstr ""
+"Los vehículos siguen un cálculo de velocidad perfecto - ignorar los cálculos "
+"de velocidad del modelo de seguimiento vehicular si no son críticos para la "
+"seguridad"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:197
 #: src/microsim/devices/MSDevice_GLOSA.cpp:177
@@ -4420,7 +4425,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:120
 msgid "Invalid device.stationfinder.rescueAction '%'."
-msgstr ""
+msgstr "Acción no válida de device.stationfinder.rescueAction '%'."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:134
 #: src/microsim/devices/MSDevice_StationFinder.cpp:117
@@ -4447,6 +4452,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_StationFinder.cpp:363
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr ""
+"Problema con la inserción de la parada de estación de carga para el vehículo "
+"%."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:373
 #: src/microsim/devices/MSDevice_StationFinder.cpp:383
@@ -4532,7 +4539,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:513
 msgid "Could not add taxi stop, time=%, error=%"
-msgstr ""
+msgstr "No se pudo agregar la parada de taxi, tiempo=%, error=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:725
 #: src/microsim/devices/MSDevice_Taxi.cpp:721
@@ -4848,21 +4855,29 @@ msgstr ""
 msgid ""
 "Vehicle '%' loads persons on edge '%', time=% without starting the stop."
 msgstr ""
+"El vehículo '%' carga personas en la arista '%', tiempo=% sin iniciar la "
+"parada."
 
 #: src/microsim/output/MSStopOut.cpp:91
 msgid ""
 "Vehicle '%' unloads persons on edge '%', time=% without starting the stop."
 msgstr ""
+"El vehículo '%' descarga personas en la arista '%', tiempo=% sin iniciar la "
+"parada."
 
 #: src/microsim/output/MSStopOut.cpp:103
 msgid ""
 "Vehicle '%' loads container on edge '%', time=% without starting the stop."
 msgstr ""
+"El vehículo '%' carga un contenedor en la arista '%', tiempo=% sin iniciar "
+"la parada."
 
 #: src/microsim/output/MSStopOut.cpp:114
 msgid ""
 "Vehicle '%' unloads container on edge '%', time=% without starting the stop."
 msgstr ""
+"El vehículo '%' descarga un contenedor en la arista '%', tiempo=% sin "
+"iniciar la parada."
 
 #: src/microsim/output/MSStopOut.cpp:125 src/microsim/output/MSStopOut.cpp:105
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
@@ -5421,7 +5436,7 @@ msgstr "El atributo % para la estación de carga con ID='%' no es válido (%)."
 
 #: src/microsim/trigger/MSChargingStation.cpp:70
 msgid "ChargingStation with ID='%' doesn't have a valid position (% < %)."
-msgstr ""
+msgstr "La estación de carga con ID='%' no tiene una posición válida (% < %)."
 
 #: src/microsim/trigger/MSLaneSpeedTrigger.cpp:166
 msgid "Invalid or unsorted time entry in vss '%'."
@@ -5467,17 +5482,23 @@ msgid ""
 "Stopping place '%' along the way cannot be used by vehicle '%' for unknown "
 "reason"
 msgstr ""
+"El lugar de parada '%' a lo largo del camino no puede ser utilizado por el "
+"vehículo '%' por motivos desconocidos"
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:445
 msgid ""
 "Invalid distance computation for vehicle '%' to stopping place '%' at time=%."
 msgstr ""
+"Cálculo de distancia no válido para el vehículo '%' hacia el lugar de parada "
+"'%' en el tiempo =%."
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:471
 msgid ""
 "Invalid distance computation for vehicle '%' from stopping place '%' at "
 "time=%."
 msgstr ""
+"Cálculo de distancia no válido para el vehículo '%' desde el lugar de parada "
+"'%' en el tiempo =%."
 
 #: src/microsim/trigger/MSStoppingPlaceRerouter.cpp:541
 #: src/microsim/trigger/MSTriggeredRerouter.cpp:697
@@ -11834,12 +11855,16 @@ msgid ""
 "'pos', 'endPos' and 'length' cannot be defined together in a single lane "
 "area detector."
 msgstr ""
+"'pos', 'endPos' y 'length' no se pueden definir juntos en un solo detector "
+"de área de carril."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1021
 msgid ""
 "A single lane area detector requires two parameters of those 'pos', "
 "'endPos' and 'length'."
 msgstr ""
+"Un detector de área de carril requiere dos de los siguientes parámetros: "
+"'pos', 'endPos' y 'length'."
 
 #: src/utils/handlers/AdditionalHandler.cpp:1309
 #: src/utils/handlers/AdditionalHandler.cpp:1300
