@@ -13,6 +13,7 @@
 # @file    miscutils.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
+# @author  Mirko Barthauer
 # @date    2012-05-08
 
 from __future__ import absolute_import
@@ -218,12 +219,10 @@ def getConfigSettings(file, rootNode='sumoConfiguration'):
     root = parse(file)
     ret = {}
     for childEl in root:
-        print("check element %s" % childEl.name)
         value1 = childEl.getAttributeSecure('value')
         if value1 is not None:
             ret[childEl.name] = value1
         for secondChildEl in childEl.getChildList():
-            print("\tcheck element %s" % secondChildEl.name)
             value2 = secondChildEl.getAttributeSecure('value')
             if value2 is not None:
                 ret[secondChildEl.name] = value2
