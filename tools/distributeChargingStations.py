@@ -249,10 +249,10 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
 
 
 def determineParkingCapacity(parkingArea):
-    roadSide = int(parkingArea.roadsideCapacity)
+    roadSide = int(parkingArea.getAttributeSecure("roadsideCapacity", 0))
     spaces = 0
     if parkingArea.hasChild("space"):
-        spaces += len(parkingArea.space)
+        spaces += len(parkingArea.getChild("space"))
     return (roadSide, spaces)
 
 
