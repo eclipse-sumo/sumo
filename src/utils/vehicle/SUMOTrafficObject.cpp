@@ -58,10 +58,15 @@ double
 SUMOTrafficObject::getFloatParam(const std::string& paramName, const bool required, const double deflt) const {
     const std::string val = getStringParam(paramName, required, toString(deflt));
     try {
-        return Distribution_Parameterized(val).sample();
-    } catch (const ProcessError&) {
+        Distribution_Parameterized dist(val);
+        const std::string& error = dist.isValid();
+        if (error != "") {
+            throw ProcessError(error);
+        }
+        return dist.sample();
+    } catch (const ProcessError& e) {
         const std::string type = isVehicle() ? "vehicle" : (isPerson() ? "person" : "container");
-        WRITE_ERRORF(TL("Invalid distribution / float value '%' for parameter '%' in % '%'."), val, paramName, type, getID());
+        WRITE_ERRORF(TL("Invalid distribution / float value '%' for parameter '%' in % '%' (%)."), val, paramName, type, getID(), e.what());
         return deflt;
     }
 }

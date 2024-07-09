@@ -77,7 +77,7 @@ public:
     const std::vector<double>& getParameter() const;
 
     /// @brief check whether the distribution is valid
-    bool isValid(std::string& error);
+    const std::string isValid() const;
 
     /// @brief Returns the string representation of this distribution
     std::string toStr(std::streamsize accuracy) const;

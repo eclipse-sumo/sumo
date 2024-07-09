@@ -827,8 +827,8 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
             }
         }
         // validate speed distribution
-        std::string error;
-        if (!vType->speedFactor.isValid(error)) {
+        const std::string& error = vType->speedFactor.isValid();
+        if (error != "") {
             return handleVehicleTypeError(hardFail, vType, "Invalid speed distribution when parsing vType '" + vType->id + "' (" + error + ")");
         }
         if (attrs.hasAttribute(SUMO_ATTR_ACTIONSTEPLENGTH)) {
