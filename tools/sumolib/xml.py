@@ -35,7 +35,7 @@ from keyword import iskeyword
 from functools import reduce
 import xml.sax.saxutils
 
-from . import version
+from . import version, miscutils
 
 DEFAULT_ATTR_CONVERSIONS = {
     # shape-like
@@ -266,6 +266,12 @@ def _handle_namespace(tag, ignoreXmlns):
     return tag
 
 
+def _check_file_like(xmlfile):
+    if not hasattr(xmlfile, "read"):
+        return miscutils.openz(xmlfile), True
+    return xmlfile, False
+
+
 def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None,
           heterogeneous=True, warn=False, ignoreXmlns=False):
     """
@@ -299,14 +305,19 @@ def parse(xmlfile, element_names=None, element_attrs=None, attr_conversions=None
         attr_conversions = {}
     element_types = {}
     kwargs = {'parser': ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))} if supports_comments() else {}
-    for _, parsenode in ET.iterparse(_open(xmlfile, None), **kwargs):
-        tag = _handle_namespace(parsenode.tag, ignoreXmlns)
-        if element_names is None or tag in element_names:
-            yield _get_compound_object(parsenode, element_types,
-                                       tag, element_attrs,
-                                       attr_conversions, heterogeneous, warn,
-                                       ignoreXmlns)
-            parsenode.clear()
+    xmlfile, close_source = _check_file_like(xmlfile)
+    try:
+        for _, parsenode in ET.iterparse(xmlfile, **kwargs):
+            tag = _handle_namespace(parsenode.tag, ignoreXmlns)
+            if element_names is None or tag in element_names:
+                yield _get_compound_object(parsenode, element_types,
+                                           tag, element_attrs,
+                                           attr_conversions, heterogeneous, warn,
+                                           ignoreXmlns)
+                parsenode.clear()
+    finally:
+        if close_source:
+            xmlfile.close()
 
 
 def _IDENTITY(x):
@@ -420,14 +431,18 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    with _open(xmlfile, encoding) as xml_in:
-        for line in _comment_filter(xml_in):
+    xmlfile, close_source = _check_file_like(xmlfile)
+    try:
+        for line in _comment_filter(xmlfile):
             m = reprog.search(line)
             if m:
                 if optional:
                     yield Record(**m.groupdict())
                 else:
                     yield Record(*m.groups())
+    finally:
+        if close_source:
+            xmlfile.close()
 
 
 def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
@@ -445,8 +460,9 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    with _open(xmlfile, encoding) as xml_in:
-        for line in _comment_filter(xml_in):
+    xmlfile, close_source = _check_file_like(xmlfile)
+    try:
+        for line in _comment_filter(xmlfile):
             m2 = reprog2.search(line)
             if record and m2:
                 if optional:
@@ -462,6 +478,9 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                         record = Record(*m.groups())
                 elif element_name in line:
                     record = None
+    finally:
+        if close_source:
+            xmlfile.close()
 
 
 def parse_fast_structured(xmlfile, element_name, attrnames, nested,
@@ -482,8 +501,9 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
     re2 = [(elem,) + _createRecordAndPattern(elem, attr, warn, optional) for elem, attr in nested.items()]
     finalizer = "</%s>" % element_name
     record = None
-    with _open(xmlfile, encoding) as xml_in:
-        for line in _comment_filter(xml_in):
+    xmlfile, close_source = _check_file_like(xmlfile)
+    try:
+        for line in _comment_filter(xmlfile):
             if record:
                 for name2, Record2, reprog2 in re2:
                     m2 = reprog2.search(line)
@@ -511,6 +531,9 @@ def parse_fast_structured(xmlfile, element_name, attrnames, nested,
                         for _ in range(len(re2)):
                             args.append([])
                         record = Record(*args)
+    finally:
+        if close_source:
+            xmlfile.close()
 
 
 def buildHeader(script=None, root=None, schemaPath=None, rootAttrs="", options=None, includeXMLDeclaration=False):
