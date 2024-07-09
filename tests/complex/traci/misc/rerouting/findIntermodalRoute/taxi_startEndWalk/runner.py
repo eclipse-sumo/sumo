@@ -38,6 +38,8 @@ cmd = [
     "-n", "input_net.net.xml",
     "-a", "input_additional.add.xml,input_additional2.add.xml",
     "-r", "input_routes.rou.xml",
+    '--persontrip.transfer.walk-taxi', 'allJunctions',
+    '--persontrip.transfer.taxi-walk', 'allJunctions',
     "--no-step-log"]
 traci.start(cmd)
 
