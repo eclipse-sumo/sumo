@@ -488,6 +488,7 @@ The following elements are permitted in an expression for attributes
   - 'c:': returns the time within the current cycle
 - [use-defined functions](#custom_function_definitions) FNAME:arg1,args2,...,argN  where arg may be any expression that does not contain spaces (except within parentheses)
 - Symbolic names for [pre-defined expressions](#named_expressions)
+- The special keyword `DEFAULT`. This will evaluate to true if the all detectors for the current phase exceed the configured *max-gap*. It can be used to easily mix custom rules with default switching behavior.
 
 The following constraints apply to expressions:
 
