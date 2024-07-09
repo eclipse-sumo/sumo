@@ -39,8 +39,9 @@ tlsID = "C"
 
 
 logics = [
-        Logic("customActuated", tc.TRAFFICLIGHT_TYPE_ACTUATED, 0,
-              [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
+        Logic(programID="customActuated", type=tc.TRAFFICLIGHT_TYPE_ACTUATED,
+            currentPhaseIndex=0, phases=[
+               Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
                Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
                Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
                Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
