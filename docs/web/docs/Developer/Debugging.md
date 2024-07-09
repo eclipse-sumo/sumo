@@ -88,3 +88,9 @@ The header `utils/common/StdDefs.h` provides the String
 which was selected in the GUI, and can be used in the debugging
 conditions to obtain a dynamic debugging selection (provided the
 corresponding macro is activated).
+
+## Debugging external libraries
+
+Debugging symbols (`.pdb` files) are available for some of the external libraries included in [SUMOLibraries](https://github.com/DLR-TS/SUMOLibraries). To use them in Visual Studio, simply add the path to SUMOLibraries to the "Symbol file locations" in the Options. Do so by going to *Tools* > *Options...* > *Debugging* > *Symbols* and adding your SUMOLibraries path as a new location (see image below).
+
+![](../images/ExternalDebuggingSymbols.png)
