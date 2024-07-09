@@ -7,7 +7,7 @@ braunschweig
 # 10 vehicles running along a motorway with 0.5 equipment probability
 half_equipped
 
-# Vehicle taking different chargingStations and busstops, every with a different configuration 
+# Vehicle taking different chargingStations and busstops, every with a different configuration
 chargingStations
 
 # track fuel consumption from vehicle emissionClass instead of electricity
@@ -35,7 +35,7 @@ chargingStations_output
 # as above but with step length 0.2
 chargingStations_output_subseconds
 
-# Vehicle with a different stoppingThreshold taking different chargingStations, every with a different configuration 
+# Vehicle with a different stoppingThreshold taking different chargingStations, every with a different configuration
 stoppingThreshold
 
 # test parameter for influencing recuperation by deceleration level
@@ -49,3 +49,6 @@ chargingStations_internalLanes
 
 # distribution of charging levels
 chargeLevelDist
+
+# distribution of charging levels with error in distribution
+chargeLevelDist_error

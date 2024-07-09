@@ -1,0 +1,5 @@
+Error: Invalid distribution / float value 'norm(13000,1000,1000,5000)' for parameter 'device.battery.chargeLevel' in vehicle 'veh.0' (maximum value 5000.00 too small for distribution with mean 13000.00 and deviation 1000.00).
+Error: Invalid distribution / float value 'norm(13000,1000,1000,5000)' for parameter 'device.battery.chargeLevel' in vehicle 'veh.1' (maximum value 5000.00 too small for distribution with mean 13000.00 and deviation 1000.00).
+Error: Invalid distribution / float value 'norm(13000,1000,1000,5000)' for parameter 'device.battery.chargeLevel' in vehicle 'veh.2' (maximum value 5000.00 too small for distribution with mean 13000.00 and deviation 1000.00).
+Error: Invalid distribution / float value 'norm(13000,1000,1000,5000)' for parameter 'device.battery.chargeLevel' in vehicle 'veh.3' (maximum value 5000.00 too small for distribution with mean 13000.00 and deviation 1000.00).
+Error: Invalid distribution / float value 'norm(13000,1000,1000,5000)' for parameter 'device.battery.chargeLevel' in vehicle 'veh.4' (maximum value 5000.00 too small for distribution with mean 13000.00 and deviation 1000.00).

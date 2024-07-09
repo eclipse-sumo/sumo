@@ -1,2 +1,2 @@
-Error: Invalid speed distribution when parsing vType 't0' (distribution mean 2.10 is larger than upper boundary 2.00)
+Error: Invalid speed distribution when parsing vType 't0' (maximum value 2.00 too small for distribution with mean 3.10 and deviation 0.10)
 Quitting (on error).
