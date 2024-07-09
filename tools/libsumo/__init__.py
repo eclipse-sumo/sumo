@@ -87,14 +87,25 @@ def set_phases(self, phases):
     TraCILogic_phases_set(self, new_phases)
 
 
-def TraCILogic__init__(self, *args):
-    phases = args[3] if len(args) > 3 else None
+def TraCILogic__init__(self, *args, **kwargs):
+    # Extract known keyword arguments or set to None if not provided
+    programID = kwargs.get('programID', None)
+    type_ = kwargs.get('type', None)
+    currentPhaseIndex = kwargs.get('currentPhaseIndex', None)
+    phases = kwargs.get('phases', None)
+
+    # Update phases if provided
     if phases:
         new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
-        args = (args[0], args[1], args[2], new_phases) + args[4:]
+        phases = new_phases
+    
+    # Rebuild args including the extracted keyword arguments
+    args = (programID, type_, currentPhaseIndex, phases) + args[len(args)-1:]
+
+    # Initialize with the original function
     TraCILogic_swiginit(self, new_TraCILogic(*args))
 
-
+# Override methods and properties
 TraCILogic.__init__ = TraCILogic__init__
 TraCILogic.phases = property(TraCILogic_phases_get, set_phases)
 TraCILogic.getPhases = _trafficlight.Logic.getPhases
