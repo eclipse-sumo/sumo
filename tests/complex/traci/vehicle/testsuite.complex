@@ -56,6 +56,9 @@ distance_after_reroute
 # test retrieval of upcoming traffic lights
 nextTLS
 
+# test retrieval of upcoming traffic lights
+nextTLS_parking
+
 # test retrieval of upcoming links
 getNextLinks
 
