@@ -67,37 +67,42 @@ GNERerouter::~GNERerouter() {
 
 void
 GNERerouter::writeAdditional(OutputDevice& device) const {
-    device.openTag(SUMO_TAG_REROUTER);
-    device.writeAttr(SUMO_ATTR_ID, getID());
-    device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
-    device.writeAttr(SUMO_ATTR_POSITION, myPosition);
-    if (!myAdditionalName.empty()) {
-        device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
-    }
-    if (myProbability != 1.0) {
-        device.writeAttr(SUMO_ATTR_PROB, myProbability);
-    }
-    if (time2string(myTimeThreshold) != "0.00") {
-        device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
-    }
-    if (!myVTypes.empty()) {
-        device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
-    }
-    if (myOff) {
-        device.writeAttr(SUMO_ATTR_OFF, myOff);
-    }
-    if (myOptional) {
-        device.writeAttr(SUMO_ATTR_OPTIONAL, myOptional);
-    }
-    // write all rerouter interval
-    for (const auto& rerouterInterval : getChildAdditionals()) {
-        if (!rerouterInterval->getTagProperty().isSymbol()) {
-            rerouterInterval->writeAdditional(device);
+    // avoid write rerouters without edges
+    if (getAttribute(SUMO_ATTR_EDGES).size() > 0) {
+        device.openTag(SUMO_TAG_REROUTER);
+        device.writeAttr(SUMO_ATTR_ID, getID());
+        device.writeAttr(SUMO_ATTR_EDGES, getAttribute(SUMO_ATTR_EDGES));
+        device.writeAttr(SUMO_ATTR_POSITION, myPosition);
+        if (!myAdditionalName.empty()) {
+            device.writeAttr(SUMO_ATTR_NAME, StringUtils::escapeXML(myAdditionalName));
         }
+        if (myProbability != 1.0) {
+            device.writeAttr(SUMO_ATTR_PROB, myProbability);
+        }
+        if (time2string(myTimeThreshold) != "0.00") {
+            device.writeAttr(SUMO_ATTR_HALTING_TIME_THRESHOLD, time2string(myTimeThreshold));
+        }
+        if (!myVTypes.empty()) {
+            device.writeAttr(SUMO_ATTR_VTYPES, myVTypes);
+        }
+        if (myOff) {
+            device.writeAttr(SUMO_ATTR_OFF, myOff);
+        }
+        if (myOptional) {
+            device.writeAttr(SUMO_ATTR_OPTIONAL, myOptional);
+        }
+        // write all rerouter interval
+        for (const auto& rerouterInterval : getChildAdditionals()) {
+            if (!rerouterInterval->getTagProperty().isSymbol()) {
+                rerouterInterval->writeAdditional(device);
+            }
+        }
+        // write parameters (Always after children to avoid problems with additionals.xsd)
+        writeParams(device);
+        device.closeTag();
+    } else {
+        WRITE_WARNING("Rerouter '" + getID() + TL("' needs at least one edge"));
     }
-    // write parameters (Always after children to avoid problems with additionals.xsd)
-    writeParams(device);
-    device.closeTag();
 }
 
 
