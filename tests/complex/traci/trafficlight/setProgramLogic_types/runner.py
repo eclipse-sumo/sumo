@@ -39,28 +39,28 @@ tlsID = "C"
 
 
 logics = [
-        Logic(programID="customActuated", type=tc.TRAFFICLIGHT_TYPE_ACTUATED,
-            currentPhaseIndex=0, phases=[
-               Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
-               Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
-               Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
-               Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
-        Logic("customStatic", tc.TRAFFICLIGHT_TYPE_STATIC, 0,
-              [Phase(33, "GGGggrrrrrGGGggrrrrr"),
-               Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
-               Phase(33, "rrrrrGGGggrrrrrGGGgg"),
-               Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
-        Logic("customDelayBased", tc.TRAFFICLIGHT_TYPE_DELAYBASED, 0,
-              [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
-               Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
-               Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
-               Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
-        # Logic("customNEMA", tc.TRAFFICLIGHT_TYPE_NEMA, 0,
-        #      [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
-        #       Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
-        #       Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
-        #       Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
-        ]
+    Logic(programID="customActuated", type=tc.TRAFFICLIGHT_TYPE_ACTUATED,
+          currentPhaseIndex=0, phases=[
+              Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
+              Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
+              Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
+              Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
+    Logic("customStatic", tc.TRAFFICLIGHT_TYPE_STATIC, 0,
+          [Phase(33, "GGGggrrrrrGGGggrrrrr"),
+           Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
+           Phase(33, "rrrrrGGGggrrrrrGGGgg"),
+           Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
+    Logic("customDelayBased", tc.TRAFFICLIGHT_TYPE_DELAYBASED, 0,
+          [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
+           Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
+           Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
+           Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
+    # Logic("customNEMA", tc.TRAFFICLIGHT_TYPE_NEMA, 0,
+    #      [Phase(33, "GGGggrrrrrGGGggrrrrr", 5, 50),
+    #       Phase(3,  "yyyyyrrrrryyyyyrrrrr"),
+    #       Phase(33, "rrrrrGGGggrrrrrGGGgg", 5, 50),
+    #       Phase(3,  "rrrrryyyyyrrrrryyyyy")]),
+]
 
 for logic in logics:
     traci.trafficlight.setProgramLogic(tlsID, logic)

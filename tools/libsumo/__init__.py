@@ -93,18 +93,19 @@ def TraCILogic__init__(self, *args, **kwargs):
     type_ = kwargs.get('type',  args[1] if len(args) > 1 else None)
     currentPhaseIndex = kwargs.get('currentPhaseIndex',  args[2] if len(args) > 2 else None)
     phases = kwargs.get('phases',  args[3] if len(args) > 3 else None)
-    #subParameter = kwargs.get('subParameter',  args[4] if len(args) > 4 else None)
+    # subParameter = kwargs.get('subParameter',  args[4] if len(args) > 4 else None)
 
     # Update phases if provided
     if phases:
         new_phases = [TraCIPhase(p.duration, p.state, p.minDur, p.maxDur, p.next, p.name) for p in phases]
         phases = new_phases
-    
+
     # Rebuild args including the extracted keyword arguments
     args = (programID, type_, currentPhaseIndex, phases)
 
     # Initialize with the original function
     TraCILogic_swiginit(self, new_TraCILogic(*args))
+
 
 # Override methods and properties
 TraCILogic.__init__ = TraCILogic__init__
