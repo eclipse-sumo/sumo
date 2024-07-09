@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-05 13:11+0200\n"
-"PO-Revision-Date: 2024-07-09 14:06+0000\n"
+"PO-Revision-Date: 2024-07-09 14:09+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4447,6 +4447,8 @@ msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
 msgstr ""
+"El vehículo '%' quiere detenerse en el carril % en la posición %, debido a "
+"la carga baja de su batería (%) en el tiempo=%."
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:354
 #: src/microsim/devices/MSDevice_StationFinder.cpp:363
