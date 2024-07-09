@@ -65,6 +65,7 @@ const std::vector<std::string> MSActuatedTrafficLightLogic::OPERATOR_PRECEDENCE(
 #define DEFAULT_BIKE_LENGTH_WITH_GAP (getDefaultVehicleLength(SVC_BICYCLE) + 0.5)
 
 #define NO_DETECTOR "NO_DETECTOR"
+#define DEFAULT_CONDITION "DEFAULT"
 
 // ===========================================================================
 // method definitions
@@ -1076,8 +1077,15 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
         const MSPhaseDefinition* phase = myPhases[next];
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
         //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
-        if (condition != "" && evalExpression(condition)) {
-            return next;
+        if (condition != "") {
+            // backward compatibility if a user redefined DEFAULT_CONDITION 
+            if (condition == DEFAULT_CONDITION && myConditions.count(DEFAULT_CONDITION) == 0) {
+                if (gapControl() == std::numeric_limits<double>::max()) {
+                    return next;
+                }
+            } else if (evalExpression(condition)) {
+                return next;
+            }
         }
     }
     return mustSwitch ? getCurrentPhaseDef().nextPhases.back() : myStep;
