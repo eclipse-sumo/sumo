@@ -2,6 +2,6 @@
     <vType id="DEFAULT_VEHTYPE" sigma="0" speedDev="0"/>
     <route id="r0" edges="SC CW"/>
     <vehicle id="v0" depart="5" route="r0" departLane="0">
-        <stop edge="SC" duration="5" parking="true"/>
+        <stop edge="SC" duration="5" endPos="-50" parking="true"/>
     </vehicle>
 </routes>
