@@ -482,7 +482,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
                       << " override=" << limitedControlOverride(link)
                       << " isOpen=" << link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                                                     veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime())
+                                                    veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                                                    0, nullptr, false, veh)
                       << " et=" << veh->getEventTime()
                       << " v=" << veh->getSpeed()
                       << " vLeave=" << veh->estimateLeaveSpeed(link)
@@ -503,7 +504,8 @@ MESegment::isOpen(const MEVehicle* veh) const {
             || limitedControlOverride(link)
             || link->opened(veh->getEventTime(), veh->getSpeed(), veh->estimateLeaveSpeed(link),
                             veh->getVehicleType().getLengthWithGap(), veh->getImpatience(),
-                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime()));
+                            veh->getVehicleType().getCarFollowModel().getMaxDecel(), veh->getWaitingTime(),
+                            0, nullptr, false, veh));
 }
 
 
