@@ -611,11 +611,26 @@ public:
     /// @brief constructor
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
+    /// @brief check if draw junction
+    bool checkDrawJunction(Detail d, const bool selected) const;
+
     /// @brief check if draw additionals
     bool checkDrawAdditional(Detail d, const bool selected) const;
 
-    /// @brief check if draw shape
-    bool checkDrawShape(Detail d, const bool selected) const;
+    /// @brief check if draw polygon
+    bool checkDrawPoly(Detail d, const bool selected) const;
+
+    /// @brief check if draw POI
+    bool checkDrawPOI(Detail d, const bool selected) const;
+
+    /// @brief check if draw vehicle
+    bool checkDrawVehicle(Detail d, const bool selected) const;
+
+    /// @brief check if draw person
+    bool checkDrawPerson(Detail d, const bool selected) const;
+
+    /// @brief check if draw container
+    bool checkDrawContainer(Detail d, const bool selected) const;
 
     /// @brief copy all content from another GUIVisualizationSettings (note: DON'T USE in DrawGL functions!)
     void copy(const GUIVisualizationSettings& s);

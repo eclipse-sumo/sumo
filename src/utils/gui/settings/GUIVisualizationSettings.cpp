@@ -667,6 +667,20 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 
 
 bool
+GUIVisualizationSettings::checkDrawJunction(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (junctionSize.constantSize) {
+        return true;
+    } else if (junctionSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+
+bool
 GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
@@ -681,12 +695,68 @@ GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selecte
 
 
 bool
-GUIVisualizationSettings::checkDrawShape(const Detail d, const bool selected) const {
+GUIVisualizationSettings::checkDrawPoly(const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (polySize.constantSize) {
         return true;
-    } else if (addSize.constantSizeSelected && selected) {
+    } else if (polySize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawPOI(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (poiSize.constantSize) {
+        return true;
+    } else if (poiSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawVehicle(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (vehicleSize.constantSize) {
+        return true;
+    } else if (vehicleSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawPerson(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (personSize.constantSize) {
+        return true;
+    } else if (personSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawContainer(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (containerSize.constantSize) {
+        return true;
+    } else if (containerSize.constantSizeSelected && selected) {
         return true;
     } else {
         return true;
