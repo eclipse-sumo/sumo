@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-10 09:26:53 by Eclipse SUMO netedit Version v1_20_0+1135-3ade0a3e70c
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <new-network value="false"/>
+    </netedit>
+
+</neteditConfiguration>
+-->
+
+<edges version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-E0" from="J1" to="J0" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E0"/>
+    <edge id="-E1" from="J2" to="J1" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E1"/>
+    <edge id="-E2" from="J3" to="J2" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E2"/>
+    <edge id="-E3" from="J4" to="J1" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E3"/>
+    <edge id="-E4" from="J5" to="J4" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E4"/>
+    <edge id="-E5" from="J2" to="J5" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="E5"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E0"/>
+    <edge id="E1" from="J1" to="J2" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E1"/>
+    <edge id="E2" from="J2" to="J3" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E2"/>
+    <edge id="E3" from="J1" to="J4" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E3"/>
+    <edge id="E4" from="J4" to="J5" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E4"/>
+    <edge id="E5" from="J5" to="J2" priority="-1" numLanes="1" speed="13.89" spreadType="center" allow="rail" bidi="-E5"/>
+</edges>
