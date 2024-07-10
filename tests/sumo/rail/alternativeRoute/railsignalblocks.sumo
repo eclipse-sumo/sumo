@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-10 15:34:31 by Eclipse SUMO sumo Version v1_20_0+0457-7fad1af07f7
+<!-- generated on 2024-07-10 16:15:56 by Eclipse SUMO sumo Version v1_20_0+0459-43f0fd8a8ed
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -153,7 +153,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0 :w2_2_0 T14_0_0 :w8_3_0"/>
                 <flank lanes=":w4_0_0 T10_1_0 :w5_1_0 :w9_2_0 T21_0_0 :N1_1_0"/>
                 <protectingSwitches links="w3_2 w1_3 w5_1 w8_3"/>
-                <conflictLinks signals="F_0 B_0 N1_0 P2_0"/>
+                <conflictLinks signals="F_0 B_0 N1_0"/>
                 <foes driveWays="N2.0.2 F.0 N1.0.0 B.1 G.0 B.2 N2.1.1 G.1 F.2"/>
             </driveWay>
             <subDriveWay id="G.0.0" edges="T25_1 T30_1 T15_1 T9_1">
@@ -183,7 +183,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0 :w7_3_0 T13_0_0 :w1_2_0"/>
                 <flank lanes=":w9_3_0 T15_0_0 :w4_2_0"/>
                 <protectingSwitches links="w8_2 w4_2 w1_2"/>
-                <conflictLinks signals="A_0 N2_0 P1_0"/>
+                <conflictLinks signals="A_0 N2_0"/>
                 <foes driveWays="N2.0.2 N1.0.0 N2.1.1 A.1 G.2"/>
             </driveWay>
             <subDriveWay id="G.2.0" edges="T25_1 T30_1">
@@ -254,7 +254,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":P1_1_0 T19_0_0 :w8_2_0 T29_0_0 :w7_2_0 T18_0_0 :A_1_0 T17_0_0"/>
                 <flank lanes=":w7_3_0 T13_0_0 :w1_2_0 :w8_0_0 T14_1_0 :w2_1_0"/>
                 <protectingSwitches links="w1_2 w2_1"/>
-                <conflictLinks signals="G_0 P3_0 P2_0"/>
+                <conflictLinks signals="P3_0 P2_0"/>
                 <foes driveWays="P2.0 P3.0 A.1.1 e3.d2 P1.0"/>
             </driveWay>
             <subDriveWay id="P1.0.0" edges="T19_1 T29_1 T18_1">
@@ -283,7 +283,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":P2_1_0 T7_0_0 :w3_2_0 T27_0_0 :w2_3_0 T6_0_0 :w1_3_0 T5_0_0 :B_1_0 T1_0_0"/>
                 <flank lanes=":w1_1_0 T13_1_0 :w7_0_0 :w2_2_0 T14_0_0 :w8_3_0 :w3_0_0 T2_1_0 :P3_0_0"/>
                 <protectingSwitches links="w7_0 w8_3"/>
-                <conflictLinks signals="G_0 P3_0"/>
+                <conflictLinks signals="P3_0"/>
                 <foes driveWays="P3.0.0 B.1.0 e1.d0 P2.1 e1.d4 B.2.0"/>
             </driveWay>
             <subDriveWay id="P2.1.0" edges="T7_1 T27_1">
