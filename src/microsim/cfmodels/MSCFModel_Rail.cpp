@@ -150,7 +150,7 @@ MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
         throw ProcessError(TLF("Some undefined resistance coefficients for vType '%' (requires resCoef_constant, resCoef_linear and resCoef_quadratic)", vtype->getID()));
     }
     if (myTrainParams.resCoef_constant != INVALID_DOUBLE && resistanceTable.size() > 0) {
-        WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficents are set for vType '%'.", vtype->getID()));
+        WRITE_WARNING(TLF("Ignoring resistanceTable because resistance coefficients are set for vType '%'.", vtype->getID()));
     }
 
     if (myTrainParams.traction.empty() && myTrainParams.maxPower == INVALID_DOUBLE) {

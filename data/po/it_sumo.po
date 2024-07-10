@@ -3397,7 +3397,7 @@ msgstr ""
 
 #: src/microsim/cfmodels/MSCFModel_Rail.cpp:153
 msgid ""
-"Ignoring resistanceTable because resistance coefficents are set for vType "
+"Ignoring resistanceTable because resistance coefficients are set for vType "
 "'%'."
 msgstr ""
 
