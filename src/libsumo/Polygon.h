@@ -12,7 +12,7 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Polygon.h
-/// @author  Gregor L\"ammel
+/// @author  Gregor Laemmel
 /// @date    15.03.2017
 ///
 // C++ TraCI client API implementation

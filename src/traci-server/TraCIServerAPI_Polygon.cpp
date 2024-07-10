@@ -17,7 +17,7 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @author  Christoph Sommer
-/// @author  Gregor L\"ammel
+/// @author  Gregor Laemmel
 /// @date    Sept 2002
 ///
 // APIs for getting/setting polygon values via TraCI
