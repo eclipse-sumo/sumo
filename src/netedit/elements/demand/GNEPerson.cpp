@@ -350,7 +350,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawPerson(d, isAttributeCarrierSelected())) {
             // obtain width and length
             const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
             const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);

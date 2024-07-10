@@ -346,7 +346,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawContainer(d, isAttributeCarrierSelected())) {
             // obtain img file
             const std::string file = getTypeParent()->getAttribute(SUMO_ATTR_IMGFILE);
             // push draw matrix

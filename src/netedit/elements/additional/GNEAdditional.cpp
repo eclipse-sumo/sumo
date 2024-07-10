@@ -772,7 +772,7 @@ GNEAdditional::drawListedAdditional(const GUIVisualizationSettings& s, const Pos
         // calculate signPosition position
         Position signPosition = parentPosition;
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // set position depending of indexes
             signPosition.add(4.5 + (baseOffsetX * offsetX), (drawPositionIndex * -1) - extraOffsetY + 1, 0);
             // calculate colors
