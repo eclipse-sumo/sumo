@@ -33,3 +33,6 @@ busstop_change_color
 
 # load stop with custom params
 stop_param
+
+# error on loading stop which gives an edge instead of a lane
+stop_error
