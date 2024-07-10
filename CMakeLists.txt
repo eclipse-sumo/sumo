@@ -521,6 +521,14 @@ if (TCMALLOC)
     endif ()
 endif ()
 
+# Eigen (for overhead wire / electric circuit simulation)
+find_package(Eigen3 3.2)
+if (EIGEN3_FOUND)
+    include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+    set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
+    set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
+endif (EIGEN3_FOUND)
+
 if (CHECK_OPTIONAL_LIBS)
     file(GLOB GDAL_PATH "${SUMO_LIBRARIES}/gdal-?.?.?")
     file(GLOB FFMPEG_PATH "${SUMO_LIBRARIES}/FFMPEG-?.?.?")
@@ -565,14 +573,6 @@ if (CHECK_OPTIONAL_LIBS)
             set(ENABLED_FEATURES "${ENABLED_FEATURES} GL2PS")
         endif (GL2PS_FOUND)
     endif ()
-
-    # Eigen (for overhead wire / electric circuit simulation)
-    find_package(Eigen3 3.2)
-    if (EIGEN3_FOUND)
-        include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
-        set(HAVE_EIGEN 1)  # see config.h.cmake for #cmakedefine
-        set(ENABLED_FEATURES "${ENABLED_FEATURES} Eigen")
-    endif (EIGEN3_FOUND)
 
     find_package(jupedsim CONFIG HINTS ${JUPEDSIM_CUSTOMDIR} QUIET)
     if (jupedsim_FOUND)
