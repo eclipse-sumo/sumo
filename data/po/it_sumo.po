@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-06 16:09+0000\n"
+"PO-Revision-Date: 2024-07-10 14:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9828,7 +9828,7 @@ msgstr "non disponibile"
 #: src/polyconvert/PCLoaderOSM.cpp:240 src/polyconvert/PCLoaderVisum.cpp:343
 #: src/utils/shapes/ShapeHandler.cpp:251
 msgid "Unable to project coordinates for polygon '%'."
-msgstr ""
+msgstr "Incapace di eseguire la proiezione del poligono '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:184
 msgid "Missing id under '%'"
@@ -9840,31 +9840,31 @@ msgstr ""
 #: src/polyconvert/PCLoaderOSM.cpp:279 src/polyconvert/PCLoaderVisum.cpp:271
 #: src/polyconvert/PCLoaderVisum.cpp:389 src/utils/shapes/ShapeHandler.cpp:192
 msgid "Unable to project coordinates for POI '%'."
-msgstr ""
+msgstr "Incapace di eseguire la proiezione del punto di interesse '%'."
 
 #: src/polyconvert/PCLoaderArcView.cpp:302
 msgid "Unsupported shape type occurred (id='%')."
-msgstr ""
+msgstr "Tipo di forma non supportato (codice identificativo '%')."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:71
 msgid "Could not open dlr-navteq-poi-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire dlr-navteq-poi-file '%'."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:86
 msgid "Could not open dlr-navteq-poly-file '%'."
-msgstr ""
+msgstr "Non ho potuto aprire dlr-navteq-poly-file '%'."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:128
 msgid "Invalid x coordinate for POI '%'."
-msgstr ""
+msgstr "Coordinata x del punto di interesse '%' invalida."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:132
 msgid "Invalid y coordinate for POI '%'."
-msgstr ""
+msgstr "Coordinata y del punto di interesse '%' invalida."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:137
 msgid "The name of a POI is missing."
-msgstr ""
+msgstr "Manca il nome del punto di interesse."
 
 #: src/polyconvert/PCLoaderDlrNavteq.cpp:191
 msgid "Invalid dlr-navteq-polygon - line: '%'."
@@ -10272,41 +10272,41 @@ msgstr ""
 #: src/router/RONet.cpp:162
 #, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr ""
+msgstr "L'arco '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:176
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr ""
+msgstr "La zona di assegnazione del traffico '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:199
 #, c-format
 msgid "The TAZ '%' is unknown."
-msgstr ""
+msgstr "La zona di assegnazione del traffico '%' è sconosciuta."
 
 #: src/router/RONet.cpp:204
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
-msgstr ""
+msgstr "L'arco '%' della zona di assegnazione del traffico '%' è sconosciuto."
 
 #: src/router/RONet.cpp:259
 #, c-format
 msgid "The bidi edge '%' is not known."
-msgstr ""
+msgstr "L'arco bidirezionale '%' è sconosciuto."
 
 #: src/router/RONet.cpp:270
 #, c-format
 msgid "The node '%' occurs at least twice."
-msgstr ""
+msgstr "Il nodo '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr ""
+msgstr "% '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:446
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr ""
+msgstr "Il tipo di veicolo '%' occorre almeno due volte."
 
 #: src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
@@ -10315,7 +10315,7 @@ msgstr ""
 #: src/router/RONet.cpp:528
 #, c-format
 msgid "Another person with the id '%' exists."
-msgstr ""
+msgstr "Esiste un'altra persone con il codice identificativo '%'."
 
 #: src/router/RONet.cpp:637
 msgid ""
