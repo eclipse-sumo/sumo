@@ -659,7 +659,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         getFromJunction()->drawGL(s);
         getToJunction()->drawGL(s);
         // draw childrens
-        drawChildrens(s, d);
+        drawChildrens(s);
     }
 }
 
@@ -2777,7 +2777,7 @@ GNEEdge::drawLaneStopOffset(const GUIVisualizationSettings& s, const GUIVisualiz
 
 
 void
-GNEEdge::drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const {
+GNEEdge::drawChildrens(const GUIVisualizationSettings& s) const {
     // draw child additional
     for (const auto& additional : getChildAdditionals()) {
         additional->drawGL(s);

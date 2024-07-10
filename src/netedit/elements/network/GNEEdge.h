@@ -489,7 +489,7 @@ private:
     void drawEdgeShape(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
 
     /// @brief draw children
-    void drawChildrens(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
+    void drawChildrens(const GUIVisualizationSettings& s) const;
 
     /// @brief calculate contours
     void calculateEdgeContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d) const;
