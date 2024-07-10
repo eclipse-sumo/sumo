@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-05 14:48:23 by Eclipse SUMO sumo Version v1_20_0+0455-eda2cef667b
+<!-- generated on 2024-07-10 17:02:05 by Eclipse SUMO sumo Version v1_20_0+0461-800e888eadb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w0_1_0 -T2_0 :C_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="C_0"/>
-                <foes driveWays="B.0 C2.0.0 E2.d1 B.d2 w0.d3 D2.d4"/>
+                <foes driveWays="B.0 C2.0.0 E2.d1"/>
             </driveWay>
             <subDriveWay id="B.0.0" edges="T1 T10">
                 <forward lanes=":B_1_0 T1_0 :w0_3_0 T10_0 :C2_1_0"/>
@@ -64,16 +64,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w0_1_0 -T2_0 :C_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="C_0"/>
-                <foes driveWays="B.0.0 A.d0 C2.0 B.d2.0 w0.d3.0"/>
+                <foes driveWays="B.0.0 A.d0 C2.0"/>
             </driveWay>
             <subDriveWay id="C2.0.0" edges="-T10 -T1">
                 <forward lanes=":C2_0_0 -T10_0 :w0_0_0 -T1_0 :B_0_0"/>
-            </subDriveWay>
-            <subDriveWay id="C2.0.1" edges="-T10 -T1">
-                <forward lanes=":C2_0_0 -T10_0 :w0_0_0 -T1_0"/>
-            </subDriveWay>
-            <subDriveWay id="C2.0.2" edges="-T10">
-                <forward lanes=":C2_0_0 -T10_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -85,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links="w0_3"/>
             <conflictLinks signals="B_0"/>
-            <foes driveWays="B.0 E2.d1 B.d2 w0.d3 D2.d4"/>
+            <foes driveWays="B.0 A.d0 E2.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
@@ -96,42 +90,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links=""/>
             <conflictLinks signals="C_0"/>
             <foes driveWays="A.d0 C2.0 E2.d1"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="B">
-        <driveWay id="B.d2" edges="T1 T10 T11 T12">
-            <forward lanes="T1_0 :w0_3_0 T10_0 :C2_1_0 T11_0 :D2_1_0 T12_0"/>
-            <bidi lanes="-T1_0 :w0_0_0 -T10_0 :C2_0_0 -T11_0 :D2_0_0 -T12_0"/>
-            <flank lanes=":B_1_0 :w0_1_0 -T2_0 :C_0_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="C_0 B_0"/>
-            <foes driveWays="B.0 C2.0.1 E2.d1 B.d2 w0.d3 D2.d4"/>
-        </driveWay>
-        <subDriveWay id="B.d2.0" edges="T1 T10">
-            <forward lanes="T1_0 :w0_3_0 T10_0 :C2_1_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="w0">
-        <driveWay id="w0.d3" edges="T10 T11 T12">
-            <forward lanes="T10_0 :C2_1_0 T11_0 :D2_1_0 T12_0"/>
-            <bidi lanes="-T10_0 :C2_0_0 -T11_0 :D2_0_0 -T12_0"/>
-            <flank lanes=":w0_3_0"/>
-            <protectingSwitches links="w0_3"/>
-            <conflictLinks signals="B_0"/>
-            <foes driveWays="B.0 C2.0.2 E2.d1 B.d2 w0.d3 D2.d4"/>
-        </driveWay>
-        <subDriveWay id="w0.d3.0" edges="T10">
-            <forward lanes="T10_0 :C2_1_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="D2">
-        <driveWay id="D2.d4" edges="T12">
-            <forward lanes="T12_0"/>
-            <bidi lanes="-T12_0"/>
-            <flank lanes=":D2_1_0 T11_0 :C2_1_0 T10_0 :w0_3_0"/>
-            <protectingSwitches links="w0_3"/>
-            <conflictLinks signals="B_0"/>
-            <foes driveWays="B.0 E2.d1 B.d2 w0.d3 D2.d4"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

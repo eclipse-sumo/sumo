@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-10 16:15:56 by Eclipse SUMO sumo Version v1_20_0+0459-43f0fd8a8ed
+<!-- generated on 2024-07-10 17:02:05 by Eclipse SUMO sumo Version v1_20_0+0461-800e888eadb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="-e_0 b2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="D_0"/>
-                <foes driveWays="A.0 J5.2 J1.0 J4.1 gneJ4.d2 J5.2 J7.d1"/>
+                <foes driveWays="A.0 J5.2 J1.0 J4.1 J7.d1 J5.2 J7.d1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -63,11 +63,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="-e_0 b_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0 J4.0 J1.0 gneJ4.d2.0"/>
+                <foes driveWays="A.0 J4.0 J1.0"/>
             </driveWay>
-            <subDriveWay id="J1.0.0" edges="-e2">
-                <forward lanes="-e2_0"/>
-            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J4">
@@ -88,7 +85,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes="-e_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J4.0 J1.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
+                <foes driveWays="J4.0 J1.0 J5.2 J7.d1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -101,7 +98,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links="gneJ4_3"/>
                 <conflictLinks signals="A_0 J4_1"/>
-                <foes driveWays="J4.0 J5.2 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
+                <foes driveWays="A.0 J4.0 J5.2"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="i2_0" to="j2_0">
@@ -123,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links="gneJ4_3"/>
             <conflictLinks signals="A_0 J4_1"/>
-            <foes driveWays="J4.0 J5.0 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
+            <foes driveWays="A.0 J4.0 J5.0 J7.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="J0">
@@ -134,59 +131,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links="gneJ3_1"/>
             <conflictLinks signals=""/>
             <foes driveWays="J0.d0"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="gneJ4">
-        <driveWay id="gneJ4.d2" edges="e2 f2 g2 h2 i2 j2">
-            <forward lanes="e2_0 f2_0 g2_0 h2_0 i2_0"/>
-            <bidi lanes="-e2_0 -f2_0 -g2_0 -h2_0 -i2_0 -j2_0"/>
-            <flank lanes=""/>
-            <protectingSwitches links="gneJ4_3"/>
-            <conflictLinks signals="J4_1"/>
-            <foes driveWays="J4.0 J1.0.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
-        </driveWay>
-        <subDriveWay id="gneJ4.d2.0" edges="e2">
-            <forward lanes="e2_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="J1">
-        <driveWay id="J1.d3" edges="f2 g2 h2 i2 j2">
-            <forward lanes="f2_0 g2_0 h2_0 i2_0"/>
-            <bidi lanes="-f2_0 -g2_0 -h2_0 -i2_0 -j2_0"/>
-            <flank lanes="e2_0"/>
-            <protectingSwitches links="gneJ4_3"/>
-            <conflictLinks signals="J4_1"/>
-            <foes driveWays="J4.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="J2">
-        <driveWay id="J2.d4" edges="g2 h2 i2 j2">
-            <forward lanes="g2_0 h2_0 i2_0"/>
-            <bidi lanes="-g2_0 -h2_0 -i2_0 -j2_0"/>
-            <flank lanes="f2_0 e2_0"/>
-            <protectingSwitches links="gneJ4_3"/>
-            <conflictLinks signals="J4_1"/>
-            <foes driveWays="J4.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="J6">
-        <driveWay id="J6.d5" edges="h2 i2 j2">
-            <forward lanes="h2_0 i2_0"/>
-            <bidi lanes="-h2_0 -i2_0 -j2_0"/>
-            <flank lanes="g2_0 f2_0 e2_0"/>
-            <protectingSwitches links="gneJ4_3"/>
-            <conflictLinks signals="J4_1"/>
-            <foes driveWays="J4.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="J8">
-        <driveWay id="J8.d6" edges="i2 j2">
-            <forward lanes="i2_0"/>
-            <bidi lanes="-i2_0 -j2_0"/>
-            <flank lanes="h2_0 g2_0 f2_0 e2_0"/>
-            <protectingSwitches links="gneJ4_3"/>
-            <conflictLinks signals="J4_1"/>
-            <foes driveWays="J4.0 J5.2 J7.d1 gneJ4.d2 J1.d3 J2.d4 J6.d5 J8.d6"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

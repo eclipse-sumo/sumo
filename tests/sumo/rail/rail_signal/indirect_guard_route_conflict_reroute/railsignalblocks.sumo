@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-10 16:15:56 by Eclipse SUMO sumo Version v1_20_0+0459-43f0fd8a8ed
+<!-- generated on 2024-07-10 17:02:05 by Eclipse SUMO sumo Version v1_20_0+0461-800e888eadb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -128,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":B.N2_0_0 T16_1_0 :w4_1_0"/>
             <protectingSwitches links="w3_2 w4_1"/>
             <conflictLinks signals="B.A_0"/>
-            <foes driveWays="B.N2.d0 B.A.0"/>
+            <foes driveWays="B.N2.d0 B.A.0 A.d1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
