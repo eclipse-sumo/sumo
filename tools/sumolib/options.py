@@ -81,21 +81,6 @@ def pullOptions(executable, optParse, groups=None, configoptions=None):
     parseString(optoutput, ConfigurationReader(optParse, groups, configoptions))
 
 
-def getConfigSettings(file, rootNode='sumoConfiguration'):
-    """read config file settings into dictionary"""
-    root = sumolib_parse(file)
-    ret = {}
-    for childEl in root:
-        value1 = childEl.getAttributeSecure('value')
-        if value1 is not None:
-            ret[childEl.name] = value1
-        for secondChildEl in childEl.getChildList():
-            value2 = secondChildEl.getAttributeSecure('value')
-            if value2 is not None:
-                ret[secondChildEl.name] = value2
-    return ret
-
-
 def get_long_option_names(application):
     # @todo using option "--save-template stdout" and parsing xml would be prettier
     output = subprocess.check_output([application, '--help'], universal_newlines=True)
