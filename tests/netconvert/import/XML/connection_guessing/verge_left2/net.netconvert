@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-10 13:47:16 by Eclipse SUMO netconvert Version v1_20_0+1163-c63a7da5c6b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="E0" from="J0" to="J1" priority="-1">
+        <lane id="E0_0" index="0" speed="13.89" length="102.25" shape="0.00,-4.80 96.00,-4.80"/>
+        <lane id="E0_1" index="1" speed="13.89" length="102.25" shape="0.00,-1.60 96.00,-1.60"/>
+    </edge>
+    <edge id="E1" from="J1" to="J2" priority="-1">
+        <lane id="E1_0" index="0" allow="pedestrian" speed="13.89" length="108.65" shape="104.00,-8.00 200.00,-8.00"/>
+        <lane id="E1_1" index="1" speed="13.89" length="108.65" shape="104.00,-4.80 200.00,-4.80"/>
+        <lane id="E1_2" index="2" disallow="all" speed="13.89" length="108.65" shape="104.00,-1.60 200.00,-1.60"/>
+    </edge>
+
+    <junction id="J0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-6.40"/>
+    <junction id="J1" type="priority" x="100.00" y="0.00" incLanes="E0_0 E0_1" intLanes="" shape="104.00,-3.20 104.00,-9.60 100.97,-8.77 99.03,-7.23 97.79,-6.64 96.00,-6.40 96.00,0.00 99.03,-0.83 100.97,-2.37 102.21,-2.96">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="J2" type="dead_end" x="200.00" y="0.00" incLanes="E1_0 E1_1 E1_2" intLanes="" shape="200.00,-9.60 200.00,-3.20"/>
+
+    <connection from="E0" to="E1" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

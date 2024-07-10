@@ -114,4 +114,7 @@ bus_switch_lane
 
 # test for #15161
 verge_left
+
+# test for #15161
+verge_left2
 ramps

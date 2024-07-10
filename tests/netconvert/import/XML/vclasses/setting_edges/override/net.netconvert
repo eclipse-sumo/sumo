@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-02-29 13:56:00 by Eclipse SUMO netconvert Version v1_19_0+1092-a49a04372af
+<!-- generated on 2024-07-10 13:51:12 by Eclipse SUMO netconvert Version v1_20_0+1163-c63a7da5c6b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <node-files value="input_nodes.nod.xml"/>
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <xml-validation value="never"/>
     </report>
 
-</configuration>
+</netconvertConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
@@ -133,7 +133,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":m2_0_2" index="2" disallow="bus" speed="12.50" length="8.54" shape="754.00,501.60 746.00,501.60"/>
     </edge>
     <edge id=":m3_0" function="internal">
-        <lane id=":m3_0_0" index="0" disallow="bus" speed="12.50" length="8.00" shape="504.80,246.00 504.80,254.00"/>
+        <lane id=":m3_0_0" index="0" disallow="bus" speed="12.50" length="8.81" shape="501.60,246.00 502.10,248.46 503.20,250.00 504.30,251.54 504.80,254.00"/>
     </edge>
     <edge id=":m4_0" function="internal">
         <lane id=":m4_0_0" index="0" allow="bicycle" speed="12.50" length="8.27" shape="495.20,754.00 494.70,751.54 493.60,750.00 492.50,748.46 492.00,746.00"/>
@@ -264,7 +264,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from="2si" to="1o" fromLane="0" toLane="0" via=":0_9_0" dir="s" state="m"/>
     <connection from="2si" to="3o" fromLane="2" toLane="0" via=":0_10_0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" via=":0_11_0" dir="t" state="m"/>
-    <connection from="3fi" to="3si" fromLane="0" toLane="1" via=":m3_0_0" dir="s" state="M"/>
+    <connection from="3fi" to="3si" fromLane="1" toLane="1" via=":m3_0_0" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
     <connection from="3si" to="2o" fromLane="1" toLane="0" via=":0_12_0" dir="r" state="M"/>
     <connection from="3si" to="4o" fromLane="1" toLane="0" via=":0_13_0" dir="s" state="M"/>
