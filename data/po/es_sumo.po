@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-09 14:09+0000\n"
+"PO-Revision-Date: 2024-07-10 08:51+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -1425,20 +1425,22 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:1557
 msgid "Invalid stop index % (has % stops)."
-msgstr ""
+msgstr "Índice de parada no válido % (tiene % paradas)."
 
 #: src/microsim/MSBaseVehicle.cpp:1637 src/microsim/MSBaseVehicle.cpp:1760
 #: src/microsim/MSBaseVehicle.cpp:1869
 msgid "invalid nextStopIndex % for % remaining stops"
-msgstr ""
+msgstr "nextStopIndex % no válido para % paradas restantes"
 
 #: src/microsim/MSBaseVehicle.cpp:1641
 msgid "cannot replace reached stop"
-msgstr ""
+msgstr "no se puede reemplazar la parada actualmente alcanzada"
 
 #: src/microsim/MSBaseVehicle.cpp:1656
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
+"el vehículo '%' no tiene la credencial adecuada para acceder a la zona de "
+"estacionamiento '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1669 src/microsim/MSBaseVehicle.cpp:1881
 msgid "disallowed stop lane '%'"
@@ -1458,6 +1460,8 @@ msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
+"La simulación mesoscópica no permite detenerse en la arista interna '%' al "
+"vehículo '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:1764
 msgid "cannot reroute towards reached stop"
@@ -1470,62 +1474,74 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:1873
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
+"no se puede insertar una parada antes de la parada actualmente alcanzada"
 
 #: src/microsim/MSBaseVehicle.cpp:1889
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
+"El vehículo '%' no tiene la credencial adecuada para acceder a la zona de "
+"estacionamiento '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2186
 #, c-format
 msgid "creating device of type '%' is not supported"
-msgstr ""
+msgstr "no se admite la creación del dispositivo de tipo '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2199 src/microsim/MSBaseVehicle.cpp:2211
 #, c-format
 msgid "no device of type '%' exists"
-msgstr ""
+msgstr "no existe ningún dispositivo de tipo '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2222
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
-msgstr ""
+msgstr "El vehículo '%' no admite el parámetro de modelo de cruce '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2268
 msgid "could not interpret routing.mode '%'"
-msgstr ""
+msgstr "no se pudo interpretar el routing.mode '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2351
 msgid "Invalid device parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "Parámetro de dispositivo '%' no válido para el vehículo '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2357
 msgid "Vehicle '%' does not support device parameter '%' (%)."
-msgstr ""
+msgstr "El vehículo '%' no admite el parámetro de dispositivo '%' (%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2362
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
+"El vehículo mesoscópico '%' no admite parámetros de modelo de cambio de "
+"carril."
 
 #: src/microsim/MSBaseVehicle.cpp:2369
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
+"El vehículo '%' no admite el parámetro de modelo de cambio de carril '%' (%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2374
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
+"El vehículo mesoscópico '%' no admite parámetros de modelo de seguimiento "
+"vehicular."
 
 #: src/microsim/MSBaseVehicle.cpp:2381
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
+"El vehículo '%' no admite el parámetro de modelo de seguimiento vehicular "
+"'%' (%)."
 
 #: src/microsim/MSBaseVehicle.cpp:2387
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
+"Comprobación no válida para el dispositivo. El formato esperado es 'has."
+"DEVICENAME.device'."
 
 #: src/microsim/MSBaseVehicle.cpp:2414
 msgid "Unsupported parking parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "Parámetro de estacionamiento no admitido '%' para el vehículo '%'."
 
 #: src/microsim/MSBaseVehicle.h:956
 msgid "getLeader not yet implemented for meso"
@@ -4484,6 +4500,8 @@ msgstr ""
 #: src/microsim/devices/MSDevice_StationFinder.cpp:82
 msgid "State of charge the vehicle begins searching for charging stations"
 msgstr ""
+"Nivel de carga del vehículo desde el que comienza a buscar estaciones de "
+"carga"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:120
 msgid "Invalid device.stationfinder.rescueAction '%'."
@@ -10530,6 +10548,8 @@ msgstr "Polígono ensamblado de la relación '%' (nombre:%)%"
 msgid ""
 "Could not import polygon from relation '%' (name:% reason: found gap of %m)."
 msgstr ""
+"No se pudo importar el polígono de la relación '%' (nombre:% razón: se "
+"encontró una brecha de %m)."
 
 #: src/polyconvert/PCLoaderOSM.cpp:231
 #, c-format
@@ -11643,15 +11663,19 @@ msgstr ""
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:170
 msgid "minimum value % larger than maximum %"
-msgstr ""
+msgstr "valor mínimo % mayor que el máximo %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:173
 msgid "minimum value % too large for distribution with mean % and deviation %"
 msgstr ""
+"valor mínimo % demasiado grande para la distribución con media % y "
+"desviación %"
 
 #: src/utils/distribution/Distribution_Parameterized.cpp:176
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr ""
+"valor máximo % demasiado pequeño para la distribución con media % y "
+"desviación %"
 
 #: src/utils/emissions/EnergyParams.cpp:64
 #, c-format
@@ -12390,6 +12414,7 @@ msgstr "Tipo de elemento no definido para '%'."
 #: src/utils/vehicle/SUMORouteHandler.cpp:64
 msgid "Route file should be sorted by departure time, ignoring '%'!"
 msgstr ""
+"El archivo de rutas debe ordenarse por tiempo de salida, ¡Ignorando '%'!"
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:487
 msgid "Speed cannot be negative for stop%."
@@ -12401,11 +12426,13 @@ msgstr "Duración o tiempo de finalización no válido dado para una parada%."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:507
 msgid "Triggers and waypoints cannot be combined%."
-msgstr ""
+msgstr "Desencadenantes y puntos de referencia no pueden ser combinados%."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:514
 msgid "Stop at parkingArea overrides attribute 'parking' for stop%."
 msgstr ""
+"Parar en la zona de estacionamiento anula el atributo 'parking' de la "
+"parada%."
 
 #: src/utils/vehicle/SUMORouteHandler.cpp:555
 msgid "Invalid 'index' for stop%."
@@ -12418,6 +12445,8 @@ msgstr "Falta el parámetro '%' para % '%'."
 #: src/utils/vehicle/SUMOTrafficObject.cpp:69
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
 msgstr ""
+"Distribución / valor flotante no válido '%' para el parámetro '%' en % '%' "
+"(%)."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:82
 msgid "Invalid boolean value '%' for parameter '%' in % '%'."
@@ -12429,13 +12458,15 @@ msgstr "Valor de tiempo '%' no válido para el parámetro '%' en % '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
-msgstr ""
+msgstr "% % no válido dado para %. Usando el final de la arista."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:734
 msgid ""
 "Value of stop attribute 'trigger' must be 'person', 'container', 'join' or a "
 "boolean"
 msgstr ""
+"El valor del atributo de parada 'trigger' debe ser 'person', 'container', "
+"'join' o un booleano"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:269
 msgid "Undefined end for % '%', defaulting to 24hour duration."
@@ -12592,7 +12623,7 @@ msgstr "El analizador XML no fue inicializado."
 
 #: src/utils/xml/SUMOSAXReader.cpp:196
 msgid "The XML-parser could not be build."
-msgstr ""
+msgstr "No se pudo compilar el analizador XML."
 
 #: src/utils/xml/XMLSubSys.cpp:73
 msgid ""
