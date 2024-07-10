@@ -3105,21 +3105,21 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
     for (EdgeVector::const_iterator it = allEdges.begin(); it != allEdges.end(); ++it) {
         NBEdge* edge = *it;
         const std::vector<NBEdge::Lane>& lanes = edge->getLanes();
+        std::vector<NBEdge::Lane> tmp;
+        for (std::vector<NBEdge::Lane>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); ++it_l) {
+            tmp.push_back(*it_l);
+        }
         if (edge->getFromNode() == this) {
-            for (std::vector<NBEdge::Lane>::const_reverse_iterator it_l = lanes.rbegin(); it_l != lanes.rend(); ++it_l) {
-                NBEdge::Lane l = *it_l;
-                l.shape = l.shape.getSubpartByIndex(0, 2);
-                l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
-                normalizedLanes.push_back(std::make_pair(edge, l));
-            }
+            std::reverse(tmp.begin(), tmp.end());
         } else {
-            for (std::vector<NBEdge::Lane>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); ++it_l) {
-                NBEdge::Lane l = *it_l;
+            for (NBEdge::Lane& l : tmp) {
                 l.shape = l.shape.reverse();
-                l.shape = l.shape.getSubpartByIndex(0, 2);
-                l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
-                normalizedLanes.push_back(std::make_pair(edge, l));
             }
+        }
+        for (NBEdge::Lane& l : tmp) {
+            l.shape = l.shape.getSubpartByIndex(0, 2);
+            l.width = (l.width == NBEdge::UNSPECIFIED_WIDTH ? SUMO_const_laneWidth : l.width);
+            normalizedLanes.push_back(std::make_pair(edge, l));
         }
     }
     //if (gDebugFlag1) std::cout << "  normalizedLanes=" << normalizedLanes.size() << "\n";
