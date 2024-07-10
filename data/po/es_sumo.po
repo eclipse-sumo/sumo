@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-10 08:51+0000\n"
+"PO-Revision-Date: 2024-07-10 09:24+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4192,6 +4192,9 @@ msgid ""
 "SSM device of vehicle '%' encountered an unexpected conflict with foe % at "
 "time=%. Please review your vehicle behavior settings."
 msgstr ""
+"El dispositivo SSM del vehículo '%' encontró un conflicto inesperado con el "
+"vehículo % en el tiempo=%. Revise la configuración de comportamiento de su "
+"vehículo."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:1128
 msgid ""
@@ -4495,7 +4498,7 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:80
 msgid "Target state of charge after which the vehicle stops charging"
-msgstr ""
+msgstr "Nivel de carga objetivo, tras el cual el vehículo dejará de cargarse"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:82
 msgid "State of charge the vehicle begins searching for charging stations"
@@ -6444,7 +6447,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:647
 msgid "Remove edges after loading, patching and joining"
-msgstr ""
+msgstr "Remover las aristas después de cargar, parchar y unir"
 
 #: src/netbuild/NBFrame.cpp:651
 msgid ""
