@@ -121,16 +121,16 @@ myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
         WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), action);
     }
     initRescueCommand();
-    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", false));
-    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", false), 1.));
-    myRadius = holder.getTimeParam("device.stationfinder.radius", false);
-    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", false);
-    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat", false);
-    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", false);
+    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor"));
+    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold"), 1.));
+    myRadius = holder.getTimeParam("device.stationfinder.radius");
+    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance");
+    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat");
+    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower");
     myChargeType = CHARGETYPE_CHARGING;
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
-    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", false), 1.));
-    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", false), 1.));
+    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel"), 1.));
+    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel"), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
