@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
+Eclipse SUMO sumo Version v1_20_0+1180-e5990a98d19
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -600,7 +600,8 @@ Battery Options:
                                         rescue mode
   --device.stationfinder.radius TIME   Search radius in travel time seconds
   --device.stationfinder.maxEuclideanDistance FLOAT  Euclidean search distance
-                                        in meters
+                                        in meters (a negative value disables the
+                                        restriction)
   --device.stationfinder.repeat TIME   When to trigger a new search if no
                                         station has been found
   --device.stationfinder.maxChargePower FLOAT  The maximum charging speed of

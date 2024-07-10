@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-05 07:25:09 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
+<!-- generated on 2024-07-10 16:30:21 by Eclipse SUMO sumo Version v1_20_0+1180-e5990a98d19
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -858,8 +858,8 @@
         <!-- Search radius in travel time seconds -->
         <device.stationfinder.radius value="180" type="TIME"/>
 
-        <!-- Euclidean search distance in meters -->
-        <device.stationfinder.maxEuclideanDistance value="2000" type="FLOAT"/>
+        <!-- Euclidean search distance in meters (a negative value disables the restriction) -->
+        <device.stationfinder.maxEuclideanDistance value="-1" type="FLOAT"/>
 
         <!-- When to trigger a new search if no station has been found -->
         <device.stationfinder.repeat value="60" type="TIME"/>

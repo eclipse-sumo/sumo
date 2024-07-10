@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-05 07:25:09 by Eclipse SUMO sumo Version v1_20_0+1027-165979bd8ee
+<!-- generated on 2024-07-10 16:30:21 by Eclipse SUMO sumo Version v1_20_0+1180-e5990a98d19
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -308,7 +308,7 @@
         <device.stationfinder.reserveFactor value="1.1" type="FLOAT" help="Scale battery need with this factor to account for unexpected traffic situations"/>
         <device.stationfinder.emptyThreshold value="0.05" type="FLOAT" help="Battery percentage to go into rescue mode"/>
         <device.stationfinder.radius value="180" type="TIME" help="Search radius in travel time seconds"/>
-        <device.stationfinder.maxEuclideanDistance value="2000" type="FLOAT" help="Euclidean search distance in meters"/>
+        <device.stationfinder.maxEuclideanDistance value="-1" type="FLOAT" help="Euclidean search distance in meters (a negative value disables the restriction)"/>
         <device.stationfinder.repeat value="60" type="TIME" help="When to trigger a new search if no station has been found"/>
         <device.stationfinder.maxChargePower value="100000" type="FLOAT" help="The maximum charging speed of the vehicle battery"/>
         <device.stationfinder.chargeType value="charging" type="STR" help="Type of energy transfer"/>
