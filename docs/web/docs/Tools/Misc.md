@@ -100,6 +100,7 @@ to work. It provides the following options:
 - **--include-existing**: Consider existing charging stations from additional files in the computation of needed ones using **--probability** and **--density** and output them again
 - **--only-roadside**: Only consider roadside parking to place charging stations (cannot be used together with **--only-parking-lot**)
 - **--only-parking-lot**: Only consider parking lot spaces to place charging stations (cannot be used together with **--only-roadside**)
+- **--entire-parkings**: Select only one parking area per edge which fits best the wanted number of charging points
 - **--probability**: Probability for parking areas along an edge to receive charging infrastructure
 - **--density**: Share of the total parking spaces along an edge to be equipped with charging points
 - **--power**: Power attribute of charging stations to create (see [charging station attributes](../Models/Electric.md#charging_stations))
