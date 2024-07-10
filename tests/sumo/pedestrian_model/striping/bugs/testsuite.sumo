@@ -50,3 +50,11 @@ ticket12456
 
 # emergency braking at crossing
 ticket14939
+
+# invalid walk across junction (should raise routing error instead)
+ticket15183
+
+# invalid walk across junction (should raise routing error instead)
+# 
+# this time with fewer walkingareas
+ticket15183b
