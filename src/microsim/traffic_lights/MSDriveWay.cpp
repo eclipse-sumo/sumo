@@ -132,8 +132,8 @@ MSDriveWay::~MSDriveWay() {
         if (myIsDepartDriveway) {
             std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
             dws.erase(std::find(dws.begin(), dws.end(), this));
-            dws = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
-            dws.erase(std::find(dws.begin(), dws.end(), this));
+            std::vector<MSDriveWay*>& dws2 = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
+            dws2.erase(std::find(dws2.begin(), dws2.end(), this));
         }
     }
     if (myNumericalID != -1 && myForward.size() > 0) {
@@ -1354,11 +1354,17 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
         const MSEdge* bidiEdge = &bidi->getEdge();
         if (myDepartureDriveways.count(bidiEdge) != 0) {
             for (MSDriveWay* foe : myDepartureDriveways[bidiEdge]) {
+#ifdef DEBUG_ADD_FOES
+                std::cout << "  foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << "\n";
+#endif
                 myFoes.push_back(foe);
             }
         }
         if (myDepartureDrivewaysEnds.count(bidiEdge) != 0) {
             for (MSDriveWay* foe : myDepartureDrivewaysEnds[bidiEdge]) {
+#ifdef DEBUG_ADD_FOES
+                std::cout << "  foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << "\n";
+#endif
                 myFoes.push_back(foe);
             }
         }
@@ -1477,6 +1483,11 @@ void
 MSDriveWay::updateDepartDriveway(const MSEdge* first, int dwID) {
     for (MSDriveWay* oldDW : myDepartureDriveways[first]) {
         if (oldDW->getNumericalID() == dwID) {
+#ifdef DEBUG_BUILD_DRIVEWAY
+            if (DEBUG_COND_DW) {
+                std::cout << "updateDepartDriveway " << oldDW->getID() << "\n";
+            }
+#endif
             MSDriveWay* dw = buildDriveWay(oldDW->getID(), nullptr, oldDW->myRoute.begin(), oldDW->myRoute.end());
             myDepartureDriveways[first].push_back(dw);
             myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);

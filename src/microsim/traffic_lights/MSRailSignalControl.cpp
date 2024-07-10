@@ -104,7 +104,7 @@ void
 MSRailSignalControl::registerProtectedDriveway(MSRailSignal* rs, const MSEdge* first, int driveWayID, const MSEdge* protectedBidi) {
     myProtectedDriveways[protectedBidi].push_back(ProtectedDriveway(rs, first, driveWayID));
 #ifdef DEBUG_REGISTER_DRIVEWAY
-    std::cout << "MSRailSignalControl edge=" << protectedBidi->getID() << " assumed secure by driveway " << driveWayID << " at signal " << Named::getIDSecure(rs) << "\n";
+    std::cout << "MSRailSignalControl edge=" << protectedBidi->getID() << " assumed secure by driveway " << driveWayID << " at signal " << Named::getIDSecure(rs) << " first=" << first->getID() << "\n";
 #endif
 }
 
