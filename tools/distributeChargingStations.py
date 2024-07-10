@@ -239,9 +239,6 @@ def main(options):
 def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, chargingPoints, csID):
     parkingCapacity = determineParkingCapacity(parkingArea)
     if chargingPoints <= sum(parkingCapacity) and chargingPoints > 0:
-        print("install %d charging points on %s (capacity %d)" %
-              (chargingPoints, parkingArea.getAttribute("id"), sum(parkingCapacity)))
-
         # downsize parkingArea and create a new one for the remaining parking spaces
         chargingRoadSide = min(parkingCapacity[0], chargingPoints)
         chargingOnSpaces = chargingPoints - chargingRoadSide
