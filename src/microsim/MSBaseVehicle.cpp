@@ -1139,20 +1139,23 @@ MSBaseVehicle::basePos(const MSEdge* edge) const {
     return result;
 }
 
+
 MSLane*
 MSBaseVehicle::interpretOppositeStop(SUMOVehicleParameter::Stop& stop) {
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(stop.lane);
-    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
     const MSEdge* edge = MSEdge::dictionary(edgeID);
-    if (edge != nullptr && edge->getOppositeEdge() != nullptr
-            && laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
+    if (edge == nullptr || edge->getOppositeEdge() == nullptr || stop.lane.find("_") == std::string::npos) {
+        return nullptr;
+    }
+    const int laneIndex = SUMOXMLDefinitions::getIndexFromLane(stop.lane);
+    if (laneIndex < (edge->getNumLanes() + edge->getOppositeEdge()->getNumLanes())) {
         const int oppositeIndex = edge->getOppositeEdge()->getNumLanes() + edge->getNumLanes() - 1 - laneIndex;
         stop.edge = edgeID;
         return edge->getOppositeEdge()->getLanes()[oppositeIndex];
-    } else {
-        return nullptr;
     }
+    return nullptr;
 }
+
 
 bool
 MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset,
