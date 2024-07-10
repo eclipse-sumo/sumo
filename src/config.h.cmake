@@ -119,6 +119,8 @@
     #pragma warning(disable: 4371)
     /* Disable potential exception in C function warnings */
     #pragma warning(disable: 5039)
+    /* Disable constructor is not implicitly called */
+    #pragma warning(disable: 4582)
 
     /* Disable "unsafe" warnings for crt functions in VC++ 2005. */
     #if _MSC_VER >= 1400
