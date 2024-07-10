@@ -43,6 +43,8 @@ def getOptions(args=None):
                                 "(and by default parking areas)")
     argParser.add_argument("--output-parking-file", category="output", dest="outParkingFile",
                            help="define the output filename for the separate parking additional file")
+    argParser.add_argument("--separate-unused-parkings", dest="separateUnusedParkings", action="store_true",
+                           default=False, help="Write parkings with charging stations to the main output file and other parkings to the separate one for parkings")
     argParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
                            help="Probability for an edge to receive a charging station")
     argParser.add_argument("-d", "--density", category="processing", type=float, default=0.1,
@@ -87,7 +89,10 @@ def getOptions(args=None):
         print("Will swap min and max charging point number due to wrong order (%d > %d)" % (options.min, options.max))
         options.min, options.max = options.max, options.min
     options.density = max(0., min(options.density, 1.))
-
+    if options.separateUnusedParkings and options.outParkingFile is None:
+        options.separateUnusedParkings = False
+        if options.verbose:
+            print("Cannot separate parkings as the output file has not been provided by --output-parking-file).")
     return options
 
 
@@ -270,7 +275,8 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
                 addChildToParent(shiftedParkingArea, spaceToShift)
         elif parkingArea.hasChild("space"):
             remainingSpaces.extend(parkingArea.getChild("space"))
-        remainingParking = addChildToParent(rootParking, parkingArea, secondChildTags=["param"])
+        remainingParking = addChildToParent(
+            rootCharging if options.separateUnusedParkings else rootParking, parkingArea, secondChildTags=["param"])
         if len(remainingSpaces) > 0:
             for remainingSpace in remainingSpaces:
                 addChildToParent(remainingParking, remainingSpace)
