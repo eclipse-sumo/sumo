@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-07-10 15:34:31 by Eclipse SUMO sumo Version v1_20_0+0457-7fad1af07f7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":A_3_0 d_0 :B_1_0 -c_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="A.0 B.0.0"/>
+                <foes driveWays="A.0 B.0.0 gneJ7.d1"/>
             </driveWay>
             <subDriveWay id="A.0.0" edges="b">
                 <forward lanes=":A_2_0 b_0 :B_3_0"/>
@@ -69,13 +69,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ7">
-        <driveWay id="gneJ7.d1" edges="-e -b -d" core="1">
+        <driveWay id="gneJ7.d1" edges="-e -b -d">
             <forward lanes="-e_0"/>
-            <bidi lanes="e_0 :B_3_0"/>
+            <bidi lanes="e_0 :B_3_0"
+                    deadlockCheck="b_0 :A_3_0 d_0 :A_2_0"/>
             <flank lanes=""/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="gneJ7.d1"/>
+            <protectingSwitches links="B_3"/>
+            <conflictLinks signals="A_0"/>
+            <foes driveWays="A.0 gneJ7.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ0">

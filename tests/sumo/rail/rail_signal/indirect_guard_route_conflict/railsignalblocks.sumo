@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-07-10 15:34:30 by Eclipse SUMO sumo Version v1_20_0+0457-7fad1af07f7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B.P1_0"/>
-                <foes driveWays="B.A.0 B.P2.0.0"/>
+                <foes driveWays="B.A.0 B.P2.0.0 B.N2.d1"/>
             </driveWay>
             <subDriveWay id="B.A.0.0" edges="T13_0 T14_0">
                 <forward lanes=":B.A_1_0 T13_0_0 :w3_2_0 T14_0_0 :B.P2_1_0"/>
@@ -96,17 +96,18 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":w3_0_0 T4_1_0 :B.P1_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="B.P1_0"/>
-            <foes driveWays="A.d0 B.P2.0"/>
+            <foes driveWays="A.d0 B.P2.0 B.N2.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="B.N2">
-        <driveWay id="B.N2.d1" edges="T15_1 T14_1 T13_1 T12_1" core="2">
+        <driveWay id="B.N2.d1" edges="T15_1 T14_1 T13_1 T12_1">
             <forward lanes="T15_1_0"/>
-            <bidi lanes="T15_0_0 :B.P2_1_0 T14_0_0 :w3_2_0"/>
+            <bidi lanes="T15_0_0 :B.P2_1_0 T14_0_0 :w3_2_0"
+                    deadlockCheck="T13_0_0 :B.A_1_0 T12_0_0"/>
             <flank lanes=":B.N2_0_0 T16_1_0 :w4_1_0"/>
-            <protectingSwitches links="w4_1"/>
-            <conflictLinks signals=""/>
-            <foes driveWays="B.N2.d1"/>
+            <protectingSwitches links="w3_2 w4_1"/>
+            <conflictLinks signals="B.A_0"/>
+            <foes driveWays="B.A.0 B.N2.d1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
