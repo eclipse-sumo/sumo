@@ -41,7 +41,7 @@ netedit.createSquaredShape(referencePosition, 500, 331, 600, True)
 netedit.moveMode()
 
 # move
-netedit.moveElement(referencePosition, AAA, netedit.positions.elements.movementRadius)
+netedit.moveElement(referencePosition, netedit.positions.tmp, netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

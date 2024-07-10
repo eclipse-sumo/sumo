@@ -19,6 +19,11 @@
 # GENERAL
 # --------------------------------
 
+# temporal position (used to mark non finished tests)
+class tmp
+    x = 0
+    y = 0
+
 # network
 
 
