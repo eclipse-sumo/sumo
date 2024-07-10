@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-10 09:24+0000\n"
+"PO-Revision-Date: 2024-07-10 14:26+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -6481,7 +6481,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:670
 msgid "Remove edges where type is in STR[]"
-msgstr ""
+msgstr "Eliminar aristas cuyo tipo esté presente en STR[]"
 
 #: src/netbuild/NBFrame.cpp:674
 msgid "Removes isolated edges"
@@ -6511,11 +6511,11 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:703
 msgid "Treat edges with speed > FLOAT as no ramps"
-msgstr ""
+msgstr "No considerar a las aristas con velocidad > FLOAT como rampas"
 
 #: src/netbuild/NBFrame.cpp:707
 msgid "Treat edges with speed < FLOAT as no highways"
-msgstr ""
+msgstr "No considerar a las aristas con velocidad < FLOAT como autopistas"
 
 #: src/netbuild/NBFrame.cpp:711
 msgid "Use FLOAT as ramp-length"
@@ -6527,11 +6527,11 @@ msgstr "Usar FLOAT como longitud mínima de rampa"
 
 #: src/netbuild/NBFrame.cpp:719
 msgid "Tries to handle the given edges as ramps"
-msgstr ""
+msgstr "Intentar tratar las aristas dadas como rampas"
 
 #: src/netbuild/NBFrame.cpp:722
 msgid "Do not consider the given edges as ramps"
-msgstr ""
+msgstr "No considerar las aristas dadas como rampas"
 
 #: src/netbuild/NBFrame.cpp:726
 msgid "Avoids edge splitting"
@@ -6540,7 +6540,7 @@ msgstr "Evita la división de aristas"
 #: src/netbuild/NBFrame.cpp:736
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
-msgstr ""
+msgstr "valor no admitido '%' para la opción '--tls.default-type'"
 
 #: src/netbuild/NBFrame.cpp:740
 msgid ""
@@ -6586,6 +6586,8 @@ msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
 msgstr ""
+"La opción 'junctions.scurve-stretch' requiere carriles internos para "
+"funcionar. La opción '--no-internal-links' se deshabilitará."
 
 #: src/netbuild/NBFrame.cpp:780
 msgid ""
@@ -6651,7 +6653,7 @@ msgstr "No se pudo analizar la geo información de %."
 
 #: src/netbuild/NBHeightMapper.cpp:312
 msgid "Unknown color band in %."
-msgstr ""
+msgstr "Banda de color desconocida en %."
 
 #: src/netbuild/NBHeightMapper.cpp:319
 msgid "Failure in reading %."
@@ -6677,7 +6679,7 @@ msgstr "ID de carril '%' no válido (falta '_')."
 
 #: src/netbuild/NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
-msgstr ""
+msgstr "Índice de carril no válido '%' para el carril '%'."
 
 #: src/netbuild/NBLoadedSUMOTLDef.cpp:359
 #, c-format
@@ -6766,7 +6768,7 @@ msgstr "Combinando aristas de tranvía"
 
 #: src/netbuild/NBNetBuilder.cpp:211
 msgid " Joined % tram edges into roads."
-msgstr ""
+msgstr " Se combinaron % aristas de tranvía con las calles."
 
 #: src/netbuild/NBNetBuilder.cpp:249
 msgid "Joining junction clusters"
@@ -6775,7 +6777,7 @@ msgstr "Combinando grupos de cruces"
 #: src/netbuild/NBNetBuilder.cpp:254
 #, c-format
 msgid " Joined % junction cluster(s)."
-msgstr ""
+msgstr " Se combinaron % grupo(s) de cruce."
 
 #: src/netbuild/NBNetBuilder.cpp:257
 msgid "Joining junctions with identical coordinates"
@@ -6819,7 +6821,7 @@ msgstr "Dividiendo aristas geométricas"
 #: src/netbuild/NBNetBuilder.cpp:329
 #, c-format
 msgid " Joined % junctions after splitting geometry."
-msgstr ""
+msgstr " Se combinaron % cruces después de dividir la geometría."
 
 #: src/netbuild/NBNetBuilder.cpp:334
 msgid "Computing turning directions"
@@ -6878,7 +6880,7 @@ msgstr "Computando prioridades"
 
 #: src/netbuild/NBNetBuilder.cpp:502
 msgid "Computing approached edges"
-msgstr ""
+msgstr "Calculando aristas accedidas"
 
 #: src/netbuild/NBNetBuilder.cpp:507
 msgid "Guessing and setting roundabouts"
@@ -6951,7 +6953,7 @@ msgstr "Comprobando aristas superpuestas"
 
 #: src/netbuild/NBNetBuilder.cpp:669
 msgid "Checking edge grade"
-msgstr ""
+msgstr "Comprobando la pendiente de la arista"
 
 #: src/netbuild/NBNetBuilder.cpp:684
 msgid "Find accesses for pt rail stops"
