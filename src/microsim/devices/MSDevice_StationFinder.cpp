@@ -66,8 +66,8 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.emptyThreshold", "Battery", TL("Battery percentage to go into rescue mode"));
     oc.doRegister("device.stationfinder.radius", new Option_String("180", "TIME"));
     oc.addDescription("device.stationfinder.radius", "Battery", TL("Search radius in travel time seconds"));
-    oc.doRegister("device.stationfinder.maxEuclideanDistance", new Option_String("2000", "FLOAT"));
-    oc.addDescription("device.stationfinder.maxEuclideanDistance", "Battery", TL("Euclidean search distance in meters"));
+    oc.doRegister("device.stationfinder.maxEuclideanDistance", new Option_Float(-1));
+    oc.addDescription("device.stationfinder.maxEuclideanDistance", "Battery", TL("Euclidean search distance in meters (a negative value disables the restriction)"));
     oc.doRegister("device.stationfinder.repeat", new Option_String("60", "TIME"));
     oc.addDescription("device.stationfinder.repeat", "Battery", TL("When to trigger a new search if no station has been found"));
     oc.doRegister("device.stationfinder.maxChargePower", new Option_Float(100000.));
@@ -96,12 +96,13 @@ MSDevice_StationFinder::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicl
 // MSDevice_StationFinder-methods
 // ---------------------------------------------------------------------------
 MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
-    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()), 
+    : MSVehicleDevice(holder, "stationfinder_" + holder.getID()),
       MSStoppingPlaceRerouter(SUMO_TAG_CHARGING_STATION, "device.stationfinder.charging", true, false, {
-    {"waitingTime", 1.}, {"chargingTime", 1.}}, { {"waitingTime", false}, {"chargingTime", false} }), 
-    myVeh(dynamic_cast<MSVehicle&>(holder)),
-    myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
-    myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+    {"waitingTime", 1.}, {"chargingTime", 1.}
+}, { {"waitingTime", false}, {"chargingTime", false} }),
+myVeh(dynamic_cast<MSVehicle&>(holder)),
+myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
+myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
     myEvalParams["distanceto"] = 0.;
     myEvalParams["timeto"] = 1.;
@@ -120,16 +121,16 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
         WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), action);
     }
     initRescueCommand();
-    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", false, 1.1));
-    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", false, 5.), 1.));
-    myRadius = holder.getTimeParam("device.stationfinder.radius", false, 180000);
-    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", false, -1);
-    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat", false, 60000);
-    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", false, 80000.);
+    myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor", false));
+    myEmptySoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.emptyThreshold", false), 1.));
+    myRadius = holder.getTimeParam("device.stationfinder.radius", false);
+    myMaxEuclideanDistance = holder.getFloatParam("device.stationfinder.maxEuclideanDistance", false);
+    myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat", false);
+    myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower", false);
     myChargeType = CHARGETYPE_CHARGING;
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
-    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", false, 80.), 1.));
-    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", false, 40.), 1.));
+    myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel", false), 1.));
+    mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel", false), 1.));
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
