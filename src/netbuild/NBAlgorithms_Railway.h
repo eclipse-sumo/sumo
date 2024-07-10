@@ -163,4 +163,5 @@ public:
 
 private:
     static int guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength);
+    static bool canBeSignal(const NBNode* node);
 };

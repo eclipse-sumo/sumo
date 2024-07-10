@@ -1314,6 +1314,11 @@ NBRailwaySignalGuesser::guessRailSignals(NBEdgeCont& ec, NBPTStopCont& sc) {
 }
 
 
+bool
+NBRailwaySignalGuesser::canBeSignal(const NBNode* node) {
+    return (node->getType() != SumoXMLNodeType::RAIL_SIGNAL && node->geometryLike());
+}
+
 int
 NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength) {
     int addedSignals = 0;
@@ -1321,14 +1326,14 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
         const NBEdge* stopEdge = ec.retrieve(item.second->getEdgeId());
         if (stopEdge != nullptr && isRailway(stopEdge->getPermissions())) {
             NBNode* to = stopEdge->getToNode();
-            if (to->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+            if (canBeSignal(to)) {
                 to->reinit(to->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                 addedSignals++;
             }
             NBNode* from = stopEdge->getFromNode();
             if (stopEdge->getLoadedLength() >= minLength) {
                 /// XXX should split edge if it is too long
-                if (from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                if (canBeSignal(from)) {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }
@@ -1350,7 +1355,7 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
                     }
                     searchDist -= stopEdge->getLoadedLength();
                 }
-                if (searchDist <= 0 && from->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+                if (searchDist <= 0 && canBeSignal(from)) {
                     from->reinit(from->getPosition(), SumoXMLNodeType::RAIL_SIGNAL);
                     addedSignals++;
                 }
