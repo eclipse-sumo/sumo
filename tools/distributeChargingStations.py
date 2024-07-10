@@ -263,8 +263,6 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
             if shiftSpaces > 0:
                 spacesToShift.extend(parkingArea.getChild("space")[shiftSpaces:])
                 remainingSpaces.extend(parkingArea.getChild("space")[:shiftSpaces])
-                print("shift %d remain %d original %d" % (len(spacesToShift),
-                      len(remainingSpaces), len(parkingArea.getChild("space"))))
             shiftedPaDict = {t[0]: t[1] for t in parkingArea.getAttributes()}
             shiftedPaDict["id"] = "%s%s" % (shiftedPaDict["id"], options.suffix)
             shiftedPaDict["startPos"] = str(posShift[0])
