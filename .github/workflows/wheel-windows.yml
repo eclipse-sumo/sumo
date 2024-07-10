@@ -34,6 +34,7 @@ jobs:
       CXX: cl
       SUMO_LIBRARIES: D:\a\sumo\sumo\sumolibraries
       TMPDIR: D:\a\sumo\sumo\tmp
+      TEXTTEST_TMP: 'D:/texttest'
 
     steps:
     - name: Cloning SUMO
