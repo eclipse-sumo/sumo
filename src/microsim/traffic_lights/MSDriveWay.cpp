@@ -662,6 +662,15 @@ MSDriveWay::bidiBlockedBy(const MSDriveWay& other) const {
             }
         }
     }
+    for (const MSLane* lane : myBidiExtended) {
+        for (const MSLane* lane2 : other.myForward) {
+            if (lane == lane2) {
+                if (overlap(other)) {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
