@@ -115,6 +115,18 @@ jobs:
         ctest -R texttest --verbose
         copy Testing/Temporary/LastTest.log D:/texttest
 
+    - name: Compressing test results
+      if: failure()
+      run: Compress-Archive -Path $env:TEXTTEST_TMP -DestinationPath D:/texttest_plain.zip
+
+    - name: Uploading test results
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: texttesttmp-${{ matrix.build_type }}-${{ matrix.python_version }}
+        path: D:/texttest_plain.zip
+        if-no-files-found: warn
+
   ###################
   # testing wheels
   ###################
@@ -180,14 +192,14 @@ jobs:
 
     - name: Compressing test results
       if: failure()
-      run: Compress-Archive -Path $env:TEXTTEST_TMP -DestinationPath D:/tt.zip
+      run: Compress-Archive -Path $env:TEXTTEST_TMP -DestinationPath D:/texttest_installed.zip
 
     - name: Uploading test results
       if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: texttesttmp-${{ matrix.python_version }}
-        path: D:/tt.zip
+        name: texttesttmp-installed-${{ matrix.python_version }}
+        path: D:/texttest_installed.zip
         if-no-files-found: warn
 
   ###################
