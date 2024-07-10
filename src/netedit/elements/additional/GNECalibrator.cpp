@@ -239,10 +239,10 @@ GNECalibrator::getParentName() const {
 
 void
 GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
-    // get values
-    const double exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // get values
+        const double exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(exaggeration);
         // draw first symbol
@@ -451,7 +451,7 @@ void
 GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
                                     const Position& pos, const double rot) const {
     // draw geometry only if we'rent in drawForObjectUnderCursor mode
-    if (!s.drawForViewObjectsHandler) {
+    if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
         // push layer matrix
         GLHelper::pushMatrix();
         // translate to front

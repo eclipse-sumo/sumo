@@ -150,10 +150,10 @@ GNERouteProbe::getParentName() const {
 
 void
 GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double routeProbeExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double routeProbeExaggeration = getExaggeration(s);
         // declare colors
         RGBColor routeProbeColor, centralLineColor;
         // set colors
@@ -167,7 +167,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(routeProbeExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Add layer matrix matrix

@@ -353,16 +353,17 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if POI can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && 
+        myNet->getViewNet()->getDataViewOptions().showShapes()) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
         // obtain POIExaggeration
         const double POIExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(POIExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
             // draw POI
             drawPOI(s, d);
             // draw lock icon

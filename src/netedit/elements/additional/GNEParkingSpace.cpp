@@ -214,10 +214,10 @@ GNEParkingSpace::getParentName() const {
 
 void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
         // get exaggeration
         const double spaceExaggeration = getExaggeration(s);
         // get witdh
@@ -225,7 +225,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(spaceExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw space
             drawSpace(s, d, parkingSpaceWidth);
             // draw parent and child lines

@@ -137,14 +137,14 @@ GNEVaporizer::getParentName() const {
 
 void
 GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double vaporizerExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double vaporizerExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(vaporizerExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor vaporizerColor, centralLineColor;
             // set colors

@@ -196,8 +196,9 @@ GNEMultiEntryExitDetector::getParentName() const {
 
 void
 GNEMultiEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // check if drawn
-    if (!myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    // first check if additional has to be drawn
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // draw parent and child lines
         drawParentChildLines(s, s.additionalSettings.connectionColor);
         // draw E3

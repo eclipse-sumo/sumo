@@ -157,14 +157,14 @@ GNEInductionLoopDetector::checkDrawRelatedContour() const {
 
 void
 GNEInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double E1Exaggeration = getExaggeration(s);
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Obtain exaggeration of the draw
+        const double E1Exaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E1Exaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color

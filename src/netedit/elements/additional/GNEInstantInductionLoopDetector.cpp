@@ -140,13 +140,13 @@ void
 GNEInstantInductionLoopDetector::drawGL(const GUIVisualizationSettings& s) const {
     // check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Obtain exaggeration of the draw
         const double E1InstantExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(E1InstantExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // declare colors
             RGBColor mainColor, secondColor, textColor;
             // set color

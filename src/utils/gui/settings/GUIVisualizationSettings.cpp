@@ -667,15 +667,29 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 
 
 bool
-GUIVisualizationSettings::checkDrawAdditional(const GUIVisualizationSettings& s, const Detail d, const bool selected) {
-    if (s.drawForViewObjectsHandler) {
+GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (addSize.constantSize) {
         return true;
-    } else if (s.addSize.constantSize) {
-        return true;
-    } else if (s.addSize.constantSizeSelected && selected) {
+    } else if (addSize.constantSizeSelected && selected) {
         return true;
     } else {
         return d <= GUIVisualizationSettings::Detail::Additionals;
+    }
+}
+
+
+bool
+GUIVisualizationSettings::checkDrawShape(const Detail d, const bool selected) const {
+    if (drawForViewObjectsHandler) {
+        return false;
+    } else if (polySize.constantSize) {
+        return true;
+    } else if (addSize.constantSizeSelected && selected) {
+        return true;
+    } else {
+        return true;
     }
 }
 

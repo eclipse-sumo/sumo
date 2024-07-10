@@ -302,16 +302,17 @@ GNETAZ::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
-    // draw boundaries
-    GLHelper::drawBoundary(s, getCenteringBoundary());
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && GUIPolygon::checkDraw(s, this, this)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+        GUIPolygon::checkDraw(s, this, this)) {
+        // draw boundaries
+        GLHelper::drawBoundary(s, getCenteringBoundary());
         // get exaggeration
         const double TAZExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(TAZExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
             // Obtain constants
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();

@@ -124,14 +124,15 @@ GNEEntryExitDetector::updateGeometry() {
 
 void
 GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
-    // Set initial values
-    const double entryExitExaggeration = getExaggeration(s);
     // first check if additional has to be drawn
-    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() && !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+    if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+        // Set initial values
+        const double entryExitExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(entryExitExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // Push layer matrix

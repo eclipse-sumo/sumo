@@ -154,7 +154,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(rerouteExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw rerouter symbol
             drawRerouterSymbol(s, d, rerouteExaggeration);
             // draw parent and child lines

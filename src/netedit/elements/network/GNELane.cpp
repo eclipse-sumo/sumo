@@ -1115,22 +1115,19 @@ GNELane::drawShapeEdited(const GUIVisualizationSettings& s) const {
 
 void
 GNELane::drawChildren(const GUIVisualizationSettings& s) const {
-    // check if draw children elements
-    if (s.drawForViewObjectsHandler || (myDrawingConstants->getDetail() <= GUIVisualizationSettings::Detail::Additionals)) {
-        // draw additional children
-        for (const auto& additional : getChildAdditionals()) {
-            // check that ParkingAreas aren't draw two times
-            additional->drawGL(s);
-        }
-        // draw demand element children
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
-        // draw path additional elements
-        myNet->getPathManager()->drawLanePathElements(s, this);
+    // draw additional children
+    for (const auto& additional : getChildAdditionals()) {
+        // check that ParkingAreas aren't draw two times
+        additional->drawGL(s);
     }
+    // draw demand element children
+    for (const auto& demandElement : getChildDemandElements()) {
+        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+            demandElement->drawGL(s);
+        }
+    }
+    // draw path additional elements
+    myNet->getPathManager()->drawLanePathElements(s, this);
 }
 
 

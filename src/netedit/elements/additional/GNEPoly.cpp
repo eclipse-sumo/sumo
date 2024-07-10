@@ -301,8 +301,9 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() &&
-            GUIPolygon::checkDraw(s, this, this)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+        myNet->getViewNet()->getDataViewOptions().showShapes() &&
+        GUIPolygon::checkDraw(s, this, this)) {
         // draw boundaries
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get exaggeration
@@ -310,7 +311,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(polyExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
+        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
             // get colors
             const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
             // push layer matrix
