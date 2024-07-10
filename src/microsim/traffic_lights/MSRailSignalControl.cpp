@@ -82,7 +82,7 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
                 myUsedEdges.insert(edge);
                 if (myProtectedDriveways.count(edge) != 0) {
 #ifdef DEBUG_REGISTER_DRIVEWAY
-                    std::cout << "MSRailSignalControl edge=" << edge->getID() << " used by vehicle " << vehicle->getID() << ". Updating " << myProtectedDriveways[edge].size() << " driveways\n";
+                    std::cout << "MSRailSignalControl edge=" << edge->getID() << " used by vehicle " << vehicle->getID() << ". Updating " << myProtectedDriveways[edge].size() << " driveways, time=" << time2string(SIMSTEP) << "\n";
 #endif
                     updateDriveways(edge);
                 }
@@ -101,17 +101,22 @@ MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet
 
 
 void
-MSRailSignalControl::registerProtectedDriveway(MSRailSignal* rs, int driveWayID, const MSEdge* protectedBidi) {
-    myProtectedDriveways[protectedBidi].push_back(std::make_pair(rs, driveWayID));
+MSRailSignalControl::registerProtectedDriveway(MSRailSignal* rs, const MSEdge* first, int driveWayID, const MSEdge* protectedBidi) {
+    myProtectedDriveways[protectedBidi].push_back(ProtectedDriveway(rs, first, driveWayID));
 #ifdef DEBUG_REGISTER_DRIVEWAY
-    std::cout << "MSRailSignalControl edge=" << protectedBidi->getID() << " assumed secure by driveway " << driveWayID << " at signal " << rs->getID() << "\n";
+    std::cout << "MSRailSignalControl edge=" << protectedBidi->getID() << " assumed secure by driveway " << driveWayID << " at signal " << Named::getIDSecure(rs) << "\n";
 #endif
 }
 
+
 void
 MSRailSignalControl::updateDriveways(const MSEdge* used) {
-    for (auto item : myProtectedDriveways[used]) {
-        item.first->updateDriveway(item.second);
+    for (const ProtectedDriveway& pdw : myProtectedDriveways[used]) {
+        if (pdw.rs != nullptr) {
+            pdw.rs->updateDriveway(pdw.dwID);
+        } else {
+            MSDriveWay::updateDepartDriveway(pdw.first, pdw.dwID);
+        }
     }
     myProtectedDriveways.erase(used);
 }

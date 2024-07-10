@@ -101,7 +101,8 @@ MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         myCoreSize(0),
         myFoundSignal(false),
         myFoundReversal(false),
-        myIsSubDriveway(false)
+        myIsSubDriveway(false),
+        myIsDepartDriveway(false)
 {}
 
 
@@ -128,7 +129,7 @@ MSDriveWay::~MSDriveWay() {
     }
     if (myLane != nullptr) {
         const MSEdge* first = &myLane->getEdge();
-        if (first->getFromJunction()->getType() != SumoXMLNodeType::RAIL_SIGNAL) {
+        if (myIsDepartDriveway) {
             std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
             dws.erase(std::find(dws.begin(), dws.end(), this));
             dws = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
@@ -1113,6 +1114,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     //   -> add final links to conflictLinks
 
     MSDriveWay* dw = new MSDriveWay(id);
+    dw->myIsDepartDriveway = link == nullptr;
     LaneVisitedMap visited;
     std::vector<const MSLane*> before;
     MSLane* fromBidi = nullptr;
@@ -1164,8 +1166,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
     dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myBidi.begin(), dw->myBidi.end());
     dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myFlank.begin(), dw->myFlank.end());
-    if (rs && dw->myProtectedBidi != nullptr) {
-        MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw->myNumericalID, dw->myProtectedBidi);
+    if (dw->myProtectedBidi != nullptr) {
+        MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw->myRoute.front(), dw->myNumericalID, dw->myProtectedBidi);
     }
 
     dw->addBidiFoes(rs);
@@ -1468,6 +1470,21 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     myDepartureDriveways[edge].push_back(dw);
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
     return dw;
+}
+
+
+void
+MSDriveWay::updateDepartDriveway(const MSEdge* first, int dwID) {
+    for (MSDriveWay* oldDW : myDepartureDriveways[first]) {
+        if (oldDW->getNumericalID() == dwID) {
+            MSDriveWay* dw = buildDriveWay(oldDW->getID(), nullptr, oldDW->myRoute.begin(), oldDW->myRoute.end());
+            myDepartureDriveways[first].push_back(dw);
+            myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
+            delete oldDW;
+            return;
+        }
+    }
+    WRITE_WARNINGF("Could not update depart-driveway % starting on edge %", dwID, first->getID());
 }
 
 

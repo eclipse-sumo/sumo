@@ -126,6 +126,8 @@ public:
 
     static const MSDriveWay* getDepartureDriveway(const SUMOVehicle* veh);
 
+    static void updateDepartDriveway(const MSEdge* first, int dwID);
+
     static void writeDepatureBlocks(OutputDevice& od, bool writeVehicles);
 
 protected:
@@ -152,6 +154,7 @@ protected:
     bool myFoundSignal;
     bool myFoundReversal;
     bool myIsSubDriveway;
+    bool myIsDepartDriveway;
 
     /* @brief the actual driveway part up to the next railsignal (halting position)
      * This must be free of other trains */
