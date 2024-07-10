@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-08 10:02+0000\n"
+"PO-Revision-Date: 2024-07-10 08:51+0000\n"
 "Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -10988,7 +10988,7 @@ msgstr "Polígono ya simplificado"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:104
 msgid "' needs at least one edge"
-msgstr ""
+msgstr "' requiere al menos una arista"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:296
 #: src/netedit/elements/network/GNELane.cpp:567
@@ -10997,7 +10997,7 @@ msgstr "Establecer punto de geometría personalizado"
 
 #: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:83
 msgid "' needs at least one lane"
-msgstr ""
+msgstr "' requiere al menos un carril"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:62
 msgid "add data set"
