@@ -305,14 +305,15 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
         GUIPolygon::checkDraw(s, this, this)) {
-        // draw boundaries
-        GLHelper::drawBoundary(s, getCenteringBoundary());
+        // draw boundary
+        const auto boundary = getCenteringBoundary();
+        GLHelper::drawBoundary(s, boundary);
         // get exaggeration
         const double TAZExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(TAZExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
+        if (s.checkDrawPoly(boundary, isAttributeCarrierSelected())) {
             // Obtain constants
             const Position mousePosition = myNet->getViewNet()->getPositionInformation();
             const bool drawFill = (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && myNet->getViewNet()->getDataViewOptions().TAZDrawFill()) ? true : getFill();

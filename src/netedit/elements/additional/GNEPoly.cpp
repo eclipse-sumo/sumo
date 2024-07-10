@@ -304,14 +304,15 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
         myNet->getViewNet()->getDataViewOptions().showShapes() &&
         GUIPolygon::checkDraw(s, this, this)) {
-        // draw boundaries
+        // draw boundary
+        const auto boundary = getCenteringBoundary();
         GLHelper::drawBoundary(s, getCenteringBoundary());
         // get exaggeration
         const double polyExaggeration = getExaggeration(s);
         // get detail level
         const auto d = s.getDetailLevel(polyExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
+        if (s.checkDrawPoly(boundary, isAttributeCarrierSelected())) {
             // get colors
             const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
             // push layer matrix

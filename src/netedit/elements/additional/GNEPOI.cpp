@@ -363,7 +363,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
         // get detail level
         const auto d = s.getDetailLevel(POIExaggeration);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (s.checkDrawShape(d, isAttributeCarrierSelected())) {
+        if (s.checkDrawPOI(getWidth(), getHeight(), d, isAttributeCarrierSelected())) {
             // draw POI
             drawPOI(s, d);
             // draw lock icon

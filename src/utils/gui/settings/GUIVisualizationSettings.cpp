@@ -667,7 +667,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 
 
 bool
-GUIVisualizationSettings::checkDrawJunction(const Detail d, const bool selected) const {
+GUIVisualizationSettings::checkDrawJunction(const Boundary &b, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (junctionSize.constantSize) {
@@ -675,7 +675,7 @@ GUIVisualizationSettings::checkDrawJunction(const Detail d, const bool selected)
     } else if (junctionSize.constantSizeSelected && selected) {
         return true;
     } else {
-        return true;
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
     }
 }
 
@@ -695,7 +695,7 @@ GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selecte
 
 
 bool
-GUIVisualizationSettings::checkDrawPoly(const Detail d, const bool selected) const {
+GUIVisualizationSettings::checkDrawPoly(const Boundary &b, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (polySize.constantSize) {
@@ -703,21 +703,23 @@ GUIVisualizationSettings::checkDrawPoly(const Detail d, const bool selected) con
     } else if (polySize.constantSizeSelected && selected) {
         return true;
     } else {
-        return true;
+        return (scale * MAX2(b.getWidth(), b.getHeight())) > BoundarySizeDrawing;
     }
 }
 
 
 bool
-GUIVisualizationSettings::checkDrawPOI(const Detail d, const bool selected) const {
+GUIVisualizationSettings::checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (poiSize.constantSize) {
         return true;
     } else if (poiSize.constantSizeSelected && selected) {
         return true;
+    } else if ((w > 0) && (h > 0)) {
+        return (scale * MAX2(w, h)) > BoundarySizeDrawing;
     } else {
-        return true;
+        return d <= GUIVisualizationSettings::Detail::Additionals;
     }
 }
 
@@ -731,7 +733,7 @@ GUIVisualizationSettings::checkDrawVehicle(const Detail d, const bool selected) 
     } else if (vehicleSize.constantSizeSelected && selected) {
         return true;
     } else {
-        return true;
+        return d <= GUIVisualizationSettings::Detail::Additionals;
     }
 }
 
@@ -745,7 +747,7 @@ GUIVisualizationSettings::checkDrawPerson(const Detail d, const bool selected) c
     } else if (personSize.constantSizeSelected && selected) {
         return true;
     } else {
-        return true;
+        return d <= GUIVisualizationSettings::Detail::Additionals;
     }
 }
 
@@ -759,7 +761,7 @@ GUIVisualizationSettings::checkDrawContainer(const Detail d, const bool selected
     } else if (containerSize.constantSizeSelected && selected) {
         return true;
     } else {
-        return true;
+        return d <= GUIVisualizationSettings::Detail::Additionals;
     }
 }
 
@@ -2541,7 +2543,9 @@ GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
 
 bool
 GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
-    if (disableHideByZoom) {
+    if (drawForViewObjectsHandler) {
+        return true;
+    } else if (disableHideByZoom) {
         return true;
     } else if (
         vehicleSize.constantSize || vehicleSize.constantSizeSelected ||
@@ -2553,13 +2557,7 @@ GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double 
         polySize.constantSize || polySize.constantSizeSelected) {
         return true;
     } else {
-        const double size = MAX2(w, h);
-        if (drawForViewObjectsHandler) {
-            return true;
-        } else {
-            // for low computers 20. for high 10
-            return (scale * size) > 15;
-        }
+        return (scale * MAX2(w, h)) > BoundarySizeDrawing;
     }
 }
 

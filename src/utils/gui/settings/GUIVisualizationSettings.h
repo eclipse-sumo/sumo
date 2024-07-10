@@ -612,16 +612,16 @@ public:
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
     /// @brief check if draw junction
-    bool checkDrawJunction(Detail d, const bool selected) const;
+    bool checkDrawJunction(const Boundary &b, const bool selected) const;
 
     /// @brief check if draw additionals
     bool checkDrawAdditional(Detail d, const bool selected) const;
 
     /// @brief check if draw polygon
-    bool checkDrawPoly(Detail d, const bool selected) const;
+    bool checkDrawPoly(const Boundary &b, const bool selected) const;
 
     /// @brief check if draw POI
-    bool checkDrawPOI(Detail d, const bool selected) const;
+    bool checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const;
 
     /// @brief check if draw vehicle
     bool checkDrawVehicle(Detail d, const bool selected) const;
@@ -1108,6 +1108,9 @@ public:
 
     /// @brief alt key pressed (only used for draw polygons under other elements in SUMO-GUI, store is not needed)
     bool altKeyPressed = false;
+
+    /// @brief constant for boundary size drawing (20 for slow computers, 10 for quick computers)
+    double BoundarySizeDrawing = 15;
 
 private:
     /// @brief set copy constructor private
