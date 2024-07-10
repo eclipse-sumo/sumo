@@ -3106,8 +3106,24 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
         NBEdge* edge = *it;
         const std::vector<NBEdge::Lane>& lanes = edge->getLanes();
         std::vector<NBEdge::Lane> tmp;
-        for (std::vector<NBEdge::Lane>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); ++it_l) {
-            tmp.push_back(*it_l);
+        bool hadSidewalk = false;
+        bool hadNonSidewalk = false;
+        for (int i = 0; i < (int)lanes.size(); i++) {
+            NBEdge::Lane l = lanes[i];
+            const bool sidewalk = (l.permissions & SVC_PEDESTRIAN) != 0;
+            if (sidewalk) {
+                if (hadSidewalk && hadNonSidewalk) {
+                    if (edge->getFromNode() == this) {
+                        WRITE_WARNINGF(TL("Ignoring additional sidewalk lane % on edge '%' for walkingareas."),
+                                i, edge->getID());
+                    }
+                    continue;
+                }
+                hadSidewalk = true;
+            } else {
+                hadNonSidewalk = true;
+            }
+            tmp.push_back(l);
         }
         if (edge->getFromNode() == this) {
             std::reverse(tmp.begin(), tmp.end());
