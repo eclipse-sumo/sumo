@@ -2473,6 +2473,15 @@ bool
 GUIVisualizationSettings::checkBoundarySizeDrawing(const double w, const double h) const {
     if (disableHideByZoom) {
         return true;
+    } else if (
+        vehicleSize.constantSize || vehicleSize.constantSizeSelected ||
+        personSize.constantSize || personSize.constantSizeSelected ||
+        containerSize.constantSize || containerSize.constantSizeSelected ||
+        junctionSize.constantSize || junctionSize.constantSizeSelected ||
+        addSize.constantSize || addSize.constantSizeSelected ||
+        poiSize.constantSize || poiSize.constantSizeSelected ||
+        polySize.constantSize || polySize.constantSizeSelected) {
+        return true;
     } else {
         const double size = MAX2(w, h);
         if (drawForViewObjectsHandler) {
