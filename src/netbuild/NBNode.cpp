@@ -1199,20 +1199,20 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-        int inOffset, outOffset, addedLanes;
-        getReduction(out, in, outOffset, inOffset, addedLanes);
+        int inOffset, inEnd, outOffset, outEnd, addedLanes;
+        getReduction(out, in, outOffset, outEnd, inOffset, inEnd, addedLanes);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && addedLanes > 0
                 && in->isConnectedTo(out)) {
-#ifdef DEBUG_CONNECTION_GUESSING
-            if (DEBUGCOND) {
-                std::cout << "l2l node=" << getID() << " specialCase a\n";
-            }
-#endif
             const int addedRight = addedLanesRight(out, addedLanes);
             const int addedLeft = addedLanes - addedRight;
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "l2l node=" << getID() << " specialCase a. addedRight=" << addedRight << " addedLeft=" << addedLeft << " inOff=" << inOffset << " outOff=" << outOffset << " inEnd=" << inEnd << " outEnd=" << outEnd << "\n";
+            }
+#endif
             // "straight" connections
-            for (int i = inOffset; i < in->getNumLanes(); ++i) {
+            for (int i = inOffset; i < inEnd; ++i) {
                 in->setConnection(i, out, i - inOffset + outOffset + addedRight, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             // connect extra lane on the right
@@ -1220,8 +1220,8 @@ NBNode::computeLanes2Lanes() {
                 in->setConnection(inOffset, out, outOffset + i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             // connect extra lane on the left
-            const int inLeftMost = in->getNumLanes() - 1;
-            const int outOffset2 = outOffset + addedRight + in->getNumLanes() - inOffset;
+            const int inLeftMost = inEnd - 1;;
+            const int outOffset2 = outOffset + addedRight + inEnd - inOffset;
             for (int i = 0; i < addedLeft; ++i) {
                 in->setConnection(inLeftMost, out, outOffset2 + i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
@@ -1353,20 +1353,20 @@ NBNode::computeLanes2Lanes() {
             // will be added later or not...
             return;
         }
-        int inOffset, outOffset, reduction;
-        getReduction(in, out, inOffset, outOffset, reduction);
+        int inOffset, inEnd, outOffset, outEnd, reduction;
+        getReduction(in, out, inOffset, inEnd, outOffset, outEnd, reduction);
         if (in->getStep() <= NBEdge::EdgeBuildingStep::LANES2EDGES
                 && reduction >= 0
                 && in != out
                 && in->isConnectedTo(out)) {
 #ifdef DEBUG_CONNECTION_GUESSING
             if (DEBUGCOND) {
-                std::cout << "l2l node=" << getID() << " specialCase f\n";
+                std::cout << "l2l node=" << getID() << " specialCase f inOff=" << inOffset << " outOff=" << outOffset << " inEnd=" << inEnd << " outEnd=" << outEnd << " reduction=" << reduction << "\n";
             }
 #endif
             // in case of reduced lane number, let the rightmost lanse end
             inOffset += reduction;
-            for (int i = outOffset; i < out->getNumLanes(); ++i) {
+            for (int i = outOffset; i < outEnd; ++i) {
                 in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
@@ -1608,10 +1608,12 @@ NBNode::recheckVClassConnections(NBEdge* currentOutgoing) {
 }
 
 void
-NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const {
+NBNode::getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& inEnd, int& outOffset, int& outEnd, int& reduction) const {
     inOffset = MAX2(0, in->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
     outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
-    reduction = (in->getNumLanes() - inOffset) - (out->getNumLanes() - outOffset);
+    inEnd = in->getFirstNonPedestrianLaneIndex(BACKWARD, true) + 1;
+    outEnd = out->getFirstNonPedestrianLaneIndex(BACKWARD, true) + 1;
+    reduction = (inEnd - inOffset) - (outEnd - outOffset);
 }
 
 
@@ -1624,8 +1626,9 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
     // check whether a right lane ends
     if (to->getIncomingEdges().size() == 1
             && to->getOutgoingEdges().size() == 1) {
-        int inOffset, outOffset, reduction;
-        to->getReduction(out, to->getOutgoingEdges()[0], inOffset, outOffset, reduction);
+        int inOffset, inEnd, outOffset, outEnd, reduction;
+        to->getReduction(out, to->getOutgoingEdges()[0], inOffset, inEnd, outOffset, outEnd, reduction);
+
         if (reduction > 0) {
             return reduction;
         }
@@ -1649,11 +1652,17 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
         }
     }
     const int outOffset = MAX2(0, out->getFirstNonPedestrianNonBicycleLaneIndex(FORWARD, true));
-    const int usableLanes = out->getNumLanes() - outOffset;
+    const int outEnd = out->getFirstNonPedestrianLaneIndex(BACKWARD, true) + 1;
+    const int usableLanes = outEnd - outOffset;
     int addedTurnLanes = MIN3(
                              addedLanes,
                              MAX2(0, usableLanes - outLanesStraight),
                              outLanesRight + outLanesLeft);
+#ifdef DEBUG_CONNECTION_GUESSING
+    if (DEBUGCOND) {
+        std::cout << "out=" << out->getID() << " usableLanes=" << usableLanes << " addedTurnLanes=" << addedTurnLanes << " addedLanes=" << addedLanes << " outLanesStraight=" << outLanesStraight << " outLanesLeft=" << outLanesLeft << " outLanesRight=" << outLanesRight << "\n";
+    }
+#endif
     if (outLanesLeft == 0) {
         return addedTurnLanes;
     } else {
