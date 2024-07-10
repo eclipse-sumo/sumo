@@ -88,6 +88,12 @@ def getOptions(args=None):
     return options
 
 
+def addChildToParent(parentEl, childEl):
+    addedChildEl = parentEl.addChild(childEl.name, {t[0]: t[1] for t in childEl.getAttributes()}, sortAttrs=False)
+    for secondChildEl in childEl.getChildList():
+        addedChildEl.addChild(secondChildEl.name, {t[0]: t[1] for t in secondChildEl.getAttributes()}, sortAttrs=False)
+
+
 def main(options):
     random.seed(options.seed)
 
@@ -127,6 +133,8 @@ def main(options):
     if options.verbose:
         print("Loaded %d parkings (%d already equipped with charging stations) with a total of %d parking lots." %
               (paCount, len(existingChargingStations), totalCapacity))
+    if options.verbose:
+        print("%d unused parkings due to settings." % len(unusedParkings))
 
     # count already existing charging points per edge
     if options.includeExisting:
@@ -149,13 +157,15 @@ def main(options):
     with open(options.outFile, 'w') as outf:
         rootCharging = sumolib.xml.create_document("additional")
         rootParking = sumolib.xml.create_document("additional") if options.outParkingFile else rootCharging
-        rootParking.setChildList(unusedParkings)
-        alreadyChecked = []
+        for unusedParking in unusedParkings:
+            addChildToParent(rootParking, unusedParking)
+        unchangedParkings = []
         for edge, parkingAreas in edge2parkingArea.items():
-            if (checkSelection and not edge.isSelected()) or edge in alreadyChecked:
+            if (checkSelection and not edge.isSelected()):
                 continue
             randomNumber = random.random()
-            if randomNumber < options.probability:
+            usedParkingAreas = []
+            if randomNumber < options.probability and totalChargingPoints > 0:
                 capacities = [p[1] for p in parkingAreas]
                 parkingSum = sum(capacities)
                 if parkingSum < options.min:
@@ -174,26 +184,33 @@ def main(options):
                                            remainingChargingPoints, "%s%d" % (options.prefix, csIndex))
                         csIndex += 1
                         remainingChargingPoints = 0
-                        edge2parkingArea[edge].remove(parkingAreas[i])
+                        usedParkingAreas.append(parkingAreas[i][0])
                         break
                 # then distribute across the parkingAreas in definition order
-                capacities = [p[1] for p in parkingAreas]
-                for i in range(len(capacities)):
-                    installChargingPoints = min(remainingChargingPoints, capacities[i])
-                    addChargingStation(options, rootCharging, rootParking, edge, parkingAreas[i][0],
-                                       installChargingPoints, "%s%d" % (options.prefix, csIndex))
-                    # print("added charging station with %d points on parkingArea %s %s" %
-                    #       (installChargingPoints, parkingAreas[i][0].id, result))
-                    csIndex += 1
-                    remainingChargingPoints -= installChargingPoints
-                    if remainingChargingPoints == 0:
-                        break
+                if remainingChargingPoints > 0:
+                    capacities = [p[1] for p in parkingAreas]
+                    for i in range(len(capacities)):
+                        if parkingAreas[i][0] in usedParkingAreas:
+                            continue
+                        installChargingPoints = min(remainingChargingPoints, capacities[i])
+                        addChargingStation(options, rootCharging, rootParking, edge, parkingAreas[i][0],
+                                           installChargingPoints, "%s%d" % (options.prefix, csIndex))
+                        csIndex += 1
+                        remainingChargingPoints -= installChargingPoints
+                        usedParkingAreas.append(parkingAreas[i][0])
+                        if remainingChargingPoints == 0:
+                            break
                 totalChargingPoints -= chargingPointCount
-                if totalChargingPoints <= 0:
-                    break
+            # write unchanged parkings
+            for node, _ in parkingAreas:
+                if node not in usedParkingAreas:
+                    unchangedParkings.append(node)
+        for node in unchangedParkings:
+            addChildToParent(rootParking, node)
+
         # write existing charging stations
         for csNode in existingChargingStations:
-            rootCharging.addChild(csNode.name, attrs={t[0]: t[1] for t in csNode.getAttributes()}, sortAttrs=False)
+            addChildToParent(rootCharging, csNode)
         outf.write(rootCharging.toXML())
         if options.verbose:
             print("Final charging point balance: %.0f" % totalChargingPoints)
@@ -216,6 +233,7 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
         posDownSize = (startPos, endPos) if chargingOnSpaces > 0 else (
             startPos, startPos + (endPos - startPos)*chargingRoadSide/parkingCapacity[0])
         parkingArea.roadsideCapacity = str(chargingRoadSide)
+        remainingSpaces = []
 
         if shiftRoadSideCapacity + shiftSpaces > 0:
             parkingArea.setAttribute("startPos", str(posDownSize[0]))
@@ -225,6 +243,7 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
             spacesToShift = []
             if shiftSpaces > 0:
                 spacesToShift.extend(parkingArea.getChild("space")[chargingOnSpaces:])
+                remainingSpaces.extend(parkingArea.getChild("space")[:chargingOnSpaces])
             shiftedPaDict = {t[0]: t[1] for t in parkingArea.getAttributes()}
             shiftedPaDict["id"] = "%s%s" % (shiftedPaDict["id"], options.suffix)
             shiftedPaDict["startPos"] = str(posShift[0])
@@ -232,11 +251,11 @@ def addChargingStation(options, rootCharging, rootParking, edge, parkingArea, ch
             shiftedPaDict["roadsideCapacity"] = str(shiftRoadSideCapacity)
             shiftedParkingArea = rootParking.addChild(parkingArea.name, shiftedPaDict, sortAttrs=False)
             for spaceToShift in spacesToShift:
-                parkingArea.removeChild(spaceToShift)
-                spaceDict = {t[0]: t[1] for t in spaceToShift.getAttributes()}
-                shiftedParkingArea.addChild(spaceToShift.name, spaceDict)
-        paDict = {t[0]: t[1] for t in parkingArea.getAttributes()}
-        rootParking.addChild(parkingArea.name, paDict, sortAttrs=False)
+                addChildToParent(shiftedParkingArea, spaceToShift)
+            if parkingArea.hasChild("param"):
+                for paramEl in parkingArea.getChildList("param"):
+                    addChildToParent(shiftedParkingArea, paramEl)
+        addChildToParent(rootParking, parkingArea)
         rootCharging.addChild("chargingStation", {"id": csID,
                                                   "lane": parkingArea.lane,
                                                   "startPos": parkingArea.startPos,
