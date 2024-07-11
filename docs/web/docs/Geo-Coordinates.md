@@ -53,7 +53,7 @@ right-corner of the window.
 
 # Using geo-coordinates in XML-inputs
 
-The [duarouter](duarouter.md) application supports attributes [fromLonLat, toLonLat, viaLonLat](Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions) to map trips directly onto the closest network [edge or junction](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) for the given coordinates.
+The [duarouter](duarouter.md) and [sumo](sumo.md) applications supports attributes [fromLonLat, toLonLat, viaLonLat](Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions) to map trips directly onto the closest network [edge or junction](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) for the given coordinates.
 
 # Obtaining output with geo-coordinates
 
