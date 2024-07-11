@@ -49,6 +49,7 @@
 
 //#define ADDITIONAL_WARNINGS
 //#define DEBUG_CONNECTION_GUESSING
+//#define DEBUG_CONNECTION_CHECKING
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
@@ -1623,6 +1624,9 @@ NBEdge::canMoveConnection(const Connection& con, int newFromLane) const {
 
 void
 NBEdge::moveConnectionToLeft(int lane) {
+#ifdef DEBUG_CONNECTION_CHECKING
+    std::cout << " moveConnectionToLeft " << getID() << " lane=" << lane << "\n";
+#endif
     int index = 0;
     for (int i = 0; i < (int)myConnections.size(); ++i) {
         if (myConnections[i].fromLane == (int)(lane) && canMoveConnection(myConnections[i], lane + 1)) {
@@ -1638,6 +1642,9 @@ NBEdge::moveConnectionToLeft(int lane) {
 
 void
 NBEdge::moveConnectionToRight(int lane) {
+#ifdef DEBUG_CONNECTION_CHECKING
+    std::cout << " moveConnectionToRight " << getID() << " lane=" << lane << "\n";
+#endif
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane - 1)) {
             Connection c = *i;
@@ -2967,6 +2974,9 @@ NBEdge::recheckLanes() {
                                     if (toLane < to->getNumLanes()
                                             && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
                                             && !hasConnectionTo(to, toLane)) {
+#ifdef DEBUG_CONNECTION_CHECKING
+                                        std::cout << " recheck1 setConnection " << getID() << "_" << i << "->" << to->getID() << "_" << toLane << "\n";
+#endif
                                         setConnection(i, to, toLane, Lane2LaneInfoType::COMPUTED);
                                         hasDeadEnd = false;
                                         sortOutgoingConnectionsByAngle();
@@ -2981,6 +2991,9 @@ NBEdge::recheckLanes() {
                                                 && !hasConnectionTo(to, toLane)) {
                                             // shift the right lane connection target right and connect the dead lane to the old target
                                             getConnectionRef(rc.fromLane, to, rc.toLane).toLane = toLane;
+#ifdef DEBUG_CONNECTION_CHECKING
+                                            std::cout << " recheck2 setConnection " << getID() << "_" << i << "->" << to->getID() << "_" << (toLane + 1) << "\n";
+#endif
                                             setConnection(i, to, toLane + 1, Lane2LaneInfoType::COMPUTED);
                                             hasDeadEnd = false;
                                             sortOutgoingConnectionsByAngle();
@@ -2998,6 +3011,9 @@ NBEdge::recheckLanes() {
                                     if (toLane >= 0
                                             && (getPermissions(i) & ~SVC_PEDESTRIAN & to->getPermissions(toLane)) != 0
                                             && !hasConnectionTo(to, toLane)) {
+#ifdef DEBUG_CONNECTION_CHECKING
+                                        std::cout << " recheck3 setConnection " << getID() << "_" << i << "->" << to->getID() << "_" << toLane << "\n";
+#endif
                                         setConnection(i, to, toLane, Lane2LaneInfoType::COMPUTED);
                                         hasDeadEnd = false;
                                         sortOutgoingConnectionsByAngle();
@@ -3099,6 +3115,9 @@ void NBEdge::removeInvalidConnections() {
         const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
         if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
             // these are computed in NBNode::buildWalkingAreas
+#ifdef DEBUG_CONNECTION_CHECKING
+            std::cout << " remove pedCon " << c.getDescription(this) << "\n";
+#endif
             i = myConnections.erase(i);
         } else if (common == 0) {
             // no common permissions.
@@ -3131,12 +3150,18 @@ void NBEdge::removeInvalidConnections() {
                     ++i;
                 } else {
                     // no alternative target found
+#ifdef DEBUG_CONNECTION_CHECKING
+                    std::cout << " remove " << c.getDescription(this) << " with no alternative target\n";
+#endif
                     i = myConnections.erase(i);
                 }
             }
         } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
                 && isTurningDirectionAt(c.toEdge))  {
             // do not allow sharp rail turns
+#ifdef DEBUG_CONNECTION_CHECKING
+            std::cout << " remove " << c.getDescription(this) << " (rail turnaround)\n";
+#endif
             i = myConnections.erase(i);
         } else {
             ++i;
