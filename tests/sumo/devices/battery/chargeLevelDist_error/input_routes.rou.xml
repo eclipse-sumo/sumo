@@ -14,15 +14,13 @@
 		<param key="device.battery.chargeLevel" value="norm(13000,1000,1000,5000)"/>
 	</vType>
 
+	<vType id="ElectricVehicle2">
+		<param key="device.battery.chargeLevel" value="norm(13000,2000,10000,10001)"/>
+	</vType>
+
 	<route id="route01" edges="D2 L2 L12 L10 L7 D7"/>
 
-	<flow begin="0" end="100" number="10" id="veh" route="route01" type="ElectricVehicle">
-		<stop chargingStation="CS1" duration="7"/>
-		<stop chargingStation="CS2" duration="8"/>
-		<stop chargingStation="CS3" duration="9"/>
-		<stop chargingStation="CS4" duration="10"/>
-		<stop chargingStation="CS5" duration="11"/>
-		<stop busStop="BS1" duration="11"/>
-	</flow>
+	<vehicle depart="0" id="veh" route="route01" type="ElectricVehicle"/>
+	<vehicle depart="0" id="veh2" route="route01" type="ElectricVehicle2"/>
 
 </routes>
