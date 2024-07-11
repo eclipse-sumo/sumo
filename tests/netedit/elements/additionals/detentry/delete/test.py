@@ -58,7 +58,8 @@ netedit.deleteMode()
 
 # delete both
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
-netedit.leftClick(referencePosition, 377, 439)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -67,7 +68,8 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete E3
-netedit.leftClick(referencePosition, 497, 84)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

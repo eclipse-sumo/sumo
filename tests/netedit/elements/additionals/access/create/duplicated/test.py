@@ -45,7 +45,8 @@ netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
 
 # Try to create another Access in the same edge
-netedit.leftClick(referencePosition, 152, 145)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

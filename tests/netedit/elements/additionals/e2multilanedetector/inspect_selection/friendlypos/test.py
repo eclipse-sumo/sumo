@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 670, 255)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change boolean parameter friendlypos
 netedit.modifyBoolAttribute(netedit.attrs.E2Multilane.inspectSelection.friendlyPos, True)

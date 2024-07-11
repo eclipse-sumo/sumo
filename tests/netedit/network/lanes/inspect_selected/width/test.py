@@ -38,16 +38,19 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 400, 155)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # select second lane
-netedit.leftClick(referencePosition, 400, 95)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 400, 95)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 3 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.width, "dummyWidth", False)

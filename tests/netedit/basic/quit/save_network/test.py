@@ -32,8 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, 0, 400)
-netedit.leftClick(referencePosition, 500, 400)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to additional mode
 netedit.additionalMode()
@@ -42,7 +44,8 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to demand mode
 netedit.supermodeDemand()
@@ -51,8 +54,10 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 160, 245)
-netedit.leftClick(referencePosition, 160, 210)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # press enter to create route
 netedit.typeEnter()

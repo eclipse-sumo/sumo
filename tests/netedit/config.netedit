@@ -5,37 +5,47 @@ virtual_display_wm_executable:fluxbox
 virtual_display_extra_args:-dpi 100 -shmem
 
 copy_test_path:test.py
+
+copy_test_path:gui-settings.xml
+
 copy_test_path:netedit.netecfg
-copy_test_path:net.net.xml
-copy_test_path:net.netccfg
-copy_test_path:net.net.xml
+copy_test_path:sumo.sumocfg
+
+copy_test_path:config.netecfg
+copy_test_path:config.sumocfg
+
 copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
-copy_test_path:net_loadedmanually.net.xml
-copy_test_path:netedit_loadedmanually.netecfg
-copy_test_path:sumo_loadedmanually.sumocfg
+copy_test_path:net.netccfg
+
+copy_test_path:config.con.xml
+copy_test_path:config.edg.xml
+copy_test_path:config.nod.xml
+copy_test_path:config.tll.xml
+copy_test_path:config.net.xml
+copy_test_path:config.netccfg
+
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
 copy_test_path:vtypes.rou.xml
 copy_test_path:datas.dat.xml
-copy_test_path:gui-settings.xml
+
 copy_test_path:berlin_icon.ico
 copy_test_path:fileA.txt
 copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
-copy_test_path:sumo.sumocfg
 copy_test_path:errorScreenshot.png
 
 [collate_file]
 net:net.net.xml
 net:netedit.net.xml
-net:net_loadedmanually.net.xml
-configmanually:netedit_savedmanually.netecfg
-configmanually:sumo_savedmanually.sumocfg
+net:config.net.xml
+neteconfig:config.netecfg
+sumoconfig:config.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
@@ -70,6 +80,7 @@ netcon:<!--{[->]}-->
 netedg:<!--{[->]}-->
 netnod:<!--{[->]}-->
 nettll:<!--{[->]}-->
+neteconfig:<!--{[->]}-->
 output:\[log\]
 output:\[info\]
 output:+++
@@ -78,7 +89,7 @@ output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
 guisettingsoutput:<scheme{[->]}</scheme>
-errors:Leaked object at 
+errors:Leaked object at
 errors:*** 9 leaks found
 errors:delete: freed
 errors:java{LINES 1}

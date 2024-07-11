@@ -35,10 +35,12 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select node 1
-netedit.leftClick(referencePosition, 216, 58)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # select node 2
-netedit.leftClick(referencePosition, 333, 58)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -47,10 +49,12 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 3
-netedit.leftClick(referencePosition, 448, 64)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # select node 4
-netedit.leftClick(referencePosition, 566, 64)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -59,10 +63,12 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 5
-netedit.leftClick(referencePosition, 214, 180)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # select node 6
-netedit.leftClick(referencePosition, 335, 294)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -71,31 +77,40 @@ netedit.joinSelectedJunctions()
 netedit.rebuildNetwork()
 
 # select node 8
-netedit.leftClick(referencePosition, 510, 174)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # select node 9
-netedit.leftClick(referencePosition, 623, 174)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # select node 10
-netedit.leftClick(referencePosition, 739, 174)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 11
-netedit.leftClick(referencePosition, 510, 294)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 12
-netedit.leftClick(referencePosition, 623, 294)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 13
-netedit.leftClick(referencePosition, 739, 294)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 14
-netedit.leftClick(referencePosition, 510, 410)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 15
-netedit.leftClick(referencePosition, 623, 410)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # inspect node 16
-netedit.leftClick(referencePosition, 739, 410)
+netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # join selected junctions
 netedit.joinSelectedJunctions()

@@ -35,16 +35,19 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first edge
-netedit.leftClick(referencePosition, 440, 160)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # select second edge
-netedit.leftClick(referencePosition, 440, 120)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(referencePosition, 440, 160)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 5 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "DummyAllowed", False)

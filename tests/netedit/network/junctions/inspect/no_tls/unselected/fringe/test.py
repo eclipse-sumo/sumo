@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
-                  netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
+                  netedit.positions.network.junction.cross.center.y)
 
 # set dummy value
 netedit.modifyAttribute(netedit.attrs.junction.inspect.fringe, "dummyValue", False)

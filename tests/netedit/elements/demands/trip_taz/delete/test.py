@@ -50,7 +50,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 110, 225)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -62,7 +63,8 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete TAZ with demand elements
-netedit.leftClick(referencePosition, 72, 280)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -71,7 +73,8 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, 72, 280)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

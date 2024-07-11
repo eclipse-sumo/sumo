@@ -41,13 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeData
-netedit.leftClick(referencePosition, 265, 180)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete edgeData
-netedit.leftClick(referencePosition, 265, 180)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.undo(referencePosition, 2, 0, 30)

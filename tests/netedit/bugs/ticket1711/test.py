@@ -38,29 +38,37 @@ netedit.setZoom("50", "50", "50")
 netedit.deleteMode()
 
 # remove two left edges
-netedit.leftClick(referencePosition, 230, 217)
-netedit.leftClick(referencePosition, 230, 259)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two right edges
-netedit.leftClick(referencePosition, 730, 217)
-netedit.leftClick(referencePosition, 730, 259)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two up edges
-netedit.leftClick(referencePosition, 455, 100)
-netedit.leftClick(referencePosition, 521, 100)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Rebuild network
 netedit.rebuildNetwork()
 
 # remove two down edges
-netedit.leftClick(referencePosition, 455, 400)
-netedit.leftClick(referencePosition, 521, 400)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Rebuild network
 netedit.rebuildNetwork()

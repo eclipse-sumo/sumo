@@ -38,13 +38,15 @@ netedit.stopMode()
 netedit.changeStopParent("dummyParent")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, 246, 255)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change waypoint parent with a valid value
 netedit.changeStopParent("route_0")
 
 # create waypoint
-netedit.leftClick(referencePosition, 246, 255)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

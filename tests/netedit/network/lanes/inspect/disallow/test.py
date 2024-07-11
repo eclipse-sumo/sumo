@@ -38,7 +38,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 400, 165)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 2 with an non valid value
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "DummyDisallowed", False)

@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 poiGeo
-TestFunctions: Clicked over position 664 - 267
-TestFunctions: Clicked over position 664 - 267
+TestFunctions: Clicked over position 608 - 301
+TestFunctions: Clicked over position 608 - 301
 dummyGenericParameters
 key1|key2|key3
 key1=value1|key2=value2|key3=value3

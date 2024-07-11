@@ -38,19 +38,22 @@ netedit.changeElement("calibrator")
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create first calibrator
-netedit.leftClick(referencePosition, 245, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create second calibrator
-netedit.leftClick(referencePosition, 255, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 474, 194)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.id, "ca_0", True)

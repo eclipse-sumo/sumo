@@ -44,13 +44,15 @@ netedit.createDataInterval()
 netedit.changeDefaultValue(netedit.attrs.edgeData.create.parameters, "dummyValues")
 
 # create edgeData
-netedit.leftClick(referencePosition, 265, 180)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set valid parameters
 netedit.changeDefaultValue(netedit.attrs.edgeData.create.parameters, "param1=value2|param3=value4")
 
 # create edgeData
-netedit.leftClick(referencePosition, 265, 180)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.undo(referencePosition, 1, 0, 30)

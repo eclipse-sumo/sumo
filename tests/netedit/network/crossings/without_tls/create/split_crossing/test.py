@@ -35,8 +35,8 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
-                  netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
+                  netedit.positions.network.junction.cross.center.y)
 
 # select two left edges and create
 netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,

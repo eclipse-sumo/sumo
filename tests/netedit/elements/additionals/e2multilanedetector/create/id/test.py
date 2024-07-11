@@ -38,15 +38,19 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # select lanes
-netedit.leftClick(referencePosition, 426, 253)
-netedit.leftClick(referencePosition, 496, 208)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # select lanes
-netedit.leftClick(referencePosition, 426, 253)
-netedit.leftClick(referencePosition, 496, 208)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set other name
 netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.id, ";;;;")

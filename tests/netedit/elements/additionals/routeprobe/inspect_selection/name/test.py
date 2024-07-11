@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 223, 313)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 1 with an non valid value
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.name, "%%%;:..&&%$%$", False)

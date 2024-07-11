@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerstops
-netedit.leftClick(referencePosition, 441, 172)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # disable friendlyPos
 netedit.modifyBoolAttribute(netedit.attrs.containerStop.inspectSelection.friendlyPos, True)

@@ -38,7 +38,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 223, 313)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Set invalid period
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.frequency, "-30", False)

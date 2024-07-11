@@ -35,16 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create POI
-netedit.leftClick(referencePosition, 428, 115)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created poi
-netedit.leftClick(referencePosition, 428, 115)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete first stacked loaded POI (Second stacked must stay)
-netedit.leftClick(referencePosition, 541, 97)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

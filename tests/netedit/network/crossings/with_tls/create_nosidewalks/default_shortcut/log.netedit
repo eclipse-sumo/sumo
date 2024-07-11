@@ -1,12 +1,3 @@
-Error: Could not build inductionLoop 'e1_0' in netedit; lane 'E1_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_1' in netedit; lane '-E1_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_2' in netedit; lane '-E0_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_3' in netedit; lane 'E0_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_4' in netedit; lane '-E2_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_5' in netedit; lane 'E2_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_6' in netedit; lane '-E3_2' doesn't exist.
-Error: Could not build inductionLoop 'e1_7' in netedit; lane 'E3_2' doesn't exist.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Jul150736.9576\netedit.gui\network\crossings\with_tls\create_nosidewalks\default_shortcut\additionals.add.xml failed.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.
 Warning: Invalid pedestrian topology: crossing ':Junction5_c0' across [E1 -E1] has no target.

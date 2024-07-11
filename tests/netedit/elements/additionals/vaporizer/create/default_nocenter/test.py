@@ -38,7 +38,8 @@ netedit.changeElement("vaporizer")
 netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
 
 # create vaporizer
-netedit.leftClick(referencePosition, 338, 252)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

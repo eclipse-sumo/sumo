@@ -34,7 +34,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectTLSMode()
 
 # select junction
-netedit.leftClick(referencePosition, 520, 220)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
+                  netedit.positions.network.junction.cross.center.y)
 
 # create TLS
 netedit.createTLS()

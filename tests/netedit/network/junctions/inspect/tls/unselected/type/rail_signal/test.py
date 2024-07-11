@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
-                  netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
+                  netedit.positions.network.junction.cross.center.y)
 
 # change type of junction
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.type, "rail_signal", False)

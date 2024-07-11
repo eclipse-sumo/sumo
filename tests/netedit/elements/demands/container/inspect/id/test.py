@@ -42,8 +42,10 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.typeEnter()
 
 # create container using three edges
-netedit.leftClick(referencePosition, 560, 220)
-netedit.leftClick(referencePosition, 180, 57)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # press enter to create container
 netedit.typeEnter()

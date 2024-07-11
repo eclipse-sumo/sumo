@@ -38,7 +38,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 400, 165)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.lane.inspect.parameters, False)

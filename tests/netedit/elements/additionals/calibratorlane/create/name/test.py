@@ -41,13 +41,15 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, ";;\"\"\"")
 
 # try to create calibratorLane with invalid name
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.name, "customName")
 
 # create calibratorLane with valid name
-netedit.leftClick(referencePosition, 322, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 670, 255)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)

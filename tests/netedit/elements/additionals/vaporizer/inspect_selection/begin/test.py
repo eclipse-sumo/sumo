@@ -41,7 +41,8 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 253, 321)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Set invalid begin
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.begin, "-30", False)

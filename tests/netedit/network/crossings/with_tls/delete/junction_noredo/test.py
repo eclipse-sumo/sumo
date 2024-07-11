@@ -39,8 +39,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.center.x,
-                  netedit.positions.network.junction.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
+                  netedit.positions.network.junction.cross.center.y)
 
 # wait for output
 time.sleep(2)

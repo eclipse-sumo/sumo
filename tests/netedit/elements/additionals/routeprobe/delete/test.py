@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe
-netedit.leftClick(referencePosition, 358, 254)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change to delete
 netedit.deleteMode()
@@ -44,10 +45,12 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created routeProbe
-netedit.leftClick(referencePosition, 497, 271)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete lane with the second loaded routeProbe
-netedit.leftClick(referencePosition, 588, 170)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -59,7 +62,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # try to delete lane with the second loaded routeProbe (doesn't allowed)
-netedit.leftClick(referencePosition, 588, 170)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # wait warning
 netedit.waitDeleteWarning()

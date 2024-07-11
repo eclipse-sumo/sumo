@@ -56,7 +56,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, 90, 392)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -65,8 +66,10 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete vehicle and route
-netedit.leftClick(referencePosition, 90, 392)
-netedit.leftClick(referencePosition, 90, 392)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 2)

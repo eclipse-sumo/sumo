@@ -38,25 +38,29 @@ netedit.changeElement("calibrator")
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create calibrator
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, ";;;;;")
 
 # create calibrator
-netedit.leftClick(referencePosition, 322, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "ca_0")
 
 # create calibrator
-netedit.leftClick(referencePosition, 332, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.id, "customID")
 
 # create calibrator
-netedit.leftClick(referencePosition, 342, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

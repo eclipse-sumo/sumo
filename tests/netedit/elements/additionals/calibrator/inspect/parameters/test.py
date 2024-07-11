@@ -35,13 +35,15 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 474, 194)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.calibrator.inspect.parameters, True)

@@ -35,31 +35,36 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 220, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid id (duplicated)
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "pa_0")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 284, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 305, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, ";;;;")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 324, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set valid id
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.id, "custom_id")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, 345, 245)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

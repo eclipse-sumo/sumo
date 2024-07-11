@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # create vaporizer
-netedit.leftClick(referencePosition, 338, 252)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # recompute (needed for vertical position)
 netedit.rebuildNetwork()
@@ -44,7 +45,8 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 512, 276)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.vaporizer.inspect.parameters, False)

@@ -44,13 +44,16 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created E2
-netedit.leftClick(referencePosition, 474, 255)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete loaded E2
-netedit.leftClick(referencePosition, 375, 289)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete lane with the second loaded E2
-netedit.leftClick(referencePosition, 514, 177)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +65,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # try to delete lane with the second loaded E2 (doesn't allowed)
-netedit.leftClick(referencePosition, 514, 177)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # wait warning
 netedit.waitDeleteWarning()

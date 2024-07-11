@@ -1,0 +1,1 @@
+Error: Cannot read file 'D:\Netedit_dev\tests\netedit\basic\load\network\netecfg\gui-settings.xml'!

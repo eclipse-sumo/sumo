@@ -59,7 +59,8 @@ netedit.deleteMode()
 # Delete the four Entry/exits
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
                   netedit.positions.elements.additionals.squaredA.y)
-netedit.leftClick(referencePosition, 677, 83)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -32,8 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select both junctions
-netedit.leftClick(referencePosition, 145, 230)
-netedit.leftClick(referencePosition, 850, 230)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change to move mode
 netedit.moveMode()

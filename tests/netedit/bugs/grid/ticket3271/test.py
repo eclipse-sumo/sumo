@@ -35,23 +35,35 @@ netedit.rebuildNetwork()
 netedit.createEdgeMode()
 
 # Create an edge in
-netedit.leftClick(referencePosition, 82, 354)
-netedit.leftClick(referencePosition, 245, 103)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
-netedit.leftClick(referencePosition, 245, 103)
-netedit.leftClick(referencePosition, 82, 354)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
-netedit.leftClick(referencePosition, 918, 356)
-netedit.leftClick(referencePosition, 750, 104)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
-netedit.leftClick(referencePosition, 750, 104)
-netedit.leftClick(referencePosition, 918, 356)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
-netedit.leftClick(referencePosition, 245, 103)
-netedit.leftClick(referencePosition, 750, 104)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
-netedit.leftClick(referencePosition, 750, 104)
-netedit.leftClick(referencePosition, 245, 103)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

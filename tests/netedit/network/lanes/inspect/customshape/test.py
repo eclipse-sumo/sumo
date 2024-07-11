@@ -38,7 +38,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 400, 165)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 6 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape", False)
@@ -50,7 +51,8 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "", False)
 netedit.rebuildNetwork()
 
 # inspect edge again after recomputing
-netedit.leftClick(referencePosition, 400, 165)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "13.112,16.22 34.19,16.11", False)

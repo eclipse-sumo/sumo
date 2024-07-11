@@ -38,7 +38,8 @@ netedit.createSquaredShape(referencePosition, 405, 144, 200, True)
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, 405, 144)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change boolean parameter 3
 netedit.modifyBoolAttribute(netedit.attrs.TAZ.inspect.fill, False)

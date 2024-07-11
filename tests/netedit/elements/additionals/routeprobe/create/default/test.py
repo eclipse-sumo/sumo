@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(referencePosition, 325, 253)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

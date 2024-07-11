@@ -39,7 +39,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squa
                   netedit.positions.elements.additionals.squaredA.y)
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, 677, 83)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y
 
 # select entry detector
 netedit.changeElement("detExit")

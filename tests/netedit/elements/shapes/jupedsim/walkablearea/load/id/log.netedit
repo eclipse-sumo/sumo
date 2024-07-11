@@ -1,4 +1,4 @@
 Error: Attribute 'id' is missing in definition of a poly.
 Error: Could not build jupedsim.walkable_area with ID '%%%%;;$$$%' in netedit; ID contains invalid characters.
 Error: Could not build jupedsim.walkable_area with ID 'jps.walkable_area_0' in netedit; Declared twice.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.25Jun154705.9422/netedit.gui/elements/shape/jupedsim/walkablearea/load/id/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jul104359.14268/netedit.gui/elements/shapes/jupedsim/walkablearea/load/id/additionals.add.xml failed.

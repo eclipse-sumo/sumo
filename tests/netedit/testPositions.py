@@ -102,13 +102,27 @@ class network:
             x = 309
             y = 92
 
-        class center:
-            x = 498
-            y = 236
+        class cross:
 
-        class left:
-            x = 278
-            y = 237
+            class center:
+                x = 498
+                y = 236
+
+            class left:
+                x = 278
+                y = 237
+
+            class right:
+                x = 706
+                y = 232
+
+            class top:
+                x = 495
+                y = 23
+
+            class bot:
+                x = 495
+                y = 441
 
     class edge:
 

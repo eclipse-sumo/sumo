@@ -35,7 +35,8 @@ netedit.additionalMode()
 netedit.changeElement("vaporizer")
 
 # create vaporizer (camera will be moved)
-netedit.leftClick(referencePosition, 338, 252)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -699,7 +699,7 @@ def openNetworkAs(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("net_loadedmanually.net.xml")
+    pasteIntoTextField("config.net.xml")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -821,6 +821,22 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     typeSpace()
 
 
+def openNetworkShortcut(waitTime=2):
+    """
+    @brief open configuration using shortcut
+    """
+    # open configuration dialog
+    typeTwoKeys('ctrl', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("config.net.xml")
+    typeEnter()
+    # wait for loading
+    time.sleep(waitTime)
+
+
 def openConfigurationShortcut(waitTime=2):
     """
     @brief open configuration using shortcut
@@ -831,7 +847,7 @@ def openConfigurationShortcut(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("net.netccfg")
+    pasteIntoTextField("config.netccfg")
     typeEnter()
     # wait for loading
     time.sleep(waitTime)
@@ -874,7 +890,7 @@ def openNeteditConfigAs(waitTime=2):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("netedit_loadedmanually.netecfg")
+    pasteIntoTextField("config.netecfg")
     typeEnter()
     # wait for saving
     time.sleep(waitTime)
@@ -892,7 +908,7 @@ def openSumoConfigAs(referencePosition):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("sumo_loadedmanually.sumocfg")
+    pasteIntoTextField("config.sumocfg")
     typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
@@ -924,7 +940,7 @@ def saveNeteditConfigAs(referencePosition):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("netedit_savedmanually.netecfg")
+    pasteIntoTextField("config.netecfg")
     typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
@@ -942,7 +958,7 @@ def saveSumoConfig(referencePosition):
     typeTwoKeys('alt', 'f')
     pasteIntoTextField(_TEXTTEST_SANDBOX)
     typeEnter()
-    pasteIntoTextField("sumo_savedmanually.sumocfg")
+    pasteIntoTextField("config.sumocfg")
     typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)

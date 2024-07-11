@@ -39,7 +39,8 @@ netedit.changeRouteMode("non consecutive edges")
 
 # create route using two edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, 190, 236)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # press enter to create route
 netedit.typeEnter()

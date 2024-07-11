@@ -41,19 +41,22 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "dummyJam")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change output with an invalid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "-5")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 322, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change output with an valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.jamTreshold, "12.3")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, 332, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

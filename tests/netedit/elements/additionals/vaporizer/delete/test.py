@@ -35,10 +35,12 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete loaded vaporizer
-netedit.leftClick(referencePosition, 246, 315)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete lane with the loaded vaporizer
-netedit.leftClick(referencePosition, 608, 209)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -50,7 +52,8 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # try to delete lane with the  loaded vaporizer (doesn't allowed)
-netedit.leftClick(referencePosition, 608, 209)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # wait warning
 netedit.waitDeleteWarning()

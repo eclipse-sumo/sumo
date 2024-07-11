@@ -54,7 +54,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.id, "customID")
 
 # create POI
-netedit.leftClick(referencePosition, 542, 210)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

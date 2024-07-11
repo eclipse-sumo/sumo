@@ -41,7 +41,8 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create trainStop in mode "Reference Left"
-netedit.leftClick(referencePosition, 255, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.id, "bs_0")

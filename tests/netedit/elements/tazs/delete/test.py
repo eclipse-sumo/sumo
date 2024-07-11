@@ -38,13 +38,16 @@ netedit.createSquaredShape(referencePosition, 407, 142, 200, True)
 netedit.deleteMode()
 
 # delete created TAZ
-netedit.leftClick(referencePosition, 407, 142)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete second TAZ
-netedit.leftClick(referencePosition, 544, 142)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # delete third TAZ clicking center
-netedit.leftClick(referencePosition, 691, 120)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

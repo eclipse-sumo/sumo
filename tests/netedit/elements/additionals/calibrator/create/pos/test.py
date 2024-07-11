@@ -41,19 +41,22 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "dummyValue")
 
 # try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change position with an invalid value (negative)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "-5")
 
 # try to create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 322, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # change position with a valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.pos, "10")
 
 # create calibrator with an invalid parameter
-netedit.leftClick(referencePosition, 332, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

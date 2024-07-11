@@ -35,13 +35,15 @@ netedit.additionalMode()
 netedit.changeElement("calibratorLane")
 
 # create calibratorLane
-netedit.leftClick(referencePosition, 312, 250)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibratorLane
-netedit.leftClick(referencePosition, 463, 229)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.jamTreshold, "dummyJam", True)

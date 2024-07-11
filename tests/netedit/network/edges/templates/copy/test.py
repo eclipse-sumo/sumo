@@ -32,8 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 350)
-netedit.leftClick(referencePosition, 510, 350)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.numLanes, "3")
@@ -45,20 +47,24 @@ netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "15")
 netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus")
 
 # Create two nodes
-netedit.leftClick(referencePosition, 87, 108)
-netedit.leftClick(referencePosition, 510, 108)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect
-netedit.leftClick(referencePosition, 250, 120)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # create template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
 
 # inspect other edge
-netedit.leftClick(referencePosition, 250, 354)
+netedit.leftClick(referencePosition, netedit.positions.tmp.x,
+                  netedit.positions.tmp.y)
 
 # copy template template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.copy)
