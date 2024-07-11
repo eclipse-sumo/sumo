@@ -24,6 +24,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <algorithm>
 #include <cassert>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -1522,5 +1523,22 @@ SUMOXMLDefinitions::isValidParameterKey(const std::string& value) {
         return isValidAttribute(value);
     }
 }
+
+
+std::string
+SUMOXMLDefinitions::makeValidID(const std::string& value) {
+    if (value.empty()) {
+        return "_";
+    }
+    std::string result(value);
+    if (result[0] == ':') {
+        result[0] = '_';
+    }
+    for (const char c : " \t\n\r|\\'\";,<>&") {
+        std::replace(result.begin(), result.end(), c, '_');
+    }
+    return result;
+}
+
 
 /****************************************************************************/

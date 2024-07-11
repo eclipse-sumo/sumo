@@ -2048,6 +2048,11 @@ public:
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
 
+    /// @brief transform the given string into a valid id for a network element (or any other id)
+    // Replaces all invalid characters for a netID by an underscore, this may violate uniqueness!
+    // Since the netID has the most restrictions, the resulting ID should be valid for the other use cases too
+    static std::string makeValidID(const std::string& value);
+
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 

@@ -132,9 +132,9 @@ NIImporter_MATSim::NodesHandler::myStartElement(int element, const SUMOSAXAttrib
     }
     // get the id, report a warning if not given or empty...
     bool ok = true;
-    std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok);
-    double x = attrs.get<double>(MATSIM_ATTR_X, id.c_str(), ok);
-    double y = attrs.get<double>(MATSIM_ATTR_Y, id.c_str(), ok);
+    const std::string id = SUMOXMLDefinitions::makeValidID(attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok));
+    const double x = attrs.get<double>(MATSIM_ATTR_X, id.c_str(), ok);
+    const double y = attrs.get<double>(MATSIM_ATTR_Y, id.c_str(), ok);
     if (!ok) {
         return;
     }
@@ -253,16 +253,16 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         return;
     }
     bool ok = true;
-    std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok);
-    std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
-    std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);
-    double length = attrs.get<double>(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
-    double freeSpeed = attrs.get<double>(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
-    double capacity = attrs.get<double>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
+    const std::string id = SUMOXMLDefinitions::makeValidID(attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok));
+    const std::string fromNodeID = SUMOXMLDefinitions::makeValidID(attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok));
+    const std::string toNodeID = SUMOXMLDefinitions::makeValidID(attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok));
+    const double length = attrs.get<double>(MATSIM_ATTR_LENGTH, id.c_str(), ok); // override computed?
+    const double freeSpeed = attrs.get<double>(MATSIM_ATTR_FREESPEED, id.c_str(), ok); //
+    const double capacity = attrs.get<double>(MATSIM_ATTR_CAPACITY, id.c_str(), ok); // override permLanes?
     double permLanes = attrs.get<double>(MATSIM_ATTR_PERMLANES, id.c_str(), ok);
     //bool oneWay = attrs.getOpt<bool>(MATSIM_ATTR_ONEWAY, id.c_str(), ok, true); // mandatory?
-    std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, "");
-    std::string origid = attrs.getOpt<std::string>(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
+    const std::string modes = attrs.getOpt<std::string>(MATSIM_ATTR_MODES, id.c_str(), ok, "");
+    const std::string origid = attrs.getOpt<std::string>(MATSIM_ATTR_ORIGID, id.c_str(), ok, "");
     NBNode* fromNode = myNodeCont.retrieve(fromNodeID);
     NBNode* toNode = myNodeCont.retrieve(toNodeID);
     if (fromNode == nullptr) {
@@ -276,6 +276,10 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     }
     if (myLanesFromCapacity) {
         permLanes = myCapacity2Lanes.get(capacity);
+    }
+    if (permLanes < 0.5) {
+        WRITE_WARNINGF(TL("Ignoring edge % which has no lanes."), id);
+        return;
     }
     if (fromNode == toNode) {
         // adding node and edge with a different naming scheme to keep the original edge id for easier route repair
