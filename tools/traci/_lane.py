@@ -302,6 +302,14 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ANGLE, laneID, "d", relativePosition)
 
+    def getBidiLane(self, laneID):
+        """getBidiLane(string) -> string
+
+        Returns the id of the bidi lane or ""
+        """
+        return self._getUniversal(tc.VAR_BIDI, laneID)
+
+
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
 

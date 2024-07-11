@@ -301,6 +301,12 @@ Edge::getToJunction(const std::string& edgeID) {
 }
 
 std::string
+Edge::getBidiEdge(const std::string& edgeID) {
+    const MSEdge* bidi = getEdge(edgeID)->getBidiEdge();
+    return bidi == nullptr ? "" : bidi->getID();
+}
+
+std::string
 Edge::getParameter(const std::string& edgeID, const std::string& param) {
     return getEdge(edgeID)->getParameter(param, "");
 }
@@ -449,6 +455,8 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return wrapper->wrapString(objID, variable, getFromJunction(objID));
         case TO_JUNCTION:
             return wrapper->wrapString(objID, variable, getToJunction(objID));
+        case VAR_BIDI:
+            return wrapper->wrapString(objID, variable, getBidiEdge(objID));
         case libsumo::VAR_PARAMETER:
             paramData->readUnsignedByte();
             return wrapper->wrapString(objID, variable, getParameter(objID, paramData->readString()));

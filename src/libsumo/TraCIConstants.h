@@ -735,6 +735,9 @@ TRACI_CONST int INCOMING_EDGES = 0x7b;
 // outgoing edges (junction)
 TRACI_CONST int OUTGOING_EDGES = 0x7c;
 
+// get bidi object (edges, lanes)
+TRACI_CONST int VAR_BIDI = 0x7f;
+
 // last step mean vehicle length (get: induction loops, lanes, edges)
 TRACI_CONST int LAST_STEP_LENGTH = 0x15;
 
