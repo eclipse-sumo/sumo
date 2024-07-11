@@ -1479,11 +1479,11 @@ NIImporter_OpenDrive::setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
 }
 
 bool
-NIImporter_OpenDrive::hasNonLinearElevation(OpenDriveEdge& e) {
+NIImporter_OpenDrive::hasNonLinearElevation(const OpenDriveEdge& e) {
     if (e.elevations.size() > 1) {
         return true;
     }
-    for (OpenDriveElevation& el : e.elevations) {
+    for (const OpenDriveElevation& el : e.elevations) {
         if (el.c != 0 || el.d != 0) {
             return true;
         }
@@ -1495,13 +1495,13 @@ void
 NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges) {
     OptionsCont& oc = OptionsCont::getOptions();
     const double res = oc.getFloat("opendrive.curve-resolution");
-    for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-        OpenDriveEdge& e = *(*i).second;
+    for (const auto& i : edges) {
+        OpenDriveEdge& e = *i.second;
         GeometryType prevType = OPENDRIVE_GT_UNKNOWN;
         const double lineRes = hasNonLinearElevation(e) ? res : -1;
         Position last;
-        for (std::vector<OpenDriveGeometry>::iterator j = e.geometries.begin(); j != e.geometries.end(); ++j) {
-            OpenDriveGeometry& g = *j;
+        int index = 0;
+        for (const OpenDriveGeometry& g : e.geometries) {
             PositionVector geom;
             switch (g.type) {
                 case OPENDRIVE_GT_UNKNOWN:
@@ -1529,7 +1529,6 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 // (the start point of the current segment should have the same value)
                 // this avoids geometry errors due to imprecision
                 if (!e.geom.back().almostSame(geom.front())) {
-                    const int index = (int)(j - e.geometries.begin());
                     WRITE_WARNINGF(TL("Mismatched geometry for edge '%' between geometry segments % and %."), e.id, index - 1, index);
                 }
                 e.geom.pop_back();
@@ -1540,6 +1539,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 e.geom.push_back_noDoublePos(*k);
             }
             prevType = g.type;
+            index++;
         }
         if (e.geom.size() == 1 && e.geom.front() != last) {
             // avoid length-1 geometry due to almostSame check
@@ -1678,37 +1678,36 @@ NIImporter_OpenDrive::addOffsets(bool left, PositionVector& geom, const std::vec
 
 void
 NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::string, OpenDriveEdge*>& edges) {
-    for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
-        OpenDriveEdge& e = *(*i).second;
+    for (const auto& i : edges) {
+        OpenDriveEdge& e = *i.second;
 #ifdef DEBUG_VARIABLE_SPEED
         if (DEBUG_COND(&e)) {
             gDebugFlag1 = true;
             std::cout << "revisitLaneSections e=" << e.id << "\n";
         }
 #endif
-        std::vector<OpenDriveLaneSection>& laneSections = e.laneSections;
         // split by speed limits or by access restrictions
         std::vector<OpenDriveLaneSection> newSections;
-        for (std::vector<OpenDriveLaneSection>::iterator j = laneSections.begin(); j != laneSections.end(); ++j) {
+        for (OpenDriveLaneSection& section : e.laneSections) {
             std::vector<OpenDriveLaneSection> splitSections;
-            bool splitByAttrChange = (*j).buildAttributeChanges(tc, splitSections);
+            const bool splitByAttrChange = section.buildAttributeChanges(tc, splitSections);
             if (!splitByAttrChange) {
-                newSections.push_back(*j);
+                newSections.push_back(section);
             } else {
                 std::copy(splitSections.begin(), splitSections.end(), back_inserter(newSections));
             }
         }
 
         e.laneSections = newSections;
-        laneSections = e.laneSections;
-        double lastS = -1;
+        double lastS = -1.;
         // check whether the lane sections are in the right order
         bool sorted = true;
-        for (std::vector<OpenDriveLaneSection>::const_iterator j = laneSections.begin(); j != laneSections.end() && sorted; ++j) {
-            if ((*j).s <= lastS) {
+        for (const OpenDriveLaneSection& section : e.laneSections) {
+            if (section.s <= lastS) {
                 sorted = false;
+                break;
             }
-            lastS = (*j).s;
+            lastS = section.s;
         }
         if (!sorted) {
             WRITE_WARNINGF(TL("The sections of edge '%' are not sorted properly."), e.id);
@@ -1716,15 +1715,14 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
         }
         // check whether no duplicates of s-value occur
         lastS = -1;
-        laneSections = e.laneSections;
-        for (std::vector<OpenDriveLaneSection>::iterator j = laneSections.begin(); j != laneSections.end();) {
-            bool simlarToLast = fabs((*j).s - lastS) < POSITION_EPS;
+        for (std::vector<OpenDriveLaneSection>::iterator j = e.laneSections.begin(); j != e.laneSections.end();) {
+            const bool isShortSection = fabs((*j).s - lastS) < POSITION_EPS;
             lastS = (*j).s;
             // keep all lane sections for connecting roads because they are
             // needed to establish connectivity (laneSectionsConnected)
-            if (simlarToLast && !e.isInner) {
+            if (isShortSection && !e.isInner) {
                 WRITE_WARNINGF(TL("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed."),  toString(lastS), e.id);
-                j = laneSections.erase(j);
+                j = e.laneSections.erase(j);
             } else {
                 ++j;
             }

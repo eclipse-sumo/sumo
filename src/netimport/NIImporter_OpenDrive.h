@@ -733,7 +733,7 @@ protected:
      */
     static void computeShapes(std::map<std::string, OpenDriveEdge*>& edges);
 
-    static bool hasNonLinearElevation(OpenDriveEdge& e);
+    static bool hasNonLinearElevation(const OpenDriveEdge& e);
 
     /// transform Poly3 into a list of offsets, adding intermediate points to geom if needed
     static std::vector<double> discretizeOffsets(PositionVector& geom, const std::vector<OpenDriveLaneOffset>& offsets, const std::string& id);
