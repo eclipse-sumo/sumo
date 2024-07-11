@@ -1071,12 +1071,8 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // enable or disable remove last stoppingPlace button
-    if (getNumberOfSelectedElements() == 1) {
-        myRemoveLastInsertedElement->enable();
-    } else {
-        myRemoveLastInsertedElement->disable();
-    }
+    // enable or disable remove last item button
+    updateRemoveLastItemButton();
     // recalculate path
     recalculatePath();
     // stopping place added, then return true
