@@ -175,6 +175,9 @@ Distribution_Parameterized::isValid() const {
         if (getMax() < myParameter[0] - 3 * myParameter[1]) {
             return TLF("maximum value % too small for distribution with mean % and deviation %", myParameter[3], myParameter[0], myParameter[1]);
         }
+        if (myParameter.size() > 3 && myParameter[3] - myParameter[2] < NUMERICAL_EPS * myParameter[1]) {
+            return TLF("maximum value % and minimum value % too close for distribution with mean % and deviation %", myParameter[3], myParameter[2], myParameter[0], myParameter[1]);
+        }
     }
     return "";
 }
