@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:11:54 by Eclipse SUMO sumo Version v1_20_0+0453-4c2982a1aaa
+<!-- generated on 2024-07-11 14:39:16 by Eclipse SUMO sumo Version v1_20_0+0463-76acca75a21
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,37 +46,43 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0"/>
                 <flank lanes=":gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links="C_1"/>
-                <conflictLinks signals=""/>
-                <foes driveWays="A.0 A.d0 A.1"/>
+                <conflictLinks signals="B_0"/>
+                <foes driveWays="B.0 A.0 A.d0 A.1"/>
             </driveWay>
             <driveWay id="A.1" edges="b c d o p">
                 <forward lanes=":A_1_0 b_0 :gneJ8_2_0 c_0"/>
                 <bidi lanes=":A_0_0 -b_0 :gneJ8_1_0 -c_0 :B_0_0 -d_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0"/>
                 <flank lanes=":gneJ3_0_0 -e_0 :C_1_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links="C_1"/>
-                <conflictLinks signals=""/>
-                <foes driveWays="A.0 A.d0 A.1"/>
+                <conflictLinks signals="B_0"/>
+                <foes driveWays="B.0 A.0 A.d0 A.1"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="B">
         <link linkIndex="0" from="c_0" to=":B_1_0">
-            <driveWay id="B.0" edges="d e f">
-                <forward lanes=":B_1_0 d_0 :gneJ3_3_0 e_0 :C_2_0 f_0"/>
-                <bidi lanes=":B_0_0 -d_0 :gneJ3_0_0 -e_0 :C_1_0 -f_0"/>
-                <flank lanes=":C_3_0 -r_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0"/>
+            <driveWay id="B.0" edges="d e f -f -e -d -c -b -a">
+                <forward lanes=":B_1_0 d_0 :gneJ3_3_0 e_0 :C_2_0 f_0 :gneJ7_0_0 -f_0 :C_1_0 -e_0 :gneJ3_0_0 -d_0 :B_0_0 -c_0 :gneJ8_1_0 -b_0 :A_0_0 -a_0"/>
+                <bidi lanes=":B_0_0 -d_0 :gneJ3_0_0 -e_0 :C_1_0 -f_0 f_0 :C_2_0 e_0 :gneJ3_3_0 d_0 :B_1_0 c_0 :gneJ8_2_0 b_0 :A_1_0 a_0"/>
+                <flank lanes=":C_3_0 -r_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.0"/>
+                <foes driveWays="B.0 A.0 A.d0 gneJ0.d1 A.1 B.1.0"/>
             </driveWay>
+            <subDriveWay id="B.0.0" edges="d e f -f -e -d">
+                <forward lanes=":B_1_0 d_0 :gneJ3_3_0 e_0 :C_2_0 f_0 :gneJ7_0_0 -f_0 :C_1_0 -e_0 :gneJ3_0_0 -d_0 :B_0_0"/>
+            </subDriveWay>
             <driveWay id="B.1" edges="d o p">
                 <forward lanes=":B_1_0 d_0 :gneJ3_2_0 o_0 :gneJ4_1_0 p_0"/>
                 <bidi lanes=":B_0_0 -d_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0"/>
                 <flank lanes=":gneJ3_0_0 -e_0 :C_1_0"/>
                 <protectingSwitches links="C_1"/>
-                <conflictLinks signals=""/>
-                <foes driveWays="B.1"/>
+                <conflictLinks signals="B_0"/>
+                <foes driveWays="B.0.0 B.1"/>
             </driveWay>
+            <subDriveWay id="B.1.0" edges="d">
+                <forward lanes=":B_1_0 d_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="gneJ0">
@@ -86,8 +92,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-c_0 :B_0_0 -d_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ3_0_0 -e_0 :C_1_0"/>
             <flank lanes=""/>
             <protectingSwitches links="gneJ8_1 C_1"/>
-            <conflictLinks signals=""/>
-            <foes driveWays="gneJ0.d1"/>
+            <conflictLinks signals="B_0"/>
+            <foes driveWays="B.0 gneJ0.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="A">
@@ -97,8 +103,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                     deadlockCheck="-f_0"/>
             <flank lanes=":A_1_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
             <protectingSwitches links="C_1"/>
-            <conflictLinks signals="A_0"/>
-            <foes driveWays="A.0 A.d0 A.1"/>
+            <conflictLinks signals="A_0 B_0"/>
+            <foes driveWays="B.0 A.0 A.d0 A.1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

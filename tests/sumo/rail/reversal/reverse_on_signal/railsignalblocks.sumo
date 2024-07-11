@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-07-11 16:53:23 by Eclipse SUMO sumo Version v1_20_0+0463-76acca75a21
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,11 +39,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="11">
         <link linkIndex="0" from="h_0" to=":11_0_0">
-            <driveWay id="11.0" edges="branch">
-                <forward lanes=":11_0_0 branch_0"/>
-                <bidi lanes=":11_1_0 -branch_0"/>
-                <flank lanes=""/>
-                <protectingSwitches links=""/>
+            <driveWay id="11.0" edges="branch -branch -h">
+                <forward lanes=":11_0_0 branch_0 :12_0_0 -branch_0"/>
+                <bidi lanes=":11_1_0 -branch_0 branch_0 :11_0_0 h_0"/>
+                <flank lanes=":10_1_0 f_0 :1_0_0"/>
+                <protectingSwitches links="1_0"/>
                 <conflictLinks signals=""/>
                 <foes driveWays="11.0"/>
             </driveWay>
