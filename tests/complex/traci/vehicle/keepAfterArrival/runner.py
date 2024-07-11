@@ -48,12 +48,13 @@ for i in range(5):
             i,
             traci.vehicle.getIDList(),
             traci.vehicle.getLoadedIDList()))
-        print("   vehData: speed=%s pos=%s lane=%s edge=%s stops=%s" % (
+        print("   vehData: speed=%s pos=%s lane=%s edge=%s stops=%s odo=%s" % (
             traci.vehicle.getSpeed(vehID),
             traci.vehicle.getPosition(vehID),
             traci.vehicle.getLaneID(vehID),
             traci.vehicle.getRoadID(vehID),
-            traci.vehicle.getStops(vehID, -100)
+            traci.vehicle.getStops(vehID, -100),
+            traci.vehicle.getDistance(vehID)
             ))
         print("   vehTripinfo-arrival: time=%s lane=%s pos=%s posLat=%s speed=%s" % (
             traci.vehicle.getParameter(vehID, "device.tripinfo.arrivalTime"),
