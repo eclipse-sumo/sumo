@@ -668,7 +668,7 @@ Vehicle::getStopState(const std::string& vehID) {
 double
 Vehicle::getDistance(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    if (veh->isOnRoad()) {
+    if (veh->hasDeparted()) {
         return veh->getOdometer();
     } else {
         return INVALID_DOUBLE_VALUE;
