@@ -251,7 +251,7 @@ MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
             return false;
         }
     }
-    if (deadlockLaneOccupied()) {
+    if (deadlockLaneOccupied(closest.first)) {
         return false;
     }
     myActive = closest.first;
@@ -296,7 +296,7 @@ MSDriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink) const {
         if (foeRS != nullptr) {
             const MSDriveWay& foeDriveWay = foeRS->retrieveDriveWayForVeh(foeLink->getTLIndex(), foe.first);
             if (foeDriveWay.conflictLaneOccupied(false, foe.first) ||
-                    foeDriveWay.deadlockLaneOccupied(false) ||
+                    foeDriveWay.deadlockLaneOccupied(nullptr, false) ||
                     !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
@@ -397,7 +397,7 @@ MSDriveWay::conflictLaneOccupied(bool store, const SUMOVehicle* ego) const {
                     }
                 }
                 if (ego != nullptr) {
-                    if (foe == ego && std::find(myBidi.begin(), myBidi.end(), lane) != myBidi.end()) {
+                    if (foe == ego && std::find(myForward.begin(), myForward.end(), lane) == myForward.end()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4) {
                             std::cout << "    ignore ego as oncoming '" << ego->getID() << "\n";
@@ -500,12 +500,15 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
 
 
 bool
-MSDriveWay::deadlockLaneOccupied(bool store) const {
+MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
     for (const MSLane* lane : myBidiExtended) {
         if (!lane->empty()) {
             assert(myBidi.size() != 0);
             const MSEdge* lastBidi = myBidi.back()->getNextNormal();
             MSVehicle* foe = lane->getVehiclesSecure().front();
+            if (foe == ego) {
+                continue;
+            }
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
                 std::cout << "  check for deadlock with " << foe->getID() << "\n";
@@ -764,7 +767,6 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
     const std::string warnID = origin ? getClickableTLLinkID(origin) : "lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    const MSTrafficLightLogic* originRS = origin ? origin->getTLLogic() : nullptr;
     gDebugFlag4 = DEBUG_HELPER(orignRS);
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << formatVisitedMap(visited) << "\n";
@@ -784,11 +786,6 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             std::cout << "   toLane=" << toLane->getID() << " visited=" << formatVisitedMap(visited) << "\n";
         }
 #endif
-        if (visited.count(toLane) != 0) {
-            WRITE_WARNINGF(TL("Found circular block after railSignal % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
-            //std::cout << getClickableTLLinkID(origin) << " circularBlock1=" << toString(myRoute) << " visited=" << formatVisitedMap(visited) << "\n";
-            return;
-        }
         if (toLane->getEdge().isNormal()) {
             myRoute.push_back(&toLane->getEdge());
             if (next != end) {
@@ -820,7 +817,6 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             } else {
                 myBidi.push_back(bidi);
             }
-            appendMapIndex(visited, bidi);
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
                 for (const auto& ili : bidi->getIncomingLanes()) {
@@ -882,24 +878,13 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             }
         }
         const std::vector<MSLink*>& links = toLane->getLinkCont();
-        const MSEdge* current = &toLane->getEdge();
         toLane = nullptr;
         for (const MSLink* const link : links) {
             if ((next != end && &link->getLane()->getEdge() == *next)
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
-                if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
-                    // do not follow turn-arounds even if the route contains a reversal
-#ifdef DEBUG_DRIVEWAY_BUILDROUTE
-                    if (gDebugFlag4) {
-                        std::cout << "      abort: turn-around\n";
-                    }
-#endif
-                    myFoundReversal = true;
-                    return;
-                }
                 if (link->getTLLogic() != nullptr) {
-                    if (origin && link->getTLLogic() == origin->getTLLogic()) {
+                    if (link == origin) {
                         WRITE_WARNINGF(TL("Found circular block at railSignal % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         return;
@@ -1004,7 +989,8 @@ MSDriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited, s
             continue;
         }
         for (MSLane* inLane : in->getLanes()) {
-            if (isRailway(inLane->getPermissions()) && visited.count(inLane) == 0) {
+            const MSLane* inBidi = inLane->getBidiLane();
+            if (isRailway(inLane->getPermissions()) && visited.count(inLane) == 0 && (inBidi == nullptr || visited.count(inBidi) == 0)) {
                 for (MSLink* link : inLane->getLinkCont()) {
                     if (link->getIndex() >= 0 && logic->getFoesFor(dwLink->getIndex()).test(link->getIndex())
                             && visited.count(link->getLane()) == 0) {
@@ -1134,8 +1120,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     std::set<MSLink*> flankSwitches; // list of switches that threaten the driveway and for which protection must be found
 
     if (fromBidi != nullptr) {
-        // do not extend to forward block beyond the entering track (in case of a loop)
-        appendMapIndex(visited, fromBidi);
         before.push_back(fromBidi);
     }
     dw->buildRoute(link, 0., first, end, visited, flankSwitches);

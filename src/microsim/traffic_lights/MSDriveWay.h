@@ -190,7 +190,7 @@ protected:
     std::vector<MSLink*> myConflictLinks;
 
     /// @brief whether any of myBidiExtended is occupied by a vehicle that targets myBidi
-    bool deadlockLaneOccupied(bool store = true) const;
+    bool deadlockLaneOccupied(const SUMOVehicle* ego, bool store = true) const;
 
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
     bool hasLinkConflict(const Approaching& closest, MSLink* foeLink) const;
