@@ -1917,7 +1917,7 @@ GNELane::getGNEIncomingConnections() {
         for (const auto& incomingEdge : junctionSource->getGNEIncomingEdges()) {
             // Iterate over connection of incoming edges
             for (const auto& connection : incomingEdge->getGNEConnections()) {
-                if (connection->getLaneFrom()->getIndex() == getIndex()) {
+                if (connection->getLaneTo()->getIndex() == getIndex()) {
                     incomingConnections.push_back(connection);
                 }
             }
@@ -1934,7 +1934,7 @@ GNELane::getGNEOutcomingConnections() {
     std::vector<GNEConnection*> outcomingConnections;
     // Obtain outgoing connections
     for (const auto& connection : edgeConnections) {
-        if (connection->getLaneTo()->getIndex() == getIndex()) {
+        if (connection->getLaneFrom()->getIndex() == getIndex()) {
             outcomingConnections.push_back(connection);
         }
     }
