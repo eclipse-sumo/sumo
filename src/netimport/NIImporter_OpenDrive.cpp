@@ -1713,18 +1713,18 @@ NIImporter_OpenDrive::revisitLaneSections(const NBTypeCont& tc, std::map<std::st
             WRITE_WARNINGF(TL("The sections of edge '%' are not sorted properly."), e.id);
             sort(e.laneSections.begin(), e.laneSections.end(), sections_by_s_sorter());
         }
-        // check whether no duplicates of s-value occur
-        lastS = -1;
-        for (std::vector<OpenDriveLaneSection>::iterator j = e.laneSections.begin(); j != e.laneSections.end();) {
-            const bool isShortSection = fabs((*j).s - lastS) < POSITION_EPS;
-            lastS = (*j).s;
-            // keep all lane sections for connecting roads because they are
-            // needed to establish connectivity (laneSectionsConnected)
-            if (isShortSection && !e.isInner) {
-                WRITE_WARNINGF(TL("Almost duplicate s-value '%' for lane sections occurred at edge '%'; second entry was removed."),  toString(lastS), e.id);
-                j = e.laneSections.erase(j);
-            } else {
-                ++j;
+        // check whether duplicate s-values occur
+        // but keep all lane sections for connecting roads because they are
+        // needed to establish connectivity (laneSectionsConnected)
+        // TODO recheck whether removing short sections is a good idea at all: once we parse linkage info, it will be lost.
+        if (e.laneSections.size() > 1 && !e.isInner) {
+            for (std::vector<OpenDriveLaneSection>::iterator j = e.laneSections.begin(); j != e.laneSections.end() - 1;) {
+                if ((j + 1)->s - j->s < POSITION_EPS) {
+                    WRITE_WARNINGF(TL("Almost duplicate s-value '%' for lane sections occurred at edge '%'; first entry was removed."),  toString(j->s), e.id);
+                    j = e.laneSections.erase(j);
+                } else {
+                    ++j;
+                }
             }
         }
 #ifdef DEBUG_VARIABLE_SPEED
