@@ -809,11 +809,21 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
         lane->setAttribute(SUMO_ATTR_ALLOW, toString(vclass), undoList);
         lane->setAttribute(SUMO_ATTR_WIDTH, toString(width), undoList);
         if ((vclass & ~SVC_PEDESTRIAN) == 0) {
-            // remove connections that have become invalid (pedestrians are
-            // connected via walkingareas somewhere else)
-            std::vector<GNEConnection*> cons = lane->getGNEOutcomingConnections();
+            std::vector<GNEConnection*> cons;
+            const bool reguess = lane->getParentEdge()->getNBEdge()->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_RECHECK;
+            if (reguess) {
+                // remove all connections and rebuild from scratch
+                cons = lane->getParentEdge()->getGNEConnections();
+            } else {
+                // remove connections that have become invalid (pedestrians are
+                // connected via walkingareas somewhere else)
+                cons = lane->getGNEOutcomingConnections();
+            }
             for (auto c : cons) {
                 undoList->add(new GNEChange_Connection(lane->getParentEdge(), c->getNBEdgeConnection(), false, false), true);
+            }
+            if (reguess) {
+                GNEChange_Attribute::changeAttribute(lane->getParentEdge(), GNE_ATTR_MODIFICATION_STATUS, GNEAttributeCarrier::FEATURE_GUESSED, undoList, true);
             }
         }
         return true;
