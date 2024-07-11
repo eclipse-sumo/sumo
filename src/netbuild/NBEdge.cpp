@@ -3014,55 +3014,7 @@ NBEdge::recheckLanes() {
                     }
                 }
             }
-            // check restrictions
-            for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
-                Connection& c = *i;
-                const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
-                if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
-                    // these are computed in NBNode::buildWalkingAreas
-                    i = myConnections.erase(i);
-                } else if (common == 0) {
-                    // no common permissions.
-                    // try to find a suitable target lane to the right
-                    const int origToLane = c.toLane;
-                    c.toLane = -1; // ignore this connection when calling hasConnectionTo
-                    int toLane = origToLane;
-                    while (toLane > 0
-                            && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
-                            && !hasConnectionTo(c.toEdge, toLane)
-                          ) {
-                        toLane--;
-                    }
-                    if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
-                            && !hasConnectionTo(c.toEdge, toLane)) {
-                        c.toLane = toLane;
-                        ++i;
-                    } else {
-                        // try to find a suitable target lane to the left
-                        toLane = origToLane;
-                        while (toLane < (int)c.toEdge->getNumLanes() - 1
-                                && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
-                                && !hasConnectionTo(c.toEdge, toLane)
-                              ) {
-                            toLane++;
-                        }
-                        if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
-                                && !hasConnectionTo(c.toEdge, toLane)) {
-                            c.toLane = toLane;
-                            ++i;
-                        } else {
-                            // no alternative target found
-                            i = myConnections.erase(i);
-                        }
-                    }
-                } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
-                           && isTurningDirectionAt(c.toEdge))  {
-                    // do not allow sharp rail turns
-                    i = myConnections.erase(i);
-                } else {
-                    ++i;
-                }
-            }
+            removeInvalidConnections();
         }
     }
     // check involuntary dead end at "real" junctions
@@ -3139,6 +3091,58 @@ NBEdge::recheckLanes() {
     return true;
 }
 
+
+void NBEdge::removeInvalidConnections() {
+    // check restrictions
+    for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end();) {
+        Connection& c = *i;
+        const SVCPermissions common = getPermissions(c.fromLane) & c.toEdge->getPermissions(c.toLane);
+        if (common == SVC_PEDESTRIAN || getPermissions(c.fromLane) == SVC_PEDESTRIAN) {
+            // these are computed in NBNode::buildWalkingAreas
+            i = myConnections.erase(i);
+        } else if (common == 0) {
+            // no common permissions.
+            // try to find a suitable target lane to the right
+            const int origToLane = c.toLane;
+            c.toLane = -1; // ignore this connection when calling hasConnectionTo
+            int toLane = origToLane;
+            while (toLane > 0
+                    && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
+                    && !hasConnectionTo(c.toEdge, toLane)
+                  ) {
+                toLane--;
+            }
+            if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
+                    && !hasConnectionTo(c.toEdge, toLane)) {
+                c.toLane = toLane;
+                ++i;
+            } else {
+                // try to find a suitable target lane to the left
+                toLane = origToLane;
+                while (toLane < (int)c.toEdge->getNumLanes() - 1
+                        && (getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) == 0
+                        && !hasConnectionTo(c.toEdge, toLane)
+                      ) {
+                    toLane++;
+                }
+                if ((getPermissions(c.fromLane) & c.toEdge->getPermissions(toLane)) != 0
+                        && !hasConnectionTo(c.toEdge, toLane)) {
+                    c.toLane = toLane;
+                    ++i;
+                } else {
+                    // no alternative target found
+                    i = myConnections.erase(i);
+                }
+            }
+        } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
+                && isTurningDirectionAt(c.toEdge))  {
+            // do not allow sharp rail turns
+            i = myConnections.erase(i);
+        } else {
+            ++i;
+        }
+    }
+}
 
 void
 NBEdge::divideOnEdges(const EdgeVector* outgoing) {

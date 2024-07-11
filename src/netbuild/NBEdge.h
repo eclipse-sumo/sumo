@@ -1717,6 +1717,10 @@ private:
     /// @brief apply loaded turn sign information
     bool applyTurnSigns();
 
+    /* @brief remove connections with incompatible permissions (should only be
+     * called for guessed connections) */
+    void removeInvalidConnections();
+
 private:
     /** @brief The building step
      * @see EdgeBuildingStep
