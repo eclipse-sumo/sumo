@@ -20,7 +20,7 @@
 # --------------------------------
 
 # temporal position (used to mark non finished tests)
-class tmp
+class tmp:
     x = 0
     y = 0
 
