@@ -635,7 +635,10 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
         }
         for (const MSLane* lane2 : other.myBidi) {
             if (lane == lane2) {
-                return true;
+                if (bidiBlockedBy(other)) {
+                    // it's only a deadlock if both trains block symmetrically
+                    return true;
+                }
             }
         }
     }
@@ -1369,6 +1372,11 @@ void
 MSDriveWay::buildSubFoe(MSDriveWay* foe) {
     // we already know that the last edge of this driveway doesn't impact the foe
     int subLast = myForward.size() - 2;
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+    if (subLast < 0) {
+        std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
+    }
+#endif
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp("tmp", true);
