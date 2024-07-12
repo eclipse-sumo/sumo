@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-07-12 14:33:41 by Eclipse SUMO sumo Version v1_20_0+0479-6ab8d093000
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,6 +48,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="gneJ8_0"/>
                 <foes driveWays="gneJ5.0 gneJ8.0"/>
             </driveWay>
+            <subDriveWay id="gneJ5.0.0" edges="-d -c -c.80">
+                <forward lanes=":gneJ5_0_0 -d_0 :gneJ2_0_0 -c_0 :gneJ10_0_0 -c.80_0"/>
+            </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
@@ -58,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ2_0_0 -d_0 :gneJ5_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ5_0"/>
-                <foes driveWays="gneJ5.0 gneJ8.0"/>
+                <foes driveWays="gneJ5.0.0 gneJ8.0"/>
             </driveWay>
         </link>
     </railSignal>
