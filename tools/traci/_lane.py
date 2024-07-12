@@ -309,7 +309,6 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.VAR_BIDI, laneID)
 
-
     def setAllowed(self, laneID, allowedClasses):
         """setAllowed(string, list) -> None
 

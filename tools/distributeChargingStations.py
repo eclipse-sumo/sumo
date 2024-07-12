@@ -44,7 +44,9 @@ def getOptions(args=None):
     argParser.add_argument("--output-parking-file", category="output", dest="outParkingFile",
                            help="define the output filename for the separate parking additional file")
     argParser.add_argument("--separate-unused-parkings", dest="separateUnusedParkings", action="store_true",
-                           default=False, help="Write parkings with charging stations to the main output file and other parkings to the separate one for parkings")
+                           default=False,
+                           help="Write parkings with charging stations to the main output file "
+                                "and other parkings to the separate one for parkings")
     argParser.add_argument("-p", "--probability", category="processing", type=float, default=1,
                            help="Probability for an edge to receive a charging station")
     argParser.add_argument("-d", "--density", category="processing", type=float, default=0.1,
@@ -66,7 +68,8 @@ def getOptions(args=None):
                            help="only use edges which permit the given vehicle class")
     argParser.add_argument("--entire-parkings", dest="entireParkings", action="store_true",
                            default=False,
-                           help="If set, parkings are not divided if the number of charging stations is smaller than the parking capacity")
+                           help="If set, parkings are not divided if the number of charging stations "
+                                "is smaller than the parking capacity")
     argParser.add_argument("--include-existing", dest="includeExisting", action="store_true",
                            default=False,
                            help="If set, loaded charging stations from input files will contribute to the density")
@@ -189,7 +192,8 @@ def main(options):
                 # first check if the charging point fits exactly one parkingArea
                 remainingChargingPoints = chargingPointCount
 
-                # optional: do not divide parkings and just choose the one which matches best the select charging point number
+                # optional: do not divide parkings
+                # and just choose the one which matches best the select charging point number
                 if options.entireParkings:
                     closestCapacityIndex = min(range(len(capacities)), key=lambda i: abs(
                         capacities[i]-remainingChargingPoints))

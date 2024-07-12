@@ -30,9 +30,7 @@ import io
 from argparse import RawDescriptionHelpFormatter  # noqa
 from copy import deepcopy
 from functools import wraps
-from .miscutils import openz
-from .miscutils import parseTime
-from .xml import parse as sumolib_parse
+from .miscutils import openz, parseTime
 
 
 class ConfigurationReader(handler.ContentHandler):
