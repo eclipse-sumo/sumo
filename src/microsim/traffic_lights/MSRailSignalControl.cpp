@@ -77,7 +77,7 @@ MSRailSignalControl::~MSRailSignalControl() {
 void
 MSRailSignalControl::vehicleStateChanged(const SUMOVehicle* const vehicle, MSNet::VehicleState to, const std::string& /*info*/) {
     if (isRailway(vehicle->getVClass())) {
-        if (to == MSNet::VehicleState::NEWROUTE || to == MSNet::VehicleState::DEPARTED) {
+        if (to == MSNet::VehicleState::NEWROUTE || to == MSNet::VehicleState::DEPARTED || to == MSNet::VehicleState::BUILT) {
             for (const MSEdge* edge : vehicle->getRoute().getEdges()) {
                 myUsedEdges.insert(edge);
                 if (myProtectedDriveways.count(edge) != 0) {
