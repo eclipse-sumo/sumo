@@ -156,6 +156,7 @@ protected:
     /// @brief whether this driveway ends its forward section with a rail signal (and thus comprises a full block)
     bool myFoundSignal;
     bool myFoundJump;
+    bool myTerminateRoute;
     bool myIsSubDriveway;
     bool myIsDepartDriveway;
 

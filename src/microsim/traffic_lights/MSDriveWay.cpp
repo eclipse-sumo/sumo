@@ -102,6 +102,7 @@ MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         myCoreSize(0),
         myFoundSignal(false),
         myFoundJump(false),
+        myTerminateRoute(false),
         myIsSubDriveway(false),
         myIsDepartDriveway(false)
 {}
@@ -956,6 +957,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     std::cout << "      abort: no next lane available\n";
                 }
 #endif
+                myTerminateRoute = true;
                 return;
             }
         }
@@ -1419,7 +1421,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
         subLast--;
     }
     if (subLast < 0) {
-        WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
+        if (foe->myTerminateRoute) {
+            // assume the bidi conflict is resolved by leaving the network
+        } else {
+            WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
+        }
         return;
     }
     int subSize = subLast + 1;
