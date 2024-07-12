@@ -740,6 +740,13 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
     for (const MSDriveWay* sub : mySubDriveWays) {
         sub->writeBlocks(od);
     }
+#ifdef DRIVEWAY_SANITY_CHECK
+    std::set<MSDriveWay*> uFoes(myFoes.begin(), myFoes.end());
+    if (uFoes.size() != myFoes.size()) {
+        WRITE_WARNINGF("Duplicate foes in driveway '%'", getID());
+
+    }
+#endif
 }
 
 
