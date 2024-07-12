@@ -2,4 +2,4 @@
 # the "normal" requirements should be used in addition
 ortools==9.5.2237; python_version < '3.12'
 pandas<2.2.0
-matplotlib==3.8.4; python_version >= '3.9'
+#matplotlib==3.8.4; python_version >= '3.9'
