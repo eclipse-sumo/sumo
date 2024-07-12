@@ -48,7 +48,7 @@ netedit.typeEnter()
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
                   netedit.positions.tmp.y)
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # press enter to create container
 netedit.typeEnter()

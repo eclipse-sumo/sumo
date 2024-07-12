@@ -51,7 +51,7 @@ netedit.changePersonPlanMode("personTrip")
 
 # create personTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # press enter to create route
 netedit.typeEnter()
@@ -70,7 +70,7 @@ netedit.protectElements(referencePosition)
 
 # create personTripEdgeEdge
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # press enter to create route
 netedit.typeEnter()
