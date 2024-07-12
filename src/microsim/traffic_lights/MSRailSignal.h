@@ -246,8 +246,6 @@ public:
      * @param[in] brakeBeforeSignal Whether the vehicle may brake before the signal,
      *                              Returns true if the vehicle has to brake before the signal
      */
-    static bool hasOncomingRailTraffic(MSLink* link, const MSVehicle* ego, bool& brakeBeforeSignal);
-
     static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh, std::string& info, bool& isInsertionOrder);
 
     static void initDriveWays(const SUMOVehicle* ego, bool update);

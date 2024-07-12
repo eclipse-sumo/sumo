@@ -949,26 +949,6 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             firstRailSignal = *link;
             firstRailSignalDist = seen;
         }
-        // allow guarding bidirectional tracks at the network border with railSignal
-        if (currentLane == this && (*link)->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
-            /// the oncoming check differs depending on whether the train may brake
-            const double vSafe = cfModel.insertionStopSpeed(aVehicle, speed, seen);
-            bool brakeBeforeSignal = patchSpeed || speed <= vSafe;
-            if (MSRailSignal::hasOncomingRailTraffic(*link, aVehicle, brakeBeforeSignal)) {
-#ifdef DEBUG_INSERTION
-                if (DEBUG_COND2(aVehicle) || DEBUG_COND) {
-                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
-                }
-#endif
-                if ((insertionChecks & (int)InsertionCheck::ONCOMING_TRAIN) != 0) {
-                    setParameter("insertionFail:" + aVehicle->getID(), "oncoming rail traffic");
-                    return false;
-                }
-            }
-            if (brakeBeforeSignal) {
-                speed = MIN2(speed, vSafe);
-            }
-        }
         if (!(*link)->opened(arrivalTime, speed, speed, aVehicle->getVehicleType().getLength(), aVehicle->getImpatience(),
                              cfModel.getMaxDecel(), 0, posLat, nullptr, false, aVehicle)
                 || !(*link)->havePriority()) {
