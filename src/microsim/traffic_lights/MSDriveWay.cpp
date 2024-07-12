@@ -101,7 +101,7 @@ MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         myProtectedBidi(nullptr),
         myCoreSize(0),
         myFoundSignal(false),
-        myFoundReversal(false),
+        myFoundJump(false),
         myIsSubDriveway(false),
         myIsDepartDriveway(false)
 {}
@@ -948,7 +948,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     std::cout << "      abort: turn-around or jump\n";
                 }
 #endif
-                myFoundReversal = true;
+                myFoundJump = true;
                 return;
             } else {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -1302,9 +1302,9 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
     // if the vehicle arrives before the end of this driveway,
     // we'd rather build a new driveway to avoid superfluous restrictions
     if (match && itDwRoute == myRoute.end()
-            && (itRoute == route.end() || myFoundSignal || myFoundReversal || myIsSubDriveway)) {
+            && (itRoute == route.end() || myFoundSignal || myFoundJump || myIsSubDriveway)) {
         //std::cout << "  using dw=" << "\n";
-        if (myFoundReversal && itRoute != route.end()) {
+        if (myFoundJump && itRoute != route.end()) {
             // check whether the current route requires an extended driveway
             const MSEdge* next = *itRoute;
             const MSEdge* prev = myRoute.back();
