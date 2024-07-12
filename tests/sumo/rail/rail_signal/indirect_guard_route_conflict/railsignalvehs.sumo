@@ -46,5 +46,8 @@
     </driveWay>
 </departJunction>
 <departJunction id="B.N2">
-    <driveWay id="B.N2.d1"/>
+    <driveWay id="B.N2.d1">
+        <entry id="rail1" time="0.00" reason="0"/>
+        <exit id="rail1" time="43.00" reason="1"/>
+    </driveWay>
 </departJunction>
