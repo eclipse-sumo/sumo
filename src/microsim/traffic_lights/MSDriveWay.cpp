@@ -51,6 +51,7 @@
 //#define DEBUG_ADD_FOES
 //#define DEBUG_SIGNALSTATE
 //#define DEBUG_MOVEREMINDER
+//#define DEBUG_MATCH
 
 #define DEBUG_COND DEBUG_HELPER(this)
 //#define DEBUG_HELPER(obj) ((obj)->isSelected())
@@ -1279,7 +1280,9 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
     while (itRoute != route.end() && itDwRoute != myRoute.end()) {
         if (*itRoute != *itDwRoute) {
             match = false;
-            //std::cout << "  check dw=" << " match failed at vehEdge=" << (*itRoute)->getID() << " dwEdge=" << (*itDwRoute)->getID() << "\n";
+#ifdef DEBUG_MATCH
+            std::cout << "  check dw=" << getID() << " match failed at vehEdge=" << (*itRoute)->getID() << " dwEdge=" << (*itDwRoute)->getID() << "\n";
+#endif
             break;
         }
         itRoute++;
@@ -1296,6 +1299,9 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
             const MSEdge* prev = myRoute.back();
             if (prev->getBidiEdge() != next && prev->getBidiEdge() != nullptr
                     && prev->isConnectedTo(*next, (SUMOVehicleClass)(SVC_RAIL_CLASSES & prev->getPermissions()))) {
+#ifdef DEBUG_MATCH
+                std::cout << "  check dw=" << getID() << " prev=" << prev->getID() << " next=" << next->getID() << "\n";
+#endif
                 return false;
             }
         }
