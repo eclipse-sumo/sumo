@@ -10,23 +10,29 @@ copy_test_path:gui-settings.xml
 
 copy_test_path:netedit.netecfg
 copy_test_path:sumo.sumocfg
+copy_test_path:netccfg.netecfg
 
-copy_test_path:config.netecfg
-copy_test_path:config.sumocfg
+copy_test_path:netedit_open.netecfg
+copy_test_path:sumo_open.sumocfg
+copy_test_path:netccfg_open.netecfg
 
 copy_test_path:net.con.xml
 copy_test_path:net.edg.xml
 copy_test_path:net.nod.xml
 copy_test_path:net.tll.xml
 copy_test_path:net.net.xml
-copy_test_path:net.netccfg
 
-copy_test_path:config.con.xml
-copy_test_path:config.edg.xml
-copy_test_path:config.nod.xml
-copy_test_path:config.tll.xml
-copy_test_path:config.net.xml
-copy_test_path:config.netccfg
+copy_test_path:sumo.con.xml
+copy_test_path:sumo.edg.xml
+copy_test_path:sumo.nod.xml
+copy_test_path:sumo.tll.xml
+copy_test_path:sumo.net.xml
+
+copy_test_path:netccfg.con.xml
+copy_test_path:netccfg.edg.xml
+copy_test_path:netccfg.nod.xml
+copy_test_path:netccfg.tll.xml
+copy_test_path:netccfg.net.xml
 
 copy_test_path:additionals.add.xml
 copy_test_path:routes.rou.xml
@@ -41,15 +47,28 @@ copy_test_path_merge:myOwnFilenameRerouter.txt
 copy_test_path:errorScreenshot.png
 
 [collate_file]
+
+sumoConfigAs:saveConfigAs.netecfg
+neteditConfigAs:saveConfigAs.sumo
+
 net:net.net.xml
-net:netedit.net.xml
-net:config.net.xml
-neteconfig:config.netecfg
-sumoconfig:config.sumocfg
 netcon:net.con.xml
 netedg:net.edg.xml
 netnod:net.nod.xml
 nettll:net.tll.xml
+
+sumonet:sumo.net.xml
+sumocon:sumo.con.xml
+sumoedg:sumo.edg.xml
+sumonod:sumo.nod.xml
+sumotll:sumo.tll.xml
+
+netccfgnet:netccfg.net.xml
+netccfgcon:netccfg.con.xml
+netccfgedg:netccfg.edg.xml
+netccfgnod:netccfg.nod.xml
+netccfgtll:netccfg.tll.xml
+
 additionals:additionals.add.xml
 additionals:netedit.add.xml
 routes:routes.rou.xml

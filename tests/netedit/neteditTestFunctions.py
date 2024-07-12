@@ -110,13 +110,43 @@ def typeTab():
     pyautogui.hotkey('tab')
 
 
+def typeUp():
+    """
+    @brief type up key
+    """
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type key
+    pyautogui.hotkey('up')
+
+
+def typeDown():
+    """
+    @brief type down key
+    """
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type key
+    pyautogui.hotkey('down')
+
+
+def typeLeft():
+    """
+    @brief type left key
+    """
+    # wait before every operation
+    time.sleep(DELAY_KEY_TAB)
+    # type key
+    pyautogui.hotkey('left')
+
+
 def typeRight():
     """
     @brief type right key
     """
     # wait before every operation
     time.sleep(DELAY_KEY_TAB)
-    # type keys
+    # type key
     pyautogui.hotkey('right')
 
 
@@ -821,6 +851,45 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     typeSpace()
 
 
+def openNeteditConfigShortcut(waitTime=2):
+    """
+    @brief open configuration using shortcut
+    """
+    # open configuration dialog
+    typeTwoKeys('ctrl', 'e')
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("netedit_open.netecfg")
+    typeEnter()
+    # wait for loading
+    time.sleep(waitTime)
+
+
+def saveNeteditConfigAs(referencePosition, waitTime=2):
+    """
+    @brief save configuration as using shortcut
+    """
+    # move cursor
+    leftClick(referencePosition, 500, 0)
+    # go to save netedit config
+    typeTwoKeys('alt', 'f')
+    for _ in range(14):
+        typeDown()
+    typeRight()
+    typeDown()
+    typeSpace()
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("saveConfigAs.netecfg")
+    typeEnter()
+    # wait for loading
+    time.sleep(waitTime)
+
+
 def openNetworkShortcut(waitTime=2):
     """
     @brief open configuration using shortcut
@@ -924,24 +993,6 @@ def saveNeteditConfig(referencePosition, clickOverReference=False):
         leftClick(referencePosition, 0, 0)
     # save netedit config using hotkey
     typeThreeKeys('ctrl', 'shift', 'e')
-    # wait for saving
-    time.sleep(DELAY_SAVING)
-
-
-def saveNeteditConfigAs(referencePosition):
-    """
-    @brief save netedit config as
-    """
-    # click over reference (to avoid problem with undo-redo)
-    leftClick(referencePosition, 0, 0)
-    # save netedit config using hotkey
-    typeThreeKeys('ctrl', 'shift', 'e')
-    # jump to filename TextField
-    typeTwoKeys('alt', 'f')
-    pasteIntoTextField(_TEXTTEST_SANDBOX)
-    typeEnter()
-    pasteIntoTextField("config.netecfg")
-    typeEnter()
     # wait for saving
     time.sleep(DELAY_SAVING)
 
