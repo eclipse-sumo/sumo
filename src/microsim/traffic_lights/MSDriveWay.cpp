@@ -136,9 +136,12 @@ MSDriveWay::~MSDriveWay() {
             dws2.erase(std::find(dws2.begin(), dws2.end(), this));
         }
     }
-    if (myNumericalID != -1 && myForward.size() > 0) {
+    if (myNumericalID != -1 && myForward.size() > 0 && !myIsSubDriveway) {
         std::vector<MSDriveWay*>& dws = myEndingDriveways[&myForward.back()->getEdge()];
         dws.erase(std::find(dws.begin(), dws.end(), this));
+    }
+    for (const MSDriveWay* sub : mySubDriveWays) {
+        delete sub;
     }
 }
 
@@ -1400,6 +1403,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
         if ((int)cand->myForward.size() == subSize) {
             // can re-use existing sub-driveway
             foe->myFoes.push_back(cand);
+            cand->myFoes.push_back(foe);
             return;
         }
     }
@@ -1429,6 +1433,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
     }
 
     foe->myFoes.push_back(sub);
+    sub->myFoes.push_back(foe);
     mySubDriveWays.push_back(sub);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
