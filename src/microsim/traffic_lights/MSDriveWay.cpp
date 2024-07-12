@@ -685,6 +685,25 @@ MSDriveWay::bidiBlockedBy(const MSDriveWay& other) const {
 }
 
 
+bool
+MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
+    const MSLane* end = other.myForward.back();
+    for (const MSLane* lane : myBidi) {
+        if (lane == end) {
+            return true;
+        }
+    }
+    for (const MSLane* lane : myBidiExtended) {
+        if (lane == end) {
+            if (overlap(other)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
@@ -1186,28 +1205,20 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     for (MSDriveWay* foe : uniqueFoes) {
         const MSEdge* foeLastEdge = &foe->myForward.back()->getEdge();
         const bool sameLast = foeLastEdge == lastEdge;
-        const bool dwOnFoeBidi = std::find(foe->myBidi.begin(), foe->myBidi.end(), dw->myForward.back()) != foe->myBidi.end();
-        const bool foeOnDwBidi = std::find(dw->myBidi.begin(), dw->myBidi.end(), foe->myForward.back()) != dw->myBidi.end();
-        if (sameLast || dwOnFoeBidi || foeOnDwBidi) {
-#ifdef DEBUG_BUILD_DRIVEWAY
-            if (DEBUG_COND_DW) {
-                std::cout << " symmetrical full-length foe " << foe->getID() << " dwOnFoeBidi=" << dwOnFoeBidi << " foeOnDwBidi=" << foeOnDwBidi << "\n";
-            }
-#endif
-            if (sameLast || foe->bidiBlockedBy(*dw)) {
-                foe->myFoes.push_back(dw);
-            }
-            if (sameLast || dw->bidiBlockedBy(*foe)) {
-                dw->myFoes.push_back(foe);
-            }
+        if (sameLast) {
+            dw->myFoes.push_back(foe);
+            foe->myFoes.push_back(dw);
         } else {
-#ifdef DEBUG_BUILD_DRIVEWAY
-            if (DEBUG_COND_DW) {
-                std::cout << " symmetrical buildSubFoe for foe " << foe->getID() << "\n";
+            if (foe->bidiBlockedByEnd(*dw)) {
+                foe->myFoes.push_back(dw);
+            } else {
+                dw->buildSubFoe(foe);
             }
-#endif
-            foe->buildSubFoe(dw);
-            dw->buildSubFoe(foe);
+            if (dw->bidiBlockedByEnd(*foe)) {
+                dw->myFoes.push_back(foe);
+            } else  {
+                foe->buildSubFoe(dw);
+            }
         }
         if (link) {
             foe->addConflictLink(link);

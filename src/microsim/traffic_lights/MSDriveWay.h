@@ -67,6 +67,9 @@ public:
     /// @brief Wether there is a bidi conflict with the given driveway
     bool bidiBlockedBy(const MSDriveWay& other) const;
 
+    /// @brief Wether there is a bidi conflict with the end of the given driveway
+    bool bidiBlockedByEnd(const MSDriveWay& other) const;
+
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
 
