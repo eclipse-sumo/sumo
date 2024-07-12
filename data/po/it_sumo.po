@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-10 14:26+0000\n"
+"PO-Revision-Date: 2024-07-12 15:21+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10435,11 +10435,11 @@ msgstr "Una simulazione microscopica e multimodale del traffico."
 
 #: src/sumo_main.cpp:114 /src/sumo_main.cpp:123
 msgid "Quitting (on error)."
-msgstr "Uscendo (dopo un errore)."
+msgstr "Uscita (dopo un errore)."
 
 #: src/sumo_main.cpp:126
 msgid "Quitting (on unknown error)."
-msgstr ""
+msgstr "Uscita (dopo un errore sconosciuto)."
 
 #: src/tools/TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
@@ -10447,72 +10447,86 @@ msgstr ""
 
 #: src/tools/TrajectoriesHandler.cpp:94
 msgid "Motion state for unknown vehicle '%'!"
-msgstr ""
+msgstr "Stato di movimento del veicolo sconosciuto '%'!"
 
 #: src/tools/TrajectoriesHandler.cpp:136
 msgid "Acceleration information is missing; try running with --compute-a."
 msgstr ""
+"Manca la informazione dell'accelerazione; prova a eseguire con --compute-a."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:61
 msgid "Computes emissions by driving a time line using SUMO's emission models."
 msgstr ""
+"Calcola emissioni replicando una sequenza temporale utilizzando i modelli di "
+"emissione di SUMO."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:69
 msgid "Defines the file to read the driving cycle from."
-msgstr ""
+msgstr "Il file da dove prendere il ciclo di guida."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:73
 msgid "Skips the first NUM lines."
-msgstr ""
+msgstr "Omissione delle prime NUM righe."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:77
 msgid "Defines the entry separator."
-msgstr ""
+msgstr "Definisce il carattere di separazione."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:82
 msgid ""
 "Defines the netstate, route and trajectory files to read the driving cycles "
 "from."
 msgstr ""
+"Definisce i file di stato della rete, degli itinerari e delle traiettorie da "
+"dove prendere i cicli di guida."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:85
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr ""
+msgstr "Carica parametri di emissione (tipi di veicoli) da uno o più FILE"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:88
 msgid "Defines for which emission class the emissions shall be generated. "
 msgstr ""
+"Definisce per quale classe di emissioni le emissioni dovranno essere "
+"generate. "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:91
 msgid "Defines the vehicle type to use for emission parameters."
-msgstr ""
+msgstr "Definisce il tipo di veicolo da usare per i paremetri di emissione."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:95
 msgid ""
 "If set, the acceleration is computed instead of being read from the file. "
 msgstr ""
+"Se impostato, l'accelerazione verrà calcolata invece di essere presa dal "
+"file. "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:98
 msgid ""
 "If set, the acceleration for time t is computed from v(t+1) - v(t) instead "
 "of v(t) - v(t-1). "
 msgstr ""
+"Se impostato, l'accelerazione del passo di simulazione t verrà calcolata da "
+"v(t+1) - v(t) invece di v(t) - v(t-1). "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:101
 msgid "If set, the acceleration for time t is set to 0 if the speed is 0. "
 msgstr ""
+"Se impostato, l'accelerazione del passo di simulazione t sarà nulla quando "
+"il veicolo è fermo. "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:104
 msgid "If set, the first line of the read file is skipped."
-msgstr ""
+msgstr "Se impostato, la prima riga del file di ingresso verrà omessa."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:107
 msgid "If set, the given speed is interpreted as being given in km/h."
-msgstr ""
+msgstr "Se impostato, la velocità verrà interpretata in km/h."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:110
 msgid "If set, the fourth column is read and used as slope (in deg)."
 msgstr ""
+"Se impostato, la quarta colonna verrà interpretata come pendenza (in gradi)."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:113
 msgid ""
