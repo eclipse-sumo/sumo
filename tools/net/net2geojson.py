@@ -18,11 +18,11 @@
 """
 This script converts a sumo network to GeoJSON and optionally includes edgeData
 """
-from __future__ import absolute_import
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
+import json
 import os
 import sys
-import json
 from collections import defaultdict
 
 if 'SUMO_HOME' in os.environ:
@@ -124,10 +124,14 @@ if __name__ == "__main__":
         if options.extraAttributes:
             feature["properties"]["maxSpeed"] = net.getEdge(edgeID).getSpeed()
             if geomType == 'lane':
-                feature["properties"]["allowedVehicles"] = ','.join(sorted(net.getLane(id).getPermissions()))
-                feature["properties"]["laneIndex"] = net.getLane(id).getIndex()
+                feature["properties"]["allow"] = ','.join(sorted(net.getLane(id).getPermissions()))
+                feature["properties"]["index"] = net.getLane(id).getIndex()
             else:
                 feature["properties"]["numLanes"] = net.getEdge(edgeID).getLaneNumber()
+                permissions_union = set()
+                for lane in net.getEdge(edgeID).getLanes():
+                    permissions_union.update(lane.getPermissions())
+                feature["properties"]["allow"] = ",".join(sorted(permissions_union))
 
         if options.boundary:
             geometry = sumolib.geomhelper.line2boundary(geometry, width)
