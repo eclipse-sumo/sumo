@@ -19,6 +19,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "-142575691#0",
                 "maxSpeed": 13.89,
@@ -42,6 +43,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "128643753#0",
                 "maxSpeed": 2.78,
@@ -85,6 +87,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "128643753#1",
                 "maxSpeed": 2.78,
@@ -112,6 +115,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "142575691#0",
                 "maxSpeed": 13.89,
@@ -155,6 +159,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "142575692#0",
                 "maxSpeed": 13.89,
@@ -198,6 +203,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "142575692#2",
                 "maxSpeed": 13.89,
@@ -249,6 +255,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "142575693#0",
                 "maxSpeed": 13.89,
@@ -296,6 +303,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308542#0",
                 "maxSpeed": 13.89,
@@ -331,6 +339,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308542#2",
                 "maxSpeed": 13.89,
@@ -358,6 +367,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308542#4",
                 "maxSpeed": 13.89,
@@ -381,6 +391,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308542#5",
                 "maxSpeed": 13.89,
@@ -468,6 +479,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308542#6",
                 "maxSpeed": 13.89,
@@ -503,6 +515,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#0",
                 "maxSpeed": 13.89,
@@ -534,6 +547,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#1",
                 "maxSpeed": 13.89,
@@ -557,6 +571,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#3",
                 "maxSpeed": 13.89,
@@ -580,6 +595,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#7",
                 "maxSpeed": 13.89,
@@ -603,6 +619,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#8",
                 "maxSpeed": 13.89,
@@ -646,6 +663,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "aircraft,army,authority,bicycle,bus,cable_car,cityrail,coach,container,custom1,custom2,delivery,drone,emergency,evehicle,hov,lightrail,moped,motorcycle,passenger,pedestrian,private,public_army,public_authority,public_emergency,public_transport,rail_slow,scooter,subway,taxi,trailer,transport,truck,vip,wheelchair",
                 "element": "edge",
                 "id": "143308546#9",
                 "maxSpeed": 13.89,
@@ -725,6 +743,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "158236729#0",
                 "maxSpeed": 13.89,
@@ -772,6 +791,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "158236729#1",
                 "maxSpeed": 13.89,
@@ -799,6 +819,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "206889079#5",
                 "maxSpeed": 13.89,
@@ -866,6 +887,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "206889079#6",
                 "maxSpeed": 13.89,
@@ -913,6 +935,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "206889079#7",
                 "maxSpeed": 13.89,
@@ -984,6 +1007,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "220198808#1",
                 "maxSpeed": 13.89,
@@ -1011,6 +1035,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "220198808#2",
                 "maxSpeed": 13.89,
@@ -1086,6 +1111,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "tram",
                 "element": "edge",
                 "id": "220198810#1",
                 "maxSpeed": 13.89,
@@ -1125,6 +1151,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "bicycle,pedestrian",
                 "element": "edge",
                 "id": "312889498",
                 "maxSpeed": 2.78,
@@ -1156,6 +1183,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "bicycle,pedestrian",
                 "element": "edge",
                 "id": "328287315",
                 "maxSpeed": 2.78,
@@ -1179,6 +1207,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "81096580#0",
                 "maxSpeed": 2.78,
@@ -1202,6 +1231,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "81096580#3",
                 "maxSpeed": 2.78,
@@ -1233,6 +1263,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "81096589#0",
                 "maxSpeed": 2.78,
@@ -1260,6 +1291,7 @@
                 "type": "LineString"
             },
             "properties": {
+                "allow": "pedestrian",
                 "element": "edge",
                 "id": "81096589#3",
                 "maxSpeed": 2.78,
