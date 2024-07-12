@@ -1508,6 +1508,7 @@ MSDriveWay::updateDepartDriveway(const MSEdge* first, int dwID) {
             }
 #endif
             MSDriveWay* dw = buildDriveWay(oldDW->getID(), nullptr, oldDW->myRoute.begin(), oldDW->myRoute.end());
+            dw->myVehicleEvents = oldDW->myVehicleEvents;
             myDepartureDriveways[first].push_back(dw);
             myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
             delete oldDW;
