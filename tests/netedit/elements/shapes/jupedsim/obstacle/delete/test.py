@@ -52,7 +52,7 @@ netedit.leftClick(referencePosition, netedit.positions.tmp.x,
 
 # delete loaded filled polygon
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

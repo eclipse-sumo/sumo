@@ -51,7 +51,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, n
 
 # delete loaded E1
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # delete lane with the second loaded E1
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,

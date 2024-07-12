@@ -39,21 +39,24 @@ netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "dummyAngle")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeA.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "365")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                           netedit.positions.elements.additionals.shapeC.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeC.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "-5")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                           netedit.positions.elements.additionals.shapeB.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeB.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # change angle (0 < angle < 360)
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "5")

@@ -36,28 +36,32 @@ netedit.changeElement("poly")
 
 # create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeA.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poly.create.id, ";;;;;;")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                           netedit.positions.elements.additionals.shapeB.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeB.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poly.create.id, "po_0")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                           netedit.positions.elements.additionals.shapeB.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeB.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poly.create.id, "custom_ID")
 
 # try to create polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                           netedit.positions.elements.additionals.shapeB.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeB.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -69,7 +69,7 @@ netedit.deleteMode()
 
 # delete E3
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

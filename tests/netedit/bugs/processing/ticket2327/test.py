@@ -36,11 +36,11 @@ netedit.selectMode()
 
 # select node 1
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # select node 2
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -50,11 +50,11 @@ netedit.rebuildNetwork()
 
 # select node 3
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # select node 4
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # join selected junctions
 netedit.joinSelectedJunctions()

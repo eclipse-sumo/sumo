@@ -36,11 +36,13 @@ netedit.changeElement("poly")
 
 # create first polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeA.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # create second polygon
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                           netedit.positions.elements.additionals.shapeC.y, netedit.positions.elements.additionals.shapeSize, True)
+                           netedit.positions.elements.additionals.shapeC.y,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
 netedit.inspectMode()

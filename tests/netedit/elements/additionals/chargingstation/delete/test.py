@@ -49,7 +49,7 @@ netedit.leftClick(referencePosition, netedit.positions.tmp.x,
 
 # delete first loaded chargingStation
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y
+                  netedit.positions.tmp.y)
 
 # delete lane with the second loaded chargingStation
 netedit.leftClick(referencePosition, netedit.positions.tmp.x,
