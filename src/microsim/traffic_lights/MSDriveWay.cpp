@@ -1142,7 +1142,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     //   until controlled railSignal link or protecting switch is found
     //   -> add all found lanes to conflictLanes
     //   -> add final links to conflictLinks
-
     MSDriveWay* dw = new MSDriveWay(id);
     dw->myIsDepartDriveway = link == nullptr;
     LaneVisitedMap visited;
@@ -1174,7 +1173,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         //std::cout << getID() << " flankSwitchBEx=" << link->getDescription() << "\n";
         dw->findFlankProtection(link, 0, visited, link, dw->myBidiExtended);
     }
-
+    MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
+    const bool movingBlock = (rs && rs->isMovingBlock()) || (!rs && OptionsCont::getOptions().getBool("railsignal-moving-block"));
 #ifdef DEBUG_BUILD_DRIVEWAY
     if (DEBUG_COND_DW) {
         std::cout << SIMTIME << " buildDriveWay " << dw->myID << " link=" << (link == nullptr ? "NULL" : link->getDescription())
@@ -1188,7 +1188,6 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                   << "\n";
     }
 #endif
-    MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
     if (!rs || !rs->isMovingBlock()) {
         dw->myConflictLanes.insert(dw->myConflictLanes.end(), dw->myForward.begin(), dw->myForward.end());
     }
@@ -1238,7 +1237,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->myConflictLinks.clear();
     dw->myConflictLinks.insert(dw->myConflictLinks.begin(), uniqueCLink.begin(), uniqueCLink.end());
     myEndingDriveways[lastEdge].push_back(dw);
-    if ((!rs || !rs->isMovingBlock()) && (rs || !OptionsCont::getOptions().getBool("railsignal-moving-block"))) {
+    if (!movingBlock) {
         // every driveway is it's own foe (also all driveways that depart in the same block)
         for (MSDriveWay* sameEnd : myEndingDriveways[lastEdge]) {
             if (uniqueFoes.count(sameEnd) == 0) {
