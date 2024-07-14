@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 17:32:45 by Eclipse SUMO sumo Version v1_20_0+0448-dbc98d8bf6b
+<!-- generated on 2024-07-14 23:08:01 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
     </output>
 
     <time>
@@ -88,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="39.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="42.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="42.00" id="gneJ5" programID="0" phase="0" state="G"/>
-    <tlsState time="42.00" id="gneJ3" programID="0" phase="1" state="r"/>
+    <tlsState time="42.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="45.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="45.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="45.00" id="gneJ1" programID="0" phase="1" state="r"/>
@@ -141,14 +142,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="93.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="93.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="96.00" id="gneJ1" programID="0" phase="1" state="r"/>
-    <tlsState time="96.00" id="gneJ5" programID="0" phase="1" state="r"/>
+    <tlsState time="96.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="96.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="99.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="99.00" id="gneJ5" programID="0" phase="1" state="r"/>
     <tlsState time="99.00" id="gneJ1" programID="0" phase="1" state="r"/>
     <tlsState time="102.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="102.00" id="gneJ5" programID="0" phase="1" state="r"/>
-    <tlsState time="102.00" id="gneJ3" programID="0" phase="1" state="r"/>
+    <tlsState time="102.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="105.00" id="gneJ3" programID="0" phase="1" state="r"/>
     <tlsState time="105.00" id="gneJ5" programID="0" phase="1" state="r"/>
     <tlsState time="105.00" id="gneJ1" programID="0" phase="0" state="G"/>
@@ -171,7 +172,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <tlsState time="123.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="123.00" id="gneJ1" programID="0" phase="0" state="G"/>
     <tlsState time="126.00" id="gneJ1" programID="0" phase="0" state="G"/>
-    <tlsState time="126.00" id="gneJ5" programID="0" phase="1" state="r"/>
+    <tlsState time="126.00" id="gneJ5" programID="0" phase="0" state="G"/>
     <tlsState time="126.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="129.00" id="gneJ3" programID="0" phase="0" state="G"/>
     <tlsState time="129.00" id="gneJ5" programID="0" phase="1" state="r"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-12 14:33:42 by Eclipse SUMO sumo Version v1_20_0+0479-6ab8d093000
+<!-- generated on 2024-07-14 23:08:02 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="D_1"/>
-                <foes driveWays="A.0 D.0 D.1.0 D.d1"/>
+                <foes driveWays="A.0 D.0 D.1.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":B_1_0 b_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
-                <foes driveWays="A.0 D.0 D.d1"/>
+                <foes driveWays="A.0 D.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -83,16 +83,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
             <foes driveWays="gneJ0.d0"/>
-        </driveWay>
-    </departJunction>
-    <departJunction id="D">
-        <driveWay id="D.d1" edges="e f g h j k l -l -k -j -h -g -f -e -d -c">
-            <forward lanes="e_0 :E_1_0 f_0 :F_1_0 g_0 :G_1_0 h_0 :H_1_0 j_0 :J_1_0 k_0 :K_1_0 l_0 :L_0_0 -l_0 :K_0_0 -k_0 :J_0_0 -j_0 :H_0_0 -h_0 :G_0_0 -g_0 :F_0_0 -f_0 :E_0_0 -e_0"/>
-            <bidi lanes="-e_0 :E_0_0 -f_0 :F_0_0 -g_0 :G_0_0 -h_0 :H_0_0 -j_0 :J_0_0 -k_0 :K_0_0 -l_0 l_0 :K_1_0 k_0 :J_1_0 j_0 :H_1_0 h_0 :G_1_0 g_0 :F_1_0 f_0 :E_1_0 e_0 :D_1_0 d_0 :C_1_0 c_0"/>
-            <flank lanes=":B_1_0 b_0 :A_0_0 :D_1_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="A_0 D_1"/>
-            <foes driveWays="A.0 D.0 D.d1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

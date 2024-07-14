@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  4 09:05:12 2020 by Eclipse SUMO sumo Version v1_6_0+1974-e63e6eaa31
+<!-- generated on 2024-07-14 23:08:02 by Eclipse SUMO sumo Version v1_20_0+0489-d33cee02165
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -25,7 +30,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -36,33 +40,49 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to=":A_0_0">
-            <driveWay edges="b c d e f">
+            <driveWay id="A.0" edges="b c d e f">
                 <forward lanes=":A_0_0 b_0 :B_1_0 c_0 :C_1_0 d_0"/>
                 <bidi lanes="-c_0 :C_0_0 -d_0 :D_0_0 -e_0 :E_0_0 -f_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
+                <conflictLinks signals="D_1"/>
+                <foes driveWays="A.0 D.0 D.1.0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="D">
         <link linkIndex="0" from="-e_0" to=":D_0_0">
-            <driveWay edges="-d -c -b -a">
+            <driveWay id="D.1" edges="-d -c -b -a">
                 <forward lanes=":D_0_0 -d_0 :C_0_0 -c_0 :B_0_0 -b_0 :-A_0_0 -a_0"/>
                 <bidi lanes=":D_1_0 d_0 :C_1_0 c_0"/>
                 <flank lanes=":B_1_0 b_0 :A_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
+                <foes driveWays="A.0 D.1"/>
             </driveWay>
+            <subDriveWay id="D.1.0" edges="-d -c">
+                <forward lanes=":D_0_0 -d_0 :C_0_0 -c_0"/>
+            </subDriveWay>
         </link>
         <link linkIndex="1" from="d_0" to=":D_1_0">
-            <driveWay edges="e f">
-                <forward lanes=":D_1_0 e_0 :E_1_0 f_0"/>
-                <bidi lanes=":D_0_0 -e_0 :E_0_0 -f_0"/>
-                <flank lanes=""/>
+            <driveWay id="D.0" edges="e f -f -e -d -c">
+                <forward lanes=":D_1_0 e_0 :E_1_0 f_0 :F_0_0 -f_0 :E_0_0 -e_0"/>
+                <bidi lanes=":D_0_0 -e_0 :E_0_0 -f_0 f_0 :E_1_0 e_0 :D_1_0 d_0 :C_1_0 c_0"/>
+                <flank lanes=":B_1_0 b_0 :A_0_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
+                <conflictLinks signals="A_0"/>
+                <foes driveWays="A.0 D.0"/>
             </driveWay>
         </link>
     </railSignal>
+    <departJunction id="gneJ0">
+        <driveWay id="gneJ0.d0" edges="a">
+            <forward lanes="a_0"/>
+            <bidi lanes=""/>
+            <flank lanes=""/>
+            <protectingSwitches links=""/>
+            <conflictLinks signals=""/>
+            <foes driveWays="gneJ0.d0"/>
+        </driveWay>
+    </departJunction>
 </railsignal-block-output>
