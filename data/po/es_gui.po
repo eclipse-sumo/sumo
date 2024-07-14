@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-10 08:51+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2024-07-14 16:01+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
 "Language: es\n"
@@ -11033,7 +11033,7 @@ msgstr "Ya existe una relación de zona de análisis de tráfico definida en '%'
 #: src/netedit/elements/data/GNEDataHandler.cpp:220
 #: src/netedit/elements/data/GNEDataHandler.cpp:231
 msgid "add TAZ rel"
-msgstr ""
+msgstr "agregar relación de zona de análisis de tráfico"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:252
 msgid "Could not build % with ID '%'"
@@ -13214,11 +13214,11 @@ msgstr "Zonas de análisis de tráfico (TAZ)"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:106
 msgid "TAZSources"
-msgstr ""
+msgstr "Fuentes TAZ"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:107
 msgid "TAZSinks"
-msgstr ""
+msgstr "Sumideros TAZ"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:108
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2235
@@ -14575,7 +14575,7 @@ msgstr " fuentes y "
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:847
 msgid " sinks from TAZ '"
-msgstr ""
+msgstr " fuentes de TAZ '"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:850
 msgid " sinks from "
@@ -15185,7 +15185,7 @@ msgstr "persona"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:76
 msgid "tlLogic"
-msgstr ""
+msgstr "lógica semafórica"
 
 #: src/utils/gui/div/GUIMessageWindow.cpp:77
 msgid "busStop"
