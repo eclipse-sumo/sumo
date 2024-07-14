@@ -1424,10 +1424,10 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << tmp.flankConflict(*foe) << " cc=" << tmp.crossingConflict(*foe)
             << " bc=" << (std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) << "\n";
 #endif
-        if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) ||
-                std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) {
+        const bool bidiConflict = std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end();
+        if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) || bidiConflict) {
             foundConflict = true;
-            if (!movingBlock) {
+            if (!movingBlock || bidiConflict) {
                 break;
             }
         } else if (foundConflict) {
