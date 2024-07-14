@@ -4,6 +4,10 @@
             <entry id="EW" time="35.00" reason="1"/>
             <exit id="EW" time="89.00" reason="9"/>
         </driveWay>
+        <subDriveWay id="gneJ6.0.0">
+            <entry id="EW" time="35.00" reason="1"/>
+            <exit id="EW" time="49.00" reason="1"/>
+        </subDriveWay>
     </link>
 </railSignal>
 <railSignal id="gneJ8">
@@ -14,6 +18,12 @@
             <exit id="WE0" time="181.00" reason="9"/>
             <exit id="WE1" time="191.00" reason="9"/>
         </driveWay>
+        <subDriveWay id="gneJ8.0.0">
+            <entry id="WE0" time="56.00" reason="1"/>
+            <entry id="WE1" time="68.00" reason="1"/>
+            <exit id="WE0" time="71.00" reason="1"/>
+            <exit id="WE1" time="83.00" reason="1"/>
+        </subDriveWay>
     </link>
 </railSignal>
 <departJunction id="gneJ7">
