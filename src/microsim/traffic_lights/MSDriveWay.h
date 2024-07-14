@@ -239,7 +239,7 @@ protected:
     void addBidiFoes(const MSRailSignal* ownSignal);
 
     /// @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
-    void buildSubFoe(MSDriveWay* foe);
+    void buildSubFoe(MSDriveWay* foe, bool movingBlock);
 
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);

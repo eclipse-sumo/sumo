@@ -1206,19 +1206,19 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     for (MSDriveWay* foe : uniqueFoes) {
         const MSEdge* foeLastEdge = &foe->myForward.back()->getEdge();
         const bool sameLast = foeLastEdge == lastEdge;
-        if (sameLast) {
+        if (sameLast && !movingBlock) {
             dw->myFoes.push_back(foe);
             foe->myFoes.push_back(dw);
         } else {
             if (foe->bidiBlockedByEnd(*dw)) {
                 foe->myFoes.push_back(dw);
             } else {
-                dw->buildSubFoe(foe);
+                dw->buildSubFoe(foe, movingBlock);
             }
             if (dw->bidiBlockedByEnd(*foe)) {
                 dw->myFoes.push_back(foe);
             } else  {
-                foe->buildSubFoe(dw);
+                foe->buildSubFoe(dw, movingBlock);
             }
         }
         if (link) {
@@ -1397,14 +1397,25 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
 
 
 void
-MSDriveWay::buildSubFoe(MSDriveWay* foe) {
-    // we already know that the last edge of this driveway doesn't impact the foe
+MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
+    // Subdriveways (Teilfahrstraße) model the resolution of a driving conflict
+    // before a vehicle has left the driveway. This is possible when the driveway diverges from the foe
+    // driveway at an earlier point (switch or crossing).
+    //
+    // We already know that the last edge of this driveway doesn't impact the foe.
+    // Remove further edges from the end of the driveway (myForward) until the point of conflict is found.
+    //
+    // For movingBlock the logic is changed:
+    // We remove the conflict-free part as before but then keep removing the the conflict part until the
+    // another non-conconflit part is found
+
     int subLast = myForward.size() - 2;
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     if (subLast < 0) {
         std::cout << "  " << getID() << " cannot build subDriveWay for foe " << foe->getID() << " because myForward has only a single lane\n";
     }
 #endif
+    bool foundConflict = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
         MSDriveWay tmp("tmp", true);
@@ -1415,6 +1426,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe) {
 #endif
         if (tmp.flankConflict(*foe) || tmp.crossingConflict(*foe) ||
                 std::find(foe->myBidi.begin(), foe->myBidi.end(), lane) != foe->myBidi.end()) {
+            foundConflict = true;
+            if (!movingBlock) {
+                break;
+            }
+        } else if (foundConflict) {
             break;
         }
         subLast--;
