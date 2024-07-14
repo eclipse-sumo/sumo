@@ -218,22 +218,7 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
 
 bool
 MSDriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
-    /*
     if (foeDriveWayOccupied(true, closest.first, occupied)) {
-        return false;
-    }
-    */
-    if (conflictLaneOccupied(true, closest.first)) {
-        for (const MSLane* bidi : myBidi) {
-            if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
-                occupied.push_back(&bidi->getBidiLane()->getEdge());
-            }
-        }
-#ifdef DEBUG_SIGNALSTATE
-        if (gDebugFlag4) {
-            std::cout << "  conflictLaneOccupied by=" << toString(MSRailSignal::blockingVehicles()) << " ego=" << Named::getIDSecure(closest.first) << "\n";
-        }
-#endif
         return false;
     }
     for (MSLink* link : myProtectingSwitches) {
@@ -464,16 +449,14 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     }
                 }
                 if (ego != nullptr) {
-                    /*
-                    if (foe == ego && std::find(myBidi.begin(), myBidi.end(), lane) != myBidi.end()) {
+                    if (foe == ego) {
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4) {
-                            std::cout << "    ignore ego as oncoming '" << ego->getID() << "\n";
+                            std::cout << "    ignore ego as foe '" << ego->getID() << "\n";
                         }
 #endif
                         continue;
                     }
-                    */
                     if (foe->isStopped() && foe->getNextStopParameter()->join == ego->getID()) {
 #ifdef DEBUG_SIGNALSTATE
                         if (gDebugFlag4 || DEBUG_COND_DW) {

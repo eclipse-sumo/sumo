@@ -1,7 +1,0 @@
-
-[Reported by kobo at 04Sep09:01:00]
-search_string:Teleporting
-search_file:errors
-ignore_other_errors:1
-full_description:deadlock
-brief_description:see #7493
