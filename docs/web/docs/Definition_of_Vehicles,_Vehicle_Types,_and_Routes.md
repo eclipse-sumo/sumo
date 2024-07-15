@@ -1152,14 +1152,14 @@ a waypoint. The examples below show all three cases:
 </routes>
 ```
 
-The resulting vehicle `v0` will stop twice, once at lane middle_0 because of
+The resulting vehicle `v0` will stop twice, once at lane `middle_0` because of
 the stop defined in its route and the second time because of the stop
 defined in the vehicle itself. The first stop will last 20 seconds the
 second one until simulation second 50. For a detailed list of attributes
 to stops see below. For a description on how to use them to simulate
 public transport see [Simulation/Public Transport](Simulation/Public_Transport.md).
-The second vehicle `v1` will stop once at lane middle_0 as defined in the route, then
-head to lane end_1 and pass that point at 13.89 m/s before terminating at route at rend edge.
+The second vehicle `v1` will stop once at lane `middle_0` as defined in the route, then
+head to lane `end_1` and pass that point at 13.89 m/s before terminating at route at rend edge.
 
 Stops can be childs of vehicles, routes, persons or containers.
 
