@@ -17,7 +17,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    20-12-13
 ///
-// Chargin Station for Electric vehicles
+// Charging Station for Electric vehicles
 /****************************************************************************/
 #pragma once
 #include <config.h>

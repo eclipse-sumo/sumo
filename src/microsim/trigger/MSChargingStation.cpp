@@ -221,7 +221,7 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.writeAttr(SUMO_ATTR_ID, myID);
     output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED, myTotalCharge);
     output.writeAttr(SUMO_ATTR_CHARGINGSTEPS, chargingSteps);
-    // start writting
+    // start writing
     if (myChargeValues.size() > 0) {
         for (const std::string& vehID : myChargedVehicles) {
             int iStart = 0;
