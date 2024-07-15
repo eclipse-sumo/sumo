@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-12 15:21+0000\n"
+"PO-Revision-Date: 2024-07-15 11:06+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4853,14 +4853,16 @@ msgstr ""
 msgid ""
 "Union of walkable areas minus union of obstacles is not a simple polygon."
 msgstr ""
+"L'unione delle aree pedonali meno l'unione degli ostacoli non è un poligono "
+"semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:945
 msgid "Error while generating geometry: %"
-msgstr ""
+msgstr "Errore nella generazione della geometria: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1035
 msgid "Error while adding waiting set for % on '%': %"
-msgstr ""
+msgstr "Errore aggiungendo un set attesa per % su #%': %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1085
 msgid ""
@@ -4869,15 +4871,15 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1097
 msgid "Unknown JuPedSim model: %"
-msgstr ""
+msgstr "Modello JuPedSim sconosciuto: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1101
 msgid "Error creating the pedestrian model: %"
-msgstr ""
+msgstr "Errore nella creazione del modello pedonale: %"
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:1107
 msgid "Error creating the simulation: %"
-msgstr ""
+msgstr "Errore nella creazione della simulazione: %"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:122
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:899
@@ -4885,15 +4887,17 @@ msgid ""
 "Pedestrian vType '%' width % is larger than pedestrian.striping.stripe-width "
 "and this may cause collisions with vehicles."
 msgstr ""
+"La larghezza del tipo di pedone (vType) '%' (%) oltrepassa pedestrian."
+"striping.stripe-width e quindi può causare delle collisioni con veicoli."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:343
 #, c-format
 msgid "Invalid walkingarea '%' does not allow continuation."
-msgstr ""
+msgstr "L'area pedonale '%' invalida non permette di proseguire."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1526
 msgid " between edge '%' and edge '%'"
-msgstr ""
+msgstr " tra l'arco '%' e l'arco '%'"
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1528
 msgid "Person '%' walking from edge '%' to edge '%' has a disconnect%, time=%."
@@ -8151,27 +8155,32 @@ msgstr "Il valore della chiave '%' non è numerico nell'arco '%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1567
 msgid "Ignoring track count % for edge '%'."
-msgstr ""
+msgstr "Il numero di corsie % dell'arco '%' viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1745
 msgid "Unknown lane use specifier '%' ignored for way '%'"
-msgstr ""
+msgstr "L'uso sconosciuto % del cammino '%' viene ignorato"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1854
 msgid "No node found for reference '%' in relation '%'."
 msgstr ""
+"Non è stato trovato il nodo con il codice identificativo '%' della relazione "
+"'%'."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1916
 msgid "Found unknown restriction type '%' in relation '%'"
 msgstr ""
+"Il tipo di restrizioni sconosciuto '%' è stato trovato nella relazione '%'"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1954
 msgid "Invalid color value '%' in relation %"
-msgstr ""
+msgstr "Valore di colore '%' invalido nella relazione %"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1972
 msgid "No way found for reference '%' in relation '%'"
 msgstr ""
+"Non è stato trovato il cammino con il codice identificativo '%' della "
+"relazione '%'"
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1984
 msgid "Ignoring restriction relation '%' with unknown type."
