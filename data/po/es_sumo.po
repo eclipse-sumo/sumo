@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-15 09:57+0000\n"
+"PO-Revision-Date: 2024-07-15 10:27+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8992,6 +8992,8 @@ msgid ""
 "Duplicate definition of lane's stopOffset on edge %.\n"
 "Ignoring duplicate specifications."
 msgstr ""
+"Definición doble del stopOffset de carril sobre la arista %.\n"
+"Ignorando la especificación duplicada."
 
 #: src/netimport/NIImporter_SUMO.cpp:755
 #, c-format
@@ -9287,6 +9289,7 @@ msgstr "Parámetros de proyección Proj utilizados: '%'."
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input edge files."
 msgstr ""
+"Clase(s) de vehículo(s) obsoleta(s) '%' en los archivos de aristas dados."
 
 #: src/netimport/NINavTeqHelper.cpp:61
 msgid "Invalid speed code (edge '%')."
@@ -9534,7 +9537,7 @@ msgstr "la posición de carril % para el punto de interés '%' no es válida."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:114
 msgid "Definition of tlLogic '%' was not finished."
-msgstr ""
+msgstr "La definición de lógica semafórica '%' no se completó."
 
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:140
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:158
@@ -9631,7 +9634,7 @@ msgstr "NIVissimDisturbance: sin conexión"
 #: src/netimport/vissim/tempstructs/NIVissimDisturbance.cpp:340
 #, c-format
 msgid "Could not build % of % disturbances."
-msgstr ""
+msgstr "No se pudieron construir % de % de perturbaciones."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:439
 msgid "Will not build edge '%'."
@@ -9645,7 +9648,7 @@ msgstr ""
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:490
 msgid "Could not build edge '%'; would connect same node."
-msgstr ""
+msgstr "No se pudo construir la arista '%'; conectaría el mismo nodo."
 
 #: src/netimport/vissim/tempstructs/NIVissimEdge.cpp:532
 msgid "What about distribution '%'"
