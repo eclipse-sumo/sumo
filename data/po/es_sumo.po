@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-10 14:26+0000\n"
-"Last-Translator: Angelo Banse <angelo_22@outlook.com>\n"
+"PO-Revision-Date: 2024-07-15 08:08+0000\n"
+"Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
 "Language: es\n"
@@ -6438,12 +6438,17 @@ msgid ""
 "gui are also supported) or those which are kept due to other keep-edges or "
 "remove-edges options"
 msgstr ""
+"Mantener solo las aristas de FILE (Cada ID en una sola línea. También se "
+"admiten archivos de selección de sumo-gui) o aquellas que se conservan "
+"debido a otras opciones de keep-edges o remove-edges"
 
 #: src/netbuild/NBFrame.cpp:643
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
 msgstr ""
+"Remover las aristas de FILE (Cada ID en una sola línea. También se admiten "
+"archivos de selección de sumo-gui)"
 
 #: src/netbuild/NBFrame.cpp:647
 msgid "Remove edges after loading, patching and joining"
@@ -6455,6 +6460,9 @@ msgid ""
 "CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,"
 "y1,...>)"
 msgstr ""
+"Mantener solo las aristas que estén ubicadas dentro del límite dado (dado "
+"como coordenadas de esquina CARTESIANAS <xmin,ymin,xmax,ymax> o como "
+"polígono <x0,y0,x1,y1,...>)"
 
 #: src/netbuild/NBFrame.cpp:654
 msgid ""
@@ -6462,6 +6470,9 @@ msgid ""
 "GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon "
 "<lon0,lat0,lon1,lat1,...>)"
 msgstr ""
+"Mantener solo las aristas que estén ubicadas dentro del límite dado (dado "
+"como coordenadas de esquina GEODÉSICA <lon-min,lat-min,lon-max,lat-max> o "
+"como polígono <lon0,lat0,lon1,lat1,...>)"
 
 #: src/netbuild/NBFrame.cpp:658
 msgid "Only keep edges which allow one of the vclasses in STR[]"
@@ -6473,7 +6484,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:664
 msgid "Only keep edges where type is in STR[]"
-msgstr ""
+msgstr "Solo mantener aristas cuyo tipo esté presente en STR[]"
 
 #: src/netbuild/NBFrame.cpp:667
 msgid "Only keep the INT largest weakly connected components"
@@ -6635,7 +6646,7 @@ msgstr ""
 
 #: src/netbuild/NBHeightMapper.cpp:231
 msgid "Ignored heightmap feature type %"
-msgstr ""
+msgstr "Ignorado el tipo de característica de mapa de altura %"
 
 #: src/netbuild/NBHeightMapper.cpp:276
 msgid "Cannot load shape file since SUMO was compiled without GDAL support."
@@ -6667,7 +6678,7 @@ msgstr ""
 
 #: src/netbuild/NBHelpers.cpp:89
 msgid "Could not load names of edges too keep from '%'."
-msgstr ""
+msgstr "No se pudieron cargar los nombres de arista a mantener, desde '%'."
 
 #: src/netbuild/NBHelpers.cpp:107
 msgid "Could not load IDs from '%'."
@@ -6888,7 +6899,7 @@ msgstr "Estimando y estableciendo rotondas"
 
 #: src/netbuild/NBNetBuilder.cpp:510
 msgid " Guessed % roundabout(s)."
-msgstr ""
+msgstr " Se adivinaron % rotonda(s)."
 
 #: src/netbuild/NBNetBuilder.cpp:516
 msgid "Computing approaching lanes"
@@ -6905,7 +6916,7 @@ msgstr "Adivinando el borde de la red"
 #: src/netbuild/NBNetBuilder.cpp:529
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr " Se adivinaron % nodos marginales."
 
 #: src/netbuild/NBNetBuilder.cpp:534
 msgid "Processing turnarounds"
@@ -6965,6 +6976,9 @@ msgid ""
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
 msgstr ""
+"La red contiene coordenadas muy grandes y probablemente parpadeará en la "
+"GUI. Verifique si hay nodos periféricos y asegúrese de que la red se haya "
+"desplazado al origen de coordenadas"
 
 #: src/netbuild/NBNetBuilder.cpp:721
 msgid "Moving network to origin"
@@ -7126,7 +7140,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:760
 msgid "unknown junction '%' while joining."
-msgstr ""
+msgstr "cruce desconocido '%' al combinar."
 
 #: src/netbuild/NBNodeCont.cpp:818 src/netbuild/NBNodeCont.cpp:859
 #: src/netbuild/NBNodeCont.cpp:866 src/netbuild/NBNodeCont.cpp:871
@@ -7136,7 +7150,7 @@ msgstr "No combinando cruces % (%)."
 
 #: src/netbuild/NBNodeCont.cpp:838 src/netbuild/NBNodeCont.cpp:852
 msgid "Reducing junction cluster % (%)."
-msgstr ""
+msgstr "Reduciendo grupo de cruce % (%)."
 
 #: src/netbuild/NBNodeCont.cpp:1771
 msgid "Could not join junctions %."
@@ -7145,11 +7159,12 @@ msgstr "No se pudieron combinar los cruces %."
 #: src/netbuild/NBNodeCont.cpp:2028
 msgid "Ambiguous traffic light type for node cluster '%', setting to '%'."
 msgstr ""
+"Tipo de semáforo ambiguo para el grupo de nodos '%', estableciendo en '%'."
 
 #: src/netbuild/NBNodeCont.cpp:2124
 #, c-format
 msgid " The junction '%' to set as not-controlled is not known."
-msgstr ""
+msgstr " Se desconoce el cruce '%' que se desea establecer como no controlado."
 
 #: src/netbuild/NBNodeCont.cpp:2293
 msgid "Could not build joined tls '%'."
@@ -7193,7 +7208,7 @@ msgstr ""
 
 #: src/netbuild/NBNodeShapeComputer.cpp:502
 msgid "Fixing offset for edge '%' at node '%."
-msgstr ""
+msgstr "Corrigiendo el desplazamiento de la arista '%' en el nodo '%."
 
 #: src/netbuild/NBOwnTLDef.cpp:572
 #, c-format
@@ -7313,6 +7328,8 @@ msgstr ""
 #: src/netbuild/NBPTLineCont.cpp:300
 msgid "Cannot assign stop % on edge '%' to pt line '%'. Ignoring!"
 msgstr ""
+"No se pudo asignar la parada % en la arista '%' a la línea de transporte "
+"público '%'. ¡Ignorando!"
 
 #: src/netbuild/NBPTLineCont.cpp:502
 msgid ""
@@ -7406,12 +7423,12 @@ msgstr ""
 #: src/netbuild/NBTrafficLightLogic.cpp:102
 #, c-format
 msgid "When adding phase: illegal character '%' in state"
-msgstr ""
+msgstr "Al agregar fase: carácter ilegal '%' en el estado"
 
 #: src/netbuild/NBTrafficLightLogic.cpp:235
 #, c-format
 msgid "Non-static traffic light '%' does not define variable phase length."
-msgstr ""
+msgstr "El semáforo no estático '%' no define una longitud de fase variable."
 
 #: src/netbuild/NBTrafficLightLogicCont.cpp:243
 msgid "Could not build program '%' for traffic light '%'"
@@ -7450,6 +7467,8 @@ msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
 msgstr ""
+"Los ID de los nodos generados utilizan un código alfanumérico para facilitar "
+"la lectura, cuando sea posible"
 
 #: src/netgen/NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
@@ -7457,7 +7476,7 @@ msgstr "Generar INT carriles de giro a la izquerda"
 
 #: src/netgen/NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
+msgstr "Establecer la longitud de los carriles de giro generados en FLOAT"
 
 #: src/netgen/NGFrame.cpp:53
 msgid ""
