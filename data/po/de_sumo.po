@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-02 10:47+0000\n"
+"PO-Revision-Date: 2024-07-16 07:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1471,20 +1471,21 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:1557
 msgid "Invalid stop index % (has % stops)."
-msgstr ""
+msgstr "Ungültiger Halteindex % (hat % Halte)."
 
 #: src/microsim/MSBaseVehicle.cpp:1637 src/microsim/MSBaseVehicle.cpp:1760
 #: src/microsim/MSBaseVehicle.cpp:1869
 msgid "invalid nextStopIndex % for % remaining stops"
-msgstr ""
+msgstr "ungültiger Halteindex % bei % verbleibenden Halten"
 
 #: src/microsim/MSBaseVehicle.cpp:1641
 msgid "cannot replace reached stop"
-msgstr ""
+msgstr "erreichter Halt kann nicht ersetzt werden"
 
 #: src/microsim/MSBaseVehicle.cpp:1656
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
+"Fahrzeug '%' hat nicht die Berechtigung, um den Parkplart '%' zu befahren"
 
 #: src/microsim/MSBaseVehicle.cpp:1669 src/microsim/MSBaseVehicle.cpp:1881
 msgid "disallowed stop lane '%'"
@@ -1493,17 +1494,19 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:1688 src/microsim/MSBaseVehicle.cpp:1782
 #: src/microsim/MSBaseVehicle.cpp:1909
 msgid "no route found from edge '%' to stop edge '%'"
-msgstr ""
+msgstr "keine Route von Kante '%' zur Haltekante '%' gefunden"
 
 #: src/microsim/MSBaseVehicle.cpp:1697 src/microsim/MSBaseVehicle.cpp:1918
 msgid "no route found from stop edge '%' to edge '%'"
-msgstr ""
+msgstr "keine Route von Haltekante '%' zu Kante '%' gefunden"
 
 #: src/microsim/MSBaseVehicle.cpp:1709 src/microsim/MSBaseVehicle.cpp:1932
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
+"Die mesoskopische Simulation erlaubt keinen Halt auf der internen Kante '%' "
+"Für Fahrzeug '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:1764
 msgid "cannot reroute towards reached stop"
@@ -1524,16 +1527,16 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:2186
 #, c-format
 msgid "creating device of type '%' is not supported"
-msgstr ""
+msgstr "die Einrichtung '%' kann nicht erstellt werden"
 
 #: src/microsim/MSBaseVehicle.cpp:2199 src/microsim/MSBaseVehicle.cpp:2211
 #, c-format
 msgid "no device of type '%' exists"
-msgstr ""
+msgstr "es gibt keine Einrichtung des Typs '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2222
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
-msgstr ""
+msgstr "Das Fahrzeug '%' unterstützt den Knotenpunktmodellparameter '%' nicht."
 
 #: src/microsim/MSBaseVehicle.cpp:2268
 msgid "could not interpret routing.mode '%'"
