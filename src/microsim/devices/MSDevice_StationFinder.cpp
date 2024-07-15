@@ -80,7 +80,12 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.saturatedChargeLevel", "Battery", TL("Target state of charge after which the vehicle stops charging"));
     oc.doRegister("device.stationfinder.needToChargeLevel", new Option_Float(0.4));
     oc.addDescription("device.stationfinder.needToChargeLevel", "Battery", TL("State of charge the vehicle begins searching for charging stations"));
+    oc.doRegister("device.stationfinder.replacePlannedStop", new Option_Float(0.));
+    oc.addDescription("device.stationfinder.replacePlannedStop", "Battery", TL("Share of stopping time of the next independently planned stop to use for charging instead"));
+    oc.doRegister("device.stationfinder.maxDistanceToReplacedStop", new Option_Float(300.));
+    oc.addDescription("device.stationfinder.maxDistanceToReplacedStop", "Battery", TL("Maximum distance in meters from the original stop to be replaced by the charging stop"));
 }
+
 
 
 void
@@ -134,6 +139,8 @@ myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     if (mySearchSoC <= myEmptySoC) {
         WRITE_WARNINGF(TL("Vehicle '%' searches for charging stations only in the rescue case due to search threshold % <= rescue threshold %."), myHolder.getID(), mySearchSoC, myEmptySoC);
     }
+    myReplacePlannedStop = MAX2(0., holder.getFloatParam("device.stationfinder.replacePlannedStop"));
+    myDistanceToOriginalStop = holder.getFloatParam("device.stationfinder.maxDistanceToReplacedStop");
     myUpdateSoC = MAX2(0., mySearchSoC - DEFAULT_SOC_INTERVAL);
 }
 
@@ -272,15 +279,7 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 MSChargingStation*
 MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
-    // const MSEdge* const start = myHolder.getEdge();
-    // double minTargetValue = std::numeric_limits<double>::max();
     MSChargingStation* minStation = nullptr;
-    // const ConstMSEdgeVector& route = myHolder.getRoute().getEdges();
-
-    //  first evaluate all routes from the current edge to all charging stations in bulk mode
-    // double maxTT = STEPS2TIME(myRadius);
-    // filter possible charging stations
-
     std::vector<StoppingPlaceVisible> candidates;
     const StoppingPlaceMemory* chargingMemory = myVeh.getChargingMemory();
     if (chargingMemory == nullptr) {
@@ -340,6 +339,38 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
             stopPar.edge = cs->getLane().getEdge().getID();
             stopPar.lane = cs->getLane().getID();
             stopPar.duration = TIME2STEPS(expectedConsumption / (cs->getChargingPower(false) * cs->getEfficency()));
+            if (myReplacePlannedStop > 0) {
+                // "reuse" a previously planned stop (stop at charging station instead of a different stop)
+                // what if the charging station is skipped due to long waiting time?
+                if (myReplacePlannedStop > 0. && myHolder.hasStops() && myHolder.getNextStopParameter()->chargingStation.empty()) {
+                    // compare the distance to the original target
+                    const SUMOTime now = SIMSTEP;
+                    ConstMSEdgeVector edgesToStop;
+                    const MSEdge* originEdge = &cs->getLane().getEdge();
+                    const MSEdge* targetEdge = *myHolder.getNextStop().edge;
+                    const double targetPos = myHolder.getNextStopParameter()->endPos;
+                    const double startPos = cs->getEndLanePosition();
+                    router.compute(originEdge, startPos, targetEdge, targetPos, &myHolder, now, edgesToStop, true);
+                    if (edgesToStop.size() > 0) {
+                        MSRoute routeToActivity(myHolder.getID() + "!activity#1", edgesToStop, false,
+                                                nullptr, {});
+                        const double actualDist = routeToActivity.getDistanceBetween(startPos, targetPos,
+                                                  routeToActivity.begin(), routeToActivity.end() - 1, true);
+                        if (actualDist < myDistanceToOriginalStop) {
+                            // compute the arrival time at the original stop
+                            const SUMOTime timeToOriginalStop = TIME2STEPS(router.recomputeCosts(edgesToStop, &myHolder, SIMSTEP));
+                            SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
+                            if (timeToOriginalStop + now < originalUntil) {
+                                SUMOTime delta = originalUntil - (timeToOriginalStop + now);
+                                stopPar.until = timeToOriginalStop + now + delta * MIN2(myReplacePlannedStop, 1.);
+                                if (myReplacePlannedStop > 1.) {
+                                    myHolder.abortNextStop();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             stopPar.startPos = cs->getBeginLanePosition();
             stopPar.endPos = cs->getEndLanePosition();
             std::string errorMsg;
@@ -355,6 +386,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                 WRITE_MESSAGE(TLF("Problem with inserting the charging station stop for vehicle %.", myHolder.getID()));
                 WRITE_ERROR(errorMsg);
             }
+
 #ifdef DEBUG_STATIONFINDER_REROUTE
             std::ostringstream os2;
             const ConstMSEdgeVector edgesAfter = myVeh.getRoute().getEdges();

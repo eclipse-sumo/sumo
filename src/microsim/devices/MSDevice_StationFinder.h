@@ -339,6 +339,12 @@ private:
     /// @brief The state of charge at which the vehicle starts looking for charging stations
     double mySearchSoC;
 
+    /// @brief The share of stopping time a charging stop should take from the next regulr (non-charging) stop under certain conditions
+    double myReplacePlannedStop;
+
+    /// @brief The distance in meters to the original stop replaced by the charging stop (models charging close to the activity location)
+    double myDistanceToOriginalStop;
+
     /// @brief The type of charging permitted by the battery (charging, bidirectional, battery exchange)
     ChargeType myChargeType;
 
