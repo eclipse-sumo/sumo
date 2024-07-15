@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-15 08:08+0000\n"
+"PO-Revision-Date: 2024-07-15 09:57+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -7611,11 +7611,11 @@ msgstr "La longitud mínima para cada arista"
 
 #: src/netgen/NGFrame.cpp:172
 msgid "The minimum angle for each pair of (bidirectional) roads in DEGREES"
-msgstr ""
+msgstr "El ángulo mínimo para cada pareja de vías (bidireccionales) en GRADOS"
 
 #: src/netgen/NGFrame.cpp:177
 msgid "The number of tries for creating each node"
-msgstr ""
+msgstr "El número de intentos para crear cada nodo"
 
 #: src/netgen/NGFrame.cpp:182
 msgid "Probability for roads to continue at each node"
@@ -7623,27 +7623,27 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:187
 msgid "Probability for a node having exactly 1 neighbor"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 1 vecino"
 
 #: src/netgen/NGFrame.cpp:192
 msgid "Probability for a node having exactly 2 neighbors"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 2 vecinos"
 
 #: src/netgen/NGFrame.cpp:197
 msgid "Probability for a node having exactly 3 neighbors"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 3 vecinos"
 
 #: src/netgen/NGFrame.cpp:202
 msgid "Probability for a node having exactly 4 neighbors"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 4 vecinos"
 
 #: src/netgen/NGFrame.cpp:207
 msgid "Probability for a node having exactly 5 neighbors"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 5 vecinos"
 
 #: src/netgen/NGFrame.cpp:212
 msgid "Probability for a node having exactly 6 neighbors"
-msgstr ""
+msgstr "Probabilidad para un nodo de tener exactamente 6 vecinos"
 
 #: src/netgen/NGFrame.cpp:215
 msgid "Place nodes on a regular grid with spacing rand.min-distance"
@@ -7651,15 +7651,16 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:235
 msgid "You have to specify the type of network to generate."
-msgstr ""
+msgstr "Se debe especificar el tipo de red a generar."
 
 #: src/netgen/NGFrame.cpp:239
 msgid "You may specify only one type of network to generate at once."
-msgstr ""
+msgstr "Se puede especificar solo un tipo de red para generar a la vez."
 
 #: src/netgen/NGFrame.cpp:274
 msgid "Option 'random-type' takes no effect unless 'type-files' are loaded"
 msgstr ""
+"La opción 'random-type' no tiene efecto a menos que se carguen 'type-files'"
 
 #: src/netgen/netgen_main.cpp:90
 msgid ""
@@ -7777,11 +7778,15 @@ msgstr "Leer polígonos desde FILE para incrustarlos en la red, de ser posible"
 #: src/netimport/NIFrame.cpp:97
 msgid "Read shapefiles (ArcView, Tiger, ...) from files starting with 'FILE'"
 msgstr ""
+"Leer archivos shapefiles (ArcView, Tiger, ...) desde archivos que comiencen "
+"con 'FILE'"
 
 #: src/netimport/NIFrame.cpp:102
 msgid ""
 "Read converted Navteq GDF data (unsplitted Elmar-network) from path 'FILE'"
 msgstr ""
+"Leer datos convertidos de Navteq GDF (red Elmar no dividida) desde la ruta "
+"'FILE'"
 
 #: src/netimport/NIFrame.cpp:106
 msgid "Read OSM-network from path 'FILE(s)'"
@@ -8636,7 +8641,7 @@ msgstr ""
 #: src/netimport/NIImporter_OpenDrive.cpp:2704
 #, c-format
 msgid "geoReference format '%' currently not supported"
-msgstr ""
+msgstr "El formato geoReference '%' no es compatible actualmente"
 
 #: src/netimport/NIImporter_OpenDrive.cpp:2819
 msgid "Mismatching parenthesis in geometry definition for road '%'"
@@ -8979,6 +8984,8 @@ msgid ""
 "Duplicate definition of stopOffset for edge %.\n"
 "Ignoring duplicate specification."
 msgstr ""
+"Definición doble de stopOffset para la arista %.\n"
+"Ignorando la especificación duplicada."
 
 #: src/netimport/NIImporter_SUMO.cpp:718
 msgid ""
