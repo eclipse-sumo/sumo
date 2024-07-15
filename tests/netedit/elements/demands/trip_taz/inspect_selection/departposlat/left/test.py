@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ.x,
-                  netedit.positions.elements.demands.vehicleTAZ.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleTAZ)
 
 # change departPosLat with an invalid value
 netedit.modifyAttribute(netedit.attrs.tripTAZ.inspectSelection.departPosLat, "", False)

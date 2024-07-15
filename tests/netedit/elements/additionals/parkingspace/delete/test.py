@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("parkingArea")
 
 # create parkingArea in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select space
 netedit.changeElement("space")
@@ -44,8 +44,7 @@ netedit.changeElement("space")
 netedit.selectAdditionalChild(8, 3)
 
 # create space
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change to delete
 netedit.deleteMode()
@@ -54,16 +53,13 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # delete first loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # delete lane with the second loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -75,8 +71,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # wait warning
 netedit.waitDeleteWarning()

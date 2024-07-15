@@ -38,22 +38,19 @@ netedit.changeElement("poi")
 netedit.changeDefaultValue(netedit.attrs.poi.create.width, "dummyWidth")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change width (invalid, negative)
 netedit.changeDefaultValue(netedit.attrs.poi.create.width, "-2")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change width (valid)
 netedit.changeDefaultValue(netedit.attrs.poi.create.width, "2.5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                  netedit.positions.elements.additionals.shapeC.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,22 +38,19 @@ netedit.changeElement("poi")
 netedit.changeDefaultValue(netedit.attrs.poi.create.layer, "dummyLayer")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change layer (valid, negative)
 netedit.changeDefaultValue(netedit.attrs.poi.create.layer, "-2")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change layer (valid, positive)
 netedit.changeDefaultValue(netedit.attrs.poi.create.layer, "6.5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                  netedit.positions.elements.additionals.shapeC.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

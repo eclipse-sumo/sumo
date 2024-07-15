@@ -41,29 +41,25 @@ netedit.changeStopType("waypointParkingArea")
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x,
-                  netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
-                  1, netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, "dummy Act")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
-                  2, netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointParking.create.actType, "singing")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea.x +
-                  3, netedit.positions.elements.demands.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

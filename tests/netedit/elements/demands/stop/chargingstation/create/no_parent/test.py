@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # try to create stop (don't click over busStop)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

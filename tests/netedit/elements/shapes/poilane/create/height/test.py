@@ -38,20 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.height, "dummyHeight")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # change height (invalid, negative)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.height, "-3")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change height (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.height, "4.4")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,8 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect trainstops
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop.x,
-                  netedit.positions.elements.additionals.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Set lines
 netedit.modifyAttribute(netedit.attrs.trainStop.inspectSelection.lines, "commonLine1 commonLine2", True)

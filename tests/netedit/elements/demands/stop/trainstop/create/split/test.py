@@ -41,22 +41,19 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.split, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.split, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  1, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.split, "customSplit")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  2, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,14 +38,13 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
-                  netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.busStop.inspect.colorButton, 5, True)

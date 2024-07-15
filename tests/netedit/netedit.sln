@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit", "netedit.pyproj", "{86266568-BA8A-43E9-9173-21FFF4454950}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "netedit", "netedit.pyproj", "{EB012C41-A006-45EE-8A6D-F136DEE50E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{86266568-BA8A-43E9-9173-21FFF4454950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{86266568-BA8A-43E9-9173-21FFF4454950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB012C41-A006-45EE-8A6D-F136DEE50E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB012C41-A006-45EE-8A6D-F136DEE50E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {38F486EF-6A26-495E-BB3D-E0E76E1DD78F}
 		        SolutionGuid = {CFEFCFF4-DECE-4279-9F26-C618FF3F6EE1}
+		SolutionGuid = {38F486EF-6A26-495E-BB3D-E0E76E1DD78F}
 	EndGlobalSection
 EndGlobal

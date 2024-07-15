@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # create person using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create person
 netedit.typeEnter()
@@ -45,8 +45,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x,
-                  netedit.positions.elements.demands.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -58,7 +57,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -67,7 +66,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their person
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

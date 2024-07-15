@@ -38,7 +38,7 @@ netedit.containerMode()
 netedit.changeContainerPlan("tranship", False)
 
 # create route using one edge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,9 +50,9 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("tranship (edges)")
 
 # create transhipEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.transhipEdges.create.arrivalPos, "dummy")

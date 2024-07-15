@@ -44,9 +44,8 @@ netedit.changeContainerPlan("tranship", True)
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacing, "dummySpacing")
 
 # create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop.x,
-                  netedit.positions.elements.demands.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,8 +60,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacingOption, "dummy")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -83,8 +82,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacingOption, "22")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()

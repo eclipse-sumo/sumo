@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointChargingStation")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -55,8 +53,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete route
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # check undo
 netedit.checkUndoRedo(referencePosition)
@@ -65,8 +62,7 @@ netedit.checkUndoRedo(referencePosition)
 netedit.deleteMode()
 
 # delete waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -44,8 +44,7 @@ netedit.selectItems("Network", "connection", "speed", "")
 netedit.deleteMode()
 
 # delete selected connections
-netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA.x,
-                  netedit.positions.network.connection.connectionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # rebuild
 netedit.rebuildNetwork()

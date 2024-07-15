@@ -35,28 +35,22 @@ netedit.createEdgeMode()
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "dummy")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
-                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
-                  netedit.positions.network.junction.positionC.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
-                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.spreadType, "center")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
-                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

@@ -41,29 +41,25 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.triggered, "person")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  2, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  4, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.expected, "personID1 personID2 personID3")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  6, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,8 +47,7 @@ netedit.changeDefaultValue(netedit.attrs.poly.create.imgFile, "berlin_icon.ico")
 netedit.changeDefaultBoolValue(netedit.attrs.poly.create.reativePath)
 
 # create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo

@@ -38,11 +38,8 @@ netedit.selectMode()
 netedit.changeEditMode(netedit.attrs.modes.network.automaticSelectJunctions)
 
 # use a rectangle to select central elements
-netedit.selectionRectangle(referencePosition,
-                           netedit.positions.selection.rectangleMediumA.x,
-                           netedit.positions.selection.rectangleMediumA.y,
-                           netedit.positions.selection.rectangleMediumB.x,
-                           netedit.positions.selection.rectangleMediumB.y)
+netedit.selectionRectangle(referencePosition, netedit.positions.selection.rectangleMediumA,
+                           netedit.positions.selection.rectangleMediumB)
 
 # remove elements
 netedit.deleteSelectedItems()

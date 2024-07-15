@@ -38,8 +38,8 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press ESC to abort route creation
 netedit.typeEscape()

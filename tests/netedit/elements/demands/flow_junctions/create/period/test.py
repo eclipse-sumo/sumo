@@ -41,8 +41,8 @@ netedit.changeElement("flow (from-to junctions)")
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacing, "dummySpacing")
 
 # try to create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacing, "period")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "dummy")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "-30")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()
@@ -81,8 +81,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.spacingOption, "20.5")
 
 # create flow with embedded route
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create flow with embedded route
 netedit.typeEnter()

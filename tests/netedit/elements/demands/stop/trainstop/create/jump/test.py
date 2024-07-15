@@ -38,36 +38,31 @@ netedit.stopMode()
 netedit.changeStopType("stopTrainStop")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.jump, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  2, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.jump, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  3, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.jump, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  4, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.jump, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  5, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

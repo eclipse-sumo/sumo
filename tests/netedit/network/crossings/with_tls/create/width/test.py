@@ -35,14 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select two left edges and create
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # check invalid width
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.createTLS.width, "dummyWidth")

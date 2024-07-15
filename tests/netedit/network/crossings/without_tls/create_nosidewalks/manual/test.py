@@ -35,8 +35,7 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # create manual crossing
 netedit.modifyCrossingDefaultValue(netedit.attrs.crossing.create.edges, "E1 -E1")

@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("dummyType")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change waypoint type with a valid value
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

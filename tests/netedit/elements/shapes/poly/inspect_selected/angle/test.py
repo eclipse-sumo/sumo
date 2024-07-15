@@ -32,19 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # select second polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 9 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.poly.inspectSelection.angle, "dummyAngle", False)

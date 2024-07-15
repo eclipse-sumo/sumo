@@ -32,15 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set dummy shape
 netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape, "dummy shape", False)
 
 # change shape of junction
-netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape,
-                        "43.60,60.40 56.40,60.40 52.00,53.00 60.40,56.40 60.40,43.60 52.00,47.00" +
+netedit.modifyAttribute(netedit.attrs.junction.inspectTLS.shape, "43.60,60.40 56.40,60.40 52.00,53.00 60.40,56.40 60.40,43.60 52.00,47.00" +
                         "56.40,39.60 43.60,39.60 48.00,47.00 39.60,43.60 39.60,56.40 48.00,53.00 43.60,60.40", False)
 
 # rebuild network

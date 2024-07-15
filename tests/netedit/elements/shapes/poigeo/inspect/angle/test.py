@@ -35,15 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create first POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 12 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.poiGeo.inspect.angle, "dummyAngle", False)

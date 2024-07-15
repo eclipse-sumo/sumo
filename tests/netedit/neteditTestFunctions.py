@@ -233,12 +233,12 @@ def pasteIntoTextField(value, removePreviousContents=True, useClipboard=True, la
         pyautogui.typewrite(translateKeys(value, layout))
 
 
-def leftClick(referencePosition, positionx, positiony):
+def leftClick(referencePosition, position, offsetX=0, offsetY=0):
     """
     @brief do left click over a position relative to referencePosition (pink square)
     """
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    clickedPosition = [referencePosition[0] + position.x + offsetX, referencePosition[1] + position.y + offsetY]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
     # wait after move
@@ -250,14 +250,14 @@ def leftClick(referencePosition, positionx, positiony):
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
 
 
-def leftClickShift(referencePosition, positionx, positiony):
+def leftClickShift(referencePosition, position):
     """
     @brief do left click over a position relative to referencePosition (pink square) while shift key is pressed
     """
     # Leave Shift key pressed
     typeKeyDown('shift')
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
     # wait after move
@@ -272,14 +272,14 @@ def leftClickShift(referencePosition, positionx, positiony):
     typeKeyUp('shift')
 
 
-def leftClickControl(referencePosition, positionx, positiony):
+def leftClickControl(referencePosition, position):
     """
     @brief do left click over a position relative to referencePosition (pink square) while control key is pressed
     """
     # Leave Control key pressed
     typeKeyDown('ctrl')
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
     # wait after move
@@ -294,7 +294,7 @@ def leftClickControl(referencePosition, positionx, positiony):
     typeKeyUp('ctrl')
 
 
-def leftClickAltShift(referencePosition, positionx, positiony):
+def leftClickAltShift(referencePosition, position):
     """
     @brief do left click over a position relative to referencePosition (pink square) while alt key is pressed
     """
@@ -303,7 +303,7 @@ def leftClickAltShift(referencePosition, positionx, positiony):
     # Leave shift key pressed
     typeKeyDown('shift')
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
     # wait after move
@@ -495,7 +495,7 @@ def focusOnFrame():
     time.sleep(1)
 
 
-def undo(referencePosition, number, posX=0, posY=0):
+def undo(referencePosition, number, offsetX=0, offsetY=0):
     """
     @brief undo last operation
     """
@@ -506,13 +506,13 @@ def undo(referencePosition, number, posX=0, posY=0):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, posX, posY)
+    leftClick(referencePosition, positions.reference, offsetX, offsetY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'z')
         time.sleep(DELAY_UNDOREDO)
 
 
-def redo(referencePosition, number, posX=0, posY=0):
+def redo(referencePosition, number, offsetX=0, offsetY=0):
     """
     @brief undo last operation
     """
@@ -523,7 +523,7 @@ def redo(referencePosition, number, posX=0, posY=0):
     # needed to avoid errors with undo/redo (Provisionally)
     typeKey('i')
     # click over referencePosition
-    leftClick(referencePosition, posX, posY)
+    leftClick(referencePosition, positions.reference, offsetX, offsetY)
     for _ in range(number):
         typeTwoKeys('ctrl', 'y')
         time.sleep(DELAY_UNDOREDO)
@@ -735,14 +735,14 @@ def openNetworkAs(waitTime=2):
     time.sleep(waitTime)
 
 
-def saveNetwork(referencePosition, clickOverReference=False, posX=0, posY=0):
+def saveNetwork(referencePosition, clickOverReference=False, offsetX=0, offsetY=0):
     """
     @brief save network
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, posX, posY)
+        leftClick(referencePosition, positions.reference, offsetX, offsetY)
     # save network using hotkey
     typeTwoKeys('ctrl', 's')
     # wait for debug (due recomputing)
@@ -791,14 +791,14 @@ def saveRoutes(referencePosition, clickOverReference=True):
     typeThreeKeys('ctrl', 'shift', 'd')
 
 
-def saveDatas(referencePosition, clickOverReference=True, posX=0, posY=0):
+def saveDatas(referencePosition, clickOverReference=True, offsetX=0, offsetY=0):
     """
     @brief save datas
     """
     # check if clickOverReference is enabled
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
-        leftClick(referencePosition, posX, posY)
+        leftClick(referencePosition, positions.reference, offsetX, offsetY)
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
 
@@ -1138,17 +1138,17 @@ def modifyAllowDisallowValue(numTabs, overlapped):
     typeSpace()
 
 
-def checkUndoRedo(referencePosition):
+def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):
     """
     @brief Check undo-redo
     """
     # Check undo
-    undo(referencePosition, 9)
+    undo(referencePosition, 9, offsetX)
     # Check redo
-    redo(referencePosition, 9)
+    redo(referencePosition, 9, offsetY)
 
 
-def checkParameters(referencePosition, attributeNumber, overlapped):
+def checkParameters(referencePosition, attributeNumber, overlapped, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
@@ -1173,10 +1173,10 @@ def checkParameters(referencePosition, attributeNumber, overlapped):
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", overlapped)
     # Check undoRedo
-    checkUndoRedo(referencePosition)
+    checkUndoRedo(referencePosition, offsetX, offsetY)
 
 
-def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0, posY=0):
+def checkDoubleParameters(referencePosition, attributeNumber, overlapped, offsetX=0, offsetY=0):
     """
     @brief Check generic parameters
     """
@@ -1201,7 +1201,7 @@ def checkDoubleParameters(referencePosition, attributeNumber, overlapped, posX=0
     # Change generic parameters with a valid value
     modifyAttribute(attributeNumber, "keyFinal1=1|keyFinal2=2|keyFinal3=3", overlapped)
     # Check undoRedo
-    checkUndoRedo(referencePosition)
+    checkUndoRedo(referencePosition, offsetX, offsetY)
 
 #################################################
     # Move mode
@@ -1337,8 +1337,7 @@ def connectionMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
-                     toLanePositionX, toLanePositionY, mode=""):
+def createConnection(referencePosition, fromLanePosition, toLanePosition, mode=""):
     """
     @brief create connection
     """
@@ -1348,9 +1347,9 @@ def createConnection(referencePosition, fromLanePositionX, fromLanePositionY,
     elif mode == "yield":
         typeKeyDown('shift')
     # select first lane
-    leftClick(referencePosition, fromLanePositionX, fromLanePositionY)
+    leftClick(referencePosition, fromLanePosition)
     # select another lane for create a connection
-    leftClick(referencePosition, toLanePositionX, toLanePositionY)
+    leftClick(referencePosition, toLanePosition)
     # check if connection has to be created in certain mode
     if mode == "conflict":
         typeKeyUp('ctrl')
@@ -2169,14 +2168,14 @@ def modificationModeReplace():
     typeSpace()
 
 
-def selectionRectangle(referencePosition, startX, startY, endX, endY):
+def selectionRectangle(referencePosition, positionA, positionB):
     """
     @brief select using an rectangle
     """
     # Leave Shift key pressedX
     typeKeyDown('shift')
     # move element
-    dragDrop(referencePosition, startX, startY, endX, endY)
+    dragDrop(referencePosition, positionA.x, positionA.y, positionB.x, positionB.y)
     # wait after key up
     time.sleep(DELAY_KEY)
     # Release Shift key
@@ -2526,27 +2525,15 @@ def shapeMode():
     time.sleep(DELAY_CHANGEMODE)
 
 
-def createSquaredShape(referencePosition, positionx, positiony, size, close):
+def createSquaredShape(referencePosition, position, size, close):
     """
     @brief Create squared Polygon in position with a certain size
     """
-    # focus current frame
-    focusOnFrame()
-    # start draw
-    typeEnter()
-    # create polygon
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx, positiony - (size / 2))
-    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
-    leftClick(referencePosition, positionx - (size / 2), positiony)
-    # check if polygon has to be closed
-    if (close is True):
-        leftClick(referencePosition, positionx, positiony)
-    # finish draw
-    typeEnter()
+    # call create rectangled shape
+    createRectangledShape(referencePosition, position, size, size, close)
 
 
-def createRectangledShape(referencePosition, positionx, positiony, sizex, sizey, close):
+def createRectangledShape(referencePosition, position, sizex, sizey, close):
     """
     @brief Create rectangle Polygon in position with a certain size
     """
@@ -2555,18 +2542,18 @@ def createRectangledShape(referencePosition, positionx, positiony, sizex, sizey,
     # start draw
     typeEnter()
     # create polygon
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx, positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
-    leftClick(referencePosition, positionx - (sizex / 2), positiony)
+    leftClick(referencePosition, position)
+    leftClick(referencePosition, position, 0, (sizey / -2))
+    leftClick(referencePosition, position, (sizex / -2), (sizey / -2))
+    leftClick(referencePosition, position, (sizex / -2), 0)
     # check if polygon has to be closed
     if (close is True):
-        leftClick(referencePosition, positionx, positiony)
+        leftClick(referencePosition, position)
     # finish draw
     typeEnter()
 
 
-def createLineShape(referencePosition, positionx, positiony, sizex, sizey, close):
+def createLineShape(referencePosition, position, sizex, sizey, close):
     """
     @brief Create line Polygon in position with a certain size
     """
@@ -2575,11 +2562,11 @@ def createLineShape(referencePosition, positionx, positiony, sizex, sizey, close
     # start draw
     typeEnter()
     # create polygon
-    leftClick(referencePosition, positionx, positiony)
-    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, position)
+    leftClick(referencePosition, position, (sizex / -2), (sizey / -2))
     # check if polygon has to be closed
     if (close is True):
-        leftClick(referencePosition, positionx, positiony)
+        leftClick(referencePosition, position)
     # finish draw
     typeEnter()
 
@@ -2740,9 +2727,9 @@ def createDataInterval(begin="0", end="3600"):
 #################################################
 
 
-def contextualMenuOperation(referencePosition, positionx, positiony, operation, suboperation1, suboperation2=0):
+def contextualMenuOperation(referencePosition, position, operation, suboperation1, suboperation2=0):
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
     # click relative to offset
     pyautogui.rightClick(clickedPosition)
     # place cursor over first operation

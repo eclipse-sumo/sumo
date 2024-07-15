@@ -38,33 +38,31 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "dummyLenght")
 
 # try to create busstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "-20")
 
 # try to create busstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Change length
 netedit.changeDefaultValue(netedit.attrs.busStop.create.length, "5")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Reference Right")
 
 # create busStop in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge3.x, netedit.positions.elements.edge3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

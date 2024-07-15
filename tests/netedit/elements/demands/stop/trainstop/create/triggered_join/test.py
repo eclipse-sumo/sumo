@@ -41,22 +41,19 @@ netedit.changeStopType("stopTrainStop")
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.triggered, "join")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  1, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.join, ";;;")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  2, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change triggered
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.join, "customJoin")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  3, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -41,15 +41,13 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, ";;;;;%%;;;;")
 
 # create calibratorLane with a different routeProbe in other lane
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change frequency with a different routeProbe (Valid, empty)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "")
 
 # create calibratorLane with a valid parameter in other lane
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change routeprobe with a different routeProbe
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.routeProbe, "routeProbe_0")

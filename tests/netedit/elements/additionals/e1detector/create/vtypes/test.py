@@ -38,14 +38,13 @@ netedit.changeElement("inductionLoop")
 netedit.changeDefaultValue(netedit.attrs.E1.create.vTypes, "%%;$$$ %%$$ type.3")
 
 # try to create E1 with invalid vehicle types
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set valid vehicle type
 netedit.changeDefaultValue(netedit.attrs.E1.create.vTypes, "private passenger taxi bus")
 
 # create E1 with valid vehicle types
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

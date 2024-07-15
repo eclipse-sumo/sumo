@@ -38,41 +38,28 @@ netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a circular road
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
-                  netedit.positions.network.junction.positionB.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
-                  netedit.positions.network.junction.positionC.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
-                  netedit.positions.network.junction.positionD.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.cancelEdge()
 
 # disable chain mode
 netedit.changeEditMode(netedit.attrs.modes.network.chainMode)
 
 # create a complex intersection
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
-                  netedit.positions.network.junction.positionB.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
-                  netedit.positions.network.junction.positionC.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
-                  netedit.positions.network.junction.positionD.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # rebuild network
 netedit.rebuildNetwork()

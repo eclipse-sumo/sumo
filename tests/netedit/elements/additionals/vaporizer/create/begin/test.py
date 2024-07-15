@@ -38,15 +38,13 @@ netedit.changeElement("vaporizer")
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "-12")
 
 # try to create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set valid start
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "10")
 
 # create vaporizer (camera will be moved)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

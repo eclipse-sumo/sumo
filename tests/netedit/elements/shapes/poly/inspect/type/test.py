@@ -35,15 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 7 with a valid value (but with invalid XML attributes)
 netedit.modifyAttribute(netedit.attrs.poly.inspect.type, "<<myOwnType>>", False)

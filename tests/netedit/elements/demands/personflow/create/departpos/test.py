@@ -44,9 +44,8 @@ netedit.changePersonPlan("walk", True)
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "dummy")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
-                  netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,9 +60,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.departPos, "7.8")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
-                  netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()

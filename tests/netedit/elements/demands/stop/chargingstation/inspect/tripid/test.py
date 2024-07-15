@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopChargingStation")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopChargingStation.inspect.tripID, ";;;;", False)

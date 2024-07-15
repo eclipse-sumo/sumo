@@ -35,27 +35,25 @@ netedit.additionalMode()
 netedit.changeElement("containerStop")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, ";;;;;;;;;;;;;;;;")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "ct_0")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set invalid ID (duplicated
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.id, "custom_ID")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

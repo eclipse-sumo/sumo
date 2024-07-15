@@ -44,8 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA.x,
-                  netedit.positions.network.connection.connectionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change parameter 8 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow, "DummyAllowed", True)
@@ -54,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow, "DummyA
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow, "", True)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow,
-                        "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow, "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.allow, "", True)

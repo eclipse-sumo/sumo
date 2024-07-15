@@ -32,12 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.inspectMode()
 
 # select edge using control
-netedit.leftClickControl(referencePosition, netedit.positions.selection.edge.x,
-                         netedit.positions.selection.edge.y)
+netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
 
 # unselect edge using control
-netedit.leftClickControl(referencePosition, netedit.positions.selection.edge.x,
-                         netedit.positions.selection.edge.y)
+netedit.leftClickControl(referencePosition, netedit.positions.selection.edge)
 
 # this should not delete anything
 netedit.deleteSelectedItems()
@@ -46,12 +44,10 @@ netedit.deleteSelectedItems()
 netedit.selectMode()
 
 # select lane using shift + click
-netedit.leftClickShift(referencePosition, netedit.positions.selection.edge.x,
-                       netedit.positions.selection.edge.y)
+netedit.leftClickShift(referencePosition, netedit.positions.selection.edge)
 
 # unselect lane using shift + click
-netedit.leftClickShift(referencePosition, netedit.positions.selection.edge.x,
-                       netedit.positions.selection.edge.y)
+netedit.leftClickShift(referencePosition, netedit.positions.selection.edge)
 
 # this should not delete anything
 netedit.deleteSelectedItems()
@@ -60,11 +56,9 @@ netedit.deleteSelectedItems()
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # select lane using a simple click
-netedit.leftClick(referencePosition, netedit.positions.selection.edge.x,
-                  netedit.positions.selection.edge.y)
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 # unselect lane using a simple click
-netedit.leftClick(referencePosition, netedit.positions.selection.edge.x,
-                  netedit.positions.selection.edge.y)
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 
 # this should not delete anything
 netedit.deleteSelectedItems()

@@ -41,8 +41,8 @@ netedit.changeContainerPlan("transport", False)
 netedit.changeElement("containerFlow")
 
 # create container using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create container
 netedit.typeEnter()
@@ -51,8 +51,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
-                  netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.begin, "", False)

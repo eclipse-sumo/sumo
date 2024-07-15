@@ -38,15 +38,13 @@ netedit.changeElement("routeProbe")
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.frequency, "-20")
 
 # try to create routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set valid default frequency
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.frequency, "120")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

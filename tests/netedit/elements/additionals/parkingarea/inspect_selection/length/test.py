@@ -38,8 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect parking areas
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea.x,
-                  netedit.positions.elements.additionals.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter Lenght with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.length, "dummyLenght", False)

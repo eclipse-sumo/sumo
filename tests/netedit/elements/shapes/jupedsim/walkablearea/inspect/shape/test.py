@@ -35,15 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("jupedsim.walkable_area")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 1 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.shape, "dummyShape", False)
@@ -56,8 +54,7 @@ netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.shape, "12.00,8.00
 
 # Change parameter 1 with a valid value
 netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.shape,
-                        "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " +
-                        "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
+                        "12.00,8.00 9.00,13.00 12.00,18.00 7.00,15.00 2.00,18.00 " + "5.00,13.00 2.00,8.00 7.00,11.00 12.00,8.00", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

@@ -44,8 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planBusStop.x,
-                  netedit.positions.elements.demands.planBusStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planBusStop)
 
 # change depart with an invalid value
 netedit.modifyBoolAttribute(netedit.attrs.stopPlanStoppingPlace.inspectSelection.untilEnable, False)

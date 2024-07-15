@@ -35,14 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # Check invert button
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.crossingInvertEdges()
 
 # save Netedit config

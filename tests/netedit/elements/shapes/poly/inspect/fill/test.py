@@ -35,15 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change boolean parameter 3
 netedit.modifyBoolAttribute(netedit.attrs.poly.inspect.fill, False)

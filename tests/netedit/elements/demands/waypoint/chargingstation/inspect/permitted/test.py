@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointChargingStation")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation.x,
-                  netedit.positions.elements.demands.chargingStation.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointChargingStation.inspect.permitted, "permitA permitB", False)

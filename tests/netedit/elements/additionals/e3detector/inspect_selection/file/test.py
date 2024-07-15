@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set invalid filename
 netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", True)

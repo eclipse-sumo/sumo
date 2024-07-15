@@ -44,8 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA.x,
-                  netedit.positions.network.connection.connectionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.connection.inspectSelectionTLS.parameters, True)

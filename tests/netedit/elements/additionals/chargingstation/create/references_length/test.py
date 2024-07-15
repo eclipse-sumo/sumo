@@ -38,33 +38,31 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "dummyLenght")
 
 # try to create chargingStation with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "-20")
 
 # try to create chargingStation with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Change length
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.length, "5")
 
 # create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Reference Right")
 
 # create chargingStation in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Center")
 
 # create chargingStation in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

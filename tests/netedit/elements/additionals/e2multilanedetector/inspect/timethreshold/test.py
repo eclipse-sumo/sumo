@@ -38,18 +38,15 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter TimeTreshold with a non valid value
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.timeThreshold, "dummyTimeTreshold", True)

@@ -35,22 +35,19 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change boolean parameter 13
 netedit.modifyBoolAttribute(netedit.attrs.poly.inspect.geo, False)
 
 # Change parameter 12 with a valid value
-netedit.modifyAttribute(netedit.attrs.poly.inspect.geoshape,
-                        "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 " +
+netedit.modifyAttribute(netedit.attrs.poly.inspect.geoshape, "-13.00,8.00 -8.00,13.00 -13.00,18.00 -18.00,23.00 -23.00,18.00 " +
                         "-28.00,13.00 -23.00,8.00 -18.00,3.00 -13.00,8.00", False)
 
 # Check undos and redos

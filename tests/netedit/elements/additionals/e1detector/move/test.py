@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # change to move mode
 netedit.moveMode()

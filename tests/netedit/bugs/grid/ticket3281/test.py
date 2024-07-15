@@ -35,10 +35,8 @@ netedit.setZoom("100", "0", "200")
 netedit.createEdgeMode()
 
 # Create one way edge
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change to move mode
 netedit.moveMode()

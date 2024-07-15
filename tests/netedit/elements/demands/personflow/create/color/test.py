@@ -41,9 +41,8 @@ netedit.changeElement("personFlow")
 netedit.changePersonPlan("walk", True)
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
-                  netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid personFlow number
 netedit.changeColorUsingDialog(netedit.attrs.personFlow.create.colorButton, 5)
@@ -55,9 +54,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.personFlow.create.color, "Vlue")
 
 # create route using edge and busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
-                  netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()

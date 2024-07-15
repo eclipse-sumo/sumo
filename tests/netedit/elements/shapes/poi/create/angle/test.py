@@ -38,29 +38,25 @@ netedit.changeElement("poi")
 netedit.changeDefaultValue(netedit.attrs.poi.create.angle, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.poi.create.angle, "500")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poi.create.angle, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                  netedit.positions.elements.additionals.shapeC.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # change angle (valid)
 netedit.changeDefaultValue(netedit.attrs.poi.create.angle, "45")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD.x,
-                  netedit.positions.elements.additionals.shapeD.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

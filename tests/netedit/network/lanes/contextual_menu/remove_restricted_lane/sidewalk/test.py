@@ -35,10 +35,8 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # remove restricted lane
-netedit.contextualMenuOperation(referencePosition, 400, 150,
-                                netedit.attrs.lane.contextualMenuLane,
-                                netedit.attrs.lane.contextualMenu.removeRestrictedLane,
-                                netedit.attrs.lane.restrictedLanes.sidewalk)
+netedit.contextualMenuOperation(referencePosition, 400, 150, netedit.attrs.lane.contextualMenuLane,
+                                netedit.attrs.lane.contextualMenu.removeRestrictedLane, netedit.attrs.lane.restrictedLanes.sidewalk)
 
 # recompute
 netedit.rebuildNetwork()

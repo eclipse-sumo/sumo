@@ -41,17 +41,14 @@ netedit.changeDefaultValue(netedit.attrs.edge.create.priority, "15")
 netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # create template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
@@ -60,10 +57,8 @@ netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

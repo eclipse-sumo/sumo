@@ -32,8 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select lane using shift + click
-netedit.leftClick(referencePosition, netedit.positions.selection.edge.x,
-                  netedit.positions.selection.edge.y)
+netedit.leftClick(referencePosition, netedit.positions.selection.edge)
 
 # this should not delete anything
 netedit.deleteSelectedItems()
@@ -42,8 +41,7 @@ netedit.deleteSelectedItems()
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
 # select lane using a simple click
-netedit.leftClick(referencePosition, netedit.positions.selection.lane.x,
-                  netedit.positions.selection.lane.y)
+netedit.leftClick(referencePosition, netedit.positions.selection.lane)
 
 # this should not delete anything
 netedit.deleteSelectedItems()

@@ -41,23 +41,18 @@ netedit.changeElement("flow (from-to TAZs)")
 netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks, "%%%%%%")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks,
-                           "leaderGap junction speedLimit pedestrian")
+netedit.changeDefaultValue(netedit.attrs.flowTAZ.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()

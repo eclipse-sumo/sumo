@@ -35,8 +35,8 @@ netedit.supermodeDemand()
 netedit.containerMode()
 
 # create container using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create container
 netedit.typeEnter()
@@ -45,8 +45,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
-                  netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -58,8 +57,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -68,8 +66,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their container
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

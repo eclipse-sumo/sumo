@@ -41,18 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create TAZRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 netedit.typeEnter()
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete TAZRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.undo(referencePosition, 1, 0, 30)

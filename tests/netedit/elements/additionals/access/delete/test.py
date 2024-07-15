@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select Access
 netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete Access
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -57,8 +57,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
-                  netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -67,9 +66,8 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete both busStop and access
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
-                  netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,18 +35,14 @@ netedit.rebuildNetwork()
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
-                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # select two-way mode
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC.x,
-                  netedit.positions.network.junction.positionC.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD.x,
-                  netedit.positions.network.junction.positionD.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # rebuild network
 netedit.rebuildNetwork()

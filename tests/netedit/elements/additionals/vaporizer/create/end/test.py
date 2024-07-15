@@ -38,29 +38,25 @@ netedit.changeElement("vaporizer")
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "-20")
 
 # try to create create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set valid end
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "20")
 
 # create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change default start (Invalid, end > startTime)
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "50")
 
 # try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change default end (valid))
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.end, "100")
 
 # try to create invalid vaporizer (show warning)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

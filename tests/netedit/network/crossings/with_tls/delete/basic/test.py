@@ -35,14 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
@@ -50,12 +47,10 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # delete first crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # delete second crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.right.x,
-                  netedit.positions.network.crossing.right.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.right)
 
 # check undo redo
 netedit.checkUndoRedo(referencePosition)

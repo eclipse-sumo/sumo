@@ -44,8 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # now inspect plan top
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planTopRide.x,
-                  netedit.positions.elements.demands.planTopRide.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planTopRide)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.rideEdgeEdge.inspectSelection.lines, "custom line", False)

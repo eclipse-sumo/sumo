@@ -32,8 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change radio
 netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "20", False)
@@ -42,8 +41,7 @@ netedit.modifyAttribute(netedit.attrs.junction.inspect.radius, "20", False)
 netedit.rebuildNetwork()
 
 # reverse edge in both directions
-netedit.contextualMenuOperation(referencePosition, 496, 234,
-                                netedit.attrs.junction.convertToRoundabout, 0)
+netedit.contextualMenuOperation(referencePosition, 496, 234, netedit.attrs.junction.convertToRoundabout, 0)
 
 # recompute
 netedit.rebuildNetwork()

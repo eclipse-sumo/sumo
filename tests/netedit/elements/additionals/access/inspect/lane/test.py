@@ -35,21 +35,21 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select Access
 netedit.changeElement("access")
 
 # Create two Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2Ped.x, netedit.positions.elements.edge2Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2Ped)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # Change parameter lane with a non valid value (dummy Lane)
 netedit.modifyAttribute(netedit.attrs.access.inspect.lane, "dummyLane", True)

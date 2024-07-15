@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -49,14 +49,11 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # create flow
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # transform
-netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.elements.demands.vehicleEdge.x,
-                                netedit.positions.elements.demands.vehicleEdge.y,
-                                netedit.attrs.routeFlow.transformTo,
-                                netedit.attrs.routeFlow.transform.vehicleEmbedded)
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleEdge,
+                                netedit.attrs.routeFlow.transformTo, netedit.attrs.routeFlow.transform.vehicleEmbedded)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

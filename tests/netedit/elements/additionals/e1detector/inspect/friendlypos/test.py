@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("inductionLoop")
 
 # create E1
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change boolean parameter friendlyPos
 netedit.modifyBoolAttribute(netedit.attrs.E1.inspect.friendlyPos, True)

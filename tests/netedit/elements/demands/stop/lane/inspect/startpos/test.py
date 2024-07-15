@@ -38,14 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge.x,
-                  netedit.positions.elements.demands.stopEdge.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopLane.inspect.startPos, "dummy", True)

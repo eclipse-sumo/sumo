@@ -38,10 +38,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.connectionMode()
 
 # create connection
-netedit.createConnection(referencePosition, netedit.positions.network.connection.laneLeftBot.x,
-                         netedit.positions.network.connection.laneLeftBot.y,
-                         netedit.positions.network.connection.laneDownLeft.x,
-                         netedit.positions.network.connection.laneDownLeft.y, "conflict")
+netedit.createConnection(referencePosition, netedit.positions.network.connection.laneLeftBot,
+                         netedit.positions.network.connection.laneDownLeft, "conflict")
 
 # save changes
 netedit.saveConnectionEdit()

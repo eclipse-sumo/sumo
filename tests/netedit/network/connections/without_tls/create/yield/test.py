@@ -38,10 +38,8 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.connectionMode()
 
 # create connection
-netedit.createConnection(referencePosition, netedit.positions.network.connection.laneUpLeft.x,
-                         netedit.positions.network.connection.laneUpLeft.y,
-                         netedit.positions.network.connection.laneLeftTop.x,
-                         netedit.positions.network.connection.laneLeftTop.y, "yield")
+netedit.createConnection(referencePosition, netedit.positions.network.connection.laneUpLeft,
+                         netedit.positions.network.connection.laneLeftTop, "yield")
 
 # save changes
 netedit.saveConnectionEdit()

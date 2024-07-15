@@ -38,7 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointTrainStop")
 
 # try to create waypoint (don't click over trainStop)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

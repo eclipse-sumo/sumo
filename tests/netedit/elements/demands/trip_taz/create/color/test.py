@@ -41,10 +41,8 @@ netedit.changeElement("trip (from-to TAZs)")
 netedit.changeColorUsingDialog(netedit.attrs.tripTAZ.create.colorButton, 5)
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -53,10 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.color, "dummyColor")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -65,10 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.color, "cyan")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -77,10 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.tripTAZ.create.color, "12,13,14")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create trip
 netedit.typeEnter()

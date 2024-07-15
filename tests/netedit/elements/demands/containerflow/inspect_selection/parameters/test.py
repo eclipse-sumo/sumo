@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect container
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container.x,
-                  netedit.positions.elements.demands.container.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.containerFlow.inspectSelection.parameters, False)

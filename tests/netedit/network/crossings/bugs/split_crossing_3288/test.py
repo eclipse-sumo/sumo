@@ -35,54 +35,45 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop.x,
-                  netedit.positions.network.edge.rightTop.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightTop)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot.x,
-                  netedit.positions.network.edge.rightBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft.x,
-                  netedit.positions.network.edge.topLeft.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topLeft)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight.x,
-                  netedit.positions.network.edge.topRight.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.topRight)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft.x,
-                  netedit.positions.network.edge.botLeft.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botLeft)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 
 # select a single edge edges and create a split crossing
-netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight.x,
-                  netedit.positions.network.edge.botRight.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.botRight)
 netedit.typeEnter()
 netedit.rebuildNetwork()
 

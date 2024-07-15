@@ -35,8 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiGeo")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change color to white (To see icon)
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.color, "white")
@@ -51,8 +50,7 @@ netedit.changeDefaultValue(netedit.attrs.poiGeo.create.height, "10")
 netedit.changeDefaultValue(netedit.attrs.poiGeo.create.imgFile, "berlin_icon.ico")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to move mode
 netedit.moveMode()

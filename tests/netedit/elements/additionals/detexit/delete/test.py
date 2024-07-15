@@ -35,31 +35,27 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete both
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # undo
 netedit.undo(referencePosition, 1)
@@ -68,8 +64,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete E3
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

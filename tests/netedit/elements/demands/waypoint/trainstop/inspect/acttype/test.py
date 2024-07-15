@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointTrainStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.waypointTrainStop.inspect.actType, "dummy", False)

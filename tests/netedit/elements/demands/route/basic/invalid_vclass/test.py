@@ -38,9 +38,8 @@ netedit.routeMode()
 netedit.changeRouteVClass("dummyVClass")
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeCenter1.x,
-                  netedit.positions.elements.demands.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeCenter1)
 
 # press enter to create route
 netedit.typeEnter()
@@ -49,9 +48,8 @@ netedit.typeEnter()
 netedit.changeRouteVClass("bus")
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeCenter1.x,
-                  netedit.positions.elements.demands.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeCenter1)
 
 # press enter to create route
 netedit.typeEnter()

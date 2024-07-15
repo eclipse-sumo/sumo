@@ -38,10 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to TAZs)")
 
 # create route using two TAZs
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen.x,
-                  netedit.positions.elements.demands.TAZGreen.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed.x,
-                  netedit.positions.elements.demands.TAZRed.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZGreen)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.TAZRed)
 
 # press enter to create route
 netedit.typeEnter()
@@ -50,8 +48,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -63,8 +60,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete TAZ with demand elements
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -73,8 +69,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

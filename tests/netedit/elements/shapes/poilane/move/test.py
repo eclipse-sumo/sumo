@@ -35,8 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poiLane
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to move mode
 netedit.moveMode()

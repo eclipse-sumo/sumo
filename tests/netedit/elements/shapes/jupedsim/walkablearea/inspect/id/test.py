@@ -35,21 +35,18 @@ netedit.shapeMode()
 netedit.changeElement("jupedsim.walkable_area")
 
 # create first polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # create second polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                           netedit.positions.elements.additionals.shapeC.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first polygon
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.jpsWalkableArea.inspect.id, "jps.walkable_area_0", False)

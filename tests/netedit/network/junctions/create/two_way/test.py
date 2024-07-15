@@ -35,10 +35,8 @@ netedit.createEdgeMode()
 netedit.changeEditMode(netedit.attrs.modes.network.twoWayMode)
 
 # Create two way edges
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA.x,
-                  netedit.positions.network.junction.positionA.y)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB.x,
-                  netedit.positions.network.junction.positionB.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # rebuild network
 netedit.rebuildNetwork()

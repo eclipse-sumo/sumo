@@ -41,8 +41,8 @@ netedit.changeElement("vehicle (embedded route)")
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPos, "dummyPos")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPos, "-12")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPos, "random_free")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.arrivalPos, "20")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeEnter()

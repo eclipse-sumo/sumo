@@ -38,17 +38,14 @@ netedit.vehicleMode()
 netedit.changeElement("flow (embedded route)")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create trip
 netedit.typeEnter()
 # transform
-netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.elements.demands.vehicleEdge.x,
-                                netedit.positions.elements.demands.vehicleEdge.y,
-                                netedit.attrs.flowEmbedded.transformTo,
-                                netedit.attrs.flowEmbedded.transform.vehicleEmbedded)
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleEdge,
+                                netedit.attrs.flowEmbedded.transformTo, netedit.attrs.flowEmbedded.transform.vehicleEmbedded)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

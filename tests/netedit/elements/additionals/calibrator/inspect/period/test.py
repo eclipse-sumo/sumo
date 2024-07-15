@@ -35,15 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("calibrator")
 
 # create calibrator
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter id with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspect.frequency, "dummyFreq", True)

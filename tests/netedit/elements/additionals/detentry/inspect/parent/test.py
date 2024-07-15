@@ -35,37 +35,32 @@ netedit.additionalMode()
 netedit.changeElement("entryExitDetector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # create second E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x,
-                  netedit.positions.elements.additionals.squaredB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select exit detector
 netedit.changeElement("detExit")
 
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA.x,
-                  netedit.positions.elements.additionals.squaredA.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB.x,
-                  netedit.positions.elements.additionals.squaredB.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge4.x, netedit.positions.elements.edge4.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change Netedit parameter 1 with a non valid value (Invalid E3 ID)
 netedit.modifyAttribute(netedit.attrs.entryExit.inspect.parent, "invalidE3", True)

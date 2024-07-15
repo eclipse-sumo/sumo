@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,27 +52,25 @@ netedit.changeElement("flow (over route)")
 netedit.changeColorUsingDialog(netedit.attrs.routeFlow.create.colorButton, 5)
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid color
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "dummyColor")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid color
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "cyan")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
-                  netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
 
 # set valid color
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.color, "12,13,14")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
-                  netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

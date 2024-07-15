@@ -35,29 +35,25 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poi.create.id, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poi.create.id, "poi_0")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                  netedit.positions.elements.additionals.shapeC.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # set invalid ID
 netedit.changeDefaultValue(netedit.attrs.poi.create.id, "customID")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD.x,
-                  netedit.positions.elements.additionals.shapeD.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeD)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

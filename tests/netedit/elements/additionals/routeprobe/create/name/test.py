@@ -38,15 +38,13 @@ netedit.changeElement("routeProbe")
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.name, "\"\"\"")
 
 # try to create RouteProbe with invalid name
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.name, "customName")
 
 # create RouteProbe with valid name
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,8 +38,7 @@ netedit.stopMode()
 netedit.changeStopType("waypointBusStop")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop.x,
-                  netedit.positions.elements.demands.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

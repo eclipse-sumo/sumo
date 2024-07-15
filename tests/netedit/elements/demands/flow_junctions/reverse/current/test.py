@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # create trip using two junctions
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,11 +48,8 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition,
-                                netedit.positions.elements.junction0.x,
-                                netedit.positions.elements.junction0.y,
-                                netedit.attrs.flowJunction.reverseElement,
-                                netedit.attrs.flowJunction.reverse.current)
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.junction0,
+                                netedit.attrs.flowJunction.reverseElement, netedit.attrs.flowJunction.reverse.current)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

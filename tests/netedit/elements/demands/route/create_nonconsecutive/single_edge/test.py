@@ -38,7 +38,7 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # create route using only one edge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create route
 netedit.typeEnter()

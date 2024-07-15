@@ -35,15 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("routeProbe")
 
 # create routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter 5 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.begin, "dummy", False)

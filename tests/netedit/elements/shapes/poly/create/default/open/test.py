@@ -35,8 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("poly")
 
 # create open polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, False)
 
 # Check undo redo

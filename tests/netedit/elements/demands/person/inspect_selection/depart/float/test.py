@@ -41,8 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person.x,
-                  netedit.positions.elements.demands.person.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.person.inspectSelection.depart, "", False)

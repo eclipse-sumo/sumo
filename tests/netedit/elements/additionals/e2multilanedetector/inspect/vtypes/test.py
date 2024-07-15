@@ -38,18 +38,15 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspect.vTypes, "Type%%%%%1 T;;yp$2 Type3", True)

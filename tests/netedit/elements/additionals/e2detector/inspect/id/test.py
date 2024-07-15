@@ -35,18 +35,16 @@ netedit.additionalMode()
 netedit.changeElement("laneAreaDetector")
 
 # create E2 1
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create E2 2
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector.x,
-                  netedit.positions.elements.additionals.e2Detector.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.E2.inspect.id, "e2_1", True)

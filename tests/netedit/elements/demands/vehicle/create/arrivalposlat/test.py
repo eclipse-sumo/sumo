@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,27 +52,25 @@ netedit.changeElement("vehicle (over route)")
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.arrivalSpeed, "dummySpeed")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid arrival speed
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.arrivalSpeed, "-12")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival speed
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.arrivalSpeed, "max")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
-                  netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
 
 # set valid arrival speed
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.arrivalSpeed, "20")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route.x,
-                  netedit.positions.elements.demands.route.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

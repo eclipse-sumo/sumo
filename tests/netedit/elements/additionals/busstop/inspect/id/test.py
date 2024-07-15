@@ -38,18 +38,16 @@ netedit.changeElement("busStop")
 netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
 
 # create busStop 1 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create busStop 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge5.x,
-                  netedit.positions.elements.edge5.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first busStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop.x,
-                  netedit.positions.elements.additionals.busStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.busStop)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.busStop.inspect.id, "bs_1", True)

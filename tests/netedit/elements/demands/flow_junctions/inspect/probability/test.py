@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to junctions)")
 
 # create flow with embedded route using two edges
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,8 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x,
-                  netedit.positions.elements.demands.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # change flow value
 netedit.modifyAttribute(netedit.attrs.flowJunction.inspect.spacing, "dummyTerminate", False)

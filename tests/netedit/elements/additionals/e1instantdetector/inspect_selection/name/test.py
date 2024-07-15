@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change parameter name with an non valid value
 netedit.modifyAttribute(netedit.attrs.E1Instant.inspectSelection.name, "%%%;:..&&%$%$", True)

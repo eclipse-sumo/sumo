@@ -38,10 +38,8 @@ netedit.additionalMode()
 netedit.changeElement("multiLaneAreaDetector")
 
 # select lanes
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set invalid time threshold
 netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "-12")
@@ -50,10 +48,8 @@ netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "-12"
 netedit.typeEnter()
 
 # select lanes
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # set valid time threshold
 netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.timeThreshold, "0.7")

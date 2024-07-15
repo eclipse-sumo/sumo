@@ -41,8 +41,8 @@ netedit.changeElement("flow (from-to junctions)")
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "dummypersonNumber")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "-12")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "3.5")
 
 # try to create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(netedit.attrs.flowJunction.create.personNumber, "13")
 
 # create trip
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create trip
 netedit.typeEnter()

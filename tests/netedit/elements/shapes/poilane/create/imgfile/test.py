@@ -38,20 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.imgFile, "%%$%$&$%$%$")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # change imgfile (non exist)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.imgFile, "paris.ico")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change imgfile (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.imgFile, "berlin_icon.ico")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

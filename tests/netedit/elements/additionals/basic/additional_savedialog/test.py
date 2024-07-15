@@ -35,8 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

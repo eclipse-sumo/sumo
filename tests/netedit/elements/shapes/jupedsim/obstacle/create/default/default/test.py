@@ -35,8 +35,7 @@ netedit.shapeMode()
 netedit.changeElement("jps.obstacle")
 
 # create polygon with default values
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo

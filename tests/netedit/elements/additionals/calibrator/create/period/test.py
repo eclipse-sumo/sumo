@@ -41,22 +41,19 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "dummyFreq")
 
 # create calibrator with an invalid parameter (Default value will be used)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change frequency with an invalid value (negative)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "-30")
 
 # create calibrator with an invalid parameter (Default value will be used)
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # change frequency with a valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.frequency, "250.5")
 
 # create calibrator with a valid parameter
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

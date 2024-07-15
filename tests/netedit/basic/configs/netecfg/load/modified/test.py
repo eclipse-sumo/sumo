@@ -61,8 +61,7 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # remove center edge
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # rebuild network
 netedit.rebuildNetwork()

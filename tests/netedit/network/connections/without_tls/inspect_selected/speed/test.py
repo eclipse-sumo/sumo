@@ -44,8 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA.x,
-                  netedit.positions.network.connection.connectionA.y)
+netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change speed with an invalid value
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.speed, "dummySpeed", True)

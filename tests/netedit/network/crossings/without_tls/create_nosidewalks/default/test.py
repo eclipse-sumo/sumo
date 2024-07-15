@@ -35,14 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.createCrossing(False)
 netedit.rebuildNetwork()
 

@@ -35,14 +35,11 @@ netedit.rebuildNetwork()
 netedit.crossingMode()
 
 # select central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select two left edges and create crossing in edges 3 and 7
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop.x,
-                  netedit.positions.network.edge.leftTop.y)
-netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot.x,
-                  netedit.positions.network.edge.leftBot.y)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftTop)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 netedit.typeEnter()
 
 # Rebuild network
@@ -52,15 +49,13 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # Change shape with a non valid value
 netedit.modifyAttribute(netedit.attrs.crossing.inspect.customShape, "dummyShape", True)
 
 # Change shape with a valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspect.customShape,
-                        "-5.50,4.00 0.00,4.00 0.00,-4.00 -5.50,-4.00", True)
+netedit.modifyAttribute(netedit.attrs.crossing.inspect.customShape, "-5.50,4.00 0.00,4.00 0.00,-4.00 -5.50,-4.00", True)
 
 # Check undos
 netedit.undo(referencePosition, 2)

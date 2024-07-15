@@ -32,8 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.deleteMode()
 
 # delete junction
-netedit.leftClick(referencePosition, netedit.positions.elements.junction4.x,
-                  netedit.positions.elements.junction4.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction4)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

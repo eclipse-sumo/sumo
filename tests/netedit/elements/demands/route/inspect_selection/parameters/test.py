@@ -34,15 +34,14 @@ netedit.supermodeDemand()
 netedit.selectMode()
 
 # select both routes
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1.x,
-                  netedit.positions.elements.demands.edgeRepeat1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.route.inspectSelection.parameters, False)

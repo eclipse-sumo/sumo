@@ -38,24 +38,21 @@ netedit.changeElement("poly")
 netedit.changeColorUsingDialog(netedit.attrs.poly.create.colorButton, 5)
 
 # create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                           netedit.positions.elements.additionals.shapeA.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change color manually (invalid)
 netedit.changeDefaultValue(netedit.attrs.poly.create.color, "Vlue")
 
 # try to create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                           netedit.positions.elements.additionals.shapeC.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change color manually (valid)
 netedit.changeDefaultValue(netedit.attrs.poly.create.color, "red")
 
 # create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                           netedit.positions.elements.additionals.shapeB.y,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo

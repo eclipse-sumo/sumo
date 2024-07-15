@@ -38,15 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("waypointLane")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
-                  10, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change parking
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.parking, "true")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
-                  8, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

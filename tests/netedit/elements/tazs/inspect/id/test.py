@@ -41,8 +41,7 @@ netedit.createSquaredShape(referencePosition, 634, 144, 200, True)
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.TAZ.inspect.id, "taz_1", False)

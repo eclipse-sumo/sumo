@@ -24,6 +24,11 @@ class tmp:
     x = 0
     y = 0
 
+
+class reference:
+    x = 0
+    y = 0
+
 # network
 
 

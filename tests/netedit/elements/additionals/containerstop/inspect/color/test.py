@@ -38,14 +38,13 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
 
 # create containerStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop.x,
-                  netedit.positions.elements.additionals.containerStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.containerStop.inspect.colorButton, 5, True)

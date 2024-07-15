@@ -38,8 +38,8 @@ netedit.vehicleMode()
 netedit.changeElement("trip (from-to junctions)")
 
 # create trip using two junctions
-netedit.leftClick(referencePosition, netedit.positions.elements.junction0.x, netedit.positions.elements.junction0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3.x, netedit.positions.elements.junction3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # press enter to create route
 netedit.typeEnter()
@@ -48,8 +48,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction.x,
-                  netedit.positions.elements.demands.vehicleJunction.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleJunction)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.tripJunction.inspect.parameters, False)

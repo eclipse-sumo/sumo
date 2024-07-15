@@ -41,22 +41,19 @@ netedit.changeStopType("waypointLane")
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
-                  10, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
-                  8, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointLane.create.tripID, "tripID")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x +
-                  6, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

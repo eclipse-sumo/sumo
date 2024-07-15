@@ -38,27 +38,25 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "500")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change angle (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.angle, "45")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

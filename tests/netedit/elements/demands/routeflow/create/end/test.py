@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1.x, netedit.positions.elements.edge1.y)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,31 +52,31 @@ netedit.changeElement("flow (over route)")
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminate, "dummyTerminate")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminate, "end")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "dummy")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "-30")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "20.5")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0.x, netedit.positions.elements.edge0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid arrival pos
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.terminateOption, "22")

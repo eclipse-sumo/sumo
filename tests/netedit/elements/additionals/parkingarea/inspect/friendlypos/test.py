@@ -38,14 +38,13 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
 
 # create parkingArea in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first parkingArea
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea.x,
-                  netedit.positions.elements.additionals.parkingArea.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter friendlyPos with a different value
 netedit.modifyBoolAttribute(netedit.attrs.parkingArea.inspect.friendlyPos, True)

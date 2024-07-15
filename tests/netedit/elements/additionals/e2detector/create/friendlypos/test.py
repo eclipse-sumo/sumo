@@ -38,7 +38,7 @@ netedit.changeElement("laneAreaDetector")
 netedit.changeDefaultBoolValue(netedit.attrs.E2.create.friendlyPos)
 
 # create E2 with different friendlyPos
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

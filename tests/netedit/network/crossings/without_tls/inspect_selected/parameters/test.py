@@ -35,19 +35,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # select second crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.right.x,
-                  netedit.positions.network.crossing.right.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.right)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first crossing
-netedit.leftClick(referencePosition, netedit.positions.network.crossing.left.x,
-                  netedit.positions.network.crossing.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.crossing.inspectSelection.parameters, True)

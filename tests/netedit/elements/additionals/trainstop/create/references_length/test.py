@@ -38,33 +38,31 @@ netedit.changeElement("trainStop")
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "dummyLenght")
 
 # try to create trainstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "-20")
 
 # try to create trainstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Change length
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.length, "5")
 
 # create trainStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Reference Right")
 
 # create trainStop in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
 
 # create trainStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge3.x, netedit.positions.elements.edge3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

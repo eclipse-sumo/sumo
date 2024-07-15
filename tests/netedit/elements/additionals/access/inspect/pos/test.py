@@ -35,20 +35,20 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create BusStop with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # select Access
 netedit.changeElement("access")
 
 # Create Access
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect Access
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped.x, netedit.positions.elements.edge1Ped.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # Change parameter pos with a non valid value (dummy position X)
 netedit.modifyAttribute(netedit.attrs.access.inspect.pos, "dummy position", True)

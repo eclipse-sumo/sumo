@@ -38,33 +38,31 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "dummyLenght")
 
 # try to create containerstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid length (negative)
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "-20")
 
 # try to create containerstop with invalid length
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Change length
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.length, "5")
 
 # create containerStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change reference to right
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Reference Right")
 
 # create containerStop in mode "Reference Right"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2.x, netedit.positions.elements.edge2.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # change reference to center
 netedit.changeDefaultValue(netedit.attrs.containerStop.create.references, "Center")
 
 # create containerStop in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.edge3.x, netedit.positions.elements.edge3.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

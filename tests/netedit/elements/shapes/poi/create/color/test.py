@@ -38,22 +38,19 @@ netedit.changeElement("poi")
 netedit.changeColorUsingDialog(netedit.attrs.poi.create.colorButton, 5)
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA.x,
-                  netedit.positions.elements.additionals.shapeA.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # change color manually (invalid)
 netedit.changeDefaultValue(netedit.attrs.poi.create.color, "Vlue")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB.x,
-                  netedit.positions.elements.additionals.shapeB.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
 
 # change color manually (valid)
 netedit.changeDefaultValue(netedit.attrs.poi.create.color, "blue")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC.x,
-                  netedit.positions.elements.additionals.shapeC.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeC)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

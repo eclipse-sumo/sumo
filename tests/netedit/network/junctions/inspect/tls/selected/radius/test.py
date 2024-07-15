@@ -35,19 +35,16 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # select first junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # select select second junction
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left.x,
-                  netedit.positions.network.junction.cross.left.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center.x,
-                  netedit.positions.network.junction.cross.center.y)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.center)
 
 # set invalid radius
 netedit.modifyAttribute(netedit.attrs.junction.inspectSelectionTLS.radius, "dummyRadius", False)

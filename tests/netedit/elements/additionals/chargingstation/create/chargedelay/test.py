@@ -38,20 +38,19 @@ netedit.changeElement("chargingStation")
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.chargeDelay, "dummyChargeDelay")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # set invalid chargeDelay (negative)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.chargeDelay, "-50")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0.x,
-                  netedit.positions.elements.edgeCenter0.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # set valid chargeDelay (double)
 netedit.changeDefaultValue(netedit.attrs.chargingStation.create.chargeDelay, "20.5")
 
 # try to create chargingStation in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1.x, netedit.positions.elements.edgeCenter1.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -38,8 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp.x,
-                  netedit.positions.tmp.y)
+netedit.leftClick(referencePosition, netedit.positions.tmp)
 
 # Change parameter 2 with an non valid value
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "DummyDisallowed", False)
@@ -54,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "authority  army, p
 netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "", False)
 
 # Change parameter 2 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+netedit.modifyAttribute(netedit.attrs.lane.inspect.disallow, "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1", False)
 
 # recompute

@@ -41,29 +41,25 @@ netedit.changeStopType("waypointTrainStop")
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, ";;;;;;;;;;")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x,
-                  netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  2, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "dummy Act")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  4, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "singing")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop.x +
-                  6, netedit.positions.elements.demands.trainStop.y)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
