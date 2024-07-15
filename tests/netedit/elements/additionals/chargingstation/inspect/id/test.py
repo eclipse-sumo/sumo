@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.chargingStation.create.references, "Cen
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create chargingStation 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.centralEdge5)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # go to inspect mode
 netedit.inspectMode()

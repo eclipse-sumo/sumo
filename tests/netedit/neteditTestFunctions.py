@@ -1221,7 +1221,7 @@ def moveElementHorizontal(referencePosition, originalPosition, radius):
     """
     @brief move element in horizontal
     """
-    leftClick(referencePosition, originalPosition.x, originalPosition.y)
+    leftClick(referencePosition, originalPosition)
     # move element
     dragDrop(referencePosition, originalPosition.x, originalPosition.y,
              originalPosition.x + radius.right, originalPosition.y)

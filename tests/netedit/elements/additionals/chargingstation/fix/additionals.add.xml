@@ -4,11 +4,11 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,13 @@
 
     <netedit>
         <additional-files value="C:\Users\alva_pa\Desktop\2.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\additionals.xml"/>
-        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\routes.xml"/>
-        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\routes.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,15 +46,15 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/busstop/fix/friendlypos\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.27Sep140221.10392/netedit.gui/additionalElements/chargingStation/fix/friendlypos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStationA" lane="EdgeCenter0_0" startPos="-2.00" endPos="12.00" friendlyPos="1"/>
-    <chargingStation id="chargingStationB" lane="EdgeCenter1_1" startPos="38.00" endPos="480.00" friendlyPos="1"/>
-    <chargingStation id="chargingStationC" lane="EdgeCenter1_0" startPos="-38.00" endPos="48.00" friendlyPos="1"/>
-    <chargingStation id="chargingStationD" lane="EdgeCenter1_1" startPos="-2.00" endPos="-12.00" friendlyPos="1"/>
+    <chargingStation id="chargingStationA" lane="EdgeCenter1_1" startPos="16.71" endPos="36.71"/>
+    <chargingStation id="chargingStationB" lane="EdgeCenter0_0" startPos="10" endPos="2000" friendlyPos="1"/>
+    <chargingStation id="chargingStationC" lane="Edge3_1" startPos="-2000" endPos="10" friendlyPos="1"/>
+    <chargingStation id="chargingStationD" lane="Edge5_1" startPos="-2000" endPos="2000" friendlyPos="1"/>
 </additional>

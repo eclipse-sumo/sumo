@@ -1,3 +1,12 @@
-Error: Invalid position for containerStop 'containerStopA'.
-Error: Could not end a stopping place that is not opened.
+Error: Another lane with the id 'EdgeCenter1_1' exists.
+Error: An unknown lane ('center0_0') was tried to be set as incoming to junction 'JC0'.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown from-edge 'EdgeCenter1' in connection.
+Error: Unknown from-edge 'EdgeCenter1' in connection.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown to-edge 'EdgeCenter1' in connection.
+Error: Unknown from-node 'JC0' for edge ':JC0_0'.
 Quitting (on error).

@@ -1,7 +1,7 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Access A -->
     <busStop id="busStopA" lane="EdgeCenter1_0" startPos="23.00" endPos="33.00">
-        <access lane="Edge4_0" pos="9.00" length="10" friendlyPos="0">
+        <access lane="Edge1_0" pos="15.00" length="10" friendlyPos="0">
             <param key="KeyA1" value="valueA1"/>
             <param key="KeyA3" value="valueA2"/>
             <param key="KeyA2" value="valueA3"/>

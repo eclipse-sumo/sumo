@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("20", "7", "25")
-
 # go to additional mode
 netedit.additionalMode()
 
@@ -45,13 +42,13 @@ netedit.changeElement("access")
 
 # Create Access detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0Ped)
 
 # go to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edge1Ped,
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.edge0Ped,
                               netedit.positions.elements.movementRadius)
 
 # Check undo redo

@@ -34,23 +34,17 @@ netedit.additionalMode()
 # select containerStop
 netedit.changeElement("containerStop")
 
+# change reference to center
+netedit.changeDefaultValue(netedit.attrs.busStop.create.references, "Center")
+
 # create containerStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # delete created containerStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete first loaded containerStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the second loaded containerStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -58,16 +52,20 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # try to delete lane with the second loaded containerStop (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded containerStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
 # check redo
+netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save netedit config

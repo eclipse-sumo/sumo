@@ -1,4 +1,3 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStation_0" lane="Edge3_1" startPos="32.40" endPos="42.40" power="22000.00" efficiency="0.95" chargeInTransit="1" chargeDelay="2" name="chargingStation" friendlyPos="false"/>
-    <chargingStation id="chargingStation_1" lane="Edge5_1" startPos="10" endPos="20" power="22000.00" efficiency="0.95" chargeInTransit="1" chargeDelay="2" name="chargingStation" friendlyPos="false"/>
+	<chargingStation id="chargingStation_0" lane="Edge0_1" startPos="10" endPos="20"/>
 </additional>

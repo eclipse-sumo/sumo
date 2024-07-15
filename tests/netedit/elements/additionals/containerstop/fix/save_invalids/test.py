@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
@@ -40,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect containerstops
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create containerStop in mode "Center"
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.containerStop)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.containerStop.inspectSelection.friendlyPos, True)
+netedit.modifyAttribute(netedit.attrs.containerStop.inspectSelection.friendlyPos, "false", True)
 
 # go to select mode
 netedit.selectMode()

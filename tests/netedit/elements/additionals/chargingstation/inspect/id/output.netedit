@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 chargingStation
 Center
-TestFunctions: Clicked over position 608 - 412
-TestFunctions: Clicked over position 438 - 412
-TestFunctions: Clicked over position 654 - 412
+TestFunctions: Clicked over position 649 - 389
+TestFunctions: Clicked over position 781 - 224
+TestFunctions: Clicked over position 649 - 389
 cs_1
 Id with spaces
 correctID

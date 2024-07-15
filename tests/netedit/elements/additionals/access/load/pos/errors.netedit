@@ -1,4 +1,9 @@
 Error: Attribute 'pos' in definition of a access is empty.
-Error: Could not build access with ID 'busStop_0' in netedit; Invalid position over lane.
-Error: Could not build access with ID 'busStop_0' in netedit; Invalid position over lane.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Nov090224.8200\netedit.gui\additionalelements\access\load\pos\additionals.add.xml failed.
+Error: Could not build busStop with ID 'busStop_0' in netedit; Invalid position over lane.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build busStop with ID 'busStop_1' in netedit; Invalid position over lane.
+Error: Could not build access in netedit; busStop 'busStop_1' doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jul135100.14852\netedit.gui\elements\additionals\access\load\pos\additionals.add.xml failed.

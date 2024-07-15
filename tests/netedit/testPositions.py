@@ -24,10 +24,26 @@ class tmp:
     x = 0
     y = 0
 
+# reference position
+
 
 class reference:
     x = 0
     y = 0
+
+# extern lane bot (common for all tests)
+
+
+class externLaneBot:
+    x = 42
+    y = 332
+
+# extern lane Top (common for all tests)
+
+
+class externLaneTop:
+    x = 42
+    y = 136
 
 # network
 
@@ -327,6 +343,10 @@ class elements:
         class containerStop:
             x = 345
             y = 195
+
+        class chargingStation:
+            x = 300
+            y = 221
 
         class parkingArea:
             x = 343

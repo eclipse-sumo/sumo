@@ -2,15 +2,15 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 busStop
-TestFunctions: Clicked over position 732 - 425
+TestFunctions: Clicked over position 649 - 389
 access
-TestFunctions: Clicked over position 456 - 334
-TestFunctions: Clicked over position 456 - 334
+TestFunctions: Clicked over position 706 - 638
+TestFunctions: Clicked over position 706 - 638
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 762 - 438
+TestFunctions: Clicked over position 648 - 372
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 456 - 334
-TestFunctions: Clicked over position 762 - 438
+TestFunctions: Clicked over position 685 - 611
+TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

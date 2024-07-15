@@ -1,3 +1,6 @@
 Error: Attribute 'length' in definition of a access Invalid Number Format (double) dummyLenght.
-Error: Could not build access with ID 'busStop_0' in netedit; Attribute length cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.stoppingplaces.22May115309.2056/netedit.daily.additional.stoppingplaces/additionalelements/access/load/length/additionals.add.xml failed.
+Error: Could not build busStop with ID 'busStop_0' in netedit; Invalid position over lane.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Could not build access in netedit; busStop 'busStop_0' doesn't exist.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Jul135100.14852\netedit.gui\elements\additionals\access\load\length\additionals.add.xml failed.

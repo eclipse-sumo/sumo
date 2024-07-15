@@ -53,8 +53,8 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStopA" lane="EdgeCenter0_0" startPos="-2.00" endPos="12.00" friendlyPos="1"/>
-    <containerStop id="containerStopB" lane="EdgeCenter1_0" startPos="38.00" endPos="480.00" friendlyPos="1"/>
-    <containerStop id="containerStopC" lane="Edge3_1" startPos="-38.00" endPos="48.00" friendlyPos="1"/>
-    <containerStop id="containerStopD" lane="Edge5_1" startPos="-2.00" endPos="-12.00" friendlyPos="1"/>
+    <containerStop id="containerStopA" lane="EdgeCenter1_1" startPos="16.71" endPos="26.71"/>
+    <containerStop id="containerStopB" lane="EdgeCenter0_0" startPos="10" endPos="2000" friendlyPos="1"/>
+    <containerStop id="containerStopC" lane="Edge3_1" startPos="-2000" endPos="10" friendlyPos="1"/>
+    <containerStop id="containerStopD" lane="Edge5_1" startPos="-2000" endPos="2000" friendlyPos="1"/>
 </additional>

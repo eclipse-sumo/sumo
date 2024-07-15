@@ -37,15 +37,16 @@ netedit.changeElement("busStop")
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
-# select Access detector
+# select detector
 netedit.changeElement("access")
 
-# Create Access detector
+# Create detector
 netedit.selectAdditionalChild(netedit.attrs.access.create.parent, 0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2Ped)
 
 # Try to create another Access in the same edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1Ped)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
