@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-15 10:27+0000\n"
+"PO-Revision-Date: 2024-07-15 10:36+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -9837,6 +9837,8 @@ msgid ""
 "Shape of lane '%' is broken.\n"
 " Can not build according edge."
 msgstr ""
+"La forma del carril '%' está rota.\n"
+" No se puede construir la arista correspondiente."
 
 #: src/netload/NLHandler.cpp:558
 #, c-format
@@ -9846,6 +9848,7 @@ msgstr "Existe otro carril con el ID '%'."
 #: src/netload/NLHandler.cpp:628
 msgid "An unknown lane ('%') was tried to be set as incoming to junction '%'."
 msgstr ""
+"Se intentó establecer un carril desconocido ('%') como entrante al cruce '%'."
 
 #: src/netload/NLHandler.cpp:782
 msgid "Traffic light '%' has unknown type '%'."
@@ -9857,10 +9860,13 @@ msgid ""
 "Traffic light type '%' cannot be used in mesoscopic simulation. Using '%' as "
 "fallback."
 msgstr ""
+"El tipo de semáforo '%' no se puede utilizar en la simulación mesoscópica. "
+"Usando '%' como alternativa."
 
 #: src/netload/NLHandler.cpp:875
 msgid "maxDur % should not be smaller than minDir % in phase of tlLogic %"
 msgstr ""
+"maxDur % no debe ser menor que minDir % en la fase de la lógica semafórica %"
 
 #: src/netload/NLHandler.cpp:890
 msgid "Duplicate condition '%' in tlLogic '%'"
@@ -9868,13 +9874,15 @@ msgstr "Condición duplicada '%' en la lógica semafórica '%'"
 
 #: src/netload/NLHandler.cpp:943
 msgid "Invalid person mode '%' in E1 detector definition '%'"
-msgstr ""
+msgstr "Modo de persona no válido '%' en la definición del detector E1 '%'"
 
 #: src/netload/NLHandler.cpp:1002
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
 msgstr ""
+"VTypeProbes están en desuso. Utilice dispositivos de salida fcd (asignados "
+"al tipo de vehículo) en su lugar."
 
 #: src/netload/NLHandler.cpp:1062
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
@@ -9882,7 +9890,7 @@ msgstr "Ignorando el argumento obsoleto 'cont' para el detector E2 '%'"
 
 #: src/netload/NLHandler.cpp:1078
 msgid "Invalid person mode '%' in E2 detector definition '%'"
-msgstr ""
+msgstr "Modo de persona no válido '%' en la definición del detector E2 '%'"
 
 #: src/netload/NLHandler.cpp:1092
 msgid ""
@@ -9895,22 +9903,28 @@ msgid ""
 "Missing argument 'pos' for E2Detector '%'. Assuming detector start == lane "
 "start of lane '%'."
 msgstr ""
+"Falta el argumento 'pos' para el Detector E2 '%'. Suponiendo que el inicio "
+"del detector == inicio del carril '%'."
 
 #: src/netload/NLHandler.cpp:1137
 msgid ""
 "Missing argument 'endPos' for E2Detector '%'. Assuming detector end == lane "
 "end of lane '%'."
 msgstr ""
+"Falta el argumento 'endPos' para el Detector E2 '%'. Suponiendo que el final "
+"del detector == final del carril '%'."
 
 #: src/netload/NLHandler.cpp:1206
 #, c-format
 msgid ""
 "Ignoring argument 'period' for E2Detector '%' since argument 'tl' was given."
 msgstr ""
+"Ignorando el argumento 'period' para el Detector E2 '%', ya que se "
+"proporcionó el argumento 'tl'."
 
 #: src/netload/NLHandler.cpp:1264
 msgid "Invalid person mode '%' in E3 detector definition '%'"
-msgstr ""
+msgstr "Modo de persona no válido '%' en la definición del detector E3 '%'"
 
 #: src/netload/NLHandler.cpp:1343
 msgid "Invalid person mode '%' in edgeData definition '%'"
