@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @author  Yun-Pang Floetteroed
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A basic edge for routing applications
@@ -88,6 +89,7 @@ ROEdge::~ROEdge() {
         delete lane;
     }
     delete myReversedRoutingEdge;
+    delete myFlippedRoutingEdge;
     delete myRailwayRoutingEdge;
 }
 

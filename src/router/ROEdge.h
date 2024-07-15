@@ -18,6 +18,7 @@
 /// @author  Michael Behrisch
 /// @author  Melanie Knocke
 /// @author  Yun-Pang Floetteroed
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A basic edge for routing applications
@@ -42,6 +43,7 @@
 #include <utils/vehicle/SUMOVTypeParameter.h>
 #include "RONode.h"
 #include "ROVehicle.h"
+#include <utils/router/FlippedEdge.h>
 
 
 // ===========================================================================
@@ -542,6 +544,15 @@ public:
         return myReversedRoutingEdge;
     }
 
+    /// @brief Returns the flipped routing edge
+    // @note If not called before, the flipped routing edge is created
+    FlippedEdge<ROEdge, RONode, ROVehicle>* getFlippedRoutingEdge() const {
+        if (myFlippedRoutingEdge == nullptr) {
+            myFlippedRoutingEdge = new FlippedEdge<ROEdge, RONode, ROVehicle>(this);
+        }
+        return myFlippedRoutingEdge;
+    }
+
     RailEdge<ROEdge, ROVehicle>* getRailwayRoutingEdge() const {
         if (myRailwayRoutingEdge == nullptr) {
             myRailwayRoutingEdge = new RailEdge<ROEdge, ROVehicle>(this);
@@ -657,6 +668,8 @@ protected:
 
     /// @brief a reversed version for backward routing
     mutable ReversedEdge<ROEdge, ROVehicle>* myReversedRoutingEdge = nullptr;
+    /// @brief An extended version of the reversed edge for backward routing (used for the arc flag router)
+    mutable FlippedEdge<ROEdge, RONode, ROVehicle>* myFlippedRoutingEdge = nullptr;
     mutable RailEdge<ROEdge, ROVehicle>* myRailwayRoutingEdge = nullptr;
 
 #ifdef HAVE_FOX
