@@ -653,3 +653,33 @@ TEST_F(PositionVectorTest, test_method_isClockwiseOriented) {
     EXPECT_FALSE(vectorTriangleNegativeCoords->isClockwiseOriented());
     EXPECT_FALSE(vectorRectangleOriginAlignedCorners->isClockwiseOriented());
 }
+
+
+/* Test the method 'simplified'*/
+TEST_F(PositionVectorTest, test_method_simplified) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified();
+    EXPECT_EQ(3, result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified();
+    EXPECT_EQ(4, result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified();
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(3, result3.size());
+}
+
+
+/* Test the method 'simplified2'*/
+TEST_F(PositionVectorTest, test_method_simplified2) {
+    const PositionVector vec1(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result = vec1.simplified2(true);
+    EXPECT_EQ(2, result.size());
+    const PositionVector vec2(std::vector<Position> {Position(1, 2), Position(1, 2), Position(1, 2), Position(1, 2)});
+    const PositionVector result2 = vec2.simplified2(true);
+    EXPECT_EQ(2, result2.size());
+    const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
+    const PositionVector result3 = vec3.simplified();
+    // std::cout << result3 << std::endl;
+    EXPECT_EQ(3, result3.size());
+}

@@ -1703,6 +1703,74 @@ PositionVector::simplified() const {
 }
 
 
+const PositionVector
+PositionVector::simplified2(const bool closed, const double eps) const {
+    // this is a variation of the https://en.wikipedia.org/wiki/Visvalingam%E2%80%93Whyatt_algorithm
+    // which uses the distance instead of the area
+    // the benefits over the initial implementation are:
+    // 3D support, no degenerate results for a sequence of small distances, keeping the longest part of a line
+    // drawbacks: complexity of the code, speed
+    if (size() < 3) {
+        return *this;
+    }
+    auto calcScore = [&](const PositionVector & pv, int index) {
+        if (!closed && (index == 0 || index == (int)pv.size() - 1)) {
+            return eps + 1.;
+        }
+        const Position& p0 = pv.at(index);
+        const Position& p1 = pv.at((index - 1) % pv.size());
+        const Position& p2 = pv.at((index + 1) % pv.size());
+        const double distIK = p1.distanceTo(p2);
+        if (distIK < eps) {
+            // avoid division by 0 and degenerate cases due to very small baseline
+            return (p1.distanceTo(p0) + p2.distanceTo(p0)) / 2.;
+        }
+        // https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Vector_formulation
+        const Position dir = (p2 - p1) / distIK;
+        const double projectedLength = (p1 - p0).dotProduct(dir);
+        if (projectedLength <= 0.) {
+            return p1.distanceTo(p0);
+        }
+        if (projectedLength >= distIK) {
+            return p2.distanceTo(p0);
+        }
+        const Position distVector = (p1 - p0) - dir * projectedLength;
+        return distVector.length();
+    };
+    std::vector<double> scores;
+    double minScore = eps + 1.;
+    int minIndex = -1;
+    for (int i = 0; i < (int)size(); i++) {
+        scores.push_back(calcScore(*this, i));
+        if (scores.back() < minScore) {
+            minScore = scores.back();
+            minIndex = i;
+        }
+    }
+    if (minScore >= eps) {
+        return *this;
+    }
+    PositionVector result(*this);
+    while (minScore < eps) {
+        result.erase(result.begin() + minIndex);
+        if (result.size() < 3) {
+            break;
+        }
+        scores.erase(scores.begin() + minIndex);
+        scores[(minIndex - 1) % result.size()] = calcScore(result, (minIndex - 1) % result.size());
+        scores[minIndex] = calcScore(result, minIndex);
+        minScore = eps + 1.;
+        for (int i = 0; i < (int)size(); i++) {
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                minIndex = i;
+            }
+        }
+    }
+    return result;
+}
+
+
 PositionVector
 PositionVector::getOrthogonal(const Position& p, double extend, bool before, double length, double deg) const {
     PositionVector result;

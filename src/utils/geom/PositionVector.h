@@ -404,6 +404,8 @@ public:
 
     /// @brief return the same shape with intermediate colinear points removed
     PositionVector simplified() const;
+    // test implementation of an alternative check
+    const PositionVector simplified2(const bool closed, const double eps = NUMERICAL_EPS) const;
 
     /** @brief return orthogonal through p (extending this vector if necessary)
      * @param[in] p The point through which to draw the orthogonal
