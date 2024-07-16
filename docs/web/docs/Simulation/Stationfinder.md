@@ -13,6 +13,28 @@ charging stations in case they won't make it to their destinations otherwise. Op
 !!! note
     As of SUMO 1.21 the device implementation works only for vehicles with a battery device.
 
+## Configuration
+
+The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
+element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+
+| Parameter             | Type             | Range               | Default          | Description                                                                         |
+| --------------------- | ---------------- | ------------------- | ---------------- | ----------------------------------------------------------------------------------- |
+| rescueTime            | float (s)        | ≥0                  | 1800             | Time to wait for a rescue vehicle on the road side when the battery is empty        |
+| rescueAction          | enum             | {remove;tow;none}   | remove     | What to do with vehicles in rescue mode: `remove` remove immediately from the simulation, `tow` teleport to a charging station after waiting or do nothing using `none` |
+| reserveFactor         | float            | ≥1                  | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
+| emptyThreshold        | float            | [0;1]               | 0.05             | Battery percentage to go into rescue mode |
+| radius                | float (s)        | ≥0                  | 180              | Search radius in travel time seconds |
+| maxEuclideanDistance  | float (m)        |                     | -1               | Euclidean search radius in meters (negative values disable this restriction) |
+| repeat                | float (s)        | ≥0                  | 60               | When to trigger a new search if no station has been found |
+| maxChargePower        | float (W)        | ≥0                  | 100000           | The maximum charging speed of the vehicle battery |
+| chargeType            | enum             | {charging}          | charging         | Type of energy transfer (not used at the moment) |
+| waitForCharge         | float (s)        | ≥0                  | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
+| saturatedChargeLevel  | float            | [0;1]               | 0.8              | Target state of charge after which the vehicle stops charging |
+| needToChargeLevel     | float            | [0;1]               | 0.4              | State of charge the vehicle begins searching for charging stations |
+| replacePlannedStop    | float            | [0;inf[             | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
+| maxDistanceToReplacedStop | float        | ≥0                  | 300              | Distance in meters along the network from charging station to the next planned stop |
+
 ## Decision logic for charging
 
 This paragraph shall convey the major conditions used in the decision logic of the device. The device has to decide whether and where to reroute the
@@ -88,26 +110,4 @@ By default, the stationfinder device will add stops at charging stations without
 This can be modeled using the parameters `replacePlannedStop` and `maxDistanceToReplacedStop` and stops with defined departure times through the `until` attribute (see [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops_and_waypoints)):
 
 - `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.
-- `maxDistanceToReplacedStop` defines the acceptable distance in meters between the charging station and the stop modeling the activity location. If the distance is above this threshold, no stopping time will be transferred.
-
-## Configuration
-
-The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
-element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
-
-| Parameter             | Type             | Range               | Default          | Description                                                                         |
-| --------------------- | ---------------- | ------------------- | ---------------- | ----------------------------------------------------------------------------------- |
-| rescueTime            | float (s)        | ≥0                  | 1800             | Time to wait for a rescue vehicle on the road side when the battery is empty        |
-| rescueAction          | enum             | {remove;tow;none}   | remove     | What to do with vehicles in rescue mode: `remove` remove immediately from the simulation, `tow` teleport to a charging station after waiting or do nothing using `none` |
-| reserveFactor         | float            | ≥1                  | 1.1              | Scale battery need with this factor to account for unexpected traffic situations |
-| emptyThreshold        | float            | [0;1]               | 0.05             | Battery percentage to go into rescue mode |
-| radius                | float (s)        | ≥0                  | 180              | Search radius in travel time seconds |
-| maxEuclideanDistance  | float (m)        |                     | -1               | Euclidean search radius in meters (negative values disable this restriction) |
-| repeat                | float (s)        | ≥0                  | 60               | When to trigger a new search if no station has been found |
-| maxChargePower        | float (W)        | ≥0                  | 100000           | The maximum charging speed of the vehicle battery |
-| chargeType            | enum             | {charging}          | charging         | Type of energy transfer (not used at the moment) |
-| waitForCharge         | float (s)        | ≥0                  | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
-| saturatedChargeLevel  | float            | [0;1]               | 0.8              | Target state of charge after which the vehicle stops charging |
-| needToChargeLevel     | float            | [0;1]               | 0.4              | State of charge the vehicle begins searching for charging stations |
-| replacePlannedStop    | float            | [0;inf[             | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
-| maxDistanceToReplacedStop | float        | ≥0                  | 300              | Distance in meters along the network from charging station to the next planned stop |
+- `maxDistanceToReplacedStop` defines the acceptable distance in meters between the charging station and the stop modeling the activity location. If the distance is above this threshold, no stopping time will be transferred
