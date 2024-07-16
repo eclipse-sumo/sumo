@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_19_0+1644-497bdaaec19
+Eclipse SUMO netconvert Version v1_20_0+1244-c294783ee6e
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -162,6 +162,8 @@ Processing Options:
   --geometry.min-dist FLOAT            reduces too similar geometry points
   --geometry.max-angle FLOAT           Warn about edge geometries with an angle
                                         above DEGREES in successive segments
+  --geometry.max-angle.fix             Straighten edge geometries with an angle
+                                        above max-angle successive segments
   --geometry.min-radius FLOAT          Warn about edge geometries with a
                                         turning radius less than METERS at the
                                         start or end

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO netconvert Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-07-16 18:20:51 by Eclipse SUMO netconvert Version v1_20_0+1244-c294783ee6e
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -266,6 +266,9 @@
 
         <!-- Warn about edge geometries with an angle above DEGREES in successive segments -->
         <geometry.max-angle value="99" type="FLOAT"/>
+
+        <!-- Straighten edge geometries with an angle above max-angle successive segments -->
+        <geometry.max-angle.fix value="false" type="BOOL"/>
 
         <!-- Warn about edge geometries with a turning radius less than METERS at the start or end -->
         <geometry.min-radius value="9" type="FLOAT"/>
