@@ -18,3 +18,6 @@ charging
 
 # Two vehicles with different target function weights
 targetFunction
+
+# Two vehicles which replace parts of a regular stop with a charging stop
+replaceStop
