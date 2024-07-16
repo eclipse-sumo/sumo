@@ -69,6 +69,16 @@ MSPModel_JuPedSim::MSPModel_JuPedSim(const OptionsCont& oc, MSNet* net) :
     myNetwork(net), myShapeContainer(net->getShapeContainer()), myJPSDeltaT(string2time(oc.getString("pedestrian.jupedsim.step-length"))),
     myExitTolerance(oc.getFloat("pedestrian.jupedsim.exit-tolerance")), myGEOSPedestrianNetworkLargestComponent(nullptr),
     myHaveAdditionalWalkableAreas(false) {
+    std::string model = oc.getString("pedestrian.jupedsim.model");
+    if (model == "CollisionFreeSpeed") {
+        myJPSModel = JPS_Model::CollisionFreeSpeed;
+    } else if (model == "CollisionFreeSpeedV2") {
+        myJPSModel = JPS_Model::CollisionFreeSpeedV2;
+    } else if (model == "GeneralizedCentrifugalForce") {
+        myJPSModel = JPS_Model::GeneralizedCentrifugalForce;
+    } else if (model == "SocialForce") {
+        myJPSModel = JPS_Model::SocialForce;
+    }
     initialize(oc);
     net->getBeginOfTimestepEvents()->addEvent(new Event(this), net->getCurrentTimeStep() + DELTA_T);
 }
@@ -81,7 +91,7 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
     }
 
     JPS_Simulation_Free(myJPSSimulation);
-    JPS_OperationalModel_Free(myJPSModel);
+    JPS_OperationalModel_Free(myJPSOperationalModel);
     JPS_Geometry_Free(myJPSGeometry);
     if (myJPSGeometryWithTrainsAndRamps != nullptr) {
         JPS_Geometry_Free(myJPSGeometryWithTrainsAndRamps);
@@ -94,29 +104,64 @@ MSPModel_JuPedSim::~MSPModel_JuPedSim() {
 
 void
 MSPModel_JuPedSim::tryPedestrianInsertion(PState* state, const Position& p) {
-    JPS_CollisionFreeSpeedModelAgentParameters agent_parameters{};
-    agent_parameters.journeyId = state->getJourneyId();
-    agent_parameters.stageId = state->getStageId();
-    agent_parameters.position = {p.x(), p.y()};
-    /*
+    const MSVehicleType& type = state->getPerson()->getVehicleType();
+
     const double angle = state->getAngle(*state->getStage(), 0);
     JPS_Point orientation;
     if (fabs(angle - M_PI / 2) < NUMERICAL_EPS) {
         orientation = JPS_Point{0., 1.};
-    }
-    else if (fabs(angle + M_PI / 2) < NUMERICAL_EPS) {
+    } else if (fabs(angle + M_PI / 2) < NUMERICAL_EPS) {
         orientation = JPS_Point{0., -1.};
-    }
-    else {
+    } else {
         orientation = JPS_Point{1., tan(angle)};
     }
-    agent_parameters.orientation = orientation;
-    */
-    const MSVehicleType& type = state->getPerson()->getVehicleType();
-    agent_parameters.radius = getRadius(type);
-    agent_parameters.v0 = state->getPerson()->getMaxSpeed();
+
+    JPS_AgentId agentId = 0;
     JPS_ErrorMessage message = nullptr;
-    JPS_AgentId agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agent_parameters, &message);
+
+    switch (myJPSModel) {
+        case JPS_Model::CollisionFreeSpeed: {
+            JPS_CollisionFreeSpeedModelAgentParameters agentParameters{};
+            agentParameters.position = {p.x(), p.y()};
+            agentParameters.journeyId = state->getJourneyId();
+            agentParameters.stageId = state->getStageId();
+            agentParameters.v0 = state->getPerson()->getMaxSpeed();
+            agentParameters.radius = getRadius(type);
+            agentId = JPS_Simulation_AddCollisionFreeSpeedModelAgent(myJPSSimulation, agentParameters, &message);
+            break;
+        }
+        case JPS_Model::CollisionFreeSpeedV2: {
+            JPS_CollisionFreeSpeedModelV2AgentParameters agentParameters{};
+            agentParameters.position = {p.x(), p.y()};
+            agentParameters.journeyId = state->getJourneyId();
+            agentParameters.stageId = state->getStageId();
+            agentParameters.v0 = state->getPerson()->getMaxSpeed();
+            agentParameters.radius = getRadius(type);
+            agentId = JPS_Simulation_AddCollisionFreeSpeedModelV2Agent(myJPSSimulation, agentParameters, &message);
+            break;
+        }
+        case JPS_Model::GeneralizedCentrifugalForce: {
+            JPS_GeneralizedCentrifugalForceModelAgentParameters agentParameters{};
+            agentParameters.position = {p.x(), p.y()};
+            agentParameters.orientation = orientation;
+            agentParameters.journeyId = state->getJourneyId();
+            agentParameters.stageId = state->getStageId();
+            agentParameters.v0 = state->getPerson()->getMaxSpeed();
+            agentId = JPS_Simulation_AddGeneralizedCentrifugalForceModelAgent(myJPSSimulation, agentParameters, &message);
+            break;
+        }
+        case JPS_Model::SocialForce: {
+            JPS_SocialForceModelAgentParameters agentParameters{};
+            agentParameters.position = {p.x(), p.y()};
+            agentParameters.orientation = orientation;
+            agentParameters.journeyId = state->getJourneyId();
+            agentParameters.stageId = state->getStageId();
+            agentParameters.desiredSpeed = state->getPerson()->getMaxSpeed();
+            agentParameters.radius = getRadius(type);
+            agentId = JPS_Simulation_AddSocialForceModelAgent(myJPSSimulation, agentParameters, &message);
+            break;
+        }
+    }
     if (message != nullptr) {
         WRITE_WARNINGF(TL("Error while adding person '%' as JuPedSim agent: %"), state->getPerson()->getID(), JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
@@ -319,7 +364,8 @@ MSPModel_JuPedSim::add(MSTransportable* person, MSStageMoving* stage, SUMOTime n
         state->reinit(stage, journeyId, startingStage, waypoints);
     }
     if (state->isWaitingToEnter()) {
-        tryPedestrianInsertion(state, state->getPosition(*state->getStage(), now));
+        const Position p = state->getPosition(*state->getStage(), now);
+        tryPedestrianInsertion(state, p);
         if (myPythonScript != nullptr) {
             (*myPythonScript) << "journey_id = simulation.add_journey(journey)\n"
                               "simulation.add_agent(jps.CollisionFreeSpeedModelAgentParameters(journey_id=journey_id,stage_id="
@@ -431,10 +477,36 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             assert(!arrived); // The person has not arrived yet.
             stage->activateEntryReminders(person);
             // Adapt speed to lane's speed limit.
-            JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
             const double newMaxSpeed = MIN2(candidateLane->getSpeedLimit(), person->getMaxSpeed());
-            if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-                JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+            switch (myJPSModel) {
+                case JPS_Model::CollisionFreeSpeed: {
+                    JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+                        JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+                    }
+                    break;
+                }
+                case JPS_Model::CollisionFreeSpeedV2: {
+                    JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
+                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
+                        JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
+                    }
+                    break;
+                }
+                case JPS_Model::GeneralizedCentrifugalForce: {
+                    JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
+                    if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
+                        JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
+                    }
+                    break;
+                }
+                case JPS_Model::SocialForce: {
+                    JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
+                    if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
+                        JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
+                    }
+                    break;
+                }
             }
         }
         const double speed = person->getSpeed();
@@ -511,10 +583,36 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             for (JPS_AgentId agentID = JPS_AgentIdIterator_Next(agentsInArea); agentID != 0; agentID = JPS_AgentIdIterator_Next(agentsInArea)) {
                 if (area.params.count("speed") > 0) {
                     const JPS_Agent agent = JPS_Simulation_GetAgent(myJPSSimulation, agentID, nullptr);
-                    JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
                     const double newMaxSpeed = StringUtils::toDouble(area.params.at("speed"));
-                    if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
-                        JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+                    switch (myJPSModel) {
+                        case JPS_Model::CollisionFreeSpeed: {
+                            JPS_CollisionFreeSpeedModelState modelState = JPS_Agent_GetCollisionFreeSpeedModelState(agent, nullptr);
+                            if (newMaxSpeed != JPS_CollisionFreeSpeedModelState_GetV0(modelState)) {
+                                JPS_CollisionFreeSpeedModelState_SetV0(modelState, newMaxSpeed);
+                            }
+                            break;
+                        }
+                        case JPS_Model::CollisionFreeSpeedV2: {
+                            JPS_CollisionFreeSpeedModelV2State modelState = JPS_Agent_GetCollisionFreeSpeedModelV2State(agent, nullptr);
+                            if (newMaxSpeed != JPS_CollisionFreeSpeedModelV2State_GetV0(modelState)) {
+                                JPS_CollisionFreeSpeedModelV2State_SetV0(modelState, newMaxSpeed);
+                            }
+                            break;
+                        }
+                        case JPS_Model::GeneralizedCentrifugalForce: {
+                            JPS_GeneralizedCentrifugalForceModelState modelState = JPS_Agent_GetGeneralizedCentrifugalForceModelState(agent, nullptr);
+                            if (newMaxSpeed != JPS_GeneralizedCentrifugalForceModelState_GetV0(modelState)) {
+                                JPS_GeneralizedCentrifugalForceModelState_SetV0(modelState, newMaxSpeed);
+                            }
+                            break;
+                        }
+                        case JPS_Model::SocialForce: {
+                            JPS_SocialForceModelState modelState = JPS_Agent_GetSocialForceModelState(agent, nullptr);
+                            if (newMaxSpeed != JPS_SocialForceModelState_GetDesiredSpeed(modelState)) {
+                                JPS_SocialForceModelState_SetDesiredSpeed(modelState, newMaxSpeed);
+                            }
+                            break;
+                        }
                     }
                 }
             }
@@ -1087,22 +1185,52 @@ MSPModel_JuPedSim::initialize(const OptionsCont& oc) {
             rangeGeometryRepulsion = 0.019;
         }
     }
-    if (oc.getString("pedestrian.jupedsim.model") == "CollisionFreeSpeed") {
-        JPS_CollisionFreeSpeedModelBuilder modelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"),
-                oc.getFloat("pedestrian.jupedsim.range-neighbor-repulsion"),
-                strengthGeometryRepulsion, rangeGeometryRepulsion);
-        myJPSModel = JPS_CollisionFreeSpeedModelBuilder_Build(modelBuilder, &message);
-        JPS_CollisionFreeSpeedModelBuilder_Free(modelBuilder);
-    } else {
-        throw ProcessError(TLF("Unknown JuPedSim model: %", oc.getString("pedestrian.jupedsim.model")));
+
+    switch (myJPSModel) {
+        case JPS_Model::CollisionFreeSpeed: {
+            JPS_CollisionFreeSpeedModelBuilder modelBuilder = JPS_CollisionFreeSpeedModelBuilder_Create(
+                        oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"),
+                        oc.getFloat("pedestrian.jupedsim.range-neighbor-repulsion"),
+                        strengthGeometryRepulsion,
+                        rangeGeometryRepulsion);
+            myJPSOperationalModel = JPS_CollisionFreeSpeedModelBuilder_Build(modelBuilder, &message);
+            JPS_CollisionFreeSpeedModelBuilder_Free(modelBuilder);
+            break;
+        }
+        case JPS_Model::CollisionFreeSpeedV2: {
+            JPS_CollisionFreeSpeedModelV2Builder modelBuilder = JPS_CollisionFreeSpeedModelV2Builder_Create();
+            myJPSOperationalModel = JPS_CollisionFreeSpeedModelV2Builder_Build(modelBuilder, &message);
+            JPS_CollisionFreeSpeedModelV2Builder_Free(modelBuilder);
+            break;
+        }
+        case JPS_Model::GeneralizedCentrifugalForce: {
+            JPS_GeneralizedCentrifugalForceModelBuilder modelBuilder = JPS_GeneralizedCentrifugalForceModelBuilder_Create(
+                        oc.getFloat("pedestrian.jupedsim.strength-neighbor-repulsion"),
+                        strengthGeometryRepulsion,
+                        2.0,
+                        2.0,
+                        0.1,
+                        0.1,
+                        9.0,
+                        3.0);
+            myJPSOperationalModel = JPS_GeneralizedCentrifugalForceModelBuilder_Build(modelBuilder, &message);
+            JPS_GeneralizedCentrifugalForceModelBuilder_Free(modelBuilder);
+            break;
+        }
+        case JPS_Model::SocialForce: {
+            JPS_SocialForceModelBuilder modelBuilder = JPS_SocialForceModelBuilder_Create(120000.0, 240000.0);
+            myJPSOperationalModel = JPS_SocialForceModelBuilder_Build(modelBuilder, &message);
+            JPS_SocialForceModelBuilder_Free(modelBuilder);
+            break;
+        }
     }
 
-    if (myJPSModel == nullptr) {
+    if (myJPSOperationalModel == nullptr) {
         const std::string error = TLF("Error creating the pedestrian model: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
         throw ProcessError(error);
     }
-    myJPSSimulation = JPS_Simulation_Create(myJPSModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
+    myJPSSimulation = JPS_Simulation_Create(myJPSOperationalModel, myJPSGeometry, STEPS2TIME(myJPSDeltaT), &message);
     if (myJPSSimulation == nullptr) {
         const std::string error = TLF("Error creating the simulation: %", JPS_ErrorMessage_GetMessage(message));
         JPS_ErrorMessage_Free(message);
