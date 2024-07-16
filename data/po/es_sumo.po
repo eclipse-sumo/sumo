@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-16 07:53+0000\n"
+"PO-Revision-Date: 2024-07-16 10:32+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -11222,7 +11222,7 @@ msgstr "Cargar parámetros de emisión (tipos de vehículos) desde FILE(s)"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:88
 msgid "Defines for which emission class the emissions shall be generated. "
-msgstr ""
+msgstr "Define para qué clases de emisiones se deberán generar las emisiones. "
 
 #: src/tools/emissionsDrivingCycle_main.cpp:91
 msgid "Defines the vehicle type to use for emission parameters."
@@ -11269,6 +11269,8 @@ msgid ""
 "Sets a global slope (in deg) that is used if the file does not contain slope "
 "information."
 msgstr ""
+"Establecer una pendiente global (en grados) que se utilizará si el archivo "
+"no contiene información de pendientes."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:118
 msgid "Defines the file to write the emission cycle results into."
@@ -11286,6 +11288,7 @@ msgstr "Guardar los valores de emisiones de cada vehículo en XML"
 #: src/tools/emissionsDrivingCycle_main.cpp:128
 msgid "Save the aggregated and normed emission values of each vehicle in CSV"
 msgstr ""
+"Guardar los valores de emisiones agregados y normados de cada vehículo en CSV"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:144
 msgid "Defines the begin time in seconds;"
@@ -11369,11 +11372,11 @@ msgstr ""
 
 #: src/tools/emissionsMap_main.cpp:95
 msgid "Defines the minimum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "Define el límite de velocidad mínima del mapa a generar (en m/s)."
 
 #: src/tools/emissionsMap_main.cpp:97
 msgid "Defines the maximum velocity boundary of the map to generate (in m/s)."
-msgstr ""
+msgstr "Define el límite de velocidad máxima del mapa a generar (en m/s)."
 
 #: src/tools/emissionsMap_main.cpp:99
 msgid "Defines the velocity step size (in m/s)."
@@ -11382,12 +11385,12 @@ msgstr "Define el tamaño del paso de velocidad (en m/s)."
 #: src/tools/emissionsMap_main.cpp:101
 msgid ""
 "Defines the minimum acceleration boundary of the map to generate (in m/s^2)."
-msgstr ""
+msgstr "Define el límite de aceleración mínima del mapa a generar (en m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:103
 msgid ""
 "Defines the maximum acceleration boundary of the map to generate (in m/s^2)."
-msgstr ""
+msgstr "Define el límite de aceleración máxima del mapa a generar (en m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:105
 msgid "Defines the acceleration step size (in m/s^2)."
@@ -11395,11 +11398,11 @@ msgstr "Define el tamaño del paso de aceleración (en m/s^2)."
 
 #: src/tools/emissionsMap_main.cpp:107
 msgid "Defines the minimum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "Define el límite de pendiente mínima del mapa a generar (en grados)."
 
 #: src/tools/emissionsMap_main.cpp:109
 msgid "Defines the maximum slope boundary of the map to generate (in deg)."
-msgstr ""
+msgstr "Define el límite de pendiente máxima del mapa a generar (en grados)."
 
 #: src/tools/emissionsMap_main.cpp:111
 msgid "Defines the slope step size (in deg)."
@@ -11409,14 +11412,16 @@ msgstr "Define el tamaño del paso de pendiente (en grados)."
 msgid ""
 "Defines the file (or the path if --iterate was set) to write the map(s) into."
 msgstr ""
+"Define el archivo (o la ruta si se configuró --iterate) en el que escribir "
+"los mapas."
 
 #: src/tools/emissionsMap_main.cpp:156
 msgid "The emission class (-e) must be given."
-msgstr ""
+msgstr "Debe indicarse la clase de emisión (-e)."
 
 #: src/tools/emissionsMap_main.cpp:159
 msgid "The output file (-o) must be given."
-msgstr ""
+msgstr "Debe indicarse el archivo de salida (-o)."
 
 #: src/traci-server/TraCIServer.cpp:314
 msgid "Starting TraCI without using internal lanes!"
@@ -11473,6 +11478,8 @@ msgstr ""
 #: src/utils/common/MapMatcher.h:59
 msgid "Cannot convert geo-positions because the network has no geo-reference"
 msgstr ""
+"No se pueden convertir posiciones geográficas porque la red no tiene "
+"referencia geográfica"
 
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
@@ -11551,10 +11558,12 @@ msgstr "Inicializar el generador de números aleatorios con el valor dado"
 #: src/utils/common/SUMOVehicleClass.cpp:199
 msgid "Simultaneous specification of vClasses and exceptions is not allowed"
 msgstr ""
+"No se permite la especificación simultánea de clases vehiculares y "
+"excepciones"
 
 #: src/utils/common/SUMOVehicleClass.cpp:203
 msgid "StopOffset requires an offset value"
-msgstr ""
+msgstr "StopOffset requiere un valor de desplazamiento"
 
 #: src/utils/common/SUMOVehicleClass.cpp:354
 #, c-format
@@ -11571,6 +11580,8 @@ msgid ""
 "SVCPermissions must be specified either via 'allow' or 'disallow'. Ignoring "
 "'disallow'"
 msgstr ""
+"Los permisos SVCPermissions se deben especificar mediante 'allow' o "
+"'disallow'. Ignorando 'disallow'"
 
 #: src/utils/common/SUMOVehicleClass.cpp:438
 #, c-format
@@ -11623,7 +11634,7 @@ msgstr "Desactivar las advertencias"
 
 #: src/utils/common/SystemFrame.cpp:100
 msgid "Aggregate warnings of the same type whenever more than INT occur"
-msgstr ""
+msgstr "Agregar advertencias del mismo tipo cada vez que aparezcan más de INT"
 
 #: src/utils/common/SystemFrame.cpp:104
 msgid "Writes all messages to FILE (implies verbose)"
@@ -11813,7 +11824,7 @@ msgstr "Escriba aquí para buscar"
 
 #: src/utils/geom/GeoConvHelper.cpp:87
 msgid "Ignoring geoidgrids and vgridshift in projection"
-msgstr ""
+msgstr "Ignorando geoidgrids y vgridshift en la proyección"
 
 #: src/utils/geom/GeoConvHelper.cpp:232
 msgid "Inverse projection works only with explicit proj parameters."
@@ -11912,6 +11923,8 @@ msgid ""
 "CalibratorFlows need either the attribute vehsPerHour or speed or type (or "
 "any combination of these)"
 msgstr ""
+"CalibratorFlows necesita alguno de los atributos vehsPerHour, speed o type ("
+"o cualquier combinación de estos)"
 
 #: src/utils/handlers/AdditionalHandler.cpp:1497
 #: src/utils/handlers/AdditionalHandler.cpp:1523
@@ -11990,11 +12003,12 @@ msgstr ""
 msgid ""
 "a route must be defined either within a vehicle/flow or with an ID attribute"
 msgstr ""
+"una ruta debe definirse dentro de un vehículo/flujo o con un atributo de ID"
 
 #: src/utils/handlers/RouteHandler.cpp:489
 #, c-format
 msgid "cycleTime of % must be equal or greater than 0"
-msgstr ""
+msgstr "el cycleTime de % debe ser igual o mayor que 0"
 
 #: src/utils/handlers/RouteHandler.cpp:542
 #: src/utils/handlers/RouteHandler.cpp:622
@@ -12015,7 +12029,7 @@ msgstr ""
 
 #: src/utils/handlers/RouteHandler.cpp:965
 msgid "Parameters must be defined within an object"
-msgstr ""
+msgstr "Los parámetros deben definirse dentro de un objeto"
 
 #: src/utils/handlers/RouteHandler.cpp:977
 #, c-format
@@ -12034,6 +12048,8 @@ msgid ""
 "Defining car-following parameters in a nested element is deprecated in vType "
 "'%', use attributes instead!"
 msgstr ""
+"La definición de parámetros de seguimiento vehicular en un elemento anidado "
+"está obsoleta en el tipo de vehículo '%', ¡use atributos en su lugar!"
 
 #: src/utils/handlers/RouteHandler.cpp:1003
 #: src/utils/handlers/RouteHandler.cpp:1005
@@ -12045,6 +12061,7 @@ msgstr "Análisis no válido del tipo de vehículo incrustado"
 #: src/utils/handlers/RouteHandler.cpp:1089
 msgid "A stop must be defined either with an edge or with an lane, not both"
 msgstr ""
+"Una parada debe definirse ya sea con una arista o con un carril, no con ambos"
 
 #: src/utils/handlers/RouteHandler.cpp:1105
 msgid "A stop must be defined only in a StoppingPlace"
@@ -12053,6 +12070,7 @@ msgstr ""
 #: src/utils/handlers/RouteHandler.cpp:1108
 msgid "A stop must be defined in an edge, a lane, or in a StoppingPlace"
 msgstr ""
+"Una parada debe definirse en una arista, un carril o en un StoppingPlace"
 
 #: src/utils/handlers/TemplateHandler.cpp:67
 msgid "Could not load template '%'."
@@ -12064,7 +12082,7 @@ msgstr "No se proporcionó un número de puerto."
 
 #: src/utils/iodevices/OutputDevice.cpp:163
 msgid "Error on closing output devices."
-msgstr ""
+msgstr "Error al cerrar los dispositivos de salida."
 
 #: src/utils/iodevices/OutputDevice_File.cpp:46
 msgid "Could not redirect to NUL device (%)."
@@ -12073,23 +12091,25 @@ msgstr ""
 #: src/utils/options/Option.cpp:352
 #, c-format
 msgid "'%' is not a valid float."
-msgstr ""
+msgstr "'%' no es un float válido."
 
 #: src/utils/options/Option.cpp:386
 #, c-format
 msgid "'%' is not a valid bool."
-msgstr ""
+msgstr "'%' no es un booleano válido."
 
 #: src/utils/options/Option.cpp:446
 msgid ""
 "Please note that using ';' as list separator is deprecated and not accepted "
 "anymore."
 msgstr ""
+"Tenga en cuenta que el uso de ';' como separador de listas está en desuso y "
+"ya no se acepta."
 
 #: src/utils/options/Option.cpp:456
 #, c-format
 msgid "'%' is not a valid integer vector."
-msgstr ""
+msgstr "'%' no es un vector entero válido."
 
 #: src/utils/options/OptionsCont.cpp:66
 msgid ""
@@ -12106,7 +12126,7 @@ msgstr ""
 #: src/utils/options/OptionsCont.cpp:175
 #, c-format
 msgid "No option with the name '%' exists."
-msgstr ""
+msgstr "No existe ninguna opción con el nombre '%'."
 
 #: src/utils/options/OptionsCont.cpp:192
 #, c-format
@@ -12114,15 +12134,17 @@ msgid ""
 "Please note that '%' is deprecated.\n"
 " Use '%' instead."
 msgstr ""
+"Tenga en cuenta que '%' está en desuso.\n"
+" Utilice '%' en su lugar."
 
 #: src/utils/options/OptionsCont.cpp:388
 #, c-format
 msgid "The file list for '%' is empty."
-msgstr ""
+msgstr "La lista de archivos para '%' está vacía."
 
 #: src/utils/options/OptionsCont.cpp:394
 msgid "File '%' is not accessible (%)."
-msgstr ""
+msgstr "El archivo '%' no es accesible (%)."
 
 #: src/utils/options/OptionsCont.cpp:397
 msgid "Empty file name given; ignoring."
@@ -12149,10 +12171,12 @@ msgid ""
 " License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
 "legal/epl-v20.html>"
 msgstr ""
+" Licencia EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/"
+"legal/epl-v20.html>"
 
 #: src/utils/options/OptionsCont.cpp:626
 msgid " Use --help to get the list of options."
-msgstr ""
+msgstr " Utilice --help para obtener la lista de opciones."
 
 #: src/utils/options/OptionsCont.cpp:673
 msgid "Could not save configuration to '%'"
