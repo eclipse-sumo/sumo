@@ -345,7 +345,7 @@ public:
      * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      * @see NBEdge::checkGeometry
      */
-    void checkGeometries(const double maxAngle, const double minRadius, bool fix, bool fixRailways, bool silent = false);
+    void checkGeometries(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool fixRailways, bool silent = false);
     /// @}
 
     /// @name processing methods

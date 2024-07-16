@@ -819,13 +819,13 @@ NBEdgeCont::reduceGeometries(const double minDist) {
 
 
 void
-NBEdgeCont::checkGeometries(const double maxAngle, const double minRadius, bool fix, bool fixRailways, bool silent) {
+NBEdgeCont::checkGeometries(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool fixRailways, bool silent) {
     if (maxAngle > 0 || minRadius > 0) {
         for (auto& item : myEdges) {
             if (isSidewalk(item.second->getPermissions()) || isForbidden(item.second->getPermissions())) {
                 continue;
             }
-            item.second->checkGeometry(maxAngle, minRadius, fix || (fixRailways && isRailway(item.second->getPermissions())), silent);
+            item.second->checkGeometry(maxAngle, fixAngle, minRadius, fix || (fixRailways && isRailway(item.second->getPermissions())), silent);
         }
     }
 }

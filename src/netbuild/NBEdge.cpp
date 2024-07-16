@@ -1015,7 +1015,7 @@ NBEdge::reduceGeometry(const double minDist) {
 
 
 void
-NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, bool silent) {
+NBEdge::checkGeometry(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool silent) {
     if (myGeom.size() < 3) {
         return;
     }
@@ -1027,11 +1027,23 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
         //std::cout << " " << angles.back();
     }
     //std::cout << "\n  relative angles: ";
+    NBEdge* bidi = const_cast<NBEdge*>(getBidiEdge());
     for (int i = 0; i < (int)angles.size() - 1; ++i) {
         const double relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
         if (maxAngle > 0 && relAngle > maxAngle && !silent) {
-            WRITE_WARNINGF(TL("Found angle of % degrees at edge '%', segment %."), RAD2DEG(relAngle), getID(), i);
+            if (fixAngle) {
+                WRITE_MESSAGEF(TL("Removing sharp angle of % degrees at edge '%', segment %."),
+                        toString(relAngle), getID(), i);
+                myGeom.erase(myGeom.begin() + i + 1);
+                if (bidi != nullptr) {
+                    bidi->myGeom = myGeom.reverse();
+                }
+                checkGeometry(maxAngle, fixAngle, minRadius, fix, silent);
+                return;
+            } else if (!silent) {
+                WRITE_WARNINGF(TL("Found angle of % degrees at edge '%', segment %."), RAD2DEG(relAngle), getID(), i);
+            }
         }
         if (relAngle < DEG2RAD(1)) {
             continue;
@@ -1046,7 +1058,10 @@ NBEdge::checkGeometry(const double maxAngle, const double minRadius, bool fix, b
                     WRITE_MESSAGEF(TL("Removing sharp turn with radius % at the % of edge '%'."),
                                    toString(r), start ? TL("start") : TL("end"), getID());
                     myGeom.erase(myGeom.begin() + (start ? 1 : i + 1));
-                    checkGeometry(maxAngle, minRadius, fix, silent);
+                    if (bidi != nullptr) {
+                        bidi->myGeom = myGeom.reverse();
+                    }
+                    checkGeometry(maxAngle, fixAngle, minRadius, fix, silent);
                     return;
                 } else if (!silent) {
                     WRITE_WARNINGF(TL("Found sharp turn with radius % at the % of edge '%'."),

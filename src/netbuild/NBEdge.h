@@ -875,7 +875,7 @@ public:
      * @param[in] minRadius The minimum turning radius allowed at the start and end
      * @param[in] fix Whether to prune geometry points to avoid sharp turns at start and end
      */
-    void checkGeometry(const double maxAngle, const double minRadius, bool fix, bool silent);
+    void checkGeometry(const double maxAngle, bool fixAngle, const double minRadius, bool fix, bool silent);
     //@}
 
     /// @name Setting and getting connections

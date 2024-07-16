@@ -198,6 +198,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("geometry.max-angle", new Option_Float(99));
         oc.addDescription("geometry.max-angle", "Processing", TL("Warn about edge geometries with an angle above DEGREES in successive segments"));
 
+        oc.doRegister("geometry.max-angle.fix", new Option_Bool(false));
+        oc.addDescription("geometry.max-angle.fix", "Processing", TL("Straighten edge geometries with an angle above max-angle successive segments"));
+
         oc.doRegister("geometry.min-radius", new Option_Float(9));
         oc.addDescription("geometry.min-radius", "Processing", TL("Warn about edge geometries with a turning radius less than METERS at the start or end"));
 

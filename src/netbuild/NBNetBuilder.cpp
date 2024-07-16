@@ -178,7 +178,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         numAddedBidi = NBRailwayTopologyAnalyzer::makeAllBidi(myEdgeCont);
     } else if (oc.exists("railway.topology.repair") && oc.getBool("railway.topology.repair")) {
         // correct railway angles for angle-based connectivity heuristic
-        myEdgeCont.checkGeometries(0,
+        myEdgeCont.checkGeometries(0, false,
                                    oc.getFloat("geometry.min-radius"), false,
                                    oc.getBool("geometry.min-radius.fix.railways"), true);
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false);
@@ -410,6 +410,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (oc.exists("geometry.max-angle")) {
         myEdgeCont.checkGeometries(
             DEG2RAD(oc.getFloat("geometry.max-angle")),
+            oc.getBool("geometry.max-angle.fix"),
             oc.getFloat("geometry.min-radius"),
             oc.getBool("geometry.min-radius.fix"),
             oc.getBool("geometry.min-radius.fix.railways"));
