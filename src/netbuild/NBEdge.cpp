@@ -1031,7 +1031,7 @@ NBEdge::checkGeometry(const double maxAngle, bool fixAngle, const double minRadi
     for (int i = 0; i < (int)angles.size() - 1; ++i) {
         const double relAngle = fabs(GeomHelper::angleDiff(angles[i], angles[i + 1]));
         //std::cout << relAngle << " ";
-        if (maxAngle > 0 && relAngle > maxAngle && !silent) {
+        if (maxAngle > 0 && relAngle > maxAngle) {
             if (fixAngle) {
                 WRITE_MESSAGEF(TL("Removing sharp angle of % degrees at edge '%', segment %."),
                         toString(relAngle), getID(), i);
