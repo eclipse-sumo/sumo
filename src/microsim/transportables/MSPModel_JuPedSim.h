@@ -63,13 +63,20 @@ public:
     class Event : public Command {
     public:
         explicit Event(MSPModel_JuPedSim* model)
-            : myJPSModel(model) { }
+            : myModel(model) { }
         SUMOTime execute(SUMOTime currentTime) override {
-            return myJPSModel->execute(currentTime);
+            return myModel->execute(currentTime);
         }
 
     private:
-        MSPModel_JuPedSim* myJPSModel;
+        MSPModel_JuPedSim* myModel;
+    };
+
+    enum class JPS_Model {
+        CollisionFreeSpeed,
+        CollisionFreeSpeedV2,
+        GeneralizedCentrifugalForce,
+        SocialForce
     };
 
     typedef std::tuple<JPS_StageId, Position, double> WaypointDesc;
@@ -172,7 +179,8 @@ private:
 
     /// @brief The JPS polygon representing the largest connected component plus carriages and ramps.
     JPS_Geometry myJPSGeometryWithTrainsAndRamps;
-    JPS_OperationalModel myJPSModel;
+    JPS_Model myJPSModel;
+    JPS_OperationalModel myJPSOperationalModel;
     JPS_Simulation myJPSSimulation;
     OutputDevice* myPythonScript = nullptr;
 

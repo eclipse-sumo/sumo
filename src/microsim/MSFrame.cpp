@@ -567,7 +567,7 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.jupedsim.exit-tolerance", new Option_Float(1.));
     oc.addDescription("pedestrian.jupedsim.exit-tolerance", "Processing", TL("The distance to accept the JuPedSim arrival point (in meters)"));
     oc.doRegister("pedestrian.jupedsim.model", new Option_String("CollisionFreeSpeed"));
-    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim (currently only 'CollisionFreeSpeed')"));
+    oc.addDescription("pedestrian.jupedsim.model", "Processing", TL("The submodel to use in JuPedSim ('CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"));
     oc.doRegister("pedestrian.jupedsim.strength-neighbor-repulsion", new Option_Float(8.));
     oc.addDescription("pedestrian.jupedsim.strength-neighbor-repulsion", "Processing", TL("The neighbor repulsion strength of the JuPedSim model"));
     oc.doRegister("pedestrian.jupedsim.range-neighbor-repulsion", new Option_Float(.1));
@@ -914,7 +914,7 @@ MSFrame::checkOptions() {
         }
     }
     if (string2time(oc.getString("step-length")) <= 0) {
-        WRITE_ERROR(TL("the minimum step-length is 0.001"));
+        WRITE_ERROR(TL("the minimum step-length is 0.001."));
         ok = false;
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
@@ -953,7 +953,7 @@ MSFrame::checkOptions() {
         ok = false;
     }
     if (oc.getBool("mesosim") && (oc.getFloat("lateral-resolution") > 0 || string2time(oc.getString("lanechange.duration")) > 0)) {
-        WRITE_ERROR(TL("Sublane dynamics are not supported by mesoscopic simulation"));
+        WRITE_ERROR(TL("Sublane dynamics are not supported by mesoscopic simulation."));
         ok = false;
     }
     if (oc.getBool("ignore-accidents")) {
@@ -1001,7 +1001,7 @@ MSFrame::checkOptions() {
             try {
                 StringUtils::toDouble(val);
             } catch (NumberFormatException&) {
-                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'"), val);
+                WRITE_ERRORF(TL("Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or 'default' or 'decel'."), val);
                 ok = false;
             }
         }
@@ -1029,7 +1029,7 @@ MSFrame::checkOptions() {
         ok = false;
     }
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
-        WRITE_WARNING(TL("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results"));
+        WRITE_WARNING(TL("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results."));
     }
     if (oc.getString("game.mode") != "tls" && oc.getString("game.mode") != "drt") {
         WRITE_ERROR(TL("game.mode must be one of ['tls', 'drt']"));
@@ -1039,10 +1039,17 @@ MSFrame::checkOptions() {
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
             if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
-                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'"), opt);
+                WRITE_ERRORF(TL("Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' or 'allJunctions'."), opt);
                 ok = false;
             }
         }
+    }
+
+    std::string pedestrianJPSModel = oc.getString("pedestrian.jupedsim.model");
+    std::vector<std::string> allowedPedestrianJPSModels = {"CollisionFreeSpeed", "CollisionFreeSpeedV2", "GeneralizedCentrifugalForce", "SocialForce"};
+    if (std::find(allowedPedestrianJPSModels.begin(), allowedPedestrianJPSModels.end(), pedestrianJPSModel) == allowedPedestrianJPSModels.end()) {
+        WRITE_ERRORF(TL("Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', 'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."), pedestrianJPSModel);
+        ok = false;
     }
 
     ok &= MSDevice::checkOptions(oc);
