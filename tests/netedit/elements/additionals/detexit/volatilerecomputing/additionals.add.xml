@@ -6,27 +6,27 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <entryExitDetector id="e3_0" pos="0.00,10.00" period="300.00" file="e3_0.xml">
-        <detEntry lane="Edge2_1" pos="50.00"/>
-        <detEntry lane="Edge3_1" pos="7.50"/>
-        <detEntry lane="EdgeCenter1_1" pos="34.55"/>
-        <detEntry lane="EdgeCenter0_1" pos="12.95"/>
-        <detEntry lane="Edge5_1" pos="50.00"/>
-        <detEntry lane="Edge0_1" pos="15.00"/>
-        <detExit lane="Edge2_1" pos="20.00"/>
-        <detExit lane="Edge3_1" pos="37.50"/>
-        <detExit lane="EdgeCenter1_1" pos="17.27"/>
-        <detExit lane="EdgeCenter0_1" pos="30.23"/>
-        <detExit lane="Edge5_1" pos="20.00"/>
-        <detExit lane="Edge0_1" pos="45.00"/>
+        <detExit lane="Edge2_1" pos="50.00"/>
+        <detExit lane="Edge3_1" pos="7.50"/>
+        <detExit lane="EdgeCenter1_1" pos="34.55"/>
+        <detExit lane="EdgeCenter0_1" pos="12.95"/>
+        <detExit lane="Edge5_1" pos="50.00"/>
+        <detExit lane="Edge0_1" pos="15.00"/>
+        <detEntry lane="Edge2_1" pos="20.00"/>
+        <detEntry lane="Edge3_1" pos="37.50"/>
+        <detEntry lane="EdgeCenter1_1" pos="17.27"/>
+        <detEntry lane="EdgeCenter0_1" pos="30.23"/>
+        <detEntry lane="Edge5_1" pos="20.00"/>
+        <detEntry lane="Edge0_1" pos="45.00"/>
     </entryExitDetector>
     <entryExitDetector id="e3_1" pos="0.00,-10.00" period="300.00" file="e3_1.xml">
-        <detEntry lane="EdgeExternBot_0" pos="57.17"/>
-        <detEntry lane="EdgeExternTop_0" pos="117.83"/>
-        <detEntry lane="EdgeExternTop_0" pos="152.76"/>
-        <detEntry lane="EdgeExternBot_0" pos="22.24"/>
-        <detExit lane="EdgeExternTop_0" pos="57.17"/>
-        <detExit lane="EdgeExternTop_0" pos="22.24"/>
-        <detExit lane="EdgeExternBot_0" pos="152.76"/>
-        <detExit lane="EdgeExternBot_0" pos="117.84"/>
+        <detExit lane="EdgeExternBot_0" pos="57.17"/>
+        <detExit lane="EdgeExternTop_0" pos="117.83"/>
+        <detExit lane="EdgeExternTop_0" pos="152.76"/>
+        <detExit lane="EdgeExternBot_0" pos="22.24"/>
+        <detEntry lane="EdgeExternTop_0" pos="57.17"/>
+        <detEntry lane="EdgeExternTop_0" pos="22.24"/>
+        <detEntry lane="EdgeExternBot_0" pos="152.76"/>
+        <detEntry lane="EdgeExternBot_0" pos="117.84"/>
     </entryExitDetector>
 </additional>

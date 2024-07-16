@@ -40,17 +40,11 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 # Change to delete
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # delete created E2
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2Detector)
 
-# delete loaded E2
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the second loaded E2
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# Check undo
+netedit.undo(referencePosition, 3)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -58,16 +52,20 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
-# try to delete lane with the second loaded E2 (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to delete lane with the second loaded busStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded busStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
 # check redo
+netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save netedit config

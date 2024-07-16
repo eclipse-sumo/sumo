@@ -41,8 +41,8 @@
     <laneAreaDetector id="multiLaneAreaDetector_2" lanes="EdgeCenter1_1" pos="15" period="900.00" file="multiLaneAreaDetector_2.xml" endPos="15"/>
 
     <!-- non consecutives -->
-    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="EdgeCenter0_1 top_0" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="Edge1_1 Edge3_1" pos="15" period="900.00" file="multiLaneAreaDetector_3.xml" endPos="15"/>
 
     <!-- consecutives -->
-    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="EdgeCenter0_1 EdgeCenter1_1" pos="15" period="900.00" file="multiLaneAreaDetector_4.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_4" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" file="multiLaneAreaDetector_4.xml" endPos="15"/>
 </additional>

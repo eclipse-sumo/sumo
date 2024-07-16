@@ -1,3 +1,3 @@
 Error: Attribute 'lane' is missing in definition of a detExit.
 Error: Could not build detExit in netedit; lane 'dummyLane' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.27Jun100756.19514/netedit.gui/additionalelements/detexit/load/lane/additionals.add.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul090554.10654/netedit.gui/elements/additionals/detexit/load/lane/additionals.add.xml failed.

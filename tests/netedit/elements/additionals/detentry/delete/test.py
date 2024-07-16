@@ -42,29 +42,48 @@ netedit.changeElement("detEntry")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # select exit detector
 netedit.changeElement("detExit")
 
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete both
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # undo
-netedit.undo(referencePosition, 1)
+netedit.undo(referencePosition, 2)
 
 # go to delete mode
 netedit.deleteMode()
 
-# delete E3
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete loaded E3
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+
+# undo
+netedit.undo(referencePosition, 1)
+
+
+# Change to delete
+netedit.deleteMode()
+
+# try to delete lane with the second loaded busStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0Ped)
+
+# wait warning
+netedit.waitDeleteWarning()
+
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded busStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0Ped)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

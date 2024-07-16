@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-04-17 10:11:13 by Eclipse SUMO netedit Version v1_16_0+2120-e9fed2373cf
+<!-- generated on 2024-07-16 07:59:21 by Eclipse SUMO netedit Version v1_20_0+1225-269cd592538
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <entryExitDetector id="E3_1" pos="17.50,3.00" period="100.00" file="fileB.txt">
-        <detEntry lane="EdgeCenter1_1" pos="20.00" friendlyPos="1"/>
-        <detExit lane="EdgeCenter1_1" pos="25.00"/>
-        <detEntry lane="EdgeCenter1_1" pos="10.00"/>
+        <detEntry lane="Edge1_1" pos="20.00" friendlyPos="1"/>
+        <detExit lane="Edge2_1" pos="25.00"/>
+        <detEntry lane="EdgeCenter1_1" pos="21.71"/>
     </entryExitDetector>
 </additional>

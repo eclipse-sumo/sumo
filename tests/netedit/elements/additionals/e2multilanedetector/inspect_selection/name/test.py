@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector)
 
 # Change parameter name with an non valid value
 netedit.modifyAttribute(netedit.attrs.E2Multilane.inspectSelection.name, "%%%;:..&&%$%$", True)

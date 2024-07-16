@@ -32,31 +32,31 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- E2 parent -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="EdgeCenter0_1 EdgeCenter1_1" pos="15" period="900.00" file="multiLaneAreaDetector_0.xml" endPos="15">
+    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" file="multiLaneAreaDetector_0.xml" endPos="15">
 
- <!-- valid generic parameter (valid) -->
- <param key="key1" value="value1"/>
+		 <!-- valid generic parameter (valid) -->
+		 <param key="key1" value="value1"/>
 
-<!-- missin key (invalid) -->
-<param value="value2"/>
+		<!-- missin key (invalid) -->
+		<param value="value2"/>
 
-<!-- empty key (invalid) -->
-<param key="" value="value3"/>
+		<!-- empty key (invalid) -->
+		<param key="" value="value3"/>
 
-<!-- key contains invalid characters (invalid) -->
-<param key="$$key with spaces%%" value="value4"/>
+		<!-- key contains invalid characters (invalid) -->
+		<param key="$$key with spaces%%" value="value4"/>
 
-<!-- duplicated key (valid, overwrites the first one, show warning) -->
-<param key="key1" value="value5"/>
+		<!-- duplicated key (valid, overwrites the first one, show warning) -->
+		<param key="key1" value="value5"/>
 
-<!-- missing value (invalid, value must exist)-->
-<param key="key2"/>
+		<!-- missing value (invalid, value must exist)-->
+		<param key="key2"/>
 
-<!-- empty value (valid, value may be empty) -->
-<param key="key2" value=""/>
+		<!-- empty value (valid, value may be empty) -->
+		<param key="key2" value=""/>
 
-<!-- value contains invalid characters (valid - no restrictions on value) -->
-<param key="key3" value="$$value with spaces%%"/>
+		<!-- value contains invalid characters (valid - no restrictions on value) -->
+		<param key="key3" value="$$value with spaces%%"/>
 
     </laneAreaDetector>
 
