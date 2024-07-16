@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-10 16:30:21 by Eclipse SUMO sumo Version v1_20_0+1180-e5990a98d19
+<!-- generated on 2024-07-16 19:33:31 by Eclipse SUMO sumo Version v1_20_0+1258-9d1aeffff86
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -275,6 +275,12 @@
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
@@ -878,6 +884,12 @@
 
         <!-- State of charge the vehicle begins searching for charging stations -->
         <device.stationfinder.needToChargeLevel value="0.4" type="FLOAT"/>
+
+        <!-- Share of stopping time of the next independently planned stop to use for charging instead -->
+        <device.stationfinder.replacePlannedStop value="0" type="FLOAT"/>
+
+        <!-- Maximum distance in meters from the original stop to be replaced by the charging stop -->
+        <device.stationfinder.maxDistanceToReplacedStop value="300" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;battery&apos; device -->
         <device.battery.probability value="-1" type="FLOAT"/>
