@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 10 09:30:40 2017 by SUMO Version v0_31_0-1056-gab55b65
+<!-- generated on 2024-07-16 14:20:12 by Eclipse SUMO sumo Version v1_20_0+1238-c3ebe08b39f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -14,12 +19,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <fcd-output value="fcd.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
-        <pedestrian.striping.dawdling value="0"/>
+        <pedestrian.striping.dawdling value="0.0"/>
     </processing>
 
     <report>
@@ -27,57 +34,57 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <person id="p0" x="40.00" y="-1.65" angle="90.00" speed="1.39" pos="40.00" edge="beg" slope="0.00"/>
+        <person id="p0" x="40.00" y="-1.65" angle="90.00" speed="1.39" pos="40.00" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="1.00">
-        <person id="p0" x="41.22" y="-1.65" angle="90.00" speed="1.39" pos="41.22" edge="beg" slope="0.00"/>
+        <person id="p0" x="41.22" y="-1.65" angle="90.00" speed="1.39" pos="41.22" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="2.00">
-        <person id="p0" x="42.44" y="-1.65" angle="90.00" speed="1.39" pos="42.44" edge="beg" slope="0.00"/>
+        <person id="p0" x="42.44" y="-1.65" angle="90.00" speed="1.39" pos="42.44" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="3.00">
-        <person id="p0" x="43.66" y="-1.65" angle="90.00" speed="1.39" pos="43.66" edge="beg" slope="0.00"/>
+        <person id="p0" x="43.66" y="-1.65" angle="90.00" speed="1.39" pos="43.66" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="4.00">
-        <person id="p0" x="44.88" y="-1.65" angle="90.00" speed="1.39" pos="44.88" edge="beg" slope="0.00"/>
+        <person id="p0" x="44.88" y="-1.65" angle="90.00" speed="1.39" pos="44.88" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="5.00">
-        <person id="p0" x="46.10" y="-1.65" angle="90.00" speed="1.39" pos="46.10" edge="beg" slope="0.00"/>
+        <person id="p0" x="46.10" y="-1.65" angle="90.00" speed="1.39" pos="46.10" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="6.00">
-        <person id="p0" x="47.32" y="-1.65" angle="90.00" speed="1.39" pos="47.32" edge="beg" slope="0.00"/>
+        <person id="p0" x="47.32" y="-1.65" angle="90.00" speed="1.39" pos="47.32" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="7.00">
-        <person id="p0" x="48.54" y="-1.65" angle="90.00" speed="1.39" pos="48.54" edge="beg" slope="0.00"/>
+        <person id="p0" x="48.54" y="-1.65" angle="90.00" speed="1.39" pos="48.54" edge="beg" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="8.00">
-        <person id="p0" x="50.00" y="-4.65" angle="90.00" speed="1.39" pos="0.00" edge="end" slope="0.00"/>
+        <person id="p0" x="50.00" y="-4.65" angle="90.00" speed="1.39" pos="0.00" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="9.00">
-        <person id="p0" x="51.22" y="-4.65" angle="90.00" speed="1.39" pos="1.22" edge="end" slope="0.00"/>
+        <person id="p0" x="51.22" y="-4.65" angle="90.00" speed="1.39" pos="1.22" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="10.00">
-        <person id="p0" x="52.44" y="-4.65" angle="90.00" speed="1.39" pos="2.44" edge="end" slope="0.00"/>
+        <person id="p0" x="52.44" y="-4.65" angle="90.00" speed="1.39" pos="2.44" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="11.00">
-        <person id="p0" x="53.66" y="-4.65" angle="90.00" speed="1.39" pos="3.66" edge="end" slope="0.00"/>
+        <person id="p0" x="53.66" y="-4.65" angle="90.00" speed="1.39" pos="3.66" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="12.00">
-        <person id="p0" x="54.88" y="-4.65" angle="90.00" speed="1.39" pos="4.88" edge="end" slope="0.00"/>
+        <person id="p0" x="54.88" y="-4.65" angle="90.00" speed="1.39" pos="4.88" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="13.00">
-        <person id="p0" x="56.10" y="-4.65" angle="90.00" speed="1.39" pos="6.10" edge="end" slope="0.00"/>
+        <person id="p0" x="56.10" y="-4.65" angle="90.00" speed="1.39" pos="6.10" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="14.00">
-        <person id="p0" x="57.32" y="-4.65" angle="90.00" speed="1.39" pos="7.32" edge="end" slope="0.00"/>
+        <person id="p0" x="57.32" y="-4.65" angle="90.00" speed="1.39" pos="7.32" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="15.00">
-        <person id="p0" x="58.54" y="-4.65" angle="90.00" speed="1.39" pos="8.54" edge="end" slope="0.00"/>
+        <person id="p0" x="58.54" y="-4.65" angle="90.00" speed="1.39" pos="8.54" edge="end" slope="0.00" type="DEFAULT_PEDTYPE"/>
     </timestep>
     <timestep time="16.00"/>
 </fcd-export>
