@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-15 10:36+0000\n"
+"PO-Revision-Date: 2024-07-16 07:53+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -11091,7 +11091,7 @@ msgstr ""
 
 #: src/router/RONetHandler.cpp:383
 msgid "Ignoring invalid access from non-pedestrian edge '%'."
-msgstr ""
+msgstr "Ignorando el acceso no válido desde la arista no peatonal '%'."
 
 #: src/router/RORouteDef.cpp:123
 msgid "Repaired route of vehicle '%'."
@@ -11102,19 +11102,23 @@ msgid ""
 "There are stop edges which were not part of the original route for vehicle "
 "'%'."
 msgstr ""
+"Hay paradas de arista que no formaban parte de la ruta original del vehículo "
+"'%'."
 
 #: src/router/RORouteDef.cpp:237
 msgid "Edge '%' not connected to edge '%' for vehicle '%'."
-msgstr ""
+msgstr "Arista '%' no conectada a la arista '%' para el vehículo '%'."
 
 #: src/router/RORouteHandler.cpp:204
 msgid "Triggered departure for person '%' requires starting with a ride."
 msgstr ""
+"La salida activada para la persona '%' requiere comenzar con una conducción."
 
 #: src/router/RORouteHandler.cpp:206
 msgid ""
 "Triggered departure for container '%' requires starting with a transport."
 msgstr ""
+"La salida activada para el contenedor '%' requiere comenzar con un envío."
 
 #: src/router/RORouteHandler.cpp:228
 #, c-format
@@ -11123,24 +11127,26 @@ msgstr "% encontrado fuera del elemento contenedor"
 
 #: src/router/RORouteHandler.cpp:352
 msgid "No probability for route %, using default."
-msgstr ""
+msgstr "No hay probabilidad para la ruta %, usando la predeterminada."
 
 #: src/router/RORouteHandler.cpp:507
 msgid "Ids of internal route distributions are ignored (vehicle '%')."
-msgstr ""
+msgstr "Se ignoran los IDs de distribuciones internas de rutas (vehículo '%')."
 
 #: src/router/RORouteHandler.cpp:623
 msgid "Discarding person '%' because her plan is empty"
-msgstr ""
+msgstr "Descartando a la persona '%' porque su plan está vacío"
 
 #: src/router/RORouteHandler.cpp:650
 msgid "Discarding personFlow '%' because their plan is empty"
-msgstr ""
+msgstr "Descartando el flujo de personas '%' porque su plan está vacío"
 
 #: src/router/RORouteHandler.cpp:658
 #, c-format
 msgid "probabilistic personFlow '%' must specify end time"
 msgstr ""
+"el flujo probabilístico de personas '%' debe especificar el tiempo de "
+"finalización"
 
 #: src/router/RORouteHandler.cpp:735
 msgid "Discarding container '%' because its plan is empty"
@@ -11176,15 +11182,15 @@ msgstr "Cerrando (por error desconocido)."
 
 #: src/tools/TrajectoriesHandler.cpp:76
 msgid "Unknown actor configuration '%' for vehicle '%'!"
-msgstr ""
+msgstr "¡Configuración de actor desconocida '%' para el vehículo '%'!"
 
 #: src/tools/TrajectoriesHandler.cpp:94
 msgid "Motion state for unknown vehicle '%'!"
-msgstr ""
+msgstr "¡Estado de movimiento para vehículo desconocido '%'!"
 
 #: src/tools/TrajectoriesHandler.cpp:136
 msgid "Acceleration information is missing; try running with --compute-a."
-msgstr ""
+msgstr "Falta información de aceleración; intente ejecutar con --compute-a."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:61
 msgid "Computes emissions by driving a time line using SUMO's emission models."
@@ -11192,11 +11198,11 @@ msgstr ""
 
 #: src/tools/emissionsDrivingCycle_main.cpp:69
 msgid "Defines the file to read the driving cycle from."
-msgstr ""
+msgstr "El archivo desde el cual leer el ciclo de conducción."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:73
 msgid "Skips the first NUM lines."
-msgstr ""
+msgstr "Saltar las primeras NUM líneas."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:77
 msgid "Defines the entry separator."
@@ -11207,10 +11213,12 @@ msgid ""
 "Defines the netstate, route and trajectory files to read the driving cycles "
 "from."
 msgstr ""
+"Define los archivos de red, ruta y trayectoria desde los cuales leer los "
+"ciclos de conducción."
 
 #: src/tools/emissionsDrivingCycle_main.cpp:85
 msgid "Load emission parameters (vTypes) from FILE(s)"
-msgstr ""
+msgstr "Cargar parámetros de emisión (tipos de vehículos) desde FILE(s)"
 
 #: src/tools/emissionsDrivingCycle_main.cpp:88
 msgid "Defines for which emission class the emissions shall be generated. "
