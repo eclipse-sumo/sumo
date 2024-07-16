@@ -1758,7 +1758,7 @@ PositionVector::simplified2(const bool closed, const double eps) const {
         }
         scores.erase(scores.begin() + minIndex);
         scores[(minIndex - 1) % result.size()] = calcScore(result, (minIndex - 1) % result.size());
-        scores[minIndex] = calcScore(result, minIndex);
+        scores[minIndex % result.size()] = calcScore(result, minIndex % result.size());
         minScore = eps + 1.;
         for (int i = 0; i < (int)size(); i++) {
             if (scores[i] < minScore) {

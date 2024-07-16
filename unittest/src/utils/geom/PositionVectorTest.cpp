@@ -679,7 +679,7 @@ TEST_F(PositionVectorTest, test_method_simplified2) {
     const PositionVector result2 = vec2.simplified2(true);
     EXPECT_EQ(2, result2.size());
     const PositionVector vec3(std::vector<Position> {Position(1, 2), Position(1, 3), Position(1, 4), Position(1, 5)});
-    const PositionVector result3 = vec3.simplified();
+    const PositionVector result3 = vec3.simplified2(true);
     // std::cout << result3 << std::endl;
-    EXPECT_EQ(3, result3.size());
+    EXPECT_EQ(2, result3.size());
 }
