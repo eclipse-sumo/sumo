@@ -1,0 +1,11 @@
+Warning: 4884 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 1 total messages of type: Connection '%_%->%_%' is only %m short.
+Warning: 1123 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 1 total messages of type: Edge's '%' from- and to-node are at the same position.
+Warning: 9 total messages of type: Ignoring edge % which has no lanes.
+Warning: 453 total messages of type: Intersecting left turns at junction '%' from lane '%' and lane '%' (increase junction radius to avoid this).
+Warning: 1569 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
+Warning: 37 total messages of type: Shape for junction '%' has distance % to its given position.
+Warning: 2624 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).
+Warning: 1988 total messages of type: Ambiguity in turnarounds computation at junction '%'.
+Warning: 39 total messages of type: Shape for junction '%' has distance % to its given position.
