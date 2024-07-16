@@ -34,7 +34,7 @@ The available components and their weight factors are described in the table bel
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
-| charging.probability.weight  | 0             | the influence of the  | yes                        |
+| charging.probability.weight  | 0             | the influence of the charging station probability (1 by default but randomized under certain conditions) | yes                        |
 | charging.capacity.weight     | 0             | The total capacity of the charging station                              | yes                        |
 | charging.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
 | charging.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
