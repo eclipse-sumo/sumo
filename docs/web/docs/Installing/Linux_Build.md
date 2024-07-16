@@ -24,6 +24,9 @@ cmake -B build .
 cmake --build build -j$(nproc)
 ```
 
+!!! note
+    Do not build in an active Anaconda environment! The libraries have sometimes different versions than Anaconda which will break the build or the executables.
+
 Each of these steps is described in more detail and with possible
 alternatives below.
 
