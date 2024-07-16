@@ -34,7 +34,7 @@ The available components and their weight factors are described in the table bel
 
 | Parameter Name              | Default value | Description                                                              | Inverse (Bigger is better) |
 | --------------------------- | ------------- | ------------------------------------------------------------------------ | -------------------------- |
-| charging.probability.weight  | 0             | the influence of the charging station probability (1 by default but randomized under certain conditions) | yes                        |
+| charging.probability.weight  | 0             | the influence of the  | yes                        |
 | charging.capacity.weight     | 0             | The total capacity of the charging station                              | yes                        |
 | charging.absfreespace.weight | 0             | The absolute number of free spaces                                       | yes                        |
 | charging.relfreespace.weight | 0             | The relative number of free spaces                                       | yes                        |
@@ -51,7 +51,7 @@ When `charging.probability.weight` is set to a positive value, a random number b
 This value is then normalized to the range [0,1] by dividing with the maximum probability value of all charging station elements.
 The inverted normalized value is then multiplied with `charging.probability.weight` to enter into the candidate score.
 
-### Further parameters to affect parking behavior
+### Further parameters to affect charging station search behavior
 Each of these parameters must be specified as a child
 element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
 
@@ -83,6 +83,13 @@ The stationfinder device can be configured using the parameters `rescueTime` and
 - `rescueAction="remove"`: the vehicle will come to a standstill and then will be removed from the simulation
 - `rescueTime="TIME" rescueAction="tow"`: the vehicle will come to a standstill and wait for `TIME` seconds (waiting time for a tow truck). Then it will be teleported to a free charging point, charge and continue its route. Thus the travel from the break down to the charging station is not included in [emissions output](../Simulation/Output/EmissionOutput.md).
 
+## Interaction with other planned stops
+By default, the stationfinder device will add stops at charging stations without changing any other planned stops. This means the vehicle may need longer to complete its route due to additional charging stops. Under real-world conditions users may prefer charging the vehicle close to their activity location and walk the remaining distance.
+This can be modeled using the parameters `replacePlannedStop` and `maxDistanceToReplacedStop` and stops with defined departure times through the `until` attribute (see [stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md##stops_and_waypoints)):
+
+- `replacePlannedStop` > 0: Defines the share of stopping time to be transferred from the the next planned stop to charging. If the value exceeds 1, the next planned stop is skipped. If the value is set to 0, no stopping time is transferred.
+- `maxDistanceToReplacedStop` defines the acceptable distance in meters between the charging station and the stop modeling the activity location. If the distance is above this threshold, no stopping time will be transferred.
+
 ## Configuration
 
 The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
@@ -102,3 +109,5 @@ element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PAR
 | waitForCharge         | float (s)        | ≥0                  | 600              | After this waiting time vehicle searches for a new station when the initial one is blocked |
 | saturatedChargeLevel  | float            | [0;1]               | 0.8              | Target state of charge after which the vehicle stops charging |
 | needToChargeLevel     | float            | [0;1]               | 0.4              | State of charge the vehicle begins searching for charging stations |
+| replacePlannedStop    | float            | [0;inf[             | 0                | Share of the time until the departure at the next planned stop used for charging (values >1 will cause skipping the next planned stop) |
+| maxDistanceToReplacedStop | float        | ≥0                  | 300              | Distance in meters along the network from charging station to the next planned stop |
