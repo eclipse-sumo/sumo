@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# save routes
-netedit.saveRoutes(referencePosition)
-
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
 

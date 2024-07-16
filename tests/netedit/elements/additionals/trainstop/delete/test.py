@@ -34,23 +34,17 @@ netedit.additionalMode()
 # select trainStop
 netedit.changeElement("trainStop")
 
+# change reference to center
+netedit.changeDefaultValue(netedit.attrs.trainStop.create.references, "Center")
+
 # create trainStop in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # delete created trainStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete first loaded trainStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the second loaded trainStop
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.trainStop)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -58,16 +52,20 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # try to delete lane with the second loaded trainStop (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded trainStop (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
 # check redo
+netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save netedit config

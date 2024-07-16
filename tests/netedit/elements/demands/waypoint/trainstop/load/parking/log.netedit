@@ -6,4 +6,4 @@ Error: Attribute 'parking' in definition of a stop Invalid Bool Format -4.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'trainStopA'
 Error: Attribute 'parking' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'trainStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.2_from_21Jul154618.47894/netedit.gui/demandelements/waypoint/trainstop/load/parking/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul150350.25936/netedit.gui/elements/demands/waypoint/trainstop/load/parking/routes.rou.xml failed.

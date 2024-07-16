@@ -38,30 +38,30 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0">
         <stop busStop="trainStopA" containerTriggered="dummy"/>
     </route>
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_1">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_1">
         <stop busStop="trainStopA" containerTriggered=""/>
     </route>
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_2">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_2">
         <stop busStop="trainStopA" containerTriggered="-4"/>
     </route>
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_3">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_3">
         <stop busStop="trainStopA" containerTriggered="0"/>
     </route>
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_4">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_4">
         <stop busStop="trainStopA" containerTriggered="2.3"/>
     </route>
 
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_5">
+    <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_5">
         <stop busStop="trainStopA" containerTriggered="true"/>
     </route>
-	
+
 	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
 	<vehicle id="vehicle_2" depart="0.00" route="route_2"/>

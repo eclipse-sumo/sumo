@@ -6,4 +6,4 @@ Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Forma
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStationA'
 Error: Attribute 'containerTriggered' in definition of a stop Invalid Bool Format 2.3.
 Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'chargingStationA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_18Jul153048.23046/netedit.gui/demandelements/stop/chargingstation/load/containertrigger/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul141019.7939/netedit.gui/elements/demands/stop/chargingstation/load/containertrigger/routes.rou.xml failed.

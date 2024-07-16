@@ -1,4 +1,4 @@
 Error: Invalid vehicle type 'dummy_Type' used in trip 'trip_1'.
 Error: Attribute 'type' in definition of trip 'trip_2' is empty.
 Error: Invalid vehicle type 'id with invalid characters' used in trip 'trip_3'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101545.3469/netedit.gui/elements/demand/trip/load/type/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140528.2955/netedit.gui/elements/demands/trip/load/type/routes.rou.xml failed.

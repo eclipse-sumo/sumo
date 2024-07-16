@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.08.2019 13:40:28 by Eclipse SUMO netedit Version v1_3_0+0086-d4fd00b226
+<!-- generated on 26.08.2019 10:02:24 by Eclipse SUMO netedit Version v1_3_0+0072-8fbaa41cca
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\stop\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\demandElements\stop\input_net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,17 +30,31 @@
     </pedestrian>
 
     <netedit>
-        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopBusStop\inspect_selection\input_routes.rou.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\additionals.xml"/>
+        <route-files value="D:\sumo\tests\netedit\demandElements\stop\stopParkingArea\input_routes.rou.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\routes.xml"/>
     </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug100018.7044/netedit.gui/demandElements/stop/stopParkingArea/create/default\log.txt"/>
+    </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="Edge3 Edge4 Edge5" color="yellow" id="route_0"/>
-	<route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1"/>
-	
-	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
-	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
-	
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="Edge0 Edge1 Edge2" color="yellow"/>
+    </vehicle>
 </routes>

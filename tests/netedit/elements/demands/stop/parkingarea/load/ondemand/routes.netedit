@@ -6,11 +6,11 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
-        <route edges="Edge3 Edge4 Edge5" color="yellow"/>
+        <route edges="Edge0 Edge1 Edge2" color="yellow"/>
         <stop parkingArea="parkingAreaA" parking="1"/>
     </vehicle>
     <vehicle id="vehicle_1" depart="0.00">
-        <route edges="Edge3 Edge4 Edge5" color="yellow"/>
+        <route edges="Edge0 Edge1 Edge2" color="yellow"/>
         <stop parkingArea="parkingAreaA" parking="1" onDemand="1"/>
     </vehicle>
 </routes>

@@ -2,4 +2,4 @@ Error: Attribute 'until' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'containerStopA'
 Error: Attribute 'until' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'containerStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/waypoint/containerstop/load/until/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140956.7327/netedit.gui/elements/demands/waypoint/containerstop/load/until/routes.rou.xml failed.

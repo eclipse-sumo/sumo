@@ -1,2 +1,2 @@
 Error: Attribute 'actType' in definition of a stop is empty.
-Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.21Oct094100.5428\netedit.gui\demandelements\waypoint\parkingarea\load\acttype\routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul150355.26038/netedit.gui/elements/demands/waypoint/parkingarea/load/acttype/routes.rou.xml failed.

@@ -7,7 +7,7 @@
     <!-- VTypes -->
     <vType id="vTypeRail" length="10.00" vClass="rail"/>
     <!-- Routes -->
-    <route id="route_0" edges="Edge3 Edge4 Edge5" color="yellow"/>
+    <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" type="vTypeRail" depart="0.00" route="route_0">
         <stop trainStop="trainStopA" speed="13.89"/>

@@ -2,4 +2,4 @@ Error: Attribute 'duration' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'chargingStationA'
 Error: Attribute 'duration' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'chargingStationA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/waypoint/chargingstation/load/duration/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140952.7227/netedit.gui/elements/demands/waypoint/chargingstation/load/duration/routes.rou.xml failed.

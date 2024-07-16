@@ -37,11 +37,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect parking areas
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create parkingArea in mode "Center"
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # disable friendlyPos
-netedit.modifyBoolAttribute(netedit.attrs.parkingArea.inspectSelection.friendlyPos, True)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.friendlyPos, "false", True)
 
 # go to select mode
 netedit.selectMode()

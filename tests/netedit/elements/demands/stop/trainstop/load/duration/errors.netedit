@@ -3,4 +3,4 @@ Error: Invalid duration or end time is given for a stop at 'trainStopA'
 Error: Attribute 'duration' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'trainStopA'
 Error: Invalid duration or end time is given for a stop at 'trainStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.1_from_24Jul110354.205611/netedit.gui/demandelements/stop/trainstop/load/duration/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul150342.25836/netedit.gui/elements/demands/stop/trainstop/load/duration/routes.rou.xml failed.

@@ -1,3 +1,3 @@
 Error: Attribute 'color' in definition of flow 'flow_0' Invalid color definition 'dummycolor'.
 Error: Attribute 'color' in definition of flow 'flow_1' Invalid color definition ''.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/flow_taz/load/color/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140549.3605/netedit.gui/elements/demands/flow_taz/load/color/routes.rou.xml failed.

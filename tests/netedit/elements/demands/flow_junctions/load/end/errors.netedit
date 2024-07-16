@@ -1,4 +1,4 @@
 Error: Attribute 'end' in definition of flow 'flow_0' is empty.
 Error: Attribute 'end' in definition of flow 'flow_1' is not a valid time value.
 Error: Flow 'flow_2' ends before its begin time.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150712.4124/netedit.gui/elements/demand/flow_junctions/load/end/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140543.3373/netedit.gui/elements/demands/flow_junctions/load/end/routes.rou.xml failed.

@@ -34,23 +34,17 @@ netedit.additionalMode()
 # select parkingArea
 netedit.changeElement("parkingArea")
 
+# change reference to center
+netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center")
+
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # Change to delete
 netedit.deleteMode()
 
-# disable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # delete created parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete first loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# delete lane with the second loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -58,16 +52,20 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
 # try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
 
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete lane with the second loaded parkingArea (doesn't allowed)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
 # check redo
+netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save netedit config

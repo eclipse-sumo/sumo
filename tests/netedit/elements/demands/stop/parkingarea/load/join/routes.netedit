@@ -5,13 +5,13 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
-    <route id="route_0" edges="Edge3 Edge4 Edge5" color="yellow">
+    <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop parkingArea="parkingAreaA" triggered="join" parking="1" join=""/>
     </route>
-    <route id="route_1" edges="Edge3 Edge4 Edge5" color="yellow">
+    <route id="route_1" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop parkingArea="parkingAreaA" triggered="join" parking="1" join=";;;;"/>
     </route>
-    <route id="route_2" edges="Edge3 Edge4 Edge5" color="yellow">
+    <route id="route_2" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop parkingArea="parkingAreaA" triggered="join" parking="1" join="customJoin"/>
     </route>
     <!-- Vehicles, persons and containers (sorted by depart) -->

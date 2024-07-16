@@ -6,7 +6,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00">
-        <route edges="Edge3 Edge4 Edge5" color="yellow"/>
+        <route edges="Edge0 Edge1 Edge2" color="yellow"/>
         <stop parkingArea="parkingAreaA" duration="70.00" until="12.00" extension="10.00" parking="1" permitted="permitA permitB" tripId="tripA" line="lineA" speed="10.00" actType="walking"/>
     </vehicle>
     <vehicle id="vehicle_1" depart="0.00">

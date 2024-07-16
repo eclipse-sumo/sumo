@@ -39,7 +39,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route id="routeA" edges="Edge0 Edge1 Edge2" color="yellow"/>
 
-    <route id="routeB" edges="Edge3 Edge4 Edge5" color="orange"/>
+    <route id="routeB" edges="Edge0 Edge1 Edge2" color="orange"/>
 
     <flow id="routeFlowA" begin="0.00" route="routeA" end="3600.00" number="18">
         <stop lane="gneE0_1" startPos="7.00" endPos="17.00"/>

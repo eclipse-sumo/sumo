@@ -1,2 +1,2 @@
 Error: trip definition needs either 'from/to' or 'fromJunction/toJunction' or 'fromTaz/toTaz'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun101545.3469/netedit.gui/elements/demand/trip/load/no_edges/routes.rou.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140528.2955/netedit.gui/elements/demands/trip/load/no_edges/routes.rou.xml failed.
