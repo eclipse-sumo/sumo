@@ -1,7 +1,7 @@
-Warning: Teleporting vehicle 'vehicle_1'; waited too long (wrong lane), lane='Edge3_1', time=308.00.
-Warning: Vehicle 'vehicle_1' skips stop on lane 'Edge3_1' time=308.00.
-Warning: Vehicle 'vehicle_1' ends teleporting on edge 'Edge4', time=308.00.
-Warning: Teleporting vehicle 'vehicle_2'; waited too long (wrong lane), lane='Edge3_1', time=614.00.
-Warning: Vehicle 'vehicle_2' skips stop on lane 'Edge3_1' time=614.00.
-Warning: Vehicle 'vehicle_2' ends teleporting on edge 'Edge4', time=614.00.
+Warning: Teleporting vehicle 'vehicle_1'; waited too long (jam), lane='Edge2_1', time=322.00.
+Warning: Vehicle 'vehicle_1' teleports beyond arrival edge 'Edge2', time=322.00.
+Warning: Vehicle 'vehicle_1' skips stop on lane 'Edge2_1' time=322.00.
+Warning: Teleporting vehicle 'vehicle_2'; waited too long (jam), lane='Edge2_1', time=629.00.
+Warning: Vehicle 'vehicle_2' teleports beyond arrival edge 'Edge2', time=629.00.
+Warning: Vehicle 'vehicle_2' skips stop on lane 'Edge2_1' time=629.00.
 Warning: Vehicle 'vehicle_0' aborted waiting for a person that will never come.
