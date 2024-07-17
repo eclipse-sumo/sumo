@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-17 08:12+0000\n"
+"PO-Revision-Date: 2024-07-17 09:51+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -4757,6 +4757,8 @@ msgid ""
 "Maximal deceleration applied for establishing increased gap in ToC "
 "preparation phase."
 msgstr ""
+"Desaceleración máxima aplicada para establecer una mayor brecha en la fase "
+"de preparación de la transición de control ToC."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:145
 msgid ""
@@ -4768,20 +4770,26 @@ msgid ""
 "Whether a coloring scheme shall by applied to indicate the different ToC "
 "stages."
 msgstr ""
+"Si se debe aplicar o no un esquema de coloración para indicar las diferentes "
+"etapas de la transición de control ToC."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:149
 msgid "Switches on output by specifying an output filename."
-msgstr ""
+msgstr "Activar la salida especificando un nombre para el archivo de salida."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:158
 msgid "ToC device is not supported by the mesoscopic simulation."
 msgstr ""
+"El dispositivo ToC (transición de control) no es compatible con la "
+"simulación mesoscópica."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:193
 msgid ""
 "Given value for ToC device parameter 'dynamicMRMProbability' (=%) is not in "
 "the admissible range [0,0.5]. Truncated to %."
 msgstr ""
+"El valor dado para el parámetro del dispositivo ToC 'dynamicMRMProbability' "
+"(=%) no está en el rango admitido [0,0.5]. Truncado a %."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:219
 msgid ""
@@ -4802,6 +4810,8 @@ msgstr "El tipo de vehículo '%' para el vehículo '%' no es conocido."
 msgid ""
 "Setting device.toc.currentAwareness during automated mode has no effect."
 msgstr ""
+"Configurar device.toc.currentAwareness durante el modo automatizado no tiene "
+"ningún efecto."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:923
 #, c-format
@@ -4840,6 +4850,8 @@ msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
 msgstr ""
+"No se admite la combinación de reservas de personas y contenedores con el "
+"mismo grupo para % y %"
 
 #: src/microsim/devices/MSDispatch.cpp:248
 msgid "Inconsistent group reservations."
@@ -4852,11 +4864,12 @@ msgstr "Reservas de grupo inconsistentes (2)."
 #: src/microsim/devices/MSIdling.cpp:66
 msgid "Idle taxi '%' has no next segment to stop. time=%."
 msgstr ""
+"El taxi inactivo '%' no tiene un siguiente segmento para detenerse. tiempo=%."
 
 #: src/microsim/devices/MSIdling.cpp:110
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr ""
+msgstr "El taxi inactivo '%' no pudo detenerse dentro de %m"
 
 #: src/microsim/devices/MSIdling.cpp:163
 #, c-format
@@ -4881,6 +4894,8 @@ msgid ""
 "Option weights.priority-factor does not take effect because all edges have "
 "the same priority"
 msgstr ""
+"La opción weights.priority-factor no tiene efecto porque todas las aristas "
+"tienen la misma prioridad"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:416
 msgid "Unknown routing algorithm '%'!"
@@ -4922,12 +4937,17 @@ msgid ""
 "No valid detector length and start position given. Assuming startPos = 0 and "
 "length = end position"
 msgstr ""
+"No se ha proporcionado una longitud ni una posición inicial válida del "
+"detector. Suponiendo que startPos = 0 y length = posición final"
 
 #: src/microsim/output/MSE2Collector.cpp:128
 msgid ""
 "No valid detector length and end position given. Assuming endPos = lane "
 "length and length = endPos-startPos"
 msgstr ""
+"No se ha proporcionado una longitud ni una posición final válida del "
+"detector. Suponiendo que endPos = longitud del carril y length = endPos-"
+"startPos"
 
 #: src/microsim/output/MSE2Collector.cpp:908
 msgid "Multi-lane e2Detector does not support detecting persons yet"
