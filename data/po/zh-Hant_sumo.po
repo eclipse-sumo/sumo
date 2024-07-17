@@ -11703,7 +11703,7 @@ msgstr "求解電路時,錯誤指派矩陣 A 的列(row)"
 
 #: src/utils/traction_wire/Circuit.cpp:351
 #: src/utils/traction_wire/Circuit.cpp:476
-msgid "The negative node of current source is not the groud."
+msgid "The negative node of current source is not the ground."
 msgstr "電流源的負節點不與地面連接。"
 
 #: src/utils/traction_wire/Circuit.cpp:505

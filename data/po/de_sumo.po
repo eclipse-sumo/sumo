@@ -12915,7 +12915,7 @@ msgstr "falsch zugeordnete Zeile der Matrix A beim Lösen der Schaltung"
 
 #: src/utils/traction_wire/Circuit.cpp:351
 #: src/utils/traction_wire/Circuit.cpp:476
-msgid "The negative node of current source is not the groud."
+msgid "The negative node of current source is not the ground."
 msgstr "Der negative Knoten von der Stromquelle ist nicht die Masse."
 
 #: src/utils/traction_wire/Circuit.cpp:505

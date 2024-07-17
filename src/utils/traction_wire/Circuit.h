@@ -150,7 +150,7 @@ private:
 #ifdef HAVE_EIGEN
     /*
     *    creates all of the equations that represent the circuit
-    *    in the form Ax = B(1/x) where A and B are matricies
+    *    in the form Ax = B(1/x) where A and B are matrices
     *    @param eqn : A
     *    @param vals : B
     */
@@ -233,7 +233,7 @@ public:
     // cleans up after superposition.
     void cleanUpSP();
 
-    //replaces unusedNode with newNode everywhere in the circuit, modifies the ids of other nodes and elements, descreases the id by one and deletes unusedNode
+    //replaces unusedNode with newNode everywhere in the circuit, modifies the ids of other nodes and elements, decreases the id by one and deletes unusedNode
     void replaceAndDeleteNode(Node* unusedNode, Node* newNode);
 
     // returns lastId
@@ -242,7 +242,7 @@ public:
     };
 
     // decreases lastId by one
-    void descreaseLastId() {
+    void decreaseLastId() {
         lastId--;
     };
 

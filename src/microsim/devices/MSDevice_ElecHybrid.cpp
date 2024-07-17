@@ -637,7 +637,7 @@ MSDevice_ElecHybrid::deleteVehicleFromCircuit(SUMOVehicle& veh) {
                     }
                 }
             }
-            myPreviousOverheadWireSegment->getCircuit()->descreaseLastId();
+            myPreviousOverheadWireSegment->getCircuit()->decreaseLastId();
             delete pos_veh_node;
             pos_veh_node = nullptr;
         }

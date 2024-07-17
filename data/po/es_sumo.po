@@ -12442,7 +12442,7 @@ msgstr ""
 
 #: src/utils/traction_wire/Circuit.cpp:351
 #: src/utils/traction_wire/Circuit.cpp:476
-msgid "The negative node of current source is not the groud."
+msgid "The negative node of current source is not the ground."
 msgstr ""
 
 #: src/utils/traction_wire/Circuit.cpp:505
