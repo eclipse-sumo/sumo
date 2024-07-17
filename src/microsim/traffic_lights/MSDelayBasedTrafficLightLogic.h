@@ -90,6 +90,12 @@ public:
 
     void setShowDetectors(bool show);
 
+    /// @brief retrieve all detectors used by this program
+    std::map<std::string, double> getDetectorStates() const override;
+
+    /// @brief retrieve a specific detector used by this program
+    double getDetectorState(const std::string laneID) const override;
+
 
 protected:
     /// @name "actuated" algorithm methods

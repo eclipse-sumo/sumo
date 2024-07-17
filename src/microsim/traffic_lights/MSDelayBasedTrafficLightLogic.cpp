@@ -267,6 +267,25 @@ MSDelayBasedTrafficLightLogic::setShowDetectors(bool show) {
     }
 }
 
+std::map<std::string, double>
+MSDelayBasedTrafficLightLogic::getDetectorStates() const {
+    std::map<std::string, double> result;
+    for (auto item : myLaneDetectors) {
+        result[item.second->getID()] = item.second->getCurrentVehicleNumber();
+    }
+    return result;
+}
 
+double
+MSDelayBasedTrafficLightLogic::getDetectorState(std::string laneID) const {
+    double result = 0.0;
+    for (auto item : myLaneDetectors) {
+        if (item.first->getID() == laneID) {
+            result = item.second->getCurrentVehicleNumber();
+            break;
+        }
+    }
+    return result;
+}
 
 /****************************************************************************/

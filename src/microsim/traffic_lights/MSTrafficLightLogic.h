@@ -378,6 +378,11 @@ public:
         return std::map<std::string, double>();
     }
 
+    /// @brief return activation state of a specific detector that affect this traffic light
+    virtual double getDetectorState(const std::string) const {
+        return 0.0;
+    }
+
     /// @brief return all named conditions defined for this traffic light
     virtual std::map<std::string, double> getConditions() const {
         return std::map<std::string, double>();
