@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-07-09 16:25+0200\n"
+"POT-Creation-Date: 2024-07-17 11:22+0200\n"
 "PO-Revision-Date: 2023-08-18 13:41+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -1331,107 +1331,107 @@ msgstr "車輛 '%' 將無法以給定的速度抵達!"
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr "忽略departEdge % (被用於車輛 '%' 及位於 % 路徑路段)。"
 
-#: src/microsim/MSBaseVehicle.cpp:1557
+#: src/microsim/MSBaseVehicle.cpp:1560
 msgid "Invalid stop index % (has % stops)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1637 src/microsim/MSBaseVehicle.cpp:1760
-#: src/microsim/MSBaseVehicle.cpp:1869
+#: src/microsim/MSBaseVehicle.cpp:1640 src/microsim/MSBaseVehicle.cpp:1763
+#: src/microsim/MSBaseVehicle.cpp:1872
 msgid "invalid nextStopIndex % for % remaining stops"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1641
+#: src/microsim/MSBaseVehicle.cpp:1644
 msgid "cannot replace reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1656
+#: src/microsim/MSBaseVehicle.cpp:1659
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1669 src/microsim/MSBaseVehicle.cpp:1881
+#: src/microsim/MSBaseVehicle.cpp:1672 src/microsim/MSBaseVehicle.cpp:1884
 msgid "disallowed stop lane '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1688 src/microsim/MSBaseVehicle.cpp:1782
-#: src/microsim/MSBaseVehicle.cpp:1909
+#: src/microsim/MSBaseVehicle.cpp:1691 src/microsim/MSBaseVehicle.cpp:1785
+#: src/microsim/MSBaseVehicle.cpp:1912
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1697 src/microsim/MSBaseVehicle.cpp:1918
+#: src/microsim/MSBaseVehicle.cpp:1700 src/microsim/MSBaseVehicle.cpp:1921
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1709 src/microsim/MSBaseVehicle.cpp:1932
+#: src/microsim/MSBaseVehicle.cpp:1712 src/microsim/MSBaseVehicle.cpp:1935
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1764
+#: src/microsim/MSBaseVehicle.cpp:1767
 msgid "cannot reroute towards reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1845
+#: src/microsim/MSBaseVehicle.cpp:1848
 msgid "unable to replace stop with teleporting"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1873
+#: src/microsim/MSBaseVehicle.cpp:1876
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:1889
+#: src/microsim/MSBaseVehicle.cpp:1892
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2186
+#: src/microsim/MSBaseVehicle.cpp:2189
 #, c-format
 msgid "creating device of type '%' is not supported"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2199 src/microsim/MSBaseVehicle.cpp:2211
+#: src/microsim/MSBaseVehicle.cpp:2202 src/microsim/MSBaseVehicle.cpp:2214
 #, c-format
 msgid "no device of type '%' exists"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2222
+#: src/microsim/MSBaseVehicle.cpp:2225
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2268
+#: src/microsim/MSBaseVehicle.cpp:2271
 msgid "could not interpret routing.mode '%'"
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2351
+#: src/microsim/MSBaseVehicle.cpp:2354
 msgid "Invalid device parameter '%' for vehicle '%'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2357
+#: src/microsim/MSBaseVehicle.cpp:2360
 msgid "Vehicle '%' does not support device parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2362
+#: src/microsim/MSBaseVehicle.cpp:2365
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2369
+#: src/microsim/MSBaseVehicle.cpp:2372
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2374
+#: src/microsim/MSBaseVehicle.cpp:2377
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2381
+#: src/microsim/MSBaseVehicle.cpp:2384
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2387
+#: src/microsim/MSBaseVehicle.cpp:2390
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
 
-#: src/microsim/MSBaseVehicle.cpp:2414
+#: src/microsim/MSBaseVehicle.cpp:2417
 msgid "Unsupported parking parameter '%' for vehicle '%'."
 msgstr ""
 
@@ -4095,7 +4095,9 @@ msgid "Search radius in travel time seconds"
 msgstr "以旅行時間(秒)為單位的尋找半徑"
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:70
-msgid "Euclidean search distance in meters"
+msgid ""
+"Euclidean search distance in meters (a negative value disables the "
+"restriction)"
 msgstr ""
 
 #: src/microsim/devices/MSDevice_StationFinder.cpp:72
@@ -4124,45 +4126,57 @@ msgstr ""
 msgid "State of charge the vehicle begins searching for charging stations"
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:120
+#: src/microsim/devices/MSDevice_StationFinder.cpp:84
+msgid ""
+"Share of stopping time of the next independently planned stop to use for "
+"charging instead"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_StationFinder.cpp:86
+msgid ""
+"Maximum distance in meters from the original stop to be replaced by the "
+"charging stop"
+msgstr ""
+
+#: src/microsim/devices/MSDevice_StationFinder.cpp:126
 msgid "Invalid device.stationfinder.rescueAction '%'."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:134
+#: src/microsim/devices/MSDevice_StationFinder.cpp:140
 msgid ""
 "Vehicle '%' searches for charging stations only in the rescue case due to "
 "search threshold % <= rescue threshold %."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:171
+#: src/microsim/devices/MSDevice_StationFinder.cpp:179
 msgid ""
 "Rerouted vehicle '%' after waiting too long at the previous charging station "
 "at time=%."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:211
+#: src/microsim/devices/MSDevice_StationFinder.cpp:219
 msgid ""
 "Vehicle '%' wants to stop on lane % at pos % because of low battery charge % "
 "at time=%."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:354
+#: src/microsim/devices/MSDevice_StationFinder.cpp:386
 msgid "Problem with inserting the charging station stop for vehicle %."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:373
+#: src/microsim/devices/MSDevice_StationFinder.cpp:406
 msgid ""
 "Vehicle '%' wants to charge at time=% but does not find any charging station "
 "nearby."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:398
+#: src/microsim/devices/MSDevice_StationFinder.cpp:431
 msgid ""
 "There is no charging station available to teleport the vehicle '%' to at "
 "time=%. Thus the vehicle will be removed."
 msgstr ""
 
-#: src/microsim/devices/MSDevice_StationFinder.cpp:514
+#: src/microsim/devices/MSDevice_StationFinder.cpp:547
 msgid "Parameter '%' is not supported for device of type '%'"
 msgstr ""
 
@@ -5253,9 +5267,13 @@ msgstr ""
 "路段 '%' 以未定義的優先級別 (%) 被載入，但具有明確的主方向(無雙向路段(bidi "
 "edge))"
 
-#: src/netbuild/NBAlgorithms_Railway.cpp:1360
+#: src/netbuild/NBAlgorithms_Railway.cpp:1365
 msgid "Added % rail signals at % stops."
 msgstr "已增加 % 個鐵路信號 (位於 % 個停靠站)."
+
+#: src/netbuild/NBAlgorithms_Railway.cpp:1459
+msgid "Moved % rail junctions for straightening % corridors."
+msgstr ""
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:121
 #, c-format
@@ -5283,54 +5301,58 @@ msgstr "無法設定連接線(connection)!"
 msgid "For edge '%': could not compute shape."
 msgstr "路段 '%':無法計算形狀。"
 
-#: src/netbuild/NBEdge.cpp:433 src/netbuild/NBEdge.cpp:461
+#: src/netbuild/NBEdge.cpp:434 src/netbuild/NBEdge.cpp:462
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
 msgstr "至少有一個路段的 '%' 節點未知。"
 
-#: src/netbuild/NBEdge.cpp:458
+#: src/netbuild/NBEdge.cpp:459
 #, c-format
 msgid "Edge '%' needs at least one lane."
 msgstr "路段 '%' 至少需要一個車道。"
 
-#: src/netbuild/NBEdge.cpp:464
+#: src/netbuild/NBEdge.cpp:465
 msgid "Invalid edge id '%'."
 msgstr "無效的路段識別名(id) '%'。"
 
-#: src/netbuild/NBEdge.cpp:494 src/netbuild/NBEdge.cpp:628
+#: src/netbuild/NBEdge.cpp:495 src/netbuild/NBEdge.cpp:629
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr "路段的 '%' 起點及迄點在相同的位置。"
 
-#: src/netbuild/NBEdge.cpp:1033
+#: src/netbuild/NBEdge.cpp:1036
+msgid "Removing sharp angle of % degrees at edge '%', segment %."
+msgstr ""
+
+#: src/netbuild/NBEdge.cpp:1045
 msgid "Found angle of % degrees at edge '%', segment %."
 msgstr "在路段 '%',區段 % 處找到 % 度的角度。"
 
-#: src/netbuild/NBEdge.cpp:1045
+#: src/netbuild/NBEdge.cpp:1058
 msgid "Removing sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1046 src/netbuild/NBEdge.cpp:1052
+#: src/netbuild/NBEdge.cpp:1059 src/netbuild/NBEdge.cpp:1068
 msgid "start"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1046 src/netbuild/NBEdge.cpp:1052
+#: src/netbuild/NBEdge.cpp:1059 src/netbuild/NBEdge.cpp:1068
 msgid "end"
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1051
+#: src/netbuild/NBEdge.cpp:1067
 msgid "Found sharp turn with radius % at the % of edge '%'."
 msgstr ""
 
-#: src/netbuild/NBEdge.cpp:1189
+#: src/netbuild/NBEdge.cpp:1205
 msgid "Could not set connection from '%' to '%'."
 msgstr "無法從 '%' 到 '%' 設定連接線(connection)。"
 
-#: src/netbuild/NBEdge.cpp:1701
+#: src/netbuild/NBEdge.cpp:1723
 msgid "Connection '%_%->%_%' is only %m short."
 msgstr "接線(connection) '%_%->%_%' 只有 % 米短。"
 
-#: src/netbuild/NBEdge.cpp:1803
+#: src/netbuild/NBEdge.cpp:1825
 msgid ""
 "Intersecting left turns at junction '%' from lane '%' and lane '%' (increase "
 "junction radius to avoid this)."
@@ -5338,7 +5360,7 @@ msgstr ""
 "在路口 '%' 上, 從車道 '%' 和車道 '%' 與左轉交會 (增加路口半徑以避免這種情"
 "況)。"
 
-#: src/netbuild/NBEdge.cpp:1905
+#: src/netbuild/NBEdge.cpp:1927
 msgid ""
 "Speed of % connection '%' reduced by % due to turning radius of % (length=%, "
 "angle=%)."
@@ -5346,22 +5368,22 @@ msgstr ""
 "速度 % 在連接線(connection) '%' 上降低了 %, 其是由於轉彎半徑為 % (長度=%，角"
 "度=%)。"
 
-#: src/netbuild/NBEdge.cpp:2243
+#: src/netbuild/NBEdge.cpp:2265
 msgid "In lane '%': lane shape could not be determined (%)."
 msgstr "在車道 '%':無法確定車道形狀 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2256
+#: src/netbuild/NBEdge.cpp:2278
 msgid "In lane '%': Could not build shape (%)."
 msgstr "在車道 '%':無法建立形狀 (%)。"
 
-#: src/netbuild/NBEdge.cpp:2686
+#: src/netbuild/NBEdge.cpp:2708
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)"
 
-#: src/netbuild/NBEdge.cpp:2727
+#: src/netbuild/NBEdge.cpp:2749
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
@@ -5369,13 +5391,13 @@ msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有 % 的方向,但只有 % 的目標(targets)(目"
 "標修剪後)"
 
-#: src/netbuild/NBEdge.cpp:2744
+#: src/netbuild/NBEdge.cpp:2766
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr "無法於路段 '%' 使用轉彎標誌訊息, 因為目標路段 '%'沒有合適的車道"
 
-#: src/netbuild/NBEdge.cpp:2750
+#: src/netbuild/NBEdge.cpp:2772
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
@@ -5383,68 +5405,68 @@ msgstr ""
 "無法在路段 '%' 上應用轉彎標誌資訊,因為有具有 '%' 方向的 % 連接線,但目標路段 "
 "'%' 只有 % 合適的車道"
 
-#: src/netbuild/NBEdge.cpp:2777
+#: src/netbuild/NBEdge.cpp:2799
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
 "無法在路段 '%' 上應用轉向標誌資訊,因為無法為方向 '%' 確定足夠的目標車道"
 
-#: src/netbuild/NBEdge.cpp:3071
+#: src/netbuild/NBEdge.cpp:3054
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
 msgstr "路段 '%' 在路口 '%' 處未與任何離開(outgoing)路段連接。"
 
-#: src/netbuild/NBEdge.cpp:3085
+#: src/netbuild/NBEdge.cpp:3068
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
 msgstr "車道 '%' 在路口 '%' 處未與任何進入(incoming)路段連接。"
 
-#: src/netbuild/NBEdge.cpp:3102
+#: src/netbuild/NBEdge.cpp:3085
 #, c-format
 msgid "Ignoring changeLeft prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的禁止換到左方車道(changeLeft)以避免造成死結(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3105
+#: src/netbuild/NBEdge.cpp:3088
 #, c-format
 msgid "Ignoring changeRight prohibition for '%' to avoid dead-end"
 msgstr "忽略 '%' 的禁止換到右方車道(changeRight)以避免造成死結(dead-end)"
 
-#: src/netbuild/NBEdge.cpp:3706
+#: src/netbuild/NBEdge.cpp:3750
 #, c-format
 msgid "The lane '%' on edge '%' already had a traffic light signal."
 msgstr "車道 '%' (位於路段 '%') 已經有交通號誌。"
 
-#: src/netbuild/NBEdge.cpp:3712
+#: src/netbuild/NBEdge.cpp:3756
 msgid "Could not set any signal of the tlLogic '%' (unknown group)."
 msgstr "無法設定號誌邏輯(tlLogic) '%' 的任何信號 （未知群組）。"
 
-#: src/netbuild/NBEdge.cpp:4201
+#: src/netbuild/NBEdge.cpp:4245
 msgid "Ignoring invalid stopOffset for edge '%' (negative offset)."
 msgstr "忽略路段 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4210
+#: src/netbuild/NBEdge.cpp:4254
 msgid "Ignoring invalid stopOffset for lane '%' (negative offset)."
 msgstr "忽略車道 '%' 的無效 stopOffset （負偏移值(offset)）。"
 
-#: src/netbuild/NBEdge.cpp:4216
+#: src/netbuild/NBEdge.cpp:4260
 msgid "Ignoring invalid stopOffset for lane '%' (invalid lane index)."
 msgstr "忽略車道 '%' 的無效 stopOffset （無效的車道索引）。"
 
-#: src/netbuild/NBEdge.cpp:4480
+#: src/netbuild/NBEdge.cpp:4524
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
 msgstr "路段 '%' 允許行人在所有車道上"
 
-#: src/netbuild/NBEdge.cpp:4538
+#: src/netbuild/NBEdge.cpp:4582
 #, c-format
 msgid "Edge '%' already has a dedicated lane for %s. Not adding another one."
 msgstr "路段 '%' 已經有用於 %s 的專用車道。不再增加另一個。"
 
-#: src/netbuild/NBEdge.cpp:4578
+#: src/netbuild/NBEdge.cpp:4622
 #, c-format
 msgid "Edge '%' doesn't have a dedicated lane for %s. Cannot be restored."
 msgstr "路段 '%' 沒有用於 %s 的專用車道。無法恢復。"
 
-#: src/netbuild/NBEdge.cpp:4626
+#: src/netbuild/NBEdge.cpp:4670
 msgid "Could not avoid overlapping shape at node '%' for edge '%'."
 msgstr "無法避免在節點 '%' (位於路段 '%') 上重疊形狀(shape)。"
 
@@ -5756,237 +5778,246 @@ msgstr "警告連續段中角度超過 DEGREES 的路段幾何形狀"
 
 #: src/netbuild/NBFrame.cpp:202
 msgid ""
+"Straighten edge geometries with an angle above max-angle successive segments"
+msgstr ""
+
+#: src/netbuild/NBFrame.cpp:205
+msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr "警告開始或結束時,轉彎半徑小於 METERS 的路段幾何形狀"
 
-#: src/netbuild/NBFrame.cpp:205
+#: src/netbuild/NBFrame.cpp:208
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr "拉直路段幾何以避免轉彎半徑小於 geometry.min-radius"
 
-#: src/netbuild/NBFrame.cpp:208
+#: src/netbuild/NBFrame.cpp:211
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius (only railways)"
 msgstr "拉直路段幾何以避免轉彎半徑小於 geometry.min-radius （僅限鐵路）"
 
-#: src/netbuild/NBFrame.cpp:211
+#: src/netbuild/NBFrame.cpp:214
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
 msgstr "如果路口形狀離原始節點位置太遠，則發出警告"
 
-#: src/netbuild/NBFrame.cpp:214
+#: src/netbuild/NBFrame.cpp:217
 msgid "Warn if edges overlap by more than the given threshold value"
 msgstr "如果路段重疊超過給定的閾值，則發出警告"
 
-#: src/netbuild/NBFrame.cpp:217
+#: src/netbuild/NBFrame.cpp:220
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
 msgstr "如果它們被給定的閾值垂直地分開，則忽略重疊路段。"
 
-#: src/netbuild/NBFrame.cpp:220
+#: src/netbuild/NBFrame.cpp:223
 msgid "Modify edge geometries to avoid overlap at junctions"
 msgstr "修改路段幾何形狀以避免在路口處重疊"
 
-#: src/netbuild/NBFrame.cpp:223
+#: src/netbuild/NBFrame.cpp:226
 msgid ""
 "join adjacent lanes that have the same permissions and which do not admit "
 "lane-changing (sidewalks and disallowed lanes)"
 msgstr "合併(join)具有相同權限且不允許變換車道的相鄰車道(人行道和禁止車道)"
 
-#: src/netbuild/NBFrame.cpp:226
+#: src/netbuild/NBFrame.cpp:229
 msgid ""
 "Matches stops outside the road network to the referencing pt line when below "
 "the given distance"
 msgstr "當低於給定的距離時，將路網外的停靠點與參考的大眾運輸路線相配對"
 
-#: src/netbuild/NBFrame.cpp:230
+#: src/netbuild/NBFrame.cpp:233
 msgid "Repair topology of the railway network"
 msgstr "修復鐵路路網拓撲"
 
-#: src/netbuild/NBFrame.cpp:233
+#: src/netbuild/NBFrame.cpp:236
 msgid ""
 "Repair topology of the railway network just enough to let loaded public "
 "transport lines to work"
 msgstr "修復鐵路路網拓撲以至足以讓載入的大眾運輸路線正常運作"
 
-#: src/netbuild/NBFrame.cpp:236
+#: src/netbuild/NBFrame.cpp:239
 msgid ""
 "Allow bidirectional rail use wherever rails with opposite directions meet at "
 "a straight angle"
 msgstr "允許雙向火車在與相反方向行駛的火車以直角相遇的任何地方使用"
 
-#: src/netbuild/NBFrame.cpp:239
+#: src/netbuild/NBFrame.cpp:242
 msgid "Add turn-around connections at all loaded stops."
 msgstr "在所有載入的停靠點增加迴轉的連接線(turn-around connections)。"
 
-#: src/netbuild/NBFrame.cpp:242
+#: src/netbuild/NBFrame.cpp:245
 msgid ""
 "Penalty factor for adding new bidi edges to connect public transport stops"
 msgstr "增加新bidi路段連接大眾運輸停靠站的懲罰因素 (penalty factor)"
 
-#: src/netbuild/NBFrame.cpp:245
+#: src/netbuild/NBFrame.cpp:248
 msgid "Make all rails usable in both direction"
 msgstr "使所有鐵路可用於兩個方向"
 
-#: src/netbuild/NBFrame.cpp:248
+#: src/netbuild/NBFrame.cpp:251
 msgid "Make all rails edge ids from FILE usable in both direction"
 msgstr "使檔案中所有鐵路路段識別名(ids)可用於兩個方向"
 
-#: src/netbuild/NBFrame.cpp:251
+#: src/netbuild/NBFrame.cpp:254
 msgid "Set edge priority values based on estimated main direction"
 msgstr "根據估計的主方向來設定路段的優先級別值"
 
-#: src/netbuild/NBFrame.cpp:254
+#: src/netbuild/NBFrame.cpp:257
 msgid "Extend loaded edge priority values based on estimated main direction"
 msgstr "根據估計的主方向來擴展載入的路段的優先級別值"
 
-#: src/netbuild/NBFrame.cpp:257
+#: src/netbuild/NBFrame.cpp:260
+msgid "Move junctions to straighten a sequence of rail edges"
+msgstr ""
+
+#: src/netbuild/NBFrame.cpp:263
 msgid "Guess signals that guard public transport stops"
 msgstr "猜測看管大眾運輸停靠站的號誌"
 
-#: src/netbuild/NBFrame.cpp:260
+#: src/netbuild/NBFrame.cpp:266
 msgid "The search radius for finding suitable road accesses for rail stops"
 msgstr "為鐵路車站尋找合適的通行途徑(access)的搜索半徑"
 
-#: src/netbuild/NBFrame.cpp:264
+#: src/netbuild/NBFrame.cpp:270
 msgid "The maximum road accesses registered per rail stops"
 msgstr "每個鐵路站點登錄的最大道路通行途徑(road accesses)數量"
 
-#: src/netbuild/NBFrame.cpp:268
+#: src/netbuild/NBFrame.cpp:274
 msgid ""
 "The walking length of the access is computed as air-line distance multiplied "
 "by FLOAT"
 msgstr "通行途徑(access)的步行長度計算為航線距離乘以 FLOAT"
 
-#: src/netbuild/NBFrame.cpp:272
+#: src/netbuild/NBFrame.cpp:278
 msgid "Skips automatic generation of stops on the bidi-edge of a loaded stop"
 msgstr "跳過在載入的停靠點的雙向路段(bidi-edge)上自動產生停靠點"
 
-#: src/netbuild/NBFrame.cpp:276
+#: src/netbuild/NBFrame.cpp:282
 #, c-format
 msgid "Warn about edge geometries with a grade in % above FLOAT."
 msgstr "警告 % 百分比的路段幾何形狀高於 FLOAT。"
 
-#: src/netbuild/NBFrame.cpp:279
+#: src/netbuild/NBFrame.cpp:285
 msgid "Smooth edge geometries with a grade above the warning threshold."
 msgstr "用高於警告閾值的度數(grade)平滑路段的幾何形狀。"
 
-#: src/netbuild/NBFrame.cpp:283
+#: src/netbuild/NBFrame.cpp:289
 msgid "Turn off normalizing node positions"
 msgstr "關閉標準化節點位置"
 
-#: src/netbuild/NBFrame.cpp:287 src/polyconvert/polyconvert_main.cpp:186
+#: src/netbuild/NBFrame.cpp:293 src/polyconvert/polyconvert_main.cpp:186
 msgid "Adds FLOAT to net x-positions"
 msgstr "將 FLOAT 增加到路網 x 位置"
 
-#: src/netbuild/NBFrame.cpp:291 src/polyconvert/polyconvert_main.cpp:190
+#: src/netbuild/NBFrame.cpp:297 src/polyconvert/polyconvert_main.cpp:190
 msgid "Adds FLOAT to net y-positions"
 msgstr "將 FLOAT 增加到路網 y 位置"
 
-#: src/netbuild/NBFrame.cpp:294 src/polyconvert/polyconvert_main.cpp:193
+#: src/netbuild/NBFrame.cpp:300 src/polyconvert/polyconvert_main.cpp:193
 msgid "Adds FLOAT to net z-positions"
 msgstr "將 FLOAT 增加到路網 z 位置"
 
-#: src/netbuild/NBFrame.cpp:298
+#: src/netbuild/NBFrame.cpp:304
 msgid "Flips the y-coordinate along zero"
 msgstr "沿著 0 翻轉 y 坐標"
 
-#: src/netbuild/NBFrame.cpp:302
+#: src/netbuild/NBFrame.cpp:308
 msgid "Enable roundabout-guessing"
 msgstr "啟用圓環的猜測"
 
-#: src/netbuild/NBFrame.cpp:306
+#: src/netbuild/NBFrame.cpp:312
 msgid ""
 "Structures with a circumference above FLOAT threshold are not classified as "
 "roundabout"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:309
+#: src/netbuild/NBFrame.cpp:315
 msgid "Default visibility when approaching a roundabout"
 msgstr "當接近圓環時,預設的能見度"
 
-#: src/netbuild/NBFrame.cpp:312
+#: src/netbuild/NBFrame.cpp:318
 msgid "Enable guessing of opposite direction lanes usable for overtaking"
 msgstr "啟用對可用於超車的相反方向車道的猜測"
 
-#: src/netbuild/NBFrame.cpp:315
+#: src/netbuild/NBFrame.cpp:321
 msgid "Ensure that opposite edges have the same length"
 msgstr "確保對向路段具有相同的長度"
 
-#: src/netbuild/NBFrame.cpp:318
+#: src/netbuild/NBFrame.cpp:324
 msgid "Enable guessing of network fringe nodes"
 msgstr "啟用路網邊緣的節點的猜測"
 
-#: src/netbuild/NBFrame.cpp:321
+#: src/netbuild/NBFrame.cpp:327
 msgid "Guess disconnected edges above the given speed as outer fringe"
 msgstr "猜測高於給定速度的不連接路段為外部邊緣(outer fringe)"
 
-#: src/netbuild/NBFrame.cpp:324
+#: src/netbuild/NBFrame.cpp:330
 msgid "Assumes left-hand traffic on the network"
 msgstr "假設路網內為左行(left-hand)交通"
 
-#: src/netbuild/NBFrame.cpp:340
+#: src/netbuild/NBFrame.cpp:346
 msgid "Interprets STR[] as list of junctions to exclude from joining"
 msgstr "將 STR[] 解釋為要從整合(joining)中排除的路口清單"
 
-#: src/netbuild/NBFrame.cpp:352
+#: src/netbuild/NBFrame.cpp:358
 msgid "Modifies all edge speeds by adding FLOAT"
 msgstr "通過增加 FLOAT 修改所有路段速度"
 
-#: src/netbuild/NBFrame.cpp:355
+#: src/netbuild/NBFrame.cpp:361
 msgid "Modifies all edge speeds by multiplying by FLOAT"
 msgstr "通過乘以 FLOAT 修改所有路段速度"
 
-#: src/netbuild/NBFrame.cpp:358
+#: src/netbuild/NBFrame.cpp:364
 msgid "Modifies all edge speeds to at least FLOAT"
 msgstr "將所有路段速度修改為至少 FLOAT"
 
-#: src/netbuild/NBFrame.cpp:366
+#: src/netbuild/NBFrame.cpp:372
 msgid "Generate INT intermediate points to smooth out intersection corners"
 msgstr "產生 INT 中間點以平滑路口角落的曲線"
 
-#: src/netbuild/NBFrame.cpp:369
+#: src/netbuild/NBFrame.cpp:375
 msgid ""
 "Generate INT intermediate points to smooth out lanes within the intersection"
 msgstr "產生 INT 中間點以平滑路口內的車道曲線"
 
-#: src/netbuild/NBFrame.cpp:372
+#: src/netbuild/NBFrame.cpp:378
 msgid ""
 "Generate longer intersections to allow for smooth s-curves when the number "
 "of lanes changes"
 msgstr "產生較長的路口，以便在車道數量發生變化時能允許有平滑的 s 曲線"
 
-#: src/netbuild/NBFrame.cpp:419
+#: src/netbuild/NBFrame.cpp:425
 msgid "Forces rectangular cuts between lanes and intersections"
 msgstr "強制在車道和路口之間進行矩形切割"
 
-#: src/netbuild/NBFrame.cpp:478
+#: src/netbuild/NBFrame.cpp:484
 msgid "Always build walking areas even if there are no crossings"
 msgstr "即使沒有人行穿越道，也要一直建立步行區"
 
-#: src/netbuild/NBFrame.cpp:481
+#: src/netbuild/NBFrame.cpp:487
 msgid ""
 "Do not create a walkingarea between sidewalks that are connected by a "
 "pedestrian junction within FLOAT"
 msgstr "不要在 FLOAT 中由行人路口連接的人行道之間建立步行區"
 
-#: src/netbuild/NBFrame.cpp:520
+#: src/netbuild/NBFrame.cpp:526
 msgid "Interprets STR[] as list of tls ids to exclude from joining"
 msgstr "將 STR[] 解釋為在整合(joining)時, 要排除的號誌識別號(tls ids) 的列表"
 
-#: src/netbuild/NBFrame.cpp:629
+#: src/netbuild/NBFrame.cpp:635
 msgid "Only keep edges with speed in meters/second > FLOAT"
 msgstr "只保留以米/秒為單位的速度 > FLOAT 的路段"
 
-#: src/netbuild/NBFrame.cpp:633
+#: src/netbuild/NBFrame.cpp:639
 msgid "Remove edges in STR[]"
 msgstr "移除在 STR[]中的路段"
 
-#: src/netbuild/NBFrame.cpp:637
+#: src/netbuild/NBFrame.cpp:643
 msgid ""
 "Only keep edges in STR[] or those which are kept due to other keep-edges or "
 "remove-edges options"
@@ -5994,7 +6025,7 @@ msgstr ""
 "僅保留 STR[] 中的路段或由於其他保留路段(keep-edges)或刪除路段(remove-edges)選"
 "項而保留的路段"
 
-#: src/netbuild/NBFrame.cpp:640
+#: src/netbuild/NBFrame.cpp:646
 msgid ""
 "Only keep edges in FILE (Each id on a single line. Selection files from sumo-"
 "gui are also supported) or those which are kept due to other keep-edges or "
@@ -6004,7 +6035,7 @@ msgstr ""
 "擇檔案(Selection files)）或由於其他保留路段(keep-edges)或刪除路段(remove-"
 "edges)選項而保留的路段"
 
-#: src/netbuild/NBFrame.cpp:643
+#: src/netbuild/NBFrame.cpp:649
 msgid ""
 "Remove edges in FILE. (Each id on a single line. Selection files from sumo-"
 "gui are also supported)"
@@ -6012,11 +6043,11 @@ msgstr ""
 "移除檔案內的路段。 (每個識別名(id)在每個單一的列上。也支援來自 sumo-gui 的選"
 "擇檔案(Selection files))"
 
-#: src/netbuild/NBFrame.cpp:647
+#: src/netbuild/NBFrame.cpp:653
 msgid "Remove edges after loading, patching and joining"
 msgstr ""
 
-#: src/netbuild/NBFrame.cpp:651
+#: src/netbuild/NBFrame.cpp:657
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,"
@@ -6025,7 +6056,7 @@ msgstr ""
 "僅保留位於給定邊界內的路段(邊界以笛卡爾端點坐標 <xmin,ymin,xmax,ymax> 或）多"
 "邊形 <x0,y0,x1, y1,...> 給定)"
 
-#: src/netbuild/NBFrame.cpp:654
+#: src/netbuild/NBFrame.cpp:660
 msgid ""
 "Only keep edges which are located within the given boundary (given either as "
 "GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon "
@@ -6034,86 +6065,86 @@ msgstr ""
 "僅保留位於給定邊界內的路段（邊界以大地(GEODETIC)端點坐標 <lon-min,lat-min,"
 "lon-max,lat-max> 或多邊形 <lon0,lat0,lon1,lat1,...> 給定)"
 
-#: src/netbuild/NBFrame.cpp:658
+#: src/netbuild/NBFrame.cpp:664
 msgid "Only keep edges which allow one of the vclasses in STR[]"
 msgstr "僅保留允許在 STR[] 內其中一個車輛類別(vclass)的路段"
 
-#: src/netbuild/NBFrame.cpp:661
+#: src/netbuild/NBFrame.cpp:667
 msgid "Remove edges which allow only vclasses from STR[]"
 msgstr "移除只允許在 STR[] 內的車輛類別(vclasses)的路段"
 
-#: src/netbuild/NBFrame.cpp:664
+#: src/netbuild/NBFrame.cpp:670
 msgid "Only keep edges where type is in STR[]"
 msgstr "僅保留類型(type)在 STR[] 內的路段"
 
-#: src/netbuild/NBFrame.cpp:667
+#: src/netbuild/NBFrame.cpp:673
 msgid "Only keep the INT largest weakly connected components"
 msgstr "僅保留 INT 最大的弱連接組件(connected components)"
 
-#: src/netbuild/NBFrame.cpp:670
+#: src/netbuild/NBFrame.cpp:676
 msgid "Remove edges where type is in STR[]"
 msgstr "移除類型(type)在 STR[] 內的路段"
 
-#: src/netbuild/NBFrame.cpp:674
+#: src/netbuild/NBFrame.cpp:680
 msgid "Removes isolated edges"
 msgstr "移除孤立的路段"
 
-#: src/netbuild/NBFrame.cpp:681
+#: src/netbuild/NBFrame.cpp:687
 msgid "All nodes will be unregulated"
 msgstr "所有節點將不受控制(unregulated)"
 
-#: src/netbuild/NBFrame.cpp:686
+#: src/netbuild/NBFrame.cpp:692
 msgid "Do not regulate nodes in STR[]"
 msgstr "不控制在 STR[] 內的節點"
 
-#: src/netbuild/NBFrame.cpp:690
+#: src/netbuild/NBFrame.cpp:696
 msgid "Do not regulate district nodes"
 msgstr "不控制分區節點"
 
-#: src/netbuild/NBFrame.cpp:696
+#: src/netbuild/NBFrame.cpp:702
 msgid "Enable ramp-guessing"
 msgstr "啟用匝道猜測"
 
-#: src/netbuild/NBFrame.cpp:699
+#: src/netbuild/NBFrame.cpp:705
 msgid ""
 "Guess on-ramps and mark acceleration lanes if they exist but do not add new "
 "lanes"
 msgstr "猜測入口匝道並標記加速車道（如果存在）,但不增加新的車道"
 
-#: src/netbuild/NBFrame.cpp:703
+#: src/netbuild/NBFrame.cpp:709
 msgid "Treat edges with speed > FLOAT as no ramps"
 msgstr "將速度 > FLOAT 的路段視為非匝道"
 
-#: src/netbuild/NBFrame.cpp:707
+#: src/netbuild/NBFrame.cpp:713
 msgid "Treat edges with speed < FLOAT as no highways"
 msgstr "將速度 < FLOAT 的路段視為非高速公路"
 
-#: src/netbuild/NBFrame.cpp:711
+#: src/netbuild/NBFrame.cpp:717
 msgid "Use FLOAT as ramp-length"
 msgstr "使用 FLOAT 為匝道長度"
 
-#: src/netbuild/NBFrame.cpp:715
+#: src/netbuild/NBFrame.cpp:721
 msgid "Use FLOAT as minimum ramp-length"
 msgstr "使用 FLOAT 為最短匝道長度"
 
-#: src/netbuild/NBFrame.cpp:719
+#: src/netbuild/NBFrame.cpp:725
 msgid "Tries to handle the given edges as ramps"
 msgstr "嘗試將給定的路段設定為匝道"
 
-#: src/netbuild/NBFrame.cpp:722
+#: src/netbuild/NBFrame.cpp:728
 msgid "Do not consider the given edges as ramps"
 msgstr "不將給定的路段視為匝道"
 
-#: src/netbuild/NBFrame.cpp:726
+#: src/netbuild/NBFrame.cpp:732
 msgid "Avoids edge splitting"
 msgstr "避免路段分割(splitting)"
 
-#: src/netbuild/NBFrame.cpp:736
+#: src/netbuild/NBFrame.cpp:742
 #, c-format
 msgid "unsupported value '%' for option '--tls.default-type'"
 msgstr "不支援選項 '--tls.default-type' 的值 '%'"
 
-#: src/netbuild/NBFrame.cpp:740
+#: src/netbuild/NBFrame.cpp:746
 msgid ""
 "only one of the options 'keep-edges.in-boundary' or 'keep-edges.in-geo-"
 "boundary' may be given"
@@ -6121,34 +6152,34 @@ msgstr ""
 "只能給定 'keep-edges.in-boundary' 或 'keep-edges.in-geo-boundary' 其中一個選"
 "項"
 
-#: src/netbuild/NBFrame.cpp:744
+#: src/netbuild/NBFrame.cpp:750
 msgid ""
 "only one of the options 'no-internal-links' or 'crossings.guess' may be given"
 msgstr "只能給定 'no-internal-links' 或 'crossings.guess' 其中一個選項"
 
-#: src/netbuild/NBFrame.cpp:748
+#: src/netbuild/NBFrame.cpp:754
 msgid "only one of the options 'no-internal-links' or 'walkareas' may be given"
 msgstr "只能給定 'no-internal-links' 或 'walkareas' 其中一個選項"
 
-#: src/netbuild/NBFrame.cpp:752
+#: src/netbuild/NBFrame.cpp:758
 msgid ""
 "only one of the options 'tls.green.time' or 'tls.cycle.time' may be given"
 msgstr "只能給定 'tls.green.time' 或 'tls.cycle.time' 其中一個選項"
 
-#: src/netbuild/NBFrame.cpp:756
+#: src/netbuild/NBFrame.cpp:762
 msgid "default.lanenumber must be at least 1"
 msgstr "default.lanenumber 必須至少為 1"
 
-#: src/netbuild/NBFrame.cpp:764
+#: src/netbuild/NBFrame.cpp:770
 msgid ""
 "only one of the options 'default.disallow' or 'default.allow' may be given"
 msgstr "只能給定 'default.disallow' 或 'default.allow' 其中一個選項"
 
-#: src/netbuild/NBFrame.cpp:768
+#: src/netbuild/NBFrame.cpp:774
 msgid "junctions.internal-link-detail must >= 2"
 msgstr "junctions.internal-link-detail 必須 >= 2"
 
-#: src/netbuild/NBFrame.cpp:773
+#: src/netbuild/NBFrame.cpp:779
 msgid ""
 "Option 'junctions.scurve-stretch' requires internal lanes to work. Option '--"
 "no-internal-links' will be disabled."
@@ -6156,25 +6187,25 @@ msgstr ""
 "選項 'junctions.scurve-stretch' 需要內部車道才能使用。 選項 '--no-internal-"
 "links' 將被禁用。"
 
-#: src/netbuild/NBFrame.cpp:780
+#: src/netbuild/NBFrame.cpp:786
 msgid ""
 "option 'default.junctions.radius' is smaller than option 'junctions.small-"
 "radius'"
 msgstr "選項 'default.junctions.radius' 小於選項 'junctions.small-radius'"
 
-#: src/netbuild/NBFrame.cpp:788
+#: src/netbuild/NBFrame.cpp:794
 msgid "tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'"
 msgstr "tls.layout 必須是 'opposites', 'incoming' 或 'alternateOneWay'"
 
-#: src/netbuild/NBFrame.cpp:793
+#: src/netbuild/NBFrame.cpp:799
 msgid "default.right-of-way must be one of '%'"
 msgstr "default.right-of-way 必須是 '%' 其中之一"
 
-#: src/netbuild/NBFrame.cpp:797
+#: src/netbuild/NBFrame.cpp:803
 msgid "roundabouts.visibility-distance must be positive or -1"
 msgstr "roundabouts.visibility-distance 必須為正數或 -1"
 
-#: src/netbuild/NBFrame.cpp:813
+#: src/netbuild/NBFrame.cpp:819
 msgid "Unknown value for default.spreadtype '%'."
 msgstr "default.spreadtype '%' 的值未知。"
 
@@ -6315,204 +6346,204 @@ msgstr "刪除了 % 個大眾運輸停靠點，因為它們無法在路網上定
 msgid "Align pt stop id signs with corresponding edge id signs"
 msgstr "將大眾運輸停靠點識別名(id)標誌與相應的路段識別名(id)標誌對齊"
 
-#: src/netbuild/NBNetBuilder.cpp:207
+#: src/netbuild/NBNetBuilder.cpp:211
 msgid "Joining tram edges"
 msgstr "正在合併輕軌電車(tram)路段"
 
-#: src/netbuild/NBNetBuilder.cpp:211
+#: src/netbuild/NBNetBuilder.cpp:215
 msgid " Joined % tram edges into roads."
 msgstr " % 輕軌電車(tram)路段合併於道路內。"
 
-#: src/netbuild/NBNetBuilder.cpp:249
+#: src/netbuild/NBNetBuilder.cpp:253
 msgid "Joining junction clusters"
 msgstr "正在合併路口群集(clusters)"
 
-#: src/netbuild/NBNetBuilder.cpp:254
+#: src/netbuild/NBNetBuilder.cpp:258
 #, c-format
 msgid " Joined % junction cluster(s)."
 msgstr " 合併的 % 路口群集(cluster(s))。"
 
-#: src/netbuild/NBNetBuilder.cpp:257
+#: src/netbuild/NBNetBuilder.cpp:261
 msgid "Joining junctions with identical coordinates"
 msgstr "正在合併具有相同坐標的路口"
 
-#: src/netbuild/NBNetBuilder.cpp:261
+#: src/netbuild/NBNetBuilder.cpp:265
 #, c-format
 msgid " Joined % junctions."
 msgstr " 合併的 % 路口。"
 
-#: src/netbuild/NBNetBuilder.cpp:266
+#: src/netbuild/NBNetBuilder.cpp:270
 msgid "Joining lanes"
 msgstr "正在合併車道"
 
-#: src/netbuild/NBNetBuilder.cpp:269
+#: src/netbuild/NBNetBuilder.cpp:273
 #, c-format
 msgid "   Joined lanes on % edges."
 msgstr "   在 % 路段上合併的車道。"
 
-#: src/netbuild/NBNetBuilder.cpp:279
+#: src/netbuild/NBNetBuilder.cpp:283
 #, c-format
 msgid "   % nodes removed."
 msgstr "   % 節點已移除。"
 
-#: src/netbuild/NBNetBuilder.cpp:299
+#: src/netbuild/NBNetBuilder.cpp:303
 msgid "Reducing geometries"
 msgstr "正在減少幾何形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:306
+#: src/netbuild/NBNetBuilder.cpp:310
 msgid "Joining similar edges"
 msgstr "正在合併相似路段"
 
-#: src/netbuild/NBNetBuilder.cpp:316
+#: src/netbuild/NBNetBuilder.cpp:320
 msgid "guessing opposite direction edges"
 msgstr "正在猜測對向路段"
 
-#: src/netbuild/NBNetBuilder.cpp:322
+#: src/netbuild/NBNetBuilder.cpp:326
 msgid "Splitting geometry edges"
 msgstr "正在分割(splitting)幾何路段"
 
-#: src/netbuild/NBNetBuilder.cpp:329
+#: src/netbuild/NBNetBuilder.cpp:333
 #, c-format
 msgid " Joined % junctions after splitting geometry."
 msgstr " 分割(split)幾何後,合併的 % 路口。"
 
-#: src/netbuild/NBNetBuilder.cpp:334
+#: src/netbuild/NBNetBuilder.cpp:338
 msgid "Computing turning directions"
 msgstr "正在計算轉彎方向"
 
-#: src/netbuild/NBNetBuilder.cpp:343
+#: src/netbuild/NBNetBuilder.cpp:347
 msgid "Assigning nodes to traffic lights"
 msgstr "正在將節點指派分配給交通號誌"
 
-#: src/netbuild/NBNetBuilder.cpp:366
+#: src/netbuild/NBNetBuilder.cpp:370
 msgid "Guessing and setting on-/off-ramps"
 msgstr "正在猜測及設定進出口匝道"
 
-#: src/netbuild/NBNetBuilder.cpp:384
+#: src/netbuild/NBNetBuilder.cpp:388
 msgid "Guessed % bike lanes."
 msgstr "猜測的 % 腳踏車道。"
 
-#: src/netbuild/NBNetBuilder.cpp:395
+#: src/netbuild/NBNetBuilder.cpp:399
 #, c-format
 msgid "Guessed % sidewalks."
 msgstr "猜測的 % 人行道。"
 
-#: src/netbuild/NBNetBuilder.cpp:405
+#: src/netbuild/NBNetBuilder.cpp:409
 #, c-format
 msgid "Remapped % edge IDs and % node IDs."
 msgstr "重新映射的(remapped) % 路段識別名(IDs)和 % 節點識別名(IDs)。"
 
-#: src/netbuild/NBNetBuilder.cpp:420
+#: src/netbuild/NBNetBuilder.cpp:425
 msgid "Sorting nodes' edges"
 msgstr "正在排序節點的路段"
 
-#: src/netbuild/NBNetBuilder.cpp:425
+#: src/netbuild/NBNetBuilder.cpp:430
 msgid "Computing node shapes"
 msgstr "正在計算節點形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:433
+#: src/netbuild/NBNetBuilder.cpp:438
 msgid "Computing edge shapes"
 msgstr "正在計算路段形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:446
+#: src/netbuild/NBNetBuilder.cpp:451
 msgid "Applying speed modifications"
 msgstr "使用修改後的速度"
 
-#: src/netbuild/NBNetBuilder.cpp:459
+#: src/netbuild/NBNetBuilder.cpp:464
 msgid "Computing node types"
 msgstr "正在計算節點類型"
 
-#: src/netbuild/NBNetBuilder.cpp:470
+#: src/netbuild/NBNetBuilder.cpp:475
 #, c-format
 msgid "Guessed % pedestrian crossings."
 msgstr "猜測的 % 行人穿越道。"
 
-#: src/netbuild/NBNetBuilder.cpp:498
+#: src/netbuild/NBNetBuilder.cpp:503
 msgid "Computing priorities"
 msgstr "正在計算優先順序等級"
 
-#: src/netbuild/NBNetBuilder.cpp:502
+#: src/netbuild/NBNetBuilder.cpp:507
 msgid "Computing approached edges"
 msgstr "正在計算接近的(approached)路段"
 
-#: src/netbuild/NBNetBuilder.cpp:507
+#: src/netbuild/NBNetBuilder.cpp:512
 msgid "Guessing and setting roundabouts"
 msgstr "正在猜測及設定圓環"
 
-#: src/netbuild/NBNetBuilder.cpp:510
+#: src/netbuild/NBNetBuilder.cpp:515
 msgid " Guessed % roundabout(s)."
 msgstr " 猜測的 % 圓環。"
 
-#: src/netbuild/NBNetBuilder.cpp:516
+#: src/netbuild/NBNetBuilder.cpp:521
 msgid "Computing approaching lanes"
 msgstr "正在計算接近的(approached)車道"
 
-#: src/netbuild/NBNetBuilder.cpp:520
+#: src/netbuild/NBNetBuilder.cpp:525
 msgid "Dividing of lanes on approached lanes"
 msgstr "在接近的(approached)車道上劃分(divide)車道"
 
-#: src/netbuild/NBNetBuilder.cpp:526
+#: src/netbuild/NBNetBuilder.cpp:531
 msgid "Guessing Network fringe"
 msgstr "正在猜測路網邊緣"
 
-#: src/netbuild/NBNetBuilder.cpp:529
+#: src/netbuild/NBNetBuilder.cpp:534
 #, c-format
 msgid " Guessed % fringe nodes."
 msgstr " 猜測的 % 邊緣節點。"
 
-#: src/netbuild/NBNetBuilder.cpp:534
+#: src/netbuild/NBNetBuilder.cpp:539
 msgid "Processing turnarounds"
 msgstr "正在處理迴轉(turnarounds)"
 
-#: src/netbuild/NBNetBuilder.cpp:552
+#: src/netbuild/NBNetBuilder.cpp:557
 msgid "Rechecking of lane endings"
 msgstr "重新檢查車道末端"
 
-#: src/netbuild/NBNetBuilder.cpp:574
+#: src/netbuild/NBNetBuilder.cpp:579
 msgid "Joining traffic light nodes"
 msgstr "正在合併交通號誌節點"
 
-#: src/netbuild/NBNetBuilder.cpp:581
+#: src/netbuild/NBNetBuilder.cpp:586
 msgid "Computing traffic light control information"
 msgstr "正在計算交通號誌控制資訊"
 
-#: src/netbuild/NBNetBuilder.cpp:588
+#: src/netbuild/NBNetBuilder.cpp:593
 msgid "Computing node logics"
 msgstr "正在計算節點邏輯"
 
-#: src/netbuild/NBNetBuilder.cpp:593
+#: src/netbuild/NBNetBuilder.cpp:598
 msgid "Computing traffic light logics"
 msgstr "正在計算交通號誌邏輯"
 
-#: src/netbuild/NBNetBuilder.cpp:600
+#: src/netbuild/NBNetBuilder.cpp:605
 msgid " % traffic light(s) %computed."
 msgstr " % 交通號誌%已計算完成。"
 
-#: src/netbuild/NBNetBuilder.cpp:611
+#: src/netbuild/NBNetBuilder.cpp:616
 msgid "Building inner edges"
 msgstr "正在建立內部路段"
 
-#: src/netbuild/NBNetBuilder.cpp:624
+#: src/netbuild/NBNetBuilder.cpp:629
 msgid "stretching junctions to smooth geometries"
 msgstr "拉伸路口以平滑幾何形狀"
 
-#: src/netbuild/NBNetBuilder.cpp:653
+#: src/netbuild/NBNetBuilder.cpp:658
 msgid "Generating street signs"
 msgstr "正在產生街道標誌"
 
-#: src/netbuild/NBNetBuilder.cpp:664
+#: src/netbuild/NBNetBuilder.cpp:669
 msgid "Checking overlapping edges"
 msgstr "正在檢查重疊的路段"
 
-#: src/netbuild/NBNetBuilder.cpp:669
+#: src/netbuild/NBNetBuilder.cpp:674
 msgid "Checking edge grade"
 msgstr "正在檢查路段坡度(grade)"
 
-#: src/netbuild/NBNetBuilder.cpp:684
+#: src/netbuild/NBNetBuilder.cpp:689
 msgid "Find accesses for pt rail stops"
 msgstr "尋找火車站停靠點的連通通道(accesses)"
 
-#: src/netbuild/NBNetBuilder.cpp:707
+#: src/netbuild/NBNetBuilder.cpp:712
 msgid ""
 "Network contains very large coordinates and will probably flicker in the "
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
@@ -6521,7 +6552,7 @@ msgstr ""
 "路網包含非常大的坐標，且可能會在 GUI 中閃爍(flicker)。檢查外圍節點,並確保路網"
 "已移動到坐標原點"
 
-#: src/netbuild/NBNetBuilder.cpp:721
+#: src/netbuild/NBNetBuilder.cpp:726
 msgid "Moving network to origin"
 msgstr "正在移動路網到坐標原點"
 
@@ -6573,44 +6604,49 @@ msgstr "路口 '%' 的形狀與其給定位置的距離為 %。"
 msgid "For junction '%': could not compute shape."
 msgstr "路口 '%': 無法計算形狀。"
 
-#: src/netbuild/NBNode.cpp:1884
+#: src/netbuild/NBNode.cpp:1893
 msgid "Something went wrong during the building of a connection..."
 msgstr "建立連接線(connection)時,發生了問題..."
 
-#: src/netbuild/NBNode.cpp:2891
+#: src/netbuild/NBNode.cpp:2900
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no "
 "walkingarea found)."
 msgstr "廢除無效穿越道 '%' （未找到步行區域）, 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3057
+#: src/netbuild/NBNode.cpp:3066
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (no vehicle "
 "lanes to cross)."
 msgstr "廢除無效的人行道 '%' （無車道可穿越）, 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3076
+#: src/netbuild/NBNode.cpp:3085
 msgid ""
 "Discarding invalid crossing '%' at junction '%' with edges [%] (invalid "
 "shape)."
 msgstr ""
 "廢除無效的人行道 '%' (無效的形狀(shape)), 其位於路口 '%' (具有路段 [%])。"
 
-#: src/netbuild/NBNode.cpp:3217
+#: src/netbuild/NBNode.cpp:3126
+#, c-format
+msgid "Ignoring additional sidewalk lane % on edge '%' for walkingareas."
+msgstr ""
+
+#: src/netbuild/NBNode.cpp:3242
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' targets '%' and "
 "'%'."
 msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 以 '%' 和 '%' 為目標。"
 
-#: src/netbuild/NBNode.cpp:3243
+#: src/netbuild/NBNode.cpp:3268
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' is targeted by '%' "
 "and '%'."
 msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效； 穿越道 '%' 是 '%' 和 '%' 的目標。"
 
-#: src/netbuild/NBNode.cpp:3248
+#: src/netbuild/NBNode.cpp:3273
 msgid ""
 "Invalid pedestrian topology at junction '%'; crossing '%' starts and ends at "
 "walkingarea '%'."
@@ -6618,19 +6654,19 @@ msgstr ""
 "路口 '%' 處的行人拓撲結構(topology)無效；穿越道 '%' 的起點和終點都在步行區域 "
 "'%'。"
 
-#: src/netbuild/NBNode.cpp:3508
+#: src/netbuild/NBNode.cpp:3533
 msgid "Invalid pedestrian topology: crossing '%' across [%] has no target."
 msgstr "無效的行人拓撲結構(topology): 人行穿越道 '%' (跨越 [%]) 沒有目標。"
 
-#: src/netbuild/NBNode.cpp:3847
+#: src/netbuild/NBNode.cpp:3872
 msgid "Request for unknown crossing '%'"
 msgstr "請求未知人行穿越道 '%'"
 
-#: src/netbuild/NBNode.cpp:3863
+#: src/netbuild/NBNode.cpp:3888
 msgid "Request for unknown crossing for the given Edges"
 msgstr "請求給定路段的未知人行穿越道"
 
-#: src/netbuild/NBNode.cpp:3888
+#: src/netbuild/NBNode.cpp:3913
 msgid "Request for unknown walkingarea '%'."
 msgstr ""
 
@@ -7921,7 +7957,11 @@ msgstr "無法發現路段 '%' 的起始節點(from-node)。"
 msgid "Could not find to-node for edge '%'."
 msgstr "無法發現路段 '%' 的到達節點(to-node)。"
 
-#: src/netimport/NIImporter_MATSim.cpp:288
+#: src/netimport/NIImporter_MATSim.cpp:281
+msgid "Ignoring edge % which has no lanes."
+msgstr ""
+
+#: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
 msgstr "無法增加中間節點去分割(split)迴圈(loop)路段 '%'。"
 
@@ -8018,73 +8058,71 @@ msgstr "設定連接線時: 進入道路 '%' 未知。"
 msgid "Could not find node '%'."
 msgstr "無法發現節點 '%'。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1533
+#: src/netimport/NIImporter_OpenDrive.cpp:1532
 msgid "Mismatched geometry for edge '%' between geometry segments % and %."
 msgstr "路段 '%' 在 % 和 % 幾何區間之間的幾何形狀失配。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1714
+#: src/netimport/NIImporter_OpenDrive.cpp:1713
 #, c-format
 msgid "The sections of edge '%' are not sorted properly."
 msgstr "路段 '%' 的章節部分(sections)未正確排序。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1726
+#: src/netimport/NIImporter_OpenDrive.cpp:1723
 msgid ""
-"Almost duplicate s-value '%' for lane sections occurred at edge '%'; second "
+"Almost duplicate s-value '%' for lane sections occurred at edge '%'; first "
 "entry was removed."
 msgstr ""
-"車道章節部分(sections)有幾乎重複的 s 值 '%' 出現在路段 '%';第二個輸入項"
-"(entry)被刪除。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1769
+#: src/netimport/NIImporter_OpenDrive.cpp:1767
 msgid "Could not compute spiral geometry for edge '%' (cDot=% length=%)."
 msgstr "無法計算路段 '%' 的螺旋幾何形狀 (cDot=% 長度=%)。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:1818
+#: src/netimport/NIImporter_OpenDrive.cpp:1816
 msgid "Could not compute spiral geometry for edge '%' (%)."
 msgstr "無法計算路段 '%' 的螺旋幾何形狀 (%)。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2090
+#: src/netimport/NIImporter_OpenDrive.cpp:2088
 msgid ""
 "Will discard access settings as both denied and allowed classes have been "
 "specified."
 msgstr "將廢棄連通通道設定(access settings)，因為已指定拒絕和允許的類別。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2405
+#: src/netimport/NIImporter_OpenDrive.cpp:2403
 msgid "Ignoring invalid pRange value '%' for road '%'."
 msgstr "忽略無效的 pRange 值 '%' (在道路 '%')。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2484
+#: src/netimport/NIImporter_OpenDrive.cpp:2482
 msgid "Ignoring missing signal '%' in controller '%'."
 msgstr "忽略缺少的號誌'%' (位於控制器'%')。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2522
-#: src/netimport/NIImporter_OpenDrive.cpp:2729
+#: src/netimport/NIImporter_OpenDrive.cpp:2520
+#: src/netimport/NIImporter_OpenDrive.cpp:2727
 #, c-format
 msgid "In laneLink-element: incoming road '%' is not known."
 msgstr "在 laneLink 元素中: 進入(incoming)道路 '%' 未知。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2617
+#: src/netimport/NIImporter_OpenDrive.cpp:2615
 msgid "Ignoring object without id at edge '%'."
 msgstr "忽略路段 '%' 處沒有識別名(id)的物件。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2635
+#: src/netimport/NIImporter_OpenDrive.cpp:2633
 msgid "Repeat without object at edge '%'."
 msgstr "重複,不包含在路段 '%' 處的物件。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2700
+#: src/netimport/NIImporter_OpenDrive.cpp:2698
 msgid "Could not set projection (%). This can be ignored with --ignore-errors."
 msgstr "無法設定投影 (%)。 這可以用 --ignore-errors 忽略。"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2704
+#: src/netimport/NIImporter_OpenDrive.cpp:2702
 #, c-format
 msgid "geoReference format '%' currently not supported"
 msgstr "目前不支援地理參考(geoReference)格式 '%'"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2819
+#: src/netimport/NIImporter_OpenDrive.cpp:2817
 msgid "Mismatching parenthesis in geometry definition for road '%'"
 msgstr "道路 '%' 的幾何定義中的括號不配對"
 
-#: src/netimport/NIImporter_OpenDrive.cpp:2823
+#: src/netimport/NIImporter_OpenDrive.cpp:2821
 msgid "Double geometry information for road '%'"
 msgstr "道路 '% 有雙重幾何資訊"
 
@@ -11043,6 +11081,12 @@ msgstr ""
 msgid "maximum value % too small for distribution with mean % and deviation %"
 msgstr ""
 
+#: src/utils/distribution/Distribution_Parameterized.cpp:179
+msgid ""
+"maximum value % and minimum value % too close for distribution with mean % "
+"and deviation %"
+msgstr ""
+
 #: src/utils/emissions/EnergyParams.cpp:64
 #, c-format
 msgid ""
@@ -12009,6 +12053,13 @@ msgstr ""
 #: src/utils/xml/XMLSubSys.cpp:186
 msgid "Unspecified error occurred while parsing '%'"
 msgstr "當解析'%'時,發生未指定的錯誤"
+
+#~ msgid ""
+#~ "Almost duplicate s-value '%' for lane sections occurred at edge '%'; "
+#~ "second entry was removed."
+#~ msgstr ""
+#~ "車道章節部分(sections)有幾乎重複的 s 值 '%' 出現在路段 '%';第二個輸入項"
+#~ "(entry)被刪除。"
 
 #~ msgid "Could not add taxi stop for vehicle '%' to %. time=% error=%."
 #~ msgstr "無法為車輛 '%' 將計程車停靠點增加到 %。 時間=% 錯誤=%。"
