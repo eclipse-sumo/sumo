@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-12 15:21+0000\n"
+"PO-Revision-Date: 2024-07-17 12:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -15211,7 +15211,7 @@ msgstr "Dinamico"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:187
 msgid "Open in new Tracker"
-msgstr ""
+msgstr "Apri in una finestra di inseguimento di valori"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:203
 msgid "Could not open '%'.\n"
