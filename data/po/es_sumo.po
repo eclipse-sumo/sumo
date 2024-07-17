@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-09 16:25+0200\n"
-"PO-Revision-Date: 2024-07-16 10:32+0000\n"
+"PO-Revision-Date: 2024-07-17 08:12+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -10975,7 +10975,7 @@ msgstr "No se ha especificado ninguna salida."
 
 #: src/router/ROFrame.cpp:244
 msgid "A positive number of alternatives must be enabled."
-msgstr ""
+msgstr "El número de alternativas debe ser positivo."
 
 #: src/router/ROLoader.cpp:62 src/router/ROLoader.cpp:64
 #: src/router/ROLoader.cpp:83 src/router/ROLoader.cpp:85
@@ -10994,7 +10994,7 @@ msgstr "No se puede acceder al archivo adicional '%'."
 
 #: src/router/ROLoader.cpp:219
 msgid "Routes found between time steps % and %."
-msgstr ""
+msgstr "Se han encontrado rutas entre los instantes de tiempo % y %."
 
 #: src/router/ROLoader.cpp:245
 msgid "The loader for % from file '%' could not be initialised (%)."
@@ -11007,12 +11007,12 @@ msgstr "falló."
 #: src/router/RONet.cpp:162
 #, c-format
 msgid "The edge '%' occurs at least twice."
-msgstr ""
+msgstr "La arista '%' aparece al menos dos veces."
 
 #: src/router/RONet.cpp:176
 #, c-format
 msgid "The TAZ '%' occurs at least twice."
-msgstr ""
+msgstr "La zona de análisis de tráfico '%' aparece al menos dos veces."
 
 #: src/router/RONet.cpp:199
 #, c-format
@@ -11022,30 +11022,30 @@ msgstr "La TAZ '%' no es conocida."
 #: src/router/RONet.cpp:204
 #, c-format
 msgid "The edge '%' for TAZ '%' is unknown."
-msgstr ""
+msgstr "Se desconoce la arista '%' para la zona de análisis de tráfico '%'."
 
 #: src/router/RONet.cpp:259
 #, c-format
 msgid "The bidi edge '%' is not known."
-msgstr ""
+msgstr "Se desconoce la arista bidireccional '%'."
 
 #: src/router/RONet.cpp:270
 #, c-format
 msgid "The node '%' occurs at least twice."
-msgstr ""
+msgstr "El nodo '%' aparece al menos dos veces."
 
 #: src/router/RONet.cpp:279
 msgid "The % '%' occurs at least twice."
-msgstr ""
+msgstr "El % '%' aparece al menos dos veces."
 
 #: src/router/RONet.cpp:446
 #, c-format
 msgid "The vehicle type '%' occurs at least twice."
-msgstr ""
+msgstr "El tipo de vehículo '%' aparece al menos dos veces."
 
 #: src/router/RONet.cpp:498
 msgid "Requesting departure time for unknown vehicle '%'"
-msgstr ""
+msgstr "Solicitando tiempo de salida para el vehículo desconocido '%'"
 
 #: src/router/RONet.cpp:528
 #, c-format
@@ -11068,7 +11068,7 @@ msgstr "Nodo desconocido '%'."
 
 #: src/router/RONetHandler.cpp:245
 msgid "Ignoring lane '%' with broken shape."
-msgstr ""
+msgstr "Ignorando el carril '%' con forma rota."
 
 #: src/router/RONetHandler.cpp:282
 msgid "Skipping isolated junction '%'."
@@ -12015,17 +12015,20 @@ msgstr "el cycleTime de % debe ser igual o mayor que 0"
 msgid ""
 "Attributes 'from', 'fromJunction' and 'fromTaz' cannot be defined together"
 msgstr ""
+"Los atributos 'from', 'fromJunction' y 'fromTaz' no se pueden definir juntos"
 
 #: src/utils/handlers/RouteHandler.cpp:544
 #: src/utils/handlers/RouteHandler.cpp:624
 msgid "Attributes 'to', 'toJunction' and 'toTaz' cannot be defined together"
-msgstr ""
+msgstr "Los atributos 'to', 'toJunction' y 'toTaz' no se pueden definir juntos"
 
 #: src/utils/handlers/RouteHandler.cpp:588
 msgid ""
 "trip definition needs either 'from/to' or 'fromJunction/toJunction' or "
 "'fromTaz/toTaz'"
 msgstr ""
+"la definición de viaje necesita 'from/to' o 'fromJunction/toJunction' o '"
+"fromTaz/toTaz'"
 
 #: src/utils/handlers/RouteHandler.cpp:965
 msgid "Parameters must be defined within an object"
@@ -12121,7 +12124,7 @@ msgstr ""
 
 #: src/utils/options/OptionsCont.cpp:152
 msgid "Internal request for unknown option '%'!"
-msgstr ""
+msgstr "¡Solicitud interna de la opción desconocida '%'!"
 
 #: src/utils/options/OptionsCont.cpp:175
 #, c-format
@@ -12330,6 +12333,8 @@ msgid ""
 "Not using public transport line '%' for routing persons. It has less than "
 "two usable stops."
 msgstr ""
+"No usando la línea de transporte público '%' para la ruta de personas. Tiene "
+"menos de dos paradas utilizables."
 
 #: src/utils/router/IntermodalRouter.h:198
 msgid "No connection between % '%' and % '%' found."
@@ -12367,12 +12372,16 @@ msgstr "Caracteres no válidos para el ID del punto de interés"
 #: src/utils/shapes/ShapeHandler.cpp:177
 msgid "Either (x, y), (lon, lat) or (lane, pos) must be specified for PoI '%'."
 msgstr ""
+"Se debe especificar (x, y), (lon, lat) o (lane, pos) para el punto de "
+"interés '%'."
 
 #: src/utils/shapes/ShapeHandler.cpp:180
 msgid ""
 "(lon, lat) is specified for PoI '%' but no geo-conversion is specified for "
 "the network."
 msgstr ""
+"(lon, lat) se especificó para el punto de interés '%', pero no se especifica "
+"ninguna conversión geográfica para la red."
 
 #: src/utils/shapes/ShapeHandler.cpp:202
 #, c-format
@@ -12416,16 +12425,20 @@ msgstr ""
 
 #: src/utils/traction_wire/Circuit.cpp:257
 msgid "Structural error in reduced circuit matrix."
-msgstr ""
+msgstr "Error estructural en la matriz de circuito reducido."
 
 #: src/utils/traction_wire/Circuit.cpp:286
 msgid "Initial solution x used during solving DC circuit is out of bounds.\n"
 msgstr ""
+"La solución inicial x utilizada durante la resolución del circuito de CC "
+"está fuera de los límites.\n"
 
 #: src/utils/traction_wire/Circuit.cpp:309
 #: src/utils/traction_wire/Circuit.cpp:453
 msgid "wrongly assigned row of matrix A during solving the circuit"
 msgstr ""
+"fila asignada incorrectamente de la matriz A durante la resolución del "
+"circuito"
 
 #: src/utils/traction_wire/Circuit.cpp:351
 #: src/utils/traction_wire/Circuit.cpp:476
