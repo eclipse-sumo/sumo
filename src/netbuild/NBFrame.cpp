@@ -256,6 +256,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.doRegister("railway.topology.extend-priority", new Option_Bool(false));
         oc.addDescription("railway.topology.extend-priority", "Railway", TL("Extend loaded edge priority values based on estimated main direction"));
 
+        oc.doRegister("railway.geometry.straighten", new Option_Bool(false));
+        oc.addDescription("railway.geometry.straighten", "Railway", TL("Move junctions to straighten a sequence of rail edges"));
+
         oc.doRegister("railway.signal.guess.by-stops", new Option_Bool(false));
         oc.addDescription("railway.signal.guess.by-stops", "Railway", TL("Guess signals that guard public transport stops"));
 

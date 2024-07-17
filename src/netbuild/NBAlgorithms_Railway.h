@@ -105,9 +105,9 @@ public:
         Track& operator=(const Track&) = delete;
     };
     static double getTravelTimeStatic(const Track* const track, const NBVehicle* const veh, double time);
+    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
 
 private:
-    static std::set<NBNode*> getRailNodes(NBEdgeCont& ec, bool verbose = false);
     static std::set<NBNode*> getBrokenRailNodes(NBEdgeCont& ec, bool verbose = false);
 
     /// @brief filter out rail edges among all edges of a the given node
@@ -164,4 +164,11 @@ public:
 private:
     static int guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double minLength);
     static bool canBeSignal(const NBNode* node);
+};
+
+class NBRailwayGeometryHelper {
+
+public:
+    static int straigthenCorrdidor(NBEdgeCont& ec, double maxAngle);
+
 };

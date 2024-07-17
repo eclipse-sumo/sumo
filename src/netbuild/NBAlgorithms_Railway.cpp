@@ -1367,5 +1367,97 @@ NBRailwaySignalGuesser::guessByStops(NBEdgeCont& ec, NBPTStopCont& sc, double mi
 }
 
 
+int
+NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
+    int moved = 0;
+    int numCorridors = 0;
+    std::set<NBNode*> railNodes = NBRailwayTopologyAnalyzer::getRailNodes(ec);
+    std::set<NBNode*> railGeomNodes;
+    for (NBNode* n : railNodes) {
+        if (n->geometryLike()) {
+            railGeomNodes.insert(n);
+        }
+    }
+    std::set<NBNode*, ComparatorIdLess> kinkNodes;;
+    for (NBNode* n : railGeomNodes) {
+        NBEdge* in = n->getIncomingEdges().front();
+        NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
+        const double relAngle = fabs(RAD2DEG(GeomHelper::angleDiff(DEG2RAD(in->getAngleAtNode(n)), DEG2RAD(out->getAngleAtNode(n)))));
+        if (maxAngle > 0 && relAngle > maxAngle) {
+            kinkNodes.insert(n);
+        }
+    }
+    while (!kinkNodes.empty()) {
+        std::vector<NBNode*> corridor;
+        std::vector<NBEdge*> corridorEdges;
+        Boundary corridorBox;
+        double length = 0;
+        NBNode* n = *kinkNodes.begin();
+        kinkNodes.erase(kinkNodes.begin());
+        // go downstream and upstream, add kinkNodes until a "long" enough
+        // non-kink stretch is found
+        NBEdge* in = n->getIncomingEdges().front();
+        NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
+        NBNode* up = in->getFromNode();
+        NBNode* down = out->getToNode();
+        corridor.push_back(up);
+        corridor.push_back(n);
+        corridor.push_back(down);
+        corridorBox.add(up->getPosition());
+        corridorBox.add(down->getPosition());
+        corridorEdges.push_back(in);
+        corridorEdges.push_back(out);
+        length += in->getLoadedLength();
+        length += out->getLoadedLength();
+        while (kinkNodes.count(up) != 0) {
+            NBEdge* out = in;
+            NBEdge* in = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in->getLoadedLength();
+            up = in->getFromNode();
+            corridor.insert(corridor.begin(), up);
+            corridorEdges.insert(corridorEdges.begin(), in);
+            kinkNodes.erase(up);
+            corridorBox.add(up->getPosition());
+        }
+        while (kinkNodes.count(down) != 0) {
+            NBEdge* in = out;
+            NBEdge* out = down->getOutgoingEdges().size() == 1 || down->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? down->getOutgoingEdges().front() : down->getOutgoingEdges().back();
+            down = out->getToNode();
+            length += out->getLoadedLength();
+            corridor.push_back(down);
+            corridorEdges.push_back(out);
+            kinkNodes.erase(down);
+            corridorBox.add(down->getPosition());
+        }
+        // straighten all edges in corridor (corridorEdges doesn't include bidi)
+        std::set<NBNode*> corridorNodes(corridor.begin(), corridor.end());
+        for (NBNode* n2 : corridorNodes) {
+            for (NBEdge* e : n2->getEdges()) {
+                if (corridorNodes.count(e->getFromNode()) != 0
+                        && corridorNodes.count(e->getToNode()) != 0) {
+                    PositionVector simpleGeom;
+                    simpleGeom.push_back(e->getFromNode()->getPosition());
+                    simpleGeom.push_back(e->getToNode()->getPosition());
+                    e->setGeometry(simpleGeom);
+                }
+            }
+        }
+        Position cBeg = up->getPosition();
+        Position cEnd = down->getPosition();
+        Position delta = cEnd - cBeg;
+        double currLength = 0;
+        for (int i = 1; i < (int)corridor.size() - 1; i++) {
+            currLength += corridorEdges[i - 1]->getLoadedLength();
+            Position newPos = cBeg + delta * (currLength / length);
+            corridor[i]->reinit(newPos, corridor[i]->getType());
+            moved += 1;
+        }
+        numCorridors += 1;
+    }
+    //std::cout << " railNodes=" << railNodes.size() << " railGeomNodes=" << railGeomNodes.size() << " kinkNodes=" << kinkNodes.size() << "\n";
+
+    WRITE_MESSAGEF(TL("Moved % rail junctions for straightening % corridors."), moved, numCorridors);
+    return moved;
+}
 
 /****************************************************************************/

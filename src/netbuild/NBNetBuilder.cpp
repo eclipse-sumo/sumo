@@ -200,6 +200,10 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
         NBRailwayTopologyAnalyzer::analyzeTopology(myEdgeCont);
     }
+    if (oc.exists("railway.geometry.straighten") && oc.getBool("railway.geometry.straighten")) {
+        NBTurningDirectionsComputer::computeTurnDirections(myNodeCont, false); // recompute after new edges were added
+        NBRailwayGeometryHelper::straigthenCorrdidor(myEdgeCont, oc.getFloat("geometry.max-angle"));
+    }
 
 
     if (mayAddOrRemove && oc.exists("edges.join-tram-dist") && oc.getFloat("edges.join-tram-dist") >= 0) {
