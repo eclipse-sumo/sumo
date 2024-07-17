@@ -109,7 +109,7 @@ class TLS:
 
 class Phase:
 
-    def __init__(self, duration, state, minDur=None, maxDur=None, next=tuple(), name=""):
+    def __init__(self, duration, state, minDur=None, maxDur=None, next=tuple(), name="",earlyTarget=""):
         """
         Constructs a traffic light phase
         duration (float): the duration of the phase in seconds
@@ -118,6 +118,7 @@ class Phase:
         maxDur (float): the maximum duration (ignored by static tls)
         next (intList): possible succesor phase (optional)
         name (string): the name of the phase
+        earlyTarget (string): early switching to phase with the given index(es)
         """
         self.duration = duration
         self.state = state
@@ -126,12 +127,31 @@ class Phase:
         self.maxDur = maxDur if maxDur is not None else duration
         self.next = next
         self.name = name
+        self.earlyTarget = earlyTarget 
 
     def __repr__(self):
-        name = (", name='%s'" % self.name) if self.name else ""
+        name = f', name="{self.name}"' if self.name else ""
         next = (", next='%s'" % str(self.next)) if self.next else ""
-        return ("Phase(duration=%s, state='%s', minDur=%s, maxDur=%s%s%s)" %
-                (self.duration, self.state, self.minDur, self.maxDur, name, next))
+        earlyTarget = f', earlyTarget="{self.earlyTarget}"' if self.earlyTarget else ""
+        return (f'Phase(duration="{self.duration}",state="{self.state}",minDur="{self.minDur}", maxDur="{self.maxDur}"{name}{next}{earlyTarget})')
+    
+    def addNext(self,next):
+        self.next = next
+
+    def addEarlyTarget(self,target_str):
+        self.earlyTarget = target_str
+
+    def addMinDur(self,duration):
+        self.minDur = duration
+
+    def addMaxDur(self,duration):
+        self.maxDur = duration
+
+    def getMinDur(self):
+        return None if self.minDur is None else self.minDur
+    
+    def getMaxDur(self):
+        return None if self.maxDur is None else self.maxDur
 
 
 class TLSProgram:
