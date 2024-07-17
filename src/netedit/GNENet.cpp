@@ -564,8 +564,10 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
     // fix connections (make a copy because they will be modified
     std::vector<NBEdge::Connection> NBConnections = which->getNBEdge()->getConnections();
     for (const auto& NBConnection : NBConnections) {
-        undoList->add(new GNEChange_Connection(which, NBConnection, false, false), true);
-        undoList->add(new GNEChange_Connection(by, NBConnection, false, true), true);
+        if (NBConnection.toEdge != nullptr) {
+            undoList->add(new GNEChange_Connection(which, NBConnection, false, false), true);
+            undoList->add(new GNEChange_Connection(by, NBConnection, false, true), true);
+        }
     }
     undoList->add(new GNENetHelper::GNEChange_ReplaceEdgeInTLS(getTLLogicCont(), which->getNBEdge(), by->getNBEdge()), true);
     // Delete edge
