@@ -48,7 +48,14 @@ import sumolib
 from . import lane, edge, netshiftadaptor, node, connection, roundabout  # noqa
 from .connection import Connection
 
+class Condition:
+    def __init__(self, id, value):
+        self.id = id
+        self.value = value
 
+    def toXML(self):
+        return f'\t <condition id="{self.id}" value="{self.value}" /> \n'
+    
 class TLS:
 
     """Traffic Light Signal for a sumo network"""
