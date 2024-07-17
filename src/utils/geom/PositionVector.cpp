@@ -1717,24 +1717,25 @@ PositionVector::simplified2(const bool closed, const double eps) const {
         if (!closed && (index == 0 || index == (int)pv.size() - 1)) {
             return eps + 1.;
         }
-        const Position& p0 = pv.at(index);
-        const Position& p1 = pv.at((index - 1) % pv.size());
-        const Position& p2 = pv.at((index + 1) % pv.size());
-        const double distIK = p1.distanceTo(p2);
-        if (distIK < eps) {
+        const Position& p = pv[index];
+        const Position& a = pv[(index + pv.size() - 1) % pv.size()];
+        const Position& b = pv[(index + 1) % pv.size()];
+        const double distAB = a.distanceTo(b);
+        if (distAB < MIN2(eps, NUMERICAL_EPS)) {
             // avoid division by 0 and degenerate cases due to very small baseline
-            return (p1.distanceTo(p0) + p2.distanceTo(p0)) / 2.;
+            return (a.distanceTo(p) + b.distanceTo(p)) / 2.;
         }
         // https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line#Vector_formulation
-        const Position dir = (p2 - p1) / distIK;
-        const double projectedLength = (p1 - p0).dotProduct(dir);
-        if (projectedLength <= 0.) {
-            return p1.distanceTo(p0);
+        // calculating the distance of p to the line defined by a and b
+        const Position dir = (b - a) / distAB;
+        const double projectedLength = (a - p).dotProduct(dir);
+        if (projectedLength <= -distAB) {
+            return b.distanceTo(p);
         }
-        if (projectedLength >= distIK) {
-            return p2.distanceTo(p0);
+        if (projectedLength >= 0.) {
+            return a.distanceTo(p);
         }
-        const Position distVector = (p1 - p0) - dir * projectedLength;
+        const Position distVector = (a - p) - dir * projectedLength;
         return distVector.length();
     };
     std::vector<double> scores;
@@ -1757,10 +1758,10 @@ PositionVector::simplified2(const bool closed, const double eps) const {
             break;
         }
         scores.erase(scores.begin() + minIndex);
-        scores[(minIndex - 1) % result.size()] = calcScore(result, (minIndex - 1) % result.size());
+        scores[(minIndex + result.size() - 1) % result.size()] = calcScore(result, (minIndex + result.size() - 1) % result.size());
         scores[minIndex % result.size()] = calcScore(result, minIndex % result.size());
         minScore = eps + 1.;
-        for (int i = 0; i < (int)size(); i++) {
+        for (int i = 0; i < (int)result.size(); i++) {
             if (scores[i] < minScore) {
                 minScore = scores[i];
                 minIndex = i;

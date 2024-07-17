@@ -667,6 +667,12 @@ TEST_F(PositionVectorTest, test_method_simplified) {
     const PositionVector result3 = vec3.simplified();
     // std::cout << result3 << std::endl;
     EXPECT_EQ(3, result3.size());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified();
+    EXPECT_EQ(3, result4.size());
 }
 
 
@@ -682,4 +688,15 @@ TEST_F(PositionVectorTest, test_method_simplified2) {
     const PositionVector result3 = vec3.simplified2(true);
     // std::cout << result3 << std::endl;
     EXPECT_EQ(2, result3.size());
+    EXPECT_DOUBLE_EQ(2., result3.front().y());
+    EXPECT_DOUBLE_EQ(5., result3.back().y());
+
+    const PositionVector vec4(std::vector<Position> {Position(0, 0), Position(0, 8), Position(NUMERICAL_EPS / 2., 7), Position(NUMERICAL_EPS, 6), Position(3. * NUMERICAL_EPS / 2., 5),
+                              Position(2. * NUMERICAL_EPS, 4), Position(3. * NUMERICAL_EPS / 2., 3), Position(NUMERICAL_EPS, 2), Position(NUMERICAL_EPS / 2., 1)
+                                                    });
+    const PositionVector result4 = vec4.simplified2(true);
+    EXPECT_EQ(3, result4.size());
+    EXPECT_DOUBLE_EQ(0., result4.front().y());
+    EXPECT_DOUBLE_EQ(8., result4[1].y());
+    EXPECT_DOUBLE_EQ(4., result4.back().y());
 }
