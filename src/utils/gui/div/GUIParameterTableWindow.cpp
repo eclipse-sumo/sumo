@@ -250,7 +250,7 @@ GUIParameterTableWindow::updateTable() {
 
 void
 GUIParameterTableWindow::closeBuilding(const Parameterised* p) {
-    // add generic paramters if available
+    // add generic parameters if available
     if (p == nullptr) {
         p = dynamic_cast<const Parameterised*>(myObject);
     }
