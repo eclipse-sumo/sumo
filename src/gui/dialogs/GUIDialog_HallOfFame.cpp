@@ -43,10 +43,9 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     // main text
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
     myHeadlineFont = new FXFont(getApp(), "Arial", 12, FXFont::Bold);
-    (new FXLabel(descriptionFrame, "SUMO User Conference 2023 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
+    (new FXLabel(descriptionFrame, "SUMO User Conference 2024 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "", GUIIconSubSys::getIcon(GUIIcon::HALL_OF_FAME), GUIDesignLabelIcon);
-    new FXLabel(descriptionFrame, "Voted best presentation:\nComparing Measured Driver Behavior Distributions to Results from Car-Following Models using SUMO and Real-World Vehicle Trajectories from Radar\n(Maxwell Schrader, Mahdi Al Abdraboh and Joshua Bittle)\n", nullptr, GUIDesignLabelAboutInfo);
-    new FXLabel(descriptionFrame, "Voted best poster:\nOpen-Source Framework for Modeling Emission Concentrations in Urban Areas\n(Mario Ilic, Seyed M. Saghaeiannejad, Sasan Amini and Klaus Bogenberger)\n", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, "Voted best presentation:\nCalibrating Car-Following Models using SUMO-in-the-loop and Vehicle Trajectories from Roadside Radar\n(Maxwell Schrader, Arya Karnik, Alexander Hainen and Joshua Bittle)\n", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
     (new MFXLinkLabel(this, "Visit conference website", nullptr, GUIDesignLabel(JUSTIFY_NORMAL)))->setTipText("https://www.eclipse.dev/sumo/conference");
