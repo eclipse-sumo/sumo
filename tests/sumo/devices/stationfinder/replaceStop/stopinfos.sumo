@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-16 14:22:19 by Eclipse SUMO sumo Version v1_14_1+14071-d070b2e7a62
+<!-- generated on 2024-07-17 17:48:35 by Eclipse SUMO sumo Version v1_14_1+14089-03d6299081d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh3" type="ElectricVehicle1" lane="D2_1" pos="220.00" parking="0" started="33.00" ended="307.00" delay="0.40" chargingStation="CS4" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="veh3" type="ElectricVehicle1" lane="L2_0" pos="50.00" parking="0" started="339.00" ended="500.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh3" type="ElectricVehicle1" lane="D2_1" pos="220.00" parking="0" started="33.00" ended="415.00" delay="0.33" chargingStation="CS4" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh3" type="ElectricVehicle1" lane="L2_0" pos="50.00" parking="0" started="447.00" ended="500.00" delay="0.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
     <stopinfo id="veh0" type="ElectricVehicle1" lane="D2_0" pos="70.00" parking="0" started="12.00" ended="500.00" delay="0.00" chargingStation="CS1" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
