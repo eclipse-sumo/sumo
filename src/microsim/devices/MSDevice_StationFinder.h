@@ -148,6 +148,17 @@ public:
         return "stationfinder";
     }
 
+    /// @brief return the string representation of the chosen charging strategy
+    const std::string getChargingStrategy() const {
+        if (myChargingStrategy == CHARGINGSTRATEGY_NONE) {
+            return "none";
+        } else if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
+            return "balanced";
+        } else {
+            return "latest";
+        }
+    }
+
     /** @brief Called on writing tripinfo output
      *
      * @param[in] os The stream to write the information into
@@ -239,12 +250,13 @@ private:
      *
      * @param[in] router
      * @param[in] expectedConsumption
+     * @param[in,out] scores additional input for score computation and scores of the best charging station
      * @param[in] constrainTT whether to constrain the search radius by a maximum travel time
      * @param[in] skipVisited whether to skip charging stations which have not been available when passing by recently
      * @param[in] skipOccupied whether to skip fully occupied charging stations
      * @return The found charging station, otherwise nullptr
      */
-    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
+    MSChargingStation* findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT = true, bool skipVisited = true, bool skipOccupied = false);
 
 
     /** @brief reroute to a charging station
@@ -294,7 +306,7 @@ private:
 
     /** @brief
      */
-    void implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge);
+    void implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge, const MSChargingStation* cs);
 
 private:
     /// @brief myHolder cast to needed type

@@ -295,7 +295,7 @@ MSDevice_StationFinder::notifyMoveInternal(const SUMOTrafficObject& /*veh*/,
 
 
 MSChargingStation*
-MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, bool constrainTT, bool skipVisited, bool skipOccupied) {
+MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, double expectedConsumption, StoppingPlaceParamMap_t& scores, bool constrainTT, bool skipVisited, bool skipOccupied) {
     MSChargingStation* minStation = nullptr;
     std::vector<StoppingPlaceVisible> candidates;
     const StoppingPlaceMemory* chargingMemory = myVeh.getChargingMemory();
@@ -326,11 +326,11 @@ MSDevice_StationFinder::findChargingStation(SUMOAbstractRouter<MSEdge, SUMOVehic
         candidates.push_back({cs, false});
     }
     ConstMSEdgeVector newRoute;
-    StoppingPlaceParamMap_t addInput = { {"expectedConsumption", expectedConsumption} };
+    scores["expectedConsumption"] = expectedConsumption;
     std::vector<double> probs(candidates.size(), 1.);
     bool newDestination;
     myCheckValidity = constrainTT;
-    MSStoppingPlace* bestCandidate = reroute(candidates, probs, myHolder, newDestination, newRoute, addInput);
+    MSStoppingPlace* bestCandidate = reroute(candidates, probs, myHolder, newDestination, newRoute, scores);
     myCheckValidity = true;
     minStation = dynamic_cast<MSChargingStation*>(bestCandidate);
     return minStation;
@@ -343,7 +343,8 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
     if (myBattery->getActualBatteryCapacity() < expectedConsumption) {
         myLastSearch = SIMSTEP;
         MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
-        MSChargingStation* cs = findChargingStation(router, expectedConsumption);
+        StoppingPlaceParamMap_t scores = {};
+        MSChargingStation* cs = findChargingStation(router, expectedConsumption, scores);
         if (cs != nullptr) {
             // integrate previously planned stops which do not have charging facilities
             myChargingStation = cs;
@@ -361,34 +362,20 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                 // what if the charging station is skipped due to long waiting time?
                 if (myReplacePlannedStop > 0. && myHolder.hasStops() && myHolder.getNextStopParameter()->chargingStation.empty()) {
                     // compare the distance to the original target
-                    const SUMOTime now = SIMSTEP;
-                    ConstMSEdgeVector edgesToStop;
-                    const MSEdge* originEdge = &cs->getLane().getEdge();
-                    const MSEdge* targetEdge = *myHolder.getNextStop().edge;
-                    const double targetPos = myHolder.getNextStopParameter()->endPos;
-                    const double startPos = cs->getEndLanePosition();
-                    router.compute(originEdge, startPos, targetEdge, targetPos, &myHolder, now, edgesToStop, true);
-                    if (edgesToStop.size() > 0) {
-                        MSRoute routeToActivity(myHolder.getID() + "!activity#1", edgesToStop, false,
-                                                nullptr, {});
-                        const double actualDist = routeToActivity.getDistanceBetween(startPos, targetPos,
-                                                  routeToActivity.begin(), routeToActivity.end() - 1, true);
-                        if (actualDist < myDistanceToOriginalStop) {
-                            // compute the arrival time at the original stop
-                            const SUMOTime timeToOriginalStop = TIME2STEPS(router.recomputeCosts(edgesToStop, &myHolder, SIMSTEP));
-                            SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
-                            if (timeToOriginalStop + now < originalUntil) {
-                                SUMOTime delta = originalUntil - (timeToOriginalStop + now);
-                                stopPar.until = timeToOriginalStop + now + delta * MIN2(myReplacePlannedStop, 1.);
-                                if (myReplacePlannedStop > 1.) {
-                                    myHolder.abortNextStop();
-                                }
-
-                                // optionally implement a charging strategy by adjusting the accepted charging rates
-                                if (myChargingStrategy != CHARGINGSTRATEGY_NONE) {
-                                    // TODO: the charging strategy should actually only be computed at the arrival at the charging station
-                                    implementChargingStrategy(now, stopPar.until, expectedConsumption);
-                                }
+                    if (scores["distfrom"] < myDistanceToOriginalStop /*actualDist < myDistanceToOriginalStop*/) {
+                        // compute the arrival time at the original stop
+                        const SUMOTime timeToOriginalStop = TIME2STEPS(scores["timefrom"]);
+                        SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
+                        if (timeToOriginalStop + myLastSearch < originalUntil) {
+                            SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
+                            stopPar.until = timeToOriginalStop + myLastSearch + delta * MIN2(myReplacePlannedStop, 1.);
+                            if (myReplacePlannedStop > 1.) {
+                                myHolder.abortNextStop();
+                            }
+                            // optionally implement a charging strategy by adjusting the accepted charging rates
+                            if (myChargingStrategy != CHARGINGSTRATEGY_NONE) {
+                                // the charging strategy should actually only be computed at the arrival at the charging station
+                                implementChargingStrategy(myLastSearch + scores["timeto"], stopPar.until, expectedConsumption, cs);
                             }
                         }
                     }
@@ -437,7 +424,8 @@ MSDevice_StationFinder::teleportToChargingStation(const SUMOTime /*currentTime*/
     // find closest charging station
     MSVehicleRouter& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
     double expectedConsumption = MIN2(estimateConsumption(nullptr, true, STEPS2TIME(myVeh.getStops().front().pars.duration)) * myReserveFactor, myBattery->getMaximumBatteryCapacity() * myTargetSoC);
-    MSChargingStation* cs = findChargingStation(router, expectedConsumption, false, false, true);
+    StoppingPlaceParamMap_t scores = {};
+    MSChargingStation* cs = findChargingStation(router, expectedConsumption, scores, false, false, true);
     if (cs == nullptr) {
         // continue waiting if all charging stations are occupied
 #ifdef DEBUG_STATIONFINDER_RESCUE
@@ -564,7 +552,13 @@ MSDevice_StationFinder::updateChargeLimit(const SUMOTime currentTime) {
         myChargeLimits.clear();
     }
     if (myChargeLimits.size() > 0) {
-        myBattery->setChargeLimit(myChargeLimits.begin()->second);
+        double chargeLimit = myChargeLimits.begin()->second;
+        myBattery->setChargeLimit(chargeLimit);
+        if (chargeLimit < 0) {
+            WRITE_MESSAGEF(TL("The charging rate limit of vehicle '%' is lifted at time=%"), myHolder.getID(), STEPS2TIME(SIMSTEP));
+        } else {
+            WRITE_MESSAGEF(TL("The charging rate of vehicle '%' is limited to % at time=%"), myHolder.getID(), chargeLimit, STEPS2TIME(SIMSTEP));
+        }
         myChargeLimits.erase(myChargeLimits.begin());
     }
     if (myChargeLimits.size() == 0) {
@@ -578,19 +572,23 @@ MSDevice_StationFinder::updateChargeLimit(const SUMOTime currentTime) {
 
 
 void
-MSDevice_StationFinder::implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge) {
-    initChargeLimitCommand();
+MSDevice_StationFinder::implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge, const MSChargingStation* cs) {
     myChargeLimits.clear();
     if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
         const double balancedCharge = plannedCharge / STEPS2TIME(end - begin);
         myChargeLimits.push_back({ begin, balancedCharge });
         myChargeLimits.push_back({ end, -1});
     } else { // CHARGINGSTRATEGY_LATEST
-        SUMOTime startAfter = TIME2STEPS(600); // TODO: compute the actual time shift
-        myChargeLimits.push_back({ begin, 0});
-        myChargeLimits.push_back({ begin + startAfter, -1});
+        SUMOTime expectedDuration = myBattery->estimateChargingDuration(plannedCharge, cs->getChargingPower(false) * cs->getEfficency());
+        if (end - expectedDuration > begin) {
+            myChargeLimits.push_back({ begin, 0 });
+            myChargeLimits.push_back({ end - expectedDuration, -1 });
+        }
     }
-    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myChargeLimitCommand, begin + DELTA_T);
+    if (myChargeLimits.size() > 0) {
+        initChargeLimitCommand();
+        MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myChargeLimitCommand, begin);
+    }
 }
 
 

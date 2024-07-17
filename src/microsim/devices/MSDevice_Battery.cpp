@@ -19,6 +19,8 @@
 ///
 // The Battery parameters for the vehicle
 /****************************************************************************/
+#include <algorithm>
+
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -469,6 +471,15 @@ MSDevice_Battery::isChargingInTransit() const {
 SUMOTime
 MSDevice_Battery::getChargingStartTime() const {
     return myChargingStartTime;
+}
+
+
+SUMOTime
+MSDevice_Battery::estimateChargingDuration(const double toCharge, const double csPower) const {
+    //if (!myChargeCurve.empty()) {
+    //    // TODO: integrate charge curve
+    //}
+    return TIME2STEPS(toCharge / MIN2(csPower, myMaximumChargeRate));
 }
 
 

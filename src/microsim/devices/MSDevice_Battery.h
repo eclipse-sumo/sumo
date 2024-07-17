@@ -141,6 +141,9 @@ public:
     /// @brief Get charging start time.
     SUMOTime getChargingStartTime() const;
 
+    /// @brief Estimate the charging duration given the current battery state
+    SUMOTime estimateChargingDuration(const double toCharge, const double csPower) const;
+
     /// @brief Get consum
     double getConsum() const;
 
