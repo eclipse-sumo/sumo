@@ -1557,6 +1557,7 @@ NIImporter_OpenDrive::computeShapes(std::map<std::string, OpenDriveEdge*>& edges
                 e.geom.removeDoublePoints(oc.getFloat("geometry.min-dist"), true, 1, 1, true);
             }
         }
+        e.geom = e.geom.simplified2(false);
 #ifdef DEBUG_SHAPE
         if (DEBUG_COND3(e.id)) {
             std::cout << " reducedGeom=" << e.geom << "\n";
