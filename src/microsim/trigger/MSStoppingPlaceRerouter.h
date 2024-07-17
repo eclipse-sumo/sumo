@@ -144,11 +144,12 @@ public:
      * @param[in] probs probabilities of all candidate stopping places
      * @param[in] newDestination whether the destination changed
      * @param[out] newRoute the route to/from the chosen stopping place is stored here
+     * @param[in,out] scores input score values from external source and get scores of all components of the "best" StoppingPlace
      * @param[in] closedEdges edges to avoid during routing
      * @return the best stopping place according to the target function or nullptr
      */
     MSStoppingPlace* reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh,
-                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& addInput, const MSEdgeVector& closedEdges = {});
+                             bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const MSEdgeVector& closedEdges = {});
     /** @brief compute the target function for a single alternative
      *
      * @param[in] veh the concerned vehicle

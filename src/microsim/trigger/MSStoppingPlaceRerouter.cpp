@@ -48,7 +48,7 @@ MSStoppingPlaceRerouter::MSStoppingPlaceRerouter(SumoXMLTag stoppingType, std::s
 }
 
 MSStoppingPlace*
-MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& addInput, const MSEdgeVector& closedEdges) {
+MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlaceCandidates, const std::vector<double>& probs, SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute, StoppingPlaceParamMap_t& scores, const MSEdgeVector& closedEdges) {
     // Reroute destination from initial stopping place to an alternative stopping place
     // if the following conditions are met:
     // - next stop target is a stopping place of the right type
@@ -164,7 +164,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             if (newDestination) {
                 newRoute.push_back(veh.getEdge());
             } else {
-                bool valid = evaluateDestination(veh, brakeGap, newDestination, onTheWay, getLastStepStoppingPlaceOccupancy(onTheWay), 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, addInput);
+                bool valid = evaluateDestination(veh, brakeGap, newDestination, onTheWay, getLastStepStoppingPlaceOccupancy(onTheWay), 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, scores);
                 if (!valid) {
                     WRITE_WARNINGF(TL("Stopping place '%' along the way cannot be used by vehicle '%' for unknown reason"), onTheWay->getID(), veh.getID());
                     return nullptr;
@@ -211,7 +211,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 }
             }
             if (occupancy < getStoppingPlaceCapacity(stoppingPlaceCandidates[i].first)) {
-                if (evaluateDestination(veh, brakeGap, newDestination, stoppingPlaceCandidates[i].first, occupancy, probs[i], router, stoppingPlaces, newRoutes, stopApproaches, maxValues, addInput)) {
+                if (evaluateDestination(veh, brakeGap, newDestination, stoppingPlaceCandidates[i].first, occupancy, probs[i], router, stoppingPlaces, newRoutes, stopApproaches, maxValues, scores)) {
                     numAlternatives++;
                 }
             } else if (visible) {
@@ -246,7 +246,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 // all stopping places are occupied. We have no good basis for
                 // prefering one or the other based on estimated occupancy
                 double occupancy = RandHelper::rand(getStoppingPlaceCapacity(sp));
-                if (evaluateDestination(veh, brakeGap, newDestination, sp, occupancy, prob, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, addInput)) {
+                if (evaluateDestination(veh, brakeGap, newDestination, sp, occupancy, prob, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, scores)) {
 #ifdef DEBUG_STOPPINGPLACE
                     if (DEBUGCOND) {
                         std::cout << "    altStoppingPlace=" << sp->getID() << " targeting occupied stopping place based on blockTime " << STEPS2TIME(std::get<0>(item)) << " among " << blockedTimes.size() << " alternatives\n";
@@ -277,7 +277,7 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
                 }
                          );
                 for (auto item : candidates) {
-                    if (evaluateDestination(veh, brakeGap, newDestination, item.second, 0, 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, addInput)) {
+                    if (evaluateDestination(veh, brakeGap, newDestination, item.second, 0, 1, router, stoppingPlaces, newRoutes, stopApproaches, maxValues, scores)) {
 #ifdef DEBUG_STOPPINGPLACE
                         if (DEBUGCOND) {
                             std::cout << "    altStoppingPlace=" << item.second->getID() << " targeting occupied stopping place (based on pure randomness) among " << candidates.size() << " alternatives\n";
@@ -359,6 +359,12 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
             }
 #endif
         }
+        // expose the scores of the best solution
+        if (nearStoppingPlace != nullptr) {
+            for (auto component : stoppingPlaces[nearStoppingPlace]) {
+                scores[component.first] = component.second;
+            }
+        }
         setNumberStoppingPlaceReroutes(veh, getNumberStoppingPlaceReroutes(veh) + 1);
     } else {
 #ifdef DEBUG_STOPPINGPLACE
@@ -373,7 +379,6 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
         std::cout << "  stoppingPlaceResult=" << Named::getIDSecure(nearStoppingPlace) << "\n";
     }
 #endif
-
     return nearStoppingPlace;
 }
 
