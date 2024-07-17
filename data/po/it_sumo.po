@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-17 09:28+0000\n"
+"PO-Revision-Date: 2024-07-17 12:33+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2541,7 +2541,7 @@ msgstr "Crea una finestra alla posizione data x,y"
 
 #: src/microsim/MSFrame.cpp:791
 msgid "The aggregation period for value tracker windows"
-msgstr ""
+msgstr "Il periodo di aggregazione per finestre di inseguimento di valori"
 
 #: src/microsim/MSFrame.cpp:795
 msgid "Start with an OpenSceneGraph view instead of the regular 2D view"
