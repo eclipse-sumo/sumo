@@ -1398,6 +1398,8 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
         // non-kink stretch is found
         NBEdge* in = n->getIncomingEdges().front();
         NBEdge* out = n->getOutgoingEdges().size() == 1 || n->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? n->getOutgoingEdges().front() : n->getOutgoingEdges().back();
+        NBEdge* centerIn = in;
+        NBEdge* centerOut = out;
         NBNode* up = in->getFromNode();
         NBNode* down = out->getToNode();
         corridor.push_back(up);
@@ -1409,6 +1411,7 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
         corridorEdges.push_back(out);
         length += in->getLoadedLength();
         length += out->getLoadedLength();
+        Position cBeg, cEnd, delta;
         while (kinkNodes.count(up) != 0) {
             NBEdge* out = in;
             NBEdge* in = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
@@ -1419,6 +1422,24 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
             kinkNodes.erase(up);
             corridorBox.add(up->getPosition());
         }
+        cBeg = up->getPosition();
+        cEnd = down->getPosition();
+        delta = cEnd - cBeg;
+        while (delta.length2D() <= POSITION_EPS * corridor.size() && railGeomNodes.count(up) != 0) {
+            NBEdge* out = in;
+            NBEdge* in = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in->getLoadedLength();
+            up = in->getFromNode();
+            corridor.insert(corridor.begin(), up);
+            corridorEdges.insert(corridorEdges.begin(), in);
+            kinkNodes.erase(up);
+            corridorBox.add(up->getPosition());
+            cBeg = up->getPosition();
+            cEnd = down->getPosition();
+            delta = cEnd - cBeg;
+        }
+        in = centerIn;
+        out = centerOut;
         while (kinkNodes.count(down) != 0) {
             NBEdge* in = out;
             NBEdge* out = down->getOutgoingEdges().size() == 1 || down->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? down->getOutgoingEdges().front() : down->getOutgoingEdges().back();
@@ -1428,6 +1449,22 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
             corridorEdges.push_back(out);
             kinkNodes.erase(down);
             corridorBox.add(down->getPosition());
+        }
+        cBeg = up->getPosition();
+        cEnd = down->getPosition();
+        delta = cEnd - cBeg;
+        while (delta.length2D() <= POSITION_EPS * corridor.size() && railGeomNodes.count(down) != 0) {
+            NBEdge* in = out;
+            NBEdge* out = down->getOutgoingEdges().size() == 1 || down->getOutgoingEdges()[1]->isTurningDirectionAt(in) ? down->getOutgoingEdges().front() : down->getOutgoingEdges().back();
+            down = out->getToNode();
+            length += out->getLoadedLength();
+            corridor.push_back(down);
+            corridorEdges.push_back(out);
+            kinkNodes.erase(down);
+            corridorBox.add(down->getPosition());
+            cBeg = up->getPosition();
+            cEnd = down->getPosition();
+            delta = cEnd - cBeg;
         }
         // straighten all edges in corridor (corridorEdges doesn't include bidi)
         std::set<NBNode*> corridorNodes(corridor.begin(), corridor.end());
@@ -1442,21 +1479,22 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
                 }
             }
         }
-        Position cBeg = up->getPosition();
-        Position cEnd = down->getPosition();
-        Position delta = cEnd - cBeg;
-        double currLength = 0;
-        for (int i = 1; i < (int)corridor.size() - 1; i++) {
-            currLength += corridorEdges[i - 1]->getLoadedLength();
-            Position newPos = cBeg + delta * (currLength / length);
-            NBNode* n = corridor[i];
-            n->reinit(newPos, n->getType());
-            for (NBEdge* e : n->getEdges()) {
-                e->resetEndpointAtNode(n);
+        if (delta.length2D() > 0) {
+            double currLength = 0;
+            for (int i = 1; i < (int)corridor.size() - 1; i++) {
+                currLength += corridorEdges[i - 1]->getLoadedLength();
+                Position newPos = cBeg + delta * (currLength / length);
+                NBNode* n = corridor[i];
+                n->reinit(newPos, n->getType());
+                for (NBEdge* e : n->getEdges()) {
+                    e->resetEndpointAtNode(n);
+                }
+                moved += 1;
             }
-            moved += 1;
+            numCorridors += 1;
+        } else {
+            WRITE_WARNINGF("Could not straighten corridor %", toString(corridor));
         }
-        numCorridors += 1;
     }
     //std::cout << " railNodes=" << railNodes.size() << " railGeomNodes=" << railGeomNodes.size() << " kinkNodes=" << kinkNodes.size() << "\n";
 
