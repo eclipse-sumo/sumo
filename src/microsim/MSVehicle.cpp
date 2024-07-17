@@ -2676,8 +2676,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
         laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
         double stopDist = MAX2(0., seen - laneStopOffset);
-        if (yellowOrRed && getDevice(typeid(MSDevice_GLOSA)) != nullptr &&
-            static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->getOverrideSafety()) {
+        if (yellowOrRed && getDevice(typeid(MSDevice_GLOSA)) != nullptr
+            && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->getOverrideSafety()
+            && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive()) {
             stopDist = std::numeric_limits<double>::max();
         }
         if (newStopDist != std::numeric_limits<double>::max()) {
