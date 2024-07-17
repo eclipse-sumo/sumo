@@ -1,0 +1,6 @@
+Warning: Discarding invalid crossing ':clusterJ15_J16_J18_J19_c0' at junction 'clusterJ15_J16_J18_J19' with edges [E19 E20] (no walkingarea found).
+Warning: Discarding invalid crossing ':clusterJ15_J16_J18_J19_c1' at junction 'clusterJ15_J16_J18_J19' with edges [E17 E18] (no walkingarea found).
+Warning: Discarding invalid crossing ':clusterJ15_J16_J18_J19_c2' at junction 'clusterJ15_J16_J18_J19' with edges [E15 E16] (no walkingarea found).
+Warning: Discarding invalid crossing ':clusterJ15_J16_J18_J19_c0' at junction 'clusterJ15_J16_J18_J19' with edges [E17 E18] (no walkingarea found).
+Warning: Discarding invalid crossing ':clusterJ15_J16_J18_J19_c1' at junction 'clusterJ15_J16_J18_J19' with edges [E15 E16] (no walkingarea found).
+Warning: 22 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).

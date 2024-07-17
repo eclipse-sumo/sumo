@@ -27,7 +27,8 @@ import pyautogui
 import time
 import pyperclip
 import attributesEnum as attrs  # noqa
-import testPositions as positions  # noqa
+import viewPositions as positions  # noqa
+import contextualMenuOperations as contextualMenu  # noqa
 
 # define delay before every operation
 DELAY_KEY = 0.2
@@ -98,6 +99,13 @@ def typeSpace():
     """
     # type space key
     typeKey('space')
+
+def typeDelete():
+    """
+    @brief type delete key
+    """
+    # type space key
+    typeKey('delete')
 
 
 def typeTab():
@@ -2727,34 +2735,40 @@ def createDataInterval(begin="0", end="3600"):
 #################################################
 
 
-def contextualMenuOperation(referencePosition, position, operation, suboperation1, suboperation2=0):
+def contextualMenuOperation(referencePosition, position, contextualMenuOperation):
     # obtain clicked position
     clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
-    # click relative to offset
-    pyautogui.rightClick(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='right')
     # place cursor over first operation
-    for _ in range(operation):
+    for _ in range(contextualMenuOperation.mainMenuPosition):
         # wait before every down
         time.sleep(DELAY_KEY_TAB)
-    # type down keys
+        # type down keys
         pyautogui.hotkey('down')
-    if suboperation1 > 0:
-        # type right key for the second menu
-        typeSpace()
-    # place cursor over second operation
-        for _ in range(suboperation1):
-            # wait before every down
-            time.sleep(DELAY_KEY_TAB)
-        # type down keys
-            pyautogui.hotkey('down')
-    if suboperation2 > 0:
-        # type right key for the third menu
-        typeSpace()
-    # place cursor over third operation
-        for _ in range(suboperation2):
-            # wait before every down
-            time.sleep(DELAY_KEY_TAB)
-        # type down keys
-            pyautogui.hotkey('down')
-    # select current operation
+    # type space for select
     typeSpace()
+    # check if go to submenu A
+    if contextualMenuOperation.subMenuAPosition > 0:
+        # place cursor over second operation
+        for _ in range(contextualMenuOperation.subMenuAPosition):
+            # wait before every down
+            time.sleep(DELAY_KEY_TAB)
+            # type down keys
+            pyautogui.hotkey('down')
+        # type space for select
+        typeSpace()
+        # check if go to submenu B
+        if contextualMenuOperation.subMenuBPosition > 0:
+            # place cursor over second operation
+            for _ in range(contextualMenuOperation.subMenuBPosition):
+                # wait before every down
+                time.sleep(DELAY_KEY_TAB)
+                # type down keys
+                pyautogui.hotkey('down')
+            # type space for select
+            typeSpace()

@@ -1,0 +1,14 @@
+Warning: Edge '-E4' is not connected to outgoing edges at junction 'JunctionCenter'.
+Warning: Edge '-E5' is not connected to outgoing edges at junction 'JunctionCenter'.
+Warning: Edge '-E6' is not connected to outgoing edges at junction 'JunctionCenter'.
+Warning: Edge '-E7' is not connected to outgoing edges at junction 'JunctionCenter'.
+Warning: Lane 'E4_1' is not connected from any incoming edge at junction 'JunctionCenter'.
+Warning: Lane 'E5_1' is not connected from any incoming edge at junction 'JunctionCenter'.
+Warning: Lane 'E6_1' is not connected from any incoming edge at junction 'JunctionCenter'.
+Warning: Lane 'E7_1' is not connected from any incoming edge at junction 'JunctionCenter'.
+Warning: Edge '-E4' is not connected to outgoing edges at junction 'JunctionCenter'.
+Warning: Lane 'E4_1' is not connected from any incoming edge at junction 'JunctionCenter'.
+Warning: The traffic light 'JunctionCenter' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light 'JunctionCenter'
+Warning: 8 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 8 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

@@ -44,8 +44,7 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.customShape, "dummyS
 netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.customShape, "", True)
 
 # Change shape with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.customShape,
-                        "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.customShape, "60.40,51.60 55.33,50.28 52.69,54.99 50.24,50.37 47.60,54.75 45.30,50.40 39.60,51.60", True)
 
 # rebuild
 netedit.rebuildNetwork()

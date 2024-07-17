@@ -4,7 +4,6 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 TestFunctions: Clicked over position 802 - 404
 TestFunctions: Clicked over position 582 - 405
 TestFunctions: Clicked over position 802 - 404
-true
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Error closing Netedit
+TestFunctions: Netedit closed successfully

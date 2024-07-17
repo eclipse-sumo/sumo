@@ -53,8 +53,7 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "Dum
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "", True)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow,
-                        "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "", True)
@@ -63,8 +62,7 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "", 
 netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspectSelectionTLS.allowButton, True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow,
-                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # rebuild
 netedit.rebuildNetwork()

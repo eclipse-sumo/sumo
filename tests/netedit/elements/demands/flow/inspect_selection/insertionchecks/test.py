@@ -47,8 +47,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleE
 netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.insertionChecks, "Dummy", False)
 
 # change personNumber with an invalid value
-netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.insertionChecks,
-                        "leaderGap junction speedLimit pedestrian", False)
+netedit.modifyAttribute(netedit.attrs.flow.inspectSelection.insertionChecks, "leaderGap junction speedLimit pedestrian", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

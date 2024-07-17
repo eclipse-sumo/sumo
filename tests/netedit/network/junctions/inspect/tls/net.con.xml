@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 12:05:51 by Eclipse SUMO netedit Version v1_20_0+0903-50ed8d6b852
+<!-- generated on 2024-07-17 15:32:42 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\no_tls\net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\junctions\inspect\tls\net.net.xml"/>
     </input>
 
     <processing>
@@ -23,7 +23,7 @@
     </junctions>
 
     <pedestrian>
-        <walkingareas value="true"/>
+        <walkingareas value="1"/>
     </pedestrian>
 
 </neteditConfiguration>
@@ -80,8 +80,8 @@
 
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
-    <crossing node="JunctionCenter" edges="E5 -E5" priority="0" width="4.00" outlineShape="3.20,7.20 -3.20,7.20 -7.20,3.20 -7.20,5.20 -5.20,7.20 -3.20,7.20 -7.20,3.20 7.20,3.20 5.98,3.31 4.98,3.64 4.20,4.20 3.64,4.98 3.31,5.98"/>
-    <crossing node="JunctionCenter" edges="E6 -E6" priority="0" width="4.00" outlineShape="7.20,-3.20 7.20,3.20 3.20,7.20 5.20,7.20 7.20,5.20 7.20,3.20 3.20,7.20 3.20,-7.20 3.31,-5.98 3.64,-4.98 4.20,-4.20 4.98,-3.64 5.98,-3.31"/>
-    <crossing node="JunctionCenter" edges="E7 -E7" priority="0" width="4.00" outlineShape="-3.20,-7.20 3.20,-7.20 7.20,-3.20 7.20,-5.20 5.20,-7.20 3.20,-7.20 7.20,-3.20 -7.20,-3.20 -5.98,-3.31 -4.98,-3.64 -4.20,-4.20 -3.64,-4.98 -3.31,-5.98"/>
-    <crossing node="JunctionCenter" edges="E4 -E4" priority="0" width="4.00" outlineShape="-7.20,3.20 -7.20,-3.20 -3.20,-7.20 -5.20,-7.20 -7.20,-5.20 -7.20,-3.20 -3.20,-7.20 -3.20,7.20 -3.31,5.98 -3.64,4.98 -4.20,4.20 -4.98,3.64 -5.98,3.31"/>
+    <crossing node="JunctionCenter" edges="E5 -E5" priority="1" width="4.00" linkIndex="12" outlineShape="3.20,7.20 -3.20,7.20 -7.20,3.20 -7.20,5.20 -5.20,7.20 -3.20,7.20 -7.20,3.20 7.20,3.20 5.98,3.31 4.98,3.64 4.20,4.20 3.64,4.98 3.31,5.98"/>
+    <crossing node="JunctionCenter" edges="E6 -E6" priority="1" width="4.00" linkIndex="13" outlineShape="7.20,-3.20 7.20,3.20 3.20,7.20 5.20,7.20 7.20,5.20 7.20,3.20 3.20,7.20 3.20,-7.20 3.31,-5.98 3.64,-4.98 4.20,-4.20 4.98,-3.64 5.98,-3.31"/>
+    <crossing node="JunctionCenter" edges="E7 -E7" priority="1" width="4.00" linkIndex="14" outlineShape="-3.20,-7.20 3.20,-7.20 7.20,-3.20 7.20,-5.20 5.20,-7.20 3.20,-7.20 7.20,-3.20 -7.20,-3.20 -5.98,-3.31 -4.98,-3.64 -4.20,-4.20 -3.64,-4.98 -3.31,-5.98"/>
+    <crossing node="JunctionCenter" edges="E4 -E4" priority="1" width="4.00" linkIndex="15" outlineShape="-7.20,3.20 -7.20,-3.20 -3.20,-7.20 -5.20,-7.20 -7.20,-5.20 -7.20,-3.20 -3.20,-7.20 -3.20,7.20 -3.31,5.98 -3.64,4.98 -4.20,4.20 -4.98,3.64 -5.98,3.31"/>
 </connections>

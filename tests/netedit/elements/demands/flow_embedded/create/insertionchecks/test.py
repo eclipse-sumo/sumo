@@ -48,8 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeEnter()
 
 # set valid depart speed
-netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks,
-                           "leaderGap junction speedLimit pedestrian")
+netedit.changeDefaultValue(netedit.attrs.flowEmbedded.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create flow with embedded route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

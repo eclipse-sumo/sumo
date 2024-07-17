@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-17 15:13:29 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="dataSet" begin="0.00" end="3600.00">
+        <edgeRelation from="E14" to="E17"/>
+        <edgeRelation from="E16" to="E19"/>
+        <edgeRelation from="E18" to="E21"/>
+        <edgeRelation from="E20" to="E15"/>
+    </interval>
+</data>

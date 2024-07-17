@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.ce
 netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "dummy position", False)
 
 # change position with a non valid value (another junction in the same position)
-netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "0.00,50.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-25.00,0.00", False)
 
 # avoid merging
 netedit.typeTwoKeys('alt', 'n')
@@ -51,16 +51,13 @@ netedit.typeTwoKeys('alt', 'n')
 netedit.rebuildNetwork()
 
 # inspect central node in new position
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 
 # change position with a valid value
-netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "40.00,40.00", False)
+netedit.modifyAttribute(netedit.attrs.junction.inspect.pos, "-15.00, 15.00", True)
 
 # rebuild network
 netedit.rebuildNetwork()
-
-# wait for output
-time.sleep(3)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -68,23 +65,17 @@ netedit.undo(referencePosition, 1)
 # rebuild network
 netedit.rebuildNetwork()
 
-# wait for output
-time.sleep(3)
-
 # Check redo
 netedit.redo(referencePosition, 1)
 
 # rebuild network
 netedit.rebuildNetwork()
 
-# wait for output
-time.sleep(3)
-
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
-# Fix stopping places position
-netedit.fixStoppingPlace("fixPositions")
+# type space
+netedit.typeSpace()
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,0 +1,6 @@
+Warning: Unreachable edge '-E6' within tlLogic 'JunctionCenter_joined'
+Warning: Unreachable edge '-E4' within tlLogic 'JunctionCenter_joined'
+Warning: Unreachable edge '-E6' within tlLogic 'JunctionCenter_joined'
+Warning: Unreachable edge '-E4' within tlLogic 'JunctionCenter_joined'
+Warning: Unreachable edge '-E6' within tlLogic 'JunctionCenter_joined'
+Warning: 8 total messages of type: Unreachable edge '%' within tlLogic '%'

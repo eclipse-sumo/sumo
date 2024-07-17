@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-27 14:29:19 by Eclipse SUMO netedit Version v1_20_0+0881-deec7a44f8f
+<!-- generated on 2024-07-17 15:34:06 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -44,5 +44,9 @@
     <connection from="E2" to="E3" fromLane="0" toLane="0"/>
 
     <connection from="E3" to="E0" fromLane="0" toLane="0"/>
+
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
+
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
 </connections>

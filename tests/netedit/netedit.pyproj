@@ -95,6 +95,7 @@
     <Compile Include="bugs\ticket5552\test.py" />
     <Compile Include="bugs\viewport\change_zoom\test.py" />
     <Compile Include="bugs\viewport\input_zoom\test.py" />
+    <Compile Include="contextualMenuOperations.py" />
     <Compile Include="elements\additionals\access\create\default\test.py" />
     <Compile Include="elements\additionals\access\create\duplicated\test.py" />
     <Compile Include="elements\additionals\access\create\friendlypos\test.py" />
@@ -3859,7 +3860,7 @@
     <Compile Include="selection\viewoptions\automatic_junctions\test.py" />
     <Compile Include="selection\viewoptions\show_connections\test.py" />
     <Compile Include="selection\viewoptions\toggle_edges\test.py" />
-    <Compile Include="testPositions.py" />
+    <Compile Include="viewPositions.py" />
     <Compile Include="volatilerecomputing\abort-recomputing\test.py" />
     <Compile Include="volatilerecomputing\crossings.guess\test.py" />
     <Compile Include="volatilerecomputing\sidewalks-and-crossings.guess\test.py" />

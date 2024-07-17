@@ -48,8 +48,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.typeEnter()
 
 # set empty insertionChecks
-netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.insertionChecks,
-                           "leaderGap junction speedLimit pedestrian")
+netedit.changeDefaultValue(netedit.attrs.vehicleEmbedded.create.insertionChecks, "leaderGap junction speedLimit pedestrian")
 
 # create trip
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)

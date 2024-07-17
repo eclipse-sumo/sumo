@@ -159,25 +159,6 @@ class junction:
         tl = 14
         parameters = 17
 
-    class contextualMenu:
-        addTLS = 0
-        addJoinedTLS = 0
-        resetEdgeEndPoints = 0
-        setCustomJunctionShape = 0
-        resetJunctionShape = 0
-        replaceJunctionByGeometryPoint = 0
-        splitJunction = 0
-        splitJunctionAndReconnect = 0
-        converToRoundAbout = 0
-        clearConnections = 0
-        resetConnections = 0
-
-    contextualMenuTLS = 10
-    resetEdgeEndPoints = 11
-    customJuncionShape = 12
-    convertToRoundabout = 12
-    resetConnections = 14
-
 # edge
 
 
