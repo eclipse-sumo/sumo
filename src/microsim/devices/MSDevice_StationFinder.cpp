@@ -30,6 +30,7 @@
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <utils/common/ParametrisedWrappingCommand.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/emissions/HelpersEnergy.h>
@@ -84,6 +85,8 @@ MSDevice_StationFinder::insertOptions(OptionsCont& oc) {
     oc.addDescription("device.stationfinder.replacePlannedStop", "Battery", TL("Share of stopping time of the next independently planned stop to use for charging instead"));
     oc.doRegister("device.stationfinder.maxDistanceToReplacedStop", new Option_Float(300.));
     oc.addDescription("device.stationfinder.maxDistanceToReplacedStop", "Battery", TL("Maximum distance in meters from the original stop to be replaced by the charging stop"));
+    oc.doRegister("device.stationfinder.chargingStrategy", new Option_String("none"));
+    oc.addDescription("device.stationfinder.chargingStrategy", "Battery", TL("Set a charging strategy to alter time and charging load from the set: [none, balanced, latest]"));
 }
 
 
@@ -106,8 +109,8 @@ MSDevice_StationFinder::MSDevice_StationFinder(SUMOVehicle& holder)
     {"waitingTime", 1.}, {"chargingTime", 1.}
 }, { {"waitingTime", false}, {"chargingTime", false} }),
 myVeh(dynamic_cast<MSVehicle&>(holder)),
-myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myLastChargeCheck(0),
-myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
+myBattery(nullptr), myChargingStation(nullptr), myRescueCommand(nullptr), myChargeLimitCommand(nullptr),
+myLastChargeCheck(0), myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     // consider whole path to/from a charging station in the search
     myEvalParams["distanceto"] = 0.;
     myEvalParams["timeto"] = 1.;
@@ -115,15 +118,25 @@ myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     myNormParams["chargingTime"] = true;
     myNormParams["waitingTime"] = true;
     myRescueTime = STEPS2TIME(holder.getTimeParam("device.stationfinder.rescueTime"));
-    const std::string action = holder.getStringParam("device.stationfinder.rescueAction");
-    if (action == "remove") {
+    const std::string chargingStrategy = holder.getStringParam("device.stationfinder.chargingStrategy");
+    if (chargingStrategy == "balanced") {
+        myChargingStrategy = CHARGINGSTRATEGY_BALANCED;
+    } else if (chargingStrategy == "latest") {
+        myChargingStrategy = CHARGINGSTRATEGY_LATEST;
+    } else if (chargingStrategy == "none") {
+        myChargingStrategy = CHARGINGSTRATEGY_NONE;
+    } else {
+        WRITE_ERRORF(TL("Invalid device.stationfinder.chargingStrategy '%'."), chargingStrategy);
+    }
+    const std::string rescueAction = holder.getStringParam("device.stationfinder.rescueAction");
+    if (rescueAction == "remove") {
         myRescueAction = RESCUEACTION_REMOVE;
-    }  else if (action == "tow") {
+    }  else if (rescueAction == "tow") {
         myRescueAction = RESCUEACTION_TOW;
-    } else if (action == "none") {
+    } else if (rescueAction == "none") {
         myRescueAction = RESCUEACTION_NONE;
     } else {
-        WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), action);
+        WRITE_ERRORF(TL("Invalid device.stationfinder.rescueAction '%'."), rescueAction);
     }
     initRescueCommand();
     myReserveFactor = MAX2(1., holder.getFloatParam("device.stationfinder.reserveFactor"));
@@ -133,6 +146,7 @@ myCheckInterval(1000), myArrivalAtChargingStation(-1), myLastSearch(-1) {
     myRepeatInterval = holder.getTimeParam("device.stationfinder.repeat");
     myMaxChargePower = holder.getFloatParam("device.stationfinder.maxChargePower");
     myChargeType = CHARGETYPE_CHARGING;
+
     myWaitForCharge = holder.getTimeParam("device.stationfinder.waitForCharge");
     myTargetSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.saturatedChargeLevel"), 1.));
     mySearchSoC = MAX2(0., MIN2(holder.getFloatParam("device.stationfinder.needToChargeLevel"), 1.));
@@ -149,6 +163,9 @@ MSDevice_StationFinder::~MSDevice_StationFinder() {
     // make the rescue command invalid if there is one
     if (myRescueCommand != nullptr) {
         myRescueCommand->deschedule();
+    }
+    if (myChargeLimitCommand != nullptr) {
+        myChargeLimitCommand->deschedule();
     }
 }
 
@@ -366,6 +383,12 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                                 if (myReplacePlannedStop > 1.) {
                                     myHolder.abortNextStop();
                                 }
+
+                                // optionally implement a charging strategy by adjusting the accepted charging rates
+                                if (myChargingStrategy != CHARGINGSTRATEGY_NONE) {
+                                    // TODO: the charging strategy should actually only be computed at the arrival at the charging station
+                                    implementChargingStrategy(now, stopPar.until, expectedConsumption);
+                                }
                             }
                         }
                     }
@@ -524,6 +547,50 @@ MSDevice_StationFinder::initRescueCommand() {
     if (myRescueAction == RESCUEACTION_TOW && myRescueCommand == nullptr) {
         myRescueCommand = new WrappingCommand<MSDevice_StationFinder>(this, &MSDevice_StationFinder::teleportToChargingStation);
     }
+}
+
+
+void
+MSDevice_StationFinder::initChargeLimitCommand() {
+    if (myChargingStrategy != CHARGINGSTRATEGY_NONE && myChargeLimitCommand == nullptr) {
+        myChargeLimitCommand = new WrappingCommand<MSDevice_StationFinder>(this, &MSDevice_StationFinder::updateChargeLimit);
+    }
+}
+
+
+SUMOTime
+MSDevice_StationFinder::updateChargeLimit(const SUMOTime currentTime) {
+    if (myChargeLimits.size() > 0 && myChargeLimits.begin()->first < currentTime - DELTA_T) {
+        myChargeLimits.clear();
+    }
+    if (myChargeLimits.size() > 0) {
+        myBattery->setChargeLimit(myChargeLimits.begin()->second);
+        myChargeLimits.erase(myChargeLimits.begin());
+    }
+    if (myChargeLimits.size() == 0) {
+        myChargeLimitCommand->deschedule();
+        myChargeLimitCommand = nullptr;
+        return 0;
+    } else {
+        return myChargeLimits.begin()->first - currentTime;
+    }
+}
+
+
+void
+MSDevice_StationFinder::implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge) {
+    initChargeLimitCommand();
+    myChargeLimits.clear();
+    if (myChargingStrategy == CHARGINGSTRATEGY_BALANCED) {
+        const double balancedCharge = plannedCharge / STEPS2TIME(end - begin);
+        myChargeLimits.push_back({ begin, balancedCharge });
+        myChargeLimits.push_back({ end, -1});
+    } else { // CHARGINGSTRATEGY_LATEST
+        SUMOTime startAfter = TIME2STEPS(600); // TODO: compute the actual time shift
+        myChargeLimits.push_back({ begin, 0});
+        myChargeLimits.push_back({ begin + startAfter, -1});
+    }
+    MSNet::getInstance()->getBeginOfTimestepEvents()->addEvent(myChargeLimitCommand, begin + DELTA_T);
 }
 
 

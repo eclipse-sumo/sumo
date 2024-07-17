@@ -177,6 +177,9 @@ public:
     /// @brief Set vehicle's stopping threshold
     void setMaximumChargeRate(const double chargeRate);
 
+    /// @brief Set (temporary) charge limit
+    void setChargeLimit(const double limit);
+
     /// @brief Reset charging start time
     void resetChargingStartTime();
 
@@ -204,6 +207,9 @@ protected:
 
     /// @brief Parameter, maximum charge rate in W
     double myMaximumChargeRate;
+
+    /// @brief (Temporary) limitation in W of the maximum charge rate = charging strategy result
+    double myChargeLimit;
 
     /// @brief Parameter, Vehicle's last angle
     double myLastAngle;
@@ -243,6 +249,7 @@ protected:
 
     /// @brief whether to track fuel consumption instead of electricity
     bool myTrackFuel;
+
 
 private:
     /// @brief Invalidated copy constructor.

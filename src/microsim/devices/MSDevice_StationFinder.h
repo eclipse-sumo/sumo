@@ -61,6 +61,12 @@ public:
         CHARGETYPE_FUEL
     };
 
+    enum ChargingStrategy {
+        CHARGINGSTRATEGY_NONE,
+        CHARGINGSTRATEGY_BALANCED,
+        CHARGINGSTRATEGY_LATEST
+    };
+
     enum RescueAction {
         RESCUEACTION_NONE,
         RESCUEACTION_REMOVE,
@@ -278,6 +284,18 @@ private:
      */
     void initRescueCommand();
 
+    /** @brief create the event command for changing charging rates
+     */
+    void initChargeLimitCommand();
+
+    /** @brief update the maximum charge rate of the battery to simulate charging strategies
+     */
+    SUMOTime updateChargeLimit(const SUMOTime currentTime);
+
+    /** @brief
+     */
+    void implementChargingStrategy(SUMOTime begin, SUMOTime end, const double plannedCharge);
+
 private:
     /// @brief myHolder cast to needed type
     MSVehicle& myVeh;
@@ -291,8 +309,11 @@ private:
     /// @brief The command responsible for rescue actions
     WrappingCommand<MSDevice_StationFinder>* myRescueCommand;
 
-    /// @brief The memory of lastly visited charging stations during the search before being able to charge
-    std::vector<MSChargingStation*> myPassedChargingStations;
+    /// @brief The command responsible for limiting the charging rate (~ implement charging strategies)
+    WrappingCommand<MSDevice_StationFinder>* myChargeLimitCommand;
+
+    /// @brief The next charging rates to set via myChargingRateCommand
+    std::vector<std::pair<SUMOTime, double>> myChargeLimits;
 
     /// @brief Last time the SoC was checked
     SUMOTime myLastChargeCheck;
@@ -347,6 +368,9 @@ private:
 
     /// @brief The type of charging permitted by the battery (charging, bidirectional, battery exchange)
     ChargeType myChargeType;
+
+    /// @brief The chosen charging strategy
+    ChargingStrategy myChargingStrategy;
 
     /// @brief What to do when the state of charge gets very low
     RescueAction myRescueAction;

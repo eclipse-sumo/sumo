@@ -106,6 +106,7 @@ MSDevice_Battery::MSDevice_Battery(SUMOVehicle& holder, const std::string& id, c
     myMaximumBatteryCapacity(0),        // [maximumBatteryCapacity >= 0]
     myStoppingThreshold(0),             // [stoppingThreshold >= 0]
     myMaximumChargeRate(0),
+    myChargeLimit(-1),
     myLastAngle(std::numeric_limits<double>::infinity()),
     myChargingStopped(false),           // Initially vehicle don't charge stopped
     myChargingInTransit(false),         // Initially vehicle don't charge in transit
@@ -395,6 +396,12 @@ MSDevice_Battery::setMaximumChargeRate(const double chargeRate) {
 
 
 void
+MSDevice_Battery::setChargeLimit(const double limit) {
+    myChargeLimit = limit;
+}
+
+
+void
 MSDevice_Battery::resetChargingStartTime() {
     myChargingStartTime = 0;
 }
@@ -494,10 +501,8 @@ MSDevice_Battery::getStoppingThreshold() const {
 
 double
 MSDevice_Battery::getMaximumChargeRate() const {
-    if (myChargeCurve.empty()) {
-        return myMaximumChargeRate;
-    }
-    return LinearApproxHelpers::getInterpolatedValue(myChargeCurve, myActualBatteryCapacity / myMaximumBatteryCapacity);
+    double baseVal = (myChargeCurve.empty()) ? myMaximumChargeRate : LinearApproxHelpers::getInterpolatedValue(myChargeCurve, myActualBatteryCapacity / myMaximumBatteryCapacity);
+    return (myChargeLimit < 0) ? baseVal : MIN2(myChargeLimit, baseVal);
 }
 
 
