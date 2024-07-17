@@ -162,9 +162,13 @@ class TLSProgram:
         self._offset = offset
         self._phases = []
         self._params = {}
+        self._conditions = {}
 
-    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=None, name=""):
-        self._phases.append(Phase(duration, state, minDur, maxDur, next, name))
+    def addPhase(self, state, duration, minDur=-1, maxDur=-1, next=None, name="",earlyTarget=""):
+        self._phases.append(Phase(duration, state, minDur, maxDur, next, name, earlyTarget))
+
+    def addCondition(self,id,value):
+        self._conditions[id] = value
 
     def toXML(self, tlsID):
         ret = '  <tlLogic id="%s" type="%s" programID="%s" offset="%s">\n' % (
@@ -174,10 +178,13 @@ class TLSProgram:
             maxDur = '' if p.maxDur < 0 else ' maxDur="%s"' % p.maxDur
             name = '' if p.name == '' else ' name="%s"' % p.name
             next = '' if len(p.next) == 0 else ' next="%s"' % ' '.join(map(str, p.next))
-            ret += '    <phase duration="%s" state="%s"%s%s%s%s/>\n' % (
-                p.duration, p.state, minDur, maxDur, name, next)
+            earlyTarget = '' if p.earlyTarget == '' else ' earlyTarget="%s"' % p.earlyTarget
+            ret += '    <phase duration="%s" state="%s"%s%s%s%s%s/>\n' % (
+                p.duration, p.state, minDur, maxDur, name, next, earlyTarget)
         for k, v in self._params.items():
             ret += '    <param key="%s" value="%s"/>\n' % (k, v)
+        for i, j in self._conditions.items():
+            ret += f'<condition id="{i}" value="{j}" /> \n'
         ret += '  </tlLogic>\n'
         return ret
 
@@ -195,6 +202,27 @@ class TLSProgram:
 
     def getParams(self):
         return self._params
+
+    def getPhasesWithIndex(self):
+        return{key:value for key,value in enumerate(self.getPhases())}
+    
+    def numPhases(self):
+        return len(self._phases)
+    
+    def getPhaseByIndex(self,idx):
+        ret = {key:value for key,value in enumerate(self.getPhases())}
+        return ret[idx] 
+    
+    def getStages(self):
+        stages = dict()
+        for idx,phase in enumerate(self.getPhases()):
+            if phase not in stages.values():
+                if 'G' in list(phase.state) and 'y' not in list(phase.state) and len(phase.name)>0:
+                    stages[idx]= phase
+        return stages
+    
+    def getOffset(self):
+        return self._offset  
 
 
 class EdgeType:
