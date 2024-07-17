@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-15 11:06+0000\n"
+"PO-Revision-Date: 2024-07-17 09:28+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4865,11 +4865,13 @@ msgstr ""
 #, c-format
 msgid "Polygon '%' at junction '%' has been dilated as it is just a segment."
 msgstr ""
+"Il poligono '%' all'incrocio '%' è stato allargato perché prima era solo una "
+"linea."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:675
 #, c-format
 msgid "Polygon '%' has been dilated as it is just a segment."
-msgstr ""
+msgstr "Il poligono '%' è stato allargato perché prima era solo una linea."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:683
 #, c-format
@@ -4877,10 +4879,14 @@ msgid ""
 "Polygon '%' at junction '%' has been replaced by its convex hull as it is "
 "not simple."
 msgstr ""
+"Il poligono '%' all'incrocio '%' è stato sostituito con il suo involucro "
+"convesso perché non era un poligono semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:688
 msgid "Polygon '%' at junction '%' will be skipped as it is not simple."
 msgstr ""
+"Il poligono '%' all'incrocio '%' verrà omesso perché non é un poligono "
+"semplice."
 
 #: src/microsim/transportables/MSPModel_JuPedSim.cpp:810
 msgid ""
