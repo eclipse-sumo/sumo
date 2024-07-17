@@ -27,18 +27,18 @@ from xml.sax import handler, parse
 
 class InductiveLoop:
 
-    def __init__(self, id, lane, pos, vTypes, frequency=60, file="NUL", friendlyPos=True):
+    def __init__(self, id, lane, pos, frequency=60, file="NUL", friendlyPos=True, vTypes=""):
         self.id = id
         self.lane = lane
         self.pos = pos
-        self.vTypes = vTypes
         self.frequency = frequency
         self.file = file
         self.friendlyPos = friendlyPos
+        self.vTypes = vTypes
 
     def toXML(self):
-        return '<e1Detector id="%s" lane="%s" pos="%s" vTypes="%s" freq="%s" file="%s" friendlyPos="%s"/>' % (
-            self.id, self.lane, self.pos, self.vTypes ,self.frequency, self.file, self.friendlyPos)
+        return '<e1Detector id="%s" lane="%s" pos="%s" freq="%s" file="%s" friendlyPos="%s" vTypes="%s"/>' % (
+            self.id, self.lane, self.pos, self.frequency, self.file, self.friendlyPos, self.vTypes)
 
 
 class InductiveLoopReader(handler.ContentHandler):
