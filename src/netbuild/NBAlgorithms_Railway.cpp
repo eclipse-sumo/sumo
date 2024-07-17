@@ -1449,7 +1449,11 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
         for (int i = 1; i < (int)corridor.size() - 1; i++) {
             currLength += corridorEdges[i - 1]->getLoadedLength();
             Position newPos = cBeg + delta * (currLength / length);
-            corridor[i]->reinit(newPos, corridor[i]->getType());
+            NBNode* n = corridor[i];
+            n->reinit(newPos, n->getType());
+            for (NBEdge* e : n->getEdges()) {
+                e->resetEndpointAtNode(n);
+            }
             moved += 1;
         }
         numCorridors += 1;

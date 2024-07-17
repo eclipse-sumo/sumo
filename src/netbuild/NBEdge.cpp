@@ -616,6 +616,18 @@ NBEdge::getEndpointAtNode(const NBNode* node) const {
 }
 
 void
+NBEdge::resetEndpointAtNode(const NBNode* node) {
+    assert(myGeom.size() >= 2);
+    if (node == myFrom) {
+        myGeom[0] = myFrom->getPosition();
+    } else if (node == myTo) {
+        myGeom[myGeom.size() - 1] = myTo->getPosition();
+    } else {
+        assert(false);
+    }
+}
+
+void
 NBEdge::setGeometry(const PositionVector& s, bool inner) {
     Position begin = myGeom.front(); // may differ from node position
     Position end = myGeom.back(); // may differ from node position

@@ -802,6 +802,8 @@ public:
 
     Position getEndpointAtNode(const NBNode* node) const;
 
+    void resetEndpointAtNode(const NBNode* node);
+
     /** @brief (Re)sets the edge's geometry
      *
      * Replaces the edge's prior geometry by the given. Then, computes
