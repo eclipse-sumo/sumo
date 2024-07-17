@@ -94,6 +94,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
     myInactiveThreshold = string2time(getParameter("inactive-threshold", DEFAULT_INACTIVE_THRESHOLD));
     myShowDetectors = StringUtils::toBool(getParameter("show-detectors", toString(OptionsCont::getOptions().getBool("tls.actuated.show-detectors"))));
+    myBuildAllDetectors = StringUtils::toBool(getParameter("build-all-detectors", "false"));
     myFile = FileHelpers::checkForRelativity(getParameter("file", "NUL"), basePath);
     myFreq = TIME2STEPS(StringUtils::toDouble(getParameter("freq", "300")));
     myVehicleTypes = getParameter("vTypes", "");
@@ -184,7 +185,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 continue;
             }
             const SUMOTime minDur = getMinimumMinDuration(lane);
-            if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "") {
+            if (minDur == std::numeric_limits<SUMOTime>::max() && customID == "" && !myBuildAllDetectors) {
                 // only build detector if this lane is relevant for an actuated phase
                 continue;
             }
@@ -1355,6 +1356,18 @@ MSActuatedTrafficLightLogic::getDetectorStates() const {
     return result;
 }
 
+double
+MSActuatedTrafficLightLogic::getDetectorState(const std::string laneID) const {
+    double result = 0.0;
+    for (auto li : myInductLoops) {
+        if (li.lane->getID() == laneID) {
+            result = li.loop->getOccupancy() > 0 ? 1 : 0;
+            break;
+        }
+    }
+    return result;
+}
+
 std::map<std::string, double>
 MSActuatedTrafficLightLogic::getConditions() const {
     std::map<std::string, double> result;
@@ -1389,6 +1402,7 @@ void
 MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
     // some pre-defined parameters can be updated at runtime
     if (key == "detector-gap" || key == "passing-time" || key == "file" || key == "freq" || key == "vTypes"
+            || key == "build-all-detectors"
             || StringUtils::startsWith(key, "linkMaxDur")
             || StringUtils::startsWith(key, "linkMinDur")) {
         throw InvalidArgument(key + " cannot be changed dynamically for actuated traffic light '" + getID() + "'");
