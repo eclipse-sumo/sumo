@@ -111,6 +111,7 @@ output:Building Contraction Hierarchy{[->]}Simulation ended
 output:ms answering queries
 output:--python-script
 output:--osg-view{LINES 2}
+output:--pedestrian.jupedsim.model{LINES 5}
 output:--pedestrian.jupedsim{LINES 2}
 output:movereminder-output{LINES 2}
 output:Simulation.*started with{REPLACE Simulation started with}
@@ -175,7 +176,7 @@ c2x_transmitted_info:<!--{[->]}-->
 c2x_vehicle_in_range:<!--{[->]}-->
 c2x_saved_info_freq:<!--{[->]}-->
 c2x_edge_near_info:<!--{[->]}-->
-errors:Leaked object at 
+errors:Leaked object at
 errors:\*\*\* \d+ leaks found
 errors:delete: freed
 errors:warning: debug_new used with placement new
