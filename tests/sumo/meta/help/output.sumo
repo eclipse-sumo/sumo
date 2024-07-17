@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+1258-9d1aeffff86
+Eclipse SUMO sumo Version v1_14_1+14089-03d6299081d
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -163,10 +163,6 @@ Output Options:
   --lanedata-output FILE               Write aggregated traffic statistics for
                                         all lanes into FILE
   --statistic-output FILE              Write overall statistics into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                        vehicles into FILE
-  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
-                                        their movereminder states
   --save-state.times STR[]             Use TIME[] as times at which a network
                                         state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -624,6 +620,9 @@ Battery Options:
   --device.stationfinder.maxDistanceToReplacedStop FLOAT  Maximum distance in
                                         meters from the original stop to be
                                         replaced by the charging stop
+  --device.stationfinder.chargingStrategy STR  Set a charging strategy to alter
+                                        time and charging load from the set:
+                                        [none, balanced, latest]
   --device.battery.probability FLOAT   The probability for a vehicle to have a
                                         'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
