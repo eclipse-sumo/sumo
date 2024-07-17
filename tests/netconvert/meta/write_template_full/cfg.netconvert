@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-16 18:20:51 by Eclipse SUMO netconvert Version v1_20_0+1244-c294783ee6e
+<!-- generated on 2024-07-17 09:04:52 by Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -300,6 +300,7 @@
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
         <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
         <railway.topology.extend-priority value="false" type="BOOL" help="Extend loaded edge priority values based on estimated main direction"/>
+        <railway.geometry.straighten value="false" type="BOOL" help="Move junctions to straighten a sequence of rail edges"/>
         <railway.signal.guess.by-stops value="false" type="BOOL" help="Guess signals that guard public transport stops"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum road accesses registered per rail stops"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_20_0+1244-c294783ee6e
+Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -548,6 +548,8 @@ Railway Options:
                                         estimated main direction
   --railway.topology.extend-priority   Extend loaded edge priority values based
                                         on estimated main direction
+  --railway.geometry.straighten        Move junctions to straighten a sequence
+                                        of rail edges
   --railway.signal.guess.by-stops      Guess signals that guard public
                                         transport stops
   --railway.access-distance FLOAT      The search radius for finding suitable
