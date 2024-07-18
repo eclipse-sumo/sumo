@@ -1,3 +1,6 @@
+# tests for importin connectivity
+connections
+
 # restrict lane section to bus
 access
 
@@ -39,5 +42,5 @@ ticket5314
 # interaction of --geometry.min-dist, --roundabouts.guess and --junctions.join
 ticket9448
 
-# tests for importin connectivity
-connections
+# converting only a part
+bbox
