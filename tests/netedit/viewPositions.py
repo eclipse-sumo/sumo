@@ -167,6 +167,22 @@ class network:
             x = 600
             y = 250
 
+        class topLeft:
+            x = 460
+            y = 130
+
+        class topRight:
+            x = 510
+            y = 130
+
+        class botLeft:
+            x = 460
+            y = 320
+
+        class botRight:
+            x = 510
+            y = 320
+
     class crossing:
 
         class left:

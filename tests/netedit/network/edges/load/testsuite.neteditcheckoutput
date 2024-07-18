@@ -28,6 +28,8 @@ shapestart
 
 shapeend
 
+isbidi
+
 distance
 
 stopoffset
