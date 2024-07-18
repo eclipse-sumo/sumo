@@ -353,7 +353,7 @@ MSDevice_GLOSA::adaptSpeed(double distance, double /*timeToJunction*/, double ti
             myVeh.setChosenSpeedFactor(myOriginalSpeedFactor);
         }
         mySpeedAdviceActive = false;
-		return;
+        return;
     }
     if (!(x >= u && x <= w && y < t)) {
 #ifdef DEBUG_GLOSA
