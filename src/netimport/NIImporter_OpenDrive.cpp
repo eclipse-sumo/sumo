@@ -548,7 +548,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
                     throw ProcessError(TLF("Could not add edge '%'.", currRight->getID()));
                 }
-                if (nb.getEdgeCont().wasIgnored(id)) {
+                if (nb.getEdgeCont().wasIgnored("-" + id)) {
                     prevRight = nullptr;
                 } else {
                     // connect lane sections
