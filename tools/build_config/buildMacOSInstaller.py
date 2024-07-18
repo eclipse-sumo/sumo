@@ -33,6 +33,15 @@ def run_command(command):
     return result.stdout.decode('utf-8'), result.stderr.decode('utf-8')
 
 
+def ignore_files(dir, files):
+    # Only ignore these directories at the top level
+    top_level_ignore = {'.git', '.env', 'tests', 'unittest'}
+    if os.path.abspath(dir) == os.path.abspath('.'):
+        return top_level_ignore.intersection(files)
+    else:
+        return {}
+
+
 def create_sumo_framework(version):
     # Create a temporary directory for the process
     temp_dir = tempfile.mkdtemp()
@@ -75,21 +84,26 @@ def create_sumo_framework(version):
     with open(plist_file, 'wb') as f:
         plistlib.dump(plist_content, f)
 
-    # Copy all files (sumo, libraries, ...) to version_dir/EclipseSUMO
-    # FIXME: <...>
+    # Copy all files from the current repository clone to version_dir/EclipseSUMO
+    source_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+    dest_dir = os.path.join(version_dir, 'EclipseSUMO')
+    print(f" - Folder 'bin' copied from '{source_dir}' to '{dest_dir}'")
+    shutil.copytree(source_dir, dest_dir, dirs_exist_ok=True, ignore=ignore_files)
 
     # Build the framework package
     # FIXME: check if identifier is ok
     package_name = f"Eclipse-SUMO-{version}.pkg"
+    package_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', package_name)
+
     command = (
         f"pkgbuild --root {framework_dir}                                         "
         f"         --identifier org.eclipse.sumo                                  "
         f"         --version {version}                                            "
         f"         --install-location /Library/Frameworks/EclipseSUMO.framework   "
-        f"         {package_name}                                                 "
+        f"         {package_path}                                                 "
     )
     run_command(command)
-    print(f" - Package built: {package_name}")
+    print(f" - Package built: '{package_path}'")
 
     # Cleanup the temporary directory
     shutil.rmtree(temp_dir)
