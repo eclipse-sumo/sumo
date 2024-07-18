@@ -108,7 +108,7 @@ To change this, the option **--tripinfo-output.write-unfinished** can be used.
 By default all vehicles will generated tripinfo-output. By [assigning a tripinfo device](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) to selected vehicles or types, this can be changed.
 
 Example:
-Setting SUMO-option **--device.tripinfo.probability false** will disable the device for all vehicles by default.
+Setting SUMO-option **--device.tripinfo.probability 0** will disable the device for all vehicles by default.
 The following definition overrides this default end enables the device for busses:
 
 ```xml
