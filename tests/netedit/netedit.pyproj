@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{eb012c41-a006-45ee-8a6d-f136dee50e95}</ProjectGuid>
+    <ProjectGuid>{ba09ae0f-8205-4ceb-a78c-4446c0c9592b}</ProjectGuid>
     <ProjectHome />
     <StartupFile>attributesEnum.py</StartupFile>
     <SearchPath />
@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>Global|PythonCore|3.10</InterpreterId>
+    <InterpreterId />
     <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
@@ -101,6 +101,7 @@
     <Compile Include="elements\additionals\access\create\friendlypos\test.py" />
     <Compile Include="elements\additionals\access\create\length\test.py" />
     <Compile Include="elements\additionals\access\create\no_parent\test.py" />
+    <Compile Include="elements\additionals\access\create\no_sidewalk\test.py" />
     <Compile Include="elements\additionals\access\delete\test.py" />
     <Compile Include="elements\additionals\access\inspect\friendlypos\test.py" />
     <Compile Include="elements\additionals\access\inspect\lane\test.py" />
@@ -3418,9 +3419,22 @@
     <Compile Include="network\edges\templates\clear\test.py" />
     <Compile Include="network\edges\templates\copy\test.py" />
     <Compile Include="network\edges\templates\create\test.py" />
+    <Compile Include="network\junctions\contextual_menu\common\add_to_select\test.py" />
+    <Compile Include="network\junctions\contextual_menu\common\center\test.py" />
+    <Compile Include="network\junctions\contextual_menu\common\copy_name\test.py" />
+    <Compile Include="network\junctions\contextual_menu\common\copy_typed_name\test.py" />
+    <Compile Include="network\junctions\contextual_menu\connections\clear\test.py" />
+    <Compile Include="network\junctions\contextual_menu\connections\reset\test.py" />
+    <Compile Include="network\junctions\contextual_menu\replace_junction_by_geometry_point\test.py" />
+    <Compile Include="network\junctions\contextual_menu\reset_edge_endpoints\test.py" />
+    <Compile Include="network\junctions\contextual_menu\reset_junction_shape\test.py" />
     <Compile Include="network\junctions\contextual_menu\roundabouts\basic\test.py" />
     <Compile Include="network\junctions\contextual_menu\roundabouts\big_radius\test.py" />
     <Compile Include="network\junctions\contextual_menu\roundabouts\custom_radius\test.py" />
+    <Compile Include="network\junctions\contextual_menu\split\split_junction\test.py" />
+    <Compile Include="network\junctions\contextual_menu\split\split_junction_and_reconnect\test.py" />
+    <Compile Include="network\junctions\contextual_menu\tls\add_joined_tls\test.py" />
+    <Compile Include="network\junctions\contextual_menu\tls\add_tls\test.py" />
     <Compile Include="network\junctions\create\complex\test.py" />
     <Compile Include="network\junctions\create\one_way\test.py" />
     <Compile Include="network\junctions\create\one_way_double\test.py" />
@@ -3580,6 +3594,7 @@
     <Compile Include="network\lanes\inspect_selected\stopoffset\test.py" />
     <Compile Include="network\lanes\inspect_selected\type\test.py" />
     <Compile Include="network\lanes\inspect_selected\width\test.py" />
+    <Compile Include="network\lanes\load\test.py" />
     <Compile Include="network\lanes\select_vtypes\allowed\aircraft\test.py" />
     <Compile Include="network\lanes\select_vtypes\allowed\all\test.py" />
     <Compile Include="network\lanes\select_vtypes\allowed\army\test.py" />
@@ -3968,6 +3983,7 @@
     <Folder Include="elements\additionals\access\create\friendlypos" />
     <Folder Include="elements\additionals\access\create\length" />
     <Folder Include="elements\additionals\access\create\no_parent" />
+    <Folder Include="elements\additionals\access\create\no_sidewalk" />
     <Folder Include="elements\additionals\access\delete" />
     <Folder Include="elements\additionals\access\inspect\" />
     <Folder Include="elements\additionals\access\inspect\friendlypos" />
@@ -7874,10 +7890,27 @@
     <Folder Include="network\edges\templates\create" />
     <Folder Include="network\junctions\" />
     <Folder Include="network\junctions\contextual_menu\" />
+    <Folder Include="network\junctions\contextual_menu\common\" />
+    <Folder Include="network\junctions\contextual_menu\common\add_to_select" />
+    <Folder Include="network\junctions\contextual_menu\common\center" />
+    <Folder Include="network\junctions\contextual_menu\common\copy_name" />
+    <Folder Include="network\junctions\contextual_menu\common\copy_typed_name" />
+    <Folder Include="network\junctions\contextual_menu\connections\" />
+    <Folder Include="network\junctions\contextual_menu\connections\clear" />
+    <Folder Include="network\junctions\contextual_menu\connections\reset" />
+    <Folder Include="network\junctions\contextual_menu\replace_junction_by_geometry_point" />
+    <Folder Include="network\junctions\contextual_menu\reset_edge_endpoints" />
+    <Folder Include="network\junctions\contextual_menu\reset_junction_shape" />
     <Folder Include="network\junctions\contextual_menu\roundabouts\" />
     <Folder Include="network\junctions\contextual_menu\roundabouts\basic" />
     <Folder Include="network\junctions\contextual_menu\roundabouts\big_radius" />
     <Folder Include="network\junctions\contextual_menu\roundabouts\custom_radius" />
+    <Folder Include="network\junctions\contextual_menu\split\" />
+    <Folder Include="network\junctions\contextual_menu\split\split_junction" />
+    <Folder Include="network\junctions\contextual_menu\split\split_junction_and_reconnect" />
+    <Folder Include="network\junctions\contextual_menu\tls\" />
+    <Folder Include="network\junctions\contextual_menu\tls\add_joined_tls" />
+    <Folder Include="network\junctions\contextual_menu\tls\add_tls" />
     <Folder Include="network\junctions\create\" />
     <Folder Include="network\junctions\create\complex" />
     <Folder Include="network\junctions\create\one_way" />
@@ -8061,6 +8094,7 @@
     <Folder Include="network\lanes\inspect_selected\stopoffsetexception" />
     <Folder Include="network\lanes\inspect_selected\type" />
     <Folder Include="network\lanes\inspect_selected\width" />
+    <Folder Include="network\lanes\load" />
     <Folder Include="network\lanes\select_vtypes\" />
     <Folder Include="network\lanes\select_vtypes\allowed\" />
     <Folder Include="network\lanes\select_vtypes\allowed\aircraft" />
@@ -8385,9 +8419,6 @@
     <Folder Include="volatilerecomputing\crossings.guess" />
     <Folder Include="volatilerecomputing\sidewalks-and-crossings.guess" />
     <Folder Include="volatilerecomputing\sidewalks.guess" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|3.10" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
 </Project>
