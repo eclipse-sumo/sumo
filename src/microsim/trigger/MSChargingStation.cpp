@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
+/// @auth
 /// @date    20-12-13
 ///
 // Charging Station for Electric vehicles
@@ -179,6 +180,9 @@ MSChargingStation::isCharging() const {
 
 void
 MSChargingStation::addChargeValueForOutput(double WCharged, MSDevice_Battery* battery) {
+    if (!OptionsCont::getOptions().isSet("chargingstations-output")) {
+        return;
+    }
     std::string status = "";
     if (battery->getChargingStartTime() > myChargeDelay) {
         if (battery->getHolder().getSpeed() < battery->getStoppingThreshold()) {
