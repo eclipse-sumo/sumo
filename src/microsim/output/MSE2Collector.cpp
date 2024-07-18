@@ -1556,16 +1556,16 @@ MSE2Collector::getEstimateQueueLength() const {
         return -1;
     }
 
-    double distance = std::numeric_limits<double>::max();
+    double distance = 0;
     double realDistance = 0;
     bool flowing =  true;
     for (VehicleInfoMap::const_iterator it = myVehicleInfos.begin();
             it != myVehicleInfos.end(); it++) {
         if (it->second->onDetector) {
-            distance = MIN2(it->second->lastPos, distance);
             //  double distanceTemp = myLane->getLength() - distance;
-            if (it->second->lastSpeed <= 0.5) {
-                realDistance = distance - it->second->length + it->second->minGap;
+            if (it->second->lastSpeed <= myJamHaltingSpeedThreshold) {
+                distance = MAX2(it->second->distToDetectorEnd, distance);
+                realDistance = distance + it->second->length;
                 flowing = false;
             }
             //            DBG(
@@ -1584,7 +1584,7 @@ MSE2Collector::getEstimateQueueLength() const {
     if (flowing) {
         return 0;
     } else {
-        return myLane->getLength() - realDistance;
+        return realDistance;
     }
 }
 
