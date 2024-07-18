@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-17 12:33+0000\n"
+"PO-Revision-Date: 2024-07-18 13:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -4414,7 +4414,7 @@ msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:308
 msgid "Load element selection"
-msgstr ""
+msgstr "Elementauswahl laden"
 
 #: src/netedit/GNELoadThread.cpp:313
 msgid "File in which TLS Programs must be saved"
