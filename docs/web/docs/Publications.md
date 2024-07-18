@@ -39,6 +39,7 @@ BibTex:
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2021)  | [SUMO 2021](https://www.tib-op.org/ojs/index.php/scp/issue/view/5)   | TIB Open Publishing  | 2021 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2022)  | [SUMO 2022](https://www.tib-op.org/ojs/index.php/scp/issue/view/8)   | TIB Open Publishing  | 2022 |
 | SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2023)  | [SUMO 2023](https://www.tib-op.org/ojs/index.php/scp/issue/view/11)  | TIB Open Publishing  | 2023 |
+| SUMO Conference  | [SUMO Conference Page](https://sumo.dlr.de/2024)  | [SUMO 2024](https://www.tib-op.org/ojs/index.php/scp/issue/view/29)  | TIB Open Publishing  | 2024 |
 
 
 
