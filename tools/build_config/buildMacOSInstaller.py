@@ -23,14 +23,10 @@ import os
 import plistlib
 import shutil
 import subprocess
+import sys
 import tempfile
 
 import sumolib
-
-
-def run_command(command):
-    result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return result.stdout.decode('utf-8'), result.stderr.decode('utf-8')
 
 
 def ignore_files(dir, files):
@@ -42,11 +38,19 @@ def ignore_files(dir, files):
         return {}
 
 
-def create_sumo_framework(version):
-    # Create a temporary directory for the process
+def parse_args():
+    op = sumolib.options.ArgumentParser(description="Build macOS installer for sumo",
+                                        usage="Usage: " + sys.argv[0] + " -b <build_directory>")
+    op.add_argument("-b", "--build-directory", dest="build_directory", required=True,
+                    help="The build directory of sumo to take the binaries from")
+    return op.parse_args()
+
+
+def create_sumo_framework(name, longname, id, version, sumo_build_directory):
+    print(f"Building framework package '{name}'")
+
+    print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
-    print("Building Eclipse SUMO framework package")
-    print(f" - Temporary directory created at {temp_dir}")
 
     # Create the directory structure for the framework bundle
     # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html
@@ -61,59 +65,87 @@ def create_sumo_framework(version):
     #     │       └── Info.plist
     #     └── Current   --> v_1_20_0
 
-    framework_dir = os.path.join(temp_dir, 'EclipseSUMO.framework')
+    framework_dir = os.path.join(temp_dir, f'{name}.framework')
     version_dir = os.path.join(framework_dir, f'Versions/{version}')
-    os.makedirs(os.path.join(version_dir, 'EclipseSUMO'), exist_ok=True)
+    os.makedirs(os.path.join(version_dir, name), exist_ok=True)
     os.makedirs(os.path.join(version_dir, 'Resources'), exist_ok=True)
 
     os.symlink(f'{version}/', os.path.join(framework_dir, 'Versions/Current'), target_is_directory=True)
-    os.symlink('Versions/Current/EclipseSUMO/', os.path.join(framework_dir, 'EclipseSUMO'), target_is_directory=True)
+    os.symlink(f'Versions/Current/{name}/', os.path.join(framework_dir, name), target_is_directory=True)
     os.symlink('Versions/Current/Resources/', os.path.join(framework_dir, 'Resources'), target_is_directory=True)
 
     # Create the Info.plist file
-    # FIXME: check if BundleName and BundleExecutable can contain spaces
     plist_file = os.path.join(version_dir, 'Resources', 'Info.plist')
-    print(f" - Creating plist file {plist_file}")
+    print(" - Creating plist file")
     plist_content = {
-        "CFBundleExecutable": "Eclipse SUMO",
-        "CFBundleIdentifier": "org.eclipse.sumo",
-        "CFBundleName": "Eclipse SUMO",
+        "CFBundleExecutable": longname,
+        "CFBundleIdentifier": id,
+        "CFBundleName": longname,
         "CFBundleVersion": version,
         "CFBundleShortVersionString": version
     }
     with open(plist_file, 'wb') as f:
         plistlib.dump(plist_content, f)
 
-    # Copy all files from the current repository clone to version_dir/EclipseSUMO
-    source_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
-    dest_dir = os.path.join(version_dir, 'EclipseSUMO')
-    print(f" - Folder 'bin' copied from '{source_dir}' to '{dest_dir}'")
-    shutil.copytree(source_dir, dest_dir, dirs_exist_ok=True, ignore=ignore_files)
+    # Copy files from the current repository clone to version_dir/EclipseSUMO
+    print(" - Calling cmake install")
+    cmake_install_command = [
+        "cmake",
+        "--install",
+        sumo_build_directory,
+        "--prefix",
+        os.path.join(version_dir, name)
+    ]
+    subprocess.run(cmake_install_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    # Also copy dependencies
+    # FIXME ...
 
     # Build the framework package
-    # FIXME: check if identifier is ok
-    package_name = f"Eclipse-SUMO-{version}.pkg"
-    package_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', package_name)
-
-    command = (
-        f"pkgbuild --root {framework_dir}                                         "
-        f"         --identifier org.eclipse.sumo                                  "
-        f"         --version {version}                                            "
-        f"         --install-location /Library/Frameworks/EclipseSUMO.framework   "
-        f"         {package_path}                                                 "
-    )
-    run_command(command)
-    print(f" - Package built: '{package_path}'")
+    pkg_name = f"{name}-{version}.pkg"
+    pkg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', pkg_name)
+    pkg_build_command = [
+        "pkgbuild",
+        "--root",
+        framework_dir,
+        "--identifier",
+        id,
+        "--version",
+        version,
+        "--install-location",
+        f"/Library/Frameworks/{name}.framework",
+        f"{pkg_path}"
+    ]
+    print(" - Calling pkgbuild")
+    subprocess.run(pkg_build_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pkg_size = os.path.getsize(pkg_path)
 
     # Cleanup the temporary directory
+    print(" - Cleaning up")
     shutil.rmtree(temp_dir)
-    print(f" - Temporary directory {temp_dir} cleaned up")
+
+    # Done
+    print(f"Successfully built: '{pkg_name}' ({pkg_size / (1024 * 1024):.2f} MB)")
+    print(f"Hint: install the package with 'sudo installer -pkg {pkg_path} -target /'")
+
+    return pkg_path
 
 
 def main():
+    name = "EclipseSUMO"
+    longname = "Eclipse SUMO"
+    id = "org.eclipse.sumo"
     version = sumolib.version.gitDescribe()
 
-    create_sumo_framework(version)
+    options = parse_args()
+    if not os.path.exists(options.build_directory):
+        print(f"Error: The sumo build directory '{options.build_directory}' does not exist.", file=sys.stderr)
+        sys.exit(1)
+    if not os.path.exists(os.path.join(options.build_directory, 'CMakeCache.txt')):
+        print(f"Error: The directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
+        sys.exit(1)
+
+    create_sumo_framework(name, longname, id, version, options.build_directory)
 
 
 if __name__ == "__main__":
