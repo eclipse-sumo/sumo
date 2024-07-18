@@ -156,8 +156,8 @@ def main(options):
             for item in edge2parkingArea[edge]:
                 if item[0].getAttribute("id") == cs.getAttribute("parkingArea"):
                     if edge not in edge2chargingPointCount:
-                        edge2chargingPointCount = 0
-                    edge2chargingPointCount += item[1]
+                        edge2chargingPointCount[edge] = 0
+                    edge2chargingPointCount[edge] += item[1]
                     item[1] = 0
                     break
 
