@@ -51,9 +51,6 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
             continue;
         }
 
-        std::string fclass = veh->getVehicleType().getID();
-        fclass = fclass.substr(0, fclass.find_first_of("@"));
-
         if (static_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery))) != nullptr) {
             MSDevice_Battery* batteryToExport = dynamic_cast<MSDevice_Battery*>(veh->getDevice(typeid(MSDevice_Battery)));
             if (batteryToExport->getMaximumBatteryCapacity() > 0) {

@@ -50,9 +50,6 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
             continue;
         }
 
-        std::string fclass = veh->getVehicleType().getID();
-        fclass = fclass.substr(0, fclass.find_first_of("@"));
-
         if (static_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid))) != 0) {
             MSDevice_ElecHybrid* elecHybridToExport = dynamic_cast<MSDevice_ElecHybrid*>(veh->getDevice(typeid(MSDevice_ElecHybrid)));
             if (elecHybridToExport->getMaximumBatteryCapacity() > 0) {
