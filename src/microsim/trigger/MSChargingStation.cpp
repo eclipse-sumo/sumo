@@ -15,7 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Tamas Kurczveil
 /// @author  Pablo Alvarez Lopez
-/// @auth
+/// @author  Mirko Barthauer
 /// @date    20-12-13
 ///
 // Charging Station for Electric vehicles
