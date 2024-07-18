@@ -29,15 +29,6 @@ import tempfile
 import sumolib
 
 
-def ignore_files(dir, files):
-    # Only ignore these directories at the top level
-    top_level_ignore = {'.git', '.env', 'tests', 'unittest'}
-    if os.path.abspath(dir) == os.path.abspath('.'):
-        return top_level_ignore.intersection(files)
-    else:
-        return {}
-
-
 def parse_args():
     op = sumolib.options.ArgumentParser(description="Build macOS installer for sumo",
                                         usage="Usage: " + sys.argv[0] + " -b <build_directory>")
