@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-17 12:33+0000\n"
+"PO-Revision-Date: 2024-07-18 13:53+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -855,11 +855,11 @@ msgstr "Caricato '%'."
 
 #: src/gui/GUIApplicationWindow.cpp:1931
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO Semaforo interattivo"
 
 #: src/gui/GUIApplicationWindow.cpp:1933
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO Trasporto a domanda interattivo"
 
 #: src/gui/GUIApplicationWindow.cpp:2048
 msgid "Simulation ended at time: %. (%)"
@@ -867,15 +867,15 @@ msgstr "Simulazione finita alle ore %. (%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2051
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "Simulazione finita alle ore %."
 
 #: src/gui/GUIApplicationWindow.cpp:2052
 msgid "Reason:"
-msgstr ""
+msgstr "Motivo:"
 
 #: src/gui/GUIApplicationWindow.cpp:2053
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "Desideri chiudere tutti i file e vedute?"
 
 #: src/gui/GUIApplicationWindow.cpp:2054
 msgid "Simulation ended"
@@ -4410,7 +4410,7 @@ msgstr ""
 
 #: src/netedit/GNELoadThread.cpp:308
 msgid "Load element selection"
-msgstr ""
+msgstr "Carica selezione di elementi"
 
 #: src/netedit/GNELoadThread.cpp:313
 msgid "File in which TLS Programs must be saved"
