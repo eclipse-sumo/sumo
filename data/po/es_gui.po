@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-14 16:01+0000\n"
+"PO-Revision-Date: 2024-07-18 13:53+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -13820,6 +13820,10 @@ msgid ""
 " clicking over one in view\n"
 " or by selecting from list"
 msgstr ""
+"-Seleccione detector entrada/salida\n"
+" antes de crear, ya sea\n"
+" dando clic sobre un detector en la vista\n"
+" o seleccionando uno de la lista"
 
 #: src/netedit/frames/network/GNEAdditionalFrame.cpp:190
 msgid "Current selected additional isn't valid."
@@ -15225,7 +15229,7 @@ msgstr "Dinámico"
 
 #: src/utils/gui/div/GUIParameterTableWindow.cpp:187
 msgid "Open in new Tracker"
-msgstr ""
+msgstr "Abrir en una nueva ventana rastreadora"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:203
 msgid "Could not open '%'.\n"
