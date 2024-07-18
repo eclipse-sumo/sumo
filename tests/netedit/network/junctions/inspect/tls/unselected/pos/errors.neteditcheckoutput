@@ -1,3 +1,3 @@
-Warning: Program '0' at tlLogic 'JunctionCenter' is incompatible with logic at junction 'JunctionCenter' (mutual conflict between link indices 1,9 tl indices 3,11 phase 3).
+Warning: Program '0' at tlLogic 'JunctionCenter' is incompatible with logic at junction 'JunctionCenter' (mutual conflict between link indices 2,6 tl indices 2,6 phase 0).
   To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
   or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
