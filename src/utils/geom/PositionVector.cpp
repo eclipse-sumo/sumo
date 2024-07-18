@@ -1718,7 +1718,7 @@ PositionVector::simplified2(const bool closed, const double eps) const {
             return eps + 1.;
         }
         const Position& p = pv[index];
-        const Position& a = pv[(index + pv.size() - 1) % pv.size()];
+        const Position& a = pv[(index + (int)pv.size() - 1) % pv.size()];
         const Position& b = pv[(index + 1) % pv.size()];
         const double distAB = a.distanceTo(b);
         if (distAB < MIN2(eps, NUMERICAL_EPS)) {
@@ -1758,7 +1758,8 @@ PositionVector::simplified2(const bool closed, const double eps) const {
             break;
         }
         scores.erase(scores.begin() + minIndex);
-        scores[(minIndex + result.size() - 1) % result.size()] = calcScore(result, (minIndex + result.size() - 1) % result.size());
+        const int prevIndex = (minIndex + (int)result.size() - 1) % result.size();
+        scores[prevIndex] = calcScore(result, prevIndex);
         scores[minIndex % result.size()] = calcScore(result, minIndex % result.size());
         minScore = eps + 1.;
         for (int i = 0; i < (int)result.size(); i++) {

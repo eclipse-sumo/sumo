@@ -621,7 +621,7 @@ NBEdge::resetEndpointAtNode(const NBNode* node) {
     if (node == myFrom) {
         myGeom[0] = myFrom->getPosition();
     } else if (node == myTo) {
-        myGeom[myGeom.size() - 1] = myTo->getPosition();
+        myGeom[-1] = myTo->getPosition();
     } else {
         assert(false);
     }
@@ -1046,7 +1046,7 @@ NBEdge::checkGeometry(const double maxAngle, bool fixAngle, const double minRadi
         if (maxAngle > 0 && relAngle > maxAngle) {
             if (fixAngle) {
                 WRITE_MESSAGEF(TL("Removing sharp angle of % degrees at edge '%', segment %."),
-                        toString(relAngle), getID(), i);
+                               toString(relAngle), getID(), i);
                 myGeom.erase(myGeom.begin() + i + 1);
                 if (bidi != nullptr) {
                     bidi->myGeom = myGeom.reverse();
@@ -3184,7 +3184,7 @@ void NBEdge::removeInvalidConnections() {
                 }
             }
         } else if (isRailway(getPermissions(c.fromLane)) && isRailway(c.toEdge->getPermissions(c.toLane))
-                && isTurningDirectionAt(c.toEdge))  {
+                   && isTurningDirectionAt(c.toEdge))  {
             // do not allow sharp rail turns
 #ifdef DEBUG_CONNECTION_CHECKING
             std::cout << " remove " << c.getDescription(this) << " (rail turnaround)\n";

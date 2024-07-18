@@ -365,17 +365,17 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                     if (scores["distfrom"] < myDistanceToOriginalStop /*actualDist < myDistanceToOriginalStop*/) {
                         // compute the arrival time at the original stop
                         const SUMOTime timeToOriginalStop = TIME2STEPS(scores["timefrom"]);
-                        SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
+                        const SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
                         if (timeToOriginalStop + myLastSearch < originalUntil) {
-                            SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
-                            stopPar.until = timeToOriginalStop + myLastSearch + delta * MIN2(myReplacePlannedStop, 1.);
+                            const SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
+                            stopPar.until = timeToOriginalStop + myLastSearch + (SUMOTime)(delta * MIN2(myReplacePlannedStop, 1.));
                             if (myReplacePlannedStop > 1.) {
                                 myHolder.abortNextStop();
                             }
                             // optionally implement a charging strategy by adjusting the accepted charging rates
                             if (myChargingStrategy != CHARGINGSTRATEGY_NONE) {
                                 // the charging strategy should actually only be computed at the arrival at the charging station
-                                implementChargingStrategy(myLastSearch + scores["timeto"], stopPar.until, expectedConsumption, cs);
+                                implementChargingStrategy(myLastSearch + TIME2STEPS(scores["timeto"]), stopPar.until, expectedConsumption, cs);
                             }
                         }
                     }

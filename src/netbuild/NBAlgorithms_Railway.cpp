@@ -1413,25 +1413,25 @@ NBRailwayGeometryHelper::straigthenCorrdidor(NBEdgeCont& ec, double maxAngle) {
         length += out->getLoadedLength();
         Position cBeg, cEnd, delta;
         while (kinkNodes.count(up) != 0) {
-            NBEdge* out = in;
-            NBEdge* in = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
-            length += in->getLoadedLength();
-            up = in->getFromNode();
+            NBEdge* const out2 = in;
+            NBEdge* const in2 = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out2) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in2->getLoadedLength();
+            up = in2->getFromNode();
             corridor.insert(corridor.begin(), up);
-            corridorEdges.insert(corridorEdges.begin(), in);
+            corridorEdges.insert(corridorEdges.begin(), in2);
             kinkNodes.erase(up);
             corridorBox.add(up->getPosition());
         }
         cBeg = up->getPosition();
         cEnd = down->getPosition();
         delta = cEnd - cBeg;
-        while (delta.length2D() <= POSITION_EPS * corridor.size() && railGeomNodes.count(up) != 0) {
-            NBEdge* out = in;
-            NBEdge* in = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
-            length += in->getLoadedLength();
-            up = in->getFromNode();
+        while (delta.length2D() <= POSITION_EPS * (double)corridor.size() && railGeomNodes.count(up) != 0) {
+            NBEdge* out2 = in;
+            NBEdge* in2 = up->getIncomingEdges().size() == 1 || up->getIncomingEdges()[1]->isTurningDirectionAt(out2) ? up->getIncomingEdges().front() : up->getIncomingEdges().back();
+            length += in2->getLoadedLength();
+            up = in2->getFromNode();
             corridor.insert(corridor.begin(), up);
-            corridorEdges.insert(corridorEdges.begin(), in);
+            corridorEdges.insert(corridorEdges.begin(), in2);
             kinkNodes.erase(up);
             corridorBox.add(up->getPosition());
             cBeg = up->getPosition();
