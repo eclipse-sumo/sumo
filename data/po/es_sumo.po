@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-17 09:51+0000\n"
+"PO-Revision-Date: 2024-07-18 13:53+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8127,7 +8127,7 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:283
 msgid "Uses edge type defaults on problems"
-msgstr ""
+msgstr "Usar valores predeterminados de tipo de arista cuando haya problemas"
 
 #: src/netimport/NIFrame.cpp:288
 msgid "Insert edges in both directions"
@@ -8163,7 +8163,7 @@ msgstr "Factor para velocidad de arista"
 
 #: src/netimport/NIFrame.cpp:318
 msgid "Writes lanes without an explicit speed set"
-msgstr ""
+msgstr "Escribir carriles sin una velocidad explícita establecida"
 
 #: src/netimport/NIFrame.cpp:323 src/polyconvert/polyconvert_main.cpp:95
 msgid "Load language mappings from FILE"
@@ -8238,25 +8238,34 @@ msgstr "Importar formas de carriles internos"
 #: src/netimport/NIFrame.cpp:369
 msgid "Sets edge-id based on road-id and offset in m (legacy)"
 msgstr ""
+"Establece el ID de arista en función del road-id y un desplazamiento en m "
+"(legacy)"
 
 #: src/netimport/NIFrame.cpp:371
 msgid "Use custom lane shapes to compensate discarded lane types"
 msgstr ""
+"Usar formas de carril personalizadas para compensar los tipos de carriles "
+"descartados"
 
 #: src/netimport/NIFrame.cpp:373
 msgid ""
 "Use the OpenDRIVE controller information for the generated signal program"
 msgstr ""
+"Usar la información del controlador OpenDRIVE para el programa de señal "
+"generado"
 
 #: src/netimport/NIFrame.cpp:375
 msgid "Ignore traffic signals which do not control any driving lane"
 msgstr ""
+"Ignorar las señales de tráfico que no controlan ningún carril de circulación"
 
 #: src/netimport/NIFrame.cpp:386
 msgid ""
 "Discard all railway signal information loaded from other formats than plain-"
 "xml"
 msgstr ""
+"Descartar toda la información de señales ferroviarias cargada desde otros "
+"formatos que no sea XML plano"
 
 #: src/netimport/NIFrame.cpp:407
 msgid ""
@@ -8283,15 +8292,15 @@ msgstr "No se pudo abrir la descripción de forma '%'."
 
 #: src/netimport/NIImporter_ArcView.cpp:187
 msgid "Needed field '%' (street-id) is missing."
-msgstr ""
+msgstr "Falta el campo necesario '%' (street-id)."
 
 #: src/netimport/NIImporter_ArcView.cpp:198
 msgid "Needed field '%' (from node id) is missing."
-msgstr ""
+msgstr "Falta el campo necesario '%' (ID del nodo inicial)."
 
 #: src/netimport/NIImporter_ArcView.cpp:202
 msgid "Needed field '%' (to node id) is missing."
-msgstr ""
+msgstr "Falta el campo necesario '%' (ID del nodo destino)."
 
 #: src/netimport/NIImporter_ArcView.cpp:218
 msgid "Unknown type '%' for edge '%'"
@@ -8473,7 +8482,7 @@ msgstr "Columna % faltante."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:442
 msgid "Missing optional column % without default value."
-msgstr ""
+msgstr "Falta la columna opcional %, sin valor predeterminado."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:499
 #, c-format
