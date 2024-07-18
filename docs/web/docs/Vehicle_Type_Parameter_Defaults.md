@@ -90,12 +90,17 @@ All passenger cars share the defaults listed above, the values below are just id
 |--|--|--|--|--|--|
 |rail|<img src="images/Wikicommons_rail_cargo.jpg" width="180" title="https://commons.wikimedia.org/wiki/File:Rail_Cargo_Hungaria_Taurus_loc.jpg" alt="Cargo Rail" />|rail/cargo<br><img src="images/rail-cargo.PNG" width="80" alt="Cargo Rail" />|\~750m (19m + x\*16m)<sup>(5, 6, 8)</sup><br>\~4.4m<sup>(6)</sup><br>\~3.0m<sup>(6)</sup>|120km/h<sup>(5)</sup>|1|
 
-## Ships
+## Other
 
 | `vClass` | example | `guiShape` | `length`<br>`width`<br>`height` | `mass` | `minGap` | `accel` | `decel` | `emer`<br>`gency`<br>`Decel` | `maxSpeed` | `desired`<br>`MaxSpeed` | `person`<br>`Capacity` | `emission`<br>`Class`<br>[HBEFA3](Models/Emissions/HBEFA3-based.md) | `speed`<br>`Dev` |
 |--|--|--|--|--|--|--|--|--|--|--|--|--|--|
 |ship|<img src="images/Wikicommons_ship.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:DANA_2004_ubt.jpeg" alt="Ship" />|ship<br><img src="images/ship.PNG" width="80" alt="Ship" />|17m<br>4m<br>4m|100000kg|2.5|0.1m/s<sup>2</sup>|0.15m/s<sup>2</sup>|1m/s<sup>2</sup>|4.12 (8 Knots)|-|4|HDV_D_EU0|0.1|
-
+|subway|<img src="images/Wikicommons_subway.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:Berlin_Hauptbahnhof_U-bahn_-_train_type_F.jpg" alt="Subway" />|subway<br><img src="images/subway.PNG" width="80" alt="Subway" />|98.7m<sup>(44)</sup><br>2.65m<sup>(44)</sup><br>3.4m<sup>(44)</sup>|141400kg<sup>(44)</sup>|-|-|-|-|80km/h<sup>(45)</sup>|-|-|-|-|
+|aircraft|<img src="images/Wikicommons_aircraft.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:Airbus_A350-941_F-WWCF_MSN002_ILA_Berlin_2016_17.jpg" alt="Aircraft" />|aircraft<br><img src="images/aircraft.PNG" width="80" alt="Aircraft" />|70.51m<sup>(46)</sup><br>60m<sup>(46)</sup><br>19.33m<sup>(46)</sup>|162500kg<sup>(46)</sup>|-|-|-|-|969km/h<sup>(46)</sup>|-|425<sup>(46)</sup>|-|-|
+|container|<img src="images/Wikicommons_container.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:40_Foot_High_Cube_Shipping_Container_Depot.jpg" alt="Container" />|container<br><img src="images/ship.PNG" width="80" alt="Container" />|6.058m<sup>(47)</sup><br>2.43m<sup>(47)</sup><br>2.59m<sup>(47)</sup>|2.33t<sup>(47)</sup>|-|-|-|-|-|-|-|-|-|
+|drone|<img src="images/Wikicommons_drone.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:Unmanned_aerial_vehicle_aerial_photography_30.jpg" alt="Drone" />|drone<br><img src="images/ship.PNG" width="80" alt="Drone" />|294mm<sup>(48)</sup><br>373mm<sup>(48)</sup><br>101mm<sup>(48)</sup>|249g<sup>(48)</sup>|-|-|-|-|12m/s<sup>(48)</sup>|-|-|-|-|
+|wheelchair|<img src="images/Wikicommons_wheelchair.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:Orthopedics_3_--_Smart-Servier.png" alt="Wheelchair" />|wheelchair<br><img src="images/ship.PNG" width="80" alt="Wheelchair" />|103cm<sup>(49)</sup><br>62cm<sup>(49)</sup><br>90.5cm<sup>(49)</sup>|18.4kg<sup>(49)</sup>|-|-|-|-|-|-|-|-|-|
+|cable_car|<img src="images/Wikicommons_cable_car.jpeg" width="180" title="https://commons.wikimedia.org/wiki/File:Telef%C3%A9rico_de_Caracas_1.jpg" alt="Cable_car" />|cable_car<br><img src="images/ship.PNG" width="80" alt="Cable_car" />|-|-|-|-|-|-|12,5m/s<sup>(50)</sup>|-|-|-|-|
 ## Footnotes
 
 - (1): <https://www.baua.de/DE/Angebote/Publikationen/AWE/AWE108.pdf?__blob=publicationFile>
@@ -138,4 +143,11 @@ All passenger cars share the defaults listed above, the values below are just id
 - (41): Average speed on the 100m man's world record
 - (42): Locomotive only
 - (43): <https://de.wikipedia.org/wiki/Puch_MS_50>
+- (44): <http://berliner-u-bahn.info/br_u.php>
+- (45): <https://de.wikipedia.org/wiki/BVG-Baureihe_H>
+- (46): <http://www.flugzeuginfo.net/acdata_php/acdata_7471_dt.php>
+- (47): <https://de.wikipedia.org/wiki/ISO-Container>
+- (48): <https://www.dji.com/de/mini-4-pro/specs>
+- (49): <https://www.sanitaets-online.de/mobilitaet/rollstuehle/standard-rollstuhl/1153/bischoff-bischoff-rollstuhl-s-eco-300-sb-43>
+- (50): <https://de.wikipedia.org/wiki/Pendelbahn#Geschwindigkeit_und_F%C3%B6rderleistung>
 - (\*): estimated
