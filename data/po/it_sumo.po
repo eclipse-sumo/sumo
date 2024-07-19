@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-18 13:53+0000\n"
+"PO-Revision-Date: 2024-07-20 12:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9411,26 +9411,27 @@ msgstr ""
 #: src/netload/NLJunctionControlBuilder.cpp:126
 #: src/netload/NLJunctionControlBuilder.cpp:143
 msgid "Ignoring junction logic for junction '%'."
-msgstr ""
+msgstr "La logica del incrocio '%' viene ignorato."
 
 #: src/netload/NLJunctionControlBuilder.cpp:333
 msgid "Invalid traffic light type '%'"
-msgstr ""
+msgstr "Tipo di semaforo invalido '%'"
 
 #: src/netload/NLJunctionControlBuilder.cpp:348
 #, c-format
 msgid "Another logic with id '%' and programID '%' exists."
 msgstr ""
+"Esiste un'altra logica con il codice identificativo '%' e con programID '%'."
 
 #: src/netload/NLJunctionControlBuilder.cpp:474
 msgid "Traffic lights could not be built."
-msgstr ""
+msgstr "I semafori non potevano essere costruiti."
 
 #: src/netload/NLNetShapeHandler.cpp:163
 #, c-format
 msgid ""
 "% edges of the primary network did not occur in the alternative-net-file"
-msgstr ""
+msgstr "% archi della rete primaria non sono presenti nella rete alternativa"
 
 #: src/netload/NLTriggerBuilder.cpp:75
 msgid "Vaporizers are deprecated. Use rerouters instead."
