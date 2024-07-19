@@ -138,6 +138,8 @@ def main(options):
                 unusedParkings.append(node)
                 continue
             edge = net.getLane(node.lane).getEdge()
+            if not edge.allows(options.vclass):
+                continue
             capacity = sum(determineParkingCapacity(node))
             if edge not in edge2parkingArea:
                 edge2parkingArea[edge] = []
