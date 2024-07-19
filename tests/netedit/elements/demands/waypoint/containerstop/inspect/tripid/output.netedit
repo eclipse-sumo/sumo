@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointContainerStop
-TestFunctions: Clicked over position 704 - 168
-TestFunctions: Clicked over position 704 - 168
+TestFunctions: Clicked over position 715 - 163
+TestFunctions: Clicked over position 715 - 163
 ;;;;;;
 
 customType

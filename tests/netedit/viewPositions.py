@@ -183,22 +183,6 @@ class network:
             x = 510
             y = 320
 
-        class topLeft:
-            x = 460
-            y = 130
-
-        class topRight:
-            x = 510
-            y = 130
-
-        class botLeft:
-            x = 460
-            y = 320
-
-        class botRight:
-            x = 510
-            y = 320
-
     class crossing:
 
         class left:
@@ -435,11 +419,11 @@ class elements:
 
         class trainStop:
             x = 718
-            y = 8
+            y = 10
 
         class containerStop:
             x = 411
-            y = 4
+            y = -5
 
         class chargingStation:
             x = 623

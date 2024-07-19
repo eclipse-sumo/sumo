@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopBusStop
-TestFunctions: Clicked over position 599 - 178
-TestFunctions: Clicked over position 599 - 178
+TestFunctions: Clicked over position 600 - 179
+TestFunctions: Clicked over position 600 - 179
 dummy
 container
 containerA containerB
