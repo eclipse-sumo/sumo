@@ -30,21 +30,67 @@ import sumolib
 
 
 def parse_args():
-
-    op = sumolib.options.ArgumentParser(description="Build macOS installer for sumo",
-                                        usage="Usage: " + sys.argv[0] + " -b <build_directory>")
-    op.add_argument("-b", "--build-directory", dest="build_directory", required=True,
-                    help="The build directory of sumo to take the binaries from")
-    op.add_argument("-n", "--name", dest="name", default="EclipseSUMO",
-                    help="The name of the framework (default: EclipseSUMO)")
-    op.add_argument("-l", "--longname", dest="longname", default="Eclipse SUMO",
-                    help="The long name of the framework (default: Eclipse SUMO)")
-    op.add_argument("-i", "--id", dest="id", default="org.eclipse.sumo",
-                    help="The identifier of the framework (default: org.eclipse.sumo)")
-    op.add_argument("-v", "--version", dest="version", default=sumolib.version.gitDescribe(),
-                    help="The version of the framework (default: version from sumolib.version.gitDescribe())")
+    op = sumolib.options.ArgumentParser(
+        description="Build macOS installer for sumo",
+        usage="Usage: " + sys.argv[0] + " -b <build_directory>",
+    )
+    op.add_argument(
+        "-b",
+        "--build-directory",
+        dest="build_directory",
+        required=True,
+        help="The build directory of sumo to take the binaries from",
+    )
+    op.add_argument(
+        "-n", "--name", dest="name", default="EclipseSUMO", help="The name of the framework (default: EclipseSUMO)"
+    )
+    op.add_argument(
+        "-l",
+        "--longname",
+        dest="longname",
+        default="Eclipse SUMO",
+        help="The long name of the framework (default: Eclipse SUMO)",
+    )
+    op.add_argument(
+        "-i",
+        "--id",
+        dest="id",
+        default="org.eclipse.sumo",
+        help="The identifier of the framework (default: org.eclipse.sumo)",
+    )
+    op.add_argument(
+        "-v",
+        "--version",
+        dest="version",
+        default=sumolib.version.gitDescribe(),
+        help="The version of the framework (default: version from sumolib.version.gitDescribe())",
+    )
 
     return op.parse_args()
+
+
+def get_dependencies(file_path):
+    try:
+        output = subprocess.check_output(["otool", "-L", file_path], stderr=subprocess.STDOUT).decode("utf-8")
+        # Skip the first line which is the file name
+        lines = output.split("\n")[1:]
+        dependencies = [line.split()[0] for line in lines if line]
+        return dependencies
+    except subprocess.CalledProcessError as e:
+        print(f"Error running otool on {file_path}: {e.output.decode('utf-8')}")
+        return []
+
+
+def filter_libraries(libraries):
+    filtered_libraries = []
+    for lib in libraries:
+        if (
+            lib.startswith("/opt/homebrew")
+            and not lib.startswith("/opt/homebrew/opt/mesa")
+            and not lib.startswith("/opt/homebrew/opt/libx")
+        ):
+            filtered_libraries.append(lib)
+    return filtered_libraries
 
 
 def create_sumo_framework(name, longname, id, version, sumo_build_directory):
@@ -66,26 +112,26 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
     #     │       └── Info.plist
     #     └── Current   --> v_1_20_0
 
-    framework_dir = os.path.join(temp_dir, f'{name}.framework')
-    version_dir = os.path.join(framework_dir, f'Versions/{version}')
+    framework_dir = os.path.join(temp_dir, f"{name}.framework")
+    version_dir = os.path.join(framework_dir, f"Versions/{version}")
     os.makedirs(os.path.join(version_dir, name), exist_ok=True)
-    os.makedirs(os.path.join(version_dir, 'Resources'), exist_ok=True)
+    os.makedirs(os.path.join(version_dir, "Resources"), exist_ok=True)
 
-    os.symlink(f'{version}/', os.path.join(framework_dir, 'Versions/Current'), target_is_directory=True)
-    os.symlink(f'Versions/Current/{name}/', os.path.join(framework_dir, name), target_is_directory=True)
-    os.symlink('Versions/Current/Resources/', os.path.join(framework_dir, 'Resources'), target_is_directory=True)
+    os.symlink(f"{version}/", os.path.join(framework_dir, "Versions/Current"), True)
+    os.symlink(f"Versions/Current/{name}/", os.path.join(framework_dir, name), True)
+    os.symlink("Versions/Current/Resources/", os.path.join(framework_dir, "Resources"), True)
 
     # Create the Info.plist file
-    plist_file = os.path.join(version_dir, 'Resources', 'Info.plist')
+    plist_file = os.path.join(version_dir, "Resources", "Info.plist")
     print(" - Creating plist file")
     plist_content = {
         "CFBundleExecutable": longname,
         "CFBundleIdentifier": id,
         "CFBundleName": longname,
         "CFBundleVersion": version,
-        "CFBundleShortVersionString": version
+        "CFBundleShortVersionString": version,
     }
-    with open(plist_file, 'wb') as f:
+    with open(plist_file, "wb") as f:
         plistlib.dump(plist_content, f)
 
     # Copy files from the current repository clone to version_dir/EclipseSUMO
@@ -95,16 +141,31 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
         "--install",
         sumo_build_directory,
         "--prefix",
-        os.path.join(version_dir, name)
+        os.path.join(version_dir, name),
     ]
     subprocess.run(cmake_install_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
-    # Also copy dependencies
-    # FIXME ...
+    # Determine library dependencies and copy all from homebrew,
+    # which are not libx* or mesa*
+    print(" - Copying all libraries")
+    bin_dir = os.path.join(version_dir, name, "bin")
+    libs_dir = os.path.join(version_dir, name, "lib")
+    all_libraries = set()
+    for root, _, files in os.walk(bin_dir):
+        for file in files:
+            file_path = os.path.join(root, file)
+            dependencies = get_dependencies(file_path)
+            all_libraries.update(dependencies)
+    filtered_libraries = filter_libraries(all_libraries)
+    if not os.path.exists(libs_dir):
+        os.makedirs(libs_dir)
+    for lib in filtered_libraries:
+        shutil.copy(lib, libs_dir)
 
     # Build the framework package
+    cwd = os.path.dirname(os.path.abspath(__file__))
     pkg_name = f"{name}-{version}.pkg"
-    pkg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', pkg_name)
+    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
     pkg_build_command = [
         "pkgbuild",
         "--root",
@@ -115,7 +176,7 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
         version,
         "--install-location",
         f"/Library/Frameworks/{name}.framework",
-        f"{pkg_path}"
+        f"{pkg_path}",
     ]
     print(" - Calling pkgbuild")
     subprocess.run(pkg_build_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -137,7 +198,7 @@ def main():
     if not os.path.exists(options.build_directory):
         print(f"Error: The sumo build directory '{options.build_directory}' does not exist.", file=sys.stderr)
         sys.exit(1)
-    if not os.path.exists(os.path.join(options.build_directory, 'CMakeCache.txt')):
+    if not os.path.exists(os.path.join(options.build_directory, "CMakeCache.txt")):
         print(f"Error: The directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
         sys.exit(1)
 
