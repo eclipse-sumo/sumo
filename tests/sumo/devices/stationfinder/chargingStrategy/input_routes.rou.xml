@@ -16,7 +16,7 @@
 
     <route id="route01" edges="D2 L2 L12 L10 L7 D7"/>
 
-    <vehicle depart="0" id="veh0" route="route01" type="ElectricVehicle1">
+    <vehicle depart="0" departSpeed="max" id="veh0" route="route01" type="ElectricVehicle1">
         <stop lane="L2_0" endPos="10" until="700"/>
         <param key="device.battery.chargeLevel" value="100"/>
         <param key="device.stationfinder.charging.chargingTime.weight" value="0"/>
