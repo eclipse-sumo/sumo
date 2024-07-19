@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-17 11:22+0200\n"
-"PO-Revision-Date: 2024-07-18 13:53+0000\n"
+"PO-Revision-Date: 2024-07-19 09:17+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/de/>\n"
@@ -854,11 +854,11 @@ msgstr "'%' geladen."
 
 #: src/gui/GUIApplicationWindow.cpp:1931
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO Interaktive Lichtsignalanlage"
 
 #: src/gui/GUIApplicationWindow.cpp:1933
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO Interaktive Flexible Bedienung"
 
 #: src/gui/GUIApplicationWindow.cpp:2048
 msgid "Simulation ended at time: %. (%)"
@@ -10997,7 +10997,7 @@ msgstr "Polygon bereits vereinfacht"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:104
 msgid "' needs at least one edge"
-msgstr ""
+msgstr "' benötigt mindestens eine Kante"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:296
 #: src/netedit/elements/network/GNELane.cpp:567
@@ -11006,7 +11006,7 @@ msgstr "Benutzerdefinierten Geometriepunkt setzen"
 
 #: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:83
 msgid "' needs at least one lane"
-msgstr ""
+msgstr "' benötigt mindestens einen Fahrstreifen"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:62
 msgid "add data set"
@@ -12108,7 +12108,7 @@ msgstr "Definition"
 #: src/netedit/frames/GNEFrame.cpp:237
 #, c-format
 msgid "Opening HelpAttributes dialog for tag '%' showing % attributes"
-msgstr ""
+msgstr "Attributhilfedialog für Tag '%' mit '% Attributen öffnen"
 
 #: src/netedit/frames/GNEFrame.cpp:247
 msgid "Closing HelpAttributes dialog for tag '"
@@ -12911,7 +12911,7 @@ msgstr "VSS-Dialog öffnen"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:47
 msgid "Match Attribute"
-msgstr ""
+msgstr "Zu durchsuchendes Attribut"
 
 #: src/netedit/frames/common/GNEMatchAttribute.cpp:60
 msgid "Apply selection"
@@ -13047,7 +13047,7 @@ msgstr ""
 
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:67
 msgid "Interval [begin, end]"
-msgstr ""
+msgstr "Intervall [Beginn, Ende]"
 
 #: src/netedit/frames/common/GNEMatchGenericDataAttribute.cpp:257
 msgid "<from TAZ>"
@@ -13266,7 +13266,7 @@ msgstr "Container"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:121
 msgid "Transport"
-msgstr ""
+msgstr "Versand"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:122
 msgid "Tranships"
@@ -13385,7 +13385,7 @@ msgstr "Liste ausgewählte Elemente speichern"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:404
 msgid "clear selection"
-msgstr ""
+msgstr "Auswahl leeren"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:464
 msgid "invert selection"
@@ -14157,7 +14157,7 @@ msgstr "ESC:"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:649
 msgid "Deselect origin"
-msgstr ""
+msgstr "Ursprung abwählen"
 
 #: src/netedit/frames/network/GNECreateEdgeFrame.cpp:650
 msgid "Control+Click:"
@@ -14817,11 +14817,11 @@ msgstr "Aktuelle LSA trennen."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:920
 msgid "Finish join."
-msgstr ""
+msgstr "Vereinigung abschließen."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:922
 msgid "Cancel Join."
-msgstr ""
+msgstr "Vereinigung abbrechen."
 
 #: src/netedit/frames/network/GNETLSEditorFrame.cpp:959
 msgid "no junction selected"
@@ -15058,11 +15058,13 @@ msgstr "LSA-Programm speichern als"
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:69
 msgid "Experimental Part"
-msgstr ""
+msgstr "Experimenteller Teil"
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:69
 msgid "Warning: The netedit overhead editor is still in experimental state."
 msgstr ""
+"Warnung: Der Oberleitungseditor befindet sich noch in einem experimentellen "
+"Zustand."
 
 #: src/netedit/frames/network/GNEWireFrame.cpp:79
 msgid "Current selected wire isn't valid."
@@ -15257,21 +15259,21 @@ msgstr "In neuem Werteverfolgungsfenster öffnen"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:203
 msgid "Could not open '%'.\n"
-msgstr ""
+msgstr "Konnte '%' nicht öffnen.\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:221
 msgid "Ignoring item '%' because of invalid type %\n"
-msgstr ""
+msgstr "Element '%' wird aufgrund des ungültigen Typs % ignoriert\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:229
 #, c-format
 msgid "Item '%' not found\n"
-msgstr ""
+msgstr "Element '%' nicht gefunden\n"
 
 #: src/utils/gui/div/GUISelectedStorage.cpp:236
 #, c-format
 msgid "% objects ignored, % objects not found\n"
-msgstr ""
+msgstr "% Objekte ignoriert, % Objekte nicht gefunden\n"
 
 #: src/utils/gui/div/GUIVideoEncoder.h:74
 msgid "Unknown format!"
@@ -15351,7 +15353,7 @@ msgstr "Objekt muss ein Fahrstreifen sein"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:272
 msgid "Copy test coordinates to clipboard"
-msgstr ""
+msgstr "Testkoordinaten in Zwischenablage kopieren"
 
 #: src/utils/gui/globjects/GUIGlObject.cpp:291
 msgid "Copy name to clipboard"
