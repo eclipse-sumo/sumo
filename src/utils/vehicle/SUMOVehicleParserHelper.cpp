@@ -708,6 +708,28 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, S
             ret->parkingBadges = badges;
         }
     }
+    // parse modes (transportables only)
+    ret->modes = 0;
+    if (attrs.hasAttribute(SUMO_ATTR_MODES)) {
+        bool ok = true;
+        const std::string modeString = attrs.get<std::string>(SUMO_ATTR_MODES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        } else {
+            std::string errorMsg;
+            if (!SUMOVehicleParameter::parsePersonModes(modeString, toString(tag), ret->id, ret->modes, errorMsg)) {
+                handleVehicleError(true, ret, errorMsg);
+            }
+        }
+    }
+    // parse usable vehicle types (transportables only)
+    if (attrs.hasAttribute(SUMO_ATTR_VTYPES)) {
+        bool ok = true;
+        ret->vTypes = attrs.get<std::string>(SUMO_ATTR_VTYPES, ret->id.c_str(), ok);
+        if (!ok) {
+            handleVehicleError(true, ret);
+        }
+    }
     // parse speed (only used by calibrators flow)
     // also used by vehicle in saved state but this is parsed elsewhere
     if (tag == SUMO_TAG_FLOW && attrs.hasAttribute(SUMO_ATTR_SPEED)) {

@@ -785,7 +785,13 @@ public:
     mutable std::vector<std::string> via;
 
     /// @brief The parking access rights
-    mutable std::vector <std::string> parkingBadges;
+    std::vector<std::string> parkingBadges;
+
+    /// @brief The modes a person or container can use
+    SVCPermissions modes;
+
+    /// @brief The types of usable (auto-generated) vehicles for a person / container
+    std::string vTypes;
 
     /// @brief The static number of persons in the vehicle when it departs (not including boarding persons)
     int personNumber;

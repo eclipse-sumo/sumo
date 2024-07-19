@@ -1525,22 +1525,27 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         MSStoppingPlace* stoppingPlace = nullptr;
         parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, stoppingPlace, nullptr, ok);
 
-        const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
-        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, id, ok, OptionsCont::getOptions().getString("persontrip.default.group"));
         SVCPermissions modeSet = 0;
-        std::string errorMsg;
-        // try to parse person modes
-        if (!SUMOVehicleParameter::parsePersonModes(modes, "person", id, modeSet, errorMsg)) {
-            throw InvalidArgument(errorMsg);
+        if (attrs.hasAttribute(SUMO_ATTR_MODES)) {
+            const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
+            std::string errorMsg;
+            // try to parse person modes
+            if (!SUMOVehicleParameter::parsePersonModes(modes, "person", id, modeSet, errorMsg)) {
+                throw InvalidArgument(errorMsg);
+            }
+        } else {
+            modeSet = myVehicleParameter->modes;
         }
+        const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, id, ok, OptionsCont::getOptions().getString("persontrip.default.group"));
         MSVehicleControl& vehControl = MSNet::getInstance()->getVehicleControl();
-        const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, "");
+        const std::string types = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id, ok, myVehicleParameter->vTypes);
         for (StringTokenizer st(types); st.hasNext();) {
             const std::string vtypeid = st.next();
-            if (vehControl.getVType(vtypeid) == nullptr) {
+            const MSVehicleType* const vType = vehControl.getVType(vtypeid);
+            if (vType == nullptr) {
                 throw InvalidArgument("The vehicle type '" + vtypeid + "' in a trip for person '" + myVehicleParameter->id + "' is not known.");
             }
-            modeSet |= SVC_PASSENGER;
+            modeSet |= (vType->getVehicleClass() == SVC_BICYCLE) ? SVC_BICYCLE : SVC_PASSENGER;
         }
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, -1.);
         if (attrs.hasAttribute(SUMO_ATTR_SPEED) && speed <= 0) {
