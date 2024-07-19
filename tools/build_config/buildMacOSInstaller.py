@@ -160,9 +160,19 @@ def create_framework(name, longname, id, version, sumo_build_directory):
     return pkg_name, pkg_path, pkg_size
 
 
-def create_app(app_name, binary_name, framework_name):
+def create_app(app_name, binary_name, framework_name, id, version, icns_path):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
+
+    # Example app structure:
+    # SUMO-GUI.app
+    # └── Contents
+    #     ├── MacOS
+    #     │   └── sumo-gui.sh
+    #     └── Resources
+    #         └── Info.plist
+    #         └── icons.icns
+
     os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS"))
     os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources"))
 
@@ -176,6 +186,50 @@ exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework
     with open(launcher_path, "w") as launcher:
         launcher.write(launcher_content)
     os.chmod(launcher_path, 0o755)
+
+    # Copy the icons
+    print(" - Copying icons")
+    shutil.copy(icns_path, os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "icons.icns"))
+
+    # Create plist file
+    print(" - Creating plist file")
+    plist_file = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "Info.plist")
+    plist_content = {
+        "CFBundleExecutable": binary_name + ".sh",
+        "CFBundleIdentifier": f"{id}.{binary_name}",
+        "CFBundleName": app_name,
+        "CFBundleVersion": version,
+        "CFBundleShortVersionString": version,
+        "CFBundleIconFile": "icons.icns",
+    }
+    with open(plist_file, "wb") as f:
+        plistlib.dump(plist_content, f)
+
+    # Call pkg builder
+    print(" - Calling pkgbuild")
+    cwd = os.path.dirname(os.path.abspath(__file__))
+    pkg_name = f"{app_name}-{version}.pkg"
+    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
+    pkg_build_command = [
+        "pkgbuild",
+        "--root",
+        os.path.join(temp_dir, f"{app_name}.app"),
+        "--identifier",
+        id,
+        "--version",
+        version,
+        "--install-location",
+        f"/Applications/{app_name}.app",
+        f"{pkg_path}",
+    ]
+    subprocess.run(pkg_build_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    pkg_size = os.path.getsize(pkg_path)
+
+    # Cleanup the temporary directory
+    print(" - Cleaning up")
+    shutil.rmtree(temp_dir)
+
+    return pkg_name, pkg_path, pkg_size
 
 
 def main():
@@ -193,7 +247,11 @@ def main():
 
     for app in ["SUMO-GUI"]:
         print(f"Building app package '{app}'")
-        create_app(app, "sumo-gui", opts.name)
+
+        cwd = os.path.dirname(os.path.abspath(__file__))
+        icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "sumo-gui", "build", "sumo-gui-icons.icns")
+        a_name, a_path, a_size = create_app(app, "sumo-gui", opts.name, opts.id, opts.version, icon_path)
+        print(f"Successfully built: '{a_name}' ({a_size / (1024 * 1024):.2f} MB)\n")
 
 
 if __name__ == "__main__":
