@@ -289,7 +289,7 @@ MSDelayBasedTrafficLightLogic::getDetectorState(std::string laneID) const {
 }
 
 double
-MSDelayBasedTrafficLightLogic::getTLSQueueLength(std::string laneID) const {
+MSDelayBasedTrafficLightLogic::getTLQueueLength(std::string laneID) const {
     double result = 0.0;
     for (auto item : myLaneDetectors) {
         if (item.first->getID() == laneID) {

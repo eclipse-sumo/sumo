@@ -383,8 +383,8 @@ public:
         return 0.0;
     }
 
-    /// @brief return the estimated queue length at the upcoming traffic light lane
-    virtual double getTLSQueueLength(const std::string) const {
+    /// @brief return the estimated queue length at the upcoming traffic light
+    virtual double getTLQueueLength(const std::string) const {
         return 0.0;
     }
 
