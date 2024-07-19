@@ -18,6 +18,7 @@ option(ENABLE_JAVA_BINDINGS "Build Java Bindings" ON)
 option(ENABLE_CS_BINDINGS "Build C# Bindings")
 option(CCACHE_SUPPORT "Enable ccache support if installed" ON)
 option(TCMALLOC "Use tcmalloc if installed" ON)
+option(VERBOSE_SUB "Let sub-commands be more verbose")
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
 set(JUPEDSIM_CUSTOMDIR "" CACHE PATH "Custom install location of jupedsim")
@@ -666,11 +667,14 @@ if (NOT ${PYTHON_SETUPTOOLS_MISSING})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} build_config/setup-traci.py clean --all install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} --optimize=1 WORKING_DIRECTORY ${TOOLS_DIR})"
                 COMPONENT pytraci)
     else ()
+        if (NOT VERBOSE_SUB)
+            set(PYTHON_BUILD_OPTS "-C--quiet")
+        endif ()
         add_custom_target(pure_wheels ALL
                           COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
                           COMMAND ${PYTHON_EXECUTABLE} ./build_config/version.py ./build_config/setup-traci.py ./setup.py
-                          COMMAND ${PYTHON_EXECUTABLE} -m build --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
+                          COMMAND ${PYTHON_EXECUTABLE} -m build ${PYTHON_BUILD_OPTS} --wheel . -o ${CMAKE_CURRENT_BINARY_DIR}
                           WORKING_DIRECTORY ${TOOLS_DIR})
         install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install --root=\$ENV{DESTDIR}/ --prefix=${CMAKE_INSTALL_PREFIX} -f ${CMAKE_BINARY_DIR} --no-index traci)"
                 COMPONENT pytraci)
@@ -739,6 +743,9 @@ add_custom_target(install_mo DEPENDS ${I18N_DATA})
 
 # java targets
 find_program(MVN_EXECUTABLE mvn)
+if (NOT VERBOSE_SUB)
+    set(MVN_OPTS "-q")
+endif ()
 find_package(Java COMPONENTS Development)
 if (MVN_EXECUTABLE AND Java_FOUND)
     if (NOT DEFINED ENV{JAVA_HOME})
@@ -748,11 +755,11 @@ if (MVN_EXECUTABLE AND Java_FOUND)
         set(MVN_REPO "-Dmaven.repo.local=${CMAKE_BINARY_DIR}/m2")
     endif ()
     add_custom_target(traas
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/traas/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/traas/target/traas-1.1.jar bin/TraaS.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_custom_target(lisum
-        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} --batch-mode -f tools/contributed/lisum/pom.xml clean install
+        COMMAND ${MVN_COMMAND_PREFIX} ${MVN_EXECUTABLE} ${MVN_REPO} ${MVN_OPTS} --batch-mode -f tools/contributed/lisum/pom.xml clean install
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-core/target/lisum-core-1.0.2.jar bin/lisum-core.jar
         COMMAND ${CMAKE_COMMAND} -E copy tools/contributed/lisum/lisum-gui/target/lisum-gui-1.1.jar bin/lisum-gui.jar
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
@@ -784,7 +791,7 @@ if (MVN_EXECUTABLE)
     add_custom_target(javadoc
         COMMAND rm -rf docs/javadoc
         COMMAND mkdir docs/javadoc
-        COMMAND ${MVN_EXECUTABLE} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
+        COMMAND ${MVN_EXECUTABLE} ${MVN_OPTS} --batch-mode -f tools/contributed/traas/pom.xml javadoc:javadoc
         COMMAND mv tools/contributed/traas/target/site/apidocs docs/javadoc/traas
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     set_property(TARGET javadoc PROPERTY EXCLUDE_FROM_DEFAULT_BUILD TRUE)
