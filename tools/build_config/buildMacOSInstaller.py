@@ -30,10 +30,20 @@ import sumolib
 
 
 def parse_args():
+
     op = sumolib.options.ArgumentParser(description="Build macOS installer for sumo",
                                         usage="Usage: " + sys.argv[0] + " -b <build_directory>")
     op.add_argument("-b", "--build-directory", dest="build_directory", required=True,
                     help="The build directory of sumo to take the binaries from")
+    op.add_argument("-n", "--name", dest="name", default="EclipseSUMO",
+                    help="The name of the framework (default: EclipseSUMO)")
+    op.add_argument("-l", "--longname", dest="longname", default="Eclipse SUMO",
+                    help="The long name of the framework (default: Eclipse SUMO)")
+    op.add_argument("-i", "--id", dest="id", default="org.eclipse.sumo",
+                    help="The identifier of the framework (default: org.eclipse.sumo)")
+    op.add_argument("-v", "--version", dest="version", default=sumolib.version.gitDescribe(),
+                    help="The version of the framework (default: version from sumolib.version.gitDescribe())")
+
     return op.parse_args()
 
 
@@ -123,11 +133,6 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
 
 
 def main():
-    name = "EclipseSUMO"
-    longname = "Eclipse SUMO"
-    id = "org.eclipse.sumo"
-    version = sumolib.version.gitDescribe()
-
     options = parse_args()
     if not os.path.exists(options.build_directory):
         print(f"Error: The sumo build directory '{options.build_directory}' does not exist.", file=sys.stderr)
@@ -136,7 +141,7 @@ def main():
         print(f"Error: The directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
         sys.exit(1)
 
-    create_sumo_framework(name, longname, id, version, options.build_directory)
+    create_sumo_framework(options.name, options.longname, options.id, options.version, options.build_directory)
 
 
 if __name__ == "__main__":
