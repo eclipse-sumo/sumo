@@ -32,7 +32,7 @@ from sumolib.version import gitDescribe
 
 def parse_args():
     op = ArgumentParser(description="Build an installer for macOS", usage=f"Usage: {sys.argv[0]} -b <build_directory>")
-    op.add_argument("-b", "--build-directory", dest="build_directory", required=True, help="Build directory of sumo")
+    op.add_argument("-b", "--build-dir", dest="build_dir", required=True, help="Build directory of sumo")
     op.add_argument("-n", "--name", dest="name", default="EclipseSUMO", help="Name of the framework")
     op.add_argument("-l", "--longname", dest="longname", default="Eclipse SUMO", help="Long name of the framework")
     op.add_argument("-i", "--id", dest="id", default="org.eclipse.sumo", help="Identifier of the framework")
@@ -65,9 +65,7 @@ def filter_libraries(libraries):
     return filtered_libraries
 
 
-def create_sumo_framework(name, longname, id, version, sumo_build_directory):
-    print(f"Building framework package '{name}'")
-
+def create_framework(name, longname, id, version, sumo_build_directory):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
 
@@ -159,23 +157,43 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
 
-    # Done
-    print(f"Successfully built: '{pkg_name}' ({pkg_size / (1024 * 1024):.2f} MB)")
-    print(f"Hint: install the package with 'sudo installer -pkg {pkg_path} -target /'")
+    return pkg_name, pkg_path, pkg_size
 
-    return pkg_path
+
+def create_app(app_name, binary_name, framework_name):
+    print(" - Creating directory structure")
+    temp_dir = tempfile.mkdtemp()
+    os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS"))
+    os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources"))
+
+    print(" - Creating launcher")
+    launcher_content = f"""#!/bin/bash
+export DYLD_LIBRARY_PATH="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/lib:$DYLD_LIBRARY_PATH"
+export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/"
+exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/bin/{binary_name}" "$@"
+"""
+    launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", binary_name + ".sh")
+    with open(launcher_path, "w") as launcher:
+        launcher.write(launcher_content)
+    os.chmod(launcher_path, 0o755)
 
 
 def main():
-    options = parse_args()
-    if not os.path.exists(options.build_directory):
-        print(f"Error: build directory '{options.build_directory}' does not exist.", file=sys.stderr)
+    opts = parse_args()
+    if not os.path.exists(opts.build_dir):
+        print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
         sys.exit(1)
-    if not os.path.exists(os.path.join(options.build_directory, "CMakeCache.txt")):
-        print(f"Error: directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
+    if not os.path.exists(os.path.join(opts.build_dir, "CMakeCache.txt")):
+        print(f"Error: directory '{opts.build_dir}' is not a build directory.", file=sys.stderr)
         sys.exit(1)
 
-    create_sumo_framework(options.name, options.longname, options.id, options.version, options.build_directory)
+    print(f"Building framework package '{opts.name}'")
+    f_name, f_path, f_size = create_framework(opts.name, opts.longname, opts.id, opts.version, opts.build_dir)
+    print(f"Successfully built: '{f_name}' ({f_size / (1024 * 1024):.2f} MB)\n")
+
+    for app in ["SUMO-GUI"]:
+        print(f"Building app package '{app}'")
+        create_app(app, "sumo-gui", opts.name)
 
 
 if __name__ == "__main__":
