@@ -96,7 +96,7 @@ def create_framework(name, longname, id, version, sumo_build_directory):
     print(" - Creating plist file")
     plist_content = {
         "CFBundleExecutable": longname,
-        "CFBundleIdentifier": id,
+        "CFBundleIdentifier": f"{id}.framework",
         "CFBundleName": longname,
         "CFBundleVersion": version,
         "CFBundleShortVersionString": version,
@@ -142,7 +142,7 @@ def create_framework(name, longname, id, version, sumo_build_directory):
         "--root",
         framework_dir,
         "--identifier",
-        id,
+        f"{id}.framework",
         "--version",
         version,
         "--install-location",
@@ -167,11 +167,11 @@ def create_app(app_name, binary_name, framework_name, id, version, icns_path):
     # Example app structure:
     # SUMO-GUI.app
     # └── Contents
+    #     └── Info.plist
     #     ├── MacOS
-    #     │   └── sumo-gui.sh
+    #     │   └── SUMO-GUI
     #     └── Resources
-    #         └── Info.plist
-    #         └── icons.icns
+    #         └── iconsfile.icns
 
     os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS"))
     os.makedirs(os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources"))
@@ -182,25 +182,25 @@ export DYLD_LIBRARY_PATH="/Library/Frameworks/{framework_name}.framework/Version
 export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/"
 exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/bin/{binary_name}" "$@"
 """
-    launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", binary_name + ".sh")
+    launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", app_name)
     with open(launcher_path, "w") as launcher:
         launcher.write(launcher_content)
     os.chmod(launcher_path, 0o755)
 
     # Copy the icons
     print(" - Copying icons")
-    shutil.copy(icns_path, os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "icons.icns"))
+    shutil.copy(icns_path, os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "iconfile.icns"))
 
     # Create plist file
     print(" - Creating plist file")
-    plist_file = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Resources", "Info.plist")
+    plist_file = os.path.join(temp_dir, f"{app_name}.app", "Contents", "Info.plist")
     plist_content = {
-        "CFBundleExecutable": binary_name + ".sh",
-        "CFBundleIdentifier": f"{id}.{binary_name}",
+        "CFBundleExecutable": app_name,
+        "CFBundleIdentifier": f"{id}.app.{binary_name}",
         "CFBundleName": app_name,
         "CFBundleVersion": version,
         "CFBundleShortVersionString": version,
-        "CFBundleIconFile": "icons.icns",
+        "CFBundleIconFile": "iconfile.icns",
     }
     with open(plist_file, "wb") as f:
         plistlib.dump(plist_content, f)
@@ -208,14 +208,14 @@ exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework
     # Call pkg builder
     print(" - Calling pkgbuild")
     cwd = os.path.dirname(os.path.abspath(__file__))
-    pkg_name = f"{app_name}-{version}.pkg"
+    pkg_name = f"Launcher-{app_name}-{version}.pkg"
     pkg_path = os.path.join(cwd, "..", "..", pkg_name)
     pkg_build_command = [
         "pkgbuild",
         "--root",
         os.path.join(temp_dir, f"{app_name}.app"),
         "--identifier",
-        id,
+        f"{id}.app.{binary_name}",
         "--version",
         version,
         "--install-location",
@@ -228,7 +228,6 @@ exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework
     # Cleanup the temporary directory
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
-
     return pkg_name, pkg_path, pkg_size
 
 
