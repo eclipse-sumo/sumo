@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainSto
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.until, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.until, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.until, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.until, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

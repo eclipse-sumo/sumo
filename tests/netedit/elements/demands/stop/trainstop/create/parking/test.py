@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainSto
 netedit.changeDefaultValue(netedit.attrs.stopTrainStop.create.parking, "true")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

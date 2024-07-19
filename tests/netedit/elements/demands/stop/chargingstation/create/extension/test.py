@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.charging
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopChargingStation.create.extension, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,13 +47,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.charging
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.line, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.line, "customLine")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

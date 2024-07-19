@@ -47,31 +47,31 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainSto
 netedit.changeDefaultBoolValue(netedit.attrs.waypointTrainStop.create.durationEnable)
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.duration, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

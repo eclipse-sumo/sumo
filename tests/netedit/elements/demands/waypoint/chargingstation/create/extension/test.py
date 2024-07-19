@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.charging
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointChargingStation.create.extension, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.chargingStation)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.chargingStation)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -47,19 +47,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainSto
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "dummy Act")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointTrainStop.create.actType, "singing")
 
 # create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.trainStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.trainStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

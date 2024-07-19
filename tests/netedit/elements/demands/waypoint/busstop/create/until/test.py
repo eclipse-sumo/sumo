@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.until, "dummyValue")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.until, "-20")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.until, "0")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.waypointBusStop.create.until, "22.33")
 
 # try to create waypoint
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.busStop)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

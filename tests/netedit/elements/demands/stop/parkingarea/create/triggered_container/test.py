@@ -47,19 +47,19 @@ netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingA
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopParkingArea.create.expected, "containerID1 containerID2 containerID3")
 
 # create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.parkingArea)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.demands.parkingArea)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
