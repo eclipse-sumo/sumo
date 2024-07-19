@@ -26,45 +26,17 @@ import subprocess
 import sys
 import tempfile
 
-import sumolib
+from sumolib.options import ArgumentParser
+from sumolib.version import gitDescribe
 
 
 def parse_args():
-    op = sumolib.options.ArgumentParser(
-        description="Build macOS installer for sumo",
-        usage="Usage: " + sys.argv[0] + " -b <build_directory>",
-    )
-    op.add_argument(
-        "-b",
-        "--build-directory",
-        dest="build_directory",
-        required=True,
-        help="The build directory of sumo to take the binaries from",
-    )
-    op.add_argument(
-        "-n", "--name", dest="name", default="EclipseSUMO", help="The name of the framework (default: EclipseSUMO)"
-    )
-    op.add_argument(
-        "-l",
-        "--longname",
-        dest="longname",
-        default="Eclipse SUMO",
-        help="The long name of the framework (default: Eclipse SUMO)",
-    )
-    op.add_argument(
-        "-i",
-        "--id",
-        dest="id",
-        default="org.eclipse.sumo",
-        help="The identifier of the framework (default: org.eclipse.sumo)",
-    )
-    op.add_argument(
-        "-v",
-        "--version",
-        dest="version",
-        default=sumolib.version.gitDescribe(),
-        help="The version of the framework (default: version from sumolib.version.gitDescribe())",
-    )
+    op = ArgumentParser(description="Build an installer for macOS", usage=f"Usage: {sys.argv[0]} -b <build_directory>")
+    op.add_argument("-b", "--build-directory", dest="build_directory", required=True, help="Build directory of sumo")
+    op.add_argument("-n", "--name", dest="name", default="EclipseSUMO", help="Name of the framework")
+    op.add_argument("-l", "--longname", dest="longname", default="Eclipse SUMO", help="Long name of the framework")
+    op.add_argument("-i", "--id", dest="id", default="org.eclipse.sumo", help="Identifier of the framework")
+    op.add_argument("-v", "--version", dest="version", default=gitDescribe(), help="Version of the framework")
 
     return op.parse_args()
 
@@ -77,8 +49,8 @@ def get_dependencies(file_path):
         dependencies = [line.split()[0] for line in lines if line]
         return dependencies
     except subprocess.CalledProcessError as e:
-        print(f"Error running otool on {file_path}: {e.output.decode('utf-8')}")
-        return []
+        print(f"Error running otool on {file_path}: {e.output.decode('utf-8')}", file=sys.stderr)
+        sys.exit(1)
 
 
 def filter_libraries(libraries):
@@ -157,6 +129,7 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
             dependencies = get_dependencies(file_path)
             all_libraries.update(dependencies)
     filtered_libraries = filter_libraries(all_libraries)
+
     if not os.path.exists(libs_dir):
         os.makedirs(libs_dir)
     for lib in filtered_libraries:
@@ -196,10 +169,10 @@ def create_sumo_framework(name, longname, id, version, sumo_build_directory):
 def main():
     options = parse_args()
     if not os.path.exists(options.build_directory):
-        print(f"Error: The sumo build directory '{options.build_directory}' does not exist.", file=sys.stderr)
+        print(f"Error: build directory '{options.build_directory}' does not exist.", file=sys.stderr)
         sys.exit(1)
     if not os.path.exists(os.path.join(options.build_directory, "CMakeCache.txt")):
-        print(f"Error: The directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
+        print(f"Error: directory '{options.build_directory}' is not a build directory.", file=sys.stderr)
         sys.exit(1)
 
     create_sumo_framework(options.name, options.longname, options.id, options.version, options.build_directory)
