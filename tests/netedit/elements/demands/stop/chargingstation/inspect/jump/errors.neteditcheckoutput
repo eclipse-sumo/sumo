@@ -1,32 +1,34 @@
 Warning: Teleporting vehicle 'flow.0'; waited too long (wrong lane), lane='Edge0_1', time=312.00.
 Warning: Vehicle 'flow.0' ends teleporting on edge 'Edge2', time=312.00.
 Warning: Vehicle 'flow.0' teleports beyond arrival edge 'Edge2', time=377.00.
-Warning: Teleporting vehicle 'flow.1'; waited too long (wrong lane), lane='Edge0_1', time=618.00.
-Warning: Vehicle 'flow.1' ends teleporting on edge 'Edge2', time=618.00.
-Warning: Vehicle 'flow.1' teleports beyond arrival edge 'Edge2', time=684.00.
-Warning: Teleporting vehicle 'flow.2'; waited too long (wrong lane), lane='Edge0_1', time=922.00.
-Warning: Vehicle 'flow.2' ends teleporting on edge 'Edge2', time=922.00.
-Warning: Vehicle 'flow.2' teleports beyond arrival edge 'Edge2', time=987.00.
+Warning: Teleporting vehicle 'flow.1'; waited too long (wrong lane), lane='Edge0_1', time=617.00.
+Warning: Vehicle 'flow.1' ends teleporting on edge 'Edge2', time=617.00.
+Warning: Vehicle 'flow.1' teleports beyond arrival edge 'Edge2', time=683.00.
+Warning: Teleporting vehicle 'flow.2'; waited too long (wrong lane), lane='Edge0_1', time=923.00.
+Warning: Vehicle 'flow.2' ends teleporting on edge 'Edge2', time=923.00.
+Warning: Vehicle 'flow.2' teleports beyond arrival edge 'Edge2', time=989.00.
 Warning: Teleporting vehicle 'flow.3'; waited too long (wrong lane), lane='Edge0_1', time=1227.00.
 Warning: Vehicle 'flow.3' ends teleporting on edge 'Edge2', time=1227.00.
-Warning: Vehicle 'flow.3' teleports beyond arrival edge 'Edge2', time=1292.00.
+Warning: Vehicle 'flow.3' teleports beyond arrival edge 'Edge2', time=1293.00.
 Warning: Teleporting vehicle 'flow.4'; waited too long (wrong lane), lane='Edge0_1', time=1532.00.
 Warning: Vehicle 'flow.4' ends teleporting on edge 'Edge2', time=1532.00.
-Warning: Vehicle 'flow.4' teleports beyond arrival edge 'Edge2', time=1598.00.
+Warning: Vehicle 'flow.4' teleports beyond arrival edge 'Edge2', time=1597.00.
 Warning: Teleporting vehicle 'flow.5'; waited too long (wrong lane), lane='Edge0_1', time=1838.00.
 Warning: Vehicle 'flow.5' ends teleporting on edge 'Edge2', time=1838.00.
 Warning: Vehicle 'flow.5' teleports beyond arrival edge 'Edge2', time=1904.00.
-Warning: Teleporting vehicle 'flow.6'; waited too long (wrong lane), lane='Edge0_1', time=2143.00.
-Warning: Vehicle 'flow.6' ends teleporting on edge 'Edge2', time=2143.00.
+Warning: Teleporting vehicle 'flow.6'; waited too long (wrong lane), lane='Edge0_1', time=2144.00.
+Warning: Vehicle 'flow.6' ends teleporting on edge 'Edge2', time=2144.00.
 Warning: Vehicle 'flow.6' teleports beyond arrival edge 'Edge2', time=2208.00.
-Warning: Vehicle 'flow.7' teleports beyond arrival edge 'Edge2', time=2218.00.
-Warning: Vehicle 'flow.8' teleports beyond arrival edge 'Edge2', time=2286.00.
-Warning: Vehicle 'flow.9' teleports beyond arrival edge 'Edge2', time=2288.00.
-Warning: Vehicle 'flow.10' teleports beyond arrival edge 'Edge2', time=2354.00.
-Warning: Vehicle 'flow.11' teleports beyond arrival edge 'Edge2', time=2355.00.
-Warning: Vehicle 'flow.12' teleports beyond arrival edge 'Edge2', time=2421.00.
-Warning: Vehicle 'flow.13' teleports beyond arrival edge 'Edge2', time=2422.00.
-Warning: Vehicle 'flow.14' teleports beyond arrival edge 'Edge2', time=2488.00.
-Warning: Vehicle 'flow.15' teleports beyond arrival edge 'Edge2', time=2491.00.
-Warning: Vehicle 'flow.16' teleports beyond arrival edge 'Edge2', time=2558.00.
-Warning: Vehicle 'flow.17' teleports beyond arrival edge 'Edge2', time=2560.00.
+Warning: Teleporting vehicle 'flow.7'; waited too long (wrong lane), lane='Edge0_1', time=2449.00.
+Warning: Vehicle 'flow.7' ends teleporting on edge 'Edge2', time=2449.00.
+Warning: Vehicle 'flow.7' teleports beyond arrival edge 'Edge2', time=2514.00.
+Warning: Vehicle 'flow.8' teleports beyond arrival edge 'Edge2', time=2524.00.
+Warning: Vehicle 'flow.9' teleports beyond arrival edge 'Edge2', time=2591.00.
+Warning: Vehicle 'flow.10' teleports beyond arrival edge 'Edge2', time=2593.00.
+Warning: Vehicle 'flow.11' teleports beyond arrival edge 'Edge2', time=2660.00.
+Warning: Vehicle 'flow.12' teleports beyond arrival edge 'Edge2', time=2661.00.
+Warning: Vehicle 'flow.13' teleports beyond arrival edge 'Edge2', time=2728.00.
+Warning: Vehicle 'flow.14' teleports beyond arrival edge 'Edge2', time=2731.00.
+Warning: Vehicle 'flow.15' teleports beyond arrival edge 'Edge2', time=2797.00.
+Warning: Vehicle 'flow.16' teleports beyond arrival edge 'Edge2', time=2799.00.
+Warning: Vehicle 'flow.17' teleports beyond arrival edge 'Edge2', time=2865.00.

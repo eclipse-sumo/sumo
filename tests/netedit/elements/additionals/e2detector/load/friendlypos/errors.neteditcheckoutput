@@ -1,2 +1,2 @@
-Warning: The given position (=-50) for detector 'E2_03' does not lie on the given lane 'center0_0' with length 47 (adjusting to new position 0
-Warning: The given position (=500) for detector 'E2_04' does not lie on the given lane 'center0_0' with length 47 (adjusting to new position 46.9
+Warning: The given position (=-50) for detector 'E2_03' does not lie on the given lane 'EdgeCenter0_0' with length 47.5 (adjusting to new position 0
+Warning: The given position (=500) for detector 'E2_04' does not lie on the given lane 'EdgeCenter0_0' with length 47.5 (adjusting to new position 47.4

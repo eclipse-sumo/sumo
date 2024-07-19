@@ -1,104 +1,124 @@
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.0' is not known. time=1.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.1' is not known. time=5.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.2' is not known. time=10.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.3' is not known. time=15.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.4' is not known. time=20.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.5' is not known. time=24.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.6' is not known. time=29.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.7' is not known. time=34.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.8' is not known. time=38.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.0' is not known. time=15.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.1' is not known. time=19.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.2' is not known. time=23.00.
+Warning: Vehicle 'flow_1.2' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-3.89, offset=0.18), time=24.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.3' is not known. time=28.00.
+Warning: Vehicle 'flow_1.3' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.21, offset=4.63), time=28.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.4' is not known. time=32.00.
+Warning: Vehicle 'flow_1.4' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.86, offset=8.63), time=32.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.5' is not known. time=36.00.
+Warning: Vehicle 'flow_1.5' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-13.52, offset=12.60), time=36.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.6' is not known. time=39.00.
+Warning: Vehicle 'flow_1.6' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-10.99, offset=0.94), time=39.00.
 Warning: Vehicle 'flow_1.0' aborts joining after extension of 20.00s at time 40.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.9' is not known. time=42.00.
+Warning: Vehicle 'flow_1.0' teleports beyond arrival edge 'EdgeCenter1', time=41.00.
 Warning: Vehicle 'flow_1.1' aborts joining after extension of 20.00s at time 42.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.7' is not known. time=43.00.
+Warning: Vehicle 'flow_1.7' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-10.76, offset=2.55), time=43.00.
+Warning: Vehicle 'flow_1.1' teleports beyond arrival edge 'EdgeCenter1', time=44.00.
 Warning: Vehicle 'flow_1.2' aborts joining after extension of 20.00s at time 44.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.10' is not known. time=46.00.
-Warning: Vehicle 'flow_1.3' aborts joining after extension of 20.00s at time 46.00.
-Warning: Vehicle 'flow_1.4' aborts joining after extension of 20.00s at time 48.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.11' is not known. time=49.00.
-Warning: Vehicle 'flow_1.5' aborts joining after extension of 20.00s at time 50.00.
-Warning: Vehicle 'flow_1.6' aborts joining after extension of 20.00s at time 52.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.12' is not known. time=54.00.
-Warning: Vehicle 'flow_1.7' aborts joining after extension of 20.00s at time 54.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.13' is not known. time=58.00.
-Warning: Vehicle 'flow_1.8' aborts joining after extension of 20.00s at time 58.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.14' is not known. time=62.00.
-Warning: Vehicle 'flow_1.9' aborts joining after extension of 20.00s at time 62.00.
-Warning: Vehicle 'flow_1.10' aborts joining after extension of 20.00s at time 66.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.15' is not known. time=68.00.
-Warning: Vehicle 'flow_1.11' aborts joining after extension of 20.00s at time 69.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.16' is not known. time=72.00.
-Warning: Vehicle 'flow_1.12' aborts joining after extension of 20.00s at time 74.00.
-Warning: Vehicle 'splitB' to split from vehicle 'flow_1.17' is not known. time=76.00.
-Warning: Vehicle 'flow_1.13' aborts joining after extension of 20.00s at time 78.00.
-Warning: Vehicle 'flow_1.14' aborts joining after extension of 20.00s at time 82.00.
-Warning: Vehicle 'flow_1.15' aborts joining after extension of 20.00s at time 88.00.
-Warning: Vehicle 'flow_1.16' aborts joining after extension of 20.00s at time 92.00.
-Warning: Vehicle 'flow_1.17' aborts joining after extension of 20.00s at time 96.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.8' is not known. time=48.00.
+Warning: Vehicle 'flow_1.8' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.35, offset=5.79), time=48.00.
+Warning: Vehicle 'flow_1.3' aborts joining after extension of 20.00s at time 48.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.9' is not known. time=51.00.
+Warning: Vehicle 'flow_1.9' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.06, offset=7.58), time=51.00.
+Warning: Vehicle 'flow_1.4' aborts joining after extension of 20.00s at time 52.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.10' is not known. time=55.00.
+Warning: Vehicle 'flow_1.10' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.32, offset=4.58), time=55.00.
+Warning: Vehicle 'flow_1.5' aborts joining after extension of 20.00s at time 56.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.11' is not known. time=59.00.
+Warning: Vehicle 'flow_1.11' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-10.93, offset=8.12), time=59.00.
+Warning: Vehicle 'flow_1.6' aborts joining after extension of 20.00s at time 59.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.12' is not known. time=63.00.
+Warning: Vehicle 'flow_1.12' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.68, offset=8.66), time=63.00.
+Warning: Vehicle 'flow_1.7' aborts joining after extension of 20.00s at time 63.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.13' is not known. time=67.00.
+Warning: Vehicle 'flow_1.13' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-11.67, offset=6.34), time=67.00.
+Warning: Vehicle 'flow_1.8' aborts joining after extension of 20.00s at time 68.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.14' is not known. time=71.00.
+Warning: Vehicle 'flow_1.14' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.56, offset=5.64), time=71.00.
+Warning: Vehicle 'flow_1.9' aborts joining after extension of 20.00s at time 71.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.15' is not known. time=74.00.
+Warning: Vehicle 'flow_1.15' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.28, offset=5.39), time=74.00.
+Warning: Vehicle 'flow_1.10' aborts joining after extension of 20.00s at time 75.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.16' is not known. time=78.00.
+Warning: Vehicle 'flow_1.16' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-10.62, offset=9.15), time=78.00.
+Warning: Vehicle 'flow_1.11' aborts joining after extension of 20.00s at time 79.00.
+Warning: Vehicle 'splitB' to split from vehicle 'flow_1.17' is not known. time=82.00.
+Warning: Vehicle 'flow_1.17' performs emergency stop at the end of lane 'EdgeCenter1_1' for unknown reasons (decel=-12.23, offset=10.01), time=82.00.
+Warning: Vehicle 'flow_1.12' aborts joining after extension of 20.00s at time 83.00.
+Warning: Vehicle 'flow_1.13' aborts joining after extension of 20.00s at time 87.00.
+Warning: Vehicle 'flow_1.14' aborts joining after extension of 20.00s at time 91.00.
+Warning: Vehicle 'flow_1.15' aborts joining after extension of 20.00s at time 94.00.
+Warning: Vehicle 'flow_1.16' aborts joining after extension of 20.00s at time 98.00.
+Warning: Vehicle 'flow_1.17' aborts joining after extension of 20.00s at time 102.00.
 Warning: Teleporting vehicle 'flow_0.0'; waited too long (wrong lane), lane='Edge0_1', time=312.00.
 Warning: Vehicle 'flow_0.0' ends teleporting on edge 'Edge2', time=312.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.0' is not known. time=317.00.
 Warning: Vehicle 'flow_0.0' aborts joining after extension of 10.00s at time 397.00.
 Warning: Vehicle 'flow_0.0' teleports beyond arrival edge 'Edge2', time=398.00.
-Warning: Teleporting vehicle 'flow_0.1'; waited too long (wrong lane), lane='Edge0_1', time=618.00.
-Warning: Vehicle 'flow_0.1' ends teleporting on edge 'Edge2', time=618.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.1' is not known. time=623.00.
-Warning: Vehicle 'flow_0.1' aborts joining after extension of 10.00s at time 703.00.
-Warning: Vehicle 'flow_0.1' teleports beyond arrival edge 'Edge2', time=704.00.
-Warning: Teleporting vehicle 'flow_0.2'; waited too long (wrong lane), lane='Edge0_1', time=922.00.
-Warning: Vehicle 'flow_0.2' ends teleporting on edge 'Edge2', time=922.00.
+Warning: Teleporting vehicle 'flow_0.1'; waited too long (wrong lane), lane='Edge0_1', time=617.00.
+Warning: Vehicle 'flow_0.1' ends teleporting on edge 'Edge2', time=617.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.1' is not known. time=622.00.
+Warning: Vehicle 'flow_0.1' aborts joining after extension of 10.00s at time 702.00.
+Warning: Vehicle 'flow_0.1' teleports beyond arrival edge 'Edge2', time=703.00.
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (wrong lane), lane='Edge0_1', time=923.00.
+Warning: Vehicle 'flow_0.2' ends teleporting on edge 'Edge2', time=923.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.2' is not known. time=928.00.
 Warning: Vehicle 'flow_0.2' aborts joining after extension of 10.00s at time 1008.00.
 Warning: Vehicle 'flow_0.2' teleports beyond arrival edge 'Edge2', time=1009.00.
 Warning: Teleporting vehicle 'flow_0.3'; waited too long (wrong lane), lane='Edge0_1', time=1227.00.
 Warning: Vehicle 'flow_0.3' ends teleporting on edge 'Edge2', time=1227.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.3' is not known. time=1233.00.
-Warning: Vehicle 'flow_0.3' aborts joining after extension of 10.00s at time 1313.00.
-Warning: Vehicle 'flow_0.3' teleports beyond arrival edge 'Edge2', time=1314.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.3' is not known. time=1232.00.
+Warning: Vehicle 'flow_0.3' aborts joining after extension of 10.00s at time 1312.00.
+Warning: Vehicle 'flow_0.3' teleports beyond arrival edge 'Edge2', time=1313.00.
 Warning: Teleporting vehicle 'flow_0.4'; waited too long (wrong lane), lane='Edge0_1', time=1532.00.
 Warning: Vehicle 'flow_0.4' ends teleporting on edge 'Edge2', time=1532.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.4' is not known. time=1538.00.
-Warning: Vehicle 'flow_0.4' aborts joining after extension of 10.00s at time 1618.00.
-Warning: Vehicle 'flow_0.4' teleports beyond arrival edge 'Edge2', time=1619.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.4' is not known. time=1537.00.
+Warning: Vehicle 'flow_0.4' aborts joining after extension of 10.00s at time 1617.00.
+Warning: Vehicle 'flow_0.4' teleports beyond arrival edge 'Edge2', time=1618.00.
 Warning: Teleporting vehicle 'flow_0.5'; waited too long (wrong lane), lane='Edge0_1', time=1838.00.
 Warning: Vehicle 'flow_0.5' ends teleporting on edge 'Edge2', time=1838.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.5' is not known. time=1843.00.
-Warning: Vehicle 'flow_0.5' aborts joining after extension of 10.00s at time 1923.00.
-Warning: Vehicle 'flow_0.5' teleports beyond arrival edge 'Edge2', time=1924.00.
-Warning: Teleporting vehicle 'flow_0.6'; waited too long (wrong lane), lane='Edge0_1', time=2143.00.
-Warning: Vehicle 'flow_0.6' ends teleporting on edge 'Edge2', time=2143.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.5' is not known. time=1842.00.
+Warning: Vehicle 'flow_0.5' aborts joining after extension of 10.00s at time 1922.00.
+Warning: Vehicle 'flow_0.5' teleports beyond arrival edge 'Edge2', time=1923.00.
+Warning: Teleporting vehicle 'flow_0.6'; waited too long (wrong lane), lane='Edge0_1', time=2144.00.
+Warning: Vehicle 'flow_0.6' ends teleporting on edge 'Edge2', time=2144.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.6' is not known. time=2149.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.7' is not known. time=2156.00.
 Warning: Vehicle 'flow_0.6' aborts joining after extension of 10.00s at time 2229.00.
 Warning: Vehicle 'flow_0.6' teleports beyond arrival edge 'Edge2', time=2230.00.
-Warning: Vehicle 'flow_0.7' aborts joining after extension of 10.00s at time 2236.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.8' is not known. time=2237.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.9' is not known. time=2238.00.
-Warning: Vehicle 'flow_0.7' teleports beyond arrival edge 'Edge2', time=2240.00.
-Warning: Vehicle 'flow_0.8' aborts joining after extension of 10.00s at time 2317.00.
-Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2318.00.
-Warning: Vehicle 'flow_0.9' aborts joining after extension of 10.00s at time 2318.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=2325.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.11' is not known. time=2326.00.
-Warning: Vehicle 'flow_0.10' aborts joining after extension of 10.00s at time 2405.00.
-Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=2406.00.
-Warning: Vehicle 'flow_0.11' aborts joining after extension of 10.00s at time 2406.00.
-Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=2407.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.12' is not known. time=2414.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.13' is not known. time=2415.00.
-Warning: Vehicle 'flow_0.12' aborts joining after extension of 10.00s at time 2494.00.
-Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=2495.00.
-Warning: Vehicle 'flow_0.13' aborts joining after extension of 10.00s at time 2495.00.
-Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=2496.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.14' is not known. time=2502.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.15' is not known. time=2503.00.
-Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=2506.00.
-Warning: Vehicle 'flow_0.14' aborts joining after extension of 10.00s at time 2582.00.
-Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=2583.00.
-Warning: Vehicle 'flow_0.15' aborts joining after extension of 10.00s at time 2583.00.
-Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=2584.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.16' is not known. time=2590.00.
-Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=2593.00.
-Warning: Vehicle 'flow_0.16' aborts joining after extension of 10.00s at time 2670.00.
-Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=2671.00.
-Warning: Vehicle 'flow_0.17' aborts joining after extension of 10.00s at time 2673.00.
-Warning: Vehicle 'flow_0.17' teleports beyond arrival edge 'Edge2', time=2674.00.
+Warning: Teleporting vehicle 'flow_0.7'; waited too long (wrong lane), lane='Edge0_1', time=2449.00.
+Warning: Vehicle 'flow_0.7' ends teleporting on edge 'Edge2', time=2449.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.7' is not known. time=2454.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.8' is not known. time=2465.00.
+Warning: Vehicle 'flow_0.7' aborts joining after extension of 10.00s at time 2534.00.
+Warning: Vehicle 'flow_0.7' teleports beyond arrival edge 'Edge2', time=2535.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.9' is not known. time=2541.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.10' is not known. time=2542.00.
+Warning: Vehicle 'flow_0.8' aborts joining after extension of 10.00s at time 2545.00.
+Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2546.00.
+Warning: Vehicle 'flow_0.9' aborts joining after extension of 10.00s at time 2621.00.
+Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=2622.00.
+Warning: Vehicle 'flow_0.10' aborts joining after extension of 10.00s at time 2622.00.
+Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=2623.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.11' is not known. time=2629.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.12' is not known. time=2630.00.
+Warning: Vehicle 'flow_0.11' aborts joining after extension of 10.00s at time 2709.00.
+Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=2710.00.
+Warning: Vehicle 'flow_0.12' aborts joining after extension of 10.00s at time 2710.00.
+Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=2711.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.13' is not known. time=2717.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.14' is not known. time=2719.00.
+Warning: Vehicle 'flow_0.13' aborts joining after extension of 10.00s at time 2797.00.
+Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=2798.00.
+Warning: Vehicle 'flow_0.14' aborts joining after extension of 10.00s at time 2799.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.15' is not known. time=2805.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.16' is not known. time=2806.00.
+Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=2809.00.
+Warning: Vehicle 'flow_0.15' aborts joining after extension of 10.00s at time 2885.00.
+Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=2886.00.
+Warning: Vehicle 'flow_0.16' aborts joining after extension of 10.00s at time 2886.00.
+Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=2887.00.
+Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=2894.00.
+Warning: Vehicle 'flow_0.17' aborts joining after extension of 10.00s at time 2974.00.
+Warning: Vehicle 'flow_0.17' teleports beyond arrival edge 'Edge2', time=2975.00.
