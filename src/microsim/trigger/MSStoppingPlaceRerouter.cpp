@@ -460,8 +460,8 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
                 return false;
             }
 
-            // The time to reach the new parking area
-            stoppingPlaceValues["timeto"] = router.recomputeCosts(edgesToStop, &veh, SIMSTEP);
+            // The time to reach the new stopping place
+            stoppingPlaceValues["timeto"] = router.recomputeCosts(edgesToStop, &veh, SIMSTEP) - ((alternative->getLane().getLength() - alternative->getEndLanePosition()) / alternative->getLane().getSpeedLimit());
             ConstMSEdgeVector newEdges = edgesToStop;
             if (newDestination) {
                 stoppingPlaceValues["distancefrom"] = 0;
@@ -477,7 +477,7 @@ MSStoppingPlaceRerouter::evaluateDestination(SUMOVehicle& veh, double brakeGap, 
                                    veh.getID(), alternative->getID(), time2string(SIMSTEP));
                 }
                 // The time to reach this area
-                stoppingPlaceValues["timefrom"] = router.recomputeCosts(edgesFromStop, &veh, SIMSTEP);
+                stoppingPlaceValues["timefrom"] = router.recomputeCosts(edgesFromStop, &veh, SIMSTEP) - (alternative->getEndLanePosition() / alternative->getLane().getSpeedLimit());
                 newEdges.insert(newEdges.end(), edgesFromStop.begin() + 1, edgesFromStop.end());
                 newEdges.insert(newEdges.end(), route.begin() + nextDestinationIndex + 1, route.end());
             }
