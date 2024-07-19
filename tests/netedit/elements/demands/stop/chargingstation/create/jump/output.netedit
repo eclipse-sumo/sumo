@@ -2,15 +2,15 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopChargingStation
-TestFunctions: Clicked over position 804 - 198
+TestFunctions: Clicked over position 927 - 191
 dummyValue
-TestFunctions: Clicked over position 806 - 198
+TestFunctions: Clicked with Control key pressed over position 927 - 191
 -20
-TestFunctions: Clicked over position 807 - 198
+TestFunctions: Clicked with Control key pressed over position 927 - 191
 0
-TestFunctions: Clicked over position 808 - 198
+TestFunctions: Clicked with Control key pressed over position 927 - 191
 22.33
-TestFunctions: Clicked over position 809 - 198
+TestFunctions: Clicked with Control key pressed over position 927 - 191
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

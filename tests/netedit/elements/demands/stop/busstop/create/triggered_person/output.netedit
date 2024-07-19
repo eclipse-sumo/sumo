@@ -3,13 +3,13 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopBusStop
 person
-TestFunctions: Clicked over position 599 - 178
+TestFunctions: Clicked over position 600 - 179
 ;;;;;;;;;;
-TestFunctions: Clicked over position 600 - 178
+TestFunctions: Clicked with Control key pressed over position 600 - 179
 
-TestFunctions: Clicked over position 601 - 178
+TestFunctions: Clicked with Control key pressed over position 600 - 179
 personID1 personID2 personID3
-TestFunctions: Clicked over position 602 - 178
+TestFunctions: Clicked with Control key pressed over position 600 - 179
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -431,7 +431,7 @@ class elements:
 
         class parkingArea:
             x = 525
-            y = 0
+            y = -5
 
         class route:
             x = 420
