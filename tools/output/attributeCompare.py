@@ -16,7 +16,7 @@
 # @date    2023-04-13
 
 """
-compute statistics on attributes over multiple files files
+compute statistics on attributes over multiple files
 """
 from __future__ import absolute_import
 from __future__ import print_function
