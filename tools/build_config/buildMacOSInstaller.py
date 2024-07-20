@@ -70,7 +70,7 @@ def create_framework(name, longname, id, version, sumo_build_directory):
     temp_dir = tempfile.mkdtemp()
 
     # Create the directory structure for the framework bundle
-    # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html
+    # see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/FrameworkAnatomy.html  # noqa
     #
     # EclipseSUMO.framework/
     # ├── EclipseSUMO   --> Versions/Current/EclipseSUMO
@@ -178,9 +178,9 @@ def create_app(app_name, binary_name, framework_name, id, version, icns_path):
 
     print(" - Creating launcher")
     launcher_content = f"""#!/bin/bash
-export DYLD_LIBRARY_PATH="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/lib:$DYLD_LIBRARY_PATH"
-export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/"
-exec "/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}/bin/{binary_name}" "$@"
+export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}"
+export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
+exec "$SUMO_HOME/bin/{binary_name}" "$@"
 """
     launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", app_name)
     with open(launcher_path, "w") as launcher:

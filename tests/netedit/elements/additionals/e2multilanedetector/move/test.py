@@ -46,8 +46,8 @@ netedit.typeEnter()
 netedit.moveMode()
 
 # move
-netedit.moveElementHorizontal(
-    referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector, netedit.positions.elements.movementRadius)
+netedit.moveElementHorizontal(referencePosition, netedit.positions.elements.additionals.e2MultilaneDetector,
+                              netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

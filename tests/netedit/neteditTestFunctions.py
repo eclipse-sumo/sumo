@@ -100,6 +100,7 @@ def typeSpace():
     # type space key
     typeKey('space')
 
+
 def typeDelete():
     """
     @brief type delete key

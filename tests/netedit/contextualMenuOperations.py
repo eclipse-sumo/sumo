@@ -26,85 +26,103 @@ class center:
     subMenuBPosition = 0
 
 # copy name
+
+
 class copyName:
     mainMenuPosition = 4
     subMenuAPosition = 0
     subMenuBPosition = 0
 
 # copy typed name
+
+
 class copyTypedName:
     mainMenuPosition = 5
     subMenuAPosition = 0
     subMenuBPosition = 0
 
 # add to selected
+
+
 class addToSelected:
     mainMenuPosition = 6
     subMenuAPosition = 0
     subMenuBPosition = 0
 
 # copy cursor position
+
+
 class copyCursorPosition:
     mainMenuPosition = 7
     subMenuAPosition = 0
     subMenuBPosition = 0
 
 # copy cursor geo position
+
+
 class copyCursorGeoPosition:
     mainMenuPosition = 8
     subMenuAPosition = 0
     subMenuBPosition = 0
-   
+
 # show cursor geo position in geo hack
+
+
 class showCursorGeoPositionGeoHack:
     mainMenuPosition = 7
     subMenuAPosition = 1
-    subMenuBPosition = 0 
+    subMenuBPosition = 0
 
 # show cursor geo position in google maps
+
+
 class showCursorGeoPositionGoogleMaps:
     mainMenuPosition = 7
     subMenuAPosition = 2
-    subMenuBPosition = 0 
+    subMenuBPosition = 0
 
 # show cursor geo position in OSM
+
+
 class showCursorGeoPositionOSM:
     mainMenuPosition = 7
     subMenuAPosition = 3
-    subMenuBPosition = 0 
+    subMenuBPosition = 0
 
 # junctions
+
+
 class junction:
-    
+
     # add TLS
     class addTLS:
         mainMenuPosition = 11
         subMenuAPosition = 1
-        subMenuBPosition = 0 
+        subMenuBPosition = 0
 
     # add TLS
     class addJoinedTLS:
         mainMenuPosition = 11
         subMenuAPosition = 2
-        subMenuBPosition = 0 
+        subMenuBPosition = 0
 
     # reset edge endPoints
     class resetEdgePoints:
         mainMenuPosition = 12
         subMenuAPosition = 0
-        subMenuBPosition = 0 
+        subMenuBPosition = 0
 
     # set custom junction shape
     class setCustomJunctionShape:
         mainMenuPosition = 13
         subMenuAPosition = 0
-        subMenuBPosition = 0 
+        subMenuBPosition = 0
 
     # reset custom junction shape
     class resetCustomJunctionShape:
         mainMenuPosition = 14
         subMenuAPosition = 0
-        subMenuBPosition = 0 
+        subMenuBPosition = 0
 
     # replace junction by geometry point
     class replaceJunctionByGeometryPoint:
