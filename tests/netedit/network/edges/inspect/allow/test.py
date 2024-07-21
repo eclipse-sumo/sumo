@@ -53,7 +53,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "", False)
 netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspect.allowedButton, False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed, "authority army vip passenger hov taxi bus coach tram bicycle", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.allowed,
+                        "authority army vip passenger hov taxi bus coach tram bicycle", False)
 
 # recompute
 netedit.rebuildNetwork()

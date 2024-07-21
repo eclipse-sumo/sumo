@@ -55,7 +55,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.crossing.left)
 netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape, "dummyShape", True)
 
 # Change shape with a valid value
-netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape, "-5.50,4.00 0.00,4.00 0.00,-4.00 -5.50,-4.00", True)
+netedit.modifyAttribute(netedit.attrs.crossing.inspectTLS.customShape,
+                        "-5.50,4.00 0.00,4.00 0.00,-4.00 -5.50,-4.00", True)
 
 # Check undos
 netedit.undo(referencePosition, 2)

@@ -37,7 +37,7 @@ netedit.inspectMode()
 # add to selected
 netedit.contextualMenuOperation(referencePosition, netedit.positions.network.junction.cross.center,
                                 netedit.contextualMenu.addToSelected)
-                                
+
 # delete junction
 netedit.typeDelete()
 

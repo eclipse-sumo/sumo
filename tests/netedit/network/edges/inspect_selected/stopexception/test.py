@@ -67,7 +67,8 @@ netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspectSelection.stopExcepti
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.stopException,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " + "rail_electric motorcycle moped pedestrian custom1", False)
+                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+                        "rail_electric motorcycle moped pedestrian custom1", False)
 
 # recompute
 netedit.rebuildNetwork()

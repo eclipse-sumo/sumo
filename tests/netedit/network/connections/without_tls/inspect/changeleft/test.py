@@ -53,7 +53,8 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeLeft, "", True
 netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspectTLS.changeLeftButton, True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeLeft, "authority army vip passenger hov taxi bus coach tram bicycle", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeLeft,
+                        "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # rebuild
 netedit.rebuildNetwork()

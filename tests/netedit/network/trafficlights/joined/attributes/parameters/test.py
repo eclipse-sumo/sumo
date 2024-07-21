@@ -56,7 +56,8 @@ netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters, "dummyGene
 netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters, "key1|key2|key3", False)
 
 # Change generic parameters with a valid value
-netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters, "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
+netedit.modifyAttribute(netedit.attrs.TLS.join.attributes.parameters,
+                        "keyFinal1=value1|keyFinal2=value2|keyFinal3=value3", False)
 
 # type enter to save changes
 netedit.typeEnter()

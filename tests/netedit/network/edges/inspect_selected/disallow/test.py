@@ -60,7 +60,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed, "", Fals
 
 # Change parameter 7 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " + "rail_electric motorcycle moped pedestrian custom1", False)
+                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+                        "rail_electric motorcycle moped pedestrian custom1", False)
 
 # recompute
 netedit.rebuildNetwork()
