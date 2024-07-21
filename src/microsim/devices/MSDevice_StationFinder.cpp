@@ -368,7 +368,7 @@ MSDevice_StationFinder::rerouteToChargingStation(bool replace) {
                         const SUMOTime originalUntil = myHolder.getNextStopParameter()->until;
                         if (timeToOriginalStop + myLastSearch < originalUntil) {
                             const SUMOTime delta = originalUntil - (timeToOriginalStop + myLastSearch);
-                            stopPar.until = timeToOriginalStop + myLastSearch + (SUMOTime)(delta * MIN2(myReplacePlannedStop, 1.));
+                            stopPar.until = timeToOriginalStop + myLastSearch + (SUMOTime)((double)delta * MIN2(myReplacePlannedStop, 1.));
                             if (myReplacePlannedStop > 1.) {
                                 myHolder.abortNextStop();
                             }
