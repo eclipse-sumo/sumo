@@ -175,6 +175,9 @@ public:
         myOnlineMaps[name] = url;
     }
 
+    /// @brief add breakpoint to the application
+    virtual void addBreakpoint(const SUMOTime /* time */) {}
+
     /// @brief retrieve breakpoints if provided by the application
     virtual const std::vector<SUMOTime> retrieveBreakpoints() const {
         return std::vector<SUMOTime>();

@@ -2439,13 +2439,15 @@ GUIApplicationWindow::setBreakpoints(const std::vector<SUMOTime>& breakpoints) {
 
 
 void
-GUIApplicationWindow::addBreakpoint(SUMOTime time) {
-    std::vector<SUMOTime> breakpoints = retrieveBreakpoints();
-    if (std::find(breakpoints.begin(), breakpoints.end(), time) == breakpoints.end()) {
-        breakpoints.push_back(time);
-        std::sort(breakpoints.begin(), breakpoints.end());
-        setBreakpoints(breakpoints);
-        setStatusBarText(TLF("Set breakpoint at %", time2string(time)));
+GUIApplicationWindow::addBreakpoint(const SUMOTime time) {
+    if (time >= 0) {
+        std::vector<SUMOTime> breakpoints = retrieveBreakpoints();
+        if (std::find(breakpoints.begin(), breakpoints.end(), time) == breakpoints.end()) {
+            breakpoints.push_back(time);
+            std::sort(breakpoints.begin(), breakpoints.end());
+            setBreakpoints(breakpoints);
+            setStatusBarText(TLF("Set breakpoint at %", time2string(time)));
+        }
     }
 }
 

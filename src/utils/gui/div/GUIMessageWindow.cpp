@@ -157,12 +157,11 @@ void
 GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
     FXText::setCursorPos(pos, notify);
     if (myLocateLinks) {
-        GUIMainWindow* const main = GUIMainWindow::getInstance();
-        std::vector<std::string> viewIDs = main->getViewIDs();
+        std::vector<std::string> viewIDs = myMainWindow->getViewIDs();
         if (viewIDs.empty()) {
             return;
         }
-        GUIGlChildWindow* const child = main->getViewByID(viewIDs[0]);
+        GUIGlChildWindow* const child = myMainWindow->getViewByID(viewIDs[0]);
         const FXString text = getText();
         const GUIGlObject* const glObj = getActiveStringObject(text, pos, lineStart(pos), lineEnd(pos));
         if (glObj != nullptr) {
@@ -171,25 +170,17 @@ GUIMessageWindow::setCursorPos(FXint pos, FXbool notify) {
             if (getApp()->getKeyState(KEY_Control_L)) {
                 gSelected.toggleSelection(glObj->getGlID());
             }
-        } else {
+        } else if (gSimulation) {
             const int lookback = MIN2(pos, 20);
             const int start = MAX2(lineStart(pos), pos - lookback);
             const FXString candidate = text.mid(start, lineEnd(pos) - start);
             FXint timePos = candidate.find(myTimeText.c_str());
             if (timePos > -1) {
                 timePos += (int)myTimeText.size() + 1;
-                SUMOTime t = -1;
                 if (pos >= 0 && pos > start + timePos) {
-                    t = getTimeString(candidate, timePos);
+                    const SUMOTime t = getTimeString(candidate, timePos);
                     if (t >= 0) {
-                        t += myBreakPointOffset;
-                        std::vector<SUMOTime> breakpoints = myMainWindow->retrieveBreakpoints();
-                        if (std::find(breakpoints.begin(), breakpoints.end(), t) == breakpoints.end()) {
-                            breakpoints.push_back(t);
-                            std::sort(breakpoints.begin(), breakpoints.end());
-                            myMainWindow->setBreakpoints(breakpoints);
-                            myMainWindow->setStatusBarText(TLF("Set breakpoint at %", time2string(t)));
-                        }
+                        myMainWindow->addBreakpoint(t + myBreakPointOffset);
                     }
                 }
             }
