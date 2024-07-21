@@ -558,6 +558,10 @@ std::vector<SUMOTime>
 GUISettingsHandler::loadBreakpoints(const std::string& file) {
     std::vector<SUMOTime> result;
     std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        WRITE_ERRORF(TL("Could not open '%'."), file);
+        return result;
+    }
     while (strm.good()) {
         std::string val;
         strm >> val;
@@ -568,10 +572,10 @@ GUISettingsHandler::loadBreakpoints(const std::string& file) {
             SUMOTime value = string2time(val);
             result.push_back(value);
         } catch (NumberFormatException& e) {
-            WRITE_ERROR(" A breakpoint-value must be an int. " + toString(e.what()));
+            WRITE_ERRORF(TL("A breakpoint value must be a time description (%)."), toString(e.what()));
         } catch (EmptyData&) {
         } catch (ProcessError&) {
-            WRITE_ERRORF(TL(" Could not decode breakpoint '%'"), val);
+            WRITE_ERRORF(TL("Could not decode breakpoint '%'."), val);
         }
     }
     return result;
