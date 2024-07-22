@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-07-17 11:22+0200\n"
+"POT-Creation-Date: 2024-07-22 10:12+0200\n"
 "PO-Revision-Date: 2023-10-16 16:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
@@ -884,8 +884,7 @@ msgstr "Chargement '%'."
 msgid "seconds"
 msgstr ""
 
-#: src/gui/GUIApplicationWindow.cpp:2448
-#: src/utils/gui/div/GUIMessageWindow.cpp:191
+#: src/gui/GUIApplicationWindow.cpp:2449
 msgid "Set breakpoint at %"
 msgstr ""
 
@@ -1076,7 +1075,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:72
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
-#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
+#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:56
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:416
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:413
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:408
@@ -2778,11 +2777,11 @@ msgstr "Echec sauvegarde edgeTypes!"
 msgid "load additionals from '"
 msgstr "chargement données additionnelles depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1373
+#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1375
 msgid "Loading of additional file failed: "
 msgstr "Echec chargement fichier additionnel : "
 
-#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1375
+#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1377
 msgid "Loading of additional file successfully: "
 msgstr "Chargement fichier additionnel réussi : "
 
@@ -2816,11 +2815,11 @@ msgstr ""
 msgid "loading demand elements from '"
 msgstr "chargement des éléments de demande depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1384
+#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1386
 msgid "Loading of route file failed: "
 msgstr "Echec chargement fichier routes : "
 
-#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1386
+#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1388
 msgid "Loading of route file successfully: "
 msgstr "Chargement fichier routes réussi : "
 
@@ -2845,11 +2844,11 @@ msgstr ""
 msgid "loading data elements from '"
 msgstr "chargement données liées au réseau depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1395
+#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1397
 msgid "Loading of data file failed: "
 msgstr "Echec chargement fichier de données : "
 
-#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1397
+#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1399
 msgid "Loading of data file successfully: "
 msgstr "Chargement fichier de données réussi : "
 
@@ -2873,12 +2872,12 @@ msgstr ""
 msgid "load meanDatas from '"
 msgstr "chargement des meanDatas depuis '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1406
+#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1408
 msgid "Loading of meandata file failed: "
 msgstr "Echec chargement fichier meandata : "
 
 #: src/netedit/GNEApplicationWindow.cpp:4195
-#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1408
+#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1410
 msgid "Loading of meandata file successfully: "
 msgstr "Chargement fichier meandata réussi : "
 
@@ -4649,190 +4648,190 @@ msgstr ""
 msgid "replace edge"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:585
+#: src/netedit/GNENet.cpp:587
 msgid "delete lane"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:620
+#: src/netedit/GNENet.cpp:622
 msgid "delete connection"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:635
+#: src/netedit/GNENet.cpp:637
 msgid "delete crossing"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:653 src/netedit/GNENet.cpp:682
-#: src/netedit/GNENet.cpp:704 src/netedit/GNENet.cpp:717
-#: src/netedit/GNENet.cpp:730 src/netedit/GNENet.cpp:760
+#: src/netedit/GNENet.cpp:655 src/netedit/GNENet.cpp:684
+#: src/netedit/GNENet.cpp:706 src/netedit/GNENet.cpp:719
+#: src/netedit/GNENet.cpp:732 src/netedit/GNENet.cpp:762
 msgid "delete "
 msgstr ""
 
-#: src/netedit/GNENet.cpp:676
+#: src/netedit/GNENet.cpp:678
 msgid "Trying to delete a default Vehicle Type"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:769 src/netedit/GNEViewNet.cpp:2992
+#: src/netedit/GNENet.cpp:771 src/netedit/GNEViewNet.cpp:2992
 msgid "duplicate lane"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:906
+#: src/netedit/GNENet.cpp:908
 msgid "split edge"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1023
+#: src/netedit/GNENet.cpp:1025
 msgid "split edges"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1045
+#: src/netedit/GNENet.cpp:1047
 msgid "reverse edge"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1062
+#: src/netedit/GNENet.cpp:1064
 msgid "add reversed edge"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1096
+#: src/netedit/GNENet.cpp:1098
 msgid "merge junctions"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1132
+#: src/netedit/GNENet.cpp:1134
 msgid "select roundabout"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1148
+#: src/netedit/GNENet.cpp:1150
 msgid "create roundabout"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1342
+#: src/netedit/GNENet.cpp:1344
 msgid "Forced computing junctions with volatile options ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1344
+#: src/netedit/GNENet.cpp:1346
 msgid "Forced computing junctions ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1351
+#: src/netedit/GNENet.cpp:1353
 msgid "Computing junctions with volatile options ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1353
+#: src/netedit/GNENet.cpp:1355
 msgid "Computing junctions ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1416
+#: src/netedit/GNENet.cpp:1418
 msgid "Finished computing junctions."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1422
+#: src/netedit/GNENet.cpp:1424
 msgid "Computing demand elements ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1436
+#: src/netedit/GNENet.cpp:1438
 msgid "Finished computing demand elements."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1442
+#: src/netedit/GNENet.cpp:1444
 msgid "Computing data elements ..."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1449
+#: src/netedit/GNENet.cpp:1451
 msgid "Finished computing data elements."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1527
+#: src/netedit/GNENet.cpp:1529
 msgid "Position of joined junction"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1528
+#: src/netedit/GNENet.cpp:1530
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1529
+#: src/netedit/GNENet.cpp:1531
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1643 src/netedit/GNENet.cpp:1653
+#: src/netedit/GNENet.cpp:1645 src/netedit/GNENet.cpp:1655
 msgid "Clear crossings"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1644
+#: src/netedit/GNENet.cpp:1646
 msgid "There are no invalid crossings to remove."
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1654
+#: src/netedit/GNENet.cpp:1656
 msgid "Crossings will be cleared. Continue?"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1665
+#: src/netedit/GNENet.cpp:1667
 msgid "clear crossings"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1678
+#: src/netedit/GNENet.cpp:1680
 msgid "clear junctions"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1706
+#: src/netedit/GNENet.cpp:1708
 msgid "clear unused routes"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1761
+#: src/netedit/GNENet.cpp:1763
 msgid "merge routes"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1815
+#: src/netedit/GNENet.cpp:1817
 msgid "adjust person plans"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1855
+#: src/netedit/GNENet.cpp:1857
 msgid "remove invalid demand elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1870
+#: src/netedit/GNENet.cpp:1872
 msgid "replace junction by geometry"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1915
+#: src/netedit/GNENet.cpp:1917
 msgid "Junction isn't removable"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1927
+#: src/netedit/GNENet.cpp:1929
 msgid "split junction"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:1967
+#: src/netedit/GNENet.cpp:1969
 msgid "Could not rename split node to '%'"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2006
+#: src/netedit/GNENet.cpp:2008
 msgid "clear junction connections"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2018
+#: src/netedit/GNENet.cpp:2020
 msgid "reset junction connections"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2029
+#: src/netedit/GNENet.cpp:2031
 msgid "clear additional elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2042
+#: src/netedit/GNENet.cpp:2044
 msgid "clear demand elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2055
+#: src/netedit/GNENet.cpp:2057
 msgid "clear data elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2066
+#: src/netedit/GNENet.cpp:2068
 msgid "clear meanData elements"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2405 src/netedit/GNENet.cpp:2502
+#: src/netedit/GNENet.cpp:2407 src/netedit/GNENet.cpp:2504
 msgid "Duplicated ID"
 msgstr ""
 
-#: src/netedit/GNENet.cpp:2792
+#: src/netedit/GNENet.cpp:2794
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 
@@ -12892,6 +12891,7 @@ msgid "Reduce network to current selection."
 msgstr ""
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:279
+#: src/utils/gui/settings/GUISettingsHandler.cpp:562
 msgid "Could not open '%'."
 msgstr ""
 
@@ -14898,8 +14898,12 @@ msgstr ""
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr ""
 
-#: src/utils/gui/settings/GUISettingsHandler.cpp:574
-msgid " Could not decode breakpoint '%'"
+#: src/utils/gui/settings/GUISettingsHandler.cpp:575
+msgid "A breakpoint value must be a time description (%)."
+msgstr ""
+
+#: src/utils/gui/settings/GUISettingsHandler.cpp:578
+msgid "Could not decode breakpoint '%'."
 msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:779

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-07-17 11:22+0200\n"
+"POT-Creation-Date: 2024-07-22 10:12+0200\n"
 "PO-Revision-Date: 2023-09-28 14:34+0000\n"
 "Last-Translator: Necip Güzel <necipguzel@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/eclipse-sumo/"
@@ -883,8 +883,7 @@ msgstr "'%' Yükleniyor."
 msgid "seconds"
 msgstr "saniye"
 
-#: src/gui/GUIApplicationWindow.cpp:2448
-#: src/utils/gui/div/GUIMessageWindow.cpp:191
+#: src/gui/GUIApplicationWindow.cpp:2449
 msgid "Set breakpoint at %"
 msgstr ""
 
@@ -1077,7 +1076,7 @@ msgstr ""
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:72
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
-#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
+#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:56
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:416
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:413
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:408
@@ -2776,11 +2775,11 @@ msgstr "Kesim Tipleri (edgeTypes) Dosyası Kaydı Başarısız!"
 msgid "load additionals from '"
 msgstr "' dosyasından ekleri yükle"
 
-#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1373
+#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1375
 msgid "Loading of additional file failed: "
 msgstr "Ek dosyası yüklenemedi: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1375
+#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1377
 msgid "Loading of additional file successfully: "
 msgstr "Ek dosyası başarıyla yüklendi: "
 
@@ -2814,11 +2813,11 @@ msgstr "JuPedSim elemanları kaydedilemedi!"
 msgid "loading demand elements from '"
 msgstr "Talep elemanları dosyadan yükleniyor '"
 
-#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1384
+#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1386
 msgid "Loading of route file failed: "
 msgstr "Rota dosyası yüklenemedi: "
 
-#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1386
+#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1388
 msgid "Loading of route file successfully: "
 msgstr "Rota dosyası başarıyla yüklendi: "
 
@@ -2843,11 +2842,11 @@ msgstr "Talep unsurlarını kaydetme başarısız oldu!"
 msgid "loading data elements from '"
 msgstr "Veri Elemanları dosyadan yükleniyor '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1395
+#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1397
 msgid "Loading of data file failed: "
 msgstr "Veri dosyasının yüklenmesi başarısız oldu: "
 
-#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1397
+#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1399
 msgid "Loading of data file successfully: "
 msgstr "Veri dosyası başarıyla yükleniyor: "
 
@@ -2871,12 +2870,12 @@ msgstr "Veri elemanları kaydedilemedi!"
 msgid "load meanDatas from '"
 msgstr "Ortalama Verileri (meanDatas) dosyadan yükle '"
 
-#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1406
+#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1408
 msgid "Loading of meandata file failed: "
 msgstr "Ortalama Veri (meandata) dosyasının yüklenmesi başarısız: "
 
 #: src/netedit/GNEApplicationWindow.cpp:4195
-#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1408
+#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1410
 msgid "Loading of meandata file successfully: "
 msgstr "Ortalama Veri (meandata) dosyası başarıyla yükleniyor: "
 
@@ -4660,191 +4659,191 @@ msgstr "kesimi sil"
 msgid "replace edge"
 msgstr "kesimi değiştir"
 
-#: src/netedit/GNENet.cpp:585
+#: src/netedit/GNENet.cpp:587
 msgid "delete lane"
 msgstr "şeridi sil"
 
-#: src/netedit/GNENet.cpp:620
+#: src/netedit/GNENet.cpp:622
 msgid "delete connection"
 msgstr "bağlantıyı sil"
 
-#: src/netedit/GNENet.cpp:635
+#: src/netedit/GNENet.cpp:637
 msgid "delete crossing"
 msgstr "geçidi sil"
 
-#: src/netedit/GNENet.cpp:653 src/netedit/GNENet.cpp:682
-#: src/netedit/GNENet.cpp:704 src/netedit/GNENet.cpp:717
-#: src/netedit/GNENet.cpp:730 src/netedit/GNENet.cpp:760
+#: src/netedit/GNENet.cpp:655 src/netedit/GNENet.cpp:684
+#: src/netedit/GNENet.cpp:706 src/netedit/GNENet.cpp:719
+#: src/netedit/GNENet.cpp:732 src/netedit/GNENet.cpp:762
 msgid "delete "
 msgstr "Sil "
 
-#: src/netedit/GNENet.cpp:676
+#: src/netedit/GNENet.cpp:678
 msgid "Trying to delete a default Vehicle Type"
 msgstr "Varsayılan bir Araç Tipi silinmeye çalışılıyor"
 
-#: src/netedit/GNENet.cpp:769 src/netedit/GNEViewNet.cpp:2992
+#: src/netedit/GNENet.cpp:771 src/netedit/GNEViewNet.cpp:2992
 msgid "duplicate lane"
 msgstr "Şeridi yinele"
 
-#: src/netedit/GNENet.cpp:906
+#: src/netedit/GNENet.cpp:908
 msgid "split edge"
 msgstr "Kesimi böl"
 
-#: src/netedit/GNENet.cpp:1023
+#: src/netedit/GNENet.cpp:1025
 msgid "split edges"
 msgstr "Kesimleri böl"
 
-#: src/netedit/GNENet.cpp:1045
+#: src/netedit/GNENet.cpp:1047
 msgid "reverse edge"
 msgstr "Kesimi ters çevir"
 
-#: src/netedit/GNENet.cpp:1062
+#: src/netedit/GNENet.cpp:1064
 msgid "add reversed edge"
 msgstr "Ters kesim ekle"
 
-#: src/netedit/GNENet.cpp:1096
+#: src/netedit/GNENet.cpp:1098
 msgid "merge junctions"
 msgstr "kavşakları birleştir"
 
-#: src/netedit/GNENet.cpp:1132
+#: src/netedit/GNENet.cpp:1134
 msgid "select roundabout"
 msgstr "Dönel ada seç"
 
-#: src/netedit/GNENet.cpp:1148
+#: src/netedit/GNENet.cpp:1150
 msgid "create roundabout"
 msgstr "Dönel ada oluştur"
 
-#: src/netedit/GNENet.cpp:1342
+#: src/netedit/GNENet.cpp:1344
 msgid "Forced computing junctions with volatile options ..."
 msgstr "Hassas seçeneklerle kavşak hesaplama zorlaması..."
 
-#: src/netedit/GNENet.cpp:1344
+#: src/netedit/GNENet.cpp:1346
 msgid "Forced computing junctions ..."
 msgstr "Kavşak hesaplama zorlaması..."
 
-#: src/netedit/GNENet.cpp:1351
+#: src/netedit/GNENet.cpp:1353
 msgid "Computing junctions with volatile options ..."
 msgstr "Kavşaklar hassas seçeneklerle hesaplanıyor..."
 
-#: src/netedit/GNENet.cpp:1353
+#: src/netedit/GNENet.cpp:1355
 msgid "Computing junctions ..."
 msgstr "Kavşaklar hesaplanıyor..."
 
-#: src/netedit/GNENet.cpp:1416
+#: src/netedit/GNENet.cpp:1418
 msgid "Finished computing junctions."
 msgstr "Kavşak hesaplaması tamamlandı."
 
-#: src/netedit/GNENet.cpp:1422
+#: src/netedit/GNENet.cpp:1424
 msgid "Computing demand elements ..."
 msgstr "Talep elemanları hesaplanıyor..."
 
-#: src/netedit/GNENet.cpp:1436
+#: src/netedit/GNENet.cpp:1438
 msgid "Finished computing demand elements."
 msgstr "Talep elemanlarının hesaplaması tamamlandı."
 
-#: src/netedit/GNENet.cpp:1442
+#: src/netedit/GNENet.cpp:1444
 msgid "Computing data elements ..."
 msgstr "Veri elemanları hesaplanıyor..."
 
-#: src/netedit/GNENet.cpp:1449
+#: src/netedit/GNENet.cpp:1451
 msgid "Finished computing data elements."
 msgstr "Veri elemanlarının hesaplaması tamamlandı."
 
-#: src/netedit/GNENet.cpp:1527
+#: src/netedit/GNENet.cpp:1529
 msgid "Position of joined junction"
 msgstr "Birleştirilmiş kavşağın konumu"
 
-#: src/netedit/GNENet.cpp:1528
+#: src/netedit/GNENet.cpp:1530
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr ""
 "Birleştirilmiş kavşağın aynı konumunda seçilmemiş başka bir kavşak var."
 
-#: src/netedit/GNENet.cpp:1529
+#: src/netedit/GNENet.cpp:1531
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "Diğer seçilen kavşaklarla birleştirilecektir. Devam et?"
 
-#: src/netedit/GNENet.cpp:1643 src/netedit/GNENet.cpp:1653
+#: src/netedit/GNENet.cpp:1645 src/netedit/GNENet.cpp:1655
 msgid "Clear crossings"
 msgstr "Geçitleri temizle"
 
-#: src/netedit/GNENet.cpp:1644
+#: src/netedit/GNENet.cpp:1646
 msgid "There are no invalid crossings to remove."
 msgstr "Kaldırılması gereken geçersiz geçit yok."
 
-#: src/netedit/GNENet.cpp:1654
+#: src/netedit/GNENet.cpp:1656
 msgid "Crossings will be cleared. Continue?"
 msgstr "Geçitler temizlenecek. Devam et?"
 
-#: src/netedit/GNENet.cpp:1665
+#: src/netedit/GNENet.cpp:1667
 msgid "clear crossings"
 msgstr "Geçitleri temizle"
 
-#: src/netedit/GNENet.cpp:1678
+#: src/netedit/GNENet.cpp:1680
 msgid "clear junctions"
 msgstr "Kavşakları temizle"
 
-#: src/netedit/GNENet.cpp:1706
+#: src/netedit/GNENet.cpp:1708
 msgid "clear unused routes"
 msgstr "kullanılmayan rotaları temizle"
 
-#: src/netedit/GNENet.cpp:1761
+#: src/netedit/GNENet.cpp:1763
 msgid "merge routes"
 msgstr "rotaları birleştir"
 
-#: src/netedit/GNENet.cpp:1815
+#: src/netedit/GNENet.cpp:1817
 msgid "adjust person plans"
 msgstr "Yolcu planlarını ayarla"
 
-#: src/netedit/GNENet.cpp:1855
+#: src/netedit/GNENet.cpp:1857
 msgid "remove invalid demand elements"
 msgstr "geçersiz talep elemanlarını kaldır"
 
-#: src/netedit/GNENet.cpp:1870
+#: src/netedit/GNENet.cpp:1872
 msgid "replace junction by geometry"
 msgstr "Kavşakları geometriye göre değiştir"
 
-#: src/netedit/GNENet.cpp:1915
+#: src/netedit/GNENet.cpp:1917
 msgid "Junction isn't removable"
 msgstr "Kavşak kaldırılabilir değil"
 
-#: src/netedit/GNENet.cpp:1927
+#: src/netedit/GNENet.cpp:1929
 msgid "split junction"
 msgstr "Kavşağı böl"
 
-#: src/netedit/GNENet.cpp:1967
+#: src/netedit/GNENet.cpp:1969
 msgid "Could not rename split node to '%'"
 msgstr "Bölünmüş düğüm '%' olarak yeniden adlandırılamadı"
 
-#: src/netedit/GNENet.cpp:2006
+#: src/netedit/GNENet.cpp:2008
 msgid "clear junction connections"
 msgstr "Kavşak bağlantılarını temizle"
 
-#: src/netedit/GNENet.cpp:2018
+#: src/netedit/GNENet.cpp:2020
 msgid "reset junction connections"
 msgstr "Kavşak bağlantılarını sıfırla"
 
-#: src/netedit/GNENet.cpp:2029
+#: src/netedit/GNENet.cpp:2031
 msgid "clear additional elements"
 msgstr "Ek elemanları temizle"
 
-#: src/netedit/GNENet.cpp:2042
+#: src/netedit/GNENet.cpp:2044
 msgid "clear demand elements"
 msgstr "Talep elemanlarını temizle"
 
-#: src/netedit/GNENet.cpp:2055
+#: src/netedit/GNENet.cpp:2057
 msgid "clear data elements"
 msgstr "Veri elemanlarını temizle"
 
-#: src/netedit/GNENet.cpp:2066
+#: src/netedit/GNENet.cpp:2068
 msgid "clear meanData elements"
 msgstr "meanData elemanlarını temizle"
 
-#: src/netedit/GNENet.cpp:2405 src/netedit/GNENet.cpp:2502
+#: src/netedit/GNENet.cpp:2407 src/netedit/GNENet.cpp:2504
 msgid "Duplicated ID"
 msgstr "Yinelenmiş ID"
 
-#: src/netedit/GNENet.cpp:2792
+#: src/netedit/GNENet.cpp:2794
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr ""
 "Ağ boyutu 1 Işıkyılı'nı aşıyor. Lütfen girdilerinizi tekrar gözden geçirin."
@@ -13190,6 +13189,7 @@ msgid "Reduce network to current selection."
 msgstr "Ağı mevcut seçime indirgeyin."
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:279
+#: src/utils/gui/settings/GUISettingsHandler.cpp:562
 msgid "Could not open '%'."
 msgstr "'%' açılamadı."
 
@@ -15244,9 +15244,13 @@ msgstr ""
 "'filename' niteliği çıkartmalar için kullanımdan kaldırılmıştır. Lütfen "
 "'file' kullanın."
 
-#: src/utils/gui/settings/GUISettingsHandler.cpp:574
-msgid " Could not decode breakpoint '%'"
-msgstr " Kesme noktası '%' kodu çözülemedi"
+#: src/utils/gui/settings/GUISettingsHandler.cpp:575
+msgid "A breakpoint value must be a time description (%)."
+msgstr ""
+
+#: src/utils/gui/settings/GUISettingsHandler.cpp:578
+msgid "Could not decode breakpoint '%'."
+msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:779
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1027
@@ -16743,6 +16747,9 @@ msgstr "(Projeksiyon tanımlanmadı)"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "Koordinatlar % cinsinden dönüştürülemedi."
+
+#~ msgid " Could not decode breakpoint '%'"
+#~ msgstr " Kesme noktası '%' kodu çözülemedi"
 
 #~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
 #~ msgstr "GUISelectedStorage::select (id=%) içinde bilinmeyen nesne."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
-"POT-Creation-Date: 2024-07-17 11:22+0200\n"
+"POT-Creation-Date: 2024-07-22 10:12+0200\n"
 "PO-Revision-Date: 2023-11-23 10:03+0000\n"
 "Last-Translator: yunpangfloetteroed <yun-pang.floetteroed@dlr.de>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
@@ -874,8 +874,7 @@ msgstr "'%' 載入中。"
 msgid "seconds"
 msgstr "秒"
 
-#: src/gui/GUIApplicationWindow.cpp:2448
-#: src/utils/gui/div/GUIMessageWindow.cpp:191
+#: src/gui/GUIApplicationWindow.cpp:2449
 msgid "Set breakpoint at %"
 msgstr ""
 
@@ -1064,7 +1063,7 @@ msgstr "此些核心組件在符合Eclipse Public License v2的條件下始可�
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:72
 #: src/gui/dialogs/GUIDialog_Feedback.cpp:58
-#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:57
+#: src/gui/dialogs/GUIDialog_HallOfFame.cpp:56
 #: src/netedit/dialogs/GNEMultipleParametersDialog.cpp:416
 #: src/netedit/dialogs/GNESingleParametersDialog.cpp:413
 #: src/netedit/dialogs/GNEVTypeDistributionsDialog.cpp:408
@@ -2759,11 +2758,11 @@ msgstr "儲存EdgeType失敗！"
 msgid "load additionals from '"
 msgstr "從 ' 載入附加物(additionals)"
 
-#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1373
+#: src/netedit/GNEApplicationWindow.cpp:3658 src/netedit/GNENet.cpp:1375
 msgid "Loading of additional file failed: "
 msgstr "載入附加檔案失敗： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1375
+#: src/netedit/GNEApplicationWindow.cpp:3664 src/netedit/GNENet.cpp:1377
 msgid "Loading of additional file successfully: "
 msgstr "成功載入附加檔案： "
 
@@ -2797,11 +2796,11 @@ msgstr "儲存 JuPedSim 元素(elements) 失敗!"
 msgid "loading demand elements from '"
 msgstr "從 ' 載入交通需求元素"
 
-#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1384
+#: src/netedit/GNEApplicationWindow.cpp:3856 src/netedit/GNENet.cpp:1386
 msgid "Loading of route file failed: "
 msgstr "載入路徑檔案失敗： "
 
-#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1386
+#: src/netedit/GNEApplicationWindow.cpp:3862 src/netedit/GNENet.cpp:1388
 msgid "Loading of route file successfully: "
 msgstr "成功載入路徑檔案： "
 
@@ -2826,11 +2825,11 @@ msgstr "儲存需求元素失敗!"
 msgid "loading data elements from '"
 msgstr "從 '載入資料元素"
 
-#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1395
+#: src/netedit/GNEApplicationWindow.cpp:4022 src/netedit/GNENet.cpp:1397
 msgid "Loading of data file failed: "
 msgstr "載入資料檔案失敗： "
 
-#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1397
+#: src/netedit/GNEApplicationWindow.cpp:4028 src/netedit/GNENet.cpp:1399
 msgid "Loading of data file successfully: "
 msgstr "成功載入資料檔案： "
 
@@ -2854,12 +2853,12 @@ msgstr "儲存資料元素失敗!"
 msgid "load meanDatas from '"
 msgstr "從 ' 載入meanDatas"
 
-#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1406
+#: src/netedit/GNEApplicationWindow.cpp:4189 src/netedit/GNENet.cpp:1408
 msgid "Loading of meandata file failed: "
 msgstr "載入meandata檔案失敗： "
 
 #: src/netedit/GNEApplicationWindow.cpp:4195
-#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1408
+#: src/netedit/GNEApplicationWindow.cpp:4226 src/netedit/GNENet.cpp:1410
 msgid "Loading of meandata file successfully: "
 msgstr "成功載入meandata檔案： "
 
@@ -4628,190 +4627,190 @@ msgstr "刪除路段"
 msgid "replace edge"
 msgstr "替換路段"
 
-#: src/netedit/GNENet.cpp:585
+#: src/netedit/GNENet.cpp:587
 msgid "delete lane"
 msgstr "刪除車道"
 
-#: src/netedit/GNENet.cpp:620
+#: src/netedit/GNENet.cpp:622
 msgid "delete connection"
 msgstr "刪除連接線"
 
-#: src/netedit/GNENet.cpp:635
+#: src/netedit/GNENet.cpp:637
 msgid "delete crossing"
 msgstr "刪除人行道"
 
-#: src/netedit/GNENet.cpp:653 src/netedit/GNENet.cpp:682
-#: src/netedit/GNENet.cpp:704 src/netedit/GNENet.cpp:717
-#: src/netedit/GNENet.cpp:730 src/netedit/GNENet.cpp:760
+#: src/netedit/GNENet.cpp:655 src/netedit/GNENet.cpp:684
+#: src/netedit/GNENet.cpp:706 src/netedit/GNENet.cpp:719
+#: src/netedit/GNENet.cpp:732 src/netedit/GNENet.cpp:762
 msgid "delete "
 msgstr "刪除 "
 
-#: src/netedit/GNENet.cpp:676
+#: src/netedit/GNENet.cpp:678
 msgid "Trying to delete a default Vehicle Type"
 msgstr "嘗試刪除預設的車輛類型"
 
-#: src/netedit/GNENet.cpp:769 src/netedit/GNEViewNet.cpp:2992
+#: src/netedit/GNENet.cpp:771 src/netedit/GNEViewNet.cpp:2992
 msgid "duplicate lane"
 msgstr "複製車道"
 
-#: src/netedit/GNENet.cpp:906
+#: src/netedit/GNENet.cpp:908
 msgid "split edge"
 msgstr "分割路段"
 
-#: src/netedit/GNENet.cpp:1023
+#: src/netedit/GNENet.cpp:1025
 msgid "split edges"
 msgstr "分割路段"
 
-#: src/netedit/GNENet.cpp:1045
+#: src/netedit/GNENet.cpp:1047
 msgid "reverse edge"
 msgstr "反向路段"
 
-#: src/netedit/GNENet.cpp:1062
+#: src/netedit/GNENet.cpp:1064
 msgid "add reversed edge"
 msgstr "新增反向路段"
 
-#: src/netedit/GNENet.cpp:1096
+#: src/netedit/GNENet.cpp:1098
 msgid "merge junctions"
 msgstr "合併路口"
 
-#: src/netedit/GNENet.cpp:1132
+#: src/netedit/GNENet.cpp:1134
 msgid "select roundabout"
 msgstr "選擇圓環"
 
-#: src/netedit/GNENet.cpp:1148
+#: src/netedit/GNENet.cpp:1150
 msgid "create roundabout"
 msgstr "建立圓環"
 
-#: src/netedit/GNENet.cpp:1342
+#: src/netedit/GNENet.cpp:1344
 msgid "Forced computing junctions with volatile options ..."
 msgstr "根據可變選項強制計算路口..."
 
-#: src/netedit/GNENet.cpp:1344
+#: src/netedit/GNENet.cpp:1346
 msgid "Forced computing junctions ..."
 msgstr "強制計算路口..."
 
-#: src/netedit/GNENet.cpp:1351
+#: src/netedit/GNENet.cpp:1353
 msgid "Computing junctions with volatile options ..."
 msgstr "根據可變選項計算路口..."
 
-#: src/netedit/GNENet.cpp:1353
+#: src/netedit/GNENet.cpp:1355
 msgid "Computing junctions ..."
 msgstr "計算路口..."
 
-#: src/netedit/GNENet.cpp:1416
+#: src/netedit/GNENet.cpp:1418
 msgid "Finished computing junctions."
 msgstr "完成路口計算。"
 
-#: src/netedit/GNENet.cpp:1422
+#: src/netedit/GNENet.cpp:1424
 msgid "Computing demand elements ..."
 msgstr "計算需求元素..."
 
-#: src/netedit/GNENet.cpp:1436
+#: src/netedit/GNENet.cpp:1438
 msgid "Finished computing demand elements."
 msgstr "完成計算需求元素。"
 
-#: src/netedit/GNENet.cpp:1442
+#: src/netedit/GNENet.cpp:1444
 msgid "Computing data elements ..."
 msgstr "計算資料元素..."
 
-#: src/netedit/GNENet.cpp:1449
+#: src/netedit/GNENet.cpp:1451
 msgid "Finished computing data elements."
 msgstr "完成計算資料元素。"
 
-#: src/netedit/GNENet.cpp:1527
+#: src/netedit/GNENet.cpp:1529
 msgid "Position of joined junction"
 msgstr "合併路口的位置"
 
-#: src/netedit/GNENet.cpp:1528
+#: src/netedit/GNENet.cpp:1530
 msgid ""
 "There is another unselected junction in the same position of joined junction."
 msgstr "在合併路口的相同位置上有另外一個未被選擇的路口。"
 
-#: src/netedit/GNENet.cpp:1529
+#: src/netedit/GNENet.cpp:1531
 msgid "It will be joined with the other selected junctions. Continue?"
 msgstr "此路口將與其它已選擇的路口一起進行合併。繼續執行？"
 
-#: src/netedit/GNENet.cpp:1643 src/netedit/GNENet.cpp:1653
+#: src/netedit/GNENet.cpp:1645 src/netedit/GNENet.cpp:1655
 msgid "Clear crossings"
 msgstr "清除人行道"
 
-#: src/netedit/GNENet.cpp:1644
+#: src/netedit/GNENet.cpp:1646
 msgid "There are no invalid crossings to remove."
 msgstr "沒有要移除的無效人行道。"
 
-#: src/netedit/GNENet.cpp:1654
+#: src/netedit/GNENet.cpp:1656
 msgid "Crossings will be cleared. Continue?"
 msgstr "人行道將被清除。繼續執行？"
 
-#: src/netedit/GNENet.cpp:1665
+#: src/netedit/GNENet.cpp:1667
 msgid "clear crossings"
 msgstr "清除人行道"
 
-#: src/netedit/GNENet.cpp:1678
+#: src/netedit/GNENet.cpp:1680
 msgid "clear junctions"
 msgstr "清除路口"
 
-#: src/netedit/GNENet.cpp:1706
+#: src/netedit/GNENet.cpp:1708
 msgid "clear unused routes"
 msgstr "清除未使用的路徑"
 
-#: src/netedit/GNENet.cpp:1761
+#: src/netedit/GNENet.cpp:1763
 msgid "merge routes"
 msgstr "合併路徑"
 
-#: src/netedit/GNENet.cpp:1815
+#: src/netedit/GNENet.cpp:1817
 msgid "adjust person plans"
 msgstr "調整個人旅運計劃"
 
-#: src/netedit/GNENet.cpp:1855
+#: src/netedit/GNENet.cpp:1857
 msgid "remove invalid demand elements"
 msgstr "移除無效的需求元素"
 
-#: src/netedit/GNENet.cpp:1870
+#: src/netedit/GNENet.cpp:1872
 msgid "replace junction by geometry"
 msgstr "用幾何形狀替換路口"
 
-#: src/netedit/GNENet.cpp:1915
+#: src/netedit/GNENet.cpp:1917
 msgid "Junction isn't removable"
 msgstr "路口無法被移除"
 
-#: src/netedit/GNENet.cpp:1927
+#: src/netedit/GNENet.cpp:1929
 msgid "split junction"
 msgstr "分割路口"
 
-#: src/netedit/GNENet.cpp:1967
+#: src/netedit/GNENet.cpp:1969
 msgid "Could not rename split node to '%'"
 msgstr "無法將分割的節點重新命名為 '%'"
 
-#: src/netedit/GNENet.cpp:2006
+#: src/netedit/GNENet.cpp:2008
 msgid "clear junction connections"
 msgstr "清除路口內的連結線"
 
-#: src/netedit/GNENet.cpp:2018
+#: src/netedit/GNENet.cpp:2020
 msgid "reset junction connections"
 msgstr "重置路口內連接線"
 
-#: src/netedit/GNENet.cpp:2029
+#: src/netedit/GNENet.cpp:2031
 msgid "clear additional elements"
 msgstr "清除附加元素"
 
-#: src/netedit/GNENet.cpp:2042
+#: src/netedit/GNENet.cpp:2044
 msgid "clear demand elements"
 msgstr "清除需求元素"
 
-#: src/netedit/GNENet.cpp:2055
+#: src/netedit/GNENet.cpp:2057
 msgid "clear data elements"
 msgstr "清除資料元素"
 
-#: src/netedit/GNENet.cpp:2066
+#: src/netedit/GNENet.cpp:2068
 msgid "clear meanData elements"
 msgstr "清除meanData元素"
 
-#: src/netedit/GNENet.cpp:2405 src/netedit/GNENet.cpp:2502
+#: src/netedit/GNENet.cpp:2407 src/netedit/GNENet.cpp:2504
 msgid "Duplicated ID"
 msgstr "複製的ID"
 
-#: src/netedit/GNENet.cpp:2792
+#: src/netedit/GNENet.cpp:2794
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
 msgstr "路網規模超過 1 光年。 請重新考慮您的輸入。"
 
@@ -12914,6 +12913,7 @@ msgid "Reduce network to current selection."
 msgstr "將路網縮減為目前的選擇。"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:279
+#: src/utils/gui/settings/GUISettingsHandler.cpp:562
 msgid "Could not open '%'."
 msgstr "無法開啟 '%'。"
 
@@ -14930,9 +14930,13 @@ msgstr "對於暫停點(breakpoints),不宜使用屬性'value'。請使用 'time
 msgid "The 'filename' attribute is deprecated for decals. Please use 'file'."
 msgstr "不宜使用屬性'filename'。請使用 'file'。"
 
-#: src/utils/gui/settings/GUISettingsHandler.cpp:574
-msgid " Could not decode breakpoint '%'"
-msgstr " 無法解碼暫停點(breakpoint) '%'"
+#: src/utils/gui/settings/GUISettingsHandler.cpp:575
+msgid "A breakpoint value must be a time description (%)."
+msgstr ""
+
+#: src/utils/gui/settings/GUISettingsHandler.cpp:578
+msgid "Could not decode breakpoint '%'."
+msgstr ""
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:779
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1027
@@ -16419,6 +16423,9 @@ msgstr "投影方式未定義"
 #: src/utils/gui/windows/GUISUMOAbstractView.cpp:1726
 msgid "Could not convert coordinates in %."
 msgstr "無法將座標轉換為%單位。"
+
+#~ msgid " Could not decode breakpoint '%'"
+#~ msgstr " 無法解碼暫停點(breakpoint) '%'"
 
 #~ msgid "Unknown object in GUISelectedStorage::select (id=%)."
 #~ msgstr "在GUISelectedStorage::select (id=%)內的未知物件。"
