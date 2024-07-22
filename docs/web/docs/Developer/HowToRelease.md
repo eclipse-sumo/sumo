@@ -137,7 +137,11 @@ If everything is fine:
   - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
-- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it.
+- finish the Zenodo version draft, by uploading the release `.tar.gz` source, and publishing it
+- create a new entry in [elib](elib.dlr.de/)
+  - the easiest way to do it, is by going to [Einträge verwalten](https://elib.dlr.de/cgi/users/home?screen=Items) and clicking on the magnifying-glass-icon for an old release, then going to the "Aktionen" tab and selecting "Als Vorlage verwenden"
+  - take a look at the [Eintrag von Forschungssoftware-Publikationen - Tutorial](https://wiki.dlr.de/pages/viewpage.action?pageId=711888423), or the entry for a previous release: https://elib.dlr.de/205320/
+  - if necessary, talk to the elib-appointee for the department/institute
 - update files at the [opensuse build
     service](https://build.opensuse.org/package/show/science:dlr/sumo)
 - update the ubuntu ppa (see
