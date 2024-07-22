@@ -66,7 +66,7 @@ public:
      * @param[in] nb The detector builder
      * @exception ProcessError If something fails on initialization
      */
-    void init(NLDetectorBuilder& nb);
+    void init(NLDetectorBuilder& nb) override;
 
 
     /// @brief Destructor
@@ -81,7 +81,7 @@ public:
      * @return The time of the next switch
      * @see MSTrafficLightLogic::trySwitch
      */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch() override;
     /// @}
 
     bool showDetectors() const {
