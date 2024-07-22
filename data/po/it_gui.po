@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-19 09:17+0000\n"
+"PO-Revision-Date: 2024-07-22 14:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -10230,11 +10230,11 @@ msgstr ""
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6827
 msgid "Data interval begin time"
-msgstr ""
+msgstr "Inizio dell'intervallo di dati"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6833
 msgid "Data interval end time"
-msgstr ""
+msgstr "Fine dell'intervallo di dati"
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6846
 msgid "EdgeRelationSingle"
@@ -10859,16 +10859,16 @@ msgstr "Il nome del file è invalido."
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:2039
 msgid "List of lanes isn't valid."
-msgstr ""
+msgstr "L'elenco di corsie non è valido."
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:216
 msgid "Both edges and lanes aren't defined"
-msgstr ""
+msgstr "Sia gli archi che le corsie non sono definiti"
 
 #: src/netedit/elements/additional/GNECalibrator.cpp:256
 #: src/netedit/elements/additional/GNECalibrator.cpp:513
 msgid "Both myEdge and myLane aren't defined"
-msgstr ""
+msgstr "Sia myEdge che myLane non sono definiti"
 
 #: src/netedit/elements/additional/GNECalibratorFlow.cpp:96
 #, c-format
@@ -10880,12 +10880,12 @@ msgstr ""
 #: src/netedit/elements/additional/GNELaneAreaDetector.cpp:176
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:125
 msgid "lanes aren't consecutives"
-msgstr ""
+msgstr "le corsie non sono consecutive"
 
 #: src/netedit/elements/additional/GNELaneAreaDetector.cpp:180
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:129
 msgid "lanes aren't connected"
-msgstr ""
+msgstr "le corsie sono sconnesse"
 
 #: src/netedit/elements/additional/GNELaneAreaDetector.cpp:199
 #: src/netedit/elements/additional/GNEOverheadWire.cpp:147
@@ -10982,7 +10982,7 @@ msgstr "Poligono già semplificato"
 
 #: src/netedit/elements/additional/GNERerouter.cpp:104
 msgid "' needs at least one edge"
-msgstr ""
+msgstr "' ha bisogno di almeno un'arco"
 
 #: src/netedit/elements/additional/GNETAZ.cpp:296
 #: src/netedit/elements/network/GNELane.cpp:567
@@ -10991,7 +10991,7 @@ msgstr "Imposta punto geometrico individuale"
 
 #: src/netedit/elements/additional/GNEVariableSpeedSign.cpp:83
 msgid "' needs at least one lane"
-msgstr ""
+msgstr "' ha bisogno di almeno una corsia"
 
 #: src/netedit/elements/data/GNEDataHandler.cpp:62
 msgid "add data set"
@@ -11111,7 +11111,7 @@ msgstr "invert l'attuale %"
 
 #: src/netedit/elements/demand/GNEDemandElement.cpp:763
 msgid "Add reverse %"
-msgstr ""
+msgstr "Aggiungi % in direzione opposta"
 
 #: src/netedit/elements/demand/GNEDemandElementPlan.cpp:1382
 #: src/netedit/elements/demand/GNEDemandElementPlan.cpp:1395
@@ -12741,7 +12741,7 @@ msgstr "Strutture addizionali"
 #: src/netedit/frames/common/GNEElementSet.cpp:62
 #: src/netedit/frames/common/GNEElementSet.cpp:153
 msgid "Shape"
-msgstr ""
+msgstr "Forma"
 
 #: src/netedit/frames/common/GNEElementSet.cpp:63
 #: src/netedit/frames/common/GNEElementSet.cpp:150
@@ -13349,7 +13349,7 @@ msgstr "Salva elenco di elementi selezionati"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:404
 msgid "clear selection"
-msgstr ""
+msgstr "svuota selezione"
 
 #: src/netedit/frames/common/GNESelectorFrame.cpp:464
 msgid "invert selection"
@@ -14274,39 +14274,40 @@ msgstr "Nessun conflitto"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:102
 msgid "No conflict with the selected connection"
-msgstr ""
+msgstr "Nessun conflitto con il collegamento selezionato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:107
 msgid "Yields"
-msgstr ""
+msgstr "Da la precedenza"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:108
 msgid "Connection yields the selected connection"
-msgstr ""
+msgstr "Il collegamento da la precedenza a quello selezionato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:113
 msgid "Has right of way"
-msgstr ""
+msgstr "Ha la precedenza"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:114
 msgid "Connection has right of way with the selected connection"
-msgstr ""
+msgstr "Il collegamento ha la precedenza per rispetto a quello selezionato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:119
 msgid "Unregulated conflict"
-msgstr ""
+msgstr "Conflitto non regolato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:120
 msgid "Connection has an unregulated conflict with the selected connection"
 msgstr ""
+"Il collegamento si trova in un conflitto non regolato con quello selezionato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:125
 msgid "Mutual conflict"
-msgstr ""
+msgstr "Conflitto mutuale"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:126
 msgid "Connection has a mutual conflict with the selected connection"
-msgstr ""
+msgstr "Il collegamento so trova in un conflitto mutuale con quello selezionato"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:175
 msgid "Save prohibition modifications (Enter)"
@@ -14314,11 +14315,11 @@ msgstr ""
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:179
 msgid "Unselect connection"
-msgstr ""
+msgstr "Deseleziona collegamento"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:181
 msgid "Unselect connection (Esc)"
-msgstr ""
+msgstr "Deseleziona collegamento (Esc)"
 
 #: src/netedit/frames/network/GNEProhibitionFrame.cpp:229
 msgid "Prohibitions"
