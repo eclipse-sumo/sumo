@@ -11,4 +11,4 @@ remap = ['%7B%7BVersion%7D%7D 1.19.0']
 exclude = ['%7B%7BSource%7D%7D', '^https://sumo\.dlr\.de/pydoc/', '^https://sumo\.dlr\.de/generate-documentation\.php', '^https://sumo\.dlr\.de/xsd/SCHEMA_FILE',
            '^https://web\.archive\.org/web/', '^https://doi\.org/10', 'https://www\.researchgate\.net/publication/',
            '^https://stackoverflow\.com/questions/', '^https://askubuntu\.com/questions/',
-           '^https://www\.udemy\.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/']
+           '^https://www\.udemy\.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/', '^https://elib.dlr.de/cgi/users/home?screen=Items', '^https://wiki.dlr.de/']
