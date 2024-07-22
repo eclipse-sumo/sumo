@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
 netedit.modifyAttribute(netedit.attrs.stopLane.inspectSelection.permitted, "permitA permitB", True)

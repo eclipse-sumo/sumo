@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-22 11:03:49 by Eclipse SUMO netedit Version v1_20_0+1353-eb4cb6ec9d8
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\trafficlights\joined\phases\NEMA\net.net.xml"/>
+    </input>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="0"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.50"/>
+        <rectangular-lane-cut value="0"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="0"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<tlLogics version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <tlLogic id="J3_joined" type="NEMA" programID="0" offset="0">
+        <phase duration="90" state="rgrgrgrgrgrgrgrgrgrg" name="6"/>
+        <phase duration="90" state="grgrgrgrgrgrgrgrgrgr" name="8"/>
+        <param key="barrier2Phases" value="6,6"/>
+        <param key="barrierPhases" value="8,8"/>
+        <param key="ring1" value="0,6,0,8"/>
+        <param key="ring2" value="0,6,0,8"/>
+    </tlLogic>
+
+    <connection from="-E2" to="E3" fromLane="1" toLane="2" tl="J3_joined" linkIndex="4"/>
+    <connection from="-E2" to="E4" fromLane="1" toLane="1" tl="J3_joined" linkIndex="5"/>
+    <connection from="-E2" to="E4" fromLane="2" toLane="2" tl="J3_joined" linkIndex="6"/>
+    <connection from="-E2" to="E5" fromLane="2" toLane="2" tl="J3_joined" linkIndex="7"/>
+    <connection from="-E3" to="E4" fromLane="1" toLane="1" tl="J3_joined" linkIndex="0"/>
+    <connection from="-E3" to="E5" fromLane="1" toLane="1" tl="J3_joined" linkIndex="1"/>
+    <connection from="-E3" to="E5" fromLane="2" toLane="2" tl="J3_joined" linkIndex="2"/>
+    <connection from="-E3" to="E2" fromLane="2" toLane="2" tl="J3_joined" linkIndex="3"/>
+    <connection from="-E4" to="E5" fromLane="1" toLane="1" tl="J3_joined" linkIndex="12"/>
+    <connection from="-E4" to="E2" fromLane="1" toLane="1" tl="J3_joined" linkIndex="13"/>
+    <connection from="-E4" to="E2" fromLane="2" toLane="2" tl="J3_joined" linkIndex="14"/>
+    <connection from="-E4" to="E3" fromLane="2" toLane="2" tl="J3_joined" linkIndex="15"/>
+    <connection from="-E5" to="E2" fromLane="1" toLane="1" tl="J3_joined" linkIndex="8"/>
+    <connection from="-E5" to="E3" fromLane="1" toLane="1" tl="J3_joined" linkIndex="9"/>
+    <connection from="-E5" to="E3" fromLane="2" toLane="2" tl="J3_joined" linkIndex="10"/>
+    <connection from="-E5" to="E4" fromLane="2" toLane="2" tl="J3_joined" linkIndex="11"/>
+    <connection from="E2" to="-E2" fromLane="2" toLane="2" tl="J3_joined" linkIndex="16"/>
+    <connection from="E4" to="-E4" fromLane="2" toLane="2" tl="J3_joined" linkIndex="17"/>
+</tlLogics>

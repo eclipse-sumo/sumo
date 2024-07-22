@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-11 15:42:12 by Eclipse SUMO netedit Version v1_20_0+1195-8609dda69bd
+<!-- generated on 2024-07-22 09:28:06 by Eclipse SUMO netedit Version v1_20_0+1353-eb4cb6ec9d8
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -15,6 +15,7 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -32,10 +33,10 @@
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <node id="J3" x="0.00" y="0.00" type="priority"/>
-    <node id="J4" x="25.00" y="0.00" type="dead_end"/>
-    <node id="J5" x="0.00" y="25.00" type="dead_end"/>
-    <node id="J6" x="-25.00" y="0.00" type="dead_end"/>
-    <node id="J7" x="0.00" y="-25.00" type="dead_end"/>
+    <node id="J4" x="25.00" y="0.00" type="priority"/>
+    <node id="J5" x="0.00" y="25.00" type="priority"/>
+    <node id="J6" x="-25.00" y="0.00" type="priority"/>
+    <node id="J7" x="0.00" y="-25.00" type="priority"/>
     <node id="JunctionExtern0" x="-60.00" y="0.00" type="priority"/>
     <node id="JunctionExtern1" x="60.00" y="0.00" type="priority"/>
 </nodes>

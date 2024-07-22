@@ -454,83 +454,87 @@ class crossing:
 
 # TLS
 
-
 class TLS:
     class common:
         TLID = 1
         TLType = 2
 
     class single:
+
         class attributes:
             offset = 12
             parameters = 14
 
         class staticPhase:
-            dur = 17 + (0 * 4) + 0
-            state = 17 + (1 * 4) + 1
-            nxt = 17 + (2 * 4) + 2
-            name = 17 + (3 * 4) + 3
-            addButton = 17 + (4 * 4) + 1
-            deleteButton = 17 + (5 * 4) + 2
-            moveUp = 17 + (6 * 4) + 3
-            moveDown = 17 + (7 * 4) + 3
-            cleanStates = 17 + (8 * 4) + 1
-            groupSignal = 17 + (8 * 4) + 2
-            addStates = 17 + (8 * 4) + 3
-            ungroupSignal = 17 + (8 * 4) + 4
+            numPhases = 5
+            dur = 17 + (0 * numPhases) + 0
+            state = 17 + (1 * numPhases) + 1
+            nxt = 17 + (2 * numPhases) + 2
+            name = 17 + (3 * numPhases) + 3
+            addButton = 17 + (4 * numPhases) + 1
+            deleteButton = 17 + (5 * numPhases) + 2
+            moveUp = 17 + (6 * numPhases) + 3
+            moveDown = 17 + (7 * numPhases) + 3
+            cleanStates = 17 + (8 * numPhases) + 1
+            groupSignal = 17 + (8 * numPhases) + 2
+            addStates = 17 + (8 * numPhases) + 3
+            ungroupSignal = 17 + (8 * numPhases) + 4
 
         class actuatedPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            earlyEnd = 18 + (4 * 4) + 0
-            latestEnd = 18 + (5 * 4) + 1
-            nxt = 18 + (6 * 4) + 2
-            name = 18 + (7 * 4) + 3
-            addButton = 18 + (8 * 4) + 1
-            deleteButton = 18 + (9 * 4) + 2
-            moveUp = 18 + (10 * 4) + 3
-            moveDown = 18 + (11 * 4) + 4
-            cleanStates = 18 + (12 * 4) + 1
-            groupSignal = 18 + (12 * 4) + 2
-            addStates = 18 + (12 * 4) + 3
-            ungroupSignal = 18 + (12 * 4) + 4
+            numPhases = 5
+            dur = 18 + (0 * numPhases) + 0
+            minD = 18 + (1 * numPhases) + 1
+            maxD = 18 + (2 * numPhases) + 2
+            state = 18 + (3 * numPhases) + 3
+            earlyEnd = 18 + (4 * numPhases) + 0
+            latestEnd = 18 + (5 * numPhases) + 1
+            nxt = 18 + (6 * numPhases) + 2
+            name = 18 + (7 * numPhases) + 3
+            addButton = 18 + (8 * numPhases) + 1
+            deleteButton = 18 + (9 * numPhases) + 2
+            moveUp = 18 + (10 * numPhases) + 3
+            moveDown = 18 + (11 * numPhases) + 4
+            cleanStates = 18 + (12 * numPhases) + 1
+            groupSignal = 18 + (12 * numPhases) + 2
+            addStates = 18 + (12 * numPhases) + 3
+            ungroupSignal = 18 + (12 * numPhases) + 4
 
         class delayBasedPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            nxt = 18 + (4 * 4) + 0
-            name = 18 + (5 * 4) + 1
-            addButton = 18 + (6 * 4) + 2
-            deleteButton = 18 + (7 * 4) + 3
-            moveUp = 18 + (8 * 4) + 0
-            moveDown = 18 + (9 * 4) + 1
-            cleanStates = 18 + (10 * 4) + 1
-            groupSignal = 18 + (10 * 4) + 2
-            addStates = 18 + (10 * 4) + 3
-            ungroupSignal = 18 + (10 * 4) + 4
+            numPhases = 5
+            dur = 18 + (0 * numPhases) + 0
+            minD = 18 + (1 * numPhases) + 1
+            maxD = 18 + (2 * numPhases) + 2
+            state = 18 + (3 * numPhases) + 3
+            nxt = 18 + (4 * numPhases) + 0
+            name = 18 + (5 * numPhases) + 1
+            addButton = 18 + (6 * numPhases) + 2
+            deleteButton = 18 + (7 * numPhases) + 3
+            moveUp = 18 + (8 * numPhases) + 0
+            moveDown = 18 + (9 * numPhases) + 1
+            cleanStates = 18 + (10 * numPhases) + 1
+            groupSignal = 18 + (10 * numPhases) + 2
+            addStates = 18 + (10 * numPhases) + 3
+            ungroupSignal = 18 + (10 * numPhases) + 4
 
         class NEMAPhase:
-            dur = 18 + (0 * 4) + 0
-            minD = 18 + (1 * 4) + 1
-            maxD = 18 + (2 * 4) + 2
-            state = 18 + (3 * 4) + 3
-            vehext = 18 + (4 * 4) + 0
-            yellow = 18 + (5 * 4) + 1
-            red = 18 + (6 * 4) + 2
-            nxt = 18 + (7 * 4) + 3
-            name = 18 + (8 * 4) + 0
-            addButton = 18 + (9 * 4) + 1
-            deleteButton = 18 + (10 * 4) + 2
-            moveUp = 18 + (11 * 4) + 3
-            moveDown = 18 + (12 * 4) + 0
-            cleanStates = 18 + (13 * 4) + 1
-            groupSignal = 18 + (13 * 4) + 2
-            addStates = 18 + (13 * 4) + 3
-            ungroupSignal = 18 + (13 * 4) + 4
+            numPhases = 4
+            dur = 18 + (0 * numPhases) + 0
+            minD = 18 + (1 * numPhases) + 1
+            maxD = 18 + (2 * numPhases) + 2
+            state = 18 + (3 * numPhases) + 3
+            vehext = 18 + (4 * numPhases) + 0
+            yellow = 18 + (5 * numPhases) + 1
+            red = 18 + (6 * numPhases) + 2
+            nxt = 18 + (7 * numPhases) + 3
+            name = 18 + (8 * numPhases) + 0
+            addButton = 18 + (9 * numPhases) + 1
+            deleteButton = 18 + (10 * numPhases) + 2
+            moveUp = 18 + (11 * numPhases) + 3
+            moveDown = 18 + (12 * numPhases) + 0
+            cleanStates = 18 + (13 * numPhases) + 1
+            groupSignal = 18 + (13 * numPhases) + 2
+            addStates = 18 + (13 * numPhases) + 3
+            ungroupSignal = 18 + (13 * numPhases) + 4
 
     class join:
         class attributes:
@@ -595,14 +599,14 @@ class TLS:
             red = 19 + (6 * 2)
             nxt = 19 + (7 * 2)
             name = 19 + (8 * 2)
-            addButton = 19 + (10 * 2)
-            deleteButton = 19 + (11 * 2)
-            moveUp = 19 + (12 * 2)
-            moveDown = 19 + (13 * 2)
-            cleanStates = 19 + (13 * 2) + 1
-            groupSignal = 19 + (13 * 2) + 2
-            addStates = 19 + (13 * 2) + 3
-            ungroupSignal = 19 + (13 * 2) + 4
+            addButton = 20 + (9 * 2)
+            deleteButton = 20 + (10 * 2)
+            moveUp = 20 + (11 * 2)
+            moveDown = 20 + (12 * 2)
+            cleanStates = 20 + (13 * 2) + 1
+            groupSignal = 20 + (13 * 2) + 2
+            addStates = 20 + (13 * 2) + 3
+            ungroupSignal = 20 + (13 * 2) + 4
 
     create = 3
     createOverlapped = 4

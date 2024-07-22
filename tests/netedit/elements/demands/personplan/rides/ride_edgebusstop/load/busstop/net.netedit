@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 10:50:21 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-22 14:24:41 by Eclipse SUMO netedit Version v1_20_0+1736-e39e4a74e3e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/net.net.xml"/>
     </output>
 
     <processing>
@@ -38,24 +49,24 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun101559.5488/netedit.gui/elements/demand/personplan/rides/ride_edgebusstop/load/busstop/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.22Jul140105.22905/netedit.gui/elements/demands/personplan/rides/ride_edgebusstop/load/busstop/log.txt"/>
     </report>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":Junction0_w0" function="walkingarea">
         <lane id=":Junction0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="2.00" shape="-35.00,-23.00 -35.00,-25.00 -35.00,-15.00 -35.00,-17.00"/>
@@ -182,23 +193,19 @@
 
     <tlLogic id="Junction1" type="static" programID="0" offset="0">
         <phase duration="90" state="GG"/>
-        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction2" type="static" programID="0" offset="0">
         <phase duration="90" state="GG"/>
-        <phase duration="3"  state="rr"/>
     </tlLogic>
     <tlLogic id="Junction3" type="static" programID="0" offset="0">
-        <phase duration="90" state="GGGgr"/>
-        <phase duration="3"  state="rrrrr"/>
-        <phase duration="5"  state="rrrrG"/>
-        <phase duration="5"  state="rrrrr"/>
+        <phase duration="90" state="GGGg"/>
     </tlLogic>
     <tlLogic id="Junction4" type="static" programID="0" offset="0">
-        <phase duration="90" state="gGGGr"/>
-        <phase duration="3"  state="rrrrr"/>
-        <phase duration="5"  state="rrrrG"/>
-        <phase duration="5"  state="rrrrr"/>
+        <phase duration="42" state="gGrrr"/>
+        <phase duration="3"  state="yyrrr"/>
+        <phase duration="37" state="rrggG"/>
+        <phase duration="5"  state="rrggr"/>
+        <phase duration="3"  state="rryyr"/>
     </tlLogic>
 
     <junction id="Junction0" type="dead_end" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes="" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00"/>

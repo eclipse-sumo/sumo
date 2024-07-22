@@ -3,11 +3,11 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 waypointLane
 ;;;;;;;;;;
-TestFunctions: Clicked over position 689 - 201
+TestFunctions: Clicked over position 798 - 194
 
-TestFunctions: Clicked over position 687 - 201
+TestFunctions: Clicked with Control key pressed over position 798 - 194
 tripID
-TestFunctions: Clicked over position 685 - 201
+TestFunctions: Clicked with Control key pressed over position 798 - 194
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

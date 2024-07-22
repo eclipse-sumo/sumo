@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # check undo
 netedit.undo(referencePosition, 1)
@@ -62,7 +62,7 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete stop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -3,13 +3,13 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 stopLane
 dummyValue
-TestFunctions: Clicked over position 810 - 196
+TestFunctions: Clicked over position 798 - 194
 -20
-TestFunctions: Clicked over position 808 - 196
+TestFunctions: Clicked with Control key pressed over position 798 - 194
 0
-TestFunctions: Clicked over position 806 - 196
+TestFunctions: Clicked with Control key pressed over position 798 - 194
 22.33
-TestFunctions: Clicked over position 804 - 196
+TestFunctions: Clicked with Control key pressed over position 798 - 194
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

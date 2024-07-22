@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-11 15:42:12 by Eclipse SUMO netedit Version v1_20_0+1195-8609dda69bd
+<!-- generated on 2024-07-22 09:28:06 by Eclipse SUMO netedit Version v1_20_0+1353-eb4cb6ec9d8
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -15,6 +15,7 @@
     </processing>
 
     <junctions>
+        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -29,7 +30,7 @@
 -->
 
 <connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="-E2" to="E3" fromLane="1" toLane="1"/>
+    <connection from="-E2" to="E3" fromLane="1" toLane="2"/>
     <connection from="-E2" to="E4" fromLane="1" toLane="1"/>
     <connection from="-E2" to="E4" fromLane="2" toLane="2"/>
     <connection from="-E2" to="E5" fromLane="2" toLane="2"/>
@@ -49,16 +50,18 @@
     <connection from="-E5" to="E3" fromLane="2" toLane="2"/>
     <connection from="-E5" to="E4" fromLane="2" toLane="2"/>
 
-    <connection from="E2"/>
+    <connection from="E2" to="-E2" fromLane="2" toLane="2"/>
 
-    <connection from="E3"/>
+    <connection from="E3" to="-E3" fromLane="2" toLane="2"/>
 
-    <connection from="E4"/>
+    <connection from="E4" to="-E4" fromLane="2" toLane="2"/>
 
-    <connection from="E5"/>
+    <connection from="E5" to="-E5" fromLane="2" toLane="2"/>
 
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
 
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
+    <crossing node="J3" edges="E2 -E2" priority="0" width="4.00" outlineShape="10.40,-6.50 10.40,6.50 6.40,10.40 8.40,10.40 10.40,8.40 10.40,6.40 6.40,10.40 6.40,-10.40 6.51,-9.18 6.84,-8.18 7.40,-7.40 8.18,-6.84 9.18,-6.51"/>
+    <crossing node="J3" edges="E4 -E4" priority="0" width="4.00" outlineShape="-10.40,6.50 -10.40,-6.50 -6.40,-10.40 -8.40,-10.40 -10.40,-8.40 -10.40,-6.40 -6.40,-10.40 -6.40,10.40 -6.51,9.18 -6.84,8.18 -7.40,7.40 -8.18,6.84 -9.18,6.51"/>
 </connections>

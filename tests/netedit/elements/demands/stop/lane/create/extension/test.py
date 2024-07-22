@@ -50,25 +50,25 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.extension, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.extension, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.extension, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # set valid value
 netedit.changeDefaultValue(netedit.attrs.stopLane.create.extension, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClickControl(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

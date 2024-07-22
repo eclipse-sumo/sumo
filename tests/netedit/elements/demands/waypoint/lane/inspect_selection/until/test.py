@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.stopLane)
 
 # change value
 netedit.modifyBoolAttribute(netedit.attrs.waypointLane.inspectSelection.untilEnable, True)

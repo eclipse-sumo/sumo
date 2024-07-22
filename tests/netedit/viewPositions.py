@@ -183,6 +183,22 @@ class network:
             x = 510
             y = 320
 
+        class topLeft:
+            x = 460
+            y = 130
+
+        class topRight:
+            x = 510
+            y = 130
+
+        class botLeft:
+            x = 460
+            y = 320
+
+        class botRight:
+            x = 510
+            y = 320
+
     class crossing:
 
         class left:
@@ -460,6 +476,10 @@ class elements:
         class person:
             x = 161
             y = 474
+
+        class stopLane:
+            x = 415
+            y = 30
 
         class stopEdgeX:
             x = 256

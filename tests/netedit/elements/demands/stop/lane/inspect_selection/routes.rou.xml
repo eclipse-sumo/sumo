@@ -38,12 +38,12 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0">
-        <stop lane="Edge2_1" startPos="34.80" endPos="44.80" friendlyPos="0" posLat="10.00" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" tripId="tripA" line="lineA" onDemand="true" jump="4" split="splitA"/>
+        <stop lane="Edge2_1" startPos="30.00" endPos="40.00" friendlyPos="0" posLat="10.00" duration="70.00" until="12.00" extension="10.00" expected="perA perB" parking="1" permitted="A B" actType="walking" triggered="person" tripId="tripA" line="lineA" onDemand="true" jump="4" split="splitA"/>
     </route>
 	<route edges="EdgeCenter0 EdgeCenter1" color="yellow" id="route_1">
         <stop lane="EdgeCenter1_0" startPos="2.00" friendlyPos="1" posLat="20.00" endPos="5.00" duration="60.00" until="20.00" extension="20.00" expected="conA conB" parking="0" permitted="C D" actType="singing" triggered="container" tripId="tripB" line="lineB" onDemand="false" jump="8.4" split="splitB"/>
     </route>
-	
+
 	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
 </routes>

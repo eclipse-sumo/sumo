@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 personFlow
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 1154 - 390
-TestFunctions: Clicked over position 1154 - 611
+TestFunctions: Clicked over position 1154 - 390
 TestFunctions: Clicked over position 798 - 194
 TestFunctions: Clicked over position 465 - 642
 
