@@ -270,7 +270,7 @@ GUIMessageWindow::appendMsg(GUIEventType eType, const std::string& msg) {
 
 void
 GUIMessageWindow::addSeparator() {
-    std::string msg = "----------------------------------------------------------------------------------------\n";
+    std::string msg = std::string(100, '-') + "\n";
     FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
     FXText::setCursorPos(getLength() - 1);
     FXText::setBottomLine(getLength() - 1);

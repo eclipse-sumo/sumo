@@ -2046,7 +2046,7 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent* e) {
         // to avoid a duplicate log entry)
         myMessageWindow->appendMsg(GUIEventType::MESSAGE_OCCURRED,
                                    TLF("Simulation ended at time: %. (%)",
-                                       time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())));
+                                       time2string(ec->getTimeStep()), MSNet::getStateMessage(ec->getReason())) + "\n");
         // build the text
         const std::string text = TLF("Simulation ended at time: %.", time2string(ec->getTimeStep())) + "\n" +
                                  TL("Reason:") + MSNet::getStateMessage(ec->getReason()) + "\n" +
