@@ -26,8 +26,9 @@ import subprocess
 import sys
 import tempfile
 
-from sumolib.options import ArgumentParser
-from sumolib.version import gitDescribe
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from sumolib.options import ArgumentParser  # noqa
+from sumolib.version import gitDescribe  # noqa
 
 
 def parse_args():
