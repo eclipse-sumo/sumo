@@ -42,7 +42,7 @@
 // ===========================================================================
 // static member initializations
 // ===========================================================================
-MSDevice_FCDReplay::FCDHandler MSDevice_FCDReplay::myHandler;
+MSDevice_FCDReplay::FCDHandler* MSDevice_FCDReplay::myHandler = nullptr;
 SUMOSAXReader* MSDevice_FCDReplay::myParser = nullptr;
 
 
@@ -74,11 +74,12 @@ MSDevice_FCDReplay::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 
 void
 MSDevice_FCDReplay::init() {
-    myHandler.reset();
+    delete myHandler;
+    myHandler = new MSDevice_FCDReplay::FCDHandler();
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("device.fcd-replay.file")) {
         const std::string& filename = oc.getString("device.fcd-replay.file");
-        myParser = XMLSubSys::getSAXReader(myHandler);
+        myParser = XMLSubSys::getSAXReader(*myHandler);
         if (!myParser->parseFirst(filename)) {
             throw ProcessError(TLF("Can not read XML-file '%'.", filename));
         }
@@ -96,14 +97,14 @@ SUMOTime
 MSDevice_FCDReplay::parseNext(SUMOTime t) {
     SUMOTime inc = string2time(OptionsCont::getOptions().getString("route-steps"));
     // make sure that we have always at least inc time steps buffered, so at time 200 we will parse 400 to 600
-    const SUMOTime start = myHandler.getTime();
-    while (myHandler.getTime() < t + 2 * inc) {
+    const SUMOTime start = myHandler->getTime();
+    while (myHandler->getTime() < t + 2 * inc) {
         if (!myParser->parseNext()) {
             inc = 0;
             break;
         }
     }
-    myHandler.updateTrafficObjects(start);
+    myHandler->updateTrafficObjects(start);
     return inc;
 }
 
@@ -132,9 +133,13 @@ MSDevice_FCDReplay::move(SUMOTime currentTime) {
     if (v == nullptr || te.time > currentTime) {
         return;
     }
-    const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(te.edgeOrLane);
-    const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(te.edgeOrLane);
-    libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, te.pos.x(), te.pos.y(), te.angle, 7);
+    if (te.edgeOrLane != "") {
+        const std::string& edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(te.edgeOrLane);
+        const int laneIdx = SUMOXMLDefinitions::getIndexFromLane(te.edgeOrLane);
+        libsumo::Vehicle::moveToXY(myHolder.getID(), edgeID, laneIdx, te.pos.x(), te.pos.y(), te.angle, 7);
+    } else {
+        libsumo::Vehicle::moveToXY(myHolder.getID(), "", -1, te.pos.x(), te.pos.y(), te.angle, 0);
+    }
     libsumo::Vehicle::setSpeed(myHolder.getID(), te.speed);
     // libsumo::Vehicle::changeLane(myHolder.getID(), laneIdx, TS);
     myTrajectoryIndex++;
@@ -157,6 +162,12 @@ MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime currentTime) {
 // ---------------------------------------------------------------------------
 // MSDevice_FCDReplay::FCDHandler-methods
 // ---------------------------------------------------------------------------
+MSDevice_FCDReplay::FCDHandler::FCDHandler() :
+    MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
+               OptionsCont::getOptions().getFloat("mapmatch.distance"),
+               MsgHandler::getErrorInstance()) {}
+
+
 void
 MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
@@ -170,13 +181,13 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
             if (myTime >= SIMSTEP) {
                 const bool isPerson = element == SUMO_TAG_PERSON;
                 const std::string id = attrs.getString(SUMO_ATTR_ID);
-                const Position xy = Position(attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, INVALID_DOUBLE),
-                                             attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, INVALID_DOUBLE));
+                const Position xy = Position(attrs.getOpt<double>(SUMO_ATTR_X, id.c_str(), ok, libsumo::INVALID_DOUBLE_VALUE),
+                                             attrs.getOpt<double>(SUMO_ATTR_Y, id.c_str(), ok, libsumo::INVALID_DOUBLE_VALUE));
                 const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
                 const std::string edgeOrLane = attrs.getOpt<std::string>(isPerson ? SUMO_ATTR_EDGE : SUMO_ATTR_LANE, id.c_str(), ok, "");
-                const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, INVALID_DOUBLE);
-                const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, INVALID_DOUBLE);
-                const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, INVALID_DOUBLE);
+                const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id.c_str(), ok, libsumo::INVALID_DOUBLE_VALUE);
+                const double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, id.c_str(), ok, libsumo::INVALID_DOUBLE_VALUE);
+                const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, libsumo::INVALID_DOUBLE_VALUE);
                 std::string vehicle = attrs.getOpt<std::string>(SUMO_ATTR_VEHICLE, id.c_str(), ok, "");
                 if (isPerson) {
                     if (vehicle == "") {
@@ -189,20 +200,24 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
                     myPositions[xy] = id;
                 }
                 myTrajectories[id].push_back({myTime, xy, edgeOrLane, pos, speed, angle});
-                const MSEdge* const edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
-                if (edge != nullptr) {  // TODO maybe warn for unknown edge?
-                    if (myRoutes.count(id) == 0) {
-                        myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge}, std::vector<StageStart>());
-                    } else {
-                        ConstMSEdgeVector& route = std::get<3>(myRoutes[id]);
-                        if (!edge->isInternal() && edge != route.back()) {
-                            route.push_back(edge);
-                        }
+                const MSEdge* edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
+                if (edgeOrLane == "") {
+                    edge = getClosestEdge(xy, SVC_PASSENGER);
+                }
+                if (edge == nullptr && edgeOrLane != "") {
+                    WRITE_WARNINGF(isPerson ? TL("Unknown edge '%' in fcd replay file for person '%'.") : TL("Unknown lane '%' in fcd replay file for vehicle '%'."), edgeOrLane, id);
+                }
+                if (myRoutes.count(id) == 0) {
+                    myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge}, std::vector<StageStart>());
+                } else {
+                    ConstMSEdgeVector& route = std::get<3>(myRoutes[id]);
+                    if (edge != nullptr && !edge->isInternal() && edge != route.back()) {
+                        route.push_back(edge);
                     }
-                    std::vector<StageStart>& vehicleUsage = std::get<4>(myRoutes[id]);
-                    if ((vehicleUsage.empty() && vehicle != "") || (!vehicleUsage.empty() && vehicle != vehicleUsage.back().vehicle)) {
-                        vehicleUsage.push_back({vehicle, (int)myTrajectories[id].size() - 1, (int)std::get<3>(myRoutes[id]).size() - 1});
-                    }
+                }
+                std::vector<StageStart>& vehicleUsage = std::get<4>(myRoutes[id]);
+                if ((vehicleUsage.empty() && vehicle != "") || (!vehicleUsage.empty() && vehicle != vehicleUsage.back().vehicle)) {
+                    vehicleUsage.push_back({vehicle, (int)myTrajectories[id].size() - 1, (int)std::get<3>(myRoutes[id]).size() - 1});
                 }
             }
             return;
@@ -210,14 +225,6 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
         default:
             break;
     }
-}
-
-
-void
-MSDevice_FCDReplay::FCDHandler::reset() {
-    myTime = 0;
-    myTrajectories.clear();
-    myRoutes.clear();
 }
 
 
@@ -345,8 +352,10 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                 if (!MSRoute::dictionary(dummyRouteID, route)) {
                     throw ProcessError("Could not add route '" + dummyRouteID + "'.");
                 }
-                params->departLaneProcedure = DepartLaneDefinition::GIVEN;
-                params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
+                if (t.front().edgeOrLane != "") {
+                    params->departLaneProcedure = DepartLaneDefinition::GIVEN;
+                    params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
+                }
                 SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false);
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
                     throw ProcessError("Duplicate vehicle '" + id + "'.");
@@ -395,6 +404,25 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             }
         }
     }
+}
+
+
+void
+MSDevice_FCDReplay::FCDHandler::initLaneTree(NamedRTree* tree) {
+    for (const auto& edge : MSEdge::getAllEdges()) {
+        for (MSLane* lane : edge->getLanes()) {
+            Boundary b = lane->getShape().getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            tree->Insert(cmin, cmax, lane);
+        }
+    }
+}
+
+
+MSEdge*
+MSDevice_FCDReplay::FCDHandler::retrieveEdge(const std::string& id) {
+    return MSEdge::dictionary(id);
 }
 
 

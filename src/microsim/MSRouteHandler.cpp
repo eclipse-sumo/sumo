@@ -1812,4 +1812,5 @@ MSRouteHandler::retrieveEdge(const std::string& id) {
     return MSEdge::dictionary(id);
 }
 
+
 /****************************************************************************/

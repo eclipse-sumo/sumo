@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <utils/common/Command.h>
+#include <utils/common/MapMatcher.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSVehicleDevice.h"
 
@@ -72,7 +73,7 @@ public:
     void move(SUMOTime currentTime);
 
     /// @brief return the name for this type of device
-    const std::string deviceName() const {
+    const std::string deviceName() const override {
         return "fcd-replay";
     }
 
@@ -102,15 +103,15 @@ private:
 
     class MoveVehicles : public Command {
     public:
-        SUMOTime execute(SUMOTime currentTime);
+        SUMOTime execute(SUMOTime currentTime) override;
     private:
         /// @brief Invalidated assignment operator.
         MoveVehicles& operator=(const MoveVehicles&) = delete;
     };
 
-    class FCDHandler : public SUMOSAXHandler {
+    class FCDHandler : public SUMOSAXHandler, public MapMatcher<MSEdge, MSLane, MSJunction> {
     public:
-        void reset();
+        FCDHandler();
         SUMOTime getTime() const {
             return myTime;
         }
@@ -127,8 +128,12 @@ private:
          * @exception ProcessError If something fails
          * @see GenericSAXHandler::myStartElement
          */
-        void myStartElement(int element, const SUMOSAXAttributes& attrs);
+        void myStartElement(int element, const SUMOSAXAttributes& attrs) override;
         //@}
+
+        void initLaneTree(NamedRTree* tree) override;
+
+        MSEdge* retrieveEdge(const std::string& id) override;
 
     private:
         struct StageStart {
@@ -148,7 +153,7 @@ private:
     };
 
 private:
-    static FCDHandler myHandler;
+    static FCDHandler* myHandler;
     static SUMOSAXReader* myParser;
     Trajectory* myTrajectory = nullptr;
     int myTrajectoryIndex = 0;
