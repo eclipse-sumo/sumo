@@ -14,16 +14,16 @@ Editing geometry points
 Open [netedit](../Netedit/index.md) to
 create a fictional highway. We keep this very simplistic to start
 and consider a segment without on- or off-ramps. Enter the edge creation
-mode by pressing `e` and create an edge that is a few kilometers long.
+mode by pressing <kbd>e</kbd> and create an edge that is a few kilometers long.
 <b>Hint</b>: you can start with a long straight edge and then change to
-the move-mode (press `m`) to add and drag around geometry points on the
+the move-mode (press <kbd>m</kbd>) to add and drag around geometry points on the
 edge to alter its shape. Save your highway as `autobahn.net.xml`. Now
 add some more lanes to the edge by right clicking on it and selecting
-"Duplicate lane". Now enter the inspect mode (press `i`) and click on
+"Duplicate lane". Now enter the inspect mode (press <kbd>i</kbd>) and click on
 the edge. For the "speed" enter 36.11 (recall that SUMO always uses m/s
 as the unit for speed, 36.11m/s \~ 130km/h). Then split a short (about
 one hundred meters long) initial segment (right click on edge -\> context
-menu -\> Split edge here) of the edge and name it "entry" (press `i` and
+menu -\> Split edge here) of the edge and name it "entry" (press <kbd>i</kbd> and
 click on the edge, then find the right textfield in the left panel). Do
 the same at the end of the long edge and call the shorter edge at the
 end "exit". Give the long edge the name "longEdge".

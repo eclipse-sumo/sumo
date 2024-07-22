@@ -41,7 +41,7 @@ In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain*
 ![](../images/neteditChainSelected.png)
 
 Nodes are created by clicking on empty spaces (when in Edge Mode). Insert 3 nodes (a.k.a Junctions) by clicking on three different places at the white blank space.
-After inserting the last Node, press <kbd>ESC</kbd> to unselect that last node.
+After inserting the last Node, press <kbd>Esc</kbd> to unselect that last node.
 
 ![](../images/HelloWorld_1.gif)
 

@@ -17,7 +17,7 @@ All files mentioned here can be found in the repository at [{{SUMO}}/tests/compl
 
 # Description
 
-Models for vehicle movement usually have several parameters which control the behaviour of the vehicle. Their default values are usually set based on assumptions or measures or by adapting them to a given data
+Models for vehicle movement usually have several parameters which control the behavior of the vehicle. Their default values are usually set based on assumptions or measures or by adapting them to a given data
 set. When moving to a different scenario, they often have to be re-adapted so as to be valid. Due to this, calibration is a crucial step in preparing a traffic simulation scenario.
 
 This tutorial shows one possibility to calibrate a car-following model

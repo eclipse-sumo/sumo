@@ -70,7 +70,8 @@ avgSpeed = speedSum / edgeCount
     This is just a processing example. To compute average travel speeds in a network, process [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [tripinfos](../Simulation/Output/TripInfo.md) or [summary-output](../Simulation/Output/Summary.md) instead.
 
 ## compute the length of the selected edges
-```
+
+```python
 net.loadSelection('selection.txt')
 cumulLength = 0.
 for edge in net.getEdges():

@@ -23,7 +23,7 @@ file will be validated against the schema. This requires
 
 If you do not use the **--xsd** option
 the script will determine the attributes to parse from the first line (or block) it parses.
-If your file does not contain all wanted attributes in the first occuring element they will not get
+If your file does not contain all wanted attributes in the first occurring element they will not get
 parsed!
 
 Please note that instead of an input file name you can give a number

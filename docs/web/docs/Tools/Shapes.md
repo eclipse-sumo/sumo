@@ -7,7 +7,7 @@ title: Shapes
 Generate circular polygons with custom radius, and number of vertices.
 
 ```
-<SUMO\>/tools/shape/ciclePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
+<SUMO\>/tools/shape/circlePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
 ```
 
 - <X\>: Polygon center X

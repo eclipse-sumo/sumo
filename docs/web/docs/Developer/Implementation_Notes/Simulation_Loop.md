@@ -68,7 +68,7 @@ end
 Persons in SUMO are modelled by the distinct [stages](../../Specification/Persons.md#simulation_behavior) *walk*, *ride*, *stop* and *access*.
 The simulation behavior of a person in stage *walk* is controlled by the pedestrian model configured via option **--pedestrian.model**.
 
-The model must inherit from [class MSPModel]() and provide instances of [MSTransportableStateAdapter]() for each pedestrian. The adapter instances are used by the simulation to retrieve the state of the pedestrian (i.e. position and speed). The MSPModel is responsible for signaling when the pedestrian changes to another edge. The following sketch describes the interation.
+The model must inherit from [class MSPModel]() and provide instances of [MSTransportableStateAdapter]() for each pedestrian. The adapter instances are used by the simulation to retrieve the state of the pedestrian (i.e. position and speed). The MSPModel is responsible for signaling when the pedestrian changes to another edge. The following sketch describes the interaction.
 
 !!! note
     abstract methods that must be overridden by the model implementation are in *italics*

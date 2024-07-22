@@ -466,9 +466,9 @@ identical but may be configured independently of each other.
   index differs from the **junction index** because the latter is no
   longer unique. The TLS Index may be [configured with a *.con.xml*
   file](../Networks/PlainXML.md#controlled_connections).
-  Custom indices may be used to create signal groups (multple
+  Custom indices may be used to create signal groups (multiple
   connections that always have the same state and share the same
-  index) and thus simplify the *state* definiton for the traffic light
+  index) and thus simplify the *state* definition for the traffic light
   phases.
 
 ### Roundabouts
@@ -478,7 +478,7 @@ Roundabouts in a network influence the right of way (encoded in the
 during network building). Their presence in the network file has two
 reasons:
 
-- It facillitates re-importing a *.net.xml*-file with
+- It facilitates re-importing a *.net.xml*-file with
   [netconvert](../netconvert.md)
 - lane-changing models may take roundabouts into account
 

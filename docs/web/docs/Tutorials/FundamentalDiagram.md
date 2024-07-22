@@ -33,7 +33,7 @@ sufficient space to insert additional vehicles. In a closed system, all
 the space is eventually taken up by the existing vehicles and the safety
 gaps between them. Additional space can only be obtained by lowering the
 speed in some parts of the circle to reduce these gaps.
-A special case are scenarios that feature spontaneous break down of speed and a travelling jam wave which permits different local densities over time.
+A special case are scenarios that feature spontaneous break down of speed and a traveling jam wave which permits different local densities over time.
 
 ## Reducing the speed evenly
 
@@ -86,7 +86,7 @@ with the following definition (to be placed in an {{AdditionalFile}})
 ```
 
 !!! caution
-    This speed reduction will introduce some small artefacts into the resulting fundamental diagram.
+    This speed reduction will introduce some small artifacts into the resulting fundamental diagram.
 
 And a flow that continuously tries to add vehicles:
 

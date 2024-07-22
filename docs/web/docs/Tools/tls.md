@@ -49,7 +49,7 @@ sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
 
 ## Remarks
 
-The calcuation in this script are based on static hourly traffic flows. Therefore, the flow pattern (e.g. vehicles arriving only in the first 10 minutes) within a hourly flow cannot be reflected in the Webster's equation. Accordingly, the suggested signal timing plans may not correspond to the traffic situation in the microscopic simulation. Several parameters in the options may need to be adjusted according to the given use case. Some remarks for helping to get proper results are listed below.
+The calculation in this script are based on static hourly traffic flows. Therefore, the flow pattern (e.g. vehicles arriving only in the first 10 minutes) within a hourly flow cannot be reflected in the Webster's equation. Accordingly, the suggested signal timing plans may not correspond to the traffic situation in the microscopic simulation. Several parameters in the options may need to be adjusted according to the given use case. Some remarks for helping to get proper results are listed below.
 
 - Hourly flow:
     Currently, this script only considers flows for one hour corresponding to the basic Webster's equation. So, the begin time needs to be given for getting the correct flows from the route file. Otherwise, the begin time = 0 is used as default, and the end time is then 3600 s. If the given period is longer than 1 hour, it is recommended to firstly find out the peak-hour begin time and use it in the script. If the given period is less than 1 hour, this script will still treat the respective flow as hourly flow. It is planned to scale/extract hourly flow from a given route file.
@@ -62,7 +62,7 @@ The calcuation in this script are based on static hourly traffic flows. Therefor
 
 - Currently, the considered road users (veh.type) include car, truck, trailer, bus, coach, moped, motorcycle, bicycle. PCE (Passenger Car Equivalents) is used as flow unit.
 
-- Synchronizaton of traffic signals:
+- Synchronization of traffic signals:
     This script only deals with the signal timing optimization at one intersection at a time, and does not synchronize the traffic signals across all intersections. So, poor results could happen if there is any conflict between signal plans. The script [tlsCoordinator.py](#tlscoordinatorpy) can be used to coordinate traffic signals.
 
 # tls_csv2SUMO.py

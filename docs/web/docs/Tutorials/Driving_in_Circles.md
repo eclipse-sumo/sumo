@@ -191,7 +191,7 @@ the network created to continue with the tutorial.
 ## Create vehicles and run SUMO
 
 First we have to change the mode to "demand" by pressing <kbd>F3</kbd> and then press
-`r` for switch to "create route" mode. We can either choose to create a route by
+<kbd>r</kbd> for switch to "create route" mode. We can either choose to create a route by
 clicking over "consecutive edges" or "non consecutive edges", which will find
 the shortest path between the non consecutive edges given. For this test, we
 will choose the last option. We can change the route "id" by clicking on the
@@ -202,7 +202,7 @@ upper edges) and then click on the last edge of the route (let's choose one
 of the lower edges). An orange path connecting both edges has been created. To
 create the route we have to press the "create route" button or the <kbd>Enter</kbd> key.
 Route creation can be aborted using the "abort creation" button or pressing the
-<kbd>ESC</kbd> key.
+<kbd>Esc</kbd> key.
 
 <img src="../images/tutorialCirclesCreateRoute.gif" alt="CreateRoute" width="600">
 

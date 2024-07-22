@@ -17,13 +17,13 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss 
 
 - If option **--element** (**-e**) is set to a comma-separated list of elements, only these elements will be read. Otherwise all elements will be parsed
 - If option **--attribute** (**-a**) is set to a comma-separated list of attributes, only these attributes will be read. Otherwise all attributes will be parsed
-- It is also possible to give multiple files as input as a space separated list or via shell expenasion (i.e. `*.input.xml`)
+- It is also possible to give multiple files as input as a space separated list or via shell expansion (i.e. `*.input.xml`)
 - If option **--id-attribute** (**-i**) is set, the minimum and maximum values of each attribute will be annotated with the corresponding id value
 - With option **--hist-output** {{DT_FILE}}, a histogram data file (e.g. for plotting with gnuplot) is generated.
   - option **--binwidth INT** (**-b**) defines the binning width for the histogram
 - With option **--abs** the output will include statistics on absolute values
 - With option **--xml-output** {{DT_FILE}}, A file with statistical measures for all processed attributes is written
-- With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponnding ids
+- With option **--full-output** {{DT_FILE}}, A collected attribute values are recorded with their corresponding ids
 - Output precision can be set with option **--precision** (**-p**)
 
 ## attributeDiff.py
@@ -43,7 +43,7 @@ python tools/output/attributeDiff file1.xml file2.xml --xml-output differences.
 
 ### grouping attributes
 
-If is often useful to compare files where the same elements occur multiple times but are distiguishable by some further attribute (i.e. vehicle id in [tripinfo-output](../Simulation/Output/TripInfo.md)). To compare elements with similar ids, the option **--id-attribute** can be used to set a list of attributes. The following example calls computes the differences of all tripinfo attributes for each individual vehicle that occured in both files (i.e. from two simulation runs with different seeds):
+If is often useful to compare files where the same elements occur multiple times but are distinguishable by some further attribute (i.e. vehicle id in [tripinfo-output](../Simulation/Output/TripInfo.md)). To compare elements with similar ids, the option **--id-attribute** can be used to set a list of attributes. The following example calls computes the differences of all tripinfo attributes for each individual vehicle that occurred in both files (i.e. from two simulation runs with different seeds):
 
 ```
 python tools/output/attributeDiff tripinfos1.xml tripinfos2.xml --xml-output differences.xml -i id
@@ -59,12 +59,12 @@ python tools/output/attributeDiff edgedata1.xml edgedata2.xml --xml-output diff
 ```
 
 !!! note
-    The last example is very simular to (netdumpdiff.py][#netdumpdiffpy] and [edgeDataDiff.py](#edgedatadiffpy)
+    The last example is very similar to [netdumpdiff.py](#netdumpdiffpy) and [edgeDataDiff.py](#edgedatadiffpy)
 
 ## attributeCompare.py
 
 Computes statistics on numerical attributes in multiple xml files with the same structure (eg. attribute *timeLoss* for element *vehicleTripStatistics* in [statistic-output](../Simulation/Output/StatisticOutput.md)) and writes the
-results to standard output. The tool works very similar to [attributeDiff.py](#attributediffpy) but uses multiple files and computs a wide range of statistics instead of the difference between values.
+results to standard output. The tool works very similar to [attributeDiff.py](#attributediffpy) but uses multiple files and computes a wide range of statistics instead of the difference between values.
 
 ```
 python tools/output/attributeCompare.py file1.xml file2.xml file3.xml --xml-output compared.xml
@@ -227,7 +227,7 @@ python vehrouteDiff.py routes1.rou.xml routes2.rou.xml result.xml
 
 ## vehrouteCountValidation.py
 
-Computes the mismatch between counting datay (in the same format as used by [routeSampler.py](Turns.md#routesamplerpy))
+Computes the mismatch between counting data (in the same format as used by [routeSampler.py](Turns.md#routesamplerpy))
 and **--vehroute-output** files. If the vehroute-output was generated with option **--vehroute-output.exit-times**, then time of passing the respective edges is used for the validation of counting data time lines (counting data with multiple time intervals).
 Since typically, the total count of vehicles provided in the simulation **--route-files** passes the desired edges, the main value of this tools lies in evaluating the impact of delays (or delayed insertion) on replicating time-dependent counting data.
 
@@ -367,7 +367,7 @@ Script for aggregate battery outputs in intervals.
 
 Example usage:
 ```
-python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0')
+python tools\output\aggregateBatteryOutput.py -i battery.xml -o batteryAggregatedx.xml -t 60 -v veh0
 ```
 
 ## fcdDiff.py

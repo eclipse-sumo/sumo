@@ -86,7 +86,7 @@ description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_typ
 for details on these definitions, as well as [this page](../Specification/Persons.md) for persons.
 
 For each vehicle type, we schedule and position vehicle flows by adding the following `<flow .../>` elements just below the
-vType definitions (within the `<routes>` element\!):
+vType definitions (within the `<routes>` element!):
 
 ```xml
         ...

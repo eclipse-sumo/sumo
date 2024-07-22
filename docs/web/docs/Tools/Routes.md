@@ -488,7 +488,7 @@ python tools/route/checkStopOrder.py -r <route-file>
 When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
 The option accepts a list of stops and also the `*` wildcard to generate a combined table for multiple busStops (i.e belonging to the same station).
 
-The resulting stop table may look as in the below example, where the columns correspond to the [attributes of the stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) execpt for the following two columns:
+The resulting stop table may look as in the below example, where the columns correspond to the [attributes of the stop](../Definition_of_Vehicles%2C_Vehicle_Types%2C_and_Routes.md#stops_and_waypoints) except for the following two columns:
 - **veh**: the id of the vehicle to which this stop belongs
 - **flags**:
   - p: parking
@@ -496,7 +496,7 @@ The resulting stop table may look as in the below example, where the columns cor
   - L: last stop of the vehicle
   - w: waypoint
   - o: vehicle is overtaken (some other vehicle arrives later at the same stop and departs earlier)
-  - O: vehicle ovetakes (some other vehicle arrives earlier and departs later)
+  - O: vehicle overtakes (some other vehicle arrives earlier and departs later)
 
 ```
 # busStop: stop_A,stop_B

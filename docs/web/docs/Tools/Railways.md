@@ -29,7 +29,7 @@ larger number of passing vehicles within the simulation (controlled by the
 limit attribute). The script attempts to determine the necessary limit value by
 identifying all vehicles that pass the signal X en route to other stops between
 the time A and B reach their respective signals (counting backwards from the
-next stop based on "arrival". To account for delays the
+next stop based on "arrival"). To account for delays the
 options --delay and --limit can be used to override the limit values
 
 A more complicated case arises when the next stop after the merging switch differs for

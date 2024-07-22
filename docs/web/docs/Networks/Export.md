@@ -113,7 +113,7 @@ The value of CAPACITY_NORM is controlled via the option **--capacity-norm** {{DT
 
 ## DlrNavteq
 
-The **--dlr-navteq-output** {{DT_FILE}} generates a links, a nodes and a traffic lights file matching extraction version 6.5 by default. The version can be set using the option **--dlr-navteq.version** {{DT_STR}}. A version of 7 or larger will trigger the output of additional attributes auch as maximum height and width.
+The **--dlr-navteq-output** {{DT_FILE}} generates a links, a nodes and a traffic lights file matching extraction version 6.5 by default. The version can be set using the option **--dlr-navteq.version** {{DT_STR}}. A version of 7 or larger will trigger the output of additional attributes such as maximum height and width.
 
 
 ## Amitran
