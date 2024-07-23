@@ -212,6 +212,9 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
                             myTrajectories[id].back().lanePos = lane->interpolateGeometryPosToLanePos(
                                                                     lane->getShape().nearest_offset_to_point25D(xy, false));
                             edge = &lane->getEdge();
+                            while (edge->isInternal()) {  // we cannot use an internal edge for a route
+                                edge = edge->getSuccessors().front();
+                            }
                         }
                     }
                     myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge}, std::vector<StageStart>());
