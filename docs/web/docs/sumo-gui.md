@@ -205,7 +205,7 @@ A plotting window (acceleration over time) is shown below:
 ![plotted_accel.png](images/plotted_accel.png "Acceleration plotted over time")
 
 Clicking on additional Attribute plot symbols opens up new plotting windows.
-By activating the 'Multiplot'-checkbox, any additional attribute plots wil be added to that plot window instead of opening a new plot window.
+By activating the 'Multiplot'-checkbox, any additional attribute plots will be added to that plot window instead of opening a new plot window.
 
 When moving the mouse over a plot window, plot point closest to the mouse cursor is highlighted and its *x* and *y* values are printed in blue along the plot axes.
 

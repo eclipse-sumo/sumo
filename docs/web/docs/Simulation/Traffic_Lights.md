@@ -1103,7 +1103,7 @@ This shows the evolution of signal states for all controlled links for the last 
 The following additional features may be activated via checkboxes:
 
 - **detector**: shows activation states of all [detectors that are controlling this traffic light](Traffic_Lights.md#detectors)
-- **conditions**: shows the boolean value of [conditions that are defined for this traffic light](Traffic_Lights.md#named_expressions). A colored block wil be drawn when the numerical value of the condition is different from zero.
+- **conditions**: shows the boolean value of [conditions that are defined for this traffic light](Traffic_Lights.md#named_expressions). A colored block will be drawn when the numerical value of the condition is different from zero.
 
 !!! note
     When the mouse is placed over an active condition block, the numerical value of the condition will be shown.
