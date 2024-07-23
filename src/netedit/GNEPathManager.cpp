@@ -264,19 +264,22 @@ std::vector<GNEEdge*>
 GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& edges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
-    // calculate route depending of number of partial myEdges
-    if (edges.size() == 0) {
-        // partial edges empty, then return a empty vector
-        return solution;
-    }
     // check if path calculator is updated
     if (!myPathCalculatorUpdated) {
         // use partialEdges as solution
         solution = edges;
         return solution;
     }
-    if (edges.size() == 1) {
-        // if there is only one partialEdges, route has only one edge
+    // calculate route depending of number of partial edges
+    if (edges.size() == 0) {
+        // partial edges empty, then return a empty vector
+        return solution;
+    } else if (edges.size() == 1) {
+        // if there is only one partialEdges, path has only one edge
+        solution.push_back(edges.front());
+        return solution;
+    } else if ((edges.size() == 2) && (edges.front() == edges.back())) {
+        // typical case for stops. Used to avoid unnecesary calls to compute
         solution.push_back(edges.front());
         return solution;
     } else {
