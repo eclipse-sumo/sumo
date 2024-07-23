@@ -70,7 +70,7 @@ markdown_extensions:
   - pymdownx.magiclink:
       provider: github
   - mdx_gh_links:
-      user: eclipse
+      user: eclipse-sumo
       repo: sumo
   - plantuml_markdown
   - codehilite
