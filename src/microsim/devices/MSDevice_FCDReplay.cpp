@@ -201,13 +201,17 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
                 }
                 myTrajectories[id].push_back({myTime, xy, edgeOrLane, pos, speed, angle});
                 const MSEdge* edge = MSEdge::dictionary(isPerson ? edgeOrLane : SUMOXMLDefinitions::getEdgeIDFromLane(edgeOrLane));
-                if (edgeOrLane == "") {
-                    edge = getClosestEdge(xy, SVC_PASSENGER);
-                }
                 if (edge == nullptr && edgeOrLane != "") {
                     WRITE_WARNINGF(isPerson ? TL("Unknown edge '%' in fcd replay file for person '%'.") : TL("Unknown lane '%' in fcd replay file for vehicle '%'."), edgeOrLane, id);
                 }
                 if (myRoutes.count(id) == 0) {
+                    if (edgeOrLane == "") {
+                        const MSLane* const lane = getClosestLane(xy, SVC_PASSENGER);
+                        if (lane != nullptr) {
+                            myTrajectories[id].back().edgeOrLane = lane->getID();
+                            edge = &lane->getEdge();
+                        }
+                    }
                     myRoutes[id] = std::make_tuple(myTime, type, isPerson, ConstMSEdgeVector{edge}, std::vector<StageStart>());
                 } else {
                     ConstMSEdgeVector& route = std::get<3>(myRoutes[id]);

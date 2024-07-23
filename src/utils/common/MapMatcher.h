@@ -65,24 +65,28 @@ protected:
                 GeoConvHelper::getFinal().x2cartesian_const(pos);
             }
             double dist = MIN2(10.0, myMapMatchingDistance);
-            const E* best = getClosestEdge(pos, vClass, dist);
+            const L* best = getClosestLane(pos, vClass, dist);
             while (best == nullptr && dist < myMapMatchingDistance) {
                 dist = MIN2(dist * 2, myMapMatchingDistance);
-                best = getClosestEdge(pos, vClass, dist);
+                best = getClosestLane(pos, vClass, dist);
             }
             if (best == nullptr) {
                 myErrorOutput->inform("No edge found near position " + toString(orig, geo ? gPrecisionGeo : gPrecision) + " within the route " + rid + ".");
                 ok = false;
             } else {
+                const E* bestEdge = &best->getEdge();
+                while (bestEdge->isInternal()) {
+                    bestEdge = bestEdge->getSuccessors().front();
+                }
                 if (myMapMatchJunctions) {
-                    best = getJunctionTaz(pos, best, vClass, isFrom);
-                    if (best != nullptr) {
-                        into.push_back(best);
+                    bestEdge = getJunctionTaz(pos, bestEdge, vClass, isFrom);
+                    if (bestEdge != nullptr) {
+                        into.push_back(bestEdge);
                     }
                 } else {
                     // handle multiple via locations on the same edge without loops
-                    if (positions.size() == 1 || into.empty() || into.back() != best) {
-                        into.push_back(best);
+                    if (positions.size() == 1 || into.empty() || into.back() != bestEdge) {
+                        into.push_back(bestEdge);
                     }
                 }
             }
@@ -90,8 +94,8 @@ protected:
     }
 
 
-    /// @brief find closest edge within distance for the given position or nullptr
-    const E* getClosestEdge(const Position& pos, SUMOVehicleClass vClass, double distance = -1.) {
+    /// @brief find closest lane within distance for the given position or nullptr
+    const L* getClosestLane(const Position& pos, SUMOVehicleClass vClass, double distance = -1.) {
         NamedRTree* t = getLaneTree();
         Boundary b;
         b.add(pos);
@@ -115,15 +119,7 @@ protected:
                 best = cand;
             }
         }
-        if (best == nullptr) {
-            return nullptr;
-        } else {
-            const E* bestEdge = &best->getEdge();
-            while (bestEdge->isInternal()) {
-                bestEdge = bestEdge->getSuccessors().front();
-            }
-            return bestEdge;
-        }
+        return best;
     }
 
     /// @brief find closest junction taz given the closest edge
