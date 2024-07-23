@@ -37,10 +37,21 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
 from sumolib.version import gitDescribe  # noqa
 
+# Try to import dmgbuild and exit with an error message if it fails
+try:
+    from dmgbuild.core import build_dmg
+except ImportError:
+    print("Error: dmgbuild module is not installed. Please install it using 'pip install dmgbuild'.")
+    sys.exit(1)
+
 
 def parse_args():
-    op = ArgumentParser(description="Build an installer for macOS")
+    default_dmg_name = f"Eclipse SUMO {gitDescribe()}.dmg"
+    default_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", default_dmg_name))
+    op = ArgumentParser(description="Build an installer for macOS (dmg file)")
     op.add_argument("build_dir", help="Build dir of sumo")
+    op.add_argument("-o", "--output", dest="output", help="Output path for the dmg file", default=default_output_path)
+
     return op.parse_args()
 
 
@@ -319,56 +330,28 @@ def create_installer(framework_pkg, app_pkgs, version):
     return installer_dir
 
 
-def create_dmg(dmg_title, dmg_file_name, src_dir, total_size, final_dmg_path):
-    temp_dir = tempfile.mkdtemp()
-    temp_dmg_path = os.path.join(temp_dir, "pack.temp.dmg")
-
-    if os.path.exists(final_dmg_path):
+def create_dmg(dmg_title, dmg_path, src_dir, total_size):
+    if os.path.exists(dmg_path):
         print(" - Removing already existing disk image before creating a new disk image")
-        os.remove(final_dmg_path)
+        os.remove(dmg_path)
 
-    # Create a temporary dmg file based on the content in src_dir
-    print(" - Creating temporary disk image")
-    hdi_create_command = [
-        "hdiutil",
-        "create",
-        "-srcfolder",
-        src_dir,
-        "-volname",
-        f'"{dmg_title}"',
-        "-fs",
-        "HFS+",
-        "-fsargs",
-        "-c c=64,a=16,e=16",
-        "-format",
-        "UDRW",
-        "-size",
-        f"{total_size * 1.2}k",
-        temp_dmg_path,
-    ]
-    subprocess.run(hdi_create_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print(" - Collecting pkg files")
+    pkg_files = []
+    for root, _, files in os.walk(src_dir):
+        for file in files:
+            if file.endswith(".pkg"):
+                pkg_files.append((os.path.join(root, file), file))
 
-    print(" - Mounting and beautifying temporary disk image")
-    # FIXME: additions to modify temp dmg to add background etc. and make it pretty
-    #        maybe hide all pkg files except the installer?
-
-    print(" - Converting temporary disk image to final disk image")
-    hdi_convert_command = [
-        "hdiutil",
-        "convert",
-        temp_dmg_path,
-        "-format",
-        "UDZO",
-        "-imagekey",
-        "zlib-level=9",
-        "-o",
-        final_dmg_path,
-    ]
-    subprocess.run(hdi_convert_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print(f" - Building diskimage at {dmg_path}")
+    settings = {
+        "volume_name": "Eclipse SUMO",
+        "size": f"{total_size * 1.2}K",
+        "files": pkg_files,
+    }
+    build_dmg(dmg_path, dmg_title, settings=settings)
 
     print(" - Cleaning up")
     shutil.rmtree(src_dir)
-    shutil.rmtree(temp_dir)
 
 
 def main():
@@ -376,12 +359,16 @@ def main():
     version = gitDescribe()
     base_id = "org.eclipse.sumo"
 
+    # Parse and check the command line arguments
     opts = parse_args()
     if not os.path.exists(opts.build_dir):
         print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
         sys.exit(1)
     if not os.path.exists(os.path.join(opts.build_dir, "CMakeCache.txt")):
         print(f"Error: directory '{opts.build_dir}' is not a build directory.", file=sys.stderr)
+        sys.exit(1)
+    if not os.path.exists(os.path.dirname(opts.output)):
+        print(f"Error: output directory '{os.path.dirname(opts.output)}' does not exist.", file=sys.stderr)
         sys.exit(1)
 
     print("Building framework package 'EclipseSUMO'")
@@ -406,9 +393,8 @@ def main():
     installer_dir = create_installer(framework_pkg, app_pkgs, version)
     print(f"Successfully built installer at '{installer_dir}'\n")
 
-    dmg_path = os.path.join(cwd, "..", "..", f"Eclipse SUMO {version}.dmg")
     print("Building disk image")
-    create_dmg("Eclipse SUMO", "Eclipse SUMO.dmg", installer_dir, total_size, dmg_path)
+    create_dmg("Eclipse SUMO", opts.output, installer_dir, total_size)
     print("Successfully built disk image")
 
     # Removing final pkg-files
@@ -416,7 +402,7 @@ def main():
     for app_pkg in app_pkgs:
         os.remove(app_pkg[3])
 
-    print(f"\nDisk image is available here: {dmg_path}")
+    print(f"\nDisk image is available here: {opts.output}")
 
 
 if __name__ == "__main__":
