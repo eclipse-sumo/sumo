@@ -45,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color using dialog
 netedit.modifyColorAttribute(netedit.attrs.route.inspect.colorButton, 5, False)

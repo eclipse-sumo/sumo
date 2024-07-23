@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 tranship
 dummy
 TestFunctions: Clicked over position 685 - 611
-TestFunctions: Clicked over position 715 - 172
+TestFunctions: Clicked over position 715 - 163
 -20
 7.3
 TestFunctions: Clicked over position 304 - 168

@@ -64,13 +64,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.departLane, "random")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid depart lane
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.departLane, "20")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

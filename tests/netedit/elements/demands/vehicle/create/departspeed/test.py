@@ -70,13 +70,13 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.departSpeed, "max")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid depart speed
 netedit.changeDefaultValue(netedit.attrs.vehicle.create.departSpeed, "20")
 
 # create vehicle
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.route)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

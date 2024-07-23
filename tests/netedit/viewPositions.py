@@ -419,7 +419,7 @@ class elements:
 
         class trainStop:
             x = 718
-            y = 10
+            y = 13
 
         class containerStop:
             x = 411
@@ -465,18 +465,6 @@ class elements:
             x = 415
             y = 30
 
-        class stopEdgeX:
-            x = 256
-            y = 35
-
-        class planJunctionX:
-            x = 134
-            y = 52
-
-        class planBusStopX:
-            x = 318
-            y = 14
-
-        class planEdgeX:
-            x = 197
-            y = 36
+        class planPerson:
+            x = 600
+            y = 4

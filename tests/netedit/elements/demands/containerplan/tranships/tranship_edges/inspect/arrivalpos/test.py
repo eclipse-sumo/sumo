@@ -61,7 +61,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerPlanEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planPerson)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdges.inspect.arrivalPos, "dummy", False)

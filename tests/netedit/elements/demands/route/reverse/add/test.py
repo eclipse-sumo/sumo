@@ -45,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.route,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.edge0,
                                 netedit.attrs.route.reverseElement, netedit.attrs.route.reverse.add)
 
 # Check undo redo

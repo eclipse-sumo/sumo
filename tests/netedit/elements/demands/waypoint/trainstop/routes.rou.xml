@@ -2,6 +2,6 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0"/>
-	<vType id="vTypeRail" vClass="rail" length="10"/>
-    <vehicle id="vehicle_0" type="vTypeRail" depart="0.00" route="route_0"/>
+
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 </routes>
