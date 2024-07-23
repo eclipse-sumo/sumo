@@ -65,7 +65,7 @@ jobs:
         mkdir build_msvc
         cd build_msvc
         cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
-        cmake --build . --config Release
+        cmake --build .
 
     - name: Building SUMO extra
       if: matrix.build_type == 'extra'
@@ -73,8 +73,8 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=true
-        cmake --build . --config Release
+        cmake .. -GNinja
+        cmake --build .
 
     - name: Building SUMO debug
       if: matrix.build_type == 'debug'
@@ -82,8 +82,8 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=true
-        cmake --build . --config Debug
+        cmake .. -GNinja -DCMAKE_BUILD_TYPE=Debug
+        cmake --build .
 
     - name: Building TraaS
       run: |
