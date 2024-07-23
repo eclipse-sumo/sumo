@@ -127,7 +127,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
         "--prefix",
         os.path.join(version_dir, name),
     ]
-    subprocess.run(cmake_install_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(cmake_install_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     # Determine library dependencies and copy all from homebrew,
     # which are not libx* or mesa*
@@ -164,7 +164,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
         f"{pkg_path}",
     ]
     print(" - Calling pkgbuild")
-    subprocess.run(pkg_build_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     pkg_size = os.path.getsize(pkg_path)
 
     # Cleanup the temporary directory
@@ -236,7 +236,7 @@ exec "$SUMO_HOME/bin/{binary_name}" "$@"
         f"/Applications/{app_name}.app",
         f"{pkg_path}",
     ]
-    subprocess.run(pkg_build_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    subprocess.run(pkg_build_command, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     pkg_size = os.path.getsize(pkg_path)
 
     # Cleanup the temporary directory
@@ -245,14 +245,14 @@ exec "$SUMO_HOME/bin/{binary_name}" "$@"
     return app_name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_installer(framework_pkg, app_pkgs, version):
+def create_installer(frmwk_pkg, app_pkgs, id, version):
     print(" - Creating temporary directory")
     temp_dir = tempfile.mkdtemp()
     resources_dir = os.path.join(temp_dir, "Resources")
     os.makedirs(resources_dir)
 
     # Copy the framework package
-    framework_pkg_path = framework_pkg[3]
+    framework_pkg_path = frmwk_pkg[3]
     shutil.copy(framework_pkg_path, temp_dir)
 
     # Copy the app packages
@@ -266,34 +266,30 @@ def create_installer(framework_pkg, app_pkgs, version):
     # Create distribution.xml
     print(" - Creating distribution.xml")
 
-    psize = framework_pkg[4] // 1024
-    ppath = os.path.basename(framework_pkg[3])
-    choices_outline = "        <line choice='choice0'/>"
-    choices = f"""
-    <choice id="choice0" title="{framework_pkg[0]} Framework" selected="true">
-        <pkg-ref id="{framework_pkg[2]}"/>
-    </choice>"""
-    pkg_refs = f"    <pkg-ref id='{framework_pkg[2]}' version='{version}' installKBytes='{psize}'>{ppath}</pkg-ref>\n"
+    size = frmwk_pkg[4] // 1024
+    path = os.path.basename(frmwk_pkg[3])
+    refs = f"        <pkg-ref id='{frmwk_pkg[2]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
 
-    for i, app_pkg in enumerate(app_pkgs):
-        psize = app_pkg[4] // 1024
-        ppath = os.path.basename(app_pkg[3])
-        choices_outline += f"\n        <line choice='choice{i + 1}'/>"
-        choices += f"""
-    <choice id="choice{i}" title="{app_pkg[0]} Launcher" selected="true">
-        <pkg-ref id="{app_pkg[2]}"/>
-    </choice>"""
-        pkg_refs += f"    <pkg-ref id='{app_pkg[2]}' version='{version}' installKBytes='{psize}'>{ppath}</pkg-ref>\n"
+    for _, app_pkg in enumerate(app_pkgs):
+        size = app_pkg[4] // 1024
+        path = os.path.basename(app_pkg[3])
+        refs += f"\n        <pkg-ref id='{app_pkg[2]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
 
     distribution_content = f"""<?xml version="1.0" encoding="utf-8"?>
-<installer-gui-script minSpecVersion="1">
+<installer-gui-script minSpecVersion="2">
     <title>Eclipse SUMO</title>
+    <!-- <allowed-os-versions><os-version min="10.10"/></allowed-os-versions> -->
     <!-- <license file="LICENSE.txt"/> -->
+    <!-- <background file="background.png" alignment="bottomleft" mime-type="image/png" scaling="none" /> -->
+    <!-- <welcome file="Welcome.html" mime-type="text/html"/> -->
+    <!-- <conclusion file="Conclusion.html" mime-type="text/html"/> -->
+    <options customize="allow" require-scripts="false" rootVolumeOnly="true" hostArchitectures="arm64"/>
     <choices-outline>
-{choices_outline}
+        <line choice="default"/>
     </choices-outline>
-{choices}
-{pkg_refs}
+    <choice id="default" title="Eclipse SUMO">
+{refs}
+    </choice>
 </installer-gui-script>
 """
     distribution_path = os.path.join(temp_dir, "distribution.xml")
@@ -302,7 +298,10 @@ def create_installer(framework_pkg, app_pkgs, version):
 
     # Call productbuild
     print(" - Calling productbuild")
-    final_pkg_path = os.path.join(temp_dir, f"Installer-{version}.pkg")
+
+    cwd = os.path.dirname(os.path.abspath(__file__))
+    pkg_name = f"Installer-{version}.pkg"
+    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
     productbuild_command = [
         "productbuild",
         "--distribution",
@@ -311,47 +310,49 @@ def create_installer(framework_pkg, app_pkgs, version):
         temp_dir,
         "--resources",
         resources_dir,
-        final_pkg_path,
+        pkg_path,
     ]
-    subprocess.run(productbuild_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-    installer_dir = tempfile.mkdtemp()
-    print(" - Preparing installer folder")
-    shutil.copy(final_pkg_path, installer_dir)
-    shutil.copy(framework_pkg[3], installer_dir)
-    for app_pkg in app_pkgs:
-        shutil.copy(app_pkg[3], installer_dir)
-
-    # FIXME: Add uninstaller scriptto the installer folder
+    subprocess.run(productbuild_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    pkg_size = os.path.getsize(pkg_path)
 
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
 
-    return installer_dir
+    pkg_size = os.path.getsize(pkg_path)
+    return "Installer", pkg_name, id, pkg_path, pkg_size
 
 
-def create_dmg(dmg_title, dmg_path, src_dir, total_size):
-    if os.path.exists(dmg_path):
+def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
+
+    print(" - Preparing disk image folder")
+    dmg_prep_folder = tempfile.mkdtemp()
+    shutil.copy(installer_pkg_path, dmg_prep_folder)
+
+    # FIXME: Add uninstaller script to the installer folder
+
+    if os.path.exists(dmg_output_path):
         print(" - Removing already existing disk image before creating a new disk image")
-        os.remove(dmg_path)
+        os.remove(dmg_output_path)
 
-    print(" - Collecting pkg files")
-    pkg_files = []
-    for root, _, files in os.walk(src_dir):
+    print(" - Collecting files and calculating file size")
+    files_to_store = []
+    total_size = 0
+    for root, _, files in os.walk(dmg_prep_folder):
         for file in files:
-            if file.endswith(".pkg"):
-                pkg_files.append((os.path.join(root, file), file))
+            files_to_store.append((os.path.join(root, file), file))
+            total_size += os.path.getsize(os.path.join(root, file))
 
-    print(f" - Building diskimage at {dmg_path}")
+    print(" - Building diskimage")
     settings = {
         "volume_name": "Eclipse SUMO",
-        "size": f"{total_size * 1.2}K",
-        "files": pkg_files,
+        "size": f"{total_size // 1024 * 1.2}K",
+        "files": files_to_store,
+        # FIXME: add background and badge
     }
-    build_dmg(dmg_path, dmg_title, settings=settings)
+    build_dmg(dmg_output_path, dmg_title, settings=settings)
 
     print(" - Cleaning up")
-    shutil.rmtree(src_dir)
+    shutil.rmtree(dmg_prep_folder)
 
 
 def main():
@@ -371,10 +372,12 @@ def main():
         print(f"Error: output directory '{os.path.dirname(opts.output)}' does not exist.", file=sys.stderr)
         sys.exit(1)
 
+    # Building the framework package
     print("Building framework package 'EclipseSUMO'")
     framework_pkg = create_framework("EclipseSUMO", "Eclipse SUMO", f"{base_id}.framework", version, opts.build_dir)
     print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
+    # Building all the app launchers packages
     app_pkgs = []
     app_list = [
         ("Sumo-GUI", "sumo-gui", framework_pkg[0], f"{base_id}.apps.sumo-gui", version, "sumo-gui-icons.icns"),
@@ -388,21 +391,22 @@ def main():
         app_pkgs.append(app_pkg)
         print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
+    # Building the installer package
     print("Building installer")
-    total_size = sum(pkg[4] for pkg in [framework_pkg] + app_pkgs) // 1024  # size in KB
-    installer_dir = create_installer(framework_pkg, app_pkgs, version)
-    print(f"Successfully built installer at '{installer_dir}'\n")
+    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version)
+    print("Successfully built installer\n")
 
     print("Building disk image")
-    create_dmg("Eclipse SUMO", opts.output, installer_dir, total_size)
+    create_dmg("Eclipse SUMO", opts.output, installer_pkg[3])
     print("Successfully built disk image")
 
     # Removing final pkg-files
-    os.remove(framework_pkg[3])
-    for app_pkg in app_pkgs:
-        os.remove(app_pkg[3])
+    # os.remove(installer_pkg[3])
+    # os.remove(framework_pkg[3])
+    # for app_pkg in app_pkgs:
+    #    os.remove(app_pkg[3])
 
-    print(f"\nDisk image is available here: {opts.output}")
+    print(f"\nDisk image is available: '{opts.output}' (size: {os.path.getsize(opts.output) / (1024 * 1024):.2f} MB)")
 
 
 if __name__ == "__main__":
