@@ -1765,38 +1765,39 @@ MSVehicle::processNextStop(double currentVelocity) {
                 stop.skipOnDemand = true;
             }
         }
-
         // is the next stop on the current lane?
         if (stop.edge == myCurrEdge) {
             // get the stopping position
             bool useStoppingPlace = stop.busstop != nullptr || stop.containerstop != nullptr || stop.parkingarea != nullptr;
             bool fitsOnStoppingPlace = true;
-            if (stop.busstop != nullptr) {
-                fitsOnStoppingPlace &= stop.busstop->fits(myState.myPos, *this);
-            }
-            if (stop.containerstop != nullptr) {
-                fitsOnStoppingPlace &= stop.containerstop->fits(myState.myPos, *this);
-            }
-            // if the stop is a parking area we check if there is a free position on the area
-            if (stop.parkingarea != nullptr) {
-                fitsOnStoppingPlace &= myState.myPos > stop.parkingarea->getBeginLanePosition();
-                if (stop.parkingarea->getOccupancy() >= stop.parkingarea->getCapacity()) {
-                    fitsOnStoppingPlace = false;
-                    // trigger potential parkingZoneReroute
-                    MSParkingArea* oldParkingArea = stop.parkingarea;
-                    for (MSMoveReminder* rem : myLane->getMoveReminders()) {
-                        if (rem->isParkingRerouter()) {
-                            rem->notifyEnter(*this, MSMoveReminder::NOTIFICATION_PARKING_REROUTE, myLane);
+            if (!stop.skipOnDemand) {  // no need to check available space if we skip it anyway
+                if (stop.busstop != nullptr) {
+                    fitsOnStoppingPlace &= stop.busstop->fits(myState.myPos, *this);
+                }
+                if (stop.containerstop != nullptr) {
+                    fitsOnStoppingPlace &= stop.containerstop->fits(myState.myPos, *this);
+                }
+                // if the stop is a parking area we check if there is a free position on the area
+                if (stop.parkingarea != nullptr) {
+                    fitsOnStoppingPlace &= myState.myPos > stop.parkingarea->getBeginLanePosition();
+                    if (stop.parkingarea->getOccupancy() >= stop.parkingarea->getCapacity()) {
+                        fitsOnStoppingPlace = false;
+                        // trigger potential parkingZoneReroute
+                        MSParkingArea* oldParkingArea = stop.parkingarea;
+                        for (MSMoveReminder* rem : myLane->getMoveReminders()) {
+                            if (rem->isParkingRerouter()) {
+                                rem->notifyEnter(*this, MSMoveReminder::NOTIFICATION_PARKING_REROUTE, myLane);
+                            }
                         }
+                        if (myStops.empty() || myStops.front().parkingarea != oldParkingArea) {
+                            // rerouted, keep driving
+                            return currentVelocity;
+                        }
+                    } else if (stop.parkingarea->getOccupancyIncludingBlocked() >= stop.parkingarea->getCapacity()) {
+                        fitsOnStoppingPlace = false;
+                    } else if (stop.parkingarea->parkOnRoad() && stop.parkingarea->getLotIndex(this) < 0) {
+                        fitsOnStoppingPlace = false;
                     }
-                    if (myStops.empty() || myStops.front().parkingarea != oldParkingArea) {
-                        // rerouted, keep driving
-                        return currentVelocity;
-                    }
-                } else if (stop.parkingarea->getOccupancyIncludingBlocked() >= stop.parkingarea->getCapacity()) {
-                    fitsOnStoppingPlace = false;
-                } else if (stop.parkingarea->parkOnRoad() && stop.parkingarea->getLotIndex(this) < 0) {
-                    fitsOnStoppingPlace = false;
                 }
             }
             const double targetPos = myState.myPos + myStopDist + (stop.getSpeed() > 0 ? (stop.pars.startPos - stop.pars.endPos) : 0);
@@ -2662,7 +2663,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         } else {
             // On minor link, we should likewise never stop below visibility distance
             const double minorStopOffset = MAX2(lane->getVehicleStopOffset(this),
-                    getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
+                                                getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_CROSSING_GAP, MSPModel::SAFETY_GAP) - (*link)->getDistToFoePedCrossing());
             laneStopOffset = MIN2((*link)->getFoeVisibilityDistance() - POSITION_EPS, minorStopOffset);
         }
 #ifdef DEBUG_PLAN_MOVE
@@ -2677,8 +2678,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
         double stopDist = MAX2(0., seen - laneStopOffset);
         if (yellowOrRed && getDevice(typeid(MSDevice_GLOSA)) != nullptr
-            && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->getOverrideSafety()
-            && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive()) {
+                && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->getOverrideSafety()
+                && static_cast<MSDevice_GLOSA*>(getDevice(typeid(MSDevice_GLOSA)))->isSpeedAdviceActive()) {
             stopDist = std::numeric_limits<double>::max();
         }
         if (newStopDist != std::numeric_limits<double>::max()) {
