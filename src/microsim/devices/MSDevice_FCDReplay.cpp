@@ -209,6 +209,8 @@ MSDevice_FCDReplay::FCDHandler::myStartElement(int element, const SUMOSAXAttribu
                         const MSLane* const lane = getClosestLane(xy, SVC_PASSENGER);
                         if (lane != nullptr) {
                             myTrajectories[id].back().edgeOrLane = lane->getID();
+                            myTrajectories[id].back().lanePos = lane->interpolateGeometryPosToLanePos(
+                                                                    lane->getShape().nearest_offset_to_point25D(xy, false));
                             edge = &lane->getEdge();
                         }
                     }
@@ -357,6 +359,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                     throw ProcessError("Could not add route '" + dummyRouteID + "'.");
                 }
                 if (t.front().edgeOrLane != "") {
+                    params->departPosProcedure = DepartPosDefinition::GIVEN;
                     params->departLaneProcedure = DepartLaneDefinition::GIVEN;
                     params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
                 }
