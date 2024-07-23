@@ -286,12 +286,20 @@ GNEPathManager::PathCalculator::calculateDijkstraPath(const SUMOVehicleClass vCl
         GNENet* net = edges.front()->getNet();
         // iterate over every selected myEdges
         for (int i = 1; i < (int)edges.size(); i++) {
-            // declare a temporal route in which save route between two last myEdges
-            std::vector<const NBRouterEdge*> partialRoute;
-            myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
-            // save partial route in solution
-            for (const auto& edgeID : partialRoute) {
-                solution.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID->getID()));
+            // ignore consecutive edges
+            if (edges.at(i - 1)->getNBEdge() != edges.at(i)->getNBEdge()) {
+                // declare a temporal route in which save route between two last myEdges
+                std::vector<const NBRouterEdge*> partialRoute;
+                myDijkstraRouter->compute(edges.at(i - 1)->getNBEdge(), edges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
+                // if partial route is empty, return empty route
+                if (partialRoute.empty()) {
+                    return {};
+                } else {
+                    // save partial route in solution
+                    for (const auto& edgeID : partialRoute) {
+                        solution.push_back(net->getAttributeCarriers()->retrieveEdge(edgeID->getID()));
+                    }
+                }
             }
         }
     }
@@ -731,23 +739,6 @@ GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass,
     if (edges.size() > 0) {
         buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges),
                   edges.front()->getLaneByAllowedVClass(vClass), nullptr, edges.back()->getLaneByAllowedVClass(vClass), nullptr);
-    } else {
-        removePath(pathElement);
-    }
-}
-
-
-void
-GNEPathManager::calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes) {
-    // build path
-    if (lanes.size() > 0) {
-        // extract parent edges
-        std::vector<GNEEdge*> edges;
-        edges.reserve(lanes.size());
-        for (const auto& lane : lanes) {
-            edges.push_back(lane->getParentEdge());
-        }
-        buildPath(pathElement, vClass, myPathCalculator->calculateDijkstraPath(vClass, edges), lanes.front(), nullptr, lanes.back(), nullptr);
     } else {
         removePath(pathElement);
     }

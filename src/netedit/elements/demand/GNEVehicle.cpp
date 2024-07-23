@@ -977,47 +977,69 @@ GNEVehicle::computePathElement() {
         // calculate path
         myNet->getPathManager()->calculatePath(this, getVClass(), getParentJunctions().front(), getParentJunctions().back());
     } else if (myTagProperty.vehicleEdges()) {
-        // declare lane stops
-        std::vector<GNELane*> laneStopWaypoints;
+        // save edges in wich this vehicle has to stop
+        std::vector<GNEEdge*> edgeStops;
         // iterate over child demand elements
         for (const auto& demandElement : getChildDemandElements()) {
             // extract lanes
             if (demandElement->getTagProperty().isVehicleStop()) {
+                GNEEdge* edgeStop = nullptr;
                 if (demandElement->getParentAdditionals().size() > 0) {
-                    laneStopWaypoints.push_back(demandElement->getParentAdditionals().front()->getParentLanes().front());
+                    edgeStop = demandElement->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
                 } else {
-                    laneStopWaypoints.push_back(demandElement->getParentLanes().front());
+                    edgeStop = demandElement->getParentLanes().front()->getParentEdge();
+                }
+                if (edgeStop) {
+                    // avoid double edge stops
+                    if (stops.empty()) {
+                        edgeStops.push_back(edgeStop);
+                    } else if (edgeStops.back() != edgeStop) {
+                        edgeStops.push_back(edgeStop);
+                    }
                 }
             }
         }
-        // declare lane vector
-        std::vector<GNELane*> lanes;
+        // declare edge vector
+        std::vector<GNEEdge*> edgePath;
         // get first and last lanes
         const auto firstLane = getFirstPathLane();
         const auto lastLane = getLastPathLane();
         // check first and last lanes
         if (firstLane && lastLane) {
             // add first lane
-            lanes.push_back(getFirstPathLane());
-            // now check if there are lane Stops
-            if (laneStopWaypoints.size() > 0) {
-                // add stop lanes
-                for (const auto& laneStop : laneStopWaypoints) {
-                    lanes.push_back(laneStop);
+            edgePath.push_back(firstLane->getParentEdge());
+            // give more priority to stops instead via
+            if (edgeStops.size() > 0) {
+                // add stops only if they're accesibles
+                for (const auto& edgeStop : edgeStops) {
+                    // check if exist a valid path that includes the last edge
+                    auto edgePathStop = edgePath;
+                    edgePathStop.push_back(edgeStop);
+                    edgePathStop.push_back(lastLane->getParentEdge());
+                    auto path = myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop);
+                    if (path.size() > 0) {
+                        edgePath.push_back(edgeStop);
+                    }
                 }
             } else {
                 // add via lanes
-                for (const auto& edgeID : via) {
-                    const auto edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-                    if (edge) {
-                        lanes.push_back(edge->getLaneByAllowedVClass(getVClass()));
+                for (const auto& edgeViaID : via) {
+                    const auto edgeVia = myNet->getAttributeCarriers()->retrieveEdge(edgeViaID, false);
+                    if (edgeVia) {
+                        // check if exist a valid path that includes the last edge
+                        auto edgePathStop = edgePath;
+                        edgePathStop.push_back(edgeVia);
+                        edgePathStop.push_back(lastLane->getParentEdge());
+                        if (myNet->getPathManager()->getPathCalculator()->calculateDijkstraPath(getVClass(), edgePathStop).size() > 0) {
+                            edgePath.push_back(edgeVia);
+                        }
                     }
                 }
             }
             // add last lane
-            lanes.push_back(lastLane);
+            edgePath.push_back(lastLane->getParentEdge());
             // calculate path
-            myNet->getPathManager()->calculatePath(this, getVClass(), lanes);
+            myNet->getPathManager()->calculatePath(this, getVClass(), edgePath);
         }
     }
     // update geometry

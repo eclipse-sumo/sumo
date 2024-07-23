@@ -327,9 +327,6 @@ public:
     /// @brief calculate path lanes between list of edges (using dijkstra, require path calculator updated)
     void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
-    /// @brief calculate path lanes between list of lanes (using dijkstra, require path calculator updated)
-    void calculatePath(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNELane*> lanes);
-
     /// @brief calculate consecutive path edges
     void calculateConsecutivePathEdges(PathElement* pathElement, SUMOVehicleClass vClass, const std::vector<GNEEdge*> edges);
 
