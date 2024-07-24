@@ -96,6 +96,9 @@ public:
     /// @brief retrieve a specific detector used by this program
     double getDetectorState(const std::string laneID) const override;
 
+    /// @brief return the estimated queue length at the upcoming traffic light
+    double getTLQueueLength(const std::string laneID) const override;
+
 
 protected:
     /// @name "actuated" algorithm methods

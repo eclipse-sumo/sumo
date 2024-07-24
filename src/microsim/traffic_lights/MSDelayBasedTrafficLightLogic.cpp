@@ -112,7 +112,7 @@ MSDelayBasedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                     length = MIN2(length, myDetectionRange);
 
                     std::string id = "TLS" + myID + "_" + myProgramID + "_E2CollectorOn_" + lane->getID();
-                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, 0, 0, 0, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
+                    det = nb.createE2Detector(id, DU_TL_CONTROL, lane, INVALID_POSITION, lane->getLength(), length, TIME2STEPS(1.0), 5.0/3.6, 10.0, "", myVehicleTypes, "", (int)PersonMode::NONE, myShowDetectors);
                     MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_LANE_AREA_DETECTOR, det, myFile, myFreq);
                 }
                 myLaneDetectors[lane] = det;
@@ -282,6 +282,18 @@ MSDelayBasedTrafficLightLogic::getDetectorState(std::string laneID) const {
     for (auto item : myLaneDetectors) {
         if (item.first->getID() == laneID) {
             result = item.second->getCurrentVehicleNumber();
+            break;
+        }
+    }
+    return result;
+}
+
+double
+MSDelayBasedTrafficLightLogic::getTLQueueLength(std::string laneID) const {
+    double result = 0.0;
+    for (auto item : myLaneDetectors) {
+        if (item.first->getID() == laneID) {
+            result = item.second->getEstimateQueueLength();
             break;
         }
     }

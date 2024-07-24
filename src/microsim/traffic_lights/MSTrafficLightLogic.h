@@ -383,6 +383,11 @@ public:
         return 0.0;
     }
 
+    /// @brief return the estimated queue length at the upcoming traffic light
+    virtual double getTLQueueLength(const std::string) const {
+        return 0.0;
+    }
+
     /// @brief return all named conditions defined for this traffic light
     virtual std::map<std::string, double> getConditions() const {
         return std::map<std::string, double>();
