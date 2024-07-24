@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-24 11:57+0000\n"
+"PO-Revision-Date: 2024-07-24 12:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3292,11 +3292,11 @@ msgstr ""
 
 #: src/microsim/MSVehicleControl.cpp:524
 msgid "Vehicle '%' aborted waiting %."
-msgstr ""
+msgstr "Il veicolo '%' ha smesso di aspettare %."
 
 #: src/microsim/MSVehicleTransfer.cpp:170
 msgid "Vehicle '%' ends teleporting on edge '%', time=%."
-msgstr ""
+msgstr "Il veicolo '%' termina il teletrasporto sull'arco '%' alle ore %."
 
 #: src/microsim/MSVehicleType.cpp:323
 #, c-format
