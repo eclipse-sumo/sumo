@@ -150,6 +150,8 @@ MSFrame::fillOptions() {
 
     oc.doRegister("chargingstations-output", new Option_FileName());
     oc.addDescription("chargingstations-output", "Output", TL("Write data of charging stations"));
+    oc.doRegister("chargingstations-output.aggregated", new Option_Bool(false));
+    oc.addDescription("chargingstations-output.aggregated", "Output", TL("Write aggregated charging event data instead of single time steps"));
 
     oc.doRegister("overheadwiresegments-output", new Option_FileName());
     oc.addDescription("overheadwiresegments-output", "Output", TL("Write data of overhead wire segments"));

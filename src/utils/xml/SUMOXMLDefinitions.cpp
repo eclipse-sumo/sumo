@@ -52,6 +52,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "access",                                 SUMO_TAG_ACCESS },
     { "containerStop",                          SUMO_TAG_CONTAINER_STOP },
     { "chargingStation",                        SUMO_TAG_CHARGING_STATION },
+    { "chargingEvent",                          SUMO_TAG_CHARGING_EVENT },
     { "parkingArea",                            SUMO_TAG_PARKING_AREA },
     { "space",                                  SUMO_TAG_PARKING_SPACE },
     { "e1Detector",                             SUMO_TAG_E1DETECTOR },
@@ -611,6 +612,11 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "chargingBegin",                  SUMO_ATTR_CHARGINGBEGIN },
     { "chargingEnd",                    SUMO_ATTR_CHARGINGEND },
     { "partialCharge",                  SUMO_ATTR_PARTIALCHARGE },
+    { "minPower",                       SUMO_ATTR_MINPOWER },
+    { "minCharge",                      SUMO_ATTR_MINCHARGE },
+    { "maxCharge",                      SUMO_ATTR_MAXCHARGE },
+    { "minEfficiency",                  SUMO_ATTR_MINEFFICIENCY },
+    { "maxEfficiency",                  SUMO_ATTR_MAXEFFICIENCY },
 
     // general emission / consumption
     { "shutOffStopDuration",    SUMO_ATTR_SHUT_OFF_STOP },

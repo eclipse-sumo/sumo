@@ -77,6 +77,7 @@
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/devices/MSDevice_Taxi.h>
 #include <microsim/output/MSBatteryExport.h>
+#include <microsim/output/MSChargingStationExport.h>
 #include <microsim/output/MSElecHybridExport.h>
 #include <microsim/output/MSEmissionExport.h>
 #include <microsim/output/MSFCDExport.h>
@@ -686,7 +687,7 @@ MSNet::closeSimulation(SUMOTime start, const std::string& reason) {
     if (OptionsCont::getOptions().getBool("tripinfo-output.write-unfinished")) {
         MSDevice_Tripinfo::generateOutputForUnfinished();
     }
-    if (OptionsCont::getOptions().isSet("chargingstations-output")) {
+    if (OptionsCont::getOptions().isSet("chargingstations-output") && !OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
         writeChargingStationOutput();
     }
     if (OptionsCont::getOptions().isSet("overheadwiresegments-output")) {
@@ -1059,6 +1060,11 @@ MSNet::writeOutput() {
     if (OptionsCont::getOptions().isSet("battery-output")) {
         MSBatteryExport::write(OutputDevice::getDeviceByOption("battery-output"), myStep,
                                oc.getInt("battery-output.precision"));
+    }
+
+    // charging station aggregated dumps
+    if (OptionsCont::getOptions().isSet("chargingstations-output") && OptionsCont::getOptions().getBool("chargingstations-output.aggregated")) {
+        MSChargingStationExport::write(OutputDevice::getDeviceByOption("chargingstations-output"), myStep);
     }
 
     // elecHybrid dumps

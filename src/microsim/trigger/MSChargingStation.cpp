@@ -246,6 +246,71 @@ MSChargingStation::writeChargingStationOutput(OutputDevice& output) {
     output.closeTag();
 }
 
+
+void
+MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
+    std::vector<std::string> terminatedChargers;
+    for (const auto& item : myChargeValues) {
+        const Charge& lastCharge = item.second.back();
+        if (lastCharge.timeStep < SIMSTEP - DELTA_T) {
+            // no charge during the last time step == has stopped charging
+            terminatedChargers.push_back(item.first);
+
+            // aggregate values
+            double minPower = lastCharge.chargingPower;
+            double maxPower = lastCharge.chargingPower;
+            double minCharge = lastCharge.WCharged;
+            double maxCharge = lastCharge.WCharged;
+            double minEfficiency = lastCharge.chargingEfficiency;
+            double maxEfficiency = lastCharge.chargingEfficiency;
+
+            for (const auto& charge : item.second) {
+                if (charge.chargingPower < minPower) {
+                    minPower = charge.chargingPower;
+                }
+                if (charge.chargingPower > maxPower) {
+                    maxPower = charge.chargingPower;
+                }
+                if (charge.WCharged < minCharge) {
+                    minCharge = charge.WCharged;
+                }
+                if (charge.WCharged > maxCharge) {
+                    maxCharge = charge.WCharged;
+                }
+                if (charge.chargingEfficiency < minEfficiency) {
+                    minEfficiency = charge.chargingEfficiency;
+                }
+                if (charge.chargingEfficiency > maxEfficiency) {
+                    maxEfficiency = charge.chargingEfficiency;
+                }
+            }
+
+            // actually write the data
+            output.openTag(SUMO_TAG_CHARGING_EVENT);
+            output.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, myID);
+            output.writeAttr(SUMO_ATTR_VEHICLE, lastCharge.vehicleID);
+            output.writeAttr(SUMO_ATTR_TYPE, lastCharge.vehicleType);
+            output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, lastCharge.totalEnergyCharged);
+            output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(item.second.at(0).timeStep));
+            output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
+            output.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, lastCharge.actualBatteryCapacity);
+            output.writeAttr(SUMO_ATTR_MINPOWER, minPower);
+            output.writeAttr(SUMO_ATTR_MAXPOWER, maxPower);
+            output.writeAttr(SUMO_ATTR_MINCHARGE, minCharge);
+            output.writeAttr(SUMO_ATTR_MAXCHARGE, maxCharge);
+            output.writeAttr(SUMO_ATTR_MINCHARGE, minCharge);
+            output.writeAttr(SUMO_ATTR_MAXCHARGE, maxCharge);
+            output.closeTag();
+        }
+    }
+
+    // clear charging data of vehicles which terminated charging
+    for (auto vehID : terminatedChargers) {
+        myChargeValues.erase(vehID);
+    }
+}
+
+
 void
 MSChargingStation::writeVehicle(OutputDevice& out, const std::vector<Charge>& chargeSteps, int iStart, int iEnd, double charged) {
     const Charge& first = chargeSteps[iStart];

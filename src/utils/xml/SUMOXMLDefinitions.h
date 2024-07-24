@@ -71,6 +71,8 @@ enum SumoXMLTag {
     SUMO_TAG_CONTAINER_STOP,
     /// @brief A Charging Station
     SUMO_TAG_CHARGING_STATION,
+    /// @brief A charging event (charging a vehicle at a charging station)
+    SUMO_TAG_CHARGING_EVENT,
     /// @brief A parking area
     SUMO_TAG_PARKING_AREA,
     /// @brief A parking space for a single vehicle within a parking area
@@ -907,8 +909,18 @@ enum SumoXMLAttr {
     SUMO_ATTR_CHARGINGBEGIN,
     /// @brief timesteps in which charging ends
     SUMO_ATTR_CHARGINGEND,
-    /// @brief energy provied by charging station at certain timestep
+    /// @brief energy provided by charging station at certain timestep
     SUMO_ATTR_PARTIALCHARGE,
+    /// @brief minimum charging power encountered during the charging event
+    SUMO_ATTR_MINPOWER,
+    /// @brief minimum energy charged during one time step of the charging event
+    SUMO_ATTR_MINCHARGE,
+    /// @brief maximum energy charged during one time step of the charging event
+    SUMO_ATTR_MAXCHARGE,
+    /// @brief minimum charging efficiency encountered during the charging event
+    SUMO_ATTR_MINEFFICIENCY,
+    /// @brief maximum charging efficiency encountered during the charging event
+    SUMO_ATTR_MAXEFFICIENCY,
     /// @}
 
     /// @name general emission / consumption parameters

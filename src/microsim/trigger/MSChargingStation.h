@@ -118,6 +118,9 @@ public:
     /// @brief write charging station values
     void writeChargingStationOutput(OutputDevice& output);
 
+    /// @brief write ungrouped output (flush data after writing)
+    void writeAggregatedChargingStationOutput(OutputDevice& output);
+
 protected:
 
     /// @brief struct to save information for the chargingStation output
