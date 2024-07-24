@@ -32,14 +32,14 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- missing file -->
-    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_0" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" endPos="15"/>
 
     <!-- invalid file -->
-    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" file="%%$$$%$" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_1" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="%%$$$%$" endPos="15"/>
 
     <!-- duplicated file -->
-    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" file="myOwnFile.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_2" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="myOwnFile.xml" endPos="15"/>
 
     <!-- bigger endPos -->
-    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="Edge0_1 Edge1_1" pos="15" period="900.00" file="myOwnFile.xml" endPos="15"/>
+    <laneAreaDetector id="multiLaneAreaDetector_3" lanes="Edge0_1 Edge1_1 Edge2_1" pos="15" period="900.00" file="myOwnFile.xml" endPos="15"/>
 </additional>

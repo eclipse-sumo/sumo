@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 multiLaneAreaDetector
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 1154 - 390
-TestFunctions: Clicked over position 714 - 611
+TestFunctions: Clicked over position 864 - 608
 dummyJamThreshold
 -11.1
 7.3
