@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_14_1+14089-03d6299081d
+Eclipse SUMO sumo Version v1_20_0+1406-38fbaaedfbd
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -68,6 +68,8 @@ Output Options:
   --elechybrid-output.aggregated       Write elecHybrid values into one
                                         aggregated file
   --chargingstations-output FILE       Write data of charging stations
+  --chargingstations-output.aggregated  Write aggregated charging event data
+                                        instead of single time steps
   --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
                                         stations
@@ -388,7 +390,10 @@ Processing Options:
   --pedestrian.jupedsim.exit-tolerance FLOAT  The distance to accept the
                                         JuPedSim arrival point (in meters)
   --pedestrian.jupedsim.model STR      The submodel to use in JuPedSim
-                                        (currently only 'CollisionFreeSpeed')
+                                        ('CollisionFreeSpeed',
+                                        'CollisionFreeSpeedV2',
+                                        'GeneralizedCentrifugalForce',
+                                        'SocialForce')
   --pedestrian.jupedsim.strength-neighbor-repulsion FLOAT  The neighbor
                                         repulsion strength of the JuPedSim model
   --pedestrian.jupedsim.range-neighbor-repulsion FLOAT  The neighbor repulsion

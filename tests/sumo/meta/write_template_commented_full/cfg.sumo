@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 15:58:32 by Eclipse SUMO sumo Version v1_14_1+14089-03d6299081d
+<!-- generated on 2024-07-24 18:10:55 by Eclipse SUMO sumo Version v1_20_0+1406-38fbaaedfbd
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -113,6 +113,9 @@
 
         <!-- Write data of charging stations -->
         <chargingstations-output value="" type="FILE"/>
+
+        <!-- Write aggregated charging event data instead of single time steps -->
+        <chargingstations-output.aggregated value="false" type="BOOL"/>
 
         <!-- Write data of overhead wire segments -->
         <overheadwiresegments-output value="" type="FILE"/>
@@ -546,7 +549,7 @@
         <!-- The distance to accept the JuPedSim arrival point (in meters) -->
         <pedestrian.jupedsim.exit-tolerance value="1" type="FLOAT"/>
 
-        <!-- The submodel to use in JuPedSim (currently only &apos;CollisionFreeSpeed&apos;) -->
+        <!-- The submodel to use in JuPedSim (&apos;CollisionFreeSpeed&apos;, &apos;CollisionFreeSpeedV2&apos;, &apos;GeneralizedCentrifugalForce&apos;, &apos;SocialForce&apos;) -->
         <pedestrian.jupedsim.model value="CollisionFreeSpeed" type="STR"/>
 
         <!-- The neighbor repulsion strength of the JuPedSim model -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 15:58:32 by Eclipse SUMO sumo Version v1_14_1+14089-03d6299081d
+<!-- generated on 2024-07-24 18:10:55 by Eclipse SUMO sumo Version v1_20_0+1406-38fbaaedfbd
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -74,6 +74,7 @@
             <xsd:element name="elechybrid-output.precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="elechybrid-output.aggregated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="chargingstations-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="chargingstations-output.aggregated" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="overheadwiresegments-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="substations-output.precision" type="intOptionType" minOccurs="0"/>
