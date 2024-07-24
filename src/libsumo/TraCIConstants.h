@@ -1123,6 +1123,9 @@ TRACI_CONST int VAR_MINGAP_LAT = 0xbb;
 // get/set vehicle height (vehicle, vtypes, poi)
 TRACI_CONST int VAR_HEIGHT = 0xbc;
 
+// get/set mass (vehicle, vtype)
+TRACI_CONST int VAR_MASS = 0xc8;
+
 // get/set vehicle line
 TRACI_CONST int VAR_LINE = 0xbd;
 

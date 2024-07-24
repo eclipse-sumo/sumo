@@ -761,6 +761,12 @@ Vehicle::getHeight(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getMass(const std::string& vehID) {
+    return Dom::getDouble(libsumo::VAR_MASS, vehID);
+}
+
+
 void
 Vehicle::setStop(const std::string& vehID,
                  const std::string& edgeID,
@@ -1227,6 +1233,12 @@ Vehicle::setWidth(const std::string& vehID, double width) {
 void
 Vehicle::setHeight(const std::string& vehID, double height) {
     Dom::setDouble(libsumo::VAR_HEIGHT, vehID, height);
+}
+
+
+void
+Vehicle::setMass(const std::string& vehID, double mass) {
+    Dom::setDouble(libsumo::VAR_MASS, vehID, mass);
 }
 
 

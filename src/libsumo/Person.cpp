@@ -469,6 +469,12 @@ Person::getHeight(const std::string& personID) {
 }
 
 
+double
+Person::getMass(const std::string& personID) {
+    return getPerson(personID)->getVehicleType().getMass();
+}
+
+
 int
 Person::getPersonCapacity(const std::string& personID) {
     return getPerson(personID)->getVehicleType().getPersonCapacity();
@@ -1060,6 +1066,12 @@ Person::setWidth(const std::string& personID, double width) {
 void
 Person::setHeight(const std::string& personID, double height) {
     getPerson(personID)->getSingularType().setHeight(height);
+}
+
+
+void
+Person::setMass(const std::string& personID, double mass) {
+    getPerson(personID)->getSingularType().setMass(mass);
 }
 
 

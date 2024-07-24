@@ -1093,6 +1093,12 @@ Vehicle::getHeight(const std::string& vehID) {
 }
 
 
+double
+Vehicle::getMass(const std::string& vehID) {
+    return Helper::getVehicleType(vehID).getMass();
+}
+
+
 void
 Vehicle::setStop(const std::string& vehID,
                  const std::string& edgeID,
@@ -2377,6 +2383,12 @@ Vehicle::setWidth(const std::string& vehID, double width) {
 void
 Vehicle::setHeight(const std::string& vehID, double height) {
     Helper::getVehicle(vehID)->getSingularType().setHeight(height);
+}
+
+
+void
+Vehicle::setMass(const std::string& vehID, double mass) {
+    Helper::getVehicle(vehID)->getSingularType().setMass(mass);
 }
 
 
