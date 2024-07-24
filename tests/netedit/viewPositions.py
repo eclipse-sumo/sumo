@@ -376,6 +376,10 @@ class elements:
             x = 310
             y = 218
 
+        class e2MultilaneDetector:
+            x = 560
+            y = 440
+
         class squaredA:
             x = 437
             y = 137
