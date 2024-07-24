@@ -38,13 +38,13 @@ netedit.changeElement("poiLane")
 netedit.changeColorUsingDialog(netedit.attrs.poiLane.create.colorButton, 5)
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color manually (invalid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.color, "Vlue")
 
 # try to create POI
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # change color manually (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.color, "blue")

@@ -38,13 +38,13 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "dummyPosLat")
 
 # try to create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change pos lat (valid, negative)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "-5")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # change pos lat (valid)
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.posLat, "7.5")

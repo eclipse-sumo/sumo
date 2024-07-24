@@ -1,18 +1,18 @@
 <additionals>
 
     <!-- non valid pos (missing) -->
-    <poi id="POI_0" color="red" layer="0.00" lane="center1_0"/>
+    <poi id="POI_0" color="red" layer="0.00" lane="Edge0_0"/>
 
     <!-- non valid pos (invalid) -->
-    <poi id="POI_1" color="red" layer="0.00" lane="center1_0" pos="dummyY"/>
+    <poi id="POI_1" color="red" layer="0.00" lane="Edge1_0" pos="dummyY"/>
 
     <!-- non valid pos (<0) -->
-    <poi id="POI_2" color="red" layer="0.00" lane="center1_0" pos="-50"/>
+    <poi id="POI_2" color="red" layer="0.00" lane="Edge2_0" pos="-50"/>
 
     <!-- non valid pos (>1) -->
-    <poi id="POI_3" color="red" layer="0.00" lane="center1_0" pos="6000"/>
+    <poi id="POI_3" color="red" layer="0.00" lane="Edge3_0" pos="6000"/>
 
     <!-- non valid pos (<0) -->
-    <poi id="POI_4" color="red" layer="0.00" lane="center1_0" pos="20"/>
+    <poi id="POI_4" color="red" layer="0.00" lane="Edge4_0" pos="20"/>
 
 </additionals>

@@ -37,11 +37,14 @@ netedit.changeElement("poiLane")
 # change type
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.type, "<<poi_test>>")
 
+# create poi
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
 # change type
 netedit.changeDefaultValue(netedit.attrs.poiLane.create.type, "custom type")
 
 # create poi
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poiLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # go to move mode
 netedit.moveMode()
 
 # move
-netedit.moveElement(referencePosition, netedit.positions.tmp, netedit.positions.elements.movementRadius)
+netedit.moveElement(referencePosition, netedit.positions.elements.edge1, netedit.positions.elements.movementRadius)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
