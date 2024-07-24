@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "0", "25")
-
 # go to select mode
 netedit.selectMode()
 
@@ -44,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Set invalid time treshold
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "dummySpeedTreshold", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "dummySpeedTreshold", False)
 
 # Set invalid time treshold
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "-5", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "-5", False)
 
 # Set valid time treshold
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "11.3", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.timeThreshold, "11.3", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

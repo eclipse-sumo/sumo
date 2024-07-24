@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "0", "25")
-
 # go to select mode
 netedit.selectMode()
 
@@ -44,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # set invalid filename
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "&&&&&&&&", False)
 
 # set valid filename
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.txt", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.file, "myOwnFilename.txt", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

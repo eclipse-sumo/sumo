@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "0", "25")
-
 # go to select mode
 netedit.selectMode()
 
@@ -44,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change parameter name with an non valid value
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.name, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.name, "%%%;:..&&%$%$", False)
 
 # Change parameter name with a duplicated value
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.name, "customName", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.name, "customName", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# apply zoom
-netedit.setZoom("0", "0", "25")
-
 # go to select mode
 netedit.selectMode()
 
@@ -44,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Set invalid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "%%%;:..&&%$%$", False)
 
 # Set invalid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "-30", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "-30", False)
 
 # Set valid period
-netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "50", True)
+netedit.modifyAttribute(netedit.attrs.E3.inspectSelection.period, "50", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
