@@ -169,6 +169,11 @@ chargingStation as defined below:
 
 ## Charging Station output
 
+There are two variants of the charging station output. One lists values for all time steps whereas the other
+aggregates the data into charging events (thus related to the whole time a vehicle was connected to the charging station).
+
+### Full report
+
 Option **--chargingstations-output chargingstations.xml** generates a full
 report of energy charged by charging stations:
 
@@ -189,7 +194,7 @@ File chargingstations.xml has the following structure:
             <step time="13.00" chargingStatus="chargingStopped" energyCharged="2.64" partialCharge="5.28" power="10000.00" efficiency="0.95" actualBatteryCapacity="12965.59" maximumBatteryCapacity="35000.00"/>
             <step time="14.00" chargingStatus="chargingStopped" energyCharged="2.64" partialCharge="7.92" power="10000.00" efficiency="0.95" actualBatteryCapacity="12968.22" maximumBatteryCapacity="35000.00"/>
         </vehicle>
-        <vehicle id="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="5.28" chargingBegin="17000" chargingEnd="18000">
+        <vehicle id="veh1" type="ElectricVehicle2" totalEnergyChargedIntoVehicle="5.28" chargingBegin="17.00" chargingEnd="18.00">
             <step time="17.00" chargingStatus="chargingStopped" energyCharged="2.64" partialCharge="18.47" power="10000.00" efficiency="0.95" actualBatteryCapacity="11967.35" maximumBatteryCapacity="35000.00"/>
             <step time="18.00" chargingStatus="chargingStopped" energyCharged="2.64" partialCharge="21.11" power="10000.00" efficiency="0.95" actualBatteryCapacity="12978.72" maximumBatteryCapacity="35000.00"/>
         </vehicle>
@@ -231,6 +236,33 @@ For every charging timeStep:
 | efficiency             | float  | Current efficiency of ChargingStation                                       |
 | actualBatteryCapacity  | string | Current battery capacity of vehicle                                         |
 | maximumBatteryCapacity | string | Current maximum battery capacity of vehicle                                 |
+
+
+### Charging events
+
+Option **--chargingstations-output chargingevents.xml --chargingstations-output.aggregated true** generates a
+report of the charging events at any charging station in the network. The generated output file chargingevents.xml has
+the following structure:
+
+```xml
+<chargingstations-export>
+    <chargingEvent chargingStation="CS1" vehicle="veh0" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="15.83" chargingBegin="12.00" chargingEnd="17.00" actualBatteryCapacity="12968.22" maximumBatteryCapacity="35000.00" minPower="10000.00" maxPower="10000.00" minCharge="2.64" maxCharge="2.64" minEfficiency="0.95" maxEfficiency="0.95" />
+    <chargingEvent chargingStation="CS1" vehicle="veh1" type="ElectricVehicle1" totalEnergyChargedIntoVehicle="5.28" chargingBegin="17.00" chargingEnd="18.00" actualBatteryCapacity="12978.72" maximumBatteryCapacity="35000.00" minPower="10000.00" maxPower="10000.00" minCharge="2.64" maxCharge="2.64" minEfficiency="0.95" maxEfficiency="0.95" />
+    ...
+
+</chargingstations-export>
+```
+
+Attributes with the same name can be looked up in the [table above](#full_report). The remaining attributes are:
+
+| Name               | Type   | Description                                                      |
+| ------------------ | ------ | ---------------------------------------------------------------- |
+| minPower           | float  | Minimum charging power during the charging event                 |
+| maxPower           | float  | Maximum charging power during the charging event                 |
+| minCharge          | float  | Minimum charged energy in one time step of the charging event    |
+| maxCharge          | float  | Maximum charged energy in one time step of the charging event    |
+| minEfficiency      | float  | Minimum charging efficiency during the charging event            |
+| maxEfficiency      | float  | Maximum charging efficiency during the charging event            |
 
 # battery-output
 
