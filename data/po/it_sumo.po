@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-20 12:09+0000\n"
+"PO-Revision-Date: 2024-07-24 11:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4549,35 +4549,47 @@ msgstr ""
 #: src/microsim/output/MSStopOut.cpp:69
 msgid "Vehicle '%' stops on edge '%', time=% without ending the previous stop."
 msgstr ""
+"Il veicolo '%' ferma sull'arco '%' alle ore % senza aver terminato la "
+"fermata precedente."
 
 #: src/microsim/output/MSStopOut.cpp:80
 msgid ""
 "Vehicle '%' loads persons on edge '%', time=% without starting the stop."
 msgstr ""
+"Il veicolo '%' carica delle persone sull'arco '%' alle ore % senza iniziare "
+"la fermata."
 
 #: src/microsim/output/MSStopOut.cpp:91
 msgid ""
 "Vehicle '%' unloads persons on edge '%', time=% without starting the stop."
 msgstr ""
+"Il veicolo '%' scarica delle persone sull'arco '%' alle ore % senza iniziare "
+"la fermata."
 
 #: src/microsim/output/MSStopOut.cpp:103
 msgid ""
 "Vehicle '%' loads container on edge '%', time=% without starting the stop."
 msgstr ""
+"Il veicolo '%' carica dei contenitori sull'arco '%' alle ore % senza "
+"iniziare la fermata."
 
 #: src/microsim/output/MSStopOut.cpp:114
 msgid ""
 "Vehicle '%' unloads container on edge '%', time=% without starting the stop."
 msgstr ""
+"Il veicolo '%' scarica dei contenitori sull'arco '%' alle ore % senza "
+"iniziare la fermata."
 
 #: src/microsim/output/MSStopOut.cpp:125
 msgid "Vehicle '%' ends stop on edge '%', time=% without entering the stop."
 msgstr ""
+"Il veicolo '%' termina la fermata sull'arco '%' alle ore % senza mai essere "
+"arrivato alla posizione della fermata propria."
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:143
 #, c-format
 msgid "Traffic light '%' does not control any links"
-msgstr ""
+msgstr "Il semaforo '%' non controlla nessun collegamento"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:232
 msgid ""
@@ -4618,28 +4630,28 @@ msgstr ""
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1115
 msgid "Unmatched parentheses in condition %'"
-msgstr ""
+msgstr "Parentesi non corrisposte in condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1130
 msgid "Invalid empty condition '%'"
-msgstr ""
+msgstr "Condizione vuota '%' invalida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1145
 msgid "Unsupported condition '%'"
-msgstr ""
+msgstr "Condizione '%' non supportata"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1208
 msgid "Division by 0 in condition '%'"
-msgstr ""
+msgstr "Divisione per 0 in condizione '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1259
 #, c-format
 msgid "Modifying global condition '%' is forbidden"
-msgstr ""
+msgstr "Vietato di modificare la condizione globale '%'"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1271
 msgid "Invalid empty expression"
-msgstr ""
+msgstr "Espressione vuota invalida"
 
 #: src/microsim/traffic_lights/MSActuatedTrafficLightLogic.cpp:1379
 msgid "Error when retrieving conditions '%' for tlLogic '%' (%)"
