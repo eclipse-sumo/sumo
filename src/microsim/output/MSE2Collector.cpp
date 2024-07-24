@@ -261,9 +261,9 @@ MSE2Collector::checkPositioning(bool posGiven, double desiredLength) {
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
     myStartPos = snap(myStartPos, myFirstLane->getLength() - POSITION_EPS, POSITION_EPS);
     myStartPos = snap(myStartPos, 0., POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     myEndPos = snap(myEndPos, POSITION_EPS, POSITION_EPS);
-    myEndPos = snap(myEndPos, myFirstLane->getLength(), POSITION_EPS);
+    myEndPos = snap(myEndPos, myLastLane->getLength(), POSITION_EPS);
     recalculateDetectorLength();
 
 #ifdef DEBUG_E2_CONSTRUCTOR
