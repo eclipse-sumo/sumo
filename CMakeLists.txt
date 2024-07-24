@@ -226,6 +226,8 @@ elseif (MSVC)
     endif ()
     # SWIG generates large obj files
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+    # backward compatible mutex API, see https://github.com/actions/runner-images/issues/10004
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR")
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     # add option for enabling console in release mode
