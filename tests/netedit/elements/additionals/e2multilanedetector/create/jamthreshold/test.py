@@ -40,6 +40,7 @@ netedit.changeElement("multiLaneAreaDetector")
 # select lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid jam threshold
 netedit.changeDefaultValue(netedit.attrs.E2Multilane.create.jamThreshold, "-30")

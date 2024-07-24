@@ -40,11 +40,13 @@ netedit.changeElement("multiLaneAreaDetector")
 # select lanes
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # select lanes
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 

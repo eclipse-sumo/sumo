@@ -4,6 +4,8 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 multiLaneAreaDetector
 TestFunctions: Clicked over position 685 - 611
 TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Clicked over position 798 - 194
+TestFunctions: Clicked over position 781 - 224
 TestFunctions: Clicked over position 1121 - 403
 TestFunctions: Clicked over position 819 - 581
 ;;;;
