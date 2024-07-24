@@ -32,6 +32,9 @@ actualBatteryCapacity
 # Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
 chargingStations_output
 
+# Vehicles stopping at multiple charging stations, which is recorded as charging events in the aggregated charging station output
+chargingStations_output_aggregated
+
 # as above but with step length 0.2
 chargingStations_output_subseconds
 
