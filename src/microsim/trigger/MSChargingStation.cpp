@@ -257,6 +257,7 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
             terminatedChargers.push_back(item.first);
 
             // aggregate values
+            double charged = 0.;
             double minPower = lastCharge.chargingPower;
             double maxPower = lastCharge.chargingPower;
             double minCharge = lastCharge.WCharged;
@@ -265,6 +266,7 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
             double maxEfficiency = lastCharge.chargingEfficiency;
 
             for (const auto& charge : item.second) {
+                charged += charge.WCharged;
                 if (charge.chargingPower < minPower) {
                     minPower = charge.chargingPower;
                 }
@@ -290,16 +292,17 @@ MSChargingStation::writeAggregatedChargingStationOutput(OutputDevice& output) {
             output.writeAttr(SUMO_ATTR_CHARGINGSTATIONID, myID);
             output.writeAttr(SUMO_ATTR_VEHICLE, lastCharge.vehicleID);
             output.writeAttr(SUMO_ATTR_TYPE, lastCharge.vehicleType);
-            output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, lastCharge.totalEnergyCharged);
+            output.writeAttr(SUMO_ATTR_TOTALENERGYCHARGED_VEHICLE, charged);
             output.writeAttr(SUMO_ATTR_CHARGINGBEGIN, time2string(item.second.at(0).timeStep));
             output.writeAttr(SUMO_ATTR_CHARGINGEND, time2string(lastCharge.timeStep));
             output.writeAttr(SUMO_ATTR_ACTUALBATTERYCAPACITY, lastCharge.actualBatteryCapacity);
+            output.writeAttr(SUMO_ATTR_MAXIMUMBATTERYCAPACITY, lastCharge.maxBatteryCapacity);
             output.writeAttr(SUMO_ATTR_MINPOWER, minPower);
             output.writeAttr(SUMO_ATTR_MAXPOWER, maxPower);
             output.writeAttr(SUMO_ATTR_MINCHARGE, minCharge);
             output.writeAttr(SUMO_ATTR_MAXCHARGE, maxCharge);
-            output.writeAttr(SUMO_ATTR_MINCHARGE, minCharge);
-            output.writeAttr(SUMO_ATTR_MAXCHARGE, maxCharge);
+            output.writeAttr(SUMO_ATTR_MINEFFICIENCY, minEfficiency);
+            output.writeAttr(SUMO_ATTR_MAXEFFICIENCY, maxEfficiency);
             output.closeTag();
         }
     }
