@@ -6,7 +6,7 @@ vehicletypes ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'D
 vehicletype count 6
 examining DEFAULT_VEHTYPE
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 speedDev 0.0
 accel 2.6
@@ -56,6 +56,7 @@ MaxSpeedLat 1.0
 LateralAlignment center
 width 1.1
 height 1.9
+mass 1600.0
 boardingDuration 42.0
 impatience 0.5
 color (255, 0, 0, 255)
@@ -64,7 +65,7 @@ vehicletypes ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'D
 vehicletype count 7
 accel (original) 1.1
 accel (copied) 100.0
-param 
+param
 param2 42
-jmParam 
+jmParam
 jmParam 2
