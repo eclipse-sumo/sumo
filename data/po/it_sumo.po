@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-24 11:14+0000\n"
+"PO-Revision-Date: 2024-07-24 11:57+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3251,7 +3251,7 @@ msgstr ""
 
 #: src/microsim/MSVehicle.cpp:4611
 msgid " for unknown reasons"
-msgstr ""
+msgstr " per motivi sconosciuti"
 
 #: src/microsim/MSVehicle.cpp:4613
 msgid ""
@@ -3262,12 +3262,16 @@ msgstr ""
 #: src/microsim/MSVehicle.cpp:4688
 msgid "Unexpected end of opposite lane for vehicle '%' at lane '%', time=%."
 msgstr ""
+"Fine inaspettata della corsia opposta per veicolo '%' sulla corsia '%' alle "
+"ore %."
 
 #: src/microsim/MSVehicle.cpp:4806
 msgid ""
 "Vehicle '%' performs emergency braking on lane '%' with decel=%, wished=%, "
 "severity=%, time=%."
 msgstr ""
+"Il veicolo '%' esegue una frenata d'emergenza sulla corsia '%' con la "
+"decelerazione %, quella desiderata %, severità alle ore %."
 
 #: src/microsim/MSVehicle.cpp:5715
 #, c-format
