@@ -1,5 +1,3 @@
-Note: data/APITest.java uses unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.
 TraAS and TraCI4J are deprecated. Please use libtracijni instead, see https://sumo.dlr.de/docs/Libtraci.html.
 Received null repsonse for command 203 149. (Maybe you need to use do_job_set?)
