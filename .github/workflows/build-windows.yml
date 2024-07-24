@@ -11,6 +11,7 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder
       - 'docs/**'
+  workflow_dispatch:
   schedule:
     - cron:  '25 1 * * *'
 
@@ -20,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_type: [plain, extra, debug]
+        build_type: [plain, extra]
     env:
       CC: cl
       CXX: cl
@@ -60,30 +61,24 @@ jobs:
     - name: Building SUMO plain
       if: matrix.build_type == 'plain'
       run: |
-        python -m pip install wheel
+        python -m pip install build wheel
         cd sumo
-        mkdir build_msvc
-        cd build_msvc
-        cmake .. -GNinja -DCHECK_OPTIONAL_LIBS=false
-        cmake --build .
+        cmake -Bbuild_msvc -GNinja -DCHECK_OPTIONAL_LIBS=false
+        cmake --build build_msvc
 
     - name: Building SUMO extra
       if: matrix.build_type == 'extra'
       run: |
         cd sumo
-        mkdir build_msvc
-        cd build_msvc
-        cmake .. -GNinja
-        cmake --build .
+        cmake -Bbuild_msvc -GNinja
+        cmake --build build_msvc
 
     - name: Building SUMO debug
-      if: matrix.build_type == 'debug'
+      if: github.event_name == 'workflow_dispatch'
       run: |
         cd sumo
-        mkdir build_msvc
-        cd build_msvc
-        cmake .. -GNinja -DCMAKE_BUILD_TYPE=Debug
-        cmake --build .
+        cmake -Bbuild_msvc_debug -GNinja -DCMAKE_BUILD_TYPE=Debug
+        cmake --build build_msvc_debug
 
     - name: Building TraaS
       run: |
