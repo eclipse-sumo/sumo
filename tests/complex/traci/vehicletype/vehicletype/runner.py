@@ -124,11 +124,11 @@ print("accel (original)", traci.vehicletype.getAccel(typeID))
 print("accel (copied)", traci.vehicletype.getAccel(copyID))
 
 
-print("param", traci.vehicletype.getParameter(typeID, "foo"))
+print("param", "'%s'" % traci.vehicletype.getParameter(typeID, "foo"))
 traci.vehicletype.setParameter(typeID, "foo", "42")
 print("param2", traci.vehicletype.getParameter(typeID, "foo"))
 
-print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
+print("jmParam", "'%s'" % traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
 traci.vehicletype.setParameter(typeID, "junctionModel.jmTimegapMinor", "2")
 print("jmParam", traci.vehicletype.getParameter(typeID, "junctionModel.jmTimegapMinor"))
 

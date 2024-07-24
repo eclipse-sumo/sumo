@@ -55,8 +55,8 @@ def check(vehID):
     print("pos", posToString(traci.vehicle.getPosition(vehID)))
     print("pos3D", posToString(traci.vehicle.getPosition3D(vehID)))
     print("angle", traci.vehicle.getAngle(vehID))
-    print("road", traci.vehicle.getRoadID(vehID))
-    print("lane", traci.vehicle.getLaneID(vehID))
+    print("road", "'%s'" % traci.vehicle.getRoadID(vehID))
+    print("lane", "'%s'" % traci.vehicle.getLaneID(vehID))
     print("laneIndex", traci.vehicle.getLaneIndex(vehID))
     print("type", traci.vehicle.getTypeID(vehID))
     print("routeID", traci.vehicle.getRouteID(vehID))
@@ -123,7 +123,7 @@ def check(vehID):
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
     print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 99., 100.))
-    print("line", traci.vehicle.getLine(vehID))
+    print("line", "'%s'" % traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
     print("dist", traci.vehicle.getDistance(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
@@ -361,11 +361,11 @@ for i in range(14):
     print("vehicle", busVeh,
           "lane", traci.vehicle.getLaneID(busVeh),
           "lanePos", traci.vehicle.getLanePosition(busVeh),
-          "stopped", traci.vehicle.isStopped(busVeh),
-          "\n stoppedParking", traci.vehicle.isStoppedParking(busVeh),
-          "stoppeTriggered", traci.vehicle.isStoppedTriggered(busVeh),
-          "stoppeBusStop", traci.vehicle.isAtBusStop(busVeh),
-          "stoppeContainerStop", traci.vehicle.isAtContainerStop(busVeh))
+          "stopped", traci.vehicle.isStopped(busVeh))
+    print(" stoppedParking", traci.vehicle.isStoppedParking(busVeh),
+          "stoppedTriggered", traci.vehicle.isStoppedTriggered(busVeh),
+          "stoppedBusStop", traci.vehicle.isAtBusStop(busVeh),
+          "stoppedContainerStop", traci.vehicle.isAtContainerStop(busVeh))
 # test for adding a trip
 traci.route.add("trip", ["3si"])
 traci.vehicle.addLegacy("triptest", "trip")
