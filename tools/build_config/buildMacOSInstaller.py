@@ -246,6 +246,7 @@ exec "$SUMO_HOME/bin/{binary_name}" "$@"
 
 
 def create_installer(frmwk_pkg, app_pkgs, id, version):
+    cwd = os.path.dirname(os.path.abspath(__file__))
     print(" - Creating temporary directory")
     temp_dir = tempfile.mkdtemp()
     resources_dir = os.path.join(temp_dir, "Resources")
@@ -260,8 +261,13 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
         app_pkg_path = app_pkg[3]
         shutil.copy(app_pkg_path, temp_dir)
 
-    print(" - Adding additional resources to the installer")
     # FIXME: Add license, background and other nice stuff
+    print(" - Adding additional resources to the installer")
+    sumo_dir = os.path.join(cwd, "..", "..", "")
+    sumo_data_installer_dir = os.path.join(sumo_dir, "build_config", "macos", "installer")
+    installer_resources_dir = os.path.join(temp_dir, "Resources")
+    shutil.copy(os.path.join(sumo_data_installer_dir, "background.png"), installer_resources_dir)
+    shutil.copy(os.path.join(sumo_dir, "LICENSE"), os.path.join(installer_resources_dir, "LICENSE.txt"))
 
     # Create distribution.xml
     print(" - Creating distribution.xml")
@@ -275,12 +281,14 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
         path = os.path.basename(app_pkg[3])
         refs += f"\n        <pkg-ref id='{app_pkg[2]}' version='{version}' installKBytes='{size}'>{path}</pkg-ref>"
 
+    # See: https://developer.apple.com/library/archive/documentation/
+    #      DeveloperTools/Reference/DistributionDefinitionRef/Chapters/Distribution_XML_Ref.html
     distribution_content = f"""<?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
     <title>Eclipse SUMO</title>
-    <!-- <allowed-os-versions><os-version min="10.10"/></allowed-os-versions> -->
-    <!-- <license file="LICENSE.txt"/> -->
-    <!-- <background file="background.png" alignment="bottomleft" mime-type="image/png" scaling="none" /> -->
+    <!-- <allowed-os-versions><os-version min="10.14"/></allowed-os-versions> -->
+    <license file="LICENSE.txt"/>
+    <background file="background.png" alignment="bottomleft" mime-type="image/png" scaling="none" />
     <!-- <welcome file="Welcome.html" mime-type="text/html"/> -->
     <!-- <conclusion file="Conclusion.html" mime-type="text/html"/> -->
     <options customize="allow" require-scripts="false" rootVolumeOnly="true" hostArchitectures="arm64"/>
@@ -386,7 +394,7 @@ def main():
     for app_name, app_binary, app_framework, app_id, app_ver, app_icons in app_list:
         print(f"Building app package for '{app_name}'")
 
-        icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", app_binary, "build", app_icons)
+        icon_path = os.path.join(cwd, "..", "..", "build_config", "macos", "installer", app_icons)
         app_pkg = create_app(app_name, app_binary, app_framework, app_id, app_ver, icon_path)
         app_pkgs.append(app_pkg)
         print(f"Successfully built: '{app_pkg[1]}' ({app_pkg[4] / (1024 * 1024):.2f} MB)\n")
