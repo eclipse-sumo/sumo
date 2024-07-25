@@ -354,6 +354,9 @@ protected:
     /// @brief variable used for draw additional contours
     GNEContour myAdditionalContour;
 
+    /// @brief variable used for draw auxiliary additional contours (for example, stoppingPlace signs)
+    GNEContour myAdditionalContourAuxiliary;
+
     /// @brief name of additional
     std::string myAdditionalName;
 

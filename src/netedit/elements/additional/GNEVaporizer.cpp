@@ -197,11 +197,14 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::popMatrix();
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
+            // draw dotted contours
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
-        // calculate contour and draw dotted geometry
-        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.5, vaporizerExaggeration, true, true, 0);
+        // calculate contours
+        myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.vaporizerSize,
+                s.additionalSettings.vaporizerSize, 0, 0, 0, vaporizerExaggeration);
+        myAdditionalContourAuxiliary.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, true, true, 0);
     }
 }
 
