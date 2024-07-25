@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 routeProbe
 -20
-TestFunctions: Clicked over position 619 - 421
+TestFunctions: Clicked over position 685 - 611
 120
-TestFunctions: Clicked over position 629 - 421
+TestFunctions: Clicked over position 1154 - 390
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

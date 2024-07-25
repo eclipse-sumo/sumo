@@ -58,4 +58,8 @@
 	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
 	<vehicle id="vehicle_2" depart="0.00" route="route_2"/>
 
+	<vehicle id="vehicle_0" depart="0.00" route="route_0"/>
+	<vehicle id="vehicle_1" depart="0.00" route="route_1"/>
+	<vehicle id="vehicle_2" depart="0.00" route="route_2"/>
+
 </routes>

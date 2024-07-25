@@ -34,17 +34,20 @@ netedit.additionalMode()
 # select routeProbe
 netedit.changeElement("routeProbe")
 
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
+
 # set invalid filename
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.file, "&&&&&&&&")
 
 # try to create RouteProbe with invalid filename
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid filename
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.file, "fileA.txt")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

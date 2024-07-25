@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.routeProbe.inspectSelection.parameters, False)

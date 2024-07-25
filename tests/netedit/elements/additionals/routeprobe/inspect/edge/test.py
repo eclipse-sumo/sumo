@@ -34,14 +34,17 @@ netedit.additionalMode()
 # select routeProbe
 netedit.changeElement("routeProbe")
 
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
+
 # create routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Change parameter 1 with a non valid value (dummy edge)
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspect.edge, "dummyEdge", False)

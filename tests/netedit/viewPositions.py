@@ -388,6 +388,14 @@ class elements:
             x = 335
             y = 440
 
+        class routeProbe:
+            x = 488
+            y = 168
+
+        class vaporizer:
+            x = 467
+            y = 168
+
         class squaredA:
             x = 437
             y = 137

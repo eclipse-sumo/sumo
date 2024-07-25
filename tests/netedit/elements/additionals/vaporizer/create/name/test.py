@@ -34,11 +34,14 @@ netedit.additionalMode()
 # select vaporizer
 netedit.changeElement("vaporizer")
 
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+
 # set valid name
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.name, "customName")
 
 # create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

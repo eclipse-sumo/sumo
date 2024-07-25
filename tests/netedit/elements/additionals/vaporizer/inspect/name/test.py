@@ -34,17 +34,17 @@ netedit.additionalMode()
 # select vaporizer
 netedit.changeElement("vaporizer")
 
-# create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+# create vaporizer (camera will be moved)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect first vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# inspect first busStop
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.name, "%%$$$""", False)

@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.routeProbe)
 
 # Set invalid begin
 netedit.modifyAttribute(netedit.attrs.routeProbe.inspectSelection.begin, "-5", False)

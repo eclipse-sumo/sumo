@@ -2,10 +2,12 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 vaporizer
-TestFunctions: Clicked over position 642 - 420
-TestFunctions: Clicked over position 816 - 444
+TestFunctions: Clicked over position 649 - 389
+TestFunctions: Clicked over position 1154 - 390
+TestFunctions: Clicked over position 771 - 336
 dummyEdge
-top
+Edge1
+Edge2
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

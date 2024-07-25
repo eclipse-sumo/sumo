@@ -1,22 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 09:21:58 by Eclipse SUMO netconvert Version v1_15_0+1955-2a740b567ac
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-07-25 11:25:12 by Eclipse SUMO netconvert Version v1_20_0+1830-44da0e73cac
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="D:/SUMO/tests/netedit\netelements\lanes\contextual_menu\transform_restricted_lane\greenverge/net.nod.xml"/>
-        <edge-files value="D:/SUMO/tests/netedit\netelements\lanes\contextual_menu\transform_restricted_lane\greenverge/net.edg.xml"/>
-        <connection-files value="D:/SUMO/tests/netedit\netelements\lanes\contextual_menu\transform_restricted_lane\greenverge/net.con.xml"/>
+        <node-files value=".\netedit\network\lanes\contextual_menu\transform_restricted_lane\greenverge\net.nod.xml"/>
+        <edge-files value=".\netedit\network\lanes\contextual_menu\transform_restricted_lane\greenverge\net.edg.xml"/>
+        <connection-files value=".\netedit\network\lanes\contextual_menu\transform_restricted_lane\greenverge\net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:/SUMO/tests/netedit\netelements\lanes\contextual_menu\transform_restricted_lane\greenverge/net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value=".\netedit\network\lanes\contextual_menu\transform_restricted_lane\greenverge\net.net.xml"/>
     </output>
 
-</configuration>
+    <report>
+        <verbose value="true"/>
+    </report>
+
+</netconvertConfiguration>
 -->
 
-<net version="1.16" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

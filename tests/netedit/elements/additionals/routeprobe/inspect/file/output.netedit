@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 routeProbe
-TestFunctions: Clicked over position 619 - 421
-TestFunctions: Clicked over position 798 - 440
+TestFunctions: Clicked over position 649 - 389
+TestFunctions: Clicked over position 792 - 336
 $$$$$$$$
 fileA.txt
 TestFunctions: Clicked over position 304 - 168

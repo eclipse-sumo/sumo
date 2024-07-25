@@ -34,17 +34,20 @@ netedit.additionalMode()
 # select routeProbe
 netedit.changeElement("routeProbe")
 
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.routeProbe.create.center)
+
 # set invalid default begin
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.begin, "-11")
 
 # try to create routeProbe
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # set valid default begin
 netedit.changeDefaultValue(netedit.attrs.routeProbe.create.begin, "10.5")
 
 # create routeProbe (camera will be moved)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

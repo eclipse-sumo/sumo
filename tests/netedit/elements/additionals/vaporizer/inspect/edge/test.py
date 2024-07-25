@@ -34,23 +34,29 @@ netedit.additionalMode()
 # select vaporizer
 netedit.changeElement("vaporizer")
 
-# create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
+# create vaporizer (camera will be moved)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+
+# create vaporizer (camera will be moved)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect first vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# inspect first busStop
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # Change parameter 0 with a non valid value (dummy edge)
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "dummyEdge", False)
 
 # Change parameter 0 with a valid value (different edge)
-netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "top", False)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge1", False)
+
+# Change parameter 0 with a valid value (different edge)
+netedit.modifyAttribute(netedit.attrs.vaporizer.inspect.edge, "Edge2", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

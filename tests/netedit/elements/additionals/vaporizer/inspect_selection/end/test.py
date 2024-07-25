@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute (needed for vertical position)
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
@@ -41,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.vaporizer)
 
 # Set invalid end 1
 netedit.modifyAttribute(netedit.attrs.vaporizer.inspectSelection.end, "-5", False)

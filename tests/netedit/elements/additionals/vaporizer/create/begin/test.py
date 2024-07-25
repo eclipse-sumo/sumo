@@ -34,17 +34,20 @@ netedit.additionalMode()
 # select vaporizer
 netedit.changeElement("vaporizer")
 
+# disable center view
+netedit.changeDefaultBoolValue(netedit.attrs.vaporizer.create.center)
+
 # set invalid start
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "-12")
 
 # try to create vaporizer
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # set valid start
 netedit.changeDefaultValue(netedit.attrs.vaporizer.create.begin, "10")
 
 # create vaporizer (camera will be moved)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
