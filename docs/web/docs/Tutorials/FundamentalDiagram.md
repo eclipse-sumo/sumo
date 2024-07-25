@@ -42,7 +42,7 @@ evenly spaced vehicles at a predefined density. For the circle scenario
 this can be accomplished by the following demand definition:
 
 ```xml
-<route id="circle" edges="6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>  
+<route id="circle" edges="6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
 <flow id="0" type="default" route="circle" departEdge="random" begin="0" end="1" number="1000" departPos="last" departSpeed="15" departLane="free"/>
 ```
 

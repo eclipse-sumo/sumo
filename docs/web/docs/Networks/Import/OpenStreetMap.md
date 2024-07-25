@@ -643,7 +643,7 @@ Python Example (Get OSM River Data from OSM in BBox)
    import requests
    import json
 ```
-   
+
 ```
    def getData(lsouthern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude):
      query = 'way["waterway"="river"]["ship"="yes"](bbox:%s, %s, %s, %s)' %(southern-most latitude, western-most longitude, northern-most latitude, eastern-most longitude)

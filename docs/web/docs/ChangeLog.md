@@ -54,7 +54,7 @@ title: ChangeLog
   - Fixed self overlapping crossing outline shape #15111
   - Crossing parameters are now loaded from plain-xml #15135
   - Fixed double-projection of node and crossing shapes when setting option **--proj** #15136, #15137
- 
+
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
   - Fixed crash when attempting to transform person to personFlow #15040 (regression in 1.19.0)
@@ -106,7 +106,6 @@ title: ChangeLog
   - traceExporter.py: fixed inconsistent trj-output #14925
   - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988
   - mapDetectors.py: No longer writes invalid lane pos #15117
-  
 
 ### Enhancements
 
@@ -128,7 +127,7 @@ title: ChangeLog
   - Added extra penalty for turnarounds during routing, configurable with option **--weights.turnaround-penalty** #4966
   - Individual speedFactor is now adjusted when switching vehicle type (with calibrators, devices or TraCI) #15076
   - Added GLOSA options to increase or reduce safety. #15152
- 
+
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
   - Mode for editing overhead wires now warns about experimental state #14974

@@ -218,7 +218,7 @@ $VMR
 * District 2 Sum = 15
          4          5          6
 * District 2 Sum = 24
-         7          8          9 
+         7          8          9
 ```
 
 The 'M' in the type name indicates that a vehicle type is used, the "R"

@@ -20,10 +20,10 @@ The DLR-Navteq format encodes geometries in a tabular structure with the followi
 | 2            | City                                       |
 | 3            | Type                                       |
 | 4            | Name                                       |
-| 5            | X value of the first geometry point        | 
+| 5            | X value of the first geometry point        |
 | 6            | Y value of the first geometry point        |
 | ...          |                                            |
-| 5 + 2n       | X value of the nth geometry point          | 
-| 6 + 2n       | Y value of the nth geometry point          | 
+| 5 + 2n       | X value of the nth geometry point          |
+| 6 + 2n       | Y value of the nth geometry point          |
 
 The X and Y values can be supplied in geographic coordinates and will be projected during the import.

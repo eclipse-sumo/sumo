@@ -45,7 +45,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
     known bug.
   - recheck/rebuild the test networks (if necessary due to
     netconvert changes)
-  - check for orphaned tests by running `tools/devel/orphaned_tests.py tests` and patch testsuites to add them back in  
+  - check for orphaned tests by running `tools/devel/orphaned_tests.py tests` and patch testsuites to add them back in
   - check the tests again
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md)

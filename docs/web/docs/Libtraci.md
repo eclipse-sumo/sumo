@@ -83,7 +83,7 @@ import as above.
 
 ### Example Code (test.cpp)
 
-The example assumes you have the named sumocfg file in your current working directory and the SUMO bin directory included 
+The example assumes you have the named sumocfg file in your current working directory and the SUMO bin directory included
 in the PATH environmental variable. Otherwise you need to provide the full file path.
 
 ```cpp

@@ -139,7 +139,7 @@ for vehicle in sumolib.xml.parse("myRoutes.rou.xml", "vehicle", attr_convers
 
 ```python
 for interval in sumolib.xml.parse("edgedata.xml", "interval"):
-    for edge in interval.edge:    
+    for edge in interval.edge:
         # do something with the edge attributes i.e. edge.entered
 ```
 

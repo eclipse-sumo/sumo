@@ -167,7 +167,7 @@ always use the latest version of SUMO.
 ### How do I report erroneous behavior of a SUMO application?
 
   If you suspect a bug in one of the applications you should collect the following information
-  
+
 - a description of the SUMO-version and the operating system you are
   using
 - a screenshot or error output showing the unexpected behavior (this

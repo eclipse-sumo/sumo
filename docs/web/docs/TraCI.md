@@ -314,7 +314,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
   [subscriptions](TraCI/Object_Variable_Subscription.md):
 
 ```py
-while traci.simulation.getMinExpectedNumber() > 0: 
+while traci.simulation.getMinExpectedNumber() > 0:
     for veh_id in traci.simulation.getDepartedIDList():
         traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
     positions = traci.vehicle.getAllSubscriptionResults()
