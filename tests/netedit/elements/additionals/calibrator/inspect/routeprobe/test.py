@@ -34,23 +34,26 @@ netedit.additionalMode()
 # select calibrator
 netedit.changeElement("calibrator")
 
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
 # create calibrator
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibrator)
 
 # Change parameter id with a non valid value (invalid characters)
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "///;;", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "///;;", False)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "nonExistentRouteProbe", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "nonExistentRouteProbe", False)
 
 # Change parameter id with valid value
-netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "routeProbe_0", True)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspect.routeProbe, "routeProbe_0", False)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

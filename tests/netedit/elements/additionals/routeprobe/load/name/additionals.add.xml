@@ -1,9 +1,9 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- invalid Name -->
-    <routeProbe id="routeProbe_0" edge="EdgeCenter1" period="100.00" name="$·$·%·%·" file="routeProbe_0.txt" begin="10.30"/>
+    <routeProbe id="routeProbe_0" edge="Edge0" period="100.00" name="$·$·%·%·" file="routeProbe_0.txt" begin="10.30"/>
 
     <!-- valid Name -->
-    <routeProbe id="routeProbe_1" edge="EdgeCenter1" period="100.00" name="Valid Name" file="routeProbe_1.txt" begin="10.30"/>
+    <routeProbe id="routeProbe_1" edge="Edge1" period="100.00" name="Valid Name" file="routeProbe_1.txt" begin="10.30"/>
 
 </additional>

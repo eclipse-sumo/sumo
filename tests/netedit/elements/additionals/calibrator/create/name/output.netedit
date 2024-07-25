@@ -3,9 +3,9 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 calibrator
 ;;"""
-TestFunctions: Clicked over position 616 - 418
+TestFunctions: Clicked over position 685 - 611
 customName
-TestFunctions: Clicked over position 626 - 418
+TestFunctions: Clicked over position 1154 - 390
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,6 +1,6 @@
 Error: Attribute 'end' is missing in definition of a vaporizer.
 Error: Attribute 'end' is missing in definition of a vaporizer.
 Error: Attribute 'end' in definition of a vaporizer is not a valid time value.
-Error: Could not build vaporizer with ID 'bot' in netedit; Attribute end cannot be negative.
-Error: Could not build Vaporizer with ID 'E5' in netedit; begin is greater than end.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.additional.basic.22May115309.2052/netedit.daily.additional.basic/additionalelements/vaporizer/load/end/additionals.add.xml failed.
+Error: Could not build vaporizer with ID 'Edge3' in netedit; Attribute end cannot be negative.
+Error: Could not build Vaporizer with ID 'Edge5' in netedit; begin is greater than end.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Jul101940.25632\netedit.gui\elements\additionals\vaporizer\load\end\additionals.add.xml failed.

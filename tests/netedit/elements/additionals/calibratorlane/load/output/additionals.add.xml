@@ -1,15 +1,15 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- non valid output (missing) -->
-    <calibrator id="calibrator01" lane="EdgeCenter0_0" pos="28.00" period="100.00"/>
+    <calibrator id="calibrator01" lane="Edge0_1" pos="28.00" period="100.00"/>
 
     <!-- non valid output (invalid) -->
-    <calibrator id="calibrator02" lane="EdgeCenter0_0" pos="30.00" period="100.00" output="·$·%$%··$$"/>
+    <calibrator id="calibrator02" lane="Edge1_1" pos="30.00" period="100.00" output="·$·%$%··$$"/>
 
     <!-- valid output (but empty)-->
-    <calibrator id="calibrator03" lane="EdgeCenter0_0" pos="32.00" period="100.00" output=""/>
+    <calibrator id="calibrator03" lane="Edge2_1" pos="32.00" period="100.00" output=""/>
 
     <!-- valid output -->
-    <calibrator id="calibrator04" lane="EdgeCenter0_0" pos="34.00" period="100.00" output="ownOutput.txt"/>
+    <calibrator id="calibrator04" lane="Edge3_1" pos="34.00" period="100.00" output="ownOutput.txt"/>
 
 </additional>

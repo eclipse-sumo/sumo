@@ -32,28 +32,34 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.additionalMode()
 
 # select calibratorLane
-netedit.changeElement("calibratorLane")
+netedit.changeElement("calibrator")
 
 # change center view
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create first calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
-# change center view
-netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+# select calibratorLane
+netedit.changeElement("calibratorLane")
 
-# create second calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# create first calibratorLane
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# create first calibratorLane
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "ca_0", True)
+
+# Change parameter id with a non valid value (Duplicated ID)
+netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "ca_1", True)
 
 # Change parameter id with a non valid value (Invalid ID)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.id, "Id with spaces", True)

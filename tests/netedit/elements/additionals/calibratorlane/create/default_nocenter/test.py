@@ -38,7 +38,7 @@ netedit.changeElement("calibratorLane")
 netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 
 # create calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

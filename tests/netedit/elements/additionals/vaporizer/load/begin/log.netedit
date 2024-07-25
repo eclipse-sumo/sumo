@@ -1,6 +1,5 @@
 Error: Attribute 'begin' is missing in definition of a vaporizer.
 Error: Attribute 'begin' is missing in definition of a vaporizer.
 Error: Attribute 'begin' in definition of a vaporizer is not a valid time value.
-Error: Could not build vaporizer in netedit; edge 'bot' doesn't exist.
-Error: Could not build vaporizer in netedit; edge 'E0' doesn't exist.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.11Jun150700.2784/netedit.gui/elements/additional/vaporizer/load/begin/additionals.add.xml failed.
+Error: Could not build vaporizer with ID 'Edge3' in netedit; Attribute begin cannot be negative.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Jul101940.25632\netedit.gui\elements\additionals\vaporizer\load\begin\additionals.add.xml failed.

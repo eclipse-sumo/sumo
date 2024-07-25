@@ -34,14 +34,17 @@ netedit.additionalMode()
 # select calibratorLane
 netedit.changeElement("calibratorLane")
 
+# change center view
+netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
+
 # create calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect calibratorLane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.calibratorLane)
 
 # Change parameter id with a non valid value (invalid characters)
 netedit.modifyAttribute(netedit.attrs.calibrator.inspectLane.routeProbe, "///;;", True)

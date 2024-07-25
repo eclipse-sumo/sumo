@@ -380,6 +380,14 @@ class elements:
             x = 560
             y = 440
 
+        class calibrator:
+            x = 120
+            y = 470
+
+        class calibratorLane:
+            x = 335
+            y = 440
+
         class squaredA:
             x = 437
             y = 137

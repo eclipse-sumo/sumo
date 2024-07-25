@@ -1,21 +1,21 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
 
     <!-- Without problem -->
-    <routeProbe id="routeProbe_0" edge="EdgeCenter1" period="100.00" file="routeProbe_0.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_0" edge="Edge0" period="100.00" file="routeProbe_0.txt" begin="0.00"/>
 
     <!-- missing ID -->
-    <routeProbe edge="EdgeCenter1" period="100.00" file="routeProbe_01a.txt" begin="0.00"/>
+    <routeProbe edge="Edge1" period="100.00" file="routeProbe_01a.txt" begin="0.00"/>
 
     <!-- non valid ID -->
-    <routeProbe id="id with spaces" edge="EdgeCenter1" period="100.00" file="file.txt" begin="0.00"/>
+    <routeProbe id="id with spaces" edge="Edge2" period="100.00" file="file.txt" begin="0.00"/>
 
     <!-- non valid ID (empty) -->
-    <routeProbe id="" edge="EdgeCenter1" period="100.00" file="file.txt" begin="0.00"/>
+    <routeProbe id="" edge="Edge3" period="100.00" file="file.txt" begin="0.00"/>
 
     <!-- non valid ID (duplicated) -->
-    <routeProbe id="routeProbe_0" edge="EdgeCenter1" period="100.00" file="routeProbe_0.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_0" edge="Edge4" period="100.00" file="routeProbe_0.txt" begin="0.00"/>
 
     <!-- valid ID-->
-    <routeProbe id="routeProbe_1" edge="EdgeCenter1" period="100.00" file="routeProbe_1.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_1" edge="Edge5" period="100.00" file="routeProbe_1.txt" begin="0.00"/>
 
 </additional>

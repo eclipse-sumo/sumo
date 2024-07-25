@@ -1,6 +1,6 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Without errors -->
-    <vaporizer id="EdgeCenter0" begin="5.00" end="15.00"/>
+    <vaporizer id="Edge0" begin="5.00" end="15.00"/>
 
     <!-- non valid id (missing) -->
     <vaporizer begin="5.00" end="15.00"/>
@@ -9,6 +9,6 @@
     <vaporizer id="dummyid" begin="5.00" end="15.00"/>
 
     <!-- valid id -->
-    <vaporizer id="EdgeCenter1" begin="5.00" end="15.00"/>
+    <vaporizer id="Edge1" begin="5.00" end="15.00"/>
 
 </additional>

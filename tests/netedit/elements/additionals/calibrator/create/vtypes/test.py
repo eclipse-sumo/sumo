@@ -41,13 +41,13 @@ netedit.changeDefaultBoolValue(netedit.attrs.calibrator.create.center)
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.vTypes, "%%%%##;;#!!!")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # change vTypes with an valid value
 netedit.changeDefaultValue(netedit.attrs.calibrator.create.vTypes, "type1 type2")
 
 # create calibrator with a valid parameter in other lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
