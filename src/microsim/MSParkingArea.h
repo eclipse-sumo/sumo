@@ -231,8 +231,8 @@ public:
     void setNumAlternatives(int alternatives);
 
 protected:
-    /// @brief overwrite the capacity
-    void setCapacity(int capactity);
+    /// @brief overwrite the capacity (caution: will delete ANY previous parking space definitions)
+    void setRoadsideCapacity(int capactity);
 
 protected:
     /** @struct LotSpaceDefinition

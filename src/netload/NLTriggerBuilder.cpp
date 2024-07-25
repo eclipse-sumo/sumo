@@ -1003,7 +1003,7 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
 void
 NLTriggerBuilder::updateParkingAreaDefaultCapacity() {
     if (myParkingArea != nullptr && !myParkingAreaCapacitySet) {
-        myParkingArea->setCapacity(1);
+        myParkingArea->setRoadsideCapacity(1);
     }
 }
 
