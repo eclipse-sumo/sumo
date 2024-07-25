@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-24 12:58+0000\n"
+"PO-Revision-Date: 2024-07-25 10:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5298,7 +5298,7 @@ msgstr ""
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1365
 msgid "Added % rail signals at % stops."
-msgstr ""
+msgstr "% segnali ferroviari sono stati aggiunti a % fermate."
 
 #: src/netbuild/NBAlgorithms_Railway.cpp:1496
 msgid "Could not straighten corridor %."
@@ -5311,47 +5311,53 @@ msgstr ""
 #: src/netbuild/NBAlgorithms_Ramps.cpp:121
 #, c-format
 msgid "Can not build ramp on edge '%' - the edge is unsuitable."
-msgstr ""
+msgstr "Non si può costruire una rampa nell'arco '%' - l'arco non è adeguata."
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:125
 #, c-format
 msgid "Can not build on ramp on edge '%' - the edge is not known."
 msgstr ""
+"Non si può costruire una rampa di accesso nell'arco '%' - l'arco è "
+"sconosciuto."
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:136
 #, c-format
 msgid "Can not build off ramp on edge '%' - the edge is not known."
 msgstr ""
+"Non si può costruire una rampa di uscita nell'arco '%' - l'arco è "
+"sconosciuto."
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:293
 #: src/netbuild/NBAlgorithms_Ramps.cpp:298
 #: src/netbuild/NBAlgorithms_Ramps.cpp:413
 #: src/netbuild/NBAlgorithms_Ramps.cpp:416 src/netbuild/NBEdgeCont.cpp:712
 msgid "Could not set connection!"
-msgstr ""
+msgstr "Non ho potuto mettere il collegamento!"
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:440
 msgid "For edge '%': could not compute shape."
-msgstr ""
+msgstr "Per l'arco '%': non ho potuto calcolare la forma."
 
 #: src/netbuild/NBEdge.cpp:434 src/netbuild/NBEdge.cpp:462
 #, c-format
 msgid "At least one of edge's '%' nodes is not known."
-msgstr ""
+msgstr "Almeno uno dei nodi dell'arco '%' è sconosciuto."
 
 #: src/netbuild/NBEdge.cpp:459
 #, c-format
 msgid "Edge '%' needs at least one lane."
-msgstr ""
+msgstr "L'arco '%' ha bisogno di almeno una corsia."
 
 #: src/netbuild/NBEdge.cpp:465
 msgid "Invalid edge id '%'."
-msgstr ""
+msgstr "Codice identificativo di arco '%' invalido."
 
 #: src/netbuild/NBEdge.cpp:495 src/netbuild/NBEdge.cpp:641
 #, c-format
 msgid "Edge's '%' from- and to-node are at the same position."
 msgstr ""
+"Il nodo iniziale e quello terminale dell'arco '%' si trovano alla medesima "
+"posizione."
 
 #: src/netbuild/NBEdge.cpp:1048
 msgid "Removing sharp angle of % degrees at edge '%', segment %."
