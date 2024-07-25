@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-17 16:10+0000\n"
+"PO-Revision-Date: 2024-07-25 10:19+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -5948,7 +5948,7 @@ msgstr ""
 #: src/netbuild/NBAlgorithms_Ramps.cpp:413
 #: src/netbuild/NBAlgorithms_Ramps.cpp:416 src/netbuild/NBEdgeCont.cpp:712
 msgid "Could not set connection!"
-msgstr "Konnte Verbindung nicht anwenden!"
+msgstr "Konnte Verbindung nicht setzen!"
 
 #: src/netbuild/NBAlgorithms_Ramps.cpp:440
 msgid "For edge '%': could not compute shape."
