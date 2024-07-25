@@ -75,10 +75,11 @@ MSDevice_FCDReplay::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 void
 MSDevice_FCDReplay::init() {
     delete myHandler;
-    myHandler = new MSDevice_FCDReplay::FCDHandler();
+    myHandler = nullptr;
     const OptionsCont& oc = OptionsCont::getOptions();
     if (oc.isSet("device.fcd-replay.file")) {
         const std::string& filename = oc.getString("device.fcd-replay.file");
+        myHandler = new MSDevice_FCDReplay::FCDHandler(filename);
         myParser = XMLSubSys::getSAXReader(*myHandler);
         if (!myParser->parseFirst(filename)) {
             throw ProcessError(TLF("Can not read XML-file '%'.", filename));
@@ -162,7 +163,8 @@ MSDevice_FCDReplay::MoveVehicles::execute(SUMOTime currentTime) {
 // ---------------------------------------------------------------------------
 // MSDevice_FCDReplay::FCDHandler-methods
 // ---------------------------------------------------------------------------
-MSDevice_FCDReplay::FCDHandler::FCDHandler() :
+MSDevice_FCDReplay::FCDHandler::FCDHandler(const std::string& file) :
+    SUMOSAXHandler(file),
     MapMatcher(OptionsCont::getOptions().getBool("mapmatch.junctions"),
                OptionsCont::getOptions().getFloat("mapmatch.distance"),
                MsgHandler::getErrorInstance()) {}

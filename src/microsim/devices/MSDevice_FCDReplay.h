@@ -111,7 +111,7 @@ private:
 
     class FCDHandler : public SUMOSAXHandler, public MapMatcher<MSEdge, MSLane, MSJunction> {
     public:
-        FCDHandler();
+        FCDHandler(const std::string& file);
         SUMOTime getTime() const {
             return myTime;
         }
