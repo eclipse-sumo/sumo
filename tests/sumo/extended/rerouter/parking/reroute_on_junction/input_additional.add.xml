@@ -42,7 +42,7 @@
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="-5134673#1_0" lane="-5134673#1_0" startPos="1.00" endPos="-1.00" friendlyPos="true"/>
-    <parkingArea id="40916540_0" lane="40916540_0" startPos="1.00" endPos="-1.00" friendlyPos="true"/>
+    <parkingArea id="-5134673#1_0" lane="-5134673#1_0" startPos="1.00" endPos="-1.00" roadsideCapacity="0" friendlyPos="true"/>
+    <parkingArea id="40916540_0" lane="40916540_0" startPos="1.00" endPos="-1.00" roadsideCapacity="0" friendlyPos="true"/>
     <parkingArea id="Fasanen-B-5" lane="-4364840#0_0" startPos="1.00" endPos="-1.00" roadsideCapacity="14" friendlyPos="true"/>
 </additional>

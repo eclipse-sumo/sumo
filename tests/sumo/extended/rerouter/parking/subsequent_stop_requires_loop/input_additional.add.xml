@@ -33,5 +33,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <parkingArea id="park1" lane="SC_0" roadsideCapacity="5" startPos="30.23" endPos="40.23"/>
-    <parkingArea id="park2" lane="CS_0" startPos="29.08" endPos="39.08"/>
+    <parkingArea id="park2" lane="CS_0" roadsideCapacity="0" startPos="29.08" endPos="39.08"/>
 </additional>
