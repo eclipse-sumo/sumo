@@ -185,7 +185,7 @@ protected:
 
     /// @brief check object in view
     void calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const double width, const bool movingGeometryPoints) const;
+                                       const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
 private:
     /// @brief set attribute after validation

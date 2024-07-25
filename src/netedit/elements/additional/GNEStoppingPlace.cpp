@@ -361,7 +361,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
 
 void
 GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-        const double width, const bool movingGeometryPoints) const {
+        const double width, const double exaggeration, const bool movingGeometryPoints) const {
     // check if we're calculating the contour or the moving geometry points
     if (movingGeometryPoints) {
         if (myStartPosition != INVALID_DOUBLE) {
@@ -375,6 +375,7 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
     } else {
         // don't exaggerate contour
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
+        myAdditionalContourAuxiliary.calculateContourCircleShape(s, d, this, mySignPos, myCircleWidth, exaggeration);
     }
 }
 

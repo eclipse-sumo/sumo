@@ -215,14 +215,15 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
             // draw dotted contour
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
             // draw dotted contours for geometry points
             myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
                     1, s.dottedContourSettings.segmentWidthSmall);
         }
         // draw demand element children
         drawDemandElementChildren(s);
-        // calculate contour
-        calculateStoppingPlaceContour(s, d, myWidth * 0.5, movingGeometryPoints);
+        // calculate contours
+        calculateStoppingPlaceContour(s, d, myWidth * 0.5, parkingAreaExaggeration, movingGeometryPoints);
     }
 }
 
