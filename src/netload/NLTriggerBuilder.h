@@ -66,7 +66,6 @@ public:
     /// @brief Destructor
     virtual ~NLTriggerBuilder();
 
-
     /** @brief Sets the parent handler to use for nested parsing
      *
      * @param[in] handler The netload handler to set
@@ -265,6 +264,10 @@ public:
      */
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
                                  const std::string& base);
+
+    /** @brief updates the parkingArea default capacity
+     */
+    void updateParkingAreaDefaultCapacity();
     //@}
 
 
@@ -498,7 +501,10 @@ protected:
      */
     double getPosition(const SUMOSAXAttributes& attrs,
                        MSLane* lane, const std::string& tt, const std::string& tid, MSEdge* edge = 0);
+
     /// @}
+
+
 
 
 protected:
@@ -510,4 +516,5 @@ protected:
     MSStoppingPlace* myCurrentStop;
 
     bool myHaveWarnedAboutEigen = false;
+    bool myParkingAreaCapacitySet = false;
 };

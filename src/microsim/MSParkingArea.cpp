@@ -14,6 +14,7 @@
 /// @file    MSParkingArea.cpp
 /// @author  Mirco Sturari
 /// @author  Jakob Erdmann
+/// @author  Mirko Barthauer
 /// @date    Tue, 19.01.2016
 ///
 // A area where vehicles can park next to the road
@@ -585,6 +586,12 @@ MSParkingArea::getNumAlternatives() const {
 void
 MSParkingArea::setNumAlternatives(int alternatives) {
     myNumAlternatives = MAX2(myNumAlternatives, alternatives);
+}
+
+
+void
+MSParkingArea::setCapacity(int capacity) {
+    myCapacity = MAX2(capacity, 0);
 }
 
 /****************************************************************************/

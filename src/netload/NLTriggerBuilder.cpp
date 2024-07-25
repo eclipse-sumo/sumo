@@ -573,6 +573,7 @@ NLTriggerBuilder::parseAndBeginParkingArea(MSNet& net, const SUMOSAXAttributes& 
     double topos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, lane->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
     unsigned int capacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), ok, 0);
+    myParkingAreaCapacitySet = attrs.hasAttribute(SUMO_ATTR_ROADSIDE_CAPACITY);
     bool onRoad = attrs.getOpt<bool>(SUMO_ATTR_ONROAD, id.c_str(), ok, false);
     double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), ok, 0);
     double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), ok, 0);
@@ -823,6 +824,7 @@ NLTriggerBuilder::addLotEntry(double x, double y, double z,
     if (myParkingArea != nullptr) {
         if (!myParkingArea->parkOnRoad()) {
             myParkingArea->addLotEntry(x, y, z, width, length, angle, slope);
+            myParkingAreaCapacitySet = true;
         } else {
             throw InvalidArgument("Cannot not add lot entry to on-road parking area.");
         }
@@ -836,6 +838,7 @@ void
 NLTriggerBuilder::endParkingArea() {
     if (myParkingArea != nullptr) {
         myParkingArea = nullptr;
+        myParkingAreaCapacitySet = false;
     } else {
         throw InvalidArgument("Could not end a parking area that is not opened.");
     }
@@ -995,6 +998,15 @@ NLTriggerBuilder::getPosition(const SUMOSAXAttributes& attrs,
     }
     return pos;
 }
+
+
+void
+NLTriggerBuilder::updateParkingAreaDefaultCapacity() {
+    if (myParkingArea != nullptr && !myParkingAreaCapacitySet) {
+        myParkingArea->setCapacity(1);
+    }
+}
+
 
 MSStoppingPlace*
 NLTriggerBuilder::getCurrentStop() {

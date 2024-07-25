@@ -364,6 +364,7 @@ NLHandler::myEndElement(int element) {
             }
             break;
         case SUMO_TAG_PARKING_AREA:
+            myTriggerBuilder.updateParkingAreaDefaultCapacity();
             myTriggerBuilder.endParkingArea();
             myLastParameterised.pop_back();
             break;
