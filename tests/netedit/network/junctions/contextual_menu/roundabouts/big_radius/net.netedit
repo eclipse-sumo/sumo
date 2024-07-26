@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 12:44:22 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<!-- generated on 2024-07-26 08:13:27 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
@@ -49,22 +49,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_17Jul124013.18724\netedit.gui\network\junctions\contextual_menu\roundabouts\big_radius\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/roundabouts/big_radius/log.txt"/>
     </report>
 
 </neteditConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-399.96,-399.96,399.96,399.96" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
@@ -74,17 +74,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":J0_1" function="internal">
         <lane id=":J0_1_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="-1.60,24.93 1.60,24.90"/>
     </edge>
-    <edge id=":J0_w0" function="walkingarea">
-        <lane id=":J0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="3.20,24.90 5.20,24.90 -5.20,24.90 -3.20,24.90"/>
-    </edge>
     <edge id=":J1_0" function="internal">
         <lane id=":J1_0_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="24.90,1.60 24.93,-1.60"/>
     </edge>
     <edge id=":J1_1" function="internal">
         <lane id=":J1_1_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="24.93,1.60 24.90,-1.60"/>
-    </edge>
-    <edge id=":J1_w0" function="walkingarea">
-        <lane id=":J1_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="24.95,-3.20 24.98,-5.20 24.90,5.20 24.90,3.20"/>
     </edge>
     <edge id=":J2_0" function="internal">
         <lane id=":J2_0_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="1.60,-24.90 -1.60,-24.93"/>
@@ -92,32 +86,17 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id=":J2_1" function="internal">
         <lane id=":J2_1_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="1.60,-24.93 -1.60,-24.90"/>
     </edge>
-    <edge id=":J2_w0" function="walkingarea">
-        <lane id=":J2_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-3.20,-24.95 -5.20,-24.98 5.20,-24.90 3.20,-24.90"/>
-    </edge>
     <edge id=":J3_0" function="internal">
         <lane id=":J3_0_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="-24.90,-1.60 -24.93,1.60"/>
     </edge>
     <edge id=":J3_1" function="internal">
         <lane id=":J3_1_0" index="0" disallow="pedestrian" speed="3.25" length="3.20" shape="-24.93,-1.60 -24.90,1.60"/>
     </edge>
-    <edge id=":J3_w0" function="walkingarea">
-        <lane id=":J3_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-24.95,3.20 -24.98,5.20 -24.90,-5.20 -24.90,-3.20"/>
-    </edge>
-    <edge id=":JunctionBot_w0" function="walkingarea">
-        <lane id=":JunctionBot_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="3.20,-25.00 5.20,-25.00 -5.20,-25.00 -3.20,-25.00"/>
-    </edge>
     <edge id=":JunctionExtern0_0" function="internal">
         <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
     </edge>
     <edge id=":JunctionExtern1_0" function="internal">
         <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
-    </edge>
-    <edge id=":JunctionRight_w0" function="walkingarea">
-        <lane id=":JunctionRight_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="25.00,3.20 25.00,5.20 25.00,-5.20 25.00,-3.20"/>
-    </edge>
-    <edge id=":JunctionTop_w0" function="walkingarea">
-        <lane id=":JunctionTop_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.40" width="2.00" shape="-3.20,25.00 -5.20,25.00 5.20,25.00 3.20,25.00"/>
     </edge>
 
     <edge id="-E4" from="JunctionLeft" to="J3" priority="-1">
@@ -224,18 +203,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
 
-    <connection from=":J0_w0" to="E50" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E5" to=":J0_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J1_w0" to="E0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E6" to=":J1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J2_w0" to="E1" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E7" to=":J2_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J3_w0" to="E2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-E4" to=":J3_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionBot_w0" to="-E7" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E70" to=":JunctionBot_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionRight_w0" to="-E6" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E60" to=":JunctionRight_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":JunctionTop_w0" to="-E5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E50" to=":JunctionTop_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

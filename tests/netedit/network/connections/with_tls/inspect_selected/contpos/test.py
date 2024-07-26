@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change constPos with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "dummyContPos", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.contPos, "dummyContPos", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "-3", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.contPos, "-3", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.contPos, "0", True)
 
 # Change constPos with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.contPos, "12", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.contPos, "12", True)
 
 # rebuild
 netedit.rebuildNetwork()

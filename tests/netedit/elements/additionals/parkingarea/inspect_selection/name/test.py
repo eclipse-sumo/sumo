@@ -41,10 +41,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "%%%$$$$%$", False)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "%%%$$$$%$", True)
 
 # Change parameter Name with a non valid value (throw warning)
-netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "new Parking Area Name", False)
+netedit.modifyAttribute(netedit.attrs.parkingArea.inspectSelection.name, "new Parking Area Name", True)
 
 # Check undos and redos
 netedit.checkUndoRedo(referencePosition)

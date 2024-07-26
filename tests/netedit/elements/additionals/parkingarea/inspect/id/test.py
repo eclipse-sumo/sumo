@@ -41,7 +41,7 @@ netedit.changeDefaultValue(netedit.attrs.parkingArea.create.references, "Center"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
 # create parkingArea 2 in mode "Center"
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.centralEdge5)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # go to inspect mode
 netedit.inspectMode()

@@ -38,20 +38,29 @@ netedit.changeElement("entryExitDetector")
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# Create entry detector with default value
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # select exit detector
 netedit.changeElement("detEntry")
 
+# Create exit detector with default value
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+
+# Create exit detector with default value
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # go to inspect mode
 netedit.inspectMode()

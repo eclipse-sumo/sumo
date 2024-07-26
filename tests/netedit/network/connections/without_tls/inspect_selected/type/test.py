@@ -47,13 +47,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change type with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.type, "%%%;;;;%%", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.type, "%%%;;;;%%", True)
 
 # Change type with an valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.type, "", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.type, "", True)
 
 # Change type with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.type, "customType", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.type, "customType", True)
 
 # rebuild
 netedit.rebuildNetwork()

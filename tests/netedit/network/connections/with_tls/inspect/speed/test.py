@@ -38,16 +38,16 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change speed with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "dummySpeed", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.speed, "dummySpeed", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "-3", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.speed, "-3", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.speed, "0", True)
 
 # Change speed with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspect.speed, "15.5", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.speed, "15.5", True)
 
 # rebuild
 netedit.rebuildNetwork()

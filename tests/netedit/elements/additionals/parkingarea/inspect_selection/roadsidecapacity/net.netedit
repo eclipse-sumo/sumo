@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-20 10:08:23 by Eclipse SUMO netedit Version v1_20_0+0675-98ec49b7c8b
+<!-- generated on 2024-07-26 12:01:53 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/net.net.xml"/>
     </output>
 
     <processing>
@@ -49,16 +49,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.20Jun095717.9227/netedit.gui/elements/additional/parkingarea/inspect_selection/roadsidecapacity/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul113054.16715/netedit.gui/elements/additionals/parkingarea/inspect_selection/roadsidecapacity/log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -66,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":Junction0_w0" function="walkingarea">
         <lane id=":Junction0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="2.00" shape="-35.00,-23.00 -35.00,-25.00 -35.00,-15.00 -35.00,-17.00"/>
@@ -142,52 +142,52 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":JunctionExtern1_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="60.00,-1.50 61.12,-0.75 61.50,0.00 61.12,0.75 60.00,1.50"/>
     </edge>
 
-    <edge id="Edge0" from="Junction0" to="Junction1" priority="-1" type="7" length="65.00">
+    <edge id="Edge0" from="Junction0" to="Junction1" priority="-1" length="65.00">
         <lane id="Edge0_0" index="0" allow="pedestrian" speed="13.89" length="65.00" width="2.00" shape="-35.00,-24.00 30.00,-24.00"/>
         <lane id="Edge0_1" index="1" disallow="pedestrian" speed="13.89" length="65.00" width="3.00" shape="-35.00,-21.50 30.00,-21.50"/>
     </edge>
-    <edge id="Edge1" from="Junction1" to="Junction2" priority="-1" type="7" length="30.00">
+    <edge id="Edge1" from="Junction1" to="Junction2" priority="-1" length="30.00">
         <lane id="Edge1_0" index="0" allow="pedestrian" speed="13.89" length="30.00" width="2.00" shape="39.00,-15.00 39.00,15.00"/>
         <lane id="Edge1_1" index="1" disallow="pedestrian" speed="13.89" length="30.00" width="3.00" shape="36.50,-15.00 36.50,15.00"/>
     </edge>
-    <edge id="Edge2" from="Junction2" to="Junction3" priority="-1" type="7" length="57.50">
+    <edge id="Edge2" from="Junction2" to="Junction3" priority="-1" length="57.50">
         <lane id="Edge2_0" index="0" allow="pedestrian" speed="13.89" length="57.50" width="2.00" shape="30.00,24.00 -27.50,24.00"/>
         <lane id="Edge2_1" index="1" disallow="pedestrian" speed="13.89" length="57.50" width="3.00" shape="30.00,21.50 -27.50,21.50"/>
     </edge>
-    <edge id="Edge3" from="Junction3" to="Junction2" priority="-1" type="7" length="57.50">
+    <edge id="Edge3" from="Junction3" to="Junction2" priority="-1" length="57.50">
         <lane id="Edge3_0" index="0" allow="pedestrian" speed="13.89" length="57.50" width="2.00" shape="-27.50,16.00 30.00,16.00"/>
         <lane id="Edge3_1" index="1" disallow="pedestrian" speed="13.89" length="57.50" width="3.00" shape="-27.50,18.50 30.00,18.50"/>
     </edge>
-    <edge id="Edge4" from="Junction2" to="Junction1" priority="-1" type="7" length="30.00">
+    <edge id="Edge4" from="Junction2" to="Junction1" priority="-1" length="30.00">
         <lane id="Edge4_0" index="0" allow="pedestrian" speed="13.89" length="30.00" width="2.00" shape="31.00,15.00 31.00,-15.00"/>
         <lane id="Edge4_1" index="1" disallow="pedestrian" speed="13.89" length="30.00" width="3.00" shape="33.50,15.00 33.50,-15.00"/>
     </edge>
-    <edge id="Edge5" from="Junction1" to="Junction0" priority="-1" type="7" length="65.00">
+    <edge id="Edge5" from="Junction1" to="Junction0" priority="-1" length="65.00">
         <lane id="Edge5_0" index="0" allow="pedestrian" speed="13.89" length="65.00" width="2.00" shape="30.00,-16.00 -35.00,-16.00"/>
         <lane id="Edge5_1" index="1" disallow="pedestrian" speed="13.89" length="65.00" width="3.00" shape="30.00,-18.50 -35.00,-18.50"/>
     </edge>
-    <edge id="EdgeBike0" from="Junction3" to="Junction4" priority="-1" type="7" length="7.00">
+    <edge id="EdgeBike0" from="Junction3" to="Junction4" priority="-1" length="7.00">
         <lane id="EdgeBike0_0" index="0" allow="pedestrian" speed="13.89" length="7.00" width="2.00" shape="-40.00,13.50 -40.00,6.50"/>
         <lane id="EdgeBike0_1" index="1" allow="bicycle" speed="13.89" length="7.00" width="1.00" shape="-38.50,13.50 -38.50,6.50"/>
         <lane id="EdgeBike0_2" index="2" allow="bus" speed="13.89" length="7.00" width="3.00" shape="-36.50,13.50 -36.50,6.50"/>
     </edge>
-    <edge id="EdgeBike1" from="Junction4" to="Junction3" priority="-1" type="7" length="7.00">
+    <edge id="EdgeBike1" from="Junction4" to="Junction3" priority="-1" length="7.00">
         <lane id="EdgeBike1_0" index="0" allow="pedestrian" speed="13.89" length="7.00" width="2.00" shape="-30.00,6.50 -30.00,13.50"/>
         <lane id="EdgeBike1_1" index="1" allow="bicycle" speed="13.89" length="7.00" width="1.00" shape="-31.50,6.50 -31.50,13.50"/>
         <lane id="EdgeBike1_2" index="2" allow="bus" speed="13.89" length="7.00" width="3.00" shape="-33.50,6.50 -33.50,13.50"/>
     </edge>
-    <edge id="EdgeCenter0" from="Junction4" to="Junction5" priority="-1" type="7" length="47.50">
+    <edge id="EdgeCenter0" from="Junction4" to="Junction5" priority="-1" length="47.50">
         <lane id="EdgeCenter0_0" index="0" allow="pedestrian" speed="13.89" length="47.50" width="2.00" shape="-27.50,-4.00 0.00,-4.00"/>
         <lane id="EdgeCenter0_1" index="1" disallow="pedestrian" speed="13.89" length="47.50" width="3.00" shape="-27.50,-1.50 0.00,-1.50"/>
     </edge>
-    <edge id="EdgeCenter1" from="Junction5" to="Junction4" priority="-1" type="7" length="47.50">
+    <edge id="EdgeCenter1" from="Junction5" to="Junction4" priority="-1" length="47.50">
         <lane id="EdgeCenter1_0" index="0" allow="pedestrian" speed="13.89" length="47.50" width="2.00" shape="0.00,4.00 -27.50,4.00"/>
         <lane id="EdgeCenter1_1" index="1" disallow="pedestrian" speed="13.89" length="47.50" width="3.00" shape="0.00,1.50 -27.50,1.50"/>
     </edge>
-    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" type="7" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" length="175.00" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00">
         <lane id="EdgeExternBot_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="-60.00,-1.50 -46.50,-1.50 -46.50,-25.62 -40.62,-31.50 40.62,-31.50 46.50,-25.62 46.50,-1.50 60.00,-1.50"/>
     </edge>
-    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" type="7" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" length="175.00" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00">
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 

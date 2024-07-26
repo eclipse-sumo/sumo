@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-28 14:18:33 by Eclipse SUMO netedit Version v1_20_0+1039-25f5ab4053c
+<!-- generated on 2024-07-26 08:03:35 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
@@ -49,22 +49,22 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.28Jun141428.2128/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075928.3990/netedit.gui/network/junctions/inspect/no_tls/selected/type/priority_stop/log.txt"/>
     </report>
 
 </neteditConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 

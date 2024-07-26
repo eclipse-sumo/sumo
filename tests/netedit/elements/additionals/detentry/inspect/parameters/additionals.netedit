@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-05 16:18:40 by Eclipse SUMO netedit Version v1_20_0+0359-09f6b58d48b
+<!-- generated on 2024-07-26 08:32:22 by Eclipse SUMO netedit Version v1_20_0+1433-844d4b826ce
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Detectors -->
     <entryExitDetector id="e3_0" pos="-6.00,10.00" period="300.00" file="e3_0.xml">
-        <detEntry lane="EdgeCenter1_1" pos="32.82"/>
-        <detExit lane="EdgeCenter1_1" pos="25.91"/>
+        <detEntry lane="EdgeCenter1_1" pos="21.71">
+            <param key="keyFinal1" value="value1"/>
+            <param key="keyFinal2" value="value2"/>
+            <param key="keyFinal3" value="value3"/>
+        </detEntry>
+        <detExit lane="Edge2_1" pos="28.75"/>
     </entryExitDetector>
 </additional>

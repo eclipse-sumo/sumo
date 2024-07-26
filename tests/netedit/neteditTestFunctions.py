@@ -1243,10 +1243,26 @@ def moveElement(referencePosition, originalPosition, radius):
     @brief move element
     """
     # move element
-    dragDrop(referencePosition, originalPosition.x, originalPosition.y,
-             originalPosition.x + radius.right, originalPosition.y)
-    dragDrop(referencePosition, originalPosition.x + radius.right,
-             originalPosition.y, originalPosition.x + radius.left, originalPosition.y)
+    dragDrop(referencePosition,
+             originalPosition.x,
+             originalPosition.y,
+             originalPosition.x + radius.right,
+             originalPosition.y)
+    dragDrop(referencePosition,
+             originalPosition.x + radius.right,
+             originalPosition.y,
+             originalPosition.x + radius.right,
+             originalPosition.y + radius.down)
+    dragDrop(referencePosition,
+             originalPosition.x + radius.right,
+             originalPosition.y + radius.down,
+             originalPosition.x + radius.left,
+             originalPosition.y + radius.down)
+    dragDrop(referencePosition,
+             originalPosition.x + radius.left,
+             originalPosition.y + radius.down,
+             originalPosition.x + radius.left,
+             originalPosition.y + radius.up)
 
 #################################################
     # crossings

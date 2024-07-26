@@ -34,30 +34,32 @@ netedit.additionalMode()
 # select E3
 netedit.changeElement("entryExitDetector")
 
-# create E3 with default parameters
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+# create E3 with valid frequency
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # select entry detector
+netedit.changeElement("detEntry")
+
+# Create entry detector with default value
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+
+# select exit detector
 netedit.changeElement("detExit")
 
 # Create entry detector with default value
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
-
-# select exit detector
-netedit.changeElement("detEntry")
-
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
 
 # Change to delete
 netedit.deleteMode()
 
-# Delete the four Entry/exits
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+# delete childs of loaded detector
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+
+# delete only child of created detector
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

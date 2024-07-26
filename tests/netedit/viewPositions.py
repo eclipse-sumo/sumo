@@ -208,12 +208,12 @@ class network:
     class connection:
 
         class connectionA:
-            x = 420
-            y = 200
+            x = 400
+            y = 194
 
         class connectionB:
-            x = 458
-            y = 240
+            x = 446
+            y = 220
 
         class laneUpLeft:
             x = 460
@@ -345,6 +345,12 @@ class elements:
         left = -70
         right = 70
 
+    class movementRadiusB:
+        up = 100
+        down = -100
+        left = -100
+        right = 100
+
     # additional (for inspect, delete, etc.)
     class additionals:
 
@@ -365,8 +371,8 @@ class elements:
             y = 221
 
         class parkingArea:
-            x = 343
-            y = 190
+            x = 340
+            y = 185
 
         class parkingSpace:
             x = 437

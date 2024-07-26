@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 15:17:31 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<!-- generated on 2024-07-26 08:09:31 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\additionals.add.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\routes.rou.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\datas.dat.xml"/>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/net.net.xml"/>
     </output>
 
     <processing>
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </junctions>
 
     <pedestrian>
-        <walkingareas value="1"/>
+        <walkingareas value="0"/>
     </pedestrian>
 
     <netedit>
@@ -49,48 +49,36 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Jul151640.7848\netedit.gui\network\junctions\contextual_menu\split\split_junction\log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul075945.4092/netedit.gui/network/junctions/contextual_menu/split/split_junction/log.txt"/>
     </report>
 
 </neteditConfiguration>
 -->
 
-<net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id=":J1_0" function="internal">
         <lane id=":J1_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="-6.60,10.20 -6.82,8.62 -7.50,7.50 -8.62,6.82 -10.20,6.60"/>
     </edge>
-    <edge id=":J1_w0" function="walkingarea">
-        <lane id=":J1_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.41" width="2.00" shape="-10.20,8.20 -10.20,10.20 -8.20,10.20 -8.26,9.59 -8.42,9.09 -8.70,8.70 -9.09,8.42 -9.59,8.26"/>
-    </edge>
     <edge id=":J4_0" function="internal">
         <lane id=":J4_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="10.20,6.60 8.62,6.82 7.50,7.50 6.82,8.62 6.60,10.20"/>
-    </edge>
-    <edge id=":J4_w0" function="walkingarea">
-        <lane id=":J4_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.41" width="2.00" shape="8.20,10.20 10.20,10.20 10.20,8.20 9.59,8.26 9.09,8.42 8.70,8.70 8.42,9.09 8.26,9.59"/>
     </edge>
     <edge id=":J6_0" function="internal">
         <lane id=":J6_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="6.60,-10.20 6.82,-8.62 7.50,-7.50 8.62,-6.82 10.20,-6.60"/>
     </edge>
-    <edge id=":J6_w0" function="walkingarea">
-        <lane id=":J6_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.41" width="2.00" shape="10.20,-8.20 10.20,-10.20 8.20,-10.20 8.26,-9.59 8.42,-9.09 8.70,-8.70 9.09,-8.42 9.59,-8.26"/>
-    </edge>
     <edge id=":J7_0" function="internal">
         <lane id=":J7_0_0" index="0" disallow="pedestrian" speed="5.37" length="5.81" shape="-10.20,-6.60 -8.62,-6.82 -7.50,-7.50 -6.82,-8.62 -6.60,-10.20"/>
-    </edge>
-    <edge id=":J7_w0" function="walkingarea">
-        <lane id=":J7_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.41" width="2.00" shape="-8.20,-10.20 -10.20,-10.20 -10.20,-8.20 -9.59,-8.26 -9.09,-8.42 -8.70,-8.70 -8.42,-9.09 -8.26,-9.59"/>
     </edge>
     <edge id=":JunctionExtern0_0" function="internal">
         <lane id=":JunctionExtern0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-60.00,1.50 -61.12,0.75 -61.50,0.00 -61.12,-0.75 -60.00,-1.50"/>
@@ -179,12 +167,4 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <connection from=":JunctionExtern0_0" to="EdgeExternBot" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":JunctionExtern1_0" to="EdgeExternTop" fromLane="0" toLane="0" dir="t" state="M"/>
 
-    <connection from=":J1_w0" to="E15" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E14" to=":J1_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J4_w0" to="E21" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E20" to=":J4_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J6_w0" to="E19" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E18" to=":J6_w0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":J7_w0" to="E17" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="E16" to=":J7_w0" fromLane="0" toLane="0" dir="s" state="M"/>
 </net>

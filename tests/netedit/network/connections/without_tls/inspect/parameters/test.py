@@ -38,7 +38,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.connection.inspectTLS.parameters, True)
+netedit.checkParameters(referencePosition, netedit.attrs.connection.inspect.parameters, True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

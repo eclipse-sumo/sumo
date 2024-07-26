@@ -38,22 +38,22 @@ netedit.changeEditMode(netedit.attrs.modes.network.showConnections)
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change parameter 8 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.connection.inspect.changeRight, "DummyAllowed", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeRight, "DummyAllowed", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspect.changeRight, "", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeRight, "", True)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.connection.inspect.changeRight, "authority  army, passenger; taxi. tram", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeRight, "authority  army, passenger; taxi. tram", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspect.changeRight, "", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeRight, "", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspect.changeRightButton, True)
+netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspectTLS.changeRightButton, True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.connection.inspect.changeRight,
+netedit.modifyAttribute(netedit.attrs.connection.inspectTLS.changeRight,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 
 # rebuild

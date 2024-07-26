@@ -47,16 +47,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.network.connection.connectionA)
 
 # Change visibility with an invalid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.visibility, "dummyVisibility", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "dummyVisibility", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.visibility, "-4", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "-4", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.visibility, "0", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "0", True)
 
 # Change visibility with an valid value
-netedit.modifyAttribute(netedit.attrs.connection.inspectSelection.visibility, "11", True)
+netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.visibility, "11", True)
 
 # rebuild
 netedit.rebuildNetwork()
