@@ -122,7 +122,7 @@ The following parameters are supported as child elements of a `<vType>`, `<vehic
 
 - device.rerouting.period
 - device.rerouting.pre-period
-- device.rerouting.proability
+- device.rerouting.probability
 - device.rerouting.deterministic
 - device.rerouting.mode
 - has.rerouting.device
