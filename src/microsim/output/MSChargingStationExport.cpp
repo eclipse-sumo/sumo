@@ -33,7 +33,7 @@
 // method definitions
 // ===========================================================================
 void
-MSChargingStationExport::write(OutputDevice& of, SUMOTime timestep) {
+MSChargingStationExport::write(OutputDevice& of, SUMOTime /* timestep */) {
     // loop through charging stations
     for (const auto& stop : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         static_cast<MSChargingStation*>(stop.second)->writeAggregatedChargingStationOutput(of);
