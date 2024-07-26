@@ -24,7 +24,6 @@
 # 1. Create a pkg file for Eclipse SUMO (= "framework") (and also add dependent libraries)
 # 2. Create pkg files for all launchers (= "apps")
 # 3. Create an installer pkg to jointly install the framework pkg and all app pkgs
-# 4. Create a disk image (dmg) to store the pkg files for deployment
 
 import os
 import plistlib
