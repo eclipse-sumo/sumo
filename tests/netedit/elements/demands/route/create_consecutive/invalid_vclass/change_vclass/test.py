@@ -34,12 +34,15 @@ netedit.supermodeDemand()
 # go to route mode
 netedit.routeMode()
 
+# change to bus
+netedit.changeRouteVClass("bus")
+
 # create route
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeBike0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
 
 # press enter to create route
 netedit.typeEnter()

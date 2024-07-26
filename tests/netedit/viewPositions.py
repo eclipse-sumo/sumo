@@ -298,6 +298,14 @@ class elements:
         x = 515
         y = 413
 
+    class edgeBike0:
+        x = 145
+        y = 125
+
+    class edgeBike1:
+        x = 18
+        y = 125
+
     class edgeCenter0Ped:
         x = 341
         y = 276

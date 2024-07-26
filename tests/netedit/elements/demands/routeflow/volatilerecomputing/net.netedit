@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 16:58:59 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-26 16:41:59 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/net.net.xml"/>
     </output>
 
     <processing>
@@ -38,25 +49,28 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150718.4810/netedit.gui/elements/demand/routeflow/volatilerecomputing/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/demands/routeflow/volatilerecomputing/log.txt"/>
     </report>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
+    <edge id=":Junction0_0" function="internal">
+        <lane id=":Junction0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-35.00,-18.50 -36.12,-19.25 -36.50,-20.00 -36.12,-20.75 -35.00,-21.50"/>
+    </edge>
     <edge id=":Junction0_w0" function="walkingarea">
         <lane id=":Junction0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="2.00" shape="-35.00,-23.00 -35.00,-25.00 -35.00,-15.00 -35.00,-17.00"/>
     </edge>
@@ -70,7 +84,7 @@
         <lane id=":Junction1_2_0" index="0" disallow="pedestrian" speed="6.94" length="4.22" width="3.00" shape="35.40,-19.00 36.09,-17.84 36.50,-15.00"/>
     </edge>
     <edge id=":Junction1_c0" function="crossing" crossingEdges="Edge1 Edge4">
-        <lane id=":Junction1_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="38.00,-17.00 32.00,-17.00" outlineShape="38.00,-15.00 32.00,-15.00 30.00,-17.00 30.00,-15.00 31.95,-15.00 32.00,-19.00 38.00,-19.00 39.41,-19.00 38.89,-20.56 37.50,-22.50 35.56,-23.89 33.06,-24.72 30.00,-25.00 30.00,-23.00 32.44,-22.78 34.44,-22.11 36.00,-21.00 37.11,-19.44 37.78,-17.44 38.00,-15.00"/>
+        <lane id=":Junction1_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="38.00,-17.00 32.00,-17.00" outlineShape="38.00,-15.00 32.00,-15.00 30.00,-17.00 30.00,-15.00 31.95,-15.00 32.00,-19.00 38.00,-19.00 39.41,-19.00 38.89,-20.56 37.50,-22.50 35.56,-23.89 33.06,-24.72 30.00,-25.00 30.00,-23.00 32.44,-22.78 34.44,-22.11 36.00,-21.00 37.11,-19.44 37.78,-17.44"/>
     </edge>
     <edge id=":Junction1_w0" function="walkingarea">
         <lane id=":Junction1_w0_0" index="0" allow="pedestrian" speed="2.78" length="1.96" width="4.00" shape="30.00,-17.00 30.00,-15.00 32.00,-15.00 31.94,-15.61 31.78,-16.11 31.50,-16.50 31.11,-16.78 30.61,-16.94"/>
@@ -85,7 +99,7 @@
         <lane id=":Junction2_1_0" index="0" disallow="pedestrian" speed="5.28" length="5.64" width="3.00" shape="30.00,18.50 31.53,18.28 32.62,17.62 33.28,16.53 33.50,15.00"/>
     </edge>
     <edge id=":Junction2_c0" function="crossing" crossingEdges="Edge4 Edge1">
-        <lane id=":Junction2_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="32.00,17.00 38.00,17.00" outlineShape="32.00,15.00 38.00,15.00 39.41,19.00 39.72,18.06 40.00,15.00 38.00,15.00 38.00,19.00 32.00,19.00 30.00,17.00 30.61,16.94 31.11,16.78 31.50,16.50 31.78,16.11 31.94,15.61 32.00,15.00"/>
+        <lane id=":Junction2_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="32.00,17.00 38.00,17.00" outlineShape="32.00,15.00 38.00,15.00 39.41,19.00 39.72,18.06 40.00,15.00 38.00,15.00 38.00,19.00 32.00,19.00 30.00,17.00 30.61,16.94 31.11,16.78 31.50,16.50 31.78,16.11 31.94,15.61"/>
     </edge>
     <edge id=":Junction2_w0" function="walkingarea">
         <lane id=":Junction2_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.53" width="4.00" shape="30.00,23.00 30.00,25.00 33.06,24.72 35.56,23.89 37.50,22.50 38.89,20.56 39.72,18.06 40.00,15.00 38.00,15.00 37.78,17.44 37.11,19.44 36.00,21.00 34.44,22.11 32.44,22.78"/>
@@ -105,7 +119,7 @@
         <lane id=":Junction3_4_0" index="0" allow="bus" speed="6.44" length="4.18" width="3.00" shape="-31.50,17.50 -30.12,18.19 -27.50,18.50"/>
     </edge>
     <edge id=":Junction3_c0" function="crossing" crossingEdges="Edge3 Edge2">
-        <lane id=":Junction3_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="-29.50,17.00 -29.50,23.00" outlineShape="-27.50,17.00 -27.50,23.00 -31.50,24.69 -27.50,25.00 -27.50,23.00 -31.50,23.00 -31.50,17.00 -30.83,14.78 -30.61,15.44 -30.12,16.12 -29.44,16.61 -28.57,16.90 -27.50,17.00"/>
+        <lane id=":Junction3_c0_0" index="0" allow="pedestrian" speed="2.78" length="6.00" width="4.00" shape="-29.50,17.00 -29.50,23.00" outlineShape="-27.50,17.00 -27.50,23.00 -31.50,24.69 -27.50,25.00 -27.50,23.00 -31.50,23.00 -31.50,17.00 -30.83,14.78 -30.61,15.44 -30.12,16.12 -29.44,16.61 -28.57,16.90"/>
     </edge>
     <edge id=":Junction3_w0" function="walkingarea">
         <lane id=":Junction3_w0_0" index="0" allow="pedestrian" speed="2.78" length="10.91" width="4.00" shape="-39.00,13.50 -41.00,13.50 -40.62,17.01 -39.50,19.89 -37.62,22.12 -35.00,23.72 -31.62,24.68 -27.50,25.00 -27.50,23.00 -31.01,22.74 -33.89,21.94 -36.12,20.62 -37.72,18.78 -38.68,16.40"/>
@@ -229,7 +243,9 @@
         <phase duration="3"  state="rryyr"/>
     </tlLogic>
 
-    <junction id="Junction0" type="dead_end" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes="" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00"/>
+    <junction id="Junction0" type="priority" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes=":Junction0_0_0" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
     <junction id="Junction1" type="traffic_light" x="35.00" y="-20.00" incLanes="Edge4_0 Edge4_1 Edge0_0 Edge0_1 :Junction1_w1_0" intLanes=":Junction1_0_0 :Junction1_2_0 :Junction1_c0_0" shape="30.00,-15.00 40.00,-15.00 39.72,-18.06 38.89,-20.56 37.50,-22.50 35.56,-23.89 33.06,-24.72 30.00,-25.00">
         <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="100" foes="100" cont="1"/>
@@ -274,6 +290,7 @@
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="2" via=":Junction3_0_1" tl="Junction3" linkIndex="1" dir="l" state="o"/>
     <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" via=":Junction2_1_0" tl="Junction2" linkIndex="1" dir="r" state="o"/>
     <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" via=":Junction1_0_0" tl="Junction1" linkIndex="0" dir="r" state="o"/>
+    <connection from="Edge5" to="Edge0" fromLane="1" toLane="1" via=":Junction0_0_0" dir="t" state="M"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="1" via=":Junction4_0_0" tl="Junction4" linkIndex="0" dir="l" state="o"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="2" toLane="1" via=":Junction4_0_1" tl="Junction4" linkIndex="1" dir="l" state="o"/>
     <connection from="EdgeBike1" to="Edge3" fromLane="1" toLane="1" via=":Junction3_2_0" tl="Junction3" linkIndex="2" dir="r" state="o"/>
@@ -284,6 +301,7 @@
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="1" toLane="1" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="1" toLane="1" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
+    <connection from=":Junction0_0" to="Edge0" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":Junction1_0" to="Edge5" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":Junction1_1" to="Edge1" fromLane="0" toLane="1" via=":Junction1_2_0" dir="l" state="m"/>
     <connection from=":Junction1_2" to="Edge1" fromLane="0" toLane="1" dir="l" state="m"/>

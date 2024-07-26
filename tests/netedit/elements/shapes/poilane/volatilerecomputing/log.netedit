@@ -1,3 +1,38 @@
+Error: Could not build poi 'POI_0' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_1' in netedit; lane 'center1_0' doesn't exist.
 Error: Could not build poi with ID 'POI_10' in netedit; Attribute height cannot be negative.
+Error: Could not build poi 'POI_11' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_12' in netedit; lane 'top_0' doesn't exist.
+Error: Could not build poi 'POI_13' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_14' in netedit; lane 'bot_0' doesn't exist.
+Error: Could not build poi 'POI_15' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_16' in netedit; lane 'bot_0' doesn't exist.
+Error: Could not build poi 'POI_17' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_2' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_3' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_4' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_5' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_6' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_7' in netedit; lane 'center1_0' doesn't exist.
 Error: Could not build poi with ID 'POI_8' in netedit; Attribute width cannot be negative.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.22May115309.2092/netedit.daily.shape/shapeelements/poilane/volatilerecomputing/additionals.add.xml failed.
+Error: Could not build poi 'POI_9' in netedit; lane 'bot_0' doesn't exist.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/shapes/poilane/volatilerecomputing/additionals.add.xml failed.
+Error: Could not build poi 'POI_0' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_1' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi with ID 'POI_10' in netedit; Attribute height cannot be negative.
+Error: Could not build poi 'POI_11' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_12' in netedit; lane 'top_0' doesn't exist.
+Error: Could not build poi 'POI_13' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_14' in netedit; lane 'bot_0' doesn't exist.
+Error: Could not build poi 'POI_15' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_16' in netedit; lane 'bot_0' doesn't exist.
+Error: Could not build poi 'POI_17' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_2' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_3' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_4' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_5' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_6' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi 'POI_7' in netedit; lane 'center1_0' doesn't exist.
+Error: Could not build poi with ID 'POI_8' in netedit; Attribute width cannot be negative.
+Error: Could not build poi 'POI_9' in netedit; lane 'bot_0' doesn't exist.
+Error: Loading of additional file failed: /home/palcraft/.texttest/tmp/netedit.gui.26Jul162234.2529/netedit.gui/elements/shapes/poilane/volatilerecomputing/additionals.add.xml

@@ -35,8 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using two edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -45,8 +46,8 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete both routes
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
 
 # Check undo
 netedit.undo(referencePosition, 2)
@@ -58,7 +59,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -67,7 +68,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their route
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

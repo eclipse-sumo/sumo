@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 15:13:16 by Eclipse SUMO netedit Version v1_20_0+0459-30b40d5d475
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-26 15:51:56 by Eclipse SUMO netedit Version v1_20_0+1436-22086735de2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/net.net.xml"/>
+        <write-license value="true"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\net.net.xml"/>
     </output>
 
     <processing>
@@ -38,25 +49,28 @@
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.11Jun150723.5494/netedit.gui/elements/demand/containerflow/create/id/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Jul155041.24968\netedit.gui\elements\demands\route\create_consecutive\default\log.txt"/>
     </report>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
+    <edge id=":Junction0_0" function="internal">
+        <lane id=":Junction0_0_0" index="0" disallow="pedestrian" speed="3.53" length="4.38" width="3.00" shape="-35.00,-18.50 -36.12,-19.25 -36.50,-20.00 -36.12,-20.75 -35.00,-21.50"/>
+    </edge>
     <edge id=":Junction0_w0" function="walkingarea">
         <lane id=":Junction0_w0_0" index="0" allow="pedestrian" speed="2.78" length="8.00" width="2.00" shape="-35.00,-23.00 -35.00,-25.00 -35.00,-15.00 -35.00,-17.00"/>
     </edge>
@@ -197,7 +211,9 @@
         <phase duration="3"  state="rryyr"/>
     </tlLogic>
 
-    <junction id="Junction0" type="dead_end" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes="" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00"/>
+    <junction id="Junction0" type="priority" x="-35.00" y="-20.00" incLanes="Edge5_0 Edge5_1" intLanes=":Junction0_0_0" shape="-35.00,-20.00 -35.00,-15.00 -35.00,-20.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
     <junction id="Junction1" type="traffic_light" x="35.00" y="-20.00" incLanes="Edge4_0 Edge4_1 Edge0_0 Edge0_1" intLanes=":Junction1_0_0 :Junction1_1_0" shape="30.00,-15.00 40.00,-15.00 39.72,-18.06 38.89,-20.56 37.50,-22.50 35.56,-23.89 33.06,-24.72 30.00,-25.00">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
@@ -237,6 +253,7 @@
     <connection from="Edge2" to="EdgeBike0" fromLane="1" toLane="2" via=":Junction3_0_1" tl="Junction3" linkIndex="1" dir="l" state="O"/>
     <connection from="Edge3" to="Edge4" fromLane="1" toLane="1" via=":Junction2_1_0" tl="Junction2" linkIndex="1" dir="r" state="O"/>
     <connection from="Edge4" to="Edge5" fromLane="1" toLane="1" via=":Junction1_0_0" tl="Junction1" linkIndex="0" dir="r" state="O"/>
+    <connection from="Edge5" to="Edge0" fromLane="1" toLane="1" via=":Junction0_0_0" dir="t" state="M"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="1" via=":Junction4_0_0" tl="Junction4" linkIndex="0" dir="l" state="o"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="2" toLane="1" via=":Junction4_0_1" tl="Junction4" linkIndex="1" dir="l" state="o"/>
     <connection from="EdgeBike1" to="Edge3" fromLane="1" toLane="1" via=":Junction3_2_0" tl="Junction3" linkIndex="2" dir="r" state="O"/>
@@ -247,6 +264,7 @@
     <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0" via=":JunctionExtern1_0_0" dir="t" state="M"/>
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0" via=":JunctionExtern0_0_0" dir="t" state="M"/>
 
+    <connection from=":Junction0_0" to="Edge0" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":Junction1_0" to="Edge5" fromLane="0" toLane="1" dir="r" state="M"/>
     <connection from=":Junction1_1" to="Edge1" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":Junction2_0" to="Edge2" fromLane="0" toLane="1" dir="l" state="M"/>

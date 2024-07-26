@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 15:05:50 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-26 15:42:46 by Eclipse SUMO netedit Version v1_20_0+1436-22086735de2
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
@@ -26,13 +26,13 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
-    <node id="Junction0" x="-35.00" y="-20.00" type="dead_end"/>
+    <node id="Junction0" x="-35.00" y="-20.00" type="priority"/>
     <node id="Junction1" x="35.00" y="-20.00" type="traffic_light" tl="Junction1"/>
     <node id="Junction2" x="35.00" y="20.00" type="traffic_light" tl="Junction2"/>
     <node id="Junction3" x="-35.00" y="20.00" type="traffic_light" tl="Junction3"/>

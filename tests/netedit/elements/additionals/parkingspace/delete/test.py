@@ -37,13 +37,18 @@ netedit.changeElement("parkingArea")
 # create parkingArea in mode "Reference Left"
 netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
 
+# create parkingArea in mode "Reference Left"
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+
 # select space
 netedit.changeElement("space")
 
-# select parent
-netedit.selectAdditionalChild(8, 3)
+# create space
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 0)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredB)
 
 # create space
+netedit.selectAdditionalChild(netedit.attrs.parkingSpace.create.parent, 1)
 netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
 
 # Change to delete
@@ -53,31 +58,16 @@ netedit.deleteMode()
 netedit.protectElements(referencePosition)
 
 # delete created parkingArea
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.squaredA)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingArea)
 
 # delete first loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.parkingSpace)
 
-# delete lane with the second loaded parkingArea
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# delete first loaded parkingArea
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
-# Check undo
-netedit.undo(referencePosition, 3)
-
-# Change to delete
-netedit.deleteMode()
-
-# enable 'Automatically delete additionals'
-netedit.protectElements(referencePosition)
-
-# try to delete lane with the second loaded parkingArea (doesn't allowed)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# wait warning
-netedit.waitDeleteWarning()
-
-# check redo
-netedit.redo(referencePosition, 3)
+# Check undos and redos
+netedit.checkUndoRedo(referencePosition)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)

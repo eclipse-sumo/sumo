@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 15:05:50 by Eclipse SUMO netedit Version v1_20_0+0353-d865fbd950c
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+<!-- generated on 2024-07-26 15:42:46 by Eclipse SUMO netedit Version v1_20_0+1436-22086735de2
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
         <sumo-net-file value="D:\Netedit_dev\tests\netedit\elements\net.net.xml"/>
@@ -26,7 +26,7 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</configuration>
+</neteditConfiguration>
 -->
 
 <connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
@@ -41,7 +41,7 @@
 
     <connection from="Edge4" to="Edge5" fromLane="1" toLane="1"/>
 
-    <connection from="Edge5"/>
+    <connection from="Edge5" to="Edge0" fromLane="1" toLane="1"/>
 
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="1" toLane="1"/>
     <connection from="EdgeBike0" to="EdgeCenter0" fromLane="2" toLane="1"/>
@@ -58,5 +58,5 @@
 
     <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
-    <crossing node="Junction4" edges="EdgeBike1 EdgeBike0" priority="1" width="4.00" outlineShape="-31.00,6.50 -39.00,6.50 -40.43,2.50 -40.62,2.99 -41.00,6.50 -39.00,6.50 -39.00,2.50 -31.00,2.50 -28.78,3.17 -29.44,3.39 -30.12,3.88 -30.61,4.56 -30.90,5.43 -31.00,6.50"/>
+    <crossing node="Junction4" edges="EdgeBike1 EdgeBike0" priority="1" width="4.00" linkIndex="4" outlineShape="-31.00,6.50 -39.00,6.50 -40.43,2.50 -40.62,2.99 -41.00,6.50 -39.00,6.50 -39.00,2.50 -31.00,2.50 -28.78,3.17 -29.44,3.39 -30.12,3.88 -30.61,4.56 -30.90,5.43"/>
 </connections>
