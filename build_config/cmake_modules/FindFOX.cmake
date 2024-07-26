@@ -7,6 +7,10 @@ if(FOX_CONFIG)
         OUTPUT_VARIABLE FOX_CXX_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND ${BASH} ${FOX_CONFIG} --libs
         OUTPUT_VARIABLE FOX_LIBRARY_RELEASE OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if (FOX_LIBRARY_RELEASE MATCHES ".*-lGLU -lGL.*")
+        # remove duplicate GL linking which confuses macOS
+        string(REGEX REPLACE "-lGL -lGLU " "" FOX_LIBRARY_RELEASE "${FOX_LIBRARY_RELEASE}")
+    endif()
     if(FOX_CXX_FLAGS MATCHES mingw)
         get_filename_component(root_dir "${FOX_CONFIG}" DIRECTORY)
         get_filename_component(root_dir "${root_dir}" DIRECTORY)
@@ -15,7 +19,7 @@ if(FOX_CONFIG)
     endif()
 endif(FOX_CONFIG)
 
-# Declare ab boolean flag to note if Fox library was found
+# Declare a boolean flag to note if Fox library was found
 set(FOX_FOUND FALSE)
 
 # if fox-config was executed successfully, fox was found
