@@ -1,13 +1,13 @@
-Warning: Teleporting vehicle 'trip_2'; waited too long (jam), lane='Edge2_1', time=328.00.
-Warning: Vehicle 'trip_2' teleports beyond arrival edge 'Edge2', time=328.00.
-Warning: Vehicle 'trip_2' skips stop on lane 'Edge2_1' time=328.00.
-Warning: Teleporting vehicle 'trip_3'; waited too long (jam), lane='Edge2_1', time=632.00.
-Warning: Vehicle 'trip_3' teleports beyond arrival edge 'Edge2', time=632.00.
-Warning: Vehicle 'trip_3' skips stop on lane 'Edge2_1' time=632.00.
-Warning: Teleporting vehicle 'trip_4'; waited too long (jam), lane='Edge2_1', time=937.00.
-Warning: Vehicle 'trip_4' teleports beyond arrival edge 'Edge2', time=937.00.
-Warning: Vehicle 'trip_4' skips stop on lane 'Edge2_1' time=937.00.
-Warning: Teleporting vehicle 'trip_5'; waited too long (jam), lane='Edge2_1', time=1243.00.
-Warning: Vehicle 'trip_5' teleports beyond arrival edge 'Edge2', time=1243.00.
-Warning: Vehicle 'trip_5' skips stop on lane 'Edge2_1' time=1243.00.
+Warning: Teleporting vehicle 'trip_2'; waited too long (jam), lane='Edge2_1', time=329.00.
+Warning: Vehicle 'trip_2' teleports beyond arrival edge 'Edge2', time=329.00.
+Warning: Vehicle 'trip_2' skips stop on lane 'Edge2_1' time=329.00.
+Warning: Teleporting vehicle 'trip_3'; waited too long (jam), lane='Edge2_1', time=634.00.
+Warning: Vehicle 'trip_3' teleports beyond arrival edge 'Edge2', time=634.00.
+Warning: Vehicle 'trip_3' skips stop on lane 'Edge2_1' time=634.00.
+Warning: Teleporting vehicle 'trip_4'; waited too long (jam), lane='Edge2_1', time=939.00.
+Warning: Vehicle 'trip_4' teleports beyond arrival edge 'Edge2', time=939.00.
+Warning: Vehicle 'trip_4' skips stop on lane 'Edge2_1' time=939.00.
+Warning: Teleporting vehicle 'trip_5'; waited too long (jam), lane='Edge2_1', time=1245.00.
+Warning: Vehicle 'trip_5' teleports beyond arrival edge 'Edge2', time=1245.00.
+Warning: Vehicle 'trip_5' skips stop on lane 'Edge2_1' time=1245.00.
 Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.

@@ -1,4 +1,3 @@
-Error: Another edge with the id ':Junction3_0' exists.
-Error: Another edge with the id ':Junction3_1' exists.
-Error: Another junction with the id 'Junction3' exists.
+Error: Sink junction 'gneJ8' not known for person 'p_0'!
+Set option '--junction-taz' or load a TAZ-file
 Quitting (on error).

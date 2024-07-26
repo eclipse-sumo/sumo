@@ -1,3 +1,1 @@
-Warning: Teleporting vehicle 'vehicle_0'; waited too long (jam), lane='Edge2_1', time=320.00.
-Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'Edge2', time=320.00.
-Warning: Vehicle 'vehicle_0' skips stop on lane 'Edge2_1' time=320.00.
+Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.

@@ -118,6 +118,7 @@ Warning: Vehicle 'flowA.54' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.54' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.54' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.54' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.30 for vehicle 'flowA.54' to match departure speed 12.00 (max 11.59).
 Warning: Vehicle 'flowA.55' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.55' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.56' will not be able to arrive at the given lane 'Edge5_0'!
@@ -154,6 +155,7 @@ Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Choosing new speed factor 1.22 for vehicle 'flowA.69' to match departure speed 12.00 (max 11.43).
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.73' will not be able to arrive at the given lane 'Edge5_0'!
@@ -253,6 +255,7 @@ Warning: Vehicle 'flowA.75' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.76' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.77' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.78' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowA.78' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.79' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.80' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.81' will not be able to arrive at the given lane 'Edge5_0'!

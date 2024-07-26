@@ -1,6 +1,6 @@
 Warning: Vehicle 'splitB' to split from vehicle 'vehicle_1' is not known. time=12.00.
-Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=24.00.
+Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=23.00.
 Warning: Vehicle 'vehicle_1' aborts joining after extension of 20.00s at time 40.00.
 Warning: Vehicle 'vehicle_1' teleports beyond arrival edge 'EdgeCenter1', time=41.00.
-Warning: Vehicle 'vehicle_0' aborts joining after extension of 10.00s at time 104.00.
-Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'Edge2', time=105.00.
+Warning: Vehicle 'vehicle_0' aborts joining after extension of 10.00s at time 103.00.
+Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'Edge2', time=104.00.

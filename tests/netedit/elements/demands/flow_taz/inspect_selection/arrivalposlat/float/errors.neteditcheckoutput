@@ -575,7 +575,9 @@ Warning: Vehicle 'flowA.38' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.38' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.39' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.39' will not be able to arrive with the given speed!
+Warning: Vehicle 'flowB.19' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.40' will not be able to arrive at the given lane 'Edge5_0'!
+Warning: Vehicle 'flowB.21' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.41' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.41' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowB.22' will not be able to arrive with the given speed!

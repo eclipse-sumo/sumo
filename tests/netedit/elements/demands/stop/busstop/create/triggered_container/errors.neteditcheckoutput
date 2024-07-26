@@ -1,3 +1,3 @@
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.48), time=84.00.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=2.30), time=145.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.24), time=83.00.
+Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=1.45), time=144.00.
 Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'Edge2_1' due to capacity constraints.

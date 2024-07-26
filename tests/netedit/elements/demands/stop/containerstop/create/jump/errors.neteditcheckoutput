@@ -1,4 +1,4 @@
-Warning: Teleporting vehicle 'trip'; waited too long (wrong lane), lane='Edge0_1', time=312.00.
-Warning: Vehicle 'trip' ends teleporting on edge 'Edge2', time=312.00.
+Warning: Teleporting vehicle 'trip'; waited too long (wrong lane), lane='Edge0_1', time=311.00.
+Warning: Vehicle 'trip' ends teleporting on edge 'Edge2', time=311.00.
 Warning: Vehicle 'trip' teleports beyond arrival edge 'Edge2', time=439.00.
 Warning: Vehicle 'trip' skips stop on lane 'Edge2_1' time=439.00.

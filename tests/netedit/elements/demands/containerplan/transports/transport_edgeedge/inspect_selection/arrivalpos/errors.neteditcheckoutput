@@ -1,4 +1,2 @@
-Error: Another edge with the id ':Junction3_0' exists.
-Error: Another edge with the id ':Junction3_1' exists.
-Error: Another junction with the id 'Junction3' exists.
+Error: The to edge 'gneE8' within a transport of container 'c_0' is not known.
 Quitting (on error).

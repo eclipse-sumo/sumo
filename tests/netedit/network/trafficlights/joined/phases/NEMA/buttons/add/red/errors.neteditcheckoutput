@@ -1,2 +1,8 @@
-Error: At traffic signal 'J0' program '0' no phase named '4' was found
-Quitting (on error).
+Warning: Program '0' at tlLogic 'J3_joined' is incompatible with logic at junction 'J3' (mutual conflict between link indices 1,7 tl indices 1,7 phase 0).
+  To avoid deadlock/collisions, either: rebuild the signal plan with a newer version of netconvert/netedit
+  or rebuild the network with option '--tls.ignore-internal-junction-jam' or include the program when building.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E3_1'! Truncated detector at length 14.6.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E2_1'! Truncated detector at length 14.6.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E5_1'! Truncated detector at length 14.6.
+Warning: Cannot build detector of length 20 because no further continuation lane was found for lane '-E4_1'! Truncated detector at length 14.6.
+Warning: At NEMA tlLogic 'J3_joined', actuated phase 2 has no controlling detector

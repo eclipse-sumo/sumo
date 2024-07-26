@@ -152,6 +152,7 @@ Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.70' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.70' will not be able to arrive with the given speed!
+Warning: Choosing new speed factor 1.26 for vehicle 'flowA.70' to match departure speed 12.00 (max 11.43).
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.71' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.72' will not be able to arrive at the given lane 'Edge5_0'!
@@ -245,7 +246,6 @@ Warning: Vehicle 'flowA.52' will not be able to arrive at the given lane 'Edge5_
 Warning: Vehicle 'flowA.53' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.54' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.55' will not be able to arrive at the given lane 'Edge5_0'!
-Warning: Vehicle 'flowA.55' will not be able to arrive with the given speed!
 Warning: Vehicle 'flowA.56' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.57' will not be able to arrive at the given lane 'Edge5_0'!
 Warning: Vehicle 'flowA.58' will not be able to arrive at the given lane 'Edge5_0'!

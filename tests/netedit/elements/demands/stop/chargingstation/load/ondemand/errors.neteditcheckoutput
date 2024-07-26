@@ -1,68 +1,68 @@
-Warning: Vehicle 'flow_1.0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.94, offset=7.13), time=25.00.
-Warning: Teleporting vehicle 'flow_0.1'; waited too long (jam), lane='Edge2_1', time=324.00.
-Warning: Vehicle 'flow_0.1' teleports beyond arrival edge 'Edge2', time=324.00.
-Warning: Vehicle 'flow_0.1' skips stop on lane 'Edge2_1' time=324.00.
-Warning: Vehicle 'flow_1.1' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.06, offset=7.34), time=332.00.
-Warning: Teleporting vehicle 'flow_0.2'; waited too long (jam), lane='Edge2_1', time=632.00.
-Warning: Vehicle 'flow_0.2' teleports beyond arrival edge 'Edge2', time=632.00.
-Warning: Vehicle 'flow_0.2' skips stop on lane 'Edge2_1' time=632.00.
-Warning: Vehicle 'flow_1.2' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.46, offset=7.85), time=640.00.
-Warning: Teleporting vehicle 'flow_0.3'; waited too long (jam), lane='Edge2_1', time=938.00.
-Warning: Vehicle 'flow_0.3' teleports beyond arrival edge 'Edge2', time=938.00.
-Warning: Vehicle 'flow_0.3' skips stop on lane 'Edge2_1' time=938.00.
-Warning: Vehicle 'flow_1.3' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.66, offset=3.14), time=946.00.
-Warning: Teleporting vehicle 'flow_0.4'; waited too long (jam), lane='Edge2_1', time=1245.00.
-Warning: Vehicle 'flow_0.4' teleports beyond arrival edge 'Edge2', time=1245.00.
-Warning: Vehicle 'flow_0.4' skips stop on lane 'Edge2_1' time=1245.00.
-Warning: Vehicle 'flow_1.4' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.62, offset=3.07), time=1253.00.
-Warning: Teleporting vehicle 'flow_0.5'; waited too long (jam), lane='Edge2_1', time=1553.00.
-Warning: Vehicle 'flow_0.5' teleports beyond arrival edge 'Edge2', time=1553.00.
-Warning: Vehicle 'flow_0.5' skips stop on lane 'Edge2_1' time=1553.00.
-Warning: Vehicle 'flow_1.5' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.81, offset=3.51), time=1561.00.
-Warning: Teleporting vehicle 'flow_0.6'; waited too long (jam), lane='Edge2_1', time=1862.00.
-Warning: Vehicle 'flow_0.6' teleports beyond arrival edge 'Edge2', time=1862.00.
-Warning: Vehicle 'flow_0.6' skips stop on lane 'Edge2_1' time=1862.00.
-Warning: Vehicle 'flow_1.6' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.07, offset=9.89), time=1870.00.
+Warning: Vehicle 'flow_1.0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.43, offset=8.94), time=27.00.
+Warning: Teleporting vehicle 'flow_0.1'; waited too long (jam), lane='Edge2_1', time=327.00.
+Warning: Vehicle 'flow_0.1' teleports beyond arrival edge 'Edge2', time=327.00.
+Warning: Vehicle 'flow_0.1' skips stop on lane 'Edge2_1' time=327.00.
+Warning: Vehicle 'flow_1.1' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.70, offset=3.76), time=335.00.
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (jam), lane='Edge2_1', time=635.00.
+Warning: Vehicle 'flow_0.2' teleports beyond arrival edge 'Edge2', time=635.00.
+Warning: Vehicle 'flow_0.2' skips stop on lane 'Edge2_1' time=635.00.
+Warning: Vehicle 'flow_1.2' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-10.54, offset=3.47), time=643.00.
+Warning: Teleporting vehicle 'flow_0.3'; waited too long (jam), lane='Edge2_1', time=942.00.
+Warning: Vehicle 'flow_0.3' teleports beyond arrival edge 'Edge2', time=942.00.
+Warning: Vehicle 'flow_0.3' skips stop on lane 'Edge2_1' time=942.00.
+Warning: Vehicle 'flow_1.3' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.99, offset=1.00), time=949.00.
+Warning: Teleporting vehicle 'flow_0.4'; waited too long (jam), lane='Edge2_1', time=1249.00.
+Warning: Vehicle 'flow_0.4' teleports beyond arrival edge 'Edge2', time=1249.00.
+Warning: Vehicle 'flow_0.4' skips stop on lane 'Edge2_1' time=1249.00.
+Warning: Vehicle 'flow_1.4' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.52, offset=4.49), time=1257.00.
+Warning: Teleporting vehicle 'flow_0.5'; waited too long (jam), lane='Edge2_1', time=1556.00.
+Warning: Vehicle 'flow_0.5' teleports beyond arrival edge 'Edge2', time=1556.00.
+Warning: Vehicle 'flow_0.5' skips stop on lane 'Edge2_1' time=1556.00.
+Warning: Vehicle 'flow_1.5' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.29, offset=9.61), time=1564.00.
+Warning: Teleporting vehicle 'flow_0.6'; waited too long (jam), lane='Edge2_1', time=1863.00.
+Warning: Vehicle 'flow_0.6' teleports beyond arrival edge 'Edge2', time=1863.00.
+Warning: Vehicle 'flow_0.6' skips stop on lane 'Edge2_1' time=1863.00.
+Warning: Vehicle 'flow_1.6' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.72, offset=5.57), time=1871.00.
 Warning: Teleporting vehicle 'flow_0.7'; waited too long (jam), lane='Edge2_1', time=2171.00.
 Warning: Vehicle 'flow_0.7' teleports beyond arrival edge 'Edge2', time=2171.00.
 Warning: Vehicle 'flow_0.7' skips stop on lane 'Edge2_1' time=2171.00.
-Warning: Vehicle 'flow_1.7' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.37, offset=8.87), time=2179.00.
-Warning: Teleporting vehicle 'flow_0.8'; waited too long (jam), lane='Edge2_1', time=2479.00.
-Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2479.00.
-Warning: Vehicle 'flow_0.8' skips stop on lane 'Edge2_1' time=2479.00.
-Warning: Vehicle 'flow_1.8' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.82, offset=6.79), time=2487.00.
+Warning: Vehicle 'flow_1.7' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.53, offset=8.50), time=2179.00.
+Warning: Teleporting vehicle 'flow_0.8'; waited too long (jam), lane='Edge2_1', time=2480.00.
+Warning: Vehicle 'flow_0.8' teleports beyond arrival edge 'Edge2', time=2480.00.
+Warning: Vehicle 'flow_0.8' skips stop on lane 'Edge2_1' time=2480.00.
+Warning: Vehicle 'flow_1.8' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.59, offset=0.21), time=2487.00.
 Warning: Teleporting vehicle 'flow_0.9'; waited too long (jam), lane='Edge2_1', time=2787.00.
 Warning: Vehicle 'flow_0.9' teleports beyond arrival edge 'Edge2', time=2787.00.
 Warning: Vehicle 'flow_0.9' skips stop on lane 'Edge2_1' time=2787.00.
-Warning: Vehicle 'flow_1.9' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.41, offset=1.47), time=2794.00.
+Warning: Vehicle 'flow_1.9' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-14.35, offset=14.26), time=2795.00.
 Warning: Teleporting vehicle 'flow_0.10'; waited too long (jam), lane='Edge2_1', time=3094.00.
 Warning: Vehicle 'flow_0.10' teleports beyond arrival edge 'Edge2', time=3094.00.
 Warning: Vehicle 'flow_0.10' skips stop on lane 'Edge2_1' time=3094.00.
-Warning: Vehicle 'flow_1.10' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.27, offset=7.74), time=3102.00.
-Warning: Teleporting vehicle 'flow_0.11'; waited too long (jam), lane='Edge2_1', time=3402.00.
-Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=3402.00.
-Warning: Vehicle 'flow_0.11' skips stop on lane 'Edge2_1' time=3402.00.
-Warning: Vehicle 'flow_1.11' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.81, offset=9.34), time=3410.00.
-Warning: Teleporting vehicle 'flow_0.12'; waited too long (jam), lane='Edge2_1', time=3709.00.
-Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=3709.00.
-Warning: Vehicle 'flow_0.12' skips stop on lane 'Edge2_1' time=3709.00.
-Warning: Vehicle 'flow_1.12' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.10, offset=3.12), time=3717.00.
+Warning: Vehicle 'flow_1.10' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.73, offset=6.60), time=3102.00.
+Warning: Teleporting vehicle 'flow_0.11'; waited too long (jam), lane='Edge2_1', time=3403.00.
+Warning: Vehicle 'flow_0.11' teleports beyond arrival edge 'Edge2', time=3403.00.
+Warning: Vehicle 'flow_0.11' skips stop on lane 'Edge2_1' time=3403.00.
+Warning: Vehicle 'flow_1.11' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.18, offset=4.20), time=3411.00.
+Warning: Teleporting vehicle 'flow_0.12'; waited too long (jam), lane='Edge2_1', time=3710.00.
+Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=3710.00.
+Warning: Vehicle 'flow_0.12' skips stop on lane 'Edge2_1' time=3710.00.
+Warning: Vehicle 'flow_1.12' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.23, offset=8.52), time=3718.00.
 Warning: Teleporting vehicle 'flow_0.13'; waited too long (jam), lane='Edge2_1', time=4018.00.
 Warning: Vehicle 'flow_0.13' teleports beyond arrival edge 'Edge2', time=4018.00.
 Warning: Vehicle 'flow_0.13' skips stop on lane 'Edge2_1' time=4018.00.
-Warning: Vehicle 'flow_1.13' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.36, offset=2.93), time=4026.00.
-Warning: Teleporting vehicle 'flow_0.14'; waited too long (jam), lane='Edge2_1', time=4325.00.
-Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=4325.00.
-Warning: Vehicle 'flow_0.14' skips stop on lane 'Edge2_1' time=4325.00.
-Warning: Vehicle 'flow_1.14' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.79, offset=4.88), time=4333.00.
-Warning: Teleporting vehicle 'flow_0.15'; waited too long (jam), lane='Edge2_1', time=4633.00.
-Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=4633.00.
-Warning: Vehicle 'flow_0.15' skips stop on lane 'Edge2_1' time=4633.00.
-Warning: Vehicle 'flow_1.15' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.65, offset=6.45), time=4640.00.
-Warning: Teleporting vehicle 'flow_0.16'; waited too long (jam), lane='Edge2_1', time=4941.00.
-Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=4941.00.
-Warning: Vehicle 'flow_0.16' skips stop on lane 'Edge2_1' time=4941.00.
-Warning: Vehicle 'flow_1.16' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-11.72, offset=3.11), time=4949.00.
+Warning: Vehicle 'flow_1.13' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.45, offset=7.56), time=4026.00.
+Warning: Teleporting vehicle 'flow_0.14'; waited too long (jam), lane='Edge2_1', time=4326.00.
+Warning: Vehicle 'flow_0.14' teleports beyond arrival edge 'Edge2', time=4326.00.
+Warning: Vehicle 'flow_0.14' skips stop on lane 'Edge2_1' time=4326.00.
+Warning: Vehicle 'flow_1.14' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-12.57, offset=8.64), time=4334.00.
+Warning: Teleporting vehicle 'flow_0.15'; waited too long (jam), lane='Edge2_1', time=4634.00.
+Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=4634.00.
+Warning: Vehicle 'flow_0.15' skips stop on lane 'Edge2_1' time=4634.00.
+Warning: Vehicle 'flow_1.15' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.41, offset=7.65), time=4642.00.
+Warning: Teleporting vehicle 'flow_0.16'; waited too long (jam), lane='Edge2_1', time=4942.00.
+Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=4942.00.
+Warning: Vehicle 'flow_0.16' skips stop on lane 'Edge2_1' time=4942.00.
+Warning: Vehicle 'flow_1.16' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=-13.56, offset=14.43), time=4951.00.
 Warning: Teleporting vehicle 'flow_0.17'; waited too long (jam), lane='Edge2_1', time=5249.00.
 Warning: Vehicle 'flow_0.17' teleports beyond arrival edge 'Edge2', time=5249.00.
 Warning: Vehicle 'flow_0.17' skips stop on lane 'Edge2_1' time=5249.00.
