@@ -64,6 +64,8 @@ GNEEntryExitDetector::writeAdditional(OutputDevice& device) const {
     if (myFriendlyPosition) {
         device.writeAttr(SUMO_ATTR_FRIENDLY_POS, true);
     }
+    // write parameters
+    writeParams(device);
     device.closeTag();
 }
 
@@ -126,7 +128,7 @@ void
 GNEEntryExitDetector::drawGL(const GUIVisualizationSettings& s) const {
     // first check if additional has to be drawn
     if (myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-        !myNet->getViewNet()->selectingDetectorsTLSMode()) {
+            !myNet->getViewNet()->selectingDetectorsTLSMode()) {
         // Set initial values
         const double entryExitExaggeration = getExaggeration(s);
         // get detail level
