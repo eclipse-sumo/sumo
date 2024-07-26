@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-25 10:19+0000\n"
+"PO-Revision-Date: 2024-07-26 11:00+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3935,12 +3935,13 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:3939
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-positions'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di veicolo ''ssm.write-positions'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3945
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-positions'."
 msgstr ""
+"Valore invalido '%' del parametro di tipo di veicolo 'ssm.write-positions'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3950
 #: src/microsim/devices/MSDevice_SSM.cpp:3977
@@ -3948,32 +3949,39 @@ msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.write-positions'. "
 "Using default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.write-positions', "
+"quindi viene usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3966
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.write-lane-positions'."
-msgstr ""
+msgstr "Valore invalido del parametro di veicolo 'ssm.write-lane-positions'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3972
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.write-lane-positions'."
 msgstr ""
+"Valore invalido '%' del parametro di tipo di veicolo 'ssm.write-lane-"
+"positions'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3993
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.conflict-order'."
-msgstr ""
+msgstr "Valore invalido del parametro di veicolo 'ssm.conflict-order'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:3999
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.conflict-order'."
 msgstr ""
+"Valore invalido '%' del parametro di tipo di veicolo 'ssm.conflict-order'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4004
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.exclude-conflict-"
 "types'. Using default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro 'device.ssm.exclude-conflict-"
+"types', quindi viene usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4022
 msgid ""
@@ -6999,21 +7007,23 @@ msgstr "Non ho potuto eseguire la proiezione!"
 
 #: src/netgen/NGFrame.cpp:41
 msgid "Read edge-type defs from FILE"
-msgstr ""
+msgstr "Carica definizoni di tipi di arco da FILE"
 
 #: src/netgen/NGFrame.cpp:44
 msgid ""
 "The Ids of generated nodes use an alphanumerical code for easier readability "
 "when possible"
 msgstr ""
+"I codici identificativi dei nodi generati utilizzano un codice alfanumerico "
+"per facilitarne la lettura quando possibile"
 
 #: src/netgen/NGFrame.cpp:48
 msgid "Generate INT left-turn lanes"
-msgstr ""
+msgstr "Genera INT corsie per la svolta a sinistra"
 
 #: src/netgen/NGFrame.cpp:50
 msgid "Set the length of generated turning lanes to FLOAT"
-msgstr ""
+msgstr "Imposta la lunghezza delle corsie di svolta generate a FLOAT"
 
 #: src/netgen/NGFrame.cpp:53
 msgid ""
@@ -7055,27 +7065,27 @@ msgstr ""
 
 #: src/netgen/NGFrame.cpp:85
 msgid "The number of junctions in both dirs"
-msgstr ""
+msgstr "Il numero di incroci in ambe direzioni"
 
 #: src/netgen/NGFrame.cpp:90
 msgid "The length of streets in both dirs"
-msgstr ""
+msgstr "La lunghezza delle vie in ambe direzioni"
 
 #: src/netgen/NGFrame.cpp:95
 msgid "The number of junctions in x-dir; Overrides --grid-number"
-msgstr ""
+msgstr "Il numero di incroci nella direzione x; Sovrascrive --grid-number"
 
 #: src/netgen/NGFrame.cpp:100
 msgid "The number of junctions in y-dir; Overrides --grid-number"
-msgstr ""
+msgstr "Il numero di incroci nella direzione y; Sovrascrive --grid-number"
 
 #: src/netgen/NGFrame.cpp:105
 msgid "The length of horizontal streets; Overrides --grid-length"
-msgstr ""
+msgstr "La lunghezza delle vie orizzontali; Sovrascrive --grid-length"
 
 #: src/netgen/NGFrame.cpp:110
 msgid "The length of vertical streets; Overrides --grid-length"
-msgstr ""
+msgstr "La lunghezza delle vie verticali; Sovrascrive --grid-length"
 
 #: src/netgen/NGFrame.cpp:114 src/netgen/NGFrame.cpp:147
 msgid ""
