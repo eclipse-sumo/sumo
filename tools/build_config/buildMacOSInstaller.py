@@ -29,28 +29,22 @@
 import os
 import plistlib
 import shutil
+import string
 import subprocess
 import sys
 import tempfile
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
-from sumolib.version import gitDescribe  # noqa
 
-# Try to import dmgbuild and exit with an error message if it fails
-try:
-    from dmgbuild.core import build_dmg
-except ImportError:
-    print("Error: dmgbuild module is not installed. Please install it using 'pip install dmgbuild'.")
-    sys.exit(1)
+from build_config.version import get_pep440_version  # noqa
 
 
-def parse_args():
-    default_dmg_name = f"Eclipse SUMO {gitDescribe()}.dmg"
-    default_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", default_dmg_name))
+def parse_args(def_pkg_name):
+    def_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
     op = ArgumentParser(description="Build an installer for macOS (dmg file)")
     op.add_argument("build_dir", help="Build dir of sumo")
-    op.add_argument("-o", "--output", dest="output", help="Output path for the dmg file", default=default_output_path)
+    op.add_argument("-o", "--output", dest="output", help="Output path for the installer pkg", default=def_output_path)
 
     return op.parse_args()
 
@@ -77,6 +71,54 @@ def filter_libraries(libraries):
         ):
             filtered_libraries.append(lib)
     return filtered_libraries
+
+
+def create_installer_conclusion_content(framework_name):
+    template_html = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Helvetica;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h4>Important:</h4>
+        <ul>
+            <li>
+                For applications with a graphical user interface to function properly, please ensure
+                you have <b>XQuartz</b> installed.
+                It can be obtained from: <a href="https://www.xquartz.org" target="_blank">XQuartz</a>.
+            </li>
+            <li>
+                If you intend to use SUMO from the command line, please remember to set
+                the <b>SUMO_HOME</b> environment variable
+                <br>
+                For more details, visit the
+                <a href="https://sumo.dlr.de/docs/Installing/index.html#macos" target="_blank">
+                    SUMO macOS installation guide
+                </a>.
+            </li>
+        </ul>
+        </p>
+        <p>For support options, including the "sumo-user" mailing list, please visit:
+           <a href="https://eclipse.dev/sumo/contact/" target="_blank">SUMO Contact</a>.
+        </p>
+    </div>
+</body>
+</html>
+"""
+    template = string.Template(template_html)
+    context = {
+        "framework_name": framework_name,
+    }
+    html = template.substitute(context)
+    return html
 
 
 def create_framework(name, longname, pkg_id, version, sumo_build_directory):
@@ -174,7 +216,7 @@ def create_framework(name, longname, pkg_id, version, sumo_build_directory):
     return name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_app(app_name, binary_name, framework_name, pkg_id, version, icns_path):
+def create_app(app_name, exec_call, framework_name, pkg_id, version, icns_path):
     print(" - Creating directory structure")
     temp_dir = tempfile.mkdtemp()
 
@@ -194,7 +236,7 @@ def create_app(app_name, binary_name, framework_name, pkg_id, version, icns_path
     launcher_content = f"""#!/bin/bash
 export SUMO_HOME="/Library/Frameworks/{framework_name}.framework/Versions/Current/{framework_name}"
 export DYLD_LIBRARY_PATH="$SUMO_HOME/lib:$DYLD_LIBRARY_PATH"
-exec "$SUMO_HOME/bin/{binary_name}" "$@"
+{exec_call}
 """
     launcher_path = os.path.join(temp_dir, f"{app_name}.app", "Contents", "MacOS", app_name)
     with open(launcher_path, "w") as launcher:
@@ -245,7 +287,7 @@ exec "$SUMO_HOME/bin/{binary_name}" "$@"
     return app_name, pkg_name, pkg_id, pkg_path, pkg_size
 
 
-def create_installer(frmwk_pkg, app_pkgs, id, version):
+def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
     cwd = os.path.dirname(os.path.abspath(__file__))
     print(" - Creating temporary directory")
     temp_dir = tempfile.mkdtemp()
@@ -261,13 +303,17 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
         app_pkg_path = app_pkg[3]
         shutil.copy(app_pkg_path, temp_dir)
 
-    # FIXME: Add license, background and other nice stuff
+    # Add license, background and other nice stuff
     print(" - Adding additional resources to the installer")
     sumo_dir = os.path.join(cwd, "..", "..", "")
     sumo_data_installer_dir = os.path.join(sumo_dir, "build_config", "macos", "installer")
     installer_resources_dir = os.path.join(temp_dir, "Resources")
     shutil.copy(os.path.join(sumo_data_installer_dir, "background.png"), installer_resources_dir)
     shutil.copy(os.path.join(sumo_dir, "LICENSE"), os.path.join(installer_resources_dir, "LICENSE.txt"))
+
+    # Create conclusion.html in the installer resources folder
+    with open(os.path.join(installer_resources_dir, "conclusion.html"), "w") as file:
+        file.write(create_installer_conclusion_content(frmwk_pkg[0]))
 
     # Create distribution.xml
     print(" - Creating distribution.xml")
@@ -286,16 +332,15 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
     distribution_content = f"""<?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
     <title>Eclipse SUMO</title>
-    <!-- <allowed-os-versions><os-version min="10.14"/></allowed-os-versions> -->
+    <allowed-os-versions><os-version min="10.14"/></allowed-os-versions>
     <license file="LICENSE.txt"/>
     <background file="background.png" alignment="bottomleft" mime-type="image/png" scaling="none" />
-    <!-- <welcome file="Welcome.html" mime-type="text/html"/> -->
-    <!-- <conclusion file="Conclusion.html" mime-type="text/html"/> -->
+    <conclusion file="conclusion.html" mime-type="text/html"/>
     <options customize="allow" require-scripts="false" rootVolumeOnly="true" hostArchitectures="arm64"/>
     <choices-outline>
         <line choice="default"/>
     </choices-outline>
-    <choice id="default" title="Eclipse SUMO">
+    <choice id="default" title="Eclipse SUMO {version}">
 {refs}
     </choice>
 </installer-gui-script>
@@ -306,10 +351,6 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
 
     # Call productbuild
     print(" - Calling productbuild")
-
-    cwd = os.path.dirname(os.path.abspath(__file__))
-    pkg_name = f"Installer-{version}.pkg"
-    pkg_path = os.path.join(cwd, "..", "..", pkg_name)
     productbuild_command = [
         "productbuild",
         "--distribution",
@@ -318,58 +359,24 @@ def create_installer(frmwk_pkg, app_pkgs, id, version):
         temp_dir,
         "--resources",
         resources_dir,
-        pkg_path,
+        output_path,
     ]
     subprocess.run(productbuild_command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    pkg_size = os.path.getsize(pkg_path)
+    pkg_size = os.path.getsize(output_path)
 
     print(" - Cleaning up")
     shutil.rmtree(temp_dir)
 
-    pkg_size = os.path.getsize(pkg_path)
-    return "Installer", pkg_name, id, pkg_path, pkg_size
-
-
-def create_dmg(dmg_title, dmg_output_path, installer_pkg_path):
-
-    print(" - Preparing disk image folder")
-    dmg_prep_folder = tempfile.mkdtemp()
-    shutil.copy(installer_pkg_path, dmg_prep_folder)
-
-    # FIXME: Add uninstaller script to the installer folder
-
-    if os.path.exists(dmg_output_path):
-        print(" - Removing already existing disk image before creating a new disk image")
-        os.remove(dmg_output_path)
-
-    print(" - Collecting files and calculating file size")
-    files_to_store = []
-    total_size = 0
-    for root, _, files in os.walk(dmg_prep_folder):
-        for file in files:
-            files_to_store.append((os.path.join(root, file), file))
-            total_size += os.path.getsize(os.path.join(root, file))
-
-    print(" - Building diskimage")
-    settings = {
-        "volume_name": "Eclipse SUMO",
-        "size": f"{total_size // 1024 * 1.2}K",
-        "files": files_to_store,
-        # FIXME: add background and badge
-    }
-    build_dmg(dmg_output_path, dmg_title, settings=settings)
-
-    print(" - Cleaning up")
-    shutil.rmtree(dmg_prep_folder)
+    return "Installer", os.path.basename(output_path), id, output_path, pkg_size
 
 
 def main():
-    cwd = os.path.dirname(os.path.abspath(__file__))
-    version = gitDescribe()
+    version = get_pep440_version()
+    default_installer_pkg_name = f"sumo-{version}.pkg"
     base_id = "org.eclipse.sumo"
 
     # Parse and check the command line arguments
-    opts = parse_args()
+    opts = parse_args(default_installer_pkg_name)
     if not os.path.exists(opts.build_dir):
         print(f"Error: build directory '{opts.build_dir}' does not exist.", file=sys.stderr)
         sys.exit(1)
@@ -386,10 +393,36 @@ def main():
     print(f"Successfully built: '{framework_pkg[1]}' ({framework_pkg[4] / (1024 * 1024):.2f} MB)\n")
 
     # Building all the app launchers packages
+    cwd = os.path.dirname(os.path.abspath(__file__))
     app_pkgs = []
     app_list = [
-        ("Sumo-GUI", "sumo-gui", framework_pkg[0], f"{base_id}.apps.sumo-gui", version, "sumo-gui-icons.icns"),
-        ("NetEdit", "netedit", framework_pkg[0], f"{base_id}.apps.netedit", version, "netedit-icons.icns"),
+        (
+            "SUMO sumo-gui",
+            'exec "$SUMO_HOME/bin/sumo-gui" "$@"',
+            framework_pkg[0],
+            f"{base_id}.apps.sumo-gui",
+            version,
+            "sumo-gui.icns",
+        ),
+        (
+            "SUMO netedit",
+            'exec "$SUMO_HOME/bin/netedit" "$@"',
+            framework_pkg[0],
+            f"{base_id}.apps.netedit",
+            version,
+            "netedit.icns",
+        ),
+        (
+            "SUMO Scenario Wizard",
+            (
+                "python  $SUMO_HOME/share/sumo/tools/osmWebWizard.py &> /dev/null ||"
+                "python3 $SUMO_HOME/share/sumo/tools/osmWebWizard.py &> /dev/null"
+            ),
+            framework_pkg[0],
+            f"{base_id}.apps.scenario-wizard",
+            version,
+            "scenario-wizard.icns",
+        ),
     ]
     for app_name, app_binary, app_framework, app_id, app_ver, app_icons in app_list:
         print(f"Building app package for '{app_name}'")
@@ -401,20 +434,15 @@ def main():
 
     # Building the installer package
     print("Building installer")
-    installer_pkg = create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version)
+    create_installer(framework_pkg, app_pkgs, f"{base_id}.installer", version, opts.output)
     print("Successfully built installer\n")
 
-    print("Building disk image")
-    create_dmg("Eclipse SUMO", opts.output, installer_pkg[3])
-    print("Successfully built disk image")
+    # Removing non-installer pkg-files
+    os.remove(framework_pkg[3])
+    for app_pkg in app_pkgs:
+        os.remove(app_pkg[3])
 
-    # Removing final pkg-files
-    # os.remove(installer_pkg[3])
-    # os.remove(framework_pkg[3])
-    # for app_pkg in app_pkgs:
-    #    os.remove(app_pkg[3])
-
-    print(f"\nDisk image is available: '{opts.output}' (size: {os.path.getsize(opts.output) / (1024 * 1024):.2f} MB)")
+    print(f"Installer pkg is available: '{opts.output}' ({os.path.getsize(opts.output) / (1024 * 1024):.2f} MB)")
 
 
 if __name__ == "__main__":
