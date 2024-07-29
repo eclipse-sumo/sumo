@@ -28,39 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 10 with an non valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "DummyDisallowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.disallow, "DummyDisallowed", False)
 
 # Change parameter 10 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.disallow, "", False)
 
 # Change parameter 10 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.disallow, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 10 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.disallow, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.disallowed,
+netedit.modifyAttribute(netedit.attrs.edge.inspect.disallow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", False)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check undos
 netedit.undo(referencePosition, 4)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 4)

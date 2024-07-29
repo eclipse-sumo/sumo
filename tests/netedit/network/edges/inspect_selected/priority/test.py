@@ -28,23 +28,17 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
-# select first edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select second edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 1 with a non valid value (empty priority)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "", False)
@@ -58,14 +52,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "-6", Fals
 # Change parameter 1 with a non valid value (float)
 netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.priority, "6.4", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undo
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check redo
 netedit.redo(referencePosition, 1)

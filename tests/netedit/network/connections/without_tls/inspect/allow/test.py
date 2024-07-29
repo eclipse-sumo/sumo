@@ -50,9 +50,6 @@ netedit.modifyAttribute(netedit.attrs.connection.inspect.allow, "authority  army
 netedit.modifyAttribute(netedit.attrs.connection.inspect.allow, "", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspect.allowButton, True)
-
-# Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspect.allow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 

@@ -1119,32 +1119,44 @@ def modifyColorAttribute(attributeNumber, color, overlapped):
     typeSpace()
 
 
-def modifyAllowDisallowValue(numTabs, overlapped):
+def modifyAttributeVClassDialog(attribute, vClass, overlapped, disallowAll=True, cancel=False, reset=False):
     """
-    @brief modify allow/disallow values
+    @brief modify vclass attribute using dialog
     """
     # open dialog
-    modifyBoolAttribute(numTabs, overlapped)
-    # select vtypes
-    for _ in range(2):
-        typeTab()
-    # Change current value
-    typeSpace()
-    # select vtypes
-    for _ in range(6):
-        typeTab()
-    # Change current value
-    typeSpace()
-    # select vtypes
-    for _ in range(12):
-        typeTab()
-    # Change current value
-    typeSpace()
-    # select vtypes
-    for _ in range(11):
-        typeTab()
-    # Change current value
-    typeSpace()
+    modifyBoolAttribute(attribute, overlapped)
+    # first check if disallow all
+    if (disallowAll):
+        for _ in range(attrs.dialog.allowVClass.disallowAll):
+            typeTab()
+        typeSpace()
+        # go to vClass
+        for _ in range(vClass - attrs.dialog.allowVClass.disallowAll):
+            typeTab()
+        # Change current value
+        typeSpace()
+    else:
+        # go to vClass
+        for _ in range(vClass):
+            typeTab()
+        # Change current value
+        typeSpace()
+    # check if cancel
+    if (cancel):
+        for _ in range(attrs.dialog.allowVClass.cancel - vClass):
+            typeTab()
+        typeSpace()
+    elif (reset):
+        for _ in range(attrs.dialog.allowVClass.reset - vClass):
+            typeTab()
+        typeSpace()
+        for _ in range(2):
+            typeInvertTab()
+        typeSpace()
+    else:
+        for _ in range(attrs.dialog.allowVClass.accept - vClass):
+            typeTab()
+        typeSpace()
 
 
 def checkUndoRedo(referencePosition, offsetX=0, offsetY=0):

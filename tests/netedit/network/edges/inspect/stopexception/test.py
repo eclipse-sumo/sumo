@@ -28,45 +28,33 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 16 with a valid value (default)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffset, "4", False)
 
 # Change parameter 8 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "dummyException", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffsetException, "dummyException", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffsetException, "", False)
 
 # Change parameter 8 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffsetException, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffsetException, "", False)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspect.stopExceptionButton, False)
-
-# Change parameter 8 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.stopException,
+netedit.modifyAttribute(netedit.attrs.edge.inspect.stopOffsetException,
                         "authority army vip passenger hov taxi bus coach tram bicycle", False)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check undos
 netedit.undo(referencePosition, 4)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 4)

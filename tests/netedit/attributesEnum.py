@@ -171,7 +171,7 @@ class edge:
         useTemplate = 7
         numLanes = 9
         speed = 10
-        allowButton = 11
+        allowButton = 10
         allow = 12
         disallow = 13
         spreadType = 14
@@ -179,15 +179,6 @@ class edge:
         width = 17
         sidewalkWidth = 18
         bikelaneWidth = 19
-
-    class createLane:
-        add = 24
-        remove = 25
-        speed = 26
-        allowButton = 27
-        allow = 28
-        disallow = 29
-        width = 30
 
     class inspect:
         id = 1
@@ -197,9 +188,9 @@ class edge:
         priority = 5
         numLanes = 6
         type = 7
-        allowedButton = 8
-        allowed = 9
-        disallowed = 10
+        allowButton = 8
+        allow = 9
+        disallow = 10
         shape = 11
         length = 12
         spreadType = 13
@@ -210,8 +201,8 @@ class edge:
         shapeEnd = 19
         distance = 20
         stopOffset = 21
-        stopExceptionButton = 22
-        stopException = 23
+        stopOffsetExceptionButton = 22
+        stopOffsetException = 23
         parameters = 22
 
     class inspectSelection:
@@ -219,9 +210,9 @@ class edge:
         priority = 2
         numLanes = 3
         type = 4
-        allowedButton = 5
-        allowed = 6
-        disallowed = 7
+        allowButton = 5
+        allow = 6
+        disallow = 7
         length = 8
         spreadType = 9
         name = 11
@@ -230,8 +221,8 @@ class edge:
         shapeStart = 14
         shapeEnd = 15
         stopOffset = 16
-        stopExceptionButton = 17
-        stopException = 18
+        stopOffsetExceptionButton = 17
+        stopOffsetException = 18
         parameters = 17
 
     class template:
@@ -260,6 +251,15 @@ class edge:
 
 
 class lane:
+    class create:
+        add = 23
+        remove = 24
+        speed = 25
+        allowButton = 25
+        allow = 27
+        disallow = 28
+        width = 29
+
     class inspect:
         speed = 1
         allowButton = 2
@@ -3592,3 +3592,52 @@ class TAZRelData:
 
     class inspectSelection:
         parameters = 3
+
+
+# --------------------------------
+# Dialogs
+# --------------------------------
+
+class dialog:
+
+    class allowVClass:
+        allVehicles = 1
+        onlyRoadVehicles = 2
+        onlyRailVehicles = 3
+        disallowAll = 4
+        passenger = 5
+        private = 6
+        taxi = 7
+        bus = 8
+        coach = 9
+        delivery = 10
+        truck = 11
+        trailer = 12
+        emergency = 13
+        motorcycle = 14
+        moped = 15
+        bicycle = 16
+        scooter = 17
+        pedestrian = 18
+        wheelchair = 19
+        tram = 20
+        rail_electric = 21
+        rail_fast = 22
+        rail_urban = 23
+        rail = 24
+        cable_car = 25
+        subway = 26
+        evehicle = 27
+        army = 28
+        ship = 29
+        authority = 30
+        vip = 31
+        hov = 32
+        container = 33
+        aircraft = 34
+        drone = 35
+        custom1 = 36
+        custom2 = 37
+        accept = 38
+        cancel = 39
+        reset = 40

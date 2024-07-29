@@ -1,3 +1,5 @@
+allow_dialog
+
 basic
 
 split_single
@@ -17,5 +19,3 @@ spreadtype
 priority
 
 width
-
-lane

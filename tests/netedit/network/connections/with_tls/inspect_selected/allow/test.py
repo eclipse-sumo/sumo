@@ -60,9 +60,6 @@ netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow,
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow, "", True)
 
 # Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.connection.inspectSelectionTLS.allowButton, True)
-
-# Change parameter 8 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.connection.inspectSelectionTLS.allow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", True)
 

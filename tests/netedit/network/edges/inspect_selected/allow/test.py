@@ -28,51 +28,36 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to select mode
 netedit.selectMode()
 
-# select first edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select second edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect selected edges
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 5 with an non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "DummyAllowed", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "DummyAllowed", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "", False)
 
 # Change parameter 5 with a valid value (different separators)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "authority  army, passenger; taxi. tram", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "authority  army, passenger; taxi. tram", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allowed, "", False)
-
-# Change parameter 8 with a valid value (empty)
-netedit.modifyAllowDisallowValue(netedit.attrs.edge.inspectSelection.allowedButton, False)
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.allow, "", False)
 
 # Change parameter 5 with a valid value (empty)
-netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallowed,
+netedit.modifyAttribute(netedit.attrs.edge.inspectSelection.disallow,
                         "authority army vip passenger hov taxi bus coach tram bicycle", False)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check undos
 netedit.undo(referencePosition, 3)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 3)

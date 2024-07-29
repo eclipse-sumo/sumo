@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # toggle select lanes
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
@@ -55,14 +52,8 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.type, "%%$$$", False
 # Change parameter 0 with a non valid value (dummy speed)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.type, "customType", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undo
 netedit.undo(referencePosition, 2)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check redo
 netedit.redo(referencePosition, 2)

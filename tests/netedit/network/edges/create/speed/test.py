@@ -36,13 +36,13 @@ netedit.changeDefaultValue(netedit.attrs.edge.create.speed, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.speed, "-2")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute

@@ -36,13 +36,13 @@ netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "dummy")
 
 # Create two nodes
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 
 # set attribute
 netedit.changeDefaultValue(netedit.attrs.edge.create.allow, "pedestrian bus")
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionD)
 
 # set attribute
@@ -56,8 +56,8 @@ netedit.leftClick(referencePosition, netedit.positions.network.junction.position
 netedit.changeDefaultAllowDisallowValue(netedit.attrs.edge.create.allowButton)
 
 # Create two nodes
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.positionC)
 
 # Check undo and redo
 netedit.checkUndoRedo(referencePosition)

@@ -28,14 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 13 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "dummySpread", False)
@@ -46,14 +43,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "", False)
 # Change parameter 13 with a valid value
 netedit.modifyAttribute(netedit.attrs.edge.inspect.spreadType, "center", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undos
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 1)

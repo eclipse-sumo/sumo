@@ -28,32 +28,23 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 0 with a non valid value (empty ID)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "", False)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "gneE3", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "E1", False)
 
 # Change parameter 0 with a valid value
 netedit.modifyAttribute(netedit.attrs.edge.inspect.id, "correct_ID", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undo
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check redo
 netedit.redo(referencePosition, 1)

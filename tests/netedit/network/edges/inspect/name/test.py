@@ -28,14 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 15 with a non valid value
 netedit.modifyAttribute(netedit.attrs.edge.inspect.name, "%%%$$$$$%", False)
@@ -43,14 +40,8 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.name, "%%%$$$$$%", False)
 # Change parameter 15 with a valid value
 netedit.modifyAttribute(netedit.attrs.edge.inspect.name, "my own name", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undos
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 1)

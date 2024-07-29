@@ -28,14 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 19 with a non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "dummyShapeEnd", False)
@@ -44,22 +41,16 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "dummyShapeEnd", Fa
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "24", False)
 
 # Change parameter 19 with a duplicated value (See #3157)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "14,15.5", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "-30.00,0.00", False)
 
 # Change parameter 19 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "", False)
 
 # Change parameter 19 with a valid value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "34,15.5", False)
-
-# recompute
-netedit.rebuildNetwork()
+netedit.modifyAttribute(netedit.attrs.edge.inspect.shapeEnd, "20.00,-5.00", False)
 
 # Check undos
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 1)

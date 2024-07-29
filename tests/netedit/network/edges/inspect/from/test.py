@@ -28,14 +28,11 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 1 with a non valid value (dummy Junction)
 netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "dummy_Junction", False)
@@ -44,19 +41,13 @@ netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "dummy_Junction", F
 netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "", False)
 
 # Change parameter 1 with a non valid value (same from Junction)
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "gneJ2", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J1", False)
 
 # Change parameter 1 with a value
-netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "gneJ0", False)
-
-# recompute
-netedit.rebuildNetwork()
+netedit.modifyAttribute(netedit.attrs.edge.inspect.fromEdge, "J2", False)
 
 # Check undo
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # Check redo
 netedit.redo(referencePosition, 1)

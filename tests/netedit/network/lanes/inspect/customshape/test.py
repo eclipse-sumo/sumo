@@ -28,9 +28,6 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# recompute
-netedit.rebuildNetwork()
-
 # toggle select lanes
 netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 
@@ -38,7 +35,7 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 6 with an non valid value (dummy)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape", False)
@@ -46,23 +43,14 @@ netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "dummyShape", Fa
 # Change parameter 6 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # inspect edge again after recomputing
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(netedit.attrs.lane.inspect.customShape, "13.112,16.22 34.19,16.11", False)
 
-# recompute
-netedit.rebuildNetwork()
-
 # Check undos
 netedit.undo(referencePosition, 1)
-
-# recompute
-netedit.rebuildNetwork()
 
 # check redos
 netedit.redo(referencePosition, 1)
