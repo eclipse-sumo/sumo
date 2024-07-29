@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-26 11:00+0000\n"
+"PO-Revision-Date: 2024-07-30 08:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2424,7 +2424,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:695
 msgid "Enables mesoscopic simulation"
-msgstr ""
+msgstr "Attiva la simulazione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:697
 msgid "Length of an edge segment in mesoscopic simulation"
@@ -2462,11 +2462,11 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:717
 msgid "Enable mesoscopic traffic light and priority junction handling"
-msgstr ""
+msgstr "Attiva trattamento mesoscopico di semafori e precedenze all'incrocio"
 
 #: src/microsim/MSFrame.cpp:731
 msgid "Enable mesoscopic overtaking"
-msgstr ""
+msgstr "Attiva il sorpasso mesoscopico"
 
 #: src/microsim/MSFrame.cpp:733
 msgid ""
@@ -2511,7 +2511,7 @@ msgstr "Carica una rete secondaria per una visualizzazione astratta da FILE"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Load pre-selected elements from FILE"
-msgstr ""
+msgstr "Carica elementi preselezionati da FILE"
 
 #: src/microsim/MSFrame.cpp:776
 msgid "Restart the simulation after ending (demo mode)"
