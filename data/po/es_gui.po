@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-18 13:53+0000\n"
+"PO-Revision-Date: 2024-07-30 08:09+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/es/>\n"
@@ -15417,10 +15417,11 @@ msgstr ""
 #: src/utils/gui/settings/GUISettingsHandler.cpp:575
 msgid "A breakpoint value must be a time description (%)."
 msgstr ""
+"El valor de un punto de interrupción debe ser una descripción de tiempo (%)."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:578
 msgid "Could not decode breakpoint '%'."
-msgstr ""
+msgstr "No se pudo decodificar el punto de interrupción '%'."
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:779
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1027
