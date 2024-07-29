@@ -2284,6 +2284,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double vSlowDown = slowDownForSchedule(vMinComfortable);
         v = MIN2(v, vSlowDown);
     }
+    auto stopIt = myStops.begin();
     while (true) {
         // check leader on lane
         //  leader is given for the first edge only
@@ -2474,97 +2475,109 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
         }
 
-        // process stops
-        if (!myStops.empty()
-                && ((&myStops.begin()->lane->getEdge() == &lane->getEdge())
-                    || (myStops.begin()->isOpposite && myStops.begin()->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
-                && (!myStops.begin()->reached || (myStops.begin()->getSpeed() > 0 && keepStopping()))
+        // process all stops and waypoints on the current edge
+        bool foundRealStop = false;
+        while (stopIt != myStops.end()
+                && ((&stopIt->lane->getEdge() == &lane->getEdge())
+                    || (stopIt->isOpposite && stopIt->lane->getEdge().getOppositeEdge() == &lane->getEdge()))
                 // ignore stops that occur later in a looped route
-                && myStops.front().edge == myCurrEdge + view) {
-            // we are approaching a stop on the edge; must not drive further
-            const MSStop& stop = *myStops.begin();
-            bool isWaypoint = stop.getSpeed() > 0;
-            double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
-            if (stop.parkingarea != nullptr) {
-                // leave enough space so parking vehicles can exit
-                const double brakePos = getBrakeGap() + lane->getLength() - seen;
-                endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this, brakePos);
-            } else if (isWaypoint && !stop.reached) {
-                endPos = stop.pars.startPos;
-            }
-            newStopDist = seen + endPos - lane->getLength();
-#ifdef DEBUG_STOPS
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " veh=" << getID() <<  " newStopDist=" << newStopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
-            }
-#endif
-            // regular stops are not emergencies
-            double stopSpeed = laneMaxV;
-            if (isWaypoint) {
-                bool waypointWithStop = false;
-                if (stop.getUntil() > t) {
-                    // check if we have to slow down or even stop
-                    SUMOTime time2end = 0;
-                    if (stop.reached) {
-                        time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.getSpeed());
-                    } else {
-                        time2end = TIME2STEPS(
-                                       // time to reach waypoint start
-                                       newStopDist / ((getSpeed() + stop.getSpeed()) / 2)
-                                       // time to reach waypoint end
-                                       + (stop.pars.endPos - stop.pars.startPos) / stop.getSpeed());
-                    }
-                    if (stop.getUntil() > t + time2end) {
-                        // we need to stop
-                        double distToEnd = newStopDist;
-                        if (!stop.reached) {
-                            distToEnd += stop.pars.endPos - stop.pars.startPos;
-                        }
-                        stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), distToEnd), vMinComfortable);
-                        waypointWithStop = true;
-                    }
+                && stopIt->edge == myCurrEdge + view) {
+            double stopDist = std::numeric_limits<double>::max();
+            const MSStop& stop = *stopIt;
+            const bool isFirstStop = stopIt == myStops.begin();
+            stopIt++;
+            if (!stop.reached || (stop.getSpeed() > 0 && keepStopping())) {
+                // we are approaching a stop on the edge; must not drive further
+                bool isWaypoint = stop.getSpeed() > 0;
+                double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
+                if (stop.parkingarea != nullptr) {
+                    // leave enough space so parking vehicles can exit
+                    const double brakePos = getBrakeGap() + lane->getLength() - seen;
+                    endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this, brakePos);
+                } else if (isWaypoint && !stop.reached) {
+                    endPos = stop.pars.startPos;
                 }
-                if (stop.reached) {
-                    stopSpeed = MIN2(stop.getSpeed(), stopSpeed);
-                    if (myState.myPos >= stop.pars.endPos && !waypointWithStop) {
-                        newStopDist = std::numeric_limits<double>::max();
+                stopDist = seen + endPos - lane->getLength();
+#ifdef DEBUG_STOPS
+                if (DEBUG_COND) {
+                    std::cout << SIMTIME << " veh=" << getID() <<  " stopDist=" << stopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
+                }
+#endif
+                // regular stops are not emergencies
+                double stopSpeed = laneMaxV;
+                if (isWaypoint) {
+                    bool waypointWithStop = false;
+                    if (stop.getUntil() > t) {
+                        // check if we have to slow down or even stop
+                        SUMOTime time2end = 0;
+                        if (stop.reached) {
+                            time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.getSpeed());
+                        } else {
+                            time2end = TIME2STEPS(
+                                    // time to reach waypoint start
+                                    stopDist / ((getSpeed() + stop.getSpeed()) / 2)
+                                    // time to reach waypoint end
+                                    + (stop.pars.endPos - stop.pars.startPos) / stop.getSpeed());
+                        }
+                        if (stop.getUntil() > t + time2end) {
+                            // we need to stop
+                            double distToEnd = stopDist;
+                            if (!stop.reached) {
+                                distToEnd += stop.pars.endPos - stop.pars.startPos;
+                            }
+                            stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), distToEnd), vMinComfortable);
+                            waypointWithStop = true;
+                        }
+                    }
+                    if (stop.reached) {
+                        stopSpeed = MIN2(stop.getSpeed(), stopSpeed);
+                        if (myState.myPos >= stop.pars.endPos && !waypointWithStop) {
+                            stopDist = std::numeric_limits<double>::max();
+                        }
+                    } else {
+                        stopSpeed = MIN2(MAX2(cfModel.freeSpeed(this, getSpeed(), stopDist, stop.getSpeed()), vMinComfortable), stopSpeed);
+                        if (!stop.reached) {
+                            stopDist += stop.pars.endPos - stop.pars.startPos;
+                        }
+                        if (lastLink != nullptr) {
+                            lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed(), false, MSCFModel::CalcReason::FUTURE));
+                        }
                     }
                 } else {
-                    stopSpeed = MIN2(MAX2(cfModel.freeSpeed(this, getSpeed(), newStopDist, stop.getSpeed()), vMinComfortable), stopSpeed);
-                    if (!stop.reached) {
-                        newStopDist += stop.pars.endPos - stop.pars.startPos;
-                    }
+                    stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), stopDist), vMinComfortable);
                     if (lastLink != nullptr) {
-                        lastLink->adaptLeaveSpeed(cfModel.freeSpeed(this, vLinkPass, endPos, stop.getSpeed(), false, MSCFModel::CalcReason::FUTURE));
+                        lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
                     }
                 }
-            } else {
-                stopSpeed = MAX2(cfModel.stopSpeed(this, getSpeed(), newStopDist), vMinComfortable);
-                if (lastLink != nullptr) {
-                    lastLink->adaptLeaveSpeed(cfModel.stopSpeed(this, vLinkPass, endPos, MSCFModel::CalcReason::FUTURE));
+                v = MIN2(v, stopSpeed);
+                if (lane->isInternal()) {
+                    std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+                    assert(!lane->isLinkEnd(exitLink));
+                    bool dummySetRequest;
+                    double dummyVLinkWait;
+                    checkLinkLeaderCurrentAndParallel(*exitLink, lane, seen, lastLink, v, vLinkPass, dummyVLinkWait, dummySetRequest);
                 }
-            }
-            v = MIN2(v, stopSpeed);
-            if (lane->isInternal()) {
-                std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
-                assert(!lane->isLinkEnd(exitLink));
-                bool dummySetRequest;
-                double dummyVLinkWait;
-                checkLinkLeaderCurrentAndParallel(*exitLink, lane, seen, lastLink, v, vLinkPass, dummyVLinkWait, dummySetRequest);
-            }
 
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND) {
-                std::cout << "\n" << SIMTIME << " next stop: distance = " << newStopDist << " requires stopSpeed = " << stopSpeed << "\n";
+                if (DEBUG_COND) {
+                    std::cout << "\n" << SIMTIME << " next stop: distance = " << stopDist << " requires stopSpeed = " << stopSpeed << "\n";
 
-            }
+                }
 #endif
-            // if the vehicle is going to stop we don't need to look further
-            // (except for trains that make use of further link-approach registration for safety purposes)
-            if (!isWaypoint && !isRailway(getVClass())) {
-                lfLinks.emplace_back(v, newStopDist);
-                break;
+                if (isFirstStop) {
+                    newStopDist = stopDist;
+                    // if the vehicle is going to stop we don't need to look further
+                    // (except for trains that make use of further link-approach registration for safety purposes)
+                    if (!isWaypoint && !isRailway(getVClass())) {
+                        lfLinks.emplace_back(v, stopDist);
+                        foundRealStop = true;
+                        break;
+                    }
+                }
             }
+        }
+        if (foundRealStop) {
+            break;
         }
 
         // move to next lane
