@@ -39,3 +39,6 @@ triggered_forbidden
 
 # test passing a short waypoint edge at high speed
 fast_short
+
+# Tests whether waypoint speed is safe for subsequent stop
+waypoint_before_stop
