@@ -32,12 +32,20 @@ import string
 import subprocess
 import sys
 import tempfile
+import re
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from sumolib.options import ArgumentParser  # noqa
 
 from build_config.version import get_pep440_version  # noqa
 
+def transform_pep440_version(version):
+    post_pattern = re.compile(r'^(.*)\.post\d+$')
+    match = post_pattern.match(version)  
+    if match:
+        return f"{match.group(1)}-git"
+    else:
+        return version
 
 def parse_args(def_pkg_name):
     def_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
@@ -370,7 +378,7 @@ def create_installer(frmwk_pkg, app_pkgs, id, version, output_path):
 
 
 def main():
-    version = get_pep440_version()
+    version = transform_pep440_version(get_pep440_version())
     default_installer_pkg_name = f"sumo-{version}.pkg"
     base_id = "org.eclipse.sumo"
 
