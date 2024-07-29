@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-18 13:53+0000\n"
+"PO-Revision-Date: 2024-07-30 08:09+0000\n"
 "Last-Translator: Angelo Banse <Olaf.BanseBueno@dlr.de>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/es/>\n"
@@ -8593,7 +8593,7 @@ msgstr ""
 
 #: src/netimport/NIImporter_MATSim.cpp:281
 msgid "Ignoring edge % which has no lanes."
-msgstr ""
+msgstr "Ignorando la arista % que no tiene carriles."
 
 #: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
@@ -11863,6 +11863,8 @@ msgid ""
 "maximum value % and minimum value % too close for distribution with mean % "
 "and deviation %"
 msgstr ""
+"el valor máximo % y el valor mínimo % son demasiado cercanos para una "
+"distribución con media % y desviación %"
 
 #: src/utils/emissions/EnergyParams.cpp:64
 #, c-format
