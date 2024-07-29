@@ -899,9 +899,6 @@ if (GIT_FOUND)
         COMMAND rm -r sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND ln -s ../../userdoc/images sumo-${PACKAGE_VERSION}/docs/web/docs/images
         COMMAND tar -czf sumo_${PACKAGE_VERSION}.orig.tar.gz --exclude "*.jar" sumo-${PACKAGE_VERSION}
-        COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND cp -a build_config/macos/*/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
-        COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(dist examples doc ${JAVA_TARGETS})
