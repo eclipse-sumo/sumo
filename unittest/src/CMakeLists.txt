@@ -4,7 +4,7 @@ function(setTestProperties targetname)
     add_dependencies(${targetname} install_dll install_test_dll)
     set_property(TARGET ${targetname} PROPERTY FOLDER "test_exe")
     add_test(${targetname} ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${targetname})
-    target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${TCMALLOC_LIBRARY} ${GTEST_BOTH_LIBRARIES})
+    target_link_libraries(${targetname} ${ARGN} ${commonlibs} ${TCMALLOC_LIBRARY} GTest::gtest_main)
 endfunction()
 
 add_subdirectory(utils)
