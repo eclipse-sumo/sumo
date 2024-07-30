@@ -71,6 +71,7 @@ title: ChangeLog
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
   - Fixed crash when attempting to transform person to personFlow #15040 (regression in 1.19.0)
+  - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.19.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
   - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
   - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
@@ -82,8 +83,7 @@ title: ChangeLog
   - Fixed crash when joining edges with crossings #15073 (regression in 1.20.0)
   - Fixed crash when removing junction with crossing in loaded network #15112 (regression in 1.20.0)
   - Additional objects no longer disappear at certain zoom levels #15104 (regression in 1.20.0)
-  - Fixed invalid dotted contour around calibrators #15138 (regression in 1.20.0)
-  - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.20.0)
+  - Fixed invalid dotted contour around calibrators #15138 (regression in 1.20.0)  
   - Fixed click detection to rerouter/vaporizer and stoppingPlace symbols #15280 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
