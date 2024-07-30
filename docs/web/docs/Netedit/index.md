@@ -129,6 +129,7 @@ sumo-gui](../sumo-gui.md#keyboard_shortcuts) are supported.
 ## Processing Menu Options
 
 - **Compute Junctions** (<kbd>F5</kbd>): recomputes the geometry and logic of all junctions. This is triggered automatically when entering modes which require this information (Connect, Traffic Lights).
+- **Compute Junctions with volatile options** (<kbd>Shift</kbd> + <kbd>F5</kbd>): recomputes everything and processes options that can modify the network if set (i.e. **crossings.guess**). This processing step does not support *undo/redo*.
 - **Clean Junctions** (<kbd>F6</kbd>): removes all junctions that do not have any adjacent edges (These junctions are not included when saving the network. They are kept in the editor until cleaned for potential reuse).
 - **Join Selected Junctions** (<kbd>F7</kbd>): joins the selected junctions into a single junction (See [joining junctions](../Networks/PlainXML.md#joining_nodes)).
 - **Options** (<kbd>F10</kbd>): inspect and set all options. These are the same options that [netconvert](../netconvert.md) accepts on the commandline or in a configuration.
