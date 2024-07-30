@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.9.3 (1822080 spike-06.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="52.2809800" minlon="10.5182600" maxlat="52.2811300" maxlon="10.5184000"/>
+ <node id="50844333" visible="true" version="7" changeset="26470113" timestamp="2014-10-31T20:06:37Z" user="Geogast" uid="51045" lat="52.2812122" lon="10.5183099"/>
+ <node id="50844337" visible="true" version="6" changeset="26470113" timestamp="2014-10-31T20:06:37Z" user="Geogast" uid="51045" lat="52.2810209" lon="10.5183463"/>
+ <node id="50844341" visible="true" version="7" changeset="27530608" timestamp="2014-12-17T13:51:46Z" user="rohieb" uid="39567" lat="52.2806378" lon="10.5185538"/>
+ <node id="2703032638" visible="true" version="2" changeset="28862865" timestamp="2015-02-15T13:11:06Z" user="SHuehne" uid="144382" lat="52.2803042" lon="10.5188408"/>
+ <node id="3160041270" visible="true" version="2" changeset="27530608" timestamp="2014-12-17T13:51:46Z" user="rohieb" uid="39567" lat="52.2805466" lon="10.5186436"/>
+ <node id="3160041271" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2808251" lon="10.5183658"/>
+ <node id="3160041272" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2808341" lon="10.5184152"/>
+ <node id="3160041273" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2810156" lon="10.5182955"/>
+ <node id="3160041274" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2812099" lon="10.5182586"/>
+ <node id="3160041275" visible="true" version="6" changeset="80924600" timestamp="2020-02-12T21:39:28Z" user="FreierFriese" uid="2815981" lat="52.2813488" lon="10.5182467">
+  <tag k="bicycle" v="yes"/>
+  <tag k="crossing:island" v="yes"/>
+  <tag k="railway" v="crossing"/>
+  <tag k="supervised" v="no"/>
+ </node>
+ <node id="3160041276" visible="true" version="3" changeset="92888790" timestamp="2020-10-22T10:38:37Z" user="Blero43" uid="11209498" lat="52.2815285" lon="10.5182629">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="railway" v="level_crossing"/>
+ </node>
+ <node id="3160041277" visible="true" version="4" changeset="120481767" timestamp="2022-05-02T23:27:00Z" user="L___I" uid="7649834" lat="52.2816639" lon="10.5182833">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="railway" v="level_crossing"/>
+ </node>
+ <node id="3160041278" visible="true" version="3" changeset="92888790" timestamp="2020-10-22T10:38:37Z" user="Blero43" uid="11209498" lat="52.2817966" lon="10.5183141">
+  <tag k="crossing:barrier" v="no"/>
+  <tag k="railway" v="level_crossing"/>
+ </node>
+ <node id="3160041279" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2821540" lon="10.5184353"/>
+ <node id="3160041280" visible="true" version="1" changeset="26470113" timestamp="2014-10-31T20:06:21Z" user="Geogast" uid="51045" lat="52.2823881" lon="10.5185100"/>
+ <node id="3160041281" visible="true" version="2" changeset="54025474" timestamp="2017-11-23T12:47:35Z" user="inaktiv" uid="3370944" lat="52.2829339" lon="10.5186896">
+  <tag k="railway" v="crossing"/>
+ </node>
+ <node id="3160041283" visible="true" version="3" changeset="120137548" timestamp="2022-04-24T20:03:27Z" user="bahnpirat" uid="13203" lat="52.2837043" lon="10.5189325">
+  <tag k="railway" v="power_supply"/>
+  <tag k="railway:electricity:ref" v="Hamburger Straße"/>
+  <tag k="source" v="survey"/>
+  <tag k="voltage" v="600"/>
+ </node>
+ <node id="3160041284" visible="true" version="4" changeset="59625509" timestamp="2018-06-07T07:43:16Z" user="inaktiv" uid="3370944" lat="52.2837646" lon="10.5189502">
+  <tag k="bicycle" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="crossing"/>
+ </node>
+ <node id="3160041286" visible="true" version="2" changeset="85519465" timestamp="2020-05-20T21:41:25Z" user="bjoern_m" uid="44660" lat="52.2840358" lon="10.5190076">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:electricity" v="joint"/>
+  <tag k="railway:signal:direction" v="both"/>
+  <tag k="railway:signal:electricity" v="DE-BOStrab:st7"/>
+  <tag k="railway:signal:electricity:form" v="sign"/>
+  <tag k="railway:signal:electricity:type" v="power_off_shortly"/>
+  <tag k="railway:signal:position" v="overhead"/>
+  <tag k="source" v="survey"/>
+ </node>
+ <node id="3160041332" visible="true" version="11" changeset="142937896" timestamp="2023-10-21T19:28:51Z" user="dancingCycle" uid="18380895" lat="52.2829943" lon="10.5187104">
+  <tag k="local_ref" v="A"/>
+  <tag k="name" v="Schützenplatz"/>
+  <tag k="network" v="Verkehrsverbund Region Braunschweig"/>
+  <tag k="network:short" v="VRB"/>
+  <tag k="network:wikidata" v="Q2514431"/>
+  <tag k="operator" v="Braunschweiger Verkehrs-GmbH"/>
+  <tag k="operator:short" v="BSVG"/>
+  <tag k="operator:wikidata" v="Q901999"/>
+  <tag k="public_transport" v="stop_position"/>
+  <tag k="railway" v="tram_stop"/>
+  <tag k="tram" v="yes"/>
+  <tag k="wheelchair" v="yes"/>
+ </node>
+ <node id="3239587424" visible="true" version="2" changeset="67461635" timestamp="2019-02-22T10:57:09Z" user="mist" uid="85508" lat="52.2798238" lon="10.5190464"/>
+ <node id="3239587426" visible="true" version="2" changeset="67461635" timestamp="2019-02-22T10:57:09Z" user="mist" uid="85508" lat="52.2802123" lon="10.5188276"/>
+ <node id="3239587428" visible="true" version="2" changeset="67461635" timestamp="2019-02-22T10:57:09Z" user="mist" uid="85508" lat="52.2803692" lon="10.5187371"/>
+ <node id="3239587430" visible="true" version="1" changeset="27530608" timestamp="2014-12-17T13:51:32Z" user="rohieb" uid="39567" lat="52.2804410" lon="10.5186763"/>
+ <node id="3239587432" visible="true" version="1" changeset="27530608" timestamp="2014-12-17T13:51:32Z" user="rohieb" uid="39567" lat="52.2805351" lon="10.5185951"/>
+ <node id="3239587433" visible="true" version="1" changeset="27530608" timestamp="2014-12-17T13:51:32Z" user="rohieb" uid="39567" lat="52.2806236" lon="10.5185088"/>
+ <node id="3239587434" visible="true" version="1" changeset="27530608" timestamp="2014-12-17T13:51:32Z" user="rohieb" uid="39567" lat="52.2807225" lon="10.5184252"/>
+ <node id="3239587435" visible="true" version="1" changeset="27530608" timestamp="2014-12-17T13:51:32Z" user="rohieb" uid="39567" lat="52.2807367" lon="10.5184731"/>
+ <node id="3351857327" visible="true" version="2" changeset="67461635" timestamp="2019-02-22T10:57:09Z" user="mist" uid="85508" lat="52.2793449" lon="10.5193308">
+  <tag k="bicycle" v="yes"/>
+  <tag k="crossing" v="traffic_signals"/>
+  <tag k="railway" v="crossing"/>
+  <tag k="railway:signal:main" v="DE-BOStrab:f"/>
+  <tag k="railway:signal:main:form" v="light"/>
+ </node>
+ <node id="5671614365" visible="true" version="1" changeset="59625509" timestamp="2018-06-07T07:43:12Z" user="inaktiv" uid="3370944" lat="52.2813220" lon="10.5182490">
+  <tag k="railway" v="crossing"/>
+ </node>
+ <node id="5671614410" visible="true" version="1" changeset="59625509" timestamp="2018-06-07T07:43:13Z" user="inaktiv" uid="3370944" lat="52.2838051" lon="10.5189588">
+  <tag k="railway" v="crossing"/>
+ </node>
+ <node id="7542460402" visible="true" version="1" changeset="85519465" timestamp="2020-05-20T21:41:25Z" user="bjoern_m" uid="44660" lat="52.2838599" lon="10.5189704">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:main" v="DE-BOStrab:f"/>
+  <tag k="railway:signal:main:form" v="light"/>
+  <tag k="railway:signal:main:states" v="DE-BOStrab:f0;DE-BOStrab:f1"/>
+  <tag k="railway:signal:position" v="right"/>
+ </node>
+ <node id="7542460405" visible="true" version="2" changeset="90209425" timestamp="2020-08-31T20:09:22Z" user="bjoern_m" uid="44660" lat="52.2802689" lon="10.5188609">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:position" v="left"/>
+  <tag k="railway:signal:speed_limit" v="DE-BSVG:g2a"/>
+  <tag k="railway:signal:speed_limit:form" v="sign"/>
+  <tag k="railway:signal:speed_limit:height" v="normal"/>
+  <tag k="railway:signal:speed_limit:speed" v="20"/>
+ </node>
+ <node id="7542460407" visible="true" version="2" changeset="151649866" timestamp="2024-05-21T22:17:43Z" user="Siegmarer" uid="1757456" lat="52.2791563" lon="10.5194375">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:main" v="DE-BOStrab:f"/>
+  <tag k="railway:signal:main:form" v="light"/>
+  <tag k="railway:signal:main:states" v="DE-BOStrab:f0;DE-BOStrab:f1"/>
+  <tag k="railway:signal:position" v="overhead"/>
+ </node>
+ <node id="7542460423" visible="true" version="1" changeset="85519465" timestamp="2020-05-20T21:41:25Z" user="bjoern_m" uid="44660" lat="52.2819081" lon="10.5183534">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:main" v="DE-BOStrab:f"/>
+  <tag k="railway:signal:main:form" v="light"/>
+  <tag k="railway:signal:main:height" v="normal"/>
+  <tag k="railway:signal:main:states" v="DE-BOStrab:f0;DE-BOStrab:f1"/>
+  <tag k="railway:signal:position" v="right"/>
+ </node>
+ <node id="7542460424" visible="true" version="1" changeset="85519465" timestamp="2020-05-20T21:41:25Z" user="bjoern_m" uid="44660" lat="52.2812614" lon="10.5183091">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:main" v="DE-BOStrab:f"/>
+  <tag k="railway:signal:main:form" v="light"/>
+  <tag k="railway:signal:main:height" v="normal"/>
+  <tag k="railway:signal:main:states" v="DE-BOStrab:f0;DE-BOStrab:f1"/>
+  <tag k="railway:signal:position" v="right"/>
+ </node>
+ <node id="7542460429" visible="true" version="2" changeset="90209502" timestamp="2020-08-31T20:11:52Z" user="bjoern_m" uid="44660" lat="52.2790569" lon="10.5194918">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:position" v="left"/>
+  <tag k="railway:signal:speed_limit_distant" v="DE-BSVG:g1a"/>
+  <tag k="railway:signal:speed_limit_distant:form" v="sign"/>
+  <tag k="railway:signal:speed_limit_distant:height" v="normal"/>
+  <tag k="railway:signal:speed_limit_distant:speed" v="20"/>
+ </node>
+ <node id="7542460430" visible="true" version="3" changeset="131674101" timestamp="2023-01-25T00:37:16Z" user="rohieb" uid="39567" lat="52.2789205" lon="10.5195815">
+  <tag k="railway" v="signal"/>
+  <tag k="railway:signal:direction" v="forward"/>
+  <tag k="railway:signal:position" v="left"/>
+  <tag k="railway:signal:speed_limit" v="DE-BSVG:g2a"/>
+  <tag k="railway:signal:speed_limit:form" v="sign"/>
+  <tag k="railway:signal:speed_limit:height" v="normal"/>
+  <tag k="railway:signal:speed_limit:speed" v="20"/>
+ </node>
+ <way id="806561064" visible="true" version="3" changeset="97009698" timestamp="2021-01-05T23:28:59Z" user="bjoern_m" uid="44660">
+  <nd ref="7542460405"/>
+  <nd ref="2703032638"/>
+  <nd ref="3160041270"/>
+  <nd ref="50844341"/>
+  <nd ref="3239587435"/>
+  <nd ref="3160041272"/>
+  <nd ref="50844337"/>
+  <nd ref="50844333"/>
+  <nd ref="7542460424"/>
+  <tag k="bus" v="no"/>
+  <tag k="electrified" v="contact_line"/>
+  <tag k="frequency" v="0"/>
+  <tag k="gauge" v="1100"/>
+  <tag k="maxspeed" v="20"/>
+  <tag k="network" v="Verkehrsverbund Region Braunschweig"/>
+  <tag k="operator" v="Braunschweiger Verkehrs-GmbH"/>
+  <tag k="psv" v="yes"/>
+  <tag k="railway" v="tram"/>
+  <tag k="railway:preferred_direction" v="forward"/>
+  <tag k="railway:traffic_mode" v="passenger"/>
+  <tag k="surface" v="none"/>
+  <tag k="voltage" v="600"/>
+ </way>
+</osm>

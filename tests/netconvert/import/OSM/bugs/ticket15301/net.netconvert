@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-07-30 16:27:51 by Eclipse SUMO netconvert Version v1_20_0+1470-484cb2a283b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</netconvertConfiguration>
+-->
+
+<net version="1.20" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-603575.20,-5793297.73" convBoundary="0.00,0.00,39.96,109.59" origBoundary="10.518309,52.280269,10.518861,52.282994" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id="806561064" from="7542460405" to="7542460424" priority="17" type="railway.tram" spreadType="center" shape="39.96,0.00 38.50,3.90 24.48,30.57 18.15,40.59 12.41,51.47 8.23,62.22 3.10,82.90 0.17,104.12 0.00,109.59">
+        <lane id="806561064_0" index="0" allow="bus tram" speed="5.56" length="118.19" shape="39.96,0.00 38.50,3.90 24.48,30.57 18.15,40.59 12.41,51.47 8.23,62.22 3.10,82.90 0.17,104.12 -0.00,109.59"/>
+    </edge>
+
+    <junction id="7542460405" type="dead_end" x="39.96" y="0.00" incLanes="" intLanes="" shape="38.46,-0.56 41.45,0.56"/>
+    <junction id="7542460424" type="dead_end" x="0.00" y="109.59" incLanes="806561064_0" intLanes="" shape="1.60,109.64 -1.60,109.55">
+        <param key="railway:signal:direction" value="forward"/>
+    </junction>
+
+</net>

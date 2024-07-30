@@ -136,3 +136,6 @@ ticket14892
 
 # warning on traffic light
 ticket15150
+
+# psv=yes with bus=no
+ticket15301
