@@ -1,6 +1,2 @@
 Warning: Vehicle 'flow_1.26' performs emergency braking on lane 'E11_0' with decel=9.00, wished=4.50, severity=1.00, time=174.25.
 Warning: Vehicle 'flow_0.2' performs emergency braking on lane 'E6_1' with decel=9.00, wished=4.50, severity=1.00, time=174.25.
-Warning: Vehicle 'flow_0.115' performs emergency braking on lane 'E3_0' with decel=9.00, wished=4.50, severity=1.00, time=482.75.
-Warning: Vehicle 'flow_1.86' performs emergency braking on lane 'E14_1' with decel=9.00, wished=4.50, severity=1.00, time=482.75.
-Warning: Vehicle 'flow_1.89' performs emergency braking on lane 'E14_1' with decel=9.00, wished=4.50, severity=1.00, time=486.00.
-Warning: Vehicle 'flow_0.110' performs emergency braking on lane 'E3_0' with decel=9.00, wished=4.50, severity=1.00, time=486.50.
