@@ -29,15 +29,15 @@ rm -rf dist dist_native $LOG
 if test $3 == "local"; then
   cp build_config/pyproject.toml .
   $PYTHON ./tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
-  $PYTHON -m build --wheel >> $LOG
+  $PYTHON -m build --wheel >> $LOG 2>&1
   $PYTHON ./tools/build_config/version.py tools/build_config/setup-libsumo.py tools/setup.py
-  $PYTHON -m build --wheel tools -o dist >> $LOG
+  $PYTHON -m build --wheel tools -o dist >> $LOG 2>&1
   $PYTHON -c 'import os,sys; v="cp%s%s"%sys.version_info[:2]; os.rename(sys.argv[1], sys.argv[1].replace("%s-%s"%(v,v), "py2.py3-none"))' dist/eclipse_sumo-*
   pushd tools >> $LOG
   $PYTHON ./build_config/version.py ./build_config/setup-sumolib.py ./setup.py
-  $PYTHON -m build --wheel . -o ../dist >> $LOG
+  $PYTHON -m build --wheel . -o ../dist >> $LOG 2>&1
   $PYTHON ./build_config/version.py ./build_config/setup-traci.py ./setup.py
-  $PYTHON -m build --wheel . -o ../dist >> $LOG
+  $PYTHON -m build --wheel . -o ../dist >> $LOG 2>&1
   popd >> $LOG
   mv dist dist_native  # just as backup
 fi
