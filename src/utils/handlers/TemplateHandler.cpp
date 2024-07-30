@@ -154,7 +154,7 @@ TemplateHandler::addOption(std::string value, const std::string& synonymes, cons
         if ((type == "STR") || (type == "string")) {
             option = new Option_String(value);
         } else if ((type == "TIME") || (type == "time")) {
-            option = new Option_String(value);
+            option = new Option_String(value, "TIME");
         } else if ((type == "INT") || (type == "int")) {
             option = new Option_Integer(0);
             if (value.empty()) {
