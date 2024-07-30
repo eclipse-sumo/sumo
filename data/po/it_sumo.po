@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 08:09+0000\n"
+"PO-Revision-Date: 2024-07-30 09:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3572,18 +3572,20 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:75
 msgid "Minimal admissible value for the driver's awareness."
-msgstr ""
+msgstr "Valore minimalmente acettabile della facoltà percettiva del conducente"
 
 #: src/microsim/devices/MSDevice_DriverState.cpp:77
 msgid ""
 "Maximal reaction time (~action step length) induced by decreased awareness "
 "level (reached for awareness=minAwareness)."
 msgstr ""
+"Il massimo tempo di reazione (~passo di azione) indotto da una facoltà "
+"percettiva ridotta (raggiunto con awareness=minAwareness)"
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:102
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:116
 msgid "Invalid value '%'for vType parameter '%'"
-msgstr ""
+msgstr "Valore invalido '%' del parametro di tipo di veicolo '%'"
 
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:166
 #: src/microsim/devices/MSDevice_ElecHybrid.cpp:179
@@ -3630,6 +3632,8 @@ msgid ""
 "An exemplary parameter which can be used by all instances of the example "
 "device"
 msgstr ""
+"Un parametro esemplare che può essere usato in tutte le istanze "
+"dell'attrezzo esemplare"
 
 #: src/microsim/devices/MSDevice_Example.cpp:63
 #, c-format
