@@ -26,7 +26,7 @@ cd $PREFIX/sumo
 git clean -f -x -d -q . &> $LOG ||(echo "git clean failed"; tail -10 $LOG)
 git pull >> $LOG 2>&1 || (echo "git pull failed"; tail -10 $LOG)
 rm -rf dist dist_native $LOG
-if test $3 == "local"; then
+if test "$3" == "local"; then
   cp build_config/pyproject.toml .
   $PYTHON ./tools/build_config/version.py tools/build_config/setup-sumo.py ./setup.py
   $PYTHON -m build --wheel >> $LOG 2>&1

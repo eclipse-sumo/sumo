@@ -64,6 +64,7 @@ for py in /opt/python/cp3[1789]*; do
 done
 # clean up all temporary files except for _skbuild
 rm -rf tools/*.egg-info tools/build_config/*.egg-info tools/build tools/libsumo/data pyproject.toml setup.py tools/setup.py
+find tools -name __pycache__ | xargs rm -rf
 # the resulting wheels are in wheelhouse but we keep also the dist and the _skbuild dir for inspection
 # we make everything writable so that others can clean up
 chmod -R a+w _skbuild dist wheelhouse
