@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.shapeMode()
 
 # go to shape mode
-netedit.changeElement("jps.obstacle")
+netedit.changeElement("jupedsim.obstacle")
 
 # create one-point polygon (area 0)
 netedit.createRectangledShape(referencePosition, netedit.positions.elements.additionals.shapeA, 0, 0, True)

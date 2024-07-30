@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("dummyShape")
 
 # try to create an dummy shape
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # select valid shape (POI)
 netedit.changeElement("poi")
 
 # create POI
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
