@@ -496,9 +496,12 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     double speed = tc.getEdgeTypeSpeed(type);
     bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
     const SVCPermissions defaultPermissions = tc.getEdgeTypePermissions(type);
-    const SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
+    SVCPermissions extra = myImportBikeAccess ? e->myExtraAllowed : (e->myExtraAllowed & ~SVC_BICYCLE);
     const SVCPermissions extraDis = myImportBikeAccess ? e->myExtraDisallowed : (e->myExtraDisallowed & ~SVC_BICYCLE);
-    // extra permissions are more specific than extra prohibitions
+    // extra permissions are more specific than extra prohibitions except for buses (which come from the less specific psv tag)
+    if ((extraDis & SVC_BUS) && (extra & SVC_BUS)) {
+        extra = extra & ~SVC_BUS;
+    }
     SVCPermissions permissions = (defaultPermissions & ~extraDis) | extra;
     if (defaultPermissions == SVC_SHIP) {
         // extra permission apply to the ships operating on the route rather than the waterway
