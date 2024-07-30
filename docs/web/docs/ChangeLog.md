@@ -7,6 +7,7 @@ title: ChangeLog
 ### Bugfixes
 
 - sumo
+  - Fixed unhelpful error message when giving an edge id instead of a lane id for a stop #15158 (regression in 1.11.0)
   - Fixed invalid error when loading a trip directly after a route with `repeat` #14992 (regression in 1.20.0)
   - Persons joining edge via access don't collide with vehicles again #15030 (regression in 1.20.0)
   - personInfo total duration now includes ride waiting time #14887
@@ -41,6 +42,13 @@ title: ChangeLog
   - Fixed invalid rerouting one edge with change prohibitions #15098
   - Fixed collision in roundabout in network without internal links #15100
   - Fixed invalid GLOSA behavior when loading multiple programs for a traffic light #15139
+  - Fixed crash during portion working #15165
+  - Fixed skipped stop when train is joined by a vehicle on another edge #15166
+  - Fixed high memory usage in simulation with chargingStations when not using **--chargingstations-output** #15238
+  - Fixed bug where simulation does not finish with onDemand stop #15263
+  - Fixed queue length estimation for laneAreaDetectors of delay_based traffic lights #15247
+  - Fixed invalid laneAreaDetector end position checks #15275
+  - Fixed bug where vehicle skips stop after waypoint #15293 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -54,6 +62,11 @@ title: ChangeLog
   - Fixed self overlapping crossing outline shape #15111
   - Crossing parameters are now loaded from plain-xml #15135
   - Fixed double-projection of node and crossing shapes when setting option **--proj** #15136, #15137
+  - Option **--railway.signal.guess.by-stops** can no longer turn switches into signals #15153
+  - Fixed invalid pedestrian infrastructure connections that could cause invalid pedestrian routes #15177, #15183
+  - Fixed broken lane shape in opendrive import #15197
+  - Matsim import now handles node ids with unusual characters #15196
+  - Fixed crash during opendrive import with boundary filter #15243 
 
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
@@ -68,6 +81,10 @@ title: ChangeLog
   - TazRelations can be inspected again #15019 (regression in 1.20.0)
   - Fixed crash when joining edges with crossings #15073 (regression in 1.20.0)
   - Fixed crash when removing junction with crossing in loaded network #15112 (regression in 1.20.0)
+  - Additional objects no longer disappear at certain zoom levels #15104 (regression in 1.20.0)
+  - Fixed invalid dotted contour around calibrators #15138 (regression in 1.20.0)
+  - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.20.0)
+  - Fixed click detection to rerouter/vaporizer and stoppingPlace symbols #15280 (regression in 1.20.0)
   - Fixed crash when using "Replace junction by geometry point" and traffic demand is loaded #14863
   - In inspect mode, the junction contour no longer hides link indices #14948
   - Fixed invalid NEMA controller when changing type from static #15007
@@ -76,6 +93,11 @@ title: ChangeLog
   - Fixed uncontrolled pedestrian crossings after using 'Clean States' #15047
   - Undo-button becomes instantly active after undoable action #14770
   - Edge context menu function *apply edge template* now applies to the whole selection #14458
+  - Rerouters and VSS without edges or lanes are no longer written #15151
+  - Hotkey <kbd>BACKSPACE</kbd> now works for taking back a stopping place in person mode #14802
+  - Fixed crash when replacing junction by geometry point #15233
+  - edgeData attribute `writeAttributes` is now written correctly #15273
+  - Fixed error creating POI over lanes #15042 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -90,6 +112,9 @@ title: ChangeLog
   - Message window "time link" is now working for vehicle-person-collision warning #14931
   - Fixed crash on right-click in "color edge by inclination" mode #14856
   - Fixed invalid lateral placement of wide busStops and containerStops #15089
+  - Fixed invalid rotation of articulated vehicles when parked #15168
+  - Improved clickable message log in translated GUI #14759
+  - Added warning if breakpoint file does not exist #3424 
 
 - meso
   - Fixed invalid segment properties when an edge does not allow passenger cars #15020
@@ -99,6 +124,9 @@ title: ChangeLog
   - Fixed ignored calls to `vehicle.changeTarget` and `vehicle.setRoute` after calling `vehicle.moveToXY`. #15123 (regression in 1.13.0)
   - Fixed handling of large time input values #14793
   - Fixed crash when trying to call `traci.vehicle.dispatchTaxi` for an undeparted vehicle #15016
+  - Fixed invalid error when constructing a new TraCILogic with libsumo #15164
+  - traci.simulation.findIntermodalRoute can now be used to find taxi mode routes #15172
+  - traci.vehicle.getNextTLS now works for parking vehicles #15181  
 
 - tools
   - osmGet.py: Fixed error downloading data from servers that do not provide gzipped data. #15105 (regression in 1.20.0)
@@ -127,6 +155,11 @@ title: ChangeLog
   - Added extra penalty for turnarounds during routing, configurable with option **--weights.turnaround-penalty** #4966
   - Individual speedFactor is now adjusted when switching vehicle type (with calibrators, devices or TraCI) #15076
   - Added GLOSA options to increase or reduce safety. #15152
+  - Added vType-attribute `jmStopSignWait` to customize required waiting time at stop sign #15163
+  - Actuated traffic lights now support phase attributes `earlyTarget="DEFAULT"` and `finalTarget="DEFAULT"`. This simplifies combining default switching rules (gap based) with custom conditions #14669
+  - chargingStation default power is now 22kW (instead of 0) #15144  
+  - Added warning for unusual distribution definitions #15146
+  - fcd-output now contains the vtype for pedestrians #15210 
 
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -143,11 +176,15 @@ title: ChangeLog
   - Improved rendering speed on right-click #15035
   - Reduce width of lane parameter dialog (by adding linebreaks) #15051
 
+- meso
+  - vType attribute `jmTimeGapMinor` is now considered when running with option **--meso-junction-control** #15171 
+
 - netconvert
   - OSM import now supports distances and speeds with units (i.e. feet, knots) #14885
   - OSM import now warns if ways, nodes or relations are out of order #14892
   - OSM import now handles trolleybus routes #14932
   - Shapefile import now respects option **--default.spreadtype** #14984
+  - Added option **--geometry.max-angle.fix** for removing sharp angles within edge #15221 
 
 - marouter
   - Loaded trip attributes (i.e. departLane and departSpeed) are now preserved #15049
@@ -159,6 +196,8 @@ title: ChangeLog
   - The new sumo option **--keep-after-arrival TIME** keeps vehicle objects in memory for a configurable time after their arrival. This makes it possible to retrieve properties of their trip. #9891
   - Fixed missing leader/follower information in lanechange output after forced change. #14912
   - chargingStation attributes can now be modified #12772
+  - Added functions `edge.getBidiEdge` and `lane.getBidiLane` #15186
+  - Added functions `getMass` and `setMass` to the vehicle, person and vehicletype dommains #15258 
 
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
@@ -170,6 +209,8 @@ title: ChangeLog
   - createVehTypeDistribution.py: now automatically writes `speedDev` when only `speedFactor` is defined by the user to a wider distribution than may be expected #15025
   - mapDetectors.py: Option **--max-radius** can now be used to configure maximum mapping radius #15118
   - mapDetectors.py: Can now handle CSV with BOM #15116
+  - net2geojson.py: can now optionally include numLanes and speed as properties #15109
+  - distributeChargingStations.py: this is a new tool for adding chargingStations to a network with parkingAreas #14667
 
 ### Miscellaneous
 
@@ -180,6 +221,7 @@ title: ChangeLog
 - SUMO game language switch is now working in the downloadable zip #13440
 - Fixed broken images in game-cross scenario #15083
 - DEFAULT_CONTAINERTYPE now uses vClass `container` #15092
+- parkingArea default roadsideCapacity is 1 (instead of 0) if no space definitions are given #15264 
 
 ## Version 1.20.0 (07.05.2024)
 
