@@ -333,6 +333,7 @@ Detector activation states can optionally be written to the [TLS output](Output/
   <param key="freq" value="300"/>
   <param key="jam-threshold" value="-1"/>
   <param key="detector-length" value="0"/>
+  <param key="build-all-detectors" value="false"/>
 
   <phase duration="31" minDur="5" maxDur="45" state="GGggrrrrGGggrrrr"/>
   ...
@@ -356,6 +357,7 @@ induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md
 - **jam-threshold**: ignore detected vehicles if they have stood on a detector for the given time or more
 - **jam-threshold:LANEID**: ignore detected vehicles if they have stood on the detector on the given LANEID for the given time or more
 - **detector-length**: set detector length to the given value (to ensure robust request detection with varying gaps and vehicle positions)
+- **build-all-detectors**: build detectors for all incoming lanes even if they would not control an actuated phase
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
 
