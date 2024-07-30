@@ -325,7 +325,7 @@ The second case is rather common in transportation science. It allows to
 split the matrix into 24 subparts - this means the number of fields is
 fixed to 24 - allowing to spread an O/D-matrix over a day describing it
 by hours. To use this, give additionally the option
---timeline.day-in-hours to [od2trips](../../od2trips.md). It the
+**--timeline.day-in-hours** to [od2trips](../../od2trips.md). It the
 assumes the values from the **--timeline** - option being a list of 24
 floats, divided by ',', each describing the probability of inserting a
 vehicle within the according hour.
