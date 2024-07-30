@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-30 16:27:51 by Eclipse SUMO netconvert Version v1_20_0+1470-484cb2a283b
+<!-- generated on 2024-07-30 16:35:58 by Eclipse SUMO netconvert Version v1_20_0+1472-ef23f7706c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <type id="railway.tram" priority="17" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
 
     <edge id="806561064" from="7542460405" to="7542460424" priority="17" type="railway.tram" spreadType="center" shape="39.96,0.00 38.50,3.90 24.48,30.57 18.15,40.59 12.41,51.47 8.23,62.22 3.10,82.90 0.17,104.12 0.00,109.59">
-        <lane id="806561064_0" index="0" allow="bus tram" speed="5.56" length="118.19" shape="39.96,0.00 38.50,3.90 24.48,30.57 18.15,40.59 12.41,51.47 8.23,62.22 3.10,82.90 0.17,104.12 -0.00,109.59"/>
+        <lane id="806561064_0" index="0" allow="tram" speed="5.56" length="118.19" shape="39.96,0.00 38.50,3.90 24.48,30.57 18.15,40.59 12.41,51.47 8.23,62.22 3.10,82.90 0.17,104.12 -0.00,109.59"/>
     </edge>
 
     <junction id="7542460405" type="dead_end" x="39.96" y="0.00" incLanes="" intLanes="" shape="38.46,-0.56 41.45,0.56"/>
