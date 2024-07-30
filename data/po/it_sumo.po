@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 09:09+0000\n"
+"PO-Revision-Date: 2024-07-30 10:36+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4973,11 +4973,11 @@ msgstr ""
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:1831
 msgid "Disconnected walk for person '%'."
-msgstr ""
+msgstr "Cammino sconnesso per persona '%'."
 
 #: src/microsim/transportables/MSPModel_Striping.cpp:2038
 msgid "Person '%' is jammed on edge '%', time=%."
-msgstr ""
+msgstr "La persona '%' è bloccata sull'arco '%' alle ore %."
 
 #: src/microsim/transportables/MSStageDriving.cpp:248
 msgid ""
@@ -4996,6 +4996,8 @@ msgid ""
 "Ignoring vehicle type '%' when routing person '%' because it is not allowed "
 "on the start edge."
 msgstr ""
+"Il tipo di veicolo '%' viene ignorato nell'instradamento della persona '%' "
+"perché non è autorizzato sull'arco di partenza."
 
 #: src/microsim/transportables/MSStageWalking.cpp:95
 msgid "Adjusting departPos for cloned walk with routeDistribution '%'"
@@ -5014,6 +5016,8 @@ msgid ""
 "The pedestrian model uses infrastructure which is not in the network, "
 "timeLoss and routeLength may be invalid."
 msgstr ""
+"Il modello pedonale utilizza infrastrutture che non si trova nella rete e "
+"quindi timeLoss e routeLength possono assumere valori invalidi."
 
 #: src/microsim/transportables/MSTransportable.cpp:150
 msgid "Changing a transportable ID is not permitted"
@@ -5028,7 +5032,7 @@ msgstr ""
 
 #: src/microsim/transportables/MSTransportable.cpp:522
 msgid "parkingAreaReroute not supported for containers"
-msgstr ""
+msgstr "parkingAreaReroute non disponibile per contenitori"
 
 #: src/microsim/transportables/MSTransportableControl.cpp:75
 msgid "Unknown pedestrian model '%'"
@@ -5068,22 +5072,30 @@ msgid ""
 "Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of "
 "calibrator '%'."
 msgstr ""
+"Soltanto uno degli attributi 'vehsPerHour', 'speed' e 'type' deve far parte "
+"della definizione di flusso del calibrator '%'."
 
 #: src/microsim/trigger/MSCalibrator.cpp:224
 msgid "Type calibration is not supported in meso for calibrator '%'."
 msgstr ""
+"La calibrazione di tipo non è supportata nella simulazione mesoscopica per "
+"il calibrator '%'."
 
 #: src/microsim/trigger/MSCalibrator.cpp:318
 msgid "Calibrator '%' could not remove vehicle '%' time=%."
-msgstr ""
+msgstr "Il calibrator '%' non ha potuto rimuovere il veicolo '%' alle ore %."
 
 #: src/microsim/trigger/MSCalibrator.cpp:699
 msgid "Cannot set flow for calibrator '%' with overlapping interval."
 msgstr ""
+"Non si può configurare un flusso con un intervallo sovrapposto nel "
+"calibrator '%'."
 
 #: src/microsim/trigger/MSCalibrator.cpp:701
 msgid "Cannot set flow for calibrator '%' with negative interval."
 msgstr ""
+"Non si può configurare un flusso nel calibrator '%' con un intervallo "
+"negativo."
 
 #: src/microsim/trigger/MSChargingStation.cpp:46
 #: src/microsim/trigger/MSChargingStation.cpp:51
