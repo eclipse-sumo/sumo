@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 10:36+0000\n"
+"PO-Revision-Date: 2024-07-30 12:47+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -194,7 +194,7 @@ msgstr "Salva posizioni di rivelatori come punti di interesse in FILE"
 
 #: src/dfrouter/RODFFrame.cpp:95
 msgid "Saves emitter definitions for source detectors to FILE"
-msgstr "Salva definizioni di emittenti per rivelatori di origini in FILE"
+msgstr "Salva definizioni di emittenti per rivelatori di sorgenti in FILE"
 
 #: src/dfrouter/RODFFrame.cpp:98
 msgid "Add vehicle types to the emitters file (PKW, LKW)"
@@ -215,12 +215,12 @@ msgstr "Salva posizioni di emittenti come punti di interesse in FILE"
 #: src/dfrouter/RODFFrame.cpp:108
 msgid "Saves variable seed sign definitions for sink detectors to FILE"
 msgstr ""
-"Salva definizioni di limiti di velocità dinamici per rivelatori di "
-"destinazione in FILE"
+"Salva definizioni di limiti di velocità dinamici per rivelatori di scarico "
+"in FILE"
 
 #: src/dfrouter/RODFFrame.cpp:111
 msgid "Saves rerouter definitions for sink detectors to FILE"
-msgstr "Salva definizioni rerouter per rivelatori di destinazione in FILE"
+msgstr "Salva definizioni rerouter per rivelatori di scarico in FILE"
 
 #: src/dfrouter/RODFFrame.cpp:114
 msgid ""
@@ -231,7 +231,7 @@ msgstr ""
 
 #: src/dfrouter/RODFFrame.cpp:117
 msgid "Add source detectors to the validation output"
-msgstr "Aggiungi rivelatori di origine all'output di validazione"
+msgstr "Aggiungi rivelatori di sorgente all'output di validazione"
 
 #: src/dfrouter/RODFFrame.cpp:123
 msgid "Derive missing flow values from upstream or downstream (not working!)"
@@ -334,7 +334,7 @@ msgid ""
 "Whether edges with unknown status can prevent an edge from becoming a source"
 msgstr ""
 "Se degli archi con uno stato sconosciusto possono impedire un arco di "
-"diventare origine"
+"diventare sorgente"
 
 #: src/dfrouter/RODFFrame.cpp:201
 msgid ""
@@ -415,12 +415,12 @@ msgstr "Tipi di rivelatori assegnati:"
 #: src/dfrouter/RODFNet.cpp:143
 #, c-format
 msgid " % source detectors"
-msgstr " % rivelatori di origine"
+msgstr " % rivelatori di sorgente"
 
 #: src/dfrouter/RODFNet.cpp:144
 #, c-format
 msgid " % sink detectors"
-msgstr " % rivelatori di destinazione"
+msgstr " % rivelatori di scarico"
 
 #: src/dfrouter/RODFNet.cpp:145
 #, c-format
@@ -468,7 +468,7 @@ msgstr "Il rivelatore '%' non ha alcun flusso."
 msgid ""
 "Quitting checking for being a source for detector '%' due to seen edge limit."
 msgstr ""
-"Uscita dal processo di associare il rivelatore '%' a un'origine per causa "
+"Uscita dal processo di associare il rivelatore '%' a una sorgente per causa "
 "della soglia di archi visti."
 
 #: src/dfrouter/RODFNet.cpp:790
@@ -486,7 +486,7 @@ msgid ""
 "Quitting checking for being a false source for detector '%' due to seen edge "
 "limit."
 msgstr ""
-"Uscita dal processo di associare il rivelatore '%' a un'origine sbagliata "
+"Uscita dal processo di associare il rivelatore '%' a una sorgente sbagliata "
 "per causa della soglia di archi visti."
 
 #: src/dfrouter/RODFNet.cpp:997
@@ -528,7 +528,7 @@ msgstr "Cerco dei rivelatori vuoti"
 
 #: src/dfrouter/dfrouter_main.cpp:143
 msgid "No source detectors found."
-msgstr "Non ci sono rivelatori di origine."
+msgstr "Non ci sono rivelatori di sorgente."
 
 #: src/dfrouter/dfrouter_main.cpp:147
 msgid "Computing routes"
@@ -9826,21 +9826,21 @@ msgstr ""
 
 #: src/od/ODMatrix.cpp:90
 msgid "Missing origin '%' (% vehicles)."
-msgstr ""
+msgstr "Manca l'origine '%' (% veicoli)."
 
 #: src/od/ODMatrix.cpp:95
 msgid "Missing destination '%' (% vehicles)."
-msgstr ""
+msgstr "Manca la destinazione '%' (% veicoli)."
 
 #: src/od/ODMatrix.cpp:101
 #, c-format
 msgid "District '%' has no source."
-msgstr ""
+msgstr "Il distretto '%' non ha nessuna origine."
 
 #: src/od/ODMatrix.cpp:105
 #, c-format
 msgid "District '%' has no sink."
-msgstr ""
+msgstr "Il distretto '%' non ha nessun scarico."
 
 #: src/od/ODMatrix.cpp:197
 msgid ""
