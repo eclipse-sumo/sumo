@@ -14,6 +14,10 @@ changeDest
 # New walking depart and arrival positin must take into account the new destination rather than the current position
 changeDest_longEdge
 
+# reroute and set a new destination. Person plan must adapt.
+# example from #15276
+changeDest_walk
+
 # when rerouting, take subsequent stop (followin the ride) into account
 # 
 subsequent_stop
