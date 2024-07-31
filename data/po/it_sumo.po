@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-30 12:47+0000\n"
+"PO-Revision-Date: 2024-07-31 08:43+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5806,27 +5806,30 @@ msgid ""
 "Replace nodes which only define edge geometry by geometry points (joins "
 "edges)"
 msgstr ""
+"Sostituisce nodi usati soltanto per la geometria con punti geometrici ("
+"combina archi)"
 
 #: src/netbuild/NBFrame.cpp:168
 msgid "Ensure that the given list of edges is not modified"
-msgstr ""
+msgstr "Garantisci che il dato elenco di archi non verrà modificato"
 
 #: src/netbuild/NBFrame.cpp:176
 msgid "Ensure that edges with public transport stops are not modified"
-msgstr ""
+msgstr "Garantisci che gli archi con trasporto pubblico non verranno modificati"
 
 #: src/netbuild/NBFrame.cpp:192
 msgid "splits geometry to restrict segment length"
-msgstr ""
+msgstr "separa la geometria per limitare la lunghezza di segmenti"
 
 #: src/netbuild/NBFrame.cpp:196
 msgid "reduces too similar geometry points"
-msgstr ""
+msgstr "riduce punti geometrici troppo simili"
 
 #: src/netbuild/NBFrame.cpp:199
 msgid ""
 "Warn about edge geometries with an angle above DEGREES in successive segments"
 msgstr ""
+"Avvisa su geometrie di archi con angoli sopra DEGREES in segmenti successivi"
 
 #: src/netbuild/NBFrame.cpp:202
 msgid ""
@@ -5838,37 +5841,48 @@ msgid ""
 "Warn about edge geometries with a turning radius less than METERS at the "
 "start or end"
 msgstr ""
+"Avvisa su geometrie di archi con un raggio di svolta di meno di METERS "
+"all'inizio o alla fine"
 
 #: src/netbuild/NBFrame.cpp:208
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius"
 msgstr ""
+"Appiana le geometrie di archi per evitare raggi di svolta di meno di geometry"
+".min-radius"
 
 #: src/netbuild/NBFrame.cpp:211
 msgid ""
 "Straighten edge geometries to avoid turning radii less than geometry.min-"
 "radius (only railways)"
 msgstr ""
+"Appiana le geometrie di archi per evitare raggi di svolta di meno di geometry"
+".min-radius (unicamente per ferrovie)"
 
 #: src/netbuild/NBFrame.cpp:214
 msgid ""
 "Warn if the junction shape is to far away from the original node position"
 msgstr ""
+"Avvisa se la forma d'incrocio è troppo distante dalla posizione originale "
+"del nodo"
 
 #: src/netbuild/NBFrame.cpp:217
 msgid "Warn if edges overlap by more than the given threshold value"
-msgstr ""
+msgstr "Avvisa se degli archi si sovrappogono oltre questo valore di soglia"
 
 #: src/netbuild/NBFrame.cpp:220
 msgid ""
 "Ignore overlapping edges if they are separated vertically by the given "
 "threshold."
 msgstr ""
+"Ignora archi sovrapposti se questi sono distanti verticalmente da almeno "
+"questo valore di soglia."
 
 #: src/netbuild/NBFrame.cpp:223
 msgid "Modify edge geometries to avoid overlap at junctions"
 msgstr ""
+"Modifica geometria degli archi per evitare la sovrapposizione negli incroci"
 
 #: src/netbuild/NBFrame.cpp:226
 msgid ""
@@ -6305,7 +6319,7 @@ msgstr ""
 
 #: src/netbuild/NBHelpers.cpp:130
 msgid "Invalid lane index '%' for lane '%'."
-msgstr ""
+msgstr "Indice di corsia invalido '%' per corsia '%'."
 
 #: src/netbuild/NBLoadedSUMOTLDef.cpp:359
 #, c-format
@@ -6340,15 +6354,17 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:99
 msgid "Finding isolated roads"
-msgstr ""
+msgstr "Ricerca di vie isolate"
 
 #: src/netbuild/NBNetBuilder.cpp:104
 msgid "Finding largest components"
-msgstr ""
+msgstr "Ricerca delle componenti le più larghe"
 
 #: src/netbuild/NBNetBuilder.cpp:112 src/netbuild/NBNetBuilder.cpp:153
 msgid "Revising public transport stops based on pt lines"
 msgstr ""
+"Revisione delle fermate di trasporto pubblico basate su linee di trasporto "
+"pubblico"
 
 #: src/netbuild/NBNetBuilder.cpp:117
 msgid "Removing unwished edges"
