@@ -913,7 +913,7 @@ AdditionalHandler::parseParkingAreaAttributes(const SUMOSAXAttributes& attrs) {
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), parsedOk, "");
     const std::vector<std::string> badges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_ACCEPTED_BADGES, id.c_str(), parsedOk, std::vector<std::string>());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), parsedOk, false);
-    const int roadSideCapacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), parsedOk, 0);
+    const int roadSideCapacity = attrs.getOpt<int>(SUMO_ATTR_ROADSIDE_CAPACITY, id.c_str(), parsedOk, 1);
     const bool onRoad = attrs.getOpt<bool>(SUMO_ATTR_ONROAD, id.c_str(), parsedOk, false);
     const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id.c_str(), parsedOk, 0);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, id.c_str(), parsedOk, 0);
@@ -1011,9 +1011,9 @@ void
 AdditionalHandler::parseE2Attributes(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
-    const int positionDef = attrs.hasAttribute(SUMO_ATTR_POSITION)? 1 : 0;
-    const int endPosDef = attrs.hasAttribute(SUMO_ATTR_ENDPOS)? 1 : 0;
-    const int lengthDef = attrs.hasAttribute(SUMO_ATTR_LENGTH)? 1 : 0;
+    const int positionDef = attrs.hasAttribute(SUMO_ATTR_POSITION) ? 1 : 0;
+    const int endPosDef = attrs.hasAttribute(SUMO_ATTR_ENDPOS) ? 1 : 0;
+    const int lengthDef = attrs.hasAttribute(SUMO_ATTR_LENGTH) ? 1 : 0;
     // check attributes
     if (attrs.hasAttribute(SUMO_ATTR_LANE) && ((positionDef + endPosDef + lengthDef) > 2)) {
         writeError(TL("'pos', 'endPos' and 'length' cannot be defined together in a single lane area detector."));
