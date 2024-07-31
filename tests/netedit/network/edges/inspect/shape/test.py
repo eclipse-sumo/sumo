@@ -45,7 +45,9 @@ netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 11 with a valid value
 netedit.modifyAttribute(netedit.attrs.edge.inspect.shape,
-                        "-25.00,0.00 -25.00,-5.00 -20.00,-5.00 -20.00,0.00 -10.00,0.00 -10.00,-5.00 -5.00,0.00 0.00,-5.00 5.00,0.00 10.00,-5.00 10.00,0.00 20.00,0.00 20.00,-5.00 25.00,-5.00 25.00,0.00", False)
+                        "-25.00,0.00 -25.00,-5.00 -20.00,-5.00 -20.00,0.00 -10.00,0.00 -10.00,-5.00 -5.00,0.00 "
+                        "0.00,-5.00 5.00,0.00 10.00,-5.00 10.00,0.00 20.00,0.00 20.00,-5.00 25.00,-5.00 25.00,0.00",
+                        False)
 
 # Check undos
 netedit.undo(referencePosition, 1)

@@ -37,7 +37,7 @@ netedit.changeElement("jupedsim.walkable_area")
 # create polygon with default values
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)
-                           
+
 # create polygon in the same points
 netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
                            netedit.positions.elements.additionals.shapeSize, True)

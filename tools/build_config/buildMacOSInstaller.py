@@ -39,13 +39,15 @@ from sumolib.options import ArgumentParser  # noqa
 
 from build_config.version import get_pep440_version  # noqa
 
+
 def transform_pep440_version(version):
     post_pattern = re.compile(r'^(.*)\.post\d+$')
-    match = post_pattern.match(version)  
+    match = post_pattern.match(version)
     if match:
         return f"{match.group(1)}-git"
     else:
         return version
+
 
 def parse_args(def_pkg_name):
     def_output_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", def_pkg_name))
