@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-31 08:43+0000\n"
+"PO-Revision-Date: 2024-07-31 15:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8318,23 +8318,29 @@ msgstr ""
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1984
 msgid "Ignoring restriction relation '%' with unknown type."
-msgstr ""
+msgstr "La relazione di restrizione '%' con tipo sconosciuto viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1988
 msgid "Ignoring restriction relation '%' with unknown from-way."
 msgstr ""
+"La relazione di restrizione '%' con cammino di origine sconosciuto viene "
+"ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1992
 msgid "Ignoring restriction relation '%' with unknown to-way."
 msgstr ""
+"La relazione di restrizione '%' con cammino di destinazione sconosciuto "
+"viene ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:1996
 msgid "Ignoring restriction relation '%' with unknown via."
 msgstr ""
+"La relazione di restrizione '%' con punto intermedio sconosciuto viene "
+"ignorato."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2000
 msgid "Ignoring restriction relation '%'."
-msgstr ""
+msgstr "La relazione di restrizione '%' viene ignorata."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2025
 #, c-format
@@ -8342,6 +8348,8 @@ msgid ""
 "Platform '%' in relation: '%' is given as polygon, which currently is not "
 "supported."
 msgstr ""
+"Banchina '%' in relazione: '%' è dato come poligono che non è supportato "
+"attualmente."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2046
 #, c-format
@@ -8349,11 +8357,15 @@ msgid ""
 "Referenced platform: '%' in relation: '%' is corrupt. Probably OSM file is "
 "incomplete."
 msgstr ""
+"Banchina '%' referita nella relazione '%' è corrotta. Probabilmente il file "
+"OSM è incompleto."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2093
 #, c-format
 msgid "PT line '%' in relation % seems to be split, only keeping first part."
 msgstr ""
+"La linea di trasporto pubblivo '%' nella relazione % sembra essere divisa in "
+"più parti perciò si conserva solamente la prima parte."
 
 #: src/netimport/NIImporter_OpenStreetMap.cpp:2128
 msgid ""
@@ -9342,17 +9354,19 @@ msgstr ""
 
 #: src/netload/NLHandler.cpp:890
 msgid "Duplicate condition '%' in tlLogic '%'"
-msgstr ""
+msgstr "Condizione '%' raddoppiata nella logica semaforica '%'"
 
 #: src/netload/NLHandler.cpp:943
 msgid "Invalid person mode '%' in E1 detector definition '%'"
-msgstr ""
+msgstr "Modo di persona invalido '%' nella defizione '%' di un rivelatore E1"
 
 #: src/netload/NLHandler.cpp:1002
 msgid ""
 "VTypeProbes are deprecated. Use fcd-output devices (assigned to the vType) "
 "instead."
 msgstr ""
+"VTypeProbes non si usano più. Al suo posto usa attrezzi FCD (assegnati "
+"attraverso tipi di veicoli)."
 
 #: src/netload/NLHandler.cpp:1062
 msgid "Ignoring deprecated argument 'cont' for E2 detector '%'"
@@ -9421,29 +9435,35 @@ msgstr "Indice di corsia invalido nel collegamento da '%' a '%'."
 #: src/netload/NLHandler.cpp:1513
 #, c-format
 msgid "Unknown from-edge '%' in conflict."
-msgstr ""
+msgstr "L'arco di origine '%' di un conflitto è sconosciuto."
 
 #: src/netload/NLHandler.cpp:1518
 #, c-format
 msgid "Unknown to-edge '%' in conflict."
-msgstr ""
+msgstr "L'arco di destinazione '%' di un conflitto è sconosciuto."
 
 #: src/netload/NLHandler.cpp:1523
 msgid "Invalid lane index in conflict with '%' to '%'."
-msgstr ""
+msgstr "Indice di corsia invalido nel conflitto tra '%' e '%'."
 
 #: src/netload/NLHandler.cpp:1575
 msgid ""
 "no valid geo projection loaded from network. fcd-output.geo will not work"
 msgstr ""
+"nessuna proiezione geografica valida è stata caricata dalla rete. fcd-"
+"output.geo non funzionerà"
 
 #: src/netload/NLHandler.cpp:1603
 msgid "Replacing junction-taz '%' with loaded TAZ."
 msgstr ""
+"Sostituzione di junction-taz '%' con la zona di assegnazione del traffico "
+"caricata."
 
 #: src/netload/NLHandler.cpp:1648
 msgid "Skipping visualization of taz '%', polygon already exists."
 msgstr ""
+"Omessa visualizzazione della zona di assegnazione del traffico '%' perché il "
+"poligono esiste già."
 
 #: src/netload/NLHandler.cpp:1679
 msgid "At district '%': succeeding edge '%' does not exist."
@@ -9451,7 +9471,7 @@ msgstr ""
 
 #: src/netload/NLJunctionControlBuilder.cpp:116
 msgid "Information about the number of nodes was missing."
-msgstr ""
+msgstr "Mancava l'informazione sul numero di nodi."
 
 #: src/netload/NLJunctionControlBuilder.cpp:126
 #: src/netload/NLJunctionControlBuilder.cpp:143
