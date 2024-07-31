@@ -23,7 +23,11 @@ if "SUMO_HOME" in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 import traci
-import libsumo
+if sys.version_info[0] > 2:
+    import libsumo
+else:
+    def libsumo(): return None
+    libsumo.DOMAINS = []
 
 VERBOSE = False
 

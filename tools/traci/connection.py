@@ -169,7 +169,8 @@ class Connection(StepManager):
             elif f == "u":  # raw unsigned byte needed for distance command and subscribe
                 packed += struct.pack("!B", int(v))
             elif f == "s":
-                v = str(v).encode("utf8")
+                if sys.version_info[0] > 2 or not isinstance(v, str):
+                    v = str(v).encode("utf8")
                 packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v
             elif f == "p":  # polygon
                 if len(v) <= 255:

@@ -29,8 +29,8 @@ import sumolib  # noqa
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
-with open("log.txt", "w", encoding="utf8") as log:
-    print("param", traci.person.getParameter("ped0", "ü"), file=log)
+with sumolib.openz("log.txt", "w") as log:
+    print(u"param", traci.person.getParameter("ped0", "ü"), file=log)
     traci.person.setParameter("ped0", "ü", "ß")
-    print("param2", traci.person.getParameter("ped0", "ü"), file=log)
+    print(u"param2", traci.person.getParameter("ped0", "ü"), file=log)
 traci.close()
