@@ -1,3 +1,2 @@
 Error: Attribute 'join' in definition of a stop is empty.
-Warning: Vehicle 'vehicle_0' performs emergency stop at the end of lane 'Edge2_1' for unknown reasons (decel=0.00, offset=0.24), time=83.00.
 Warning: Vehicle 'vehicle_0' aborted waiting to be joined to vehicle 'customJoin'.
