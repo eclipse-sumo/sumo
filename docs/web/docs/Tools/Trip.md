@@ -8,9 +8,9 @@ title: Trip
 (option **-n**). It does so by choosing source and destination edge either
 uniformly at random or with a modified distribution as described below.
 The resulting trips are stored in an XML file (option **-o**, default
-trips.trips.xml) suitable for [duarouter](../duarouter.md) which is
-called automatically if the  option (with a filename for the resulting
-route file) is given. The trips are distributed evenly in an interval
+trips.trips.xml) suitable for [duarouter](../duarouter.md) (which is
+called automatically if option **--route-file** is given).
+The trips are distributed evenly in an interval
 defined by begin (option **-b**, default 0) and end time (option **-e**, default
 3600) in seconds. The number of trips is defined by the repetition rate
 (option **-p**, default 1) in seconds. Every trip has an id consisting of a
