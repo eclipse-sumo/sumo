@@ -151,7 +151,7 @@ protected:
     bool processClickPOIGeo(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
     /// @brief process click for POILanes
-    bool processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
+    bool processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector& viewObjects);
 
 private:
     /// @brief shape tag selector

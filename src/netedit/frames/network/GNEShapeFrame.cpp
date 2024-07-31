@@ -277,7 +277,7 @@ GNEShapeFrame::processClick(const Position& clickedPosition, const GNEViewNetHel
             case GNE_TAG_POIGEO:
                 return processClickPOIGeo(clickedPosition, viewObjects);
             case GNE_TAG_POILANE:
-                return processClickPOILanes(clickedPosition, viewObjects);
+                return processClickPOILanes(viewObjects);
             case SUMO_TAG_POLY:
             case GNE_TAG_JPS_WALKABLEAREA:
             case GNE_TAG_JPS_OBSTACLE:
@@ -492,7 +492,7 @@ GNEShapeFrame::processClickPOIGeo(const Position& clickedPosition, const GNEView
 
 
 bool
-GNEShapeFrame::processClickPOILanes(const Position& clickedPosition, const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
+GNEShapeFrame::processClickPOILanes(const GNEViewNetHelper::ViewObjectsSelector& viewObjects) {
     // abort if lane is nullptr
     if (viewObjects.getLaneFront() == nullptr) {
         WRITE_WARNING(TL("POILane can be only placed over lanes"));
