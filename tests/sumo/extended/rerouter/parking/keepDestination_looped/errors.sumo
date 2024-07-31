@@ -1,2 +1,1 @@
 Warning: ParkingArea 'ParkAreaB' is targeted by rerouter 'rr' but doesn't have its own rerouter. This may cause parking search to abort.
-Error: Vehicle '0' could not assign stop 'parkingArea:ParkAreaA' after rerouting (rr:parkingAreaReroute) at time=0.00.
