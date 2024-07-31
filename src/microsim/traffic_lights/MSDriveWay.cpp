@@ -782,7 +782,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
     bool seekBidiSwitch = true;
     bool foundUnsafeSwitch = false;
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
-    const std::string warnID = origin ? getClickableTLLinkID(origin) : "lane '" + toLane->getID() + "'";
+    const std::string warnID = origin ? "rail signal '" + getClickableTLLinkID(origin) + "'" : "insertion lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
     gDebugFlag4 = DEBUG_HELPER(orignRS);
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
@@ -791,7 +791,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
     while ((seekForwardSignal || seekBidiSwitch)) {
         if (length > MAX_BLOCK_LENGTH) {
             if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
-                WRITE_WARNING("Block after rail signal " + warnID +
+                WRITE_WARNING("Block after " + warnID +
                               " exceeds maximum length (stopped searching after edge '" + toLane->getEdge().getID() + "' (length=" + toString(length) + "m).");
             }
             myNumWarnings++;
@@ -902,7 +902,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr) {
                     if (link == origin) {
-                        WRITE_WARNINGF(TL("Found circular block at railSignal % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
+                        WRITE_WARNINGF(TL("Found circular block after % (% edges, length %)"), warnID, toString(myRoute.size()), toString(length));
                         //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         return;
                     }
