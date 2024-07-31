@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs" lane="CN_0" startPos="10" endPos="15"/>
+    <parkingArea id="pa" lane="CN_0" startPos="20" endPos="25"/>
+    <chargingStation id="cs" lane="CN_0" startPos="30" endPos="35"/>
+    <containerStop id="cts" lane="CN_0" startPos="40" endPos="45"/>
+    <trainStop id="ts" lane="CN_0" startPos="50" endPos="55"/>
+</additional>

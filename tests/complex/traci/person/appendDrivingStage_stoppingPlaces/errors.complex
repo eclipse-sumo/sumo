@@ -1,0 +1,17 @@
+Error: Answered with error to command 0xce: Invalid stopping place id 'pa' for person: 'p.2'
+Traceback (most recent call last):
+  File "/scr1/sumo/tests/../tests/complex/traci/person/appendDrivingStage_stoppingPlaces/runner.py", line 49, in <module>
+    traci.person.appendDrivingStage(pID, "CN", "ANY", stopID)
+  File "/scr1/sumo/tools/traci/_person.py", line 284, in appendDrivingStage
+    self._setCmd(tc.APPEND_STAGE, personID, format, *values)
+  File "/scr1/sumo/tools/traci/domain.py", line 164, in _setCmd
+    self._connection._sendCmd(self._cmdSetID, varID, objectID, format, *values)
+  File "/scr1/sumo/tools/traci/connection.py", line 232, in _sendCmd
+    return self._sendExact()
+  File "/scr1/sumo/tools/traci/connection.py", line 144, in _sendExact
+    raise TraCIException(err, prefix[1], _RESULTS[prefix[2]])
+traci.exceptions.TraCIException: Invalid stopping place id 'pa' for person: 'p.2'
+sys:1: ResourceWarning: unclosed <socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 36820), raddr=('127.0.0.1', 54755)>
+/usr/lib/python3.10/subprocess.py:1072: ResourceWarning: subprocess 2092190 is still running
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
