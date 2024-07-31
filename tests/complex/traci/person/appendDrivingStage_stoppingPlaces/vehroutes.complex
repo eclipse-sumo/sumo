@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 12:15:23 by Eclipse SUMO sumo Version v1_20_0+1491-79e7c04783a
+<!-- generated on 2024-07-31 12:24:39 by Eclipse SUMO sumo Version v1_20_0+1492-33af377ca45
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,11 +18,45 @@
     </report>
 
     <traci_server>
-        <remote-port value="54755"/>
+        <remote-port value="35205"/>
     </traci_server>
 
 </sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p.4" depart="0.80" arrival="6.00">
+        <stop lane="SC_0" endPos="0.00" duration="5.00"/>
+    </person>
+
+    <person id="p.0" depart="0.00" arrival="27.00">
+        <stop lane="SC_0" endPos="0.00" duration="5.00"/>
+        <ride from="SC" to="CN" busStop="bs" lines="ANY"/>
+    </person>
+
+    <person id="p.2" depart="0.40" arrival="27.00">
+        <stop lane="SC_0" endPos="0.00" duration="5.00"/>
+        <ride from="SC" to="CN" parkingArea="pa" lines="ANY"/>
+    </person>
+
+    <person id="p.3" depart="0.60" arrival="27.00">
+        <stop lane="SC_0" endPos="0.00" duration="5.00"/>
+        <ride from="SC" to="CN" chargingStation="cs" lines="ANY"/>
+    </person>
+
+    <person id="p.1" depart="0.20" arrival="53.00">
+        <stop lane="SC_0" endPos="0.00" duration="5.00"/>
+        <ride from="SC" to="CN" trainStop="ts" lines="ANY"/>
+    </person>
+
+    <vehicle id="carrier" depart="0.00" arrival="93.00">
+        <route edges="SC CN"/>
+        <stop edge="SC" startPos="0.00" endPos="90.95" duration="10.00"/>
+        <stop busStop="bs" duration="10.00"/>
+        <stop parkingArea="pa" duration="10.00"/>
+        <stop chargingStation="cs" duration="10.00"/>
+        <stop containerStop="cts" duration="10.00"/>
+        <stop busStop="ts" duration="10.00"/>
+    </vehicle>
+
 </routes>

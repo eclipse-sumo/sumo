@@ -7,7 +7,11 @@
     <vehicle id="carrier" depart="0">
         <route edges="SC CN"/>
         <stop edge="SC" startPos="0" endPos="-1" duration="10"/>
-        <stop edge="CN" startPos="0" endPos="-1" duration="10"/>
+        <stop busStop="bs" duration="10"/>
+        <stop parkingArea="pa" duration="10"/>
+        <stop chargingStation="cs" duration="10"/>
+        <stop containerStop="cts" duration="10"/>
+        <stop trainStop="ts" duration="10"/>
     </vehicle>
 
 </routes>
