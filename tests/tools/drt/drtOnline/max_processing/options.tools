@@ -1,1 +1,1 @@
---darp-solver exhaustive_search --max-processing 2
+--darp-solver exhaustive_search --max-processing 2 --rtv-time 20
