@@ -136,7 +136,8 @@ MSStoppingPlaceRerouter::reroute(std::vector<StoppingPlaceVisible>& stoppingPlac
         // also end at the new stopping place
         newDestination = (destStoppingPlace != nullptr && &destStoppingPlace->getLane().getEdge() == route.getLastEdge()
                           && veh.getArrivalPos() >= destStoppingPlace->getBeginLanePosition()
-                          && veh.getArrivalPos() <= destStoppingPlace->getEndLanePosition());
+                          && veh.getArrivalPos() <= destStoppingPlace->getEndLanePosition()
+                          && veh.getStops().size() == 1);
 
 #ifdef DEBUG_STOPPINGPLACE
         if (DEBUGCOND) {
