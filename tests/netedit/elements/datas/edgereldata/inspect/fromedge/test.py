@@ -41,15 +41,15 @@ netedit.createDataSet()
 netedit.createDataInterval()
 
 # create edgeRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
 netedit.typeEnter()
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect edgeRelData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 
 # Change parameter 3 with a non valid value (empty speed)
 netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "", False)
@@ -63,14 +63,11 @@ netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "gneE14", Fa
 # Change parameter 3 with a non valid value (empty speed)
 netedit.modifyAttribute(netedit.attrs.edgeRelData.inspect.fromEdge, "-gneE16", False)
 
-# Check undo
+# Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
-# save data elements
-netedit.saveDatas(referencePosition, True, 0, 30)
-
-# save Netedit config
-netedit.saveNetwork(referencePosition, True, 0, 30)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

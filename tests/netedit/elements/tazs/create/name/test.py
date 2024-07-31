@@ -35,13 +35,15 @@ netedit.TAZMode()
 netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "%%%%%%;;;")
 
 # try to create TAZ
-netedit.createSquaredShape(referencePosition, 407, 120, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # change color manually (valid)
 netedit.changeDefaultValue(netedit.attrs.TAZ.create.name, "customName")
 
 # create TAZ
-netedit.createSquaredShape(referencePosition, 567, 120, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

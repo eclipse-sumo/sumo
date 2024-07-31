@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 31.08.2018 10:20:17 by Eclipse SUMO netedit Version b980bbd93f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Aug101929.812/netedit.gui/shapeElements/poilane/inspect/inspect_id\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poi id="POI_1" x="-20.00" y="10.00" color="red" layer="202.00" width="20" height="15" angle="18" friendlyPos="true" imgFile="fileA" name="nameA" posLat="0.1" relativePath="true" type="typeA">
+		<param key="KeyA1" value="valueA1"/>
+        <param key="KeyA3" value="valueA2"/>
+        <param key="KeyA2" value="valueA3"/>
+    </poi>
+    <poi id="POI_2" x="30.00" y="20.00" color="blue" layer="16.00" width="19" height="32" angle="21" friendlyPos="false" imgFile="fileB" name="nameB" posLat="4" relativePath="true" type="typeA">
+		<param key="KeyB1" value="valueB1"/>
+        <param key="KeyB3" value="valueB2"/>
+        <param key="KeyB2" value="valueB3"/>
+    </poi>
+</additional>

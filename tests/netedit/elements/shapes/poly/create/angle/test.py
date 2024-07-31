@@ -45,21 +45,22 @@ netedit.createSquaredShape(referencePosition, netedit.positions.elements.additio
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "365")
 
 # try to create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "-5")
 
 # create polygon
-netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeB,
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeC,
                            netedit.positions.elements.additionals.shapeSize, True)
 
 # change angle (0 < angle < 360)
 netedit.changeDefaultValue(netedit.attrs.poly.create.angle, "5")
 
 # create polygon
-netedit.createSquaredShape(referencePosition, 482, 130, netedit.positions.elements.additionals.shapeSize, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeD,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

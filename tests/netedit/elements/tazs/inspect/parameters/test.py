@@ -32,13 +32,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create first TAZ
-netedit.createSquaredShape(referencePosition, 405, 144, 200, True)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
+                           netedit.positions.elements.additionals.shapeSize, True)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first TAZ
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.TAZ.inspect.parameters, False)

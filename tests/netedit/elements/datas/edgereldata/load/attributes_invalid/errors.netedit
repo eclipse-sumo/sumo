@@ -1,5 +1,5 @@
 Error: attribute name expected
- In file '/home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.25Jan182728.9792/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/datas.dat.xml'
- At line/column 62/49.
+ In file '/home/palcraft/.texttest/tmp/netedit.gui.31Jul152138.32931/netedit.gui/elements/datas/edgereldata/load/attributes_invalid/datas.dat.xml'
+ At line/column 62/47.
 
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.data.edgereldata.25Jan182728.9792/netedit.daily.data.edgereldata/dataelements/edgereldata/load/attributes_invalid/datas.dat.xml failed.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.31Jul152138.32931/netedit.gui/elements/datas/edgereldata/load/attributes_invalid/datas.dat.xml failed.

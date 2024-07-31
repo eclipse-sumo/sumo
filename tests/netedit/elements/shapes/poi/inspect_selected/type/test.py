@@ -31,11 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select first POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeA)
-
-# select second POI
-netedit.leftClick(referencePosition, netedit.positions.elements.additionals.shapeB)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()

@@ -34,17 +34,14 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 # go to select mode
 netedit.selectMode()
 
-# select first lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select second lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# inspect selected edges
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # Change parameter 2 with an non valid value
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "DummyDisallowed", False)
@@ -61,7 +58,7 @@ netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow, "", False)
 
 # Change parameter 2 with a valid value (empty)
 netedit.modifyAttribute(netedit.attrs.lane.inspectSelection.disallow,
-                        "emergency authority army vip passenger hov bus coach tram rail_urban rail " +
+                        "emergency authority coach tram rail_urban rail " +
                         "rail_electric motorcycle moped pedestrian custom1", False)
 
 # Check undos

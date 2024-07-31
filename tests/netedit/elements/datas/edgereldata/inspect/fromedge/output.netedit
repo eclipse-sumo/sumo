@@ -4,15 +4,13 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 newDataSet
 0
 3600
-TestFunctions: Clicked over position 1004 - 348
-TestFunctions: Clicked over position 569 - 348
-TestFunctions: Clicked over position 569 - 348
+TestFunctions: Clicked over position 685 - 641
+TestFunctions: Clicked over position 1154 - 420
+TestFunctions: Clicked over position 685 - 641
 
 dummyEdge
 gneE14
 -gneE16
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Clicked over position 304 - 198
-TestFunctions: Clicked over position 304 - 198
 TestFunctions: Netedit closed successfully

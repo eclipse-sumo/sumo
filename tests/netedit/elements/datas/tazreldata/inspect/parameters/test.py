@@ -54,7 +54,10 @@ netedit.leftClick(referencePosition, netedit.positions.tmp)
 # check double parameters
 netedit.checkDoubleParameters(referencePosition, netedit.attrs.TAZRelData.inspect.parameters, False, 0, 30)
 
-# save Netedit config
+# Check undo redo
+netedit.checkUndoRedo(referencePosition)
+
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

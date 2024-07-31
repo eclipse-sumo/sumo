@@ -1,0 +1,6 @@
+Warning: Speed of straight connection '-E1_1->E1_1' reduced by 13.90 due to turning radius of 6.76 (length=10.92, angle=135.00).
+Warning: Speed of straight connection 'E1_1->-E1_1' reduced by 13.90 due to turning radius of 6.76 (length=10.92, angle=135.00).
+Warning: Speed of straight connection '-E2_1->E2_1' reduced by 13.90 due to turning radius of 6.76 (length=10.92, angle=135.00).
+Warning: Speed of straight connection 'E2_1->-E2_1' reduced by 13.90 due to turning radius of 6.76 (length=10.92, angle=135.00).
+Warning: Speed of straight connection 'EdgeExternTop_0->EdgeExternBot_0' reduced by 10.20 due to turning radius of 2.48 (length=4.38, angle=180.00).
+Warning: 12 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

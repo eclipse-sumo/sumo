@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 09:07:52 by Eclipse SUMO netedit Version v1_20_0+1446-d70b20b5800
+<!-- generated on 2024-07-31 13:09:29 by Eclipse SUMO netedit Version v1_20_0+1493-aaf8a1ee290
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\edges\inspect_selected\net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\lanes\inspect_selected\net.net.xml"/>
     </input>
 
     <output>
@@ -36,30 +36,58 @@
     <location netOffset="0.00,0.00" convBoundary="-60.00,-30.00,60.00,30.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"/>
 
     <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" numLanes="2" speed="20.00" shape="25.00,25.00 -25.00,25.00" spreadType="center" length="50.00" width="2.00" endOffset="6.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone">
-        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane index="0" type="TypeB">
+            <param key="KeyA" value="ValueA"/>
+            <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="4.00"/>
+        </lane>
+        <lane index="1" type="TypeA"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
     <edge id="-E2" from="J5" to="J4" name="Custom Edges" priority="6" numLanes="2" speed="20.00" shape="30.00,-20.00 25.00,-15.00 -25.00,-15.00 -30.00,-20.00" spreadType="center" length="50.00" width="2.00" endOffset="6.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone">
-        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane index="0"/>
+        <lane index="1" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
+            <stopOffset vClasses="all" value="12.00"/>
+        </lane>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="E0" from="J0" to="J1" priority="-1" numLanes="1" speed="13.89">
+        <lane index="0" acceleration="1" changeLeft="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped evehicle rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone custom1 custom2"/>
+    </edge>
     <edge id="E1" from="J2" to="J3" name="Custom Edges" priority="6" numLanes="2" speed="20.00" shape="-30.00,20.00 -25.00,15.00 25.00,15.00 30.00,20.00" spreadType="center" length="50.00" width="2.00" endOffset="6.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone">
-        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane index="0"/>
+        <lane index="1" changeLeft="tram rail_urban rail rail_electric rail_fast cable_car subway">
+            <stopOffset vClasses="all" value="12.00"/>
+        </lane>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
     <edge id="E2" from="J4" to="J5" name="Custom Edges" priority="6" numLanes="2" speed="20.00" shape="-25.00,-25.00 25.00,-25.00" spreadType="center" length="50.00" width="2.00" endOffset="6.00" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone">
-        <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
+        <lane index="0" type="TypeB">
+            <param key="KeyA" value="ValueA"/>
+            <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="4.00"/>
+        </lane>
+        <lane index="1" type="TypeA"/>
         <param key="Key1B" value="Value1B"/>
         <param key="Key2B" value="Value2B"/>
         <param key="Key3B" value="Value3B"/>
     </edge>
-    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
-    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian"/>
+    <edge id="EdgeExternBot" from="JunctionExtern0" to="JunctionExtern1" priority="-1" numLanes="1" speed="13.89" shape="-60.00,0.00 -45.00,0.00 -45.00,-25.00 -40.00,-30.00 40.00,-30.00 45.00,-25.00 45.00,0.00 60.00,0.00" length="175.00" width="3.00" disallow="pedestrian">
+        <lane index="0" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
+            <param key="Key1" value="Value1"/>
+            <param key="Key2" value="Value2"/>
+            <param key="Key3" value="Value3"/>
+        </lane>
+    </edge>
+    <edge id="EdgeExternTop" from="JunctionExtern1" to="JunctionExtern0" priority="-1" numLanes="1" speed="13.89" shape="60.00,0.00 45.00,0.00 45.00,25.00 40.00,30.00 -40.00,30.00 -45.00,25.00 -45.00,0.00 -60.00,0.00" length="175.00" width="3.00" disallow="pedestrian">
+        <lane index="0" changeRight="private emergency vip pedestrian passenger hov taxi bus coach truck trailer motorcycle moped bicycle evehicle tram rail_urban rail_electric rail_fast container cable_car subway wheelchair scooter drone custom1 custom2">
+            <param key="Key1" value="Value1"/>
+            <param key="Key2" value="Value2"/>
+            <param key="Key3" value="Value3"/>
+        </lane>
+    </edge>
 </edges>

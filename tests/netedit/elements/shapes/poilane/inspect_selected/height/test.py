@@ -31,11 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
-# select first POILane
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-
-# select second POILane
-netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()

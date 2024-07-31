@@ -32,7 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.TAZMode()
 
 # create open TAZ
-netedit.createSquaredShape(referencePosition, 407, 120, 200, False)
+netedit.createSquaredShape(referencePosition, netedit.positions.elements.additionals.shapeA,
+                           netedit.positions.elements.additionals.shapeSize, False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

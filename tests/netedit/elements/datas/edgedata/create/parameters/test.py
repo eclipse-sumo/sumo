@@ -44,23 +44,19 @@ netedit.createDataInterval()
 netedit.changeDefaultValue(netedit.attrs.edgeData.create.parameters, "dummyValues")
 
 # create edgeData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0_dataMode)
 
 # set valid parameters
 netedit.changeDefaultValue(netedit.attrs.edgeData.create.parameters, "param1=value2|param3=value4")
 
 # create edgeData
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1_dataMode)
 
 # Check undo redo
-netedit.undo(referencePosition, 1, 0, 30)
-netedit.redo(referencePosition, 1, 0, 30)
+netedit.checkUndoRedo(referencePosition)
 
-# save data elements
-netedit.saveDatas(referencePosition, True, 0, 30)
-
-# save Netedit config
-netedit.saveNetwork(referencePosition, True, 0, 30)
+# save netedit config
+netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

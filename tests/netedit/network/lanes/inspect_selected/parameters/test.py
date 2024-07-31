@@ -34,17 +34,14 @@ netedit.changeEditMode(netedit.attrs.modes.network.selectLane)
 # go to select mode
 netedit.selectMode()
 
-# select first lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select second lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect lane
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# inspect selected edges
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # check parameters
 netedit.checkParameters(referencePosition, netedit.attrs.lane.inspectSelection.parameters, False)

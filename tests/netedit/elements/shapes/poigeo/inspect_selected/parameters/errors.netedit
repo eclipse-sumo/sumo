@@ -1,7 +1,3 @@
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Attribute 'key' is missing in definition of a param.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.daily.shape.poigeo.23Jan142342.5677/netedit.daily.shape.poigeo/shapeelements/poigeo/inspect_selected/parameters/additionals.add.xml failed.
+Error: Could not load 'fileA'.
+Unknown file extension '' for image 'fileA'!
+X connection to :19056.0 broken (explicit kill or server shutdown).

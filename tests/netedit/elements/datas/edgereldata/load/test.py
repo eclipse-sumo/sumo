@@ -28,7 +28,10 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# save Netedit config
+# Check undo redo
+netedit.checkUndoRedo(referencePosition)
+
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

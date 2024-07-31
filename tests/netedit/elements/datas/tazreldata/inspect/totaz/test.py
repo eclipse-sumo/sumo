@@ -63,10 +63,10 @@ netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "taz_0", False)
 # Change parameter 3 with a non valid value (empty speed)
 netedit.modifyAttribute(netedit.attrs.TAZRelData.inspect.toTAZ, "taz_2", False)
 
-# Check undo
+# Check undo redo
 netedit.checkUndoRedo(referencePosition)
 
-# save Netedit config
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit

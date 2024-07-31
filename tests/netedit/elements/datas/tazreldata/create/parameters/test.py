@@ -55,10 +55,9 @@ netedit.changeDefaultValue(netedit.attrs.TAZRelData.create.parameters, "param1=v
 netedit.typeEnter()
 
 # Check undo redo
-netedit.undo(referencePosition, 1, 0, 30)
-netedit.redo(referencePosition, 1, 0, 30)
+netedit.checkUndoRedo(referencePosition)
 
-# save Netedit config
+# save netedit config
 netedit.saveNeteditConfig(referencePosition)
 
 # quit netedit
