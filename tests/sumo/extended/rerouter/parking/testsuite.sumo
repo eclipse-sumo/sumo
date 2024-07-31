@@ -38,6 +38,9 @@ newDestination
 # The vehicle route never passes the original parking edge
 newDestination2
 
+# the replaced parking area appears in the beginning and the end. Replacing the first stop should preserve the destination.
+keepDestination_looped
+
 # handle the case where the length of parking spaces is not given and cannot by deduced from roadside capacity because that is 0
 default_length
 
