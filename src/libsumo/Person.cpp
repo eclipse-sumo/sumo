@@ -578,15 +578,9 @@ MSStage*
 Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
     MSStoppingPlace* bs = nullptr;
     if (!stage.destStop.empty()) {
-        bs = MSNet::getInstance()->getStoppingPlace(stage.destStop, SUMO_TAG_BUS_STOP);
+        bs = MSNet::getInstance()->getStoppingPlace(stage.destStop);
         if (bs == nullptr) {
-            bs = MSNet::getInstance()->getStoppingPlace(stage.destStop, SUMO_TAG_PARKING_AREA);
-            if (bs == nullptr) {
-                throw TraCIException("Invalid stopping place id '" + stage.destStop + "' for person: '" + personID + "'");
-            } else {
-                // parkingArea is not a proper arrival place
-                bs = nullptr;
-            }
+            throw TraCIException("Invalid stopping place id '" + stage.destStop + "' for person: '" + personID + "'");
         }
     }
     switch (stage.type) {
@@ -687,7 +681,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
     }
     MSStoppingPlace* bs = nullptr;
     if (stopID != "") {
-        bs = MSNet::getInstance()->getStoppingPlace(stopID, SUMO_TAG_BUS_STOP);
+        bs = MSNet::getInstance()->getStoppingPlace(stopID);
         if (bs == nullptr) {
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }

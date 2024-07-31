@@ -1378,6 +1378,18 @@ MSNet::getStoppingPlace(const std::string& id, const SumoXMLTag category) const 
 }
 
 
+MSStoppingPlace*
+MSNet::getStoppingPlace(const std::string& id) const {
+    for (SumoXMLTag category : std::vector<SumoXMLTag>({SUMO_TAG_BUS_STOP, SUMO_TAG_PARKING_AREA, SUMO_TAG_CONTAINER_STOP, SUMO_TAG_CHARGING_STATION, SUMO_TAG_OVERHEAD_WIRE_SEGMENT})) {
+        MSStoppingPlace* result = getStoppingPlace(id, category);
+        if (result != nullptr) {
+            return result;
+        }
+    }
+    return nullptr;
+}
+
+
 std::string
 MSNet::getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const {
     if (myStoppingPlaces.count(category) > 0) {
