@@ -98,7 +98,7 @@ be set in the vehicle definitions
 The charging rate of the battery at a charging station is limited to model the effects of battery management controllers (e.g. charge a nearly full battery less than an nearly empty one).
 There are two ways to define the maximum charge rate: For a constant rate set the attribute `device.battery.maximumChargeRate`.
 If instead a maximum charge rate depending on the state of charge is wanted, it can be defined through data points between which the rate will get interpolated.
-The states of charge have to be given in device.battery.chargeLevelTable` and the corresponding charge rates in `device.battery.chargeCurveTable`.
+The states of charge have to be given in `device.battery.chargeLevelTable` and the corresponding charge rates in `device.battery.chargeCurveTable`.
 If defined, the maximum charge curve takes precedence over the constant maximum charge rate `device.battery.maximumChargeRate`. An example definition where the charge rate decreases above
 50% state of charge looks like the following:
 
