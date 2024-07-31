@@ -535,7 +535,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
     MSNet::getInstance()->informVehicleStateListener(this, MSNet::VehicleState::NEWROUTE, info);
 #ifdef DEBUG_REPLACE_ROUTE
     if (DEBUG_COND) {
-        std::cout << SIMTIME << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID()
+        std::cout << SIMTIME << " veh=" << getID() << " replaceRoute info=" << info << " on " << (*myCurrEdge)->getID()
                   << " lane=" << Named::getIDSecure(getLane())
                   << " stopsFromScratch=" << stopsFromScratch
                   << "  newSize=" << newRoute->getEdges().size()
