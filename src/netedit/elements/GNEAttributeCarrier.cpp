@@ -1940,7 +1940,7 @@ GNEAttributeCarrier::fillAdditionalElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROADSIDE_CAPACITY,
                                               GNEAttributeProperties::INT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                               TL(" The number of parking spaces for road-side parking"),
-                                              "1");
+                                              "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ONROAD,
