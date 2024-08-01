@@ -1181,6 +1181,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     }
 
     dw->addBidiFoes(rs);
+    // add driveways that start on the same signal / lane
+    dw->addParallelFoes(link, *first);
     // make foes unique and symmetrical
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
     std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
@@ -1207,12 +1209,15 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         if (link) {
             foe->addConflictLink(link);
         }
-        for (auto ili : foe->myForward.front()->getIncomingLanes()) {
-            if (ili.viaLink->getTLLogic() != nullptr) {
-                // ignore links that originate on myBidi
-                const MSLane* origin = ili.viaLink->getLaneBefore();
-                if (std::find(dw->myBidi.begin(), dw->myBidi.end(), origin) == dw->myBidi.end()) {
-                    uniqueCLink.insert(ili.viaLink);
+        // ignore links that have the same start junction
+        if (foe->myRoute.front()->getFromJunction() != dw->myRoute.front()->getFromJunction()) {
+            for (auto ili : foe->myForward.front()->getIncomingLanes()) {
+                if (ili.viaLink->getTLLogic() != nullptr) {
+                    // ignore links that originate on myBidi
+                    const MSLane* origin = ili.viaLink->getLaneBefore();
+                    if (std::find(dw->myBidi.begin(), dw->myBidi.end(), origin) == dw->myBidi.end()) {
+                        uniqueCLink.insert(ili.viaLink);
+                    }
                 }
             }
         }
@@ -1380,6 +1385,27 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
 
 
 void
+MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
+#ifdef DEBUG_ADD_FOES
+    std::cout << "driveway " << myID << " (" << myNumericalID << ") addParallelFoes\n";
+#endif
+    if (link) {
+        addFoes(link);
+    } else {
+        auto it = myDepartureDriveways.find(first);
+        if (it != myDepartureDriveways.end()) {
+            for (MSDriveWay* foe : it->second) {
+#ifdef DEBUG_ADD_FOES
+                std::cout << "  foe " << foe->getID() << " departs on first=" << first->getID() << "\n";
+#endif
+                myFoes.push_back(foe);
+            }
+        }
+    }
+}
+
+
+void
 MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     // Subdriveways (Teilfahrstraße) model the resolution of a driving conflict
     // before a vehicle has left the driveway. This is possible when the driveway diverges from the foe
@@ -1473,10 +1499,13 @@ void
 MSDriveWay::addConflictLink(const MSLink* link) {
     if (link->getTLLogic() != nullptr) {
         // ignore links that originate on myBidi
+        // and also links from the same junction as my own link
         const MSLane* origin = link->getLaneBefore();
         if (std::find(myBidi.begin(), myBidi.end(), origin) == myBidi.end()) {
-            if (std::find(myConflictLinks.begin(), myConflictLinks.end(), link) == myConflictLinks.end()) {
-                myConflictLinks.push_back(const_cast<MSLink*>(link));
+            if (link->getJunction() != myRoute.front()->getFromJunction()) {
+                if (std::find(myConflictLinks.begin(), myConflictLinks.end(), link) == myConflictLinks.end()) {
+                    myConflictLinks.push_back(const_cast<MSLink*>(link));
+                }
             }
         }
     }

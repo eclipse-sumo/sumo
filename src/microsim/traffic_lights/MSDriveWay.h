@@ -238,6 +238,9 @@ protected:
     /// @brief derive foe driveways based on myBidi
     void addBidiFoes(const MSRailSignal* ownSignal);
 
+    /// @brief derive foe driveways that start at the same signal
+    void addParallelFoes(const MSLink* link, const MSEdge* first);
+
     /// @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
     void buildSubFoe(MSDriveWay* foe, bool movingBlock);
 
