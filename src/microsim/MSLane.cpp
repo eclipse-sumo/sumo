@@ -861,10 +861,17 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         const MSStop& nextStop = aVehicle->getNextStop();
         if (nextStop.lane == this) {
             std::stringstream msg;
-            msg << "scheduled stop on lane '" << myID << "' too close";
-            const double distToStop = nextStop.pars.endPos - pos;
-            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE)),
-                             patchSpeed, msg.str(), InsertionCheck::STOP)) {
+            double distToStop, safeSpeed;
+            if (nextStop.pars.speed > 0) {
+                msg << "scheduled waypoint on lane '" << myID << "' too close";
+                distToStop = MAX2(0.0, nextStop.pars.startPos - pos);
+                safeSpeed = cfModel.freeSpeed(aVehicle, speed, distToStop, nextStop.pars.speed, true, MSCFModel::CalcReason::FUTURE);
+            } else {
+                msg << "scheduled stop on lane '" << myID << "' too close";
+                distToStop = nextStop.pars.endPos - pos;
+                safeSpeed = cfModel.stopSpeed(aVehicle, speed, distToStop, MSCFModel::CalcReason::FUTURE);
+            }
+            if (checkFailure(aVehicle, speed, dist, MAX2(0.0, safeSpeed), patchSpeed, msg.str(), InsertionCheck::STOP)) {
                 // we may not drive with the given velocity - we cannot stop at the stop
                 return false;
             }
