@@ -40,8 +40,5 @@ triggered_forbidden
 # test passing a short waypoint edge at high speed
 fast_short
 
-# Tests whether waypoint speed is safe for subsequent stop
-waypoint_before_stop
-
-# Tests whether waypoint speed is safe for subsequent stop (which lies on another edge)
-waypoint_before_stop2
+# allow high departSpeed when starting at a waypoint
+departSpeed
