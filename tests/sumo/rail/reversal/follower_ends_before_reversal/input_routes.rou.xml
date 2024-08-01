@@ -4,15 +4,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <!-- VTypes -->
-    <vType id="stuttgart_default" length="20.00" maxSpeed="38.89" vClass="rail" carFollowModel="Rail" accel="1" decel="1" trainType="RB425">
-        <param key="carriageLength" value="66.00"/>
-        <param key="locomotiveLength" value="66.00"/>
-        <param key="carriageGap" value="1.00"/>
-        <param key="carriageGap" value="1"/>
-        <param key="carriageLength" value="66"/>
-        <param key="locomotiveLength" value="66"/>
-    </vType>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="v_0" type="DEFAULT_RAILTYPE" depart="0.00">
         <route edges="F_14101-14092 F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347 F_11347-11343 F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506 S_11506-11514 S_11514-11515 S_SectionLink_11322-11324 S_SectionLink_11326-11551 S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-01 12:32:08 by Eclipse SUMO sumo Version v1_20_0+0496-93162477c77
+<!-- generated on 2024-08-01 14:57:02 by Eclipse SUMO sumo Version v1_20_0+0499-89f15d7a66b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -176,6 +176,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="14101">
         <link linkIndex="0" from="S_14092-14101_0" to=":14101_0_0"/>
+    </railSignal>
+    <railSignal id="14114">
+        <link linkIndex="0" from="E0_0" to=":14114_1_0"/>
     </railSignal>
     <departJunction id="14101">
         <driveWay id="14101.d0" edges="F_14101-14092 F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347 F_11347-11343 F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506" core="3">
