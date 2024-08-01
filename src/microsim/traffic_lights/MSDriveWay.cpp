@@ -494,6 +494,7 @@ MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
             assert(myBidi.size() != 0);
             const MSEdge* lastBidi = myBidi.back()->getNextNormal();
             MSVehicle* foe = lane->getVehiclesSecure().front();
+            lane->releaseVehicles();
             if (foe == ego) {
                 continue;
             }
@@ -520,7 +521,6 @@ MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
                 }
                 foeIt++;
             }
-            lane->releaseVehicles();
             if (conflict) {
                 if (MSRailSignal::storeVehicles() && store) {
                     MSRailSignal::blockingVehicles().push_back(foe);
