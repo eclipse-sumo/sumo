@@ -471,6 +471,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 for (SUMOVehicle* foe : foeDW->myTrains) {
                     MSRailSignal::blockingVehicles().push_back(foe);
                 }
+                MSRailSignal::blockingDriveWays().push_back(foeDW);
             }
             for (const SUMOVehicle* foe : foeDW->myTrains) {
                 occupied.push_back(const_cast<MSEdge*>(foe->getEdge()));

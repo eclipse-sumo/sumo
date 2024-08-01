@@ -220,6 +220,12 @@ public:
     std::string getConstraintInfo(int linkIndex);
     std::string getConstraintInfo() const;
 
+    std::vector<const MSDriveWay*> getBlockingDriveWays(int linkIndex) override;
+    std::string getBlockingDriveWayIDs() const;
+
+    std::string getRequestedDriveWay(int linkIndex) override;
+    std::string getRequestedDriveWay() const;
+
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od, bool writeVehicles) const;
 
@@ -272,8 +278,12 @@ public:
         return myStoreVehicles;
     }
 
-    static VehicleVector& blockingVehicles() { 
+    static VehicleVector& blockingVehicles() {
         return myBlockingVehicles;
+    }
+
+    static std::vector<const MSDriveWay*>& blockingDriveWays() {
+        return myBlockingDriveWays;
     }
 
     static VehicleVector& rivalVehicles() {
@@ -358,6 +368,8 @@ protected:
     static VehicleVector myRivalVehicles;
     static VehicleVector myPriorityVehicles;
     static std::string myConstraintInfo;
+    static std::vector<const MSDriveWay*> myBlockingDriveWays;
+    static std::string myRequestedDriveWay;
     //@}
 
 

@@ -252,7 +252,9 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem(TL("cycle time"), true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getDefaultCycleTimeSeconds));
     MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
     if (rs != nullptr) {
+        ret->mkItem(TL("req driveway"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRequestedDriveWay));
         ret->mkItem(TL("blocking"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
+        ret->mkItem(TL("blocking driveways"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingDriveWayIDs));
         ret->mkItem(TL("rival"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRivalVehicleIDs));
         ret->mkItem(TL("priority"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getPriorityVehicleIDs));
         ret->mkItem(TL("constraint"), true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getConstraintInfo));

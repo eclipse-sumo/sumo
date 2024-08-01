@@ -69,6 +69,8 @@ MSRailSignal::VehicleVector MSRailSignal::myBlockingVehicles;
 MSRailSignal::VehicleVector MSRailSignal::myRivalVehicles;
 MSRailSignal::VehicleVector MSRailSignal::myPriorityVehicles;
 std::string MSRailSignal::myConstraintInfo;
+std::vector<const MSDriveWay*> MSRailSignal::myBlockingDriveWays;
+std::string MSRailSignal::myRequestedDriveWay;
 
 // ===========================================================================
 // method definitions
@@ -529,12 +531,15 @@ MSRailSignal::storeTraCIVehicles(int linkIndex) {
     myRivalVehicles.clear();
     myPriorityVehicles.clear();
     myConstraintInfo = "";
+    myBlockingDriveWays.clear();
+    myRequestedDriveWay = "";
     myStoreVehicles = true;
     LinkInfo& li = myLinkInfos[linkIndex];
     if (li.myLink->getApproaching().size() > 0) {
         Approaching closest = li.myLink->getClosest();
         MSDriveWay& driveway = li.getDriveWay(closest.first);
         MSEdgeVector occupied;
+        myRequestedDriveWay = driveway.getID();
         // call for side effects
         driveway.reserve(closest, occupied);
         constraintsAllow(closest.first);
@@ -567,6 +572,20 @@ std::string
 MSRailSignal::getConstraintInfo(int linkIndex) {
     storeTraCIVehicles(linkIndex);
     return myConstraintInfo;
+}
+
+
+std::string
+MSRailSignal::getRequestedDriveWay(int linkIndex) {
+    storeTraCIVehicles(linkIndex);
+    return myRequestedDriveWay;
+}
+
+
+std::vector<const MSDriveWay*>
+MSRailSignal::getBlockingDriveWays(int linkIndex) {
+    storeTraCIVehicles(linkIndex);
+    return myBlockingDriveWays;
 }
 
 const MSDriveWay&
@@ -663,6 +682,32 @@ MSRailSignal::getConstraintInfo() const {
         std::string result;
         for (int i = 0; i < (int)myLinkInfos.size(); i++) {
             result += toString(i) + ": " + rs->getConstraintInfo(i);
+        }
+        return result;
+    }
+}
+std::string
+MSRailSignal::getRequestedDriveWay() const {
+    MSRailSignal* rs = const_cast<MSRailSignal*>(this);
+    if (myLinkInfos.size() == 1) {
+        return toString(rs->getRequestedDriveWay(0));
+    } else {
+        std::string result;
+        for (int i = 0; i < (int)myLinkInfos.size(); i++) {
+            result += toString(i) + ": " + toString(rs->getRequestedDriveWay(i)) + ";";
+        }
+        return result;
+    }
+}
+std::string
+MSRailSignal::getBlockingDriveWayIDs() const {
+    MSRailSignal* rs = const_cast<MSRailSignal*>(this);
+    if (myLinkInfos.size() == 1) {
+        return toString(rs->getBlockingDriveWays(0));
+    } else {
+        std::string result;
+        for (int i = 0; i < (int)myLinkInfos.size(); i++) {
+            result += toString(i) + ": " + toString(rs->getBlockingDriveWays(i)) + ";";
         }
         return result;
     }

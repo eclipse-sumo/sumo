@@ -42,6 +42,7 @@ class MSLink;
 class MSTLLogicControl;
 class MSDetectorFileOutput;
 class NLDetectorBuilder;
+class MSDriveWay;
 
 
 // ===========================================================================
@@ -399,6 +400,18 @@ public:
     virtual VehicleVector getPriorityVehicles(int linkIndex) {
         UNUSED_PARAMETER(linkIndex);
         return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual std::vector<const MSDriveWay*> getBlockingDriveWays(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return std::vector<const MSDriveWay*>();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual std::string getRequestedDriveWay(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return "";
     }
 
     /** @brief Saves the current tls states into the given stream
