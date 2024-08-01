@@ -64,3 +64,4 @@ reverse_at_route_end_impossible
 
 # see #13260
 double_reversal_same_dir
+insertion_before_reversal
