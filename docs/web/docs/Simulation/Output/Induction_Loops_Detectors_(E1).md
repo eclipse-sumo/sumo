@@ -45,8 +45,10 @@ The attributes:
 | **file**       | filename           | The path to the output file. See [Writing Files](../../Basics/Using_the_Command_Line_Applications.md#writing_files) for further information.                                                                                                                                         |
 | friendlyPos    | bool     | If set, no error will be reported if the detector is placed behind the lane. Instead, the detector will be placed 0.1 meters from the lane's end or at position 0.1, if the position was negative and larger than the lane's length after multiplication with -1; *default: false*.    |
 | vTypes         | string   | space separated list of vehicle type ids to consider, "" means all; default "".                       |
+| nextEdges      | stringList | list of edge ids that must all be part of the future route of the vehicle to qualify for detection (default *empty*)  |
 | detectPersons  | string   | [detect persons instead of vehicles (pedestrians or passengers)](../Pedestrians.md#detectors_for_pedestrians)  |
 | length         | float    | length of the detection zone downstream of **pos** (default *0*)                       |
+
 
 ## Generated Output
 
