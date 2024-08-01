@@ -57,7 +57,7 @@ netedit.supermodeNetwork()
 netedit.deleteMode()
 
 # try to delete an edge with demand elements
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # wait warning
 netedit.waitDeleteWarning()
@@ -66,7 +66,7 @@ netedit.waitDeleteWarning()
 netedit.protectElements(referencePosition)
 
 # now delete edge with their container
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo
 netedit.checkUndoRedo(referencePosition)

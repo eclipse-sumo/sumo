@@ -1,3 +1,9 @@
+allow_dialog
+
+changeleft_dialog
+
+changeright_dialog
+
 pass
 
 keepclear

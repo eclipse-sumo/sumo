@@ -50,7 +50,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("personTrip")
 
 # create personTripJunctions
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
 
 # set invalid person number
 netedit.changeDefaultValue(netedit.attrs.personTripJunctions.create.modes, "dummy")

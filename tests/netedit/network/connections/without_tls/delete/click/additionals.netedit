@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-03 09:55:32 by Eclipse SUMO netedit Version v1_20_0+0963-89ad34cf688
+<!-- generated on 2024-08-01 10:36:31 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_0" lane="E1_0" startPos="8.00" endPos="18.00"/>
     <!-- Detectors -->
     <inductionLoop id="e1_0" lane="E1_0" pos="8.00" period="300.00" file="e1_0.xml"/>
     <inductionLoop id="e1_1" lane="-E1_0" pos="15.00" period="300.00" file="e1_1.xml"/>

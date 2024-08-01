@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-26 09:04:25 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2024-08-01 10:28:34 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/net.net.xml"/>
+        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/additionals.add.xml"/>
+        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/routes.rou.xml"/>
+        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/datas.dat.xml"/>
+        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/net.net.xml"/>
+        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/net.net.xml"/>
     </output>
 
     <processing>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/gui-settings.xml"/>
+        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.26Jul090241.10170/netedit.gui/network/connections/without_tls/inspect/keepclear/log.txt"/>
+        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.01Aug102651.3098/netedit.gui/network/connections/without_tls/inspect/keepclear/log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id=":Junction5_0_0" index="0" allow="ship" speed="15.00" length="6.00" width="3.00" shape="-1.50,7.00 -2.00,5.00 0.00,5.00 0.00,3.00 -2.00,3.00 -2.00,-3.00 0.00,-3.00 0.00,-5.00 -2.00,-5.00 -1.50,-7.00" changeLeft="private authority army vip pedestrian passenger hov taxi bus coach delivery motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft wheelchair scooter drone custom1 custom2" changeRight="private emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship cable_car subway aircraft wheelchair scooter drone custom1 custom2"/>
     </edge>
     <edge id=":Junction5_1" function="internal">
-        <lane id=":Junction5_1_0" index="0" disallow="pedestrian" speed="13.89" length="14.00" width="3.00" shape="7.00,1.50 -7.00,1.50"/>
+        <lane id=":Junction5_1_0" index="0" speed="13.89" length="14.00" width="3.00" shape="7.00,1.50 -7.00,1.50"/>
     </edge>
     <edge id=":Junction5_2" function="internal">
         <lane id=":Junction5_2_0" index="0" allow="ship" speed="13.89" length="14.00" width="3.00" shape="1.50,-7.00 1.50,7.00"/>
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="-E1_0" index="0" allow="bus" speed="13.89" length="23.00" width="3.00" shape="-30.00,-1.50 -7.00,-1.50"/>
     </edge>
     <edge id="-E2" from="J2" to="Junction5" priority="-1">
-        <lane id="-E2_0" index="0" disallow="pedestrian" speed="13.89" length="23.00" width="3.00" shape="30.00,1.50 7.00,1.50"/>
+        <lane id="-E2_0" index="0" speed="13.89" length="23.00" width="3.00" shape="30.00,1.50 7.00,1.50"/>
     </edge>
     <edge id="-E3" from="J3" to="Junction5" priority="-1">
         <lane id="-E3_0" index="0" allow="ship" speed="13.89" length="18.00" width="3.00" shape="1.50,-25.00 1.50,-7.00"/>
@@ -102,7 +102,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <lane id="E0_0" index="0" disallow="pedestrian" speed="13.89" length="18.00" width="3.00" shape="1.50,7.00 1.50,25.00"/>
     </edge>
     <edge id="E1" from="Junction5" to="J1" priority="-1">
-        <lane id="E1_0" index="0" disallow="pedestrian" speed="13.89" length="23.00" width="3.00" shape="-7.00,1.50 -30.00,1.50"/>
+        <lane id="E1_0" index="0" speed="13.89" length="23.00" width="3.00" shape="-7.00,1.50 -30.00,1.50"/>
     </edge>
     <edge id="E2" from="Junction5" to="J2" priority="-1">
         <lane id="E2_0" index="0" allow="bus" speed="13.89" length="23.00" width="3.00" shape="7.00,-1.50 30.00,-1.50"/>
