@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-01 10:25:43 by Eclipse SUMO sumo Version v1_20_0+0494-7b4f5668782
+<!-- generated on 2024-08-01 12:32:08 by Eclipse SUMO sumo Version v1_20_0+0496-93162477c77
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":11506_0_0 S_11504-11506_0 :11504_0_0 S_SectionLink_11380-11498_0 :SectionLink_11380_0_0 F_11482-SectionLink_11380_0 :11482_1_0 F_11486-11483_0 :11486_1_0 :SectionLink_11322_3_0 F_11535-SectionLink_11322_0 :11535_1_0 F_11540-11535_0 :SectionLink_11326_2_0 F_SectionLink_11474-SectionLink_11326_0 :SectionLink_11474_3_0 :SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0"/>
                 <protectingSwitches links="SectionLink_11474_3 SectionLink_14066_3"/>
                 <conflictLinks signals="11486_0 14092_0 11494_0"/>
-                <foes driveWays="11339.0 11514.0 11551.0.0"/>
+                <foes driveWays="11339.0 11514.0 11551.0.0 11339.1 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3 11551.d4.0"/>
             </driveWay>
             <subDriveWay id="11339.0.0" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0 :11514_2_0"/>
@@ -54,19 +54,43 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="11339.0.1" edges="F_11339-11336 F_SectionLink_11329-11552">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0"/>
             </subDriveWay>
+            <subDriveWay id="11339.0.2" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.0.3" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.0.4" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.0.5" edges="F_11339-11336 F_SectionLink_11329-11552">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0"/>
+            </subDriveWay>
             <driveWay id="11339.1" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515 F_11514-11506">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0 :11514_2_0 F_11514-11506_0"/>
                 <bidi lanes=":11339_0_0 S_SectionLink_11329-11332_0 :SectionLink_11329_0_0 S_11551-11552_0 :11551_0_0 S_SectionLink_11326-11551_0 :SectionLink_11326_0_0 S_SectionLink_11322-11324_0 :SectionLink_11322_1_0 S_11514-11515_0 :11514_0_0 S_11506-11514_0"/>
                 <flank lanes=":11506_0_0 S_11504-11506_0 :11504_0_0 S_SectionLink_11380-11498_0 :SectionLink_11380_0_0 F_11482-SectionLink_11380_0 :11482_1_0 F_11486-11483_0 :11486_1_0 :SectionLink_11322_3_0 F_11535-SectionLink_11322_0 :11535_1_0 F_11540-11535_0 :SectionLink_11326_2_0 F_SectionLink_11474-SectionLink_11326_0 :SectionLink_11474_3_0 :SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0"/>
                 <protectingSwitches links="SectionLink_11474_3 SectionLink_11326_1"/>
                 <conflictLinks signals="11486_0 11494_0"/>
-                <foes driveWays="11514.0 11551.0.0 11339.1"/>
+                <foes driveWays="11339.0 11514.0 11551.0.0 11339.1 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3 11551.d4.0"/>
             </driveWay>
             <subDriveWay id="11339.1.0" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0 :11514_2_0"/>
             </subDriveWay>
             <subDriveWay id="11339.1.1" edges="F_11339-11336 F_SectionLink_11329-11552">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.1.2" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.1.3" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.1.4" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0"/>
+            </subDriveWay>
+            <subDriveWay id="11339.1.5" edges="F_11339-11336 F_SectionLink_11329-11552">
+                <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -91,7 +115,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":SectionLink_11322_3_0 F_11535-SectionLink_11322_0 :11535_1_0 F_11540-11535_0 :SectionLink_11326_2_0 F_SectionLink_11474-SectionLink_11326_0 :SectionLink_11474_3_0"/>
                 <protectingSwitches links="SectionLink_11329_3 SectionLink_11474_3 SectionLink_14066_3"/>
                 <conflictLinks signals="11339_0 14092_0"/>
-                <foes driveWays="14092.0 11339.0.0 11514.0 11339.1.0"/>
+                <foes driveWays="14092.0 11339.0.0 11514.0 11339.1.0 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3"/>
             </driveWay>
         </link>
     </railSignal>
@@ -103,7 +127,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
                 <protectingSwitches links="SectionLink_14066_3 SectionLink_11326_1"/>
                 <conflictLinks signals="14092_0 11494_0"/>
-                <foes driveWays="14092.0 11339.0.1 11551.0 11339.1.1"/>
+                <foes driveWays="14092.0 11339.0.1 11551.0 11339.1.1 11551.d4 11347.d5"/>
             </driveWay>
             <subDriveWay id="11551.0.0" edges="S_11551-11552 S_SectionLink_11329-11332">
                 <forward lanes=":11551_0_0 S_11551-11552_0 :SectionLink_11329_0_0 S_SectionLink_11329-11332_0 :11339_0_0"/>
@@ -140,10 +164,13 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0"/>
                 <protectingSwitches links="SectionLink_11322_1 SectionLink_11326_0 SectionLink_11326_1"/>
                 <conflictLinks signals="11486_0 14054_0 11494_0 11514_0"/>
-                <foes driveWays="14092.0 11514.0 11551.0 14072.0.0"/>
+                <foes driveWays="14092.0 11514.0 11551.0 14072.0.0 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3 11551.d4 11347.d5"/>
             </driveWay>
             <subDriveWay id="14092.0.0" edges="F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079">
                 <forward lanes=":14092_1_0 F_14092-14090_0 :14090_1_0 F_14090-SectionLink_14049_0 :SectionLink_14049_2_0 F_SectionLink_14049-14079_0 :14072_1_0"/>
+            </subDriveWay>
+            <subDriveWay id="14092.0.1" edges="F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079 F_14072-14067 F_14067-11347">
+                <forward lanes=":14092_1_0 F_14092-14090_0 :14090_1_0 F_14090-SectionLink_14049_0 :SectionLink_14049_2_0 F_SectionLink_14049-14079_0 :14072_1_0 F_14072-14067_0 :14067_1_0 F_14067-11347_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -158,6 +185,62 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links="SectionLink_14066_2"/>
             <conflictLinks signals=""/>
             <foes driveWays="14101.d0"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="11347">
+        <driveWay id="11347.d5" edges="S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061">
+            <forward lanes="S_11347-14067_0 :14067_0_0 S_14067-14072_0"/>
+            <bidi lanes="F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0"/>
+            <flank lanes=":11347_0_0 S_11339-11342_0 :11339_0_0 S_SectionLink_11329-11332_0 :SectionLink_11329_0_0 S_11551-11552_0 :11551_0_0 :SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0 :14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
+            <protectingSwitches links="SectionLink_11326_1 SectionLink_14066_3"/>
+            <conflictLinks signals="14092_0 11494_0 11551_0"/>
+            <foes driveWays="14092.0.1 11551.0 11551.d4 11347.d5"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="11514">
+        <driveWay id="11514.d1" edges="S_11514-11515 S_SectionLink_11322-11324 S_SectionLink_11326-11551 S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061">
+            <forward lanes="S_11514-11515_0 :SectionLink_11322_1_0 S_SectionLink_11322-11324_0 :SectionLink_11326_0_0 S_SectionLink_11326-11551_0"/>
+            <bidi lanes="F_SectionLink_11322-11515_0 :SectionLink_11322_2_0 F_SectionLink_11326-11324_0 :SectionLink_11326_3_0 F_11551-SectionLink_11326_0 :11551_2_0 F_SectionLink_11329-11552_0 :SectionLink_11329_3_0"
+                    deadlockCheck="F_11339-11336_0 :11339_1_0 F_11347-11343_0 :11347_1_0 F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0 :14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
+            <flank lanes=":11514_0_0 :SectionLink_11322_3_0 F_11535-SectionLink_11322_0 :11535_1_0 F_11540-11535_0 :SectionLink_11326_2_0 F_SectionLink_11474-SectionLink_11326_0 :SectionLink_11474_3_0"/>
+            <protectingSwitches links="SectionLink_11329_3 SectionLink_11474_3 SectionLink_14066_3"/>
+            <conflictLinks signals="11339_0 14092_0 11514_0"/>
+            <foes driveWays="14092.0 11339.0.2 11514.0 11339.1.2 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="11551">
+        <driveWay id="11551.d4" edges="S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061">
+            <forward lanes="S_11551-11552_0 :SectionLink_11329_0_0 S_SectionLink_11329-11332_0 :11339_0_0 S_11339-11342_0 :11347_0_0 S_11347-14067_0 :14067_0_0 S_14067-14072_0"/>
+            <bidi lanes="F_SectionLink_11329-11552_0 :SectionLink_11329_3_0 F_11339-11336_0 :11339_1_0 F_11347-11343_0 :11347_1_0 F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0"/>
+            <flank lanes=":11551_0_0 :14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_11329_1_0 S_11479-SectionLink_11329_0 :11479_0_0 S_SectionLink_11474-11477_0 :SectionLink_11474_0_0 S_SectionLink_11326-SectionLink_11474_0 :SectionLink_11326_1_0 :SectionLink_11474_1_0 S_SectionLink_11442-SectionLink_11474_0 :SectionLink_11442_0_0 S_11494-SectionLink_11442_0 :11494_0_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
+            <protectingSwitches links="SectionLink_14066_3 SectionLink_11326_1"/>
+            <conflictLinks signals="14092_0 11494_0 11551_0"/>
+            <foes driveWays="14092.0 11339.0.5 11551.0 11339.1.5 11551.d4 11347.d5"/>
+        </driveWay>
+        <subDriveWay id="11551.d4.0" edges="S_11551-11552 S_SectionLink_11329-11332">
+            <forward lanes="S_11551-11552_0 :SectionLink_11329_0_0 S_SectionLink_11329-11332_0 :11339_0_0"/>
+        </subDriveWay>
+    </departJunction>
+    <departJunction id="SectionLink_11322">
+        <driveWay id="SectionLink_11322.d2" edges="S_SectionLink_11322-11324 S_SectionLink_11326-11551 S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061">
+            <forward lanes="S_SectionLink_11322-11324_0 :SectionLink_11326_0_0 S_SectionLink_11326-11551_0"/>
+            <bidi lanes="F_SectionLink_11326-11324_0 :SectionLink_11326_3_0 F_11551-SectionLink_11326_0 :11551_2_0 F_SectionLink_11329-11552_0 :SectionLink_11329_3_0"
+                    deadlockCheck="F_11339-11336_0 :11339_1_0 F_11347-11343_0 :11347_1_0 F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0 :14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
+            <flank lanes=":SectionLink_11322_1_0 :SectionLink_11326_2_0 F_SectionLink_11474-SectionLink_11326_0 :SectionLink_11474_3_0"/>
+            <protectingSwitches links="SectionLink_11329_3 SectionLink_11322_1 SectionLink_11474_3 SectionLink_14066_3"/>
+            <conflictLinks signals="11339_0 14092_0 11514_0"/>
+            <foes driveWays="14092.0 11339.0.3 11514.0 11339.1.3 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3"/>
+        </driveWay>
+    </departJunction>
+    <departJunction id="SectionLink_11326">
+        <driveWay id="SectionLink_11326.d3" edges="S_SectionLink_11326-11551 S_11551-11552 S_SectionLink_11329-11332 S_11339-11342 S_11347-14067 S_14067-14072 S_14072-14077 S_SectionLink_14049-14051 S_14054-14061">
+            <forward lanes="S_SectionLink_11326-11551_0"/>
+            <bidi lanes="F_11551-SectionLink_11326_0 :11551_2_0 F_SectionLink_11329-11552_0 :SectionLink_11329_3_0"
+                    deadlockCheck="F_11339-11336_0 :11339_1_0 F_11347-11343_0 :11347_1_0 F_14067-11347_0 :14067_1_0 F_14072-14067_0 :14072_1_0 F_SectionLink_14049-14079_0 :SectionLink_14049_3_0 F_14054-14052_0 :14054_1_0 F_14061-14054_0 :14061_2_0 F_SectionLink_14066-14064_0 :SectionLink_14066_3_0 :SectionLink_14049_2_0 F_14090-SectionLink_14049_0 :14090_1_0 F_14092-14090_0 :14092_1_0"/>
+            <flank lanes=":SectionLink_11326_0_0"/>
+            <protectingSwitches links="SectionLink_11329_3 SectionLink_11326_0 SectionLink_14066_3"/>
+            <conflictLinks signals="11339_0 14092_0 11514_0"/>
+            <foes driveWays="14092.0 11339.0.4 11514.0 11339.1.4 11514.d1 SectionLink_11322.d2 SectionLink_11326.d3"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

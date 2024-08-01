@@ -20,12 +20,30 @@
             <entry id="v_2" time="91.00" reason="1"/>
             <exit id="v_2" time="152.00" reason="1"/>
         </driveWay>
+        <subDriveWay id="J1.0.0">
+            <entry id="v_0" time="35.00" reason="1"/>
+            <exit id="v_0" time="49.00" reason="1"/>
+            <entry id="v_1" time="63.00" reason="1"/>
+            <exit id="v_1" time="77.00" reason="1"/>
+            <entry id="v_2" time="91.00" reason="1"/>
+            <exit id="v_2" time="105.00" reason="1"/>
+            <entry id="v_3" time="119.00" reason="1"/>
+            <exit id="v_3" time="133.00" reason="1"/>
+        </subDriveWay>
         <driveWay id="J1.1">
             <entry id="v_1" time="63.00" reason="1"/>
             <exit id="v_1" time="85.00" reason="1"/>
             <entry id="v_3" time="119.00" reason="1"/>
             <exit id="v_3" time="180.00" reason="1"/>
         </driveWay>
+        <subDriveWay id="J1.1.0">
+            <entry id="v_1" time="63.00" reason="1"/>
+            <exit id="v_1" time="77.00" reason="1"/>
+            <entry id="v_2" time="91.00" reason="1"/>
+            <exit id="v_2" time="105.00" reason="1"/>
+            <entry id="v_3" time="119.00" reason="1"/>
+            <exit id="v_3" time="133.00" reason="1"/>
+        </subDriveWay>
     </link>
 </railSignal>
 <railSignal id="J3">
