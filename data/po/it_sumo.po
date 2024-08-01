@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-31 15:56+0000\n"
+"PO-Revision-Date: 2024-08-01 11:14+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -10164,11 +10164,11 @@ msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:148
 msgid "Reads types from FILE"
-msgstr ""
+msgstr "Carica tipi da FILE"
 
 #: src/polyconvert/polyconvert_main.cpp:156
 msgid "Write generated polygons/pois to FILE"
-msgstr ""
+msgstr "Scrivi poligoni e punti di interesse generati in FILE"
 
 #: src/polyconvert/polyconvert_main.cpp:159
 msgid "Write generated polygons/pois to a dlr-tdp file with the given prefix"
@@ -10180,11 +10180,11 @@ msgstr ""
 #: src/polyconvert/polyconvert_main.cpp:177
 #: src/polyconvert/polyconvert_main.cpp:181
 msgid "Pruning"
-msgstr ""
+msgstr "Taglio"
 
 #: src/polyconvert/polyconvert_main.cpp:165
 msgid "Enables pruning on net boundaries"
-msgstr ""
+msgstr "Attiva taglio lungo il contorno della rete"
 
 #: src/polyconvert/polyconvert_main.cpp:169
 msgid ""
@@ -10192,51 +10192,58 @@ msgid ""
 "Positive values grow the boundary on all sides while negative values shrink "
 "it."
 msgstr ""
+"Utilizza FLOAT,FLOAT,FLOAT,FLOAT come definizione di spostamento da sommarsi "
+"al contorno della rete. Valori positivi fanno crescere il contorno su tutti "
+"i lati mentre valori negativi lo restringono."
 
 #: src/polyconvert/polyconvert_main.cpp:172
 msgid "Uses STR as pruning boundary"
-msgstr ""
+msgstr "Utilizza STR come contorno dove tagliare"
 
 #: src/polyconvert/polyconvert_main.cpp:177
 msgid "Items in STR will be kept though out of boundary"
 msgstr ""
+"Gli elementi menzionati in STR verranno mantenuti benché si trovino fuori "
+"del contorno"
 
 #: src/polyconvert/polyconvert_main.cpp:181
 msgid "Items with names in STR[] will be removed"
-msgstr ""
+msgstr "Gli elementi menzionati in STR[] verranno rimossi"
 
 #: src/polyconvert/polyconvert_main.cpp:196
 msgid "Imports all attributes as key/value pairs"
-msgstr ""
+msgstr "Importa tutti gli attributi come paio di chiave e valore"
 
 #: src/polyconvert/polyconvert_main.cpp:202
 msgid ""
 "Adds FLOAT to the layer value for each poi (i.e. to raise it above polygons)"
 msgstr ""
+"Aggiunge FLOAT al livello di ogni punto di interesse (per alzarlo sopra un "
+"poligono per esempio)"
 
 #: src/polyconvert/polyconvert_main.cpp:206
 msgid "Sets STR as default color"
-msgstr ""
+msgstr "Imposta STR come colore standard"
 
 #: src/polyconvert/polyconvert_main.cpp:209
 msgid "Sets STR as default prefix"
-msgstr ""
+msgstr "Imposta STR come prefisso standard"
 
 #: src/polyconvert/polyconvert_main.cpp:212
 msgid "Sets STR as default type"
-msgstr ""
+msgstr "Imposta STR come tipo standard"
 
 #: src/polyconvert/polyconvert_main.cpp:215
 msgid "Fills polygons by default"
-msgstr ""
+msgstr "Riempi i poligoni per difetto"
 
 #: src/polyconvert/polyconvert_main.cpp:218
 msgid "Sets STR as default icon"
-msgstr ""
+msgstr "Imposta STR come icona standard"
 
 #: src/polyconvert/polyconvert_main.cpp:221
 msgid "Sets FLOAT as default layer"
-msgstr ""
+msgstr "Imposta FLOAT come livello standard"
 
 #: src/polyconvert/polyconvert_main.cpp:224
 msgid "Sets default action to discard"
@@ -10244,17 +10251,21 @@ msgstr ""
 
 #: src/polyconvert/polyconvert_main.cpp:228
 msgid "Write geo coordinates in output"
-msgstr ""
+msgstr "Scrivi coordinate geografiche in uscita"
 
 #: src/polyconvert/polyconvert_main.cpp:235
 msgid ""
 "Importer of polygons and POIs for the microscopic, multi-modal traffic "
 "simulation SUMO."
 msgstr ""
+"Importatore di poligoni e punti di interesse per la simulazione microscopica "
+"multimodale del traffico SUMO."
 
 #: src/polyconvert/polyconvert_main.cpp:288
 msgid "In order to prune the input on the net, you have to supply a network."
 msgstr ""
+"Per poter tagliare l'ingresso sulla rete quest'ultima deve essere "
+"specificata."
 
 #: src/router/ROEdge.cpp:204
 msgid ""
