@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-25 10:19+0000\n"
+"PO-Revision-Date: 2024-08-02 12:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -13163,8 +13163,8 @@ msgstr "Unbekanntes Fahrzeugfolgemodell im vType '%' gefunden"
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1299
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
-"Ungültiges Fahrzeugfolgemodell Attribut %. Konnte nicht im float eingelesen "
-"werden"
+"Ungültiges Fahrzeugfolgemodell Attribut %. Konnte nicht als Fließkommazahl "
+"eingelesen werden"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1287
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1310
