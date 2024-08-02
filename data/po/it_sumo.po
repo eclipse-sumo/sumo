@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-01 11:14+0000\n"
+"PO-Revision-Date: 2024-08-02 06:48+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2404,23 +2404,23 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:678
 msgid "Enable statistics on vehicle trips"
-msgstr ""
+msgstr "Attiva statistiche di corse di veicoli"
 
 #: src/microsim/MSFrame.cpp:681
 msgid "Disable console output of current simulation step"
-msgstr ""
+msgstr "Disattiva uscita in console del attuale passo di simulazione"
 
 #: src/microsim/MSFrame.cpp:684
 msgid "Number of simulation steps between step-log outputs"
-msgstr ""
+msgstr "Numero di passi di simulazione tra due uscite step-log"
 
 #: src/microsim/MSFrame.cpp:689
 msgid "Enables TraCI Server if set"
-msgstr ""
+msgstr "Attiva il server TraCI se impostato"
 
 #: src/microsim/MSFrame.cpp:691
 msgid "Expected number of connecting clients"
-msgstr ""
+msgstr "Numero atteso di clienti connessi"
 
 #: src/microsim/MSFrame.cpp:695
 msgid "Enables mesoscopic simulation"
@@ -2428,7 +2428,7 @@ msgstr "Attiva la simulazione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:697
 msgid "Length of an edge segment in mesoscopic simulation"
-msgstr ""
+msgstr "Lunghezza di un segmento di arco nella simulazione mesoscopica"
 
 #: src/microsim/MSFrame.cpp:699
 msgid "Factor for calculating the net free-free headway time"
@@ -2448,17 +2448,19 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:710
 msgid "Enable multiple queues at edge ends"
-msgstr ""
+msgstr "Attiva varie code alle estremità degli archi"
 
 #: src/microsim/MSFrame.cpp:712
 msgid "Enable separate queues for every lane"
-msgstr ""
+msgstr "Attiva coda separata per ogni corsia"
 
 #: src/microsim/MSFrame.cpp:714
 msgid ""
 "Do not build queues (or reduce capacity) for lanes allowing only the given "
 "vclasses"
 msgstr ""
+"Non creare code (o redurre la capacità) di corsie che autorizzano soltanto "
+"le classi di veicoli dati"
 
 #: src/microsim/MSFrame.cpp:717
 msgid "Enable mesoscopic traffic light and priority junction handling"
