@@ -822,12 +822,20 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                 }
             }
         } else if (bidi == nullptr) {
-            seekBidiSwitch = false;
+            if (toLane->isInternal() && toLane->getIncomingLanes().front().viaLink->isTurnaround()) {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-            if (gDebugFlag4) {
-                std::cout << "      noBidi, abort search for bidiSwitch\n";
-            }
+                if (gDebugFlag4) {
+                    std::cout << "      continue bidiSearch beyond turnaround\n";
+                }
 #endif
+            } else {
+                seekBidiSwitch = false;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                if (gDebugFlag4) {
+                    std::cout << "      noBidi, abort search for bidiSwitch\n";
+                }
+#endif
+            }
         }
         if (bidi != nullptr) {
             if (foundUnsafeSwitch) {
