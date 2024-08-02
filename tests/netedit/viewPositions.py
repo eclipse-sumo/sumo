@@ -528,7 +528,7 @@ class elements:
             y = 440
 
         class vehicleJunction:
-            x = 162
+            x = 159
             y = 405
 
         class vehicleTAZ:

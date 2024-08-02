@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-02 15:37:38 by Eclipse SUMO netedit Version v1_20_0+1519-a635611cf51
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <person id="p_0" depart="0.00">
+        <personTrip from="EdgeExternBot" to="EdgeExternTop"/>
+    </person>
+    <person id="p_1" depart="0.00">
+        <walk from="EdgeExternTop" to="EdgeExternBot"/>
+    </person>
+    <person id="p_2" depart="0.00">
+        <walk from="Edge0" to="EdgeCenter1"/>
+    </person>
+    <person id="p_3" depart="0.00">
+        <personTrip from="EdgeCenter1" to="Edge5"/>
+    </person>
+</routes>
