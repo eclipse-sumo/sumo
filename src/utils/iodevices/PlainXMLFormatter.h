@@ -26,6 +26,7 @@
 #endif
 
 #include "OutputFormatter.h"
+#include "StreamDevices.h"
 
 
 // ===========================================================================
@@ -57,7 +58,7 @@ public:
      * @param[in] attrs Additional attributes to save within the rootElement
      * @todo Describe what is saved
      */
-    bool writeXMLHeader(std::ostream& into, const std::string& rootElement,
+    bool writeXMLHeader(StreamDevice& into, const std::string& rootElement,
                         const std::map<SumoXMLAttr, std::string>& attrs,
                         bool includeConfig = true);
 
@@ -70,7 +71,7 @@ public:
      * @param[in] into The output stream to use
      * @param[in] rootElement The root element to use
      */
-    bool writeHeader(std::ostream& into, const SumoXMLTag& rootElement);
+    bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement);
 
 
     /** @brief Opens an XML tag
@@ -83,7 +84,7 @@ public:
      * @param[in] xmlElement Name of element to open
      * @return The OutputDevice for further processing
      */
-    void openTag(std::ostream& into, const std::string& xmlElement);
+    void openTag(StreamDevice& into, const std::string& xmlElement);
 
 
     /** @brief Opens an XML tag
@@ -93,7 +94,7 @@ public:
      * @param[in] into The output stream to use
      * @param[in] xmlElement Id of the element to open
      */
-    void openTag(std::ostream& into, const SumoXMLTag& xmlElement);
+    void openTag(StreamDevice& into, const SumoXMLTag& xmlElement);
 
 
     /** @brief Closes the most recently opened tag
@@ -102,7 +103,7 @@ public:
      * @return Whether a further element existed in the stack and could be closed
      * @todo it is not verified that the topmost element was closed
      */
-    bool closeTag(std::ostream& into, const std::string& comment = "");
+    bool closeTag(StreamDevice& into, const std::string& comment = "");
 
 
     /** @brief writes a preformatted tag to the device but ensures that any
@@ -110,24 +111,11 @@ public:
      * @param[in] into The output stream to use
      * @param[in] val The preformatted data
      */
-    void writePreformattedTag(std::ostream& into, const std::string& val);
+    void writePreformattedTag(StreamDevice& into, const std::string& val);
 
     /** @brief writes arbitrary padding
      */
-    void writePadding(std::ostream& into, const std::string& val);
-
-
-    /** @brief writes an arbitrary attribute
-     *
-     * @param[in] into The output stream to use
-     * @param[in] attr The attribute (name)
-     * @param[in] val The attribute value
-     */
-    template <class T>
-    static void writeAttr(std::ostream& into, const std::string& attr, const T& val) {
-        into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
-    }
-
+    void writePadding(StreamDevice& into, const std::string& val);
 
     /** @brief writes a named attribute
      *
@@ -136,13 +124,24 @@ public:
      * @param[in] val The attribute value
      */
     template <class T>
-    static void writeAttr(std::ostream& into, const SumoXMLAttr attr, const T& val) {
-        into << " " << toString(attr) << "=\"" << toString(val, into.precision()) << "\"";
+    void writeAttr(StreamDevice& into, const std::string& attr, const T& val) {
+        into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
+    }
+
+    template<>
+    void writeAttr(StreamDevice& into, const std::string& attr, const double& val){
+#ifdef HAVE_FMT
+        fmt::print(into, " {}=\"{:.{}f}\"", attr, val, into.precision());
+#else
+        into << " " << attr << "=\"" << val << "\"";
+#endif
     }
 
     bool wroteHeader() const {
         return !myXMLStack.empty();
     }
+
+
 
 private:
     /// @brief The stack of begun xml elements
@@ -156,20 +155,20 @@ private:
 };
 
 
-// ===========================================================================
-// specialized template implementations (for speedup)
-// ===========================================================================
-template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
-#ifdef HAVE_FMT
-    fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
-#else
-    into << " " << toString(attr) << "=\"" << val << "\"";
-#endif
-}
+// // ===========================================================================
+// // specialized template implementations (for speedup)
+// // ===========================================================================
+// template <>
+// inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const double& val) {
+// #ifdef HAVE_FMT
+//     fmt::print(into, " {}=\"{:.{}f}\"", toString(attr), val, into.precision());
+// #else
+//     into << " " << toString(attr) << "=\"" << val << "\"";
+// #endif
+// }
 
 
-template <>
-inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val) {
-    into << " " << toString(attr) << "=\"" << val << "\"";
-}
+// template <>
+// inline void PlainXMLFormatter::writeAttr(std::ostream& into, const SumoXMLAttr attr, const std::string& val) {
+//     into << " " << toString(attr) << "=\"" << val << "\"";
+// }

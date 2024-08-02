@@ -36,6 +36,7 @@
 #include "OutputDevice_COUT.h"
 #include "OutputDevice_CERR.h"
 #include "OutputDevice_Network.h"
+#include "OutputDevice_Parquet.h"
 #include "PlainXMLFormatter.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/UtilExceptions.h>
@@ -77,17 +78,18 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
     } else if (name == "stderr") {
         dev = OutputDevice_CERR::getDevice();
     } else if (FileHelpers::isSocket(name)) {
-        try {
-            const bool ipv6 = name[0] == '[';  // IPv6 adresses may be written like '[::1]:8000'
-            const size_t sepIndex = name.find(":", ipv6 ? name.find("]") : 0);
-            const int port = StringUtils::toInt(name.substr(sepIndex + 1));
-            dev = new OutputDevice_Network(ipv6 ? name.substr(1, sepIndex - 2) : name.substr(0, sepIndex), port);
-        } catch (NumberFormatException&) {
-            throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
-        } catch (EmptyData&) {
-            throw IOError(TL("No port number given."));
-        }
-    } else {
+        // try {
+        //     const bool ipv6 = name[0] == '[';  // IPv6 adresses may be written like '[::1]:8000'
+        //     const size_t sepIndex = name.find(":", ipv6 ? name.find("]") : 0);
+        //     const int port = StringUtils::toInt(name.substr(sepIndex + 1));
+        //     dev = new OutputDevice_Network(ipv6 ? name.substr(1, sepIndex - 2) : name.substr(0, sepIndex), port);
+        // } catch (NumberFormatException&) {
+        //     throw IOError("Given port number '" + name.substr(name.find(":") + 1) + "' is not numeric.");
+        // } catch (EmptyData&) {
+        throw IOError(TL("No port number given."));
+        // }
+    } 
+    else {
         std::string name2 = (name == "nul" || name == "NUL") ? "/dev/null" : name;
         if (usePrefix && OptionsCont::getOptions().isSet("output-prefix") && name2 != "/dev/null") {
             std::string prefix = OptionsCont::getOptions().getString("output-prefix");
@@ -102,11 +104,19 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
             name2 = FileHelpers::prependToLastPathComponent(prefix, name);
         }
         name2 = StringUtils::substituteEnvironment(name2, &OptionsIO::getLoadTime());
+        // check the file extension
+        const auto file_ext = FileHelpers::getExtension(name);
         const int len = (int)name.length();
-        dev = new OutputDevice_File(name2, len > 3 && name.substr(len - 3) == ".gz");
+         if (file_ext == ".parquet" || file_ext == ".prq") {
+           dev = new OutputDevice_Parquet(name2);
+        }
+        else {
+            dev = new OutputDevice_File(name2, len > 3 && FileHelpers::getExtension(name) == ".gz");
+        }
     }
+    // todo: extract this to a class method? (b.c. Parquet doesn't have an iostream)
     dev->setPrecision();
-    dev->getOStream() << std::setiosflags(std::ios::fixed);
+    dev->setOSFlags(std::ios::fixed);
     myOutputDevices[name] = dev;
     return *dev;
 }
@@ -206,6 +216,11 @@ OutputDevice::realString(const double v, const int precision) {
 OutputDevice::OutputDevice(const int defaultIndentation, const std::string& filename) :
     myFilename(filename), myFormatter(new PlainXMLFormatter(defaultIndentation)) {
 }
+
+OutputDevice::OutputDevice(const std::string& filename,  OutputFormatter* formatter) :
+    myFilename(filename), myFormatter(formatter) {
+}
+
 
 
 OutputDevice::~OutputDevice() {

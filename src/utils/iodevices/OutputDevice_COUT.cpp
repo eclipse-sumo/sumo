@@ -47,6 +47,7 @@ OutputDevice_COUT::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_COUT::OutputDevice_COUT() : OutputDevice(0, "COUT") {
+    myStreamDevice = new FileDevice(&std::cout);
 }
 
 
@@ -55,15 +56,14 @@ OutputDevice_COUT::~OutputDevice_COUT() {
 }
 
 
-std::ostream&
+StreamDevice&
 OutputDevice_COUT::getOStream() {
-    return std::cout;
+    return *myStreamDevice;
 }
-
 
 void
 OutputDevice_COUT::postWriteHook() {
-    std::cout.flush();
+    myStreamDevice->flush();
 }
 
 

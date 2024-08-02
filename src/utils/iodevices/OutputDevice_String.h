@@ -51,19 +51,6 @@ public:
      */
     std::string getString() const;
 
-protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return The used stream
-     */
-    std::ostream& getOStream();
-    /// @}
-
-
-private:
-    /// The wrapped ofstream
-    std::ostringstream myStream;
+    StreamDevice& getOStream();
 
 };

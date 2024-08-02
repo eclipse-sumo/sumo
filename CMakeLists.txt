@@ -94,7 +94,7 @@ endif ()
 
 # C++14 is needed by Google Test >= 1.13, for all the other parts C++11 should be enough.
 # This will silently fall back to C++11 if 14 is not supported by the compiler.
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # compiler specific flags
 if (GNU_COMPILER OR CLANG_COMPILER)
@@ -540,6 +540,21 @@ if (CHECK_OPTIONAL_LIBS)
     file(GLOB GEOS_PATH "${SUMO_LIBRARIES}/3rdPartyLibs/geos-*")
     set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${GDAL_PATH};${FFMPEG_PATH};${OSG_PATH};${GL2PS_PATH};${GEOS_PATH}")
     file(GLOB SUMO_OPTIONAL_LIBRARIES_DLL "${GDAL_PATH}/bin/*.dll" "${FFMPEG_PATH}/bin/*.dll" "${OSG_PATH}/bin/*.dll" "${GL2PS_PATH}/bin/*.dll" "${JUPEDSIM_CUSTOMDIR}/bin/*.dll")
+
+    find_package(Arrow)
+    find_package(Parquet)
+    if (Arrow_FOUND AND Parquet_FOUND)
+        set(HAVE_PARQUET 1)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} PARQUET")
+        set(PARQUET_LIBRARY Parquet::parquet_shared)
+        if (GTEST_FOUND)
+            add_definitions("GTest_SOURCE=Bundled")
+        endif()
+        # this is for gtest compatibility
+    else()
+        set(PARQUET_LIBRARY "")
+        set(HAVE_PARQUET 0)
+    endif()
 
     # GDAL (for geopositioning)
     find_package(GDAL)

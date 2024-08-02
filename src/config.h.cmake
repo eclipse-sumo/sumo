@@ -184,6 +184,9 @@
 /* defined if GDAL is available */
 #cmakedefine HAVE_GDAL
 
+/* defined if PARQUET is available */
+#cmakedefine HAVE_PARQUET
+
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 

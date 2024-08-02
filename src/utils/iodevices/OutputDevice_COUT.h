@@ -47,14 +47,14 @@ protected:
     /** @brief Returns the associated ostream
      * @return cout
      */
-    std::ostream& getOStream();
+    StreamDevice& getOStream() override;
 
 
     /** @brief Called after every write access.
      *
      * Calls flush on stdout.
      */
-    virtual void postWriteHook();
+    virtual void postWriteHook() override;
     /// @}
 
 
@@ -72,6 +72,5 @@ private:
 private:
     /// @brief my singular instance
     static OutputDevice* myInstance;
-
 
 };
