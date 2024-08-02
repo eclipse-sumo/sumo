@@ -194,6 +194,9 @@ def get_options(args=None):
     parser.add_argument("--write-inactive", dest="writeInactive", action="store_true", default=False,
                         category="processing",
                         help="Export aborted constraints as inactive")
+    parser.add_argument("--all-inactive", dest="allInactive", action="store_true", default=False,
+                        category="processing",
+                        help="Export all constraints as inactive")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         category="processing",
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
@@ -1869,7 +1872,7 @@ def writeConstraint(options, outf, tag, c):
     else:
         limit = ' limit="%s"' % limit
     active = ""
-    if not c.active:
+    if not c.active or options.allInactive:
         active = ' active="false"'
 
     outf.write('        <%s tripId="%s" tl="%s" foes="%s"%s%s%s%s\n' % (
