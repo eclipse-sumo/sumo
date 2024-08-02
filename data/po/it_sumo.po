@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-02 12:58+0000\n"
+"PO-Revision-Date: 2024-08-02 15:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11947,11 +11947,12 @@ msgstr "Modello di guida sconosciuto nell'analisi del tipo di veicolo '%'"
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1299
 msgid "Invalid Car-Following-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Attributo di modello di guida % invalido. Non può essere convertito a float"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1287
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1310
 msgid "Invalid Car-Following-Model Attribute %. Must be greater than 0"
-msgstr ""
+msgstr "Attributo di modello di guida % invalido. Deve essere maggiore di 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1321
 msgid ""
@@ -11964,39 +11965,50 @@ msgstr ""
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1589
 msgid "Invalid Lane-Change-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Attributo di modello di cambio corsia % invalido. Non può essere convertito "
+"a float"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1606
 msgid "Invalid Lane-Change-Model Attribute %. Must be equal or greater than 0"
 msgstr ""
+"Attributo di modello di cambio corsia % invalido. Deve essere uguale o "
+"maggiore di 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1617
 msgid "Invalid Lane-Change-Model Attribute %. Must be greater than 0"
 msgstr ""
+"Attributo di modello di cambio corsia % invalido. Deve essere maggiore di 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1628
 msgid "Invalid Lane-Change-Model Attribute %. Must be between -1 and 1"
 msgstr ""
+"Attributo di modello di cambio corsia % invalido. Deve assumere un valore "
+"tra -1 e 1"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1660
 msgid "Invalid Junction-Model Attribute %. Cannot be parsed to float"
 msgstr ""
+"Attributo di modello di incrocio % invalido. Non può essere convertito a "
+"float"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1669
 msgid ""
 "Invalid Junction-Model Attribute %. Only values between [0-1] are allowed"
 msgstr ""
+"Attributo di modello di incrocio % invalido. Può assumere soltanto valori "
+"tra [0-1]"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1675
 msgid "Invalid Junction-Model Attribute %. Must be equal or greater than 0"
-msgstr ""
+msgstr "Attributo di modello di incrocio % invalido. Deve essere maggiore di 0"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1705
 msgid "The vehicle class '%' for % '%' is not known."
-msgstr ""
+msgstr "La classe di veicoli '%' per % '%' è sconosciuta."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1723
 msgid "The shape '%' for % '%' is not known."
-msgstr ""
+msgstr "La forma '%' per % '%' è sconosciuta."
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1786
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1802
@@ -12008,15 +12020,15 @@ msgstr ""
 
 #: src/utils/xml/CommonXMLStructure.cpp:286
 msgid "Undefined vehicleType parameter"
-msgstr ""
+msgstr "Parametro di tipo di veicoli indefinito"
 
 #: src/utils/xml/CommonXMLStructure.cpp:296
 msgid "Undefined vehicle parameter"
-msgstr ""
+msgstr "Parametro di veicolo indefinito"
 
 #: src/utils/xml/CommonXMLStructure.cpp:306
 msgid "Undefined stop parameter"
-msgstr ""
+msgstr "Parametro di fermata indefinito"
 
 #: src/utils/xml/CommonXMLStructure.cpp:540
 msgid "Trying to get undefined % attribute '%' in SUMOBaseObject '%'"
