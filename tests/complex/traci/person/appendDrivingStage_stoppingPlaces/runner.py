@@ -39,13 +39,13 @@ traci.simulationStep()
 
 print(traci.person.getIDList())
 print(traci.busstop.getIDList() +
-        traci.parkingarea.getIDList() +
-        traci.chargingstation.getIDList())
+      traci.parkingarea.getIDList() +
+      traci.chargingstation.getIDList())
 
-for pID, stopID in zip(traci.person.getIDList(), 
-        traci.busstop.getIDList() +
-        traci.parkingarea.getIDList() +
-        traci.chargingstation.getIDList()):
+for pID, stopID in zip(traci.person.getIDList(),
+                       traci.busstop.getIDList() +
+                       traci.parkingarea.getIDList() +
+                       traci.chargingstation.getIDList()):
     traci.person.appendDrivingStage(pID, "CN", "ANY", stopID)
 
 while traci.simulation.getMinExpectedNumber() > 0:
