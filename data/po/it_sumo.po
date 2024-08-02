@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-02 06:48+0000\n"
+"PO-Revision-Date: 2024-08-02 10:56+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -11937,11 +11937,11 @@ msgstr ""
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1246
 msgid "Unknown car-following model % when parsing vType '%'"
-msgstr ""
+msgstr "Modello di guida % sconosciuto nell'analisi del tipo di veicolo '%'"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1248
 msgid "Unknown car-following model when parsing vType '%'"
-msgstr ""
+msgstr "Modello di guida sconosciuto nell'analisi del tipo di veicolo '%'"
 
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1283
 #: src/utils/vehicle/SUMOVehicleParserHelper.cpp:1299
