@@ -1418,18 +1418,30 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
         const MSEdge* bidiEdge = &bidi->getEdge();
         if (myDepartureDriveways.count(bidiEdge) != 0) {
             for (MSDriveWay* foe : myDepartureDriveways[bidiEdge]) {
+                if (!extended || flankConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "  foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << "\n";
+                    std::cout << "  foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << "\n";
 #endif
-                myFoes.push_back(foe);
+                    myFoes.push_back(foe);
+                } else {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "  cand foe " << foe->getID() << " departs on bidi=" << bidiEdge->getID() << " rejected\n";
+#endif
+                }
             }
         }
         if (myDepartureDrivewaysEnds.count(bidiEdge) != 0) {
             for (MSDriveWay* foe : myDepartureDrivewaysEnds[bidiEdge]) {
+                if (!extended || flankConflict(*foe)) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "  foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << "\n";
+                    std::cout << "  foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << "\n";
 #endif
-                myFoes.push_back(foe);
+                    myFoes.push_back(foe);
+                } else {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "  cand foe " << foe->getID() << " ends on bidi=" << bidiEdge->getID() << " rejected\n";
+#endif
+                }
             }
         }
     }
