@@ -1,4 +1,0 @@
-Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='E0_0', time=350.00.
-Warning: Vehicle 'v_1' ends teleporting on edge 'E1', time=350.00.
-Warning: Teleporting vehicle 'v_0'; frontal collision with vehicle 'v_1', lane='E1_0', gap=-1.00, time=390.00 stage=move.
-Warning: Vehicle 'v_0' ends teleporting on edge '-E0', time=390.00.
