@@ -1,6 +1,6 @@
-Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='E0_0', time=581.00.
-Warning: Vehicle 'v_1' ends teleporting on edge 'F_14114-14111', time=581.00.
-Warning: Teleporting vehicle 'v_0'; waited too long (yield), lane='S_11506-11514_0', time=606.00.
-Warning: Vehicle 'v_0' ends teleporting on edge 'S_11514-11515', time=606.00.
-Warning: Teleporting vehicle 'v_0'; frontal collision with vehicle 'v_1', lane='F_14101-14092_0', gap=-1.00, time=757.00 stage=move.
-Warning: Vehicle 'v_0' ends teleporting on edge 'S_14101-14104', time=757.00.
+Warning: Teleporting vehicle 'v_1'; waited too long (yield), lane='E0_0', time=1319.00.
+Warning: Vehicle 'v_1' ends teleporting on edge 'F_14114-14111', time=1319.00.
+Warning: Teleporting vehicle 'v_0'; waited too long (yield), lane='S_SectionLink_11326-11551_0', time=1330.00.
+Warning: Vehicle 'v_0' ends teleporting on edge 'S_11551-11552', time=1330.00.
+Warning: Teleporting vehicle 'v_0'; frontal collision with vehicle 'v_1', lane='S_14067-14072_0', gap=-1.00, time=1427.00 stage=move.
+Warning: Vehicle 'v_0' ends teleporting on edge 'S_14072-14077', time=1427.00.

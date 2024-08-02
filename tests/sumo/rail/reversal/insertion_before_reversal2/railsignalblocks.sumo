@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-02 11:21:31 by Eclipse SUMO sumo Version v1_20_0+0502-1f70f837fb0
+<!-- generated on 2024-08-02 12:29:10 by Eclipse SUMO sumo Version v1_20_0+0503-80b42ca4732
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,15 +45,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J2.0 J4.0 J3.0.0 J0.d0 J1.1 J4.d2 J2.d3.0"/>
+                <foes driveWays="J1.0 J2.0 J4.0 J3.0.0 J0.d0 J0.d1 J1.1"/>
             </driveWay>
             <driveWay id="J1.1" edges="E1 E2 E3 E4">
                 <forward lanes=":J1_1_0 E1_0"/>
                 <bidi lanes=":J1_0_0 -E1_0 :J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J4.0 J3.0.0 J1.1 J4.d2 J2.d3.0"/>
+                <conflictLinks signals="J2_0"/>
+                <foes driveWays="J1.0 J2.0 J4.0 J3.0.0 J1.1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -65,7 +65,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J2.0 J4.0 J3.0.1 J0.d0 J2.1 J4.d2"/>
+                <foes driveWays="J1.0 J2.0 J4.0 J3.0.1 J0.d0 J0.d1 J1.1 J2.1"/>
             </driveWay>
             <subDriveWay id="J2.0.0" edges="E2 E3">
                 <forward lanes=":J2_1_0 E2_0 :J3_1_0 E3_0 :J4_1_0"/>
@@ -73,25 +73,19 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <subDriveWay id="J2.0.1" edges="E2">
                 <forward lanes=":J2_1_0 E2_0 :J3_1_0"/>
             </subDriveWay>
-            <subDriveWay id="J2.0.2" edges="E2 E3">
-                <forward lanes=":J2_1_0 E2_0 :J3_1_0 E3_0"/>
-            </subDriveWay>
             <driveWay id="J2.1" edges="E2 E3 E4">
                 <forward lanes=":J2_1_0 E2_0 :J3_1_0 E3_0 :J4_1_0 E4_0"/>
                 <bidi lanes=":J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J2.0 J4.0 J3.0.1 J2.1 J4.d2"/>
+                <foes driveWays="J2.0 J4.0 J3.0.1 J2.1"/>
             </driveWay>
             <subDriveWay id="J2.1.0" edges="E2 E3">
                 <forward lanes=":J2_1_0 E2_0 :J3_1_0 E3_0 :J4_1_0"/>
             </subDriveWay>
             <subDriveWay id="J2.1.1" edges="E2">
                 <forward lanes=":J2_1_0 E2_0 :J3_1_0"/>
-            </subDriveWay>
-            <subDriveWay id="J2.1.2" edges="E2 E3">
-                <forward lanes=":J2_1_0 E2_0 :J3_1_0 E3_0"/>
             </subDriveWay>
         </link>
     </railSignal>
@@ -103,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J2.0.1 J3.0 J0.d0 J0.d1 J1.1 J2.1.1 J2.d3"/>
+                <foes driveWays="J1.0 J2.0.1 J3.0 J0.d0 J0.d1 J1.1 J2.1.1"/>
             </driveWay>
             <subDriveWay id="J3.0.0" edges="-E2 -E1">
                 <forward lanes=":J3_0_0 -E2_0 :J2_0_0 -E1_0 :J1_0_0"/>
@@ -121,33 +115,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="J1.0 J2.0.0 J4.0 J0.d0 J0.d1 J1.1 J2.1.0 J4.d2"/>
+                <foes driveWays="J1.0 J2.0.0 J4.0 J0.d0 J0.d1 J1.1 J2.1.0"/>
             </driveWay>
         </link>
     </railSignal>
-    <departJunction id="J2">
-        <driveWay id="J2.d3" edges="-E1 -E0">
-            <forward lanes="-E1_0 :J1_0_0 -E0_0"/>
-            <bidi lanes="E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=":J2_0_0 -E2_0 :J3_0_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="J3_0"/>
-            <foes driveWays="J1.0 J3.0 J0.d0 J0.d1 J1.1 J2.d3"/>
-        </driveWay>
-        <subDriveWay id="J2.d3.0" edges="-E1">
-            <forward lanes="-E1_0 :J1_0_0"/>
-        </subDriveWay>
-    </departJunction>
-    <departJunction id="J4">
-        <driveWay id="J4.d2" edges="-E3 -E2 -E1 -E0">
-            <forward lanes="-E3_0"/>
-            <bidi lanes="E3_0 :J3_1_0 E2_0 :J2_1_0 E1_0 :J1_1_0 E0_0"/>
-            <flank lanes=":J4_0_0"/>
-            <protectingSwitches links=""/>
-            <conflictLinks signals="J4_0"/>
-            <foes driveWays="J1.0 J2.0.2 J4.0 J0.d0 J0.d1 J1.1 J2.1.2 J4.d2"/>
-        </driveWay>
-    </departJunction>
     <departJunction id="J0">
         <driveWay id="J0.d0" edges="E0 E1 E2 E3 E4 -E4 -E3 -E2 -E1 -E0">
             <forward lanes="E0_0"/>
@@ -155,15 +126,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=""/>
             <protectingSwitches links=""/>
             <conflictLinks signals=""/>
-            <foes driveWays="J1.0 J2.0 J4.0 J3.0 J0.d0 J0.d1 J4.d2 J2.d3"/>
+            <foes driveWays="J1.0 J2.0 J4.0 J3.0 J0.d0 J0.d1 J1.1"/>
         </driveWay>
         <driveWay id="J0.d1" edges="E0 E1 E2 E3 E4">
             <forward lanes="E0_0"/>
             <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0 :J3_0_0 -E3_0 :J4_0_0 -E4_0"/>
             <flank lanes=""/>
             <protectingSwitches links=""/>
-            <conflictLinks signals=""/>
-            <foes driveWays="J4.0 J3.0 J0.d0 J0.d1 J4.d2 J2.d3"/>
+            <conflictLinks signals="J1_0 J2_0"/>
+            <foes driveWays="J2.0 J4.0 J3.0 J0.d0 J0.d1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
