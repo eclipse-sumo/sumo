@@ -69,6 +69,7 @@ int MSDriveWay::myDepartDriveWayIndex(0);
 int MSDriveWay::myNumWarnings(0);
 bool MSDriveWay::myWriteVehicles(false);
 std::map<const MSLink*, std::vector<MSDriveWay*> > MSDriveWay::mySwitchDriveWays;
+std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myReversalDriveWays;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDriveways;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myDepartureDrivewaysEnds;
 std::map<const MSEdge*, std::vector<MSDriveWay*> > MSDriveWay::myEndingDriveways;
@@ -127,6 +128,10 @@ MSDriveWay::~MSDriveWay() {
     }
     for (const MSLink* link : myForwardSwitches) {
         std::vector<MSDriveWay*>& dws = mySwitchDriveWays[link];
+        dws.erase(std::find(dws.begin(), dws.end(), this));
+    }
+    for (const MSEdge* edge : myReversals) {
+        std::vector<MSDriveWay*>& dws = myReversalDriveWays[edge];
         dws.erase(std::find(dws.begin(), dws.end(), this));
     }
     if (myLane != nullptr) {
@@ -688,6 +693,15 @@ MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
     return false;
 }
 
+bool
+MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other) {
+    for (const MSEdge* edge2 : other.myRoute) {
+        if (forward.count(edge2->getBidiEdge()) != 0) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
@@ -804,8 +818,9 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
             std::cout << "   toLane=" << toLane->getID() << " visited=" << formatVisitedMap(visited) << "\n";
         }
 #endif
-        if (toLane->getEdge().isNormal()) {
-            myRoute.push_back(&toLane->getEdge());
+        const MSEdge* current = &toLane->getEdge();
+        if (current->isNormal()) {
+            myRoute.push_back(current);
             if (next != end) {
                 next++;
             }
@@ -928,6 +943,11 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     // switch on driveway
                     mySwitchDriveWays[link].push_back(this);
                     myForwardSwitches.push_back(link);
+                }
+                if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
+                    // reversal on driveway
+                    myReversalDriveWays[current].push_back(this);
+                    myReversals.push_back(current);
                 }
                 break;
             }
@@ -1192,6 +1212,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->addBidiFoes(rs);
     // add driveways that start on the same signal / lane
     dw->addParallelFoes(link, *first);
+    // add driveways that reverse along this driveways route
+    dw->addReversalFoes();
     // make foes unique and symmetrical
     std::set<MSDriveWay*, ComparatorNumericalIdLess> uniqueFoes(dw->myFoes.begin(), dw->myFoes.end());
     std::set<MSLink*> uniqueCLink(dw->myConflictLinks.begin(), dw->myConflictLinks.end());
@@ -1202,7 +1224,9 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         const bool sameLast = foeLastEdge == lastEdge;
         if (sameLast && !movingBlock) {
             dw->myFoes.push_back(foe);
-            foe->myFoes.push_back(dw);
+            if (foe != dw) {
+                foe->myFoes.push_back(dw);
+            }
         } else {
             if (foe->bidiBlockedByEnd(*dw)) {
                 foe->myFoes.push_back(dw);
@@ -1245,6 +1269,11 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
             }
         }
     }
+#ifdef DEBUG_BUILD_DRIVEWAY
+    if (DEBUG_COND_DW) {
+        std::cout << dw->myID << " finalFoes " << toString(dw->myFoes) << "\n";
+    }
+#endif
     return dw;
 }
 
@@ -1408,6 +1437,42 @@ MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
                 std::cout << "  foe " << foe->getID() << " departs on first=" << first->getID() << "\n";
 #endif
                 myFoes.push_back(foe);
+            }
+        }
+    }
+}
+
+
+void
+MSDriveWay::addReversalFoes() {
+#ifdef DEBUG_ADD_FOES
+    std::cout << "driveway " << myID << " addReversalFoes\n";
+#endif
+    std::set<const MSEdge*> forward;
+    for (const MSLane* lane : myForward) {
+        if (lane->isNormal()) {
+            forward.insert(&lane->getEdge());
+        }
+    }
+    for (const MSEdge* e : myRoute) {
+        if (forward.count(e) != 0) {
+            // reversals in our own forward section must be ignored
+            continue;
+        }
+        auto it = myReversalDriveWays.find(e);
+        if (it != myReversalDriveWays.end()) {
+            for (MSDriveWay* foe : it->second) {
+                // check whether the foe reverses into our own forward section
+                // (it might reverse again or disappear via arrival)
+#ifdef DEBUG_ADD_FOES
+                std::cout << "  candidate foe " << foe->getID() << " reverses on edge=" << e->getID() << " forward=" << joinNamedToString(forward, " ") << " foeRoute=" << toString(foe->myRoute) << "\n";
+#endif
+                if (forwardRouteConflict(forward, *foe)) {
+#ifdef DEBUG_ADD_FOES
+                    std::cout << "  foe " << foe->getID() << " reverses on edge=" << e->getID() << "\n";
+#endif
+                    myFoes.push_back(foe);
+                }
             }
         }
     }

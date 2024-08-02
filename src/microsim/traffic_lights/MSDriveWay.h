@@ -70,6 +70,9 @@ public:
     /// @brief Wether there is a bidi conflict with the end of the given driveway
     bool bidiBlockedByEnd(const MSDriveWay& other) const;
 
+    /// @brief Wether the route of other passes into the forward section of this driveway
+    bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other); 
+
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
 
@@ -241,6 +244,9 @@ protected:
     /// @brief derive foe driveways that start at the same signal
     void addParallelFoes(const MSLink* link, const MSEdge* first);
 
+    /// @brief derive foe driveways that enter the bidi section by reversing
+    void addReversalFoes();
+
     /// @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
     void buildSubFoe(MSDriveWay* foe, bool movingBlock);
 
@@ -282,6 +288,9 @@ private:
     /// @brief track own occurences in mySwitchDriveWays for cleanup in destructor
     std::vector<const MSLink*> myForwardSwitches;
 
+    /// @brief track own occurences in myReversalDriveWays for cleanup in destructor
+    std::vector<const MSEdge*> myReversals;
+
     static int myGlobalDriveWayIndex;
     static int myDepartDriveWayIndex;
     static int myNumWarnings;
@@ -289,6 +298,9 @@ private:
 
     /// @brief all driveways passing the given switch (used to look up flank foes)
     static std::map<const MSLink*, std::vector<MSDriveWay*> > mySwitchDriveWays;
+
+    /// @brief all driveways reversing on the given switch (used to look up flank foes)
+    static std::map<const MSEdge*, std::vector<MSDriveWay*> > myReversalDriveWays;
 
     /// @brief all driveways that do not start at a rail signal (and are only used at departure)
     static std::map<const MSEdge*, std::vector<MSDriveWay*> > myDepartureDriveways;
