@@ -1,4 +1,2 @@
-Warning: No connection between edge 'Junction3-source' and edge 'Junction4-sink' found.
-Warning: No route for vehicle 't_3' found.
-Error: Vehicle 't_3' has no valid route.
-Quitting (on error).
+Warning: Container 'c_3' aborted waiting for ANY at edge 'EdgeCenter1'.
+Warning: Container 'c_0' aborted waiting for ANY at edge 'EdgeExternBot'.
