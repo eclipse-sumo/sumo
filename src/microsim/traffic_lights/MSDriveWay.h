@@ -238,8 +238,8 @@ protected:
     /// @brief add all driveWays that pass the given link as foes
     void addSwitchFoes(const MSLink* link);
 
-    /// @brief derive foe driveways based on myBidi
-    void addBidiFoes(const MSRailSignal* ownSignal);
+    /// @brief derive foe driveways based on myBidi or myBidiExtended
+    void addBidiFoes(const MSRailSignal* ownSignal, bool extended);
 
     /// @brief derive foe driveways that start at the same signal
     void addParallelFoes(const MSLink* link, const MSEdge* first);

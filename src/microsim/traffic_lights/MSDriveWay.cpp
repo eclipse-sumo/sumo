@@ -635,6 +635,14 @@ MSDriveWay::flankConflict(const MSDriveWay& other) const {
                 }
             }
         }
+        for (const MSLane* lane2 : other.myBidiExtended) {
+            if (lane == lane2) {
+                if (bidiBlockedBy(other)) {
+                    // it's only a deadlock if both trains block symmetrically
+                    return true;
+                }
+            }
+        }
     }
     return false;
 }
@@ -1193,6 +1201,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                   << "\n    route=" << toString(dw->myRoute)
                   << "\n    forward=" << toString(dw->myForward)
                   << "\n    bidi=" << toString(dw->myBidi)
+                  << "\n    bidiEx=" << toString(dw->myBidiExtended)
                   << "\n    flank=" << toString(dw->myFlank)
                   << "\n    flankSwitch=" << MSRailSignal::describeLinks(std::vector<MSLink*>(flankSwitches.begin(), flankSwitches.end()))
                   << "\n    protSwitch=" << MSRailSignal::describeLinks(dw->myProtectingSwitches)
@@ -1209,7 +1218,8 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
         MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw->myRoute.front(), dw->myNumericalID, dw->myProtectedBidi);
     }
 
-    dw->addBidiFoes(rs);
+    dw->addBidiFoes(rs, false);
+    dw->addBidiFoes(rs, true);
     // add driveways that start on the same signal / lane
     dw->addParallelFoes(link, *first);
     // add driveways that reverse along this driveways route
@@ -1356,6 +1366,9 @@ MSDriveWay::addFoes(const MSLink* link) {
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
         for (MSDriveWay* foe : rs->retrieveDriveWays(link->getTLIndex())) {
+#ifdef DEBUG_ADD_FOES
+            std::cout << "  cand foe=" << foe->myID << " fc1=" << flankConflict(*foe) << " fc2=" << foe->flankConflict(*this) << " cc1=" << crossingConflict(*foe) << " cc2=" <<  foe->crossingConflict(*this) << "\n";
+#endif
             if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
                 std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
@@ -1389,15 +1402,16 @@ MSDriveWay::addSwitchFoes(const MSLink* link) {
 
 
 void
-MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal) {
+MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " (" << myNumericalID << ") addBidiFoes\n";
+    std::cout << "driveway " << myID << " (" << myNumericalID << ") addBidiFoes extended=" << extended << "\n";
 #endif
-    for (const MSLane* bidi : myBidi) {
+    const std::vector<const MSLane*>& bidiLanes = extended ? myBidiExtended : myBidi;
+    for (const MSLane* bidi : bidiLanes) {
         for (auto ili : bidi->getIncomingLanes()) {
             const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(ili.viaLink->getTLLogic());
             if (rs != nullptr && rs != ownSignal &&
-                    std::find(myBidi.begin(), myBidi.end(), ili.lane) != myBidi.end()) {
+                    std::find(bidiLanes.begin(), bidiLanes.end(), ili.lane) != bidiLanes.end()) {
                 addFoes(ili.viaLink);
             }
         }
@@ -1465,7 +1479,7 @@ MSDriveWay::addReversalFoes() {
                 // check whether the foe reverses into our own forward section
                 // (it might reverse again or disappear via arrival)
 #ifdef DEBUG_ADD_FOES
-                std::cout << "  candidate foe " << foe->getID() << " reverses on edge=" << e->getID() << " forward=" << joinNamedToString(forward, " ") << " foeRoute=" << toString(foe->myRoute) << "\n";
+                //std::cout << "  candidate foe " << foe->getID() << " reverses on edge=" << e->getID() << " forward=" << joinNamedToString(forward, " ") << " foeRoute=" << toString(foe->myRoute) << "\n";
 #endif
                 if (forwardRouteConflict(forward, *foe)) {
 #ifdef DEBUG_ADD_FOES
