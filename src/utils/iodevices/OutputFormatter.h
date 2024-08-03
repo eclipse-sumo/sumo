@@ -68,6 +68,15 @@ public:
                                 const std::map<SumoXMLAttr, std::string>& attrs,
                                 bool includeConfig = true) = 0;
 
+    /** @brief Writes an XML header 
+     * 
+     * 
+     * @param[in] into The output stream to use
+     * @param[in] rootElement The root element to use
+     * @return Whether the header was written
+     */
+    virtual bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) = 0;
+
 
     /** @brief Opens an XML tag
      *

@@ -16,7 +16,7 @@
 /// @author  Michael Behrisch
 /// @date    2012
 ///
-// Output formatter for plain XML output
+// Output formatter for Parquet output
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -426,7 +426,7 @@ public:
      *
      * @param Return success
      */
-    inline bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) { return true; };
+    inline bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) override { return true; };
 
     
     template <typename T>

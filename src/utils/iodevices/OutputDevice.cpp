@@ -107,8 +107,12 @@ OutputDevice::getDevice(const std::string& name, bool usePrefix) {
         // check the file extension
         const auto file_ext = FileHelpers::getExtension(name);
         const int len = (int)name.length();
-         if (file_ext == ".parquet" || file_ext == ".prq") {
-           dev = new OutputDevice_Parquet(name2);
+        if (file_ext == ".parquet" || file_ext == ".prq") {
+#ifdef HAVE_PARQUET
+            dev = new OutputDevice_Parquet(name2);
+#else
+            throw IOError(TL("Parquet output is not supported in this build."));
+#endif
         }
         else {
             dev = new OutputDevice_File(name2, len > 3 && FileHelpers::getExtension(name) == ".gz");
@@ -255,13 +259,13 @@ OutputDevice::close() {
 
 void
 OutputDevice::setPrecision(int precision) {
-    getOStream() << std::setprecision(precision);
+    getOStream().setPrecision(precision);
 }
 
 
 int
 OutputDevice::precision() {
-    return (int)getOStream().precision();
+    return getOStream().precision();
 }
 
 

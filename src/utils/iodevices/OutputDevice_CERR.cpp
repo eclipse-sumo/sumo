@@ -47,7 +47,7 @@ OutputDevice_CERR::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_CERR::OutputDevice_CERR() : OutputDevice(0, "CERR") {
-    myStreamDevice = new FileDevice(&std::cerr);
+    myStreamDevice = new OStreamDevice(&std::cerr);
 }
 
 
@@ -56,15 +56,10 @@ OutputDevice_CERR::~OutputDevice_CERR() {
 }
 
 
-StreamDevice&
-OutputDevice_CERR::getOStream() {
-    return *myStreamDevice;
-}
-
-
 void
 OutputDevice_CERR::postWriteHook() {
     std::cerr.flush();
+    getOStream().flush();
 }
 
 

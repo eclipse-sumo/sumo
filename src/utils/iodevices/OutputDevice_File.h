@@ -56,18 +56,6 @@ public:
         return myAmNull;
     }
 
-
-protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return The used stream
-     */
-    StreamDevice& getOStream() override;
-    /// @}
-
-
 private:
     /// am I redirecting to /dev/null
     bool myAmNull = false;

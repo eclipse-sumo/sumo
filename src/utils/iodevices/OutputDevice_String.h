@@ -50,7 +50,4 @@ public:
      * @return The content as string
      */
     std::string getString() const;
-
-    StreamDevice& getOStream();
-
 };

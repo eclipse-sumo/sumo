@@ -11,12 +11,14 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    OutputDevice_File.h
+/// @file    OutputDevice_Parquet.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
-/// @date    2004
+/// @author  Jakob Erdmann
+/// @author  Max Schrader
+/// @date    2024
 ///
-// An output device that encapsulates an ofstream
+// An output device that encapsulates an Parquet file
 /****************************************************************************/
 #pragma once
 
@@ -28,11 +30,11 @@
 #include "OutputDevice.h"
 #include "ParquetFormatter.h"
 
-#include "arrow/io/file.h"
-#include "arrow/util/config.h"
-#include "parquet/exception.h"
-#include "parquet/stream_reader.h"
-#include "parquet/stream_writer.h"
+#include <arrow/io/file.h>
+#include <arrow/util/config.h>
+#include <parquet/exception.h>
+#include <parquet/stream_reader.h>
+#include <parquet/stream_writer.h>
 
 
 
@@ -52,30 +54,13 @@ public:
      */
     OutputDevice_Parquet(const std::string& fullName);
 
-
     /// @brief Destructor
     ~OutputDevice_Parquet();
-
-    /** @brief returns the information whether the device will discard all output
-     * @return Whether the device redirects to /dev/null
-     */
-    bool isNull() override {
-        return myAmNull;
-    }
 
     /** @brief implements the close tag logic. This is where the file is first opened and the   schema is created.
      * This exploits the fact that for *most* SUMO files, all the fields are present at the first close tag event.
      */
     bool closeTag(const std::string& comment) override;
-
-    template <typename T>
-    OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        this->getFormatter<ParquetFormatter>()->writeAttr(this->getOStream(), attr, val);
-        // check if the attribute is the field table
-       
-        return *this;
-    }
-
 
     /** @brief writes a line feed if applicable. overriden from the base class to do nothing
      */
@@ -95,6 +80,9 @@ protected:
         return OutputWriterType::PARQUET;
     }
 
+    /// do I allow optional attributes
+    bool allowOptionalAttributes = false;
+
 private:
     /// The wrapped ofstream
     std::shared_ptr<arrow::io::FileOutputStream> myFile = nullptr;
@@ -106,9 +94,7 @@ private:
     /// am I redirecting to /dev/null
     bool myAmNull = false;
 
-    /// do I allow optional attributes
-    bool allowOptionalAttributes = false;
-
+    /// my full name
     std::string myFullName;
 
     parquet::schema::NodeVector myNodeVector;

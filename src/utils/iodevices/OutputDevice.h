@@ -209,17 +209,7 @@ public:
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        switch (this->getType())
-        {
-        case OutputWriterType::XML:
-            // cast the writer to the correct type
-            return getFormatter<PlainXMLFormatter>()->writeHeader(getOStream(), rootElement);
-        case OutputWriterType::PARQUET:
-            // cast the writer to the correct type
-            return getFormatter<ParquetFormatter>()->writeHeader(getOStream(), rootElement);
-        default:
-            break;
-        }
+        return getFormatter()->writeHeader(getOStream(), rootElement);
     }
 
 
@@ -321,8 +311,12 @@ public:
             getFormatter<PlainXMLFormatter>()->writeAttr(getOStream(), attr, val);
             break;
         case OutputWriterType::PARQUET:
+#ifdef HAVE_PARQUET
             // cast the writer to the correct type
             getFormatter<ParquetFormatter>()->writeAttr(getOStream(), attr, val);
+#else
+            throw IOError("Parquet output is not supported in this build. Please recompile with the correct options.");
+#endif
             break;
         default:
             throw IOError("Unknown output writer type");
@@ -398,7 +392,7 @@ public:
     /// @todo should move to the formatter
     /// @brief Returns the type of the output device
     virtual void setOSFlags(std::ios_base::fmtflags flags) {
-        getOStream() << std::setiosflags(flags);
+        getOStream().setOSFlags(flags);
     }
 
 protected:

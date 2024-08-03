@@ -41,15 +41,6 @@ public:
 
 
 protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return cerr
-     */
-    StreamDevice& getOStream() override;
-
-
     /** @brief Called after every write access.
      *
      * Calls flush on stderr.
@@ -67,7 +58,7 @@ private:
 
     /// @brief Destructor
     ~OutputDevice_CERR();
-
+    
 
 private:
     /// @brief my singular instance
