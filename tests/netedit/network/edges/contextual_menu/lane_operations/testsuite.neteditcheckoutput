@@ -1,0 +1,13 @@
+duplicate_lane
+
+set_custom_lane_shape
+
+reset_custom_shape
+
+reset_opposite_lane
+
+add_restricted_lane
+
+remove_restricted_lane
+
+transform_restricted_lane

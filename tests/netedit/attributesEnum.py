@@ -230,23 +230,6 @@ class edge:
         copy = 31
         clear = 32
 
-    class contextualMenu:
-        splitEdge = 1
-        splitEdgeBothDirection = 2
-        setGeometryPoint = 2
-        restoreGeometryPoint = 3
-        reverseEdge = 4
-        reverseElementDirection = 5
-        reverseElementDirectionDisconnected = 6
-        resetLenght = 7
-        straighteen = 8
-        smooth = 9
-        straighteenElevation = 10
-        smoothElevation = 11
-
-    contextualMenuEdgeA = 10
-    contextualMenuEdgeB = 11
-
 # lane
 
 

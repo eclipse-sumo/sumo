@@ -1,23 +1,5 @@
-split_edge
+edge_operations
 
-split_edge_both
+lane_operations
 
-set_geometry_point
-
-restore_geometry_point
-
-reverse_edge
-
-reverse_direction
-
-straigthen_edge
-
-smooth_edge
-
-straighten_elevation_edge
-
-smooth_elevation_edge
-
-reset_lenght
-
-reverse_direction_disconnected
+template_operations
