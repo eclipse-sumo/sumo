@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-02 15:55+0000\n"
+"PO-Revision-Date: 2024-08-05 13:37+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8442,23 +8442,23 @@ msgstr ""
 #: src/netimport/NIImporter_SUMO.cpp:148
 #, c-format
 msgid "Edge's '%' from-node and to-node '%' are identical."
-msgstr ""
+msgstr "Il nodo iniziale e quello terminale dell'arco '%' sono identici."
 
 #: src/netimport/NIImporter_SUMO.cpp:167
 msgid "Could not insert edge '%'."
-msgstr ""
+msgstr "Non ho potuto insererire l'arco '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:193 src/netimport/NIImporter_SUMO.cpp:800
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:318
 #, c-format
 msgid "Unknown edge '%' given in connection."
-msgstr ""
+msgstr "Arco sconosciuto '%' dato nel collegamento."
 
 #: src/netimport/NIImporter_SUMO.cpp:232
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:272
 #, c-format
 msgid "The traffic light '%' is not known."
-msgstr ""
+msgstr "Il semaforo '%' è sconosciuto."
 
 #: src/netimport/NIImporter_SUMO.cpp:290 src/netimport/NIImporter_SUMO.cpp:292
 #: src/netimport/NIImporter_SUMO.cpp:294 src/netimport/NIImporter_SUMO.cpp:296
@@ -8469,25 +8469,25 @@ msgstr ""
 #: src/netimport/NIImporter_SUMO.cpp:353
 #, c-format
 msgid "Deprecated vehicle class(es) '%' in input network."
-msgstr ""
+msgstr "Classi di veicoli obsolete '%' nella rete d'ingresso."
 
 #: src/netimport/NIImporter_SUMO.cpp:412 src/netload/NLHandler.cpp:1692
 #, c-format
 msgid "Unknown edge '%' in roundabout"
-msgstr ""
+msgstr "Arco sconosciuto '%' in rotatoria"
 
 #: src/netimport/NIImporter_SUMO.cpp:531
 #, c-format
 msgid "Edge '%' occurred at least twice in the input."
-msgstr ""
+msgstr "L'arco '%' occorre almeno due volte nell'ingresso."
 
 #: src/netimport/NIImporter_SUMO.cpp:553
 msgid "Unmatched closing tag for tl-logic."
-msgstr ""
+msgstr "Tag di chiusura senza tag di apertura nella logica di semaforo."
 
 #: src/netimport/NIImporter_SUMO.cpp:556
 msgid "Could not add program '%' for traffic light '%'"
-msgstr ""
+msgstr "Non ho potuto aggiungere il programma '%' del semaforo '%'"
 
 #: src/netimport/NIImporter_SUMO.cpp:626
 msgid "Unknown spreadType '%' for edge '%'."
@@ -8496,11 +8496,11 @@ msgstr ""
 #: src/netimport/NIImporter_SUMO.cpp:639
 #, c-format
 msgid "Found lane '%' not within edge element."
-msgstr ""
+msgstr "La corsia incontrata '%' si trova fuori di un elemento arco."
 
 #: src/netimport/NIImporter_SUMO.cpp:644
 msgid "Renaming lane '%' to '%'."
-msgstr ""
+msgstr "Rinominazione della corsia '%' a '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:712
 msgid ""
@@ -8517,28 +8517,28 @@ msgstr ""
 #: src/netimport/NIImporter_SUMO.cpp:755
 #, c-format
 msgid "Junction '%' occurred at least twice in the input."
-msgstr ""
+msgstr "L'incrocio '%' occorre almeno due volte nell'ingresso."
 
 #: src/netimport/NIImporter_SUMO.cpp:852
 msgid "Invalid lane index '%' for connection from '%'."
-msgstr ""
+msgstr "Indice di corsia invalido '%' del collegamento da '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:942
 msgid "Definition of tl-logic '%' was not finished."
-msgstr ""
+msgstr "La definizione della logica di semaforo '%' non è stata conclusa."
 
 #: src/netimport/NIImporter_SUMO.cpp:954
 #: src/netimport/NIXMLTrafficLightsHandler.cpp:127
 msgid "Unknown traffic light type '%' for tlLogic '%'."
-msgstr ""
+msgstr "Tipo di semaforo sconosciuto '%' per la logica di semaforo '%'."
 
 #: src/netimport/NIImporter_SUMO.cpp:968
 msgid "found phase without tl-logic"
-msgstr ""
+msgstr "trovata fase senza logica di semaforo"
 
 #: src/netimport/NIImporter_SUMO.cpp:976
 msgid "Phase duration for tl-logic '%/%' must be positive."
-msgstr ""
+msgstr "La durata di fase nella logica di semaforo '%/%' deve essere positiva."
 
 #: src/netimport/NIImporter_SUMO.cpp:1032
 msgid "Missing connection divider in prohibition attribute '%'"
@@ -8560,23 +8560,23 @@ msgstr ""
 
 #: src/netimport/NIImporter_VISUM.cpp:249
 msgid "A value in % should be numeric but is not (id='%')."
-msgstr ""
+msgstr "Un valore in % dovrebbe essere numerico ma non lo è (ID='%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:251
 msgid "One of the needed values ('%') is missing in %."
-msgstr ""
+msgstr "Manca uno dei valori necessari ('%') in %."
 
 #: src/netimport/NIImporter_VISUM.cpp:326
 msgid "Duplicate node occurred ('%')."
-msgstr ""
+msgstr "Si è prodotto un nodo raddoppiato ('%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:344
 msgid "Unable to project coordinates for district %."
-msgstr ""
+msgstr "Impossibile proiezione delle coordinate del distritto %."
 
 #: src/netimport/NIImporter_VISUM.cpp:350
 msgid "Duplicate district occurred ('%')."
-msgstr ""
+msgstr "Si è prodotto un distretto raddoppiato ('%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
@@ -8585,7 +8585,7 @@ msgstr ""
 #: src/netimport/NIImporter_VISUM.cpp:458
 #: src/netimport/NIImporter_VISUM.cpp:475
 msgid "Duplicate edge occurred ('%')."
-msgstr ""
+msgstr "Si è prodotto un arco raddoppiato ('%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:580
 msgid ""
@@ -8620,11 +8620,11 @@ msgstr ""
 
 #: src/netimport/NIImporter_VISUM.cpp:757
 msgid "A lane number for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un numero di corsie dell'arco '%' non è numerico (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:762
 msgid "A lane number for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Un numero di corsie dell'arco '%' non è positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
