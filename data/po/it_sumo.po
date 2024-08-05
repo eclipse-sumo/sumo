@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-05 13:37+0000\n"
+"PO-Revision-Date: 2024-08-05 13:58+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -8580,7 +8580,7 @@ msgstr "Si è prodotto un distretto raddoppiato ('%')."
 
 #: src/netimport/NIImporter_VISUM.cpp:368
 msgid "Unable to project coordinates for point %."
-msgstr ""
+msgstr "La proiezione delle coordinate del punto % non si può eseguire."
 
 #: src/netimport/NIImporter_VISUM.cpp:458
 #: src/netimport/NIImporter_VISUM.cpp:475
@@ -8628,11 +8628,11 @@ msgstr "Un numero di corsie dell'arco '%' non è positivo (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:781
 msgid "A lane length for edge '%' is not numeric (%)."
-msgstr ""
+msgstr "Un lunghezza di corsia dell'arco non è numerica (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:785
 msgid "A lane length for edge '%' is not positive (%)."
-msgstr ""
+msgstr "Una lunghezza di corsia dell'arco '%' non è positiva (%)."
 
 #: src/netimport/NIImporter_VISUM.cpp:846
 msgid "Could not find split position for edge '%'."
