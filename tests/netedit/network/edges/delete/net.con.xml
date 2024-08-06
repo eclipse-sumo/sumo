@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-01-26 15:53:04 by Eclipse SUMO netconvert Version v1_15_0+1990-019f60057a9
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+<!-- generated on 2024-08-06 08:31:55 by Eclipse SUMO netedit Version v1_20_0+1707-92ff718bf41
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:/SUMO/tests/netedit\netelements\edges\delete/net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\network\edges\delete\net.net.xml"/>
     </input>
-
-    <output>
-        <plain-output-prefix value="D:/SUMO/tests/netedit\netelements\edges\delete/net"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -29,46 +25,27 @@
         <walkingareas value="0"/>
     </pedestrian>
 
-</configuration>
+</neteditConfiguration>
 -->
 
-<connections version="1.16" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
-    <connection from="1" to="5" fromLane="1" toLane="1"/>
+<connections version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="-E0" to="E1" fromLane="0" toLane="0"/>
+    <connection from="-E0" to="E2" fromLane="0" toLane="0"/>
 
-    <connection from="2" to="6" fromLane="1" toLane="1"/>
+    <connection from="-E1" to="E2" fromLane="0" toLane="0"/>
+    <connection from="-E1" to="E0" fromLane="0" toLane="0"/>
 
-    <connection from="3" to="7" fromLane="3" toLane="3"/>
+    <connection from="-E2" to="E0" fromLane="0" toLane="0"/>
+    <connection from="-E2" to="E1" fromLane="0" toLane="0"/>
 
-    <connection from="4" to="8" fromLane="3" toLane="3"/>
+    <connection from="E0"/>
 
-    <connection from="5" to="4" fromLane="0" toLane="1"/>
-    <connection from="5" to="4" fromLane="0" toLane="2"/>
-    <connection from="5" to="2" fromLane="0" toLane="0"/>
-    <connection from="5" to="2" fromLane="1" toLane="1"/>
-    <connection from="5" to="3" fromLane="1" toLane="3"/>
+    <connection from="E1"/>
 
-    <connection from="6" to="3" fromLane="0" toLane="1"/>
-    <connection from="6" to="3" fromLane="0" toLane="2"/>
-    <connection from="6" to="1" fromLane="0" toLane="0"/>
-    <connection from="6" to="1" fromLane="1" toLane="1"/>
-    <connection from="6" to="4" fromLane="1" toLane="3"/>
+    <connection from="E2"/>
 
-    <connection from="7" to="1" fromLane="1" toLane="0"/>
-    <connection from="7" to="4" fromLane="1" toLane="1"/>
-    <connection from="7" to="2" fromLane="1" toLane="0"/>
-    <connection from="7" to="1" fromLane="2" toLane="1"/>
-    <connection from="7" to="4" fromLane="2" toLane="2"/>
-    <connection from="7" to="4" fromLane="3" toLane="3"/>
-    <connection from="7" to="2" fromLane="3" toLane="1"/>
+    <connection from="EdgeExternBot" to="EdgeExternTop" fromLane="0" toLane="0"/>
 
-    <connection from="8" to="2" fromLane="1" toLane="0"/>
-    <connection from="8" to="3" fromLane="1" toLane="1"/>
-    <connection from="8" to="1" fromLane="1" toLane="0"/>
-    <connection from="8" to="2" fromLane="2" toLane="1"/>
-    <connection from="8" to="3" fromLane="2" toLane="2"/>
-    <connection from="8" to="3" fromLane="3" toLane="3"/>
-    <connection from="8" to="1" fromLane="3" toLane="1"/>
+    <connection from="EdgeExternTop" to="EdgeExternBot" fromLane="0" toLane="0"/>
 
-    <crossing node="Center" edges="4 8" priority="1" width="3.00"/>
-    <crossing node="Center" edges="3 7" priority="0" width="4.00"/>
 </connections>

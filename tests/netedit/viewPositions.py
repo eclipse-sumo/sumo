@@ -151,6 +151,10 @@ class network:
             x = 500
             y = 429
 
+        class centerB:
+            x = 500
+            y = 30
+
         class leftTop:
             x = 400
             y = 220

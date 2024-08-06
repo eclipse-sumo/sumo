@@ -57,14 +57,14 @@ netedit.changeDefaultBoolValue(netedit.attrs.edge.template.create)
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionA)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.positionB)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.centerA)
 
 # clear template
 netedit.changeDefaultBoolValue(netedit.attrs.edge.template.clear)

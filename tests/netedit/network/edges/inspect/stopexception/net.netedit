@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 11:10:49 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2024-08-06 08:51:42 by Eclipse SUMO netedit Version v1_20_0+1528-fbf81e3bf5b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\net.net.xml"/>
     </output>
 
     <processing>
@@ -48,16 +48,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.2_from_29Jul100946.12693/netedit.gui/network/edges/inspect/stopexception/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.06Aug084948.16280\netedit.gui\network\edges\inspect\stopexception\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -94,7 +94,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </edge>
     <edge id="E0" from="J0" to="J1" priority="-1">
         <stopOffset exceptions="authority army vip passenger hov taxi bus coach bicycle tram" value="4.00"/>
-        <lane id="E0_0" index="0" speed="13.89" length="60.00" shape="-30.00,-1.60 30.00,-1.60"/>
+        <lane id="E0_0" index="0" disallow="pedestrian" speed="13.89" length="60.00" shape="-30.00,-1.60 30.00,-1.60"/>
     </edge>
     <edge id="E1" from="J2" to="J3" priority="-1">
         <lane id="E1_0" index="0" speed="13.89" length="60.00" shape="-30.00,18.40 30.00,18.40"/>

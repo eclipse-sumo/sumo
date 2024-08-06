@@ -34,14 +34,20 @@ netedit.rebuildNetwork()
 # go to delete mode
 netedit.deleteMode()
 
+# delete edge
+netedit.leftClick(referencePosition, netedit.positions.network.edge.rightBot)
+
+# press space
+netedit.typeSpace()
+
 # enable 'Automatically delete additionals'
 netedit.protectElements(referencePosition)
 
 # delete edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.edge.leftBot)
 
 # delete node
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.top)
 
 # rebuild network
 netedit.rebuildNetwork()

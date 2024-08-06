@@ -203,7 +203,7 @@ class edge:
         stopOffset = 21
         stopOffsetExceptionButton = 22
         stopOffsetException = 23
-        parameters = 22
+        parameters = 24
 
     class inspectSelection:
         speed = 1
@@ -223,7 +223,7 @@ class edge:
         stopOffset = 16
         stopOffsetExceptionButton = 17
         stopOffsetException = 18
-        parameters = 17
+        parameters = 21
 
     class template:
         create = 30

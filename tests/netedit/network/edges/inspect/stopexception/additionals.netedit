@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-29 11:10:49 by Eclipse SUMO netedit Version v1_20_0+1432-eb803cea24d
+<!-- generated on 2024-08-06 08:51:42 by Eclipse SUMO netedit Version v1_20_0+1528-fbf81e3bf5b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,11 +15,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- StoppingPlaces -->
-    <busStop id="bs_0" lane="E0_0" startPos="40.00" endPos="50.00"/>
-    <busStop id="bs_1" lane="E1_0" startPos="25.00" endPos="35.00"/>
-    <busStop id="bs_2" lane="-E2_0" startPos="25.00" endPos="35.00"/>
-    <chargingStation id="cs_0" lane="-E1_0" startPos="25.00" endPos="35.00"/>
-    <chargingStation id="cs_1" lane="E2_0" startPos="25.00" endPos="35.00"/>
+    <busStop id="bs_0" lane="E0_0" startPos="40.00" endPos="50.00" friendlyPos="true"/>
+    <busStop id="bs_1" lane="E1_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <busStop id="bs_2" lane="-E2_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <chargingStation id="cs_0" lane="-E1_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
+    <chargingStation id="cs_1" lane="E2_0" startPos="25.00" endPos="35.00" friendlyPos="true"/>
     <!-- Detectors -->
-    <inductionLoop id="e1_0" lane="E0_0" pos="15.00" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_0" lane="E0_0" pos="15.00" period="300.00" file="e1_0.xml" friendlyPos="1"/>
 </additional>

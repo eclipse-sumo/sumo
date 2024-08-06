@@ -66,5 +66,8 @@ netedit.redo(referencePosition, 3)
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
 
+# fix routes
+netedit.typeSpace()
+
 # quit netedit
 netedit.quit(neteditProcess)
