@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-06 09:42+0000\n"
+"PO-Revision-Date: 2024-08-06 13:55+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6140,27 +6140,27 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:676
 msgid "Remove edges where type is in STR[]"
-msgstr ""
+msgstr "Rimuovi archi che hanno un tipo contenuto in STR[]"
 
 #: src/netbuild/NBFrame.cpp:680
 msgid "Removes isolated edges"
-msgstr ""
+msgstr "Rimuove archi isolati"
 
 #: src/netbuild/NBFrame.cpp:687
 msgid "All nodes will be unregulated"
-msgstr ""
+msgstr "Tutti i nodi saranno privi di regole di precedenza"
 
 #: src/netbuild/NBFrame.cpp:692
 msgid "Do not regulate nodes in STR[]"
-msgstr ""
+msgstr "Non regolare nodi in STR[]"
 
 #: src/netbuild/NBFrame.cpp:696
 msgid "Do not regulate district nodes"
-msgstr ""
+msgstr "Non regolare nodi di distretti"
 
 #: src/netbuild/NBFrame.cpp:702
 msgid "Enable ramp-guessing"
-msgstr ""
+msgstr "Attiva euristica di rampe"
 
 #: src/netbuild/NBFrame.cpp:705
 msgid ""
