@@ -421,7 +421,7 @@ endEdge according to the estimated travel times in the network at the
 time of departure. For details of this mechanism see
 [Demand/Automatic_Routing](../Demand/Automatic_Routing.md).
 
-### coordinate transformations
+### Coordinate transformations
 
 ```python
 x, y = traci.vehicle.getPosition(vehID)
