@@ -2,3 +2,5 @@ Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Rerouter 'rr_0' needs at least one edge
+Warning: Rerouter 'rr_1' needs at least one edge

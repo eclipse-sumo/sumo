@@ -1,6 +1,20 @@
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
+Warning: Invalid pedestrian topology: crossing ':J0_c3' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c3' across [E0] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c1' across [E1] has no target.
+Warning: Invalid pedestrian topology: crossing ':J0_c1' across [E1] has no target.
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':J0_c2' across [E9] has no target.
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
+Warning: Discarding invalid crossing ':J0_c1' at junction 'J0' with edges [E1] (no walkingarea found).
+Warning: Discarding invalid crossing ':J0_c0' at junction 'J0' with edges [E12] (no walkingarea found).
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
 Warning: Lane 'E8_0' is not connected from any incoming edge at junction 'J7'.
 Warning: Lane 'E4_0' is not connected from any incoming edge at junction 'J4'.
+Warning: Rerouter 'rr_0' needs at least one edge
+Warning: Rerouter 'rr_1' needs at least one edge
+Warning: 7 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 9 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
 Warning: 6 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.
