@@ -538,25 +538,83 @@ def redo(referencePosition, number, offsetX=0, offsetY=0):
         time.sleep(DELAY_UNDOREDO)
 
 
-def setZoom(positionX, positionY, zoomLevel):
+def loadViewPort():
     """
-    @brief set Zoom
+    @brief load viewport
     """
     # open edit viewport dialog
     typeTwoKeys('ctrl', 'i')
-    # by default is in "load" button, then go to position X
-    for _ in range(3):
+    # go to load
+    typeSpace()
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("loadViewport.xml")
+    typeEnter()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # open edit viewport dialog
+    typeTwoKeys('ctrl', 'i')
+    # press OK Button using shortcut
+    typeTwoKeys('alt', 'o')
+
+
+def saveViewPort():
+    """
+    @brief save viewport
+    """
+    # open edit viewport dialog
+    typeTwoKeys('ctrl', 'i')
+    # go to save
+    typeTab()
+    typeSpace()
+    # jump to filename TextField
+    typeTwoKeys('alt', 'f')
+    pasteIntoTextField(_TEXTTEST_SANDBOX)
+    typeEnter()
+    pasteIntoTextField("viewport.xml")
+    typeEnter()
+    # wait
+    time.sleep(DELAY_SELECT)
+    # open edit viewport dialog
+    typeTwoKeys('ctrl', 'i')
+    # press OK Button using shortcut
+    typeTwoKeys('alt', 'o')
+
+
+def setViewport(zoom, x, y, z, r):
+    """
+    @brief edit viewport
+    """
+    # open edit viewport dialog
+    typeTwoKeys('ctrl', 'i')
+    # go to zoom
+    for _ in range(2):
         typeTab()
-    # Paste position X
-    pasteIntoTextField(positionX)
+    # Paste X
+    if (len(zoom) > 0):
+        pasteIntoTextField(zoom)
     # go to Y
     typeTab()
-    # Paste Position Y
-    pasteIntoTextField(positionY)
+    # Paste X
+    if (len(x) > 0):
+        pasteIntoTextField(x)
+    # go to Y
+    typeTab()
+    # Paste Y
+    if (len(y) > 0):
+        pasteIntoTextField(y)
     # go to Z
     typeTab()
-    # Paste Zoom Z
-    pasteIntoTextField(zoomLevel)
+    # Paste Z
+    if (len(z) > 0):
+        pasteIntoTextField(z)
+    # go to rotation
+    typeTab()
+    # Paste rotation
+    if (len(r) > 0):
+        pasteIntoTextField(r)
     # press OK Button using shortcut
     typeTwoKeys('alt', 'o')
 

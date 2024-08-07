@@ -44,7 +44,7 @@ copy_test_path:fileA.txt
 copy_test_path:fileB.txt
 copy_test_path_merge:selection.txt
 copy_test_path_merge:myOwnFilenameRerouter.txt
-copy_test_path:errorScreenshot.png
+copy_test_path:loadViewport.xml
 
 [collate_file]
 
@@ -82,6 +82,7 @@ cfg:config.cfg
 log:log.txt
 selection:selection.txt
 errorScreenshot:errorScreenshot.png
+viewport:viewport.xml
 
 [run_dependent_text]
 net:<!--{[->]}-->

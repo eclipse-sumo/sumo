@@ -155,6 +155,26 @@ class network:
             x = 500
             y = 30
 
+        class center:
+            x = 500
+            y = 250
+
+        class top:
+            x = 497
+            y = 150
+
+        class bot:
+            x = 497
+            y = 324
+
+        class left:
+            x = 409
+            y = 237
+
+        class right:
+            x = 587
+            y = 237
+
         class leftTop:
             x = 400
             y = 220
@@ -162,10 +182,6 @@ class network:
         class leftBot:
             x = 400
             y = 250
-
-        class rightTop:
-            x = 600
-            y = 220
 
         class rightBot:
             x = 600
@@ -176,7 +192,7 @@ class network:
             y = 130
 
         class topRight:
-            x = 510
+            x = 520
             y = 130
 
         class botLeft:
@@ -184,7 +200,7 @@ class network:
             y = 320
 
         class botRight:
-            x = 510
+            x = 520
             y = 320
 
     class crossing:
@@ -406,6 +422,12 @@ class elements:
         down = -100
         left = -100
         right = 100
+
+    class movementRadiusC:
+        up = 200
+        down = 0
+        left = 0
+        right = 190
 
     # additional (for inspect, delete, etc.)
     class additionals:

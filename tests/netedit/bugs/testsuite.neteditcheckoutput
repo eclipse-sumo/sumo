@@ -1,14 +1,6 @@
-# folder with bugs related to additionals
 additionals
 
-# folder with bugs related to processing
-grid
-
-# folder with bugs related to processing
 processing
-
-# folder with bugs related to viewport
-viewport
 
 # in revision [24081] was solved a bug, that provoke a crash
 # when the position of a node was changed using inspector node,

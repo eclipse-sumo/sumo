@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # zoom in central node
-netedit.setZoom("50", "50", "50")
+netedit.setViewport("50", "50", "50")
 
 # set delete mode
 netedit.deleteMode()
