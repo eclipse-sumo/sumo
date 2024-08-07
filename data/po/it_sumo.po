@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-06 13:55+0000\n"
+"PO-Revision-Date: 2024-08-07 12:12+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1972,20 +1972,29 @@ msgid ""
 "Sets the fraction of minGap that must be maintained to avoid collision "
 "detection. If a negative value is given, the carFollowModel parameter is used"
 msgstr ""
+"Imposta la frazione di minGap da mantenere per evitare di rilevare una "
+"collisione. Si usa il parametro del modello di guida se viene impostato a un "
+"valore negativo"
 
 #: src/microsim/MSFrame.cpp:403
 msgid ""
 "After a vehicle arrives, keep it in memory for the given TIME (for TraCI "
 "access)"
 msgstr ""
+"Mantieni un veicolo nella simulazione dopo l'arrivo per TIME (per poter "
+"accederci tramite TraCI)"
 
 #: src/microsim/MSFrame.cpp:406
 msgid "Delay vehicle insertion to stay within the given maximum number"
 msgstr ""
+"Ritarda l'inserzione di veicoli per non eccedere il dato numero massimo di "
+"veicoli"
 
 #: src/microsim/MSFrame.cpp:409
 msgid "Delay person insertion to stay within the given maximum number"
 msgstr ""
+"Ritarda l'inserzione di persone per non eccedere il dato numero massimo di "
+"persone"
 
 #: src/microsim/MSFrame.cpp:412
 msgid ""
@@ -2571,7 +2580,7 @@ msgstr ""
 
 #: src/microsim/MSFrame.cpp:879
 msgid "You can either restart or quit on end."
-msgstr ""
+msgstr "Si può ricominciare o uscire alle fine."
 
 #: src/microsim/MSFrame.cpp:884
 msgid ""
