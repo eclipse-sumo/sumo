@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 13:40:23 by Eclipse SUMO netedit Version v1_20_0+1585-7f20689389f
+<!-- generated on 2024-08-07 10:12:09 by Eclipse SUMO netedit Version v1_20_0+1537-af155a2959e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -49,16 +49,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.31Jul132751.23734/netedit.gui/network/lanes/inspect_selected/stopoffset/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.07Aug095906.9860\netedit.gui\network\lanes\inspect_selected\stopoffset\log.txt"/>
     </report>
 
 </neteditConfiguration>
@@ -90,7 +90,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="-E1" from="J3" to="J2" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="25.00,25.00 -25.00,25.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
         <lane id="-E1_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,26.00 -24.00,26.00" type="TypeB">
-            <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="12.50"/>
+            <stopOffset vClasses="all" value="12.50"/>
             <param key="KeyA" value="ValueA"/>
         </lane>
         <lane id="-E1_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="30.00,24.00 -24.00,24.00" type="TypeA">
@@ -132,7 +132,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <edge id="E2" from="J4" to="J5" name="Custom Edges" priority="6" spreadType="center" length="50.00" shape="-25.00,-25.00 25.00,-25.00">
         <stopOffset vClasses="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" value="20.00"/>
         <lane id="E2_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-26.00 24.00,-26.00" type="TypeB">
-            <stopOffset exceptions="rail_urban rail rail_electric cable_car drone" value="12.50"/>
+            <stopOffset vClasses="all" value="12.50"/>
             <param key="KeyA" value="ValueA"/>
         </lane>
         <lane id="E2_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship container cable_car subway aircraft drone" speed="20.00" length="44.00" endOffset="6.00" width="2.00" shape="-30.00,-24.00 24.00,-24.00" type="TypeA">
