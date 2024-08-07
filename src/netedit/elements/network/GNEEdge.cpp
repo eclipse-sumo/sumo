@@ -1240,6 +1240,12 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case GNE_ATTR_MODIFICATION_STATUS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_STOPOFFSET:
+            // special case for stop offset, because affects to stopOffsetExceptions (#15297)
+            if (canParse<double>(value) && (parse<double>(value) == 0)) {
+                GNEChange_Attribute::changeAttribute(this, GNE_ATTR_STOPOEXCEPTION, "", undoList);
+            }
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
         case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_PARAMETERS:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
@@ -1385,7 +1391,11 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BIDIR:
             return canParse<bool>(value) && (!parse<bool>(value) || myNBEdge->isBidiEdge(true));
         case GNE_ATTR_STOPOFFSET:
-            return canParse<double>(value) && (parse<double>(value) >= 0);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) >= 0);
+            }
         case GNE_ATTR_STOPOEXCEPTION:
             return canParseVehicleClasses(value);
         case GNE_ATTR_SELECTED:
@@ -1904,14 +1914,14 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_STOPOFFSET:
-            myNBEdge->myEdgeStopOffset.setOffset(parse<double>(value));
+            if (value.empty()) {
+                myNBEdge->myEdgeStopOffset.setOffset(0);
+            } else {
+                myNBEdge->myEdgeStopOffset.setOffset(parse<double>(value));
+            }
             break;
         case GNE_ATTR_STOPOEXCEPTION:
-            if (value.empty()) {
-                myNBEdge->myEdgeStopOffset.reset();
-            } else {
-                myNBEdge->myEdgeStopOffset.setExceptions(value);
-            }
+            myNBEdge->myEdgeStopOffset.setExceptions(value);
             break;
         case GNE_ATTR_PARAMETERS:
             myNBEdge->setParametersStr(value);
