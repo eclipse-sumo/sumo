@@ -128,7 +128,6 @@ public:
         into << " " << attr << "=\"" << toString(val, into.precision()) << "\"";
     }
 
-    template<>
     void writeAttr(StreamDevice& into, const std::string& attr, const double& val){
 #ifdef HAVE_FMT
         fmt::print(into, " {}=\"{:.{}f}\"", attr, val, into.precision());

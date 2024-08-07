@@ -50,7 +50,11 @@ public:
     MsgRetrievingFunction(T* object, Operation operation, MsgHandler::MsgType type) :
         myObject(object),
         myOperation(operation),
-        myMsgType(type) {}
+        myMsgType(type) {
+            /// @todo We should design a new formatter type for this.
+            myFormatter = new PlainXMLFormatter();
+            myStreamDevice = new OStreamDevice(new std::ostringstream());
+        }
 
 
     /// @brief Destructor
@@ -58,27 +62,11 @@ public:
 
 
 protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     *
-     * The stream is an ostringstream, actually, into which the message
-     *  is written. It is sent when postWriteHook is called.
-     *
-     * @return The used stream
-     * @see postWriteHook
-     */
-    std::ostream& getOStream() {
-        return myMessage;
-    }
-
-
     /** @brief Sends the data which was written to the string stream via the retrieving function.
      */
     virtual void postWriteHook() {
-        (myObject->*myOperation)(myMsgType, myMessage.str());
-        myMessage.str("");
+        (myObject->*myOperation)(myMsgType, getOStream().str());
+        getOStream().str("");
     }
     /// @}
 
@@ -92,8 +80,4 @@ private:
 
     /// @brief The type of message to retrieve.
     MsgHandler::MsgType myMsgType;
-
-    /// @brief message buffer
-    std::ostringstream myMessage;
-
 };

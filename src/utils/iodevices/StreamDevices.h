@@ -2,7 +2,7 @@
 #pragma once
 #include <config.h>
 #include <fstream> 
-
+#include <memory>
 #include <string>
 
 #ifdef HAVE_PARQUET
@@ -24,7 +24,7 @@ public:
     };
 
     // create a constructor that a type and raw write access
-    StreamDevice(Type type, bool access) : myType(type), rawWriteAccess(access) {};
+    StreamDevice(Type type, bool access) : rawWriteAccess(access), myType(type)  {};
     // create a default constructor
     StreamDevice() = default;
 
@@ -63,7 +63,7 @@ public:
 
     /// @brief write a string to the stream
     /// @param s the string to write
-    virtual void str(const std::string& s) {};
+    virtual void str(const std::string& s) = 0;
 
     /// @brief write an endline to the stream
     /// @return this
@@ -95,11 +95,11 @@ class OStreamDevice : public StreamDevice {
 public:
 
     // write a constructor that takes a std::ofstream
-    OStreamDevice(std::ofstream* stream) : myStream(std::move(stream)), StreamDevice(Type::OSTREAM, true) {};
-    OStreamDevice(std::ostream* stream) : myStream(std::move(stream)), StreamDevice(Type::OSTREAM, true) {};
-    OStreamDevice(std::ofstream stream) : myStream(new std::ofstream(std::move(stream))), StreamDevice(Type::OSTREAM, true) {};
+    OStreamDevice(std::ofstream* stream) : StreamDevice(Type::OSTREAM, true), myStream(std::move(stream)) {}
+    OStreamDevice(std::ostream* stream) : StreamDevice(Type::OSTREAM, true), myStream(std::move(stream)) {}
+    OStreamDevice(std::ofstream stream) : StreamDevice(Type::OSTREAM, true), myStream(new std::ofstream(std::move(stream))) {}
 
-    virtual ~OStreamDevice() = default;
+    virtual ~OStreamDevice() override = default;
 
     bool ok() override {
         return myStream->good();
@@ -140,6 +140,10 @@ public:
         return "";
     }
 
+    void str(const std::string& s) override {
+        (*myStream) << s;
+    }
+
     operator std::ostream& () override {
         return *myStream;
     }
@@ -155,8 +159,8 @@ public:
     }
 
 private:
-    const std::unique_ptr<std::ostream> myStream;
-};
+    std::unique_ptr<std::ostream> myStream;
+}; // Add the missing semicolon here
 
 class ParquetStream : public StreamDevice {
 
@@ -194,6 +198,10 @@ public:
     std::string str() override {
         return "";
     }
+
+    void str([[maybe_unused]] const std::string& s) override {
+        
+    };
 
     template <typename T>
     void print(const T& t) {

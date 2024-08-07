@@ -436,16 +436,14 @@ protected:
     /// @brief the stream device
     StreamDevice* myStreamDevice;
 
+    /// @brief The formatter for XML
+    OutputFormatter* myFormatter;
+
     /// @brief return a type casted formatter
     template <typename T>
     T* getFormatter() {
         return static_cast<T*>(myFormatter);
     }
-
-
-private:
-    /// @brief The formatter for XML
-    OutputFormatter* const myFormatter;
 
 private:
     /// @brief Invalidated copy constructor.

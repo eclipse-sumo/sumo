@@ -119,5 +119,5 @@ public:
     void writeRaw(StreamDevice& into, const T& val){
         
         into << val;
-    };
+    }
 };
