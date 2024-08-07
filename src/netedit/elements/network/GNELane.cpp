@@ -774,6 +774,12 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_TYPE:
         case SUMO_ATTR_INDEX:
         case GNE_ATTR_STOPOFFSET:
+            // special case for stop offset, because affects to stopOffsetExceptions (#15297)
+            if (canParse<double>(value) && (parse<double>(value) == 0)) {
+                GNEChange_Attribute::changeAttribute(this, GNE_ATTR_STOPOEXCEPTION, "", undoList);
+            }
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
         case GNE_ATTR_STOPOEXCEPTION:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -964,14 +970,14 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->getLaneStruct(myIndex).type = value;
             break;
         case GNE_ATTR_STOPOFFSET:
-            edge->getLaneStruct(myIndex).laneStopOffset.setOffset(parse<double>(value));
+            if (value.empty()) {
+                edge->getLaneStruct(myIndex).laneStopOffset.setOffset(0);
+            } else {
+                edge->getLaneStruct(myIndex).laneStopOffset.setOffset(parse<double>(value));
+            }
             break;
         case GNE_ATTR_STOPOEXCEPTION:
-            if (value.empty()) {
-                edge->getLaneStruct(myIndex).laneStopOffset.reset();
-            } else {
-                edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
-            }
+            edge->getLaneStruct(myIndex).laneStopOffset.setExceptions(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
