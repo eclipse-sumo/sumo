@@ -154,7 +154,7 @@ Option **--convergence-steps** may used to force convergence by iteratively redu
 
 ## Speeding up Iterations
 
-There is currently now way to speed up duaIteraty.py by parallelization.
+There is currently now way to speed up duaIterate.py by parallelization.
 However, the total running time of duaIterate is strongly influenced by the total running time of "jammed" iterations.
 This is a frequent occurrence in the early iterations where many cars try to take the fastest route while disregarding capacity.
 There are several options to mitigate this:
