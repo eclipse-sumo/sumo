@@ -42,6 +42,14 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press enter to create route
 netedit.typeEnter()
 
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
+
+# press enter to create route
+netedit.typeEnter()
+
 # go to vehicle mode
 netedit.vehicleMode()
 
@@ -50,6 +58,9 @@ netedit.changeElement("flow (over route)")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+
+# try to create vehicle
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # set invalid id
 netedit.changeDefaultValue(netedit.attrs.routeFlow.create.id, "%%;;%%%%")
