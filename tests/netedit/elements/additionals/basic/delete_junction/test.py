@@ -26,10 +26,34 @@ sys.path.append(neteditTestRoot)
 import neteditTestFunctions as netedit  # noqa
 
 # Open netedit
-neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--sidewalks.guess', '--crossings.guess'])
+neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-# Recompute with volatile options
-netedit.rebuildNetworkWithVolatileOptions()
+# go to delete mode
+netedit.deleteMode()
+
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# delete junction
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+
+# Undo
+netedit.undo(referencePosition, 1)
+
+# Change to delete
+netedit.deleteMode()
+
+# disable 'Automatically delete additionals'
+netedit.protectElements(referencePosition)
+
+# try to delete junction
+netedit.leftClick(referencePosition, netedit.positions.elements.junction0)
+
+# wait warning
+netedit.waitDeleteWarning()
+
+# recompute
+netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

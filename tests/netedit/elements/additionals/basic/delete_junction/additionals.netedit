@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-15 09:08:14 by Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
+<!-- generated on 2024-08-08 12:41:45 by Eclipse SUMO netedit Version v1_20_0+1546-d686b729b8b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,15 +13,8 @@ https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
-<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
-
-    <input>
-        <net-file value="net.netedit"/>
-        <additional-files value="additionals.netedit"/>
-    </input>
-
-    <output>
-        <write-license value="true"/>
-    </output>
-
-</sumoConfiguration>
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <!-- StoppingPlaces -->
+    <busStop id="bs_1" lane="Edge5_1" startPos="45.00" endPos="55.00"/>
+    <busStop id="bs_2" lane="Edge0_1" startPos="45.00" endPos="55.00"/>
+</additional>
