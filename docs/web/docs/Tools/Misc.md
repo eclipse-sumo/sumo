@@ -268,7 +268,7 @@ changed with the **-p** option.
 With the option **--use-osm-routes**, public transport routes from the given osm
 ptlines-file will be used, rather than creating new shortest path routes between stops.
 
-A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptlines-output** when importing OSM data.
+A *ptlines-file* is typically created by [netconvert](../netconvert.md) option **--ptline-output** when importing OSM data.
 However it can also be customized or created from scratch for a non OSM network.
 
 ## Example Input
