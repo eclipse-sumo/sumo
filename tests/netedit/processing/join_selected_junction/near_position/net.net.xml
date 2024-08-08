@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-08 14:11:36 by Eclipse SUMO netedit Version v1_20_0+1547-9928acb1c8e
+<!-- generated on 2024-08-08 14:13:54 by Eclipse SUMO netedit Version v1_20_0+1772-b761cf9d6e3
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="D:\Netedit_dev\tests\netedit\processing\ticket3994\additionals.add.xml"/>
-        <route-files value="D:\Netedit_dev\tests\netedit\processing\ticket3994\routes.rou.xml"/>
-        <data-files value="D:\Netedit_dev\tests\netedit\processing\ticket3994\datas.dat.xml"/>
-        <sumo-net-file value="D:\Netedit_dev\tests\netedit\processing\ticket3994\net.net.xml"/>
+        <sumo-net-file value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\near_position\net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\Netedit_dev\tests\netedit\processing\ticket3994\net.net.xml"/>
+        <output-file value="D:\Netedit_dev\tests\netedit\processing\join_selected_junction\near_position\net.net.xml"/>
     </output>
 
     <processing>
@@ -22,7 +19,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.50"/>
@@ -144,7 +140,7 @@
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="-E2_0 -E7_0 -E3_0 -E0_0" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0 :J0_4_0 :J0_5_0 :J0_6_0 :J0_7_0" shape="-3.20,7.20 3.20,7.20 3.64,4.98 4.20,4.20 4.98,3.64 5.98,3.31 7.20,3.20 7.20,-3.20 4.98,-3.64 4.20,-4.20 3.64,-4.98 3.31,-5.98 3.20,-7.20 -3.20,-7.20 -7.20,-3.20 -7.20,3.20">
+    <junction id="J0" type="priority" x="0.00" y="0.00" incLanes="-E2_0 -E7_0 -E3_0 -E0_0" intLanes=":J0_0_0 :J0_1_0 :J0_2_0 :J0_3_0 :J0_4_0 :J0_5_0 :J0_6_0 :J0_7_0" shape="-3.20,7.20 3.20,7.20 3.64,4.98 4.20,4.20 4.98,3.64 5.98,3.31 7.20,3.20 7.20,-3.20 4.98,-3.64 4.20,-4.20 3.64,-4.98 3.31,-5.98 3.20,-7.20 -3.20,-7.20 -7.20,-3.20 -7.20,3.20" name="toJoin">
         <request index="0" response="00000000" foes="00001000" cont="0"/>
         <request index="1" response="00000000" foes="11001000" cont="0"/>
         <request index="2" response="00100000" foes="00100000" cont="0"/>
@@ -154,7 +150,7 @@
         <request index="6" response="00000010" foes="00000010" cont="0"/>
         <request index="7" response="00110010" foes="00110010" cont="0"/>
     </junction>
-    <junction id="J1" type="priority" x="-5.00" y="0.00" incLanes="-E1_0 E0_0 -E4_0 -E5_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_6_0 :J1_7_0" shape="-8.20,7.20 -1.80,7.20 2.20,3.20 2.20,-3.20 -1.80,-7.20 -8.20,-7.20 -8.64,-4.98 -9.20,-4.20 -9.98,-3.64 -10.98,-3.31 -12.20,-3.20 -12.20,3.20 -9.98,3.64 -9.20,4.20 -8.64,4.98 -8.31,5.98">
+    <junction id="J1" type="priority" x="-5.00" y="0.00" incLanes="-E1_0 E0_0 -E4_0 -E5_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_3_0 :J1_4_0 :J1_5_0 :J1_6_0 :J1_7_0" shape="-8.20,7.20 -1.80,7.20 2.20,3.20 2.20,-3.20 -1.80,-7.20 -8.20,-7.20 -8.64,-4.98 -9.20,-4.20 -9.98,-3.64 -10.98,-3.31 -12.20,-3.20 -12.20,3.20 -9.98,3.64 -9.20,4.20 -8.64,4.98 -8.31,5.98" name="toJoin">
         <request index="0" response="00000000" foes="00001000" cont="0"/>
         <request index="1" response="00000000" foes="11001000" cont="0"/>
         <request index="2" response="00100000" foes="00100000" cont="0"/>
