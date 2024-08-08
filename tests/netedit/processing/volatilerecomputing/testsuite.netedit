@@ -28,7 +28,7 @@ abort-recomputing
 # crossing guess
 crossings.guess
 
-# sidewalks and crossings.guess 
+# sidewalks and crossings.guess
 sidewalks-and-crossings.guess
 
 # sidewalks guess
