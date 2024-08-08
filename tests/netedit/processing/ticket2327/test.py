@@ -31,83 +31,15 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
-# go to select mode
-netedit.selectMode()
-
-# select node 1
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select node 2
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# select all junctions with name toJoin
+netedit.selectItems("Network", "junction", "name", "toJoin")
+netedit.deleteSelectedItems()
 
 # join selected junctions
 netedit.joinSelectedJunctions()
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# select node 3
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select node 4
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# join selected junctions
-netedit.joinSelectedJunctions()
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# select node 5
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select node 6
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# join selected junctions
-netedit.joinSelectedJunctions()
-
-# rebuild network
-netedit.rebuildNetwork()
-
-# select node 8
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select node 9
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# select node 10
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-
-# inspect node 11
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# inspect node 12
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# inspect node 13
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# inspect node 14
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# inspect node 15
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# inspect node 16
-netedit.leftClick(referencePosition, referencePosition, netedit.positions.tmp)
-
-# join selected junctions
-netedit.joinSelectedJunctions()
-
-# rebuild network
-netedit.rebuildNetwork()
 
 # Undo joining
 netedit.undo(referencePosition, 4)
-
-# rebuild network
-netedit.rebuildNetwork()
 
 # redo joining
 netedit.redo(referencePosition, 4)

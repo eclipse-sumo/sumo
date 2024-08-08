@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-08 13:02:30 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
+<!-- generated on 2024-08-08 13:13:33 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -429,7 +429,7 @@
         <lane id="EdgeExternTop_0" index="0" disallow="pedestrian" speed="13.89" length="175.00" width="3.00" shape="60.00,1.50 46.50,1.50 46.50,25.62 40.62,31.50 -40.62,31.50 -46.50,25.62 -46.50,1.50 -60.00,1.50"/>
     </edge>
 
-    <junction id="J0" type="priority" x="0.00" y="20.00" incLanes="E6_0 E6_1 -E7_0 -E7_1 -E0_0 -E0_1 :J0_w1_0 :J0_w0_0" intLanes=":J0_0_0 :J0_6_0 :J0_2_0 :J0_3_0 :J0_4_0 :J0_5_0 :J0_c0_0 :J0_c1_0" shape="7.20,25.20 7.20,14.80 6.09,14.58 5.70,14.30 5.42,13.91 5.26,13.41 5.20,12.80 -5.20,12.80 -5.42,13.91 -5.70,14.30 -6.09,14.58 -6.59,14.74 -7.20,14.80 -7.20,25.20">
+    <junction id="J0" type="priority" x="0.00" y="20.00" incLanes="E6_0 E6_1 -E7_0 -E7_1 -E0_0 -E0_1 :J0_w1_0 :J0_w0_0" intLanes=":J0_0_0 :J0_6_0 :J0_2_0 :J0_3_0 :J0_4_0 :J0_5_0 :J0_c0_0 :J0_c1_0" shape="7.20,25.20 7.20,14.80 6.09,14.58 5.70,14.30 5.42,13.91 5.26,13.41 5.20,12.80 -5.20,12.80 -5.42,13.91 -5.70,14.30 -6.09,14.58 -6.59,14.74 -7.20,14.80 -7.20,25.20" name="toJoin">
         <request index="0" response="00000000" foes="11001000" cont="0"/>
         <request index="1" response="00110000" foes="01111000" cont="1"/>
         <request index="2" response="01100000" foes="01100000" cont="0"/>
@@ -439,7 +439,7 @@
         <request index="6" response="00100011" foes="00100111" cont="0"/>
         <request index="7" response="00110001" foes="00111001" cont="0"/>
     </junction>
-    <junction id="J1" type="priority" x="30.00" y="0.00" incLanes="-E5_0 -E5_1 E11_0 E11_1 -E4_0 -E4_1 :J1_w1_0 :J1_w2_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_6_0 :J1_4_0 :J1_5_0 :J1_c0_0 :J1_c1_0" shape="24.80,7.20 35.20,7.20 35.20,-7.20 24.80,-7.20 24.58,-6.09 24.30,-5.70 23.91,-5.42 23.41,-5.26 22.80,-5.20 22.80,5.20 23.91,5.42 24.30,5.70 24.58,6.09 24.74,6.59">
+    <junction id="J1" type="priority" x="30.00" y="0.00" incLanes="-E5_0 -E5_1 E11_0 E11_1 -E4_0 -E4_1 :J1_w1_0 :J1_w2_0" intLanes=":J1_0_0 :J1_1_0 :J1_2_0 :J1_6_0 :J1_4_0 :J1_5_0 :J1_c0_0 :J1_c1_0" shape="24.80,7.20 35.20,7.20 35.20,-7.20 24.80,-7.20 24.58,-6.09 24.30,-5.70 23.91,-5.42 23.41,-5.26 22.80,-5.20 22.80,5.20 23.91,5.42 24.30,5.70 24.58,6.09 24.74,6.59" name="toJoin">
         <request index="0" response="00000000" foes="01001000" cont="0"/>
         <request index="1" response="00000000" foes="11111000" cont="0"/>
         <request index="2" response="00000000" foes="11100000" cont="0"/>
@@ -449,7 +449,7 @@
         <request index="6" response="00000111" foes="00100111" cont="0"/>
         <request index="7" response="00001110" foes="00011110" cont="0"/>
     </junction>
-    <junction id="J2" type="priority" x="0.00" y="-20.00" incLanes="E8_0 E8_1 -E10_0 -E10_1 -E9_0 -E9_1 :J2_w1_0 :J2_w2_0 :J2_w0_0" intLanes=":J2_0_0 :J2_1_0 :J2_6_0 :J2_3_0 :J2_4_0 :J2_7_0 :J2_c0_0 :J2_c1_0 :J2_c2_0" shape="-5.20,-12.80 5.20,-12.80 5.42,-13.91 5.70,-14.30 6.09,-14.58 6.59,-14.74 7.20,-14.80 7.20,-25.20 -7.20,-25.20 -7.20,-14.80 -6.09,-14.58 -5.70,-14.30 -5.42,-13.91 -5.26,-13.41">
+    <junction id="J2" type="priority" x="0.00" y="-20.00" incLanes="E8_0 E8_1 -E10_0 -E10_1 -E9_0 -E9_1 :J2_w1_0 :J2_w2_0 :J2_w0_0" intLanes=":J2_0_0 :J2_1_0 :J2_6_0 :J2_3_0 :J2_4_0 :J2_7_0 :J2_c0_0 :J2_c1_0 :J2_c2_0" shape="-5.20,-12.80 5.20,-12.80 5.42,-13.91 5.70,-14.30 6.09,-14.58 6.59,-14.74 7.20,-14.80 7.20,-25.20 -7.20,-25.20 -7.20,-14.80 -6.09,-14.58 -5.70,-14.30 -5.42,-13.91 -5.26,-13.41" name="toJoin">
         <request index="0" response="100001000" foes="101001000" cont="0"/>
         <request index="1" response="010111000" foes="011111000" cont="0"/>
         <request index="2" response="001000000" foes="011100000" cont="1"/>
@@ -460,27 +460,27 @@
         <request index="7" response="000011100" foes="000011110" cont="0"/>
         <request index="8" response="000111000" foes="000111001" cont="0"/>
     </junction>
-    <junction id="Junction0" type="priority" x="-30.00" y="-20.00" incLanes="E2_0 E2_1 E9_0 E9_1 :Junction0_w0_0" intLanes=":Junction0_0_0 :Junction0_1_0 :Junction0_c0_0" shape="-35.20,-14.80 -24.80,-14.80 -24.80,-25.20 -27.98,-24.91 -30.58,-24.04 -32.60,-22.60 -34.04,-20.58 -34.91,-17.98">
+    <junction id="Junction0" type="priority" x="-30.00" y="-20.00" incLanes="E2_0 E2_1 E9_0 E9_1 :Junction0_w0_0" intLanes=":Junction0_0_0 :Junction0_1_0 :Junction0_c0_0" shape="-35.20,-14.80 -24.80,-14.80 -24.80,-25.20 -27.98,-24.91 -30.58,-24.04 -32.60,-22.60 -34.04,-20.58 -34.91,-17.98" name="toJoin">
         <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="000" foes="100" cont="0"/>
         <request index="2" response="010" foes="011" cont="0"/>
     </junction>
-    <junction id="Junction1" type="priority" x="30.00" y="-20.00" incLanes="-E11_0 -E11_1 E10_0 E10_1 :Junction1_w0_0" intLanes=":Junction1_0_0 :Junction1_1_0 :Junction1_c0_0" shape="24.80,-14.80 35.20,-14.80 34.91,-17.98 34.04,-20.58 32.60,-22.60 30.58,-24.04 27.98,-24.91 24.80,-25.20">
+    <junction id="Junction1" type="priority" x="30.00" y="-20.00" incLanes="-E11_0 -E11_1 E10_0 E10_1 :Junction1_w0_0" intLanes=":Junction1_0_0 :Junction1_1_0 :Junction1_c0_0" shape="24.80,-14.80 35.20,-14.80 34.91,-17.98 34.04,-20.58 32.60,-22.60 30.58,-24.04 27.98,-24.91 24.80,-25.20" name="toJoin">
         <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="000" foes="100" cont="0"/>
         <request index="2" response="010" foes="011" cont="0"/>
     </junction>
-    <junction id="Junction2" type="priority" x="30.00" y="20.00" incLanes="E5_0 E5_1 -E6_0 -E6_1 :Junction2_w0_0" intLanes=":Junction2_0_0 :Junction2_1_0 :Junction2_c0_0" shape="35.20,14.80 24.80,14.80 24.80,25.20 27.98,24.91 30.58,24.04 32.60,22.60 34.04,20.58 34.91,17.98">
+    <junction id="Junction2" type="priority" x="30.00" y="20.00" incLanes="E5_0 E5_1 -E6_0 -E6_1 :Junction2_w0_0" intLanes=":Junction2_0_0 :Junction2_1_0 :Junction2_c0_0" shape="35.20,14.80 24.80,14.80 24.80,25.20 27.98,24.91 30.58,24.04 32.60,22.60 34.04,20.58 34.91,17.98" name="toJoin">
         <request index="0" response="100" foes="100" cont="0"/>
         <request index="1" response="000" foes="100" cont="0"/>
         <request index="2" response="010" foes="011" cont="0"/>
     </junction>
-    <junction id="Junction3" type="priority" x="-30.00" y="20.00" incLanes="E0_0 E0_1 -E1_0 -E1_1 :Junction3_w1_0" intLanes=":Junction3_0_0 :Junction3_1_0 :Junction3_c0_0" shape="-24.80,25.20 -24.80,14.80 -35.20,14.80 -34.91,17.98 -34.04,20.58 -32.60,22.60 -30.58,24.04 -27.98,24.91">
+    <junction id="Junction3" type="priority" x="-30.00" y="20.00" incLanes="E0_0 E0_1 -E1_0 -E1_1 :Junction3_w1_0" intLanes=":Junction3_0_0 :Junction3_1_0 :Junction3_c0_0" shape="-24.80,25.20 -24.80,14.80 -35.20,14.80 -34.91,17.98 -34.04,20.58 -32.60,22.60 -30.58,24.04 -27.98,24.91" name="toJoin">
         <request index="0" response="000" foes="100" cont="0"/>
         <request index="1" response="100" foes="100" cont="0"/>
         <request index="2" response="001" foes="011" cont="0"/>
     </junction>
-    <junction id="Junction4" type="priority" x="-30.00" y="0.00" incLanes="E1_0 E1_1 E3_0 E3_1 -E2_0 -E2_1 :Junction4_w1_0 :Junction4_w0_0" intLanes=":Junction4_0_0 :Junction4_6_0 :Junction4_2_0 :Junction4_3_0 :Junction4_4_0 :Junction4_5_0 :Junction4_c0_0 :Junction4_c1_0" shape="-35.20,7.20 -24.80,7.20 -24.58,6.09 -24.30,5.70 -23.91,5.42 -23.41,5.26 -22.80,5.20 -22.80,-5.20 -23.91,-5.42 -24.30,-5.70 -24.58,-6.09 -24.74,-6.59 -24.80,-7.20 -35.20,-7.20">
+    <junction id="Junction4" type="priority" x="-30.00" y="0.00" incLanes="E1_0 E1_1 E3_0 E3_1 -E2_0 -E2_1 :Junction4_w1_0 :Junction4_w0_0" intLanes=":Junction4_0_0 :Junction4_6_0 :Junction4_2_0 :Junction4_3_0 :Junction4_4_0 :Junction4_5_0 :Junction4_c0_0 :Junction4_c1_0" shape="-35.20,7.20 -24.80,7.20 -24.58,6.09 -24.30,5.70 -23.91,5.42 -23.41,5.26 -22.80,5.20 -22.80,-5.20 -23.91,-5.42 -24.30,-5.70 -24.58,-6.09 -24.74,-6.59 -24.80,-7.20 -35.20,-7.20" name="toJoin">
         <request index="0" response="00000000" foes="11001000" cont="0"/>
         <request index="1" response="00110000" foes="01111000" cont="1"/>
         <request index="2" response="01100000" foes="01100000" cont="0"/>
@@ -490,7 +490,7 @@
         <request index="6" response="00100011" foes="00100111" cont="0"/>
         <request index="7" response="00110001" foes="00111001" cont="0"/>
     </junction>
-    <junction id="Junction5" type="priority" x="0.00" y="0.00" incLanes="E7_0 E7_1 E4_0 E4_1 -E8_0 -E8_1 -E3_0 -E3_1 :Junction5_w1_0 :Junction5_w2_0 :Junction5_w3_0 :Junction5_w0_0" intLanes=":Junction5_12_0 :Junction5_1_0 :Junction5_13_0 :Junction5_3_0 :Junction5_4_0 :Junction5_5_0 :Junction5_14_0 :Junction5_7_0 :Junction5_15_0 :Junction5_9_0 :Junction5_10_0 :Junction5_11_0 :Junction5_c0_0 :Junction5_c1_0 :Junction5_c2_0 :Junction5_c3_0" shape="-5.20,7.20 5.20,7.20 5.42,6.09 5.70,5.70 6.09,5.42 6.59,5.26 7.20,5.20 7.20,-5.20 6.09,-5.42 5.70,-5.70 5.42,-6.09 5.26,-6.59 5.20,-7.20 -5.20,-7.20 -5.42,-6.09 -5.70,-5.70 -6.09,-5.42 -6.59,-5.26 -7.20,-5.20 -7.20,5.20 -6.09,5.42 -5.70,5.70 -5.42,6.09 -5.26,6.59">
+    <junction id="Junction5" type="priority" x="0.00" y="0.00" incLanes="E7_0 E7_1 E4_0 E4_1 -E8_0 -E8_1 -E3_0 -E3_1 :Junction5_w1_0 :Junction5_w2_0 :Junction5_w3_0 :Junction5_w0_0" intLanes=":Junction5_12_0 :Junction5_1_0 :Junction5_13_0 :Junction5_3_0 :Junction5_4_0 :Junction5_5_0 :Junction5_14_0 :Junction5_7_0 :Junction5_15_0 :Junction5_9_0 :Junction5_10_0 :Junction5_11_0 :Junction5_c0_0 :Junction5_c1_0 :Junction5_c2_0 :Junction5_c3_0" shape="-5.20,7.20 5.20,7.20 5.42,6.09 5.70,5.70 6.09,5.42 6.59,5.26 7.20,5.20 7.20,-5.20 6.09,-5.42 5.70,-5.70 5.42,-6.09 5.26,-6.59 5.20,-7.20 -5.20,-7.20 -5.42,-6.09 -5.70,-5.70 -6.09,-5.42 -6.59,-5.26 -7.20,-5.20 -7.20,5.20 -6.09,5.42 -5.70,5.70 -5.42,6.09 -5.26,6.59" name="toJoin">
         <request index="0"  response="1000000000000000" foes="1001000100010000" cont="1"/>
         <request index="1"  response="0000000000000000" foes="0101111100110000" cont="0"/>
         <request index="2"  response="0010000011000000" foes="0011110111110000" cont="1"/>
