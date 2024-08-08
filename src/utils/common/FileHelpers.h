@@ -80,6 +80,13 @@ public:
      */
     static std::string addExtension(const std::string& path, const std::string& extension);
 
+    /** @brief Get the file extension from the given file path
+     *
+     * @param[in] path The path to the file
+     * @return the file extension (with dot, example: '.xml')
+     */
+    static std::string getExtension(const std::string& path);
+
     /** @brief Returns the second path as a relative path to the first file
      *
      * Given the position of the configuration file, and the information where a second

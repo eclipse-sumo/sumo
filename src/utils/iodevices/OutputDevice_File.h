@@ -23,6 +23,7 @@
 
 #include <iostream>
 #include "OutputDevice.h"
+#include "StreamDevices.h"
 
 
 // ===========================================================================
@@ -55,22 +56,7 @@ public:
         return myAmNull;
     }
 
-
-protected:
-    /// @name Methods that override/implement OutputDevice-methods
-    /// @{
-
-    /** @brief Returns the associated ostream
-     * @return The used stream
-     */
-    std::ostream& getOStream() override;
-    /// @}
-
-
 private:
-    /// The wrapped ofstream
-    std::ostream* myFileStream = nullptr;
-
     /// am I redirecting to /dev/null
     bool myAmNull = false;
 

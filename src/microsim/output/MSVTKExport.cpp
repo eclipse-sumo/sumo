@@ -46,7 +46,7 @@ MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
     of << "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
     of << "<VTKFile type=\"PolyData\" version=\"0.1\" order=\"LittleEndian\">\n";
     of << "<PolyData>\n";
-    of << " <Piece NumberOfPoints=\"" << speed.size() << "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
+    of << " <Piece NumberOfPoints=\"" << toString(speed.size()) << "\" NumberOfVerts=\"1\" NumberOfLines=\"0\" NumberOfStrips=\"0\" NumberOfPolys=\"0\">\n";
     of << "<PointData>\n";
     of << " <DataArray type=\"Float64\" Name=\"speed\" format=\"ascii\">" << List2String(getSpeed()) << "</DataArray>\n";
     of << "</PointData>\n";
@@ -56,7 +56,7 @@ MSVTKExport::write(OutputDevice& of, SUMOTime /* timestep */) {
     of << "</Points>\n";
     of << "<Verts>\n";
     of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\">" <<  getOffset((int) speed.size()) << "</DataArray>\n";
-    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\">" << speed.size() << "</DataArray>\n";
+    of << " <DataArray type=\"Int64\" Name=\"offsets\" format=\"ascii\">" << toString(speed.size()) << "</DataArray>\n";
     of << "</Verts>\n";
     of << "<Lines>\n";
     of << " <DataArray type=\"Int64\" Name=\"connectivity\" format=\"ascii\"/>\n";
