@@ -130,7 +130,7 @@ public:
 
     void writeAttr(StreamDevice& into, const std::string& attr, const double& val){
 #ifdef HAVE_FMT
-        fmt::print(into, " {}=\"{:.{}f}\"", attr, val, into.precision());
+        fmt::print(into.getOStream(), " {}=\"{:.{}f}\"", attr, val, into.precision());
 #else
         into << " " << attr << "=\"" << val << "\"";
 #endif

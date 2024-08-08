@@ -83,6 +83,11 @@ public:
         return rawWriteAccess;
     }
 
+    /// @brief define the behavior of a cast to std::ostream
+    virtual std::ostream& getOStream() {
+        throw std::runtime_error("Not implemented");
+    }
+
 protected:
     /// @brief allow raw write access
     bool rawWriteAccess = false;
@@ -156,6 +161,10 @@ public:
     // get the type of the stream
     Type type() const override {
         return Type::OSTREAM;
+    }
+
+    std::ostream& getOStream() override {
+        return *myStream;
     }
 
 private:
