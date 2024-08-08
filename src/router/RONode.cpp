@@ -14,6 +14,7 @@
 /// @file    RONode.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
+/// @author  Ruediger Ebendt
 /// @date    Sept 2002
 ///
 // A single router's node
@@ -30,8 +31,10 @@
 RONode::RONode(const std::string& id)
     : Named(id) {}
 
-
-RONode::~RONode() {}
+/// @brief Destructor
+RONode::~RONode() {
+    delete myFlippedRoutingNode;
+}
 
 
 void
