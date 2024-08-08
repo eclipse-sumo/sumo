@@ -1,18 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-08-08 11:20:47 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
+-->
+
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop" lane="EdgeCenter1_0" startPos="35.00" endPos="45.00" friendlyPos="0"/>
-    <calibrator id="calibrator1" lane="EdgeCenter1_0" pos="5.00" period="100.00" output="calibrator1.txt"/>
-    <calibrator id="calibrator2" edge="EdgeCenter1" pos="10.00" period="100.00" output="calibrator2.txt"/>
-    <chargingStation id="chargingStation" lane="EdgeCenter1_1" startPos="35.00" endPos="45.00" friendlyPos="0" power="22000.00" efficiency="0.95" chargeInTransit="0" chargeDelay="0.00"/>
-    <containerStop id="containerStop" lane="EdgeCenter1_1" startPos="35.00" endPos="45.00" friendlyPos="0"/>
-    <inductionLoop id="inductionLoop" lane="EdgeCenter1_1" pos="10.00" period="100.00" file="inductionLoop.txt" vTypes="bus taxi private" friendlyPos="0"/>
-    <laneAreaDetector id="laneAreaDetector" lane="EdgeCenter1_1" pos="5.00" length="10.00" period="100.00" file="laneAreaDetector.txt" cont="0" timeThreshold="1.00" speedThreshold="1.39" jamThreshold="10.00" friendlyPos="0"/>
-    <entryExitDetector id="entryExitDetector" period="100.00" file="entryExitDetector.txt" timeThreshold="1.00" speedThreshold="1.39" pos="10.00,-15.00">
-        <detEntry lane="EdgeCenter0_0" pos="5.00" friendlyPos="0"/>
-        <detExit lane="EdgeCenter0_0" pos="15.00" friendlyPos="0"/>
+    <!-- RouteProbes -->
+    <routeProbe id="rp_0" begin="0.00" period="3600.00" edge="Edge5" file="rp_0.xml"/>
+    <routeProbe id="rp_1" begin="0.00" period="3600.00" edge="Edge0" file="rp_0.xml"/>
+    <!-- Calibrators -->
+    <calibrator id="ca_0" edge="Edge5" pos="0.00"/>
+    <calibrator id="ca_1" lane="Edge5_1" pos="16.00"/>
+	<calibrator id="ca_2" edge="Edge0" pos="0.00"/>
+    <calibrator id="ca_3" lane="Edge0_1" pos="16.00"/>
+    <!-- StoppingPlaces -->
+    <busStop id="bs_1" lane="Edge5_1" startPos="45.00" endPos="55.00">
+        <access lane="Edge5_0" pos="20.00"/>
+    </busStop>
+	<busStop id="bs_2" lane="Edge0_1" startPos="45.00" endPos="55.00">
+        <access lane="Edge0_0" pos="20.00"/>
+    </busStop>
+    <trainStop id="ts_0" lane="Edge5_1" startPos="43.00" endPos="53.00"/>
+    <trainStop id="ts_1" lane="Edge0_1" startPos="43.00" endPos="53.00"/>
+    <containerStop id="ct_0" lane="Edge5_1" startPos="51.00" endPos="61.00"/>
+    <containerStop id="ct_1" lane="Edge0_1" startPos="51.00" endPos="61.00"/>
+    <chargingStation id="cs_0" lane="Edge5_1" startPos="11.00" endPos="21.00"/>
+    <chargingStation id="cs_1" lane="Edge0_1" startPos="11.00" endPos="18.00"/>
+    <parkingArea id="pa_0" lane="Edge5_1" startPos="5.00" endPos="15.00"/>
+    <parkingArea id="pa_1" lane="Edge0_1" startPos="5.00" endPos="15.00"/>
+    <!-- Detectors -->
+    <inductionLoop id="e1_0" lane="Edge5_1" pos="54.00" period="300.00" file="e1_0.xml"/>
+    <inductionLoop id="e1_1" lane="Edge0_1" pos="54.00" period="300.00" file="e1_0.xml"/>
+    <instantInductionLoop id="e1i_0" lane="Edge5_1" pos="16.00" file="e1i_0.xml"/>
+    <instantInductionLoop id="e1i_1" lane="Edge0_1" pos="16.00" file="e1i_0.xml"/>
+    <laneAreaDetector id="e2_0" lane="Edge5_1" pos="5.00" length="10.00" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_1" lane="Edge0_1" pos="5.00" length="10.00" period="300.00" file="e2_0.xml"/>
+    <laneAreaDetector id="e2_2" lanes="Edge5_1 Edge0_1" pos="56.00" endPos="9.00" period="300.00" file="e2_1.xml"/>
+    <entryExitDetector id="e3_0" pos="22.00,-10.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="Edge5_1" pos="10.00"/>
+        <detExit lane="Edge5_1" pos="8.00"/>
     </entryExitDetector>
-    <instantInductionLoop id="instantInductionLoop" lane="EdgeCenter1_1" pos="12.00" period="100.00" file="instantInductionLoop.txt" friendlyPos="0"/>
-    <rerouter id="rerouter" edges="EdgeCenter1" probability="1.00" off="0" pos="15.15,-14.96"/>
-    <routeProbe id="routeProbe" edge="EdgeCenter1" period="100.00" file="routeProbe.txt" begin="0.00"/>
-    <vaporizer id="vaporizer" begin="0.00" end="10.00"/>
-    <variableSpeedSign id="variableSpeedSign" lanes="EdgeCenter1_0" pos="19.52,-14.87"/>
+	<entryExitDetector id="e3_1" pos="22.00,-10.00" period="300.00" file="e3_0.xml">
+        <detEntry lane="Edge0_1" pos="10.00"/>
+        <detExit lane="Edge0_1" pos="8.00"/>
+    </entryExitDetector>
+    <!-- Other additionals -->
+    <vaporizer id="Edge5" begin="0.00" end="3600.00"/>
+	<vaporizer id="Edge0" begin="0.00" end="3600.00"/>
 </additional>

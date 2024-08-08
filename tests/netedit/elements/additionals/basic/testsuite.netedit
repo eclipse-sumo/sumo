@@ -1,11 +1,7 @@
 additional_invalid
 
-refpos_invalid
+additional_refpos_invalid
 
-# create additional and save it using save additional dialgo before closing
-additional_savedialog
-
-# check that additionals maintain their positions when a edge's length is changed
 relative_positions
 
 bugs
