@@ -207,11 +207,7 @@ public:
     std::string str() override {
         return "";
     }
-
-    void str([[maybe_unused]] const std::string& s) override {
-        
-    };
-
+    
     template <typename T>
     void print(const T& t) {
         (*myStream) << t;
