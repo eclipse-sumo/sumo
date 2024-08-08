@@ -53,9 +53,16 @@ OutputDevice_Parquet::OutputDevice_Parquet(const std::string& fullName)
 
 
 bool OutputDevice_Parquet::closeTag(const std::string& comment) {
-    // open the file for writing
-    if (myFile == nullptr) {
-        auto formatter = dynamic_cast<ParquetFormatter*>(this->getFormatter());
+    // open the file for writing, but only if the depth is >=2 (i.e. we are closing the children tag).
+    //! @todo this is a bit of a hack, but it works for now
+    auto formatter = dynamic_cast<ParquetFormatter*>(this->getFormatter());
+    if (formatter->getDepth() < 2) {
+        // we have to clean up the stack, otherwise the file will not be written correctly
+        // when it is open
+        formatter->clearStack();
+        return true;
+    }
+    if (myFile == nullptr) {   
         if (formatter == nullptr) {
             throw IOError("Formatter is not a ParquetFormatter");
         }
@@ -73,7 +80,7 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
         }
     }
     // now actually write the data
-    return getFormatter()->closeTag(getOStream());
+    return formatter->closeTag(getOStream());
 }
 
 

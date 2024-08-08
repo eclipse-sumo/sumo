@@ -51,7 +51,7 @@ constexpr bool always_false = false;
 // Overloaded function for different types
 template <typename T>
 void AppendField(parquet::schema::NodeVector& fields, const T& val, const std::string& field_name) {
-
+    UNUSED_PARAMETER(val);
     if constexpr (std::is_same_v<T, std::string>) {
         fields.push_back(parquet::schema::PrimitiveNode::Make(
             field_name, parquet::Repetition::OPTIONAL, parquet::Type::BYTE_ARRAY,
@@ -426,12 +426,22 @@ public:
      *
      * @param Return success
      */
-    inline bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) override { return true; };
+    inline bool writeHeader([[maybe_unused]] StreamDevice& into, [[maybe_unused]] const SumoXMLTag& rootElement) override { return true; };
 
     
     template <typename T>
     void writeRaw(StreamDevice& into, T& val) {
         throw std::runtime_error("writeRaw not implemented for ParquetFormatter");
+    }
+
+    int getDepth() const {
+        return static_cast<int>(myXMLStack.size());
+    }
+
+    void clearStack() {
+        myXMLStack.clear();
+        myNodeVector.clear();
+        fields.clear();
     }
 
 
