@@ -1,11 +1,7 @@
-# select additional invalid
 additional_invalid
 
-# reference position of stoppingplace invalid
-additional_refposinvalid
+additional_refpos_invalid
 
-# create additional and save it using save additional dialgo before closing
-additional_savedialog
-
-# check that additionals maintain their positions when a edge's length is changed
 relative_positions
+
+delete_junction

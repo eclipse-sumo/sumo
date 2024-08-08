@@ -1,0 +1,35 @@
+# abort recomputing with volatile options
+abort-recomputing
+
+# remove isolated edges
+#remove-edges.isolated
+
+# ramps guess
+#ramps.guess
+
+# roundabout guess
+#roundabouts.guess
+
+# junction join
+#junctions.join
+
+# geometry remove
+#geometry.remove
+
+# edges join
+#edges.join
+
+# opposites guess
+#opposites.guess
+
+# geometry split
+#geometry.split
+
+# crossing guess
+crossings.guess
+
+# sidewalks and crossings.guess
+sidewalks-and-crossings.guess
+
+# sidewalks guess
+sidewalks.guess

@@ -1,7 +1,3 @@
-additionals
-
-processing
-
 # in revision [24081] was solved a bug, that provoke a crash
 # when the position of a node was changed using inspector node,
 # due a call to computesinglenode(...)

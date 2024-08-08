@@ -31,17 +31,17 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to create busStop with the dummy reference
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter length
-netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "5", False)
 
-# inspect edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+# try to create busStop with the dummy reference
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # Change parameter length
-netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "25", False)
+netedit.modifyAttribute(netedit.attrs.edge.inspect.length, "5000", False)
 
 # recompute
 netedit.rebuildNetwork()

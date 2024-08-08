@@ -49,7 +49,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # Check undo
 netedit.undo(referencePosition, 1)

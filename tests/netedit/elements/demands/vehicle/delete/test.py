@@ -55,7 +55,7 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.deleteMode()
 
 # delete vehicle
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
 
 # Check undo
 netedit.undo(referencePosition, 1)
@@ -64,8 +64,8 @@ netedit.undo(referencePosition, 1)
 netedit.deleteMode()
 
 # delete vehicle and edge
-netedit.leftClick(referencePosition, netedit.positions.tmp)
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.vehicleEdge)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Check undo
 netedit.undo(referencePosition, 2)

@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("dummyAdditional")
 
 # try to create an dummy additional
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # select valid additional (busStop)
 netedit.changeElement("busStop")
 
 # create busStop in mode "Reference Left"
-netedit.leftClick(referencePosition, netedit.positions.tmp)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # save netedit config
 netedit.saveNeteditConfig(referencePosition)
