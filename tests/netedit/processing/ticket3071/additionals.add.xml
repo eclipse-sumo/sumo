@@ -1,0 +1,16 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="bs0" lane="-gneE10_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs1" lane="-gneE11_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs2" lane="-gneE14_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs3" lane="-gneE16_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs4" lane="-gneE19_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs5" lane="gneE14_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs6" lane="gneE16_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs7" lane="gneE17_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs8" lane="gneE19_0" startPos="2.5" endPos="7.5"/>
+    <busStop id="bs9" lane="gneE8_0" startPos="2.5" endPos="7.5"/>
+    <entryExitDetector id="e3" period="100" file="e3.txt" timeThreshold="1.00" speedThreshold="1.39" pos="60,50">
+        <detEntry lane="-gneE18_0" pos="5"/>
+        <detExit lane="gneE9_0" pos="5"/>
+    </entryExitDetector>
+</additional>
