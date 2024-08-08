@@ -335,7 +335,7 @@ These values have the following meanings:
 | **line**          | string          | \-     | The official line reference (must not be unique) |
 | **vClass**        | string          | \-     | [sumo vehicle class](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#abstract_vehicle_class) |
 | period            | time (s, H:M:S) | **--period** (600)   | The service period   |
-| night_service     | string (enum)   | false   | The service period   | whether the line runs at night [yes, no, only] |
+| nightService     | string (enum)   | yes   | Whether the line runs at night [yes, no, only] |
 | name              | string          |         | Long name for the line |
 | color             | [color](../Basics/Notation.md#referenced_data_types)  |         | Official line color |
 
