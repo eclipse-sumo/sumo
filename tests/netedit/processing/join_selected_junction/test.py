@@ -31,9 +31,11 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # rebuild network
 netedit.rebuildNetwork()
 
+# go to select mode
+netedit.selectMode()
+
 # select all junctions with name toJoin
 netedit.selectItems("Network", "junction", "name", "toJoin")
-netedit.deleteSelectedItems()
 
 # join selected junctions
 netedit.joinSelectedJunctions()
@@ -43,9 +45,6 @@ netedit.undo(referencePosition, 4)
 
 # redo joining
 netedit.redo(referencePosition, 4)
-
-# rebuild network
-netedit.rebuildNetwork()
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)
