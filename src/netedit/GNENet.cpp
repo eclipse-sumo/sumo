@@ -496,13 +496,13 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
             GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex()), undoList);
             if (additional->hasAttribute(SUMO_ATTR_STARTPOS)) {
                 GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_STARTPOS,
-                        toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_STARTPOS)) + which->getNBEdge()->getFinalLength()),
-                        undoList);
+                                                     toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_STARTPOS)) + which->getNBEdge()->getFinalLength()),
+                                                     undoList);
             }
             if (additional->hasAttribute(SUMO_ATTR_ENDPOS)) {
                 GNEChange_Attribute::changeAttribute(additional, SUMO_ATTR_ENDPOS,
-                        toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_ENDPOS)) + which->getNBEdge()->getFinalLength()),
-                        undoList);
+                                                     toString(StringUtils::toDouble(additional->getAttribute(SUMO_ATTR_ENDPOS)) + which->getNBEdge()->getFinalLength()),
+                                                     undoList);
             }
         }
         // replace in demand elements
@@ -1503,7 +1503,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     EdgeVector allIncoming;
     EdgeVector allOutgoing;
     std::set<NBNode*, ComparatorIdLess> cluster;
-    for (const auto &selectedJunction : selectedJunctions) {
+    for (const auto& selectedJunction : selectedJunctions) {
         cluster.insert(selectedJunction->getNBNode());
         const EdgeVector& incoming = selectedJunction->getNBNode()->getIncomingEdges();
         allIncoming.insert(allIncoming.end(), incoming.begin(), incoming.end());
@@ -1563,15 +1563,14 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     // first remove all crossing of the involved junctions and edges
     // (otherwise edge removal will trigger discarding)
     std::vector<NBNode::Crossing> oldCrossings;
-    for (const auto &selectedJunction : selectedJunctions) {
-        while (selectedJunction->getGNECrossings().size() > 0) {
-            GNECrossing* crossing = selectedJunction->getGNECrossings().front();
-            oldCrossings.push_back(*crossing->getNBCrossing());
+    for (const auto& selectedJunction : selectedJunctions) {
+        const auto crossings = selectedJunction->getGNECrossings();
+        for (auto crossing : crossings) {
             deleteCrossing(crossing, undoList);
         }
     }
     // preserve old connections
-    for (const auto &selectedJunction : selectedJunctions) {
+    for (const auto& selectedJunction : selectedJunctions) {
         selectedJunction->setLogicValid(false, undoList);
     }
     // remap edges
@@ -1592,7 +1591,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         }
     }
     // remap all crossing of the involved junctions and edges
-    for (const auto &nbc : oldCrossings) {
+    for (const auto& nbc : oldCrossings) {
         bool keep = true;
         for (NBEdge* e : nbc.edges) {
             if (edgesWithin.count(e) != 0) {
@@ -1608,7 +1607,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
         }
     }
     // delete original junctions
-    for (const auto &selectedJunction : selectedJunctions) {
+    for (const auto& selectedJunction : selectedJunctions) {
         deleteJunction(selectedJunction, undoList);
     }
     joined->setAttribute(SUMO_ATTR_ID, id, undoList);
