@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-07 12:12+0000\n"
+"PO-Revision-Date: 2024-08-08 11:29+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -2957,43 +2957,51 @@ msgstr ""
 
 #: src/microsim/MSRouteHandler.cpp:360
 msgid "Invalid cost for route '%'."
-msgstr ""
+msgstr "Costo invalido per l'itinerario '%'."
 
 #: src/microsim/MSRouteHandler.cpp:417
 #, c-format
 msgid "Route '%' has no edges."
-msgstr ""
+msgstr "L'itinerario '%' non contiene archi."
 
 #: src/microsim/MSRouteHandler.cpp:436
 msgid " for vehicle '%' with vClass %."
-msgstr ""
+msgstr " per veicolo '%' con la classe di veicoli %."
 
 #: src/microsim/MSRouteHandler.cpp:441
 msgid ""
 "Disconnected route '%' when repeating. Last edge '%' is not connected to "
 "first edge '%'%"
 msgstr ""
+"Itinerario sconnesso '%' se iterato. L'ultimo arco '%' non è collegato al "
+"primo arco '%'%"
 
 #: src/microsim/MSRouteHandler.cpp:454 src/router/RORouteHandler.cpp:460
 msgid ""
 "Cannot repeat stops with 'until' in route % because no cycleTime is defined."
 msgstr ""
+"Le fermate dell'itinerario % con 'until' non possono essere ripetute perché "
+"cycleTime non è stato definito."
 
 #: src/microsim/MSRouteHandler.cpp:463
 msgid ""
 "Cannot repeat stops with 'arrival' in route % because no cycleTime is "
 "defined."
 msgstr ""
+"Le fermate dell'itinerario % con 'arrival' non possono essere ripetute "
+"perché cycleTime non è stato definito."
 
 #: src/microsim/MSRouteHandler.cpp:491
 #, c-format
 msgid "A vehicle with id '%' already exists."
-msgstr ""
+msgstr "Esiste già un altro veicolo con il codice identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:494 src/microsim/MSRouteHandler.cpp:571
 #, c-format
 msgid "Another route (or distribution) with the id '%' exists."
 msgstr ""
+"Esiste un altro itinerario (o una distribuzione) con il codice "
+"identificativo '%'."
 
 #: src/microsim/MSRouteHandler.cpp:575
 #, c-format
