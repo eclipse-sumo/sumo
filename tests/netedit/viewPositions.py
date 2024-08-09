@@ -183,6 +183,10 @@ class network:
             x = 400
             y = 250
 
+        class rightTop:
+            x = 600
+            y = 220
+
         class rightBot:
             x = 600
             y = 250
@@ -367,8 +371,8 @@ class elements:
         y = 125
 
     class edgeBike1:
-        x = 18
-        y = 125
+        x = 180
+        y = 140
 
     class edgeCenter0Ped:
         x = 341

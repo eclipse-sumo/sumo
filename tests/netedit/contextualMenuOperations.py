@@ -369,6 +369,25 @@ class edges:
             subMenuAPosition = 2
             subMenuBPosition = 0
 
+# routes
+
+
+class routes:
+
+    class reverse:
+
+        # reverse
+        class current:
+            mainMenuPosition = 14
+            subMenuAPosition = 1
+            subMenuBPosition = 0
+
+        # reverse
+        class add:
+            mainMenuPosition = 14
+            subMenuAPosition = 2
+            subMenuBPosition = 0
+
 # vehicles
 
 

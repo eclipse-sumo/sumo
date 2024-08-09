@@ -30,12 +30,12 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
 # go to demand mode
 netedit.supermodeDemand()
+
 # go to select mode
 netedit.selectMode()
 
-# select both routes
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -44,7 +44,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # check parameters
-netedit.checkParameters(referencePosition, netedit.attrs.route.inspectSelection.parameters, False)
+netedit.checkParameters(referencePosition, netedit.attrs.route.inspectSelection.parameters, True)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

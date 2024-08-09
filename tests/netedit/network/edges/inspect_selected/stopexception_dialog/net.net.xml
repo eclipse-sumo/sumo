@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-31 16:48:34 by Eclipse SUMO netconvert Version v1_20_0+1477-74e6394f715
+<!-- generated on 2024-08-09 07:56:23 by Eclipse SUMO netconvert Version v1_20_0+1772-b761cf9d6e3
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\network\edges\inspect\stopexception_dialog\net.nod.xml"/>
-        <edge-files value=".\netedit\network\edges\inspect\stopexception_dialog\net.edg.xml"/>
-        <connection-files value=".\netedit\network\edges\inspect\stopexception_dialog\net.con.xml"/>
-        <tllogic-files value=".\netedit\network\edges\inspect\stopexception_dialog\net.tll.xml"/>
+        <node-files value=".\netedit\network\edges\inspect_selected\stopexception_dialog\net.nod.xml"/>
+        <edge-files value=".\netedit\network\edges\inspect_selected\stopexception_dialog\net.edg.xml"/>
+        <connection-files value=".\netedit\network\edges\inspect_selected\stopexception_dialog\net.con.xml"/>
+        <tllogic-files value=".\netedit\network\edges\inspect_selected\stopexception_dialog\net.tll.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value=".\netedit\network\edges\inspect\stopexception_dialog\net.net.xml"/>
+        <output-file value=".\netedit\network\edges\inspect_selected\stopexception_dialog\net.net.xml"/>
     </output>
 
     <projection>

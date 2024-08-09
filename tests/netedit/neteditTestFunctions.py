@@ -348,6 +348,28 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
     time.sleep(DELAY_KEY)
 
+
+def leftClickMultiElement(referencePosition, position, underElement, offsetX=0, offsetY=0):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) and selecting under element
+    """
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + position.x + offsetX, referencePosition[1] + position.y + offsetY]
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait after move
+    time.sleep(DELAY_MOUSE_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # wait after every operation
+    time.sleep(DELAY_MOUSE_CLICK)
+    # go to element
+    for _ in range(underElement + 1):
+        typeDown()
+    typeSpace()
+    print("TestFunctions: Clicked over position",
+          clickedPosition[0], '-', clickedPosition[1], "under element", underElement)
+
 #################################################
     # basic functions
 #################################################
