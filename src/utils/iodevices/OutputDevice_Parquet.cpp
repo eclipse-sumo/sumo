@@ -60,7 +60,8 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
         // we have to clean up the stack, otherwise the file will not be written correctly
         // when it is open
         formatter->clearStack();
-        return true;
+        // this is critical for the file to be written correctly
+        return false;
     }
     if (myFile == nullptr) {   
         if (formatter == nullptr) {

@@ -172,7 +172,9 @@ auto convertToParquetType(const T& value) {
     } else if constexpr (std::is_same_v<T, const char*> || 
                          std::is_same_v<T, std::string> || 
                          std::is_same_v<T, std::string_view>) {
-        return std::string_view(value);
+        // have to take a copy of the string, to ensure its lifetime is long enough
+        auto x = std::string(value);
+        return x;
     } else {
         // For any other type, convert to string
         return toString(value);
@@ -181,21 +183,6 @@ auto convertToParquetType(const T& value) {
 
 template <typename T, typename = void>
 class Attribute : public AttributeBase {
-public:
-    Attribute(const std::string& name, const T& value)
-        : AttributeBase(name), value_(convertToParquetType(value)) {}
-
-    void print(StreamDevice& os) const override {
-        os << value_;
-    }
-
-private:
-    decltype(convertToParquetType(std::declval<T>())) value_;
-};
-
-// Specialization for numeric types
-template <typename T>
-class Attribute<T, std::enable_if_t<std::is_arithmetic_v<T>>> : public AttributeBase {
 public:
     Attribute(const std::string& name, const T& value)
         : AttributeBase(name), value_(convertToParquetType(value)) {}
