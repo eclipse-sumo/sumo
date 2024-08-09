@@ -37,10 +37,10 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" from="Edge0" to="Edge2" via="Edge1" end="3600.00" number="1800"/>
-    <flow id="flow_1" begin="0.00" from="Edge1" to="Edge2" end="3600.00" number="1800"/>
-    <flow id="flow_2" begin="0.00" from="EdgeCenter0" to="EdgeCenter1" end="3600.00" number="1800"/>
-    <flow id="flow_3" begin="0.00" from="Edge3" to="Edge5" via="Edge4" end="3600.00" number="1800"/>
-	<flow id="flow_4" begin="0.00" from="EdgeExternBot" to="EdgeExternTop" end="3600.00" number="1800"/>
-	<flow id="flow_5" begin="0.00" from="EdgeExternBot" to="EdgeExternTop" end="3600.00" number="1800"/>
+    <flow id="flow_0" begin="0.00" from="Edge0" to="Edge2" via="Edge1" end="3600.00" number="100"/>
+    <flow id="flow_1" begin="0.00" from="Edge1" to="Edge2" end="3600.00" number="100"/>
+    <flow id="flow_2" begin="0.00" from="EdgeCenter0" to="EdgeCenter1" end="3600.00" number="100"/>
+    <flow id="flow_3" begin="0.00" from="Edge3" to="Edge5" via="Edge4" end="3600.00" number="100"/>
+	<flow id="flow_4" begin="0.00" from="EdgeExternBot" to="EdgeExternTop" end="3600.00" number="100"/>
+	<flow id="flow_5" begin="0.00" from="EdgeExternBot" to="EdgeExternTop" end="3600.00" number="100"/>
 </routes>

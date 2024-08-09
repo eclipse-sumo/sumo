@@ -44,10 +44,10 @@
 	<route edges="EdgeExternBot EdgeExternTop" color="yellow" id="route_4"/>
 	<route edges="EdgeExternBot EdgeExternTop" color="yellow" id="route_5"/>
 
-    <flow id="flow_0" begin="0.00" route="route_0" end="3600.00" number="1800"/>
-    <flow id="flow_1" begin="1.00" route="route_1" end="3600.00" number="1800"/>
-    <flow id="flow_2" begin="2.00" route="route_2" end="3600.00" number="1800"/>
-    <flow id="flow_3" begin="3.00" route="route_3" end="3600.00" number="1800"/>
-	<flow id="flow_4" begin="3.00" route="route_4" end="3600.00" number="1800"/>
-	<flow id="flow_5" begin="3.00" route="route_5" end="3600.00" number="1800"/>
+    <flow id="flow_0" begin="0.00" route="route_0" end="3600.00" number="100"/>
+    <flow id="flow_1" begin="1.00" route="route_1" end="3600.00" number="100"/>
+    <flow id="flow_2" begin="2.00" route="route_2" end="3600.00" number="100"/>
+    <flow id="flow_3" begin="3.00" route="route_3" end="3600.00" number="100"/>
+	<flow id="flow_4" begin="3.00" route="route_4" end="3600.00" number="100"/>
+	<flow id="flow_5" begin="3.00" route="route_5" end="3600.00" number="100"/>
 </routes>
