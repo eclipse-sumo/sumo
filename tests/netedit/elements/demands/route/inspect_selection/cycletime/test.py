@@ -34,9 +34,8 @@ netedit.supermodeDemand()
 # go to select mode
 netedit.selectMode()
 
-# select both routes
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -45,16 +44,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "", True)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "dummyCycle", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "dummyCycle", True)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "-12.4", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "-12.4", True)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "56.12", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.cycletime, "56.12", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -34,9 +34,8 @@ netedit.supermodeDemand()
 # go to select mode
 netedit.selectMode()
 
-# select both routes
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat1)
+# select all using invert
+netedit.selectionInvert()
 
 # go to inspect mode
 netedit.inspectMode()
@@ -45,19 +44,19 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 
 # change color using dialog
-netedit.modifyColorAttribute(netedit.attrs.route.inspectSelection.colorButton, 5, False)
+netedit.modifyColorAttribute(netedit.attrs.route.inspectSelection.colorButton, 5, True)
 
 # Change parameter color with a non valid value (empty)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "", True)
 
 # Change parameter color with a non valid value (dummy)
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "dummyColor", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "dummyColor", True)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "12,15,30", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "12,15,30", True)
 
 # Change parameter color with a valid value
-netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "red", False)
+netedit.modifyAttribute(netedit.attrs.route.inspectSelection.color, "red", True)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

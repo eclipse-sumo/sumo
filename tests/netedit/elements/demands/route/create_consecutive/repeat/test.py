@@ -34,6 +34,12 @@ netedit.supermodeDemand()
 # go to route mode
 netedit.routeMode()
 
+# change to non consecutive mode
+netedit.changeRouteMode("non consecutive edges")
+
+# set valid vclass
+netedit.changeRouteVClass("bus")
+
 # set invalid repeat
 netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")
 
@@ -41,7 +47,13 @@ netedit.changeDefaultValue(netedit.attrs.route.create.repeat, "dummyrepeat")
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.edgeRepeat0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeBike0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeCenter1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edgeBike1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge4)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # press enter to try to create route
 netedit.typeEnter()
