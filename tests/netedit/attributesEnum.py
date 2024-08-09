@@ -1582,12 +1582,6 @@ class route:
         cycletime = 4
         parameters = 7
 
-    class reverse:
-        current = 1
-        add = 2
-
-    reverseElement = 11
-
 # trip (from-to edges)
 
 
