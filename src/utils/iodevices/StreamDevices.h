@@ -202,7 +202,7 @@ public:
         myStream.release();
     }
 
-    void setPrecision(FMT_MAYBE_UNUSED const int& precision) override {}
+    void setPrecision(const int& precision) override {}
 
     std::string str() override {
         return "";
