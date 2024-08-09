@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-08 11:29+0000\n"
+"PO-Revision-Date: 2024-08-09 13:35+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -3739,11 +3739,11 @@ msgstr ""
 #: src/microsim/devices/MSDevice_GLOSA.cpp:197
 msgid ""
 "Invalid value '%' for parameter 'device.glosa.range' of traffic light '%'"
-msgstr ""
+msgstr "Valore invalido '%' del parametro 'device.glosa.range' del semaforo '%'"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:53
 msgid "The period with which the vehicle shall be rerouted"
-msgstr ""
+msgstr "L'intervallo dopo cui l'itinerario del veicolo deve essere aggiornato"
 
 #: src/microsim/devices/MSDevice_Routing.cpp:57
 msgid "The rerouting period before depart"
@@ -4304,7 +4304,7 @@ msgstr "L'invio ripetuto non contiene la fermata del cliente esistente '%'"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:513
 msgid "Could not add taxi stop, time=%, error=%"
-msgstr ""
+msgstr "Non ho potuto aggiungere fermata di taxi alle ore %, errore=%"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:725
 msgid "Taxi '%' reaches scheduled end of service at time=%."
@@ -4334,16 +4334,22 @@ msgstr ""
 #: src/microsim/devices/MSDevice_ToC.cpp:119
 msgid "Recovery rate for the driver's awareness after a ToC."
 msgstr ""
+"Rata di ristabilimento della facoltà percettiva dopo un ritorno del "
+"controllo."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:121
 msgid ""
 "Attention level below which a driver restrains from performing lane changes "
 "(value in [0,1])."
 msgstr ""
+"Livello di attenzione sotto il quale il conducente lascia perdere ogni "
+"cambio di corsia (valore in [0,1]))."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:123
 msgid "Average awareness a driver has initially after a ToC (value in [0,1])."
 msgstr ""
+"Facoltà percettiva media di un conducente direttamente dopo un ritorno del "
+"controllo (valore in [0,1]))."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:125
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
@@ -4541,17 +4547,19 @@ msgstr ""
 
 #: src/microsim/engine/VehicleEngineHandler.cpp:197
 msgid "Unknown tag '%' while parsing."
-msgstr ""
+msgstr "Incontrato tag sconosciuto '%' nell'analisi."
 
 #: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:83
 #, c-format
 msgid "Lane change model '%' is not compatible with sublane simulation"
 msgstr ""
+"Il modello di cambio corsia '%' è incompatibile con la simulazione di "
+"livello subcorsia"
 
 #: src/microsim/lcmodels/MSAbstractLaneChangeModel.cpp:101
 #, c-format
 msgid "Lane change model '%' not implemented"
-msgstr ""
+msgstr "Modello di cambio corsia '%' non implementato"
 
 #: src/microsim/output/MSE2Collector.cpp:124
 msgid ""
@@ -5486,11 +5494,11 @@ msgstr ""
 
 #: src/netbuild/NBEdge.cpp:3066
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
-msgstr ""
+msgstr "L'arco '%' non è collegato ad archi uscenti dell'incrocio '%'."
 
 #: src/netbuild/NBEdge.cpp:3080
 msgid "Lane '%' is not connected from any incoming edge at junction '%'."
-msgstr ""
+msgstr "La corsia '%' non è collegata a nessu'arco dell'incrocio '%'."
 
 #: src/netbuild/NBEdge.cpp:3097
 #, c-format
@@ -5526,7 +5534,7 @@ msgstr ""
 #: src/netbuild/NBEdge.cpp:4536
 #, c-format
 msgid "Edge % allows pedestrians on all lanes"
-msgstr ""
+msgstr "L'arco % autorizza pedoni su tutte le corsie"
 
 #: src/netbuild/NBEdge.cpp:4594
 #, c-format
@@ -5675,43 +5683,44 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:52
 msgid "The default number of lanes in an edge"
-msgstr ""
+msgstr "Il numero standard di corsie di un arco"
 
 #: src/netbuild/NBFrame.cpp:56
 msgid "The default width of lanes"
-msgstr ""
+msgstr "La larghezza standard di una corsia"
 
 #: src/netbuild/NBFrame.cpp:59
 msgid "The default method for computing lane shapes from edge shapes"
 msgstr ""
+"Il metodo standard per derivare le forme delle corsie dalla forma dell'arco"
 
 #: src/netbuild/NBFrame.cpp:63
 msgid "The default speed on an edge (in m/s)"
-msgstr ""
+msgstr "Il limite di velocità standard di un arco (in m/s)"
 
 #: src/netbuild/NBFrame.cpp:67
 msgid "The default friction on an edge"
-msgstr ""
+msgstr "La frizione standard di un arco"
 
 #: src/netbuild/NBFrame.cpp:71
 msgid "The default priority of an edge"
-msgstr ""
+msgstr "La priorità standard di un arco"
 
 #: src/netbuild/NBFrame.cpp:74
 msgid "The default edge type"
-msgstr ""
+msgstr "Il tipo di arco standard"
 
 #: src/netbuild/NBFrame.cpp:77
 msgid "The default width of added sidewalks"
-msgstr ""
+msgstr "La larghezza standard di marciapiedi aggiunti"
 
 #: src/netbuild/NBFrame.cpp:80
 msgid "The default width of added bike lanes"
-msgstr ""
+msgstr "La larghezza standard di piste ciclabili aggiunte"
 
 #: src/netbuild/NBFrame.cpp:83
 msgid "The default width of a pedestrian crossing"
-msgstr ""
+msgstr "La larghezza standard di un passaggio pedonale"
 
 #: src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
