@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+º<?xml version="1.0" encoding="UTF-8"?>
 
 <!-- generated on 2024-06-15 09:08:13 by Eclipse SUMO sumo Version v1_20_0+0555-fbf9c930d35
 This data file and the accompanying materials
@@ -21,6 +21,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <additional-files value="additionals.netedit"/>
         <junction-taz value="true"/>
     </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
 
     <output>
         <write-license value="true"/>
