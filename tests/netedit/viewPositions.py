@@ -183,6 +183,10 @@ class network:
             x = 400
             y = 250
 
+        class rightTop:
+            x = 600
+            y = 220
+
         class rightBot:
             x = 600
             y = 250
