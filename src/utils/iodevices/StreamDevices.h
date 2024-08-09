@@ -220,7 +220,7 @@ public:
         throw std::runtime_error("Not implemented");
     }
 
-    void str(FMT_MAYBE_UNUSED const std::string& s) override {
+    void str(const std::string& s) override {
         throw std::runtime_error("Not implemented");
     };
 
