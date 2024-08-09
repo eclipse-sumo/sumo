@@ -87,7 +87,7 @@ lane sections may differ in number of lanes for any of the directions,
 the importer has to split the imported edge at all lane sections. The
 resulting edges' IDs are built from the original edge ID and the offset
 of the lane section within the edge (lane section's
-`s`-value), divided by a dot ('.'). As an
+`s`-value), divided by a dot ('.') when using the option **--opendrive.position-ids**. As an
 example, the first lane section of the edge '100' is named '100.0.00'.
 Assuming the edge has a further lane section starting at
 `s`=100, a further edge named '100.100.00'
