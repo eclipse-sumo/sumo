@@ -37,6 +37,7 @@ netedit.routeMode()
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
@@ -44,12 +45,15 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# transform
-netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.edge0,
-                                netedit.attrs.route.reverseElement, netedit.attrs.route.reverse.add)
+# reverse add
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleEdge,
+                                netedit.contextualMenu.routes.reverse.add)
 
-# Check undo redo
-netedit.checkUndoRedo(referencePosition)
+# Check undos
+netedit.undo(referencePosition, 1)
+
+# check redos
+netedit.redo(referencePosition, 1)
 
 # save Netedit config
 netedit.saveNeteditConfig(referencePosition)

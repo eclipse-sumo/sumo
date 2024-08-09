@@ -13,7 +13,7 @@
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
-# @date    2016-11-25
+# @date    2019-07-16
 
 # import common functions for netedit tests
 import os
@@ -28,12 +28,26 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
+# go to demand mode
+netedit.supermodeDemand()
+
+# go to route mode
+netedit.routeMode()
+
+# create route using three edges
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+
+# press enter to create route
+netedit.typeEnter()
+
 # go to inspect mode
 netedit.inspectMode()
 
 # copy name
-netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.edge1Ped,
-                                netedit.contextualMenu.copyName)
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.vehicleEdge,
+                                netedit.contextualMenu.vehicles.copyName)
 
 # Check undos
 netedit.undo(referencePosition, 1)
