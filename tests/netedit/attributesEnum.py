@@ -1489,10 +1489,11 @@ class type:
         create = 2
         delete = 3
         copy = 3
-        dialog = 24
+        dialog = 25
 
     class edit:
         id = 8
+        typeDist = 8
         vClass = 9
         colorButton = 11
         color = 12
@@ -1500,10 +1501,11 @@ class type:
         minGap = 14
         maxSpeed = 15
         desiredMaxSpeed = 16
-        accel = 17
-        decel = 18
-        sigma = 19
-        tau = 20
+        parkingBadges = 17
+        accel = 18
+        decel = 19
+        sigma = 20
+        tau = 21
 
     class editDefault:
         vClass = 7
