@@ -350,7 +350,16 @@ Furthermore, the function
 can be used to access the consumption of the vehicle if the `emissionClass="Energy/unknown"` [is
 declared](#emission_output).
 
-## Calculating the remaining Range:
+## Query of the current state of charge
+
+The current state of charge of the battery can be computed as the quotient of the actual battery charge and the maximum battery capacity:
+```python
+capacity = float(traci.vehicle.getParameter(vehID, "device.battery.capacity"))
+currentCharge = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity"))
+stateOfCharge = currentCharge / capacity
+```
+
+## Calculating the remaining Range
 
 After the vehicle has been driving for a while, the remaining range can be computed based on previous consumption and distance:
 ```python
@@ -359,11 +368,11 @@ remainingRange = float(traci.vehicle.getParameter(vehID, "device.battery.actualB
 ```
 To compute the remaining range on departure, the value of `mWh` (meters per Watt-hour) should be calibrated from a prior simulation.
 
-## Reducing the power of a charging station:
+## Reducing the power of a charging station
 
 If too many consumers connect to the eletrical grid, it may not be able to supply the nominal power of the charging station. A temporary
 power drop of 20% can be modeled using the following sample code:
-```
+```python
 prevPower = traci.chargingstation.getPower(chargingStationID) # remember for restoring the full power later
 traci.chargingstation.setPower(chargingStationID, prevPower * 0.8)
 ```
