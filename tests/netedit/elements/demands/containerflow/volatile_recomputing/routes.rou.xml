@@ -5,16 +5,16 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="cf_0" begin="0.00" end="3600.00" containersPerHour="1800">
+    <containerFlow id="cf_0" begin="0.00" end="3600.00" containersPerHour="100">
         <transport from="EdgeExternBot" to="EdgeExternTop"/>
     </containerFlow>
-    <containerFlow id="cf_1" begin="0.00" end="3600.00" containersPerHour="1800">
+    <containerFlow id="cf_1" begin="0.00" end="3600.00" containersPerHour="100">
         <transport from="EdgeExternTop" to="EdgeExternBot"/>
     </containerFlow>
-    <containerFlow id="cf_2" begin="0.00" end="3600.00" containersPerHour="1800">
+    <containerFlow id="cf_2" begin="0.00" end="3600.00" containersPerHour="100">
         <tranship from="Edge0" to="EdgeCenter1"/>
     </containerFlow>
-    <containerFlow id="cf_3" begin="0.00" end="3600.00" containersPerHour="1800">
+    <containerFlow id="cf_3" begin="0.00" end="3600.00" containersPerHour="100">
         <tranship from="EdgeCenter0" to="Edge5"/>
     </containerFlow>
 </routes>

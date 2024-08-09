@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 13:54:39 by Eclipse SUMO netedit Version v1_20_0+0930-542f1297b48
+<!-- generated on 2024-08-09 15:39:06 by Eclipse SUMO netedit Version v1_20_0+1763-a87dd661c22
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <trip id="t_1" depart="0.00" fromJunction="J3" toJunction="J4"/>
     <trip id="t_2" depart="0.00" fromTaz="taz_3" toTaz="taz_2"/>
-    <flow id="f_1" begin="0.00" fromJunction="J5" toJunction="J7" end="3600.00" vehsPerHour="1800"/>
-    <flow id="f_2" begin="0.00" fromTaz="taz_1" toTaz="taz_0" end="3600.00" vehsPerHour="1800"/>
+    <flow id="f_1" begin="0.00" fromJunction="J5" toJunction="J7" end="3600.00" vehsPerHour="100"/>
+    <flow id="f_2" begin="0.00" fromTaz="taz_1" toTaz="taz_0" end="3600.00" vehsPerHour="100"/>
 </routes>
