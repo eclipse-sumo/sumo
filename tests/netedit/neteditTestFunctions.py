@@ -348,6 +348,7 @@ def dragDrop(referencePosition, x1, y1, x2, y2):
     # wait before every operation
     time.sleep(DELAY_KEY)
 
+
 def leftClickMultiElement(referencePosition, position, underElement, offsetX=0, offsetY=0):
     """
     @brief do left click over a position relative to referencePosition (pink square) and selecting under element
@@ -366,7 +367,8 @@ def leftClickMultiElement(referencePosition, position, underElement, offsetX=0, 
     for _ in range(underElement + 1):
         typeDown()
     typeSpace()
-    print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1], "under element", underElement)
+    print("TestFunctions: Clicked over position",
+          clickedPosition[0], '-', clickedPosition[1], "under element", underElement)
 
 #################################################
     # basic functions
