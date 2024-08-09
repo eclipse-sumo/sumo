@@ -101,22 +101,4 @@ Warning: Vehicle 'flow_0.15' teleports beyond arrival edge 'Edge2', time=2558.00
 Warning: Vehicle 'flow_0.16' teleports beyond arrival edge 'Edge2', time=2559.00.
 Warning: Vehicle 'flow_0.12' teleports beyond arrival edge 'Edge2', time=2564.00.
 Warning: Vehicle 'splitA' to split from vehicle 'flow_0.17' is not known. time=2565.00.
-Warning: Vehicle 'flow_0.17' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.0' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.1' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.10' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.11' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.12' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.13' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.14' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.15' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.16' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.17' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.2' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.3' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.4' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.5' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.6' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.7' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.8' aborted waiting for a person that will never come.
-Warning: Vehicle 'flow_1.9' aborted waiting for a person that will never come.
+Warning: Vehicle 'flow_0.17' teleports beyond arrival edge 'Edge2', time=2580.00.

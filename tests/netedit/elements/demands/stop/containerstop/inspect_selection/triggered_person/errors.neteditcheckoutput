@@ -1,4 +1,3 @@
 Warning: Vehicle 'splitB' to split from vehicle 'vehicle_1' is not known. time=12.00.
 Warning: Vehicle 'splitA' to split from vehicle 'vehicle_0' is not known. time=23.00.
-Warning: Vehicle 'vehicle_0' aborted waiting for a person that will never come.
-Warning: Vehicle 'vehicle_1' aborted waiting for a person that will never come.
+Warning: Vehicle 'vehicle_0' teleports beyond arrival edge 'Edge2', time=105.00.

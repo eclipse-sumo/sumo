@@ -43,25 +43,3 @@ Warning: Teleporting vehicle 'flow.12'; waited too long (blocked), lane='Edge2_1
 Warning: Vehicle 'flow.12' teleports beyond arrival edge 'Edge2', time=3378.00.
 Warning: Vehicle 'flow.12' skips stop on lane 'Edge2_1' time=3378.00.
 Warning: Vehicle 'flow.12' skips stop on lane 'Edge2_1' time=3378.00.
-Warning: Teleporting vehicle 'flow.13'; waited too long (blocked), lane='Edge2_1', time=3684.00.
-Warning: Vehicle 'flow.13' teleports beyond arrival edge 'Edge2', time=3684.00.
-Warning: Vehicle 'flow.13' skips stop on lane 'Edge2_1' time=3684.00.
-Warning: Vehicle 'flow.13' skips stop on lane 'Edge2_1' time=3684.00.
-Warning: Teleporting vehicle 'flow.14'; waited too long (blocked), lane='Edge2_1', time=3990.00.
-Warning: Vehicle 'flow.14' teleports beyond arrival edge 'Edge2', time=3990.00.
-Warning: Vehicle 'flow.14' skips stop on lane 'Edge2_1' time=3990.00.
-Warning: Vehicle 'flow.14' skips stop on lane 'Edge2_1' time=3990.00.
-Warning: Teleporting vehicle 'flow.15'; waited too long (blocked), lane='Edge2_1', time=4295.00.
-Warning: Vehicle 'flow.15' teleports beyond arrival edge 'Edge2', time=4295.00.
-Warning: Vehicle 'flow.15' skips stop on lane 'Edge2_1' time=4295.00.
-Warning: Vehicle 'flow.15' skips stop on lane 'Edge2_1' time=4295.00.
-Warning: Teleporting vehicle 'flow.16'; waited too long (blocked), lane='Edge2_1', time=4599.00.
-Warning: Vehicle 'flow.16' teleports beyond arrival edge 'Edge2', time=4599.00.
-Warning: Vehicle 'flow.16' skips stop on lane 'Edge2_1' time=4599.00.
-Warning: Vehicle 'flow.16' skips stop on lane 'Edge2_1' time=4599.00.
-Warning: Teleporting vehicle 'flow.17'; waited too long (blocked), lane='Edge2_1', time=4905.00.
-Warning: Vehicle 'flow.17' teleports beyond arrival edge 'Edge2', time=4905.00.
-Warning: Vehicle 'flow.17' skips stop on lane 'Edge2_1' time=4905.00.
-Warning: Vehicle 'flow.17' skips stop on lane 'Edge2_1' time=4905.00.
-Warning: Vehicle 'flow.0' aborted waiting to be joined to vehicle 'customJoin'.
-Warning: Vehicle 'flow.1' aborted waiting to be joined to vehicle 'customJoin'.

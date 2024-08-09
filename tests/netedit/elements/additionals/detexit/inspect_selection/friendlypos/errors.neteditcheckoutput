@@ -716,5 +716,3 @@ Warning: Vehicle 'f_0.178' arrived inside e3Detector 'E3_0', time=3580.00.
 Warning: Vehicle 'f_0.178' arrived inside e3Detector 'E3_1', time=3580.00.
 Warning: Vehicle 'f_0.179' left e3Detector 'E3_1' without entering it, time=3592.00.
 Warning: Vehicle 'f_0.179' left e3Detector 'E3_1' without entering it, time=3593.00.
-Warning: Vehicle 'f_0.179' arrived inside e3Detector 'E3_0', time=3600.00.
-Warning: Vehicle 'f_0.179' arrived inside e3Detector 'E3_1', time=3600.00.
