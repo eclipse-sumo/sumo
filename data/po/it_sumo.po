@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-09 13:35+0000\n"
+"PO-Revision-Date: 2024-08-10 17:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5724,31 +5724,31 @@ msgstr "La larghezza standard di un passaggio pedonale"
 
 #: src/netbuild/NBFrame.cpp:86
 msgid "The default speed 'limit' on a pedestrian crossing (in m/s)"
-msgstr ""
+msgstr "Il 'limite' di velocità standard su un passaggio pedonale (in m/s)"
 
 #: src/netbuild/NBFrame.cpp:89
 msgid "The default speed 'limit' on a pedestrian walkingarea (in m/s)"
-msgstr ""
+msgstr "Il 'limite' di velocità su un'area pedonale (in m/s)"
 
 #: src/netbuild/NBFrame.cpp:92
 msgid "The default for allowed vehicle classes"
-msgstr ""
+msgstr "Le classi di veicoli autorizzate per difetto"
 
 #: src/netbuild/NBFrame.cpp:95
 msgid "The default for disallowed vehicle classes"
-msgstr ""
+msgstr "Le classi di veicoli vietate per difetto"
 
 #: src/netbuild/NBFrame.cpp:98
 msgid "Whether junctions should be kept clear by default"
-msgstr ""
+msgstr "Se gli incroci devono essere mantenuti liberi di veicoli per difetto"
 
 #: src/netbuild/NBFrame.cpp:101
 msgid "The default turning radius of intersections"
-msgstr ""
+msgstr "Il raggio di svolta standard negli incroci"
 
 #: src/netbuild/NBFrame.cpp:104
 msgid "The default length when overriding connection lengths"
-msgstr ""
+msgstr "La lunghezza standard per sovrascrivere le lunghezze di collegamenti"
 
 #: src/netbuild/NBFrame.cpp:107
 msgid ""
