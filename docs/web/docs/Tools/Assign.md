@@ -11,7 +11,7 @@ assignment (DUA)](../Demand/Dynamic_User_Assignment.md). It works by alternating
 discover travel times and then assigning alternative routes to some of
 the vehicles according to these travel times. This is repeated for a
 defined number of iteration steps. At least two files have to be given
-as input the script: a SUMO-network and a set of trip definitions. A
+as input the script: a SUMO network and a set of trip definitions. A
 stochastic user-equilibrium (UE)traffic state is not guaranteed after
 the assignment. Increasing the number of iteration steps increases the
 likelihood of convergence to equilibrium.
@@ -30,7 +30,7 @@ not disable the edge-based dump for aggregation over 900s, because this
 is read by the [duarouter](../duarouter.md) in the next iteration
 steps in order to compute the DUA.
 
-For further options to the script look either at the source code or
+For further options of the script either look at the source code or
 start it with the "--help" option.
 
 ```
