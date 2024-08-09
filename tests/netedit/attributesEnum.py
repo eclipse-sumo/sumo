@@ -1515,10 +1515,11 @@ class type:
         minGap = 12
         maxSpeed = 13
         desiredMaxSpeed = 14
-        accel = 15
-        decel = 16
-        sigma = 17
-        tau = 18
+        parkingBadges = 15
+        accel = 16
+        decel = 17
+        sigma = 18
+        tau = 19
 
     class editDialog:
         vClass = 1
