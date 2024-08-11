@@ -53,6 +53,7 @@ OutputDevice_Parquet::OutputDevice_Parquet(const std::string& fullName)
 
 
 bool OutputDevice_Parquet::closeTag(const std::string& comment) {
+    UNUSED_PARAMETER(comment);
     // open the file for writing, but only if the depth is >=2 (i.e. we are closing the children tag).
     //! @todo this is a bit of a hack, but it works for now
     auto formatter = dynamic_cast<ParquetFormatter*>(this->getFormatter());

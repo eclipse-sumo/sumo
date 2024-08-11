@@ -291,10 +291,13 @@ public:
      * @todo Describe what is saved
      */
      // turn off the warning for unused parameters
-    [[maybe_unused]]
     bool writeXMLHeader(StreamDevice& into, const std::string& rootXMLElement,
         const std::map<SumoXMLAttr, std::string>& attrs,
         bool includeConfig = true) override {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(rootXMLElement);
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(includeConfig);
         return 0;
     };
 
@@ -310,6 +313,7 @@ public:
      * @return The OutputDevice for further processing
      */
     void openTag(StreamDevice& into, const std::string& xmlXMLElement) override {
+        UNUSED_PARAMETER(into);
 #ifdef PARQUET_TESTING
         // assert that the stack does not contain the XMLElement
         assert(std::find(myXMLStack.begin(), myXMLStack.end(), xmlXMLElement) == myXMLStack.end());
@@ -336,6 +340,7 @@ public:
      * @todo it is not verified that the topmost XMLElement was closed
      */
     inline bool closeTag(StreamDevice& into, const std::string& comment = "") override {
+        UNUSED_PARAMETER(comment);
         if (myXMLStack.empty()) {
             return false;
         }
@@ -362,12 +367,17 @@ public:
      */
     void writePreformattedTag(StreamDevice& into, const std::string& val) override {
         // don't take any action
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
         return;
     };
 
     /** @brief writes arbitrary padding
      */
-    inline void writePadding(StreamDevice& into, const std::string& val) override {};
+    inline void writePadding(StreamDevice& into, const std::string& val) override {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
+    };
 
 
     /** @brief writes an arbitrary attribute
@@ -378,6 +388,7 @@ public:
      */
     template <class T>
     void writeAttr(StreamDevice& into, const std::string& attr, const T& val) {
+        UNUSED_PARAMETER(into);
         std::unique_ptr<AttributeBase> typed_attr = std::make_unique<Attribute<T>>(attr, val);
         this->myXMLStack.back().addAttribute(std::move(typed_attr));
         if (!sharedNodeVector && this->fields.find(attr) == this->fields.end()) {

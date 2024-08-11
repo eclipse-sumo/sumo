@@ -14,6 +14,7 @@
 #include <parquet/stream_writer.h>
 #endif
 
+
 class StreamDevice {
 public:
 
@@ -202,7 +203,9 @@ public:
         myStream.release();
     }
 
-    void setPrecision(const int& precision) override {}
+    void setPrecision(const int& precision) override {
+        UNUSED_PARAMETER(precision);
+    }
 
     std::string str() override {
         return "";
@@ -221,6 +224,7 @@ public:
     }
 
     void str(const std::string& s) override {
+        UNUSED_PARAMETER(s);
         throw std::runtime_error("Not implemented");
     };
 
