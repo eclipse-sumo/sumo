@@ -435,6 +435,9 @@ protected:
     /// @brief get edgeStopIndex
     std::vector<EdgeStopIndex> getEdgeStopIndex() const;
 
+    /// @brief get color by scheme (used by vehicles, persons and containers)
+    RGBColor getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const;
+
     /// @brief get distribution in which the given element is part
     std::string getDistributionParents() const;
 

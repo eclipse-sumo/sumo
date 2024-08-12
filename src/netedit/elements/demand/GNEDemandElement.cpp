@@ -703,6 +703,95 @@ GNEDemandElement::getEdgeStopIndex() const {
 }
 
 
+RGBColor
+GNEDemandElement::getColorByScheme(const GUIColorer& c, const SUMOVehicleParameter* parameters) const {
+    // set color depending of color active
+    switch (c.getActive()) {
+        case 0: {
+            // test for emergency vehicle
+            if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "emergency") {
+                return RGBColor::WHITE;
+            }
+            // test for firebrigade
+            if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "firebrigade") {
+                return RGBColor::RED;
+            }
+            // test for police car
+            if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "police") {
+                return RGBColor::BLUE;
+            }
+            if (getTypeParent()->getAttribute(SUMO_ATTR_GUISHAPE) == "scooter") {
+                return RGBColor::WHITE;
+            }
+            // check if color was set
+            if (parameters->wasSet(VEHPARS_COLOR_SET)) {
+                return parameters->color;
+            } else {
+                // take their parent's color)
+                return getTypeParent()->getColor();
+            }
+        }
+        case 2: {
+            if (parameters->wasSet(VEHPARS_COLOR_SET)) {
+                return parameters->color;
+            } else {
+                return c.getScheme().getColor(0);
+            }
+        }
+        case 3: {
+            if (getTypeParent()->isAttributeEnabled(SUMO_ATTR_COLOR)) {
+                return getTypeParent()->getColor();
+            } else {
+                return c.getScheme().getColor(0);
+            }
+            break;
+        }
+        case 4: {
+            if (getRouteParent()->getColor() != RGBColor::DEFAULT_COLOR) {
+                return getRouteParent()->getColor();
+            } else {
+                return c.getScheme().getColor(0);
+            }
+        }
+        case 5: {
+            Position p = getRouteParent()->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
+            const Boundary& b = myNet->getBoundary();
+            Position center = b.getCenter();
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+            return RGBColor::fromHSV(hue, sat, 1.);
+        }
+        case 6: {
+            Position p = getRouteParent()->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
+            const Boundary& b = myNet->getBoundary();
+            Position center = b.getCenter();
+            double hue = 180. + atan2(center.x() - p.x(), center.y() - p.y()) * 180. / M_PI;
+            double sat = p.distanceTo(center) / center.distanceTo(Position(b.xmin(), b.ymin()));
+            return RGBColor::fromHSV(hue, sat, 1.);
+        }
+        case 7: {
+            Position pb = getRouteParent()->getParentEdges().at(0)->getLanes().at(0)->getLaneShape()[0];
+            Position pe = getRouteParent()->getParentEdges().back()->getLanes().at(0)->getLaneShape()[-1];
+            const Boundary& b = myNet->getBoundary();
+            double hue = 180. + atan2(pb.x() - pe.x(), pb.y() - pe.y()) * 180. / M_PI;
+            Position minp(b.xmin(), b.ymin());
+            Position maxp(b.xmax(), b.ymax());
+            double sat = pb.distanceTo(pe) / minp.distanceTo(maxp);
+            return RGBColor::fromHSV(hue, sat, 1.);
+        }
+        case 35: { // color randomly (by pointer hash)
+            std::hash<const GNEDemandElement*> ptr_hash;
+            const double hue = (double)(ptr_hash(this) % 360); // [0-360]
+            const double sat = (double)((ptr_hash(this) / 360) % 67) / 100. + 0.33; // [0.33-1]
+            return RGBColor::fromHSV(hue, sat, 1.);
+        }
+        default: {
+            return c.getScheme().getColor(0);
+        }
+    }
+}
+
+
 std::string
 GNEDemandElement::getDistributionParents() const {
     SumoXMLTag tagDistribution = SUMO_TAG_NOTHING;

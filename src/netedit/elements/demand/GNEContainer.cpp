@@ -641,6 +641,17 @@ GNEContainer::getACParametersMap() const {
 // protected
 // ===========================================================================
 
+RGBColor
+GNEContainer::setColor(const GUIVisualizationSettings& s) const {
+    // change color
+    if (drawUsingSelectColor()) {
+        return s.colorSettings.selectedContainerColor;
+    } else {
+        return getColorByScheme(s.containerColorer, this);
+    }
+}
+
+
 void
 GNEContainer::drawAction_drawAsPoly() const {
     // obtain width and length
