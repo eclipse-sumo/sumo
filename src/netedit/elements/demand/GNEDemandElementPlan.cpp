@@ -1138,7 +1138,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
-            (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
+                (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
             // push matrix
             GLHelper::pushMatrix();
             // translate to front
@@ -1183,10 +1183,6 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
-        // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * (duplicateWidth ? 2 : 1);
         // declare path geometry
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
@@ -1211,22 +1207,26 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         } else {
             planGeometry = segment->getLane()->getLaneGeometry();
         }
+        // calculate path width double
+        const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
+        // check if draw with double width
+        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isElementSelected(myPlanElement));
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
-            (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
+                (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
             // Add a draw matrix
             GLHelper::pushMatrix();
             // Start with the drawing of the area traslating matrix to origin
             viewNet->drawTranslateFrontAttributeCarrier(myPlanElement, myPlanElement->getType(), offsetFront);
             // Set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
-            // draw geometry
-            GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
+            // draw geometry depending of drawWithDoubleWidth
+            GUIGeometry::drawGeometry(d, planGeometry, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
             // draw red arrows
             drawFromArrow(s, segment->getLane(), segment);
             drawToArrow(s, segment->getLane(), segment);
             // draw end position
-            drawEndPosition(s, d, segment, duplicateWidth);
+            drawEndPosition(s, d, segment, drawWithDoubleWidth);
             // Pop last matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
@@ -1236,11 +1236,13 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         }
         // declare trim geometry to draw
         const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
-        // calculate contour and draw dotted geometry
-        if (duplicateWidth) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
+        // calculate contour and draw dotted geometry (always with double width)
+        if (segment->isFirstSegment()) {
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, true, false, 0);
+        } else if (segment->isLastSegment()) {
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, false, true, 0);
         } else {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, false, false, 0);
         }
     }
     // check if draw plan parent
@@ -1265,10 +1267,10 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
-        // calculate path width
-        const double pathWidth = s.addSize.getExaggeration(s, segment->getPreviousLane()) * planWidth * (duplicateWidth ? 2 : 1);
+        // calculate path width double
+        const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
+        // check if draw with double width
+        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isElementSelected(myPlanElement));
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (!s.drawForViewObjectsHandler) {
             // push a draw matrix
@@ -1283,49 +1285,41 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
                     // obtain lane2lane geometry
                     const GUIGeometry& lane2laneGeometry = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane());
                     // draw lane2lane
-                    GUIGeometry::drawGeometry(d, lane2laneGeometry, pathWidth);
+                    GUIGeometry::drawGeometry(d, lane2laneGeometry, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
                 } else {
                     // Set invalid plan color
                     GLHelper::setColor(RGBColor::RED);
                     // draw line between end of first shape and first position of second shape
-                    GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidth));
+                    GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), segment->getNextLane()->getLaneShape().front()}, (0.5 * pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5)));
                 }
             } else if (segment->getPreviousLane()) {
                 // draw line between center of junction and last lane shape
-                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()}, pathWidth);
+                GLHelper::drawBoxLines({segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()}, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
             } else if (segment->getNextLane()) {
                 // draw line between center of junction and first lane shape
-                GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, pathWidth);
+                GLHelper::drawBoxLines({myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()}, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
             }
             // Pop last matrix
             GLHelper::popMatrix();
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, myPlanElement, myPlanElement->getType(), myPlanElement->getPositionInView(), 0.5);
             // draw dotted contour
-            if (duplicateWidth) {
-                segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
-            } else {
-                segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidthSmall, true);
-            }
+            segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // check if shape dotted contour has to be drawn
         if (segment->getPreviousLane() && segment->getNextLane()) {
             if (segment->getPreviousLane()->getLane2laneConnections().exist(segment->getNextLane())) {
                 // get shape
                 const auto& shape = segment->getPreviousLane()->getLane2laneConnections().getLane2laneGeometry(segment->getNextLane()).getShape();
-                // calculate contour and draw dotted geometry
-                if (duplicateWidth) {
-                    segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
-                } else {
-                    segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidth, 1, true, true, 0);
-                }
+                // calculate contour and draw dotted geometry (always with double width)
+                segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, false, false, 0);
             }
         } else if (segment->getPreviousLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {segment->getPreviousLane()->getLaneShape().back(), myPlanElement->getParentJunctions().back()->getPositionInView()},
-                    pathWidth, 1, true, true, 0);
+                    pathWidthDouble, 1, false, true, 0);
         } else if (segment->getNextLane()) {
             segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, {myPlanElement->getParentJunctions().front()->getPositionInView(), segment->getNextLane()->getLaneShape().front()},
-                    pathWidth, 1, true, true, 0);
+                    pathWidthDouble, 1, true, false, 0);
         }
     }
     // check if draw plan parent
