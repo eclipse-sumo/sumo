@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-11-07 14:07:30 by Eclipse SUMO netedit Version v1_19_0+0012-7f242da7bd0
+<!-- generated on 2024-08-12 15:52:24 by Eclipse SUMO netedit Version v1_20_0+1833-b61afb2ac47
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -9,9 +19,9 @@
         <tranship from="Edge0" containerStop="containerStopA"/>
     </containerFlow>
     <containerFlow id="cf_1" begin="0.00" end="3600.00" containersPerHour="20.49997152781731912796">
-        <tranship from="Edge0" to="Edge2"/>
+        <tranship from="Edge0" to="Edge0"/>
     </containerFlow>
     <containerFlow id="cf_2" begin="0.00" end="3600.00" containersPerHour="22.00004888899753296982">
-        <tranship from="Edge0" to="Edge2"/>
+        <tranship from="Edge0" to="Edge0"/>
     </containerFlow>
 </routes>

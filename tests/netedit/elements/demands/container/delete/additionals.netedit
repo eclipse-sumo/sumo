@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-23 15:12:18 by Eclipse SUMO netedit Version v1_20_0+1785-52236b79fcb
+<!-- generated on 2024-08-12 11:57:23 by Eclipse SUMO netedit Version v1_20_0+1829-468f782e294
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,8 +36,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <tazSink id="Edge3" weight="1.00"/>
     </taz>
     <taz id="taz_red" shape="20.00,10.00 20.00,-10.00 42.00,-10.00 42.00,10.00 20.00,10.00" fill="1" color="red">
-        <tazSource id="Edge0" weight="1.00"/>
-        <tazSink id="Edge0" weight="1.00"/>
         <tazSource id="Edge5" weight="1.00"/>
         <tazSink id="Edge5" weight="1.00"/>
     </taz>

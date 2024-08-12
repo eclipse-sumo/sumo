@@ -59,7 +59,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transportEdgeEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

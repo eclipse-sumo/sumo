@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("tranship")
 
 # create transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
 netedit.typeEnter()

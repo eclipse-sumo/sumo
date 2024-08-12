@@ -8,6 +8,6 @@
     <container id="c_0" depart="0.00">
         <tranship from="Edge0" to="Edge0"/>
         <transport to="Edge2" arrivalPos="7.00" lines="Line1"/>
-        <transport to="gneE8" arrivalPos="9.00" lines="Line2"/>
+        <transport to="Edge5" arrivalPos="9.00" lines="Line2"/>
     </container>
 </routes>

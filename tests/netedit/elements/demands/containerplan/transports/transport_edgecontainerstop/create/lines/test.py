@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("transport")
 
 # create transportEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.transportEdgeContainerStop.create.lines, "custom line")

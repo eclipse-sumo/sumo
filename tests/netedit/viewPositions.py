@@ -573,6 +573,10 @@ class elements:
             x = 415
             y = 30
 
-        class planPerson:
+        class planEdge2:
+            x = 520
+            y = 27
+
+        class planEdge2Ped:
             x = 600
             y = 4

@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("tranship")
 
 # create transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
 netedit.typeEnter()
@@ -59,7 +59,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planPerson)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("tranship")
 
 # create transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # press enter to create route
 netedit.typeEnter()
@@ -59,7 +59,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planPerson)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2)
 
 # change depart with an invalid value
 netedit.modifyAttribute(netedit.attrs.transhipEdgeContainerStop.inspect.speed, "dummySpeed", False)

@@ -7,9 +7,9 @@
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="Edge0" to="Edge0"/>
-        <transport to="dummy" lines="ANY"/>
+        <transport containerStop="dummy" lines="ANY"/>
     </container>
-	
+
 	<container id="c_1" depart="0.00">
         <tranship from="Edge0" to="Edge0"/>
 		<transport containerStop="containerStopB" lines="ANY"/>

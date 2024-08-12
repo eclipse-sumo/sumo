@@ -50,7 +50,7 @@ netedit.containerPlanMode()
 netedit.changeContainerPlanMode("tranship")
 
 # create transhipEdgeContainerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.container)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.transhipEdgeContainerStop.create.departPos, "dummyPos")
