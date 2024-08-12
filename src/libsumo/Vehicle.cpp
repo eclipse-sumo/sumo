@@ -182,7 +182,17 @@ Vehicle::getLaneID(const std::string& vehID) {
 int
 Vehicle::getLaneIndex(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return veh->isOnRoad() ? CALL_MICRO_FUN(veh, getLane()->getIndex(), INVALID_INT_VALUE) : INVALID_INT_VALUE;
+    if (veh->isOnRoad()) {
+        MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+        if (microVeh != nullptr) {
+            return microVeh->getLane()->getIndex();
+        } else {
+            MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(veh);
+            return mesoVeh->getQueIndex();
+        }
+    } else {
+        return INVALID_INT_VALUE;
+    }
 }
 
 
