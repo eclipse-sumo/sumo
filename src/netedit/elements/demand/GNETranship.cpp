@@ -238,7 +238,13 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 
 bool
 GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
-    return isPlanValid(key, value);
+    switch (key) {
+        // Common attributes
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        default:
+            return isPlanValid(key, value);
+    }
 }
 
 
@@ -274,6 +280,7 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         // Common attributes
         case SUMO_ATTR_SPEED:
+            mySpeed = parse<double>(value);
             break;
         default:
             setPlanAttribute(key, value);
