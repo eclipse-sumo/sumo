@@ -301,8 +301,8 @@ protected:
     /// @brief variable used for draw vehicle contours
     GNEContour myVehicleContour;
 
-    /// @brief sets the color according to the currente settings
-    RGBColor setColor(const GUIVisualizationSettings& s) const;
+    /// @brief get drawing color
+    RGBColor getDrawingColor(const GUIVisualizationSettings& s) const;
 
     /// @brier get sumo vehicle parameter
     const SUMOVehicleParameter& getSUMOVehicleParameter() const;

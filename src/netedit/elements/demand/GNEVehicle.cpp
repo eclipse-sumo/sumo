@@ -861,7 +861,6 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double width = getTypeParent()->getAttributeDouble(SUMO_ATTR_WIDTH);
         const double length = getTypeParent()->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
-        const auto vehicleColor = setColor(s);
         // obtain Position an rotation (depending of draw spread vehicles)
         if (drawSpreadVehicles && mySpreadGeometry.getShape().size() == 0) {
             return;
@@ -902,7 +901,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length * exaggeration, 0);
                 // set lane color
-                GLHelper::setColor(vehicleColor);
+                GLHelper::setColor(getDrawingColor(s));
                 double upscaleLength = exaggeration;
                 if ((exaggeration > 1) && (length > 5)) {
                     // reduce the length/width ratio because this is not useful at high zoom
@@ -1897,7 +1896,7 @@ GNEVehicle::copyVehicle(const GNEVehicle* originalVehicle) {
 // ===========================================================================
 
 RGBColor
-GNEVehicle::setColor(const GUIVisualizationSettings& s) const {
+GNEVehicle::getDrawingColor(const GUIVisualizationSettings& s) const {
     // change color
     if (drawUsingSelectColor()) {
         return s.colorSettings.selectedVehicleColor;

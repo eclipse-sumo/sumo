@@ -327,7 +327,6 @@ GNEPerson::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEle
 void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     bool drawPerson = true;
-    const auto personColor = setColor(s);
     // check if person can be drawn
     if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
@@ -364,7 +363,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
-            GLHelper::setColor(personColor);
+            GLHelper::setColor(getDrawingColor(s));
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw person depending of detail level
@@ -625,7 +624,7 @@ GNEPerson::getACParametersMap() const {
 // ===========================================================================
 
 RGBColor
-GNEPerson::setColor(const GUIVisualizationSettings& s) const {
+GNEPerson::getDrawingColor(const GUIVisualizationSettings& s) const {
     if (isAttributeCarrierSelected()) {
         return s.colorSettings.selectedPersonColor;
     } else {

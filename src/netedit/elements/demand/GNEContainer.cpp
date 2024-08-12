@@ -356,8 +356,8 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // translate and rotate
             glTranslated(containerPosition.x(), containerPosition.y(), 0);
             glRotated(90, 0, 0, 1);
-            // set container color
-            GLHelper::setColor(color);
+            // set person color
+            GLHelper::setColor(getDrawingColor(s));
             // set scale
             glScaled(exaggeration, exaggeration, 1);
             // draw container depending of detail level
@@ -642,7 +642,7 @@ GNEContainer::getACParametersMap() const {
 // ===========================================================================
 
 RGBColor
-GNEContainer::setColor(const GUIVisualizationSettings& s) const {
+GNEContainer::getDrawingColor(const GUIVisualizationSettings& s) const {
     // change color
     if (drawUsingSelectColor()) {
         return s.colorSettings.selectedContainerColor;

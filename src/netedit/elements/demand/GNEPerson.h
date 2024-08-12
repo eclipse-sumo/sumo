@@ -277,8 +277,8 @@ protected:
     /// @brief variable used for contours
     GNEContour myPersonContour;
 
-    /// @brief sets the color according to the currente settings
-    RGBColor setColor(const GUIVisualizationSettings& s) const;
+    /// @brief get drawing color
+    RGBColor getDrawingColor(const GUIVisualizationSettings& s) const;
 
 private:
     // @brief struct used for calculating person plan geometry segments

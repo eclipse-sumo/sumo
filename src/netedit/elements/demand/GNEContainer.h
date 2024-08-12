@@ -278,8 +278,8 @@ protected:
     /// @brief variable used for contours
     GNEContour myContainerContour;
 
-    /// @brief sets the color according to the currente settings
-    RGBColor setColor(const GUIVisualizationSettings& s) const;
+    /// @brief get drawing color
+    RGBColor getDrawingColor(const GUIVisualizationSettings& s) const;
 
     /// @brief draw container as poly
     void drawAction_drawAsPoly() const;
