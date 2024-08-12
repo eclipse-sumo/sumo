@@ -355,7 +355,7 @@ declared](#emission_output).
 The current state of charge of the battery can be computed as the quotient of the actual battery charge and the maximum battery capacity:
 ```python
 capacity = float(traci.vehicle.getParameter(vehID, "device.battery.capacity"))
-currentCharge = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity"))
+currentCharge = float(traci.vehicle.getParameter(vehID, "device.battery.actualBatteryCapacity")) # works as well with "device.battery.chargeLevel"
 stateOfCharge = currentCharge / capacity
 ```
 
