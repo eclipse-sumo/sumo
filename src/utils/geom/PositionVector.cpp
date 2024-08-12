@@ -1387,7 +1387,7 @@ PositionVector::distance2D(const Position& p, bool perpendicular) const {
     if (size() == 0) {
         return std::numeric_limits<double>::max();
     } else if (size() == 1) {
-        return front().distanceTo(p);
+        return front().distanceTo2D(p);
     }
     const double nearestOffset = nearest_offset_to_point2D(p, perpendicular);
     if (nearestOffset == GeomHelper::INVALID_OFFSET) {
