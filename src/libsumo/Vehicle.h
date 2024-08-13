@@ -58,6 +58,8 @@ public:
     static std::string getRoadID(const std::string& vehID);
     static std::string getLaneID(const std::string& vehID);
     static int getLaneIndex(const std::string& vehID);
+    static std::string getSegmentID(const std::string& vehID);
+    static int getSegmentIndex(const std::string& vehID);
     static std::string getTypeID(const std::string& vehID);
     static std::string getRouteID(const std::string& vehID);
     static double getDeparture(const std::string& vehID);

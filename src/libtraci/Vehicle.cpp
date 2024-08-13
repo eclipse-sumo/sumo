@@ -127,6 +127,18 @@ Vehicle::getLaneIndex(const std::string& vehID) {
 
 
 std::string
+Vehicle::getSegmentID(const std::string& vehID) {
+    return Dom::getString(libsumo::VAR_SEGMENT_ID, vehID);
+}
+
+
+int
+Vehicle::getSegmentIndex(const std::string& vehID) {
+    return Dom::getInt(libsumo::VAR_SEGMENT_INDEX, vehID);
+}
+
+
+std::string
 Vehicle::getTypeID(const std::string& vehID) {
     return Dom::getString(libsumo::VAR_TYPE, vehID);
 }

@@ -1023,6 +1023,12 @@ TRACI_CONST int VAR_LANE_ID = 0x51;
 // lane index (get: vehicle, edge)
 TRACI_CONST int VAR_LANE_INDEX = 0x52;
 
+// segment id (get: vehicle)
+TRACI_CONST int VAR_SEGMENT_ID = 0xa1;
+
+// segment index (get: vehicle)
+TRACI_CONST int VAR_SEGMENT_INDEX = 0xa2;
+
 // route id (get & set: vehicles)
 TRACI_CONST int VAR_ROUTE_ID = 0x53;
 
