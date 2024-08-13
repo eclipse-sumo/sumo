@@ -937,6 +937,13 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
 void
 GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        // from-to attributes (needed if we're replacing junction by geometry points and similar operations)
+        case SUMO_ATTR_FROM:
+            myPlanElement->replaceFirstParentEdge(value);
+            break;
+        case SUMO_ATTR_TO:
+            myPlanElement->replaceLastParentEdge(value);
+            break;
         // Common plan attributes
         case GNE_ATTR_PARENT:
             replacePlanParent(value);
