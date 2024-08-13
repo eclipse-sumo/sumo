@@ -54,7 +54,7 @@
 #include "Vehicle.h"
 
 #define CALL_MICRO_FUN(veh, fun, mesoResult) ((dynamic_cast<MSVehicle*>(veh) == nullptr ? (mesoResult) : dynamic_cast<MSVehicle*>(veh)->fun))
-
+#define CALL_MESO_FUN(veh, fun, microResult) ((dynamic_cast<MEVehicle*>(veh) == nullptr ? (microResult) : dynamic_cast<MEVehicle*>(veh)->fun))
 
 // ===========================================================================
 // debug defines
@@ -185,6 +185,17 @@ Vehicle::getLaneIndex(const std::string& vehID) {
     return veh->isOnRoad() ? CALL_MICRO_FUN(veh, getLane()->getIndex(), INVALID_INT_VALUE) : INVALID_INT_VALUE;
 }
 
+std::string
+Vehicle::getSegmentID(const std::string& vehID) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    return veh->isOnRoad() ? CALL_MESO_FUN(veh, getSegment()->getID(), "") : "";
+}
+
+int
+Vehicle::getSegmentIndex(const std::string& vehID) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehID);
+    return veh->isOnRoad()? CALL_MESO_FUN(veh, getSegment()->getIndex(), INVALID_INT_VALUE): INVALID_INT_VALUE;
+}
 
 std::string
 Vehicle::getTypeID(const std::string& vehID) {
@@ -2808,6 +2819,10 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LANE_INDEX:
             return wrapper->wrapInt(objID, variable, getLaneIndex(objID));
+        case VAR_SEGMENT_ID:
+            return wrapper->wrapString(objID, variable, getSegmentID(objID));
+        case VAR_SEGMENT_INDEX:
+            return wrapper->wrapInt(objID, variable, getSegmentIndex(objID));
         case VAR_TYPE:
             return wrapper->wrapString(objID, variable, getTypeID(objID));
         case VAR_ROUTE_ID:
