@@ -3215,60 +3215,168 @@ class personFlow:
 # PersonPlans
 
 
-class personTripEdgeEdge:
-    class create:
-        arrivalPos = 8
-        vTypes = 9
-        modes = 10
-        lines = 11
+class personTrip:
+    class edge:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
 
-    class inspect:
-        arrivalPos = 1
-        vTypes = 2
-        modes = 3
-        lines = 4
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
 
-    class inspectSelection:
-        arrivalPos = 1
-        vTypes = 2
-        modes = 3
-        lines = 4
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
 
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
 
-class personTripEdgeBusStop:
-    class create:
-        arrivalPos = 8
-        vTypes = 9
-        modes = 10
-        lines = 11
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
 
-    class inspect:
-        vTypes = 1
-        modes = 2
-        lines = 3
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
 
-    class inspectSelection:
-        vTypes = 1
-        modes = 2
-        lines = 3
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
 
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
 
-class personTripJunctions:
-    class create:
-        arrivalPos = 8
-        vTypes = 9
-        modes = 10
-        lines = 11
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
 
-    class inspect:
-        vTypes = 1
-        modes = 2
-        lines = 3
+    class busStop:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
 
-    class inspectSelection:
-        vTypes = 1
-        modes = 2
-        lines = 3
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+    class junction:
+        class edge:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+
+            class inspect:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+
+            class inspectSelection:
+                arrivalPos = 1
+                vTypes = 2
+                modes = 3
+                lines = 4
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                vTypes = 9
+                modes = 10
+                lines = 11
+
+            class inspect:
+                vTypes = 1
+                modes = 2
+                lines = 3
+
+            class inspectSelection:
+                vTypes = 1
+                modes = 2
+                lines = 3
 
 
 class rideEdgeEdge:

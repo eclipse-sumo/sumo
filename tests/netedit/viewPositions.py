@@ -525,6 +525,10 @@ class elements:
             x = 296
             y = 11
 
+        class busStopB:
+            x = 340
+            y = 200
+
         class trainStop:
             x = 718
             y = 13
@@ -580,3 +584,7 @@ class elements:
         class planEdge2Ped:
             x = 600
             y = 4
+
+        class planEdgeBike0Ped:
+            x = 112
+            y = 130

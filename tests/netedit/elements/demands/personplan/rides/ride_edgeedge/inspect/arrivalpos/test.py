@@ -58,9 +58,6 @@ netedit.typeEnter()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect person
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.person)
-
 # now inspect plan top
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ride)
 

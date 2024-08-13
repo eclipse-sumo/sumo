@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 13:24:17 by Eclipse SUMO netedit Version v1_20_0+1264-f5cae912633
+<!-- generated on 2024-08-13 08:57:57 by Eclipse SUMO netedit Version v1_20_0+1571-95194fc1790
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,20 +15,12 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
-    <trip id="t_0" depart="0.00" from="-E5" to="E7"/>
-    <trip id="t_1" depart="0.00" from="-E7" to="E5"/>
-    <trip id="t_2" depart="0.00" from="-E6" to="E4"/>
-    <trip id="t_3" depart="0.00" from="-E4" to="E6"/>
+    <trip id="t_2" depart="0.00" from="-E6" to="-E6"/>
+    <trip id="t_3" depart="0.00" from="-E4" to="-E4"/>
     <person id="p_0" depart="0.00">
-        <personTrip from="-E6" to="E4"/>
-    </person>
-    <person id="p_1" depart="0.00">
-        <personTrip from="-E7" to="E5"/>
-    </person>
-    <person id="p_2" depart="0.00">
-        <personTrip from="-E5" to="E7"/>
+        <personTrip from="-E6" to="-E6"/>
     </person>
     <person id="p_3" depart="0.00">
-        <personTrip from="-E4" to="E6"/>
+        <personTrip from="-E4" to="-E4"/>
     </person>
 </routes>
