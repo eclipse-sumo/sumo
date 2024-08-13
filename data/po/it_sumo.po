@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-10 17:09+0000\n"
+"PO-Revision-Date: 2024-08-13 08:45+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4102,18 +4102,20 @@ msgstr ""
 #: src/microsim/devices/MSDevice_SSM.cpp:4194
 #, c-format
 msgid "Invalid value '%' for vehicle parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di veicolo 'ssm.thresholds'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4200
 #, c-format
 msgid "Invalid value '%' for vType parameter 'ssm.thresholds'."
-msgstr ""
+msgstr "Valore invalido '%' del parametro di tipo di veicolo 'ssm.thresholds'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4205
 msgid ""
 "Vehicle '%' does not supply vehicle parameter 'device.ssm.thresholds'. Using "
 "default of '%'."
 msgstr ""
+"Il veicolo '%' non definisce il parametro di veicolo "
+"'device.ssm.thresholds', quindi viene usato il valore standard '%'."
 
 #: src/microsim/devices/MSDevice_SSM.cpp:4220
 msgid ""
