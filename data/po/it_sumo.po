@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-13 08:45+0000\n"
+"PO-Revision-Date: 2024-08-13 14:18+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6485,20 +6485,20 @@ msgstr "indovinando gli archi della direzione opposta"
 
 #: src/netbuild/NBNetBuilder.cpp:326
 msgid "Splitting geometry edges"
-msgstr ""
+msgstr "Divisione degli archi geometrici"
 
 #: src/netbuild/NBNetBuilder.cpp:333
 #, c-format
 msgid " Joined % junctions after splitting geometry."
-msgstr ""
+msgstr " % incroci combinati dopo la divisione della geometria."
 
 #: src/netbuild/NBNetBuilder.cpp:338
 msgid "Computing turning directions"
-msgstr ""
+msgstr "Calcolo delle direzioni di svolta"
 
 #: src/netbuild/NBNetBuilder.cpp:347
 msgid "Assigning nodes to traffic lights"
-msgstr ""
+msgstr "Assegnamento dei nodi ai semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:370
 msgid "Guessing and setting on-/off-ramps"
@@ -6520,32 +6520,32 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:425
 msgid "Sorting nodes' edges"
-msgstr ""
+msgstr "Riordinamento degli archi dei nodi"
 
 #: src/netbuild/NBNetBuilder.cpp:430
 msgid "Computing node shapes"
-msgstr ""
+msgstr "Calcolo delle forme dei nodi"
 
 #: src/netbuild/NBNetBuilder.cpp:438
 msgid "Computing edge shapes"
-msgstr ""
+msgstr "Calcolo delle forme degli archi"
 
 #: src/netbuild/NBNetBuilder.cpp:451
 msgid "Applying speed modifications"
-msgstr ""
+msgstr "Applicazione delle modifiche di velocità"
 
 #: src/netbuild/NBNetBuilder.cpp:464
 msgid "Computing node types"
-msgstr ""
+msgstr "Calcolo dei tipi dei nodi"
 
 #: src/netbuild/NBNetBuilder.cpp:475
 #, c-format
 msgid "Guessed % pedestrian crossings."
-msgstr ""
+msgstr "% passaggi pedonali sono stati indovinati."
 
 #: src/netbuild/NBNetBuilder.cpp:503
 msgid "Computing priorities"
-msgstr ""
+msgstr "Calcolo delle priorità"
 
 #: src/netbuild/NBNetBuilder.cpp:507
 msgid "Computing approached edges"
@@ -6557,7 +6557,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:515
 msgid " Guessed % roundabout(s)."
-msgstr ""
+msgstr " Indovinate % rotatorie."
 
 #: src/netbuild/NBNetBuilder.cpp:521
 msgid "Computing approaching lanes"
@@ -6574,7 +6574,7 @@ msgstr ""
 #: src/netbuild/NBNetBuilder.cpp:534
 #, c-format
 msgid " Guessed % fringe nodes."
-msgstr ""
+msgstr " Indovinati % nodi di bordo."
 
 #: src/netbuild/NBNetBuilder.cpp:539
 msgid "Processing turnarounds"
@@ -6602,7 +6602,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:605
 msgid " % traffic light(s) %computed."
-msgstr ""
+msgstr " % semafori calcolati."
 
 #: src/netbuild/NBNetBuilder.cpp:616
 msgid "Building inner edges"
@@ -6641,7 +6641,7 @@ msgstr ""
 
 #: src/netbuild/NBNode.cpp:305 src/netbuild/NBNode.cpp:327
 msgid "Invalid node id '%'."
-msgstr ""
+msgstr "Codice identificativo '%' invalido."
 
 #: src/netbuild/NBNode.cpp:471
 msgid " Removing self-looping edge '%'"
