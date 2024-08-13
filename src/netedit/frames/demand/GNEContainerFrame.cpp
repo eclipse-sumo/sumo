@@ -102,7 +102,6 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ViewObjectsSelector& vie
     }
     // obtain tags (only for improve code legibility)
     SumoXMLTag containerTag = myContainerTagSelector->getCurrentTemplateAC()->getTagProperty().getTag();
-    SumoXMLTag clickedACTag = viewObjects.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected container is valid
     if (containerTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText(TL("Current selected container isn't valid."));
@@ -118,20 +117,26 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ViewObjectsSelector& vie
         myViewNet->setStatusBarText(TL("Current selected container plan isn't valid."));
         return false;
     }
-    // add elements to path creator
-    if (clickedACTag == SUMO_TAG_LANE) {
-        return myPlanCreator->addEdge(viewObjects.getLaneFront());
-    } else if (viewObjects.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
-        return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
-    } else if (clickedACTag == SUMO_TAG_ROUTE) {
-        return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
-    } else if (clickedACTag == SUMO_TAG_JUNCTION) {
-        return myPlanCreator->addJunction(viewObjects.getJunctionFront());
-    } else if (clickedACTag == SUMO_TAG_TAZ) {
-        return myPlanCreator->addTAZ(viewObjects.getTAZFront());
-    } else {
-        return false;
+    for (GNEAdditional* o : viewObjects.getAdditionals()) {
+        if (o->getTagProperty().isStoppingPlace()) {
+            return myPlanCreator->addStoppingPlace(o);
+        }
     }
+    for (GNEDemandElement* o : viewObjects.getDemandElements()) {
+        if (o->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
+            return myPlanCreator->addRoute(o);
+        }
+    }
+    if (!viewObjects.getLanes().empty()) {
+        return myPlanCreator->addEdge(viewObjects.getLanes().front());
+    }
+    if (!viewObjects.getJunctions().empty()) {
+        return myPlanCreator->addJunction(viewObjects.getJunctions().front());
+    }
+    if (!viewObjects.getTAZs().empty()) {
+        return myPlanCreator->addTAZ(viewObjects.getTAZs().front());
+    }
+    return false;
 }
 
 
