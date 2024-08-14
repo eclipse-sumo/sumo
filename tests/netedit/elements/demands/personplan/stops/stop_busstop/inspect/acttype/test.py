@@ -39,28 +39,31 @@ netedit.changePersonPlan("walk", False)
 
 # create route using one edge
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create route
 netedit.typeEnter()
 
-# go to StopPlanStoppingPlace mode
+# go to StopPlanEdge mode
 netedit.personPlanMode()
 
-# go to StopPlanStoppingPlace mode
+# go to StopPlanEdge mode
+netedit.selectPerson("p_0")
+
+# go to StopPlanEdge mode
 netedit.changePersonPlanMode("stop")
 
-# create StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
+# create StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect StopPlanStoppingPlace
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planBusStop)
+# inspect StopPlanEdge
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanStoppingPlace.inspect.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.actType, "singing", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
