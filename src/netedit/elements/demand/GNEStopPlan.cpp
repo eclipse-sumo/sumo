@@ -153,9 +153,7 @@ GNEStopPlan::updateGeometry() {
     // update geometry depending of parent
     if (getParentAdditionals().size() > 0) {
         const double stopWidth = (getParentAdditionals().front()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP) ?
-            viewSettings.stoppingPlaceSettings.busStopWidth:
-            viewSettings.stoppingPlaceSettings.trainStopWidth;
-
+            viewSettings.stoppingPlaceSettings.busStopWidth : viewSettings.stoppingPlaceSettings.trainStopWidth;
         // get busStop shape
         const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
         PositionVector shapeA = {busStopShape[-1], busStopShape[-2]};
@@ -179,6 +177,7 @@ GNEStopPlan::updateGeometry() {
         // update demand element geometry using both positions
         shape = {frontPosition, backPosition};
     }
+    // extrapolate for sign
     shape.extrapolate(0.1, true);
     myDemandElementGeometry.updateGeometry(shape);
     shape.extrapolate(viewSettings.additionalSettings.stopEdgeSize - 0.1, true);
