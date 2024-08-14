@@ -248,6 +248,9 @@ public:
     //// @brief rotate all points around (0,0) in the plane by the given angle
     void rotate2D(double angle);
 
+    //// @brief rotate all points around the first element
+    void rotateAroundFirstElement2D(double angle);
+
     //// @brief append the given vector to this one
     void append(const PositionVector& v, double sameThreshold = 2.0);
 

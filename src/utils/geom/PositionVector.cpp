@@ -1678,6 +1678,18 @@ PositionVector::rotate2D(double angle) {
 }
 
 
+void
+PositionVector::rotateAroundFirstElement2D(double angle) {
+    if (size() > 1) {
+        // translate position vector to (0,0), rotate, and traslate back again
+        const Position offset = front();
+        sub(offset);
+        rotate2D(angle);
+        add(offset);
+    }
+}
+
+
 PositionVector
 PositionVector::simplified() const {
     PositionVector result = *this;
