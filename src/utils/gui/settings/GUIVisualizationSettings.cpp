@@ -114,6 +114,7 @@ const RGBColor GUIVisualizationAdditionalSettings::routeProbeColor(255, 216, 0, 
 const double GUIVisualizationAdditionalSettings::routeProbeSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::vaporizerColor(120, 216, 0, 255);
 const double GUIVisualizationAdditionalSettings::vaporizerSize(1);
+const double GUIVisualizationAdditionalSettings::stopEdgeSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColor(255, 216, 0, 255);
 const RGBColor GUIVisualizationAdditionalSettings::connectionColorSelected(0, 0, 150, 255);
 const double GUIVisualizationAdditionalSettings::tractionSubstationSize(1);

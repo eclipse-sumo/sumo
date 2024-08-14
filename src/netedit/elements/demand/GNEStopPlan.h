@@ -230,6 +230,12 @@ protected:
     /// @brief variable used for draw contours
     GNEContour myStopContour;
 
+    /// @brief variable used for draw sign contours
+    GNEContour myStopSignContour;
+
+    /// @brief sign position
+    Position mySignPosition;
+
     /// @brief duration
     SUMOTime myDuration;
 
@@ -244,12 +250,6 @@ protected:
 
     /// @brief parameter set
     int myParametersSet = 0;
-
-    /// @brief draw stop plan over lane
-    void drawStopOverEdge(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
-
-    /// @brief draw stop plan over stoppingPlace
-    void drawStopOverStoppingPlace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration) const;
 
 private:
     /// @brief method for setting the attribute and nothing else

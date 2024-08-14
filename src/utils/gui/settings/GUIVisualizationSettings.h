@@ -395,6 +395,9 @@ struct GUIVisualizationAdditionalSettings {
     /// @brief Vaporizer size
     static const double vaporizerSize;
 
+    /// @brief stopEdges size
+    static const double stopEdgeSize;
+
     /// @brief connection color
     static const RGBColor connectionColor;
 
