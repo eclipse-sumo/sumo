@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-02 12:58+0000\n"
+"PO-Revision-Date: 2024-08-14 17:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -1545,29 +1545,35 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:2354
 msgid "Invalid device parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "Ungültiger Einrichtungsparameter '%' für Fahrzeug '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2360
 msgid "Vehicle '%' does not support device parameter '%' (%)."
-msgstr ""
+msgstr "Das Fahrzeug '%' unterstützt den Einrichtungsparameter '%' (%) nicht."
 
 #: src/microsim/MSBaseVehicle.cpp:2365
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
 msgstr ""
+"Das mesoskopische Fahrzeug '%' erlaubt keine "
+"Fahrstreifenwechselmodellparameter."
 
 #: src/microsim/MSBaseVehicle.cpp:2372
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
 msgstr ""
+"Das Fahrzeug ''%' erlaubt den Fahrstreifenwechselmodellparameter '%' (%) "
+"nicht."
 
 #: src/microsim/MSBaseVehicle.cpp:2377
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
 msgstr ""
+"Das mesoskopische Fahrzeug '%' erlaubt keine Fahrzeugfolgemodellparameter."
 
 #: src/microsim/MSBaseVehicle.cpp:2384
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
 msgstr ""
+"Das Fahrzeug '%' erlaubt den Fahrzeugfolgemodellparameter '%' (%) nicht."
 
 #: src/microsim/MSBaseVehicle.cpp:2390
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
@@ -2420,6 +2426,8 @@ msgid ""
 "Minimal acceptable gap (in seconds) between two vehicles before starting to "
 "cross"
 msgstr ""
+"Mindestzeitlücke (in Sekunden) zwischen zwei Fahrzeugen, damit gekreuzt "
+"werden kann"
 
 #: src/microsim/MSFrame.cpp:534
 msgid ""
@@ -2515,6 +2523,8 @@ msgid ""
 "The submodel to use in JuPedSim ('CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 msgstr ""
+"Das in JuPedSim zu nutzende Teilmodell ('CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -2588,6 +2598,8 @@ msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
 msgstr ""
+"Die gegebene Strafe für interne Wendefahrstreifen zu den Routingkosten "
+"addieren"
 
 #: src/microsim/MSFrame.cpp:618
 msgid ""
@@ -2757,7 +2769,7 @@ msgstr "Sekundäres Straßennetz zur abstrakten Visualisierung aus FILE laden"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Load pre-selected elements from FILE"
-msgstr ""
+msgstr "Vorausgewählte Elemente aus FILE laden"
 
 #: src/microsim/MSFrame.cpp:776
 msgid "Restart the simulation after ending (demo mode)"
@@ -2834,7 +2846,7 @@ msgstr "Die Endzeit muss nach der Startzeit sein."
 
 #: src/microsim/MSFrame.cpp:917
 msgid "the minimum step-length is 0.001."
-msgstr ""
+msgstr "der minimale Zeitschritt beträgt 0,001."
 
 #: src/microsim/MSFrame.cpp:932
 msgid "The save-state time=% will not be used before simulation end at %."
@@ -2868,6 +2880,7 @@ msgstr ""
 #: src/microsim/MSFrame.cpp:956
 msgid "Sublane dynamics are not supported by mesoscopic simulation."
 msgstr ""
+"Das Sublane-Modell wird von der mesoskopischen Simulation nicht unterstützt."
 
 #: src/microsim/MSFrame.cpp:960
 msgid ""
@@ -2896,6 +2909,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'."
 msgstr ""
+"Ungültiger Wert '%' der option 'default.emergencydecel'. Muss ein FLOAT, "
+"'default' oder 'decel' sein."
 
 #: src/microsim/MSFrame.cpp:1010
 msgid "You need a non-negative delay."
@@ -2916,6 +2931,9 @@ msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results."
 msgstr ""
+"Die Anzahl an Threads übersteigt die Anzahl an Thread-"
+"Zufallszahlengeneratoren. Simulationsläufe mit der gleichen Startzufallszahl "
+"können zu unterschiedlichen Ergebnissen führen."
 
 #: src/microsim/MSFrame.cpp:1035
 msgid "game.mode must be one of ['tls', 'drt']"
@@ -2926,12 +2944,17 @@ msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' or "
 "'allJunctions'."
 msgstr ""
+"Ungültige Umstiegsoption '%'. Sie muss entweder 'parkingAreas', 'ptStops' "
+"oder 'allJunctions' lauten."
 
 #: src/microsim/MSFrame.cpp:1052
 msgid ""
 "Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."
 msgstr ""
+"Ungültiges JuPedSim-Modell '%'. Es muss entweder 'CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' oder 'SocialForce' "
+"lauten."
 
 #: src/microsim/MSFrame.cpp:1110
 msgid ""
