@@ -131,9 +131,12 @@ class KeyFramedNumericAttribute(object):
 
     def get(self, t):
         if self._interpolation == "linear":
-            reached = (t - self._targets[0][0]) / (self._targets[1][0] - self._targets[0][0])
-            deltaValue = [self._targets[1][1][dim] - self._targets[0][1][dim] for dim in range(self._dimensions)]
-            result = [self._targets[0][1][dim] + reached * deltaValue[dim] for dim in range(self._dimensions)]
+            if self._targets[1][0] - self._targets[0][0] == 0:
+                result = [self._targets[0][1][dim] for dim in range(self._dimensions)]
+            else:
+                reached = (t - self._targets[0][0]) / (self._targets[1][0] - self._targets[0][0])
+                deltaValue = [self._targets[1][1][dim] - self._targets[0][1][dim] for dim in range(self._dimensions)]
+                result = [self._targets[0][1][dim] + reached * deltaValue[dim] for dim in range(self._dimensions)]
             if self._dimensions == 1:
                 return result[0]
             else:
