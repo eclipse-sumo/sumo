@@ -54,13 +54,13 @@ netedit.selectPerson("p_0")
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
 
 # change depart with an invalid value
 netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.untilEnable, False)

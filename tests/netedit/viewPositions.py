@@ -588,3 +588,21 @@ class elements:
         class planEdgeBike0Ped:
             x = 112
             y = 130
+
+        class planBusStop:
+            x = 112
+            y = 130
+
+        class planContainerStop:
+            x = 112
+            y = 130
+
+        class planEdge:
+
+            class create:
+                x = 475
+                y = 25
+
+            class inspect:
+                x = 473.00
+                y = -14.00

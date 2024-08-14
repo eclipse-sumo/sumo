@@ -51,7 +51,7 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)
