@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-13 14:18+0000\n"
+"PO-Revision-Date: 2024-08-14 17:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7015,26 +7015,31 @@ msgstr ""
 #, c-format
 msgid "The traffic light '%' does not control any links; it will not be build."
 msgstr ""
+"Il semaforo '%' non controlla nessun collegamento e quindi non verrà "
+"costruito."
 
 #: src/netbuild/NBTrafficLightDefinition.cpp:231
 msgid "Unreachable edge '%' within tlLogic '%'"
-msgstr ""
+msgstr "Arco inaccessibile '%' in logica di semaforo '%'"
 
 #: src/netbuild/NBTrafficLightDefinition.cpp:513
 #, c-format
 msgid "The rail crossing '%' does not have any roads."
-msgstr ""
+msgstr "Il passaggio a livello '%' non comprende nessuna via."
 
 #: src/netbuild/NBTrafficLightDefinition.cpp:526
 msgid ""
 "Could not interpret rail signal direction at junction '%' due to "
 "inconsistent directions of edge '%' (%) and edge '%' (%)"
 msgstr ""
+"Non è stato possibile individuare la direzione del segnale ferroviario "
+"all'incrocio '%' per causa di direzioni inconsistenti tra l'arco '%' (%) e "
+"l'arco '%' (%)"
 
 #: src/netbuild/NBTrafficLightLogic.cpp:102
 #, c-format
 msgid "When adding phase: illegal character '%' in state"
-msgstr ""
+msgstr "Nell'aggiungere una fase: carattere illegale '%' nello stato"
 
 #: src/netbuild/NBTrafficLightLogic.cpp:235
 #, c-format
@@ -9021,21 +9026,23 @@ msgstr ""
 #: src/netimport/NIXMLPTHandler.cpp:159
 #, c-format
 msgid "Edge '%' for stop '%' not found"
-msgstr ""
+msgstr "Non è stato trovato l'arco '%' della fermata '%'"
 
 #: src/netimport/NIXMLPTHandler.cpp:167
 #, c-format
 msgid "Lane '%' for stop '%' not found"
-msgstr ""
+msgstr "Non è stato trovata la corsia '%' della fermata '%'"
 
 #: src/netimport/NIXMLPTHandler.cpp:179
 msgid "Could not add public transport stop '%' (already exists)"
 msgstr ""
+"Non ho potuto aggiungere la fermata di trasporto pubblico '%' perché esiste "
+"già"
 
 #: src/netimport/NIXMLPTHandler.cpp:198
 #, c-format
 msgid "Edge '%' for access to stop '%' not found"
-msgstr ""
+msgstr "Non è stato trovato l'arco per l'accesso alla fermata '%'"
 
 #: src/netimport/NIXMLPTHandler.cpp:234
 msgid "Duplicate ptLine id occurred ('%'); assuming overwriting is wished."
