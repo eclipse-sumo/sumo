@@ -8,7 +8,7 @@
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
         <stop edge="Edge2" endPos="40.32"/>
-		<walk to="Edge5"/>
+        <walk to="Edge5"/>
         <stop edge="Edge5" endPos="12.32"/>
     </person>
 </routes>

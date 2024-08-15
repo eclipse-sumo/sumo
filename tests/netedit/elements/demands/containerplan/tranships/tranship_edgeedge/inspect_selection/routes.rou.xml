@@ -7,7 +7,7 @@
     <!-- VTypes -->
     <vType id="type1"/>
     <vType id="type2"/>
-	<vType id="customType"/>
+    <vType id="customType"/>
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="Edge0" to="Edge0"/>

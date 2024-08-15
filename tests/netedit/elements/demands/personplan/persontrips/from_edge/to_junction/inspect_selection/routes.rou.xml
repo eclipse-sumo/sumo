@@ -7,13 +7,13 @@
     <!-- VTypes -->
     <vType id="type1"/>
     <vType id="type2"/>
-	<vType id="customType"/>
+    <vType id="customType"/>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
         <personTrip toJunction="Junction3" modes="public" lines="Line1" vTypes="type1"/>
     </person>
-	<person id="p_1" depart="0.00">
+    <person id="p_1" depart="0.00">
         <walk from="EdgeBike0" to="EdgeCenter0"/>
         <personTrip toJunction="Junction0" modes="public" lines="Line1" vTypes="type1"/>
     </person>

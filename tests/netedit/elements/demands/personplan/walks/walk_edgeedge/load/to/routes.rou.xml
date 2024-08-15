@@ -9,8 +9,8 @@
         <walk from="Edge0" to="Edge0"/>
         <walk to="dummy"/>
     </person>
-	<person id="p_1" depart="0.00">
+    <person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge0"/>
-		<walk to="Edge1"/>
+        <walk to="Edge1"/>
     </person>
 </routes>

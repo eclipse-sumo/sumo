@@ -8,7 +8,7 @@
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
         <stop busStop="busStopA" endPos="12.39" duration="30.20" until="10.20" friendlyPos="true" actType="singing"/>
-		<walk to="EdgeCenter1"/>
+        <walk to="EdgeCenter1"/>
         <stop busStop="busStopB" endPos="32.39" duration="20.20" until="50.20" friendlyPos="false" actType="walking"/>
     </person>
 </routes>

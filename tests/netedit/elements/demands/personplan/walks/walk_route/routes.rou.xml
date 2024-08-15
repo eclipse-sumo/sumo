@@ -4,6 +4,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-	<!-- Routes -->
+    <!-- Routes -->
     <route id="route_0" edges="Edge0 Edge1 Edge2"/>
 </routes>

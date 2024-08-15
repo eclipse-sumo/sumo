@@ -2,4 +2,14 @@ Error: Attribute 'until' in definition of a stop is not a valid time value.
 Error: Invalid duration or end time is given for a stop at 'trainStopA'
 Error: Attribute 'until' in definition of a stop is empty.
 Error: Invalid duration or end time is given for a stop at 'trainStopA'
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul150350.25936/netedit.gui/elements/demands/waypoint/trainstop/load/until/routes.rou.xml failed.
+Error: There is another vehicle with the same ID='vehicle_0'.
+Error: There is another vehicle with the same ID='vehicle_1'.
+Error: There is another vehicle with the same ID='vehicle_2'.
+Error: There is another vehicle with the same ID='vehicle_3'.
+Error: There is another vehicle with the same ID='vehicle_4'.
+Error: There is another vehicle with the same ID='vehicle_0'.
+Error: There is another vehicle with the same ID='vehicle_1'.
+Error: There is another vehicle with the same ID='vehicle_2'.
+Error: There is another vehicle with the same ID='vehicle_3'.
+Error: There is another vehicle with the same ID='vehicle_4'.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.15Aug145424.26312\netedit.gui\elements\demands\waypoint\trainstop\load\until\routes.rou.xml failed.

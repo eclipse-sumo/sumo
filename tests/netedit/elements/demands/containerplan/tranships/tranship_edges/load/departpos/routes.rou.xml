@@ -9,9 +9,9 @@
         <tranship from="Edge0" to="Edge0"/>
         <tranship edges="Edge1 Edge2" arrivalPos="dummy"/>
     </container>
-	
-	<container id="c_1" depart="0.00">
+
+    <container id="c_1" depart="0.00">
         <tranship from="Edge0" to="Edge0"/>
-		<tranship edges="Edge1 Edge2" arrivalPos="2.50"/>
+        <tranship edges="Edge1 Edge2" arrivalPos="2.50"/>
     </container>
 </routes>

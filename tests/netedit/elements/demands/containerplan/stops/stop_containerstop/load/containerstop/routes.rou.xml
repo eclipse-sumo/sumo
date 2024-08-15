@@ -9,7 +9,7 @@
         <tranship from="Edge0" to="Edge2"/>
         <stop containerStop="dummy" duration="30.20"/>
     </container>
-	<container id="c_1" depart="0.00">
+    <container id="c_1" depart="0.00">
         <tranship from="Edge0" to="Edge2"/>
         <stop containerStop="containerStopA" duration="30.20"/>
     </container>

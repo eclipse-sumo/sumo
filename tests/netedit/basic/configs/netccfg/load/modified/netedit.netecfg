@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-		<node-files value="netccfg.nod.xml"/>
+        <node-files value="netccfg.nod.xml"/>
         <edge-files value="netccfg.edg.xml"/>
         <connection-files value="netccfg.con.xml"/>
         <tllogic-files value="netccfg.tll.xml"/>

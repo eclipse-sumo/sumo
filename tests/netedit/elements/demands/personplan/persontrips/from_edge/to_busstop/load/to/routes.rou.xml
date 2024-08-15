@@ -10,8 +10,8 @@
         <personTrip busStop="dummy" lines="ANY"/>
     </person>
 
-	<person id="p_1" depart="0.00">
+    <person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge1"/>
-		<personTrip busStop="busStopA" lines="ANY"/>
+        <personTrip busStop="busStopA" lines="ANY"/>
     </person>
 </routes>

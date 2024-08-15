@@ -10,13 +10,13 @@
     <!-- Calibrators -->
     <calibrator id="ca_0" edge="Edge5" pos="0.00"/>
     <calibrator id="ca_1" lane="Edge5_1" pos="16.00"/>
-	<calibrator id="ca_2" edge="Edge0" pos="0.00"/>
+    <calibrator id="ca_2" edge="Edge0" pos="0.00"/>
     <calibrator id="ca_3" lane="Edge0_1" pos="16.00"/>
     <!-- StoppingPlaces -->
     <busStop id="bs_1" lane="Edge5_1" startPos="45.00" endPos="55.00">
         <access lane="Edge5_0" pos="20.00"/>
     </busStop>
-	<busStop id="bs_2" lane="Edge0_1" startPos="45.00" endPos="55.00">
+    <busStop id="bs_2" lane="Edge0_1" startPos="45.00" endPos="55.00">
         <access lane="Edge0_0" pos="20.00"/>
     </busStop>
     <trainStop id="ts_0" lane="Edge5_1" startPos="43.00" endPos="53.00"/>
@@ -39,11 +39,11 @@
         <detEntry lane="Edge5_1" pos="10.00"/>
         <detExit lane="Edge5_1" pos="8.00"/>
     </entryExitDetector>
-	<entryExitDetector id="e3_1" pos="22.00,-10.00" period="300.00" file="e3_0.xml">
+    <entryExitDetector id="e3_1" pos="22.00,-10.00" period="300.00" file="e3_0.xml">
         <detEntry lane="Edge0_1" pos="10.00"/>
         <detExit lane="Edge0_1" pos="8.00"/>
     </entryExitDetector>
     <!-- Other additionals -->
     <vaporizer id="Edge5" begin="0.00" end="3600.00"/>
-	<vaporizer id="Edge0" begin="0.00" end="3600.00"/>
+    <vaporizer id="Edge0" begin="0.00" end="3600.00"/>
 </additional>

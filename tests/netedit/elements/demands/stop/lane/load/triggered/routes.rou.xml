@@ -44,23 +44,23 @@
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="dummy"/>
     </flow>
 
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_1" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered=""/>
     </flow>
 
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_2" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="-4"/>
     </flow>
 
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_3" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="0"/>
     </flow>
 
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_4" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="2.3"/>
     </flow>
 
-    <flow id="routeFlow_0" begin="0.00" route="route_0" end="3600.00" number="18">
+    <flow id="routeFlow_5" begin="0.00" route="route_0" end="3600.00" number="18">
         <stop lane="Edge2_1" startPos="7.00" endPos="17.00" triggered="true"/>
     </flow>
 

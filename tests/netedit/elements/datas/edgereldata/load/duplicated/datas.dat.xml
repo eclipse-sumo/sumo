@@ -59,6 +59,6 @@
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval id="dataSetB" begin="0.00" end="3600.00">
         <edgeRelation from="Edge0" to="Edge1" key1="value1" key2="value2"/>
-		<edgeRelation from="Edge1" to="Edge0" key1="value3" key2="value4"/>
+        <edgeRelation from="Edge1" to="Edge0" key1="value3" key2="value4"/>
     </interval>
 </meandata>

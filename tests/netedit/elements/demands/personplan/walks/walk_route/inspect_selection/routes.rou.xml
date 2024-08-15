@@ -6,8 +6,8 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Routes -->
     <route id="route_0" edges="Edge0 Edge1 Edge2 gneE10"/>
-	<route id="route_1" edges="gneE10 gneE8"/>
-	<!-- Vehicles, persons and containers (sorted by depart) -->
+    <route id="route_1" edges="gneE10 gneE8"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge0"/>
         <walk route="route_0" arrivalPos="7.00"/>

@@ -41,6 +41,6 @@
     <trip id="trip_1" depart="1.00" from="Edge0" to="Edge2"/>
     <trip id="trip_2" depart="2.00" from="Edge3" to="Edge5"/>
     <trip id="trip_3" depart="3.00" from="Edge3" to="Edge5" via="Edge4"/>
-	<trip id="trip_4" depart="3.00" from="EdgeExternBot" to="EdgeExternTop"/>
-	<trip id="trip_5" depart="3.00" from="EdgeExternBot" to="EdgeExternTop"/>
+    <trip id="trip_4" depart="3.00" from="EdgeExternBot" to="EdgeExternTop"/>
+    <trip id="trip_5" depart="3.00" from="EdgeExternBot" to="EdgeExternTop"/>
 </routes>

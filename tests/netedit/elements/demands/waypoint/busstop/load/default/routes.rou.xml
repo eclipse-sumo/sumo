@@ -40,4 +40,6 @@
     <route edges="Edge0 Edge1 Edge2" color="yellow" id="route_0">
         <stop busStop="busStopA" speed="10"/>
     </route>
+
+    <vehicle id="vehicle_0" depart="0.00" route="route_0"/>
 </routes>

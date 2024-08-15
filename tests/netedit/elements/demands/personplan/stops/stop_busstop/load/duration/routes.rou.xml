@@ -9,7 +9,7 @@
         <walk from="Edge0" to="Edge2"/>
         <stop busStop="busStopA" endPos="20.32" duration="dummy"/>
     </person>
-	<person id="p_1" depart="0.00">
+    <person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
         <stop busStop="busStopA" endPos="40.32" duration="20.20"/>
     </person>
