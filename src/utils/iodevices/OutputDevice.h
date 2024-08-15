@@ -372,7 +372,7 @@ public:
         // getOStream() << t;
         // get the correct formatter
         if (this->getOStream().allowRaw()) {
-            this->getOStream() << t;
+            writeRaw(t);
         }
         else {
             throw IOError("Raw output is not allowed for this output device");
@@ -393,6 +393,18 @@ public:
     /// @brief Returns the type of the output device
     virtual void setOSFlags(std::ios_base::fmtflags flags) {
         getOStream().setOSFlags(flags);
+    }
+
+    // @brief handle the raw write
+    template <typename T>
+    void writeRaw(const T& val) {
+        // cast the writer to the correct type
+        if (this->getType() == OutputWriterType::XML) {
+            getFormatter<PlainXMLFormatter>()->writeRaw(getOStream(), val);
+        }
+        else {
+            throw IOError("Raw output is not supported for this output type");
+        }
     }
 
 protected:

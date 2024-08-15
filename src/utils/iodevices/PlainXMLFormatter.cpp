@@ -68,7 +68,7 @@ PlainXMLFormatter::openTag(StreamDevice& into, const std::string& xmlElement) {
         into << ">\n";
     }
     myHavePendingOpener = true;
-    into << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ') << "<" << xmlElement;
+    into << std::string(4 * (myXMLStack.size() + myDefaultIndentation), ' ').c_str() << "<" << xmlElement;
     myXMLStack.push_back(xmlElement);
 }
 

@@ -53,7 +53,7 @@ public:
 
     /// @brief  set the precision
     /// @param precision 
-    virtual void setPrecision(const int& precision) = 0;
+    virtual void setPrecision(int precision) = 0;
 
     /// @brief get the precision
     /// @return the precision
@@ -126,8 +126,8 @@ public:
         return *this;
     }
 
-    void setPrecision(const int& precision) override {
-        *myStream << std::setprecision(precision);
+    void setPrecision(int precision) override {
+        (*myStream) << std::setprecision(precision);
     }
 
     void setOSFlags(std::ios_base::fmtflags flags) override {
@@ -203,7 +203,7 @@ public:
         myStream.release();
     }
 
-    void setPrecision(const int& precision) override {
+    void setPrecision(int precision) override {
         UNUSED_PARAMETER(precision);
     }
 
@@ -214,8 +214,10 @@ public:
     template <typename T>
     void print(const T& t) {
         (*myStream) << t;
-
     }
+
+    // protect this to only allow types that are supported by parquet
+    
 
     void setOSFlags(std::ios_base::fmtflags flags) override {UNUSED_PARAMETER(flags);}
 
@@ -255,12 +257,10 @@ StreamDevice& operator<<(StreamDevice& stream, const T& t) {
     case StreamDevice::Type::OSTREAM:
         static_cast<OStreamDevice*>(&stream)->print(t);
         break;
-    // case StreamDevice::Type::STRING:
-    //     static_cast<StringStream*>(&stream)->print(t);
-    //     break;
     case StreamDevice::Type::PARQUET:
 #ifdef HAVE_PARQUET
         static_cast<ParquetStream*>(&stream)->print(t);
+        // throw std::runtime_error("Parquet not supported in this build");
 #else
         throw std::runtime_error("Parquet not supported in this build");
 #endif

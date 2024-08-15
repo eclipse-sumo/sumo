@@ -29,10 +29,11 @@
 // ===========================================================================
 OutputDevice_String::OutputDevice_String(const int defaultIndentation)
     : OutputDevice(defaultIndentation) {
-    auto stream = new std::ostringstream();
-    (*stream) << std::setiosflags(std::ios::fixed);
-    myStreamDevice = new OStreamDevice(stream);
-    setPrecision();
+    // auto stream = new std::ostringstream();
+    // (*stream) << std::setiosflags(std::ios::fixed);
+    myStreamDevice = new OStreamDevice(new std::ostringstream());
+    myStreamDevice->setOSFlags(std::ios::fixed);
+    myStreamDevice->setPrecision(2);
 }
 
 

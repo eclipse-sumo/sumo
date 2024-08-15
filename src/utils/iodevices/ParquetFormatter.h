@@ -103,8 +103,10 @@ void AppendField(parquet::schema::NodeVector& fields, const T& val, const std::s
             parquet::ConvertedType::TIMESTAMP_MILLIS));
     }
     else {
-        // warn
-        fmt::print("Unsupported type for AppendField\n");
+        // // warn
+        // fmt::print("Unsupported type for AppendField\n");
+        // static_assert(always_false<T>, "Unsupported type for AppendField");
+        
     }
     // else {
     //     static_assert(always_false<T>, "Unsupported type for AppendField");
@@ -173,8 +175,7 @@ auto convertToParquetType(const T& value) {
                          std::is_same_v<T, std::string> || 
                          std::is_same_v<T, std::string_view>) {
         // have to take a copy of the string, to ensure its lifetime is long enough
-        auto x = std::string(value);
-        return x;
+        return std::string(value);
     } else {
         // For any other type, convert to string
         return toString(value);
@@ -188,11 +189,15 @@ public:
         : AttributeBase(name), value_(convertToParquetType(value)) {}
 
     void print(StreamDevice& os) const override {
-        os << value_;
+        if (value_){
+            os << *value_;
+        } else{
+            assert(false);
+        }
     }
 
 private:
-    decltype(convertToParquetType(std::declval<T>())) value_;
+    std::optional<decltype(convertToParquetType(std::declval<T>()))> value_;
 };
 
 
@@ -278,7 +283,7 @@ public:
     ParquetFormatter() {};
 
     /// @brief Destructor
-    virtual ~ParquetFormatter() { }
+    virtual ~ParquetFormatter() = default;
 
     /** @brief Writes an XML header with optional configuration
      *
@@ -429,6 +434,8 @@ public:
     
     template <typename T>
     void writeRaw(StreamDevice& into, T& val) {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
         throw std::runtime_error("writeRaw not implemented for ParquetFormatter");
     }
 

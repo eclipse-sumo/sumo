@@ -45,7 +45,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~PlainXMLFormatter() { }
+    virtual ~PlainXMLFormatter() = default;
 
 
     /** @brief Writes an XML header with optional configuration
