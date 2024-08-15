@@ -1616,11 +1616,22 @@ GNEJunction::setResponsible(bool newVal) {
 
 bool
 GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const {
+    const auto &editModes = myNet->getViewNet()->getEditModes();
     // check conditions
-    if ((junctionShapeArea < 4) && (mySourceCandidate || myTargetCandidate ||
-                                    mySpecialCandidate || myPossibleCandidate || myConflictedCandidate)) {
+    if (junctionShapeArea < 4) {
         // force draw if this junction is a candidate
-        return true;
+        if (mySourceCandidate || myTargetCandidate || mySpecialCandidate ||
+             myPossibleCandidate || myConflictedCandidate) {
+            return true;
+        }
+        // force draw if we're in person/container plan mode
+        if (editModes.isCurrentSupermodeDemand() && 
+            ((editModes.demandEditMode == DemandEditMode::DEMAND_PERSON) || 
+            (editModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) || 
+            (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) || 
+            (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN))) {
+            return true;
+        }
     }
     if (!s.drawJunctionShape) {
         // don't draw bubble if it was disabled in GUIVisualizationSettings
@@ -1634,7 +1645,7 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
         // don't draw if shape area is greater than 4
         return false;
     }
-    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+    if (!editModes.isCurrentSupermodeNetwork()) {
         // only draw bubbles in network mode
         return false;
     }
