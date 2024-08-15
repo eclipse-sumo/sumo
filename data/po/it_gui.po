@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-22 14:25+0000\n"
+"PO-Revision-Date: 2024-08-15 14:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2235 src/gui/GUIApplicationWindow.cpp:2236
@@ -11616,7 +11616,7 @@ msgstr "Posizione in forma: "
 
 #: src/netedit/elements/network/GNELane.cpp:611
 msgid "Length pos: "
-msgstr ""
+msgstr "Lunghezza fino alla posizione: "
 
 #: src/netedit/elements/network/GNELane.cpp:613
 msgid "Distance: "
@@ -16260,7 +16260,7 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1704
 msgid "fix range"
-msgstr ""
+msgstr "gamma fissa"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1747
 msgid "Save the setting to registry"
