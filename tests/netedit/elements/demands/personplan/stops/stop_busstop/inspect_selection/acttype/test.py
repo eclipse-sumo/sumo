@@ -43,11 +43,11 @@ netedit.selectionInvert()
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
+# inspect stopPlan.stoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planStopBusStop)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspectSelection.actType, "singing", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.stoppingPlace.inspectSelection.actType, "singing", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

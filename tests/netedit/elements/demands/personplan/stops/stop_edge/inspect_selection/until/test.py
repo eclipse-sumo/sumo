@@ -44,19 +44,19 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planStopEdge)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspectSelection.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlan.edge.inspectSelection.untilEnable, False)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspectSelection.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlan.edge.inspectSelection.untilEnable, False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspectSelection.until, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.edge.inspectSelection.until, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspectSelection.until, "20.14", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.edge.inspectSelection.until, "20.14", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

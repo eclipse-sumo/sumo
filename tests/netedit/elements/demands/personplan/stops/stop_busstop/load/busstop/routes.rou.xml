@@ -11,6 +11,6 @@
     </person>
 	<person id="p_1" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
-        <stop edge="Edge2" endPos="40.32"/>
+        <stop busStop="busStopA" endPos="40.32"/>
     </person>
 </routes>

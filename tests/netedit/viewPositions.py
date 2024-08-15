@@ -597,12 +597,10 @@ class elements:
             x = 112
             y = 130
 
-        class planEdge:
+        class planStopEdge:
+            x = 493
+            y = -15
 
-            class create:
-                x = 475
-                y = 25
-
-            class inspect:
-                x = 473.00
-                y = -14.00
+        class planStopBusStop:
+            x = 250
+            y = -5

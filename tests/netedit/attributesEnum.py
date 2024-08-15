@@ -3583,55 +3583,55 @@ class transhipEdges:
 
 # stop plans
 
+class stopPlan:
+    class edge:
+        class create:
+            durationEnable = 8
+            duration = 9
+            untilEnable = 10
+            until = 11
+            actType = 11
+            friendlyPos = 12
 
-class stopPlanEdge:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 10
-        until = 11
-        actType = 11
-        friendlyPos = 12
+        class inspect:
+            endPos = 1
+            durationEnable = 2
+            duration = 3
+            untilEnable = 4
+            until = 5
+            actType = 5
+            friendlyPos = 6
 
-    class inspect:
-        endPos = 1
-        durationEnable = 2
-        duration = 3
-        untilEnable = 4
-        until = 5
-        actType = 5
-        friendlyPos = 6
-
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        actType = 5
-        friendlyPos = 6
+        class inspectSelection:
+            durationEnable = 1
+            duration = 2
+            untilEnable = 3
+            until = 4
+            actType = 5
+            friendlyPos = 6
 
 
-class stopPlanStoppingPlace:
-    class create:
-        durationEnable = 8
-        duration = 9
-        untilEnable = 10
-        until = 11
-        actType = 11
+    class stoppingPlace:
+        class create:
+            durationEnable = 8
+            duration = 9
+            untilEnable = 10
+            until = 11
+            actType = 11
 
-    class inspect:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        actType = 4
+        class inspect:
+            durationEnable = 1
+            duration = 2
+            untilEnable = 3
+            until = 4
+            actType = 4
 
-    class inspectSelection:
-        durationEnable = 1
-        duration = 2
-        untilEnable = 3
-        until = 4
-        actType = 4
+        class inspectSelection:
+            durationEnable = 1
+            duration = 2
+            untilEnable = 3
+            until = 4
+            actType = 4
 
 
 # --------------------------------

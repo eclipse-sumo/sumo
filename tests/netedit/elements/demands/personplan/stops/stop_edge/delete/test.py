@@ -54,13 +54,13 @@ netedit.selectPerson("p_0")
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to delete mode
 netedit.deleteMode()
 
 # inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planStopEdge)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

@@ -51,34 +51,34 @@ netedit.personPlanMode()
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlan.edge.create.durationEnable)
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.durationEnable)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlan.edge.create.durationEnable)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "dummy")
+netedit.changeDefaultValue(netedit.attrs.stopPlan.edge.create.duration, "dummy")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "-20")
+netedit.changeDefaultValue(netedit.attrs.stopPlan.edge.create.duration, "-20")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultValue(netedit.attrs.stopPlanEdge.create.duration, "30.2")
+netedit.changeDefaultValue(netedit.attrs.stopPlan.edge.create.duration, "30.2")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

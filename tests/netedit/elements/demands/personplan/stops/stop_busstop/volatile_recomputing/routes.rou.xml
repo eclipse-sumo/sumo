@@ -7,8 +7,8 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
-        <stop edge="Edge2" endPos="40.32"/>
-		<walk to="Edge5"/>
-        <stop edge="Edge5" endPos="12.32"/>
+        <stop busStop="busStopA" endPos="40.32"/>
+		<walk to="EdgeCenter1"/>
+        <stop busStop="busStopB" endPos="12.32"/>
     </person>
 </routes>

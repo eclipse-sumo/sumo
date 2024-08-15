@@ -54,22 +54,22 @@ netedit.selectPerson("p_0")
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planStopEdge)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.edge.inspect.endPos, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "-40", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.edge.inspect.endPos, "-40", False)
 
 # change depart with an valid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.endPos, "7.3", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.edge.inspect.endPos, "7.3", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

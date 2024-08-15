@@ -44,35 +44,35 @@ netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 # press enter to create route
 netedit.typeEnter()
 
-# go to StopPlanEdge mode
+# go to stopPlan.stoppingPlace mode
 netedit.personPlanMode()
 
-# go to StopPlanEdge mode
+# go to stopPlan.stoppingPlace mode
 netedit.selectPerson("p_0")
 
-# go to StopPlanEdge mode
+# go to stopPlan.stoppingPlace mode
 netedit.changePersonPlanMode("stop")
 
-# create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+# create stopPlan.stoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # go to inspect mode
 netedit.inspectMode()
 
-# inspect StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.inspect)
+# inspect stopPlan.stoppingPlace
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planStopBusStop)
 
 # change depart with an invalid value
-netedit.modifyBoolAttribute(netedit.attrs.stopPlanEdge.inspect.untilEnable, False)
+netedit.modifyBoolAttribute(netedit.attrs.stopPlan.stoppingPlace.inspect.untilEnable, False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.until, "dummy", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.stoppingPlace.inspect.until, "dummy", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.until, "-7.3", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.stoppingPlace.inspect.until, "-7.3", False)
 
 # change depart with an invalid value
-netedit.modifyAttribute(netedit.attrs.stopPlanEdge.inspect.until, "6.7", False)
+netedit.modifyAttribute(netedit.attrs.stopPlan.stoppingPlace.inspect.until, "6.7", False)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

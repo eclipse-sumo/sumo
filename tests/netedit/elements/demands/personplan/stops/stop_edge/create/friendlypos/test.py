@@ -54,13 +54,13 @@ netedit.selectPerson("p_0")
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # set invalid person number
-netedit.changeDefaultBoolValue(netedit.attrs.stopPlanEdge.create.friendlyPos)
+netedit.changeDefaultBoolValue(netedit.attrs.stopPlan.edge.create.friendlyPos)
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

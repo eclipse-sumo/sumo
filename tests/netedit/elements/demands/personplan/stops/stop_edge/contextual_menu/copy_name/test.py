@@ -54,13 +54,13 @@ netedit.selectPerson("p_0")
 netedit.changePersonPlanMode("stop")
 
 # create StopPlanEdge
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge.create)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # contextual menu
-netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.planEdge.inspect,
+netedit.contextualMenuOperation(referencePosition, netedit.positions.elements.demands.planStopEdge,
                                 netedit.contextualMenu.vehicles.copyName)
 
 # Check undos

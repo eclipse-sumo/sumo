@@ -7,6 +7,6 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
         <walk from="Edge0" to="Edge2"/>
-        <stop edge="Edge2" endPos="20.32" duration="30.20" actType="singing"/>
+        <stop busStop="busStopA" endPos="20.32" duration="30.20" actType="singing"/>
     </person>
 </routes>
