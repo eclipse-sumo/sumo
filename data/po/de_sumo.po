@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-14 17:09+0000\n"
+"PO-Revision-Date: 2024-08-15 12:34+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -3031,11 +3031,11 @@ msgstr "Kollision"
 
 #: src/microsim/MSLane.cpp:1995
 msgid "Vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "Fahrzeug '%'; % mit Fahrzeug '%"
 
 #: src/microsim/MSLane.cpp:2052
 msgid "Teleporting vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "Fahrzeug '%' wird teleportier; % mit Fahrzeug '%"
 
 #: src/microsim/MSLane.cpp:2057
 msgid "Removing % participants: vehicle '%', vehicle '%"
@@ -3162,11 +3162,11 @@ msgstr "Simulation zur Zeit % beendet."
 
 #: src/microsim/MSNet.cpp:679
 msgid "Reason: "
-msgstr ""
+msgstr "Grund: "
 
 #: src/microsim/MSNet.cpp:933
 msgid "The final simulation step has been reached."
-msgstr ""
+msgstr "Der letzte Simulationsschritt wurde erreicht."
 
 #: src/microsim/MSNet.cpp:935
 msgid "All vehicles have left the simulation."
@@ -3174,19 +3174,19 @@ msgstr "Alle Fahrzeuge haben die Simulation verlassen."
 
 #: src/microsim/MSNet.cpp:937
 msgid "TraCI requested termination."
-msgstr ""
+msgstr "Über TraCI wurde das Simulationsende angefragt."
 
 #: src/microsim/MSNet.cpp:939
 msgid "An error occurred (see log)."
-msgstr ""
+msgstr "Es ist ein Fehler aufgetreten (siehe Protokoll)."
 
 #: src/microsim/MSNet.cpp:941
 msgid "Interrupted."
-msgstr ""
+msgstr "Unterbrochen."
 
 #: src/microsim/MSNet.cpp:943
 msgid "Too many teleports."
-msgstr ""
+msgstr "Zu viele Teleports."
 
 #: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
