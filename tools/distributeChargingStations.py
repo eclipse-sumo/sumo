@@ -166,7 +166,8 @@ def main(options):
     # iterate edges with parkingArea groups and randomly select a charging point count
     totalChargingPoints = math.floor(totalCapacity * options.probability * options.density)
     if options.verbose:
-        print("Charging points to distribute: %.0f" % totalChargingPoints)
+        print("Charging points to distribute: %.0f on %.0f parking spaces (%.2f%%)" %
+              (totalChargingPoints, totalCapacity, totalChargingPoints/totalCapacity*100 if totalCapacity > 0 else 0))
     csIndex = 0
     rootParking = None
     with open(options.outFile, 'w') as outf:
@@ -175,6 +176,7 @@ def main(options):
         for unusedParking in unusedParkings:
             addChildToParent(rootParking, unusedParking)
         unchangedParkings = []
+
         for edge, parkingAreas in edge2parkingArea.items():
             if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0:
                 continue
@@ -185,11 +187,13 @@ def main(options):
                 parkingSum = sum(capacities)
                 if parkingSum < options.min:
                     continue
+                wishedChargingPointCount = math.floor(options.density * parkingSum)
                 randomChargingPointCount = options.min + \
                     round((options.max - options.min) * randomNumber)
                 if options.includeExisting and edge in edge2chargingPointCount:
                     randomChargingPointCount -= edge2chargingPointCount[edge]
-                chargingPointCount = min(totalChargingPoints, parkingSum, randomChargingPointCount)
+                chargingPointCount = min(totalChargingPoints, parkingSum,
+                                         randomChargingPointCount, wishedChargingPointCount)
 
                 # first check if the charging point fits exactly one parkingArea
                 remainingChargingPoints = chargingPointCount
