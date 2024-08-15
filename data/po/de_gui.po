@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-07-19 09:17+0000\n"
+"PO-Revision-Date: 2024-08-15 14:25+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/sumo-"
-"gui-netedit/de/>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
+"sumo-gui-netedit/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2235 src/gui/GUIApplicationWindow.cpp:2236
@@ -11635,7 +11635,7 @@ msgstr "Position in Shape: "
 
 #: src/netedit/elements/network/GNELane.cpp:611
 msgid "Length pos: "
-msgstr ""
+msgstr "Länge bis zur Position: "
 
 #: src/netedit/elements/network/GNELane.cpp:613
 msgid "Distance: "
@@ -14533,7 +14533,7 @@ msgstr "Randwahrscheinlichkeit auf Null setzen"
 #: src/netedit/frames/network/GNETAZFrame.cpp:512
 #: src/netedit/frames/network/GNETAZFrame.cpp:646
 msgid "Toggle Membership:"
-msgstr ""
+msgstr "Mitgliedschaft an-/abwählen:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:513
 #: src/netedit/frames/network/GNETAZFrame.cpp:647
@@ -14583,7 +14583,7 @@ msgstr "ein-/ausschalten"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:668
 msgid "Keep Membership:"
-msgstr ""
+msgstr "Mitgliedschaft behalten:"
 
 #: src/netedit/frames/network/GNETAZFrame.cpp:668
 msgid "  Select Sources/Sinks."
@@ -15442,10 +15442,12 @@ msgstr ""
 #: src/utils/gui/settings/GUISettingsHandler.cpp:575
 msgid "A breakpoint value must be a time description (%)."
 msgstr ""
+"Ein Unterbrechungspunkt muss durch einen zeitlichen Wert beschrieben werden "
+"(%)."
 
 #: src/utils/gui/settings/GUISettingsHandler.cpp:578
 msgid "Could not decode breakpoint '%'."
-msgstr ""
+msgstr "Der Unterbrechungspunkt '%' konnte nicht gelesen werden."
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:779
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1027
@@ -15873,12 +15875,12 @@ msgstr "nach der Verlustzeit"
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1201
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1625
 msgid "by stop delay"
-msgstr ""
+msgstr "nach Verlustzeit an Halten"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1210
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1634
 msgid "by stop arrival delay"
-msgstr ""
+msgstr "nach Verspätung am Halt"
 
 #: src/utils/gui/settings/GUIVisualizationSettings.cpp:1220
 msgid "by lateral speed"
@@ -16298,11 +16300,11 @@ msgstr ""
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1699
 msgid "center"
-msgstr ""
+msgstr "Mitte"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1704
 msgid "fix range"
-msgstr ""
+msgstr "fester Bereich"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:1747
 msgid "Save the setting to registry"
@@ -16698,7 +16700,7 @@ msgstr "Fahrzeugfarbenlegende anzeigen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2363
 msgid "Combobox max rows"
-msgstr ""
+msgstr "Maximale Anzahl an Zeilen in gemeinsamen Eingabe-/Listenelementen"
 
 #: src/utils/gui/windows/GUIDialog_ViewSettings.cpp:2367
 msgid "Disable hide by zoom"
