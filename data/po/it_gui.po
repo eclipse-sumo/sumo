@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-15 14:25+0000\n"
+"PO-Revision-Date: 2024-08-15 14:46+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "sumo-gui-netedit/it/>\n"
@@ -9970,7 +9970,7 @@ msgstr "La probabilità di violare le regole contro sorpassare sulla destra."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6358
 msgid "Time threshold for the willingness to change right."
-msgstr ""
+msgstr "Valore soglia per la volontà di cambiare corsia verso sinistra."
 
 #: src/netedit/elements/GNEAttributeCarrier.cpp:6364
 msgid ""
@@ -10729,20 +10729,20 @@ msgstr "aggiungi zona di assegnazione del traffico '"
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1394
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1488
 msgid "add TAZ Sink in '"
-msgstr ""
+msgstr "aggiungi scarico di zona di assegnazione del traffico in '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1417
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1466
 msgid "add TAZ Source in '"
-msgstr ""
+msgstr "aggiungi sorgente di zona di assegnazione del traffico in '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1428
 msgid "update TAZ Source in '"
-msgstr ""
+msgstr "aggiorna sorgente di zona di assegnazione del traffico in '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1499
 msgid "update TAZ Sink in '"
-msgstr ""
+msgstr "aggiorna scarico di zona di assegnazione del traffico in '"
 
 #: src/netedit/elements/additional/GNEAdditionalHandler.cpp:1528
 msgid "add traction substation '"
@@ -11892,7 +11892,7 @@ msgstr "Elemento padre"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:269
 msgid "Selected item '"
-msgstr ""
+msgstr "Elemento selezionato '"
 
 #: src/netedit/frames/GNEDemandSelector.cpp:269
 msgid "' in DemandElementSelector"
@@ -12085,6 +12085,7 @@ msgstr "Definizione"
 #, c-format
 msgid "Opening HelpAttributes dialog for tag '%' showing % attributes"
 msgstr ""
+"Apertura del dialogo di aiuto per gli attributi del tag '%' con % attributi"
 
 #: src/netedit/frames/GNEFrame.cpp:247
 msgid "Closing HelpAttributes dialog for tag '"
