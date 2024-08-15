@@ -47,6 +47,6 @@
         <route edges="EdgeExternBot EdgeExternTop"/>
     </flow>
     <flow id="f_3" begin="0.00" color="12,13,14" end="3600.00" vehsPerHour="1800.00">
-        <route edges="EdgeExternTot EdgeExternBop"/>
+        <route edges="EdgeExternTop EdgeExternBot"/>
     </flow>
 </routes>
