@@ -180,7 +180,7 @@ GNEDemandElementPlan::getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toE
                                      const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
                                      const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop) {
     // special case for elements with from-to edge
-    if (fromEdge && !toEdge && fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
+    if (fromEdge && !toEdge && !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop) {
         return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
     } else if (fromEdge && toEdge) {
         return std::make_pair(GNE_TAG_RIDE_EDGE_EDGE, GUIIcon::RIDE_EDGE);
