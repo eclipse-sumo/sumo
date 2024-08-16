@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-16 14:27+0000\n"
+"PO-Revision-Date: 2024-08-16 16:01+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -1324,14 +1324,17 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:759
 msgid "Departure speed for vehicle '%' is too high for the vehicle type '%'."
 msgstr ""
+"La velocità di partenza del veicolo '%' è troppo alta per il tipo di veicolo "
+"'%'."
 
 #: src/microsim/MSBaseVehicle.cpp:768
 msgid "Vehicle '%' is not allowed to depart on any lane of edge '%'."
 msgstr ""
+"Il veicolo '%' non è autorizzato di partire da nessuna corsia del arco '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:798
 msgid "Vehicle '%' has no valid route. %"
-msgstr ""
+msgstr "Il veicolo '%' non tiene un itinerario valido. %"
 
 #: src/microsim/MSBaseVehicle.cpp:861
 msgid ""
@@ -1341,27 +1344,31 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:875
 msgid "Vehicle '%' will not be able to arrive at the given position!"
-msgstr ""
+msgstr "Il veicolo '%' non sarà in grado di arrivare alla posizione indicata!"
 
 #: src/microsim/MSBaseVehicle.cpp:895
 msgid "Vehicle '%' will not be able to arrive at the given lane '%_%'!"
 msgstr ""
+"Il veicolo '%' non sarà in grado di arrivare alla corsia indicata '%_%'!"
 
 #: src/microsim/MSBaseVehicle.cpp:907 src/microsim/MSBaseVehicle.cpp:919
 msgid "Vehicle '%' has no usable arrivalLane on edge '%'."
 msgstr ""
+"Il veicolo '%' non tiene una corsia di arrivo utilizzabile sul arco '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:931
 msgid "Vehicle '%' will not be able to arrive with the given speed!"
-msgstr ""
+msgstr "Il veicolo '%' non sarà in grado di arrivare con la velocità indicata!"
 
 #: src/microsim/MSBaseVehicle.cpp:947
 msgid "Ignoring departEdge % for vehicle '%' with % route edges"
 msgstr ""
+"L'arco di partenza % del veicolo '%' con % archi nell'itinerario verrà "
+"ignorato"
 
 #: src/microsim/MSBaseVehicle.cpp:1560
 msgid "Invalid stop index % (has % stops)."
-msgstr ""
+msgstr "Indice di fermata invalido % (ha % fermate)."
 
 #: src/microsim/MSBaseVehicle.cpp:1640 src/microsim/MSBaseVehicle.cpp:1763
 #: src/microsim/MSBaseVehicle.cpp:1872
