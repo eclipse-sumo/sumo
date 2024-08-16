@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-14 17:09+0000\n"
+"PO-Revision-Date: 2024-08-16 11:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.7\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -10375,46 +10375,53 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr ""
+msgstr "Assumi che l'ingresso non è ordinato"
 
 #: src/router/ROFrame.cpp:148
 msgid "generate random departure times for flow input"
-msgstr ""
+msgstr "genera ore di partenza casuali per flussi dell'ingresso"
 
 #: src/router/ROFrame.cpp:151
 msgid ""
 "Remove loops within the route; Remove turnarounds at start and end of the "
 "route"
 msgstr ""
+"Rimuovi anelli all'interno dell'itinerario; Rimuovi svolte all'inizio e al "
+"termine dell'itinerario"
 
 #: src/router/ROFrame.cpp:154
 msgid "Tries to correct a false route"
-msgstr ""
+msgstr "Prova a correggere un itinerario sbagliato"
 
 #: src/router/ROFrame.cpp:157
 msgid ""
 "Tries to correct an invalid starting edge by using the first usable edge "
 "instead"
 msgstr ""
+"Prova a correggere un arco iniziale invalido con il primo arco utilizzabile"
 
 #: src/router/ROFrame.cpp:160
 msgid ""
 "Tries to correct an invalid destination edge by using the last usable edge "
 "instead"
 msgstr ""
+"Prova a corregere un arco di destinazione sbagliato con l'ultimo arco "
+"utilizzabile"
 
 #: src/router/ROFrame.cpp:169
 msgid "Aggregate routing queries with the same origin"
-msgstr ""
+msgstr "Aggrega richieste di itinerari con la stessa origine"
 
 #: src/router/ROFrame.cpp:173
 msgid "The number of parallel execution threads used for routing"
-msgstr ""
+msgstr "Il numero massimo di thread paralleli usati per l'instradamento"
 
 #: src/router/ROFrame.cpp:177
 msgid ""
 "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']"
 msgstr ""
+"Scegli tra gli algoritmi di instradamento ['dijkstra', 'astar', 'CH', "
+"'CHWrapper']"
 
 #: src/router/ROFrame.cpp:181
 msgid ""
