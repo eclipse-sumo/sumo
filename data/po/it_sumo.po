@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-16 11:13+0000\n"
+"PO-Revision-Date: 2024-08-16 14:27+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -7597,15 +7597,15 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:283
 msgid "Uses edge type defaults on problems"
-msgstr ""
+msgstr "Usa valori standard tratti dei tipi di arco in caso di problemi"
 
 #: src/netimport/NIFrame.cpp:288
 msgid "Insert edges in both directions"
-msgstr ""
+msgstr "Inserisci archi per entrambe le direzioni"
 
 #: src/netimport/NIFrame.cpp:292
 msgid "Guess the proper projection"
-msgstr ""
+msgstr "Indovina la proiezione giusta"
 
 #: src/netimport/NIFrame.cpp:295 src/polyconvert/polyconvert_main.cpp:125
 msgid "Use traditional axis order (lon, lat)"
@@ -7641,19 +7641,19 @@ msgstr ""
 
 #: src/netimport/NIFrame.cpp:326
 msgid "Uses priorities from types"
-msgstr ""
+msgstr "Usa priorità dei tipi"
 
 #: src/netimport/NIFrame.cpp:329
 msgid "Uses lane numbers from types"
-msgstr ""
+msgstr "Usa numeri di corsie dei tipi"
 
 #: src/netimport/NIFrame.cpp:332
 msgid "Uses speeds from types"
-msgstr ""
+msgstr "Usa velocità dei tipi"
 
 #: src/netimport/NIFrame.cpp:335
 msgid "Sets connector speed"
-msgstr ""
+msgstr "Imposta velocità dei collegamenti"
 
 #: src/netimport/NIFrame.cpp:339
 msgid "Sets connector lane number"
