@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-15 12:34+0000\n"
+"PO-Revision-Date: 2024-08-16 11:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -11398,7 +11398,7 @@ msgstr "Herkunfts- und Zielzonen (Bezirke) für Ein- und Ausgabe verwenden"
 
 #: src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
-msgstr "Die Eingabe ist unsortiert annehmen"
+msgstr "Die Eingabe ist als unsortiert anzunehmen"
 
 #: src/router/ROFrame.cpp:148
 msgid "generate random departure times for flow input"
