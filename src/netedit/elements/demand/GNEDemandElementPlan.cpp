@@ -1215,9 +1215,11 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             planGeometry = segment->getLane()->getLaneGeometry();
         }
         // calculate path width double
-        const double pathWidthDouble = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
+        const double drawingWidth = s.addSize.getExaggeration(s, segment->getLane()) * planWidth * 2;
         // check if draw with double width
-        const bool drawWithDoubleWidth = ((planInspected == myPlanElement) || (planInspected == planParent) || gViewObjectsHandler.isElementSelected(myPlanElement));
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
+        // get end pos radius
+        const double endPosRadius = getEndPosRadius(s, segment, drawHalfWidth);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
                 (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
@@ -1228,28 +1230,32 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             // Set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw geometry depending of drawWithDoubleWidth
-            GUIGeometry::drawGeometry(d, planGeometry, pathWidthDouble * (drawWithDoubleWidth ? 1 : 0.5));
+            GUIGeometry::drawGeometry(d, planGeometry, drawingWidth * (drawHalfWidth ? 0.5 : 1));
             // draw red arrows
             drawFromArrow(s, segment->getLane(), segment);
             drawToArrow(s, segment->getLane(), segment);
             // draw end position
-            drawEndPosition(s, d, segment, drawWithDoubleWidth);
+            drawEndPosition(s, d, endPosRadius);
             // Pop last matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
             myPlanElement->drawName(myPlanElement->getCenteringBoundary().getCenter(), s.scale, s.addName);
             // draw dotted contour
             segment->getContour()->drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
+            // draw TAZ Center dotted contour
+            myPlanContourEnd.drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // declare trim geometry to draw
-        const auto shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
+        const auto& shape = (segment->isFirstSegment() || segment->isLastSegment()) ? planGeometry.getShape() : segment->getLane()->getLaneShape();
         // calculate contour and draw dotted geometry (always with double width)
         if (segment->isFirstSegment()) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, true, false, 0);
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, drawingWidth, 1, true, false, 0);
         } else if (segment->isLastSegment()) {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, false, true, 0);
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, drawingWidth, 1, false, false, 0);
+            // calculate contour for end
+            myPlanContourEnd.calculateContourCircleShape(s, d, myPlanElement, getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS), 2 * endPosRadius, 1);
         } else {
-            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, pathWidthDouble, 1, false, false, 0);
+            segment->getContour()->calculateContourExtrudedShape(s, d, myPlanElement, shape, drawingWidth, 1, false, false, 0);
         }
     }
     // check if draw plan parent
@@ -1402,6 +1408,19 @@ GNEDemandElementPlan::getPersonPlanProblem() const {
 }
 
 
+double
+GNEDemandElementPlan::getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const {
+    // check if myPlanElement is the last segment
+    if (segment->isLastSegment()) {
+        // calculate circle width
+        const double circleRadius = (drawHalfWidth ? myArrivalPositionDiameter * 0.5 : myArrivalPositionDiameter);
+        return circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
+    } else {
+        return -1;
+    }
+}
+
+
 void
 GNEDemandElementPlan::drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const {
     // draw ifcurrent amd next segment is placed over lanes
@@ -1443,26 +1462,18 @@ GNEDemandElementPlan::drawToArrow(const GUIVisualizationSettings& s, const GNELa
 
 
 void
-GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const {
+GNEDemandElementPlan::drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const {
     // check if myPlanElement is the last segment
-    if (segment->isLastSegment()) {
-        // calculate circle width
-        const double circleRadius = (duplicateWidth ? myArrivalPositionDiameter : (myArrivalPositionDiameter / 2.0));
-        const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
-        const double circleWidthSquared = circleWidth * circleWidth;
-        // get geometryEndPos
+    if (!s.drawForRectangleSelection && (endPosRadius > 0)) {
         const Position geometryEndPos = getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-        // check if endPos can be drawn
-        if (!s.drawForRectangleSelection || (myPlanElement->getNet()->getViewNet()->getPositionInformation().distanceSquaredTo2D(geometryEndPos) <= (circleWidthSquared + 2))) {
-            // push draw matrix
-            GLHelper::pushMatrix();
-            // translate to pos and move to
-            glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
-            // resolution of drawn circle depending of the zoom (To improve smothness)
-            GLHelper::drawFilledCircleDetailled(d, circleWidth);
-            // pop draw matrix
-            GLHelper::popMatrix();
-        }
+        // push draw matrix
+        GLHelper::pushMatrix();
+        // translate to pos and move to
+        glTranslated(geometryEndPos.x(), geometryEndPos.y(), 4);
+        // resolution of drawn circle depending of the zoom (To improve smothness)
+        GLHelper::drawFilledCircleDetailled(d, endPosRadius);
+        // pop draw matrix
+        GLHelper::popMatrix();
     }
 }
 

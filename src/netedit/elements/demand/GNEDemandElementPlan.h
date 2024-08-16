@@ -77,8 +77,11 @@ public:
     static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop);
 
 protected:
-    /// @brief variable used for draw contours
+    /// @brief variable used for draw central contour
     GNEContour myPlanContour;
+
+    /// @brief variable used for draw contour end
+    GNEContour myPlanContourEnd;
 
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
@@ -189,6 +192,9 @@ protected:
     double myArrivalPosition;
 
 private:
+    /// @brief get end position radius
+    double getEndPosRadius(const GUIVisualizationSettings& s, const GNEPathManager::Segment* segment, const bool drawHalfWidth) const;
+
     /// @brief draw from arrow
     void drawFromArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
@@ -196,7 +202,7 @@ private:
     void drawToArrow(const GUIVisualizationSettings& s, const GNELane* lane, const GNEPathManager::Segment* segment) const;
 
     /// @brief draw to arrow
-    void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const GNEPathManager::Segment* segment, const bool duplicateWidth) const;
+    void drawEndPosition(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double endPosRadius) const;
 
     /// @brief replace plan parent
     bool replacePlanParent(const std::string& newParentID);
