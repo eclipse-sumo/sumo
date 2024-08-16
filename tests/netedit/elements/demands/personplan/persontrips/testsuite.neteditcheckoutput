@@ -3,3 +3,5 @@ from_edge
 from_busstop
 
 from_junction
+
+from_taz

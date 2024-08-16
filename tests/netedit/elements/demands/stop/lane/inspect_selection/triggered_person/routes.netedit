@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-22 16:35:46 by Eclipse SUMO netedit Version v1_20_0+1736-e39e4a74e3e
+<!-- generated on 2024-08-15 20:59:35 by Eclipse SUMO netedit Version v1_20_0+1847-f2d10a7c7c6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,8 +18,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <route id="route_0" edges="Edge0 Edge1 Edge2" color="yellow">
         <stop lane="Edge2_1" startPos="30.00" endPos="40.00" posLat="10.00" duration="70.00" until="12.00" extension="10.00" triggered="person" parking="1" expected="personA personB" permitted="A B" tripId="tripA" line="lineA" split="splitA" onDemand="1" jump="4.00" actType="walking"/>
     </route>
-    <route id="route_1" edges="EdgeCenter0 EdgeCenter1" color="yellow">
-        <stop lane="EdgeCenter1_0" startPos="2.00" endPos="5.00" posLat="20.00" duration="60.00" until="20.00" extension="20.00" triggered="person" parking="1" expected="personA personB" permitted="C D" tripId="tripB" line="lineB" split="splitB" jump="8.40" friendlyPos="1" actType="singing"/>
+    <route id="route_1" edges="Edge3 Edge4 Edge5" color="yellow">
+        <stop lane="Edge5_1" startPos="2.00" endPos="5.00" posLat="20.00" duration="60.00" until="20.00" extension="20.00" triggered="person" parking="1" expected="personA personB" permitted="C D" tripId="tripB" line="lineB" split="splitB" jump="8.40" friendlyPos="1" actType="singing"/>
     </route>
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <vehicle id="vehicle_0" depart="0.00" route="route_0"/>

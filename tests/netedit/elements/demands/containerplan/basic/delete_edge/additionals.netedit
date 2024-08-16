@@ -24,11 +24,11 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <inductionLoop id="e1_0" lane="Edge4_1" pos="3.00" period="300.00" file="e1_0.xml"/>
     <inductionLoop id="e1_1" lane="Edge1_1" pos="27.00" period="300.00" file="e1_1.xml"/>
     <!-- TAZs -->
-    <taz id="taz_green" shape="8.00,10.00 8.00,-10.00 -4.00,-10.00 -4.00,10.00 8.00,10.00" fill="1" color="green">
+    <taz id="taz_green" shape="8.00,10.00 8.00,-10.00 -4.00,-10.00 -4.00,10.00 8.00,10.00" center="6.00,0.00" fill="1" color="green">
         <tazSource id="Edge3" weight="1.00"/>
         <tazSink id="Edge3" weight="1.00"/>
     </taz>
-    <taz id="taz_red" shape="20.00,10.00 20.00,-10.00 42.00,-10.00 42.00,10.00 20.00,10.00" fill="1" color="red">
+    <taz id="taz_red" shape="20.00,10.00 20.00,-10.00 42.00,-10.00 42.00,10.00 20.00,10.00" center="22.00,0.00" fill="1" color="red">
         <tazSource id="Edge0" weight="1.00"/>
         <tazSink id="Edge0" weight="1.00"/>
         <tazSource id="Edge5" weight="1.00"/>

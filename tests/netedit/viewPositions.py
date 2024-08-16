@@ -514,12 +514,12 @@ class elements:
     class demands:
 
         class TAZGreen:
-            x = 518
-            y = 160
+            x = 557
+            y = 231
 
         class TAZRed:
-            x = 730
-            y = 177
+            x = 708
+            y = 232
 
         class busStop:
             x = 296
