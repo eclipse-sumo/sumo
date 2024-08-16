@@ -2514,10 +2514,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                             time2end = TIME2STEPS((stop.pars.endPos - myState.myPos) / stop.getSpeed());
                         } else {
                             time2end = TIME2STEPS(
-                                    // time to reach waypoint start
-                                    stopDist / ((getSpeed() + stop.getSpeed()) / 2)
-                                    // time to reach waypoint end
-                                    + (stop.pars.endPos - stop.pars.startPos) / stop.getSpeed());
+                                           // time to reach waypoint start
+                                           stopDist / ((getSpeed() + stop.getSpeed()) / 2)
+                                           // time to reach waypoint end
+                                           + (stop.pars.endPos - stop.pars.startPos) / stop.getSpeed());
                         }
                         if (stop.getUntil() > t + time2end) {
                             // we need to stop
@@ -7586,6 +7586,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     int routeOffset;
     bool stopped;
     int pastStops;
+
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myParameter->parametersSet;
     bis >> myDeparture;
@@ -7596,6 +7597,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myLastActionTime;
     bis >> stopped;
     bis >> pastStops;
+
+    // load stops
+    addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
+
     if (hasDeparted()) {
         myCurrEdge = myRoute->begin() + routeOffset;
         myDeparture -= offset;

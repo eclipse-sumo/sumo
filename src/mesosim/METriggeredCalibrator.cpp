@@ -181,7 +181,7 @@ METriggeredCalibrator::execute(SUMOTime currentTime) {
                 newPars->routeid = route->getID();
                 MEVehicle* vehicle;
                 try {
-                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, false));
+                    vehicle = static_cast<MEVehicle*>(vc.buildVehicle(newPars, route, vtype, false, MSVehicleControl::VehicleDefinitionSource::TRIGGER));
                     std::string msg;
                     if (!vehicle->hasValidRouteStart(msg)) {
                         throw ProcessError(msg);
