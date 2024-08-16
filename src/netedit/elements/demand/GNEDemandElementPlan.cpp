@@ -1139,10 +1139,15 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const auto& inspectedACs = viewNet->getInspectedAttributeCarriers();
         // get inspected plan
         const GNEAttributeCarrier* planInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
-        // flag to check if width must be duplicated
-        const bool duplicateWidth = (planInspected == myPlanElement) || (planInspected == planParent);
+        // check if draw with double width
+        const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
         // calculate path width
-        const double pathWidth = 0.25 * (duplicateWidth ? 2 : 1);
+        double pathWidth = s.widthSettings.walkWidth;
+        if (myPlanElement->getTagProperty().isPlanRide()) {
+            pathWidth = s.widthSettings.rideWidth;
+        } else if (myPlanElement->getTagProperty().isPersonTrip()) {
+            pathWidth = s.widthSettings.personTripWidth;
+        }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if ((tagProperty.isPlanPerson() && s.checkDrawPerson(d, myPlanElement->isAttributeCarrierSelected())) ||
                 (tagProperty.isPlanContainer() && s.checkDrawContainer(d, myPlanElement->isAttributeCarrierSelected()))) {
@@ -1153,18 +1158,25 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // set color
             GLHelper::setColor(myPlanElement->drawUsingSelectColor() ? planSelectedColor : planColor);
             // draw line
-            GUIGeometry::drawGeometry(d, planGeometry, pathWidth);
-            GLHelper::drawTriangleAtEnd(
-                *(planGeometry.getShape().end() - 2),
-                *(planGeometry.getShape().end() - 1),
-                0.5, 0.5, 0.5);
+            GUIGeometry::drawGeometry(d, planGeometry, pathWidth * (drawHalfWidth ? 1 : 2));
+            if (drawHalfWidth) {
+                GLHelper::drawTriangleAtEnd(
+                    *(planGeometry.getShape().end() - 2),
+                    *(planGeometry.getShape().end() - 1),
+                    0.5, 0.5, 0.5);
+            } else {
+                GLHelper::drawTriangleAtEnd(
+                    *(planGeometry.getShape().end() - 2),
+                    *(planGeometry.getShape().end() - 1),
+                    1, 1, 1);
+            }
             // pop matrix
             GLHelper::popMatrix();
             // draw dotted contour
             myPlanContour.drawDottedContours(s, d, myPlanElement, s.dottedContourSettings.segmentWidth, true);
         }
         // calculate contour and draw dotted geometry
-        myPlanContour.calculateContourExtrudedShape(s, d, myPlanElement, planGeometry.getShape(), pathWidth, 1, true, true, 0);
+        myPlanContour.calculateContourExtrudedShape(s, d, myPlanElement, planGeometry.getShape(), pathWidth * 2, 1, true, true, 0);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
