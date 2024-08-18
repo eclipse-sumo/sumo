@@ -47,7 +47,7 @@ OutputDevice_COUT::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_COUT::OutputDevice_COUT() : OutputDevice(0, "COUT") {
-    myStreamDevice = new OStreamDevice(&std::cout);
+    myStreamDevice = std::make_unique<COUTStreamDevice>();
 }
 
 

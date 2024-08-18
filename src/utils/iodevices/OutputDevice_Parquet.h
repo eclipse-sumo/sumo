@@ -54,7 +54,7 @@ public:
     OutputDevice_Parquet(const std::string& fullName);
 
     /// @brief Destructor
-    ~OutputDevice_Parquet();
+    ~OutputDevice_Parquet() override;
 
     /** @brief implements the close tag logic. This is where the file is first opened and the   schema is created.
      * This exploits the fact that for *most* SUMO files, all the fields are present at the first close tag event.

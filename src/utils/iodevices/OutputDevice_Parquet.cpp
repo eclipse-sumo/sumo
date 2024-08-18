@@ -56,7 +56,7 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
     UNUSED_PARAMETER(comment);
     // open the file for writing, but only if the depth is >=2 (i.e. we are closing the children tag).
     //! @todo this is a bit of a hack, but it works for now
-    auto formatter = dynamic_cast<ParquetFormatter*>(this->getFormatter());
+    auto formatter = dynamic_cast<ParquetFormatter*>(&this->getFormatter());
     if (formatter->getDepth() < 2) {
         // we have to clean up the stack, otherwise the file will not be written correctly
         // when it is open
@@ -64,7 +64,7 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
         // this is critical for the file to be written correctly
         return false;
     }
-    if (myFile == nullptr) {   
+    if (myFile == nullptr) {
         if (formatter == nullptr) {
             throw IOError("Formatter is not a ParquetFormatter");
         }
@@ -72,7 +72,7 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
         PARQUET_ASSIGN_OR_THROW(
             this->myFile, arrow::io::FileOutputStream::Open(this->myFilename));
 
-        this->myStreamDevice = new ParquetStream(parquet::ParquetFileWriter::Open(this->myFile, std::static_pointer_cast<parquet::schema::GroupNode>(
+        this->myStreamDevice = std::make_unique<ParquetStream>(parquet::ParquetFileWriter::Open(this->myFile, std::static_pointer_cast<parquet::schema::GroupNode>(
             parquet::schema::GroupNode::Make("schema", parquet::Repetition::REQUIRED, formatter->getNodeVector())
         ), this->builder.build()));
 
@@ -88,9 +88,12 @@ bool OutputDevice_Parquet::closeTag(const std::string& comment) {
 
 OutputDevice_Parquet::~OutputDevice_Parquet() {
     // have to delete the stream device before the file. This dumps unwritten data to the file
-    delete myStreamDevice;
+    myStreamDevice.reset();
+    // close the file (if open)
+    if (this->myFile.get() == nullptr) {
+        return;
+    }
     [[maybe_unused]] arrow::Status status = this->myFile->Close();
-    
 }
 
 #endif

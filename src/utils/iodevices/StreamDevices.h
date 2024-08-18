@@ -21,6 +21,7 @@ public:
     /// @brief The type of the stream
     enum Type {
         OSTREAM, // std::ostream (or std::ofstream)
+        COUT, // std::cout
         PARQUET // parquet::StreamWriter
     };
 
@@ -104,8 +105,9 @@ public:
     OStreamDevice(std::ofstream* stream) : StreamDevice(Type::OSTREAM, true), myStream(std::move(stream)) {}
     OStreamDevice(std::ostream* stream) : StreamDevice(Type::OSTREAM, true), myStream(std::move(stream)) {}
     OStreamDevice(std::ofstream stream) : StreamDevice(Type::OSTREAM, true), myStream(new std::ofstream(std::move(stream))) {}
+    OStreamDevice(std::basic_ostream<char> stream) : StreamDevice(Type::OSTREAM, true), myStream(&stream) {}
 
-    virtual ~OStreamDevice() override = default;
+    virtual ~OStreamDevice() override  = default;
 
     bool ok() override {
         return myStream->good();
@@ -143,7 +145,20 @@ public:
     }
 
     std::string str() override {
-        return "";
+        // Try casting to ostringstream
+        if (auto* oss_ptr = dynamic_cast<std::ostringstream*>(myStream.get())) {
+            return oss_ptr->str();
+        }
+        
+        // Try casting to stringstream
+        if (auto* ss_ptr = dynamic_cast<std::stringstream*>(myStream.get())) {
+            return ss_ptr->str();
+        }
+        
+        // If it's neither, we need to use a more general approach
+        std::ostringstream oss;
+        oss << myStream->rdbuf();
+        return oss.str();
     }
 
     void str(const std::string& s) override {
@@ -170,6 +185,78 @@ public:
 
 private:
     std::unique_ptr<std::ostream> myStream;
+}; // Add the missing semicolon here
+
+
+class COUTStreamDevice : public StreamDevice {
+public:
+
+    // write a constructor that takes a std::ofstream
+    COUTStreamDevice() : StreamDevice(Type::COUT, true), myStream(std::cout) {};
+    COUTStreamDevice(std::ostream& stream) : StreamDevice(Type::COUT, true), myStream(stream) {};
+
+    virtual ~COUTStreamDevice() override = default;
+
+    bool ok() override {
+        return myStream.good();
+    }
+
+    StreamDevice& flush() override {
+        myStream.flush();
+        return *this;
+    }
+
+    void close() override {
+        (void)(this->flush());
+    }
+
+    template <typename T>
+    StreamDevice& print(const T& t) {
+        myStream << t;
+        return *this;
+    }
+
+    void setPrecision(int precision) override {
+        myStream << std::setprecision(precision);
+    }
+
+    void setOSFlags(std::ios_base::fmtflags flags) override {
+        myStream.setf(flags);
+    }
+
+    int precision() override {
+        return static_cast<int>(myStream.precision());
+    }
+
+    bool good() override {
+        return myStream.good();
+    }
+
+    std::string str() override {
+        return "";
+    }
+
+    void str(const std::string& s) override {
+        myStream << s;
+    }
+
+    operator std::ostream& () override {
+        return myStream;
+    }
+
+    StreamDevice& endLine() override {
+        myStream << std::endl;
+        return *this;
+    }
+
+    std::ostream& getOStream() override {
+        return myStream;
+    }
+
+private:
+
+    std::ostream& myStream;
+
 }; // Add the missing semicolon here
 
 class ParquetStream : public StreamDevice {
@@ -256,6 +343,9 @@ StreamDevice& operator<<(StreamDevice& stream, const T& t) {
     switch (stream.type()) {
     case StreamDevice::Type::OSTREAM:
         static_cast<OStreamDevice*>(&stream)->print(t);
+        break;
+    case StreamDevice::Type::COUT:
+        static_cast<COUTStreamDevice*>(&stream)->print(t);
         break;
     case StreamDevice::Type::PARQUET:
 #ifdef HAVE_PARQUET
