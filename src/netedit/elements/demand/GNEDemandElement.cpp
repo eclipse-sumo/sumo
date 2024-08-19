@@ -241,7 +241,7 @@ GNEDemandElement::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in select mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeDemand() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeDemand() &&
             (editModes.demandEditMode == DemandEditMode::DEMAND_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;

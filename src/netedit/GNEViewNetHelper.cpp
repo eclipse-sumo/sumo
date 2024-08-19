@@ -1352,7 +1352,7 @@ GNEViewNetHelper::MoveSingleElementModul::finishMoveSingleElement() {
 
 
 bool
-GNEViewNetHelper::MoveSingleElementModul::isMovingElements() const {
+GNEViewNetHelper::MoveSingleElementModul::isCurrentlyMovingSingleElement() const {
     return myMoveOperations.size() > 0;
 }
 
@@ -1469,7 +1469,7 @@ GNEViewNetHelper::MoveMultipleElementModul::getEdgeOffset() const {
 
 
 bool
-GNEViewNetHelper::MoveMultipleElementModul::isMovingElements() const {
+GNEViewNetHelper::MoveMultipleElementModul::isCurrentlyMovingMultipleElements() const {
     return myMoveOperations.size() > 0;
 }
 

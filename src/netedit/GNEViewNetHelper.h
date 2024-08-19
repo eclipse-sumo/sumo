@@ -1042,7 +1042,7 @@ struct GNEViewNetHelper {
         void finishMoveSingleElement();
 
         /// @brief check if there are moving elements
-        bool isMovingElements() const;
+        bool isCurrentlyMovingSingleElement() const;
 
     protected:
         /// @brief calculate offset
@@ -1087,7 +1087,7 @@ struct GNEViewNetHelper {
         double getEdgeOffset() const;
 
         /// @brief check if there are moving elements
-        bool isMovingElements() const;
+        bool isCurrentlyMovingMultipleElements() const;
 
     protected:
         /// @brief calculate move offset

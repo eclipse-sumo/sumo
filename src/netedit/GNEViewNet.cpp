@@ -1913,8 +1913,8 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, do
 
 
 bool
-GNEViewNet::isMovingElement() const {
-    return myMoveSingleElement.isMovingElements() || myMoveMultipleElements.isMovingElements();
+GNEViewNet::isCurrentlyMovingElements() const {
+    return myMoveSingleElement.isCurrentlyMovingSingleElement() || myMoveMultipleElements.isCurrentlyMovingMultipleElements();
 }
 
 

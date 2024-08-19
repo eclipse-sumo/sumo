@@ -327,7 +327,7 @@ GNEJunction::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
     // check if we're in move mode
-    if (!myNet->getViewNet()->isMovingElement() && editModes.isCurrentSupermodeNetwork() &&
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
         // only move the first element
         return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
@@ -1616,20 +1616,20 @@ GNEJunction::setResponsible(bool newVal) {
 
 bool
 GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double junctionShapeArea) const {
-    const auto &editModes = myNet->getViewNet()->getEditModes();
+    const auto& editModes = myNet->getViewNet()->getEditModes();
     // check conditions
     if (junctionShapeArea < 4) {
         // force draw if this junction is a candidate
         if (mySourceCandidate || myTargetCandidate || mySpecialCandidate ||
-             myPossibleCandidate || myConflictedCandidate) {
+                myPossibleCandidate || myConflictedCandidate) {
             return true;
         }
         // force draw if we're in person/container plan mode
-        if (editModes.isCurrentSupermodeDemand() && 
-            ((editModes.demandEditMode == DemandEditMode::DEMAND_PERSON) || 
-            (editModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) || 
-            (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) || 
-            (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN))) {
+        if (editModes.isCurrentSupermodeDemand() &&
+                ((editModes.demandEditMode == DemandEditMode::DEMAND_PERSON) ||
+                 (editModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) ||
+                 (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) ||
+                 (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN))) {
             return true;
         }
     }
