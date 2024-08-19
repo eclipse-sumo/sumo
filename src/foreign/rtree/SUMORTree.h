@@ -136,8 +136,10 @@ public:
         }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
-            if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size", o->getMicrosimID()));
+            if (!b.isInitialised()) {
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % is not initialised (insertion)", o->getMicrosimID()));
+            } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size (insertion)", o->getMicrosimID()));
             } else if (myTreeDebug.count(o) > 0) {
                 throw ProcessError("GUIGlObject was already inserted");
             } else {
@@ -172,8 +174,10 @@ public:
         }
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
-            if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size", o->getMicrosimID()));
+            if (!b.isInitialised()) {
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % is not initialised (deletion)", o->getMicrosimID()));
+            } else if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+                throw ProcessError(StringUtils::format("Boundary of GUIGlObject % has an invalid size (deletion)", o->getMicrosimID()));
             } else if (myTreeDebug.count(o) == 0) {
                 throw ProcessError("GUIGlObject wasn't inserted");
             } else if (toString(b) != toString(myTreeDebug.at(o))) {
