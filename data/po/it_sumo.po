@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-16 16:01+0000\n"
+"PO-Revision-Date: 2024-08-19 15:42+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6605,7 +6605,7 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:598
 msgid "Computing traffic light logics"
-msgstr ""
+msgstr "Calcolo delle logiche di semafori"
 
 #: src/netbuild/NBNetBuilder.cpp:605
 msgid " % traffic light(s) %computed."
@@ -6613,7 +6613,7 @@ msgstr " % semafori calcolati."
 
 #: src/netbuild/NBNetBuilder.cpp:616
 msgid "Building inner edges"
-msgstr ""
+msgstr "Costruzione degli archi interni"
 
 #: src/netbuild/NBNetBuilder.cpp:629
 msgid "stretching junctions to smooth geometries"
@@ -6621,15 +6621,15 @@ msgstr ""
 
 #: src/netbuild/NBNetBuilder.cpp:658
 msgid "Generating street signs"
-msgstr ""
+msgstr "Generazione della segnaletica stradale"
 
 #: src/netbuild/NBNetBuilder.cpp:669
 msgid "Checking overlapping edges"
-msgstr ""
+msgstr "Controllo degli archi sovrapposti"
 
 #: src/netbuild/NBNetBuilder.cpp:674
 msgid "Checking edge grade"
-msgstr ""
+msgstr "Controllo delle pendenze degli archi"
 
 #: src/netbuild/NBNetBuilder.cpp:689
 msgid "Find accesses for pt rail stops"
@@ -6641,10 +6641,13 @@ msgid ""
 "GUI. Check for outlying nodes and make sure the network is shifted to the "
 "coordinate origin"
 msgstr ""
+"La rete contiene coordinate molto grandi e probabilmente farà l'interfaccia "
+"grafica ballare. Cerca nodi remoti e assicurati che la rete sia spostata "
+"verso l'origine di coordinate"
 
 #: src/netbuild/NBNetBuilder.cpp:726
 msgid "Moving network to origin"
-msgstr ""
+msgstr "Spostamento della rete verso l'origine"
 
 #: src/netbuild/NBNode.cpp:305 src/netbuild/NBNode.cpp:327
 msgid "Invalid node id '%'."
@@ -6661,12 +6664,12 @@ msgstr ""
 #: src/netbuild/NBNode.cpp:795
 #, c-format
 msgid "Connection '%' starts at a non-existant lane."
-msgstr ""
+msgstr "Il collegamento '%' inizia su una corsia non esistente."
 
 #: src/netbuild/NBNode.cpp:798
 #, c-format
 msgid "Connection '%' targets a non-existant lane."
-msgstr ""
+msgstr "Il collegamento '%' porta a una corsia non esistente."
 
 #: src/netbuild/NBNode.cpp:812 src/netbuild/NBNode.cpp:830
 msgid "Could not use custom shape for connection %."
@@ -6686,6 +6689,8 @@ msgstr ""
 msgid ""
 "Junction '%' is too complicated (% connections, max %); will be set to %."
 msgstr ""
+"L'incrocio '%' è troppo complicato (% collegamenti, massimo %); verrà "
+"impostato a %."
 
 #: src/netbuild/NBNode.cpp:1178
 #, c-format
@@ -7818,15 +7823,19 @@ msgstr ""
 #: src/netimport/NIImporter_ArcView.cpp:357
 msgid "Could not create edge '%'. An edge with the same id already exists."
 msgstr ""
+"L'arco '%' non poteva essere creato perché esiste già un altro con lo stesso "
+"codice identificativo."
 
 #: src/netimport/NIImporter_ArcView.cpp:374
 msgid "Could not create edge '-%'. An edge with the same id already exists."
 msgstr ""
+"L'arco '-%' non poteva essere creato perché esiste già un altro con lo "
+"stesso codice identificativo."
 
 #: src/netimport/NIImporter_ArcView.cpp:388
 #: src/polyconvert/PCLoaderArcView.cpp:333
 msgid "SUMO was compiled without GDAL support."
-msgstr ""
+msgstr "SUMO è stato compilato senza supporto GDAL."
 
 #: src/netimport/NIImporter_DlrNavteq.cpp:76
 msgid "Loading nodes"
