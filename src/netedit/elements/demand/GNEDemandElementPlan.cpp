@@ -287,7 +287,7 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const 
 GNEMoveOperation*
 GNEDemandElementPlan::getPlanMoveOperation() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // only move personTrips defined over edges
     if (tagProperty.planToEdge() || tagProperty.planConsecutiveEdges() || tagProperty.planEdge()) {
         // get geometry end pos
@@ -310,7 +310,7 @@ GNEDemandElementPlan::getPlanMoveOperation() {
 
 void
 GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // write attributes depending of parent elements
     if (tagProperty.planConsecutiveEdges()) {
         device.writeAttr(SUMO_ATTR_EDGES, myPlanElement->parseIDs(myPlanElement->getParentEdges()));
@@ -369,7 +369,7 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
 
 void
 GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // write extra stop element for a stopping place (if this is the first element)
     if (tagProperty.planFromStoppingPlace()
             && myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
@@ -411,7 +411,7 @@ GNEDemandElementPlan::getPlanPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& 
 GNELane*
 GNEDemandElementPlan::getFirstPlanPathLane() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vclass
     auto vClass = myPlanElement->getVClass();
     // continue depending of parents
@@ -434,7 +434,7 @@ GNEDemandElementPlan::getFirstPlanPathLane() const {
 GNELane*
 GNEDemandElementPlan::getLastPlanPathLane() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vclass
     auto vClass = myPlanElement->getVClass();
     // check parents
@@ -457,7 +457,7 @@ GNEDemandElementPlan::getLastPlanPathLane() const {
 void
 GNEDemandElementPlan::computePlanPathElement() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get vClass
     auto vClass = myPlanElement->getVClass();
     // get path manager
@@ -535,7 +535,7 @@ GNEDemandElementPlan::computePlanPathElement() {
 void
 GNEDemandElementPlan::updatePlanGeometry() {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare first and last positions
     Position firstPos = Position::INVALID;
     Position lastPos = Position::INVALID;
@@ -640,7 +640,7 @@ GNEDemandElementPlan::updatePlanCenteringBoundary(const bool updateGrid) {
 Position
 GNEDemandElementPlan::getPlanPositionInView() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // continue depending of parents
     if (tagProperty.planRoute()) {
         // route
@@ -729,7 +729,7 @@ GNEDemandElementPlan::getPlanAttribute(SumoXMLAttr key) const {
 double
 GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare plan parent
     const auto planParent = myPlanElement->getParentDemandElements().at(0);
     // continue depending of key
@@ -805,7 +805,7 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
 Position
 GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare plan parent
     const auto planParent = myPlanElement->getParentDemandElements().at(0);
     // continue depending of key
@@ -1043,7 +1043,7 @@ GNEDemandElementPlan::setPlanAttribute(SumoXMLAttr key, const std::string& value
 std::string
 GNEDemandElementPlan::getPlanHierarchyName() const {
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // declare result
     std::string result;
     // clear result
@@ -1185,7 +1185,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan geometry
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
@@ -1254,7 +1254,7 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
     // get tag property
-    const auto tagProperty = myPlanElement->getTagProperty();
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan element can be drawn
