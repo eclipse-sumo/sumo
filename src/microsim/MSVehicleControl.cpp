@@ -112,7 +112,7 @@ SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                ConstMSRoutePtr route, MSVehicleType* type,
                                const bool ignoreStopErrors, const VehicleDefinitionSource source, bool addRouteStops) {
-    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE ? MSRouteHandler::getParsingRNG() : nullptr));
+    MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(source == VehicleDefinitionSource::ROUTEFILE || source == VehicleDefinitionSource::STATE ? MSRouteHandler::getParsingRNG() : nullptr));
     initVehicle(built, ignoreStopErrors, addRouteStops, source);
     return built;
 }
