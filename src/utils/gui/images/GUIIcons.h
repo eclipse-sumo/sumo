@@ -529,9 +529,13 @@ enum class GUIIcon {
     CONTAINERFLOW,
     TRANSPORT_EDGE,
     TRANSPORT_CONTAINERSTOP,
+    TRANSPORT_JUNCTION,
+    TRANSPORT_TAZ,
     TRANSHIP_EDGES,
     TRANSHIP_EDGE,
     TRANSHIP_CONTAINERSTOP,
+    TRANSHIP_JUNCTION,
+    TRANSHIP_TAZ,
     /// @}
 
     /// @name Netedit data elements icons
