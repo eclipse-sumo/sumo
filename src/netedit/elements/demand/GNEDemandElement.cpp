@@ -240,11 +240,26 @@ bool
 GNEDemandElement::checkDrawMoveContour() const {
     // get edit modes
     const auto& editModes = myNet->getViewNet()->getEditModes();
-    // check if we're in select mode
-    if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeDemand() &&
-            (editModes.demandEditMode == DemandEditMode::DEMAND_MOVE) && myNet->getViewNet()->checkOverLockedElement(this, mySelected)) {
-        // only move the first element
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    // check first set of conditions
+    if (!myNet->getViewNet()->isCurrentlyMovingElements() &&                            // another elements are not currently moved
+            editModes.isCurrentSupermodeDemand() &&                                         // supermode demand
+            (editModes.demandEditMode == DemandEditMode::DEMAND_MOVE) &&                    // move mode
+            myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&                // no locked
+            myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this) {  // first element
+        // continue depending of subtype
+        if (myTagProperty.isVehicle()) {
+            // only vehicles over edges can be moved
+            if (myTagProperty.vehicleEdges() || myTagProperty.vehicleRoute() || myTagProperty.vehicleRouteEmbedded()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if ((myTagProperty.isPerson() || myTagProperty.isContainer()) && (getChildDemandElements().size() > 0)) {
+            // only persons/containers with their first plan over edge can be moved
+            return getChildDemandElements().front()->getTagProperty().planFromEdge();
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
@@ -329,7 +344,7 @@ GNEDemandElement::deleteGLObject() {
         } else {
             myNet->deleteDemandElement(this, myNet->getViewNet()->getUndoList());
         }
-    } else if (getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED) {
+    } else if (myTagProperty.getTag() == GNE_TAG_ROUTE_EMBEDDED) {
         // remove parent demand element
         getParentDemandElements().front()->deleteGLObject();
     } else {
