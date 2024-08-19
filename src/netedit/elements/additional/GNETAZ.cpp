@@ -219,7 +219,11 @@ void
 GNETAZ::updateGeometry() {
     // just update geometry
     myAdditionalGeometry.updateGeometry(myShape);
-    // update geometry of TAZRelDatas
+    // update geometry of child plan elements
+    for (const auto& demandElements : getChildDemandElements()) {
+        demandElements->updateGeometry();
+    }
+    // update geometry of childTAZRelDatas
     for (const auto& TAZRelData : getChildGenericDatas()) {
         TAZRelData->updateGeometry();
     }
