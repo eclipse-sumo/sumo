@@ -83,6 +83,9 @@ protected:
     /// @brief variable used for draw contour end
     GNEContour myPlanContourEnd;
 
+    /// @brief plan boundary
+    Boundary myPlanBoundary;
+
     /// @brief constructor
     GNEDemandElementPlan(GNEDemandElement* planElement, const double departPosition, const double arrivalPosition);
 
@@ -120,8 +123,11 @@ protected:
     /// @brief update pre-computed geometry information
     void updatePlanGeometry();
 
-    /// @brief get centering boundaryt
+    /// @brief get plan centering boundary
     Boundary getPlanCenteringBoundary() const;
+
+    /// @brief update plan centering boundary
+    void updatePlanCenteringBoundary(const bool updateGrid);
 
     /// @brief Returns position of additional in view
     Position getPlanPositionInView() const;

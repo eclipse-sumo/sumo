@@ -279,6 +279,8 @@ GNEDemandElementPlan::GNEDemandElementPlan(GNEDemandElement* planElement, const 
     myDepartPosition(departPosition),
     myArrivalPosition(arrivalPosition),
     myPlanElement(planElement) {
+    // update centering boundary without updating grid
+    updatePlanCenteringBoundary(false);
 }
 
 
@@ -539,14 +541,36 @@ GNEDemandElementPlan::updatePlanGeometry() {
     Position lastPos = Position::INVALID;
     // set first position
     if (tagProperty.planFromJunction() && tagProperty.planToTAZ()) {
+        // from junction
         firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
-        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+        // to TAZ
+        if (myPlanElement->getParentAdditionals().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            lastPos = myPlanElement->getParentAdditionals().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            lastPos = myPlanElement->getParentAdditionals().back()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
     } else if (tagProperty.planFromTAZ() && tagProperty.planToJunction()) {
-        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
+        // from TAZ
+        if (myPlanElement->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            firstPos = myPlanElement->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            firstPos = myPlanElement->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
+        // to junction
         lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
     } else if (tagProperty.planFromTAZ() && tagProperty.planToTAZ()) {
-        firstPos = myPlanElement->getParentAdditionals().front()->getPositionInView();
-        lastPos = myPlanElement->getParentAdditionals().back()->getPositionInView();
+        // from TAZ
+        if (myPlanElement->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            firstPos = myPlanElement->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            firstPos = myPlanElement->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
+        // to TAZ
+        if (myPlanElement->getParentAdditionals().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            lastPos = myPlanElement->getParentAdditionals().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            lastPos = myPlanElement->getParentAdditionals().back()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
     }
     // use both position to calculate a line
     if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
@@ -565,36 +589,50 @@ GNEDemandElementPlan::updatePlanGeometry() {
 
 Boundary
 GNEDemandElementPlan::getPlanCenteringBoundary() const {
-    Boundary planBoundary;
+    return myPlanBoundary;
+}
+
+
+void
+GNEDemandElementPlan::updatePlanCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (updateGrid) {
+        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
+    }
+    myPlanBoundary.reset();
     // if this element is over route, add their boundary
     if (myPlanElement->getParentDemandElements().size() > 1) {
-        planBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
+        myPlanBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
     }
     // add the combination of all parent edges's boundaries
     for (const auto& edge : myPlanElement->getParentEdges()) {
-        planBoundary.add(edge->getCenteringBoundary());
+        myPlanBoundary.add(edge->getCenteringBoundary());
     }
     // add the combination of all parent edges's boundaries
     for (const auto& junction : myPlanElement->getParentJunctions()) {
-        planBoundary.add(junction->getCenteringBoundary());
+        myPlanBoundary.add(junction->getCenteringBoundary());
     }
     // add the combination of all parent additional's boundaries (stoppingPlaces and TAZs)
     for (const auto& additional : myPlanElement->getParentAdditionals()) {
         if (additional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
             if (additional->getAttribute(SUMO_ATTR_CENTER).empty()) {
-                planBoundary.add(additional->getAttributePosition(GNE_ATTR_TAZ_CENTROID));
+                myPlanBoundary.add(additional->getAttributePosition(GNE_ATTR_TAZ_CENTROID));
             } else {
-                planBoundary.add(additional->getAttributePosition(SUMO_ATTR_CENTER));
+                myPlanBoundary.add(additional->getAttributePosition(SUMO_ATTR_CENTER));
             }
         } else {
-            planBoundary.add(additional->getCenteringBoundary());
+            myPlanBoundary.add(additional->getCenteringBoundary());
         }
     }
     // check if is valid
-    if (planBoundary.isInitialised()) {
-        return planBoundary.grow(5);
-    } else {
-        return myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
+    if (myPlanBoundary.isInitialised()) {
+        myPlanBoundary.grow(5);
+    } else if (myPlanElement->getParentDemandElements().size() > 0) {
+        myPlanBoundary = myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
+    }
+    // add additional into RTREE again
+    if (updateGrid) {
+        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
     }
 }
 
@@ -615,9 +653,15 @@ GNEDemandElementPlan::getPlanPositionInView() const {
     } else if (tagProperty.planFromJunction()) {
         // first junction
         return myPlanElement->getParentJunctions().front()->getPositionInView();
-    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace() || tagProperty.planFromTAZ()) {
+    } else if (tagProperty.planStoppingPlace() || tagProperty.planFromStoppingPlace()) {
         // first additional
         return myPlanElement->getParentAdditionals().front()->getPositionInView();
+    } else if (tagProperty.planFromTAZ()) {
+        if (myPlanElement->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+            return myPlanElement->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        } else {
+            return myPlanElement->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        }
     } else {
         // return parent position
         return Position(0, 0);
@@ -781,8 +825,11 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 // junction view position
                 return myPlanElement->getParentJunctions().front()->getPositionInView();
             } else if (tagProperty.planFromTAZ()) {
-                // TAZ view position
-                return myPlanElement->getParentAdditionals().front()->getPositionInView();
+                if (myPlanElement->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return myPlanElement->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return myPlanElement->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (tagProperty.planConsecutiveEdges() || tagProperty.planRoute() || tagProperty.planFromEdge()) {
                 // get first path lane
                 const auto firstLane = myPlanElement->getFirstPathLane();
@@ -824,7 +871,11 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 return myPlanElement->getParentJunctions().back()->getPositionInView();
             } else if (tagProperty.planToTAZ()) {
                 // taz
-                return myPlanElement->getParentAdditionals().back()->getPositionInView();
+                if (myPlanElement->getParentAdditionals().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return myPlanElement->getParentAdditionals().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return myPlanElement->getParentAdditionals().back()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (tagProperty.planStoppingPlace()) {
                 // get additional back shape (stops)
                 return myPlanElement->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
