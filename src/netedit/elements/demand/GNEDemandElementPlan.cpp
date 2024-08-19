@@ -1206,9 +1206,9 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         const bool drawHalfWidth = ((planInspected != myPlanElement) && (planInspected != planParent) && !gViewObjectsHandler.isElementSelected(myPlanElement));
         // calculate path width
         double pathWidth = s.widthSettings.walkWidth;
-        if (myPlanElement->getTagProperty().isPlanRide()) {
+        if (tagProperty.isPlanRide()) {
             pathWidth = s.widthSettings.rideWidth;
-        } else if (myPlanElement->getTagProperty().isPersonTrip()) {
+        } else if (tagProperty.isPersonTrip()) {
             pathWidth = s.widthSettings.personTripWidth;
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
@@ -1223,15 +1223,9 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
             // draw line
             GUIGeometry::drawGeometry(d, planGeometry, pathWidth * (drawHalfWidth ? 1 : 2));
             if (drawHalfWidth) {
-                GLHelper::drawTriangleAtEnd(
-                    *(planGeometry.getShape().end() - 2),
-                    *(planGeometry.getShape().end() - 1),
-                    0.5, 0.5, 0.5);
+                GLHelper::drawTriangleAtEnd(planGeometry.getShape().front(), planGeometry.getShape().back(), 0.5, 0.5, 0.5);
             } else {
-                GLHelper::drawTriangleAtEnd(
-                    *(planGeometry.getShape().end() - 2),
-                    *(planGeometry.getShape().end() - 1),
-                    1, 1, 1);
+                GLHelper::drawTriangleAtEnd(planGeometry.getShape().front(), planGeometry.getShape().back(), 1, 1, 1);
             }
             // pop matrix
             GLHelper::popMatrix();
@@ -1240,6 +1234,8 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         }
         // calculate contour and draw dotted geometry
         myPlanContour.calculateContourExtrudedShape(s, d, myPlanElement, planGeometry.getShape(), pathWidth * 2, 1, true, true, 0);
+        // calculate contour for end
+        myPlanContourEnd.calculateContourCircleShape(s, d, myPlanElement, planGeometry.getShape().back(), 1, 1);
     }
     // check if draw plan parent
     if (planParent->getPreviousChildDemandElement(myPlanElement) == nullptr) {
