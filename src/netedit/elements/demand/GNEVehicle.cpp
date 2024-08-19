@@ -741,12 +741,16 @@ GNEVehicle::updateGeometry() {
         // update Geometry
         myDemandElementGeometry.updateSinglePosGeometry(getParentJunctions().front()->getPositionInView(), rot);
     } else if (getParentAdditionals().size() > 0) {
-        // calculate rotation between both junctions
-        const Position posA = getParentAdditionals().front()->getPositionInView();
-        const Position posB = getParentAdditionals().back()->getPositionInView();
+        // calculate rotation between both TAZs
+        const Position posA = getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty() ?
+                              getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID) :
+                              getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        const Position posB = getParentAdditionals().back()->getAttribute(SUMO_ATTR_CENTER).empty() ?
+                              getParentAdditionals().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID) :
+                              getParentAdditionals().back()->getAttributePosition(SUMO_ATTR_CENTER);
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) -180.0 / (double)M_PI);
         // update Geometry
-        myDemandElementGeometry.updateSinglePosGeometry(getParentAdditionals().front()->getPositionInView(), rot);
+        myDemandElementGeometry.updateSinglePosGeometry(posA, rot);
     } else {
         // get first path lane
         const GNELane* firstPathLane = getFirstPathLane();

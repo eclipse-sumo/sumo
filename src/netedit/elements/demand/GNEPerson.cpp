@@ -522,7 +522,11 @@ GNEPerson::getAttributePosition(SumoXMLAttr key) const {
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {
                 // TAZ
-                return personPlan->getParentAdditionals().front()->getPositionInView();
+                if (personPlan->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return personPlan->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                } else {
+                    return personPlan->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                }
             } else if (personPlan->getTagProperty().planFromJunction()) {
                 // juncrtion
                 return personPlan->getParentJunctions().front()->getPositionInView();
