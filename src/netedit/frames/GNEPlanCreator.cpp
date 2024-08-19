@@ -203,11 +203,15 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
         return GNEDemandElementPlan::getTransportTagIcon(
                    getFromEdge(), getToEdge(),
+                   getFromTAZ(), getToTAZ(),
+                   getFromJunction(), getToJunction(),
                    getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanTranship()) {
         return GNEDemandElementPlan::getTranshipTagIcon(
                    getConsecutiveEdges(),
                    getFromEdge(), getToEdge(),
+                   getFromTAZ(), getToTAZ(),
+                   getFromJunction(), getToJunction(),
                    getFromContainerStop(), getToContainerStop()).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
         return GNEDemandElementPlan::getPersonStopTagIcon(
