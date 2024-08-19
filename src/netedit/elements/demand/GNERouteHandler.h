@@ -145,13 +145,16 @@ public:
     void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
 
     /// @brief build transport
-    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                        const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& lines, const double arrivalPos);
+    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                        const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
+                        const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
+                        const double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build tranship
-    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& fromEdgeID, const std::string& fromContainerStopID,
-                       const std::string& toEdgeID, const std::string& toContainerStopID, const std::vector<std::string>& edgeIDs, const double speed,
-                       const double departPosition, const double arrivalPosition);
+    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                       const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
+                       const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
+                       const std::vector<std::string>& edgeIDs, const double arrivalPosition, const double departPosition, const double speed);
 
     /// @brief build person stop
     void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
