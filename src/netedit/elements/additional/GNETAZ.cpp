@@ -304,7 +304,7 @@ void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
-        GUIPolygon::checkDraw(s, this, this)) {
+            GUIPolygon::checkDraw(s, this, this)) {
         // draw boundary
         const auto boundary = getCenteringBoundary();
         GLHelper::drawBoundary(s, boundary);
@@ -511,6 +511,8 @@ GNETAZ::getAttributePosition(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_CENTER:
             return myTAZCenter;
+        case GNE_ATTR_TAZ_CENTROID:
+            return myShape.getCentroid();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have a double attribute of type '" + toString(key) + "'");
     }

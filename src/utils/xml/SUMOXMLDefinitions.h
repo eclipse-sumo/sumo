@@ -1554,6 +1554,8 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_LANEID,
     /// @brief to lane ID (used in GNEConnection)
     GNE_ATTR_TO_LANEID,
+    /// @brief TAZ Center (uses to return the TAZ centroid if center is not defined)
+    GNE_ATTR_TAZ_CENTROID,
 
     // virtual attributes for easier UI
     GNE_ATTR_FROM_BUSSTOP,

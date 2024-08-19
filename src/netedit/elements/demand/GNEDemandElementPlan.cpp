@@ -580,11 +580,19 @@ GNEDemandElementPlan::getPlanCenteringBoundary() const {
     }
     // add the combination of all parent additional's boundaries (stoppingPlaces and TAZs)
     for (const auto& additional : myPlanElement->getParentAdditionals()) {
-        planBoundary.add(additional->getCenteringBoundary());
+        if (additional->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+            if (additional->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                planBoundary.add(additional->getAttributePosition(GNE_ATTR_TAZ_CENTROID));
+            } else {
+                planBoundary.add(additional->getAttributePosition(SUMO_ATTR_CENTER));
+            }
+        } else {
+            planBoundary.add(additional->getCenteringBoundary());
+        }
     }
     // check if is valid
     if (planBoundary.isInitialised()) {
-        return planBoundary;
+        return planBoundary.grow(5);
     } else {
         return myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
     }
@@ -1131,6 +1139,10 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
     auto& planGeometry = myPlanElement->myDemandElementGeometry;
     // draw relations between TAZs
     if (drawPlan && (planGeometry.getShape().size() > 0)) {
+        // draw boundary
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get viewNet
