@@ -6420,6 +6420,12 @@ GNEAttributeCarrier::fillCommonContainerAttributes(SumoXMLTag currentTag) {
                                           TL("This container's color"),
                                           "yellow");
     myTagProperties[currentTag].addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPARTPOS,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE |  GNEAttributeProperties::UPDATEGEOMETRY,
+                                          TL("The position at which the container shall enter the net"),
+                                          "base");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 

@@ -184,12 +184,13 @@ GNEContainer::~GNEContainer() {}
 
 GNEMoveOperation*
 GNEContainer::getMoveOperation() {
+    const auto firstContainerPlan = getChildDemandElements().front();
     // check first container plan
-    if (getChildDemandElements().front()->getTagProperty().isPlanStopContainer()) {
+    if (firstContainerPlan->getTagProperty().isPlanStopContainer()) {
         return nullptr;
-    } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
+    } else if (firstContainerPlan->getParentEdges().size() > 0) {
         // get lane
-        const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         // declare departPos
         double posOverLane = 0;
         if (canParse<double>(getDepartPos())) {
@@ -347,6 +348,9 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
         const auto d = s.getDetailLevel(exaggeration);
         // obtain position
         const Position containerPosition = getAttributePosition(SUMO_ATTR_DEPARTPOS);
+        if (containerPosition == Position::INVALID) {
+            return;
+        }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawContainer(d, isAttributeCarrierSelected())) {
             // obtain img file
@@ -499,7 +503,11 @@ double
 GNEContainer::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS:
-            return STEPS2TIME(depart);
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
+                return departPos;
+            } else {
+                return 0;
+            }
         default:
             return getFlowAttributeDouble(key);
     }
@@ -517,7 +525,7 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             // get person plan
             const GNEDemandElement* personPlan = getChildDemandElements().front();
             // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isPlanStopContainer()) {
+            if (personPlan->getTagProperty().isPlanStopPerson()) {
                 // stop center
                 return personPlan->getPositionInView();
             } else if (personPlan->getTagProperty().planFromTAZ()) {
@@ -793,7 +801,8 @@ GNEContainer::toggleAttribute(SumoXMLAttr key, const bool value) {
 }
 
 
-void GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
+void
+GNEContainer::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
     departPos = moveResult.newFirstPos;

@@ -184,12 +184,13 @@ GNEPerson::~GNEPerson() {}
 
 GNEMoveOperation*
 GNEPerson::getMoveOperation() {
+    const auto firstContainerPlan = getChildDemandElements().front();
     // check first person plan
-    if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
+    if (firstContainerPlan->getTagProperty().isPlanStopPerson()) {
         return nullptr;
-    } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
+    } else if (firstContainerPlan->getParentEdges().size() > 0) {
         // get lane
-        const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
+        const GNELane* lane = firstContainerPlan->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         // declare departPos
         double posOverLane = 0;
         if (canParse<double>(getDepartPos())) {
@@ -725,7 +726,8 @@ GNEPerson::toggleAttribute(SumoXMLAttr key, const bool value) {
 }
 
 
-void GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
+void
+GNEPerson::setMoveShape(const GNEMoveResult& moveResult) {
     // change departPos
     departPosProcedure = DepartPosDefinition::GIVEN;
     departPos = moveResult.newFirstPos;
