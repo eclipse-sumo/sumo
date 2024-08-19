@@ -4767,7 +4767,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: edge->taz"),
@@ -4824,7 +4824,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->edge"),
@@ -4838,7 +4838,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->taz"),
@@ -4852,7 +4852,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_JUNCTION, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->junction"),
@@ -4867,7 +4867,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_BUSSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->busStop"),
@@ -4881,7 +4881,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TRAINSTOP, SUMO_TAG_PERSONTRIP, TL("PersonTrip: taz->trainStop"),
@@ -4910,7 +4910,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: junction->taz"),
@@ -4981,7 +4981,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: busStop->taz"),
@@ -5052,7 +5052,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::PERSONTRIP,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::PERSONTRIP_TAZ, SUMO_TAG_PERSONTRIP, TL("PersonTrip: trainStop->taz"),
@@ -5159,7 +5159,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: edge->taz"),
@@ -5216,7 +5216,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->edge"),
@@ -5230,7 +5230,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->taz"),
@@ -5244,7 +5244,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: taz->junction"),
@@ -5259,7 +5259,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: taz->busStop"),
@@ -5273,7 +5273,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: taz->trainStop"),
@@ -5302,7 +5302,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: junction->taz"),
@@ -5373,7 +5373,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: busStop->taz"),
@@ -5444,7 +5444,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: trainStop->taz"),
