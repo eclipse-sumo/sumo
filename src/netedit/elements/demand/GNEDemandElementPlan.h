@@ -62,12 +62,14 @@ public:
 
     /// @brief get the transport tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
+            const GNEJunction* toJunction, const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
 
     /// @brief get the tranship tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-            const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromContainerStop,
-            const GNEAdditional* toContainerStop);
+            const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromTAZ,
+            const GNEAdditional* toTAZ, const GNEJunction* fromJunction, const GNEJunction* toJunction,
+            const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
 
     /// @brief get the person stop tag and icon for the combination
     static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop,
