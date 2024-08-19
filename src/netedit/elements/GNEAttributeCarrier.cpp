@@ -4559,7 +4559,7 @@ GNEAttributeCarrier::fillContainerTransportElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // fill transport
+    // fill transports
     SumoXMLTag currentTag = GNE_TAG_TRANSPORT_EDGE_EDGE;
     {
         // set values of tag
@@ -4583,6 +4583,34 @@ GNEAttributeCarrier::fillContainerTransportElements() {
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: edge->containerStop"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: edge->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_EDGE_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: edge->taz"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
         // set values of attributes
         fillPlanParentAttributes(currentTag);
@@ -4616,6 +4644,146 @@ GNEAttributeCarrier::fillContainerTransportElements() {
         fillPlanParentAttributes(currentTag);
         fillTransportCommonAttributes(currentTag);
     }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: containerStop->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: junction->edge"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: junction->containerStop"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: junction->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_JUNCTION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: junction->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_EDGE, SUMO_TAG_TRANSPORT, TL("Transport: taz->edge"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: taz->containerStop"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: taz->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSPORT_TAZ_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSPORT_CONTAINERSTOP, SUMO_TAG_TRANSPORT, TL("Transport: taz->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(240, 255, 205, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTransportCommonAttributes(currentTag);
+    }
 }
 
 
@@ -4624,7 +4792,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // fill walks
+    // fill tranships
     SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGE_EDGE;
     {
         // set values of tag
@@ -4635,7 +4803,6 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: edge->edge"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillTranshipCommonAttributes(currentTag);
@@ -4649,8 +4816,35 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: edge->containerStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
-
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: edge->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_EDGE_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: edge->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillTranshipCommonAttributes(currentTag);
@@ -4665,7 +4859,6 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->edge"),
         {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
-
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillTranshipCommonAttributes(currentTag);
@@ -4679,8 +4872,147 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
                                       GNETagProperties::Conflicts::NO_CONFLICTS,
                                       GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->containerStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(210, 233, 255, 255));
-
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: containerStop->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: junction->edge"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: junction->containerStop"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: junction->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_JUNCTION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: junction->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_EDGE, SUMO_TAG_TRANSHIP, TL("Tranship: taz->edge"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: taz->containerStop"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: taz->junction"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_TRANSHIP_TAZ_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP,
+                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      GNETagProperties::Conflicts::NO_CONFLICTS,
+                                      GUIIcon::TRANSHIP_CONTAINERSTOP, SUMO_TAG_TRANSHIP, TL("Tranship: taz->taz"),
+        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(210, 233, 255, 255));
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillTranshipCommonAttributes(currentTag);
