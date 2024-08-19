@@ -187,7 +187,7 @@ GNEPerson::getMoveOperation() {
     // check first person plan
     if (getChildDemandElements().front()->getTagProperty().isPlanStopPerson()) {
         return nullptr;
-    } else {
+    } else if (getChildDemandElements().front()->getParentEdges().size() > 0) {
         // get lane
         const GNELane* lane = getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         // declare departPos
@@ -197,6 +197,8 @@ GNEPerson::getMoveOperation() {
         }
         // return move operation
         return new GNEMoveOperation(this, lane, posOverLane, false);
+    } else {
+        return nullptr;
     }
 }
 
