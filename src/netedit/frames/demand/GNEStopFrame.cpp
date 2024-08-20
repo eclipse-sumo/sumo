@@ -210,8 +210,10 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
         getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
-            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
-                                     myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            /*
+                myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(),
+                                         myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            */
             // show all trips
             if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isVehicleStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
