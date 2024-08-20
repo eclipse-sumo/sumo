@@ -100,7 +100,7 @@ public:
         /// @brief edges
         std::vector<std::string> edges;
 
-        /// @brief route (currentyl only used by walks)
+        /// @brief route (currently only used by walks)
         std::string route;
 
         /// @name values used only by stops
