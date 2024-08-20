@@ -24,7 +24,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
-#include "GNERouteHandler.h"
+#include "GNEPlanParameters.h"
 
 // ===========================================================================
 // class declaration
@@ -45,25 +45,25 @@ class GNEDemandElementPlan {
 
 public:
     /// @brief get the walk tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the personTrip tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the ride tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the transport tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the tranship tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the person stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNEPlanParameters& planParameters);
 
     /// @brief get the container stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const CommonXMLStructure::PlanParameters& planParameters);
+    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEPlanParameters& planParameters);
 
 protected:
     /// @brief variable used for draw central contour
