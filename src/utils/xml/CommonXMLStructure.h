@@ -46,6 +46,9 @@ public:
         /// @brief constructor for parsing the parameters from SUMOSAXAttributes
         PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk);
 
+        /// @brief constructor for parsing the parameters from a map (used by planCreator)
+        PlanParameters(const std::map<SumoXMLAttr, std::string>& values);
+
         /// @brief from junction
         std::string fromJunction;
 
@@ -97,8 +100,31 @@ public:
         /// @brief edges
         std::vector<std::string> edges;
 
-        /// @brief route
+        /// @brief route (currentyl only used by walks)
         std::string route;
+
+        /// @name values used only by stops
+        /// @{
+
+        /// @brief edge
+        std::string edge;
+
+        /// @brief bus stop
+        std::string busStop;
+
+        /// @brief train stop
+        std::string trainStop;
+
+        /// @brief charging station
+        std::string chargingStation;
+
+        /// @brief charging station
+        std::string containerStop;
+
+        /// @brief parking area
+        std::string parkingArea;
+
+        /// @}
     };
 
     /// @brief SumoBaseObject
