@@ -187,7 +187,7 @@ GNEJunction::checkDrawFromContour() const {
         // continue depending of planCreator
         if (planCreator) {
             // check if this is the from edge
-            if (planCreator->getFromJunction() == this) {
+            if (planCreator->getPlanParameteres().fromJunction == this) {
                 return true;
             }
         }
@@ -246,7 +246,7 @@ GNEJunction::checkDrawToContour() const {
         // continue depending of planCreator
         if (planCreator) {
             // check if this is the from edge
-            if (planCreator->getToJunction() == this) {
+            if (planCreator->getPlanParameteres().toJunction == this) {
                 return true;
             }
         }

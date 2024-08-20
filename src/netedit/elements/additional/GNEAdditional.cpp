@@ -217,8 +217,8 @@ GNEAdditional::checkDrawFromContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the from additional
-        if ((planCreator->getFromBusStop() == this) || (planCreator->getFromTrainStop() == this) ||
-                (planCreator->getFromContainerStop() == this) || (planCreator->getFromTAZ() == this)) {
+        if ((planCreator->getPlanParameteres().fromStoppingPlace == this) ||
+                (planCreator->getPlanParameteres().fromTAZ == this)) {
             return true;
         }
     }
@@ -275,9 +275,9 @@ GNEAdditional::checkDrawToContour() const {
     }
     // continue depending of planCreator
     if (planCreator) {
-        // check if this is the from additional
-        if ((planCreator->getToBusStop() == this) || (planCreator->getToTrainStop() == this) ||
-                (planCreator->getToContainerStop() == this) || (planCreator->getToTAZ() == this)) {
+        // check if this is the to additional
+        if ((planCreator->getPlanParameteres().toStoppingPlace == this) ||
+                (planCreator->getPlanParameteres().toTAZ == this)) {
             return true;
         }
     }
