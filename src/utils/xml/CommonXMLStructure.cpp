@@ -30,6 +30,44 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// CommonXMLStructure::PlanParameters - methods
+// ---------------------------------------------------------------------------
+
+CommonXMLStructure::PlanParameters::PlanParameters() {
+}
+
+CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk) {
+    // junctions
+    fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
+    toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, "", parsedOk, "");
+    // edges
+    fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
+    toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    // TAZs
+    fromTAZ = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TAZ, "", parsedOk, "");
+    toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, "", parsedOk, "");
+    // bus stops
+    fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, "", parsedOk, "");
+    toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    // train stops
+    fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
+    toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
+    // container stops
+    fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
+    toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
+    // charging stations
+    fromChargingStation = attrs.getOpt<std::string>(GNE_ATTR_FROM_CHARGINGSTATION, "", parsedOk, "");
+    toChargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
+    // parking areas
+    fromParkingArea = attrs.getOpt<std::string>(GNE_ATTR_FROM_PARKINGAREA, "", parsedOk, "");
+    toParkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
+    // route
+    route = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, "");
+    // list of consecutive edges
+    edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
+}
+
+// ---------------------------------------------------------------------------
 // CommonXMLStructure::SumoBaseObject - methods
 // ---------------------------------------------------------------------------
 
@@ -315,6 +353,12 @@ CommonXMLStructure::SumoBaseObject::getParameters() const {
 }
 
 
+const CommonXMLStructure::PlanParameters&
+CommonXMLStructure::SumoBaseObject::getPlanParameters() const {
+    return myPlanParameters;
+}
+
+
 const std::vector<CommonXMLStructure::SumoBaseObject*>&
 CommonXMLStructure::SumoBaseObject::getSumoBaseObjectChildren() const {
     return mySumoBaseObjectChildren;
@@ -442,6 +486,21 @@ CommonXMLStructure::SumoBaseObject::addPositionVectorAttribute(const SumoXMLAttr
 
 
 void
+CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
+    // check if we have to insert in vType, vehicle or stop parameters
+    if (myDefinedVehicleTypeParameter) {
+        myVehicleTypeParameter.setParameter(key, value);
+    } else if (myDefinedVehicleParameter) {
+        myVehicleParameter.setParameter(key, value);
+    } else if (myDefinedStopParameter) {
+        myStopParameter.setParameter(key, value);
+    } else {
+        myParameters[key] = value;
+    }
+}
+
+
+void
 CommonXMLStructure::SumoBaseObject::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
 }
@@ -503,19 +562,9 @@ CommonXMLStructure::SumoBaseObject::setStopParameter(const SUMOVehicleParameter:
 
 
 void
-CommonXMLStructure::SumoBaseObject::addParameter(const std::string& key, const std::string& value) {
-    // check if we have to insert in vType, vehicle or stop parameters
-    if (myDefinedVehicleTypeParameter) {
-        myVehicleTypeParameter.setParameter(key, value);
-    } else if (myDefinedVehicleParameter) {
-        myVehicleParameter.setParameter(key, value);
-    } else if (myDefinedStopParameter) {
-        myStopParameter.setParameter(key, value);
-    } else {
-        myParameters[key] = value;
-    }
+CommonXMLStructure::SumoBaseObject::setPlanParameters(const CommonXMLStructure::PlanParameters& planParameters) {
+    myPlanParameters = planParameters;
 }
-
 
 void
 CommonXMLStructure::SumoBaseObject::addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject) {

@@ -25,6 +25,7 @@
 #include <utils/geom/PositionVector.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
+#include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
 
@@ -35,6 +36,71 @@
 class CommonXMLStructure {
 
 public:
+
+    /// @brief plan parameters (used for group all from-to parameters related with plans)
+    struct PlanParameters {
+
+        // @brief default constructor
+        PlanParameters();
+
+        /// @brief constructor for parsing the parameters from SUMOSAXAttributes
+        PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk);
+
+        /// @brief from junction
+        std::string fromJunction;
+
+        /// @brief to junction
+        std::string toJunction;
+
+        /// @brief from edge
+        std::string fromEdge;
+
+        /// @brief to edge
+        std::string toEdge;
+
+        /// @brief from TAZ
+        std::string fromTAZ;
+
+        /// @brief to TAZ
+        std::string toTAZ;
+
+        /// @brief from busStop
+        std::string fromBusStop;
+
+        /// @brief to busStop
+        std::string toBusStop;
+
+        /// @brief from trainStop
+        std::string fromTrainStop;
+
+        /// @brief to trainStop
+        std::string toTrainStop;
+
+        /// @brief from containerStop
+        std::string fromContainerStop;
+
+        /// @brief to containerStop
+        std::string toContainerStop;
+
+        /// @brief from chargingStation
+        std::string fromChargingStation;
+
+        /// @brief to chargingStation
+        std::string toChargingStation;
+
+        /// @brief from parkingArea
+        std::string fromParkingArea;
+
+        /// @brief to parkingArea
+        std::string toParkingArea;
+
+        /// @brief edges
+        std::vector<std::string> edges;
+
+        /// @brief route
+        std::string route;
+    };
+
     /// @brief SumoBaseObject
     class SumoBaseObject {
 
@@ -111,6 +177,9 @@ public:
         /// @brief get parameters
         const std::map<std::string, std::string>& getParameters() const;
 
+        /// @brief get plan parameteres
+        const CommonXMLStructure::PlanParameters& getPlanParameters() const;
+
         /// @brief get SumoBaseObject children
         const std::vector<SumoBaseObject*>& getSumoBaseObjectChildren() const;
 
@@ -184,6 +253,9 @@ public:
         /// @brief add PositionVector attribute into current SumoBaseObject node
         void addPositionVectorAttribute(const SumoXMLAttr attr, const PositionVector& value);
 
+        /// @brief add parameter into current SumoBaseObject node
+        void addParameter(const std::string& key, const std::string& value);
+
         /// @brief set vehicle class
         void setVClass(SUMOVehicleClass vClass);
 
@@ -196,8 +268,8 @@ public:
         /// @brief add stop parameters
         void setStopParameter(const SUMOVehicleParameter::Stop& stopParameter);
 
-        /// @brief add parameter into current SumoBaseObject node
-        void addParameter(const std::string& key, const std::string& value);
+        /// @brief set plan parmeter
+        void setPlanParameters(const CommonXMLStructure::PlanParameters& planParameters);
 
         /// @}
 
@@ -255,6 +327,9 @@ public:
 
         /// @brief stop parameter
         SUMOVehicleParameter::Stop myStopParameter;
+
+        /// @brief plan parameters
+        CommonXMLStructure::PlanParameters myPlanParameters;
 
         /// @brief add SumoBaseObject child
         void addSumoBaseObjectChild(SumoBaseObject* sumoBaseObject);
