@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
+Eclipse SUMO netconvert Version v1_14_1+14469-45ab8384f8c
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -252,6 +252,8 @@ Building Defaults Options:
                                         intersections
   --default.connection-length FLOAT    The default length when overriding
                                         connection lengths
+  --default.connection.cont-pos FLOAT  Whether/where connections should have an
+                                        internal junction
   --default.right-of-way STR           The default algorithm for computing
                                         right of way rules ('default',
                                         'edgePriority')

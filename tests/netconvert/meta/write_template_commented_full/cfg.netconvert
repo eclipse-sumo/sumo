@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-17 09:04:52 by Eclipse SUMO netconvert Version v1_20_0+1264-f5cae912633
+<!-- generated on 2024-08-20 15:07:12 by Eclipse SUMO netconvert Version v1_14_1+14469-45ab8384f8c
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -413,6 +413,9 @@
 
         <!-- The default length when overriding connection lengths -->
         <default.connection-length value="-1" type="FLOAT"/>
+
+        <!-- Whether/where connections should have an internal junction -->
+        <default.connection.cont-pos value="-1" type="FLOAT"/>
 
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
