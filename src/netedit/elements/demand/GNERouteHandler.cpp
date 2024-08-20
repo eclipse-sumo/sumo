@@ -47,6 +47,341 @@
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNERouteHandler::GNEPlanParameters - methods
+// ---------------------------------------------------------------------------
+
+GNERouteHandler::GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+        const CommonXMLStructure::PlanParameters& planParameters,
+        const GNENetHelper::AttributeCarriers* ACs) {
+    // junctions
+    fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
+    toJunction = ACs->retrieveJunction(planParameters.toJunction, false);
+    // edges
+    fromEdge = ACs->retrieveEdge(planParameters.fromEdge, false);
+    toEdge = ACs->retrieveEdge(planParameters.toEdge, false);
+    // TAZs
+    fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.fromTAZ, false);
+    toTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.toTAZ, false);
+    // bus stops
+    fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromBusStop, false);
+    toBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toBusStop, false);
+    // train stops
+    fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.fromTrainStop, false);
+    toTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toTrainStop, false);
+    // container stops
+    fromContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.fromContainerStop, false);
+    toContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.toContainerStop, false);
+    // charging station
+    fromChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.fromChargingStation, false);
+    toChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.toChargingStation, false);
+    // parking area
+    fromParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.fromParkingArea, false);
+    toParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
+    // edges
+    for (const auto& edgeID : planParameters.edges) {
+        auto parsedEdge = ACs->retrieveEdge(edgeID, false);
+        // avoid null and consecutive dulicated edges
+        if (parsedEdge && (edges.empty() || (edges.back() != parsedEdge))) {
+            edges.push_back(parsedEdge);
+        }
+    }
+    // route
+    route = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.route, false);
+    // stops
+    edge = ACs->retrieveEdge(planParameters.fromEdge, false);
+    busStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.busStop, false);
+    trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.trainStop, false);
+    containerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.containerStop, false);
+    chargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.chargingStation, false);
+    parkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.parkingArea, false);
+    // due busStops and trainStops share namespace, we need to check in both directions
+    if ((fromBusStop == nullptr) && (fromTrainStop == nullptr)) {
+        fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromTrainStop, false);
+        fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.fromBusStop, false);
+    }
+    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
+        toBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toTrainStop, false);
+        toTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toBusStop, false);
+    }
+    if ((busStop == nullptr) && (trainStop == nullptr)) {
+        busStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.trainStop, false);
+        trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.busStop, false);
+    }
+
+}
+
+bool
+GNERouteHandler::GNEPlanParameters::isSingleEdgePlan() const {
+    return !fromJunction && !toJunction &&
+           fromEdge && !toEdge &&   // only this
+           !fromTAZ && !toTAZ &&
+           !fromBusStop && !toBusStop &&
+           !fromTrainStop && !toTrainStop &&
+           !fromContainerStop && !toContainerStop &&
+           !fromChargingStation && !toChargingStation &&
+           !fromParkingArea && !toParkingArea &&
+           edges.empty() && !route &&
+           !edge &&
+           !busStop &&
+           !trainStop &&
+           !chargingStation &&
+           !containerStop &&
+           !parkingArea;
+}
+
+
+void
+GNERouteHandler::GNEPlanParameters::addChildElements(GNEDemandElement* element) {
+    if (fromJunction) {
+        fromJunction->addChildElement(element);
+    }
+    if (toJunction) {
+        toJunction->addChildElement(element);
+    }
+    if (fromEdge) {
+        fromEdge->addChildElement(element);
+    }
+    if (toEdge) {
+        toEdge->addChildElement(element);
+    }
+    if (fromTAZ) {
+        fromTAZ->addChildElement(element);
+    }
+    if (toTAZ) {
+        toTAZ->addChildElement(element);
+    }
+    if (fromBusStop) {
+        fromBusStop->addChildElement(element);
+    }
+    if (toBusStop) {
+        toBusStop->addChildElement(element);
+    }
+    if (fromTrainStop) {
+        fromTrainStop->addChildElement(element);
+    }
+    if (toTrainStop) {
+        toTrainStop->addChildElement(element);
+    }
+    if (fromContainerStop) {
+        fromContainerStop->addChildElement(element);
+    }
+    if (toContainerStop) {
+        toContainerStop->addChildElement(element);
+    }
+    if (fromChargingStation) {
+        fromChargingStation->addChildElement(element);
+    }
+    if (toChargingStation) {
+        toChargingStation->addChildElement(element);
+    }
+    if (fromParkingArea) {
+        fromParkingArea->addChildElement(element);
+    }
+    if (toParkingArea) {
+        toParkingArea->addChildElement(element);
+    }
+    for (const auto& it : edges) {
+        it->addChildElement(element);
+    }
+    if (route) {
+        route->addChildElement(element);
+    }
+    if (edge) {
+        edge->addChildElement(element);
+    }
+    if (busStop) {
+        busStop->addChildElement(element);
+    }
+    if (trainStop) {
+        trainStop->addChildElement(element);
+    }
+    if (chargingStation) {
+        chargingStation->addChildElement(element);
+    }
+    if (containerStop) {
+        containerStop->addChildElement(element);
+    }
+    if (parkingArea) {
+        parkingArea->addChildElement(element);
+    }
+}
+
+std::vector<GNEJunction*>
+GNERouteHandler::GNEPlanParameters::getJunctions() const {
+    std::vector<GNEJunction*> junctions;
+    if (fromJunction) {
+        junctions.push_back(fromJunction);
+    }
+    if (toJunction) {
+        junctions.push_back(toJunction);
+    }
+    return junctions;
+}
+
+
+std::vector<GNEEdge*>
+GNERouteHandler::GNEPlanParameters::getEdges() const {
+    if (edges.size() > 0) {
+        return edges;
+    } else {
+        std::vector<GNEEdge*> edges2;
+        if (fromEdge) {
+            edges2.push_back(fromEdge);
+        }
+        if (toEdge) {
+            edges2.push_back(toEdge);
+        }
+        if (edge) {
+            edges2.push_back(edge);
+        }
+        return edges2;
+    }
+}
+
+
+std::vector<GNEAdditional*>
+GNERouteHandler::GNEPlanParameters::getAdditionalElements() const {
+    std::vector<GNEAdditional*> additionals;
+    if (fromBusStop) {
+        additionals.push_back(fromBusStop);
+    }
+    if (toBusStop) {
+        additionals.push_back(toBusStop);
+    }
+    if (fromTrainStop) {
+        additionals.push_back(fromTrainStop);
+    }
+    if (toTrainStop) {
+        additionals.push_back(toTrainStop);
+    }
+    if (fromContainerStop) {
+        additionals.push_back(fromContainerStop);
+    }
+    if (toContainerStop) {
+        additionals.push_back(toContainerStop);
+    }
+    if (fromChargingStation) {
+        additionals.push_back(fromChargingStation);
+    }
+    if (toChargingStation) {
+        additionals.push_back(toChargingStation);
+    }
+    if (fromParkingArea) {
+        additionals.push_back(fromParkingArea);
+    }
+    if (toParkingArea) {
+        additionals.push_back(toParkingArea);
+    }
+    if (fromTAZ) {
+        additionals.push_back(fromTAZ);
+    }
+    if (toTAZ) {
+        additionals.push_back(toTAZ);
+    }
+    if (busStop) {
+        additionals.push_back(busStop);
+    }
+    if (trainStop) {
+        additionals.push_back(trainStop);
+    }
+    if (chargingStation) {
+        additionals.push_back(chargingStation);
+    }
+    if (containerStop) {
+        additionals.push_back(containerStop);
+    }
+    if (parkingArea) {
+        additionals.push_back(parkingArea);
+    }
+    return additionals;
+}
+
+
+std::vector<GNEDemandElement*>
+GNERouteHandler::GNEPlanParameters::getDemandElements(GNEDemandElement* parent) const {
+    std::vector<GNEDemandElement*> demandElements;
+    // always add parent first
+    demandElements.push_back(parent);
+    if (route) {
+        demandElements.push_back(route);
+    }
+    return demandElements;
+}
+
+
+const CommonXMLStructure::SumoBaseObject*
+GNERouteHandler::GNEPlanParameters::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // first check if object exist
+    if (sumoBaseObject == nullptr) {
+        return nullptr;
+    }
+    // check if object has parent
+    const CommonXMLStructure::SumoBaseObject* parentObject = sumoBaseObject->getParentSumoBaseObject();
+    if (parentObject == nullptr) {
+        return nullptr;
+    }
+    // check number of children
+    if (parentObject->getSumoBaseObjectChildren().size() < 2) {
+        return nullptr;
+    }
+    // search position of the given plan obj in the parent children
+    const auto objIterator = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), sumoBaseObject);
+    // if obj is the first plan of person/container parent, then return null. If not, return previous object
+    if (objIterator == parentObject->getSumoBaseObjectChildren().begin()) {
+        return nullptr;
+    } else {
+        return *(objIterator - 1);
+    }
+}
+
+
+void
+GNERouteHandler::GNEPlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+        const GNENetHelper::AttributeCarriers* ACs) {
+    // check if previous plan object was defined but not the from
+    const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
+    if (previousPlanObj && !(fromJunction || fromEdge || fromTAZ || fromBusStop || fromTrainStop || fromContainerStop || fromChargingStation)) {
+        // edges
+        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
+            fromEdge = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
+            fromEdge = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE), false);
+        } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
+            auto previousEdges = previousPlanObj->getStringListAttribute(SUMO_ATTR_EDGE);
+            if (previousEdges.size() > 0) {
+                fromEdge = ACs->retrieveEdge(previousEdges.back(), false);
+            }
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            auto previousRoute = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE), false);
+            if (previousRoute) {
+                fromEdge = previousRoute->getParentEdges().back();
+            }
+            // junction
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+            fromJunction = ACs->retrieveJunction(previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION), false);
+            // TAZ
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+            fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, previousPlanObj->getStringAttribute(SUMO_ATTR_FROM_TAZ), false);
+            // stoppingPlaces
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+            fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+            fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            fromContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CHARGING_STATION)) {
+            fromChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION), false);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_PARKING_AREA)) {
+            fromParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA), false);
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNERouteHandler - methods
+// ---------------------------------------------------------------------------
+
 GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, const bool allowUndoRedo, const bool overwrite) :
     RouteHandler(file, false),
     myNet(net),
@@ -607,55 +942,19 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
 
 
 void
-GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                                 const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                                 const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
+GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                                  double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) {
-    // parse parents
+    // parse values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-    GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-    GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
-    GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
-    GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
-    GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
-    GNEAdditional* fromBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, fromBusStopID, false);
-    GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
-    GNEAdditional* fromTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, fromTrainStopID, false);
-    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
-    // chek if we're parsing the train stop as a busStop
-    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
-        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
-        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
-    }
-    // check if overwritte previous elements
-    if (getPreviousPlanEdge(sumoBaseObject)) {
-        fromEdge = getPreviousPlanEdge(sumoBaseObject);
-    }
-    if (getPreviousPlanTAZ(sumoBaseObject)) {
-        fromTAZ = getPreviousPlanTAZ(sumoBaseObject);
-    }
-    if (getPreviousPlanJunction(sumoBaseObject)) {
-        fromJunction = getPreviousPlanJunction(sumoBaseObject);
-    }
-    if (getPreviousPlanBusStop(sumoBaseObject)) {
-        fromBusStop = getPreviousPlanBusStop(sumoBaseObject);
-    }
-    if (getPreviousPlanTrainStop(sumoBaseObject)) {
-        toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
-    }
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         WRITE_WARNING(TL("invalid person parent"));
-    } else if (GNEPersonTrip::getPersonTripTagIcon(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-               fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNEPersonTrip::getPersonTripTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // build person trip
-        GNEDemandElement* personTrip = GNEPersonTrip::buildPersonTrip(myNet, personParent,
-                                       fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
-                                       toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
-                                       arrivalPos, types, modes, lines);
+        GNEDemandElement* personTrip = GNEPersonTrip::buildPersonTrip(myNet, personParent, parents, arrivalPos, types, modes, lines);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
@@ -666,36 +965,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
             myNet->getAttributeCarriers()->insertDemandElement(personTrip);
             // set child references
             personParent->addChildElement(personTrip);
-            if (fromEdge) {
-                fromEdge->addChildElement(personTrip);
-            }
-            if (fromTAZ) {
-                fromTAZ->addChildElement(personTrip);
-            }
-            if (fromJunction) {
-                fromJunction->addChildElement(personTrip);
-            }
-            if (fromBusStop) {
-                fromBusStop->addChildElement(personTrip);
-            }
-            if (fromTrainStop) {
-                fromTrainStop->addChildElement(personTrip);
-            }
-            if (toEdge) {
-                toEdge->addChildElement(personTrip);
-            }
-            if (toTAZ) {
-                toTAZ->addChildElement(personTrip);
-            }
-            if (toJunction) {
-                toJunction->addChildElement(personTrip);
-            }
-            if (toBusStop) {
-                toBusStop->addChildElement(personTrip);
-            }
-            if (toTrainStop) {
-                toTrainStop->addChildElement(personTrip);
-            }
+            parents.addChildElements(personTrip);
             personTrip->incRef("buildPersonTrip");
         }
     }
@@ -703,59 +973,19 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
 
 
 void
-GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                           const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                           const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                           const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos) {
+GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                           double arrivalPos) {
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-    GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-    GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
-    GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
-    GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
-    GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
-    GNEAdditional* fromBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, fromBusStopID, false);
-    GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
-    GNEAdditional* fromTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, fromTrainStopID, false);
-    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
-    GNEDemandElement* route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, routeID, false);
-    std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
-    // chek if we're parsing the train stop as a busStop
-    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
-        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
-        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
-    }
-    // avoid consecutive duplicated edges
-    edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
-    // check if overwritte previous elements
-    if (getPreviousPlanEdge(sumoBaseObject)) {
-        fromEdge = getPreviousPlanEdge(sumoBaseObject);
-    }
-    if (getPreviousPlanTAZ(sumoBaseObject)) {
-        fromTAZ = getPreviousPlanTAZ(sumoBaseObject);
-    }
-    if (getPreviousPlanJunction(sumoBaseObject)) {
-        fromJunction = getPreviousPlanJunction(sumoBaseObject);
-    }
-    if (getPreviousPlanBusStop(sumoBaseObject)) {
-        fromBusStop = getPreviousPlanBusStop(sumoBaseObject);
-    }
-    if (getPreviousPlanTrainStop(sumoBaseObject)) {
-        toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
-    }
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         WRITE_WARNING(TL("invalid person parent"));
-    } else if (GNEWalk::getWalkTagIcon(edges, route, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-                                       fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNEWalk::getWalkTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // build person trip
-        GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent,
-                                 fromEdge, fromTAZ, fromJunction, fromBusStop, fromTrainStop,
-                                 toEdge, toTAZ, toJunction, toBusStop, toTrainStop,
-                                 edges, route, arrivalPos);
+        GNEDemandElement* walk = GNEWalk::buildWalk(myNet, personParent, parents, arrivalPos);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
@@ -766,42 +996,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             myNet->getAttributeCarriers()->insertDemandElement(walk);
             // set child references
             personParent->addChildElement(walk);
-            if (fromEdge) {
-                fromEdge->addChildElement(walk);
-            }
-            if (fromTAZ) {
-                fromTAZ->addChildElement(walk);
-            }
-            if (fromJunction) {
-                fromJunction->addChildElement(walk);
-            }
-            if (fromBusStop) {
-                fromBusStop->addChildElement(walk);
-            }
-            if (fromTrainStop) {
-                fromTrainStop->addChildElement(walk);
-            }
-            if (toEdge) {
-                toEdge->addChildElement(walk);
-            }
-            if (toTAZ) {
-                toTAZ->addChildElement(walk);
-            }
-            if (toJunction) {
-                toJunction->addChildElement(walk);
-            }
-            if (toBusStop) {
-                toBusStop->addChildElement(walk);
-            }
-            if (toTrainStop) {
-                toTrainStop->addChildElement(walk);
-            }
-            for (const auto& edge : edges) {
-                edge->addChildElement(walk);
-            }
-            if (route) {
-                route->addChildElement(walk);
-            }
+            parents.addChildElements(walk);
             walk->incRef("buildWalk");
         }
     }
@@ -809,44 +1004,19 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 
 void
-GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                           const std::string& fromEdgeID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                           const std::string& toEdgeID, const std::string& toBusStopID, const std::string& toTrainStopID,
+GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                            double arrivalPos, const std::vector<std::string>& lines) {
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-    GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-    GNEAdditional* fromBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, fromBusStopID, false);
-    GNEAdditional* toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toBusStopID, false);
-    GNEAdditional* fromTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, fromTrainStopID, false);
-    GNEAdditional* toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toTrainStopID, false);
-    // chek if we're parsing the train stop as a busStop
-    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
-        toBusStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, toTrainStopID, false);
-        toTrainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, toBusStopID, false);
-    }
-    // check if overwritte previous elements
-    if (getPreviousPlanEdge(sumoBaseObject)) {
-        fromEdge = getPreviousPlanEdge(sumoBaseObject);
-    }
-    if (getPreviousPlanBusStop(sumoBaseObject)) {
-        fromBusStop = getPreviousPlanBusStop(sumoBaseObject);
-    }
-    if (getPreviousPlanTrainStop(sumoBaseObject)) {
-        toTrainStop = getPreviousPlanTrainStop(sumoBaseObject);
-    }
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         WRITE_WARNING(TL("invalid person parent"));
-    } else if (GNERide::getRideTagIcon(fromEdge, toEdge, fromBusStop, toBusStop, fromTrainStop, toTrainStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNERide::getRideTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for ride"));
     } else {
         // build ride
-        GNEDemandElement* ride = GNERide::buildRide(myNet, personParent,
-                                 fromEdge, fromBusStop, fromTrainStop,
-                                 toEdge, toBusStop, toTrainStop,
-                                 arrivalPos, lines);
+        GNEDemandElement* ride = GNERide::buildRide(myNet, personParent, parents, arrivalPos, lines);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
@@ -857,18 +1027,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
             myNet->getAttributeCarriers()->insertDemandElement(ride);
             // set child references
             personParent->addChildElement(ride);
-            if (fromEdge) {
-                fromEdge->addChildElement(ride);
-            }
-            if (toEdge) {
-                toEdge->addChildElement(ride);
-            }
-            if (toBusStop) {
-                toBusStop->addChildElement(ride);
-            }
-            if (toTrainStop) {
-                toTrainStop->addChildElement(ride);
-            }
+            parents.addChildElements(ride);
             ride->incRef("buildRide");
         }
     }
@@ -930,38 +1089,19 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
 
 
 void
-GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                                const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
-                                const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
+GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                                 const double arrivalPos, const std::vector<std::string>& lines) {
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-    GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-    GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
-    GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
-    GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
-    GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
-    GNEAdditional* fromContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, fromContainerStopID, false);
-    GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
-    // check if overwritte previous elements
-    if (getPreviousPlanEdge(sumoBaseObject)) {
-        fromEdge = getPreviousPlanEdge(sumoBaseObject);
-    }
-    if (getPreviousPlanContainerStop(sumoBaseObject)) {
-        fromContainerStop = getPreviousPlanContainerStop(sumoBaseObject);
-    }
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         WRITE_WARNING(TL("invalid container parent"));
-    } else if (GNETransport::getTransportTagIcon(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction, fromContainerStop, toContainerStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNETransport::getTransportTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // build transport
-        GNEDemandElement* transport = GNETransport::buildTransport(myNet, containerParent,
-                                      fromEdge, fromTAZ, fromJunction, fromContainerStop,
-                                      toEdge, toTAZ, toJunction, toContainerStop,
-                                      arrivalPos, lines);
+        GNEDemandElement* transport = GNETransport::buildTransport(myNet, containerParent, parents, arrivalPos, lines);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
@@ -972,18 +1112,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
             myNet->getAttributeCarriers()->insertDemandElement(transport);
             // set child references
             containerParent->addChildElement(transport);
-            if (fromEdge) {
-                fromEdge->addChildElement(transport);
-            }
-            if (toEdge) {
-                toEdge->addChildElement(transport);
-            }
-            if (fromContainerStop) {
-                fromContainerStop->addChildElement(transport);
-            }
-            if (toContainerStop) {
-                toContainerStop->addChildElement(transport);
-            }
+            parents.addChildElements(transport);
             transport->incRef("buildTransport");
         }
     }
@@ -991,41 +1120,19 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
 
 
 void
-GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                               const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
-                               const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
-                               const std::vector<std::string>& edgeIDs, const double arrivalPosition, const double departPosition, const double speed) {
+GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                               const double arrivalPosition, const double departPosition, const double speed) {
     // first parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* fromEdge = myNet->getAttributeCarriers()->retrieveEdge(fromEdgeID, false);
-    GNEEdge* toEdge = myNet->getAttributeCarriers()->retrieveEdge(toEdgeID, false);
-    GNEAdditional* fromTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, fromTAZID, false);
-    GNEAdditional* toTAZ = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, toTAZID, false);
-    GNEJunction* fromJunction = myNet->getAttributeCarriers()->retrieveJunction(fromJunctionID, false);
-    GNEJunction* toJunction = myNet->getAttributeCarriers()->retrieveJunction(toJunctionID, false);
-    GNEAdditional* fromContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, fromContainerStopID, false);
-    GNEAdditional* toContainerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, toContainerStopID, false);
-    std::vector<GNEEdge*> edges = parseEdges(SUMO_TAG_WALK, edgeIDs);
-    // avoid consecutive duplicated edges
-    edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
-    // check if overwritte previous elements
-    if (getPreviousPlanEdge(sumoBaseObject)) {
-        fromEdge = getPreviousPlanEdge(sumoBaseObject);
-    }
-    if (getPreviousPlanContainerStop(sumoBaseObject)) {
-        fromContainerStop = getPreviousPlanContainerStop(sumoBaseObject);
-    }
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         WRITE_WARNING(TL("invalid container parent"));
-    } else if (GNETranship::getTranshipTagIcon(edges, fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction, fromContainerStop, toContainerStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNETranship::getTranshipTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // build tranship
-        GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent,
-                                     fromEdge, fromTAZ, fromJunction, fromContainerStop,
-                                     toEdge, toTAZ, toJunction, toContainerStop,
-                                     edges, arrivalPosition, departPosition, speed);
+        GNEDemandElement* tranship = GNETranship::buildTranship(myNet, containerParent, parents, arrivalPosition, departPosition, speed);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));
@@ -1036,21 +1143,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
             myNet->getAttributeCarriers()->insertDemandElement(tranship);
             // set child references
             containerParent->addChildElement(tranship);
-            if (fromEdge) {
-                fromEdge->addChildElement(tranship);
-            }
-            if (toEdge) {
-                toEdge->addChildElement(tranship);
-            }
-            if (fromContainerStop) {
-                fromContainerStop->addChildElement(tranship);
-            }
-            if (toContainerStop) {
-                toContainerStop->addChildElement(tranship);
-            }
-            for (const auto& edge : edges) {
-                edge->addChildElement(tranship);
-            }
+            parents.addChildElements(tranship);
             tranship->incRef("buildTranship");
         }
     }
@@ -1058,22 +1151,20 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
 
 
 void
-GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
-                                 const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
+GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                                 const double endPos, const SUMOTime duration, const SUMOTime until,
                                  const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // parse parents
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-    GNEAdditional* busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, busStopID, false);
-    GNEAdditional* trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, trainStopID, false);
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
         WRITE_WARNING(TL("invalid person parent"));
-    } else if (GNETranship::getPersonStopTagIcon(edge, busStop, trainStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNETranship::getPersonStopTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for person stop"));
     } else {
         // build person stop
-        GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, edge, busStop, trainStop,
+        GNEDemandElement* stopPlan = GNEStopPlan::buildPersonStopPlan(myNet, personParent, parents,
                                      endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1085,15 +1176,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
             myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
             // set child references
             personParent->addChildElement(stopPlan);
-            if (edge) {
-                edge->addChildElement(stopPlan);
-            }
-            if (busStop) {
-                busStop->addChildElement(stopPlan);
-            }
-            if (trainStop) {
-                trainStop->addChildElement(stopPlan);
-            }
+            parents.addChildElements(stopPlan);
             stopPlan->incRef("buildPersonStop");
         }
     }
@@ -1101,21 +1184,20 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
 
 
 void
-GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID,
-                                    const std::string& containerStopID, const double endPos, const SUMOTime duration,
+GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                                    const double endPos, const SUMOTime duration,
                                     const SUMOTime until, const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // parse parents
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    GNEEdge* edge = myNet->getAttributeCarriers()->retrieveEdge(edgeID, false);
-    GNEAdditional* containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, containerStopID, false);
+    GNEPlanParameters parents = GNEPlanParameters(sumoBaseObject, planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
         WRITE_WARNING(TL("invalid container parent"));
-    } else if (GNETranship::getContainerStopTagIcon(edge, containerStop).first == SUMO_TAG_NOTHING) {
+    } else if (GNETranship::getContainerStopTagIcon(parents).first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for containerStop"));
     } else {
         // build container stop
-        GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, edge, containerStop,
+        GNEDemandElement* stopPlan = GNEStopPlan::buildContainerStopPlan(myNet, containerParent, parents,
                                      endPos, duration, until, actType, friendlyPos, parameterSet);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
@@ -1127,12 +1209,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
             myNet->getAttributeCarriers()->insertDemandElement(stopPlan);
             // set child references
             containerParent->addChildElement(stopPlan);
-            if (edge) {
-                edge->addChildElement(stopPlan);
-            }
-            if (containerStop) {
-                containerStop->addChildElement(stopPlan);
-            }
+            parents.addChildElements(stopPlan);
             stopPlan->incRef("buildContainerStop");
         }
     }
@@ -1140,17 +1217,18 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
 
 
 void
-GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters) {
+GNERouteHandler::buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                           const SUMOVehicleParameter::Stop& stopParameters) {
     // get obj parent
     const auto objParent = sumoBaseObject->getParentSumoBaseObject();
     // continue depending of objParent
     if (objParent == nullptr) {
         WRITE_WARNING(TL("Stops needs a parent"));
     } else if ((objParent->getTag() == SUMO_TAG_PERSON) || (objParent->getTag() == SUMO_TAG_PERSONFLOW)) {
-        buildPersonStop(sumoBaseObject, stopParameters.edge, stopParameters.busstop, stopParameters.busstop, stopParameters.endPos,
+        buildPersonStop(sumoBaseObject, planParameters, stopParameters.endPos,
                         stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
     } else if ((objParent->getTag() == SUMO_TAG_CONTAINER) || (objParent->getTag() == SUMO_TAG_CONTAINERFLOW)) {
-        buildContainerStop(sumoBaseObject, stopParameters.edge, stopParameters.containerstop, stopParameters.endPos,
+        buildContainerStop(sumoBaseObject, planParameters, stopParameters.endPos,
                            stopParameters.duration, stopParameters.until, stopParameters.actType, stopParameters.friendlyPos, stopParameters.parametersSet);
     } else {
         // get vehicle tag
@@ -1343,439 +1421,34 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     const bool friendlyPos = personPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? personPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              personPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(personPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
-    // get consecutive edges
-    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
-    // get edges
-    GNEEdge* fromEdge = planCreator->getFromEdge();
-    GNEEdge* toEdge = planCreator->getToEdge();
-    // get junctions
-    GNEJunction* fromJunction = planCreator->getFromJunction();
-    GNEJunction* toJunction = planCreator->getToJunction();
-    // get TAZs
-    GNEAdditional* fromTAZ = planCreator->getFromTAZ();
-    GNEAdditional* toTAZ = planCreator->getToTAZ();
-    // get busStops
-    GNEAdditional* fromBusStop = planCreator->getFromBusStop();
-    GNEAdditional* toBusStop = planCreator->getToBusStop();
-    // get trainStops
-    GNEAdditional* fromTrainStop = planCreator->getFromTrainStop();
-    GNEAdditional* toTrainStop = planCreator->getToTrainStop();
-    // get route
-    GNEDemandElement* route = planCreator->getRoute();
-    // get edge
-    GNEEdge* edge = planCreator->getEdge();
-    // get busStop
-    GNEAdditional* busStop = planCreator->getBusStop();
-    // get trainStop
-    GNEAdditional* trainStop = planCreator->getTrainStop();
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromTAZ && !toTAZ && !fromJunction && !toJunction &&
-            !fromBusStop && !toBusStop && !fromTrainStop && !toTrainStop &&
-            consecutiveEdges.empty() && !route) {
-        toEdge = fromEdge;
-    }
+///////
+    // get parents from plan creator
+    CommonXMLStructure::PlanParameters planParameters;
+    GNERouteHandler::GNEPlanParameters gnePlanParameters;
     // create plans depending of elements
-    if (consecutiveEdges.size() > 0) {
-        // consecutive edges
+    if (gnePlanParameters.edges.size() > 0) {
+        // build walk over consecutive edges
         personPlanObject->setTag(GNE_TAG_WALK_EDGES);
-        buildWalk(personPlanObject,
-                  "", "", "", "", "",
-                  "", "", "", "", "",
-                  consecutiveEdges, "", arrivalPos);
-    } else if (route) {
-        // single route
+        buildWalk(personPlanObject, planParameters, arrivalPos);
+    } else if (gnePlanParameters.route) {
+        // build walk over route
         personPlanObject->setTag(GNE_TAG_WALK_ROUTE);
-        buildWalk(personPlanObject,
-                  "", "", "", "", "",
-                  "", "", "", "", "",
-                  {}, route->getID(), arrivalPos);
+        buildWalk(personPlanObject, planParameters, arrivalPos);
     } else if (planTemplate->getTagProperty().isPlanWalk()) {
-        // set walk tag
-        personPlanObject->setTag(GNEDemandElementPlan::getWalkTagIcon({}, route,
-                                 fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-                                 fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
-        // from edges
-        if (fromEdge && toEdge) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      fromEdge->getID(), "", "", "", "",
-                      toEdge->getID(), "", "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromEdge && toTAZ) {
-            // walk: edge->TAZ
-            buildWalk(personPlanObject,
-                      fromEdge->getID(), "", "", "", "",
-                      "", toTAZ->getID(), "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromEdge && toJunction) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      fromEdge->getID(), "", "", "", "",
-                      "", "", toJunction->getID(), "", "",
-                      {}, "", arrivalPos);
-        } else if (fromEdge && toBusStop) {
-            // walk: edge->busStop
-            buildWalk(personPlanObject,
-                      fromEdge->getID(), "", "", "", "",
-                      "", "", "", toBusStop->getID(), "",
-                      {}, "", arrivalPos);
-        } else if (fromEdge && toTrainStop) {
-            // walk: edge->trainStop
-            buildWalk(personPlanObject,
-                      fromEdge->getID(), "", "", "", "",
-                      "", "", "", "", toTrainStop->getID(),
-                      {}, "", arrivalPos);
-            // from TAZs
-        } else if (fromTAZ && toEdge) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", fromTAZ->getID(), "", "", "",
-                      toEdge->getID(), "", "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTAZ && toTAZ) {
-            // walk: edge->TAZ
-            buildWalk(personPlanObject,
-                      "", fromTAZ->getID(), "", "", "",
-                      "", toTAZ->getID(), "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTAZ && toJunction) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", fromTAZ->getID(), "", "", "",
-                      "", "", toJunction->getID(), "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTAZ && toBusStop) {
-            // walk: edge->busStop
-            buildWalk(personPlanObject,
-                      "", fromTAZ->getID(), "", "", "",
-                      "", "", "", toBusStop->getID(), "",
-                      {}, "", arrivalPos);
-        } else if (fromTAZ && toTrainStop) {
-            // walk: edge->trainStop
-            buildWalk(personPlanObject,
-                      "", fromTAZ->getID(), "", "", "",
-                      "", "", "", "", toTrainStop->getID(),
-                      {}, "", arrivalPos);
-            // from junction
-        } else if (fromJunction && toEdge) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", fromJunction->getID(), "", "",
-                      toEdge->getID(), "", "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromJunction && toTAZ) {
-            // walk: edge->TAZ
-            buildWalk(personPlanObject,
-                      "", "", fromJunction->getID(), "", "",
-                      "", toTAZ->getID(), "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromJunction && toJunction) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", fromJunction->getID(), "", "",
-                      "", "", toJunction->getID(), "", "",
-                      {}, "", arrivalPos);
-        } else if (fromJunction && toBusStop) {
-            // walk: edge->busStop
-            buildWalk(personPlanObject,
-                      "", "", fromJunction->getID(), "", "",
-                      "", "", "", toBusStop->getID(), "",
-                      {}, "", arrivalPos);
-        } else if (fromJunction && toTrainStop) {
-            // walk: edge->trainStop
-            buildWalk(personPlanObject,
-                      "", "", fromJunction->getID(), "", "",
-                      "", "", "", "", toTrainStop->getID(),
-                      {}, "", arrivalPos);
-            // from busStop
-        } else if (fromBusStop && toEdge) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", "", fromBusStop->getID(), "",
-                      toEdge->getID(), "", "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromBusStop && toTAZ) {
-            // walk: edge->TAZ
-            buildWalk(personPlanObject,
-                      "", "", "", fromBusStop->getID(), "",
-                      "", toTAZ->getID(), "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromBusStop && toJunction) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", "", fromBusStop->getID(), "",
-                      "", "", toJunction->getID(), "", "",
-                      {}, "", arrivalPos);
-        } else if (fromBusStop && toBusStop) {
-            // walk: edge->busStop
-            buildWalk(personPlanObject,
-                      "", "", "", fromBusStop->getID(), "",
-                      "", "", "", toBusStop->getID(), "",
-                      {}, "", arrivalPos);
-        } else if (fromBusStop && toTrainStop) {
-            // walk: edge->trainStop
-            buildWalk(personPlanObject,
-                      "", "", "", fromBusStop->getID(), "",
-                      "", "", "", "", toTrainStop->getID(),
-                      {}, "", arrivalPos);
-            // from trainStop
-        } else if (fromTrainStop && toEdge) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", "", "", fromTrainStop->getID(),
-                      toEdge->getID(), "", "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTrainStop && toTAZ) {
-            // walk: edge->TAZ
-            buildWalk(personPlanObject,
-                      "", "", "", "", fromTrainStop->getID(),
-                      "", toTAZ->getID(), "", "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTrainStop && toJunction) {
-            // walk: edge->edge
-            buildWalk(personPlanObject,
-                      "", "", "", "", fromTrainStop->getID(),
-                      "", "", toJunction->getID(), "", "",
-                      {}, "", arrivalPos);
-        } else if (fromTrainStop && toBusStop) {
-            // walk: edge->busStop
-            buildWalk(personPlanObject,
-                      "", "", "", "", fromTrainStop->getID(),
-                      "", "", "", toBusStop->getID(), "",
-                      {}, "", arrivalPos);
-        } else if (fromTrainStop && toTrainStop) {
-            // walk: edge->trainStop
-            buildWalk(personPlanObject,
-                      "", "", "", "", fromTrainStop->getID(),
-                      "", "", "", "", toTrainStop->getID(),
-                      {}, "", arrivalPos);
-        }
+        // build walk
+        personPlanObject->setTag(GNEDemandElementPlan::getWalkTagIcon(gnePlanParameters).first);
+        buildWalk(personPlanObject, planParameters, arrivalPos);
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
-        // set person trip tag
-        personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon(fromEdge, toEdge,
-                                 fromTAZ, toTAZ, fromJunction, toJunction, fromBusStop, toBusStop,
-                                 fromTrainStop, toTrainStop).first);
-        // from edges
-        if (fromEdge && toEdge) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            fromEdge->getID(), "", "", "", "",
-                            toEdge->getID(), "", "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromEdge && toTAZ) {
-            // personTrip: edge->TAZ
-            buildPersonTrip(personPlanObject,
-                            fromEdge->getID(), "", "", "", "",
-                            "", toTAZ->getID(), "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromEdge && toJunction) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            fromEdge->getID(), "", "", "", "",
-                            "", "", toJunction->getID(), "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromEdge && toBusStop) {
-            // personTrip: edge->busStop
-            buildPersonTrip(personPlanObject,
-                            fromEdge->getID(), "", "", "", "",
-                            "", "", "", toBusStop->getID(), "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromEdge && toTrainStop) {
-            // personTrip: edge->trainStop
-            buildPersonTrip(personPlanObject,
-                            fromEdge->getID(), "", "", "", "",
-                            "", "", "", "", toTrainStop->getID(),
-                            arrivalPos, types, modes, lines);
-            // from TAZs
-        } else if (fromTAZ && toEdge) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", fromTAZ->getID(), "", "", "",
-                            toEdge->getID(), "", "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTAZ && toTAZ) {
-            // personTrip: edge->TAZ
-            buildPersonTrip(personPlanObject,
-                            "", fromTAZ->getID(), "", "", "",
-                            "", toTAZ->getID(), "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTAZ && toJunction) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", fromTAZ->getID(), "", "", "",
-                            "", "", toJunction->getID(), "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTAZ && toBusStop) {
-            // personTrip: edge->busStop
-            buildPersonTrip(personPlanObject,
-                            "", fromTAZ->getID(), "", "", "",
-                            "", "", "", toBusStop->getID(), "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTAZ && toTrainStop) {
-            // personTrip: edge->trainStop
-            buildPersonTrip(personPlanObject,
-                            "", fromTAZ->getID(), "", "", "",
-                            "", "", "", "", toTrainStop->getID(),
-                            arrivalPos, types, modes, lines);
-            // from junction
-        } else if (fromJunction && toEdge) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", fromJunction->getID(), "", "",
-                            toEdge->getID(), "", "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromJunction && toTAZ) {
-            // personTrip: edge->TAZ
-            buildPersonTrip(personPlanObject,
-                            "", "", fromJunction->getID(), "", "",
-                            "", toTAZ->getID(), "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromJunction && toJunction) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", fromJunction->getID(), "", "",
-                            "", "", toJunction->getID(), "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromJunction && toBusStop) {
-            // personTrip: edge->busStop
-            buildPersonTrip(personPlanObject,
-                            "", "", fromJunction->getID(), "", "",
-                            "", "", "", toBusStop->getID(), "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromJunction && toTrainStop) {
-            // personTrip: edge->trainStop
-            buildPersonTrip(personPlanObject,
-                            "", "", fromJunction->getID(), "", "",
-                            "", "", "", "", toTrainStop->getID(),
-                            arrivalPos, types, modes, lines);
-            // from busStop
-        } else if (fromBusStop && toEdge) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", "", fromBusStop->getID(), "",
-                            toEdge->getID(), "", "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromBusStop && toTAZ) {
-            // personTrip: edge->TAZ
-            buildPersonTrip(personPlanObject,
-                            "", "", "", fromBusStop->getID(), "",
-                            "", toTAZ->getID(), "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromBusStop && toJunction) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", "", fromBusStop->getID(), "",
-                            "", "", toJunction->getID(), "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromBusStop && toBusStop) {
-            // personTrip: edge->busStop
-            buildPersonTrip(personPlanObject,
-                            "", "", "", fromBusStop->getID(), "",
-                            "", "", "", toBusStop->getID(), "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromBusStop && toTrainStop) {
-            // personTrip: edge->trainStop
-            buildPersonTrip(personPlanObject,
-                            "", "", "", fromBusStop->getID(), "",
-                            "", "", "", "", toTrainStop->getID(),
-                            arrivalPos, types, modes, lines);
-            // from trainStop
-        } else if (fromTrainStop && toEdge) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", "", "", fromTrainStop->getID(),
-                            toEdge->getID(), "", "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTrainStop && toTAZ) {
-            // personTrip: edge->TAZ
-            buildPersonTrip(personPlanObject,
-                            "", "", "", "", fromTrainStop->getID(),
-                            "", toTAZ->getID(), "", "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTrainStop && toJunction) {
-            // personTrip: edge->edge
-            buildPersonTrip(personPlanObject,
-                            "", "", "", "", fromTrainStop->getID(),
-                            "", "", toJunction->getID(), "", "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTrainStop && toBusStop) {
-            // personTrip: edge->busStop
-            buildPersonTrip(personPlanObject,
-                            "", "", "", "", fromTrainStop->getID(),
-                            "", "", "", toBusStop->getID(), "",
-                            arrivalPos, types, modes, lines);
-        } else if (fromTrainStop && toTrainStop) {
-            // personTrip: edge->trainStop
-            buildPersonTrip(personPlanObject,
-                            "", "", "", "", fromTrainStop->getID(),
-                            "", "", "", "", toTrainStop->getID(),
-                            arrivalPos, types, modes, lines);
-        }
+        // build person trip
+        personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon(gnePlanParameters).first);
+        buildPersonTrip(personPlanObject, planParameters, arrivalPos, types, modes, lines);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
-        // set ride tag
-        personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon(fromEdge, toEdge,
-                                 fromBusStop, toBusStop, fromTrainStop, toTrainStop).first);
-        // from edges
-        if (fromEdge && toEdge) {
-            // ride: edge->edge
-            buildRide(personPlanObject,
-                      fromEdge->getID(), "", "",
-                      toEdge->getID(), "", "",
-                      arrivalPos, lines);
-        } else if (fromEdge && toBusStop) {
-            // ride: edge->busStop
-            buildRide(personPlanObject,
-                      fromEdge->getID(), "", "",
-                      "", toBusStop->getID(), "",
-                      arrivalPos, lines);
-        } else if (fromEdge && toTrainStop) {
-            // ride: edge->trainStop
-            buildRide(personPlanObject,
-                      fromEdge->getID(), "", "",
-                      "", "", toTrainStop->getID(),
-                      arrivalPos, lines);
-            // from busStop
-        } else if (fromBusStop && toEdge) {
-            // ride: edge->edge
-            buildRide(personPlanObject,
-                      "", fromBusStop->getID(), "",
-                      toEdge->getID(), "", "",
-                      arrivalPos, lines);
-        } else if (fromBusStop && toBusStop) {
-            // ride: edge->busStop
-            buildRide(personPlanObject,
-                      "", fromBusStop->getID(), "",
-                      "", toBusStop->getID(), "",
-                      arrivalPos, lines);
-        } else if (fromBusStop && toTrainStop) {
-            // ride: edge->trainStop
-            buildRide(personPlanObject,
-                      "", fromBusStop->getID(), "",
-                      "", "", toTrainStop->getID(),
-                      arrivalPos, lines);
-            // from trainStop
-        } else if (fromTrainStop && toEdge) {
-            // ride: edge->edge
-            buildRide(personPlanObject,
-                      "", "", fromTrainStop->getID(),
-                      toEdge->getID(), "", "",
-                      arrivalPos, lines);
-        } else if (fromTrainStop && toBusStop) {
-            // ride: edge->busStop
-            buildRide(personPlanObject,
-                      "", "", fromTrainStop->getID(),
-                      "", toBusStop->getID(), "",
-                      arrivalPos, lines);
-        } else if (fromTrainStop && toTrainStop) {
-            // ride: edge->trainStop
-            buildRide(personPlanObject,
-                      "", "", fromTrainStop->getID(),
-                      "", "", toTrainStop->getID(),
-                      arrivalPos, lines);
-        }
+        // build ride
+        personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon(gnePlanParameters).first);
+        buildRide(personPlanObject, planParameters, arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
-        // set ride tag
-        personPlanObject->setTag(GNEDemandElementPlan::getPersonStopTagIcon(edge, busStop, trainStop).first);
+        // build stop
+        personPlanObject->setTag(GNEDemandElementPlan::getPersonStopTagIcon(gnePlanParameters).first);
         // set parameters
         int parameterSet = 0;
         if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
@@ -1784,14 +1457,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        // from edges
-        if (edge) {
-            buildPersonStop(personPlanObject, edge->getID(), "", "", endPos, duration, until, actType, friendlyPos, parameterSet);
-        } else if (busStop) {
-            buildPersonStop(personPlanObject, "", busStop->getID(), "", endPos, duration, until, actType, friendlyPos, parameterSet);
-        } else if (trainStop) {
-            buildPersonStop(personPlanObject, "", "", trainStop->getID(), endPos, duration, until, actType, friendlyPos, parameterSet);
-        }
+        buildPersonStop(personPlanObject, planParameters, endPos, duration, until, actType, friendlyPos, parameterSet);
     }
     // get person
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
@@ -1849,251 +1515,28 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     const bool friendlyPos = containerPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? containerPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              containerPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(containerPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
-    // get consecutive edges
-    const auto consecutiveEdges = planCreator->getConsecutiveEdgeIDs();
-    // get edges
-    GNEEdge* fromEdge = planCreator->getFromEdge();
-    GNEEdge* toEdge = planCreator->getToEdge();
-    // get junctions
-    GNEJunction* fromJunction = planCreator->getFromJunction();
-    GNEJunction* toJunction = planCreator->getToJunction();
-    // get TAZs
-    GNEAdditional* fromTAZ = planCreator->getFromTAZ();
-    GNEAdditional* toTAZ = planCreator->getToTAZ();
-    // get containerStops
-    GNEAdditional* fromContainerStop = planCreator->getFromContainerStop();
-    GNEAdditional* toContainerStop = planCreator->getToContainerStop();
-    // get edge
-    GNEEdge* edge = planCreator->getEdge();
-    // get containerStop
-    GNEAdditional* containerStop = planCreator->getContainerStop();
-    // special case for elements with from-to edge
-    if (fromEdge && !toEdge && !fromContainerStop && !toContainerStop && consecutiveEdges.empty()) {
-        toEdge = fromEdge;
-    }
+///////
+    // get parents from plan creator
+    CommonXMLStructure::PlanParameters planParameters;
+    GNERouteHandler::GNEPlanParameters gnePlanParameters;
     // create plans depending of elements
-    if (consecutiveEdges.size() > 0) {
+    if (gnePlanParameters.edges.size() > 0) {
         // consecutive edges
         containerPlanObject->setTag(GNE_TAG_TRANSHIP_EDGES);
-        buildTranship(containerPlanObject,
-                      "", "", "", "",
-                      "", "", "", "",
-                      consecutiveEdges, speed, departPos, arrivalPos);
+        buildTranship(containerPlanObject, planParameters, speed, departPos, arrivalPos);
     } else if (planTemplate->getTagProperty().isPlanTranship()) {
         // set tranship tag
-        containerPlanObject->setTag(GNEDemandElementPlan::getTranshipTagIcon({},
-                                    fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-                                    fromContainerStop, toContainerStop).first);
-        // from edges
-        if (fromEdge && toEdge) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          fromEdge->getID(), "", "", "",
-                          toEdge->getID(), "", "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromEdge && toTAZ) {
-            // tranship: edge->TAZ
-            buildTranship(containerPlanObject,
-                          fromEdge->getID(), "", "", "",
-                          "", toTAZ->getID(), "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromEdge && toJunction) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          fromEdge->getID(), "", "", "",
-                          "", "", toJunction->getID(), "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromEdge && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTranship(containerPlanObject,
-                          fromEdge->getID(), "", "", "",
-                          "", "", "", toContainerStop->getID(),
-                          {}, arrivalPos, departPos, speed);
-            // from TAZs
-        } else if (fromTAZ && toEdge) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", fromTAZ->getID(), "", "",
-                          toEdge->getID(), "", "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromTAZ && toTAZ) {
-            // tranship: edge->TAZ
-            buildTranship(containerPlanObject,
-                          "", fromTAZ->getID(), "", "",
-                          "", toTAZ->getID(), "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromTAZ && toJunction) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", fromTAZ->getID(), "", "",
-                          "", "", toJunction->getID(), "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromTAZ && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTranship(containerPlanObject,
-                          "", fromTAZ->getID(), "", "",
-                          "", "", "", toContainerStop->getID(),
-                          {}, arrivalPos, departPos, speed);
-            // from junction
-        } else if (fromJunction && toEdge) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", "", fromJunction->getID(), "",
-                          toEdge->getID(), "", "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromJunction && toTAZ) {
-            // tranship: edge->TAZ
-            buildTranship(containerPlanObject,
-                          "", "", fromJunction->getID(), "",
-                          "", toTAZ->getID(), "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromJunction && toJunction) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", "", fromJunction->getID(), "",
-                          "", "", toJunction->getID(), "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromJunction && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTranship(containerPlanObject,
-                          "", "", fromJunction->getID(), "",
-                          "", "", "", toContainerStop->getID(),
-                          {}, arrivalPos, departPos, speed);
-            // from containerStop
-        } else if (fromContainerStop && toEdge) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", "", "", fromContainerStop->getID(),
-                          toEdge->getID(), "", "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromContainerStop && toTAZ) {
-            // tranship: edge->TAZ
-            buildTranship(containerPlanObject,
-                          "", "", "", fromContainerStop->getID(),
-                          "", toTAZ->getID(), "", "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromContainerStop && toJunction) {
-            // tranship: edge->edge
-            buildTranship(containerPlanObject,
-                          "", "", "", fromContainerStop->getID(),
-                          "", "", toJunction->getID(), "",
-                          {}, arrivalPos, departPos, speed);
-        } else if (fromContainerStop && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTranship(containerPlanObject,
-                          "", "", "", fromContainerStop->getID(),
-                          "", "", "", toContainerStop->getID(),
-                          {}, arrivalPos, departPos, speed);
-        }
+        containerPlanObject->setTag(GNEDemandElementPlan::getTranshipTagIcon(gnePlanParameters).first);
+        // tranship: edge->edge
+        buildTranship(containerPlanObject, planParameters, arrivalPos, departPos, speed);
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
         // set container trip tag
-        containerPlanObject->setTag(GNEDemandElementPlan::getTransportTagIcon(fromEdge, toEdge,
-                                    fromTAZ, toTAZ, fromJunction, toJunction,
-                                    fromContainerStop, toContainerStop).first);
-        // from edges
-        if (fromEdge && toEdge) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           fromEdge->getID(), "", "", "",
-                           toEdge->getID(), "", "", "",
-                           arrivalPos, lines);
-        } else if (fromEdge && toTAZ) {
-            // tranship: edge->TAZ
-            buildTransport(containerPlanObject,
-                           fromEdge->getID(), "", "", "",
-                           "", toTAZ->getID(), "", "",
-                           arrivalPos, lines);
-        } else if (fromEdge && toJunction) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           fromEdge->getID(), "", "", "",
-                           "", "", toJunction->getID(), "",
-                           arrivalPos, lines);
-        } else if (fromEdge && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTransport(containerPlanObject,
-                           fromEdge->getID(), "", "", "",
-                           "", "", "", toContainerStop->getID(),
-                           arrivalPos, lines);
-            // from TAZs
-        } else if (fromTAZ && toEdge) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", fromTAZ->getID(), "", "",
-                           toEdge->getID(), "", "", "",
-                           arrivalPos, lines);
-        } else if (fromTAZ && toTAZ) {
-            // tranship: edge->TAZ
-            buildTransport(containerPlanObject,
-                           "", fromTAZ->getID(), "", "",
-                           "", toTAZ->getID(), "", "",
-                           arrivalPos, lines);
-        } else if (fromTAZ && toJunction) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", fromTAZ->getID(), "", "",
-                           "", "", toJunction->getID(), "",
-                           arrivalPos, lines);
-        } else if (fromTAZ && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTransport(containerPlanObject,
-                           "", fromTAZ->getID(), "", "",
-                           "", "", "", toContainerStop->getID(),
-                           arrivalPos, lines);
-            // from junction
-        } else if (fromJunction && toEdge) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", "", fromJunction->getID(), "",
-                           toEdge->getID(), "", "", "",
-                           arrivalPos, lines);
-        } else if (fromJunction && toTAZ) {
-            // tranship: edge->TAZ
-            buildTransport(containerPlanObject,
-                           "", "", fromJunction->getID(), "",
-                           "", toTAZ->getID(), "", "",
-                           arrivalPos, lines);
-        } else if (fromJunction && toJunction) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", "", fromJunction->getID(), "",
-                           "", "", toJunction->getID(), "",
-                           arrivalPos, lines);
-        } else if (fromJunction && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTransport(containerPlanObject,
-                           "", "", fromJunction->getID(), "",
-                           "", "", "", toContainerStop->getID(),
-                           arrivalPos, lines);
-            // from containerStop
-        } else if (fromContainerStop && toEdge) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", "", "", fromContainerStop->getID(),
-                           toEdge->getID(), "", "", "",
-                           arrivalPos, lines);
-        } else if (fromContainerStop && toTAZ) {
-            // tranship: edge->TAZ
-            buildTransport(containerPlanObject,
-                           "", "", "", fromContainerStop->getID(),
-                           "", toTAZ->getID(), "", "",
-                           arrivalPos, lines);
-        } else if (fromContainerStop && toJunction) {
-            // tranship: edge->edge
-            buildTransport(containerPlanObject,
-                           "", "", "", fromContainerStop->getID(),
-                           "", "", toJunction->getID(), "",
-                           arrivalPos, lines);
-        } else if (fromContainerStop && toContainerStop) {
-            // tranship: edge->containerStop
-            buildTransport(containerPlanObject,
-                           "", "", "", fromContainerStop->getID(),
-                           "", "", "", toContainerStop->getID(),
-                           arrivalPos, lines);
-        }
+        containerPlanObject->setTag(GNEDemandElementPlan::getTransportTagIcon(gnePlanParameters).first);
+        // tranship: edge->edge
+        buildTransport(containerPlanObject, planParameters, arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
         // set ride tag
-        containerPlanObject->setTag(GNEDemandElementPlan::getContainerStopTagIcon(edge, containerStop).first);
+        containerPlanObject->setTag(GNEDemandElementPlan::getContainerStopTagIcon(gnePlanParameters).first);
         // set parameters
         int parameterSet = 0;
         if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
@@ -2102,11 +1545,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
         if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        if (edge) {
-            buildContainerStop(containerPlanObject, edge->getID(), "", endPos, duration, until, actType, friendlyPos, parameterSet);
-        } else if (containerStop) {
-            buildContainerStop(containerPlanObject, "", containerStop->getID(), endPos, duration, until, actType, friendlyPos, parameterSet);
-        }
+        buildContainerStop(containerPlanObject, planParameters, endPos, duration, until, actType, friendlyPos, parameterSet);
     }
     // get container
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
@@ -2132,27 +1571,66 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     // declare personPlan object for adding all attributes
     CommonXMLStructure::SumoBaseObject* planObject = new CommonXMLStructure::SumoBaseObject(myPlanObject);
     planObject->setTag(tagProperty.getTag());
+    // declare parameters
+    CommonXMLStructure::PlanParameters planParameters;
     // from-to elements
-    const std::string fromEdgeID = tagProperty.planFromEdge() ? originalPlan->getAttribute(SUMO_ATTR_FROM) : "";
-    const std::string toEdgeID = tagProperty.planToEdge() ? originalPlan->getAttribute(SUMO_ATTR_TO) : "";
-    const std::string fromJunctionID = tagProperty.planFromJunction() ? originalPlan->getAttribute(SUMO_ATTR_FROM_JUNCTION) : "";
-    const std::string toJunctionID = tagProperty.planToJunction() ? originalPlan->getAttribute(SUMO_ATTR_TO_JUNCTION) : "";
-    const std::string fromTAZID = tagProperty.planFromTAZ() ? originalPlan->getAttribute(SUMO_ATTR_FROM_TAZ) : "";
-    const std::string toTAZID = tagProperty.planToTAZ() ? originalPlan->getAttribute(SUMO_ATTR_TO_TAZ) : "";
-    const std::string fromBusStopID = tagProperty.planFromBusStop() ? originalPlan->getAttribute(GNE_ATTR_FROM_BUSSTOP) : "";
-    const std::string toBusStopID = tagProperty.planToBusStop() ? originalPlan->getAttribute(SUMO_ATTR_BUS_STOP) : "";
-    const std::string fromTrainStopID = tagProperty.planFromTrainStop() ? originalPlan->getAttribute(GNE_ATTR_FROM_TRAINSTOP) : "";
-    const std::string toTrainStopID = tagProperty.planToTrainStop() ? originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP) : "";
-    const std::string fromContainerStopID = tagProperty.planFromContainerStop() ? originalPlan->getAttribute(GNE_ATTR_FROM_CONTAINERSTOP) : "";
-    const std::string toContainerStopID = tagProperty.planToContainerStop() ? originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP) : "";
+    if (tagProperty.planFromEdge()) {
+        planParameters.fromEdge = originalPlan->getAttribute(SUMO_ATTR_FROM);
+    }
+    if (tagProperty.planToEdge()) {
+        planParameters.toEdge = originalPlan->getAttribute(SUMO_ATTR_TO);
+    }
+    if (tagProperty.planFromJunction()) {
+        planParameters.fromJunction = originalPlan->getAttribute(SUMO_ATTR_FROM_JUNCTION);
+    }
+    if (tagProperty.planToJunction()) {
+        planParameters.toJunction = originalPlan->getAttribute(SUMO_ATTR_TO_JUNCTION);
+    }
+    if (tagProperty.planFromTAZ()) {
+        planParameters.fromTAZ = originalPlan->getAttribute(SUMO_ATTR_FROM_TAZ);
+    }
+    if (tagProperty.planToTAZ()) {
+        planParameters.toTAZ = originalPlan->getAttribute(SUMO_ATTR_TO_TAZ);
+    }
+    if (tagProperty.planFromBusStop()) {
+        planParameters.fromBusStop = originalPlan->getAttribute(GNE_ATTR_FROM_BUSSTOP);
+    }
+    if (tagProperty.planToBusStop()) {
+        planParameters.toBusStop = originalPlan->getAttribute(SUMO_ATTR_BUS_STOP);
+    }
+    if (tagProperty.planFromTrainStop()) {
+        planParameters.fromTrainStop = originalPlan->getAttribute(GNE_ATTR_FROM_TRAINSTOP);
+    }
+    if (tagProperty.planToTrainStop()) {
+        planParameters.toTrainStop = originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP);
+    }
+    if (tagProperty.planFromContainerStop()) {
+        planParameters.fromContainerStop = originalPlan->getAttribute(GNE_ATTR_FROM_CONTAINERSTOP);
+    }
+    if (tagProperty.planToContainerStop()) {
+        planParameters.toContainerStop = originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP);
+    }
     // single elements
-    const std::string edgeID = tagProperty.planEdge() ? originalPlan->getAttribute(SUMO_ATTR_EDGE) : "";
-    const std::string busStopID = tagProperty.planBusStop() ? originalPlan->getAttribute(SUMO_ATTR_BUS_STOP) : "";
-    const std::string trainStopID = tagProperty.planTrainStop() ? originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP) : "";
-    const std::string containerStopID = tagProperty.planContainerStop() ? originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP) : "";
-    const std::string routeID = tagProperty.planRoute() ? originalPlan->getAttribute(SUMO_ATTR_ROUTE) : "";
+    if (tagProperty.planEdge()) {
+        planParameters.edge = originalPlan->getAttribute(SUMO_ATTR_EDGE);
+    }
+    if (tagProperty.planBusStop()) {
+        planParameters.busStop = originalPlan->getAttribute(SUMO_ATTR_BUS_STOP);
+    }
+    if (tagProperty.planTrainStop()) {
+        planParameters.trainStop = originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP);
+    }
+    if (tagProperty.planContainerStop()) {
+        planParameters.containerStop = originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP);
+    }
+    // route
+    if (tagProperty.planRoute()) {
+        planParameters.route = originalPlan->getAttribute(SUMO_ATTR_ROUTE);
+    }
     // path
-    const std::vector<std::string> edgeIDs = GNEAttributeCarrier::parse<std::vector<std::string> >(tagProperty.planConsecutiveEdges() ? originalPlan->getAttribute(SUMO_ATTR_EDGES) : "");
+    if (tagProperty.planConsecutiveEdges()) {
+        planParameters.edges = GNEAttributeCarrier::parse<std::vector<std::string> >(originalPlan->getAttribute(SUMO_ATTR_EDGES));
+    }
     // other elements
     planObject->addTimeAttribute(SUMO_ATTR_DURATION, 60);
     planObject->addTimeAttribute(SUMO_ATTR_UNTIL, 0);
@@ -2183,22 +1661,16 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     }
     // create plan
     if (tagProperty.isPersonTrip()) {
-        buildPersonTrip(planObject,
-                        fromEdgeID, fromTAZID, fromJunctionID, fromBusStopID, fromTrainStopID,
-                        toEdgeID, toTAZID, toJunctionID, toBusStopID, toTrainStopID,
+        buildPersonTrip(planObject, planParameters,
                         planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                         planObject->getStringListAttribute(SUMO_ATTR_VTYPES),
                         planObject->getStringListAttribute(SUMO_ATTR_MODES),
                         planObject->getStringListAttribute(SUMO_ATTR_LINES));
     } else if (tagProperty.isPlanWalk()) {
-        buildWalk(planObject,
-                  fromEdgeID, fromTAZID, fromJunctionID, fromBusStopID, fromTrainStopID,
-                  toEdgeID, toTAZID, toJunctionID, toBusStopID, toTrainStopID,
-                  edgeIDs, routeID,
+        buildWalk(planObject, planParameters,
                   planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
     } else if (tagProperty.isPlanRide()) {
-        buildRide(planObject,
-                  fromEdgeID, fromBusStopID, fromTrainStopID, toEdgeID, toBusStopID, toTrainStopID,
+        buildRide(planObject, planParameters,
                   planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                   planObject->getStringListAttribute(SUMO_ATTR_LINES));
     } else if (tagProperty.isPlanStopPerson()) {
@@ -2210,7 +1682,7 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
         if (planObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        buildPersonStop(planObject, edgeID, busStopID, trainStopID,
+        buildPersonStop(planObject, planParameters,
                         planObject->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                         planObject->getTimeAttribute(SUMO_ATTR_DURATION),
                         planObject->getTimeAttribute(SUMO_ATTR_UNTIL),
@@ -2218,13 +1690,11 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
                         planObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS),
                         parameterSet);
     } else if (tagProperty.isPlanTransport()) {
-        buildTransport(planObject, fromEdgeID, fromTAZID, fromJunctionID, fromContainerStopID,
-                       toEdgeID, toTAZID, toJunctionID, toContainerStopID,
+        buildTransport(planObject, planParameters,
                        planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                        planObject->getStringListAttribute(SUMO_ATTR_LINES));
     } else if (tagProperty.isPlanTranship()) {
-        buildTranship(planObject, fromEdgeID, fromTAZID, fromJunctionID, fromContainerStopID,
-                      toEdgeID, toTAZID, toJunctionID, toContainerStopID, edgeIDs,
+        buildTranship(planObject, planParameters,
                       planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                       planObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
                       planObject->getDoubleAttribute(SUMO_ATTR_SPEED));
@@ -2237,7 +1707,7 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
         if (planObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        buildContainerStop(planObject, edgeID, containerStopID,
+        buildContainerStop(planObject, planParameters,
                            planObject->getDoubleAttribute(SUMO_ATTR_ENDPOS),
                            planObject->getTimeAttribute(SUMO_ATTR_DURATION),
                            planObject->getTimeAttribute(SUMO_ATTR_UNTIL),
@@ -3201,136 +2671,6 @@ GNERouteHandler::getContainerParent(const CommonXMLStructure::SumoBaseObject* su
         return myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_CONTAINERFLOW, sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), false);
     } else {
         return containerParent;
-    }
-}
-
-
-const CommonXMLStructure::SumoBaseObject*
-GNERouteHandler::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* obj) const {
-    // get parent object
-    const CommonXMLStructure::SumoBaseObject* parentObject = obj->getParentSumoBaseObject();
-    // check if object has parent
-    if (parentObject == nullptr) {
-        return nullptr;
-    }
-    // check number of children
-    if (parentObject->getSumoBaseObjectChildren().size() < 2) {
-        return nullptr;
-    }
-    // search position of the given plan obj in the parent children
-    const auto itObj = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), obj);
-    // if itObj is the first element, return null
-    if (itObj == parentObject->getSumoBaseObjectChildren().begin()) {
-        return nullptr;
-    }
-    // get pevious itObj
-    return *(itObj - 1);
-}
-
-
-GNEEdge*
-GNERouteHandler::getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to edge
-    if (previousPlanObj == nullptr) {
-        return nullptr;
-    } else {
-        // continue depending of attributes
-        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
-            return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
-            return myNet->getAttributeCarriers()->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
-            // busStop
-            const auto busStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
-            if (busStop) {
-                return busStop->getParentLanes().front()->getParentEdge();
-            }
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
-            // trainStop
-            const auto trainStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
-            if (trainStop) {
-                return trainStop->getParentLanes().front()->getParentEdge();
-            }
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-            // containerStop
-            const auto containerStop = myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
-            if (containerStop) {
-                return containerStop->getParentLanes().front()->getParentEdge();
-            }
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGES)) {
-            const auto edges = StringTokenizer(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE)).getVector();
-            if (edges.size() > 0) {
-                return myNet->getAttributeCarriers()->retrieveEdge(edges.back(), false);
-            }
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-            auto route = myNet->getAttributeCarriers()->retrieveDemandElement(SUMO_TAG_ROUTE, previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE), false);
-            if (route) {
-                return route->getParentEdges().back();
-            }
-        }
-        // no previous edge
-        return nullptr;
-    }
-}
-
-
-GNEAdditional*
-GNERouteHandler::getPreviousPlanTAZ(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to TAZ
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
-        return myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TAZ, previousPlanObj->getStringAttribute(SUMO_ATTR_TO_TAZ), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEJunction*
-GNERouteHandler::getPreviousPlanJunction(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to junction
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
-        return myNet->getAttributeCarriers()->retrieveJunction(previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEAdditional*
-GNERouteHandler::getPreviousPlanBusStop(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to busStop
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
-        return myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEAdditional*
-GNERouteHandler::getPreviousPlanTrainStop(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to trainStop
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
-        return myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEAdditional*
-GNERouteHandler::getPreviousPlanContainerStop(const CommonXMLStructure::SumoBaseObject* obj) const {
-    const auto previousPlanObj = getPreviousPlanObj(obj);
-    // check if previous plan object has to containerStop
-    if (previousPlanObj && previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-        return myNet->getAttributeCarriers()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
-    } else {
-        return nullptr;
     }
 }
 

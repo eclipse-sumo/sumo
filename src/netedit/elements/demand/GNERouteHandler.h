@@ -24,6 +24,7 @@
 #include <netedit/frames/GNEPathCreator.h>
 #include <netedit/frames/GNEPlanCreator.h>
 #include <netedit/frames/GNEAttributesCreator.h>
+#include <netedit/GNENetHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -54,6 +55,125 @@ class GNEUndoList;
 class GNERouteHandler : public RouteHandler {
 
 public:
+    /// @brief GNE plan parameters (used for group all from-to parameters related with plans)
+    class GNEPlanParameters {
+
+    public:
+        /// @brief constructor for parsing the parameters from SUMOSAXAttributes
+        GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                          const CommonXMLStructure::PlanParameters& planParameters,
+                          const GNENetHelper::AttributeCarriers* ACs);
+
+        /// @brief check if this is a single-edge plan
+        bool isSingleEdgePlan() const;
+
+        /// @brief add the given element in the element as child
+        void addChildElements(GNEDemandElement* element);
+
+        /// @brief get junctions (used in plan constructors)
+        std::vector<GNEJunction*> getJunctions() const;
+
+        /// @brief get edges (used in plan constructors)
+        std::vector<GNEEdge*> getEdges() const;
+
+        /// @brief get additionalElements (used in plan constructors)
+        std::vector<GNEAdditional*> getAdditionalElements() const;
+
+        /// @brief get demand elements (used in plan constructors)
+        std::vector<GNEDemandElement*> getDemandElements(GNEDemandElement* parent) const;
+
+        /// @brief from junction
+        GNEJunction* fromJunction;
+
+        /// @brief to junction
+        GNEJunction* toJunction;
+
+        /// @brief from edge
+        GNEEdge* fromEdge;
+
+        /// @brief to edge
+        GNEEdge* toEdge;
+
+        /// @brief from TAZ
+        GNEAdditional* fromTAZ;
+
+        /// @brief to TAZ
+        GNEAdditional* toTAZ;
+
+        /// @brief from busStop
+        GNEAdditional* fromBusStop;
+
+        /// @brief to busStop
+        GNEAdditional* toBusStop;
+
+        /// @brief from trainStop
+        GNEAdditional* fromTrainStop;
+
+        /// @brief to trainStop
+        GNEAdditional* toTrainStop;
+
+        /// @brief from containerStop
+        GNEAdditional* fromContainerStop;
+
+        /// @brief to containerStop
+        GNEAdditional* toContainerStop;
+
+        /// @brief from chargingStation
+        GNEAdditional* fromChargingStation;
+
+        /// @brief to chargingStation
+        GNEAdditional* toChargingStation;
+
+        /// @brief from parkingArea
+        GNEAdditional* fromParkingArea;
+
+        /// @brief to parkingArea
+        GNEAdditional* toParkingArea;
+
+        /// @brief edges
+        std::vector<GNEEdge*> edges;
+
+        /// @brief route (currently only used by walks)
+        GNEDemandElement* route;
+
+        /// @name values used only by stops
+        /// @{
+
+        /// @brief edge
+        GNEEdge* edge;
+
+        /// @brief bus stop
+        GNEAdditional* busStop;
+
+        /// @brief train stop
+        GNEAdditional* trainStop;
+
+        /// @brief charging station
+        GNEAdditional* chargingStation;
+
+        /// @brief charging station
+        GNEAdditional* containerStop;
+
+        /// @brief parking area
+        GNEAdditional* parkingArea;
+
+        /// @}
+
+    private:
+        /// @brief get previous plan obj
+        const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+        /// @brief get previous plan element if was not defined previoulsy (used for loaded elements)
+        void updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                                  const GNENetHelper::AttributeCarriers* ACs);
+
+        /// @brief invalidate copy constructor
+        GNEPlanParameters(const GNEPlanParameters& s) = delete;
+
+        /// @brief invalidate assignment operator
+        GNEPlanParameters& operator=(const GNEPlanParameters& s) = delete;
+    };
+
     /// @brief Constructor
     GNERouteHandler(const std::string& file, GNENet* net, const bool allowUndoRedo, const bool overwrite);
 
@@ -121,21 +241,15 @@ public:
     void buildPersonFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& personFlowParameters);
 
     /// @brief build person trip
-    void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                         const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                         const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
+    void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                          double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
 
     /// @brief build walk
-    void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                   const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                   const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toBusStopID, const std::string& toTrainStopID,
-                   const std::vector<std::string>& edgeIDs, const std::string& routeID, double arrivalPos);
+    void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                   double arrivalPos);
 
     /// @brief build ride
-    void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                   const std::string& fromEdgeID, const std::string& fromBusStopID, const std::string& fromTrainStopID,
-                   const std::string& toEdgeID, const std::string& toBusStopID, const std::string& toTrainStopID,
+    void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                    double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build container
@@ -145,29 +259,26 @@ public:
     void buildContainerFlow(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter& containerFlowParameters);
 
     /// @brief build transport
-    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                        const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
-                        const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
+    void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                         const double arrivalPos, const std::vector<std::string>& lines);
 
     /// @brief build tranship
-    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                       const std::string& fromEdgeID, const std::string& fromTAZID, const std::string& fromJunctionID, const std::string& fromContainerStopID,
-                       const std::string& toEdgeID, const std::string& toTAZID, const std::string& toJunctionID, const std::string& toContainerStopID,
-                       const std::vector<std::string>& edgeIDs, const double arrivalPosition, const double departPosition, const double speed);
+    void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                       const double arrivalPosition, const double departPosition, const double speed);
 
     /// @brief build person stop
-    void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& busStopID,
-                         const std::string& trainStopID, const double endPos, const SUMOTime duration, const SUMOTime until,
+    void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                         const double endPos, const SUMOTime duration, const SUMOTime until,
                          const std::string& actType, const bool friendlyPos, const int parameterSet);
 
     /// @brief build container stop
-    void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const std::string& edgeID, const std::string& containerStopID,
+    void buildContainerStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
                             const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, const bool friendlyPos,
                             const int parameterSet);
 
     /// @brief build stop
-    void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const SUMOVehicleParameter::Stop& stopParameters);
+    void buildStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
+                   const SUMOVehicleParameter::Stop& stopParameters);
 
     /// @brief build person plan
     bool buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemandElement* personParent, GNEAttributesCreator* personPlanAttributes,
@@ -283,27 +394,6 @@ protected:
 
     /// @brief get container parent
     GNEDemandElement* getContainerParent(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
-
-    /// @brief get previous plan obj
-    const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan edge
-    GNEEdge* getPreviousPlanEdge(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan TAZ
-    GNEAdditional* getPreviousPlanTAZ(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan junction
-    GNEJunction* getPreviousPlanJunction(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan busStop
-    GNEAdditional* getPreviousPlanBusStop(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan trainStop
-    GNEAdditional* getPreviousPlanTrainStop(const CommonXMLStructure::SumoBaseObject* obj) const;
-
-    /// @brief get previous plan containerStop
-    GNEAdditional* getPreviousPlanContainerStop(const CommonXMLStructure::SumoBaseObject* obj) const;
 
     /// @brief get distribution elements
     bool getDistributionElements(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, SumoXMLTag distributionElementTag,
