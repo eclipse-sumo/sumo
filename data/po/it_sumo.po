@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-20 09:13+0000\n"
+"PO-Revision-Date: 2024-08-21 10:09+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -5476,30 +5476,41 @@ msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions but only % targets"
 msgstr ""
+"Non si possono applicare le informazioni di svolta per l'arco '%' perché ci "
+"sono % direzioni segnalate ma solamente % destinazioni"
 
 #: src/netbuild/NBEdge.cpp:2761
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "directions and % targets (after target pruning)"
 msgstr ""
+"Non si possono applicare le informazioni di svolta per l'arco '%' perché ci "
+"sono % direzioni segnalate e % destinazioni (dopo averne tagliato alcuni)"
 
 #: src/netbuild/NBEdge.cpp:2778
 msgid ""
 "Cannot apply turn sign information for edge '%' because the target edge '%' "
 "has no suitable lanes"
 msgstr ""
+"Non si possono applicare le informazioni di svolta per l'arco '%' perché non "
+"ci sono corsie adatte nell'arco di destinazione"
 
 #: src/netbuild/NBEdge.cpp:2784
 msgid ""
 "Cannot apply turn sign information for edge '%' because there are % signed "
 "connections with directions '%' but target edge '%' has only % suitable lanes"
 msgstr ""
+"Non si possono applicare le informazioni di svolta per l'arco '%' perché ci "
+"sono % collegamenti segnalati in direzione di '%' ma l'arco di destinazione "
+"'%' ha solamente % corsie adatte"
 
 #: src/netbuild/NBEdge.cpp:2811
 msgid ""
 "Cannot apply turn sign information for edge '%' because not enough target "
 "lanes could be determined for direction '%'"
 msgstr ""
+"Non si possono applicare le informazioni di svolta per l'arco '%' perché non "
+"sono stati trovati corsie sufficienti per la direzione '%'"
 
 #: src/netbuild/NBEdge.cpp:3066
 msgid "Edge '%' is not connected to outgoing edges at junction '%'."
@@ -10380,15 +10391,15 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:125
 msgid "Continue if a route could not be build"
-msgstr ""
+msgstr "Continua anche se un'itinerario non poteva essere costruito"
 
 #: src/router/ROFrame.cpp:128
 msgid "Prune the number of alternatives to INT"
-msgstr ""
+msgstr "Taglia il numero di alternative per ottenere al massimo INT"
 
 #: src/router/ROFrame.cpp:131
 msgid "Use origin and destination zones (districts) for in- and output"
-msgstr ""
+msgstr "Usa distretti di origine e di destinazione come ingresso e uscita"
 
 #: src/router/ROFrame.cpp:139
 msgid "Assume input is unsorted"
@@ -10467,34 +10478,34 @@ msgstr ""
 
 #: src/router/ROFrame.cpp:224
 msgid "Defaults will override given values"
-msgstr ""
+msgstr "I valori standard avranno la priorità sui valori dati"
 
 #: src/router/ROFrame.cpp:228
 msgid "Defines how often statistics shall be printed"
-msgstr ""
+msgstr "Definisce con quale frequenza le statistiche verranno impresse"
 
 #: src/router/ROFrame.cpp:239
 msgid "No output specified."
-msgstr ""
+msgstr "Nessun'uscita è stata specificata."
 
 #: src/router/ROFrame.cpp:244
 msgid "A positive number of alternatives must be enabled."
-msgstr ""
+msgstr "il numero di alternative deve essere positivo."
 
 #: src/router/ROLoader.cpp:62 src/router/ROLoader.cpp:64
 #: src/router/ROLoader.cpp:83 src/router/ROLoader.cpp:85
 msgid "Trying to set a weight for the unknown edge '%'."
-msgstr ""
+msgstr "Prova di assegnare un peso per l'arco sconosciuto '%'."
 
 #: src/router/ROLoader.cpp:114
 #, c-format
 msgid "The network file '%' is not accessible."
-msgstr ""
+msgstr "Il file di rete '%' non è accessibile."
 
 #: src/router/ROLoader.cpp:142
 #, c-format
 msgid "The additional file '%' is not accessible."
-msgstr ""
+msgstr "Il file di elementi addizionali '%' non è accessibile."
 
 #: src/router/ROLoader.cpp:219
 msgid "Routes found between time steps % and %."
