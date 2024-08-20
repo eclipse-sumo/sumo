@@ -31,12 +31,14 @@
 // method definitions
 // ===========================================================================
 
-GNERide*
-GNERide::buildRide(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                   double arrivalPosition, const std::vector<std::string>& lines) {
-    // declare icon an tag
-    const auto iconTag = getRideTagIcon(planParameters);
-    return new GNERide(net, iconTag.first, iconTag.second, personParent, planParameters, arrivalPosition, lines);
+GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                 double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
+                                     GNEDemandElementPlan(this, -1, arrivalPosition),
+myLines(lines) {
 }
 
 
@@ -292,17 +294,6 @@ GNERide::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines) {
 }
 
 /****************************************************************************/

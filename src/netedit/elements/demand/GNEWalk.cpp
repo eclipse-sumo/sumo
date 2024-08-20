@@ -33,21 +33,22 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk*
-GNEWalk::buildWalk(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                   const double arrivalPosition) {
-    // declare icon an tag
-    const auto iconTag = getWalkTagIcon(planParameters);
-    return new GNEWalk(net, iconTag.first, iconTag.second, personParent, planParameters, arrivalPosition);
-}
-
-
 GNEWalk::GNEWalk(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_WALK, tag, GUIIconSubSys::getIcon(GUIIcon::WALK_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                 const double arrivalPosition) :
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
+GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 
@@ -257,16 +258,6 @@ GNEWalk::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList)
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                 const double arrivalPosition) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition) {
 }
 
 /****************************************************************************/

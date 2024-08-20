@@ -32,15 +32,6 @@
 // method definitions
 // ===========================================================================
 
-GNETranship*
-GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                           const double arrivalPosition, const double departPosition, const double speed) {
-    // declare icon an tag
-    const auto iconTag = getTranshipTagIcon(planParameters);
-    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, planParameters, departPosition, arrivalPosition, speed);
-}
-
-
 GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
@@ -48,6 +39,17 @@ GNETranship::GNETranship(SumoXMLTag tag, GNENet* net) :
 mySpeed(0) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                         const double departPosition, const double arrivalPosition, const double speed) :
+    GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
+GNEDemandElementPlan(this, departPosition, arrivalPosition),
+mySpeed(speed) {
 }
 
 
@@ -285,17 +287,6 @@ GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                         const double departPosition, const double arrivalPosition, const double speed) :
-    GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
-GNEDemandElementPlan(this, departPosition, arrivalPosition),
-mySpeed(speed) {
 }
 
 /****************************************************************************/

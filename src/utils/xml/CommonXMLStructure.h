@@ -46,6 +46,9 @@ public:
         /// @brief constructor for parsing the parameters from SUMOSAXAttributes
         PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk);
 
+        /// @brief check if this is a single-edge plan
+        bool isSingleEdgePlan() const;
+
         /// @brief from junction
         std::string fromJunction;
 

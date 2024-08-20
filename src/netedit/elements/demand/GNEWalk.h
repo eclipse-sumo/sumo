@@ -39,17 +39,19 @@ class GNEVehicle;
 class GNEWalk : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for walks
-     * @param[in] net Network in which this walk is placed
-     * @param[in] personParent person parent
-     * @param[in] planParameters plan parameters
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
-    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                              const double arrivalPosition);
-
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildWalk
+     * @param[in] net Network in which this Walk is placed
+     * @param[in] tag walk tag
+     * @param[in] icon walk icon
+     * @param[in] personParent person parent
+     * @param[in] planParameters plan parameters
+     * @param[in] arrivalPosition arrival position
+     */
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+            const double arrivalPosition);
 
     /// @brief destructor
     ~GNEWalk();
@@ -211,17 +213,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildWalk
-     * @param[in] net Network in which this Walk is placed
-     * @param[in] tag walk tag
-     * @param[in] icon walk icon
-     * @param[in] personParent person parent
-     * @param[in] planParameters plan parameters
-     * @param[in] arrivalPosition arrival position
-     */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-            const double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

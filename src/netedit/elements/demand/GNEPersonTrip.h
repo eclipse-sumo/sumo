@@ -39,21 +39,21 @@ class GNEVehicle;
 class GNEPersonTrip : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for personTrip
+    /// @brief default constructor
+    GNEPersonTrip(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildPersonTrip
      * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] personParent person parent
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
      * @param[in] planParameters plan parameters
-     * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                                          const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                                          const std::vector<std::string>& lines);
-
-    /// @brief default constructor
-    GNEPersonTrip(SumoXMLTag tag, GNENet* net);
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -225,19 +225,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildPersonTrip
-     * @param[in] net Network in which this PersonTrip is placed
-     * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
-     * @param[in] planParameters plan parameters
-     * @param[in] types list of possible vehicle types to take
-     * @param[in] modes list of possible traffic modes
-     * @param[in] lines list of lines
-     */
-    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;

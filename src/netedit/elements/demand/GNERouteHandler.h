@@ -64,9 +64,6 @@ public:
                           const CommonXMLStructure::PlanParameters& planParameters,
                           const GNENetHelper::AttributeCarriers* ACs);
 
-        /// @brief check if this is a single-edge plan
-        bool isSingleEdgePlan() const;
-
         /// @brief add the given element in the element as child
         void addChildElements(GNEDemandElement* element);
 

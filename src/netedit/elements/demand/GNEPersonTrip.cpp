@@ -31,22 +31,25 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip*
-GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                               double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                               const std::vector<std::string>& lines) {
-    // declare icon an tag
-    const auto iconTag = getPersonTripTagIcon(planParameters);
-    return new GNEPersonTrip(net, iconTag.first, iconTag.second, personParent, planParameters, arrivalPosition, types, modes, lines);
-}
-
-
 GNEPersonTrip::GNEPersonTrip(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(GUIIcon::PERSONTRIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
+    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
+GNEDemandElementPlan(this, -1, arrivalPosition),
+myVTypes(types),
+myModes(modes),
+myLines(lines) {
 }
 
 
@@ -303,19 +306,6 @@ GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
-    GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myVTypes(types),
-myModes(modes),
-myLines(lines) {
 }
 
 /****************************************************************************/

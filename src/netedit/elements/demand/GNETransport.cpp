@@ -31,21 +31,23 @@
 // method definitions
 // ===========================================================================
 
-GNETransport*
-GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                             const double arrivalPosition, const std::vector<std::string>& lines) {
-    // declare icon an tag
-    const auto iconTag = getTransportTagIcon(planParameters);
-    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, planParameters, arrivalPosition, lines);
-}
-
-
 GNETransport::GNETransport(SumoXMLTag tag, GNENet* net) :
     GNEDemandElement("", net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(GUIIcon::TRANSHIP_EDGE),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT, {}, {}, {}, {}, {}, {}),
 GNEDemandElementPlan(this, -1, -1) {
     // reset default values
     resetDefaultValues();
+}
+
+
+GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                           const double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
+GNEDemandElementPlan(this, -1, arrivalPosition),
+myLines(lines) {
 }
 
 
@@ -277,17 +279,6 @@ GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undo
     // now adjust start position
     setAttribute(SUMO_ATTR_ARRIVALPOS, toString(moveResult.newFirstPos), undoList);
     undoList->end();
-}
-
-
-GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                           const double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
-                     planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines) {
 }
 
 /****************************************************************************/

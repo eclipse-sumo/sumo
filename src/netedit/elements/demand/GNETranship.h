@@ -39,19 +39,21 @@ class GNEVehicle;
 class GNETranship : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for tranships
-     * @param[in] net Network in which this tranship is placed
-     * @param[in] containerParent person parent
+    /// @brief default constructor
+    GNETranship(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildTranship
+     * @param[in] net Network in which this Tranship is placed
+     * @param[in] tag tranship tag
+     * @param[in] icon tranship icon
+     * @param[in] containerParent demand element parent
      * @param[in] planParameters plan parameters
      * @param[in] departPosition depart pos
      * @param[in] arrivalPosition arrival pos
      * @param[in] speed tranship speed
      */
-    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                                      const double arrivalPosition, const double departPosition, const double speed);
-
-    /// @brief default constructor
-    GNETranship(SumoXMLTag tag, GNENet* net);
+    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief destructor
     ~GNETranship();
@@ -217,19 +219,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildTranship
-     * @param[in] net Network in which this Tranship is placed
-     * @param[in] tag tranship tag
-     * @param[in] icon tranship icon
-     * @param[in] containerParent demand element parent
-     * @param[in] planParameters plan parameters
-     * @param[in] departPosition depart pos
-     * @param[in] arrivalPosition arrival pos
-     * @param[in] speed tranship speed
-     */
-    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief Invalidated copy constructor.
     GNETranship(GNETranship*) = delete;

@@ -39,18 +39,19 @@ class GNEVehicle;
 class GNERide : public GNEDemandElement, public Parameterised, public GNEDemandElementPlan {
 
 public:
-    /**@brief general constructor for rides
-     * @param[in] net Network in which this rides is placed
-     * @param[in] personParent person parent
-     * @param[in] planParameters plan parameters
-     * @param[in] arrivalPosition arrival position on the destination edge
-     * @param[in] lines list of lines
-     */
-    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-                              double arrivalPosition, const std::vector<std::string>& lines);
-
     /// @brief default constructor
     GNERide(SumoXMLTag tag, GNENet* net);
+
+    /**@brief constructor called in buildRide
+     * @param[in] net Network in which this Ride is placed
+     * @param[in] tag personTrip tag
+     * @param[in] icon personTrip icon
+     * @param[in] personParent person parent
+     * @param[in] planParameters plan parameters
+     * @param[in] lines list of lines
+     */
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+            double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
@@ -216,17 +217,6 @@ private:
 
     /// @brief commit move shape
     void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
-
-    /**@brief constructor called in buildRide
-     * @param[in] net Network in which this Ride is placed
-     * @param[in] tag personTrip tag
-     * @param[in] icon personTrip icon
-     * @param[in] personParent person parent
-     * @param[in] planParameters plan parameters
-     * @param[in] lines list of lines
-     */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
-            double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;
