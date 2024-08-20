@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/demand/GNEPlanParameters.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
@@ -215,11 +216,11 @@ GNEEdge::checkDrawFromContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the from edge
-        if (planCreator->getPlanParameteres().fromEdge == this) {
+        if (planCreator->getPlanParameteres()->fromEdge == this) {
             return true;
         } else {
             // mark all consecutive edges
-            for (const auto& edge : planCreator->getPlanParameteres().consecutiveEdges) {
+            for (const auto& edge : planCreator->getPlanParameteres()->consecutiveEdges) {
                 if (edge == this) {
                     return true;
                 }
@@ -248,7 +249,7 @@ GNEEdge::checkDrawToContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the to edge
-        if (planCreator->getPlanParameteres().toEdge == this) {
+        if (planCreator->getPlanParameteres()->toEdge == this) {
             return true;
         }
     }

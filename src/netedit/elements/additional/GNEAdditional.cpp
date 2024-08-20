@@ -22,6 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/demand/GNEPlanParameters.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -217,8 +218,8 @@ GNEAdditional::checkDrawFromContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the from additional
-        if ((planCreator->getPlanParameteres().fromStoppingPlace == this) ||
-                (planCreator->getPlanParameteres().fromTAZ == this)) {
+        if ((planCreator->getPlanParameteres()->fromStoppingPlace == this) ||
+                (planCreator->getPlanParameteres()->fromTAZ == this)) {
             return true;
         }
     }
@@ -276,8 +277,8 @@ GNEAdditional::checkDrawToContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the to additional
-        if ((planCreator->getPlanParameteres().toStoppingPlace == this) ||
-                (planCreator->getPlanParameteres().toTAZ == this)) {
+        if ((planCreator->getPlanParameteres()->toStoppingPlace == this) ||
+                (planCreator->getPlanParameteres()->toTAZ == this)) {
             return true;
         }
     }

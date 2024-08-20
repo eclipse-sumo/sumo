@@ -26,6 +26,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/elements/demand/GNEPlanParameters.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
@@ -187,7 +188,7 @@ GNEJunction::checkDrawFromContour() const {
         // continue depending of planCreator
         if (planCreator) {
             // check if this is the from edge
-            if (planCreator->getPlanParameteres().fromJunction == this) {
+            if (planCreator->getPlanParameteres()->fromJunction == this) {
                 return true;
             }
         }
@@ -246,7 +247,7 @@ GNEJunction::checkDrawToContour() const {
         // continue depending of planCreator
         if (planCreator) {
             // check if this is the from edge
-            if (planCreator->getPlanParameteres().toJunction == this) {
+            if (planCreator->getPlanParameteres()->toJunction == this) {
                 return true;
             }
         }
