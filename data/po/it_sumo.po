@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-19 15:42+0000\n"
+"PO-Revision-Date: 2024-08-20 09:13+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -9890,11 +9890,11 @@ msgstr ""
 
 #: src/od2trips_main.cpp:276
 msgid "No districts loaded."
-msgstr ""
+msgstr "Nessun distretto è stato caricato."
 
 #: src/od2trips_main.cpp:282
 msgid "No vehicles loaded."
-msgstr ""
+msgstr "Nessun veicolo è stato caricato."
 
 #: src/od/ODAmitranHandler.cpp:48
 msgid "Invalid duration for timeSlice starting %."
@@ -9903,15 +9903,16 @@ msgstr ""
 #: src/od/ODDistrictCont.cpp:72
 #, c-format
 msgid "Could not access network file '%' to load."
-msgstr ""
+msgstr "Non è stato possibile accedere al file di rete '%' da caricare."
 
 #: src/od/ODDistrictHandler.cpp:130
 msgid "'probability' must be positive (in definition of % '%')."
 msgstr ""
+"'probability' deve assumere un valore positivo (nella definizione di % '%')."
 
 #: src/od/ODMatrix.cpp:84
 msgid "Missing origin '%' and destination '%' (% vehicles)."
-msgstr ""
+msgstr "Mancano origine '%' e destinazione '%' (% veicoli)."
 
 #: src/od/ODMatrix.cpp:90
 msgid "Missing origin '%' (% vehicles)."
