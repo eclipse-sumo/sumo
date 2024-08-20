@@ -65,6 +65,9 @@ public:
     /// @brief add the given element in the element as child
     void addChildElements(GNEDemandElement* element);
 
+    /// @brief clear elements
+    void clear();
+
     /// @brief get junctions (used in plan constructors)
     std::vector<GNEJunction*> getJunctions() const;
 
@@ -95,35 +98,11 @@ public:
     /// @brief to TAZ
     GNEAdditional* toTAZ = nullptr;
 
-    /// @brief from busStop
-    GNEAdditional* fromBusStop = nullptr;
+    /// @brief from stoppingPlace
+    GNEAdditional* fromStoppingPlace = nullptr;
 
-    /// @brief to busStop
-    GNEAdditional* toBusStop = nullptr;
-
-    /// @brief from trainStop
-    GNEAdditional* fromTrainStop = nullptr;
-
-    /// @brief to trainStop
-    GNEAdditional* toTrainStop = nullptr;
-
-    /// @brief from containerStop
-    GNEAdditional* fromContainerStop = nullptr;
-
-    /// @brief to containerStop
-    GNEAdditional* toContainerStop = nullptr;
-
-    /// @brief from chargingStation
-    GNEAdditional* fromChargingStation = nullptr;
-
-    /// @brief to chargingStation
-    GNEAdditional* toChargingStation = nullptr;
-
-    /// @brief from parkingArea
-    GNEAdditional* fromParkingArea = nullptr;
-
-    /// @brief to parkingArea
-    GNEAdditional* toParkingArea = nullptr;
+    /// @brief to stoppingPlace
+    GNEAdditional* toStoppingPlace = nullptr;
 
     /// @brief edges
     std::vector<GNEEdge*> consecutiveEdges;
@@ -137,20 +116,8 @@ public:
     /// @brief edge
     GNEEdge* edge = nullptr;
 
-    /// @brief bus stop
-    GNEAdditional* busStop = nullptr;
-
-    /// @brief train stop
-    GNEAdditional* trainStop = nullptr;
-
-    /// @brief charging station
-    GNEAdditional* chargingStation = nullptr;
-
-    /// @brief charging station
-    GNEAdditional* containerStop = nullptr;
-
-    /// @brief parking area
-    GNEAdditional* parkingArea = nullptr;
+    /// @brief stoppingPlace
+    GNEAdditional* stoppingPlace = nullptr;
 
     /// @}
 

@@ -63,20 +63,40 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* s
     fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.fromTAZ, false);
     toTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.toTAZ, false);
     // bus stops
-    fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromBusStop, false);
-    toBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toBusStop, false);
+    if (fromStoppingPlace == nullptr) {
+        fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromBusStop, false);
+    }
+    if (toStoppingPlace == nullptr) {
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toTrainStop, false);
+    }
     // train stops
-    fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.fromTrainStop, false);
-    toTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toTrainStop, false);
+    if (fromStoppingPlace == nullptr) {
+        fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.fromTrainStop, false);
+    }
+    if (toStoppingPlace == nullptr) {
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toTrainStop, false);
+    }
     // container stops
-    fromContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.fromContainerStop, false);
-    toContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.toContainerStop, false);
+    if (fromStoppingPlace == nullptr) {
+        fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.fromContainerStop, false);
+    }
+    if (toStoppingPlace == nullptr) {
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.toContainerStop, false);
+    }
     // charging station
-    fromChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.fromChargingStation, false);
-    toChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.toChargingStation, false);
+    if (fromStoppingPlace == nullptr) {
+        fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.fromChargingStation, false);
+    }
+    if (toStoppingPlace == nullptr) {
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.toChargingStation, false);
+    }
     // parking area
-    fromParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.fromParkingArea, false);
-    toParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
+    if (fromStoppingPlace == nullptr) {
+        fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.fromParkingArea, false);
+    }
+    if (toStoppingPlace == nullptr) {
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
+    }
     // edges
     for (const auto& edgeID : planParameters.consecutiveEdges) {
         auto parsedEdge = ACs->retrieveEdge(edgeID, false);
@@ -89,23 +109,20 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* s
     route = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.route, false);
     // stops
     edge = ACs->retrieveEdge(planParameters.fromEdge, false);
-    busStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.busStop, false);
-    trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.trainStop, false);
-    containerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.containerStop, false);
-    chargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.chargingStation, false);
-    parkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.parkingArea, false);
-    // due busStops and trainStops share namespace, we need to check in both directions
-    if ((fromBusStop == nullptr) && (fromTrainStop == nullptr)) {
-        fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromTrainStop, false);
-        fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.fromBusStop, false);
+    if (stoppingPlace == nullptr) {
+        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.busStop, false);
     }
-    if ((toBusStop == nullptr) && (toTrainStop == nullptr)) {
-        toBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toTrainStop, false);
-        toTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toBusStop, false);
+    if (stoppingPlace == nullptr) {
+        trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.trainStop, false);
     }
-    if ((busStop == nullptr) && (trainStop == nullptr)) {
-        busStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.trainStop, false);
-        trainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.busStop, false);
+    if (stoppingPlace == nullptr) {
+        containerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.containerStop, false);
+    }
+    if (stoppingPlace == nullptr) {
+        chargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.chargingStation, false);
+    }
+    if (stoppingPlace == nullptr) {
+        parkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.parkingArea, false);
     }
 }
 
@@ -130,35 +147,11 @@ GNEPlanParameters::addChildElements(GNEDemandElement* element) {
     if (toTAZ) {
         toTAZ->addChildElement(element);
     }
-    if (fromBusStop) {
-        fromBusStop->addChildElement(element);
+    if (fromStoppingPlace) {
+        fromStoppingPlace->addChildElement(element);
     }
-    if (toBusStop) {
-        toBusStop->addChildElement(element);
-    }
-    if (fromTrainStop) {
-        fromTrainStop->addChildElement(element);
-    }
-    if (toTrainStop) {
-        toTrainStop->addChildElement(element);
-    }
-    if (fromContainerStop) {
-        fromContainerStop->addChildElement(element);
-    }
-    if (toContainerStop) {
-        toContainerStop->addChildElement(element);
-    }
-    if (fromChargingStation) {
-        fromChargingStation->addChildElement(element);
-    }
-    if (toChargingStation) {
-        toChargingStation->addChildElement(element);
-    }
-    if (fromParkingArea) {
-        fromParkingArea->addChildElement(element);
-    }
-    if (toParkingArea) {
-        toParkingArea->addChildElement(element);
+    if (toStoppingPlace) {
+        toStoppingPlace->addChildElement(element);
     }
     for (const auto& it : consecutiveEdges) {
         it->addChildElement(element);
@@ -169,22 +162,28 @@ GNEPlanParameters::addChildElements(GNEDemandElement* element) {
     if (edge) {
         edge->addChildElement(element);
     }
-    if (busStop) {
-        busStop->addChildElement(element);
-    }
-    if (trainStop) {
-        trainStop->addChildElement(element);
-    }
-    if (chargingStation) {
-        chargingStation->addChildElement(element);
-    }
-    if (containerStop) {
-        containerStop->addChildElement(element);
-    }
-    if (parkingArea) {
-        parkingArea->addChildElement(element);
+    if (stoppingPlace) {
+        stoppingPlace->addChildElement(element);
     }
 }
+
+
+void
+GNEPlanParameters::clear() {
+    fromJunction = nullptr;
+    toJunction = nullptr;
+    fromEdge = nullptr;
+    toEdge = nullptr;
+    fromTAZ = nullptr;
+    toTAZ = nullptr;
+    fromStoppingPlace = nullptr;
+    toStoppingPlace = nullptr;
+    consecutiveEdges.clear();
+    route = nullptr;
+    edge = nullptr;
+    stoppingPlace = nullptr;
+}
+
 
 std::vector<GNEJunction*>
 GNEPlanParameters::getJunctions() const {
@@ -222,35 +221,11 @@ GNEPlanParameters::getEdges() const {
 std::vector<GNEAdditional*>
 GNEPlanParameters::getAdditionalElements() const {
     std::vector<GNEAdditional*> additionals;
-    if (fromBusStop) {
-        additionals.push_back(fromBusStop);
+    if (fromStoppingPlace) {
+        additionals.push_back(fromStoppingPlace);
     }
-    if (toBusStop) {
-        additionals.push_back(toBusStop);
-    }
-    if (fromTrainStop) {
-        additionals.push_back(fromTrainStop);
-    }
-    if (toTrainStop) {
-        additionals.push_back(toTrainStop);
-    }
-    if (fromContainerStop) {
-        additionals.push_back(fromContainerStop);
-    }
-    if (toContainerStop) {
-        additionals.push_back(toContainerStop);
-    }
-    if (fromChargingStation) {
-        additionals.push_back(fromChargingStation);
-    }
-    if (toChargingStation) {
-        additionals.push_back(toChargingStation);
-    }
-    if (fromParkingArea) {
-        additionals.push_back(fromParkingArea);
-    }
-    if (toParkingArea) {
-        additionals.push_back(toParkingArea);
+    if (toStoppingPlace) {
+        additionals.push_back(toStoppingPlace);
     }
     if (fromTAZ) {
         additionals.push_back(fromTAZ);
@@ -258,20 +233,8 @@ GNEPlanParameters::getAdditionalElements() const {
     if (toTAZ) {
         additionals.push_back(toTAZ);
     }
-    if (busStop) {
-        additionals.push_back(busStop);
-    }
-    if (trainStop) {
-        additionals.push_back(trainStop);
-    }
-    if (chargingStation) {
-        additionals.push_back(chargingStation);
-    }
-    if (containerStop) {
-        additionals.push_back(containerStop);
-    }
-    if (parkingArea) {
-        additionals.push_back(parkingArea);
+    if (stoppingPlace) {
+        additionals.push_back(stoppingPlace);
     }
     return additionals;
 }
@@ -320,7 +283,7 @@ GNEPlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject
                                         const GNENetHelper::AttributeCarriers* ACs) {
     // check if previous plan object was defined but not the from
     const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
-    if (previousPlanObj && !(fromJunction || fromEdge || fromTAZ || fromBusStop || fromTrainStop || fromContainerStop || fromChargingStation)) {
+    if (previousPlanObj && !(fromJunction || fromEdge || fromTAZ || fromStoppingPlace)) {
         // edges
         if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
             fromEdge = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
@@ -344,15 +307,15 @@ GNEPlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject
             fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, previousPlanObj->getStringAttribute(SUMO_ATTR_FROM_TAZ), false);
             // stoppingPlaces
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
-            fromBusStop = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
+            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
-            fromTrainStop = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
+            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-            fromContainerStop = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
+            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CHARGING_STATION)) {
-            fromChargingStation = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION), false);
+            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION), false);
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_PARKING_AREA)) {
-            fromParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA), false);
+            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA), false);
         }
     }
 }
