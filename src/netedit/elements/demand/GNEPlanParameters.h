@@ -58,11 +58,15 @@ public:
     GNEPlanParameters();
 
     /// @brief constructor for parsing the parameters from SUMOSAXAttributes
-    GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
+    GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                      const CommonXMLStructure::PlanParameters& planParameters,
                       const GNENetHelper::AttributeCarriers* ACs);
 
     /// @brief add the given element in the element as child
     void addChildElements(GNEDemandElement* element);
+
+    /// @brief check if this is a single-edge plan
+    bool isSingleEdgePlan() const;
 
     /// @brief clear elements
     void clear();
@@ -127,10 +131,4 @@ private:
     /// @brief get previous plan element if was not defined previoulsy (used for loaded elements)
     void updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
                               const GNENetHelper::AttributeCarriers* ACs);
-
-    /// @brief invalidate copy constructor
-    GNEPlanParameters(const GNEPlanParameters& s) = delete;
-
-    /// @brief invalidate assignment operator
-    GNEPlanParameters& operator=(const GNEPlanParameters& s) = delete;
 };

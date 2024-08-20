@@ -74,26 +74,6 @@ CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attr
     parkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
 }
 
-
-bool
-CommonXMLStructure::PlanParameters::isSingleEdgePlan() const {
-    return fromJunction.empty() && toJunction.empty() &&
-           !fromEdge.empty() && toEdge.empty() &&   // only this
-           fromTAZ.empty() && toTAZ.empty() &&
-           fromBusStop.empty() && toBusStop.empty() &&
-           fromTrainStop.empty() && toTrainStop.empty() &&
-           fromContainerStop.empty() && toContainerStop.empty() &&
-           fromChargingStation.empty() && toChargingStation.empty() &&
-           fromParkingArea.empty() && toParkingArea.empty() &&
-           consecutiveEdges.empty() && route.empty() &&
-           edge.empty() &&
-           busStop.empty() &&
-           trainStop.empty() &&
-           chargingStation.empty() &&
-           containerStop.empty() &&
-           parkingArea.empty();
-}
-
 // ---------------------------------------------------------------------------
 // CommonXMLStructure::SumoBaseObject - methods
 // ---------------------------------------------------------------------------

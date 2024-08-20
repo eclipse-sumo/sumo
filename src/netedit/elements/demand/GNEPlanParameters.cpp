@@ -50,7 +50,8 @@
 GNEPlanParameters::GNEPlanParameters() {}
 
 
-GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
+GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                                     const CommonXMLStructure::PlanParameters& planParameters,
                                      const GNENetHelper::AttributeCarriers* ACs) {
     // junctions
     fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
@@ -123,6 +124,8 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::PlanParameters& p
     if (stoppingPlace == nullptr) {
         stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.parkingArea, false);
     }
+    // update from attributes
+    updateFromAttributes(sumoBaseObject, ACs);
 }
 
 
@@ -164,6 +167,19 @@ GNEPlanParameters::addChildElements(GNEDemandElement* element) {
     if (stoppingPlace) {
         stoppingPlace->addChildElement(element);
     }
+}
+
+
+bool
+GNEPlanParameters::isSingleEdgePlan() const {
+    return !fromJunction && !toJunction &&
+           fromEdge && !toEdge &&   // only from edge this
+           !fromTAZ && !toTAZ &&
+           !fromStoppingPlace && !toStoppingPlace &&
+           consecutiveEdges.empty() &&
+           !route &&
+           !edge &&
+           !stoppingPlace;
 }
 
 
