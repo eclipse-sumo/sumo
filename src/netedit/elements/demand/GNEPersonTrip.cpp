@@ -40,7 +40,7 @@ GNEDemandElementPlan(this, -1, -1) {
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
                              double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,

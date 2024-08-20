@@ -46,7 +46,7 @@ public:
      * @param[in] friendlyPos friendly pos
      * @param[in] parameterSet parameter sets
      */
-    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
                 const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet);
 
     /// @brief destructor

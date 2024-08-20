@@ -42,7 +42,7 @@ mySpeed(0) {
 }
 
 
-GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParameters& planParameters,
                          const double departPosition, const double arrivalPosition, const double speed) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,

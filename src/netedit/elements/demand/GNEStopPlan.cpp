@@ -42,7 +42,7 @@ GNEDemandElementPlan(this, -1, -1) {
 }
 
 
-GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+GNEStopPlan::GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
                          const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet) :
     GNEDemandElement(personParent, net, GLO_STOP_PLAN, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,

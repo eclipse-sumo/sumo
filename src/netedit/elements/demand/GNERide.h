@@ -50,7 +50,7 @@ public:
      * @param[in] planParameters plan parameters
      * @param[in] lines list of lines
      */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
             double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor
