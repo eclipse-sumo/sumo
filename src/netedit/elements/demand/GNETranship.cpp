@@ -293,7 +293,7 @@ GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandEle
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
+planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
 GNEDemandElementPlan(this, departPosition, arrivalPosition),
 mySpeed(speed) {
 }

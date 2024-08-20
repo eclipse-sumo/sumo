@@ -79,7 +79,7 @@ GNERouteHandler::GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::
     fromParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.fromParkingArea, false);
     toParkingArea = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
     // edges
-    for (const auto& edgeID : planParameters.edges) {
+    for (const auto& edgeID : planParameters.consecutiveEdges) {
         auto parsedEdge = ACs->retrieveEdge(edgeID, false);
         // avoid null and consecutive dulicated edges
         if (parsedEdge && (edges.empty() || (edges.back() != parsedEdge))) {
@@ -1629,7 +1629,7 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     }
     // path
     if (tagProperty.planConsecutiveEdges()) {
-        planParameters.edges = GNEAttributeCarrier::parse<std::vector<std::string> >(originalPlan->getAttribute(SUMO_ATTR_EDGES));
+        planParameters.consecutiveEdges = GNEAttributeCarrier::parse<std::vector<std::string> >(originalPlan->getAttribute(SUMO_ATTR_EDGES));
     }
     // other elements
     planObject->addTimeAttribute(SUMO_ATTR_DURATION, 60);

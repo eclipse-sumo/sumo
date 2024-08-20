@@ -285,7 +285,7 @@ GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandE
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
-planParameters.getAdditionalElements(), planParameters.getDemandElements(), {}),
+planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
 GNEDemandElementPlan(this, -1, arrivalPosition),
 myLines(lines) {
 }

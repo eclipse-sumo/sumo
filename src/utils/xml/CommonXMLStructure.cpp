@@ -62,7 +62,7 @@ CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attr
     fromParkingArea = attrs.getOpt<std::string>(GNE_ATTR_FROM_PARKINGAREA, "", parsedOk, "");
     toParkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
     // list of consecutive edges
-    edges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
+    consecutiveEdges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
     // route
     route = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, "");
     // stops
@@ -72,45 +72,6 @@ CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attr
     containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
     parkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
-}
-
-
-CommonXMLStructure::PlanParameters::PlanParameters(const std::map<SumoXMLAttr, std::string>& values) {
-    // junctions
-    fromJunction = values.at(SUMO_ATTR_FROM_JUNCTION);
-    toJunction = values.at(SUMO_ATTR_TO_JUNCTION);
-    // edges
-    fromEdge = values.at(SUMO_ATTR_FROM);
-    toEdge = values.at(SUMO_ATTR_TO);
-    // TAZs
-    fromTAZ = values.at(SUMO_ATTR_FROM_TAZ);
-    toTAZ = values.at(SUMO_ATTR_TO_TAZ);
-    // bus stops
-    fromBusStop = values.at(GNE_ATTR_FROM_BUSSTOP);
-    toBusStop = values.at(SUMO_ATTR_BUS_STOP);
-    // train stops
-    fromTrainStop = values.at(GNE_ATTR_FROM_TRAINSTOP);
-    toTrainStop = values.at(SUMO_ATTR_TRAIN_STOP);
-    // container stops
-    fromContainerStop = values.at(GNE_ATTR_FROM_CONTAINERSTOP);
-    toContainerStop = values.at(SUMO_ATTR_CONTAINER_STOP);
-    // charging stations
-    fromChargingStation = values.at(GNE_ATTR_FROM_CHARGINGSTATION);
-    toChargingStation = values.at(SUMO_ATTR_CHARGING_STATION);
-    // parking areas
-    fromParkingArea = values.at(GNE_ATTR_FROM_PARKINGAREA);
-    toParkingArea = values.at(SUMO_ATTR_PARKING_AREA);
-    // list of consecutive edges
-    edges = StringTokenizer(values.at(SUMO_ATTR_EDGES)).getVector();
-    // route
-    route = values.at(SUMO_ATTR_ROUTE);
-    // stops
-    edge = values.at(SUMO_ATTR_EDGE);
-    busStop = values.at(SUMO_ATTR_BUS_STOP);
-    trainStop = values.at(SUMO_ATTR_TRAIN_STOP);
-    containerStop = values.at(SUMO_ATTR_CONTAINER_STOP);
-    chargingStation = values.at(SUMO_ATTR_CHARGING_STATION);
-    parkingArea = values.at(SUMO_ATTR_PARKING_AREA);
 }
 
 // ---------------------------------------------------------------------------
