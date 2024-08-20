@@ -58,8 +58,7 @@ public:
     GNEPlanParameters();
 
     /// @brief constructor for parsing the parameters from SUMOSAXAttributes
-    GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                      const CommonXMLStructure::PlanParameters& planParameters,
+    GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
                       const GNENetHelper::AttributeCarriers* ACs);
 
     /// @brief add the given element in the element as child
