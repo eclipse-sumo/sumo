@@ -1116,10 +1116,12 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromLaneID",                         GNE_ATTR_FROM_LANEID },
     { "toLaneID",                           GNE_ATTR_TO_LANEID },
     { "tazCentroid",                        GNE_ATTR_TAZ_CENTROID },
-    // mapped to additioanl elements on writing
+    // mapped to additional elements on writing
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "fromTrainStop",                      GNE_ATTR_FROM_TRAINSTOP },
     { "fromContainerStop",                  GNE_ATTR_FROM_CONTAINERSTOP },
+    { "fromChargingStation",                GNE_ATTR_FROM_CHARGINGSTATION },
+    { "fromParkingArea",                    GNE_ATTR_FROM_PARKINGAREA },
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
