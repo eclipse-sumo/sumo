@@ -131,7 +131,7 @@ public:
         GNEAdditional* toParkingArea;
 
         /// @brief edges
-        std::vector<GNEEdge*> edges;
+        std::vector<GNEEdge*> consecutiveEdges;
 
         /// @brief route (currently only used by walks)
         GNEDemandElement* route;

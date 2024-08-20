@@ -82,8 +82,8 @@ GNERouteHandler::GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::
     for (const auto& edgeID : planParameters.consecutiveEdges) {
         auto parsedEdge = ACs->retrieveEdge(edgeID, false);
         // avoid null and consecutive dulicated edges
-        if (parsedEdge && (edges.empty() || (edges.back() != parsedEdge))) {
-            edges.push_back(parsedEdge);
+        if (parsedEdge && (consecutiveEdges.empty() || (consecutiveEdges.back() != parsedEdge))) {
+            consecutiveEdges.push_back(parsedEdge);
         }
     }
     // route
@@ -121,7 +121,7 @@ GNERouteHandler::GNEPlanParameters::isSingleEdgePlan() const {
            !fromContainerStop && !toContainerStop &&
            !fromChargingStation && !toChargingStation &&
            !fromParkingArea && !toParkingArea &&
-           edges.empty() && !route &&
+           consecutiveEdges.empty() && !route &&
            !edge &&
            !busStop &&
            !trainStop &&
@@ -181,7 +181,7 @@ GNERouteHandler::GNEPlanParameters::addChildElements(GNEDemandElement* element) 
     if (toParkingArea) {
         toParkingArea->addChildElement(element);
     }
-    for (const auto& it : edges) {
+    for (const auto& it : consecutiveEdges) {
         it->addChildElement(element);
     }
     if (route) {
@@ -222,20 +222,20 @@ GNERouteHandler::GNEPlanParameters::getJunctions() const {
 
 std::vector<GNEEdge*>
 GNERouteHandler::GNEPlanParameters::getEdges() const {
-    if (edges.size() > 0) {
-        return edges;
+    if (consecutiveEdges.size() > 0) {
+        return consecutiveEdges;
     } else {
-        std::vector<GNEEdge*> edges2;
+        std::vector<GNEEdge*> edges;
         if (fromEdge) {
-            edges2.push_back(fromEdge);
+            edges.push_back(fromEdge);
         }
         if (toEdge) {
-            edges2.push_back(toEdge);
+            edges.push_back(toEdge);
         }
         if (edge) {
-            edges2.push_back(edge);
+            edges.push_back(edge);
         }
-        return edges2;
+        return edges;
     }
 }
 
@@ -1426,7 +1426,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     CommonXMLStructure::PlanParameters planParameters;
     GNERouteHandler::GNEPlanParameters gnePlanParameters;
     // create plans depending of elements
-    if (gnePlanParameters.edges.size() > 0) {
+    if (gnePlanParameters.consecutiveEdges.size() > 0) {
         // build walk over consecutive edges
         personPlanObject->setTag(GNE_TAG_WALK_EDGES);
         buildWalk(personPlanObject, planParameters, arrivalPos);
@@ -1520,7 +1520,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     CommonXMLStructure::PlanParameters planParameters;
     GNERouteHandler::GNEPlanParameters gnePlanParameters;
     // create plans depending of elements
-    if (gnePlanParameters.edges.size() > 0) {
+    if (gnePlanParameters.consecutiveEdges.size() > 0) {
         // consecutive edges
         containerPlanObject->setTag(GNE_TAG_TRANSHIP_EDGES);
         buildTranship(containerPlanObject, planParameters, speed, departPos, arrivalPos);

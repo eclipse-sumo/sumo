@@ -44,7 +44,7 @@ GNEDemandElementPlan::getWalkTagIcon(const GNERouteHandler::GNEPlanParameters& p
     // special case for elements with from-to edge
     if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
-    } else if (planParameters.edges.size() > 0) {
+    } else if (planParameters.consecutiveEdges.size() > 0) {
         return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
     } else if (planParameters.route) {
         return std::make_pair(GNE_TAG_WALK_ROUTE, GUIIcon::WALK_ROUTE);
@@ -242,7 +242,7 @@ GNEDemandElementPlan::getTranshipTagIcon(const GNERouteHandler::GNEPlanParameter
     // special case for elements with from-to edge
     if (planParameters.isSingleEdgePlan()) {
         return std::make_pair(GNE_TAG_TRANSHIP_EDGE_EDGE, GUIIcon::TRANSHIP_EDGE);
-    } else if (planParameters.edges.size() > 0) {
+    } else if (planParameters.consecutiveEdges.size() > 0) {
         return std::make_pair(GNE_TAG_TRANSHIP_EDGES, GUIIcon::TRANSHIP_EDGES);
     } else if (planParameters.fromEdge && planParameters.toEdge) {
         return std::make_pair(GNE_TAG_TRANSHIP_EDGE_EDGE, GUIIcon::TRANSHIP_EDGE);
