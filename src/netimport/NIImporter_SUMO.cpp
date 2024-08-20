@@ -805,6 +805,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
         // internal junction connection
         return;
     }
+
     Connection conn;
     conn.toEdgeID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
     int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
@@ -814,7 +815,11 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
     conn.indirectLeft = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
     conn.edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "");
-    conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, NBEdge::UNSPECIFIED_CONTPOS);
+    float contPos = NBEdge::UNSPECIFIED_CONTPOS;
+    if (OptionsCont::getOptions().isSet("default.connection.cont-pos")) {
+        contPos = OptionsCont::getOptions().getFloat("default.connection.cont-pos");
+    }
+    conn.contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, contPos);
     conn.visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE);
     std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, nullptr, ok, "", false);
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, nullptr, ok, "", false);

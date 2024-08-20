@@ -82,16 +82,16 @@ NIXMLConnectionsHandler::myStartElement(int element,
         case SUMO_TAG_CONNECTION:
             parseConnection(attrs);
             break;
-        case SUMO_TAG_PROHIBITION: 
+        case SUMO_TAG_PROHIBITION:
             addProhibition(attrs);
             break;
-        case SUMO_TAG_CROSSING: 
+        case SUMO_TAG_CROSSING:
             addCrossing(attrs);
             break;
         case SUMO_TAG_WALKINGAREA:
             addWalkingArea(attrs);
             break;
-        case SUMO_TAG_PARAM: 
+        case SUMO_TAG_PARAM:
             if (myLastParameterised != nullptr) {
                 bool ok = true;
                 const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
@@ -184,6 +184,9 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             } else {
                 from->getToNode()->invalidateTLS(myTLLogicCont, true, false);
             }
+        }
+        if (OptionsCont::getOptions().isSet("default.connection.cont-pos")) {
+            defaultCon.contPos = OptionsCont::getOptions().getFloat("default.connection.cont-pos");
         }
         const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, nullptr, ok, defaultCon.mayDefinitelyPass);
         KeepClear keepClear = defaultCon.keepClear;
@@ -363,7 +366,7 @@ NIXMLConnectionsHandler::parseConnection(const SUMOSAXAttributes& attrs) {
                 || attrs.hasAttribute(SUMO_ATTR_ALLOW)
                 || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
             WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '"
-                    + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
+                        + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
         }
     }
 }

@@ -103,6 +103,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
     oc.doRegister("default.connection-length", new Option_Float((double) NBEdge::UNSPECIFIED_LOADED_LENGTH));
     oc.addDescription("default.connection-length", "Building Defaults", TL("The default length when overriding connection lengths"));
 
+    oc.doRegister("default.connection.cont-pos", new Option_Float((double)NBEdge::UNSPECIFIED_CONTPOS));
+    oc.addDescription("default.connection.cont-pos", "Building Defaults", TL("Whether/where connections should have an internal junction"));
+
     oc.doRegister("default.right-of-way", new Option_String("default"));
     oc.addDescription("default.right-of-way", "Building Defaults", TL("The default algorithm for computing right of way rules ('default', 'edgePriority')"));
 
