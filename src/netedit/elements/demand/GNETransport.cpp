@@ -32,37 +32,11 @@
 // ===========================================================================
 
 GNETransport*
-GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent,
-                             GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromContainerStop,
-                             GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toContainerStop,
-                             double arrivalPosition, const std::vector<std::string>& lines) {
+GNETransport::buildTransport(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                             const double arrivalPosition, const std::vector<std::string>& lines) {
     // declare icon an tag
-    const auto iconTag = getTransportTagIcon(fromEdge, toEdge, fromTAZ, toTAZ,
-                         fromJunction, toJunction, fromContainerStop, toContainerStop);
-    // declare containers
-    std::vector<GNEJunction*> junctions;
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (fromJunction) {
-        junctions.push_back(fromJunction);
-    } else if (fromEdge) {
-        edges.push_back(fromEdge);
-    } else if (fromTAZ) {
-        additionals.push_back(fromTAZ);
-    } else if (fromContainerStop) {
-        additionals.push_back(fromContainerStop);
-    }
-    if (toJunction) {
-        junctions.push_back(toJunction);
-    } else if (toEdge) {
-        edges.push_back(toEdge);
-    } else if (toTAZ) {
-        additionals.push_back(toTAZ);
-    } else if (toContainerStop) {
-        additionals.push_back(toContainerStop);
-    }
-    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, junctions, edges, additionals, arrivalPosition, lines);
+    const auto iconTag = getTransportTagIcon(planParameters);
+    return new GNETransport(net, iconTag.first, iconTag.second, containerParent, planParameters, arrivalPosition, lines);
 }
 
 
@@ -306,12 +280,12 @@ GNETransport::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undo
 }
 
 
-GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                           const std::vector<GNEJunction*>& junctions, const std::vector<GNEEdge*>& edges,
-                           const std::vector<GNEAdditional*>& additionals,
+GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                            const double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, {containerParent}, {}),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(), {}),
 GNEDemandElementPlan(this, -1, arrivalPosition),
 myLines(lines) {
 }

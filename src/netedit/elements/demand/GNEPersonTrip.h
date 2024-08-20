@@ -42,25 +42,14 @@ public:
     /**@brief general constructor for personTrip
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromTAZ from TAZ
-     * @param[in] fromJunction from Junction
-     * @param[in] fromBusStop from busStop
-     * @param[in] fromTrainStop from trainStop
-     * @param[in] toEdge to edge
-     * @param[in] toTAZ to TAZ
-     * @param[in] toJunction to Junction
-     * @param[in] toBusStop to busStop
-     * @param[in] toTrainStop to trainStop
+     * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
-                                          GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                                          GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                                          double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+    static GNEPersonTrip* buildPersonTrip(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                                          const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                                           const std::vector<std::string>& lines);
 
     /// @brief default constructor
@@ -241,17 +230,14 @@ private:
      * @param[in] net Network in which this PersonTrip is placed
      * @param[in] tag personTrip tag
      * @param[in] icon personTrip icon
-     * @param[in] personParent person parent
-     * @param[in] junction from-to juncitons
-     * @param[in] eges from-to edges
-     * @param[in] additionlas from-to additionals
+     * @param[in] planParameters plan parameters
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*>& junctions,
-                  const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition,
-                  const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNEPersonTrip(GNEPersonTrip*) = delete;

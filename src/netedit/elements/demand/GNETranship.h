@@ -42,19 +42,13 @@ public:
     /**@brief general constructor for tranships
      * @param[in] net Network in which this tranship is placed
      * @param[in] containerParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromContainerStop from containerStop
-     * @param[in] toEdge to edge
-     * @param[in] toContainerStop to containerStop
-     * @param[in] edgeList list of edges
+     * @param[in] planParameters plan parameters
      * @param[in] departPosition depart pos
      * @param[in] arrivalPosition arrival pos
      * @param[in] speed tranship speed
      */
-    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent,
-                                      GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromContainerStop,
-                                      GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toContainerStop,
-                                      std::vector<GNEEdge*> edgeList, const double arrivalPosition, const double departPosition, const double speed);
+    static GNETranship* buildTranship(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                                      const double arrivalPosition, const double departPosition, const double speed);
 
     /// @brief default constructor
     GNETranship(SumoXMLTag tag, GNENet* net);
@@ -229,15 +223,12 @@ private:
      * @param[in] tag tranship tag
      * @param[in] icon tranship icon
      * @param[in] containerParent demand element parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
+     * @param[in] planParameters plan parameters
      * @param[in] departPosition depart pos
      * @param[in] arrivalPosition arrival pos
      * @param[in] speed tranship speed
      */
-    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                std::vector<GNEJunction*> junctions, const std::vector<GNEEdge*>& edges,
-                const std::vector<GNEAdditional*>& additionals,
+    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                 const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief Invalidated copy constructor.

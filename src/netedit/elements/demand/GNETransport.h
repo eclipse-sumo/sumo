@@ -42,15 +42,11 @@ public:
     /**@brief general constructor for walks
      * @param[in] net Network in which this walk is placed
      * @param[in] containerParent container parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromContainerStop from containerStop
-     * @param[in] toEdge to edge
-     * @param[in] toContainerStop to containerStop
+     * @param[in] plan parameters plan parameters
      * @param[in] arrivalPosition arrival position on the destination edge
+     * @param[in] lines lines used by this transport
      */
-    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent,
-                                        GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromContainerStop,
-                                        GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toContainerStop,
+    static GNETransport* buildTransport(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                                         const double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief default constructor
@@ -226,11 +222,11 @@ private:
      * @param[in] tag transport tag
      * @param[in] icon transport icon
      * @param[in] containerParent container parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
+     * @param[in] planParameters plan parameters
+     * @param[in] arrivalPosition arrival position
+     * @param[in] lines lines
      */
-    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                 const std::vector<GNEJunction*>& junctions, const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals,
+    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                  const double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.

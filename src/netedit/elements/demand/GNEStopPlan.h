@@ -33,9 +33,7 @@ public:
     /**@brief general constructor for person stop plans
      * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] busStop bus stop
-     * @param[in] trainStop train stop
+     * @param[in] planParameters plan parameters
      * @param[in] endPos end position
      * @param[in] duration stop duration
      * @param[in] until stop until
@@ -43,16 +41,14 @@ public:
      * @param[in] friendlyPos friendly position
      * @param[in] parameterSet parameter sets
      */
-    static GNEStopPlan* buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent,
-                                            GNEEdge* edge, GNEAdditional* busStop, GNEAdditional* trainStop, const double endPos,
-                                            const SUMOTime duration, const SUMOTime until, const std::string& actType,
+    static GNEStopPlan* buildPersonStopPlan(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                                            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType,
                                             const bool friendlyPos, const int parameterSet);
 
     /**@brief general constructor for container stop plans
      * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] containerStop container stop
+     * @param[in] planParameters plan parameters
      * @param[in] endPos end position
      * @param[in] duration stop duration
      * @param[in] until stop until
@@ -60,9 +56,8 @@ public:
      * @param[in] friendlyPos friendly position
      * @param[in] parameterSet parameter sets
      */
-    static GNEStopPlan* buildContainerStopPlan(GNENet* net, GNEDemandElement* personParent,
-            GNEEdge* edge, GNEAdditional* containerStop, const double endPos,
-            const SUMOTime duration, const SUMOTime until, const std::string& actType,
+    static GNEStopPlan* buildContainerStopPlan(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+            const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType,
             const bool friendlyPos, const int parameterSet);
 
     /// @brief default constructor
@@ -268,8 +263,7 @@ private:
      * @param[in] net Network in which this Ride is placed
      * @param[in] tag personTrip tag
      * @param[in] icon personTrip icon
-     * @param[in] personParent person parent
-     * @param[in] eges from-to edges
+     * @param[in] planParameters plan parameters
      * @param[in] additionals from-to additionals
      * @param[in] endPos end position
      * @param[in] duration stop duration
@@ -278,9 +272,8 @@ private:
      * @param[in] friendlyPos friendly pos
      * @param[in] parameterSet parameter sets
      */
-    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-                const std::vector<GNEAdditional*>& additionals, const double endPos, const SUMOTime duration, const SUMOTime until,
-                const std::string& actType, bool friendlyPos, const int parameterSet);
+    GNEStopPlan(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                const double endPos, const SUMOTime duration, const SUMOTime until, const std::string& actType, bool friendlyPos, const int parameterSet);
 
     /// @brief Invalidated copy constructor.
     GNEStopPlan(const GNEStopPlan&) = delete;

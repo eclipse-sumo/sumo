@@ -42,18 +42,11 @@ public:
     /**@brief general constructor for rides
      * @param[in] net Network in which this rides is placed
      * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromBusStop from busStop
-     * @param[in] fromTrainStop from trainStop
-     * @param[in] toEdge to edge
-     * @param[in] toBusStop to busStop
-     * @param[in] toTrainStop to trainStop
+     * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position on the destination edge
      * @param[in] lines list of lines
      */
-    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent,
-                              GNEEdge* fromEdge, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                              GNEEdge* toEdge, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+    static GNERide* buildRide(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                               double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief default constructor
@@ -229,12 +222,11 @@ private:
      * @param[in] tag personTrip tag
      * @param[in] icon personTrip icon
      * @param[in] personParent person parent
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
+     * @param[in] planParameters plan parameters
      * @param[in] lines list of lines
      */
-    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges,
-            const std::vector<GNEAdditional*>& additionals, double arrivalPosition, const std::vector<std::string>& lines);
+    GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+            double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief Invalidated copy constructor.
     GNERide(GNERide*) = delete;

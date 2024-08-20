@@ -24,6 +24,8 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
+#include "GNERouteHandler.h"
+
 // ===========================================================================
 // class declaration
 // ===========================================================================

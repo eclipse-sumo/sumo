@@ -42,24 +42,11 @@ public:
     /**@brief general constructor for walks
      * @param[in] net Network in which this walk is placed
      * @param[in] personParent person parent
-     * @param[in] fromEdge from edge
-     * @param[in] fromTAZ from TAZ
-     * @param[in] fromJunction from Junction
-     * @param[in] fromBusStop from busStop
-     * @param[in] fromTrainStop from trainStop
-     * @param[in] toEdge to edge
-     * @param[in] toTAZ to TAZ
-     * @param[in] toJunction to Junction
-     * @param[in] toBusStop to busStop
-     * @param[in] toTrainStop to trainStop
-     * @param[in] edgeList list of edges
-     * @param[in] route route
+     * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent,
-                              GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                              GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
-                              std::vector<GNEEdge*> edgeList, GNEDemandElement* route, double arrivalPosition);
+    static GNEWalk* buildWalk(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                              const double arrivalPosition);
 
     /// @brief default constructor
     GNEWalk(SumoXMLTag tag, GNENet* net);
@@ -229,13 +216,12 @@ private:
      * @param[in] net Network in which this Walk is placed
      * @param[in] tag walk tag
      * @param[in] icon walk icon
-     * @param[in] parents demand element parents (person and, optionally, route)
-     * @param[in] junction from-to junctions
-     * @param[in] eges from-to edges
-     * @param[in] additionals from-to additionals
+     * @param[in] personParent person parent
+     * @param[in] planParameters plan parameters
+     * @param[in] arrivalPosition arrival position
      */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, std::vector<GNEDemandElement*>& parents, const std::vector<GNEJunction*>& junctions,
-            const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition);
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+            const double arrivalPosition);
 
     /// @brief Invalidated copy constructor.
     GNEWalk(GNEWalk*) = delete;

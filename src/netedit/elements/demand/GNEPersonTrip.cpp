@@ -32,42 +32,12 @@
 // ===========================================================================
 
 GNEPersonTrip*
-GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent,
-                               GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromBusStop, GNEAdditional* fromTrainStop,
-                               GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toBusStop, GNEAdditional* toTrainStop,
+GNEPersonTrip::buildPersonTrip(GNENet* net, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                                double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                                const std::vector<std::string>& lines) {
     // declare icon an tag
-    const auto iconTag = getPersonTripTagIcon(fromEdge, toEdge, fromTAZ, toTAZ, fromJunction, toJunction,
-                         fromBusStop, toBusStop, fromTrainStop, toTrainStop);
-    // declare containers
-    std::vector<GNEJunction*> junctions;
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (fromEdge) {
-        edges.push_back(fromEdge);
-    } else if (fromTAZ) {
-        additionals.push_back(fromTAZ);
-    } else if (fromJunction) {
-        junctions.push_back(fromJunction);
-    } else if (fromBusStop) {
-        additionals.push_back(fromBusStop);
-    } else if (fromTrainStop) {
-        additionals.push_back(fromTrainStop);
-    }
-    if (toEdge) {
-        edges.push_back(toEdge);
-    } else if (toTAZ) {
-        additionals.push_back(toTAZ);
-    } else if (toJunction) {
-        junctions.push_back(toJunction);
-    } else if (toBusStop) {
-        additionals.push_back(toBusStop);
-    } else if (toTrainStop) {
-        additionals.push_back(toTrainStop);
-    }
-    return new GNEPersonTrip(net, iconTag.first, iconTag.second, personParent, junctions, edges, additionals, arrivalPosition, types, modes, lines);
+    const auto iconTag = getPersonTripTagIcon(planParameters);
+    return new GNEPersonTrip(net, iconTag.first, iconTag.second, personParent, planParameters, arrivalPosition, types, modes, lines);
 }
 
 
@@ -336,11 +306,12 @@ GNEPersonTrip::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* und
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const std::vector<GNEJunction*>& junctions,
-                             const std::vector<GNEEdge*>& edges, const std::vector<GNEAdditional*>& additionals, double arrivalPosition,
-                             const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
+GNEPersonTrip::GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, {personParent}, {}),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
 GNEDemandElementPlan(this, -1, arrivalPosition),
 myVTypes(types),
 myModes(modes),

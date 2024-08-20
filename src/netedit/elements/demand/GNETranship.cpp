@@ -33,41 +33,11 @@
 // ===========================================================================
 
 GNETranship*
-GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent,
-                           GNEEdge* fromEdge, GNEAdditional* fromTAZ, GNEJunction* fromJunction, GNEAdditional* fromContainerStop,
-                           GNEEdge* toEdge, GNEAdditional* toTAZ, GNEJunction* toJunction, GNEAdditional* toContainerStop,
-                           std::vector<GNEEdge*> edgeList, const double arrivalPosition, const double departPosition, const double speed) {
+GNETranship::buildTranship(GNENet* net, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
+                           const double arrivalPosition, const double departPosition, const double speed) {
     // declare icon an tag
-    const auto iconTag = getTranshipTagIcon(edgeList, fromEdge, toEdge, fromTAZ, toTAZ,
-                                            fromJunction, toJunction, fromContainerStop, toContainerStop);
-    // declare containers
-    std::vector<GNEJunction*> junctions;
-    std::vector<GNEEdge*> edges;
-    std::vector<GNEAdditional*> additionals;
-    // continue depending of input parameters
-    if (edgeList.size() > 0) {
-        edges = edgeList;
-    } else {
-        if (fromJunction) {
-            junctions.push_back(fromJunction);
-        } else if (fromEdge) {
-            edges.push_back(fromEdge);
-        } else if (fromTAZ) {
-            additionals.push_back(fromTAZ);
-        } else if (fromContainerStop) {
-            additionals.push_back(fromContainerStop);
-        }
-        if (toJunction) {
-            junctions.push_back(toJunction);
-        } else if (toEdge) {
-            edges.push_back(toEdge);
-        } else if (toTAZ) {
-            additionals.push_back(toTAZ);
-        } else if (toContainerStop) {
-            additionals.push_back(toContainerStop);
-        }
-    }
-    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, junctions, edges, additionals, departPosition, arrivalPosition, speed);
+    const auto iconTag = getTranshipTagIcon(planParameters);
+    return new GNETranship(net, iconTag.first, iconTag.second, containerParent, planParameters, departPosition, arrivalPosition, speed);
 }
 
 
@@ -318,12 +288,12 @@ GNETranship::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
 }
 
 
-GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent,
-                         std::vector<GNEJunction*> junctions, const std::vector<GNEEdge*>& edges,
-                         const std::vector<GNEAdditional*>& additionals,
+GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNERouteHandler::GNEPlanParameters& planParameters,
                          const double departPosition, const double arrivalPosition, const double speed) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
-                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT, junctions, edges, {}, additionals, {containerParent}, {}),
+                     GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
+                     planParameters.getJunctions(), planParameters.getEdges(), {},
+planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
 GNEDemandElementPlan(this, departPosition, arrivalPosition),
 mySpeed(speed) {
 }
