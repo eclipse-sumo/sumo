@@ -43,40 +43,25 @@ class GNEDemandElementPlan {
 
 public:
     /// @brief get the walk tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-            const GNEDemandElement* route, const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getWalkTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the personTrip tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-            const GNEJunction* toJunction, const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonTripTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the ride tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromBusStop, const GNEAdditional* toBusStop,
-            const GNEAdditional* fromTrainStop, const GNEAdditional* toTrainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getRideTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the transport tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNEEdge* fromEdge, const GNEEdge* toEdge,
-            const GNEAdditional* fromTAZ, const GNEAdditional* toTAZ, const GNEJunction* fromJunction,
-            const GNEJunction* toJunction, const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getTransportTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the tranship tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const std::vector<GNEEdge*>& consecutiveEdges,
-            const GNEEdge* fromEdge, const GNEEdge* toEdge, const GNEAdditional* fromTAZ,
-            const GNEAdditional* toTAZ, const GNEJunction* fromJunction, const GNEJunction* toJunction,
-            const GNEAdditional* fromContainerStop, const GNEAdditional* toContainerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getTranshipTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the person stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNEEdge* edge, const GNEAdditional* busStop,
-            const GNEAdditional* trainStop);
+    static std::pair<SumoXMLTag, GUIIcon> getPersonStopTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
     /// @brief get the container stop tag and icon for the combination
-    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNEEdge* edge, const GNEAdditional* containerStop);
+    static std::pair<SumoXMLTag, GUIIcon> getContainerStopTagIcon(const GNERouteHandler::GNEPlanParameters& planParameters);
 
 protected:
     /// @brief variable used for draw central contour
