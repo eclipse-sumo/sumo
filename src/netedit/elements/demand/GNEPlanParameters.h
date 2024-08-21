@@ -71,6 +71,55 @@ public:
     /// @brief clear elements
     void clear();
 
+    /// @name functions for checking stopping places
+    /// @{
+    /// @brief get from busStop
+    bool getFromBusStop() const;
+
+    /// @brief get from trainStop
+    bool getFromTrainStop() const;
+
+    /// @brief get from containerStop
+    bool getFromContainerStop() const;
+
+    /// @brief get from chargingStation
+    bool getFromChargingStation() const;
+
+    /// @brief get from parkingArea
+    bool getFromParkingArea() const;
+
+    /// @brief get to busStop
+    bool getToBusStop() const;
+
+    /// @brief get to trainStop
+    bool getToTrainStop() const;
+
+    /// @brief get to containerStop
+    bool getToContainerStop() const;
+
+    /// @brief get to chargingStation
+    bool getToChargingStation() const;
+
+    /// @brief get to parkingArea
+    bool getToParkingArea() const;
+
+    /// @brief get single busStop
+    bool getBusStop() const;
+
+    /// @brief get single trainStop
+    bool getTrainStop() const;
+
+    /// @brief get single containerStop
+    bool getContainerStop() const;
+
+    /// @brief get single chargingStation
+    bool getChargingStation() const;
+
+    /// @brief get single parkingArea
+    bool getParkingArea() const;
+
+    /// @}
+
     /// @brief get junctions (used in plan constructors)
     std::vector<GNEJunction*> getJunctions() const;
 

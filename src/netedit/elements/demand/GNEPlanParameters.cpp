@@ -200,6 +200,156 @@ GNEPlanParameters::clear() {
 }
 
 
+bool
+GNEPlanParameters::getFromBusStop() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getFromTrainStop() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getFromContainerStop() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getFromChargingStation() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getFromParkingArea() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getToBusStop() const {
+    if (toStoppingPlace) {
+        return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getToTrainStop() const {
+    if (toStoppingPlace) {
+        return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getToContainerStop() const {
+    if (toStoppingPlace) {
+        return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getToChargingStation() const {
+    if (toStoppingPlace) {
+        return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getToParkingArea() const {
+    if (toStoppingPlace) {
+        return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getBusStop() const {
+    if (stoppingPlace) {
+        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getTrainStop() const {
+    if (stoppingPlace) {
+        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getContainerStop() const {
+    if (stoppingPlace) {
+        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getChargingStation() const {
+    if (stoppingPlace) {
+        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParameters::getParkingArea() const {
+    if (stoppingPlace) {
+        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
+    } else {
+        return false;
+    }
+}
+
+
 std::vector<GNEJunction*>
 GNEPlanParameters::getJunctions() const {
     std::vector<GNEJunction*> junctions;
