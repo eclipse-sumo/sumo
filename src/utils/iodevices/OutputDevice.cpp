@@ -226,12 +226,6 @@ OutputDevice::OutputDevice(const std::string& filename,  OutputFormatter* format
 }
 
 
-
-OutputDevice::~OutputDevice() {
-    delete myFormatter;
-}
-
-
 bool
 OutputDevice::ok() {
     return getOStream().good();

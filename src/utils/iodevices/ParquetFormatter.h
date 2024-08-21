@@ -51,7 +51,7 @@ constexpr bool always_false = false;
 // Overloaded function for different types
 template <typename T>
 void AppendField(parquet::schema::NodeVector& fields, const T& val, const std::string& field_name) {
-
+    UNUSED_PARAMETER(val);
     if constexpr (std::is_same_v<T, std::string>) {
         fields.push_back(parquet::schema::PrimitiveNode::Make(
             field_name, parquet::Repetition::OPTIONAL, parquet::Type::BYTE_ARRAY,
@@ -103,8 +103,10 @@ void AppendField(parquet::schema::NodeVector& fields, const T& val, const std::s
             parquet::ConvertedType::TIMESTAMP_MILLIS));
     }
     else {
-        // warn
-        fmt::print("Unsupported type for AppendField\n");
+        // // warn
+        // fmt::print("Unsupported type for AppendField\n");
+        // static_assert(always_false<T>, "Unsupported type for AppendField");
+        
     }
     // else {
     //     static_assert(always_false<T>, "Unsupported type for AppendField");
@@ -172,7 +174,8 @@ auto convertToParquetType(const T& value) {
     } else if constexpr (std::is_same_v<T, const char*> || 
                          std::is_same_v<T, std::string> || 
                          std::is_same_v<T, std::string_view>) {
-        return std::string_view(value);
+        // have to take a copy of the string, to ensure its lifetime is long enough
+        return std::string(value);
     } else {
         // For any other type, convert to string
         return toString(value);
@@ -186,26 +189,15 @@ public:
         : AttributeBase(name), value_(convertToParquetType(value)) {}
 
     void print(StreamDevice& os) const override {
-        os << value_;
+        if (value_){
+            os << *value_;
+        } else{
+            assert(false);
+        }
     }
 
 private:
-    decltype(convertToParquetType(std::declval<T>())) value_;
-};
-
-// Specialization for numeric types
-template <typename T>
-class Attribute<T, std::enable_if_t<std::is_arithmetic_v<T>>> : public AttributeBase {
-public:
-    Attribute(const std::string& name, const T& value)
-        : AttributeBase(name), value_(convertToParquetType(value)) {}
-
-    void print(StreamDevice& os) const override {
-        os << value_;
-    }
-
-private:
-    decltype(convertToParquetType(std::declval<T>())) value_;
+    std::optional<decltype(convertToParquetType(std::declval<T>()))> value_;
 };
 
 
@@ -291,7 +283,7 @@ public:
     ParquetFormatter() {};
 
     /// @brief Destructor
-    virtual ~ParquetFormatter() { }
+    virtual ~ParquetFormatter() = default;
 
     /** @brief Writes an XML header with optional configuration
      *
@@ -304,10 +296,13 @@ public:
      * @todo Describe what is saved
      */
      // turn off the warning for unused parameters
-    [[maybe_unused]]
     bool writeXMLHeader(StreamDevice& into, const std::string& rootXMLElement,
         const std::map<SumoXMLAttr, std::string>& attrs,
         bool includeConfig = true) override {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(rootXMLElement);
+        UNUSED_PARAMETER(attrs);
+        UNUSED_PARAMETER(includeConfig);
         return 0;
     };
 
@@ -323,6 +318,7 @@ public:
      * @return The OutputDevice for further processing
      */
     void openTag(StreamDevice& into, const std::string& xmlXMLElement) override {
+        UNUSED_PARAMETER(into);
 #ifdef PARQUET_TESTING
         // assert that the stack does not contain the XMLElement
         assert(std::find(myXMLStack.begin(), myXMLStack.end(), xmlXMLElement) == myXMLStack.end());
@@ -349,6 +345,7 @@ public:
      * @todo it is not verified that the topmost XMLElement was closed
      */
     inline bool closeTag(StreamDevice& into, const std::string& comment = "") override {
+        UNUSED_PARAMETER(comment);
         if (myXMLStack.empty()) {
             return false;
         }
@@ -375,12 +372,17 @@ public:
      */
     void writePreformattedTag(StreamDevice& into, const std::string& val) override {
         // don't take any action
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
         return;
     };
 
     /** @brief writes arbitrary padding
      */
-    inline void writePadding(StreamDevice& into, const std::string& val) override {};
+    inline void writePadding(StreamDevice& into, const std::string& val) override {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
+    };
 
 
     /** @brief writes an arbitrary attribute
@@ -391,6 +393,7 @@ public:
      */
     template <class T>
     void writeAttr(StreamDevice& into, const std::string& attr, const T& val) {
+        UNUSED_PARAMETER(into);
         std::unique_ptr<AttributeBase> typed_attr = std::make_unique<Attribute<T>>(attr, val);
         this->myXMLStack.back().addAttribute(std::move(typed_attr));
         if (!sharedNodeVector && this->fields.find(attr) == this->fields.end()) {
@@ -426,12 +429,24 @@ public:
      *
      * @param Return success
      */
-    inline bool writeHeader(StreamDevice& into, const SumoXMLTag& rootElement) override { return true; };
+    inline bool writeHeader([[maybe_unused]] StreamDevice& into, [[maybe_unused]] const SumoXMLTag& rootElement) override { return true; };
 
     
     template <typename T>
     void writeRaw(StreamDevice& into, T& val) {
+        UNUSED_PARAMETER(into);
+        UNUSED_PARAMETER(val);
         throw std::runtime_error("writeRaw not implemented for ParquetFormatter");
+    }
+
+    int getDepth() const {
+        return static_cast<int>(myXMLStack.size());
+    }
+
+    void clearStack() {
+        myXMLStack.clear();
+        myNodeVector.clear();
+        fields.clear();
     }
 
 

@@ -40,7 +40,7 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
     if (fullName == "/dev/null") {
         myAmNull = true;
 #ifdef WIN32
-        myStreamDevice = new OStreamDevice(new std::ofstream("NUL"));
+        myStreamDevice = std::make_unique<OStreamDevice>(new std::ofstream("NUL"));
         if (!myFileStream->good()) {
             delete myFileStream;
             throw IOError(TLF("Could not redirect to NUL device (%).", std::string(std::strerror(errno))));
@@ -52,28 +52,22 @@ OutputDevice_File::OutputDevice_File(const std::string& fullName, const bool com
 #ifdef HAVE_ZLIB
     if (compressed) {
         try {
-            myStreamDevice = new OStreamDevice(new zstr::ofstream(localName.c_str(), std::ios_base::out));
+            myStreamDevice = std::make_unique<OStreamDevice>(new zstr::ofstream(localName.c_str(), std::ios_base::out));
         } catch (strict_fstream::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         } catch (zstr::Exception& e) {
             throw IOError("Could not build output file '" + fullName + "' (" + e.what() + ").");
         }
     } else {
-        myStreamDevice = new OStreamDevice(new std::ofstream(localName.c_str(), std::ios_base::out));
+        myStreamDevice = std::make_unique<OStreamDevice>(new std::ofstream(localName.c_str(), std::ios_base::out));
     }
 #else
     UNUSED_PARAMETER(compressed);
-    myFileStream = new std::ofstream(localName.c_str(), std::ios_base::out);
+    myStreamDevice = std::make_unique<OStreamDevice>(new std::ofstream(localName.c_str(), std::ios_base::out));
 #endif
     if (!myStreamDevice->good()) {
-        delete myStreamDevice;
+        myStreamDevice.reset();
         throw IOError("Could not build output file '" + fullName + "' (" + std::strerror(errno) + ").");
     }
 }
-
-
-OutputDevice_File::~OutputDevice_File() {
-    delete myStreamDevice;
-}
-
 /****************************************************************************/

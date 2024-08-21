@@ -45,10 +45,6 @@ public:
      */
     OutputDevice_File(const std::string& fullName, const bool compressed = false);
 
-
-    /// @brief Destructor
-    ~OutputDevice_File();
-
     /** @brief returns the information whether the device will discard all output
      * @return Whether the device redirects to /dev/null
      */

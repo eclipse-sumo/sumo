@@ -39,23 +39,22 @@
 
 
 /**
- * @class OutputDevice_File
- * @brief An output device that encapsulates an ofstream
+ * @class OutputDevice_Parquet
+ * @brief An output device that encapsulates an parquet stream writer
  *
- * Please note that the device gots responsible for the stream and deletes
+ * Please note that the device is responsible for the stream and deletes
  *  it (it should not be deleted elsewhere).
  */
 class OutputDevice_Parquet : public OutputDevice {
 public:
     /** @brief Constructor
      * @param[in] fullName The name of the output file to use
-     * @param[in] compressed whether to apply gzip compression
      * @exception IOError Should not be thrown by this implementation
      */
     OutputDevice_Parquet(const std::string& fullName);
 
     /// @brief Destructor
-    ~OutputDevice_Parquet();
+    ~OutputDevice_Parquet() override;
 
     /** @brief implements the close tag logic. This is where the file is first opened and the   schema is created.
      * This exploits the fact that for *most* SUMO files, all the fields are present at the first close tag event.
@@ -67,10 +66,12 @@ public:
     void lf() {};
 
     // null the setPrecision method
-    void setPrecision(int precision) override {};
+    void setPrecision(int precision) override {
+        UNUSED_PARAMETER(precision);
+    };
 
     void setOSFlags(std::ios_base::fmtflags flags) override {
-
+        UNUSED_PARAMETER(flags);
     };
 
 protected:

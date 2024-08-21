@@ -41,11 +41,6 @@ public:
      */
     OutputDevice_String(const int defaultIndentation = 0);
 
-
-    /// @brief Destructor
-    ~OutputDevice_String();
-
-
     /** @brief Returns the current content as a string
      * @return The content as string
      */

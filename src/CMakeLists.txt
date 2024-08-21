@@ -1,7 +1,9 @@
 set(netconvertlibs
         netwrite netimport netbuild foreign_eulerspiral ${GDAL_LIBRARY} netimport_vissim netimport_vissim_typeloader netimport_vissim_tempstructs ${commonlibs} ${TCMALLOC_LIBRARY})
 
-FIND_LIBRARY(PARQUET_LIBRARY NAMES parquet)
+if(WITH_PARQUET)
+    FIND_LIBRARY(PARQUET_LIBRARY NAMES parquet)
+endif()
 
 set(sumolibs
         traciserver netload microsim_cfmodels microsim_engine microsim_lcmodels microsim_devices microsim_trigger microsim_output microsim_transportables microsim_actions

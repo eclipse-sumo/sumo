@@ -47,7 +47,7 @@ OutputDevice_CERR::getDevice() {
 // method definitions
 // ===========================================================================
 OutputDevice_CERR::OutputDevice_CERR() : OutputDevice(0, "CERR") {
-    myStreamDevice = new OStreamDevice(&std::cerr);
+    myStreamDevice = std::make_unique<COUTStreamDevice>(std::cerr);
 }
 
 

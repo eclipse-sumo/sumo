@@ -153,7 +153,7 @@ public:
 
 
     /// @brief Destructor
-    virtual ~OutputDevice();
+    virtual ~OutputDevice() = default;
 
 
     /** @brief returns the information whether one can write into the device
@@ -209,7 +209,7 @@ public:
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        return getFormatter()->writeHeader(getOStream(), rootElement);
+        return getFormatter().writeHeader(getOStream(), rootElement);
     }
 
 
@@ -308,12 +308,12 @@ public:
         {
         case OutputWriterType::XML:
             // cast the writer to the correct type
-            getFormatter<PlainXMLFormatter>()->writeAttr(getOStream(), attr, val);
+            getFormatter<PlainXMLFormatter>().writeAttr(getOStream(), attr, val);
             break;
         case OutputWriterType::PARQUET:
 #ifdef HAVE_PARQUET
             // cast the writer to the correct type
-            getFormatter<ParquetFormatter>()->writeAttr(getOStream(), attr, val);
+            getFormatter<ParquetFormatter>().writeAttr(getOStream(), attr, val);
 #else
             throw IOError("Parquet output is not supported in this build. Please recompile with the correct options.");
 #endif
@@ -372,7 +372,7 @@ public:
         // getOStream() << t;
         // get the correct formatter
         if (this->getOStream().allowRaw()) {
-            this->getOStream() << t;
+            writeRaw(t);
         }
         else {
             throw IOError("Raw output is not allowed for this output device");
@@ -393,6 +393,18 @@ public:
     /// @brief Returns the type of the output device
     virtual void setOSFlags(std::ios_base::fmtflags flags) {
         getOStream().setOSFlags(flags);
+    }
+
+    // @brief handle the raw write
+    template <typename T>
+    void writeRaw(const T& val) {
+        // cast the writer to the correct type
+        if (this->getType() == OutputWriterType::XML) {
+            getFormatter<PlainXMLFormatter>().writeRaw(getOStream(), val);
+        }
+        else {
+            throw IOError("Raw output is not supported for this output type");
+        }
     }
 
 protected:
@@ -418,8 +430,8 @@ protected:
     virtual void postWriteHook();
 
     /// @brief Returns the formatter
-    OutputFormatter* getFormatter() {
-        return myFormatter;
+    OutputFormatter& getFormatter() {
+        return *myFormatter;
     }
 
 
@@ -434,15 +446,15 @@ protected:
     const std::string myFilename;
 
     /// @brief the stream device
-    StreamDevice* myStreamDevice;
+    std::unique_ptr<StreamDevice> myStreamDevice{nullptr};
 
     /// @brief The formatter for XML
-    OutputFormatter* myFormatter;
+    std::unique_ptr<OutputFormatter> myFormatter{nullptr};
 
     /// @brief return a type casted formatter
     template <typename T>
-    T* getFormatter() {
-        return static_cast<T*>(myFormatter);
+    T& getFormatter() {
+        return static_cast<T&>(*myFormatter);
     }
 
 private:

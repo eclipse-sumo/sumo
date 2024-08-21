@@ -50,7 +50,7 @@ class RGBColor;
 class OutputFormatter {
 public:
     /// @brief Destructor
-    virtual ~OutputFormatter() { }
+    virtual ~OutputFormatter() = default;
 
 
     /** @brief Writes an XML header with optional configuration
