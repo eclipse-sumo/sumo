@@ -35,49 +35,24 @@ For further information please consult the [Cadyts home page](https://github.com
 The Cadyts tool has to be started via cadytsIterate.py, which is a
 command line application. It has the following parameters:
 
-\-r route alternatives file from sumo (comma separated list) (in Cadyts:
--choicesetfile)
-
-\-d adapt to the traffic flows on the edges defined in a given file (in
-Cadyts: -measfile)
-
-\-c classpath for the calibrator, default=
-os.path.join(os.path.dirname(sys.argv\[0\]), "..",
-"contributed","calibration","cadytsSumoController.jar")
-
-\-s last step of the calibration, default=100
-
-\-S scaled demand, optional, default=2 (in Cadyts: -demandscale); If -M
-is defined, this parameter will be used in the calibration.
-
-\-F define the number of iterations for stabilizing the results in the
-DTA-calibration, default= 85 (in Cadyts: - freezeit)
-
-\-V define variance of the measured traffic flows for the
-DTA-calibration, default=1, (in Cadyts: varscale)
-
-\-P number of preparatory iterations, default = 5 (in Cadyts: PREPITS)
-
-\-W prefix of flow evaluation files; only for the calibration with use
-of detector data, optional (in Cadyts: -flowfile)
-
-\-Y fit the traffic counts as accurate as possible, default = False, (in
-Cadyts: -bruteforce)
-
-\-Z minimal traffic count standard deviation"), default = 25 (in Cadyts:
--mincountstddev)
-
-\-O override depart times according to updated link travel times,
-default= False (in Cadyts: -overridett)
-
-\-M prefix of OD matrix files in VISUM format (in Cadyts: - fmaprefix)
-
-\-N postfix attached to clone ids, default='-CLONE' (in Cadyts:
--clonepostfix)
-
-\-E No summary information is written by the simulation, default=False
-
-\-T No tripinfos are written by the simulation, default=False
+| Option | Description |
+|--------|-------------|
+| -r | route alternatives file from sumo (comma separated list) (in Cadyts: -choicesetfile)|
+|-d| adapt to the traffic flows on the edges defined in a given file (in Cadyts: -measfile)|
+|-c| classpath for the calibrator, default=os.path.join(os.path.dirname(sys.argv\[0\]), "..","contributed","calibration","cadytsSumoController.jar")|
+|-s| last step of the calibration, default=100|
+|-S| scaled demand, optional, default=2 (in Cadyts: -demandscale); If -M is defined, this parameter will be used in the calibration.|
+|-F| define the number of iterations for stabilizing the results in the DTA-calibration, default= 85 (in Cadyts: - freezeit)|
+|-V| define variance of the measured traffic flows for the DTA-calibration, default=1, (in Cadyts: varscale)|
+|-P| number of preparatory iterations, default = 5 (in Cadyts: PREPITS)|
+|-W| prefix of flow evaluation files; only for the calibration with use of detector data, optional (in Cadyts: -flowfile)|
+|-Y| fit the traffic counts as accurate as possible, default = False, (in Cadyts: -bruteforce)|
+|-Z| minimal traffic count standard deviation"), default = 25 (in Cadyts: -mincountstddev)|
+|-O| override depart times according to updated link travel times, default= False (in Cadyts: -overridett)|
+|-M| prefix of OD matrix files in VISUM format (in Cadyts: - fmaprefix)|
+|-N| postfix attached to clone ids, default='-CLONE' (in Cadyts: -clonepostfix)|
+|-E| No summary information is written by the simulation, default=False|
+|-T| No tripinfos are written by the simulation, default=False|
 
 In additions, the simulation-related parameters in the duaIterate.py can
 also be defined and applied in cadytsIterate.py, such as a network file,
