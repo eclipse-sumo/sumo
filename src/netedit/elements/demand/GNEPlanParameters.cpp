@@ -67,7 +67,7 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* s
         fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.fromBusStop, false);
     }
     if (toStoppingPlace == nullptr) {
-        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toTrainStop, false);
+        toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toBusStop, false);
     }
     // train stops
     if (fromStoppingPlace == nullptr) {
@@ -108,7 +108,7 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* s
     // route
     route = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.route, false);
     // stops
-    edge = ACs->retrieveEdge(planParameters.fromEdge, false);
+    edge = ACs->retrieveEdge(planParameters.edge, false);
     if (stoppingPlace == nullptr) {
         stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.busStop, false);
     }
