@@ -5442,17 +5442,22 @@ void
 GNEAttributeCarrier::fillPersonPlanWalks() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK;
+    const int tagProperty = GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int tagPropertyTAZ = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const auto parents = {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW};
+    const auto color = FXRGBA(240, 255, 205, 255);
+    const auto icon = GUIIcon::WALK_EDGES;
+    const auto xmlTag = SUMO_TAG_WALK;
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_WALK_EDGES;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONSECUTIVE_EDGES,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGES, SUMO_TAG_WALK, TL("walk: edges"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edges"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5460,13 +5465,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_ROUTE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_ROUTE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_ROUTE, SUMO_TAG_WALK, TL("walk: route"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(240, 255, 205, 255));
+                                      conflicts, icon, xmlTag, TL("walk: route"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5475,13 +5476,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_EDGE_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: edge->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5489,13 +5486,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_EDGE_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: edge->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edge->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5503,13 +5496,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_EDGE_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: edge->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edge->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5517,13 +5506,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_EDGE_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: edge->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5531,28 +5516,51 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_EDGE_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: edge->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
     }
-    // from TAZ
+    currentTag = GNE_TAG_WALK_EDGE_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: edge->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_EDGE_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: edge->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_EDGE_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: edge->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    // from taz
     currentTag = GNE_TAG_WALK_TAZ_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5560,13 +5568,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TAZ_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: taz->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5574,28 +5578,19 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TAZ_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: taz->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: taz->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
     }
-
     currentTag = GNE_TAG_WALK_TAZ_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: taz->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: taz->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5603,13 +5598,40 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TAZ_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: taz->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: taz->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_TAZ_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: taz->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_TAZ_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: taz->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_TAZ_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_TAZ | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: taz->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5618,13 +5640,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_JUNCTION_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: junction->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: junction->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5632,13 +5650,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_JUNCTION_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: junction->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: junction->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5646,13 +5660,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_JUNCTION_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: junction->junction"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: junction->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5660,13 +5670,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_JUNCTION_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: junction->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: junction->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5674,13 +5680,39 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_JUNCTION_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: junction->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: junction->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: junction->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: junction->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_JUNCTION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_JUNCTION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: junction->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5689,13 +5721,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_BUSSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: busStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5703,13 +5731,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_BUSSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: busStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5717,13 +5741,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_BUSSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: busStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: busStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5731,13 +5751,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_BUSSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: busStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5745,28 +5761,51 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_BUSSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: busStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
     }
-    // from trainstop
+    currentTag = GNE_TAG_WALK_BUSSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: busStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_BUSSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: busStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_BUSSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_BUSSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: busStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    // from trainStop
     currentTag = GNE_TAG_WALK_TRAINSTOP_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_EDGE, SUMO_TAG_WALK, TL("Walk: trainStop->edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5774,13 +5813,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TRAINSTOP_TAZ;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::RTREE | GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TAZ, SUMO_TAG_WALK, TL("Walk: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5788,13 +5823,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TRAINSTOP_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_JUNCTION, SUMO_TAG_WALK, TL("Walk: trainStop->taz"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5802,13 +5833,9 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TRAINSTOP_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_BUSSTOP, SUMO_TAG_WALK, TL("Walk: trainStop->busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
@@ -5816,13 +5843,288 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     currentTag = GNE_TAG_WALK_TRAINSTOP_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::WALK,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::WALK_TRAINSTOP, SUMO_TAG_WALK, TL("Walk: trainStop->trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(253, 255, 206, 255));
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_TRAINSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_TRAINSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_TRAINSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_TRAINSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: trainStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    // from containerStop
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CONTAINERSTOP_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CONTAINERSTOP | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: containerStop->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    // from chargingStation
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_CHARGINGSTATION_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_CHARGINGSTATION | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: chargingStation->parkingArea"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    // from parkingArea
+    currentTag = GNE_TAG_WALK_PARKINGAREA_EDGE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_EDGE,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->edge"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagPropertyTAZ,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TAZ,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->taz"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_JUNCTION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_JUNCTION,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->junction"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->busStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->trainStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_PARKINGAREA_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->containerStop"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+
+    currentTag = GNE_TAG_WALK_PARKINGAREA_CHARGINGSTATION;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->chargingStation"), parents, color);
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillWalkCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_WALK_PARKINGAREA_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_FROM_PARKINGAREA | GNETagProperties::TagParents::PLAN_TO_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("walk: parkingArea->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
         fillWalkCommonAttributes(currentTag);
