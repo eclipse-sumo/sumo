@@ -112,22 +112,28 @@ public:
         // exclusive of plans
         PLAN_CONSECUTIVE_EDGES =    1 << 6,     // Plan placed in consecutive edges
         PLAN_ROUTE =                1 << 7,     // Plan placed in route
-        PLAN_EDGE =                 1 << 8,     // Plan placed in edge
-        PLAN_BUSSTOP =              1 << 9,     // Plan placed in busStop
-        PLAN_TRAINSTOP =            1 << 10,    // Plan placed in trainStop
-        PLAN_CONTAINERSTOP =        1 << 11,    // Plan placed in containerStop
-        PLAN_FROM_EDGE =            1 << 12,    // Plan starts in edge
-        PLAN_FROM_TAZ =             1 << 13,    // Plan starts in TAZ
-        PLAN_FROM_JUNCTION =        1 << 14,    // Plan starts in junction
-        PLAN_FROM_BUSSTOP =         1 << 15,    // Plan starts in busStop
-        PLAN_FROM_TRAINSTOP =       1 << 16,    // Plan starts in trainStop
-        PLAN_FROM_CONTAINERSTOP =   1 << 17,    // Plan starts in containerStop
-        PLAN_TO_EDGE =              1 << 18,    // Plan ends in edge
-        PLAN_TO_TAZ =               1 << 19,    // Plan ends in TAZ
-        PLAN_TO_JUNCTION =          1 << 20,    // Plan ends in junction
-        PLAN_TO_BUSSTOP =           1 << 21,    // Plan ends in busStop
-        PLAN_TO_TRAINSTOP =         1 << 22,    // Plan ends in trainStop
-        PLAN_TO_CONTAINERSTOP =     1 << 23,    // Plan ends in containerStop
+        PLAN_EDGE =                 1 << 8,     // Plan placed in single edge
+        PLAN_BUSSTOP =              1 << 9,     // Plan placed in single busStop
+        PLAN_TRAINSTOP =            1 << 10,    // Plan placed in single trainStop
+        PLAN_CONTAINERSTOP =        1 << 11,    // Plan placed in single containerStop
+        PLAN_CHARGINGSTATION =      1 << 12,    // Plan placed in single charging station
+        PLAN_PARKINGAREA =          1 << 13,    // Plan placed in single parking area
+        PLAN_FROM_EDGE =            1 << 14,    // Plan starts in edge
+        PLAN_FROM_TAZ =             1 << 15,    // Plan starts in TAZ
+        PLAN_FROM_JUNCTION =        1 << 16,    // Plan starts in junction
+        PLAN_FROM_BUSSTOP =         1 << 17,    // Plan starts in busStop
+        PLAN_FROM_TRAINSTOP =       1 << 18,    // Plan starts in trainStop
+        PLAN_FROM_CONTAINERSTOP =   1 << 19,    // Plan starts in containerStop
+        PLAN_FROM_CHARGINGSTATION = 1 << 20,    // Plan starts in chargingStation
+        PLAN_FROM_PARKINGAREA =     1 << 21,    // Plan starts in parkingArea
+        PLAN_TO_EDGE =              1 << 22,    // Plan ends in edge
+        PLAN_TO_TAZ =               1 << 23,    // Plan ends in TAZ
+        PLAN_TO_JUNCTION =          1 << 24,    // Plan ends in junction
+        PLAN_TO_BUSSTOP =           1 << 25,    // Plan ends in busStop
+        PLAN_TO_TRAINSTOP =         1 << 26,    // Plan ends in trainStop
+        PLAN_TO_CONTAINERSTOP =     1 << 27,    // Plan ends in containerStop
+        PLAN_TO_CHARGINGSTATION =   1 << 28,    // Plan ends in chargingStation
+        PLAN_TO_PARKINGAREA =       1 << 29,    // Plan ends in parkingArea
     };
 
     // @brief conflicts
@@ -367,6 +373,12 @@ public:
     /// @brief return true if tag correspond to a plan placed over containerStop
     bool planContainerStop() const;
 
+    /// @brief return true if tag correspond to a plan placed over chargingStation
+    bool planChargingStation() const;
+
+    /// @brief return true if tag correspond to a plan placed over parkingArea
+    bool planParkingArea() const;
+
     /// @brief return true if tag correspond to a plan placed in stoppingPlace
     bool planStoppingPlace() const;
 
@@ -382,9 +394,6 @@ public:
     /// @brief return true if tag correspond to a plan that starts in junction
     bool planFromJunction() const;
 
-    /// @brief return true if tag correspond to a plan that starts in stoppingPlace
-    bool planFromStoppingPlace() const;
-
     /// @brief return true if tag correspond to a plan that starts in busStop
     bool planFromBusStop() const;
 
@@ -393,6 +402,15 @@ public:
 
     /// @brief return true if tag correspond to a plan that starts in containerStop
     bool planFromContainerStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in chargingStation
+    bool planFromChargingStation() const;
+
+    /// @brief return true if tag correspond to a plan that starts in parkingAera
+    bool planFromParkingArea() const;
+
+    /// @brief return true if tag correspond to a plan that starts in stoppingPlace
+    bool planFromStoppingPlace() const;
 
     /// @brief return true if tag correspond to a plan that starts in edge
     bool planToEdge() const;
@@ -403,9 +421,6 @@ public:
     /// @brief return true if tag correspond to a plan that starts in junction
     bool planToJunction() const;
 
-    /// @brief return true if tag correspond to a plan that ends in stoppingPlace
-    bool planToStoppingPlace() const;
-
     /// @brief return true if tag correspond to a plan that starts in busStop
     bool planToBusStop() const;
 
@@ -414,6 +429,15 @@ public:
 
     /// @brief return true if tag correspond to a plan that starts in containerStop
     bool planToContainerStop() const;
+
+    /// @brief return true if tag correspond to a plan that starts in chargingStation
+    bool planToChargingStation() const;
+
+    /// @brief return true if tag correspond to a plan that starts in parkingArea
+    bool planToParkingArea() const;
+
+    /// @brief return true if tag correspond to a plan that ends in stoppingPlace
+    bool planToStoppingPlace() const;
 
     /// @}
 

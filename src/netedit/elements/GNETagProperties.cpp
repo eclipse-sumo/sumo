@@ -541,8 +541,21 @@ GNETagProperties::planContainerStop() const {
 
 
 bool
+GNETagProperties::planChargingStation() const {
+    return (myTagParents & PLAN_CHARGINGSTATION) != 0;
+}
+
+
+bool
+GNETagProperties::planParkingArea() const {
+    return (myTagParents & PLAN_PARKINGAREA) != 0;
+}
+
+
+bool
 GNETagProperties::planStoppingPlace() const {
-    return planBusStop() || planTrainStop() || planContainerStop();
+    return planBusStop() || planTrainStop() || planContainerStop() ||
+           planChargingStation() || planParkingArea();
 }
 
 
@@ -574,12 +587,6 @@ GNETagProperties::planFromJunction() const {
 
 
 bool
-GNETagProperties::planFromStoppingPlace() const {
-    return planFromBusStop() || planFromTrainStop() || planFromContainerStop();
-}
-
-
-bool
 GNETagProperties::planFromBusStop() const {
     return (myTagParents & PLAN_FROM_BUSSTOP) != 0;
 }
@@ -594,6 +601,25 @@ GNETagProperties::planFromTrainStop() const {
 bool
 GNETagProperties::planFromContainerStop() const {
     return (myTagParents & PLAN_FROM_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planFromChargingStation() const {
+    return (myTagParents & PLAN_FROM_CHARGINGSTATION) != 0;
+}
+
+
+bool
+GNETagProperties::planFromParkingArea() const {
+    return (myTagParents & PLAN_FROM_PARKINGAREA) != 0;
+}
+
+
+bool
+GNETagProperties::planFromStoppingPlace() const {
+    return planFromBusStop() || planFromTrainStop() || planFromContainerStop() ||
+           planFromChargingStation() || planFromParkingArea();
 }
 
 
@@ -614,13 +640,6 @@ GNETagProperties::planToJunction() const {
     return (myTagParents & PLAN_TO_JUNCTION) != 0;
 }
 
-
-bool
-GNETagProperties::planToStoppingPlace() const {
-    return planToBusStop() || planToTrainStop() || planToContainerStop();
-}
-
-
 bool
 GNETagProperties::planToBusStop() const {
     return (myTagParents & PLAN_TO_BUSSTOP) != 0;
@@ -636,6 +655,25 @@ GNETagProperties::planToTrainStop() const {
 bool
 GNETagProperties::planToContainerStop() const {
     return (myTagParents & PLAN_TO_CONTAINERSTOP) != 0;
+}
+
+
+bool
+GNETagProperties::planToChargingStation() const {
+    return (myTagParents & PLAN_TO_CHARGINGSTATION) != 0;
+}
+
+
+bool
+GNETagProperties::planToParkingArea() const {
+    return (myTagParents & PLAN_TO_PARKINGAREA) != 0;
+}
+
+
+bool
+GNETagProperties::planToStoppingPlace() const {
+    return planToBusStop() || planToTrainStop() || planToContainerStop() ||
+           planToChargingStation() || planToParkingArea();
 }
 
 

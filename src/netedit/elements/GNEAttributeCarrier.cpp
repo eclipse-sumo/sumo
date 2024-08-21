@@ -6920,6 +6920,18 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
                                               TL("Container stop ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    if (tagProperty.planChargingStation()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("Charging station ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planParkingArea()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("Parking area ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     // from parents
     if (tagProperty.planFromEdge()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
@@ -6955,6 +6967,18 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
         attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CONTAINERSTOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
                                               TL("ContainerStop start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planFromChargingStation()) {
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ChargingStation start ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planFromParkingArea()) {
+        attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_CHARGINGSTATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ParkingArea start ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     // to parents
@@ -6999,13 +7023,25 @@ GNEAttributeCarrier::fillPlanParentAttributes(SumoXMLTag currentTag) {
     if (tagProperty.planToTrainStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TRAIN_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("TrainStop start ID"));
+                                              TL("TrainStop end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
     if (tagProperty.planToContainerStop()) {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_CONTAINER_STOP,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              TL("ContainerStop start ID"));
+                                              TL("ContainerStop end ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planToChargingStation()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_CHARGING_STATION,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ChargingStation end ID"));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    if (tagProperty.planToParkingArea()) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING_AREA,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+                                              TL("ParkingArea end ID"));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }
