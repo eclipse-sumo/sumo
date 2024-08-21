@@ -36,6 +36,7 @@
 
 CommonXMLStructure::PlanParameters::PlanParameters() {}
 
+
 CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk) {
     // junctions
     fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
@@ -72,6 +73,35 @@ CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attr
     containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
     parkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
+}
+
+
+void
+CommonXMLStructure::PlanParameters::clear() {
+    fromJunction.clear();
+    toJunction.clear();
+    fromEdge.clear();
+    toEdge.clear();
+    fromTAZ.clear();
+    toTAZ.clear();
+    fromBusStop.clear();
+    toBusStop.clear();
+    fromTrainStop.clear();
+    toTrainStop.clear();
+    fromContainerStop.clear();
+    toContainerStop.clear();
+    fromChargingStation.clear();
+    toChargingStation.clear();
+    fromParkingArea.clear();
+    toParkingArea.clear();
+    consecutiveEdges.clear();
+    route.clear();
+    edge.clear();
+    busStop.clear();
+    trainStop.clear();
+    chargingStation.clear();
+    containerStop.clear();
+    parkingArea.clear();
 }
 
 // ---------------------------------------------------------------------------

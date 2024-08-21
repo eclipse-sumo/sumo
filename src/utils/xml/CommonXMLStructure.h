@@ -46,6 +46,9 @@ public:
         /// @brief constructor for parsing the parameters from SUMOSAXAttributes
         PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk);
 
+        /// @brief clear parameters
+        void clear();
+
         /// @brief from junction
         std::string fromJunction;
 
