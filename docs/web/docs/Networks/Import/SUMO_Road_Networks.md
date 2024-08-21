@@ -44,7 +44,7 @@ To do so you can of course edit the file directly with netedit and store the cha
 network. If you want to track your changes however and maybe reapply them when your
 input changes (for instance an update from OpenStreetMap) you should save them as patch files.
 
-Those patches can be genereated automatically with [netdiff.py](../../Tools/Net.md#netdiffpy).
+Those patches can be generated automatically with [netdiff.py](../../Tools/Net.md#netdiffpy).
 
 Since you might have enabled settings like junction joining or removal of geometry nodes,
 those patch files may not be applicable directly on the import of the raw data but will need
