@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-16 16:01+0000\n"
+"PO-Revision-Date: 2024-08-21 11:38+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -3194,7 +3194,7 @@ msgstr ""
 
 #: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
-msgstr ""
+msgstr "Unbekannter Grund."
 
 #: src/microsim/MSNet.cpp:1476
 msgid ""
@@ -4047,7 +4047,7 @@ msgstr "Zeichnet die Periode für die Emissionsausgabe auf"
 #: src/microsim/devices/MSDevice_Emissions.cpp:97
 #, c-format
 msgid "Unknown attribute '%' to write in emission output."
-msgstr ""
+msgstr "In der Emissionsausgabe zu schreibendes unbekanntes Attribut '%'."
 
 #: src/microsim/devices/MSDevice_Example.cpp:48
 msgid ""
@@ -4134,18 +4134,25 @@ msgid ""
 "Additional time the vehicle shall need to reach the intersection after the "
 "signal turns green"
 msgstr ""
+"Zusätzliche Zeit nachdem das Signal auf Grün schaltet, die das Fahrzeug bis "
+"zur Ankunft am Knotenpunkt benötigt"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:62
 msgid ""
 "Override safety features - ignore the current light state, always follow "
 "GLOSA's predicted state"
 msgstr ""
+"Sicherheitsvorgaben missachten - immer dem in GLOSA vorhergesagen Zustand "
+"vertrauen und aktuellen Signalzustand ignorieren"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:65
 msgid ""
 "Vehicles follow a perfect speed calculation - ignore speed calculations from "
 "the CF model if not safety critical"
 msgstr ""
+"Das Fahrzeug folgt einer perfekten Geschwindigkeitsberechnung - "
+"Geschwindigkeitsberechnung des Fahrzeugzeugfolgemodells ignorieren solange "
+"nicht sicherheitskritisch"
 
 #: src/microsim/devices/MSDevice_GLOSA.cpp:197
 msgid ""
@@ -6595,6 +6602,7 @@ msgstr "Wendeverbindungen an allen geladenen Haltepunkten hinzufügen."
 msgid ""
 "Penalty factor for adding new bidi edges to connect public transport stops"
 msgstr ""
+"Straffaktor für neue bidirektionale Kanten zur Anbindung von ÖV-Haltestellen"
 
 #: src/netbuild/NBFrame.cpp:248
 msgid "Make all rails usable in both direction"
@@ -6617,7 +6625,7 @@ msgstr ""
 
 #: src/netbuild/NBFrame.cpp:260
 msgid "Move junctions to straighten a sequence of rail edges"
-msgstr ""
+msgstr "Knotenpunkte verschieben, um eine Folge an Eisenbahnkanten zu glätten"
 
 #: src/netbuild/NBFrame.cpp:263
 msgid "Guess signals that guard public transport stops"
@@ -8890,7 +8898,7 @@ msgstr "Kein Endknoten für die Kante '%' gefunden."
 
 #: src/netimport/NIImporter_MATSim.cpp:281
 msgid "Ignoring edge % which has no lanes."
-msgstr ""
+msgstr "Kante % wird ignoriert, da ohne Fahrstreifen."
 
 #: src/netimport/NIImporter_MATSim.cpp:292
 msgid "Could not add intermediate node to split loop edge '%'."
@@ -12027,15 +12035,15 @@ msgstr ""
 #: src/utils/common/MsgHandler.cpp:190
 #, c-format
 msgid " done (%ms)."
-msgstr ""
+msgstr " abgeschlossen (%ms)."
 
 #: src/utils/common/MsgHandler.cpp:192
 msgid " done."
-msgstr ""
+msgstr " abgeschlossen."
 
 #: src/utils/common/MsgHandler.cpp:195
 msgid " failed."
-msgstr ""
+msgstr " fehlgeschlagen."
 
 #: src/utils/common/MsgHandler.cpp:290
 msgid "Could not set locale to '%'."
@@ -12109,7 +12117,7 @@ msgstr "Haltversatz erfordert einen Versatzwert"
 #: src/utils/common/SUMOVehicleClass.cpp:354
 #, c-format
 msgid "Unknown vehicle class '%' ignored."
-msgstr ""
+msgstr "Die unbekannte Fahrzeugklasse '%' wird ignoriert."
 
 #: src/utils/common/SUMOVehicleClass.cpp:356
 #, c-format
@@ -13115,19 +13123,20 @@ msgstr "Ungültiger 'index' des halts%."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:45
 msgid "Missing parameter '%' for % '%'."
-msgstr ""
+msgstr "Es fehlt der Parameter '%' in % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:69
 msgid "Invalid distribution / float value '%' for parameter '%' in % '%' (%)."
 msgstr ""
+"Ungültige Verteilung / Fließkommawert '%' für Parameter '%' in % '%' (%)."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:82
 msgid "Invalid boolean value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "Ungültiger boolscher Wert '%' für Parameter '%' in % '%'."
 
 #: src/utils/vehicle/SUMOTrafficObject.cpp:95
 msgid "Invalid time value '%' for parameter '%' in % '%'."
-msgstr ""
+msgstr "Ungültige Zeitangabe '%' für Parameter #%' in % '%'."
 
 #: src/utils/vehicle/SUMOVehicleParameter.cpp:684
 msgid "Invalid % % given for %. Using edge end instead."
