@@ -1095,7 +1095,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                              false;
 ///////
     // get parents from plan creator
-    CommonXMLStructure::PlanParameters planParameters;
+    CommonXMLStructure::PlanParameters planParameters(planCreator->getPlanParameteres());
     // create plans depending of elements
     if (planParameters.consecutiveEdges.size() > 0) {
         // build walk over consecutive edges

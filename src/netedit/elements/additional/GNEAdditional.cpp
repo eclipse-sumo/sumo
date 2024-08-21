@@ -218,8 +218,13 @@ GNEAdditional::checkDrawFromContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the from additional
-        if ((planCreator->getPlanParameteres()->fromStoppingPlace == this) ||
-                (planCreator->getPlanParameteres()->fromTAZ == this)) {
+        const auto additionalID = getID();
+        if ((planCreator->getPlanParameteres().fromBusStop == additionalID) ||
+            (planCreator->getPlanParameteres().fromTrainStop == additionalID) ||
+            (planCreator->getPlanParameteres().fromContainerStop == additionalID) ||
+            (planCreator->getPlanParameteres().fromChargingStation == additionalID) ||
+            (planCreator->getPlanParameteres().fromParkingArea == additionalID) ||
+            (planCreator->getPlanParameteres().fromTAZ == additionalID)) {
             return true;
         }
     }
@@ -277,8 +282,13 @@ GNEAdditional::checkDrawToContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the to additional
-        if ((planCreator->getPlanParameteres()->toStoppingPlace == this) ||
-                (planCreator->getPlanParameteres()->toTAZ == this)) {
+        const auto additionalID = getID();
+        if ((planCreator->getPlanParameteres().toBusStop == additionalID) ||
+            (planCreator->getPlanParameteres().toTrainStop == additionalID) ||
+            (planCreator->getPlanParameteres().toContainerStop == additionalID) ||
+            (planCreator->getPlanParameteres().toChargingStation == additionalID) ||
+            (planCreator->getPlanParameteres().toParkingArea == additionalID) ||
+            (planCreator->getPlanParameteres().toTAZ == additionalID)) {
             return true;
         }
     }

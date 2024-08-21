@@ -27,7 +27,6 @@
 // ===========================================================================
 
 class GNEFrame;
-class GNEPlanParameters;
 
 // ===========================================================================
 // class definitions
@@ -115,7 +114,7 @@ public:
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
     /// @brief get plan parameters
-    const GNEPlanParameters* getPlanParameteres() const;
+    const CommonXMLStructure::PlanParameters &getPlanParameteres() const;
 
     /// @brief get clicked position over lane
     double getClickedPositionOverLane() const;
@@ -195,7 +194,7 @@ protected:
     const GNEDemandElement* myPreviousPlanElement = nullptr;
 
     /// @brief plan parameters
-    GNEPlanParameters* myPlanParameteres;
+    CommonXMLStructure::PlanParameters myPlanParameteres;
 
     /// @brief clicked position over lane
     double myClickedPositionOverLane = 0;

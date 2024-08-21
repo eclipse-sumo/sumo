@@ -216,12 +216,13 @@ GNEEdge::checkDrawFromContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the from edge
-        if (planCreator->getPlanParameteres()->fromEdge == this) {
+        const auto edgeID = getID();
+        if (planCreator->getPlanParameteres().fromEdge == edgeID) {
             return true;
         } else {
             // mark all consecutive edges
-            for (const auto& edge : planCreator->getPlanParameteres()->consecutiveEdges) {
-                if (edge == this) {
+            for (const auto& edge : planCreator->getPlanParameteres().consecutiveEdges) {
+                if (edge == edgeID) {
                     return true;
                 }
             }
@@ -249,7 +250,7 @@ GNEEdge::checkDrawToContour() const {
     // continue depending of planCreator
     if (planCreator) {
         // check if this is the to edge
-        if (planCreator->getPlanParameteres()->toEdge == this) {
+        if (planCreator->getPlanParameteres().toEdge == getID()) {
             return true;
         }
     }

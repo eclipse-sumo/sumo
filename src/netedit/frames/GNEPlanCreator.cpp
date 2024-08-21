@@ -156,8 +156,7 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
     MFXGroupBoxModule(frameParent, TL("Route creator")),
     myFrameParent(frameParent),
     myVClass(SVC_PASSENGER),
-    myPlanParents(0),
-    myPlanParameteres(new GNEPlanParameters()) {
+    myPlanParents(0) {
     // create button for use last route
     myUseLastRoute = GUIDesigns::buildFXButton(getCollapsableFrame(), TL("Use last route"), "", "", GUIIconSubSys::getIcon(GUIIcon::ROUTE), this, MID_GNE_PATHCREATOR_USELASTROUTE, GUIDesignButton);
     myUseLastRoute->disable();
@@ -175,32 +174,33 @@ GNEPlanCreator::GNEPlanCreator(GNEFrame* frameParent) :
 }
 
 
-GNEPlanCreator::~GNEPlanCreator() {
-    delete myPlanParameteres;
-}
+GNEPlanCreator::~GNEPlanCreator() {}
 
 
 bool
 GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
+/*
     if (planTemplate == nullptr) {
         return false;
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
-        return GNEDemandElementPlan::getPersonTripTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getPersonTripTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanWalk()) {
-        return GNEDemandElementPlan::getWalkTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getWalkTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanRide()) {
-        return GNEDemandElementPlan::getRideTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getRideTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
-        return GNEDemandElementPlan::getTransportTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getTransportTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanTranship()) {
-        return GNEDemandElementPlan::getTranshipTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getTranshipTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
-        return GNEDemandElementPlan::getPersonStopTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getPersonStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
-        return GNEDemandElementPlan::getContainerStopTagIcon(*myPlanParameteres).first != SUMO_TAG_NOTHING;
+        return GNEDemandElementPlan::getContainerStopTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else {
         return false;
     }
+*/
+return true;
 }
 
 
@@ -323,7 +323,7 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
         return false;
     }
     // add edge
-    myPlanParameteres->route = route;
+    myPlanParameteres.route = route->getID();
     // create path
     return myFrameParent->createPath(false);
 }
@@ -386,7 +386,7 @@ GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
 }
 
 
-const GNEPlanParameters*
+const CommonXMLStructure::PlanParameters&
 GNEPlanCreator::getPlanParameteres() const {
     return myPlanParameteres;
 }
@@ -406,6 +406,7 @@ GNEPlanCreator::getPath() const {
 
 void
 GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
+    const auto &ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     const double lineWidth = 0.35;
     const double lineWidthin = 0.25;
     // Add a draw matrix
@@ -467,22 +468,22 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-    } else if (myPlanParameteres->fromJunction && myPlanParameteres->toJunction) {
+    } else if (!myPlanParameteres.fromJunction.empty() && !myPlanParameteres.toJunction.empty()) {
         // set color
         GLHelper::setColor(RGBColor::ORANGE);
         // get two points
-        const Position posA = myPlanParameteres->fromJunction->getPositionInView();
-        const Position posB = myPlanParameteres->toJunction->getPositionInView();
+        const Position posA = ACs->getJunctions().at(myPlanParameteres.fromJunction).second->getPositionInView();
+        const Position posB = ACs->getJunctions().at(myPlanParameteres.toJunction).second->getPositionInView();
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
         const double len = posA.distanceTo2D(posB);
         // draw line
         GLHelper::drawBoxLine(posA, rot, len, 0.25);
-    } else if (myPlanParameteres->fromTAZ && myPlanParameteres->toTAZ) {
+    } else if (!myPlanParameteres.fromTAZ.empty() && !myPlanParameteres.toTAZ.empty()) {
         // set color
         GLHelper::setColor(RGBColor::ORANGE);
         // get two points
-        const Position posA = myPlanParameteres->fromTAZ->getPositionInView();
-        const Position posB = myPlanParameteres->toTAZ->getPositionInView();
+        const Position posA = ACs->retrieveAdditional(SUMO_TAG_TAZ, myPlanParameteres.fromTAZ)->getPositionInView();
+        const Position posB = ACs->retrieveAdditional(SUMO_TAG_TAZ, myPlanParameteres.toTAZ)->getPositionInView();
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
         const double len = posA.distanceTo2D(posB);
         // draw line
@@ -514,24 +515,40 @@ GNEPlanCreator::abortPathCreation() {
 void
 GNEPlanCreator::removeLastElement() {
     if (myRemoveLastInsertedElement->isEnabled()) {
-        if (myPlanParameteres->consecutiveEdges.size() > 0) {
-            myPlanParameteres->consecutiveEdges.pop_back();
-        } else if (myPlanParameteres->toEdge) {
-            myPlanParameteres->toEdge = nullptr;
-        } else if (myPlanParameteres->toJunction) {
-            myPlanParameteres->toJunction = nullptr;
-        } else if (myPlanParameteres->toTAZ) {
-            myPlanParameteres->toTAZ = nullptr;
-        } else if (myPlanParameteres->toStoppingPlace) {
-            myPlanParameteres->toStoppingPlace = nullptr;
-        } else if (myPlanParameteres->fromEdge) {
-            myPlanParameteres->fromEdge = nullptr;
-        } else if (myPlanParameteres->fromJunction) {
-            myPlanParameteres->fromJunction = nullptr;
-        } else if (myPlanParameteres->fromTAZ) {
-            myPlanParameteres->fromTAZ = nullptr;
-        } else if (myPlanParameteres->fromStoppingPlace) {
-            myPlanParameteres->fromStoppingPlace = nullptr;
+        if (myPlanParameteres.consecutiveEdges.size() > 0) {
+            myPlanParameteres.consecutiveEdges.pop_back();
+        } else if (!myPlanParameteres.toEdge.empty()) {
+            myPlanParameteres.toEdge.clear();
+        } else if (!myPlanParameteres.toJunction.empty()) {
+            myPlanParameteres.toJunction.clear();
+        } else if (!myPlanParameteres.toTAZ.empty()) {
+            myPlanParameteres.toTAZ.clear();
+        } else if (!myPlanParameteres.toBusStop.empty()) {
+            myPlanParameteres.toBusStop.clear();
+        } else if (!myPlanParameteres.toTrainStop.empty()) {
+            myPlanParameteres.toBusStop.clear();
+        } else if (!myPlanParameteres.toContainerStop.empty()) {
+            myPlanParameteres.toBusStop.clear();
+        } else if (!myPlanParameteres.toChargingStation.empty()) {
+            myPlanParameteres.toBusStop.clear();
+        } else if (!myPlanParameteres.toParkingArea.empty()) {
+            myPlanParameteres.toBusStop.clear();
+        } else if (!myPlanParameteres.fromEdge.empty()) {
+            myPlanParameteres.fromEdge = nullptr;
+        } else if (!myPlanParameteres.fromJunction.empty()) {
+            myPlanParameteres.fromJunction = nullptr;
+        } else if (!myPlanParameteres.fromTAZ.empty()) {
+            myPlanParameteres.fromTAZ = nullptr;
+        } else if (!myPlanParameteres.fromBusStop.empty()) {
+            myPlanParameteres.fromBusStop.clear();
+        } else if (!myPlanParameteres.fromTrainStop.empty()) {
+            myPlanParameteres.fromBusStop.clear();
+        } else if (!myPlanParameteres.fromContainerStop.empty()) {
+            myPlanParameteres.fromBusStop.clear();
+        } else if (!myPlanParameteres.fromChargingStation.empty()) {
+            myPlanParameteres.fromBusStop.clear();
+        } else if (!myPlanParameteres.fromParkingArea.empty()) {
+            myPlanParameteres.fromBusStop.clear();
         }
         // update remove last item button
         updateRemoveLastItemButton();
@@ -583,7 +600,7 @@ GNEPlanCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
 void
 GNEPlanCreator::clearPath() {
     // clear all elements
-    myPlanParameteres->clear();
+    myPlanParameteres.clear();
     myClickedPositionOverLane = 0;
     // clear path
     myPath.clear();
@@ -592,38 +609,59 @@ GNEPlanCreator::clearPath() {
 
 void
 GNEPlanCreator::recalculatePath() {
+    const auto &ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // first clear path
     myPath.clear();
     // continue depending of elements
-    if (myPlanParameteres->consecutiveEdges.size() > 0) {
+    if (myPlanParameteres.consecutiveEdges.size() > 0) {
         // add every segment
-        for (int i = 1; i < (int)myPlanParameteres->consecutiveEdges.size(); i++) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myPlanParameteres->consecutiveEdges.at(i - 1), myPlanParameteres->consecutiveEdges.at(i)));
+        for (int i = 1; i < (int)myPlanParameteres.consecutiveEdges.size(); i++) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, 
+                                      ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i - 1)), 
+                                      ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i))));
         }
     } else {
         // get from edge
         GNEEdge* fromEdge = nullptr;
-        if (myPlanParameteres->fromEdge) {
-            fromEdge = myPlanParameteres->fromEdge;
-        } else if (myPlanParameteres->fromStoppingPlace) {
-            fromEdge = myPlanParameteres->fromStoppingPlace->getParentLanes().front()->getParentEdge();
+        if (!myPlanParameteres.fromEdge.empty()) {
+            fromEdge = ACs->retrieveEdge(myPlanParameteres.fromEdge);
+        } else if (!myPlanParameteres.fromBusStop.empty()) {
+            fromEdge = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, myPlanParameteres.fromBusStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.fromTrainStop.empty()) {
+            fromEdge = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, myPlanParameteres.fromTrainStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.fromContainerStop.empty()) {
+            fromEdge = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, myPlanParameteres.fromContainerStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.fromChargingStation.empty()) {
+            fromEdge = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, myPlanParameteres.fromChargingStation)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.fromParkingArea.empty()) {
+            fromEdge = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, myPlanParameteres.fromParkingArea)->getParentLanes().front()->getParentEdge();
         }
         // get to edge
         GNEEdge* toEdge = nullptr;
-        if (myPlanParameteres->toEdge) {
-            toEdge = myPlanParameteres->toEdge;
-        } else if (myPlanParameteres->toStoppingPlace) {
-            toEdge = myPlanParameteres->toStoppingPlace->getParentLanes().front()->getParentEdge();
+        if (!myPlanParameteres.toEdge.empty()) {
+            toEdge = ACs->retrieveEdge(myPlanParameteres.toEdge);
+        } else if (!myPlanParameteres.toBusStop.empty()) {
+            toEdge = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, myPlanParameteres.toBusStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.toTrainStop.empty()) {
+            toEdge = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, myPlanParameteres.toTrainStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.toContainerStop.empty()) {
+            toEdge = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, myPlanParameteres.toContainerStop)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.toChargingStation.empty()) {
+            toEdge = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, myPlanParameteres.toChargingStation)->getParentLanes().front()->getParentEdge();
+        } else if (!myPlanParameteres.toParkingArea.empty()) {
+            toEdge = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, myPlanParameteres.toParkingArea)->getParentLanes().front()->getParentEdge();
         }
         // continue depending of edges and junctions
         if (fromEdge && toEdge) {
             myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, toEdge));
-        } else if (fromEdge && myPlanParameteres->toJunction) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, myPlanParameteres->toJunction));
-        } else if (myPlanParameteres->fromJunction && toEdge) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myPlanParameteres->fromJunction, toEdge));
-        } else if (myPlanParameteres->fromJunction && myPlanParameteres->toJunction) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, myPlanParameteres->fromJunction, myPlanParameteres->toJunction));
+        } else if (fromEdge && !myPlanParameteres.toJunction.empty()) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction).second));
+        } else if (!myPlanParameteres.fromJunction.empty() && toEdge) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, ACs->getJunctions().at(myPlanParameteres.fromJunction).second, toEdge));
+        } else if (!myPlanParameteres.fromJunction.empty() && !myPlanParameteres.toJunction.empty()) {
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass,
+                                      ACs->getJunctions().at(myPlanParameteres.fromJunction).second,
+                                      ACs->getJunctions().at(myPlanParameteres.toJunction).second));
         }
     }
 }
@@ -631,15 +669,7 @@ GNEPlanCreator::recalculatePath() {
 
 int
 GNEPlanCreator::getNumberOfSelectedElements() const {
-    return (int)myPlanParameteres->consecutiveEdges.size() +
-           (myPlanParameteres->fromEdge != nullptr ? 1 : 0) +
-           (myPlanParameteres->toEdge != nullptr ? 1 : 0) +
-           (myPlanParameteres->fromJunction != nullptr ? 1 : 0) +
-           (myPlanParameteres->toJunction != nullptr ? 1 : 0) +
-           (myPlanParameteres->fromTAZ != nullptr ? 1 : 0) +
-           (myPlanParameteres->toTAZ != nullptr ? 1 : 0) +
-           (myPlanParameteres->fromStoppingPlace != nullptr ? 1 : 0) +
-           (myPlanParameteres->toStoppingPlace != nullptr ? 1 : 0);
+    return myPlanParameteres.getNumberOfDefinedParameters();
 }
 
 
@@ -722,7 +752,7 @@ GNEPlanCreator::updateInfoLabel() {
 bool
 GNEPlanCreator::addSingleEdge(GNELane* lane) {
     // add edge
-    myPlanParameteres->fromEdge = lane->getParentEdge();
+    myPlanParameteres.fromEdge = lane->getParentEdge()->getID();
     // set position over lane
     const auto clickedPos = myFrameParent->getViewNet()->getPositionInformation();
     myClickedPositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(clickedPos);
@@ -733,8 +763,27 @@ GNEPlanCreator::addSingleEdge(GNELane* lane) {
 
 bool
 GNEPlanCreator::addSingleStoppingPlace(GNEAdditional* stoppingPlace) {
-    // add edge
-    myPlanParameteres->stoppingPlace = stoppingPlace;
+    // continue depending of stoppingPlace tag
+    switch (stoppingPlace->getTagProperty().getTag()) {
+        case SUMO_TAG_BUS_STOP:
+            myPlanParameteres.busStop = stoppingPlace->getID();
+            break;
+        case SUMO_TAG_TRAIN_STOP:
+            myPlanParameteres.trainStop = stoppingPlace->getID();
+            break;
+        case SUMO_TAG_CONTAINER_STOP:
+            myPlanParameteres.containerStop = stoppingPlace->getID();
+            break;
+        case SUMO_TAG_CHARGING_STATION:
+            myPlanParameteres.chargingStation = stoppingPlace->getID();
+            break;
+        case SUMO_TAG_PARKING_AREA:
+            myPlanParameteres.parkingArea = stoppingPlace->getID();
+            break;
+        default:
+            // abort creation
+            return false;
+    }
     // create path
     return myFrameParent->createPath(false);
 }
@@ -743,14 +792,14 @@ GNEPlanCreator::addSingleStoppingPlace(GNEAdditional* stoppingPlace) {
 bool
 GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
     // check double edges
-    if ((myPlanParameteres->consecutiveEdges.size() > 0) && (myPlanParameteres->consecutiveEdges.back() == edge)) {
+    if ((myPlanParameteres.consecutiveEdges.size() > 0) && (myPlanParameteres.consecutiveEdges.back() == edge->getID())) {
         // Write warning
         WRITE_WARNING(TL("Double edges aren't allowed"));
         // abort add edge
         return false;
     }
     // All checks ok, then add it in selected elements
-    myPlanParameteres->consecutiveEdges.push_back(edge);
+    myPlanParameteres.consecutiveEdges.push_back(edge->getID());
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -767,7 +816,7 @@ GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
 bool
 GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     // avoid double junctions
-    if (myPlanParameteres->fromJunction && (myPlanParameteres->fromJunction == junction)) {
+    if (!myPlanParameteres.fromJunction.empty() && (myPlanParameteres.fromJunction == junction->getID())) {
         // Write warning
         WRITE_WARNING(TL("Double junctions aren't allowed"));
         // abort add junction
@@ -782,9 +831,9 @@ GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     }
     // set junction
     if (getNumberOfSelectedElements() == 0) {
-        myPlanParameteres->fromJunction = junction;
+        myPlanParameteres.fromJunction = junction->getID();
     } else {
-        myPlanParameteres->toJunction = junction;
+        myPlanParameteres.toJunction = junction->getID();
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -801,7 +850,7 @@ GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
 bool
 GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     // avoid double TAZs
-    if (myPlanParameteres->fromTAZ && (myPlanParameteres->fromTAZ == TAZ)) {
+    if (!myPlanParameteres.fromTAZ.empty() && (myPlanParameteres.fromTAZ == TAZ->getID())) {
         // Write warning
         WRITE_WARNING(TL("Double TAZs aren't allowed"));
         // abort add TAZ
@@ -816,9 +865,9 @@ GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     }
     // set TAZ
     if (getNumberOfSelectedElements() == 0) {
-        myPlanParameteres->fromTAZ = TAZ;
+        myPlanParameteres.fromTAZ = TAZ->getID();
     } else {
-        myPlanParameteres->toTAZ = TAZ;
+        myPlanParameteres.toTAZ = TAZ->getID();
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -835,7 +884,7 @@ GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
 bool
 GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     // check double edges
-    if (myPlanParameteres->fromEdge && (myPlanParameteres->fromEdge == edge)) {
+    if (!myPlanParameteres.fromEdge.empty() && (myPlanParameteres.fromEdge == edge->getID())) {
         // Write warning
         WRITE_WARNING(TL("Double edges aren't allowed"));
         // abort add edge
@@ -850,9 +899,9 @@ GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     }
     // set edge
     if (getNumberOfSelectedElements() == 0) {
-        myPlanParameteres->fromEdge = edge;
+        myPlanParameteres.fromEdge = edge->getID();
     } else {
-        myPlanParameteres->toEdge = edge;
+        myPlanParameteres.toEdge = edge->getID();
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -870,8 +919,13 @@ GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
 bool
 GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // check double stoppingPlaces
-    if (myPlanParameteres->fromStoppingPlace && (myPlanParameteres->fromStoppingPlace == stoppingPlace)) {
-        // Write warning
+    const auto stoppingPlaceID = stoppingPlace->getID();
+    if ((!myPlanParameteres.busStop.empty() && (myPlanParameteres.busStop == stoppingPlaceID)) ||
+        (!myPlanParameteres.trainStop.empty() && (myPlanParameteres.trainStop == stoppingPlaceID)) ||
+        (!myPlanParameteres.containerStop.empty() && (myPlanParameteres.containerStop == stoppingPlaceID)) ||
+        (!myPlanParameteres.chargingStation.empty() && (myPlanParameteres.chargingStation == stoppingPlaceID)) ||
+        (!myPlanParameteres.parkingArea.empty() && (myPlanParameteres.parkingArea == stoppingPlaceID))) {
+            // Write warning
         WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
         // abort add stopping place
         return false;
@@ -885,9 +939,47 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     }
     // add stoppingPlace
     if (getNumberOfSelectedElements() == 0) {
-        myPlanParameteres->fromStoppingPlace = stoppingPlace;
+        // continue depending of stoppingPlace tag
+        switch (stoppingPlace->getTagProperty().getTag()) {
+            case SUMO_TAG_BUS_STOP:
+                myPlanParameteres.fromBusStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                myPlanParameteres.fromTrainStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                myPlanParameteres.fromContainerStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                myPlanParameteres.fromChargingStation = stoppingPlaceID;
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                myPlanParameteres.fromParkingArea = stoppingPlaceID;
+                break;
+            default:
+                return false;
+        }
     } else {
-        myPlanParameteres->toStoppingPlace = stoppingPlace;
+        // continue depending of stoppingPlace tag
+        switch (stoppingPlace->getTagProperty().getTag()) {
+            case SUMO_TAG_BUS_STOP:
+                myPlanParameteres.toBusStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_TRAIN_STOP:
+                myPlanParameteres.toTrainStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_CONTAINER_STOP:
+                myPlanParameteres.toContainerStop = stoppingPlaceID;
+                break;
+            case SUMO_TAG_CHARGING_STATION:
+                myPlanParameteres.toChargingStation = stoppingPlaceID;
+                break;
+            case SUMO_TAG_PARKING_AREA:
+                myPlanParameteres.toParkingArea = stoppingPlaceID;
+                break;
+            default:
+                return false;
+        }
     }
     // enable abort route button
     myAbortCreationButton->enable();
