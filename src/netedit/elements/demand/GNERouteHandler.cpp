@@ -1093,34 +1093,15 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     const bool friendlyPos = personPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? personPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              personPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(personPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
-///////
-    // get parents from plan creator
-    CommonXMLStructure::PlanParameters planParameters(planCreator->getPlanParameteres());
-    // create plans depending of elements
-    if (planParameters.consecutiveEdges.size() > 0) {
-        // build walk over consecutive edges
-        personPlanObject->setTag(GNE_TAG_WALK_EDGES);
-        buildWalk(personPlanObject, planParameters, arrivalPos);
-    } else if (planParameters.route.size() > 0) {
-        // build walk over route
-        personPlanObject->setTag(GNE_TAG_WALK_ROUTE);
-        buildWalk(personPlanObject, planParameters, arrivalPos);
-    } else if (planTemplate->getTagProperty().isPlanWalk()) {
-        // build walk
-//        personPlanObject->setTag(GNEDemandElementPlan::getWalkTagIcon(planParameters).first);
-        buildWalk(personPlanObject, planParameters, arrivalPos);
+    // build depending of plan type
+    if (planTemplate->getTagProperty().isPlanWalk()) {
+        buildWalk(personPlanObject, planCreator->getPlanParameteres(), arrivalPos);
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
-        // build person trip
-//       personPlanObject->setTag(GNEDemandElementPlan::getPersonTripTagIcon(planParameters).first);
-        buildPersonTrip(personPlanObject, planParameters, arrivalPos, types, modes, lines);
+        buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
-        // build ride
-        //      personPlanObject->setTag(GNEDemandElementPlan::getRideTagIcon(planParameters).first);
-        buildRide(personPlanObject, planParameters, arrivalPos, lines);
+        buildRide(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
-        // build stop
-//        personPlanObject->setTag(GNEDemandElementPlan::getPersonStopTagIcon(planParameters).first);
-        // set parameters
+        // set specific stop parameters
         int parameterSet = 0;
         if (personPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
             parameterSet |= STOP_DURATION_SET;
@@ -1128,7 +1109,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
         if (personPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        buildPersonStop(personPlanObject, planParameters, endPos, duration, until, actType, friendlyPos, parameterSet);
+        buildPersonStop(personPlanObject, planCreator->getPlanParameteres(), endPos, duration, until, actType, friendlyPos, parameterSet);
     }
     // get person
     const auto person = myNet->getAttributeCarriers()->retrieveDemandElement(personPlanObject->getParentSumoBaseObject()->getTag(),
@@ -1186,28 +1167,13 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     const bool friendlyPos = containerPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? containerPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              containerPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(containerPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
-///////
-    // get parents from plan creator
-    CommonXMLStructure::PlanParameters planParameters;
-    // create plans depending of elements
-    if (planParameters.consecutiveEdges.size() > 0) {
-        // consecutive edges
-        containerPlanObject->setTag(GNE_TAG_TRANSHIP_EDGES);
-        buildTranship(containerPlanObject, planParameters, speed, departPos, arrivalPos);
-    } else if (planTemplate->getTagProperty().isPlanTranship()) {
-        // set tranship tag
-///        containerPlanObject->setTag(GNEDemandElementPlan::getTranshipTagIcon(planParameters).first);
-        // tranship: edge->edge
-        buildTranship(containerPlanObject, planParameters, arrivalPos, departPos, speed);
+    // build depending of plan type
+    if (planTemplate->getTagProperty().isPlanTranship()) {
+        buildTranship(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, departPos, speed);
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
-        // set container trip tag
-//       containerPlanObject->setTag(GNEDemandElementPlan::getTransportTagIcon(planParameters).first);
-        // tranship: edge->edge
-        buildTransport(containerPlanObject, planParameters, arrivalPos, lines);
+        buildTransport(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
-        // set ride tag
-//        containerPlanObject->setTag(GNEDemandElementPlan::getContainerStopTagIcon(planParameters).first);
-        // set parameters
+        // set stops specific parameters
         int parameterSet = 0;
         if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_DURATION)) {
             parameterSet |= STOP_DURATION_SET;
@@ -1215,7 +1181,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
         if (containerPlanObject->hasTimeAttribute(SUMO_ATTR_UNTIL)) {
             parameterSet |= STOP_UNTIL_SET;
         }
-        buildContainerStop(containerPlanObject, planParameters, endPos, duration, until, actType, friendlyPos, parameterSet);
+        buildContainerStop(containerPlanObject, planCreator->getPlanParameteres(), endPos, duration, until, actType, friendlyPos, parameterSet);
     }
     // get container
     const auto container = myNet->getAttributeCarriers()->retrieveDemandElement(containerPlanObject->getParentSumoBaseObject()->getTag(),
