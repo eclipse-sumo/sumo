@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-11 22:14:38 by Eclipse SUMO netgenerate Version v1_20_0+0443-233e48e5c88
+<!-- generated on 2024-08-21 14:21:29 by Eclipse SUMO netgenerate Version v1_14_1+14496-f6b8788bf11
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -139,6 +139,7 @@
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
         <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
+        <default.connection.cont-pos value="-1" type="FLOAT" help="Whether/where connections should have an internal junction"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
         <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|left_before_right|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
     </building_defaults>
