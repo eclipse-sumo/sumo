@@ -341,9 +341,12 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "ride: trainstop->busstop",               GNE_TAG_RIDE_TRAINSTOP_BUSSTOP },
     { "ride: trainstop->trainstop",             GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP },
     // GNE Person Stops
+    { "stopPerson: edge",                       GNE_TAG_STOPPERSON_EDGE },
     { "stopPerson: busStop",                    GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: trainStop",                  GNE_TAG_STOPPERSON_TRAINSTOP },
-    { "stopPerson: edge",                       GNE_TAG_STOPPERSON_EDGE },
+    { "stopPerson: containerStop",              GNE_TAG_STOPPERSON_CONTAINERSTOP },
+    { "stopPerson: chargingStation",            GNE_TAG_STOPPERSON_CHARGINGSTATION },
+    { "stopPerson: parkingArea",                GNE_TAG_STOPPERSON_PARKINGAREA },
     // GNE Transports
     { "transport: edge->edge",                  GNE_TAG_TRANSPORT_EDGE_EDGE },
     { "transport: edge->containerStop",         GNE_TAG_TRANSPORT_EDGE_CONTAINERSTOP },
@@ -380,8 +383,12 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tranship: taz->taz",                     GNE_TAG_TRANSHIP_TAZ_TAZ },
     { "tranship: edges",                        GNE_TAG_TRANSHIP_EDGES },
     // GNE Container Stops
-    { "stopContainer: containerStop",           GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
     { "stopContainer: edge",                    GNE_TAG_STOPCONTAINER_EDGE },
+    { "stopContainer: busStop",                 GNE_TAG_STOPCONTAINER_BUSSTOP },
+    { "stopContainer: trainStop",               GNE_TAG_STOPCONTAINER_TRAINSTOP },
+    { "stopContainer: containerStop",           GNE_TAG_STOPCONTAINER_CONTAINERSTOP },
+    { "stopContainer: chargingStation",         GNE_TAG_STOPCONTAINER_CHARGINGSTATION },
+    { "stopContainer: parkingArea",             GNE_TAG_STOPCONTAINER_PARKINGAREA },
     // root file
     { "rootFile",                               SUMO_TAG_ROOTFILE },
     // Last element
