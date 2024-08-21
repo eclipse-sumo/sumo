@@ -49,6 +49,9 @@ public:
         /// @brief clear parameters
         void clear();
 
+        /// @brief get number of defined plans
+        int getNumberOfDefinedParameters() const;
+
         /// @brief from junction
         std::string fromJunction;
 

@@ -104,6 +104,35 @@ CommonXMLStructure::PlanParameters::clear() {
     parkingArea.clear();
 }
 
+
+int
+CommonXMLStructure::PlanParameters::getNumberOfDefinedParameters() const {
+    return (int)consecutiveEdges.size() + 
+           (fromJunction.empty()? 0 : 1) + 
+           (toJunction.empty()? 0 : 1) + 
+           (fromEdge.empty()? 0 : 1) + 
+           (toEdge.empty()? 0 : 1) + 
+           (fromTAZ.empty()? 0 : 1) + 
+           (toTAZ.empty()? 0 : 1) + 
+           (fromBusStop.empty()? 0 : 1) + 
+           (toBusStop.empty()? 0 : 1) + 
+           (fromTrainStop.empty()? 0 : 1) + 
+           (toTrainStop.empty()? 0 : 1) + 
+           (fromContainerStop.empty()? 0 : 1) + 
+           (toContainerStop.empty()? 0 : 1) + 
+           (fromChargingStation.empty()? 0 : 1) + 
+           (toChargingStation.empty()? 0 : 1) + 
+           (fromParkingArea.empty()? 0 : 1) + 
+           (toParkingArea.empty()? 0 : 1) + 
+           (route.empty()? 0 : 1) + 
+           (edge.empty()? 0 : 1) + 
+           (busStop.empty()? 0 : 1) + 
+           (trainStop.empty()? 0 : 1) + 
+           (chargingStation.empty()? 0 : 1) + 
+           (containerStop.empty()? 0 : 1) + 
+           (parkingArea.empty()? 0 : 1);
+}
+
 // ---------------------------------------------------------------------------
 // CommonXMLStructure::SumoBaseObject - methods
 // ---------------------------------------------------------------------------
