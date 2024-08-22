@@ -70,7 +70,9 @@ GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
+    // first write origin stop (if this element starts in a stoppingPlace)
     writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_PERSONTRIP);
     writeLocationAttributes(device);
     if (myModes.size() > 0) {

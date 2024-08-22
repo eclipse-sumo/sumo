@@ -68,7 +68,9 @@ GNERide::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNERide::writeDemandElement(OutputDevice& device) const {
+    // first write origin stop (if this element starts in a stoppingPlace)
     writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_RIDE);
     writeLocationAttributes(device);
     if (myLines.empty()) {

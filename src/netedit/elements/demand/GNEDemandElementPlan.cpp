@@ -792,9 +792,13 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
         device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentStoppingPlaces().front()->getID());
     } else if (tagProperty.planContainerStop()) {
         device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentStoppingPlaces().front()->getID());
+    } else if (tagProperty.planChargingStation()) {
+        device.writeAttr(SUMO_ATTR_CHARGING_STATION, myPlanElement->getParentStoppingPlaces().front()->getID());
+    } else if (tagProperty.planParkingArea()) {
+        device.writeAttr(SUMO_ATTR_PARKING_AREA, myPlanElement->getParentStoppingPlaces().front()->getID());
     } else {
         // write from attribute (if this is the first element)
-        if (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == 0) {
+        if (myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
             // check if write edge or junction
             if (tagProperty.planFromEdge()) {
                 device.writeAttr(SUMO_ATTR_FROM, myPlanElement->getParentEdges().front()->getID());
@@ -818,6 +822,10 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TRAIN_STOP, myPlanElement->getParentStoppingPlaces().back()->getID());
         } else if (tagProperty.planToContainerStop()) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, myPlanElement->getParentStoppingPlaces().back()->getID());
+        } else if (tagProperty.planToChargingStation()) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, myPlanElement->getParentStoppingPlaces().back()->getID());
+        } else if (tagProperty.planToParkingArea()) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, myPlanElement->getParentStoppingPlaces().back()->getID());
         }
     }
     // check if write depart position
@@ -838,7 +846,7 @@ GNEDemandElementPlan::writeLocationAttributes(OutputDevice& device) const {
 void
 GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
     const auto& tagProperty = myPlanElement->getTagProperty();
-    // write extra stop element for a stopping place (if this is the first element)
+    // write an extra stop element with duration 0 over a stopping place (if this is the first element)
     if (tagProperty.planFromStoppingPlace()
             && myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == nullptr) {
         device.openTag(SUMO_TAG_STOP);
@@ -849,6 +857,10 @@ GNEDemandElementPlan::writeOriginStop(OutputDevice& device) const {
             device.writeAttr(SUMO_ATTR_TRAIN_STOP, stopID);
         } else if (tagProperty.planFromContainerStop()) {
             device.writeAttr(SUMO_ATTR_CONTAINER_STOP, stopID);
+        } else if (tagProperty.planFromChargingStation()) {
+            device.writeAttr(SUMO_ATTR_CHARGING_STATION, stopID);
+        } else if (tagProperty.planFromParkingArea()) {
+            device.writeAttr(SUMO_ATTR_PARKING_AREA, stopID);
         }
         device.writeAttr(SUMO_ATTR_DURATION, 0);
         device.closeTag();

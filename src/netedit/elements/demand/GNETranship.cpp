@@ -70,7 +70,9 @@ GNETranship::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNETranship::writeDemandElement(OutputDevice& device) const {
+    // first write origin stop (if this element starts in a stoppingPlace)
     writeOriginStop(device);
+    // write rest of attributes
     device.openTag(SUMO_TAG_TRANSHIP);
     writeLocationAttributes(device);
     device.closeTag();
