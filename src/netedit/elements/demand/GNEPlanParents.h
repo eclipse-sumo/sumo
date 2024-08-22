@@ -72,47 +72,32 @@ public:
     /// @brief get from busStop
     bool getFromBusStop() const;
 
-    /// @brief get from trainStop
-    bool getFromTrainStop() const;
-
-    /// @brief get from containerStop
-    bool getFromContainerStop() const;
-
-    /// @brief get from chargingStation
-    bool getFromChargingStation() const;
-
-    /// @brief get from parkingArea
-    bool getFromParkingArea() const;
-
     /// @brief get to busStop
     bool getToBusStop() const;
+
+    /// @brief get from trainStop
+    bool getFromTrainStop() const;
 
     /// @brief get to trainStop
     bool getToTrainStop() const;
 
+    /// @brief get from containerStop
+    bool getFromContainerStop() const;
+
     /// @brief get to containerStop
     bool getToContainerStop() const;
+
+    /// @brief get from chargingStation
+    bool getFromChargingStation() const;
 
     /// @brief get to chargingStation
     bool getToChargingStation() const;
 
+    /// @brief get from parkingArea
+    bool getFromParkingArea() const;
+
     /// @brief get to parkingArea
     bool getToParkingArea() const;
-
-    /// @brief get single busStop
-    bool getBusStop() const;
-
-    /// @brief get single trainStop
-    bool getTrainStop() const;
-
-    /// @brief get single containerStop
-    bool getContainerStop() const;
-
-    /// @brief get single chargingStation
-    bool getChargingStation() const;
-
-    /// @brief get single parkingArea
-    bool getParkingArea() const;
 
     /// @}
 
@@ -128,17 +113,20 @@ public:
     /// @brief get demand elements (used in plan constructors)
     std::vector<GNEDemandElement*> getDemandElements(GNEDemandElement* parent) const;
 
-    /// @brief from junction
-    GNEJunction* fromJunction = nullptr;
-
-    /// @brief to junction
-    GNEJunction* toJunction = nullptr;
-
     /// @brief from edge
     GNEEdge* fromEdge = nullptr;
 
     /// @brief to edge
     GNEEdge* toEdge = nullptr;
+
+    /// @brief edges
+    std::vector<GNEEdge*> consecutiveEdges;
+
+    /// @brief from junction
+    GNEJunction* fromJunction = nullptr;
+
+    /// @brief to junction
+    GNEJunction* toJunction = nullptr;
 
     /// @brief from TAZ
     GNEAdditional* fromTAZ = nullptr;
@@ -152,20 +140,9 @@ public:
     /// @brief to stoppingPlace
     GNEAdditional* toStoppingPlace = nullptr;
 
-    /// @brief edges
-    std::vector<GNEEdge*> consecutiveEdges;
+    /// @brief from route (currently only used by walks)
+    GNEDemandElement* fromRoute = nullptr;
 
-    /// @brief route (currently only used by walks)
-    GNEDemandElement* route = nullptr;
-
-    /// @name values used only by stops
-    /// @{
-
-    /// @brief edge
-    GNEEdge* edge = nullptr;
-
-    /// @brief stoppingPlace
-    GNEAdditional* stoppingPlace = nullptr;
-
-    /// @}
+    /// @brief to route (currently only used by walks)
+    GNEDemandElement* toRoute = nullptr;
 };

@@ -52,12 +52,19 @@ GNEPlanParents::GNEPlanParents() {}
 
 GNEPlanParents::GNEPlanParents(const CommonXMLStructure::PlanParameters& planParameters,
                                const GNENetHelper::AttributeCarriers* ACs) {
-    // junctions
-    fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
-    toJunction = ACs->retrieveJunction(planParameters.toJunction, false);
     // edges
     fromEdge = ACs->retrieveEdge(planParameters.fromEdge, false);
     toEdge = ACs->retrieveEdge(planParameters.toEdge, false);
+    for (const auto& edgeID : planParameters.consecutiveEdges) {
+        auto parsedEdge = ACs->retrieveEdge(edgeID, false);
+        // avoid null and consecutive dulicated edges
+        if (parsedEdge && (consecutiveEdges.empty() || (consecutiveEdges.back() != parsedEdge))) {
+            consecutiveEdges.push_back(parsedEdge);
+        }
+    }
+    // junctions
+    fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
+    toJunction = ACs->retrieveJunction(planParameters.toJunction, false);
     // TAZs
     fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.fromTAZ, false);
     toTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, planParameters.toTAZ, false);
@@ -96,49 +103,28 @@ GNEPlanParents::GNEPlanParents(const CommonXMLStructure::PlanParameters& planPar
     if (toStoppingPlace == nullptr) {
         toStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
     }
-    // edges
-    for (const auto& edgeID : planParameters.consecutiveEdges) {
-        auto parsedEdge = ACs->retrieveEdge(edgeID, false);
-        // avoid null and consecutive dulicated edges
-        if (parsedEdge && (consecutiveEdges.empty() || (consecutiveEdges.back() != parsedEdge))) {
-            consecutiveEdges.push_back(parsedEdge);
-        }
-    }
-    // route
-    route = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.toRoute, false);
-    // stops
-    edge = ACs->retrieveEdge(planParameters.toEdge, false);
-    if (stoppingPlace == nullptr) {
-        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, planParameters.toBusStop, false);
-    }
-    if (stoppingPlace == nullptr) {
-        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, planParameters.toTrainStop, false);
-    }
-    if (stoppingPlace == nullptr) {
-        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, planParameters.toContainerStop, false);
-    }
-    if (stoppingPlace == nullptr) {
-        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, planParameters.toChargingStation, false);
-    }
-    if (stoppingPlace == nullptr) {
-        stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.toParkingArea, false);
-    }
+    // routes
+    fromRoute = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.fromRoute, false);
+    toRoute = ACs->retrieveDemandElement(SUMO_TAG_ROUTE, planParameters.toRoute, false);
 }
 
 
 void
 GNEPlanParents::addChildElements(GNEDemandElement* element) {
-    if (fromJunction) {
-        fromJunction->addChildElement(element);
-    }
-    if (toJunction) {
-        toJunction->addChildElement(element);
-    }
     if (fromEdge) {
         fromEdge->addChildElement(element);
     }
     if (toEdge) {
         toEdge->addChildElement(element);
+    }
+    for (const auto& consecutiveEdge : consecutiveEdges) {
+        consecutiveEdge->addChildElement(element);
+    }
+    if (fromJunction) {
+        fromJunction->addChildElement(element);
+    }
+    if (toJunction) {
+        toJunction->addChildElement(element);
     }
     if (fromTAZ) {
         fromTAZ->addChildElement(element);
@@ -152,35 +138,28 @@ GNEPlanParents::addChildElements(GNEDemandElement* element) {
     if (toStoppingPlace) {
         toStoppingPlace->addChildElement(element);
     }
-    for (const auto& it : consecutiveEdges) {
-        it->addChildElement(element);
+    if (fromRoute) {
+        fromRoute->addChildElement(element);
     }
-    if (route) {
-        route->addChildElement(element);
-    }
-    if (edge) {
-        edge->addChildElement(element);
-    }
-    if (stoppingPlace) {
-        stoppingPlace->addChildElement(element);
+    if (toRoute) {
+        toRoute->addChildElement(element);
     }
 }
 
 
 void
 GNEPlanParents::clear() {
-    fromJunction = nullptr;
-    toJunction = nullptr;
     fromEdge = nullptr;
     toEdge = nullptr;
+    consecutiveEdges.clear();
+    fromJunction = nullptr;
+    toJunction = nullptr;
     fromTAZ = nullptr;
     toTAZ = nullptr;
     fromStoppingPlace = nullptr;
     toStoppingPlace = nullptr;
-    consecutiveEdges.clear();
-    route = nullptr;
-    edge = nullptr;
-    stoppingPlace = nullptr;
+    fromRoute = nullptr;
+    toRoute = nullptr;
 }
 
 
@@ -188,46 +167,6 @@ bool
 GNEPlanParents::getFromBusStop() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getFromTrainStop() const {
-    if (fromStoppingPlace) {
-        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getFromContainerStop() const {
-    if (fromStoppingPlace) {
-        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getFromChargingStation() const {
-    if (fromStoppingPlace) {
-        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getFromParkingArea() const {
-    if (fromStoppingPlace) {
-        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
     } else {
         return false;
     }
@@ -245,9 +184,29 @@ GNEPlanParents::getToBusStop() const {
 
 
 bool
+GNEPlanParents::getFromTrainStop() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEPlanParents::getToTrainStop() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEPlanParents::getFromContainerStop() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
     } else {
         return false;
     }
@@ -265,6 +224,16 @@ GNEPlanParents::getToContainerStop() const {
 
 
 bool
+GNEPlanParents::getFromChargingStation() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEPlanParents::getToChargingStation() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
@@ -275,59 +244,19 @@ GNEPlanParents::getToChargingStation() const {
 
 
 bool
+GNEPlanParents::getFromParkingArea() const {
+    if (fromStoppingPlace) {
+        return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEPlanParents::getToParkingArea() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getBusStop() const {
-    if (stoppingPlace) {
-        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getTrainStop() const {
-    if (stoppingPlace) {
-        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getContainerStop() const {
-    if (stoppingPlace) {
-        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getChargingStation() const {
-    if (stoppingPlace) {
-        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEPlanParents::getParkingArea() const {
-    if (stoppingPlace) {
-        return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
     } else {
         return false;
     }
@@ -359,9 +288,6 @@ GNEPlanParents::getEdges() const {
         if (toEdge) {
             edges.push_back(toEdge);
         }
-        if (edge) {
-            edges.push_back(edge);
-        }
         return edges;
     }
 }
@@ -382,9 +308,6 @@ GNEPlanParents::getAdditionalElements() const {
     if (toTAZ) {
         additionals.push_back(toTAZ);
     }
-    if (stoppingPlace) {
-        additionals.push_back(stoppingPlace);
-    }
     return additionals;
 }
 
@@ -394,8 +317,11 @@ GNEPlanParents::getDemandElements(GNEDemandElement* parent) const {
     std::vector<GNEDemandElement*> demandElements;
     // always add parent first
     demandElements.push_back(parent);
-    if (route) {
-        demandElements.push_back(route);
+    if (fromRoute) {
+        demandElements.push_back(fromRoute);
+    }
+    if (toRoute) {
+        demandElements.push_back(toRoute);
     }
     return demandElements;
 }
