@@ -1274,6 +1274,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "fromContainerStop",                  GNE_ATTR_FROM_CONTAINERSTOP },
     { "fromChargingStation",                GNE_ATTR_FROM_CHARGINGSTATION },
     { "fromParkingArea",                    GNE_ATTR_FROM_PARKINGAREA },
+    { "fromRoute",                          GNE_ATTR_FROM_ROUTE },
     { "isRoundabout",                       GNE_ATTR_IS_ROUNDABOUT },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
