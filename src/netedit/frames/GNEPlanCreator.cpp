@@ -320,7 +320,7 @@ GNEPlanCreator::addRoute(GNEDemandElement* route) {
         return false;
     }
     // add edge
-    myPlanParameteres.route = route->getID();
+    myPlanParameteres.toRoute = route->getID();
     // create path
     return myFrameParent->createPath(false);
 }
@@ -763,19 +763,19 @@ GNEPlanCreator::addSingleStoppingPlace(GNEAdditional* stoppingPlace) {
     // continue depending of stoppingPlace tag
     switch (stoppingPlace->getTagProperty().getTag()) {
         case SUMO_TAG_BUS_STOP:
-            myPlanParameteres.busStop = stoppingPlace->getID();
+            myPlanParameteres.toBusStop = stoppingPlace->getID();
             break;
         case SUMO_TAG_TRAIN_STOP:
-            myPlanParameteres.trainStop = stoppingPlace->getID();
+            myPlanParameteres.toTrainStop = stoppingPlace->getID();
             break;
         case SUMO_TAG_CONTAINER_STOP:
-            myPlanParameteres.containerStop = stoppingPlace->getID();
+            myPlanParameteres.toContainerStop = stoppingPlace->getID();
             break;
         case SUMO_TAG_CHARGING_STATION:
-            myPlanParameteres.chargingStation = stoppingPlace->getID();
+            myPlanParameteres.toChargingStation = stoppingPlace->getID();
             break;
         case SUMO_TAG_PARKING_AREA:
-            myPlanParameteres.parkingArea = stoppingPlace->getID();
+            myPlanParameteres.toParkingArea = stoppingPlace->getID();
             break;
         default:
             // abort creation
@@ -917,11 +917,11 @@ bool
 GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // check double stoppingPlaces
     const auto stoppingPlaceID = stoppingPlace->getID();
-    if ((!myPlanParameteres.busStop.empty() && (myPlanParameteres.busStop == stoppingPlaceID)) ||
-            (!myPlanParameteres.trainStop.empty() && (myPlanParameteres.trainStop == stoppingPlaceID)) ||
-            (!myPlanParameteres.containerStop.empty() && (myPlanParameteres.containerStop == stoppingPlaceID)) ||
-            (!myPlanParameteres.chargingStation.empty() && (myPlanParameteres.chargingStation == stoppingPlaceID)) ||
-            (!myPlanParameteres.parkingArea.empty() && (myPlanParameteres.parkingArea == stoppingPlaceID))) {
+    if ((myPlanParameteres.toBusStop == stoppingPlaceID) ||
+            (myPlanParameteres.toTrainStop == stoppingPlaceID) ||
+            (myPlanParameteres.toContainerStop == stoppingPlaceID) ||
+            (myPlanParameteres.toChargingStation == stoppingPlaceID) ||
+            (myPlanParameteres.toParkingArea == stoppingPlaceID)) {
         // Write warning
         WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
         // abort add stopping place

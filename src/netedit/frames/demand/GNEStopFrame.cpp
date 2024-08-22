@@ -210,8 +210,8 @@ GNEStopFrame::addStop(const GNEViewNetHelper::ViewObjectsSelector& viewObjects, 
         getStopParameter(myStopTagSelector->getCurrentTemplateAC()->getTagProperty().getTag(),
                          viewObjects.getLaneFront(), viewObjects.getAdditionalFront());
         if (myStopParentBaseObject->getTag() != SUMO_TAG_NOTHING) {
-                myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
-                                         myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
+            myRouteHandler.buildStop(myStopParentBaseObject->getSumoBaseObjectChildren().front(), myPlanParameters,
+                                     myStopParentBaseObject->getSumoBaseObjectChildren().front()->getStopParameter());
             // show all trips
             if (myStopTagSelector->getCurrentTemplateAC()->getTagProperty().isVehicleStop()) {
                 myViewNet->getDemandViewOptions().menuCheckShowAllTrips->setChecked(TRUE);
@@ -250,7 +250,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
     } else if ((stopTag == GNE_TAG_STOPPERSON_EDGE) || (stopTag == GNE_TAG_STOPCONTAINER_EDGE)) {
         if (lane) {
             stop.edge = lane->getParentEdge()->getID();
-            myPlanParameters.edge = stop.edge;
+            myPlanParameters.toEdge = stop.edge;
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_EDGE) + " to create a stop placed in a " + toString(SUMO_TAG_EDGE));
             return false;
@@ -262,7 +262,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
-                myPlanParameters.busStop = stop.busstop;
+                myPlanParameters.toBusStop = stop.busstop;
                 if ((stopTag == GNE_TAG_WAYPOINT_BUSSTOP) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
@@ -275,7 +275,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.busstop = stoppingPlace->getID();
-                myPlanParameters.trainStop = stop.busstop;
+                myPlanParameters.toTrainStop = stop.busstop;
                 if ((stopTag == GNE_TAG_WAYPOINT_TRAINSTOP) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
@@ -288,7 +288,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.containerstop = stoppingPlace->getID();
-                myPlanParameters.containerStop = stop.containerstop;
+                myPlanParameters.toContainerStop = stop.containerstop;
                 if ((stopTag == GNE_TAG_WAYPOINT_CONTAINERSTOP) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
@@ -301,7 +301,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.chargingStation = stoppingPlace->getID();
-                myPlanParameters.chargingStation = stop.chargingStation;
+                myPlanParameters.toChargingStation = stop.chargingStation;
                 if ((stopTag == GNE_TAG_WAYPOINT_CHARGINGSTATION) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }
@@ -314,7 +314,7 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
                 return false;
             } else {
                 stop.parkingarea = stoppingPlace->getID();
-                myPlanParameters.parkingArea = stop.parkingarea;
+                myPlanParameters.toParkingArea = stop.parkingarea;
                 if ((stopTag == GNE_TAG_WAYPOINT_PARKINGAREA) && (stop.speed == 0)) {
                     stop.speed = stoppingPlace->getParentLanes().front()->getSpeed();
                 }

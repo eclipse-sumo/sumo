@@ -1255,20 +1255,20 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     }
     // single elements
     if (tagProperty.planEdge()) {
-        planParameters.edge = originalPlan->getAttribute(SUMO_ATTR_EDGE);
+        planParameters.toEdge = originalPlan->getAttribute(SUMO_ATTR_EDGE);
     }
     if (tagProperty.planBusStop()) {
-        planParameters.busStop = originalPlan->getAttribute(SUMO_ATTR_BUS_STOP);
+        planParameters.toBusStop = originalPlan->getAttribute(SUMO_ATTR_BUS_STOP);
     }
     if (tagProperty.planTrainStop()) {
-        planParameters.trainStop = originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP);
+        planParameters.toTrainStop = originalPlan->getAttribute(SUMO_ATTR_TRAIN_STOP);
     }
     if (tagProperty.planContainerStop()) {
-        planParameters.containerStop = originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP);
+        planParameters.toContainerStop = originalPlan->getAttribute(SUMO_ATTR_CONTAINER_STOP);
     }
     // route
     if (tagProperty.planRoute()) {
-        planParameters.route = originalPlan->getAttribute(SUMO_ATTR_ROUTE);
+        planParameters.toRoute = originalPlan->getAttribute(SUMO_ATTR_ROUTE);
     }
     // path
     if (tagProperty.planConsecutiveEdges()) {
