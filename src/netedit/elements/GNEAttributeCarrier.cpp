@@ -4561,7 +4561,6 @@ GNEAttributeCarrier::fillContainerTransportElements() {
     // declare common tag types and properties
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
-    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const auto parents = {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW};
     const auto color = FXRGBA(240, 255, 205, 255);
@@ -4943,7 +4942,6 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     // declare common tag types and properties
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
-    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const auto parents = {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW};
     const auto color = FXRGBA(210, 233, 255, 255);
@@ -6724,7 +6722,6 @@ GNEAttributeCarrier::fillPersonPlanRides() {
     // declare common tag types and properties
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
-    const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
     const auto parents = {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW};
     const auto color = FXRGBA(253, 255, 206, 255);
