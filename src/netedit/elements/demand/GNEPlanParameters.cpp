@@ -50,8 +50,7 @@
 GNEPlanParameters::GNEPlanParameters() {}
 
 
-GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                                     const CommonXMLStructure::PlanParameters& planParameters,
+GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
                                      const GNENetHelper::AttributeCarriers* ACs) {
     // junctions
     fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
