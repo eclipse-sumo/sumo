@@ -286,9 +286,9 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         } else if (previousTagProperty.planToJunction()) {
             addFromToJunction(myPreviousPlanElement->getParentJunctions().back());
         } else if (previousTagProperty.planToTAZ()) {
-            addFromToTAZ(myPreviousPlanElement->getParentAdditionals().back());
+            addFromToTAZ(myPreviousPlanElement->getParentTAZs().back());
         } else if (previousTagProperty.planToStoppingPlace() || previousTagProperty.planStoppingPlace()) {
-            addFromToStoppingPlace(myPreviousPlanElement->getParentAdditionals().back());
+            addFromToStoppingPlace(myPreviousPlanElement->getParentStoppingPlaces().back());
         }
     }
     // set vClass
@@ -531,11 +531,11 @@ GNEPlanCreator::removeLastElement() {
         } else if (!myPlanParameteres.toParkingArea.empty()) {
             myPlanParameteres.toBusStop.clear();
         } else if (!myPlanParameteres.fromEdge.empty()) {
-            myPlanParameteres.fromEdge = nullptr;
+            myPlanParameteres.fromEdge.clear();
         } else if (!myPlanParameteres.fromJunction.empty()) {
-            myPlanParameteres.fromJunction = nullptr;
+            myPlanParameteres.fromJunction.clear();
         } else if (!myPlanParameteres.fromTAZ.empty()) {
-            myPlanParameteres.fromTAZ = nullptr;
+            myPlanParameteres.fromTAZ.clear();
         } else if (!myPlanParameteres.fromBusStop.empty()) {
             myPlanParameteres.fromBusStop.clear();
         } else if (!myPlanParameteres.fromTrainStop.empty()) {
