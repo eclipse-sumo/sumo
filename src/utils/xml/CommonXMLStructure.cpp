@@ -246,11 +246,11 @@ CommonXMLStructure::PlanParameters::resetPreviousFromAttributes(const CommonXMLS
 void
 CommonXMLStructure::PlanParameters::writeIgnoringMessage(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
         const std::string& oldType, const std::string& oldId, const std::string& newType, const std::string& newId) const {
-    WRITE_WARNING(TL("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'"),
-                  oldType, oldId,
-                  toString(previousPlanObj->getParentSumoBaseObject()->getTag()),
-                  previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID),
-                  newType, newId);
+    WRITE_WARNING(TLF("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'",
+                      oldType, oldId,
+                      toString(previousPlanObj->getParentSumoBaseObject()->getTag()),
+                      previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID),
+                      newType, newId));
 }
 
 // ---------------------------------------------------------------------------
