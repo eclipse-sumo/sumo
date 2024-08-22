@@ -147,7 +147,7 @@ GNEDemandElementPlan::getWalkTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toContainerStop.empty()) {
+    } else if (!planParameters.fromContainerStop.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_WALK_CONTAINERSTOP_EDGE, GUIIcon::WALK_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -167,7 +167,7 @@ GNEDemandElementPlan::getWalkTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toChargingStation.empty()) {
+    } else if (!planParameters.fromChargingStation.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_WALK_CHARGINGSTATION_EDGE, GUIIcon::WALK_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -187,7 +187,7 @@ GNEDemandElementPlan::getWalkTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toParkingArea.empty()) {
+    } else if (!planParameters.fromParkingArea.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_WALK_PARKINGAREA_EDGE, GUIIcon::WALK_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -317,7 +317,7 @@ GNEDemandElementPlan::getPersonTripTagIcon(const CommonXMLStructure::PlanParamet
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toContainerStop.empty()) {
+    } else if (!planParameters.fromContainerStop.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE, GUIIcon::PERSONTRIP_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -337,7 +337,7 @@ GNEDemandElementPlan::getPersonTripTagIcon(const CommonXMLStructure::PlanParamet
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toChargingStation.empty()) {
+    } else if (!planParameters.fromChargingStation.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE, GUIIcon::PERSONTRIP_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -357,7 +357,7 @@ GNEDemandElementPlan::getPersonTripTagIcon(const CommonXMLStructure::PlanParamet
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toParkingArea.empty()) {
+    } else if (!planParameters.fromParkingArea.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE, GUIIcon::PERSONTRIP_EDGE);
         } else if (!planParameters.toTAZ.empty()) {
@@ -435,7 +435,7 @@ GNEDemandElementPlan::getRideTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toContainerStop.empty()) {
+    } else if (!planParameters.fromContainerStop.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_RIDE_CONTAINERSTOP_EDGE, GUIIcon::RIDE_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -451,7 +451,7 @@ GNEDemandElementPlan::getRideTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toChargingStation.empty()) {
+    } else if (!planParameters.fromChargingStation.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_RIDE_CHARGINGSTATION_EDGE, GUIIcon::RIDE_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -467,7 +467,7 @@ GNEDemandElementPlan::getRideTagIcon(const CommonXMLStructure::PlanParameters& p
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toParkingArea.empty()) {
+    } else if (!planParameters.fromParkingArea.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_RIDE_PARKINGAREA_EDGE, GUIIcon::RIDE_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -541,7 +541,7 @@ GNEDemandElementPlan::getTransportTagIcon(const CommonXMLStructure::PlanParamete
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toContainerStop.empty()) {
+    } else if (!planParameters.fromContainerStop.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSPORT_CONTAINERSTOP_EDGE, GUIIcon::TRANSPORT_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -557,7 +557,7 @@ GNEDemandElementPlan::getTransportTagIcon(const CommonXMLStructure::PlanParamete
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toChargingStation.empty()) {
+    } else if (!planParameters.fromChargingStation.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSPORT_CHARGINGSTATION_EDGE, GUIIcon::TRANSPORT_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -573,7 +573,7 @@ GNEDemandElementPlan::getTransportTagIcon(const CommonXMLStructure::PlanParamete
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toParkingArea.empty()) {
+    } else if (!planParameters.fromParkingArea.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSPORT_PARKINGAREA_EDGE, GUIIcon::TRANSPORT_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -649,7 +649,7 @@ GNEDemandElementPlan::getTranshipTagIcon(const CommonXMLStructure::PlanParameter
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toContainerStop.empty()) {
+    } else if (!planParameters.fromContainerStop.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE, GUIIcon::TRANSHIP_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -665,7 +665,7 @@ GNEDemandElementPlan::getTranshipTagIcon(const CommonXMLStructure::PlanParameter
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toChargingStation.empty()) {
+    } else if (!planParameters.fromChargingStation.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE, GUIIcon::TRANSHIP_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
@@ -681,7 +681,7 @@ GNEDemandElementPlan::getTranshipTagIcon(const CommonXMLStructure::PlanParameter
         } else {
             return std::make_pair(SUMO_TAG_NOTHING, GUIIcon::EMPTY);
         }
-    } else if (!planParameters.toParkingArea.empty()) {
+    } else if (!planParameters.fromParkingArea.empty()) {
         if (!planParameters.toEdge.empty()) {
             return std::make_pair(GNE_TAG_TRANSHIP_PARKINGAREA_EDGE, GUIIcon::TRANSHIP_EDGE);
         } else if (!planParameters.toBusStop.empty()) {
