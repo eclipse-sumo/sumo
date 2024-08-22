@@ -1209,8 +1209,9 @@ GNEDemandElementPlan::getPlanAttributeDouble(SumoXMLAttr key) const {
             } else if (tagProperty.planFromStoppingPlace()) {
                 // use end position of stoppingPlace parent (for plans that starts in stoppingPlaces)
                 return myPlanElement->getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else if (tagProperty.planFromJunction() && tagProperty.planFromTAZ()) {
-                // junctions and TAZs return always -1
+            } else if (tagProperty.planFromTAZ()) {
+                return 0;
+            } else if (tagProperty.planFromJunction()) {
                 return -1;
             } else {
                 // get previous plan element
