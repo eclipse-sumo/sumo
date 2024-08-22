@@ -131,6 +131,30 @@ GNEHierarchicalElement::getParentAdditionals() const {
 }
 
 
+const std::vector<GNEAdditional*>
+GNEHierarchicalElement::getParentStoppingPlaces() const {
+    std::vector<GNEAdditional*> stoppingPlaces;
+    for (const auto& additional : getParentAdditionals()) {
+        if (additional->getTagProperty().isStoppingPlace()) {
+            stoppingPlaces.push_back(additional);
+        }
+    }
+    return stoppingPlaces;
+}
+
+
+const std::vector<GNEAdditional*>
+GNEHierarchicalElement::getParentTAZs() const {
+    std::vector<GNEAdditional*> TAZs;
+    for (const auto& additional : getParentAdditionals()) {
+        if (additional->getTagProperty().isTAZElement()) {
+            TAZs.push_back(additional);
+        }
+    }
+    return TAZs;
+}
+
+
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElement::getParentDemandElements() const {
     return myHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >();

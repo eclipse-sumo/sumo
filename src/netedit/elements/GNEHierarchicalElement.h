@@ -100,6 +100,12 @@ public:
     /// @brief get parent additionals
     const std::vector<GNEAdditional*>& getParentAdditionals() const;
 
+    /// @brief get parent stoppingPlaces (used by plans)
+    const std::vector<GNEAdditional*> getParentStoppingPlaces() const;
+
+    /// @brief get parent TAZs (used by plans)
+    const std::vector<GNEAdditional*> getParentTAZs() const;
+
     /// @brief get parent demand elements
     const std::vector<GNEDemandElement*>& getParentDemandElements() const;
 
