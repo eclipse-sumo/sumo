@@ -111,8 +111,13 @@ public:
         /// @brief consecutive edges
         std::vector<std::string> consecutiveEdges;
 
-        /// @brief route (currently only used by walks)
+        /// @name values used only by walks
+        /// @{
+
+        /// @brief route
         std::string route;
+
+        /// @}
 
         /// @name values used only by stops
         /// @{

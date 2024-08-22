@@ -183,11 +183,14 @@ CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructur
             resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
             fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
         } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
-            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
-            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
+            // consecutive edge
+            const std::string consecutiveEdge = previousPlanObj->getStringListAttribute(SUMO_ATTR_EDGES).back();
+            resetPreviousFromAttributes(previousPlanObj, "consecutive edge", consecutiveEdge);
+            fromEdge = consecutiveEdge;
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
-            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGES).back();
+            // route
+            resetPreviousFromAttributes(previousPlanObj, "route edge", previousPlanObj->getStringAttribute(SUMO_ATTR_ID));
+            //fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGES).back();
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
             // junction
             resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));
@@ -224,17 +227,41 @@ CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructur
 void
 CommonXMLStructure::PlanParameters::resetPreviousFromAttributes(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
         const std::string& newType, const std::string& newId) const {
-
+    if (!fromEdge.empty()) {
+        writeIgnoringMessage(previousPlanObj, "edge", fromEdge, newType, newId);
+    }
+    if (!fromJunction.empty()) {
+        writeIgnoringMessage(previousPlanObj, "junction", fromJunction, newType, newId);
+    }
+    if (!fromTAZ.empty()) {
+        writeIgnoringMessage(previousPlanObj, "TAZ", fromTAZ, newType, newId);
+    }
+    if (!fromBusStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "bus stop", fromBusStop, newType, newId);
+    }
+    if (!fromTrainStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "train stop", fromTrainStop, newType, newId);
+    }
+    if (!fromContainerStop.empty()) {
+        writeIgnoringMessage(previousPlanObj, "container stop", fromContainerStop, newType, newId);
+    }
+    if (!fromChargingStation.empty()) {
+        writeIgnoringMessage(previousPlanObj, "charging station", fromChargingStation, newType, newId);
+    }
+    if (!fromParkingArea.empty()) {
+        writeIgnoringMessage(previousPlanObj, "parking area", fromParkingArea, newType, newId);
+    }
 }
 
 
 void
 CommonXMLStructure::PlanParameters::writeIgnoringMessage(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
-        const std::string& oldType, const std::string& oldId,
-        const std::string& newType, const std::string& newId) const {
-    WRITE_WARNING(TL("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'"), oldType, oldId,
+        const std::string& oldType, const std::string& oldId, const std::string& newType, const std::string& newId) const {
+    WRITE_WARNING(TL("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'"),
+                  oldType, oldId,
                   toString(previousPlanObj->getParentSumoBaseObject()->getTag()),
-                  previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), newType, newId);
+                  previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID),
+                  newType, newId);
 }
 
 // ---------------------------------------------------------------------------
