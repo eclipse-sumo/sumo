@@ -715,7 +715,7 @@ GNEPlanCreator::updateInfoLabel() {
 bool
 GNEPlanCreator::addSingleEdge(GNELane* lane) {
     // add edge
-    myPlanParameteres.fromEdge = lane->getParentEdge()->getID();
+    myPlanParameteres.toEdge = lane->getParentEdge()->getID();
     // set position over lane
     const auto clickedPos = myFrameParent->getViewNet()->getPositionInformation();
     myClickedPositionOverLane = lane->getLaneShape().nearest_offset_to_point2D(clickedPos);
@@ -779,7 +779,7 @@ GNEPlanCreator::addConsecutiveEdge(GNEEdge* edge) {
 bool
 GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
     // avoid double junctions
-    if (!myPlanParameteres.fromJunction.empty() && (myPlanParameteres.fromJunction == junction->getID())) {
+    if (myPlanParameteres.fromJunction == junction->getID()) {
         // Write warning
         WRITE_WARNING(TL("Double junctions aren't allowed"));
         // abort add junction
@@ -813,7 +813,7 @@ GNEPlanCreator::addFromToJunction(GNEJunction* junction) {
 bool
 GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
     // avoid double TAZs
-    if (!myPlanParameteres.fromTAZ.empty() && (myPlanParameteres.fromTAZ == TAZ->getID())) {
+    if (myPlanParameteres.fromTAZ == TAZ->getID()) {
         // Write warning
         WRITE_WARNING(TL("Double TAZs aren't allowed"));
         // abort add TAZ
@@ -847,7 +847,7 @@ GNEPlanCreator::addFromToTAZ(GNEAdditional* TAZ) {
 bool
 GNEPlanCreator::addFromToEdge(GNEEdge* edge) {
     // check double edges
-    if (!myPlanParameteres.fromEdge.empty() && (myPlanParameteres.fromEdge == edge->getID())) {
+    if (myPlanParameteres.fromEdge == edge->getID()) {
         // Write warning
         WRITE_WARNING(TL("Double edges aren't allowed"));
         // abort add edge
