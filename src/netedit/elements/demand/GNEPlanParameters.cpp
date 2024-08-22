@@ -170,19 +170,6 @@ GNEPlanParameters::addChildElements(GNEDemandElement* element) {
 }
 
 
-bool
-GNEPlanParameters::isSingleEdgePlan() const {
-    return !fromJunction && !toJunction &&
-           fromEdge && !toEdge &&   // only from edge this
-           !fromTAZ && !toTAZ &&
-           !fromStoppingPlace && !toStoppingPlace &&
-           consecutiveEdges.empty() &&
-           !route &&
-           !edge &&
-           !stoppingPlace;
-}
-
-
 void
 GNEPlanParameters::clear() {
     fromJunction = nullptr;

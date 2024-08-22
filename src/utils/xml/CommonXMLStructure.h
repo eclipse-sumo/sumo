@@ -49,6 +49,9 @@ public:
         /// @brief clear parameters
         void clear();
 
+        /// @brief check if this is a single-edge plan
+        bool isSingleEdgePlan() const;
+
         /// @brief get number of defined plans
         int getNumberOfDefinedParameters() const;
 
