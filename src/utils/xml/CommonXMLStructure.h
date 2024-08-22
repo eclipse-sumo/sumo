@@ -37,14 +37,19 @@ class CommonXMLStructure {
 
 public:
 
-    /// @brief plan parameters (used for group all from-to parameters related with plans)
-    struct PlanParameters {
+    /// @brief class declaration
+    class SumoBaseObject;
 
+    /// @brief plan parameters (used for group all from-to parameters related with plans)
+    class PlanParameters {
+
+    public:
         // @brief default constructor
         PlanParameters();
 
         /// @brief constructor for parsing the parameters from SUMOSAXAttributes
-        PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk);
+        PlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+                       const SUMOSAXAttributes& attrs, bool& parsedOk);
 
         /// @brief clear parameters
         void clear();
@@ -131,6 +136,20 @@ public:
         std::string parkingArea;
 
         /// @}
+
+    private:
+        /// @brief get previous plan obj
+        const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
+
+        /// @brief update the from attributes
+        void updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject);
+
+        /// @brief reste all previous from attributes
+        void resetPreviousFromAttributes(const CommonXMLStructure::SumoBaseObject* previousPlanObj, const std::string& newType, const std::string& newId) const;
+
+        /// @brief write ignoring message
+        void writeIgnoringMessage(const CommonXMLStructure::SumoBaseObject* previousPlanObj, const std::string& oldType, const std::string& oldId,
+                                  const std::string& newType, const std::string& newId) const;
     };
 
     /// @brief SumoBaseObject

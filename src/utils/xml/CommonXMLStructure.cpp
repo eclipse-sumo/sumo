@@ -37,7 +37,8 @@
 CommonXMLStructure::PlanParameters::PlanParameters() {}
 
 
-CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attrs, bool& parsedOk) {
+CommonXMLStructure::PlanParameters::PlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
+        const SUMOSAXAttributes& attrs, bool& parsedOk) {
     // junctions
     fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
     toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, "", parsedOk, "");
@@ -73,6 +74,8 @@ CommonXMLStructure::PlanParameters::PlanParameters(const SUMOSAXAttributes& attr
     containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
     chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
     parkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
+    // update from attributes
+    updateFromAttributes(sumoBaseObject);
 }
 
 
@@ -141,6 +144,97 @@ CommonXMLStructure::PlanParameters::getNumberOfDefinedParameters() const {
            (chargingStation.empty() ? 0 : 1) +
            (containerStop.empty() ? 0 : 1) +
            (parkingArea.empty() ? 0 : 1);
+}
+
+
+const CommonXMLStructure::SumoBaseObject*
+CommonXMLStructure::PlanParameters::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
+    // first check if object exist
+    if (sumoBaseObject == nullptr) {
+        return nullptr;
+    }
+    // check if object has parent
+    const CommonXMLStructure::SumoBaseObject* parentObject = sumoBaseObject->getParentSumoBaseObject();
+    if (parentObject == nullptr) {
+        return nullptr;
+    }
+    // check number of children
+    if (parentObject->getSumoBaseObjectChildren().size() < 2) {
+        return nullptr;
+    }
+    // search position of the given plan obj in the parent children
+    const auto objIterator = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), sumoBaseObject);
+    // if obj is the first plan of person/container parent, then return null. If not, return previous object
+    if (objIterator == parentObject->getSumoBaseObjectChildren().begin()) {
+        return nullptr;
+    } else {
+        return *(objIterator - 1);
+    }
+}
+
+
+void
+CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) {
+    // check if previous plan object was defined but not the from
+    const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
+    if (previousPlanObj) {
+        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
+            // edge
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
+            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
+        } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
+            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
+            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGES).back();
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+            // junction
+            resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));
+            fromJunction = previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+            // TAZ
+            resetPreviousFromAttributes(previousPlanObj, "TAZ", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_TAZ));
+            fromTAZ = previousPlanObj->getStringAttribute(SUMO_ATTR_TO_TAZ);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+            // busStop
+            resetPreviousFromAttributes(previousPlanObj, "bus stop", previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP));
+            fromBusStop = previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+            // trainStop
+            resetPreviousFromAttributes(previousPlanObj, "train stop", previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP));
+            fromTrainStop = previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            // containerStop
+            resetPreviousFromAttributes(previousPlanObj, "container stop", previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP));
+            fromContainerStop = previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CHARGING_STATION)) {
+            // chargingStation
+            resetPreviousFromAttributes(previousPlanObj, "charging station", previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION));
+            fromChargingStation = previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_PARKING_AREA)) {
+            // parkingArea
+            resetPreviousFromAttributes(previousPlanObj, "parking area", previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA));
+            fromParkingArea = previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA);
+        }
+    }
+}
+
+
+void
+CommonXMLStructure::PlanParameters::resetPreviousFromAttributes(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
+        const std::string& newType, const std::string& newId) const {
+
+}
+
+
+void
+CommonXMLStructure::PlanParameters::writeIgnoringMessage(const CommonXMLStructure::SumoBaseObject* previousPlanObj,
+        const std::string& oldType, const std::string& oldId,
+        const std::string& newType, const std::string& newId) const {
+    WRITE_WARNING(TL("Ignoring from % '%' used in % '%' and using instead the previous end element % '%'"), oldType, oldId,
+                  toString(previousPlanObj->getParentSumoBaseObject()->getTag()),
+                  previousPlanObj->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID), newType, newId);
 }
 
 // ---------------------------------------------------------------------------

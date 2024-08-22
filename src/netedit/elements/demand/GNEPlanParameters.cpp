@@ -124,8 +124,6 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::SumoBaseObject* s
     if (stoppingPlace == nullptr) {
         stoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, planParameters.parkingArea, false);
     }
-    // update from attributes
-    updateFromAttributes(sumoBaseObject, ACs);
 }
 
 
@@ -401,75 +399,6 @@ GNEPlanParameters::getDemandElements(GNEDemandElement* parent) const {
         demandElements.push_back(route);
     }
     return demandElements;
-}
-
-
-const CommonXMLStructure::SumoBaseObject*
-GNEPlanParameters::getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const {
-    // first check if object exist
-    if (sumoBaseObject == nullptr) {
-        return nullptr;
-    }
-    // check if object has parent
-    const CommonXMLStructure::SumoBaseObject* parentObject = sumoBaseObject->getParentSumoBaseObject();
-    if (parentObject == nullptr) {
-        return nullptr;
-    }
-    // check number of children
-    if (parentObject->getSumoBaseObjectChildren().size() < 2) {
-        return nullptr;
-    }
-    // search position of the given plan obj in the parent children
-    const auto objIterator = std::find(parentObject->getSumoBaseObjectChildren().begin(), parentObject->getSumoBaseObjectChildren().end(), sumoBaseObject);
-    // if obj is the first plan of person/container parent, then return null. If not, return previous object
-    if (objIterator == parentObject->getSumoBaseObjectChildren().begin()) {
-        return nullptr;
-    } else {
-        return *(objIterator - 1);
-    }
-}
-
-
-void
-GNEPlanParameters::updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                                        const GNENetHelper::AttributeCarriers* ACs) {
-    // check if previous plan object was defined but not the from
-    const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
-    if (previousPlanObj && !(fromJunction || fromEdge || fromTAZ || fromStoppingPlace)) {
-        // edges
-        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
-            fromEdge = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_TO), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
-            fromEdge = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE), false);
-        } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
-            auto previousEdges = previousPlanObj->getStringListAttribute(SUMO_ATTR_EDGE);
-            if (previousEdges.size() > 0) {
-                fromEdge = ACs->retrieveEdge(previousEdges.back(), false);
-            }
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
-            auto previousRoute = ACs->retrieveEdge(previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE), false);
-            if (previousRoute) {
-                fromEdge = previousRoute->getParentEdges().back();
-            }
-            // junction
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
-            fromJunction = ACs->retrieveJunction(previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION), false);
-            // TAZ
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
-            fromTAZ = ACs->retrieveAdditional(SUMO_TAG_TAZ, previousPlanObj->getStringAttribute(SUMO_ATTR_FROM_TAZ), false);
-            // stoppingPlaces
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
-            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_BUS_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
-            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_TRAIN_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CHARGING_STATION)) {
-            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_CHARGING_STATION, previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION), false);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_PARKING_AREA)) {
-            fromStoppingPlace = ACs->retrieveAdditional(SUMO_TAG_PARKING_AREA, previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA), false);
-        }
-    }
 }
 
 /****************************************************************************/

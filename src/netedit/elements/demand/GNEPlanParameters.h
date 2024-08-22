@@ -169,12 +169,4 @@ public:
     GNEAdditional* stoppingPlace = nullptr;
 
     /// @}
-
-private:
-    /// @brief get previous plan obj
-    const CommonXMLStructure::SumoBaseObject* getPreviousPlanObj(const CommonXMLStructure::SumoBaseObject* sumoBaseObject) const;
-
-    /// @brief get previous plan element if was not defined previoulsy (used for loaded elements)
-    void updateFromAttributes(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
-                              const GNENetHelper::AttributeCarriers* ACs);
 };

@@ -653,7 +653,7 @@ RouteHandler::parseStop(const SUMOSAXAttributes& attrs) {
     // declare stop
     SUMOVehicleParameter::Stop stop;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // get parents
     std::vector<SumoXMLTag> stopParents;
     stopParents.insert(stopParents.end(), NamespaceIDs::vehicles.begin(), NamespaceIDs::vehicles.end());
@@ -708,7 +708,7 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
     const std::vector<std::string> via = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VIA, "", parsedOk);
     const std::vector<std::string> vTypes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_VTYPES, "", parsedOk);
@@ -742,7 +742,7 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
     const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, "", parsedOk, 0);
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
@@ -768,7 +768,7 @@ RouteHandler::parseRide(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
@@ -818,7 +818,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
@@ -838,7 +838,7 @@ RouteHandler::parseTranship(const SUMOSAXAttributes& attrs) {
     // declare Ok Flag
     bool parsedOk = true;
     // plan parameters
-    const auto planParameters = CommonXMLStructure::PlanParameters(attrs, parsedOk);
+    const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
     const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
