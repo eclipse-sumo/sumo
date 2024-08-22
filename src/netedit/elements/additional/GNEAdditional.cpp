@@ -22,7 +22,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/demand/GNEPlanParameters.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -220,11 +220,11 @@ GNEAdditional::checkDrawFromContour() const {
         // check if this is the from additional
         const auto additionalID = getID();
         if ((planCreator->getPlanParameteres().fromBusStop == additionalID) ||
-            (planCreator->getPlanParameteres().fromTrainStop == additionalID) ||
-            (planCreator->getPlanParameteres().fromContainerStop == additionalID) ||
-            (planCreator->getPlanParameteres().fromChargingStation == additionalID) ||
-            (planCreator->getPlanParameteres().fromParkingArea == additionalID) ||
-            (planCreator->getPlanParameteres().fromTAZ == additionalID)) {
+                (planCreator->getPlanParameteres().fromTrainStop == additionalID) ||
+                (planCreator->getPlanParameteres().fromContainerStop == additionalID) ||
+                (planCreator->getPlanParameteres().fromChargingStation == additionalID) ||
+                (planCreator->getPlanParameteres().fromParkingArea == additionalID) ||
+                (planCreator->getPlanParameteres().fromTAZ == additionalID)) {
             return true;
         }
     }
@@ -284,11 +284,11 @@ GNEAdditional::checkDrawToContour() const {
         // check if this is the to additional
         const auto additionalID = getID();
         if ((planCreator->getPlanParameteres().toBusStop == additionalID) ||
-            (planCreator->getPlanParameteres().toTrainStop == additionalID) ||
-            (planCreator->getPlanParameteres().toContainerStop == additionalID) ||
-            (planCreator->getPlanParameteres().toChargingStation == additionalID) ||
-            (planCreator->getPlanParameteres().toParkingArea == additionalID) ||
-            (planCreator->getPlanParameteres().toTAZ == additionalID)) {
+                (planCreator->getPlanParameteres().toTrainStop == additionalID) ||
+                (planCreator->getPlanParameteres().toContainerStop == additionalID) ||
+                (planCreator->getPlanParameteres().toChargingStation == additionalID) ||
+                (planCreator->getPlanParameteres().toParkingArea == additionalID) ||
+                (planCreator->getPlanParameteres().toTAZ == additionalID)) {
             return true;
         }
     }

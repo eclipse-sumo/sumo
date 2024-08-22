@@ -33,7 +33,7 @@
 #include "GNERide.h"
 #include "GNERoute.h"
 #include "GNERouteDistribution.h"
-#include "GNEPlanParameters.h"
+#include "GNEPlanParents.h"
 #include "GNEStop.h"
 #include "GNETranship.h"
 #include "GNETransport.h"
@@ -47,11 +47,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEPlanParameters::GNEPlanParameters() {}
+GNEPlanParents::GNEPlanParents() {}
 
 
-GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
-                                     const GNENetHelper::AttributeCarriers* ACs) {
+GNEPlanParents::GNEPlanParents(const CommonXMLStructure::PlanParameters& planParameters,
+                               const GNENetHelper::AttributeCarriers* ACs) {
     // junctions
     fromJunction = ACs->retrieveJunction(planParameters.fromJunction, false);
     toJunction = ACs->retrieveJunction(planParameters.toJunction, false);
@@ -127,7 +127,7 @@ GNEPlanParameters::GNEPlanParameters(const CommonXMLStructure::PlanParameters& p
 
 
 void
-GNEPlanParameters::addChildElements(GNEDemandElement* element) {
+GNEPlanParents::addChildElements(GNEDemandElement* element) {
     if (fromJunction) {
         fromJunction->addChildElement(element);
     }
@@ -168,7 +168,7 @@ GNEPlanParameters::addChildElements(GNEDemandElement* element) {
 
 
 void
-GNEPlanParameters::clear() {
+GNEPlanParents::clear() {
     fromJunction = nullptr;
     toJunction = nullptr;
     fromEdge = nullptr;
@@ -185,7 +185,7 @@ GNEPlanParameters::clear() {
 
 
 bool
-GNEPlanParameters::getFromBusStop() const {
+GNEPlanParents::getFromBusStop() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
     } else {
@@ -195,7 +195,7 @@ GNEPlanParameters::getFromBusStop() const {
 
 
 bool
-GNEPlanParameters::getFromTrainStop() const {
+GNEPlanParents::getFromTrainStop() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
     } else {
@@ -205,7 +205,7 @@ GNEPlanParameters::getFromTrainStop() const {
 
 
 bool
-GNEPlanParameters::getFromContainerStop() const {
+GNEPlanParents::getFromContainerStop() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
     } else {
@@ -215,7 +215,7 @@ GNEPlanParameters::getFromContainerStop() const {
 
 
 bool
-GNEPlanParameters::getFromChargingStation() const {
+GNEPlanParents::getFromChargingStation() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
     } else {
@@ -225,7 +225,7 @@ GNEPlanParameters::getFromChargingStation() const {
 
 
 bool
-GNEPlanParameters::getFromParkingArea() const {
+GNEPlanParents::getFromParkingArea() const {
     if (fromStoppingPlace) {
         return (fromStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
     } else {
@@ -235,7 +235,7 @@ GNEPlanParameters::getFromParkingArea() const {
 
 
 bool
-GNEPlanParameters::getToBusStop() const {
+GNEPlanParents::getToBusStop() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
     } else {
@@ -245,7 +245,7 @@ GNEPlanParameters::getToBusStop() const {
 
 
 bool
-GNEPlanParameters::getToTrainStop() const {
+GNEPlanParents::getToTrainStop() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
     } else {
@@ -255,7 +255,7 @@ GNEPlanParameters::getToTrainStop() const {
 
 
 bool
-GNEPlanParameters::getToContainerStop() const {
+GNEPlanParents::getToContainerStop() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
     } else {
@@ -265,7 +265,7 @@ GNEPlanParameters::getToContainerStop() const {
 
 
 bool
-GNEPlanParameters::getToChargingStation() const {
+GNEPlanParents::getToChargingStation() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
     } else {
@@ -275,7 +275,7 @@ GNEPlanParameters::getToChargingStation() const {
 
 
 bool
-GNEPlanParameters::getToParkingArea() const {
+GNEPlanParents::getToParkingArea() const {
     if (toStoppingPlace) {
         return (toStoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
     } else {
@@ -285,7 +285,7 @@ GNEPlanParameters::getToParkingArea() const {
 
 
 bool
-GNEPlanParameters::getBusStop() const {
+GNEPlanParents::getBusStop() const {
     if (stoppingPlace) {
         return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_BUS_STOP);
     } else {
@@ -295,7 +295,7 @@ GNEPlanParameters::getBusStop() const {
 
 
 bool
-GNEPlanParameters::getTrainStop() const {
+GNEPlanParents::getTrainStop() const {
     if (stoppingPlace) {
         return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_TRAIN_STOP);
     } else {
@@ -305,7 +305,7 @@ GNEPlanParameters::getTrainStop() const {
 
 
 bool
-GNEPlanParameters::getContainerStop() const {
+GNEPlanParents::getContainerStop() const {
     if (stoppingPlace) {
         return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CONTAINER_STOP);
     } else {
@@ -315,7 +315,7 @@ GNEPlanParameters::getContainerStop() const {
 
 
 bool
-GNEPlanParameters::getChargingStation() const {
+GNEPlanParents::getChargingStation() const {
     if (stoppingPlace) {
         return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_CHARGING_STATION);
     } else {
@@ -325,7 +325,7 @@ GNEPlanParameters::getChargingStation() const {
 
 
 bool
-GNEPlanParameters::getParkingArea() const {
+GNEPlanParents::getParkingArea() const {
     if (stoppingPlace) {
         return (stoppingPlace->getTagProperty().getTag() == SUMO_TAG_PARKING_AREA);
     } else {
@@ -335,7 +335,7 @@ GNEPlanParameters::getParkingArea() const {
 
 
 std::vector<GNEJunction*>
-GNEPlanParameters::getJunctions() const {
+GNEPlanParents::getJunctions() const {
     std::vector<GNEJunction*> junctions;
     if (fromJunction) {
         junctions.push_back(fromJunction);
@@ -348,7 +348,7 @@ GNEPlanParameters::getJunctions() const {
 
 
 std::vector<GNEEdge*>
-GNEPlanParameters::getEdges() const {
+GNEPlanParents::getEdges() const {
     if (consecutiveEdges.size() > 0) {
         return consecutiveEdges;
     } else {
@@ -368,7 +368,7 @@ GNEPlanParameters::getEdges() const {
 
 
 std::vector<GNEAdditional*>
-GNEPlanParameters::getAdditionalElements() const {
+GNEPlanParents::getAdditionalElements() const {
     std::vector<GNEAdditional*> additionals;
     if (fromStoppingPlace) {
         additionals.push_back(fromStoppingPlace);
@@ -390,7 +390,7 @@ GNEPlanParameters::getAdditionalElements() const {
 
 
 std::vector<GNEDemandElement*>
-GNEPlanParameters::getDemandElements(GNEDemandElement* parent) const {
+GNEPlanParents::getDemandElements(GNEDemandElement* parent) const {
     std::vector<GNEDemandElement*> demandElements;
     // always add parent first
     demandElements.push_back(parent);

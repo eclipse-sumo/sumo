@@ -24,7 +24,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 
-#include "GNEPlanParameters.h"
+#include "GNEPlanParents.h"
 
 // ===========================================================================
 // class declaration

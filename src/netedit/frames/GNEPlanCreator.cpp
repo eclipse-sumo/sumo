@@ -25,7 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/demand/GNEDemandElementPlan.h>
-#include <netedit/elements/demand/GNEPlanParameters.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>

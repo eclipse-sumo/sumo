@@ -51,7 +51,7 @@ public:
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
      */
-    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
+    GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
                   double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
                   const std::vector<std::string>& lines);
 

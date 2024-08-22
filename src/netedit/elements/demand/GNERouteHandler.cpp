@@ -619,7 +619,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build person trip
         GNEDemandElement* personTrip = new GNEPersonTrip(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, types, modes, lines);
         // continue depending of undo.redo
@@ -652,7 +652,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build person trip
         GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos);
         // continue depending of undo.redo
@@ -685,7 +685,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         WRITE_WARNING(TL("invalid combination for ride"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build ride
         GNEDemandElement* ride = new GNERide(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines);
         // continue depending of undo-redo
@@ -772,7 +772,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build transport
         GNEDemandElement* transport = new GNETransport(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines);
         // continue depending of undo-redo
@@ -805,7 +805,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build tranship
         GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPosition, departPosition, speed);
         // continue depending of undo-redo
@@ -839,7 +839,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
         WRITE_WARNING(TL("invalid combination for person stop"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build person stop
         GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);
@@ -874,7 +874,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
         WRITE_WARNING(TL("invalid combination for containerStop"));
     } else {
         // get plan parameter parents
-        GNEPlanParameters planParents = GNEPlanParameters(planParameters, myNet->getAttributeCarriers());
+        GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
         // build container stop
         GNEDemandElement* stopPlan = new GNEStopPlan(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
                 endPos, duration, until, actType, friendlyPos, parameterSet);

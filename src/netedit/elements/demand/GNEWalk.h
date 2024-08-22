@@ -50,7 +50,7 @@ public:
      * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position
      */
-    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParameters& planParameters,
+    GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
             const double arrivalPosition);
 
     /// @brief destructor

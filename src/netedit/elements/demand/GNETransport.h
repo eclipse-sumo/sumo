@@ -51,7 +51,7 @@ public:
      * @param[in] arrivalPosition arrival position
      * @param[in] lines lines
      */
-    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParameters& planParameters,
+    GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                  const double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor

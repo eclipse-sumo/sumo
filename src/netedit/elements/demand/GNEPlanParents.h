@@ -50,16 +50,16 @@ class GNEUndoList;
 // class definitions
 // ===========================================================================
 
-/// @brief GNE plan parameters (used for group all from-to parameters related with plans)
-class GNEPlanParameters {
+/// @brief GNEPlanParents (used for group all plan parents)
+class GNEPlanParents {
 
 public:
     /// @brief default constructor
-    GNEPlanParameters();
+    GNEPlanParents();
 
     /// @brief constructor for parsing the parameters from SUMOSAXAttributes
-    GNEPlanParameters(const CommonXMLStructure::PlanParameters& planParameters,
-                      const GNENetHelper::AttributeCarriers* ACs);
+    GNEPlanParents(const CommonXMLStructure::PlanParameters& planParameters,
+                   const GNENetHelper::AttributeCarriers* ACs);
 
     /// @brief add the given element in the element as child
     void addChildElements(GNEDemandElement* element);

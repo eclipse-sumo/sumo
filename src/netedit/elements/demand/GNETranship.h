@@ -52,7 +52,7 @@ public:
      * @param[in] arrivalPosition arrival pos
      * @param[in] speed tranship speed
      */
-    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParameters& planParameters,
+    GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
                 const double departPosition, const double arrivalPosition, const double speed);
 
     /// @brief destructor

@@ -26,7 +26,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/elements/demand/GNEPlanParameters.h>
+#include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
