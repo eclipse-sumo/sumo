@@ -133,7 +133,7 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjec
     if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
             (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
-    } else if (myPlanSelector->markContainerStops() && viewObjects.getAdditionalFront() &&
+    } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
                (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
     } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {

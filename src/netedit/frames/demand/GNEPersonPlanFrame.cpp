@@ -133,7 +133,7 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ViewObjectsSele
     if (myPlanSelector->markRoutes() && viewObjects.getDemandElementFront() &&
             (viewObjects.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPlanCreator->addRoute(viewObjects.getDemandElementFront());
-    } else if ((myPlanSelector->markBusStops() || myPlanSelector->markTrainStops()) && viewObjects.getAdditionalFront() &&
+    } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
                (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
     } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {

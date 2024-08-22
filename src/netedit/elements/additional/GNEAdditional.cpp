@@ -331,22 +331,12 @@ GNEAdditional::checkDrawOverContour() const {
                 return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
             }
         }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_BUS_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markBusStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markBusStops())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_TRAIN_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markTrainStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markTrainStops())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
-    } else if ((myTagProperty.getTag() == SUMO_TAG_CONTAINER_STOP) && modes.isCurrentSupermodeDemand()) {
-        // check if we're in container or containerPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markContainerStops()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markContainerStops())) {
+    } else if (myTagProperty.isStoppingPlace() && modes.isCurrentSupermodeDemand()) {
+        // check if we're in person/container or personPlan/containerPlan modes
+        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markStoppingPlaces()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markStoppingPlaces()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markStoppingPlaces()) ||
+                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markStoppingPlaces())) {
             return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
         }
     }
