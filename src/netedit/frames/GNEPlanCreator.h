@@ -114,7 +114,7 @@ public:
     bool addStoppingPlace(GNEAdditional* stoppingPlace);
 
     /// @brief get plan parameters
-    const CommonXMLStructure::PlanParameters &getPlanParameteres() const;
+    const CommonXMLStructure::PlanParameters& getPlanParameteres() const;
 
     /// @brief get clicked position over lane
     double getClickedPositionOverLane() const;
@@ -158,21 +158,15 @@ protected:
         CONSECUTIVE_EDGES   = 1 << 0,   // Plan is placed over consecutive edges
         ROUTE               = 1 << 1,   // Plan is placed over a single route
         EDGE                = 1 << 2,   // Plan is placed over a single edge
-        BUSSTOP             = 1 << 3,   // Plan is placed over a single busStop
-        TRAINSTOP           = 1 << 4,   // Plan is placed over a single trainStop
-        CONTAINERSTOP       = 1 << 5,   // Plan is placed over a single containerStop
-        START_EDGE          = 1 << 6,   // Plan begins in edge
-        START_TAZ           = 1 << 7,   // Plan begins in TAZ
-        START_JUNCTION      = 1 << 8,   // Plan begins in junction
-        START_BUSSTOP       = 1 << 9,   // Plan begins in busStop
-        START_TRAINSTOP     = 1 << 10,  // Plan begins in trainStop
-        START_CONTAINERSTOP = 1 << 11,  // Plan begins in containerStop
-        END_EDGE            = 1 << 12,  // Plan ends in edge
-        END_TAZ             = 1 << 13,  // Plan ends in TAZ
-        END_JUNCTION        = 1 << 14,  // Plan ends in junction
-        END_BUSSTOP         = 1 << 15,  // Plan ends in busStop
-        END_TRAINSTOP       = 1 << 16,  // Plan ends in trainStop
-        END_CONTAINERSTOP   = 1 << 17,  // Plan ends in containerStop
+        STOPPINGPLACE       = 1 << 3,   // Plan is placed over a stoppingPlace
+        START_EDGE          = 1 << 4,   // Plan begins in edge
+        START_TAZ           = 1 << 5,   // Plan begins in TAZ
+        START_JUNCTION      = 1 << 6,   // Plan begins in junction
+        START_STOPPINGPLACE = 1 << 7,   // Plan begins in busStop
+        END_EDGE            = 1 << 8,   // Plan ends in edge
+        END_TAZ             = 1 << 9,   // Plan ends in TAZ
+        END_JUNCTION        = 1 << 10,  // Plan ends in junction
+        END_STOPPINGPLACE   = 1 << 11,  // Plan ends in stoppingPlace
     };
 
     /// @brief clear edges

@@ -225,14 +225,8 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
     if (planTagProperties.planEdge()) {
         myPlanParents |= EDGE;
     }
-    if (planTagProperties.planBusStop()) {
-        myPlanParents |= BUSSTOP;
-    }
-    if (planTagProperties.planTrainStop()) {
-        myPlanParents |= TRAINSTOP;
-    }
-    if (planTagProperties.planContainerStop()) {
-        myPlanParents |= CONTAINERSTOP;
+    if (planTagProperties.planStoppingPlace()) {
+        myPlanParents |= STOPPINGPLACE;
     }
     if (planTagProperties.planConsecutiveEdges()) {
         myPlanParents |= CONSECUTIVE_EDGES;
@@ -257,21 +251,9 @@ GNEPlanCreator::showPlanCreatorModule(const GNEPlanSelector* planSelector, const
         // show creation buttons
         showCreationButtons();
     }
-    if (planTagProperties.planFromBusStop() || planTagProperties.planToBusStop()) {
-        myPlanParents |= START_BUSSTOP;
-        myPlanParents |= END_BUSSTOP;
-        // show creation buttons
-        showCreationButtons();
-    }
-    if (planTagProperties.planFromTrainStop() || planTagProperties.planToTrainStop()) {
-        myPlanParents |= START_TRAINSTOP;
-        myPlanParents |= END_TRAINSTOP;
-        // show creation buttons
-        showCreationButtons();
-    }
-    if (planTagProperties.planFromContainerStop() || planTagProperties.planToContainerStop()) {
-        myPlanParents |= START_CONTAINERSTOP;
-        myPlanParents |= END_CONTAINERSTOP;
+    if (planTagProperties.planFromStoppingPlace() || planTagProperties.planToStoppingPlace()) {
+        myPlanParents |= START_STOPPINGPLACE;
+        myPlanParents |= END_STOPPINGPLACE;
         // show creation buttons
         showCreationButtons();
     }
@@ -365,17 +347,9 @@ bool
 GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
     // get stoppingPlace tag
     auto stoppingPlaceTag = stoppingPlace->getTagProperty().getTag();
-    if ((stoppingPlaceTag == SUMO_TAG_BUS_STOP) && (myPlanParents & BUSSTOP)) {
+    if ((stoppingPlaceTag == SUMO_TAG_BUS_STOP) && (myPlanParents & STOPPINGPLACE)) {
         return addSingleStoppingPlace(stoppingPlace);
-    } else if ((stoppingPlaceTag == SUMO_TAG_BUS_STOP) && ((myPlanParents & START_BUSSTOP) || (myPlanParents & END_BUSSTOP))) {
-        return addFromToStoppingPlace(stoppingPlace);
-    } else if ((stoppingPlaceTag == SUMO_TAG_TRAIN_STOP) && (myPlanParents & TRAINSTOP)) {
-        return addSingleStoppingPlace(stoppingPlace);
-    } else if ((stoppingPlaceTag == SUMO_TAG_TRAIN_STOP) && ((myPlanParents & START_TRAINSTOP) || (myPlanParents & END_TRAINSTOP))) {
-        return addFromToStoppingPlace(stoppingPlace);
-    } else if ((stoppingPlaceTag == SUMO_TAG_CONTAINER_STOP) && (myPlanParents & CONTAINERSTOP)) {
-        return addSingleStoppingPlace(stoppingPlace);
-    } else if ((stoppingPlaceTag == SUMO_TAG_CONTAINER_STOP) && ((myPlanParents & START_CONTAINERSTOP) || (myPlanParents & END_CONTAINERSTOP))) {
+    } else if ((myPlanParents & START_STOPPINGPLACE) || (myPlanParents & END_STOPPINGPLACE)) {
         return addFromToStoppingPlace(stoppingPlace);
     } else {
         return false;
@@ -716,15 +690,9 @@ GNEPlanCreator::updateInfoLabel() {
                       (myPlanParents & END_TAZ);
     const bool junctions = (myPlanParents & START_JUNCTION) ||
                            (myPlanParents & END_JUNCTION);
-    const bool busStops = (myPlanParents & BUSSTOP) ||
-                          (myPlanParents & START_BUSSTOP) ||
-                          (myPlanParents & END_BUSSTOP);
-    const bool trainStops = (myPlanParents & TRAINSTOP) ||
-                            (myPlanParents & START_TRAINSTOP) ||
-                            (myPlanParents & END_TRAINSTOP);
-    const bool containerStops = (myPlanParents & CONTAINERSTOP) ||
-                                (myPlanParents & START_CONTAINERSTOP) ||
-                                (myPlanParents & END_CONTAINERSTOP);
+    const bool stoppingPlace = (myPlanParents & STOPPINGPLACE) ||
+                               (myPlanParents & START_STOPPINGPLACE) ||
+                               (myPlanParents & END_STOPPINGPLACE);
 
     // declare ostringstream for label and fill it
     std::ostringstream information;
@@ -735,9 +703,7 @@ GNEPlanCreator::updateInfoLabel() {
             << (edges ? "- Edges\n" : "")
             << (TAZs ? "- TAZs\n" : "")
             << (junctions ? "- Junctions\n" : "")
-            << (busStops ? "- BusStops\n" : "")
-            << (trainStops ? "- TrainStops\n" : "")
-            << (containerStops ? "- ContainerStops\n" : "");
+            << (stoppingPlace ? "- StoppingPlaces\n" : "");
     // remove last \n
     std::string informationStr = information.str();
     informationStr.pop_back();
