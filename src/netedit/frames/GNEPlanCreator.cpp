@@ -179,7 +179,6 @@ GNEPlanCreator::~GNEPlanCreator() {}
 
 bool
 GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
-/*
     if (planTemplate == nullptr) {
         return false;
     } else if (planTemplate->getTagProperty().isPersonTrip()) {
@@ -199,8 +198,6 @@ GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
     } else {
         return false;
     }
-*/
-return true;
 }
 
 
@@ -406,7 +403,7 @@ GNEPlanCreator::getPath() const {
 
 void
 GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
-    const auto &ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     const double lineWidth = 0.35;
     const double lineWidthin = 0.25;
     // Add a draw matrix
@@ -609,15 +606,15 @@ GNEPlanCreator::clearPath() {
 
 void
 GNEPlanCreator::recalculatePath() {
-    const auto &ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
+    const auto& ACs = myFrameParent->getViewNet()->getNet()->getAttributeCarriers();
     // first clear path
     myPath.clear();
     // continue depending of elements
     if (myPlanParameteres.consecutiveEdges.size() > 0) {
         // add every segment
         for (int i = 1; i < (int)myPlanParameteres.consecutiveEdges.size(); i++) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, 
-                                      ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i - 1)), 
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass,
+                                      ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i - 1)),
                                       ACs->retrieveEdge(myPlanParameteres.consecutiveEdges.at(i))));
         }
     } else {
@@ -921,11 +918,11 @@ GNEPlanCreator::addFromToStoppingPlace(GNEAdditional* stoppingPlace) {
     // check double stoppingPlaces
     const auto stoppingPlaceID = stoppingPlace->getID();
     if ((!myPlanParameteres.busStop.empty() && (myPlanParameteres.busStop == stoppingPlaceID)) ||
-        (!myPlanParameteres.trainStop.empty() && (myPlanParameteres.trainStop == stoppingPlaceID)) ||
-        (!myPlanParameteres.containerStop.empty() && (myPlanParameteres.containerStop == stoppingPlaceID)) ||
-        (!myPlanParameteres.chargingStation.empty() && (myPlanParameteres.chargingStation == stoppingPlaceID)) ||
-        (!myPlanParameteres.parkingArea.empty() && (myPlanParameteres.parkingArea == stoppingPlaceID))) {
-            // Write warning
+            (!myPlanParameteres.trainStop.empty() && (myPlanParameteres.trainStop == stoppingPlaceID)) ||
+            (!myPlanParameteres.containerStop.empty() && (myPlanParameteres.containerStop == stoppingPlaceID)) ||
+            (!myPlanParameteres.chargingStation.empty() && (myPlanParameteres.chargingStation == stoppingPlaceID)) ||
+            (!myPlanParameteres.parkingArea.empty() && (myPlanParameteres.parkingArea == stoppingPlaceID))) {
+        // Write warning
         WRITE_WARNING(TL("Double stoppingPlaces aren't allowed"));
         // abort add stopping place
         return false;
