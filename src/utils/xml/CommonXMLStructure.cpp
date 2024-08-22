@@ -166,51 +166,48 @@ CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructur
     // check if previous plan object was defined but not the from
     const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
     if (previousPlanObj) {
-        if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
+        // ge previous plan parameters
+        const auto previousPlanParameters = previousPlanObj->getPlanParameters();
+        if (!previousPlanParameters.toEdge.empty()) {
             // edge (to)
-            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
-            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
-            // edge
-            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE));
-            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE);
-        } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanParameters.toEdge);
+            fromEdge = previousPlanParameters.toEdge;
+        } else if (!previousPlanParameters.consecutiveEdges.empty()) {
             // consecutive edge
-            const std::string consecutiveEdge = previousPlanObj->getStringListAttribute(SUMO_ATTR_EDGES).back();
-            resetPreviousFromAttributes(previousPlanObj, "consecutive edge", consecutiveEdge);
-            fromEdge = consecutiveEdge;
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
+            resetPreviousFromAttributes(previousPlanObj, "consecutive edge", previousPlanParameters.consecutiveEdges.back());
+            fromEdge = previousPlanParameters.consecutiveEdges.back();
+        } else if (!previousPlanParameters.toRoute.empty()) {
             // route
-            resetPreviousFromAttributes(previousPlanObj, "route edge", previousPlanObj->getStringAttribute(SUMO_ATTR_ID));
-            fromRoute = previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE).back();
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
+            resetPreviousFromAttributes(previousPlanObj, "route edge", previousPlanParameters.toRoute);
+            fromRoute = previousPlanParameters.toRoute;
+        } else if (!previousPlanParameters.toJunction.empty()) {
             // junction
-            resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));
-            fromJunction = previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_TAZ)) {
+            resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanParameters.toJunction);
+            fromJunction = previousPlanParameters.toJunction;
+        } else if (!previousPlanParameters.toTAZ.empty()) {
             // TAZ
-            resetPreviousFromAttributes(previousPlanObj, "TAZ", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_TAZ));
-            fromTAZ = previousPlanObj->getStringAttribute(SUMO_ATTR_TO_TAZ);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_BUS_STOP)) {
+            resetPreviousFromAttributes(previousPlanObj, "TAZ", previousPlanParameters.toTAZ);
+            fromTAZ = previousPlanParameters.toTAZ;
+        } else if (!previousPlanParameters.toBusStop.empty()) {
             // busStop
-            resetPreviousFromAttributes(previousPlanObj, "bus stop", previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP));
-            fromBusStop = previousPlanObj->getStringAttribute(SUMO_ATTR_BUS_STOP);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TRAIN_STOP)) {
+            resetPreviousFromAttributes(previousPlanObj, "bus stop", previousPlanParameters.toBusStop);
+            fromBusStop = previousPlanParameters.toBusStop;
+        } else if (!previousPlanParameters.toTrainStop.empty()) {
             // trainStop
-            resetPreviousFromAttributes(previousPlanObj, "train stop", previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP));
-            fromTrainStop = previousPlanObj->getStringAttribute(SUMO_ATTR_TRAIN_STOP);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+            resetPreviousFromAttributes(previousPlanObj, "train stop", previousPlanParameters.toTrainStop);
+            fromTrainStop = previousPlanParameters.toTrainStop;
+        } else if (!previousPlanParameters.toContainerStop.empty()) {
             // containerStop
-            resetPreviousFromAttributes(previousPlanObj, "container stop", previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP));
-            fromContainerStop = previousPlanObj->getStringAttribute(SUMO_ATTR_CONTAINER_STOP);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_CHARGING_STATION)) {
+            resetPreviousFromAttributes(previousPlanObj, "container stop", previousPlanParameters.toContainerStop);
+            fromContainerStop = previousPlanParameters.toContainerStop;
+        } else if (!previousPlanParameters.toChargingStation.empty()) {
             // chargingStation
-            resetPreviousFromAttributes(previousPlanObj, "charging station", previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION));
-            fromChargingStation = previousPlanObj->getStringAttribute(SUMO_ATTR_CHARGING_STATION);
-        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_PARKING_AREA)) {
+            resetPreviousFromAttributes(previousPlanObj, "charging station", previousPlanParameters.toChargingStation);
+            fromChargingStation = previousPlanParameters.toChargingStation;
+        } else if (!previousPlanParameters.toParkingArea.empty()) {
             // parkingArea
-            resetPreviousFromAttributes(previousPlanObj, "parking area", previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA));
-            fromParkingArea = previousPlanObj->getStringAttribute(SUMO_ATTR_PARKING_AREA);
+            resetPreviousFromAttributes(previousPlanObj, "parking area", previousPlanParameters.toParkingArea);
+            fromParkingArea = previousPlanParameters.toParkingArea;
         }
     }
 }
