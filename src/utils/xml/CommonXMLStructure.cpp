@@ -39,41 +39,39 @@ CommonXMLStructure::PlanParameters::PlanParameters() {}
 
 CommonXMLStructure::PlanParameters::PlanParameters(const CommonXMLStructure::SumoBaseObject* sumoBaseObject,
         const SUMOSAXAttributes& attrs, bool& parsedOk) {
-    // junctions
-    fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, "", parsedOk, "");
-    toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, "", parsedOk, "");
+    // get plan parent ID
+    const auto planParentID = sumoBaseObject->getParentSumoBaseObject()->getStringAttribute(SUMO_ATTR_ID).c_str();
     // edges
-    fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, "", parsedOk, "");
-    toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, "", parsedOk, "");
+    fromEdge = attrs.getOpt<std::string>(SUMO_ATTR_FROM, planParentID, parsedOk, "");
+    toEdge = attrs.getOpt<std::string>(SUMO_ATTR_TO, planParentID, parsedOk, "");
+    if (toEdge.empty()) {
+        toEdge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, planParentID, parsedOk, "");
+    }
+    consecutiveEdges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, planParentID, parsedOk);
+    // junctions
+    fromJunction = attrs.getOpt<std::string>(SUMO_ATTR_FROM_JUNCTION, planParentID, parsedOk, "");
+    toJunction = attrs.getOpt<std::string>(SUMO_ATTR_TO_JUNCTION, planParentID, parsedOk, "");
     // TAZs
-    fromTAZ = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TAZ, "", parsedOk, "");
-    toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, "", parsedOk, "");
+    fromTAZ = attrs.getOpt<std::string>(SUMO_ATTR_FROM_TAZ, planParentID, parsedOk, "");
+    toTAZ = attrs.getOpt<std::string>(SUMO_ATTR_TO_TAZ, planParentID, parsedOk, "");
     // bus stops
-    fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, "", parsedOk, "");
-    toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
+    fromBusStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_BUSSTOP, planParentID, parsedOk, "");
+    toBusStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, planParentID, parsedOk, "");
     // train stops
-    fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, "", parsedOk, "");
-    toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
+    fromTrainStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_TRAINSTOP, planParentID, parsedOk, "");
+    toTrainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, planParentID, parsedOk, "");
     // container stops
-    fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, "", parsedOk, "");
-    toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
+    fromContainerStop = attrs.getOpt<std::string>(GNE_ATTR_FROM_CONTAINERSTOP, planParentID, parsedOk, "");
+    toContainerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, planParentID, parsedOk, "");
     // charging stations
-    fromChargingStation = attrs.getOpt<std::string>(GNE_ATTR_FROM_CHARGINGSTATION, "", parsedOk, "");
-    toChargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
+    fromChargingStation = attrs.getOpt<std::string>(GNE_ATTR_FROM_CHARGINGSTATION, planParentID, parsedOk, "");
+    toChargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, planParentID, parsedOk, "");
     // parking areas
-    fromParkingArea = attrs.getOpt<std::string>(GNE_ATTR_FROM_PARKINGAREA, "", parsedOk, "");
-    toParkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
-    // list of consecutive edges
-    consecutiveEdges = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_EDGES, "", parsedOk);
-    // route
-    route = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, "", parsedOk, "");
-    // stops
-    edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, "", parsedOk, "");
-    busStop = attrs.getOpt<std::string>(SUMO_ATTR_BUS_STOP, "", parsedOk, "");
-    trainStop = attrs.getOpt<std::string>(SUMO_ATTR_TRAIN_STOP, "", parsedOk, "");
-    containerStop = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, "", parsedOk, "");
-    chargingStation = attrs.getOpt<std::string>(SUMO_ATTR_CHARGING_STATION, "", parsedOk, "");
-    parkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, "", parsedOk, "");
+    fromParkingArea = attrs.getOpt<std::string>(GNE_ATTR_FROM_PARKINGAREA, planParentID, parsedOk, "");
+    toParkingArea = attrs.getOpt<std::string>(SUMO_ATTR_PARKING_AREA, planParentID, parsedOk, "");
+    // routes
+    fromRoute = attrs.getOpt<std::string>(GNE_ATTR_FROM_ROUTE, planParentID, parsedOk, "");
+    toRoute = attrs.getOpt<std::string>(SUMO_ATTR_ROUTE, planParentID, parsedOk, "");
     // update from attributes
     updateFromAttributes(sumoBaseObject);
 }
@@ -98,13 +96,8 @@ CommonXMLStructure::PlanParameters::clear() {
     fromParkingArea.clear();
     toParkingArea.clear();
     consecutiveEdges.clear();
-    route.clear();
-    edge.clear();
-    busStop.clear();
-    trainStop.clear();
-    chargingStation.clear();
-    containerStop.clear();
-    parkingArea.clear();
+    fromRoute.clear();
+    toRoute.clear();
 }
 
 
@@ -137,13 +130,8 @@ CommonXMLStructure::PlanParameters::getNumberOfDefinedParameters() const {
            (toChargingStation.empty() ? 0 : 1) +
            (fromParkingArea.empty() ? 0 : 1) +
            (toParkingArea.empty() ? 0 : 1) +
-           (route.empty() ? 0 : 1) +
-           (edge.empty() ? 0 : 1) +
-           (busStop.empty() ? 0 : 1) +
-           (trainStop.empty() ? 0 : 1) +
-           (chargingStation.empty() ? 0 : 1) +
-           (containerStop.empty() ? 0 : 1) +
-           (parkingArea.empty() ? 0 : 1);
+           (fromRoute.empty() ? 0 : 1) +
+           (toRoute.empty() ? 0 : 1);
 }
 
 
@@ -179,9 +167,13 @@ CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructur
     const auto previousPlanObj = getPreviousPlanObj(sumoBaseObject);
     if (previousPlanObj) {
         if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO)) {
-            // edge
+            // edge (to)
             resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_TO));
             fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_TO);
+        } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_EDGE)) {
+            // edge
+            resetPreviousFromAttributes(previousPlanObj, "edge", previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE));
+            fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGE);
         } else if (previousPlanObj->hasStringListAttribute(SUMO_ATTR_EDGES)) {
             // consecutive edge
             const std::string consecutiveEdge = previousPlanObj->getStringListAttribute(SUMO_ATTR_EDGES).back();
@@ -190,7 +182,7 @@ CommonXMLStructure::PlanParameters::updateFromAttributes(const CommonXMLStructur
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_ROUTE)) {
             // route
             resetPreviousFromAttributes(previousPlanObj, "route edge", previousPlanObj->getStringAttribute(SUMO_ATTR_ID));
-            //fromEdge = previousPlanObj->getStringAttribute(SUMO_ATTR_EDGES).back();
+            fromRoute = previousPlanObj->getStringAttribute(SUMO_ATTR_ROUTE).back();
         } else if (previousPlanObj->hasStringAttribute(SUMO_ATTR_TO_JUNCTION)) {
             // junction
             resetPreviousFromAttributes(previousPlanObj, "junction", previousPlanObj->getStringAttribute(SUMO_ATTR_TO_JUNCTION));

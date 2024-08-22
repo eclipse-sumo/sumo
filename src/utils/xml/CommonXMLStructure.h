@@ -60,17 +60,20 @@ public:
         /// @brief get number of defined plans
         int getNumberOfDefinedParameters() const;
 
-        /// @brief from junction
-        std::string fromJunction;
-
-        /// @brief to junction
-        std::string toJunction;
-
         /// @brief from edge
         std::string fromEdge;
 
         /// @brief to edge
         std::string toEdge;
+
+        /// @brief consecutive edges
+        std::vector<std::string> consecutiveEdges;
+
+        /// @brief from junction
+        std::string fromJunction;
+
+        /// @brief to junction
+        std::string toJunction;
 
         /// @brief from TAZ
         std::string fromTAZ;
@@ -108,39 +111,11 @@ public:
         /// @brief to parkingArea
         std::string toParkingArea;
 
-        /// @brief consecutive edges
-        std::vector<std::string> consecutiveEdges;
+        /// @brief from route
+        std::string fromRoute;
 
-        /// @name values used only by walks
-        /// @{
-
-        /// @brief route
-        std::string route;
-
-        /// @}
-
-        /// @name values used only by stops
-        /// @{
-
-        /// @brief edge
-        std::string edge;
-
-        /// @brief bus stop
-        std::string busStop;
-
-        /// @brief train stop
-        std::string trainStop;
-
-        /// @brief charging station
-        std::string chargingStation;
-
-        /// @brief charging station
-        std::string containerStop;
-
-        /// @brief parking area
-        std::string parkingArea;
-
-        /// @}
+        /// @brief to route
+        std::string toRoute;
 
     private:
         /// @brief get previous plan obj
