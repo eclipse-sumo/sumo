@@ -79,6 +79,19 @@ The <REALFLOWS\>-file has to be a XML-file in form of:
         <singlelink link="1to22" start="25200" end="32400" value="250" stddev="8" type="COUNT_VEH"/>
     </measurements>
 ```
+The definition of each attribute is:
+
+•	link: edge ID
+
+•	start: the begin of the interval
+
+•	end: the end of the interval
+
+•	value: the measurement
+
+•	stddev: standard deviation of the given data (measurement error); The larger this value is, the less one should believe this value.
+
+•	type: measurement type (here: COUNT_VEH für counting data)
 
 The < ROUTEALTERNATIVESFILE\> has to be a XML-file in form of:
 
