@@ -42,7 +42,7 @@ const double GNEDemandElementPlan::myArrivalPositionDiameter = SUMO_const_halfLa
 std::pair<SumoXMLTag, GUIIcon>
 GNEDemandElementPlan::getWalkTagIcon(const CommonXMLStructure::PlanParameters& planParameters) {
     if (planParameters.isSingleEdgePlan()) {
-        return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::TRANSHIP_EDGE);
+        return std::make_pair(GNE_TAG_WALK_EDGE_EDGE, GUIIcon::WALK_EDGE);
     } else if (planParameters.consecutiveEdges.size() > 0) {
         return std::make_pair(GNE_TAG_WALK_EDGES, GUIIcon::WALK_EDGES);
     } else if (!planParameters.toRoute.empty()) {
