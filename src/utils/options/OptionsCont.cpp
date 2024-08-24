@@ -808,8 +808,8 @@ OptionsCont::printHelp(std::ostream& os) {
         }
         if (!foundTopic) {
             // print topic list
-            os << "Help Topics:"  << std::endl;
-            for (std::string t : mySubTopics) {
+            os << "Help Topics:" << std::endl;
+            for (const std::string& t : mySubTopics) {
                 os << "    " << t << std::endl;
             }
         }
@@ -819,7 +819,7 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
     // print additional text if any
     if (myAdditionalMessage.length() > 0) {
-        os << myAdditionalMessage << std::endl << ' ' << std::endl;
+        os << myAdditionalMessage << std::endl << std::endl;
     }
     // print the options
     for (const auto& subTopic : mySubTopics) {
@@ -835,7 +835,7 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
     os << std::endl;
-    os << "Report bugs at <https://github.com/eclipse/sumo/issues>." << std::endl;
+    os << "Report bugs at <https://github.com/eclipse-sumo/sumo/issues>." << std::endl;
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
