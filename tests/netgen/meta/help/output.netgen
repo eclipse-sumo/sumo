@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_14_1+14496-f6b8788bf11
+Eclipse SUMO netgenerate Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -510,5 +510,5 @@ Examples:
   netgenerate --rand [random-network options] -o <OUTPUTFILE>
     create random net
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

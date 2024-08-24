@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_20_0+1406-38fbaaedfbd
+Eclipse SUMO sumo Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -1004,5 +1004,5 @@ Examples:
   sumo --help
     print help
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

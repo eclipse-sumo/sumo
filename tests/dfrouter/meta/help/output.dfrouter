@@ -1,4 +1,4 @@
-Eclipse SUMO dfrouter Version v1_17_0+2470-b55cba8942c
+Eclipse SUMO dfrouter Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Builds vehicle routes for SUMO using detector values.
 
@@ -151,5 +151,5 @@ Examples:
   dfrouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

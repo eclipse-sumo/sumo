@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_20_0+0837-89657f7d4be
+Eclipse SUMO jtrrouter Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
  junction turning ratios.
@@ -159,5 +159,5 @@ Examples:
   jtrrouter -c <CONFIGURATION>
     run with routing options defined in file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

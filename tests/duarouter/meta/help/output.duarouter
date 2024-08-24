@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_20_0+0837-89657f7d4be
+Eclipse SUMO duarouter Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
  simulation SUMO.
@@ -227,5 +227,5 @@ Examples:
   duarouter -c <CONFIGURATION>
     run routing with options from file
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.

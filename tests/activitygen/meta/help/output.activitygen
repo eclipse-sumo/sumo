@@ -1,4 +1,4 @@
-Eclipse SUMO activitygen Version v1_17_0+2470-b55cba8942c
+Eclipse SUMO activitygen Version v1_20_0+1699-94bb18538d6
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
@@ -78,5 +78,5 @@ Examples:
   activitygen --net-file <INPUT>.net.xml --stat-file <INPUT>.stat.xml --output <OUTPUT>.rou.xml --duration-d <NBR_OF_DAYS>
     generate a trips file from a stats file on a given net for numerous days (with fixed random seed)
 
-Report bugs at <https://github.com/eclipse/sumo/issues>.
+Report bugs at <https://github.com/eclipse-sumo/sumo/issues>.
 Get in contact via <sumo@dlr.de>.
