@@ -181,6 +181,14 @@ GUIGeometry::updateSinglePosGeometry(const Position& position, const double rota
 }
 
 
+void GUIGeometry::clearGeometry() {
+    // clear geometry containers
+    myShape.clear();
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+}
+
+
 void
 GUIGeometry::moveGeometryToSide(const double amount) {
     // move shape
@@ -548,14 +556,6 @@ GUIGeometry::angleLookup(const double angleDeg) {
     }
     assert(index >= 0);
     return (int)index;
-}
-
-
-void GUIGeometry::clearGeometry() {
-    // clear geometry containers
-    myShape.clear();
-    myShapeRotations.clear();
-    myShapeLengths.clear();
 }
 
 

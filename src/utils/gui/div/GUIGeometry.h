@@ -58,6 +58,9 @@ public:
     /// @brief update position and rotation
     void updateSinglePosGeometry(const Position& position, const double rotation);
 
+    /// @brief clear geometry
+    void clearGeometry();
+
     /// @brief move current shape to side
     void moveGeometryToSide(const double amount);
 
@@ -124,9 +127,6 @@ public:
     /// @}
 
 protected:
-    /// @brief clear geometry
-    void clearGeometry();
-
     /// @brief calculate shape rotations and lengths
     void calculateShapeRotationsAndLengths();
 
