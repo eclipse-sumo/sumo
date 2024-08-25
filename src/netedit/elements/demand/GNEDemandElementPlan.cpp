@@ -1016,50 +1016,50 @@ void
 GNEDemandElementPlan::updatePlanGeometry() {
     // get tag property
     const auto& tagProperty = myPlanElement->getTagProperty();
-    // declare first and last positions
-    Position firstPos = Position::INVALID;
-    Position lastPos = Position::INVALID;
-    // set first position
-    if (tagProperty.planFromJunction() && tagProperty.planToTAZ()) {
-        // from junction
-        firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
-        // to TAZ
-        if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
-            lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
-        } else {
-            lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(SUMO_ATTR_CENTER);
+    // check if plan start or end in a TAZ (becase in this case has to be inserted in RTREE
+    if (tagProperty.planFromTAZ() || tagProperty.planToTAZ()) {
+        // declare first and last positions
+        Position firstPos = Position::INVALID;
+        Position lastPos = Position::INVALID;
+        // set first position
+        if (tagProperty.planFromEdge()) {
+            // from junction
+            firstPos = myPlanElement->getFirstPathLane()->getLaneShape().back();
+        } else if (tagProperty.planFromJunction()) {
+            // from junction
+            firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
+        } else if (tagProperty.planFromTAZ()) {
+            // from TAZ
+            if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+            } else {
+                firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
+            }
         }
-    } else if (tagProperty.planFromTAZ() && tagProperty.planToJunction()) {
-        // from TAZ
-        if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
-            firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
-        } else {
-            firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
+        // set last position
+        if (tagProperty.planToEdge()) {
+            // from junction
+            lastPos = myPlanElement->getLastPathLane()->getLaneShape().back();
+        } else if (tagProperty.planToJunction()) {
+            // from junction
+            lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
+        } else if (tagProperty.planToTAZ()) {
+            // from TAZ
+            if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+            } else {
+                lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(SUMO_ATTR_CENTER);
+            }
         }
-        // to junction
-        lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
-    } else if (tagProperty.planFromTAZ() && tagProperty.planToTAZ()) {
-        // from TAZ
-        if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
-            firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+        // use both position to calculate a line
+        if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
+            myPlanElement->myDemandElementGeometry.updateGeometry({firstPos, lastPos});
         } else {
-            firstPos = myPlanElement->getParentTAZs().front()->getAttributePosition(SUMO_ATTR_CENTER);
-        }
-        // to TAZ
-        if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
-            lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
-        } else {
-            lastPos = myPlanElement->getParentTAZs().back()->getAttributePosition(SUMO_ATTR_CENTER);
+            myPlanElement->myDemandElementGeometry.clearGeometry();
         }
     }
-    // use both position to calculate a line
-    if ((firstPos != Position::INVALID) && (lastPos != Position::INVALID)) {
-        // remove from grid
-        myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
-        myPlanElement->myDemandElementGeometry.updateGeometry({firstPos, lastPos});
-        // add into grid again
-        myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
-    }
+    // update centering boundary
+    updatePlanCenteringBoundary(true);
     // update child demand elements
     for (const auto& demandElement : myPlanElement->getChildDemandElements()) {
         demandElement->updateGeometry();
@@ -1076,10 +1076,10 @@ GNEDemandElementPlan::getPlanCenteringBoundary() const {
 void
 GNEDemandElementPlan::updatePlanCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
-    if (updateGrid) {
+    if (myPlanBoundary.isInitialised() && updateGrid) {
         myPlanElement->getNet()->removeGLObjectFromGrid(myPlanElement);
     }
-    myPlanBoundary.reset();
+    myPlanBoundary = myPlanElement->getDemandElementGeometry().getShape().getBoxBoundary();
     // if this element is over route, add their boundary
     if (myPlanElement->getParentDemandElements().size() > 1) {
         myPlanBoundary.add(myPlanElement->getParentDemandElements().at(1)->getCenteringBoundary());
@@ -1107,11 +1107,9 @@ GNEDemandElementPlan::updatePlanCenteringBoundary(const bool updateGrid) {
     // check if is valid
     if (myPlanBoundary.isInitialised()) {
         myPlanBoundary.grow(5);
-    } else if (myPlanElement->getParentDemandElements().size() > 0) {
-        myPlanBoundary = myPlanElement->getParentDemandElements().front()->getCenteringBoundary();
     }
     // add additional into RTREE again
-    if (updateGrid) {
+    if (myPlanBoundary.isInitialised() && updateGrid) {
         myPlanElement->getNet()->addGLObjectIntoGrid(myPlanElement);
     }
 }
@@ -1750,6 +1748,10 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan element can be drawn
     if (drawPlan && segment->getLane() && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment->getLane(), tagProperty.getTag())) {
+        // draw boundary
+        if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
@@ -1760,11 +1762,25 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
         GUIGeometry planGeometry;
         // update pathGeometry depending of first and last segment
         if (segment->isFirstSegment() && segment->isLastSegment()) {
-            planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
-                                        getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
-                                        getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            if (tagProperty.planFromTAZ()) {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            Position::INVALID,
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            } else if (tagProperty.planToTAZ()) {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            Position::INVALID);
+            } else {
+                planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
+                                            getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS),
+                                            getPlanAttributePosition(GNE_ATTR_PLAN_GEOMETRY_ENDPOS));
+            }
         } else if (segment->isFirstSegment()) {
             planGeometry.updateGeometry(segment->getLane()->getLaneGeometry().getShape(),
                                         getPlanAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_STARTPOS),
@@ -1800,8 +1816,6 @@ GNEDemandElementPlan::drawPlanLanePartial(const bool drawPlan, const GUIVisualiz
             // draw red arrows
             drawFromArrow(s, segment->getLane(), segment);
             drawToArrow(s, segment->getLane(), segment);
-            // draw end position
-            drawEndPosition(s, d, endPosRadius);
             // Pop last matrix
             GLHelper::popMatrix();
             // Draw name if isn't being drawn for selecting
@@ -1836,10 +1850,16 @@ GNEDemandElementPlan::drawPlanJunctionPartial(const bool drawPlan, const GUIVisu
         const double offsetFront, const double planWidth, const RGBColor& planColor, const RGBColor& planSelectedColor) const {
     // get view net
     auto viewNet = myPlanElement->getNet()->getViewNet();
+    // get tag property
+    const auto& tagProperty = myPlanElement->getTagProperty();
     // get plan parent
     const GNEDemandElement* planParent = myPlanElement->getParentDemandElements().front();
     // check if draw plan elements can be drawn
-    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, myPlanElement->getTagProperty().getTag())) {
+    if (drawPlan && myPlanElement->getNet()->getPathManager()->getPathDraw()->checkDrawPathGeometry(s, segment, tagProperty.getTag())) {
+        // draw boundary
+        if (tagProperty.isPlacedInRTree() && s.drawBoundaries) {
+            GLHelper::drawBoundary(s, getPlanCenteringBoundary());
+        }
         // get detail level
         const auto d = s.getDetailLevel(1);
         // get inspected attribute carriers
