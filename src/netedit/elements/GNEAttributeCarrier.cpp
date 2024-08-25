@@ -4956,7 +4956,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edges"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from edge
     currentTag = GNE_TAG_TRANSHIP_EDGE_EDGE;
@@ -4967,7 +4967,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_BUSSTOP;
     {
@@ -4977,7 +4977,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_TRAINSTOP;
     {
@@ -4987,7 +4987,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_CONTAINERSTOP;
     {
@@ -4997,7 +4997,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_CHARGINGSTATION;
     {
@@ -5007,7 +5007,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_EDGE_PARKINGAREA;
     {
@@ -5017,7 +5017,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: edge->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from busStop
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_EDGE;
@@ -5028,7 +5028,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_BUSSTOP;
     {
@@ -5038,7 +5038,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_TRAINSTOP;
     {
@@ -5048,7 +5048,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_CONTAINERSTOP;
     {
@@ -5058,7 +5058,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_CHARGINGSTATION;
     {
@@ -5068,7 +5068,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_BUSSTOP_PARKINGAREA;
     {
@@ -5078,7 +5078,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: busStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from trainStop
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_EDGE;
@@ -5089,7 +5089,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_BUSSTOP;
     {
@@ -5099,7 +5099,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_TRAINSTOP;
     {
@@ -5109,7 +5109,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_CONTAINERSTOP;
     {
@@ -5119,7 +5119,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_CHARGINGSTATION;
     {
@@ -5129,7 +5129,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_TRAINSTOP_PARKINGAREA;
     {
@@ -5139,7 +5139,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: trainStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from containerStop
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_EDGE;
@@ -5150,7 +5150,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_BUSSTOP;
     {
@@ -5160,7 +5160,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_TRAINSTOP;
     {
@@ -5170,7 +5170,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_CONTAINERSTOP;
     {
@@ -5180,7 +5180,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_CHARGINGSTATION;
     {
@@ -5190,7 +5190,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CONTAINERSTOP_PARKINGAREA;
     {
@@ -5200,7 +5200,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: containerStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from chargingStation
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_EDGE;
@@ -5211,7 +5211,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_BUSSTOP;
     {
@@ -5221,7 +5221,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_TRAINSTOP;
     {
@@ -5231,7 +5231,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_CONTAINERSTOP;
     {
@@ -5241,7 +5241,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_CHARGINGSTATION;
     {
@@ -5251,7 +5251,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_CHARGINGSTATION_PARKINGAREA;
     {
@@ -5261,7 +5261,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: chargingStation->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     // from parkingArea
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_EDGE;
@@ -5272,7 +5272,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_BUSSTOP;
     {
@@ -5282,7 +5282,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_TRAINSTOP;
     {
@@ -5292,7 +5292,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_CONTAINERSTOP;
     {
@@ -5302,7 +5302,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_CHARGINGSTATION;
     {
@@ -5312,7 +5312,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA;
     {
@@ -5322,7 +5322,7 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
                                       conflicts, icon, xmlTag, TL("Tranship: parkingArea->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillTranshipCommonAttributes(currentTag);
     }
 }
 
@@ -5388,7 +5388,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_TAZ;
     {
@@ -5398,7 +5398,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_JUNCTION;
     {
@@ -5408,7 +5408,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
     {
@@ -5418,7 +5418,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_TRAINSTOP;
     {
@@ -5428,7 +5428,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_CONTAINERSTOP;
     {
@@ -5438,7 +5438,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_CHARGINGSTATION;
     {
@@ -5448,7 +5448,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_PARKINGAREA;
     {
@@ -5458,7 +5458,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from taz
     currentTag = GNE_TAG_PERSONTRIP_TAZ_EDGE;
@@ -5469,7 +5469,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_TAZ;
     {
@@ -5479,7 +5479,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_JUNCTION;
     {
@@ -5489,7 +5489,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_BUSSTOP;
     {
@@ -5499,7 +5499,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_TRAINSTOP;
     {
@@ -5509,7 +5509,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_CONTAINERSTOP;
     {
@@ -5519,7 +5519,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_CHARGINGSTATION;
     {
@@ -5529,7 +5529,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TAZ_PARKINGAREA;
     {
@@ -5539,7 +5539,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: taz->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from junction
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_EDGE;
@@ -5550,7 +5550,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_TAZ;
     {
@@ -5560,7 +5560,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_JUNCTION;
     {
@@ -5570,7 +5570,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_BUSSTOP;
     {
@@ -5580,7 +5580,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_TRAINSTOP;
     {
@@ -5590,7 +5590,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_CONTAINERSTOP;
     {
@@ -5600,7 +5600,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_CHARGINGSTATION;
     {
@@ -5610,7 +5610,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_JUNCTION_PARKINGAREA;
     {
@@ -5620,7 +5620,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: junction->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from busStop
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;
@@ -5631,7 +5631,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_TAZ;
     {
@@ -5641,7 +5641,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_JUNCTION;
     {
@@ -5651,7 +5651,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;
     {
@@ -5661,7 +5661,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_TRAINSTOP;
     {
@@ -5671,7 +5671,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_CONTAINERSTOP;
     {
@@ -5681,7 +5681,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_CHARGINGSTATION;
     {
@@ -5691,7 +5691,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_BUSSTOP_PARKINGAREA;
     {
@@ -5701,7 +5701,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: busStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from trainStop
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_EDGE;
@@ -5712,7 +5712,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_TAZ;
     {
@@ -5722,7 +5722,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_JUNCTION;
     {
@@ -5732,7 +5732,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_BUSSTOP;
     {
@@ -5742,7 +5742,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_TRAINSTOP;
     {
@@ -5752,7 +5752,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_CONTAINERSTOP;
     {
@@ -5762,7 +5762,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_CHARGINGSTATION;
     {
@@ -5772,7 +5772,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_TRAINSTOP_PARKINGAREA;
     {
@@ -5782,7 +5782,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: trainStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from containerStop
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_EDGE;
@@ -5793,7 +5793,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_TAZ;
     {
@@ -5803,7 +5803,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_JUNCTION;
     {
@@ -5813,7 +5813,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_BUSSTOP;
     {
@@ -5823,7 +5823,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_TRAINSTOP;
     {
@@ -5833,7 +5833,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_CONTAINERSTOP;
     {
@@ -5843,7 +5843,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_CHARGINGSTATION;
     {
@@ -5853,7 +5853,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CONTAINERSTOP_PARKINGAREA;
     {
@@ -5863,7 +5863,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: containerStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from chargingStation
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_EDGE;
@@ -5874,7 +5874,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_TAZ;
     {
@@ -5884,7 +5884,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_JUNCTION;
     {
@@ -5894,7 +5894,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_BUSSTOP;
     {
@@ -5904,7 +5904,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_TRAINSTOP;
     {
@@ -5914,7 +5914,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_CONTAINERSTOP;
     {
@@ -5924,7 +5924,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_CHARGINGSTATION;
     {
@@ -5934,7 +5934,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_CHARGINGSTATION_PARKINGAREA;
     {
@@ -5944,7 +5944,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: chargingStation->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     // from parkingArea
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_EDGE;
@@ -5955,7 +5955,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_TAZ;
     {
@@ -5965,7 +5965,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->taz"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_JUNCTION;
     {
@@ -5975,7 +5975,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->junction"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_BUSSTOP;
     {
@@ -5985,7 +5985,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_TRAINSTOP;
     {
@@ -5995,7 +5995,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_CONTAINERSTOP;
     {
@@ -6005,7 +6005,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_CHARGINGSTATION;
     {
@@ -6015,7 +6015,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_PERSONTRIP_PARKINGAREA_PARKINGAREA;
     {
@@ -6025,7 +6025,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       conflicts, icon, xmlTag, TL("PersonTrip: parkingArea->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillPersonTripCommonAttributes(currentTag);
     }
 }
 
@@ -6736,7 +6736,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_EDGE_BUSSTOP;
     {
@@ -6746,7 +6746,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_EDGE_TRAINSTOP;
     {
@@ -6756,7 +6756,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_EDGE_CONTAINERSTOP;
     {
@@ -6766,7 +6766,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_EDGE_CHARGINGSTATION;
     {
@@ -6776,7 +6776,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_EDGE_PARKINGAREA;
     {
@@ -6786,7 +6786,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: edge->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }    // from busStop
     currentTag = GNE_TAG_RIDE_BUSSTOP_EDGE;
     {
@@ -6796,7 +6796,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
     {
@@ -6806,7 +6806,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_TRAINSTOP;
     {
@@ -6816,7 +6816,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_CONTAINERSTOP;
     {
@@ -6826,7 +6826,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_CHARGINGSTATION;
     {
@@ -6836,7 +6836,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_BUSSTOP_PARKINGAREA;
     {
@@ -6846,7 +6846,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: busStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     // from trainStop
     currentTag = GNE_TAG_RIDE_TRAINSTOP_EDGE;
@@ -6857,7 +6857,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_BUSSTOP;
     {
@@ -6867,7 +6867,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_TRAINSTOP;
     {
@@ -6877,7 +6877,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_CONTAINERSTOP;
     {
@@ -6887,7 +6887,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_CHARGINGSTATION;
     {
@@ -6897,7 +6897,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_TRAINSTOP_PARKINGAREA;
     {
@@ -6907,7 +6907,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: trainStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     // from containerStop
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_EDGE;
@@ -6918,7 +6918,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_BUSSTOP;
     {
@@ -6928,7 +6928,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_TRAINSTOP;
     {
@@ -6938,7 +6938,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_CONTAINERSTOP;
     {
@@ -6948,7 +6948,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_CHARGINGSTATION;
     {
@@ -6958,7 +6958,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CONTAINERSTOP_PARKINGAREA;
     {
@@ -6968,7 +6968,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: containerStop->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     // from chargingStation
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_EDGE;
@@ -6979,7 +6979,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_BUSSTOP;
     {
@@ -6989,7 +6989,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_TRAINSTOP;
     {
@@ -6999,7 +6999,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_CONTAINERSTOP;
     {
@@ -7009,7 +7009,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_CHARGINGSTATION;
     {
@@ -7019,7 +7019,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_CHARGINGSTATION_PARKINGAREA;
     {
@@ -7029,7 +7029,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: chargingStation->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     // from parkingArea
     currentTag = GNE_TAG_RIDE_PARKINGAREA_EDGE;
@@ -7040,7 +7040,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->edge"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_PARKINGAREA_BUSSTOP;
     {
@@ -7050,7 +7050,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->busStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_PARKINGAREA_TRAINSTOP;
     {
@@ -7060,7 +7060,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->trainStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_PARKINGAREA_CONTAINERSTOP;
     {
@@ -7070,7 +7070,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->containerStop"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION;
     {
@@ -7080,7 +7080,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->chargingStation"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
     currentTag = GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA;
     {
@@ -7090,7 +7090,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
                                       conflicts, icon, xmlTag, TL("Ride: parkingArea->parkingArea"), parents, color);
         // set values of attributes
         fillPlanParentAttributes(currentTag);
-        fillWalkCommonAttributes(currentTag);
+        fillRideCommonAttributes(currentTag);
     }
 }
 
