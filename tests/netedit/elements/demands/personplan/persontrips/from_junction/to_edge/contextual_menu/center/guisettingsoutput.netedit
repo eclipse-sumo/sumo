@@ -221,5 +221,5 @@
         <view3D show3DTLSLinkMarkers="1" show3DTLSDomes="1" show3DHeadUpDisplay="1" generate3DTLSModels="0" ambient3DLight="32,32,32" diffuse3DLight="64,64,64"/>
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
-    <viewport zoom="135.71" x="0.00" y="2.50" angle="0.00"/>
+    <viewport zoom="124.59" x="0.00" y="2.50" angle="0.00"/>
 </viewsettings>

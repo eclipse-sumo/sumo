@@ -533,17 +533,33 @@ class elements:
             x = 718
             y = 13
 
+        class trainStopB:
+            x = 284
+            y = 265
+
         class containerStop:
             x = 411
             y = -5
+
+        class containerStopB:
+            x = 411
+            y = 194
 
         class chargingStation:
             x = 623
             y = 23
 
+        class chargingStationB:
+            x = 287
+            y = 220
+
         class parkingArea:
             x = 525
             y = -5
+
+        class parkingAreaB:
+            x = 352.00
+            y = 282
 
         class route:
             x = 420

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-16 10:45:34 by Eclipse SUMO netedit Version v1_20_0+1572-9c1b555e765
+<!-- generated on 2024-08-25 15:02:41 by Eclipse SUMO netedit Version v1_20_0+1754-33bf3f82bf7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,8 +18,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <person id="p_0" depart="0.00">
         <stop busStop="busStopA" duration="60.00"/>
         <personTrip to="EdgeCenter0"/>
-    </person>
-    <person id="p_1" depart="0.00">
-        <stop busStop="busStopA" duration="60.00"/>
     </person>
 </routes>
