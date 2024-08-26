@@ -368,7 +368,7 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
                     params->departLaneProcedure = DepartLaneDefinition::GIVEN;
                     params->departLane = SUMOXMLDefinitions::getIndexFromLane(t.front().edgeOrLane);
                 }
-                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, !MSGlobals::gCheckRoutes, MSVehicleControl::VehicleDefinitionSource::OTHER);
+                SUMOVehicle* vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(params, route, vehicleType, false, MSVehicleControl::VehicleDefinitionSource::OTHER);
                 if (!MSNet::getInstance()->getVehicleControl().addVehicle(id, vehicle)) {
                     throw ProcessError("Duplicate vehicle '" + id + "'.");
                 }
