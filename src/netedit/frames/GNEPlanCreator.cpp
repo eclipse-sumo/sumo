@@ -345,9 +345,7 @@ GNEPlanCreator::addTAZ(GNEAdditional* taz) {
 
 bool
 GNEPlanCreator::addStoppingPlace(GNEAdditional* stoppingPlace) {
-    // get stoppingPlace tag
-    auto stoppingPlaceTag = stoppingPlace->getTagProperty().getTag();
-    if ((stoppingPlaceTag == SUMO_TAG_BUS_STOP) && (myPlanParents & STOPPINGPLACE)) {
+    if (myPlanParents & STOPPINGPLACE) {
         return addSingleStoppingPlace(stoppingPlace);
     } else if ((myPlanParents & START_STOPPINGPLACE) || (myPlanParents & END_STOPPINGPLACE)) {
         return addFromToStoppingPlace(stoppingPlace);
