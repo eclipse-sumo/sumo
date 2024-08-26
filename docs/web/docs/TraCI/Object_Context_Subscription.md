@@ -7,7 +7,7 @@ title: Object Context Subscription
 Context subscriptions allow to obtain specific values from
 surrounding objects of a certain so-called "EGO" object. With these
 data one can determine the traffic status around that EGO object. Such
-an EGO Object can be any possible Vehicle, inductive loop,
+an EGO object can be any possible vehicle, inductive loop,
 points-of-interest, and such like. A vehicle driving through a city, for
 example, is surrounded by a lot of different and changing vehicles,
 lanes, junctions, or points-of-interest along his ride. Context
@@ -31,33 +31,46 @@ command.
 The command ID describes the type of the EGO-object which is the center
 of the context; currently, the following EGO-objects are supported:
 
-| Type               | Command ID | Notes |
-| ------------------ | ---------- | ----- |
-| inductive loops    | 0x80       |       |
-| lanes              | 0x83       |       |
-| vehicles           | 0x84       |       |
-| points-of-interest | 0x87       |       |
-| polygons           | 0x88       |       |
-| junctions          | 0x89       |       |
-| edges              | 0x8a       |       |
+| Type                       | Command ID |
+| -------------------------- | ---------- |
+| vehicles                   | 0x84       |
+| persons                    | 0x8e       |
+| lanes                      | 0x83       |
+| edges                      | 0x8a       |
+| junctions                  | 0x89       |
+| points of interest         | 0x87       |
+| polygons                   | 0x88       |
+| bus stops                  | 0x8f       |
+| charging stations          | 0x05       |
+| parking areas              | 0x04       |
+| calibrators                | 0x07       |
+| inductive loops            | 0x80       |
+| lane area detectors        | 0x8d       |
+| multi entry exit detectors | 0x81       |
 
 For a given EGO-structure, each subscription allows to address multiple
 variables from structures of a certain kind. This means, if you have an
 EGO-vehicle, you may ask for speeds and positions of vehicles in range
 of EGO. If you also need information about surrounding
 points-of-interest, you have to add a further context subscription for
-PoIs. Vehicles, and PoIs belong to different "context domains". The
+PoIs. Vehicles and PoIs belong to different "context domains". The
 following domains are available:
 
-| Type               | Context Domain ID | Notes                                                            |
-| ------------------ | ----------------- | ---------------------------------------------------------------- |
-| inductive loops    | 0xa0              | [retrievable variables](../TraCI/Induction_Loop_Value_Retrieval.md) |
-| lanes              | 0xa3              | [retrievable variables](../TraCI/Lane_Value_Retrieval.md)           |
-| vehicles           | 0xa4              | [retrievable variables](../TraCI/Vehicle_Value_Retrieval.md)        |
-| points-of-interest | 0xa7              | [retrievable variables](../TraCI/POI_Value_Retrieval.md)            |
-| polygons           | 0xa8              | [retrievable variables](../TraCI/Polygon_Value_Retrieval.md)        |
-| junctions          | 0xa9              | [retrievable variables](../TraCI/Junction_Value_Retrieval.md)       |
-| edges              | 0xaa              | [retrievable variables](../TraCI/Edge_Value_Retrieval.md)           |
+| Type                | Context Domain ID | Notes                                                                   |
+| ------------------- | ----------------- | ----------------------------------------------------------------------- |
+| vehicles            | 0xa4              | [retrievable variables](../TraCI/Vehicle_Value_Retrieval.md)            |
+| persons             | 0xae              | [retrievable variables](../TraCI/Person_Value_Retrieval.md)             |
+| lanes               | 0xa3              | [retrievable variables](../TraCI/Lane_Value_Retrieval.md)               |
+| edges               | 0xaa              | [retrievable variables](../TraCI/Edge_Value_Retrieval.md)               |
+| junctions           | 0xa9              | [retrievable variables](../TraCI/Junction_Value_Retrieval.md)           |
+| points of interest  | 0xa7              | [retrievable variables](../TraCI/POI_Value_Retrieval.md)                |
+| polygons            | 0xa8              | [retrievable variables](../TraCI/Polygon_Value_Retrieval.md)            |
+| bus stops           | 0xaf              | [retrievable variables](../TraCI/BusStop.md)                            |
+| charging stations   | 0x25              | [retrievable variables](../TraCI/ChargingStation.md)                    |
+| parking areas       | 0x24              | [retrievable variables](../TraCI/ParkingArea.md)                        |
+| calibrators         | 0x27              | [retrievable variables](../TraCI/Calibrator.md)                         |
+| inductive loops     | 0xa0              | [retrievable variables](../TraCI/Induction_Loop_Value_Retrieval.md)     |
+| lane area detectors | 0xad              | [retrievable variables](../TraCI/Lane_Area_Detector_Value_Retrieval.md) |
 
 
 For each domain, the same variables can be retrieved as using the Get
@@ -72,13 +85,13 @@ For each domain, the same variables can be retrieved as using the Get
 Some notes:
 
 - begin Time: the subscription is executed only in time steps \>= this
-  value; in ms
+  value; in s
 - end Time: the subscription is executed in time steps <= this value;
   the subscription is removed if the simulation has reached a higher
-  time step; in ms
+  time step; in s
 - Context Domain: the type of objects in the addressed object's
   surroundings to ask values from
-- Context Range: the radius of the surroundings
+- Context Range: the radius of the surroundings (the third dimension is neglected!); in m
 - The size of the variables list must be equal to the field "Variable
   Number".
 
