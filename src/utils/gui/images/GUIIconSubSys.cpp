@@ -931,6 +931,8 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::RIDE_CONTAINERSTOP] = new FXXPMIcon(a, ridecontainerstop_xpm);
     myIcons[GUIIcon::RIDE_CHARGINGSTATION] = new FXXPMIcon(a, ridechargingstation_xpm);
     myIcons[GUIIcon::RIDE_PARKINGAREA] = new FXXPMIcon(a, rideparkingarea_xpm);
+    myIcons[GUIIcon::RIDE_JUNCTION] = new FXXPMIcon(a, ridejunction_xpm);
+    myIcons[GUIIcon::RIDE_TAZ] = new FXXPMIcon(a, ridetaz_xpm);
 
     myIcons[GUIIcon::CONTAINER] = new FXXPMIcon(a, container_xpm);
     myIcons[GUIIcon::CONTAINERFLOW] = new FXXPMIcon(a, containerflow_xpm);
