@@ -8,6 +8,6 @@
     <person id="p_0" depart="0.00">
         <walk from="Edge0" trainStop="trainStopA"/>
         <personTrip busStop="busStopB"/>
-        <personTrip trainStop="trainStopA"/>
+        <personTrip busStop="busStopA"//>
     </person>
 </routes>

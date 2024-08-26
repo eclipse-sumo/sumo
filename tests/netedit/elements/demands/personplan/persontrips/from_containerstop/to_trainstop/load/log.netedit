@@ -1,1 +1,1 @@
-Warning: invalid combination for personTrip
+Warning: Invalid to train stop 'dummy' used in persontrip: containerstop->trainstop of person 'p_0'

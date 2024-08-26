@@ -6,7 +6,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_0" depart="0.00">
-        <walk from="Edge0" busStop="A"/>
+        <walk from="Edge0" chargingStation="chargingStationA"/>
         <personTrip parkingArea="parkingAreaB"/>
         <personTrip parkingArea="parkingAreaA"/>
     </person>

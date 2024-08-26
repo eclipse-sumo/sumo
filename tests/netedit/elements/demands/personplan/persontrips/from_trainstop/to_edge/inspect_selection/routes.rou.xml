@@ -16,7 +16,7 @@
 
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <person id="p_1" depart="0.00">
-        <walk from="EdgeCenter0" busStop="busStopB"/>
+        <walk from="EdgeCenter0" trainStop="trainStopB"/>
         <personTrip to="Edge5" modes="car" lines="Line2" vTypes="type2"/>
     </person>
 </routes>
