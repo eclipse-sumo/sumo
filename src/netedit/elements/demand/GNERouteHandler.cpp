@@ -643,7 +643,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                            double arrivalPos) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getWalkTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
@@ -675,7 +675,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
                            double arrivalPos, const std::vector<std::string>& lines) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getRideTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
@@ -761,7 +761,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
                                 const double arrivalPos, const std::vector<std::string>& lines) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getTransportTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
@@ -793,7 +793,7 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
                                const double arrivalPosition, const double departPosition, const double speed) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getTranshipTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
@@ -826,7 +826,7 @@ GNERouteHandler::buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoB
                                  const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getPersonStopTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (personParent == nullptr) {
@@ -860,7 +860,7 @@ GNERouteHandler::buildContainerStop(const CommonXMLStructure::SumoBaseObject* su
                                     const SUMOTime until, const std::string& actType, const bool friendlyPos, const int parameterSet) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
-    const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
+    const auto tagIcon = GNEDemandElementPlan::getContainerStopTagIcon(planParameters);
     GNEPlanParents planParents = GNEPlanParents(planParameters, myNet->getAttributeCarriers());
     // check conditions
     if (containerParent == nullptr) {
