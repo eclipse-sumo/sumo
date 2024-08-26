@@ -4562,10 +4562,10 @@ GNEAttributeCarrier::fillContainerTransportElements() {
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSPORT;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto parents = {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW};
-    const auto color = FXRGBA(240, 255, 205, 255);
-    const auto icon = GUIIcon::TRANSPORT_EDGE;
-    const auto xmlTag = SUMO_TAG_TRANSPORT;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(240, 255, 205, 255);
+    const GUIIcon icon = GUIIcon::TRANSPORT_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_TRANSPORT;
     // from edge
     SumoXMLTag currentTag = GNE_TAG_TRANSPORT_EDGE_EDGE;
     {
@@ -4943,10 +4943,10 @@ GNEAttributeCarrier::fillContainerTranshipElements() {
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::TRANSHIP;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto parents = {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW};
-    const auto color = FXRGBA(210, 233, 255, 255);
-    const auto icon = GUIIcon::TRANSHIP_EDGES;
-    const auto xmlTag = SUMO_TAG_TRANSHIP;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(210, 233, 255, 255);
+    const GUIIcon icon = GUIIcon::TRANSHIP_EDGES;
+    const SumoXMLTag xmlTag = SUMO_TAG_TRANSHIP;
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_TRANSHIP_EDGES;
     {
@@ -5375,10 +5375,10 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto parents = {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW};
-    const auto color = FXRGBA(253, 255, 206, 255);
-    const auto icon = GUIIcon::PERSONTRIP_EDGE;
-    const auto xmlTag = SUMO_TAG_PERSONTRIP;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(253, 255, 206, 255);
+    const GUIIcon icon = GUIIcon::PERSONTRIP_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_PERSONTRIP;
     // from edge
     SumoXMLTag currentTag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
     {
@@ -6039,10 +6039,10 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int tagPropertyTAZ = GNETagProperties::TagProperty::RTREE | tagProperty;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto parents = {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW};
-    const auto color = FXRGBA(240, 255, 205, 255);
-    const auto icon = GUIIcon::WALK_EDGES;
-    const auto xmlTag = SUMO_TAG_WALK;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(240, 255, 205, 255);
+    const GUIIcon icon = GUIIcon::WALK_EDGES;
+    const SumoXMLTag xmlTag = SUMO_TAG_WALK;
     // fill tags
     SumoXMLTag currentTag = GNE_TAG_WALK_EDGES;
     {
@@ -6723,10 +6723,10 @@ GNEAttributeCarrier::fillPersonPlanRides() {
     const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::RIDE;
     const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
     const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
-    const auto parents = {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW};
-    const auto color = FXRGBA(253, 255, 206, 255);
-    const auto icon = GUIIcon::RIDE_EDGE;
-    const auto xmlTag = SUMO_TAG_RIDE;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(253, 255, 206, 255);
+    const GUIIcon icon = GUIIcon::RIDE_EDGE;
+    const SumoXMLTag xmlTag = SUMO_TAG_RIDE;
     // from edge
     SumoXMLTag currentTag = GNE_TAG_RIDE_EDGE_EDGE;
     {
