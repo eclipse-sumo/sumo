@@ -570,6 +570,10 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myLastEntryTime;
     bis >> myBlockTime;
     myDepartPos /= 1000.; // was stored as mm
+
+    // load stops
+    addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
+
     if (hasDeparted()) {
         myDeparture -= offset;
         myEventTime -= offset;
