@@ -62,7 +62,7 @@ public:
                    const GNENetHelper::AttributeCarriers* ACs);
 
     /// @brief check integrity between planParameters and GNE elements
-    bool checkIntegrity(SumoXMLTag planTag, const std::string& parentID,
+    bool checkIntegrity(SumoXMLTag planTag, const GNEDemandElement* parent,
                         const CommonXMLStructure::PlanParameters& planParameters) const;
 
     /// @brief add the given element in the element as child
