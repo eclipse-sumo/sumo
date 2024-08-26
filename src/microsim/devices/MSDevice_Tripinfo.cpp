@@ -241,6 +241,8 @@ MSDevice_Tripinfo::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notificat
         if (!MSGlobals::gUseMesoSim) {
             myDepartLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myDepartPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myDepartLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         myDepartSpeed = veh.getSpeed();
         myRouteLength = -veh.getPositionOnLane();
@@ -262,6 +264,8 @@ MSDevice_Tripinfo::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
         if (!MSGlobals::gUseMesoSim) {
             myArrivalLane = static_cast<MSVehicle&>(veh).getLane()->getID();
             myArrivalPosLat = static_cast<MSVehicle&>(veh).getLateralPositionOnLane();
+        } else {
+            myArrivalLane = veh.getEdge()->getFirstAllowed(veh.getVClass(), true)->getID();
         }
         // @note vehicle may have moved past its arrivalPos during the last step
         // due to non-zero arrivalspeed but we consider it as arrived at the desired position
@@ -891,8 +895,9 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
         out.openTag(SUMO_TAG_DEVICE);
         out.writeAttr(SUMO_ATTR_ID, getID());
         std::ostringstream internals;
+        internals << myDepartLane << " ";
         if (!MSGlobals::gUseMesoSim) {
-            internals << myDepartLane << " " << myDepartPosLat << " ";
+            internals << myDepartPosLat << " ";
         }
         std::string state_arrivalLane = myArrivalLane == "" ? STATE_EMPTY_ARRIVALLANE : myArrivalLane;
         internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
@@ -907,8 +912,9 @@ MSDevice_Tripinfo::saveState(OutputDevice& out) const {
 void
 MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myDepartLane;
     if (!MSGlobals::gUseMesoSim) {
-        bis >> myDepartLane >> myDepartPosLat;
+        bis >> myDepartPosLat;
     }
     bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
     bis >> myStoppingTime >> myParkingStarted;

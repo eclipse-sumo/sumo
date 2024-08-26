@@ -563,8 +563,10 @@ public:
      */
     MSLane* getDepartLane(MSVehicle& veh) const;
 
-    /// @brief get the rightmost lane that allows the given vClass or nullptr
-    MSLane* getFirstAllowed(SUMOVehicleClass vClass) const;
+    /* @brief get the rightmost lane that allows the given vClass or nullptr
+     * @param[in] defaultFirst Whether the first lane should be returned if all lanes are forbidden
+     */
+    MSLane* getFirstAllowed(SUMOVehicleClass vClass, bool defaultFirst = false) const;
 
     /// @brief consider given departLane parameter (only for validating speeds)
     MSLane* getDepartLaneMeso(SUMOVehicle& veh) const;
