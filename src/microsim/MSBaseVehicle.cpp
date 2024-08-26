@@ -1162,14 +1162,8 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                        MSRouteIterator* searchStart) {
     MSStop stop(stopPar);
     if (stopPar.lane == "") {
-        // use rightmost allowed lane
         MSEdge* e = MSEdge::dictionary(stopPar.edge);
-        for (MSLane* cand : e->getLanes()) {
-            if (cand->allowsVehicleClass(getVClass())) {
-                stop.lane = cand;
-                break;
-            }
-        }
+        stop.lane = e->getFirstAllowed(getVClass());
         if (stop.lane == nullptr) {
             errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on any lane of edge '" + stopPar.edge + "'.";
             return false;
