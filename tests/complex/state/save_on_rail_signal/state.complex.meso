@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -15,7 +15,6 @@
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -28,18 +27,18 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1808-7caee96" time="116.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="116.00" type="meso">
     <route id="!train2" state="0" edges="-e -b -d"/>
     <route id="!train3" state="0" edges="-e -b -d"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="31.00"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="136.06 0" speedFactor="1.0000" state="18 0 1 0 0 0 116840 109796 9223372036854775807">
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" distance="136.06 0" speedFactor="1.0000" state="18 0 1 0 0 0 116840 109796 9223372036854774807">
         <stop lane="-e_0" duration="100.00" started="0.00" ended="110.00"/>
     </vehicle>
-    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 0 0 0 119796 110000 9223372036854775807"/>
+    <vehicle id="train3" type="train" depart="110.00" departSpeed="max" route="!train3" distance="0 0" speedFactor="1.0000" state="18 110000 0 0 0 0 119796 110000 9223372036854774807"/>
     <segment id="-b:0">
         <vehicles time="-1" value="train2"/>
     </segment>

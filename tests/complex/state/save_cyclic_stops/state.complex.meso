@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-30 11:00:10 by Eclipse SUMO sumo Version v1_12_0+1770-c60e6e70bb3
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 14:28:52 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -16,7 +16,6 @@
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -28,14 +27,14 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1770-c60e6e70bb3" time="350.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="350.00" type="meso">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="v0" depart="0.00" route="!v0!var#1" distance="735.6 1" speedFactor="1.0000" reroute="1" state="262144 0 8 0 0 0 366620 319860 9223372036854775807">
+    <vehicle id="v0" depart="0.00" route="!v0!var#1" distance="735.6 1" speedFactor="1.0000" reroute="1" state="262144 0 8 0 0 0 366620 319860 9223372036854774807">
         <stop lane="SC_0" until="60.00" started="0.00" ended="67.00"/>
         <stop lane="CN_0" until="120.00" started="66.62" ended="127.00"/>
         <stop lane="SC_0" until="240.00" started="139.86" ended="247.00"/>

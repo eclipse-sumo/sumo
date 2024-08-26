@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-28 08:42:53 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 14:28:53 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -29,18 +29,18 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_17_0+1317-06f42fb" time="35.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="35.00" type="meso">
     <route id="r0" state="1" edges="beg middle end">
         <stop lane="middle_0" endPos="60.00" duration="10.00" until="30.00" parking="0"/>
     </route>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="10.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 10000 1 0 0 0 47199 17000 9223372036854775807">
+    <vehicle id="v0" type="t0" depart="10.00" route="r0" distance="7 0" speedFactor="1.0000" state="2050 10000 1 0 0 0 47199 17000 9223372036854774807">
         <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="10.00" until="40.00" parking="0" started="17.00"/>
-        <device id="tripinfo_v0" state="1 7 0 0 0 23000 -1"/>
+        <device id="tripinfo_v0" state="1 7 0 0 0 23000 -1 -1000 NONE -1 0 -1"/>
     </vehicle>
     <segment id="beg:0">
         <vehicles time="25630" value=""/>

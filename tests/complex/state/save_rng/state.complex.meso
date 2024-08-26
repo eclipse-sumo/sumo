@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2022-03-31 10:26:14 by Eclipse SUMO sumo Version v1_12_0+1808-7caee96
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 14:28:53 by Eclipse SUMO sumo Version v1_20_0+1714-5abd9d647c6
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -16,7 +16,6 @@
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -29,10 +28,10 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_12_0+1808-7caee96" time="10.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1714-5abd9d647c6" time="10.00" type="meso">
     <rngState default="0" routeHandler="1" insertionControl="0" device="0" device.btreceiver="0" driverState="0" device.toc="0">
         <rngLane index="0" state="0"/>
         <rngLane index="1" state="0"/>
@@ -107,11 +106,11 @@
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
-    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" distance="7 0" speedFactor="1.0000" state="34818 0 1 0 0 0 14199 7000 9223372036854775807">
+    <vehicle id="v0" type="type1" depart="0.00" line="line1" route="r0" distance="7 0" speedFactor="1.0000" state="34818 0 1 0 0 0 14199 7000 9223372036854774807">
         <stop lane="middle_0" startPos="199.80" endPos="200.00" duration="0.00"/>
         <param key="has.rerouting.device" value="false"/>
     </vehicle>
-    <vehicle id="v1" type="type2" depart="0.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 7000 0 0 0 0 15630 7000 9223372036854775807"/>
+    <vehicle id="v1" type="type2" depart="0.00" route="r0" distance="0 0" speedFactor="1.0000" state="2050 7000 0 0 0 0 15630 7000 9223372036854774807"/>
     <segment id="beg:0">
         <vehicles time="15630" value="v1"/>
     </segment>

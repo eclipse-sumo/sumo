@@ -1,15 +1,15 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 0.00.
-Simulation ended at time: 280.00
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 0.00.
+Simulation ended at time: 280.00.
 Reason: All vehicles have left the simulation.
 DijkstraRouter answered 2 queries and explored 3.00 edges on average.
 DijkstraRouter spent 0.00s answering queries (0.00ms on average).
 Loading net-file from 'net.net.xml' ... done (0ms).
-Loading state from 'state.xml' ... done (16ms).
+Loading state from 'state.xml' ... done (22ms).
 Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 50.00.
-Simulation ended at time: 280.00
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 50.00.
+Simulation ended at time: 280.00.
 Reason: All vehicles have left the simulation.
 <     <tripinfo id="flowPeriod.2" depart="51.00" departLane="" departPos="0.00" departSpeed="0.90" departDelay="36.00" arrival="81.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="13.89" duration="30.00" routeLength="307.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.78" rerouteNo="0" devices="tripinfo_flowPeriod.2" vType="t0" speedFactor="1.00" vaporized=""/>
 >     <tripinfo id="flowNumber.1" depart="25.00" departLane="" departPos="0.00" departSpeed="0.89" departDelay="17.00" arrival="55.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="13.89" duration="30.00" routeLength="307.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_flowNumber.1" vType="t0" speedFactor="1.00" vaporized=""/>

@@ -1,31 +1,29 @@
-Loading net-file from 'net.net.xml' ... done (1ms).
+Loading net-file from 'net.net.xml' ... done (2ms).
 Loading additional-files from 'input_additional.add.xml' ... done (0ms).
 Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 0.00.
-Simulation ended at time: 500.00
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 0.00.
+Simulation ended at time: 500.00.
 Reason: The final simulation step has been reached.
-Performance: 
- Duration: 0.07s
- Real time factor: 6849.32
- UPS: 1169356.164384
-Vehicles: 
+Performance:
+ Duration: 0.14s
+ Real time factor: 3597.12
+ UPS: 614122.302158
+Vehicles:
  Inserted: 459 (Loaded: 1000)
  Running: 183
  Waiting: 541
-
 Loading net-file from 'net.net.xml' ... done (1ms).
-Loading additional-files from 'input_additional.add.xml' ... done (1ms).
-Loading state from 'state.xml' ... done (21ms).
+Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading state from 'state.xml' ... done (27ms).
 Loading done.
-Simulation version v1_17_0+1317-06f42fb started with time: 50.00.
-Simulation ended at time: 500.00
+Simulation version v1_20_0+1714-5abd9d647c6 started with time: 50.00.
+Simulation ended at time: 500.00.
 Reason: The final simulation step has been reached.
-Performance: 
- Duration: 0.10s
- Real time factor: 4368.93
- UPS: 804009.708738
-Vehicles: 
+Performance:
+ Duration: 0.11s
+ Real time factor: 4205.61
+ UPS: 773953.271028
+Vehicles:
  Inserted: 459 (Loaded: 1000)
  Running: 183
  Waiting: 541
-
