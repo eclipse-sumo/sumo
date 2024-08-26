@@ -765,7 +765,7 @@ call](../TraCI/GenericParameters.md#get_parameter).
 
 - device.battery.energyConsumed
 - device.battery.energyCharged
-- device.battery.actualBatteryCapacity
+- device.battery.chargeLevel
 - device.battery.maximumBatteryCapacity
 - device.battery.chargingStationId
 - device.battery.vehicleMass
