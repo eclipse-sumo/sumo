@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-25 18:13:29 by Eclipse SUMO sumo Version v1_20_0+0816-6bffe6d98f6
+<!-- generated on 2024-08-26 15:32:42 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="2" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="371.00" waitingTime="274.00" timeLoss="0.00" traveltime="97.00">
         <ride waitingTime="274.00" vehicle="taxi" depart="274.00" arrival="371.00" arrivalPos="190.40" duration="97.00" routeLength="1332.80" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="taxi" depart="0.00" departLane="" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="432.00" routeLength="4276.40" waitingTime="0.00" waitingCount="0" stopTime="123.00" timeLoss="60.00" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="taxi" depart="0.00" departLane="A2A1_1" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="432.00" routeLength="4276.40" waitingTime="0.00" waitingCount="0" stopTime="123.00" timeLoss="60.00" rerouteNo="5" devices="tripinfo_taxi routing_taxi taxi_taxi person_taxi" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="3" occupiedDistance="2665.60" occupiedTime="193.91"/>
     </tripinfo>
 </tripinfos>

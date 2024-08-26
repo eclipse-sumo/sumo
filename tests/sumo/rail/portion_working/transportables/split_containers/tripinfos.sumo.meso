@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:11:57 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2024-08-26 15:32:35 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -48,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <stop duration="0.00" arrival="0.00" arrivalPos="208.37" actType="waiting"/>
         <transport waitingTime="24.90" vehicle="t0" depart="24.90" arrival="111.00" arrivalPos="293.79" duration="86.10" routeLength="787.07" timeLoss="0.00"/>
     </containerinfo>
-    <tripinfo id="t0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="128.00" arrivalLane="" arrivalPos="391.72" arrivalSpeed="5.74" duration="128.00" routeLength="1082.32" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="50.00" rerouteNo="0" devices="tripinfo_t0 routing_t0 container_t0" vType="fullTrain" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t0" depart="0.00" departLane="a_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="128.00" arrivalLane="c_0" arrivalPos="391.72" arrivalSpeed="5.74" duration="128.00" routeLength="1082.32" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="50.00" rerouteNo="0" devices="tripinfo_t0 routing_t0 container_t0" vType="fullTrain" speedFactor="1.00" vaporized=""/>
     <containerinfo id="c1" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="107.90" timeLoss="-1" traveltime="-1">
         <stop duration="0.00" arrival="0.00" arrivalPos="208.37" actType="waiting"/>
         <transport waitingTime="24.90" vehicle="t0" depart="24.90" arrival="46.00" arrivalPos="98.65" duration="21.10" routeLength="295.97" timeLoss="0.00"/>

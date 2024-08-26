@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-03-07 22:27:45 by Eclipse SUMO sumo Version v1_19_0+1200-d6b735e953a
+<!-- generated on 2024-08-26 15:32:35 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -39,9 +39,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="t_0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="148.00" arrivalLane="" arrivalPos="197.84" arrivalSpeed="13.89" duration="148.00" routeLength="1982.90" waitingTime="0.00" waitingCount="0" stopTime="5.00" timeLoss="5.00" rerouteNo="1" devices="tripinfo_t_0 routing_t_0" vType="fullTrain" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="t_0" depart="0.00" departLane="E0_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="148.00" arrivalLane="-E0_0" arrivalPos="197.84" arrivalSpeed="13.89" duration="148.00" routeLength="1982.90" waitingTime="0.00" waitingCount="0" stopTime="5.00" timeLoss="5.00" rerouteNo="1" devices="tripinfo_t_0 routing_t_0" vType="fullTrain" speedFactor="1.00" vaporized=""/>
 </tripinfos>

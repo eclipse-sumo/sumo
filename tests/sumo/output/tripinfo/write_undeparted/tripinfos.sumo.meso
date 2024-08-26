@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 10:34:11 by Eclipse SUMO sumo Version v1_11_0+0005-a0af71f
+<!-- generated on 2024-08-26 15:32:17 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -16,7 +21,6 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
-        <tripinfo-output.write-unfinished value="true"/>
         <tripinfo-output.write-undeparted value="true"/>
     </output>
 
@@ -27,13 +31,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -41,12 +43,12 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="10.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_0" vType="t1" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="1" depart="0.00" departLane="" departPos="0.00" departSpeed="8.60" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="2" depart="0.00" departLane="" departPos="0.00" departSpeed="7.54" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_2" vType="t2" speedFactor="1.00" vaporized="end"/>
-    <tripinfo id="3" depart="0.00" departLane="" departPos="0.00" departSpeed="6.72" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_3" vType="t2" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="0" depart="0.00" departLane="4/1to3/1_0" departPos="0.00" departSpeed="10.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_0" vType="t1" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="1" depart="0.00" departLane="4/1to3/1_0" departPos="0.00" departSpeed="8.60" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_1" vType="t2" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="2" depart="0.00" departLane="4/1to3/1_0" departPos="0.00" departSpeed="7.54" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_2" vType="t2" speedFactor="1.00" vaporized="end"/>
+    <tripinfo id="3" depart="0.00" departLane="4/1to3/1_0" departPos="0.00" departSpeed="6.72" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="5.00" routeLength="0.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_3" vType="t2" speedFactor="1.00" vaporized="end"/>
 </tripinfos>

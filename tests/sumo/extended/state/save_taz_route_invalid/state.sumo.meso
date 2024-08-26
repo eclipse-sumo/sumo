@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-24 15:51:49 by Eclipse SUMO sumo Version v1_20_0+0198-507881c6918
+<!-- generated on 2024-08-26 15:32:27 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -42,10 +42,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0198-507881c6918" time="10.00" type="meso">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1721-016cfd09667" time="10.00" type="meso">
     <route id="!tripFromTo!var#1" state="0" edges="middle"/>
     <route id="!tripFromTo2" state="0" edges="1-source 1-sink"/>
     <route id="!tripFromTo3" state="0" edges="1-source 1-sink"/>
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <delay number="1" begin="4" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="tripFromTo" type="t0" depart="9.00" fromTaz="1" toTaz="1" route="!tripFromTo!var#1" distance="0 1" speedFactor="1.0000" reroute="1" state="458754 9000 0 0 0 0 16199 9000 9223372036854774807">
-        <device id="tripinfo_tripFromTo" state="13.89 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
+        <device id="tripinfo_tripFromTo" state="middle_0 13.89 -0 0 0 0 0 -1 -1000 NONE -1 0 -1"/>
         <device id="routing_tripFromTo" state="0"/>
     </vehicle>
     <vehicle id="tripFromTo2" type="t0" depart="10.00" fromTaz="1" toTaz="1" route="!tripFromTo2" distance="0 0" speedFactor="1.0000" reroute="1" state="458754 9223372036854774807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854774807">

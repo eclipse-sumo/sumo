@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:11:46 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net2.net.xml"/>
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -49,5 +49,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <walk depart="165.00" departPos="80.00" arrival="189.00" arrivalPos="48.00" duration="24.00" routeLength="32.00" timeLoss="0.96" maxSpeed="1.39"/>
         <ride waitingTime="-1.00" vehicle="v1" depart="188.00" arrival="216.00" arrivalPos="91.95" duration="28.00" routeLength="275.85" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v1" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="216.00" arrivalLane="" arrivalPos="91.95" arrivalSpeed="13.89" duration="216.00" routeLength="459.75" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v1 routing_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="WC_0" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="216.00" arrivalLane="WC_0" arrivalPos="91.95" arrivalSpeed="13.89" duration="216.00" routeLength="459.75" waitingTime="0.00" waitingCount="0" stopTime="1.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v1 routing_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

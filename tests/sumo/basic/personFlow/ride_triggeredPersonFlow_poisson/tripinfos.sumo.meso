@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 14:21:44 by Eclipse SUMO sumo Version v1_20_0+0120-0256b4ceff1
+<!-- generated on 2024-08-26 15:32:16 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="three_split.net.xml"/>
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -58,7 +58,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.3" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.0" depart="10.00" arrival="72.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="72.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.0 person_v.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.0" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="72.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.0 person_v.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.4" depart="11.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="71.00" waitingTime="0.00" timeLoss="0.00" traveltime="71.00">
         <ride waitingTime="0.00" vehicle="v.1" depart="11.00" arrival="82.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
@@ -68,7 +68,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.6" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="64.00" waitingTime="0.00" timeLoss="0.00" traveltime="64.00">
         <ride waitingTime="0.00" vehicle="v.1" depart="18.00" arrival="82.00" arrivalPos="500.00" duration="64.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.1" depart="10.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="82.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.1 person_v.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.1" depart="10.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="82.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.1 person_v.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.7" depart="21.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="71.00" waitingTime="0.00" timeLoss="0.00" traveltime="71.00">
         <ride waitingTime="0.00" vehicle="v.2" depart="21.00" arrival="92.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
@@ -78,7 +78,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.9" depart="23.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="69.00" waitingTime="0.00" timeLoss="0.00" traveltime="69.00">
         <ride waitingTime="0.00" vehicle="v.2" depart="23.00" arrival="92.00" arrivalPos="500.00" duration="69.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.2" depart="20.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="92.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.2 person_v.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.2" depart="20.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="92.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.2 person_v.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.10" depart="33.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="69.00" waitingTime="0.00" timeLoss="0.00" traveltime="69.00">
         <ride waitingTime="0.00" vehicle="v.3" depart="33.00" arrival="102.00" arrivalPos="500.00" duration="69.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.15" depart="40.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.3" depart="40.00" arrival="102.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.3" depart="30.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="102.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.3 person_v.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.3" depart="30.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="102.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.3 person_v.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.16" depart="46.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="66.00" waitingTime="0.00" timeLoss="0.00" traveltime="66.00">
         <ride waitingTime="0.00" vehicle="v.4" depart="46.00" arrival="112.00" arrivalPos="500.00" duration="66.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.19" depart="49.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="63.00" waitingTime="0.00" timeLoss="0.00" traveltime="63.00">
         <ride waitingTime="0.00" vehicle="v.4" depart="49.00" arrival="112.00" arrivalPos="500.00" duration="63.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.4" depart="40.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="112.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.4 person_v.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.4" depart="40.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="112.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.4 person_v.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.20" depart="56.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="66.00" waitingTime="0.00" timeLoss="0.00" traveltime="66.00">
         <ride waitingTime="0.00" vehicle="v.5" depart="56.00" arrival="122.00" arrivalPos="500.00" duration="66.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
@@ -126,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.24" depart="60.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.5" depart="60.00" arrival="122.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.5" depart="50.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="122.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.5 person_v.5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.5" depart="50.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="122.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.5 person_v.5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.25" depart="61.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="71.00" waitingTime="0.00" timeLoss="0.00" traveltime="71.00">
         <ride waitingTime="0.00" vehicle="v.6" depart="61.00" arrival="132.00" arrivalPos="500.00" duration="71.00" routeLength="1900.00" timeLoss="0.00"/>
     </personinfo>
@@ -142,7 +142,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.29" depart="67.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="65.00" waitingTime="0.00" timeLoss="0.00" traveltime="65.00">
         <ride waitingTime="0.00" vehicle="v.6" depart="67.00" arrival="132.00" arrivalPos="500.00" duration="65.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.6" depart="60.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="132.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.6 person_v.6" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.6" depart="60.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="132.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.6 person_v.6" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.30" depart="74.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="68.00" waitingTime="0.00" timeLoss="0.00" traveltime="68.00">
         <ride waitingTime="0.00" vehicle="v.7" depart="74.00" arrival="142.00" arrivalPos="500.00" duration="68.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
@@ -158,7 +158,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.34" depart="80.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.7" depart="80.00" arrival="142.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.7" depart="70.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="142.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.7 person_v.7" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.7" depart="70.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="142.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.7 person_v.7" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.35" depart="87.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="65.00" waitingTime="0.00" timeLoss="0.00" traveltime="65.00">
         <ride waitingTime="0.00" vehicle="v.8" depart="87.00" arrival="152.00" arrivalPos="500.00" duration="65.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
@@ -168,7 +168,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.37" depart="90.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.8" depart="90.00" arrival="152.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.8" depart="80.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="152.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.8 person_v.8" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.8" depart="80.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="152.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.8 person_v.8" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1.38" depart="94.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="68.00" waitingTime="0.00" timeLoss="0.00" traveltime="68.00">
         <ride waitingTime="0.00" vehicle="v.9" depart="94.00" arrival="162.00" arrivalPos="500.00" duration="68.00" routeLength="1800.00" timeLoss="0.00"/>
     </personinfo>
@@ -181,5 +181,5 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="p1.41" depart="100.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="62.00" waitingTime="0.00" timeLoss="0.00" traveltime="62.00">
         <ride waitingTime="0.00" vehicle="v.9" depart="100.00" arrival="162.00" arrivalPos="500.00" duration="62.00" routeLength="1700.00" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="v.9" depart="90.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="162.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.9 person_v.9" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v.9" depart="90.00" departLane="beg_0" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="162.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="72.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_v.9 person_v.9" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

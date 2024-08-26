@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 17 23:45:42 2020 by Eclipse SUMO sumo Version v1_7_0+1077-2b44179df7
+<!-- generated on 2024-08-26 15:32:46 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -20,13 +25,10 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
@@ -37,15 +39,15 @@ SPDX-License-Identifier: EPL-2.0
         <meso-overtaking value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="SN_slow.0" depart="0.00" departLane="" departPos="0.00" departSpeed="3.00" departDelay="0.00" arrival="67.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.00" duration="67.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SN_slow.0" vType="slow" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN.0" depart="5.00" departLane="" departPos="0.00" departSpeed="3.33" departDelay="0.00" arrival="67.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.17" duration="62.00" routeLength="200.00" waitingTime="0.16" waitingCount="0" stopTime="0.00" timeLoss="47.27" rerouteNo="0" devices="tripinfo_SN.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN.1" depart="6.00" departLane="" departPos="0.00" departSpeed="3.33" departDelay="0.00" arrival="67.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.26" duration="61.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="46.27" rerouteNo="0" devices="tripinfo_SN.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN_slow.1" depart="1.00" departLane="" departPos="0.00" departSpeed="3.00" departDelay="0.00" arrival="68.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.00" duration="67.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SN_slow.1" vType="slow" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN.3" depart="8.00" departLane="" departPos="0.00" departSpeed="3.37" departDelay="0.00" arrival="68.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.33" duration="60.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="45.27" rerouteNo="0" devices="tripinfo_SN.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN.4" depart="9.00" departLane="" departPos="0.00" departSpeed="3.41" departDelay="0.00" arrival="68.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.43" duration="59.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="44.27" rerouteNo="0" devices="tripinfo_SN.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SN.2" depart="7.00" departLane="" departPos="0.00" departSpeed="3.37" departDelay="0.00" arrival="69.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.16" duration="62.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="47.10" rerouteNo="0" devices="tripinfo_SN.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN_slow.0" depart="0.00" departLane="SC_0" departPos="0.00" departSpeed="3.00" departDelay="0.00" arrival="67.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.00" duration="67.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SN_slow.0" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN.0" depart="5.00" departLane="SC_0" departPos="0.00" departSpeed="3.33" departDelay="0.00" arrival="67.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.17" duration="62.00" routeLength="200.00" waitingTime="0.16" waitingCount="0" stopTime="0.00" timeLoss="47.27" rerouteNo="0" devices="tripinfo_SN.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN.1" depart="6.00" departLane="SC_0" departPos="0.00" departSpeed="3.33" departDelay="0.00" arrival="67.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.26" duration="61.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="46.27" rerouteNo="0" devices="tripinfo_SN.1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN_slow.1" depart="1.00" departLane="SC_0" departPos="0.00" departSpeed="3.00" departDelay="0.00" arrival="68.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.00" duration="67.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SN_slow.1" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN.3" depart="8.00" departLane="SC_0" departPos="0.00" departSpeed="3.37" departDelay="0.00" arrival="68.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.33" duration="60.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="45.27" rerouteNo="0" devices="tripinfo_SN.3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN.4" depart="9.00" departLane="SC_0" departPos="0.00" departSpeed="3.41" departDelay="0.00" arrival="68.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.43" duration="59.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="44.27" rerouteNo="0" devices="tripinfo_SN.4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SN.2" depart="7.00" departLane="SC_0" departPos="0.00" departSpeed="3.37" departDelay="0.00" arrival="69.00" arrivalLane="CN_0" arrivalPos="100.00" arrivalSpeed="3.16" duration="62.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="47.10" rerouteNo="0" devices="tripinfo_SN.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

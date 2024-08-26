@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-18 11:12:05 by Eclipse SUMO sumo Version v1_20_0+0118-42103d31dfe
+<!-- generated on 2024-08-26 15:32:42 by Eclipse SUMO sumo Version v1_20_0+1721-016cfd09667
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@ Public License 2.0 are satisfied: GNU General Public License, version 2
 or later which is available at
 https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="net.net.xml"/>
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
@@ -48,10 +48,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <personinfo id="0" depart="0.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="145.00" waitingTime="48.00" timeLoss="0.00" traveltime="97.00">
         <ride waitingTime="48.00" vehicle="trip_A" depart="48.00" arrival="145.00" arrivalPos="190.40" duration="97.00" routeLength="1332.80" timeLoss="0.00"/>
     </personinfo>
-    <tripinfo id="trip_A" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="206.00" routeLength="1991.60" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="0.00" rerouteNo="2" devices="tripinfo_trip_A routing_trip_A taxi_trip_A person_trip_A" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="trip_A" depart="0.00" departLane="A0B0_1" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="206.00" routeLength="1991.60" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="0.00" rerouteNo="2" devices="tripinfo_trip_A routing_trip_A taxi_trip_A person_trip_A" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="1" occupiedDistance="1332.80" occupiedTime="96.96"/>
     </tripinfo>
-    <tripinfo id="trip_B" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="206.00" routeLength="1420.40" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="0.00" rerouteNo="2" devices="tripinfo_trip_B routing_trip_B taxi_trip_B person_trip_B" vType="taxi" speedFactor="1.00" vaporized="">
+    <tripinfo id="trip_B" depart="0.00" departLane="A2B2_1" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="206.00" routeLength="1420.40" waitingTime="0.00" waitingCount="0" stopTime="61.00" timeLoss="0.00" rerouteNo="2" devices="tripinfo_trip_B routing_trip_B taxi_trip_B person_trip_B" vType="taxi" speedFactor="1.00" vaporized="">
         <taxi customers="1" occupiedDistance="761.60" occupiedTime="55.83"/>
     </tripinfo>
 </tripinfos>
