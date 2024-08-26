@@ -70,6 +70,10 @@ if test -e sumoD; then
   for i in *D; do ln -sf ${i} ${i::-1}; done
 fi
 cd ..
+if test -e build/$FILEPREFIX/src/CMakeFiles/sumo.dir/sumo_main.cpp.gcda; then
+  # avoid a dangling symlink for the coverage build
+  mkdir docs/lcov
+fi
 if test -e $SUMO_BINDIR/sumo && test $SUMO_BINDIR/sumo -nt build/$FILEPREFIX/Makefile; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
