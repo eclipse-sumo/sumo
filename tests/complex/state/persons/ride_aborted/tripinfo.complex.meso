@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-06-28 08:42:52 by Eclipse SUMO sumo Version v1_17_0+1317-06f42fb
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-08-26 15:59:40 by Eclipse SUMO sumo Version v1_20_0+1726-b296604fe17
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="input_net.net.xml"/>
@@ -25,12 +25,12 @@
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="20.00" departLane="" departPos="0.00" departSpeed="9.38" departDelay="0.00" arrival="148.00" arrivalLane="" arrivalPos="400.00" arrivalSpeed="9.38" duration="128.00" routeLength="1200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
-    <personinfo id="persontrip_car" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.06">
+    <tripinfo id="v0" depart="20.00" departLane="3/1to2/1_0" departPos="0.00" departSpeed="9.38" departDelay="0.00" arrival="148.00" arrivalLane="1/1to0/1_0" arrivalPos="400.00" arrivalSpeed="9.38" duration="128.00" routeLength="1200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_v0 routing_v0" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="persontrip_car" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="-1" waitingTime="147.00" timeLoss="-1" traveltime="-1">
         <ride waitingTime="147.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
     </personinfo>
 </tripinfos>
