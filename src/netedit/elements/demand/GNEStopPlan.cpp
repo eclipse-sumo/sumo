@@ -129,9 +129,8 @@ GNEStopPlan::updateGeometry() {
         const PositionVector& busStopShape = getParentAdditionals().front()->getAdditionalGeometry().getShape();
         PositionVector shapeA = {busStopShape[-1], busStopShape[-2]};
         PositionVector shapeB = {busStopShape[-1], busStopShape[-2]};
-        // rotate 90º (in rads)
-        shapeA.rotateAroundFirstElement2D(1.5708);
-        shapeB.rotateAroundFirstElement2D(-1.5708);
+        shapeA.rotateAroundFirstElement2D(DEG2RAD(90));
+        shapeB.rotateAroundFirstElement2D(-DEG2RAD(90));
         shape = {shapeA.positionAtOffset2D(stopWidth), shapeB.positionAtOffset2D(stopWidth)};
     } else if (getParentEdges().size() > 0) {
         // get front and back lane
