@@ -5331,18 +5331,43 @@ void
 GNEAttributeCarrier::fillContainerStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
-    // fill vehicle ACs
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW});
+    const unsigned int color = FXRGBA(255, 213, 213, 255);
+    const GUIIcon icon = GUIIcon::STOPELEMENT;
+    const SumoXMLTag xmlTag = SUMO_TAG_STOP;
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPCONTAINER_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: edge"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("ContainerStop: edge"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_BUSSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_BUSSTOP,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: busStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_TRAINSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_TRAINSTOP,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: trainStop"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
@@ -5351,13 +5376,30 @@ GNEAttributeCarrier::fillContainerStopElements() {
     currentTag = GNE_TAG_STOPCONTAINER_CONTAINERSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::CONTAINERPLAN | GNETagProperties::TagType::STOPCONTAINER,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: containerStop"),
-        {SUMO_TAG_CONTAINER, SUMO_TAG_CONTAINERFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("ContainerStop: containerStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_CHARGINGSTATION;
+    {
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: chargingStation"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPCONTAINER_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("ContainerStop: parkingArea"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
@@ -7099,17 +7141,21 @@ void
 GNEAttributeCarrier::fillPersonStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
-
+    // declare common tag types and properties
+    const int tagType = GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON;
+    const int tagProperty = GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS;
+    const int conflicts = GNETagProperties::Conflicts::NO_CONFLICTS;
+    const std::vector<SumoXMLTag> parents({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
+    const unsigned int color = FXRGBA(255, 213, 213, 255);
+    const GUIIcon icon = GUIIcon::STOPELEMENT;
+    const SumoXMLTag xmlTag = SUMO_TAG_STOP;
+    // fill tags
     SumoXMLTag currentTag = GNE_TAG_STOPPERSON_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_EDGE,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: edge"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: edge"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
@@ -7118,13 +7164,9 @@ GNEAttributeCarrier::fillPersonStopElements() {
     currentTag = GNE_TAG_STOPPERSON_BUSSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_BUSSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: busStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: busStop"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
@@ -7133,13 +7175,41 @@ GNEAttributeCarrier::fillPersonStopElements() {
     currentTag = GNE_TAG_STOPPERSON_TRAINSTOP;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag,
-                                      GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::PERSONPLAN | GNETagProperties::TagType::STOPPERSON,
-                                      GNETagProperties::TagProperty::CHILD | GNETagProperties::TagProperty::NOPARAMETERS,
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
                                       GNETagProperties::TagParents::PLAN_TRAINSTOP,
-                                      GNETagProperties::Conflicts::NO_CONFLICTS,
-                                      GUIIcon::STOPELEMENT, SUMO_TAG_STOP, TL("Stop: trainStop"),
-        {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW}, FXRGBA(255, 213, 213, 255));
+                                      conflicts, icon, xmlTag, TL("PersonStop: trainStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPPERSON_CONTAINERSTOP;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CONTAINERSTOP,
+                                      conflicts, icon, xmlTag, TL("PersonStop: containerStop"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPPERSON_CHARGINGSTATION;
+    {
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_CHARGINGSTATION,
+                                      conflicts, icon, xmlTag, TL("PersonStop: chargingStation"), parents, color);
+
+        // set values of attributes
+        fillPlanParentAttributes(currentTag);
+        fillPlanStopCommonAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_STOPPERSON_PARKINGAREA;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, tagType, tagProperty,
+                                      GNETagProperties::TagParents::PLAN_PARKINGAREA,
+                                      conflicts, icon, xmlTag, TL("PersonStop: parkingArea"), parents, color);
 
         // set values of attributes
         fillPlanParentAttributes(currentTag);
