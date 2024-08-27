@@ -2,6 +2,9 @@
 newInternalStop
 newStop
 
+# brakeGap must be considered
+newStop_fast
+
 # Copy of newStop
 pos_0
 
