@@ -82,3 +82,6 @@ stops_filter_pattern
 
 # xml input contains no linebreaks
 no_linebreaks
+
+# xml input contains no linebreaks, using robust parser
+no_linebreaks_robust
