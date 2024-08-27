@@ -26,6 +26,7 @@
 
 #include <string>
 #include <fstream>
+#include <geos_c.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -712,6 +713,20 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_WARNING(TL("Network contains very large coordinates and will probably flicker in the GUI. Check for outlying nodes and make sure the network is shifted to the coordinate origin"));
     }
 
+    for (std::map<std::string, NBNode*>::const_iterator it = myNodeCont.begin(); it != myNodeCont.end(); ++it) {
+        const PositionVector& junctionShape = it->second->getShape();
+        if (!isValid(junctionShape)) {
+            WRITE_WARNINGF(TL("Node % has invalid geometry"), it->second->getID());
+        }
+        const std::vector<NBNode::WalkingArea>& walkingAreas = it->second->getWalkingAreas();
+        for (std::vector<NBNode::WalkingArea>::const_iterator itwa = walkingAreas.begin(); itwa != walkingAreas.end(); ++itwa) {
+            const PositionVector& walkingAreaShape = itwa->shape;
+            if (!isValid(walkingAreaShape)) {
+                WRITE_WARNINGF(TL("Walking area % of node % has invalid geometry"), itwa->id, it->second->getID());
+            }
+        }
+    }
+
     // clean up OSM processing params
     if (oc.exists("osm-files") && oc.isSet("osm-files")) {
         for (auto item : myEdgeCont) {
@@ -761,6 +776,23 @@ NBNetBuilder::mirrorX() {
     }
     for (const auto& stopIt : myPTStopCont.getStops()) {
         stopIt.second->mirrorX();
+    }
+}
+
+
+bool
+NBNetBuilder::isValid(const PositionVector& shape) const {
+    GEOSCoordSequence* coordinateSequence = GEOSCoordSeq_create((unsigned int)shape.size(), 2);
+    for (int i = 0; i < (int)shape.size(); i++) {
+        GEOSCoordSeq_setXY(coordinateSequence, i, shape[i].x(), shape[i].y());
+    }
+    GEOSGeometry* geometry = GEOSGeom_createLinearRing(coordinateSequence);
+    char isValid = GEOSisValid(geometry);
+    GEOSGeom_destroy(geometry);
+    if (isValid == 1) {
+        return true;
+    } else {
+        return false;
     }
 }
 
