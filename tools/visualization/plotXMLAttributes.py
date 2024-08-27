@@ -366,11 +366,11 @@ def getDataStream(options):
                     for event, elem in ET.iterparse(xmlf, ("start",)):
                         if elem.tag == allElems[0]:
                             values = {}  # attr -> value
-                        skip = retrieveValues(index, elem, allAttrs, values, skippedLines)
-                        if not skip:
-                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                                yield toYield
-                                index += 1
+                            skip = retrieveValues(index, elem, allAttrs, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
 
                 else:
                     for line in xmlf:
