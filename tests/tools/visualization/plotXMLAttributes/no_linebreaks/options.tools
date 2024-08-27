@@ -1,0 +1,4 @@
+input_data.xml -o image.png --csv-output out.csv 
+-x time -y y
+-i @NONE
+tools/visualization/plotXMLAttributes.py
