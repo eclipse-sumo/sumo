@@ -143,52 +143,38 @@ GNEJunction::getPositionInView() const {
 
 bool
 GNEJunction::checkDrawFromContour() const {
-    // get modes
+    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    // check conditions
-    if (myAmCreateEdgeSource) {
-        return true;
-    } else if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
+    if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
-        // check if starts in junction
-        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) ||
-                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
-                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-            return (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID());
-        }
-    } else if (modes.isCurrentSupermodeNetwork()) {
-        // get frames
-        const auto& TLSFrame = myNet->getViewNet()->getViewParent()->getTLSEditorFrame();
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-        // continue depending of frames
-        if (TLSFrame->shown()) {
-            // get TLS junction (TLS Frame)
-            const auto TLSJunction = TLSFrame->getTLSJunction();
-            // check if we're joining junctions
-            if (TLSJunction->isJoiningJunctions() && TLSJunction->isJunctionSelected(this)) {
-                return true;
-            }
-        } else if (vehicleFrame->shown()) {
-            // get selected junctions
-            const auto& selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
-            // check if this is the first selected TAZ
-            if ((selectedJunctions.size() > 0) && (selectedJunctions.front() == this)) {
-                return true;
-            }
+        // check if starts in this junction
+        if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
+            return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
         GNEPlanCreator* planCreator = nullptr;
         if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
         }
         // continue depending of planCreator
         if (planCreator) {
-            // check if this is the from edge
-            if (planCreator->getPlanParameteres().fromJunction == getID()) {
+            if (planCreator->getPlanParameteres().fromEdge == getID()) {
+                return true;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedJunctions = viewParent->getVehicleFrame()->getPathCreator()->getSelectedJunctions();
+            // check if this is the first selected junction
+            if ((selectedJunctions.size() > 0) && (selectedJunctions.front() == this)) {
                 return true;
             }
         }
@@ -200,54 +186,38 @@ GNEJunction::checkDrawFromContour() const {
 
 bool
 GNEJunction::checkDrawToContour() const {
-    // get modes
+    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    // check conditions
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    // continue depending of current status
     if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
         // get inspected element
         const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
-        // check if ends in junction
-        if (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) ||
-                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_EDGE) ||
-                (inspectedAC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-            return (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID());
-        }
-    } else if (modes.isCurrentSupermodeNetwork()) {
-        // get frames
-        const auto& createEdgeFrame = myNet->getViewNet()->getViewParent()->getCreateEdgeFrame();
-        const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-        // continue depending of frames
-        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-            // get junction source
-            const auto junctionSource = createEdgeFrame->getJunctionSource();
-            // check if we're over a destination junction
-            if (junctionSource) {
-                // don't create edges with the same from-to junction
-                if ((junctionSource != this) && gViewObjectsHandler.isElementSelected(this)) {
-                    // this junction can be a destination junction
-                    return true;
-                }
-            }
-        } else if (vehicleFrame->shown()) {
-            // get selected junctions
-            const auto& selectedJunctions = vehicleFrame->getPathCreator()->getSelectedJunctions();
-            // check if this is the first selected TAZ
-            if ((selectedJunctions.size() > 1) && (selectedJunctions.back() == this)) {
-                return true;
-            }
+        // check if ends in this junction
+        if (inspectedAC->getTagProperty().vehicleJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
+            return true;
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
         GNEPlanCreator* planCreator = nullptr;
         if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
-            planCreator = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanCreator();
+            planCreator = viewParent->getPersonFrame()->getPlanCreator();
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            planCreator = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanCreator();
+            planCreator = viewParent->getPersonPlanFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planCreator = viewParent->getContainerFrame()->getPlanCreator();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planCreator = viewParent->getContainerPlanFrame()->getPlanCreator();
         }
         // continue depending of planCreator
         if (planCreator) {
-            // check if this is the from edge
-            if (planCreator->getPlanParameteres().toJunction == getID()) {
+            if (planCreator->getPlanParameteres().toEdge == getID()) {
+                return true;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedJunctions = viewParent->getVehicleFrame()->getPathCreator()->getSelectedJunctions();
+            // check if this is the first selected junction
+            if ((selectedJunctions.size() > 1) && (selectedJunctions.back() == this)) {
                 return true;
             }
         }
@@ -265,32 +235,33 @@ GNEJunction::checkDrawRelatedContour() const {
 
 bool
 GNEJunction::checkDrawOverContour() const {
-    // get modes
+    // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
-    // get frames
-    const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
-    // check if we're in vehicle mode
-    if (vehicleFrame->shown()) {
-        // get current vehicle template
-        const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
-        // check if vehicle can be placed over from-to junctions
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
-            // check if junction is under cursor
-            return gViewObjectsHandler.isElementSelected(this);
-        } else {
-            return false;
+    const auto& viewParent = myNet->getViewNet()->getViewParent();
+    if (modes.isCurrentSupermodeDemand()) {
+        // get current plan selector
+        GNEPlanSelector* planSelector = nullptr;
+        if (modes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
+            planSelector = viewParent->getPersonFrame()->getPlanSelector();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
+            planSelector = viewParent->getPersonPlanFrame()->getPlanSelector();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) {
+            planSelector = viewParent->getContainerFrame()->getPlanSelector();
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) {
+            planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
         }
-    } else if (modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markJunctions()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markJunctions()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markJunctions()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markJunctions())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        // continue depending of plan selector
+        if (planSelector) {
+            if (planSelector->markJunctions()) {
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            // get current vehicle template
+            const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
+            // check if vehicle can be placed over from-to TAZs
+            if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleJunctions()) {
+                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+            }
         }
     }
     return false;
@@ -1632,6 +1603,16 @@ GNEJunction::drawAsBubble(const GUIVisualizationSettings& s, const double juncti
                  (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) ||
                  (editModes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN))) {
             return true;
+        }
+        // force draw if we're inspecting a vehicle that start or ends in a junction
+        if (myNet->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // get inspected element
+            const auto inspectedAC = myNet->getViewNet()->getInspectedAttributeCarriers().front();
+            // check if starts or ends in this junction
+            if ((inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) ||
+                    (inspectedAC->hasAttribute(SUMO_ATTR_TO_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID()))) {
+                return true;
+            }
         }
     }
     if (!s.drawJunctionShape) {

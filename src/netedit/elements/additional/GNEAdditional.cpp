@@ -277,7 +277,7 @@ GNEAdditional::checkDrawToContour() const {
             // get selected TAZs
             const auto& selectedTAZs = viewParent->getVehicleFrame()->getPathCreator()->getSelectedTAZs();
             // check if this is the first selected TAZ
-            if ((selectedTAZs.size() > 0) && (selectedTAZs.back() == this)) {
+            if ((selectedTAZs.size() > 1) && (selectedTAZs.back() == this)) {
                 return true;
             }
         }

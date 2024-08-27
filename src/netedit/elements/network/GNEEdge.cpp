@@ -229,6 +229,12 @@ GNEEdge::checkDrawFromContour() const {
             if (planCreator->getPlanParameteres().fromEdge == getID()) {
                 return true;
             }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
+            // check if this is the first selected edge
+            if ((selectedEdges.size() > 0) && (selectedEdges.front() == this)) {
+                return true;
+            }
         }
     } else if (modes.isCurrentSupermodeData()) {
         // get TAZRelDataFrame
@@ -275,6 +281,12 @@ GNEEdge::checkDrawToContour() const {
         // continue depending of planCreator
         if (planCreator) {
             if (planCreator->getPlanParameteres().toEdge == getID()) {
+                return true;
+            }
+        } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
+            const auto& selectedEdges = viewParent->getVehicleFrame()->getPathCreator()->getSelectedEdges();
+            // check if this is the last selected edge
+            if ((selectedEdges.size() > 1) && (selectedEdges.back() == this)) {
                 return true;
             }
         }
