@@ -85,3 +85,6 @@ no_linebreaks
 
 # xml input contains no linebreaks, using robust parser
 no_linebreaks_robust
+
+# xml input contains no linebreaks, using robust parser (all attributes in one element)
+no_linebreaks_robust2
