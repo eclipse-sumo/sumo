@@ -110,6 +110,8 @@ def getOptions(args=None):
     optParser.add_option("--hbarplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, category="visualization", help="Add legend")
+    optParser.add_option("--robust-parser", action="store_true", dest="robustParser", default=False, category="visualization",
+                         help="Use a standard XML-parser instead of a faster regex-based parser")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     sumolib.visualization.helpers.addPlotOptions(optParser)
     sumolib.visualization.helpers.addInteractionOptions(optParser)
@@ -313,20 +315,37 @@ def getDataStream(options):
             index = 0
             foundParent = False
             with openz(xmlfile) as xmlf:
-                for line in xmlf:
-                    if mE0 in line:
-                        foundParent = not parseValues(index, line, mAs0, values, skippedLines)
-                    if mE1 in line:
-                        if not foundParent:
-                            print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
-                                  file=sys.stderr)
-                            missingParents += 1
-                            continue
-                        skip = parseValues(index, line, mAs1, values, skippedLines)
-                        if not skip:
-                            for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
-                                yield toYield
-                                index += 1
+                if options.robustParser:
+                    for event, elem in ET.iterparse(xmlf, ("start",)):
+                        if elem.tag == elems[0]:
+                            foundParent = not retrieveValues(index, elem, attrs0, values, skippedLines)
+                        elif elem.tag == elems[1]:
+                            if not foundParent:
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
+                                      file=sys.stderr)
+                                missingParents += 1
+                                continue
+                            skip = retrieveValues(index, elem, attrs1, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
+
+                else:
+                    for line in xmlf:
+                        if mE0 in line:
+                            foundParent = not parseValues(index, line, mAs0, values, skippedLines)
+                        if mE1 in line:
+                            if not foundParent:
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
+                                      file=sys.stderr)
+                                missingParents += 1
+                                continue
+                            skip = parseValues(index, line, mAs1, values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -343,14 +362,25 @@ def getDataStream(options):
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
             with openz(xmlfile) as xmlf:
-                for line in xmlf:
-                    if mE in line:
-                        values = {}  # attr -> value
-                        skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
+                if options.robustParser:
+                    for event, elem in ET.iterparse(xmlf, ("start",)):
+                        if elem.tag == allElems[0]:
+                            values = {}  # attr -> value
+                        skip = retrieveValues(index, elem, allAttrs, values, skippedLines)
                         if not skip:
                             for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
                                 yield toYield
                                 index += 1
+
+                else:
+                    for line in xmlf:
+                        if mE in line:
+                            values = {}  # attr -> value
+                            skip = parseValues(index, line, zip(allAttrs, mAs), values, skippedLines)
+                            if not skip:
+                                for toYield in combineValues(attrs, attr2parts, values, splitX, splitY):
+                                    yield toYield
+                                    index += 1
 
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
@@ -370,6 +400,25 @@ def parseValues(index, line, attributePatterns, values, skippedLines):
         m = r.search(line)
         if m:
             values[a] = m.groups()[0]
+        elif a == INDEX_ATTR:
+            values[a] = index
+        elif a in POST_PROCESSING_ATTRS:
+            # set in post-processing
+            values[a] = 0
+        elif a == NONE_ATTR:
+            values[a] = NONE_ATTR_DEFAULT
+        else:
+            skip = True
+            skippedLines[a] += 1
+    return skip
+
+
+def retrieveValues(index, elem, attrs, values, skippedLines):
+    skip = False
+    for a in attrs:
+        v = elem.get(a)
+        if v is not None:
+            values[a] = v
         elif a == INDEX_ATTR:
             values[a] = index
         elif a in POST_PROCESSING_ATTRS:
