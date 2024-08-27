@@ -776,6 +776,17 @@ see [inspecting connections](Netedit/editModesCommon.md#inspecting_connections)
   map exact vehicle locations (including lateral positioning) and also
   to move vehicles beyond the road space by using the [TraCI moveToXY function](TraCI/Change_Vehicle_State.md#move_to_xy_0xb4).
 
+### How do I avoid routes with many turn-arounds?
+
+Turn-arounds are a frequently observed at the start or end of a route if the respective edge goes in the wrong direction with regard to the general direction of travel.
+There are different ways to avoid this:
+
+- specifify trips between junctions using attribute fromJunction/toJunction or using fromXY/toXY (fromLonLat/toLonLat) with option **--mapmatch.junctions**
+  - randomTrips.py provides option ** --junction-taz** for this purpose
+- set duarouter option **--remove-loops**  which will cut off starting / ending turn-arounds in the route
+
+Turn-arounds may also happen in the middle of the route because they are perceived as a faster alternative (and this may even be correct, depending on the state of traffic). To discourage the use of turn-arounds, the option **--weights.turnaround-penalty** may be given a higher value (default is 5.0). Both [sumo])(sumo.md) and [duarouter](duarouter.md) support this option.
+
 ## Simulation
 
 ### How to simulate an accident
