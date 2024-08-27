@@ -84,6 +84,8 @@ The following attribute values have a special meaning. Instead of using an attri
 - If a comma-separated list of values is passed to option **--idattr**, then values for each of the attributes will be combined with `|` to form the data point ID
 - If a comma-separated list of values given to **--xattr** or **--yattr** (or both), and the data does not supply an ID (or option **--idattr @NONE** is set) then each combination of individual xattr and yattr will create a new line
 
+### CSV-output
+
 If a combined plot is needed that cannot be created with any of the above methods (i.e. because the data comes from different kinds of data files such as summary-output and edgeData) then an alternative is to use option **--csv-output** and plotting the resulting data with another tool (i.e. [gnuplot](https://en.wikipedia.org/wiki/Gnuplot)).
 
 In csv-output each group of data points belonging to the same ID will form it's own block separated by two blank lines from the next block.
@@ -93,6 +95,11 @@ To replicate a plot where each ID/block has its distinct color, the following ap
 stats 'data.csv'
 plot for [idx=0:STATS_blocks] 'data.csv' i idx with lines
 ```
+
+### XML format assumptions
+
+The default parsing engine of plotXMLAttributes assumes that each xml element occupies exactly one line in the input files. This fits with the output formatting of all SUMO applications.
+If an arbitrary XML file shall be plotted (i.e. without linebreaks), the option **--robust-parser** can be set. This will reduce processing speed.
 
 ### Inductionloop Speed over Time
 
