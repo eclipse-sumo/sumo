@@ -116,6 +116,8 @@ jobs:
       run: |
         sudo apt-get install python3-pyproj python3-rtree python3-pandas python3-flake8 python3-autopep8 python3-scipy python3-pulp python3-ezdxf python3-pyperclip python3-polib
         python -m pip install -r sumo/tools/req_ci.txt -r sumo/tools/requirements.txt
+        python -m pip install pipdeptree
+        pipdeptree
         cd sumo/cmake-build
         make CTEST_OUTPUT_ON_FAILURE=1 examples test
 
