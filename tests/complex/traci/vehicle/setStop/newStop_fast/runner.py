@@ -45,7 +45,10 @@ vehID = "ego"
 traci.simulationStep()
 pos = traci.vehicle.getLanePosition(vehID)
 print("speed=", traci.vehicle.getSpeed(vehID))
-traci.vehicle.setStop("ego", "SC", pos + 50, duration=3)
+try:
+    traci.vehicle.setStop("ego", "SC", pos + 50, duration=3)
+except traci.TraCIException:
+    traci.vehicle.setStop("ego", "CN", 0, duration=3)
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
