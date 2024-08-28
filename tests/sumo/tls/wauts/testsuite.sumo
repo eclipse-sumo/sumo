@@ -25,3 +25,6 @@ week
 
 # switch through different plans over the course of one week and stop switch after one week
 week_norepeat
+
+# test starting phase when switching between differnt multi-phase programs
+offset_default

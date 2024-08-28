@@ -1,0 +1,6 @@
+Warning: Missing yellow phase in tlLogic 'C', program 'progA' for tl-index 0 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'C', program 'progA' for tl-index 1 when switching to phase 0.
+Warning: Missing green phase in tlLogic 'C', program 'progA' for tl-index 2.
+Warning: Missing yellow phase in tlLogic 'C', program 'progB' for tl-index 2 when switching to phase 1.
+Warning: Missing yellow phase in tlLogic 'C', program 'progB' for tl-index 3 when switching to phase 0.
+Warning: Missing green phase in tlLogic 'C', program 'progB' for tl-index 0.
