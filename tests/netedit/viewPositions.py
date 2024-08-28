@@ -294,7 +294,7 @@ class elements:
         x = 850
         y = 222
 
-    #class edge1_dataMode:
+    # class edge1_dataMode:
     #   x = 850
     #   y = 222 + 30
 
@@ -306,7 +306,7 @@ class elements:
         x = 494
         y = 26
 
-    #class edge2_dataMode:
+    # class edge2_dataMode:
     #    x = 494
     #    y = 26 + 30
 
@@ -318,7 +318,7 @@ class elements:
         x = 477
         y = 56
 
-    #class edge3_dataMode:
+    # class edge3_dataMode:
     #    x = 477
     #    y = 56 + 30
 
@@ -330,7 +330,7 @@ class elements:
         x = 817
         y = 235
 
-    #class edge4_dataMode:
+    # class edge4_dataMode:
     #    x = 817
     #    y = 235 + 30
 
@@ -342,7 +342,7 @@ class elements:
         x = 515
         y = 413
 
-    #class edge5_dataMode:
+    # class edge5_dataMode:
     #    x = 515
     #    y = 413 + 30
 
@@ -572,6 +572,14 @@ class elements:
         class stopLane:
             x = 415
             y = 30
+
+        class planEdge1:
+            x = 848
+            y = 160
+
+        class planEdge1Ped:
+            x = 872
+            y = 160
 
         class planEdge2:
             x = 775
