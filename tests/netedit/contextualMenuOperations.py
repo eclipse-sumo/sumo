@@ -20,7 +20,6 @@
 # --------------------------------
 
 # center element in view
-from calendar import c
 
 
 class center:

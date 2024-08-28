@@ -3583,6 +3583,7 @@ class transhipEdges:
 
 # stop plans
 
+
 class stopPlan:
     class edge:
         class create:
@@ -3609,7 +3610,6 @@ class stopPlan:
             until = 4
             actType = 5
             friendlyPos = 6
-
 
     class stoppingPlace:
         class create:

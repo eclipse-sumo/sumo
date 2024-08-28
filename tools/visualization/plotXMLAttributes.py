@@ -110,7 +110,8 @@ def getOptions(args=None):
     optParser.add_option("--hbarplot", action="store_true", category="visualization",
                          default=False, help="Draw a bar plot parallel to the x-axis")
     optParser.add_option("--legend", action="store_true", default=False, category="visualization", help="Add legend")
-    optParser.add_option("--robust-parser", action="store_true", dest="robustParser", default=False, category="visualization",
+    optParser.add_option("--robust-parser", action="store_true", dest="robustParser", default=False,
+                         category="visualization",
                          help="Use a standard XML-parser instead of a faster regex-based parser")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="tell me what you are doing")
     sumolib.visualization.helpers.addPlotOptions(optParser)

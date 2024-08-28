@@ -36,7 +36,6 @@ traci.start([sumoBinary,
              "-a", "input_additional2.add.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
-             #"--mesosim",
              "--vehroute-output", "vehroutes.xml",
              "--stop-output", "stopinfos.xml",
              ] + sys.argv[1:])
