@@ -10,6 +10,9 @@ no_walk_departPos
 # order taxi before the depart, using ride params "reservationTime" and "earliestPickupTime"
 reservation_before_depart
 
+# order taxi too early
+abort_pickup
+
 # order taxi before the depart, using ride param "earliestPickupTime"
 default_reservationTime
 greedy

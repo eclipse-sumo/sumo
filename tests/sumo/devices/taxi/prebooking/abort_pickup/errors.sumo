@@ -1,0 +1,3 @@
+Warning: Person 'p0' aborted waiting for taxi at edge 'B2C2'.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.
+Warning: Vehicle 'trip_1' aborted waiting for a person that will never come.
