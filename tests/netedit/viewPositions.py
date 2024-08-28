@@ -294,9 +294,9 @@ class elements:
         x = 850
         y = 222
 
-    class edge1_dataMode:
-        x = 850
-        y = 222 + 30
+    #class edge1_dataMode:
+    #   x = 850
+    #   y = 222 + 30
 
     class edge2Ped:
         x = 463
@@ -306,9 +306,9 @@ class elements:
         x = 494
         y = 26
 
-    class edge2_dataMode:
-        x = 494
-        y = 26 + 30
+    #class edge2_dataMode:
+    #    x = 494
+    #    y = 26 + 30
 
     class edge3Ped:
         x = 409
@@ -318,9 +318,9 @@ class elements:
         x = 477
         y = 56
 
-    class edge3_dataMode:
-        x = 477
-        y = 56 + 30
+    #class edge3_dataMode:
+    #    x = 477
+    #    y = 56 + 30
 
     class edge4Ped:
         x = 791
@@ -330,9 +330,9 @@ class elements:
         x = 817
         y = 235
 
-    class edge4_dataMode:
-        x = 817
-        y = 235 + 30
+    #class edge4_dataMode:
+    #    x = 817
+    #    y = 235 + 30
 
     class edge5Ped:
         x = 459
@@ -342,9 +342,9 @@ class elements:
         x = 515
         y = 413
 
-    class edge5_dataMode:
-        x = 515
-        y = 413 + 30
+    #class edge5_dataMode:
+    #    x = 515
+    #    y = 413 + 30
 
     class edgeBike0:
         x = 145
