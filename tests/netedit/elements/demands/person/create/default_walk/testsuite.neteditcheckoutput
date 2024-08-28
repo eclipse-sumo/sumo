@@ -1,7 +1,11 @@
-default_walk_edges
+default_ride_fromto
 
-default_walk_fromto
+default_ride_busstop
 
-default_walk_busstop
+default_ride_trainstop
 
-default_walk_route
+default_ride_containerstop
+
+default_ride_chargingstation
+
+default_ride_parkingarea

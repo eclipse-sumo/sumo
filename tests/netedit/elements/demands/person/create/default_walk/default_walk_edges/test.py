@@ -37,7 +37,7 @@ netedit.personMode()
 # change person plan
 netedit.changePersonPlan("walk (edges)", False)
 
-# create route using three edges
+# create person
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

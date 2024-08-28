@@ -31,8 +31,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to demand mode
 netedit.supermodeDemand()
 
-# go to route mode
-netedit.routeMode()
+# go to person mode
+netedit.personMode()
 
 # create route using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
