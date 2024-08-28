@@ -1744,21 +1744,6 @@ def changePersonPlan(personPlan, flow):
     # type enter to save change
     typeEnter()
 
-
-def changePersonFlowPlan(personFlowPlan):
-    """
-    @brief change personFlowPlan
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to personFlow plan
-    for _ in range(23):
-        typeTab()
-    # paste the new personFlowPlan
-    pasteIntoTextField(personFlowPlan)
-    # type enter to save change
-    typeEnter()
-
 #################################################
     # container elements
 #################################################
