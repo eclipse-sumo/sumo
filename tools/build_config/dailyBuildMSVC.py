@@ -74,7 +74,7 @@ def runTests(options, env, gitrev, debugSuffix=""):
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
     env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
-    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "texttesttmp")
+    env["TEXTTEST_TMP"] = os.path.join(options.rootDir, prefix + "tmp")
     env["TEXTTEST_HOME"] = os.path.join(SUMO_HOME, "tests")
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
