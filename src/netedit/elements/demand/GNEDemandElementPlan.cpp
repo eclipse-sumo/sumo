@@ -1222,7 +1222,7 @@ GNEDemandElementPlan::updatePlanGeometry() {
             firstPos = myPlanElement->getParentJunctions().front()->getPositionInView();
         } else if (tagProperty.planFromStoppingPlace()) {
             // end of stoppingPlace lane shape
-            firstPos = myPlanElement->getParentAdditionals().front()->getParentLanes().front()->getLaneShape().back();
+            firstPos = myPlanElement->getParentStoppingPlaces().front()->getParentLanes().front()->getLaneShape().back();
         } else if (tagProperty.planFromTAZ()) {
             // from TAZ
             if (myPlanElement->getParentTAZs().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
@@ -1240,7 +1240,7 @@ GNEDemandElementPlan::updatePlanGeometry() {
             lastPos = myPlanElement->getParentJunctions().back()->getPositionInView();
         } else if (tagProperty.planToStoppingPlace()) {
             // end of stoppingPlace lane shape
-            lastPos = myPlanElement->getParentAdditionals().back()->getParentLanes().front()->getLaneShape().front();
+            lastPos = myPlanElement->getParentStoppingPlaces().back()->getParentLanes().front()->getLaneShape().front();
         } else if (tagProperty.planToTAZ()) {
             // from TAZ
             if (myPlanElement->getParentTAZs().back()->getAttribute(SUMO_ATTR_CENTER).empty()) {
