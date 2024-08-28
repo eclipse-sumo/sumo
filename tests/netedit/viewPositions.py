@@ -573,16 +573,8 @@ class elements:
             x = 415
             y = 30
 
-        class planEdge1:
-            x = 850
-            y = 200
-
-        class planEdge1Ped:
-            x = 872
-            y = 200
-
         class planEdge2:
-            x = 520
+            x = 775
             y = 27
 
         class planEdge2Ped:
