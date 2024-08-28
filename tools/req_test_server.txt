@@ -1,4 +1,5 @@
 # these requirements reflect the test server setup
+contourpy==1.2.1
 ezdxf==0.14.2
 fmpy==0.3.13
 lxml==4.8.0
