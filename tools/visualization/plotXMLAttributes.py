@@ -322,8 +322,8 @@ def getDataStream(options):
                             foundParent = not retrieveValues(index, elem, attrs0, values, skippedLines)
                         elif elem.tag == elems[1]:
                             if not foundParent:
-                                print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
-                                      file=sys.stderr)
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (
+                                      elems[1], elems[0]), file=sys.stderr)
                                 missingParents += 1
                                 continue
                             skip = retrieveValues(index, elem, attrs1, values, skippedLines)
@@ -338,8 +338,8 @@ def getDataStream(options):
                             foundParent = not parseValues(index, line, mAs0, values, skippedLines)
                         if mE1 in line:
                             if not foundParent:
-                                print("Warning: Skipped element '%s' without parent element '%s'" % (elems[1], elems[0]),
-                                      file=sys.stderr)
+                                print("Warning: Skipped element '%s' without parent element '%s'" % (
+                                      elems[1], elems[0]), file=sys.stderr)
                                 missingParents += 1
                                 continue
                             skip = parseValues(index, line, mAs1, values, skippedLines)
@@ -358,7 +358,6 @@ def getDataStream(options):
 
     elif len(allElems) == 1:
         def datastream(xmlfile):
-            missingParents = 0
             mE = "<%s " % allElems[0]
             mAs = [re.compile('%s="([^"]*)"' % a) for a in allAttrs]
             index = 0
@@ -386,8 +385,6 @@ def getDataStream(options):
             for attr, count in skippedLines.items():
                 print("Warning: Skipped %s lines because of missing attributes '%s'." % (
                     count, attr), file=sys.stderr)
-            if missingParents:
-                print("Use options --xelem, --yelem, --idelem to resolve ambiguous elements")
 
         return datastream
 
@@ -431,7 +428,6 @@ def retrieveValues(index, elem, attrs, values, skippedLines):
             skip = True
             skippedLines[a] += 1
     return skip
-
 
 def combineValues(attrs, attr2parts, values, splitX, splitY):
     needSplit = splitX or splitY
