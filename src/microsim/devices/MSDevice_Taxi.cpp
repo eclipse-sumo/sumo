@@ -49,6 +49,7 @@
 #include "MSDevice_Taxi.h"
 
 //#define DEBUG_DISPATCH
+//#define DEBUG_CANCEL
 
 //#define DEBUG_COND (myHolder.isSelected())
 #define DEBUG_COND (true)
@@ -559,6 +560,12 @@ MSDevice_Taxi::cancelCurrentCustomers() {
 
 bool
 MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
+#ifdef DEBUG_CANCEL
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " taxi=" << myHolder.getID() << " cancelCustomer " << t->getID() << "\n";
+    }
+#endif
+
     // is the given transportable a customer of the reservations?
     if (myCustomers.count(t) == 0) {
         return false;
