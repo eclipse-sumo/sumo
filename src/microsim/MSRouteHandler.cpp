@@ -1757,21 +1757,20 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
                 from = preEdge;
             }
             // set 'to':
-            if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_STOP)) {
-                std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
-                cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
-                if (cs == nullptr) {
-                    throw ProcessError("Unknown container stop '" + csID + "' for container '" + cid + "'.");
-                }
-                to = &cs->getLane().getEdge();
-            } else if (attrs.hasAttribute(SUMO_ATTR_TO)) {
+            if (attrs.hasAttribute(SUMO_ATTR_TO)) {
                 const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, cid.c_str(), ok);
                 to = MSEdge::dictionary(toID);
                 if (to == nullptr) {
                     throw ProcessError("The to edge '" + toID + "' within a tranship of container '" + cid + "' is not known.");
                 }
             } else {
-                throw ProcessError(TLF("Inconsistent tranship for container '%', only one option is allowed: 'edges', 'to', 'containerStop'", cid));
+                const std::string description = "container '" + cid + "' transhipping from edge '" + from->getID() + "'";
+                cs = retrieveStoppingPlace(attrs, " " + description);
+                if (cs != nullptr) {
+                    to = &cs->getLane().getEdge();
+                } else {
+                    throw ProcessError(TLF("Inconsistent tranship for container '%', needs either: 'edges', 'to', 'containerStop' (or any other stopping place)", cid));
+                }
             }
             myActiveRoute.push_back(from);
             myActiveRoute.push_back(to);
