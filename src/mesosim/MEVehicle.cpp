@@ -95,6 +95,24 @@ MEVehicle::getPosition(const double offset) const {
     return lane->geometryPositionAtOffset(getPositionOnLane() + offset);
 }
 
+PositionVector
+MEVehicle::getBoundingBox(double offset) const {
+    double a = getAngle() + M_PI; // angle pointing backwards
+    double l = getLength();
+    Position pos = getPosition();
+    Position backPos = pos + Position(l * cos(a), l * sin(a));
+    PositionVector centerLine;
+    centerLine.push_back(pos);
+    centerLine.push_back(backPos);
+    if (offset != 0) {
+        centerLine.extrapolate2D(offset);
+    }
+    PositionVector result = centerLine;
+    result.move2side(MAX2(0.0, 0.5 * myType->getWidth() + offset));
+    centerLine.move2side(MIN2(0.0, -0.5 * myType->getWidth() - offset));
+    result.append(centerLine.reverse(), POSITION_EPS);
+    return result;
+}
 
 double
 MEVehicle::getSpeed() const {

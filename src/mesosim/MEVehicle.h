@@ -91,6 +91,8 @@ public:
      */
     Position getPosition(const double offset = 0) const;
 
+    /// @brief get bounding rectangle
+    PositionVector getBoundingBox(double offset = 0) const;
 
     /** @brief Returns the vehicle's estimated speed assuming no delays
      * @return The vehicle's estimated speed

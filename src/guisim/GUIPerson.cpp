@@ -497,7 +497,22 @@ GUIPerson::getGUIPosition(const GUIVisualizationSettings* s) const {
     }
     if (getCurrentStageType() == MSStageType::DRIVING) {
         if (!isWaiting4Vehicle() && myPositionInVehicle.pos != Position::INVALID) {
-            return myPositionInVehicle.pos;
+            if (s != nullptr) {
+                return myPositionInVehicle.pos;
+            } else {
+                // centering boundary must cover the vehicle regardless of exaggeration and zoom
+                SUMOVehicle* veh = getCurrentStage()->getVehicle();
+                if (veh == nullptr) {
+                    // should not happen
+                    return myPositionInVehicle.pos;
+                }
+                PositionVector b = veh->getBoundingBox();
+                if (b.around(myPositionInVehicle.pos)) {
+                    return myPositionInVehicle.pos;
+                } else {
+                    return b.getCentroid();
+                }
+            }
         } else if (isWaiting4Vehicle()
                    && s != nullptr
                    && s->gaming

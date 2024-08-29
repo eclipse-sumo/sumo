@@ -47,6 +47,7 @@ class MSStoppingPlace;
 class MSVehicleDevice;
 class SUMOSAXAttributes;
 class EnergyParams;
+class PositionVector;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -362,6 +363,9 @@ public:
 
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
+
+    /// @brief get bounding rectangle
+    virtual PositionVector getBoundingBox(double offset = 0) const = 0;
 
     /// @name parking memory io
     //@{

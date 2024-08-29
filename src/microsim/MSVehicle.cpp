@@ -6970,7 +6970,8 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
 PositionVector
 MSVehicle::getBoundingBox(double offset) const {
     PositionVector centerLine;
-    centerLine.push_back(getPosition());
+    Position pos = getPosition();
+    centerLine.push_back(pos);
     switch (myType->getGuiShape()) {
         case SUMOVehicleShape::BUS_FLEXIBLE:
         case SUMOVehicleShape::RAIL:
@@ -6986,7 +6987,14 @@ MSVehicle::getBoundingBox(double offset) const {
         default:
             break;
     }
-    centerLine.push_back(getBackPosition());
+    double l = getLength();
+    Position backPos = getBackPosition();
+    if (pos.distanceTo2D(backPos) > l + NUMERICAL_EPS) {
+        // getBackPosition may not match the visual back in networks without internal lanes
+        double a = getAngle() + M_PI; // angle pointing backwards
+        backPos = pos + Position(l * cos(a), l * sin(a));
+    }
+    centerLine.push_back(backPos);
     if (offset != 0) {
         centerLine.extrapolate2D(offset);
     }
