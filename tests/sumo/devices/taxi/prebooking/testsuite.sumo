@@ -17,7 +17,7 @@ abort_pickup
 default_reservationTime
 
 # 5 persons that do not want to share a taxi but use a sharing dispatcher
-5persons_abort_someTrip
+5persons_abort_sameTrip
 
 # 4 persons that do not want to share a taxi but use a sharing dispatcher
 4persons_abort
