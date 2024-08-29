@@ -15,5 +15,8 @@ abort_pickup
 
 # order taxi before the depart, using ride param "earliestPickupTime"
 default_reservationTime
+
+# 5 persons that do not want to share a taxi but use a sharing dispatcher
+5persons_abort_someTrip
 greedy
 greedyShared

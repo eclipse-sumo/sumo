@@ -1,0 +1,4 @@
+Warning: Person 'p.3' aborted waiting for taxi at edge 'B2C2'.
+Warning: Person 'p.4' aborted waiting for taxi at edge 'B2C2'.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.
+Warning: All customers left vehicle 'trip_0' at time=322.00 but there are 1 remaining stops
