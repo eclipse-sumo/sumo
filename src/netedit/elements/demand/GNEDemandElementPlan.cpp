@@ -1655,6 +1655,8 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_FROM_TAZ:
         case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_FROM_TRAINSTOP:
+        case GNE_ATTR_FROM_CHARGINGSTATION:
+        case GNE_ATTR_FROM_PARKINGAREA:
         // to
         case SUMO_ATTR_TO:
         case SUMO_ATTR_TO_JUNCTION:
@@ -1662,6 +1664,8 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_BUS_STOP:
         case SUMO_ATTR_TRAIN_STOP:
         case SUMO_ATTR_CONTAINER_STOP:
+        case SUMO_ATTR_CHARGING_STATION:
+        case SUMO_ATTR_PARKING_AREA:
             return false;
         case SUMO_ATTR_DEPARTPOS:
             // depart position only enabled for first plan element
