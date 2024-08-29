@@ -536,20 +536,14 @@ MSDevice_Taxi::cancelCurrentCustomers() {
     }
     // find customers of the current stop
     std::set<const MSTransportable*> customersToBeRemoved;
+    std::set<const MSTransportable*> onBoard;
+    onBoard.insert(myHolder.getPersons().begin(), myHolder.getPersons().end());
+    onBoard.insert(myHolder.getContainers().begin(), myHolder.getContainers().end());
     for (std::string tID : myHolder.getNextStopParameter()->permitted) {
-        //for (const MSTransportable* t : myCustomers) {
         for (auto t : myCustomers) {
-            //bool removed = false;
-            //if (t->getID() == tID) {
-            if (t->getID() == tID) {
-                //cancelCustomer(t);
+            if (t->getID() == tID && onBoard.count(t) == 0) {
                 customersToBeRemoved.insert(t);
-                //removed = cancelCustomer((*tIt));
-
             }
-            //if (!removed) {
-            //    tIt++;
-            //}
         }
     }
     if (!customersToBeRemoved.empty()) {
