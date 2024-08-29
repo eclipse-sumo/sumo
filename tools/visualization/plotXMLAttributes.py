@@ -429,6 +429,7 @@ def retrieveValues(index, elem, attrs, values, skippedLines):
             skippedLines[a] += 1
     return skip
 
+
 def combineValues(attrs, attr2parts, values, splitX, splitY):
     needSplit = splitX or splitY
     toYield = []
