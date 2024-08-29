@@ -751,19 +751,33 @@ GUIVehicle::getStopInfo() const {
     }
     if (myStops.front().pars.triggered) {
         result += ", triggered";
-    } else if (myStops.front().pars.containerTriggered) {
+    }
+    if (myStops.front().pars.containerTriggered) {
         result += ", containerTriggered";
-    } else if (myStops.front().pars.collision) {
+    }
+    if (myStops.front().pars.collision) {
         result += ", collision";
-    } else if (myStops.front().pars.until != -1) {
+    }
+    if (myStops.front().pars.arrival != -1) {
+        result += ", arrival=" + time2string(myStops.front().pars.arrival);
+    }
+    if (myStops.front().pars.started != -1) {
+        result += ", started=" + time2string(myStops.front().pars.started);
+    }
+    if (myStops.front().pars.until != -1) {
         result += ", until=" + time2string(myStops.front().pars.until);
-    } else {
-        result += ", duration=" + time2string(myStops.front().duration);
+    }
+    if (myStops.front().pars.extension != -1) {
+        result += ", extension=" + time2string(myStops.front().pars.extension);
+    }
+    if (!myStops.front().pars.permitted.empty()) {
+        result += ", permitted=" + toString(myStops.front().pars.permitted);
     }
     if (myStops.front().pars.actType != "") {
         result += ", actType=" + myStops.front().pars.actType;
     }
-    return result;
+    result += ", duration=" + time2string(myStops.front().duration);
+    return StringUtils::wrapText(result, 60);
 }
 
 
