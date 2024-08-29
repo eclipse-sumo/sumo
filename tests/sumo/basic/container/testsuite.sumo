@@ -73,6 +73,9 @@ trip_chain
 # Test whether a chain of tranships, transports and stops works with destination defined by 'containerStop', instead of 'to'.
 trip_chain_containerStop_input
 
+# Test whether a chain of tranships, transports and stops works with destination defined by 'busStop', instead of 'to'.
+trip_chain_busStop
+
 # test whether a chain of tranships, transports and stops works without 'from' statement
 trip_chain_no_from
 container_start_containerStop
