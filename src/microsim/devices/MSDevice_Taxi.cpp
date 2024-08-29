@@ -577,11 +577,10 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             fulfilled = true;
         }
         if (fulfilled) {
-            // delete the reservation
-            myDispatcher->fulfilledReservation(*resIt);
+            const Reservation* res = *resIt;
             // remove reservation from the current dispatch
             for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
-                if (*it == *resIt) {
+                if (*it == res) {
                     it = myLastDispatch.erase(it);
                 } else {
                     ++it;
@@ -589,6 +588,8 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             }
             // remove reservation from the served reservations
             resIt = myCurrentReservations.erase(resIt);
+            // delete the reservation
+            myDispatcher->fulfilledReservation(res);
         } else {
             ++resIt;
         }
