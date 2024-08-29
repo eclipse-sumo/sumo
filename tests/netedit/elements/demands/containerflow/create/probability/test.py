@@ -43,9 +43,9 @@ netedit.changeContainerPlan("tranship", True)
 # set invalid arrival pos
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.spacing, "dummySpacing")
 
-# create route using edge and containerStop
+# create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()

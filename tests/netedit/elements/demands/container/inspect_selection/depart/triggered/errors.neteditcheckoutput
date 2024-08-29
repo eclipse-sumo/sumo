@@ -1,2 +1,2 @@
-Error: Triggered departure for container 'f_0' requires starting with a transport.
+Error: Unknown vehicle 'ANY' in triggered departure for container 'f_0'.
 Quitting (on error).

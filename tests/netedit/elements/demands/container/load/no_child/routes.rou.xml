@@ -5,5 +5,5 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <container id="p_0" depart="0.00"/>
+    <container id="c_0" depart="0.00"/>
 </routes>

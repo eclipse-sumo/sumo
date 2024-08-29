@@ -1795,28 +1795,13 @@ def changeContainerPlan(containerPlan, flow):
     focusOnFrame()
     # jump to container plan
     if (flow):
-        for _ in range(22):
+        for _ in range(23):
             typeTab()
     else:
-        for _ in range(15):
+        for _ in range(16):
             typeTab()
     # paste the new containerPlan
     pasteIntoTextField(containerPlan)
-    # type enter to save change
-    typeEnter()
-
-
-def changeContainerFlowPlan(containerFlowPlan):
-    """
-    @brief change containerFlowPlan
-    """
-    # focus current frame
-    focusOnFrame()
-    # jump to containerFlow plan
-    for _ in range(23):
-        typeTab()
-    # paste the new containerFlowPlan
-    pasteIntoTextField(containerFlowPlan)
     # type enter to save change
     typeEnter()
 

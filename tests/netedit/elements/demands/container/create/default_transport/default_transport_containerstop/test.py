@@ -37,9 +37,9 @@ netedit.containerMode()
 # change container plan
 netedit.changeContainerPlan("transport", False)
 
-# create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+# create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
 
 # press enter to create route
 netedit.typeEnter()

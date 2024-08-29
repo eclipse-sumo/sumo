@@ -1,3 +1,11 @@
 default_transport_fromto
 
+default_transport_busstop
+
+default_transport_trainstop
+
 default_transport_containerstop
+
+default_transport_chargingstation
+
+default_transport_parkingarea

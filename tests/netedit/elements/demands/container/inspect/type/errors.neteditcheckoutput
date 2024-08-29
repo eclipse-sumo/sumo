@@ -1,1 +1,1 @@
-Warning: Container 'c_0' aborted waiting for ANY at edge 'Edge0'.
+Warning: Container 'p_0' receives type 'custom_vType' which implicitly uses unsuitable vClass 'passenger'.

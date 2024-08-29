@@ -37,25 +37,25 @@ netedit.containerMode()
 # change container plan
 netedit.changeContainerPlan("tranship", False)
 
-# create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
+# create route using edge and busStop
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()
+
+# create route using edge and busStop
+netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid container number
 netedit.changeDefaultValue(netedit.attrs.container.create.id, ";;;;")
 
-# create route using edge and containerStop
-netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
-
 # press enter to create route
 netedit.typeEnter()
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.container.create.id, "c_0")
+netedit.changeDefaultValue(netedit.attrs.container.create.id, "p_0")
 
 # press enter to create route
 netedit.typeEnter()

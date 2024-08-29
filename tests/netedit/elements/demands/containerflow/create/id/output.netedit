@@ -4,11 +4,11 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 containerFlow
 tranship
 TestFunctions: Clicked over position 685 - 611
-TestFunctions: Clicked over position 715 - 163
+TestFunctions: Clicked over position 600 - 179
 ;;;;
 TestFunctions: Clicked over position 685 - 611
-TestFunctions: Clicked over position 715 - 163
-cf_0
+TestFunctions: Clicked over position 600 - 179
+pf_0
 customID
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

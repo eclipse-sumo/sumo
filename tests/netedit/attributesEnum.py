@@ -3445,7 +3445,8 @@ class container:
         id = 8
         colorButton = 9
         color = 10
-        depart = 11
+        departPos = 11
+        depart = 12
 
     class inspect:
         id = 1
@@ -3453,15 +3454,17 @@ class container:
         type = 3
         colorButton = 5
         color = 6
-        depart = 7
-        parameters = 10
+        departPos = 7
+        depart = 8
+        parameters = 11
 
     class inspectSelection:
         type = 1
         colorButton = 3
         color = 4
-        depart = 5
-        parameters = 8
+        departPos = 5
+        depart = 6
+        parameters = 9
 
     transformTo = 8
 
@@ -3471,13 +3474,14 @@ class containerFlow:
         id = 8
         colorButton = 9
         color = 10
-        begin = 11
-        terminate = 15
-        end = 17
-        number = 18
-        spacing = 17
-        terminateOption = 19
-        spacingOption = 20
+        departPos = 11
+        begin = 12
+        terminate = 16
+        end = 18
+        number = 19
+        spacing = 18
+        terminateOption = 20
+        spacingOption = 21
 
     class inspect:
         id = 1
@@ -3485,24 +3489,26 @@ class containerFlow:
         type = 3
         colorButton = 5
         color = 6
-        begin = 7
-        terminate = 10
-        spacing = 12
-        end = 13
-        terminateOption = 14
-        spacingOption = 15
-        parameters = 17
+        departPos = 7
+        begin = 8
+        terminate = 11
+        spacing = 13
+        end = 14
+        terminateOption = 15
+        spacingOption = 16
+        parameters = 18
 
     class inspectSelection:
         type = 1
         colorButton = 3
         color = 4
-        begin = 5
-        terminate = 8
-        spacing = 10
-        terminateOption = 12
-        spacingOption = 13
-        parameters = 15
+        departPos = 5
+        begin = 6
+        terminate = 9
+        spacing = 11
+        terminateOption = 13
+        spacingOption = 14
+        parameters = 16
 
     transformTo = 8
 

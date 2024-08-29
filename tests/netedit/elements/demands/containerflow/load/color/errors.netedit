@@ -1,3 +1,3 @@
-Error: Attribute 'color' in definition of containerFlow 'p_1' Invalid color definition ''.
-Error: Attribute 'color' in definition of containerFlow 'p_2' Invalid color definition 'dummycolor'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140618.4335/netedit.gui/elements/demands/containerflow/load/color/routes.rou.xml failed.
+Error: Attribute 'color' in definition of containerFlow 'c_1' Invalid color definition ''.
+Error: Attribute 'color' in definition of containerFlow 'c_2' Invalid color definition 'dummycolor'.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.29Aug101903.2290/netedit.gui/elements/demands/containerflow/load/color/routes.rou.xml failed.

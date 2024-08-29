@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-12 15:56:35 by Eclipse SUMO netedit Version v1_20_0+1833-b61afb2ac47
+<!-- generated on 2024-08-12 10:37:26 by Eclipse SUMO netedit Version v1_20_0+1566-acc454c42ca
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,15 +14,15 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <additional-files value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/additionals.add.xml"/>
-        <route-files value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/routes.rou.xml"/>
-        <data-files value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/datas.dat.xml"/>
-        <sumo-net-file value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/net.net.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\additionals.add.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\routes.rou.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\datas.dat.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\net.net.xml"/>
     </input>
 
     <output>
         <write-license value="true"/>
-        <output-file value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -49,16 +49,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\gui-settings.xml"/>
         <window-size value="1280, 720"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
-        <gui-testing.setting-output value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="/home/palcraft/.texttest/tmp/netedit.gui.12Aug142743.18846/netedit.gui/elements/demands/containerflow/delete/log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug103546.27792\netedit.gui\elements\demands\personflow\delete\log.txt"/>
     </report>
 
 </neteditConfiguration>

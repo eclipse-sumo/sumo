@@ -5,7 +5,7 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="p_0" begin="0.00" end="23.00" containersPerHour="1200.00">
+    <containerFlow id="c_0" begin="0.00" end="23.00" containersPerHour="1200.00">
             <!-- valid generic parameter (valid) -->
         <param key="key1" value="value1"/>
 
@@ -35,7 +35,7 @@
 
          <!-- valid generic parameter (valid) -->
          <param key="keyFinal" value="valueFinal"/>
- 
+
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 </routes>

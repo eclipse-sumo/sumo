@@ -5,35 +5,35 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
-    <containerFlow id="p_0" begin="0.00" end="23.00" probability="10">
+    <containerFlow id="c_0" begin="0.00" end="23.00" probability="10">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_1" begin="0.00" end="23.00" probability="dummyProb">
+    <containerFlow id="c_1" begin="0.00" end="23.00" probability="dummyProb">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_2" begin="0.00" end="23.00" probability="">
+    <containerFlow id="c_2" begin="0.00" end="23.00" probability="">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_3" begin="0.00" end="23.00" probability="-10">
+    <containerFlow id="c_3" begin="0.00" end="23.00" probability="-10">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_4" begin="0.00" end="23.00" probability="0">
+    <containerFlow id="c_4" begin="0.00" end="23.00" probability="0">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_5" begin="0.00" end="23.00" probability="20.30">
+    <containerFlow id="c_5" begin="0.00" end="23.00" probability="20.30">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_6" begin="0.00" end="23.00" probability="1">
+    <containerFlow id="c_6" begin="0.00" end="23.00" probability="1">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 
-    <containerFlow id="p_7" begin="0.00" end="23.00" probability="0.3">
+    <containerFlow id="c_7" begin="0.00" end="23.00" probability="0.3">
         <tranship from="Edge0" to="Edge2"/>
     </containerFlow>
 </routes>

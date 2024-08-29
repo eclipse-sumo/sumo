@@ -37,7 +37,7 @@ netedit.containerMode()
 # change container plan
 netedit.changeContainerPlan("tranship (edges)", False)
 
-# create route using three edges
+# create container
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

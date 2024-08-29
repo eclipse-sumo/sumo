@@ -40,9 +40,9 @@ netedit.changeElement("containerFlow")
 # change container plan
 netedit.changeContainerPlan("tranship", True)
 
-# create route using edge and containerStop
+# create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # set invalid containerFlow number
 netedit.changeColorUsingDialog(netedit.attrs.containerFlow.create.colorButton, 5)
@@ -53,9 +53,9 @@ netedit.typeEnter()
 # set invalid containerFlow number
 netedit.changeDefaultValue(netedit.attrs.containerFlow.create.color, "Vlue")
 
-# create route using edge and containerStop
+# create route using edge and busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStop)
 
 # press enter to create route
 netedit.typeEnter()

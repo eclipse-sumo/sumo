@@ -19,5 +19,5 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="custom_vType" length="20.00" vClass="ignoring" width="5.00" height="12.00" color="cyan"/>
+    <vType id="custom_vType" length="20.00" width="5.00" height="12.00" color="cyan"/>
 </routes>

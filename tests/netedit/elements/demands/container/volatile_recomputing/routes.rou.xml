@@ -6,7 +6,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, containers and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <transport from="EdgeExternBot" to="EdgeExternTop"/>
+        <tranship from="EdgeExternBot" to="EdgeExternTop"/>
     </container>
     <container id="c_1" depart="0.00">
         <tranship from="EdgeExternTop" to="EdgeExternBot"/>
@@ -15,6 +15,6 @@
         <tranship from="Edge0" to="EdgeCenter1"/>
     </container>
     <container id="c_3" depart="0.00">
-        <transport from="EdgeCenter1" to="Edge5"/>
+        <tranship from="EdgeCenter1" to="Edge5"/>
     </container>
 </routes>

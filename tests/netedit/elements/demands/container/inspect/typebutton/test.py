@@ -34,6 +34,9 @@ netedit.supermodeDemand()
 # go to container mode
 netedit.containerMode()
 
+# change Container
+netedit.changeElement("containerFlow")
+
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
 netedit.leftClick(referencePosition, netedit.positions.elements.edge2)

@@ -39,14 +39,14 @@ netedit.changeElement("containerFlow")
 
 # create container using three edges
 netedit.leftClick(referencePosition, netedit.positions.elements.edge0)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
 
 # press enter to create container
 netedit.typeEnter()
 
 # create container using three edges
-netedit.leftClick(referencePosition, netedit.positions.elements.edge3)
-netedit.leftClick(referencePosition, netedit.positions.elements.edge5)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge1)
+netedit.leftClick(referencePosition, netedit.positions.elements.edge2)
 
 # press enter to create container
 netedit.typeEnter()
@@ -67,7 +67,7 @@ netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, ";;;;;;;;", Fals
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "id with spaces", False)
 
 # change ID with an invalid value
-netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "cf_1", False)
+netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "pf_1", False)
 
 # change ID with an invalid value (empty)
 netedit.modifyAttribute(netedit.attrs.containerFlow.inspect.id, "customID", False)

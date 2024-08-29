@@ -1,4 +1,4 @@
-Error: Attribute 'end' in definition of containerFlow 'p_1' is empty.
-Error: Attribute 'end' in definition of containerFlow 'p_2' is not a valid time value.
-Error: ContainerFlow 'p_3' ends before its begin time.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.16Jul140618.4335/netedit.gui/elements/demands/containerflow/load/end/routes.rou.xml failed.
+Error: Attribute 'end' in definition of containerFlow 'c_1' is empty.
+Error: Attribute 'end' in definition of containerFlow 'c_2' is not a valid time value.
+Error: ContainerFlow 'c_3' ends before its begin time.
+Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.29Aug101903.2290/netedit.gui/elements/demands/containerflow/load/end/routes.rou.xml failed.

@@ -38,9 +38,9 @@ netedit.containerMode()
 netedit.changeElement("containerFlow")
 
 # change container plan
-netedit.changeContainerPlan("stop", True)
+netedit.changeContainerPlan("Container Stop", True)
 
-# create route clicking over containerStop
+# create route clicking over busStop
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.containerStop)
 
 # Check undo redo
