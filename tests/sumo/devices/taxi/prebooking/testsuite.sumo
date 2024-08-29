@@ -21,5 +21,8 @@ default_reservationTime
 
 # 4 persons that do not want to share a taxi but use a sharing dispatcher
 4persons_abort
+
+# replicating crash #15385
+2persons_abort
 greedy
 greedyShared
