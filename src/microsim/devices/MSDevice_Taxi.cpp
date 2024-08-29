@@ -601,6 +601,14 @@ MSDevice_Taxi::cancelCustomer(const MSTransportable* t) {
             myState |= PICKUP;  // add state PICKUP
         }
     }
+    // we also have to clean reservations from myLastDispatch where the customers arrived in the meantime
+    for (auto it = myLastDispatch.begin(); it != myLastDispatch.end();) {
+        if (myCurrentReservations.count(*it) == 0) {
+            it = myLastDispatch.erase(it);
+        } else {
+            ++it;
+        }
+    }
     // if there are reservations left, go on with the dispatch
     // in meso, wait for the next dispatch cycle to avoid updating stops in this stage
     if (!MSGlobals::gUseMesoSim) {
