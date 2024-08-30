@@ -1,3 +1,18 @@
  Retrying in 1 seconds
-segment: 'A1B1:0'
-segment index: 0
+step=1.0 segment='WC:0' segmentIndex=0 laneIndex=0
+step=2.0 segment='WC:0' segmentIndex=0 laneIndex=0
+step=3.0 segment='WC:0' segmentIndex=0 laneIndex=0
+step=4.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=5.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=6.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=7.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=8.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=9.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=10.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=11.0 segment='WC:1' segmentIndex=1 laneIndex=4
+step=12.0 segment='CN:0' segmentIndex=0 laneIndex=0
+step=13.0 segment='CN:0' segmentIndex=0 laneIndex=0
+step=14.0 segment='CN:0' segmentIndex=0 laneIndex=0
+step=15.0 segment='CN:1' segmentIndex=1 laneIndex=0
+step=16.0 segment='CN:1' segmentIndex=1 laneIndex=0
+step=17.0 segment='CN:1' segmentIndex=1 laneIndex=0

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-30 10:02:16 by Eclipse SUMO sumo Version v1_20_0+1803-cb39f1cdf6b
+<!-- generated on 2024-08-30 10:04:53 by Eclipse SUMO sumo Version v1_20_0+1803-cb39f1cdf6b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,18 +18,21 @@
     </report>
 
     <traci_server>
-        <remote-port value="43253"/>
+        <remote-port value="58629"/>
     </traci_server>
 
     <mesoscopic>
+        <mesosim value="true"/>
+        <meso-edgelength value="50"/>
         <meso-multi-queue value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </sumoConfiguration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="v" type="car" depart="0.00" departSpeed="13.89" speedFactor="1.0600" arrival="23.00">
+    <vehicle id="v" type="car" depart="0.00" departSpeed="14.7215" speedFactor="1.0600" arrival="17.00">
         <route edges="WC CN"/>
         <stop edge="WC" duration="5.00"/>
     </vehicle>

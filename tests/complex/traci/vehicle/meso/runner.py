@@ -29,17 +29,27 @@ import traci.constants as tc  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
-             "-n", "input_net4.net.xml",
+             "-n", "input_net3.net.xml",
              "-r", "input_routes.rou.xml",
              "--stop-output", "stopinfos.xml",
              "--vehroute-output", "vehroutes.xml",
+             "--meso-multi-queue",
+             "--meso-edgelength", "50",
              "--no-step-log",
              ] + sys.argv[1:])
 
 
 vehID = "v"
-traci.simulationStep()
-print("segment: '%s'" % traci.vehicle.getSegmentID(vehID))
-print("segment index: %s" % traci.vehicle.getSegmentIndex(vehID))
+while traci.simulation.getMinExpectedNumber() > 0:
+    traci.simulationStep()
+    try:
+        print("step=%s segment='%s' segmentIndex=%s laneIndex=%s" % (
+            traci.simulation.getTime(),
+            traci.vehicle.getSegmentID(vehID),
+            traci.vehicle.getSegmentIndex(vehID),
+            traci.vehicle.getLaneIndex(vehID)
+            ))
+    except traci.TraCIException:
+        pass
 
 traci.close()

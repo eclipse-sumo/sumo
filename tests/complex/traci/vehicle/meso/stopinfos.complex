@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-30 09:47:42 by Eclipse SUMO sumo Version v1_20_0+1799-384dc38eb3e
+<!-- generated on 2024-08-30 10:02:16 by Eclipse SUMO sumo Version v1_20_0+1803-cb39f1cdf6b
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net4.net.xml"/>
+        <net-file value="input_net3.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
     </input>
 
@@ -18,11 +18,16 @@
     </report>
 
     <traci_server>
-        <remote-port value="43173"/>
+        <remote-port value="43253"/>
     </traci_server>
+
+    <mesoscopic>
+        <meso-multi-queue value="true"/>
+    </mesoscopic>
 
 </sumoConfiguration>
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
+    <stopinfo id="v" type="car" lane="WC_3" pos="86.15" parking="0" started="8.00" ended="13.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
