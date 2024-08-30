@@ -1,19 +1,3 @@
-netedit/bugs/additionals/ticket3322/additionals.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'instantInductionLoop', attribute 'period': The attribute 'period' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'busStop', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'chargingStation', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'containerStop', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'inductionLoop', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'laneAreaDetector', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'entryExitDetector', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'detEntry', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'instantInductionLoop', attribute 'period': The attribute 'period' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'instantInductionLoop', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'parkingArea', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'space', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'space', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:15:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'space', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:17:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
-netedit/bugs/additionals/ticket3879/additionals.add.xml:18:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'variableSpeedSign', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
 netedit/elements/additionals/access/load/friendlypos/additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'busStop', attribute 'pos': The attribute 'pos' is not allowed.
 netedit/elements/additionals/access/load/friendlypos/additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'access', attribute 'friendlyPos': [facet 'enumeration'] The value 'dummyFriendlyPos' is not an element of the set {'true', 'false', 'True', 'False', 'yes', 'no', 'on', 'off', '1', '0', 'x', '-'}.
 netedit/elements/additionals/access/load/invalid_parent/additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'busStop', attribute 'pos': The attribute 'pos' is not allowed.
@@ -28,7 +12,6 @@ netedit/elements/additionals/access/load/pos/additionals.add.xml:2:0:ERROR:SCHEM
 netedit/elements/additionals/access/load/pos/additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'access', attribute 'pos': 'dummyPosition' is not a valid value of the union type 'accessPosType'.
 netedit/elements/additionals/access/load/pos/additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'access', attribute 'pos': '' is not a valid value of the union type 'accessPosType'.
 netedit/elements/additionals/access/load/pos/additionals.add.xml:21:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'busStop', attribute 'pos': The attribute 'pos' is not allowed.
-netedit/elements/additionals/basic/relative_positions/additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'instantInductionLoop', attribute 'period': The attribute 'period' is not allowed.
 netedit/elements/additionals/busstop/load/color/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'busStop', attribute 'color': 'dummyparkingLength' is not a valid value of the union type 'colorType'.
 netedit/elements/additionals/busstop/load/color/additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'busStop', attribute 'color': '-7' is not a valid value of the union type 'colorType'.
 netedit/elements/additionals/busstop/load/endpos/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'busStop', attribute 'endPos': [facet 'pattern'] The value 'dummyEndPos' is not accepted by the pattern '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)'.
@@ -355,32 +338,26 @@ netedit/elements/additionals/variablespeedsign/load/id/additionals.add.xml:3:0:E
 netedit/elements/additionals/variablespeedsign/load/lanes/additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'variableSpeedSign': The attribute 'lanes' is required but missing.
 netedit/elements/additionals/variablespeedsign/load/parameters/additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/elements/additionals/variablespeedsign/load/parameters/additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:54:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:55:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:55:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:59:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:59:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:60:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:61:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'param', attribute 'kelat': The attribute 'kelat' is not allowed.
-netedit/elements/shapes/poigeo/inspect_selected/parameters/additionals.add.xml:61:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/elements/shapes/poi/inspect_selected/additionals.add.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
+netedit/elements/shapes/poi/inspect_selected/additionals.add.xml:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
+netedit/elements/shapes/poigeo/inspect_selected/additionals.add.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
+netedit/elements/shapes/poigeo/inspect_selected/additionals.add.xml:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
+netedit/elements/shapes/poilane/inspect_selected/additionals.add.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
+netedit/elements/shapes/poilane/inspect_selected/additionals.add.xml:58:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'poi', attribute 'relativePath': The attribute 'relativePath' is not allowed.
 sumo/devices/rerouting/personTrip/errors/access_invalid/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'access': This element is not expected.
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/build_config/schemaCheck.py", line 52, in validate
+  File "D:\SUMO\tools\build_config\schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
-  File "src/lxml/etree.pyx", line 3536, in lxml.etree.parse
-  File "src/lxml/parser.pxi", line 1876, in lxml.etree._parseDocument
-  File "src/lxml/parser.pxi", line 1902, in lxml.etree._parseDocumentFromURL
-  File "src/lxml/parser.pxi", line 1805, in lxml.etree._parseDocFromFile
-  File "src/lxml/parser.pxi", line 1177, in lxml.etree._BaseParser._parseDocFromFile
-  File "src/lxml/parser.pxi", line 615, in lxml.etree._ParserContext._handleParseResultDoc
-  File "src/lxml/parser.pxi", line 725, in lxml.etree._handleParseResult
-  File "src/lxml/parser.pxi", line 654, in lxml.etree._raiseParseError
-  File "/scr1/sumo/tests/sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml", line 5
+  File "src\lxml\etree.pyx", line 3541, in lxml.etree.parse
+  File "src\lxml\parser.pxi", line 1879, in lxml.etree._parseDocument
+  File "src\lxml\parser.pxi", line 1905, in lxml.etree._parseDocumentFromURL
+  File "src\lxml\parser.pxi", line 1808, in lxml.etree._parseDocFromFile
+  File "src\lxml\parser.pxi", line 1180, in lxml.etree._BaseParser._parseDocFromFile
+  File "src\lxml\parser.pxi", line 618, in lxml.etree._ParserContext._handleParseResultDoc
+  File "src\lxml\parser.pxi", line 728, in lxml.etree._handleParseResult
+  File "src\lxml\parser.pxi", line 657, in lxml.etree._raiseParseError
+  File "file:/D:/SUMO/tests/sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml", line 5
 lxml.etree.XMLSyntaxError: Opening and ending tag mismatch: additional line 1 and calibrator, line 5, column 18
 sumo/extended/vaporizer/errors/begin_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vaporizer', attribute 'begin': [facet 'minInclusive'] The value '-10' is less than the minimum value allowed ('0').
