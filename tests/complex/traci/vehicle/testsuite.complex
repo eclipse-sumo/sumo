@@ -147,3 +147,6 @@ keepAfterArrival_state
 
 # handle default duration argument (#14904)
 setStop_default_state
+
+# test meso-specific functions
+meso
