@@ -210,7 +210,10 @@ except traci.TraCIException:
     pass
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
-traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
+try:
+    traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
+except traci.TraCIException:
+    pass
 sys.stderr.flush()
 
 check(vehID)
