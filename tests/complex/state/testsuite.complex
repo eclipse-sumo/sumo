@@ -55,6 +55,9 @@ save_parking_busStop
 save_rail_signal
 save_rail_signal_constraint
 
+# with more trackers
+save_rail_signal_constraint2
+
 # include the actual constraints in the saved state
 save_rail_signal_constraint_include
 save_rail_signal_approach_steplength
