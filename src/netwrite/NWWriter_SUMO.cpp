@@ -556,7 +556,7 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
     }
     writePreferences(into, preferred);
     // some further information
-    into.writeAttr(SUMO_ATTR_SPEED, speed);
+    into.writeAttr(SUMO_ATTR_SPEED, MAX2(0.0, speed));
     if (friction != NBEdge::UNSPECIFIED_FRICTION) {
         into.writeAttr(SUMO_ATTR_FRICTION, friction);
     }
@@ -574,6 +574,8 @@ NWWriter_SUMO::writeLane(OutputDevice& into, const std::string& lID,
         into.writeAttr(SUMO_ATTR_CUSTOMSHAPE, true);
     }
     if (endOffset > 0 || startOffset > 0) {
+        startOffset = MIN2(startOffset, shape.length() - POSITION_EPS);
+        endOffset = MIN2(endOffset, shape.length() - startOffset - POSITION_EPS);
         assert(startOffset + endOffset < shape.length());
         shape = shape.getSubpart(startOffset, shape.length() - endOffset);
     }

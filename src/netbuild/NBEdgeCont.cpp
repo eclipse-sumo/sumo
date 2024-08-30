@@ -936,21 +936,13 @@ NBEdgeCont::recheckLanes() {
         const double startOffset = edge->isBidiRail() ? edge->getTurnDestination(true)->getEndOffset() : 0;
         int i = 0;
         for (const NBEdge::Lane& l : edge->getLanes()) {
-            std::string error;
             if (startOffset + l.endOffset > edge->getLength()) {
-                error = TLF("Invalid endOffset % at lane '%' with length % (startOffset %).",
+                WRITE_WARNINGF(TL("Invalid endOffset % at lane '%' with length % (startOffset %)."),
                             toString(l.endOffset), edge->getLaneID(i), toString(l.shape.length()), toString(startOffset));
             } else if (l.speed < 0.) {
-                error = TLF("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this.", toString(l.speed), edge->getLaneID(i));
+                WRITE_WARNINGF(TL("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."), toString(l.speed), edge->getLaneID(i));
             } else if (l.speed == 0.) {
                 WRITE_WARNINGF(TL("Lane '%' has a maximum allowed speed of 0."), edge->getLaneID(i));
-            }
-            if (!error.empty()) {
-                if (OptionsCont::getOptions().getBool("ignore-errors")) {
-                    WRITE_ERROR(error);
-                } else {
-                    throw ProcessError(error);
-                }
             }
             i++;
         }
