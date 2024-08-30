@@ -1046,6 +1046,10 @@
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
@@ -1068,6 +1072,10 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromTaz" type="xsd:string"/>
+                    <xsd:attribute name="toTaz" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="trainStop" type="xsd:string"/>
                     <xsd:attribute name="parkingArea" type="xsd:string"/>
