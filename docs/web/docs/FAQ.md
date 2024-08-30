@@ -1079,6 +1079,11 @@ Further safey-critical behaviors are described at [Safety](Simulation/Safety.md#
 If no [collisions](Simulation/Safety.md#collisions) have been reported, this is due to [length-geometry mismatch](Simulation/Distances.md#length-geometry-mismatch) and not [scaling the vehicle length
 to geometry](sumo-gui.md#scaling).
 
+### How do I model pedestrians crossing the road at random locations ?
+
+The closes approach currently supported, is to split the edge multiple times and put a non-prioritized pedestrian crossings at each split.
+Then configuring some pedestrians to use these in a reckless manner.
+The latter is accomplished by setting vType attributes `jmIgnoreFoeProb` and `jmIgnoreFoeSpeed` to ignore foes that are approaching the junction below the given speed with the given probability.
 
 ## Visualization
 
