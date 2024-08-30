@@ -1432,7 +1432,6 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 TAZSource->setAttribute(SUMO_ATTR_WEIGHT, toString(departWeight), nullptr);
-                TAZSource->incRef("buildTAZSource");
             }
         }
     }
@@ -1505,7 +1504,6 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 TAZSink->setAttribute(SUMO_ATTR_WEIGHT, toString(arrivalWeight), nullptr);
-                TAZSink->incRef("buildTAZSink");
             }
         }
     }
