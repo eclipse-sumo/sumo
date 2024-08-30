@@ -38,7 +38,7 @@
 // ===========================================================================
 // static value definitions
 // ===========================================================================
-std::map<const MSLane*, MSRailSignalConstraint_Predecessor::PassedTracker*> MSRailSignalConstraint_Predecessor::myTrackerLookup;
+std::map<const MSLane*, MSRailSignalConstraint_Predecessor::PassedTracker*, ComparatorNumericalIdLess> MSRailSignalConstraint_Predecessor::myTrackerLookup;
 
 // ===========================================================================
 // MSRailSignalConstraint method definitions

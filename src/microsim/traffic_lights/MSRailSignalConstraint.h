@@ -202,7 +202,7 @@ public:
     const MSRailSignal* myFoeSignal;
 
 
-    static std::map<const MSLane*, PassedTracker*> myTrackerLookup;
+    static std::map<const MSLane*, PassedTracker*, ComparatorNumericalIdLess> myTrackerLookup;
 
 private:
     /// invalidated assignment operator
