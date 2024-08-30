@@ -1397,6 +1397,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSink);
+                TAZ->addChildElement(TAZSink);
                 TAZSink->incRef("buildTAZSource");
             }
         }
@@ -1420,6 +1421,7 @@ GNEAdditionalHandler::buildTAZSource(const CommonXMLStructure::SumoBaseObject* s
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSource);
+                TAZ->addChildElement(TAZSource);
                 TAZSource->incRef("buildTAZSource");
             }
         } else {
@@ -1469,6 +1471,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSource);
+                TAZ->addChildElement(TAZSource);
                 TAZSource->incRef("buildTAZSink");
             }
         }
@@ -1491,6 +1494,7 @@ GNEAdditionalHandler::buildTAZSink(const CommonXMLStructure::SumoBaseObject* sum
                 myNet->getViewNet()->getUndoList()->end();
             } else {
                 myNet->getAttributeCarriers()->insertAdditional(TAZSink);
+                TAZ->addChildElement(TAZSink);
                 TAZSink->incRef("buildTAZSink");
             }
         } else {
