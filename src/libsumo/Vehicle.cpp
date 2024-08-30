@@ -722,9 +722,11 @@ Vehicle::getDrivingDistance2D(const std::string& vehID, double x, double y) {
         return INVALID_DOUBLE_VALUE;
     }
     if (veh->isOnRoad()) {
+        MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+        const MSLane* lane = microVeh != nullptr ? veh->getLane() : veh->getEdge()->getLanes()[0];
         std::pair<MSLane*, double> roadPos = Helper::convertCartesianToRoadMap(Position(x, y), veh->getVehicleType().getVehicleClass());
         double distance = veh->getRoute().getDistanceBetween(veh->getPositionOnLane(), roadPos.second,
-                          veh->getLane(), roadPos.first, veh->getRoutePosition());
+                          lane, roadPos.first, veh->getRoutePosition());
         if (distance == std::numeric_limits<double>::max()) {
             return INVALID_DOUBLE_VALUE;
         }
