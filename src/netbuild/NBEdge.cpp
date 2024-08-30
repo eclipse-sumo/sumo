@@ -1695,6 +1695,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     const double limitTurnSpeedWarnTurn = oc.getFloat("junctions.limit-turn-speed.warn.turn");
     const bool higherSpeed = oc.getBool("junctions.higher-speed");
     const double interalJunctionVehicleWidth = oc.getFloat("internal-junctions.vehicle-width");
+    const double defaultContPos = oc.getFloat("default.connection.cont-pos");
     const bool fromRail = isRailway(getPermissions());
     std::string innerID = ":" + n.getID();
     NBEdge* toEdge = nullptr;
@@ -1886,6 +1887,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 index++;
             }
 
+        }
+        if (con.contPos == UNSPECIFIED_CONTPOS) {
+            con.contPos = defaultContPos;
         }
         if (con.contPos != UNSPECIFIED_CONTPOS) {
             // apply custom internal junction position
