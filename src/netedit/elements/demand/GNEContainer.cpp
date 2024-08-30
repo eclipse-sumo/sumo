@@ -362,7 +362,7 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             // translate and rotate
             glTranslated(containerPosition.x(), containerPosition.y(), 0);
             glRotated(90, 0, 0, 1);
-            // set person color
+            // set container color
             GLHelper::setColor(getDrawingColor(s));
             // set scale
             glScaled(exaggeration, exaggeration, 1);
@@ -416,11 +416,6 @@ GNEContainer::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw name
             drawName(containerPosition, s.scale, s.containerName, s.angle);
-            if (s.personValue.show(this)) {
-                Position containerValuePosition = containerPosition + Position(0, 0.6 * s.containerName.scaledSize(s.scale));
-                const double value = getColorValue(s, s.containerColorer.getActive());
-                GLHelper::drawTextSettings(s.personValue, toString(value), containerValuePosition, s.scale, s.angle, GLO_MAX - getType());
-            }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), exaggeration);
             // draw dotted contour
@@ -522,24 +517,24 @@ GNEContainer::getAttributePosition(SumoXMLAttr key) const {
             if (getChildDemandElements().empty()) {
                 return Position();
             }
-            // get person plan
-            const GNEDemandElement* personPlan = getChildDemandElements().front();
-            // first check if first person plan is a stop
-            if (personPlan->getTagProperty().isPlanStopPerson()) {
+            // get container plan
+            const GNEDemandElement* containerPlan = getChildDemandElements().front();
+            // first check if first container plan is a stop
+            if (containerPlan->getTagProperty().isPlanStopContainer()) {
                 // stop center
-                return personPlan->getPositionInView();
-            } else if (personPlan->getTagProperty().planFromTAZ()) {
+                return containerPlan->getPositionInView();
+            } else if (containerPlan->getTagProperty().planFromTAZ()) {
                 // TAZ
-                if (personPlan->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
-                    return personPlan->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
+                if (containerPlan->getParentAdditionals().front()->getAttribute(SUMO_ATTR_CENTER).empty()) {
+                    return containerPlan->getParentAdditionals().front()->getAttributePosition(GNE_ATTR_TAZ_CENTROID);
                 } else {
-                    return personPlan->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
+                    return containerPlan->getParentAdditionals().front()->getAttributePosition(SUMO_ATTR_CENTER);
                 }
-            } else if (personPlan->getTagProperty().planFromJunction()) {
+            } else if (containerPlan->getTagProperty().planFromJunction()) {
                 // juncrtion
-                return personPlan->getParentJunctions().front()->getPositionInView();
+                return containerPlan->getParentJunctions().front()->getPositionInView();
             } else {
-                return personPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
+                return containerPlan->getAttributePosition(GNE_ATTR_PLAN_GEOMETRY_STARTPOS);
             }
         }
         default:
@@ -703,7 +698,7 @@ GNEContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         //}
         int textureID = GUITexturesHelper::getTextureID(file);
         if (textureID > 0) {
-            const double exaggeration = s.personSize.getExaggeration(s, this);
+            const double exaggeration = s.containerSize.getExaggeration(s, this);
             const double halfLength = length / 2.0 * exaggeration;
             const double halfWidth = width / 2.0 * exaggeration;
             GUITexturesHelper::drawTexturedBox(textureID, -halfWidth, -halfLength, halfWidth, halfLength);
