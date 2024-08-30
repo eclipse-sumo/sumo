@@ -386,14 +386,14 @@ class VehicleDomain(VTypeDomain):
     def getSegmentID(self, vehID):
         """getSegmentID(string) -> string
 
-        Returns the id of the segment the named vehicle was at within the last step.
+        Returns the id of the segment the named vehicle was at within the last step (mesosim).
         """
         return self._getUniversal(tc.VAR_SEGMENT_ID, vehID)
 
     def getSegmentIndex(self, vehID):
         """getSegmentIndex(string) -> integer
 
-        Returns the index of the segment the named vehicle was at within the last step.
+        Returns the index of the segment the named vehicle was at within the last step (mesosim).
         """
         return self._getUniversal(tc.VAR_SEGMENT_INDEX, vehID)
 
