@@ -3512,80 +3512,227 @@ class containerFlow:
 
     transformTo = 8
 
-# ContainerPlans
+# PersonPlans
 
 
-class transportEdgeEdge:
-    class create:
-        arrivalPos = 8
-        lines = 9
+class transport:
+    class edge:
+        class edge:
+            class create:
+                arrivalPos = 8
+                lines = 9
 
-    class inspect:
-        arrivalPos = 1
-        lines = 2
+            class inspect:
+                arrivalPos = 1
+                lines = 2
 
-    class inspectSelection:
-        arrivalPos = 1
-        lines = 2
+            class inspectSelection:
+                arrivalPos = 1
+                lines = 2
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
+
+    class busStop:
+        class edge:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                arrivalPos = 1
+                lines = 2
+
+            class inspectSelection:
+                arrivalPos = 1
+                lines = 2
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
+
+    class junction:
+        class edge:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                arrivalPos = 1
+                lines = 2
+
+            class inspectSelection:
+                arrivalPos = 1
+                lines = 2
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                lines = 9
+
+            class inspect:
+                lines = 1
+
+            class inspectSelection:
+                lines = 1
 
 
-class transportEdgeContainerStop:
-    class create:
-        lines = 8
+class tranship:
+    class edge:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
 
-    class inspect:
-        lines = 1
+            class inspect:
+                arrivalPos = 1
+                speed = 2
 
-    class inspectSelection:
-        lines = 1
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
 
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
 
-class transhipEdgeEdge:
-    class create:
-        departPos = 8
-        arrivalPos = 9
-        speed = 9
+            class inspect:
+                speed = 1
 
-    class inspect:
-        departPos = 1
-        arrivalPos = 2
-        speed = 3
+            class inspectSelection:
+                speed = 1
 
-    class inspectSelection:
-        departPos = 1
-        arrivalPos = 2
-        speed = 3
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
 
+            class inspect:
+                speed = 1
 
-class transhipEdgeContainerStop:
-    class create:
-        departPos = 8
-        speed = 9
+            class inspectSelection:
+                speed = 1
 
-    class inspect:
-        departPos = 1
-        speed = 2
+    class busStop:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
 
-    class inspectSelection:
-        departPos = 1
-        speed = 2
+            class inspect:
+                arrivalPos = 1
+                speed = 2
 
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
 
-class transhipEdges:
-    class create:
-        departPos = 8
-        arrivalPos = 9
-        speed = 9
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
 
-    class inspect:
-        departPos = 1
-        arrivalPos = 2
-        speed = 3
+            class inspect:
+                speed = 1
 
-    class inspectSelection:
-        departPos = 1
-        arrivalPos = 2
-        speed = 3
+            class inspectSelection:
+                speed = 1
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
+
+            class inspect:
+                speed = 1
+
+            class inspectSelection:
+                speed = 1
+
+    class junction:
+        class edge:
+            class create:
+                arrivalPos = 8
+                speed = 9
+
+            class inspect:
+                arrivalPos = 1
+                speed = 2
+
+            class inspectSelection:
+                arrivalPos = 1
+                speed = 2
+
+        class busStop:
+            class create:
+                arrivalPos = 8
+                speed = 9
+
+            class inspect:
+                speed = 1
+
+            class inspectSelection:
+                speed = 1
+
+        class junction:
+            class create:
+                arrivalPos = 8
+                speed = 9
+
+            class inspect:
+                speed = 1
+
+            class inspectSelection:
+                speed = 1
 
 # stop plans
 
