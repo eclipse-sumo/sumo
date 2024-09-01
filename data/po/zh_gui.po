@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-03-12 10:13+0000\n"
+"PO-Revision-Date: 2024-09-02 03:09+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/sumo-gui-netedit/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/gui/GUIApplicationWindow.cpp:299 src/gui/GUIApplicationWindow.cpp:302
 #: src/gui/GUIApplicationWindow.cpp:2235 src/gui/GUIApplicationWindow.cpp:2236
@@ -162,21 +162,21 @@ msgstr "打开选单选择所选车道上允许的车辆类型。"
 
 #: src/gui/GUIApplicationWindow.cpp:506
 msgid "Set Breakpoint"
-msgstr ""
+msgstr "设置断点"
 
 #: src/gui/GUIApplicationWindow.cpp:506
 msgid "Sets a breakpoint at the current simulation step"
-msgstr ""
+msgstr "在当前的仿真步设置断点"
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid "Set Breakpoint with offset"
-msgstr ""
+msgstr "设置带偏移的断点"
 
 #: src/gui/GUIApplicationWindow.cpp:509
 msgid ""
 "Sets a breakpoint at the current simulation step + offset configured in "
 "application settings"
-msgstr ""
+msgstr "在当前仿真步设置一个带有程序预设偏移量的断点"
 
 #: src/gui/GUIApplicationWindow.cpp:512
 msgid "Edit Breakpoints"
@@ -839,11 +839,11 @@ msgstr "已载入。"
 
 #: src/gui/GUIApplicationWindow.cpp:1931
 msgid "SUMO Interactive Traffic Light"
-msgstr ""
+msgstr "SUMO交互式交通灯"
 
 #: src/gui/GUIApplicationWindow.cpp:1933
 msgid "SUMO Interactive Demand-Responsive-Transport"
-msgstr ""
+msgstr "SUMO交互式需求响应式公交"
 
 #: src/gui/GUIApplicationWindow.cpp:2048
 msgid "Simulation ended at time: %. (%)"
@@ -851,15 +851,15 @@ msgstr "仿真于此时刻结束：%.(%)"
 
 #: src/gui/GUIApplicationWindow.cpp:2051
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "仿真于此时刻结束：%."
 
 #: src/gui/GUIApplicationWindow.cpp:2052
 msgid "Reason:"
-msgstr ""
+msgstr "原因："
 
 #: src/gui/GUIApplicationWindow.cpp:2053
 msgid "Do you want to close all open files and views?"
-msgstr ""
+msgstr "你想关闭所有打开的文件和视图吗？"
 
 #: src/gui/GUIApplicationWindow.cpp:2054
 msgid "Simulation ended"
@@ -876,7 +876,7 @@ msgstr "秒"
 
 #: src/gui/GUIApplicationWindow.cpp:2449
 msgid "Set breakpoint at %"
-msgstr ""
+msgstr "在% 处设置断点"
 
 #: src/gui/GUILoadThread.cpp:206
 msgid "Could not load edgedata-files '%'"
@@ -1047,7 +1047,7 @@ msgstr "用于多模式微观交通仿真的图形用户界面。"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:56
 msgid "Includes JuPedSim %.%.%"
-msgstr ""
+msgstr "引入JuPedSim %.%.%"
 
 #: src/gui/dialogs/GUIDialog_AboutSUMO.cpp:62
 #: src/netedit/dialogs/GNEAbout.cpp:66
@@ -2025,7 +2025,7 @@ msgstr "备选数 [#]"
 
 #: src/guisim/GUIParkingArea.cpp:115
 msgid "access badges"
-msgstr ""
+msgstr "出入证"
 
 #: src/guisim/GUIPerson.cpp:234
 msgid "dest stop [id]"
@@ -2222,7 +2222,7 @@ msgstr "插入概率"
 
 #: src/guisim/GUIVehicle.cpp:159 src/mesogui/GUIMEVehicle.cpp:89
 msgid "poisson rate"
-msgstr ""
+msgstr "泊松分布的到达率"
 
 #: src/guisim/GUIVehicle.cpp:161
 msgid "stop info"
@@ -2286,7 +2286,7 @@ msgstr "换道状态为向左"
 
 #: src/guisim/GUIVehicle.cpp:186
 msgid "parking badges"
-msgstr ""
+msgstr "停车证"
 
 #: src/guisim/GUIVehicle.cpp:189
 msgid "lcState center"
@@ -2326,7 +2326,7 @@ msgstr "当前充电能量 [Wh]"
 
 #: src/guisim/GUIVehicle.cpp:205
 msgid "maximum charge rate [W]"
-msgstr ""
+msgstr "最大充电率 [W]"
 
 #: src/guisim/GUIVehicle.cpp:209
 msgid "present electric current [A]"
@@ -2806,7 +2806,7 @@ msgstr "成功载入路径档案： "
 
 #: src/netedit/GNEApplicationWindow.cpp:3888
 msgid "reloading demand elements from '%'"
-msgstr ""
+msgstr "从 '%' 重新载入需求元素"
 
 #: src/netedit/GNEApplicationWindow.cpp:3893
 msgid "Reloading of route file failed: "
@@ -3990,23 +3990,23 @@ msgstr "清除信息窗內信息。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2167
 msgid "Online Documentation"
-msgstr ""
+msgstr "在线文档"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2170
 msgid "Changelog"
-msgstr ""
+msgstr "更新日志"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2172
 msgid "Hotkeys"
-msgstr ""
+msgstr "快捷键"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2174
 msgid "Tutorial"
-msgstr ""
+msgstr "教程"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Feedback"
-msgstr ""
+msgstr "反馈"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2176
 msgid "Open feedback channels."
@@ -4014,7 +4014,7 @@ msgstr "打开反馈渠道。"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: src/netedit/GNEApplicationWindowHelper.cpp:2179
 msgid "About netedit."
@@ -4365,19 +4365,19 @@ msgstr "从档案载入meanData的描述"
 #: src/netedit/GNELoadThread.cpp:305
 msgid ""
 "Reset path values (additional, route, data...) after loading netedit config"
-msgstr ""
+msgstr "加载netedit配置后重置路线值（附加文件、路径、数据……）"
 
 #: src/netedit/GNELoadThread.cpp:308
 msgid "Load element selection"
-msgstr ""
+msgstr "加载元素选择"
 
 #: src/netedit/GNELoadThread.cpp:313
 msgid "File in which TLS Programs must be saved"
-msgstr "交通信号方案档案必须存储"
+msgstr "交通信号方案文件必须被存储"
 
 #: src/netedit/GNELoadThread.cpp:316
 msgid "File in which edgeTypes must be saved"
-msgstr "路段类型档案必须存储"
+msgstr "路段类型文件必须存储"
 
 #: src/netedit/GNELoadThread.cpp:322
 msgid "Start netedit with a new network"
@@ -4612,41 +4612,41 @@ msgstr "无法重置选项。"
 
 #: src/netedit/GNENet.cpp:315
 msgid "create edge"
-msgstr ""
+msgstr "创建路段"
 
 #: src/netedit/GNENet.cpp:374
 msgid "delete junction"
-msgstr "刪除路口"
+msgstr "删除路口"
 
 #: src/netedit/GNENet.cpp:416
 msgid "delete edge"
-msgstr "刪除路段"
+msgstr "删除路段"
 
 #: src/netedit/GNENet.cpp:489
 msgid "replace edge"
-msgstr "替換路段"
+msgstr "替换路段"
 
 #: src/netedit/GNENet.cpp:587
 msgid "delete lane"
-msgstr "刪除车道"
+msgstr "删除车道"
 
 #: src/netedit/GNENet.cpp:622
 msgid "delete connection"
-msgstr "刪除连接线"
+msgstr "删除连接线"
 
 #: src/netedit/GNENet.cpp:637
 msgid "delete crossing"
-msgstr "刪除人行道"
+msgstr "删除人行道"
 
 #: src/netedit/GNENet.cpp:655 src/netedit/GNENet.cpp:684
 #: src/netedit/GNENet.cpp:706 src/netedit/GNENet.cpp:719
 #: src/netedit/GNENet.cpp:732 src/netedit/GNENet.cpp:762
 msgid "delete "
-msgstr "刪除 "
+msgstr "删除 "
 
 #: src/netedit/GNENet.cpp:678
 msgid "Trying to delete a default Vehicle Type"
-msgstr "尝试刪除预设的车辆类型"
+msgstr "尝试删除默认的车辆类型"
 
 #: src/netedit/GNENet.cpp:771 src/netedit/GNEViewNet.cpp:2992
 msgid "duplicate lane"
@@ -4682,11 +4682,11 @@ msgstr "建立绕行"
 
 #: src/netedit/GNENet.cpp:1344
 msgid "Forced computing junctions with volatile options ..."
-msgstr "根据可变选项強制计算路口..."
+msgstr "根据可变选项强制计算路口..."
 
 #: src/netedit/GNENet.cpp:1346
 msgid "Forced computing junctions ..."
-msgstr "強制计算路口..."
+msgstr "强制计算路口..."
 
 #: src/netedit/GNENet.cpp:1353
 msgid "Computing junctions with volatile options ..."
@@ -4731,19 +4731,19 @@ msgstr "此路口將与其它已选择的路口一起进行合并。继续执行
 
 #: src/netedit/GNENet.cpp:1645 src/netedit/GNENet.cpp:1655
 msgid "Clear crossings"
-msgstr "清除人行道"
+msgstr "清除人行横道"
 
 #: src/netedit/GNENet.cpp:1646
 msgid "There are no invalid crossings to remove."
-msgstr "沒有要移除的无效人行道。"
+msgstr "沒有要移除的无效人行横道。"
 
 #: src/netedit/GNENet.cpp:1656
 msgid "Crossings will be cleared. Continue?"
-msgstr "人行道將被清除。继续执行？"
+msgstr "人行横道将被清除。继续执行？"
 
 #: src/netedit/GNENet.cpp:1667
 msgid "clear crossings"
-msgstr "清除人行道"
+msgstr "清除人行横道"
 
 #: src/netedit/GNENet.cpp:1680
 msgid "clear junctions"
@@ -4767,7 +4767,7 @@ msgstr "移除无效的需求要素"
 
 #: src/netedit/GNENet.cpp:1872
 msgid "replace junction by geometry"
-msgstr "用几何形狀替换路口"
+msgstr "用几何点替换路口"
 
 #: src/netedit/GNENet.cpp:1917
 msgid "Junction isn't removable"
@@ -4811,7 +4811,7 @@ msgstr "复制的ID"
 
 #: src/netedit/GNENet.cpp:2794
 msgid "Network size exceeds 1 Lightyear. Please reconsider your inputs."
-msgstr "路网規模超过 1 光年。 请重新考虑您的输入。"
+msgstr "路网规模超过 1 光年。 请重新考虑您的输入。"
 
 #: src/netedit/GNENetHelper.cpp:1504
 msgid "Default vType doesn't exist"
@@ -4819,19 +4819,19 @@ msgstr "预设的vType 不存在"
 
 #: src/netedit/GNENetHelper.cpp:2881
 msgid "Redo replace in TLS"
-msgstr "重作在交通信号內的替換"
+msgstr "重做在交通信号内的替换"
 
 #: src/netedit/GNENetHelper.cpp:2887
 msgid "Undo replace in TLS"
-msgstr "取消在交通信号內的替換"
+msgstr "取消在交通信号内的替换"
 
 #: src/netedit/GNEUndoList.cpp:452 src/netedit/GNEUndoList.cpp:454
 msgid "Cannot Undo in the middle of "
-msgstr ""
+msgstr "无法此过程中撤销： "
 
 #: src/netedit/GNEUndoList.cpp:499 src/netedit/GNEUndoList.cpp:501
 msgid "Cannot Redo in the middle of "
-msgstr ""
+msgstr "无法在此过程中重做： "
 
 #: src/netedit/GNEViewNet.cpp:353
 msgid "Locate a junction within the network. (Shift+J)"
@@ -4918,6 +4918,8 @@ msgid ""
 "Do you wish to merge junctions '%' and '%'?\n"
 "('%' will be eliminated and its roads added to '%')"
 msgstr ""
+"你想要合并路口 '%' 和 '%' 吗？\n"
+"（'%' 将会被删除，其路段会被添加到 '%'）"
 
 #: src/netedit/GNEViewNet.cpp:888
 msgid " requires switch to network mode. Continue?"
@@ -4945,12 +4947,12 @@ msgstr "有些选定的车道属于同一个路段。"
 
 #: src/netedit/GNEViewNet.cpp:954
 msgid "Only one lane per edge will be restricted to %."
-msgstr ""
+msgstr "每个路段只有一条车道会被限制在 %。"
 
 #: src/netedit/GNEViewNet.cpp:969 src/netedit/GNEViewNet.cpp:976
 #, c-format
 msgid "Set vclass to % for selected lanes"
-msgstr ""
+msgstr "将所选车道的限制车辆类型（vclass）设置为 %"
 
 #: src/netedit/GNEViewNet.cpp:970
 msgid ""
@@ -4959,33 +4961,33 @@ msgstr "在有受一个限制的同一路段上的所有车道已经有另一条
 
 #: src/netedit/GNEViewNet.cpp:977
 msgid "% lanes will be restricted to %. Continue?"
-msgstr ""
+msgstr "% 条车道将会被限制为 %。继续操作吗？"
 
 #: src/netedit/GNEViewNet.cpp:1003
 msgid "restrict lane to "
-msgstr "將车道限制为 "
+msgstr "将车道限制为 "
 
 #: src/netedit/GNEViewNet.cpp:1043 src/netedit/GNEViewNet.cpp:1050
 #, c-format
 msgid "Add vclass % to selected lanes"
-msgstr ""
+msgstr "为所选车道添加车辆类型（vclass）%"
 
 #: src/netedit/GNEViewNet.cpp:1044
 msgid ""
 "All lanes own already another lane in the same edge with a restriction to %."
-msgstr ""
+msgstr "在所选车道的相同路段上已经存在一条限制为 % 的车道。"
 
 #: src/netedit/GNEViewNet.cpp:1051
 msgid "% restrictions to % will be added. Continue?"
-msgstr ""
+msgstr "将会添加对于 % 的 % 种限制。继续执行？"
 
 #: src/netedit/GNEViewNet.cpp:1067
 msgid "add restrictions for "
-msgstr "为...新增限制 "
+msgstr "为其新增限制： "
 
 #: src/netedit/GNEViewNet.cpp:1077
 msgid "add vclass for "
-msgstr "为...新增vclass "
+msgstr "为其新增车辆类型（vclass）： "
 
 #: src/netedit/GNEViewNet.cpp:1131 src/netedit/GNEViewNet.cpp:1138
 #, c-format
