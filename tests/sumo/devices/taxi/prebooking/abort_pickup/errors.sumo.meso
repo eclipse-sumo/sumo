@@ -1,0 +1,5 @@
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.
+Warning: Taxi 'trip_1' aborts waiting for customers: p0 at time=248.00.
+Warning: Person 'p0' aborted waiting for taxi at edge 'B2C2'.
+Warning: Vehicle 'trip_0' aborted waiting for a person that will never come.
+Warning: Vehicle 'trip_1' aborted waiting for a person that will never come.
