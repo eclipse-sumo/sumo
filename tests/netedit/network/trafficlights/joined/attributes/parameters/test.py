@@ -41,10 +41,10 @@ netedit.createTLS()
 netedit.joinTSL()
 
 # select four corners
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.up)
+netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.down)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.left)
 netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.right)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.top)
-netedit.leftClick(referencePosition, netedit.positions.network.junction.cross.bot)
 
 # join tls
 netedit.typeEnter()

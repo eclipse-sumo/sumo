@@ -1,7 +1,7 @@
 TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
-TestFunctions: Clicked over position 804 - 393
+TestFunctions: Clicked over position 802 - 404
 delay_based
 custom name
 TestFunctions: Clicked over position 304 - 168

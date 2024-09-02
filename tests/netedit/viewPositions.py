@@ -145,6 +145,24 @@ class network:
                 x = 495
                 y = 441
 
+        class merge:
+
+            class fromA:
+                x = 400
+                y = 235
+
+            class fromB:
+                x = 400
+                y = 45
+
+            class toA:
+                x = 590
+                y = 235
+
+            class toB:
+                x = 590
+                y = 45
+
     class edge:
 
         class centerA:

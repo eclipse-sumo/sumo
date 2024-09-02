@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-09-02 09:11:51 by Eclipse SUMO netedit Version v1_20_0+1821-fef78581e33
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- Routes -->
+    <route id="r_0" edges="-E0 E1"/>
+    <route id="r_1" edges="-E1 E0"/>
+    <route id="r_2" edges="E3 E4 E5 E6"/>
+    <route id="r_3" edges="-E3 -E6 -E5 -E4"/>
+    <route id="r_4" edges="-E2 E0"/>
+    <route id="r_5" edges="-E1 E2"/>
+    <!-- Vehicles, persons and containers (sorted by depart) -->
+    <trip id="t_0" depart="0.00" from="-E7" to="-E7"/>
+    <trip id="t_1" depart="0.00" from="E7" to="E7"/>
+    <vehicle id="v_0" depart="0.00" route="r_2"/>
+    <vehicle id="v_1" depart="0.00" route="r_3"/>
+    <vehicle id="v_2" depart="0.00" route="r_4"/>
+    <vehicle id="v_3" depart="0.00" route="r_5"/>
+    <vehicle id="v_4" depart="0.00" route="r_0"/>
+    <vehicle id="v_5" depart="0.00" route="r_1"/>
+</routes>

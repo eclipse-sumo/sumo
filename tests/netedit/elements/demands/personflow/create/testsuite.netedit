@@ -12,18 +12,4 @@ color
 
 departpos
 
-begin
-
-end
-
-endnumber
-
-personsperhour
-
-period
-
-poisson
-
-probability
-
-number
+flow_attributes

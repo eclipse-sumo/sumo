@@ -33,8 +33,11 @@ netedit.rebuildNetwork()
 netedit.moveMode()
 
 # move single edge junctions
-netedit.dragDrop(referencePosition, 378, 240, 624, 240)
-
+netedit.dragDrop(referencePosition,
+                 netedit.positions.network.junction.merge.fromA.x,
+                 netedit.positions.network.junction.merge.fromA.y,
+                 netedit.positions.network.junction.merge.toA.x,
+                 netedit.positions.network.junction.merge.toA.y)
 # press ESC
 netedit.typeEscape()
 

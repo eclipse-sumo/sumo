@@ -2814,9 +2814,11 @@ def createDataInterval(begin="0", end="3600"):
 #################################################
 
 
-def contextualMenuOperation(referencePosition, position, contextualMenuOperation):
+def contextualMenuOperation(referencePosition, position, contextualMenuOperation,
+                            offsetX=0, offsetY=0):
     # obtain clicked position
-    clickedPosition = [referencePosition[0] + position.x, referencePosition[1] + position.y]
+    clickedPosition = [referencePosition[0] + position.x + offsetX,
+                       referencePosition[1] + position.y + offsetY]
     # move mouse to position
     pyautogui.moveTo(clickedPosition)
     # wait after move

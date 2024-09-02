@@ -1,5 +1,0 @@
-Error: Attribute 'begin' in definition of containerFlow 'c_1' is empty.
-Error: Invalid begin time for containerFlow 'c_2';
- must be one of ("triggered", "containerTriggered", "now", or a float >= 0)
-Error: Negative begin time in the definition of containerFlow 'c_3'.
-Error: Loading of /home/palcraft/.texttest/tmp/netedit.gui.29Aug101903.2290/netedit.gui/elements/demands/containerflow/load/begin/routes.rou.xml failed.
