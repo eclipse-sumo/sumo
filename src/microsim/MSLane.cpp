@@ -2925,6 +2925,17 @@ MSLane::getLeaderOnConsecutive(double dist, double seen, double speed, const MSV
         nextLane->getVehiclesSecure(); // lock against running sim when called from GUI for time gap coloring
         // get the next link used
         std::vector<MSLink*>::const_iterator link = succLinkSec(veh, view, *nextLane, bestLaneConts);
+        if (nextLane->isLinkEnd(link) && view < veh.getRoute().size() - veh.getRoutePosition()) {
+            const MSEdge* nextEdge = *(veh.getCurrentRouteEdge() + view);
+            if (nextEdge->getNumLanes() == 1) {
+                // lanes are unambiguous on the next route edge, continue beyond bestLaneConts
+                for (link = nextLane->getLinkCont().begin(); link < nextLane->getLinkCont().end(); link++) {
+                    if ((*link)->getLane() == nextEdge->getLanes().front()) {
+                        break;
+                    }
+                }
+            }
+        }
         if (nextLane->isLinkEnd(link)) {
 #ifdef DEBUG_CONTEXT
             if (DEBUG_COND2(&veh)) {
