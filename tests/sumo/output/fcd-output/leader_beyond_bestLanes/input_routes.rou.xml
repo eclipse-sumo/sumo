@@ -1,0 +1,5 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t1" sigma="0"/>
+    <trip id="0" depart="0" type="t1" from="A0B0" to="I0J0"/>
+    <trip id="1" depart="0" type="t1" from="I0J0" to="I0J0"/>
+</routes>

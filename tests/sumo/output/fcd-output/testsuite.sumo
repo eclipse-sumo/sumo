@@ -58,6 +58,9 @@ edge_filter
 # output vehicle leader information
 leader
 
+# look beyond best lanes along 1-lane edges
+leader_beyond_bestLanes
+
 # automatically set precision on long step length
 precision
 
