@@ -1,2 +1,2 @@
-Error: MSTriggeredRerouter rerouter: end 9.00 is not after begin 10.00.
+Error: rerouter 'rerouter': interval end 9.00 is not after begin 10.00.
 Quitting (on error).
