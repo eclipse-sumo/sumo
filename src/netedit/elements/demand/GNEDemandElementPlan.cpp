@@ -1526,12 +1526,9 @@ GNEDemandElementPlan::getPlanAttributePosition(SumoXMLAttr key) const {
                 if (previousPlan) {
                     // use previous geometry end position
                     lanePosition = previousPlan->getAttributeDouble(GNE_ATTR_PLAN_GEOMETRY_ENDPOS);
-                } else if (myDepartPosition < 0) {
+                } else {
                     // use departPos defined in planParent
                     lanePosition = planParent->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                } else {
-                    // use departPos (only for tranships)
-                    lanePosition = myDepartPosition;
                 }
                 // get lane shape
                 const auto& laneShape = firstLane->getLaneShape();
@@ -1666,14 +1663,9 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
-            return false;
+        // depart pos (temporal, probably will be removed)
         case SUMO_ATTR_DEPARTPOS:
-            // depart position only enabled for first plan element
-            if (myPlanElement->getParentDemandElements().size() > 0) {
-                return myPlanElement->getParentDemandElements().at(0)->getPreviousChildDemandElement(myPlanElement) == 0;
-            } else {
-                return false;
-            }
+            return false;
         default:
             return true;
     }
