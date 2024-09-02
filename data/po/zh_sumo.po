@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-04-19 06:39+0000\n"
+"PO-Revision-Date: 2024-09-02 03:09+0000\n"
 "Last-Translator: Yiyang Chen <chenyy553@mail2.sysu.edu.cn>\n"
-"Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
-"eclipse-sumo/applications/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/eclipse-sumo/applications/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1303,107 +1303,107 @@ msgstr "忽略有当前路线车辆超出边缘"
 
 #: src/microsim/MSBaseVehicle.cpp:1560
 msgid "Invalid stop index % (has % stops)."
-msgstr ""
+msgstr "无效的停靠点索引 % （共计 % 个停靠点）。"
 
 #: src/microsim/MSBaseVehicle.cpp:1640 src/microsim/MSBaseVehicle.cpp:1763
 #: src/microsim/MSBaseVehicle.cpp:1872
 msgid "invalid nextStopIndex % for % remaining stops"
-msgstr ""
+msgstr "对于剩余的 %个停靠点，无效的后续停靠点索引（nextStopIndex） %"
 
 #: src/microsim/MSBaseVehicle.cpp:1644
 msgid "cannot replace reached stop"
-msgstr ""
+msgstr "无法替换已到达的停靠点"
 
 #: src/microsim/MSBaseVehicle.cpp:1659
 msgid "vehicle '%' does not have the right badge to access parkingArea '%'"
-msgstr ""
+msgstr "车辆 '%' 没有路权行驶至停车场 '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1672 src/microsim/MSBaseVehicle.cpp:1884
 msgid "disallowed stop lane '%'"
-msgstr ""
+msgstr "车道 '%' 禁止停车"
 
 #: src/microsim/MSBaseVehicle.cpp:1691 src/microsim/MSBaseVehicle.cpp:1785
 #: src/microsim/MSBaseVehicle.cpp:1912
 msgid "no route found from edge '%' to stop edge '%'"
-msgstr ""
+msgstr "未找到从路段 '%' 到停靠路段 '%' 的路径"
 
 #: src/microsim/MSBaseVehicle.cpp:1700 src/microsim/MSBaseVehicle.cpp:1921
 msgid "no route found from stop edge '%' to edge '%'"
-msgstr ""
+msgstr "未找到从停靠路段 '%' 到路段 '%'的路径"
 
 #: src/microsim/MSBaseVehicle.cpp:1712 src/microsim/MSBaseVehicle.cpp:1935
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
-msgstr ""
+msgstr "中观仿真不允许车辆 '%' 在内部路段 '%' 上停靠。"
 
 #: src/microsim/MSBaseVehicle.cpp:1767
 msgid "cannot reroute towards reached stop"
-msgstr ""
+msgstr "无法更改路径前往已到达的停靠点"
 
 #: src/microsim/MSBaseVehicle.cpp:1848
 msgid "unable to replace stop with teleporting"
-msgstr ""
+msgstr "停止不能用传送代替"
 
 #: src/microsim/MSBaseVehicle.cpp:1876
 msgid "cannot insert stop before the currently reached stop"
-msgstr ""
+msgstr "无法在当前已到达的停靠点前再插入停靠点"
 
 #: src/microsim/MSBaseVehicle.cpp:1892
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
-msgstr ""
+msgstr "车辆 '%' 没有路权行驶至停车场 '%'。"
 
 #: src/microsim/MSBaseVehicle.cpp:2189
 #, c-format
 msgid "creating device of type '%' is not supported"
-msgstr ""
+msgstr "无法创建类型为 '%' 的设备"
 
 #: src/microsim/MSBaseVehicle.cpp:2202 src/microsim/MSBaseVehicle.cpp:2214
 #, c-format
 msgid "no device of type '%' exists"
-msgstr ""
+msgstr "类型为 '%' 的设备不存在"
 
 #: src/microsim/MSBaseVehicle.cpp:2225
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
-msgstr ""
+msgstr "车辆 '%' 不支持交叉口模型（junctionModel）参数 '%'。"
 
 #: src/microsim/MSBaseVehicle.cpp:2271
 msgid "could not interpret routing.mode '%'"
-msgstr ""
+msgstr "无法解析路由模式（routing.mode） '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2354
 msgid "Invalid device parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的设备参数 '%' 无效。"
 
 #: src/microsim/MSBaseVehicle.cpp:2360
 msgid "Vehicle '%' does not support device parameter '%' (%)."
-msgstr ""
+msgstr "车辆 '%' 不支持设备参数 '%' (%)。"
 
 #: src/microsim/MSBaseVehicle.cpp:2365
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support laneChangeModel parameters."
-msgstr ""
+msgstr "中观车辆 '%' 不支持换道模型（laneChangeModel）参数。"
 
 #: src/microsim/MSBaseVehicle.cpp:2372
 msgid "Vehicle '%' does not support laneChangeModel parameter '%' (%)."
-msgstr ""
+msgstr "车辆 '%' 不支持换道模型（laneChangeModel）参数 '%' (%)。"
 
 #: src/microsim/MSBaseVehicle.cpp:2377
 #, c-format
 msgid "Mesoscopic vehicle '%' does not support carFollowModel parameters."
-msgstr ""
+msgstr "中观车辆 '%' 不支持跟驰模型（carFollowModel）参数。"
 
 #: src/microsim/MSBaseVehicle.cpp:2384
 msgid "Vehicle '%' does not support carFollowModel parameter '%' (%)."
-msgstr ""
+msgstr "车辆 '%' 不支持跟驰模型（carFollowModel）参数 '%' (%)。"
 
 #: src/microsim/MSBaseVehicle.cpp:2390
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
-msgstr ""
+msgstr "对设备的检查无效。预期的格式为 'has.DEVICENAME.device'。"
 
 #: src/microsim/MSBaseVehicle.cpp:2417
 msgid "Unsupported parking parameter '%' for vehicle '%'."
-msgstr ""
+msgstr "车辆 '%' 的停靠参数 '%' 不受支持。"
 
 #: src/microsim/MSBaseVehicle.h:956
 msgid "getLeader not yet implemented for meso"
@@ -1504,7 +1504,7 @@ msgstr "写出按步长缩放的排放值，而不是每秒的值"
 
 #: src/microsim/MSFrame.cpp:137
 msgid "List attributes that should be included in the emission output"
-msgstr ""
+msgstr "请列出要被包含在排放输出中的参数"
 
 #: src/microsim/MSFrame.cpp:140
 msgid "Save the battery values of each vehicle"
@@ -1907,7 +1907,7 @@ msgstr ""
 msgid ""
 "After a vehicle arrives, keep it in memory for the given TIME (for TraCI "
 "access)"
-msgstr ""
+msgstr "车辆到达后，在指定的时间内将其保存在内存中（用于TraCI获取）"
 
 #: src/microsim/MSFrame.cpp:406
 msgid "Delay vehicle insertion to stay within the given maximum number"
@@ -1915,7 +1915,7 @@ msgstr "延迟车辆插入以保持在给定的最大数量内"
 
 #: src/microsim/MSFrame.cpp:409
 msgid "Delay person insertion to stay within the given maximum number"
-msgstr ""
+msgstr "延迟人员的插入，以确保在给定的最大数量范围内"
 
 #: src/microsim/MSFrame.cpp:412
 msgid ""
@@ -2132,7 +2132,7 @@ msgstr "在行人模式中选择['非互动', '剥离', '远程']"
 msgid ""
 "Minimal acceptable gap (in seconds) between two vehicles before starting to "
 "cross"
-msgstr ""
+msgstr "开始穿越前，两辆车之前的最小可接受间隙（以秒计）"
 
 #: src/microsim/MSFrame.cpp:534
 msgid ""
@@ -2155,9 +2155,8 @@ msgstr ""
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam when "
 "using model 'striping' (non-positive values disable squeezing)"
-msgstr ""
-"使用 \"剥离 \"模型时，行人开始挤过拥堵路段的时间，以秒为单位（非正值禁止挤"
-"过）"
+msgstr "使用“条带化”模型时，行人开始挤过拥堵路段的时间，以秒为单位（非正值时禁止挤过"
+"）"
 
 #: src/microsim/MSFrame.cpp:545
 msgid ""
@@ -2172,7 +2171,7 @@ msgstr ""
 msgid ""
 "Time in seconds after which pedestrians start squeezing through a jam while "
 "on a narrow lane when using model 'striping'"
-msgstr "在使用 \"剥离 \"模型时，行人在狭窄车道上开始挤过拥堵的时间（秒）"
+msgstr "在使用“条带化”模型时，行人在狭窄车道上开始挤过拥堵的时间（秒）"
 
 #: src/microsim/MSFrame.cpp:550
 msgid "Fraction of stripes to reserve for oncoming pedestrians"
@@ -2210,6 +2209,8 @@ msgid ""
 "The submodel to use in JuPedSim ('CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce', 'SocialForce')"
 msgstr ""
+"在JuPedSim中使用的子模型（'CollisionFreeSpeed', 'CollisionFreeSpeedV2', "
+"'GeneralizedCentrifugalForce', 'SocialForce'）"
 
 #: src/microsim/MSFrame.cpp:572
 msgid "The neighbor repulsion strength of the JuPedSim model"
@@ -2238,7 +2239,7 @@ msgstr "是否使用地理坐标（lon/lat）将JuPedSim网络输出为WKT"
 
 #: src/microsim/MSFrame.cpp:584
 msgid "The filename to output the JuPedSim setup as Python script"
-msgstr ""
+msgstr "将JuPedSim的设置输出为Python脚本的文件名"
 
 #: src/microsim/MSFrame.cpp:588
 msgid ""
@@ -2274,7 +2275,7 @@ msgstr ""
 msgid ""
 "Apply the given time penalty when computing routing costs for turnaround "
 "internal lanes"
-msgstr ""
+msgstr "在计算掉头内部车道的路径成本时，使用给定的时间惩罚"
 
 #: src/microsim/MSFrame.cpp:618
 msgid ""
@@ -2430,7 +2431,7 @@ msgstr "从文件FILE中加载一个用于抽象可视化的次要道路网"
 
 #: src/microsim/MSFrame.cpp:773
 msgid "Load pre-selected elements from FILE"
-msgstr ""
+msgstr "加载包含预选择元素的文件"
 
 #: src/microsim/MSFrame.cpp:776
 msgid "Restart the simulation after ending (demo mode)"
@@ -2504,7 +2505,7 @@ msgstr "结束时间应该是在开始时间之后。"
 
 #: src/microsim/MSFrame.cpp:917
 msgid "the minimum step-length is 0.001."
-msgstr ""
+msgstr "最小的仿真时间步长是0.001。"
 
 #: src/microsim/MSFrame.cpp:932
 msgid "The save-state time=% will not be used before simulation end at %."
@@ -2532,7 +2533,7 @@ msgstr "只能给出'lanechange.duration'或'sidal-resolution'中的一个选项
 
 #: src/microsim/MSFrame.cpp:956
 msgid "Sublane dynamics are not supported by mesoscopic simulation."
-msgstr ""
+msgstr "子车道动力学不受中观仿真支持。"
 
 #: src/microsim/MSFrame.cpp:960
 msgid ""
@@ -2559,6 +2560,8 @@ msgid ""
 "Invalid value '%' for option 'default.emergencydecel'. Must be a FLOAT or "
 "'default' or 'decel'."
 msgstr ""
+"选项 'default.emergencydecel' 的值 '%' 无效。该值必须为一个 浮点数（Float）、"
+"'default' 或 'decel'。"
 
 #: src/microsim/MSFrame.cpp:1010
 msgid "You need a non-negative delay."
@@ -2570,13 +2573,14 @@ msgstr "平行仿真只有在用Fox编译时才能实现。"
 
 #: src/microsim/MSFrame.cpp:1028
 msgid "You need at least one thread."
-msgstr "你至少要有一条线。"
+msgstr "你至少要有一个线程。"
 
 #: src/microsim/MSFrame.cpp:1032
 msgid ""
 "Number of threads exceeds number of thread-rngs. Simulation runs with the "
 "same seed may produce different results."
-msgstr ""
+msgstr "线程数超过了 thread-rngs（用于生成随机种子的最多线程）的数量。以相同的随机种"
+"子运行的仿真也可能产生不同的结果。"
 
 #: src/microsim/MSFrame.cpp:1035
 msgid "game.mode must be one of ['tls', 'drt']"
@@ -2586,19 +2590,23 @@ msgstr "game.mode必须是['tls', 'drt']之一"
 msgid ""
 "Invalid transfer option '%'. Must be one of 'parkingAreas', 'ptStops' or "
 "'allJunctions'."
-msgstr ""
+msgstr "转移选项 '%' 无效。必须为 'parkingAreas', 'ptStops' 或 'allJunctions' "
+"其中之一。"
 
 #: src/microsim/MSFrame.cpp:1052
 msgid ""
 "Invalid JuPedSim model '%'. Must be one of 'CollisionFreeSpeed', "
 "'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' or 'SocialForce'."
 msgstr ""
+"JuPedSim的模型 '%' 无效。必须为 'CollisionFreeSpeed', "
+"'CollisionFreeSpeedV2', 'GeneralizedCentrifugalForce' 或 'SocialForce' "
+"其中之一。"
 
 #: src/microsim/MSFrame.cpp:1110
 msgid ""
 "Integration method was set to 'ballistic', since a default action step "
 "length was specified."
-msgstr "集成方法被设置为 \"弹道\"，因为指定了一个默认的动作步长。"
+msgstr "集成方法被设置为 'ballistic'（弹道方法），因为指定了一个默认的动作步长。"
 
 #: src/microsim/MSInsertionControl.cpp:284 src/router/RONet.cpp:481
 #, c-format
@@ -2646,23 +2654,23 @@ msgstr "车辆'%'将无法使用给定的速度出发（前方为慢车道）！
 
 #: src/microsim/MSLane.cpp:1988
 msgid "frontal collision"
-msgstr ""
+msgstr "正面碰撞"
 
 #: src/microsim/MSLane.cpp:1989
 msgid "junction collision"
-msgstr ""
+msgstr "路口碰撞"
 
 #: src/microsim/MSLane.cpp:1989
 msgid "collision"
-msgstr ""
+msgstr "碰撞"
 
 #: src/microsim/MSLane.cpp:1995
 msgid "Vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "车辆 '%'; % 与 车辆 '%"
 
 #: src/microsim/MSLane.cpp:2052
 msgid "Teleporting vehicle '%'; % with vehicle '%"
-msgstr ""
+msgstr "正在传送车辆 '%'; % 与车辆 '%"
 
 #: src/microsim/MSLane.cpp:2057
 msgid "Removing % participants: vehicle '%', vehicle '%"
@@ -2770,7 +2778,7 @@ msgstr "仿真版本%开始时间：%。"
 
 #: src/microsim/MSNet.cpp:677
 msgid "Simulation ended at time: %."
-msgstr ""
+msgstr "仿真于此时刻结束：%."
 
 #: src/microsim/MSNet.cpp:679
 msgid "Reason: "
