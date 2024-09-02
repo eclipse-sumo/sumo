@@ -397,7 +397,6 @@ class VehicleDomain(VTypeDomain):
         """
         return self._getUniversal(tc.VAR_SEGMENT_INDEX, vehID)
 
-
     def getTypeID(self, vehID):
         """getTypeID(string) -> string
 
