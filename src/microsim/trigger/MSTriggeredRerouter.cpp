@@ -122,7 +122,7 @@ MSTriggeredRerouter::myStartElement(int element,
         myParsedRerouteInterval.begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, nullptr, ok, -1);
         myParsedRerouteInterval.end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok, SUMOTime_MAX);
         if (myParsedRerouteInterval.begin >= myParsedRerouteInterval.end) {
-            throw ProcessError(TLF("MSTriggeredRerouter %: end % is not after begin %.", getID(),
+            throw ProcessError(TLF("rerouter '%': interval end % is not after begin %.", getID(),
                         time2string(myParsedRerouteInterval.end),
                         time2string(myParsedRerouteInterval.begin)));
         }
@@ -132,7 +132,7 @@ MSTriggeredRerouter::myStartElement(int element,
         // get the destination edge
         std::string dest = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (dest == "") {
-            throw ProcessError(TLF("MSTriggeredRerouter %: No destination edge id given.", getID()));
+            throw ProcessError(TLF("rerouter '%': destProbReroute has no destination edge id.", getID()));
         }
         MSEdge* to = MSEdge::dictionary(dest);
         if (to == nullptr) {
@@ -141,7 +141,7 @@ MSTriggeredRerouter::myStartElement(int element,
             } else if (dest == "terminateRoute") {
                 to = &mySpecialDest_terminateRoute;
             } else {
-                throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
+                throw ProcessError(TLF("rerouter '%': Destination edge '%' is not known.", getID(), dest));
             }
         }
         // get the probability to reroute
@@ -151,7 +151,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError();
         }
         if (prob < 0) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is negative (must not).");
+            throw ProcessError(TLF("rerouter '%': Attribute 'probability' for destination '%' is negative (must not).", getID(), dest));
         }
         // add
         myParsedRerouteInterval.edgeProbs.add(to, prob);
@@ -162,7 +162,7 @@ MSTriggeredRerouter::myStartElement(int element,
         const std::string& closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         MSEdge* const closed = MSEdge::dictionary(closed_id);
         if (closed == nullptr) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Edge '" + closed_id + "' to close is not known.");
+            throw ProcessError(TLF("rerouter '%': Edge '%' to close is not known.", getID(), closed_id));
         }
         myParsedRerouteInterval.closed.push_back(closed);
         bool ok;
@@ -176,7 +176,7 @@ MSTriggeredRerouter::myStartElement(int element,
         std::string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         MSLane* closed = MSLane::dictionary(closed_id);
         if (closed == nullptr) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Lane '" + closed_id + "' to close is not known.");
+            throw ProcessError(TLF("rerouter '%': Lane '%' to close is not known.", getID(), closed_id));
         }
         myParsedRerouteInterval.closedLanes.push_back(closed);
         bool ok;
@@ -195,11 +195,11 @@ MSTriggeredRerouter::myStartElement(int element,
         // check if route exists
         std::string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr == "") {
-            throw ProcessError(TLF("MSTriggeredRerouter %: No route id given.", getID()));
+            throw ProcessError(TLF("rerouter '%': routeProbReroute has no alternative route id.", getID()));
         }
         ConstMSRoutePtr route = MSRoute::dictionary(routeStr);
         if (route == nullptr) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
+            throw ProcessError(TLF("rerouter '%': Alternative route '%' does not exist.", getID(), routeStr));
         }
 
         // get the probability to reroute
@@ -209,7 +209,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError();
         }
         if (prob < 0) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
+            throw ProcessError(TLF("rerouter '%': Attribute 'probability' for alternative route '%' is negative (must not).", getID(), routeStr));
         }
         // add
         myParsedRerouteInterval.routeProbs.add(route, prob);
@@ -218,11 +218,11 @@ MSTriggeredRerouter::myStartElement(int element,
     if (element == SUMO_TAG_PARKING_AREA_REROUTE) {
         std::string parkingarea = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (parkingarea == "") {
-            throw ProcessError(TLF("MSTriggeredRerouter %: No parking area id given.", getID()));
+            throw ProcessError(TLF("rerouter '%': parkingAreaReroute requires a parkingArea id.", getID()));
         }
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(parkingarea, SUMO_TAG_PARKING_AREA));
         if (pa == nullptr) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Parking area '" + parkingarea + "' is not known.");
+            throw ProcessError(TLF("rerouter '%': parkingArea '%' is not known.", getID(), parkingarea));
         }
         // get the probability to reroute
         bool ok = true;
@@ -231,7 +231,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError();
         }
         if (prob < 0) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + parkingarea + "' is negative (must not).");
+            throw ProcessError(TLF("rerouter '%': Attribute 'probability' for parkingArea '%' is negative (must not).", getID(), parkingarea));
         }
         const bool visible = attrs.getOpt<bool>(SUMO_ATTR_VISIBLE, getID().c_str(), ok, false);
         // add
@@ -243,11 +243,11 @@ MSTriggeredRerouter::myStartElement(int element,
         // by giving probabilities of vias
         std::string viaID  = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (viaID == "") {
-            throw ProcessError(TLF("MSTriggeredRerouter %: No via edge id given.", getID()));
+            throw ProcessError(TLF("rerouter '%': No via edge id given.", getID()));
         }
         MSEdge* const via = MSEdge::dictionary(viaID);
         if (via == nullptr) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Via edge '" + viaID + "' is not known.");
+            throw ProcessError(TLF("rerouter '%': Via Edge '%' is not known.", getID(), viaID));
         }
         // get the probability to reroute
         bool ok = true;
@@ -256,7 +256,7 @@ MSTriggeredRerouter::myStartElement(int element,
             throw ProcessError();
         }
         if (prob < 0) {
-            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for via '" + viaID + "' is negative (must not).");
+            throw ProcessError(TLF("rerouter '%': Attribute 'probability' for via '%' is negative (must not).", getID(), viaID));
         }
         // add
         myParsedRerouteInterval.edgeProbs.add(via, prob);
