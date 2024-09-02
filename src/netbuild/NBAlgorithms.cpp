@@ -513,7 +513,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
         // let's mark this road as the best
         NBEdge* best1 = extractAndMarkFirst(n, bestIncoming);
         if (!mainDirectionExplicit && counterIncomingEdges.find(best1) != counterIncomingEdges.end()) {
-            // ok, look, what we want is the opposit of the straight continuation edge
+            // ok, look, what we want is the opposite of the straight continuation edge
             // but, what if such an edge does not exist? By now, we'll determine it
             // geometrically
             NBEdge* s = counterIncomingEdges.find(best1)->second;
