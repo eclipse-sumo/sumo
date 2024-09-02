@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 22:02:16 by Eclipse SUMO sumo Version v1_20_0+1816-4be38f673eb
+<!-- generated on 2024-09-02 22:25:34 by Eclipse SUMO sumo Version v1_20_0+1817-cf21a49bd7a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,23 +43,21 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
     <timestep time="0.00">
-        <vehicle id="0" x="5.10" y="-1.60" angle="90.00" type="t1" speed="0.00" pos="5.10" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
-        <vehicle id="1" x="8005.10" y="-1.60" angle="90.00" type="t1" speed="0.00" pos="5.10" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
+        <vehicle id="0" x="5.10" y="-1.60" angle="90.00" type="t1" speed="13.89" pos="5.10" lane="A0B0_0" slope="0.00" leaderID="1" leaderSpeed="0.00" leaderGap="8980.70"/>
+        <vehicle id="1" x="8990.00" y="-1.60" angle="90.00" type="t1" speed="0.00" pos="990.00" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="0" x="7.70" y="-1.60" angle="90.00" type="t1" speed="2.60" pos="7.70" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
-        <vehicle id="1" x="8007.70" y="-1.60" angle="90.00" type="t1" speed="2.60" pos="7.70" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
+        <vehicle id="0" x="18.99" y="-1.60" angle="90.00" type="t1" speed="13.89" pos="18.99" lane="A0B0_0" slope="0.00" leaderID="1" leaderSpeed="2.60" leaderGap="8969.41"/>
+        <vehicle id="1" x="8992.60" y="-1.60" angle="90.00" type="t1" speed="2.60" pos="992.60" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="0" x="12.90" y="-1.60" angle="90.00" type="t1" speed="5.20" pos="12.90" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
-        <vehicle id="1" x="8012.90" y="-1.60" angle="90.00" type="t1" speed="5.20" pos="12.90" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
+        <vehicle id="0" x="32.88" y="-1.60" angle="90.00" type="t1" speed="13.89" pos="32.88" lane="A0B0_0" slope="0.00" leaderID="1" leaderSpeed="5.20" leaderGap="8960.72"/>
+        <vehicle id="1" x="8997.80" y="-1.60" angle="90.00" type="t1" speed="5.20" pos="997.80" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="0" x="20.70" y="-1.60" angle="90.00" type="t1" speed="7.80" pos="20.70" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
-        <vehicle id="1" x="8020.70" y="-1.60" angle="90.00" type="t1" speed="7.80" pos="20.70" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
+        <vehicle id="0" x="46.77" y="-1.60" angle="90.00" type="t1" speed="13.89" pos="46.77" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="0" x="31.10" y="-1.60" angle="90.00" type="t1" speed="10.40" pos="31.10" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
-        <vehicle id="1" x="8031.10" y="-1.60" angle="90.00" type="t1" speed="10.40" pos="31.10" lane="I0J0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
+        <vehicle id="0" x="60.66" y="-1.60" angle="90.00" type="t1" speed="13.89" pos="60.66" lane="A0B0_0" slope="0.00" leaderID="" leaderSpeed="-1" leaderGap="-1"/>
     </timestep>
 </fcd-export>
