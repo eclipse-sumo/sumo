@@ -85,6 +85,7 @@ bike-speeds
 
 # using stops and via at the same time
 stops_via
+disable_by_typeParam_prob
 
 # Errors on assignment
 errors
