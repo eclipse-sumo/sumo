@@ -152,6 +152,18 @@ MSDriveWay::~MSDriveWay() {
     }
 }
 
+void
+MSDriveWay::cleanup() {
+    myGlobalDriveWayIndex = 0;
+    myDepartDriveWayIndex = 0;
+    myNumWarnings = 0;
+    myWriteVehicles = false;
+    MSDriveWay::mySwitchDriveWays.clear();
+    MSDriveWay::myReversalDriveWays.clear();
+    MSDriveWay::myDepartureDriveways.clear();
+    MSDriveWay::myDepartureDrivewaysEnds.clear();
+    MSDriveWay::myEndingDriveways.clear();
+}
 
 bool
 MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {

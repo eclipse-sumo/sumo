@@ -54,6 +54,8 @@ public:
     /// @brief Destructor
     virtual ~MSDriveWay();
 
+    static void cleanup();
+
     bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
     bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     bool notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const MSLane* leftLane);

@@ -967,6 +967,7 @@ MSNet::clearAll() {
     MSStopOut::cleanup();
     MSRailSignalConstraint::cleanup();
     MSRailSignalControl::cleanup();
+    MSDriveWay::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
         t->cleanup();
