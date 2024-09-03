@@ -415,7 +415,7 @@ GNETagProperties::isPlanContainer() const {
 
 
 bool
-GNETagProperties::isPersonTrip() const {
+GNETagProperties::isPlanPersonTrip() const {
     return (myTagType & PERSONTRIP) != 0;
 }
 

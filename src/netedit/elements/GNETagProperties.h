@@ -297,8 +297,8 @@ public:
     /// @brief return true if tag correspond to a container plan
     bool isPlanContainer() const;
 
-    /// @brief return true if tag correspond to a person trip
-    bool isPersonTrip() const;
+    /// @brief return true if tag correspond to a person trip plan
+    bool isPlanPersonTrip() const;
 
     /// @brief return true if tag correspond to a walk plan
     bool isPlanWalk() const;

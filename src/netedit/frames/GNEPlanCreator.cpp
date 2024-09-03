@@ -181,7 +181,7 @@ bool
 GNEPlanCreator::planCanBeCreated(const GNEDemandElement* planTemplate) const {
     if (planTemplate == nullptr) {
         return false;
-    } else if (planTemplate->getTagProperty().isPersonTrip()) {
+    } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
         return GNEDemandElementPlan::getPersonTripTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;
     } else if (planTemplate->getTagProperty().isPlanWalk()) {
         return GNEDemandElementPlan::getWalkTagIcon(myPlanParameteres).first != SUMO_TAG_NOTHING;

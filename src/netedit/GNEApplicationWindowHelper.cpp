@@ -1780,7 +1780,7 @@ GNEApplicationWindowHelper::LockMenuCommands::editLocking(const GNEAttributeCarr
         menuCheckLockVehicles->setCheck(value);
     } else if (AC->getTagProperty().isPerson()) {
         menuCheckLockPersons->setCheck(value);
-    } else if (AC->getTagProperty().isPersonTrip()) {
+    } else if (AC->getTagProperty().isPlanPersonTrip()) {
         menuCheckLockPersonTrip->setCheck(value);
     } else if (AC->getTagProperty().isPlanWalk()) {
         menuCheckLockWalk->setCheck(value);

@@ -1895,7 +1895,7 @@ GNEDemandElementPlan::drawPlanGL(const bool drawPlan, const GUIVisualizationSett
         double pathWidth = s.widthSettings.walkWidth;
         if (tagProperty.isPlanRide()) {
             pathWidth = s.widthSettings.rideWidth;
-        } else if (tagProperty.isPersonTrip()) {
+        } else if (tagProperty.isPlanPersonTrip()) {
             pathWidth = s.widthSettings.personTripWidth;
         }
         // draw geometry only if we'rent in drawForObjectUnderCursor mode

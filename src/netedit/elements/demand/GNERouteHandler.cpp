@@ -1096,7 +1096,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanWalk()) {
         buildWalk(personPlanObject, planCreator->getPlanParameteres(), arrivalPos);
-    } else if (planTemplate->getTagProperty().isPersonTrip()) {
+    } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
         buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
         buildRide(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
@@ -1296,7 +1296,7 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
         }
     }
     // create plan
-    if (tagProperty.isPersonTrip()) {
+    if (tagProperty.isPlanPersonTrip()) {
         buildPersonTrip(planObject, planParameters,
                         planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                         planObject->getStringListAttribute(SUMO_ATTR_VTYPES),

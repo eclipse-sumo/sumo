@@ -58,26 +58,26 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myStopIndex(0) {
     // fill additionals with tags
     auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
-                          GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE);
+                          GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
     for (const auto& additionalTag : additionalTags) {
         myAdditionals.insert(std::make_pair(additionalTag.getTag(), std::map<const GUIGlObject*, GNEAdditional*>()));
     }
     // fill demand elements with tags
-    auto demandElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT);
+    auto demandElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTag : demandElementTags) {
         myDemandElements.insert(std::make_pair(demandElementTag.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
     }
-    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP);
+    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
     for (const auto& stopTag : stopTags) {
         myDemandElements.insert(std::make_pair(stopTag.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA);
+    auto genericDataElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
     for (const auto& genericDataElementTag : genericDataElementTags) {
         myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA);
+    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
     for (const auto& meanDataTag : meanDataTags) {
         myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::map<const std::string, GNEMeanData*>()));
     }
@@ -269,8 +269,17 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
             result.push_back(additional.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (GNEAttributeCarrier::getTagProperty(tag).isDemandElement())) {
-        for (const auto& demandElemet : myDemandElements.at(tag)) {
-            result.push_back(demandElemet.second);
+        auto mergingPlans = GNEAttributeCarrier::getTagPropertiesByMergingTag(tag);
+        if (mergingPlans.size() > 0) {
+            for (const auto& mergingPlan : mergingPlans) {
+                for (const auto& demandElemet : myDemandElements.at(mergingPlan.getTag())) {
+                    result.push_back(demandElemet.second);
+                }
+            }
+        } else {
+            for (const auto& demandElemet : myDemandElements.at(tag)) {
+                result.push_back(demandElemet.second);
+            }
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_DATASET)) {
         for (const auto& dataSet : myDataSets) {
@@ -1665,14 +1674,14 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedPersonTrips() const {
     // iterate over all person plans
     for (const auto& person : myDemandElements.at(SUMO_TAG_PERSON)) {
         for (const auto& personPlan : person.second->getChildDemandElements()) {
-            if (personPlan->getTagProperty().isPersonTrip() && personPlan->isAttributeCarrierSelected()) {
+            if (personPlan->getTagProperty().isPlanPersonTrip() && personPlan->isAttributeCarrierSelected()) {
                 counter++;
             }
         }
     }
     for (const auto& personFlow : myDemandElements.at(SUMO_TAG_PERSONFLOW)) {
         for (const auto& personPlan : personFlow.second->getChildDemandElements()) {
-            if (personPlan->getTagProperty().isPersonTrip() && personPlan->isAttributeCarrierSelected()) {
+            if (personPlan->getTagProperty().isPlanPersonTrip() && personPlan->isAttributeCarrierSelected()) {
                 counter++;
             }
         }
