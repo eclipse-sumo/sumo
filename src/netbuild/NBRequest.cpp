@@ -778,9 +778,12 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
                          const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (from == prohibitorFrom
             && con.toEdge == prohibitorCon.toEdge
-            && con.toLane == prohibitorCon.toLane
-            && con.fromLane != prohibitorCon.fromLane
-            && !myJunction->isConstantWidthTransition()) {
+            && ((con.toLane == prohibitorCon.toLane
+                 && con.fromLane != prohibitorCon.fromLane
+                 && !myJunction->isConstantWidthTransition())
+                // this is actually a crossing rather than a merger
+                || (con.fromLane > prohibitorCon.fromLane && con.toLane < prohibitorCon.toLane)
+                || (con.fromLane < prohibitorCon.fromLane && con.toLane > prohibitorCon.toLane))) {
         if (foes) {
             return true;
         }
