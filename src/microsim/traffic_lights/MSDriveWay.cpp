@@ -172,7 +172,7 @@ MSDriveWay::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLan
 #ifdef DEBUG_MOVEREMINDER
     std::cout << SIMTIME << " notifyEnter " << getDescription() << " veh=" << veh.getID() << " lane=" << enteredLane->getID() << " reason=" << reason << "\n";
 #endif
-    if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION)) {
+    if (veh.isVehicle() && enteredLane == myLane && (reason == NOTIFICATION_DEPARTED || reason == NOTIFICATION_JUNCTION || reason == NOTIFICATION_PARKING)) {
         SUMOVehicle& sveh = dynamic_cast<SUMOVehicle&>(veh);
         MSRouteIterator firstIt = std::find(sveh.getCurrentRouteEdge(), sveh.getRoute().end(), myLane->getNextNormal());
         if (myTrains.count(&sveh) == 0 && match(sveh.getRoute(), firstIt)) {
