@@ -106,3 +106,6 @@ indirect_left_priority
 
 # set custom edgeType for connection
 edgeType
+
+# conflicting (crossed) connections from the same edge to the same target edge
+sameEdge_crossed
