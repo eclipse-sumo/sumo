@@ -474,6 +474,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "ride: parkingarea->chargingstation",     GNE_TAG_RIDE_PARKINGAREA_CHARGINGSTATION },
     { "ride: parkingarea->parkingarea",         GNE_TAG_RIDE_PARKINGAREA_PARKINGAREA },
     // GNE Person Stops
+    { "stopPerson",                             GNE_TAG_STOPPERSON },
     { "stopPerson: edge",                       GNE_TAG_STOPPERSON_EDGE },
     { "stopPerson: busStop",                    GNE_TAG_STOPPERSON_BUSSTOP },
     { "stopPerson: trainStop",                  GNE_TAG_STOPPERSON_TRAINSTOP },
@@ -612,6 +613,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::tags[] = {
     { "tranship: parkingarea->parkingarea",         GNE_TAG_TRANSHIP_PARKINGAREA_PARKINGAREA },
     { "tranship: edges",                            GNE_TAG_TRANSHIP_EDGES },
     // GNE Container Stops
+    { "stopContainer",                          GNE_TAG_STOPCONTAINER },
     { "stopContainer: edge",                    GNE_TAG_STOPCONTAINER_EDGE },
     { "stopContainer: busStop",                 GNE_TAG_STOPCONTAINER_BUSSTOP },
     { "stopContainer: trainStop",               GNE_TAG_STOPCONTAINER_TRAINSTOP },
