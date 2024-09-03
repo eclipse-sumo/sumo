@@ -657,14 +657,10 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
             } else if (isWalkingArea) {
                 if (s.drawCrossingsAndWalkingareas && (s.scale > 3.0 || s.junctionSize.minSize == 0)) {
                     glTranslated(0, 0, .2);
-                    if (s.scale * exaggeration < 20.) {
-                        GLHelper::drawFilledPoly(baseShape, true);
-                    } else {
-                        if (myTesselation == nullptr) {
-                            myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
-                        }
-                        myTesselation->drawTesselation(baseShape);
+                    if (myTesselation == nullptr) {
+                        myTesselation = new TesselatedPolygon(getID(), "", RGBColor::MAGENTA, PositionVector(), false, true, 0);
                     }
+                    myTesselation->drawTesselation(baseShape);
                     glTranslated(0, 0, -.2);
                     if (s.geometryIndices.show(this)) {
                         GLHelper::debugVertices(baseShape, s.geometryIndices, s.scale);
