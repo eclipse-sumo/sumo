@@ -48,11 +48,14 @@ title: ChangeLog
   - Fixed bug where simulation does not finish with onDemand stop #15263
   - Fixed queue length estimation for laneAreaDetectors of delay_based traffic lights #15247
   - Fixed invalid laneAreaDetector end position checks #15275
-  - Fixed bug where vehicle skips stop after waypoint #15293 
+  - Fixed bug where vehicle skips stop after waypoint #15293
+  - Fixed emergency braking at zipper with low visibilityDistance #15224
+  - Fixed bug where parking rerouter does not reroute occupants #15276 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
   - Fixed crash when edge removal affects roundabouts defined in OSM. #14930 (regression in 1.20.0)
+  - OSM: fixed invalid bus permission on tram line #15301 (regression in 1.20.0)
   - Fixed bad ramp geometry when two ramps overlap #14839
   - Fixed invalid connection with option **--ramps.guess** if the input defines connections #14833
   - Fixed unsafe waiting position within a junction that conflicts with a pedestrian crossing #14946
@@ -97,7 +100,8 @@ title: ChangeLog
   - Hotkey <kbd>BACKSPACE</kbd> now works for taking back a stopping place in person mode #14802
   - Fixed crash when replacing junction by geometry point #15233
   - edgeData attribute `writeAttributes` is now written correctly #15273
-  - Fixed error creating POI over lanes #15042 
+  - Fixed error creating POI over lanes #15042
+  - Can now parse sumocfg with human readable times #15267 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
