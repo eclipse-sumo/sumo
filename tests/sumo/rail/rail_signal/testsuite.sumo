@@ -113,3 +113,6 @@ deadlock_insertion
 
 # see #14554
 reversal_before_signal
+
+# driveways must register vehicle after it finishes parking
+parking_insertion
