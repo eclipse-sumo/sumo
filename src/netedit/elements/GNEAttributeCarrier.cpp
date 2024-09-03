@@ -893,7 +893,7 @@ GNEAttributeCarrier::getTagPropertiesByMergingTag(SumoXMLTag mergingTag) {
             result.push_back(tagProperty.second);
         } else if ((mergingTag == SUMO_TAG_WALK) && tagProperty.second.isPlanWalk()) {
             result.push_back(tagProperty.second);
-        } else if ((mergingTag == GNE_TAG_STOPPERSON) && tagProperty.second.isPlanPerson()) {
+        } else if ((mergingTag == GNE_TAG_STOPPERSON) && tagProperty.second.isPlanStopPerson()) {
             result.push_back(tagProperty.second);
         } else if ((mergingTag == SUMO_TAG_TRANSPORT) && tagProperty.second.isPlanTransport()) {
             result.push_back(tagProperty.second);
