@@ -138,6 +138,8 @@ will be added to the output:
 </containerinfo>
 ```
 
+When setting option **--personinfo-output FILE**, the above elements will be written to the given filename instead of written together with the vehicle `<tripinfo>` elements.
+
 The `<personinfo>` / `<containerinfo>` attributes have the following meaning:
 
 | Name   | Type                 | Description                                                |
