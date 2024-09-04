@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-23 08:01:48 by Eclipse SUMO sumo Version v1_20_0+0169-4ce15c2abcc
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<!-- generated on 2024-09-04 11:37:27 by Eclipse SUMO sumo Version v1_20_0+1864-ce7940e5e49
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="../../../input_net2.net.xml"/>
-        <route-files value="input_routes.rou.xml"/>
-        <additional-files value="input_additional.add.xml"/>
+        <net-file value="simulation/loadState/busStop/../../../input_net2.net.xml"/>
+        <route-files value="simulation/loadState/busStop/input_routes.rou.xml"/>
+        <additional-files value="simulation/loadState/busStop/input_additional.add.xml"/>
     </input>
 
     <output>
         <save-state.times value="51"/>
-        <save-state.files value="input_state.xml"/>
+        <save-state.files value="simulation/loadState/busStop/input_state.xml"/>
     </output>
 
-</configuration>
+</sumoConfiguration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+0169-4ce15c2abcc" time="51.00" type="micro">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_20_0+1864-ce7940e5e49" time="51.00" type="micro">
     <route id="!0!var#1" state="0" edges="WC CE"/>
     <route id="!1" state="0" edges="WC CE CE"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
