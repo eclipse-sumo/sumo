@@ -51,6 +51,8 @@ def parse_args(args=None):
                               "group size multiplied with the given factor (in m)")
     optParser.add_option("--filter-signals", dest="filterSignals",
                          help="only write output for driveways of the given signals")
+    optParser.add_option("--filter-driveways", dest="filterDriveways",
+                         help="only write output for the given driveways")
     optParser.add_option("--filter-foes", dest="filterFoes",
                          help="only write output for the foes of the given driveways")
     optParser.add_option("--seed", type=int, help="random seed")
@@ -59,6 +61,13 @@ def parse_args(args=None):
     if options.seed:
         random.seed(options.seed)
 
+    if options.filterSignals:
+        options.filterSignals = set(options.filterSignals.split(','))
+    if options.filterDriveways:
+        options.filterDriveways = set(options.filterDriveways.split(','))
+    if options.filterFoes:
+        options.filterFoes = set(options.filterFoes.split(','))
+
     return options
 
 
@@ -66,13 +75,29 @@ def main(options):
     colorgen = sumolib.miscutils. Colorgen((options.hue, options.saturation, options.brightness))
     net = sumolib.net.readNet(options.netfile, withInternal=options.internal)
 
+    permittedFoes = None
+    if options.filterFoes:
+        permittedFoes = set()
+        for rs in sumolib.xml.parse(options.driveways, "railSignal"):
+            for link in rs.link:
+                for dw in link.driveWay:
+                    if dw.id in options.filterFoes:
+                        permittedFoes.update(dw.foes[0].driveWays.split())
+
+
     with open(options.output, 'w') as outf:
         sumolib.xml.writeHeader(outf, root='polygons', rootAttrs=None, options=options)
         for rs in sumolib.xml.parse(options.driveways, "railSignal"):
+            if options.filterSignals and rs.id not in options.filterSignals:
+                continue
             for link in rs.link:
                 if not link.driveWay:
                     continue
                 for dw in link.driveWay:
+                    if options.filterDriveways and dw.id not in options.filterDriveways:
+                        continue
+                    if permittedFoes and dw.id not in permittedFoes:
+                        continue
                     route2poly.generate_poly(options, net, dw.id, colorgen(), dw.edges.split(), outf)
         outf.write('</polygons>\n')
 
