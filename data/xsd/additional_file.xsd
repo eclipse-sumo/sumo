@@ -568,8 +568,10 @@
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="edge" type="xsd:string" use="optional"/>
         <xsd:attribute name="lane" type="xsd:string" use="optional"/>
+        <xsd:attribute name="node" type="xsd:string" use="optional"/>
         <xsd:attribute name="pos" type="floatType" use="required"/>
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
+        <xsd:attribute name="local" type="boolType" use="optional"/>
         <xsd:attribute name="period" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="optional"/>
         <xsd:attribute name="file" type="xsd:string" use="optional"/>
