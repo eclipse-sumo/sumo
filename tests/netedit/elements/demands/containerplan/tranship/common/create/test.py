@@ -54,7 +54,19 @@ netedit.changeContainerPlanMode("tranship")
 netedit.leftClick(referencePosition, netedit.positions.elements.demands.busStopB)
 
 # set invalid container number
-netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.lines, "custom line")
+netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.speed, "dummy")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.speed, "-12")
+
+# press enter to create route
+netedit.typeEnter()
+
+# set invalid container number
+netedit.changeDefaultValue(netedit.attrs.tranship.busStop.busStop.create.speed, "7.5")
 
 # press enter to create route
 netedit.typeEnter()

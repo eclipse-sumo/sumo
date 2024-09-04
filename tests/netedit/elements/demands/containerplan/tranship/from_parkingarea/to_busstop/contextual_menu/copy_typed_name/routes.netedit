@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-30 13:12:01 by Eclipse SUMO netedit Version v1_20_0+1786-8c96f116c4d
+<!-- generated on 2024-09-04 12:37:12 by Eclipse SUMO netedit Version v1_20_0+1855-aa596bec746
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <transport from="Edge0" parkingArea="parkingAreaA" lines="ANY"/>
-        <transport busStop="busStopB" lines="ANY"/>
+        <tranship busStop="busStopB"/>
     </container>
 </routes>
