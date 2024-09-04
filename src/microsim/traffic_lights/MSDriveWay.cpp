@@ -907,7 +907,10 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                                     visitedEdges.insert(&item.first->getEdge());
                                 }
                                 while (next != end && visitedEdges.count(*next) == 0) {
-                                    // the driveway is route specific but only but stop recording if it loops back on itself
+                                    // if bidiNext is used at some point, this driveway will be updated
+                                    // by looking further along the route until a new protecting switch is found or there are no more bidi edges.
+                                    // For this reason, we must record the rest of the route (or at least up to where it loops back on itself).
+                                    // This leads to seemingly redundant driveways that may be differentiated on update.
                                     visitedEdges.insert(*next);
                                     const MSEdge* nextBidi = (*next)->getBidiEdge();
                                     if (nextBidi != nullptr) {
