@@ -29,5 +29,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="train" vClass="rail" length="50"/>
     <trip id="endWithin" type="train" depart="0" from="E0" to="E2"/>
-    <trip id="begWithin" type="train" depart="0" from="E2" to="E4"/>
+    <trip id="begWithin" type="train" depart="30" from="E2" to="E4"/>
 </routes>
