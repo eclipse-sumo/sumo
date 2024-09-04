@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-04 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0515-b47162acbea
+<!-- generated on 2024-09-04 12:31:51 by Eclipse SUMO sumo Version v1_20_0+0515-2707a6276e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -80,7 +80,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":J2_0_0 E1_0 :J1_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="J1_0"/>
-            <foes driveWays="J2.d1"/>
+            <foes driveWays="J1.0 J2.d1"/>
         </driveWay>
         <subDriveWay id="J2.d1.0" edges="E2">
             <forward lanes="E2_0"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-04 12:23:22 by Eclipse SUMO sumo Version v1_20_0+0515-b47162acbea
+<!-- generated on 2024-09-04 12:31:51 by Eclipse SUMO sumo Version v1_20_0+0515-2707a6276e7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,6 +39,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="endWithin" depart="0.00" departLane="E0_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="60.00" arrivalLane="E2_0" arrivalPos="100.00" arrivalSpeed="7.25" duration="60.00" routeLength="250.10" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="41.72" rerouteNo="1" devices="tripinfo_endWithin routing_endWithin" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="begWithin" depart="30.00" departLane="E2_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="75.00" arrivalLane="E4_0" arrivalPos="100.00" arrivalSpeed="11.25" duration="45.00" routeLength="250.10" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="26.37" rerouteNo="1" devices="tripinfo_begWithin routing_begWithin" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="endWithin" depart="0.00" departLane="E0_0" departPos="50.10" departSpeed="0.00" departDelay="0.00" arrival="45.00" arrivalLane="E2_0" arrivalPos="100.00" arrivalSpeed="11.25" duration="45.00" routeLength="250.10" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="26.37" rerouteNo="1" devices="tripinfo_endWithin routing_endWithin" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="begWithin" depart="45.00" departLane="E2_0" departPos="50.10" departSpeed="0.00" departDelay="15.00" arrival="90.00" arrivalLane="E4_0" arrivalPos="100.00" arrivalSpeed="11.25" duration="45.00" routeLength="250.10" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="26.37" rerouteNo="1" devices="tripinfo_begWithin routing_begWithin" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>
