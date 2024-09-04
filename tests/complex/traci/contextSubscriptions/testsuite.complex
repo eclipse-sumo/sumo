@@ -1,6 +1,9 @@
 # test subscribing for every domain around every other domain
 matrix_test
 
+# test subscribing for every domain around every other domain with the default for varIDs
+matrix_test_defaults
+
 # Validation of the range
 range_100m
 range_200m
