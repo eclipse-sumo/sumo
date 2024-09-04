@@ -1652,6 +1652,7 @@ GNEDemandElementPlan::isPlanAttributeEnabled(SumoXMLAttr key) const {
         case SUMO_ATTR_FROM_TAZ:
         case GNE_ATTR_FROM_BUSSTOP:
         case GNE_ATTR_FROM_TRAINSTOP:
+        case GNE_ATTR_FROM_CONTAINERSTOP:
         case GNE_ATTR_FROM_CHARGINGSTATION:
         case GNE_ATTR_FROM_PARKINGAREA:
         // to
