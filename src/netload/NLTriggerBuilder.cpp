@@ -669,12 +669,12 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& a
                           + "' defined for lane '" + lane->getID()
                           + "' will collect data for all lanes of edge '" + edge->getID() + "'.");
         }
-        METriggeredCalibrator* trigger = buildMECalibrator(net, id, edge, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
+        METriggeredCalibrator* trigger = buildMECalibrator(id, edge, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
     } else {
-        MSCalibrator* trigger = buildCalibrator(net, id, edge, lane, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
+        MSCalibrator* trigger = buildCalibrator(id, edge, lane, pos, file, outfile, period, probe, invalidJamThreshold, vTypes);
         if (file == "") {
             trigger->registerParent(SUMO_TAG_CALIBRATOR, myHandler);
         }
@@ -747,8 +747,8 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet& /*net*/, const std::string& id,
 
 
 METriggeredCalibrator*
-NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
-                                    const MSEdge* edge,
+NLTriggerBuilder::buildMECalibrator(const std::string& id,
+                                    MSEdge* edge,
                                     double pos,
                                     const std::string& file,
                                     const std::string& outfile,
@@ -761,7 +761,7 @@ NLTriggerBuilder::buildMECalibrator(MSNet& /*net*/, const std::string& id,
 
 
 MSCalibrator*
-NLTriggerBuilder::buildCalibrator(MSNet& /*net*/, const std::string& id,
+NLTriggerBuilder::buildCalibrator(const std::string& id,
                                   MSEdge* edge,
                                   MSLane* lane,
                                   double pos,

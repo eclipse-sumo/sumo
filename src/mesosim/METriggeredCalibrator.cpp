@@ -48,7 +48,7 @@
 // method definitions
 // ===========================================================================
 METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
-        const MSEdge* const edge, const double pos,
+        MSEdge* const edge, const double pos,
         const std::string& aXMLFilename,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,

@@ -48,7 +48,7 @@ class MSCalibrator : public MSRouteHandler, public Command, public MSDetectorFil
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
-                 const MSEdge* const edge,
+                 MSEdge* const edge,
                  MSLane* lane,
                  const double pos,
                  const std::string& aXMLFilename,

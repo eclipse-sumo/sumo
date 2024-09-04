@@ -815,7 +815,7 @@ NIImporter_SUMO::addConnection(const SUMOSAXAttributes& attrs) {
     conn.keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, true);
     conn.indirectLeft = attrs.getOpt<bool>(SUMO_ATTR_INDIRECT, nullptr, ok, false);
     conn.edgeType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "");
-    float contPos = NBEdge::UNSPECIFIED_CONTPOS;
+    double contPos = NBEdge::UNSPECIFIED_CONTPOS;
     if (OptionsCont::getOptions().isSet("default.connection.cont-pos")) {
         contPos = OptionsCont::getOptions().getFloat("default.connection.cont-pos");
     }
