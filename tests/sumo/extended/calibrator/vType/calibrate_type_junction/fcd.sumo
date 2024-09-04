@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-04 12:54:05 by Eclipse SUMO sumo Version v1_20_0+1861-d0e270028fe
+<!-- generated on 2024-09-04 21:30:33 by Eclipse SUMO sumo Version v1_20_0+1877-72a3b406b06
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,12 +43,46 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <device.fcd.period value="10"/>
     </fcd_device>
 
-    <mesoscopic>
-        <mesosim value="true"/>
-    </mesoscopic>
-
 </sumoConfiguration>
 -->
 
 <fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="flow0.0" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="flow0.0" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="flow0.0" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="flow0.0" type="t2"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="t2"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="t2"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="t2"/>
+        <vehicle id="flow0.2" type="DEFAULT_VEHTYPE"/>
+    </timestep>
+    <timestep time="90.00">
+        <vehicle id="flow0.0" type="t2"/>
+        <vehicle id="flow0.1" type="t2"/>
+        <vehicle id="flow0.2" type="DEFAULT_VEHTYPE"/>
+    </timestep>
 </fcd-export>
