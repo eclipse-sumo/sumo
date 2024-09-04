@@ -28,6 +28,7 @@ from . import constants as tc
 from .exceptions import FatalTraCIError, alias_param
 
 DOMAINS = []
+DOMAIN_BY_ID = {}
 
 
 def _readParameterWithKey(result):
@@ -126,6 +127,7 @@ class Domain:
         self._subscriptionDefault = subscriptionDefault
         self._connection = None
         DOMAINS.append(self)
+        DOMAIN_BY_ID[cmdGetID] = self
         # alias
         self.DOMAIN_ID = cmdGetID
 
@@ -223,7 +225,7 @@ class Domain:
         which are closer than dist to the object specified by objectID.
         """
         if varIDs is None:
-            varIDs = self._subscriptionDefault
+            varIDs = DOMAIN_BY_ID.get(domain, self)._subscriptionDefault
         self._connection._subscribeContext(self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
 
     def unsubscribeContext(self, objectID, domain, dist):
