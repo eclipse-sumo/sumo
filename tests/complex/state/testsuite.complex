@@ -108,5 +108,8 @@ calibrator
 # see #11394
 continous_lanechange
 
+# vehicle stops twice in the same spot, state is saved before departure
+stops_looped
+
 # two vehicles saved and reloaded
 replay
