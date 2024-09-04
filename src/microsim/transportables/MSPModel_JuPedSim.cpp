@@ -462,7 +462,9 @@ MSPModel_JuPedSim::execute(SUMOTime time) {
             if (candidateLane != state->getLane()) {
                 if (state->getLane() != nullptr) {
                     auto& peds = myActiveLanes[state->getLane()];
-                    peds.erase(std::find(peds.begin(), peds.end(), state));
+                    if (!peds.empty()) {
+                        peds.erase(std::find(peds.begin(), peds.end(), state));
+                    }
                 }
                 myActiveLanes[candidateLane].push_back(state);
                 state->setLane(candidateLane);
