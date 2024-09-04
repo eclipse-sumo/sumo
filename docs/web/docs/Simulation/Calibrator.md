@@ -142,6 +142,9 @@ The normal behavior is to replace the type of the passing vehicles with the type
 !!! caution
     The type modification happens when the vehicle enters the calibrator edge regardless of the configured calibrator position.
 
+!!! caution
+    Type calibration does currently not work with the mesoscopic model.
+
 ### Type-dependent mapping
 
 If the traffic consists of multiple vehicle types (i.e. passenger cars and trucks) it may be desirable to either
@@ -197,6 +200,27 @@ Example additional-file input:
 </calibrator>
 ```
 In this example, all cars will be mapped to slower cars (type 'car' to 'car2') and all trucks will be mapped to trucks that keep larger distances.
+
+### Calibrating on junctions
+
+You can define a type calibration for a whole junction in the following way:
+
+```xml
+<additional>
+  <calibrator id="cars" node="J1" pos="0">
+    <flow begin="0" end="1800" type="myNewCarType"/>
+  </calibrator>
+  <calibrator id="carsUndone" node="J2" pos="0" local="true">
+    <flow begin="0" end="1800" type="myNewCarType2"/>
+  </calibrator>
+</additional>
+```
+
+This will change the vehicle type once the vehicle enters one of the edges which approach the junction.
+The second variant above with the `local` attribute will also undo the changes (revert to the original type)
+once the vehicle has left any edge outgoing from the junction.
+As with the general type calibration the `pos` attribute is being ignored.
+
 
 # Building a scenario without knowledge of routes, based on flow measurements
 
