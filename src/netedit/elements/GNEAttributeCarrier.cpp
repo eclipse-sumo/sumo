@@ -6084,6 +6084,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
                                       GNETagProperties::TagParents::PLAN_FROM_EDGE | GNETagProperties::TagParents::PLAN_TO_EDGE,
                                       conflicts, icon, xmlTag, TL("PersonTrip: edge->edge"), parents, color);
         // set values of attributes
+        fillPlanParentAttributes(currentTag);
         fillPersonTripCommonAttributes(myTagProperties[currentTag]);
     }
     currentTag = GNE_TAG_PERSONTRIP_EDGE_TAZ;
