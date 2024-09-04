@@ -102,6 +102,8 @@
         </xsd:attribute>
         <xsd:attribute name="jmStoplineGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmTimegapMinor" type="nonNegativeFloatType"/>
+        <xsd:attribute name="jmStopSignWait" type="xsd:float"/>
+        <xsd:attribute name="jmAllwayStopWait" type="xsd:float"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>
                 <xsd:restriction base="xsd:float">
