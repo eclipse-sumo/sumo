@@ -591,6 +591,7 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myDepartPos /= 1000.; // was stored as mm
 
     // load stops
+    myStops.clear();
     addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
 
     if (hasDeparted()) {

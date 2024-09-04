@@ -7611,6 +7611,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> pastStops;
 
     // load stops
+    myStops.clear();
     addStops(!MSGlobals::gCheckRoutes, &myCurrEdge, false);
 
     if (hasDeparted()) {
