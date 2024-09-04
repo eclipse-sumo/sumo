@@ -116,3 +116,6 @@ reversal_before_signal
 
 # driveways must register vehicle after it finishes parking
 parking_insertion
+
+# one route ends within the block and another train starts within the block
+end_depart_within
