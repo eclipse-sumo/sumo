@@ -9,3 +9,8 @@ arrival_same_time
 
 # 4 vehicles approach and depart in their order of arrival
 intermodal
+
+# 4 vehicles approach and depart in their order of arrival,
+# 
+# required waiting time increased to 3s
+wait_longer
