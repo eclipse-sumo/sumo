@@ -55,10 +55,12 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const MSRouteProbe* probe,
         const double invalidJamThreshold,
         const std::string& vTypes) :
-    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
-    mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
+    MSCalibrator(id, edge, nullptr, nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false, false),
+    mySegment(edge == nullptr ? nullptr : MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
-    mySegment->addDetector(&myEdgeMeanData);
+    if (mySegment != nullptr) {
+        mySegment->addDetector(&myEdgeMeanData);
+    }
 }
 
 

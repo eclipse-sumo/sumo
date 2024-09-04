@@ -68,7 +68,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @param[in] doAdd whether to add the reminder to the lane
      */
-    MSMoveReminder(const std::string& description, MSLane* const lane = 0, const bool doAdd = true);
+    MSMoveReminder(const std::string& description, MSLane* const lane = nullptr, const bool doAdd = true);
 
 
     /** @brief Destructor
@@ -204,7 +204,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = nullptr) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);

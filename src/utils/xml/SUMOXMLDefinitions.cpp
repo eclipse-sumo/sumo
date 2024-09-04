@@ -1040,7 +1040,7 @@ SequentialStringBijection::Entry SUMOXMLDefinitions::attrs[] = {
     { "freq",                   SUMO_ATTR_FREQUENCY },
     { "style",                  SUMO_ATTR_STYLE },
     { "file",                   SUMO_ATTR_FILE },
-    { "junction",               SUMO_ATTR_JUNCTION },
+    { "local",                  SUMO_ATTR_LOCAL },
     { "number",                 SUMO_ATTR_NUMBER },
     { "duration",               SUMO_ATTR_DURATION },
     { "until",                  SUMO_ATTR_UNTIL },

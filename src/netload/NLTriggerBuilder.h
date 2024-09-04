@@ -397,12 +397,13 @@ protected:
      * @param[in] vTypes to which vehicle types the calibrator applies
      * @todo Is the position correct/needed
      */
-    virtual MSCalibrator* buildCalibrator(const std::string& id, MSEdge* edge, MSLane* lane, double pos,
+    virtual MSCalibrator* buildCalibrator(const std::string& id, MSEdge* edge, MSLane* lane, MSJunction* node, double pos,
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq,
                                           const MSRouteProbe* probe,
                                           const double invalidJamThreshold,
-                                          const std::string& vTypes);
+                                          const std::string& vTypes,
+                                          const bool local);
 
     /** @brief builds a mesoscopic calibrator
      *

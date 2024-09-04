@@ -49,7 +49,8 @@ public:
     /** constructor */
     MSCalibrator(const std::string& id,
                  MSEdge* const edge,
-                 MSLane* lane,
+                 MSLane* const lane,
+                 MSJunction* const node,
                  const double pos,
                  const std::string& aXMLFilename,
                  const std::string& outputFilename,
@@ -57,7 +58,8 @@ public:
                  const MSRouteProbe* probe,
                  const double invalidJamThreshold,
                  const std::string& vTypes,
-                 bool addLaneMeanData = true);
+                 const bool local,
+                 const bool addLaneMeanData);
 
     /** destructor */
     virtual ~MSCalibrator();
@@ -189,8 +191,8 @@ protected:
 
     class VehicleRemover : public MSMoveReminder {
     public:
-        VehicleRemover(MSLane* lane, MSCalibrator* parent) :
-            MSMoveReminder(parent->getID(), lane, true), myParent(parent) {}
+        VehicleRemover(MSLane* const lane, MSCalibrator* const parent, const bool undo = false) :
+            MSMoveReminder(parent->getID(), lane, true), myParent(parent), myUndoCalibration(undo) {}
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -205,16 +207,27 @@ protected:
          * @see Notification
          */
         //@}
-        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        virtual bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = nullptr);
+
+        /** @brief Checks whether any calibrations need to be undone
+         *
+         * @param[in] veh The leaving vehicle.
+         * @param[in] lastPos Position on the lane when leaving.
+         * @param[in] reason how the vehicle leaves the lane
+         * @see Notification
+         *
+         * @return True if the reminder wants to receive further info.
+         */
+        virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = nullptr);
 
         void disable() {
-            myParent = 0;
+            myParent = nullptr;
         }
 
     private:
         MSCalibrator* myParent;
+        const bool myUndoCalibration;
     };
-    friend class VehicleRemover;
     friend class GUICalibrator;
 
     // @return whether the current state is active (GUI)
@@ -285,8 +298,10 @@ protected:
 protected:
     /// @brief the edge on which this calibrator lies
     MSEdge* const myEdge;
-    /// @brief the lane on which this calibrator lies (0 if the whole edge is covered at once)
+    /// @brief the lane on which this calibrator lies (nullptr if the whole edge is covered at once)
     MSLane* const myLane;
+    /// @brief the junction on which this calibrator lies (nullptr if is edge or lane specific)
+    MSJunction* const myNode;
     /// @brief the position on the edge where this calibrator lies
     const double myPos;
     /// @brief the route probe to retrieve routes from
@@ -338,6 +353,9 @@ protected:
 
     /// @brief relative speed threshold for detecting and clearing invalid jam
     double myInvalidJamThreshold;
+
+    /// @brief whether the calibrator needs to undo the calibration after the edge / junction has been left
+    bool myAmLocal;
 
     /// @brief whether the calibrator has registered an invalid jam in the last execution step
     bool myHaveInvalidJam;

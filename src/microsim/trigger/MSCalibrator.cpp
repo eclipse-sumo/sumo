@@ -26,6 +26,7 @@
 #include <cmath>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSVehicleControl.h>
@@ -74,7 +75,8 @@ MSCalibrator::CalibratorCommand::shiftTime(SUMOTime currentTime, SUMOTime execTi
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string& id,
                            MSEdge* const edge,
-                           MSLane* lane,
+                           MSLane* const lane,
+                           MSJunction* const node,
                            const double pos,
                            const std::string& aXMLFilename,
                            const std::string& outputFilename,
@@ -82,11 +84,13 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const MSRouteProbe* probe,
                            const double invalidJamThreshold,
                            const std::string& vTypes,
-                           bool addLaneMeanData) :
+                           const bool local,
+                           const bool addLaneMeanData) :
     MSRouteHandler(aXMLFilename, true),
     MSDetectorFileOutput(id, vTypes, "", (int)PersonMode::NONE), // detecting persons not yet supported
     myEdge(edge),
     myLane(lane),
+    myNode(node),
     myPos(pos), myProbe(probe),
     myMeanDataParent(id + "_dummyMeanData", 0, 0, false, false, false, false, false, false, 1, 0, 0, vTypes, "",
                      std::vector<MSEdge*>(), false),
@@ -96,10 +100,11 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myInserted(0),
     myClearedInJam(0),
     mySpeedIsDefault(true), myDidSpeedAdaption(false), myDidInit(false),
-    myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
+    myDefaultSpeed(myLane == nullptr ? (myEdge == nullptr ? 0. : myEdge->getSpeedLimit()) : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
     myAmActive(false),
     myInvalidJamThreshold(invalidJamThreshold),
+    myAmLocal(local),
     myHaveInvalidJam(false) {
     myInstances[id] = this;
     if (outputFilename != "") {
@@ -112,7 +117,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
             init();
         }
     }
-    if (addLaneMeanData) {
+    if (addLaneMeanData && myEdge != nullptr) {
         // disabled for METriggeredCalibrator
         for (MSLane* const eLane : myEdge->getLanes()) {
             if (myLane == nullptr || myLane == eLane) {
@@ -124,6 +129,24 @@ MSCalibrator::MSCalibrator(const std::string& id,
                 VehicleRemover* remover = new VehicleRemover(eLane, this);
                 myLeftoverReminders.push_back(remover);
                 myVehicleRemovers.push_back(remover);
+            }
+        }
+    }
+    if (node != nullptr) {
+        for (const MSEdge* inEdge : myNode->getIncoming()) {
+            for (MSLane* const eLane : inEdge->getLanes()) {
+                VehicleRemover* remover = new VehicleRemover(eLane, this);
+                myLeftoverReminders.push_back(remover);
+                myVehicleRemovers.push_back(remover);
+            }
+        }
+        if (local) {
+            for (const MSEdge* outEdge : myNode->getOutgoing()) {
+                for (MSLane* const eLane : outEdge->getLanes()) {
+                    VehicleRemover* remover = new VehicleRemover(eLane, this, true);
+                    myLeftoverReminders.push_back(remover);
+                    myVehicleRemovers.push_back(remover);
+                }
             }
         }
     }
@@ -155,6 +178,7 @@ MSCalibrator::~MSCalibrator() {
     myInstances.erase(getID());
 }
 
+
 MSCalibrator::AspiredState
 MSCalibrator::getCurrentStateInterval() const {
     if (myCurrentStateInterval == myIntervals.end()) {
@@ -162,6 +186,7 @@ MSCalibrator::getCurrentStateInterval() const {
     }
     return *myCurrentStateInterval;
 }
+
 
 void
 MSCalibrator::myStartElement(int element,
@@ -218,7 +243,7 @@ MSCalibrator::myStartElement(int element,
             WRITE_ERRORF(TL("Non-numeric value for numeric attribute in definition of calibrator '%'."), getID());
         }
         if (state.q < 0 && state.v < 0 && state.vehicleParameter->vtypeid == DEFAULT_VTYPE_ID) {
-            WRITE_ERRORF(TL("Either 'vehsPerHour',  'speed' or 'type' has to be set in flow definition of calibrator '%'."), getID());
+            WRITE_ERRORF(TL("Either 'vehsPerHour', 'speed' or 'type' has to be set in flow definition of calibrator '%'."), getID());
         }
         if (MSGlobals::gUseMesoSim && state.q < 0 && state.vehicleParameter->vtypeid != DEFAULT_VTYPE_ID) {
             WRITE_ERRORF(TL("Type calibration is not supported in meso for calibrator '%'."), getID());
@@ -425,7 +450,6 @@ MSCalibrator::execute(SUMOTime currentTime) {
             // build the vehicle
             const std::string newID = getNewVehicleID();
             if (vc.getVehicle(newID) != nullptr) {
-                ;
                 // duplicate ids could come from loading state
                 myInserted++;
                 break;
@@ -488,6 +512,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
     }
     return myFrequency;
 }
+
 
 void
 MSCalibrator::reset() {
@@ -631,6 +656,16 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                 veh.replaceVehicleType(vehicleType);
             }
         }
+    }
+    return true;
+}
+
+
+bool
+MSCalibrator::VehicleRemover::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, Notification reason, const MSLane* /* enteredLane */) {
+    if (myUndoCalibration && reason != NOTIFICATION_LANE_CHANGE) {
+        // TODO check for distributions
+        veh.replaceVehicleType(MSNet::getInstance()->getVehicleControl().getVType(veh.getParameter().vtypeid));
     }
     return true;
 }
