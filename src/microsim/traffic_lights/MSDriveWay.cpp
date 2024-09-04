@@ -1523,7 +1523,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     // before a vehicle has left the driveway. This is possible when the driveway diverges from the foe
     // driveway at an earlier point (switch or crossing).
     //
-    // We already know that the last edge of this driveway doesn't impact the foe.
+    // We already know that the last edge of this driveway doesn't impact the foe (unless the driveway ends within the block).
     // Remove further edges from the end of the driveway (myForward) until the point of conflict is found.
     //
     // For movingBlock the logic is changed:
@@ -1559,6 +1559,8 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (subLast < 0) {
         if (foe->myTerminateRoute) {
             // assume the bidi conflict is resolved by leaving the network
+        } else if (myTerminateRoute) {
+            foe->myFoes.push_back(this);
         } else {
             WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
         }
