@@ -149,7 +149,7 @@ GNETranship::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkE
 
 void
 GNETranship::drawGL(const GUIVisualizationSettings& s) const {
-    drawPlanGL(checkDrawPersonPlan(), s, s.colorSettings.walkColor, s.colorSettings.selectedPersonPlanColor);
+    drawPlanGL(checkDrawContainerPlan(), s, s.colorSettings.walkColor, s.colorSettings.selectedPersonPlanColor);
 }
 
 
