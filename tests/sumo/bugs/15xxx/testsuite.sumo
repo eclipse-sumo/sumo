@@ -22,5 +22,8 @@ ticket15263
 # crash on rerouting with lane change prohibitions
 ticket15390
 
+# exceeding the speedLimit
+ticket15435
+
 # collision most likely due to driving imprecision
 ticket15440
