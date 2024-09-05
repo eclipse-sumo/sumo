@@ -74,3 +74,6 @@ follower_ends_before_reversal
 
 # the leading train reverse and the follower train ends right before the reversal
 follower_ends_before_reversal2
+
+# avoid spurious foe checks
+reversal_onRoute_beyond_core
