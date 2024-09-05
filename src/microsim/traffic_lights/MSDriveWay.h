@@ -43,6 +43,15 @@ public:
     typedef std::set<const MSLane*, ComparatorNumericalIdLess> LaneSet;
     typedef std::map<const MSLane*, int, ComparatorNumericalIdLess> LaneVisitedMap;
 
+    struct VehicleEvent {
+        VehicleEvent(SUMOTime _time, bool _isEntry, const std::string& _id, Notification _reason):
+            time(_time), isEntry(_isEntry), id(_id), reason(_reason) {}
+        SUMOTime time;
+        bool isEntry;
+        std::string id;
+        Notification reason;
+    };
+
     /*  The driveways (Fahrstrassen) for each link index of MSRailSignal
      *  Each link index has at least one driveway
      *  A driveway describes one possible route that passes the signal up to
@@ -117,6 +126,14 @@ public:
 
     int getNumericalID() const {
         return myNumericalID;
+    }
+
+    const std::vector<VehicleEvent>& getEvents() const {
+        return myVehicleEvents;
+    }
+
+    void setEvents(const std::vector<VehicleEvent>& events) {
+        myVehicleEvents = events;
     }
 
     /// @brief whether the give route matches this driveway
@@ -272,14 +289,6 @@ private:
 
     std::set<SUMOVehicle*> myTrains;
 
-    struct VehicleEvent {
-        VehicleEvent(SUMOTime _time, bool _isEntry, const std::string& _id, Notification _reason):
-            time(_time), isEntry(_isEntry), id(_id), reason(_reason) {}
-        SUMOTime time;
-        bool isEntry;
-        std::string id;
-        Notification reason;
-    };
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
 

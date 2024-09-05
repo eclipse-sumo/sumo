@@ -621,13 +621,15 @@ MSRailSignal::updateDriveway(int numericalID) {
 #ifdef DEBUG_DRIVEWAY_UPDATE
                 std::cout << SIMTIME << " rail signal junction '" << getID() << "' requires update for driveway " << numericalID << "\n";
 #endif
+                std::string oldID = getNewDrivewayID();
                 std::vector<const MSEdge*> route = dw->getRoute();
+                auto oldEvents = dw->getEvents();
                 delete *it;
                 li.myDriveways.erase(it);
-                if (li.myDriveways.size() == 0) {
-                    // rebuild default driveway
-                    li.myDriveways.push_back(MSDriveWay::buildDriveWay(getNewDrivewayID(), li.myLink, route.begin(), route.end()));
-                }
+                // restore driveway to preserve events
+                MSDriveWay* newDW = MSDriveWay::buildDriveWay(oldID, li.myLink, route.begin(), route.end());
+                newDW->setEvents(oldEvents);
+                li.myDriveways.push_back(newDW);
                 return;
             }
         }
