@@ -19,5 +19,8 @@ ticket15100
 # onDemand stop
 ticket15263
 
-# freeze on invalid interval end
-ticket15416
+# crash on rerouting with lane change prohibitions
+ticket15390
+
+# collision most likely due to driving imprecision
+ticket15440
