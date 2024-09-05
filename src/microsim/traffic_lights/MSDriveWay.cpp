@@ -752,7 +752,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
         for (MSLink* link : myProtectingSwitches) {
             links.push_back(getJunctionLinkID(link));
         }
-        od.writeAttr("links", joinToString(links, " "));
+        od.writeAttr("links", joinToStringSorting(links, " "));
         od.closeTag();
 
         od.openTag("conflictLinks");
@@ -761,7 +761,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
         for (MSLink* link : myConflictLinks) {
             signals.push_back(getTLLinkID(link));
         }
-        od.writeAttr("signals", joinToString(signals, " "));
+        od.writeAttr("signals", joinToStringSorting(signals, " "));
         od.closeTag();
 
         std::vector<std::string> foes;
@@ -770,7 +770,7 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
         }
         if (foes.size() > 0) {
             od.openTag("foes");
-            od.writeAttr("driveWays", joinToString(foes, " "));
+            od.writeAttr("driveWays", joinToStringSorting(foes, " "));
             od.closeTag();
         }
     }
