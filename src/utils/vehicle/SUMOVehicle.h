@@ -364,6 +364,8 @@ public:
     /// @brief Returns the vehicles's length
     virtual double getLength() const = 0;
 
+    virtual SUMOTime getLastActionTime() const = 0;
+
     /// @brief get bounding rectangle
     virtual PositionVector getBoundingBox(double offset = 0) const = 0;
 

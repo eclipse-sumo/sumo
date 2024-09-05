@@ -994,10 +994,12 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
         std::cout << stream.str();
     }
 #endif
-        if (waitingTime > avi.waitingTime) {
+        // when using actionSteps, the foe waiting time may be outdated
+        const SUMOTime actionDelta = SIMSTEP - veh->getLastActionTime();
+        if (waitingTime > avi.waitingTime + actionDelta) {
             return false;
         }
-        if (waitingTime == avi.waitingTime && arrivalTime < avi.arrivalTime) {
+        if (waitingTime == (avi.waitingTime + actionDelta) && arrivalTime < avi.arrivalTime + actionDelta) {
             return false;
         }
     }

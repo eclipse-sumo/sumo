@@ -251,6 +251,12 @@ public:
         return myLastEntryTime;
     }
 
+    /** @brief Returns the time of the vehicle's last action point.
+     * @return The time of the last action point
+     */
+    SUMOTime getLastActionTime() const {
+        return SIMTIME;
+    }
 
     /** @brief Sets the time at which the vehicle was blocked
      * @param[in] t The blocking time
