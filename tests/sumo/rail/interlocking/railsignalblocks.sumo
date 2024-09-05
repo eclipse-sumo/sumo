@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 13:11:12 by Eclipse SUMO sumo Version v1_20_0+0525-c23abd9e2f5
+<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="gneJ1">
         <link linkIndex="0" from="gneE2_0" to=":gneJ1_0_0">
-            <driveWay id="gneJ1.1" edges="-gneE0 -gneE6">
+            <driveWay id="gneJ1.1" vehicle="ICE0" edges="-gneE0 -gneE6">
                 <forward lanes=":gneJ1_0_0 -gneE0_0 :gneJ0_0_0 -gneE6_0"/>
                 <bidi lanes="gneE0_0 :gneJ0_1_0 gneE6_0"/>
                 <flank lanes=""/>
@@ -57,7 +57,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
-            <driveWay id="gneJ1.0" edges="gneE1">
+            <driveWay id="gneJ1.0" vehicle="RB1" edges="gneE1">
                 <forward lanes=":gneJ1_1_0 gneE1_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ1_0_0"/>
@@ -69,7 +69,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="gneJ2">
         <link linkIndex="0" from="-gneE3_0" to=":gneJ2_0_0">
-            <driveWay id="gneJ2.1" edges="gneE2">
+            <driveWay id="gneJ2.1" vehicle="ICE0" edges="gneE2">
                 <forward lanes=":gneJ2_0_0 gneE2_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ2_1_0"/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE1_0" to=":gneJ2_1_0">
-            <driveWay id="gneJ2.0" edges="gneE3 gneE4">
+            <driveWay id="gneJ2.0" vehicle="" edges="gneE3 gneE4">
                 <forward lanes=":gneJ2_1_0 gneE3_0"/>
                 <bidi lanes="-gneE3_0 :gneJ3_0_0"
                     deadlockCheck="-gneE4_0"/>
@@ -92,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="gneJ3">
         <link linkIndex="0" from="-gneE4_0" to=":gneJ3_0_0">
-            <driveWay id="gneJ3.1" edges="-gneE3">
+            <driveWay id="gneJ3.1" vehicle="ICE0" edges="-gneE3">
                 <forward lanes=":gneJ3_0_0 -gneE3_0"/>
                 <bidi lanes=":gneJ3_3_0 gneE3_0"/>
                 <flank lanes=":gneJ2_1_0 :gneJ3_2_0"/>
@@ -103,7 +103,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
         <link linkIndex="1" from="-gneE4_0" to=":gneJ3_1_0"/>
         <link linkIndex="2" from="-gneE7_0" to=":gneJ3_2_0">
-            <driveWay id="gneJ3.2" edges="gneE4">
+            <driveWay id="gneJ3.2" vehicle="RB2" edges="gneE4">
                 <forward lanes=":gneJ3_2_0 gneE4_0"/>
                 <bidi lanes=":gneJ3_1_0 -gneE4_0"/>
                 <flank lanes=":gneJ3_3_0"/>
@@ -113,7 +113,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
-            <driveWay id="gneJ3.0" edges="gneE4">
+            <driveWay id="gneJ3.0" vehicle="RB1" edges="gneE4">
                 <forward lanes=":gneJ3_3_0 gneE4_0"/>
                 <bidi lanes=":gneJ3_0_0 -gneE4_0"/>
                 <flank lanes=":gneJ3_2_0"/>
@@ -124,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ5">
-        <driveWay id="gneJ5.d1" edges="-gneE4 -gneE3">
+        <driveWay id="gneJ5.d1" vehicle="ICE0" edges="-gneE4 -gneE3">
             <forward lanes="-gneE4_0"/>
             <bidi lanes="gneE4_0 :gneJ3_3_0 gneE3_0"/>
             <flank lanes=":gneJ2_1_0 :gneJ3_2_0"/>
@@ -134,7 +134,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ10">
-        <driveWay id="gneJ10.d2" edges="-gneE8 -gneE7 gneE4" core="2">
+        <driveWay id="gneJ10.d2" vehicle="RB2" edges="-gneE8 -gneE7 gneE4" core="2">
             <forward lanes="-gneE8_0 :gneJ8_1_0 -gneE7_0"/>
             <bidi lanes="gneE8_0 :gneJ8_0_0 gneE7_0 :gneJ3_1_0"/>
             <flank lanes=""/>
@@ -144,7 +144,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ7">
-        <driveWay id="gneJ7.d0" edges="gneE6 gneE0">
+        <driveWay id="gneJ7.d0" vehicle="RB1" edges="gneE6 gneE0">
             <forward lanes="gneE6_0 :gneJ0_1_0 gneE0_0"/>
             <bidi lanes="-gneE6_0 :gneJ0_0_0 -gneE0_0"/>
             <flank lanes=":gneJ1_0_0"/>

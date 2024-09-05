@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="cluster_gneJ19_gneJ21">
         <link linkIndex="0" from="-gneE16_0" to=":cluster_gneJ19_gneJ21_0_0">
-            <driveWay id="cluster_gneJ19_gneJ21.1" edges="gneE15">
+            <driveWay id="cluster_gneJ19_gneJ21.1" vehicle="RE2" edges="gneE15">
                 <forward lanes=":cluster_gneJ19_gneJ21_0_0 gneE15_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE14_0" to=":cluster_gneJ19_gneJ21_1_0">
-            <driveWay id="cluster_gneJ19_gneJ21.0" edges="gneE16">
+            <driveWay id="cluster_gneJ19_gneJ21.0" vehicle="RE1" edges="gneE16">
                 <forward lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0"/>
                 <bidi lanes="-gneE16_0"/>
                 <flank lanes=":gneJ22_0_0"/>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="gneJ18">
         <link linkIndex="0" from="gneE20_0" to=":gneJ18_0_0">
-            <driveWay id="gneJ18.0" edges="gneE14">
+            <driveWay id="gneJ18.0" vehicle="RE1" edges="gneE14">
                 <forward lanes=":gneJ18_0_0 gneE14_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="gneJ22">
         <link linkIndex="0" from="gneE18_0" to=":gneJ22_0_0">
-            <driveWay id="gneJ22.1" edges="-gneE16">
+            <driveWay id="gneJ22.1" vehicle="RE2" edges="-gneE16">
                 <forward lanes=":gneJ22_0_0 -gneE16_0"/>
                 <bidi lanes="gneE16_0"/>
                 <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
@@ -89,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE16_0" to=":gneJ22_1_0">
-            <driveWay id="gneJ22.0" edges="gneE17">
+            <driveWay id="gneJ22.0" vehicle="RE1" edges="gneE17">
                 <forward lanes=":gneJ22_1_0 gneE17_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ22_0_0"/>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="gneJ24">
         <link linkIndex="0" from="gneE19_0" to=":gneJ24_0_0">
-            <driveWay id="gneJ24.0" edges="gneE18">
+            <driveWay id="gneJ24.0" vehicle="RE2" edges="gneE18">
                 <forward lanes=":gneJ24_0_0 gneE18_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
@@ -112,7 +112,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ27">
-        <driveWay id="gneJ27.d1" edges="gneE19">
+        <driveWay id="gneJ27.d1" vehicle="RE2" edges="gneE19">
             <forward lanes="gneE19_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
@@ -122,7 +122,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ28">
-        <driveWay id="gneJ28.d0" edges="gneE20">
+        <driveWay id="gneJ28.d0" vehicle="RE1" edges="gneE20">
             <forward lanes="gneE20_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>

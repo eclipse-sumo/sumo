@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-05 08:46:46 by Eclipse SUMO sumo Version v1_20_0+0519-8cdc17cd980
+<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -40,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="J1">
         <link linkIndex="0" from="E0_0" to=":J1_1_0">
-            <driveWay id="J1.0" edges="E1 E2 -E2 -E1 -E0">
+            <driveWay id="J1.0" vehicle="v_0" edges="E1 E2 -E2 -E1 -E0">
                 <forward lanes=":J1_1_0 E1_0 :J2_1_0 E2_0 :J3_0_0 -E2_0"/>
                 <bidi lanes=":J1_0_0 -E1_0 :J2_0_0 -E2_0 E2_0 :J2_1_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
@@ -48,10 +48,10 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
                 <foes driveWays="J0.d1 J1.0 J1.1 J1.d0 J2.0.0"/>
             </driveWay>
-            <subDriveWay id="J1.0.0" edges="E1">
+            <subDriveWay id="J1.0.0" vehicle="" edges="E1">
                 <forward lanes=":J1_1_0 E1_0 :J2_1_0"/>
             </subDriveWay>
-            <driveWay id="J1.1" edges="E1 E2">
+            <driveWay id="J1.1" vehicle="v_1" edges="E1 E2">
                 <forward lanes=":J1_1_0 E1_0 :J2_1_0 E2_0"/>
                 <bidi lanes=":J1_0_0 -E1_0 :J2_0_0 -E2_0"/>
                 <flank lanes=""/>
@@ -59,14 +59,14 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
                 <foes driveWays="J1.0 J1.1 J1.d0 J2.0.0"/>
             </driveWay>
-            <subDriveWay id="J1.1.0" edges="E1">
+            <subDriveWay id="J1.1.0" vehicle="" edges="E1">
                 <forward lanes=":J1_1_0 E1_0 :J2_1_0"/>
             </subDriveWay>
         </link>
     </railSignal>
     <railSignal id="J2">
         <link linkIndex="0" from="-E2_0" to=":J2_0_0">
-            <driveWay id="J2.0" edges="-E1 -E0">
+            <driveWay id="J2.0" vehicle="v_0" edges="-E1 -E0">
                 <forward lanes=":J2_0_0 -E1_0 :J1_0_0 -E0_0"/>
                 <bidi lanes=":J2_1_0 E1_0 :J1_1_0 E0_0"/>
                 <flank lanes=""/>
@@ -74,16 +74,16 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals=""/>
                 <foes driveWays="J0.d1 J1.0.0 J1.1.0 J1.d0.0 J2.0"/>
             </driveWay>
-            <subDriveWay id="J2.0.0" edges="-E1">
+            <subDriveWay id="J2.0.0" vehicle="" edges="-E1">
                 <forward lanes=":J2_0_0 -E1_0 :J1_0_0"/>
             </subDriveWay>
-            <subDriveWay id="J2.0.1" edges="-E1">
+            <subDriveWay id="J2.0.1" vehicle="" edges="-E1">
                 <forward lanes=":J2_0_0 -E1_0"/>
             </subDriveWay>
         </link>
     </railSignal>
     <departJunction id="J0">
-        <driveWay id="J0.d1" edges="E0 E1 E2">
+        <driveWay id="J0.d1" vehicle="v_1" edges="E0 E1 E2">
             <forward lanes="E0_0"/>
             <bidi lanes="-E0_0 :J1_0_0 -E1_0 :J2_0_0 -E2_0"/>
             <flank lanes=""/>
@@ -93,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="J1">
-        <driveWay id="J1.d0" edges="E1 E2 -E2 -E1 -E0">
+        <driveWay id="J1.d0" vehicle="v_0" edges="E1 E2 -E2 -E1 -E0">
             <forward lanes="E1_0 :J2_1_0 E2_0 :J3_0_0 -E2_0"/>
             <bidi lanes="-E1_0 :J2_0_0 -E2_0 E2_0 :J2_1_0 E1_0 :J1_1_0 E0_0"/>
             <flank lanes=":J1_1_0"/>
@@ -101,7 +101,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="J1_0"/>
             <foes driveWays="J0.d1 J1.0 J1.1 J1.d0 J2.0.1"/>
         </driveWay>
-        <subDriveWay id="J1.d0.0" edges="E1">
+        <subDriveWay id="J1.d0.0" vehicle="" edges="E1">
             <forward lanes="E1_0 :J2_1_0"/>
         </subDriveWay>
     </departJunction>

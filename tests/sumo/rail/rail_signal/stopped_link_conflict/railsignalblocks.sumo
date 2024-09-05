@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-04 18:08:11 by Eclipse SUMO sumo Version v1_20_0+0450-7eb1cdf1199
+<!-- generated on 2024-09-05 13:49:10 by Eclipse SUMO sumo Version v1_20_0+0527-5e4c9ee5dc8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="a_0" to=":A_0_0">
-            <driveWay id="A.0" edges="b c">
+            <driveWay id="A.0" vehicle="train1" edges="b c">
                 <forward lanes=":A_0_0 b_0 :gneJ5_0_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ5_1_0 b2_0 :A2_0_0"/>
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </railSignal>
     <railSignal id="A2">
         <link linkIndex="0" from="a2_0" to=":A2_0_0">
-            <driveWay id="A2.0" edges="b2 c">
+            <driveWay id="A2.0" vehicle="train2" edges="b2 c">
                 <forward lanes=":A2_0_0 b2_0 :gneJ5_1_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ5_0_0 b_0 :A_0_0"/>
@@ -64,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </link>
     </railSignal>
     <departJunction id="gneJ0">
-        <driveWay id="gneJ0.d0" edges="a">
+        <driveWay id="gneJ0.d0" vehicle="train1" edges="a">
             <forward lanes="a_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
@@ -74,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         </driveWay>
     </departJunction>
     <departJunction id="gneJ3">
-        <driveWay id="gneJ3.d1" edges="a2">
+        <driveWay id="gneJ3.d1" vehicle="train2" edges="a2">
             <forward lanes="a2_0"/>
             <bidi lanes=""/>
             <flank lanes=""/>
