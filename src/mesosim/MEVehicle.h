@@ -255,7 +255,7 @@ public:
      * @return The time of the last action point
      */
     SUMOTime getLastActionTime() const {
-        return SIMTIME;
+        return SIMSTEP;
     }
 
     /** @brief Sets the time at which the vehicle was blocked
