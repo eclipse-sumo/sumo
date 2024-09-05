@@ -621,7 +621,7 @@ MSRailSignal::updateDriveway(int numericalID) {
 #ifdef DEBUG_DRIVEWAY_UPDATE
                 std::cout << SIMTIME << " rail signal junction '" << getID() << "' requires update for driveway " << numericalID << "\n";
 #endif
-                std::string oldID = getNewDrivewayID();
+                std::string oldID = dw->getID();
                 std::vector<const MSEdge*> route = dw->getRoute();
                 auto oldEvents = dw->getEvents();
                 delete *it;
