@@ -715,7 +715,12 @@ MSDriveWay::bidiBlockedByEnd(const MSDriveWay& other) const {
 
 bool
 MSDriveWay::forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other) {
+    int i = 0;
     for (const MSEdge* edge2 : other.myRoute) {
+        if (i == other.myCoreSize) {
+            return false;
+        }
+        i++;
         if (forward.count(edge2->getBidiEdge()) != 0) {
             return true;
         }
@@ -1496,11 +1501,16 @@ MSDriveWay::addReversalFoes() {
             forward.insert(&lane->getEdge());
         }
     }
+    int i = 0;
     for (const MSEdge* e : myRoute) {
         if (forward.count(e) != 0) {
             // reversals in our own forward section must be ignored
             continue;
         }
+        if (i == myCoreSize) {
+            break;
+        }
+        i++;
         auto it = myReversalDriveWays.find(e);
         if (it != myReversalDriveWays.end()) {
             for (MSDriveWay* foe : it->second) {
