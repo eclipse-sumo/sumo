@@ -131,7 +131,7 @@ OutputDevice&
 OutputDevice::getDeviceByOption(const std::string& optionName) {
     std::string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName) == myOutputDevices.end()) {
-        throw InvalidArgument("Device '" + devName + "' has not been created.");
+        throw InvalidArgument("Output device '" + devName + "' for option '" + optionName + "' has not been created.");
     }
     return OutputDevice::getDevice(devName);
 }
