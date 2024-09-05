@@ -485,6 +485,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
 #endif
     }
     MSDriveWay* dw = MSDriveWay::buildDriveWay(rs->getNewDrivewayID(), myLink, firstIt, veh->getRoute().end());
+    dw->setVehicle(veh->getID());
 #ifdef DEBUG_SELECT_DRIVEWAY
     std::cout << SIMTIME << " rs=" << getID() << " veh=" << veh->getID() << " new dwSignal=" << dw->foundSignal() << " dwRoute=" << toString(dw->getRoute()) << " route=" << toString(veh->getRoute().getEdges()) << "\n";
 #endif

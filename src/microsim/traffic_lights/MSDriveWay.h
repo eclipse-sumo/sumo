@@ -136,6 +136,10 @@ public:
         myVehicleEvents = events;
     }
 
+    void setVehicle(const std::string& vehID) {
+        myFirstVehicle = vehID;
+    }
+
     /// @brief whether the give route matches this driveway
     bool match(const MSRoute& route, MSRouteIterator firstIt) const;
 
@@ -302,6 +306,9 @@ private:
 
     /// @brief track own occurences in myReversalDriveWays for cleanup in destructor
     std::vector<const MSEdge*> myReversals;
+
+    /// @brief the first vehicle using this driveway
+    std::string myFirstVehicle;
 
     static int myGlobalDriveWayIndex;
     static int myDepartDriveWayIndex;

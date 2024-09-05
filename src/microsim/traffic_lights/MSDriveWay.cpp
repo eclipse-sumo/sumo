@@ -727,6 +727,7 @@ void
 MSDriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag(myIsSubDriveway ? "subDriveWay" : "driveWay");
     od.writeAttr(SUMO_ATTR_ID, myID);
+    od.writeAttr(SUMO_ATTR_VEHICLE, myFirstVehicle);
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
     if (myCoreSize != (int)myRoute.size()) {
         od.writeAttr("core", myCoreSize);
@@ -1655,6 +1656,7 @@ MSDriveWay::getDepartureDriveway(const SUMOVehicle* veh) {
     MSDriveWay* dw = buildDriveWay(id, nullptr, veh->getCurrentRouteEdge(), veh->getRoute().end());
     myDepartureDriveways[edge].push_back(dw);
     myDepartureDrivewaysEnds[&dw->myForward.back()->getEdge()].push_back(dw);
+    dw->setVehicle(veh->getID());
     return dw;
 }
 
