@@ -1,0 +1,44 @@
+<railSignal id="J1">
+    <link linkIndex="0" from="E0_0" to=":J1_1_0">
+        <driveWay id="J1.1">
+            <entry id="v1" time="1020.00" reason="1"/>
+            <exit id="v1" time="1040.00" reason="1"/>
+        </driveWay>
+    </link>
+</railSignal>
+<railSignal id="J2">
+    <link linkIndex="0" from="E1_0" to=":J2_1_0">
+        <driveWay id="J2.0">
+            <entry id="v0" time="35.00" reason="1"/>
+            <exit id="v0" time="53.00" reason="9"/>
+            <entry id="v1" time="1035.00" reason="1"/>
+            <exit id="v1" time="1053.00" reason="9"/>
+        </driveWay>
+        <subDriveWay id="J2.0.0">
+            <entry id="v1" time="1035.00" reason="1"/>
+            <exit id="v1" time="1049.00" reason="1"/>
+        </subDriveWay>
+    </link>
+</railSignal>
+<departJunction id="J5">
+    <driveWay id="J5.d1">
+        <entry id="v2" time="1049.00" reason="0"/>
+        <exit id="v2" time="1103.00" reason="9"/>
+    </driveWay>
+    <subDriveWay id="J5.d1.0">
+        <entry id="v2" time="1049.00" reason="0"/>
+        <exit id="v2" time="1090.00" reason="1"/>
+    </subDriveWay>
+    <subDriveWay id="J5.d1.1">
+        <entry id="v2" time="1049.00" reason="0"/>
+        <exit id="v2" time="1099.00" reason="1"/>
+    </subDriveWay>
+</departJunction>
+<departJunction id="J0">
+    <driveWay id="J0.d0">
+        <entry id="v0" time="0.00" reason="0"/>
+        <exit id="v0" time="28.00" reason="1"/>
+        <entry id="v1" time="1000.00" reason="0"/>
+        <exit id="v1" time="1028.00" reason="1"/>
+    </driveWay>
+</departJunction>
