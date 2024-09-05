@@ -16,7 +16,7 @@ network stored in "my_shape_files.shp", "my_shape_files.shx",
 "my_shape_files.proj", and "my_shape_files.dbf":
 
 ```
-netconvert --shapefile-prefix my_shape_files
+netconvert --shapefile-prefix my_shape_files
 ```
 
 Unfortunately, shape files describe how information is stored
