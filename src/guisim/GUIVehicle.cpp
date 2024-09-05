@@ -59,6 +59,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 #include <microsim/devices/MSDevice_Battery.h>
+#include <microsim/traffic_lights/MSDriveWay.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
 #include "GUIVehicle.h"
@@ -192,6 +193,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
         ret->mkItem(TL("rightmost edge sublane [#]"), true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
         ret->mkItem(TL("leftmost edge sublane [#]"), true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getLeftSublaneOnEdge));
         ret->mkItem(TL("lane change maneuver distance [m]"), true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getManeuverDist));
+    }
+    if (isRailway(getVClass())) {
+        ret->mkItem(TL("driveways"), true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getDriveWays));
     }
     if (hasBattery || isElecHybrid) {
         ret->mkItem(TL("present state of charge [Wh]"), true,
@@ -923,6 +927,19 @@ GUIVehicle::getShadowLaneID() const {
 std::string
 GUIVehicle::getTargetLaneID() const {
     return Named::getIDSecure(getLaneChangeModel().getTargetLane(), "");
+}
+
+
+std::string
+GUIVehicle::getDriveWays() const {
+    std::vector<std::string> result;
+    for (auto item : myMoveReminders) {
+        const MSDriveWay* dw = dynamic_cast<const MSDriveWay*>(item.first);
+        if (dw) {
+            result.push_back(dw->getID());
+        }
+    }
+    return joinToStringSorting(result, " ");
 }
 
 double

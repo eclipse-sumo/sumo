@@ -29,6 +29,7 @@
 class SUMOVehicle;
 class MSLane;
 class MSLink;
+class MSRailSignal;
 
 // ===========================================================================
 // class definitions

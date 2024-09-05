@@ -160,6 +160,8 @@ public:
     std::string getShadowLaneID() const;
     std::string getTargetLaneID() const;
 
+    std::string getDriveWays() const;
+
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;
     /// @brief return the speed mode as bit string
