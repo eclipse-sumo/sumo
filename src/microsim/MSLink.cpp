@@ -983,6 +983,17 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
     }
     if (myState == LINKSTATE_ALLWAY_STOP) {
         assert(waitingTime > 0);
+#ifdef MSLink_DEBUG_OPENED
+    if (gDebugFlag1) {
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << "    foeDist=" << avi.dist
+               << " foeBGap=" << veh->getBrakeGap(false)
+               << " foeWait=" << avi.waitingTime
+               << " wait=" << waitingTime
+               << "\n";
+        std::cout << stream.str();
+    }
+#endif
         if (waitingTime > avi.waitingTime) {
             return false;
         }
