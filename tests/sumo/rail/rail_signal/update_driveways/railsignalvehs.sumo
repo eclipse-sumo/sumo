@@ -1,6 +1,6 @@
 <railSignal id="J1">
     <link linkIndex="0" from="E0_0" to=":J1_1_0">
-        <driveWay id="J1.1">
+        <driveWay id="J1.0">
             <entry id="v0" time="20.00" reason="1"/>
             <exit id="v0" time="40.00" reason="1"/>
             <entry id="v1" time="1020.00" reason="1"/>
