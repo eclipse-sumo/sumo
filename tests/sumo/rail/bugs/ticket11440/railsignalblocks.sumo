@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-02 12:29:10 by Eclipse SUMO sumo Version v1_20_0+0503-80b42ca4732
+<!-- generated on 2024-09-05 08:46:46 by Eclipse SUMO sumo Version v1_20_0+0519-8cdc17cd980
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,7 +47,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="B.0.0 A.0 A.d0 A.1"/>
+                <foes driveWays="A.0 A.1 A.d0 B.0.0"/>
             </driveWay>
             <driveWay id="A.1" edges="b c d o p">
                 <forward lanes=":A_1_0 b_0 :gneJ8_2_0 c_0"/>
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ3_0_0 -e_0 :C_1_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links="C_1"/>
                 <conflictLinks signals="B_0"/>
-                <foes driveWays="B.0.0 A.0 A.d0 A.1"/>
+                <foes driveWays="A.0 A.1 A.d0 B.0.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":C_3_0 -r_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="B.0 A.0 A.d0 gneJ0.d1 A.1 B.1.0"/>
+                <foes driveWays="A.0 A.1 A.d0 B.0 B.1.0 gneJ0.d1"/>
             </driveWay>
             <subDriveWay id="B.0.0" edges="d e f -f -e -d -c -b">
                 <forward lanes=":B_1_0 d_0 :gneJ3_3_0 e_0 :C_2_0 f_0 :gneJ7_0_0 -f_0 :C_1_0 -e_0 :gneJ3_0_0 -d_0 :B_0_0 -c_0 :gneJ8_1_0 -b_0 :A_0_0"/>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="-a_0 :A_0_0 -b_0 :gneJ8_1_0"
                     deadlockCheck="-c_0 :B_0_0 -d_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ3_0_0 -e_0 :C_1_0"/>
             <flank lanes=""/>
-            <protectingSwitches links="gneJ8_1 C_1"/>
+            <protectingSwitches links="C_1 gneJ8_1"/>
             <conflictLinks signals="B_0"/>
             <foes driveWays="B.0 gneJ0.d1"/>
         </driveWay>
@@ -110,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":A_1_0 :gneJ3_1_0 -o_0 :gneJ4_0_0 -p_0 :gneJ8_3_0 n_0 :gneJ9_1_0 m_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="A_0 B_0"/>
-            <foes driveWays="B.0.1 A.0 A.d0 A.1"/>
+            <foes driveWays="A.0 A.1 A.d0 B.0.1"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

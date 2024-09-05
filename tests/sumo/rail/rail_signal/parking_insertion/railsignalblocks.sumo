@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-03 17:36:50 by Eclipse SUMO sumo Version v1_20_0+0509-316c031f56e
+<!-- generated on 2024-09-05 08:46:46 by Eclipse SUMO sumo Version v1_20_0+0519-8cdc17cd980
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <railsignal-block-output value="railsignal_blocks.xml"/>
+        <railsignal-vehicle-output value="railsignal_vehicles.xml"/>
     </output>
 
     <processing>
@@ -47,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="gneJ8.0 A.d0 B.1"/>
+                <foes driveWays="A.d0 B.1 gneJ8.0"/>
             </driveWay>
             <subDriveWay id="B.1.0" edges="-c">
                 <forward lanes=":B_0_0 -c_0 :gneJ8_0_0"/>
@@ -75,7 +76,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="gneJ8.0 B.0.0 A.d0 gneJ3.0"/>
+                <foes driveWays="A.d0 B.0.0 gneJ3.0 gneJ8.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -87,7 +88,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":J1_0_0 -d_0 :gneJ3_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ3_0"/>
-                <foes driveWays="gneJ8.0 gneJ3.0 B.1.0"/>
+                <foes driveWays="B.1.0 gneJ3.0 gneJ8.0"/>
             </driveWay>
         </link>
     </railSignal>
@@ -108,7 +109,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":J1_0_0 -d_0 :gneJ3_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="gneJ3_0"/>
-            <foes driveWays="A.d0 gneJ3.0 B.1"/>
+            <foes driveWays="A.d0 B.1 gneJ3.0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>

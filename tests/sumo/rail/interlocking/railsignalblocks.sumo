@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-07-10 17:02:05 by Eclipse SUMO sumo Version v1_20_0+0461-800e888eadb
+<!-- generated on 2024-09-05 08:46:46 by Eclipse SUMO sumo Version v1_20_0+0519-8cdc17cd980
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -53,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
-                <foes driveWays="gneJ7.d0 gneJ1.1"/>
+                <foes driveWays="gneJ1.1 gneJ7.d0"/>
             </driveWay>
         </link>
         <link linkIndex="1" from="gneE0_0" to=":gneJ1_1_0">
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <bidi lanes=":gneJ3_3_0 gneE3_0"/>
                 <flank lanes=":gneJ2_1_0 :gneJ3_2_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ3_2 gneJ2_1"/>
+                <conflictLinks signals="gneJ2_1 gneJ3_2"/>
                 <foes driveWays="gneJ2.1 gneJ3.1"/>
             </driveWay>
         </link>
@@ -109,7 +109,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ3_3_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ3_3"/>
-                <foes driveWays="gneJ3.0 gneJ5.d1 gneJ3.2"/>
+                <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d1"/>
             </driveWay>
         </link>
         <link linkIndex="3" from="gneE3_0" to=":gneJ3_3_0">
@@ -119,7 +119,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":gneJ3_2_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ3_2"/>
-                <foes driveWays="gneJ3.0 gneJ5.d1 gneJ3.2"/>
+                <foes driveWays="gneJ3.0 gneJ3.2 gneJ5.d1"/>
             </driveWay>
         </link>
     </railSignal>
@@ -129,8 +129,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <bidi lanes="gneE4_0 :gneJ3_3_0 gneE3_0"/>
             <flank lanes=":gneJ2_1_0 :gneJ3_2_0"/>
             <protectingSwitches links=""/>
-            <conflictLinks signals="gneJ3_2 gneJ2_1"/>
-            <foes driveWays="gneJ3.0 gneJ2.1 gneJ5.d1 gneJ3.2"/>
+            <conflictLinks signals="gneJ2_1 gneJ3_2"/>
+            <foes driveWays="gneJ2.1 gneJ3.0 gneJ3.2 gneJ5.d1"/>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ10">
@@ -150,7 +150,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":gneJ1_0_0"/>
             <protectingSwitches links=""/>
             <conflictLinks signals="gneJ1_0"/>
-            <foes driveWays="gneJ7.d0 gneJ1.1"/>
+            <foes driveWays="gneJ1.1 gneJ7.d0"/>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
