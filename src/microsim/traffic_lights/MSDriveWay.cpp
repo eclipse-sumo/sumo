@@ -93,10 +93,11 @@ MSDriveWay::init() {
 // ===========================================================================
 
 
-MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
+MSDriveWay::MSDriveWay(const MSLink* origin, const std::string& id, bool temporary) :
         MSMoveReminder("DriveWay_" + (temporary ? "tmp" : id)),
         Named(id),
         myNumericalID(temporary ? -1 : myGlobalDriveWayIndex++),
+        myOrigin(origin),
         myMaxFlankLength(0),
         myActive(nullptr),
         myProtectedBidi(nullptr),
@@ -104,8 +105,7 @@ MSDriveWay::MSDriveWay(const std::string& id, bool temporary) :
         myFoundSignal(false),
         myFoundJump(false),
         myTerminateRoute(false),
-        myIsSubDriveway(false),
-        myIsDepartDriveway(false)
+        myIsSubDriveway(false)
 {}
 
 
@@ -136,7 +136,7 @@ MSDriveWay::~MSDriveWay() {
     }
     if (myLane != nullptr) {
         const MSEdge* first = &myLane->getEdge();
-        if (myIsDepartDriveway) {
+        if (isDepartDriveway() && !myIsSubDriveway) {
             std::vector<MSDriveWay*>& dws = myDepartureDriveways[first];
             dws.erase(std::find(dws.begin(), dws.end(), this));
             std::vector<MSDriveWay*>& dws2 = myDepartureDrivewaysEnds[&myForward.back()->getEdge()];
@@ -596,7 +596,7 @@ MSDriveWay::findProtection(const Approaching& veh, MSLink* link) const {
         return true;
     } else {
         // find protection further upstream
-        MSDriveWay tmp("tmp", true);
+        MSDriveWay tmp(link, "tmp", true);
         const MSLane* before = link->getLaneBefore();
         tmp.myFlank.push_back(before);
         LaneVisitedMap visited;
@@ -1183,8 +1183,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     //   until controlled railSignal link or protecting switch is found
     //   -> add all found lanes to conflictLanes
     //   -> add final links to conflictLinks
-    MSDriveWay* dw = new MSDriveWay(id);
-    dw->myIsDepartDriveway = link == nullptr;
+    MSDriveWay* dw = new MSDriveWay(link, id);
     LaneVisitedMap visited;
     std::vector<const MSLane*> before;
     MSLane* fromBidi = nullptr;
@@ -1553,7 +1552,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     bool foundConflict = false;
     while (subLast >= 0) {
         const MSLane* lane = myForward[subLast];
-        MSDriveWay tmp("tmp", true);
+        MSDriveWay tmp(myOrigin, "tmp", true);
         tmp.myForward.push_back(lane);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
         std::cout << "  subLast=" << subLast << " lane=" << lane->getID() << " fc=" << tmp.flankConflict(*foe) << " cc=" << tmp.crossingConflict(*foe)
@@ -1605,7 +1604,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             return;
         }
     }
-    MSDriveWay* sub = new MSDriveWay(getID() + "." + toString(mySubDriveWays.size()));
+    MSDriveWay* sub = new MSDriveWay(myOrigin, getID() + "." + toString(mySubDriveWays.size()));
     sub->myLane = myLane;
     sub->myIsSubDriveway = true;
     myLane->addMoveReminder(sub);

@@ -59,7 +59,7 @@ public:
      *  When a signal guards a switch (indirect guard) that signal stores two
      *  or more driveways
      */
-    MSDriveWay(const std::string& id, bool temporary = false);
+    MSDriveWay(const MSLink* origin, const std::string& id, bool temporary = false);
 
     /// @brief Destructor
     virtual ~MSDriveWay();
@@ -165,6 +165,9 @@ protected:
     /// @brief global driveway index
     int myNumericalID;
 
+    /// @brief the link that enters this driveway or nullptr for a departure driveWay
+    const MSLink* myOrigin;
+
     /// @brief the maximum flank length searched while building this driveway
     double myMaxFlankLength;
 
@@ -185,7 +188,6 @@ protected:
     bool myFoundJump;
     bool myTerminateRoute;
     bool myIsSubDriveway;
-    bool myIsDepartDriveway;
 
     /* @brief the actual driveway part up to the next railsignal (halting position)
      * This must be free of other trains */
@@ -276,6 +278,10 @@ protected:
 
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
+
+    bool isDepartDriveway() {
+        return myOrigin == nullptr;
+    };
 
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
