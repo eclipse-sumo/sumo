@@ -17,3 +17,7 @@ wait_longer
 
 # apply jmStopLineGap to allway_stop
 stopLineGap
+
+# lane has a stopOffset
+stopOffset
+pedCrossing
