@@ -14,3 +14,6 @@ intermodal
 # 
 # required waiting time increased to 3s
 wait_longer
+
+# apply jmStopLineGap to allway_stop
+stopLineGap
