@@ -1579,7 +1579,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
         } else if (myTerminateRoute) {
             foe->myFoes.push_back(this);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
-            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terinates, foe=" << foe->getID() << "\n";
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terminates, foe=" << foe->getID() << "\n";
+#endif
+        } else if (foe->myReversals.size() % 2 == 1) {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " has " << foe->myReversals.size() << " reversals\n";
 #endif
         } else {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
