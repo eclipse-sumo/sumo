@@ -32,7 +32,7 @@ SUMO2016](https://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 
 
 ## Lateral Resolution and Vehicle Position
-When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
+When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane; negative values mean right, positive left to the center) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
 
 The resolution which implicitly divides a lane into one or more sublanes, defines the granularity of decision making and collision detection. Each vehicle may occupy multiple sublanes (according to its width).
 During normal simulation behavior two vehicles will never occupy the same stripe while having an overlap in the longitudinal direction of the lane. Consequently, the value of **--lateral-resolution** should be low enough to account for the space requirements of the least wide traffic member.

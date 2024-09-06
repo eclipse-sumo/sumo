@@ -43,20 +43,33 @@ The generated XML file looks like this:
 </fcd-export>
 ```
 
-| Name     | Type                 | Description                                                                                                             |
-| -------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| timestep | (simulation) seconds | The time step described by the values within this timestep-element                                                      |
-| id       | id                   | The id of the vehicle                                                                                                   |
-| type     | id                   | The name of the vehicle type                                                                                            |
-| speed    | m/s                  | The speed of the vehicle                                                                                                |
-| angle    | degree               | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
-| x        | m or longitude       | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
-| y        | m or latitude        | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
-| z        | m                    | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
-| pos      | m                    | The running position of the vehicle measured from the start of the current lane.                                        |
-| lane     | id                   | The id of the current lane.                                                                                             |
-| slope    | degree               | The slope of the vehicle in degrees (equals the slope of the road at the current position)                              |
-| signals  | bitset               | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc). Only present when option **--fcd-output.signals** is set.  |
+The values without a tick in the "On" column need to be [enabled explicitly](#further-options) and the ones without a tick at "Meso" are not available for the [mesoscopic simulation](../Meso.md).
+
+| Name     | Type                 | On | Meso | Description                                                                                                 |
+| -------- | -------------------- | -- | ---- | ----------------------------------------------------------------------------------------------------------- |
+| timestep | (simulation) seconds |  x |   x  | The time step described by the values within this timestep-element                                          |
+| id       | id                   |  x |   x  | The id of the vehicle                                                                                       |
+| x        | m or longitude       |  x |   x  | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
+| y        | m or latitude        |  x |   x  | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
+| z        | m                    |  x |   x  | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
+| angle    | degree               |  x |   x  | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
+| type     | id                   |  x |   x  | The name of the vehicle type                                                                                |
+| speed    | m/s                  |  x |   x  | The speed of the vehicle                                                                                    |
+| pos      | m                    |  x |   x  | The running position of the vehicle measured from the start of the current lane.                            |
+| lane     | id                   |  x |      | The id of the current lane.                                                                                 |
+| edge     | id                   |  x |   x  | The id of the current edge (only available in meso).                                                        |
+| slope    | degree               |  x |   x  | The slope of the vehicle in degrees (equals the slope of the road at the current position)                  |
+| signals  | bitset               |    |      | The [signal state information](../../TraCI/Vehicle_Signalling.md) (blinkers, etc)                           |
+| acceleration  | m/s<sup>2</sup  |    |      | The longitudinal acceleration                                                                               |
+| accelerationLat | m/s<sup>2</sup |   |      | The lateral acceleration (only with enabled sublane model)                                                  |
+| distance | m                    |    |   x  | The [kilometrage / mileage position](../Railways.md#kilometrage_mileage_chainage) of the vehicle.           |
+| odometer | m                    |    |   x  | The odometer value (distance driven since departure).                                                       |
+| vehicle  | id                   |    |   x  | The id of the vehicle the person is currently riding (only available for persons)                           |
+| posLat   | m                    |    |      | The [lateral position](../SublaneModel.md#lateral_resolution_and_vehicle_position) on the lane              |
+| speedLat | m/s                  |    |      | The lateral speed (negative if the vehicle moves to the right)                                              |
+| leaderID | id                   |    |      | The id of the leading vehicle                                                                               |
+| leaderSpeed | m/s               |    |      | The speed of the leader                                                                                     |
+| leaderGap | m                   |    |      | The gap to the leader                                                                                       |
 
 When the option **--fcd-output.geo** is set, the written (x,y)-coordinates will be the
 lon/lat geo-coordinates.
@@ -64,7 +77,7 @@ lon/lat geo-coordinates.
 ### Precision
 
 By default fcd-output returns location values in meter with a precision
-of 1cm. (changeable by setting option **--precision**) If you set option
+of 1cm. (changeable by setting option **--precision**). If you set option
 --fcd-output.geo the values are lon,lat as decimal values with a
 precision of 6 decimal places (changeable by setting option **--precision.geo**)
 
@@ -161,14 +174,10 @@ When not all vehicles are equipped with an **fcd**-device, other vehicles and pe
 - **--fcd-output.signals** will add [signal state
   information](../../TraCI/Vehicle_Signalling.md) to the output
 - **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage_mileage_chainage) information to the output
-- **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
+- **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md))
 - **--fcd-output.max-leader-distance FLOAT** will add attributes leaderGap, leaderSpeed, leaderID whenever a vehicle has a leader within the given distance. Otherwise, leaderID will be "" and leaderGap, leaderSpeed will be -1.
 - **--fcd-output.params KEY1,KEY2,...** adds [generic parameters](../GenericParameters.md) to the output (supports device and carfollowmodel parameters as well as arbitrary user-define values)
-- **--fcd-output.attributes ATTR1,ATTR2,...** restricts written attributes to the given list (to reduce output). The following attributes are special:
-  - **all**: enables all attributes
-  - **vehicle**: add a vehicle attribute to each person (and thereby distinguish riding from walking persons).
-  - **odometer**: write odometer value for each vehicle (distance driven since departure)
-  - **posLat**: write lateral position on lane for each vehicle
+- **--fcd-output.attributes ATTR1,ATTR2,...** restrict / extend written attributes to the given list to customize output (can be any combination of the attributes above). The value **all** enables all attributes.
 
 ## NOTES
 
