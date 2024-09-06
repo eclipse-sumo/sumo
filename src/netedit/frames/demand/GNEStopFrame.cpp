@@ -487,11 +487,15 @@ GNEStopFrame::getStopParameter(const SumoXMLTag stopTag, const GNELane* lane, co
             }
         }
     }
-    if (stopBaseObject->hasBoolAttribute(SUMO_ATTR_PARKING)) {
-        if (stopBaseObject->getBoolAttribute(SUMO_ATTR_PARKING)) {
-            // temporal, currently OPPORTUNISTIC don't supported
+    if (stopBaseObject->hasStringAttribute(SUMO_ATTR_PARKING)) {
+        if (stopBaseObject->getStringAttribute(SUMO_ATTR_PARKING) == "true") {
             stop.parking = ParkingType::ONROAD;
             stop.parametersSet |= STOP_PARKING_SET;
+        } else if (stopBaseObject->getStringAttribute(SUMO_ATTR_PARKING) == "opportunistic") {
+            stop.parking = ParkingType::OPPORTUNISTIC;
+            stop.parametersSet |= STOP_PARKING_SET;
+        } else {
+            stop.parking = ParkingType::OFFROAD;
         }
     }
     if (stopBaseObject->hasTimeAttribute(SUMO_ATTR_JUMP)) {
