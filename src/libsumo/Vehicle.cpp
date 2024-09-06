@@ -247,7 +247,7 @@ Vehicle::getColor(const std::string& vehID) {
 double
 Vehicle::getLanePosition(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return veh->isOnRoad() ? veh->getPositionOnLane() : INVALID_DOUBLE_VALUE;
+    return (veh->isOnRoad() || veh->isParking()) ? veh->getPositionOnLane() : INVALID_DOUBLE_VALUE;
 }
 
 double
