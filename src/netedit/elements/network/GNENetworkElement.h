@@ -172,6 +172,7 @@ public:
 
     /// @brief Returns the name of the object (default "")
     virtual const std::string getOptionalName() const;
+
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -213,11 +214,23 @@ protected:
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;
 
+    /// @brief flag to indicate if shape edited is simplified
+    bool mySimplifiedShapEdited;
+
     /// @brief network element contour
     GNEContour myNetworkElementContour;
 
     // @brief check if we're drawing using a boundary but element was already selected
     bool checkDrawingBoundarySelection() const;
+
+    /// @brief get shape edited popup menu
+    GUIGLObjectPopupMenu* getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, const PositionVector& shape);
+
+    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
+     * @param pos position of new/existent vertex
+     * @return index of position vector
+     */
+    int getVertexIndex(const PositionVector& shape, const Position& pos);
 
 private:
     /// @brief set attribute after validation

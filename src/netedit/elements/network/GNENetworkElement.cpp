@@ -17,14 +17,17 @@
 ///
 // A abstract class for networkElements
 /****************************************************************************/
-#include <config.h>
 
-#include <utils/gui/div/GUIParameterTableWindow.h>
-#include <netedit/frames/common/GNEDeleteFrame.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/options/OptionsCont.h>
 
 #include "GNENetworkElement.h"
 
@@ -196,6 +199,62 @@ GNENetworkElement::checkDrawingBoundarySelection() const {
     } else {
         return false;
     }
+}
+
+
+GUIGLObjectPopupMenu*
+GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent, const PositionVector& shape) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    const std::string headerName = TLF("% (Edited shape)", getFullName());
+    new MFXMenuHeader(ret, app.getBoldFont(), headerName.c_str(), getGLIcon(), nullptr, 0);
+    if (OptionsCont::getOptions().getBool("gui-testing")) {
+        GUIDesigns::buildFXMenuCommand(ret, TL("Copy test coordinates to clipboard"), nullptr, ret, MID_COPY_TEST_COORDINATES);
+    }
+    new FXMenuSeparator(ret);
+    FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_SHAPEEDITED_SIMPLIFY);
+    // disable simplify shape if polygon was already simplified
+    if (mySimplifiedShapEdited || shape.size() <= 2) {
+        simplifyShape->disable();
+    }
+    // only allow open/close for non juPedSim polygons
+    if (!myTagProperty.isJuPedSimElement()) {
+        if (shape.isClosed()) {
+            GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open polygon's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_OPEN);
+        } else {
+            GUIDesigns::buildFXMenuCommand(ret, TL("Close shape"), TL("Close polygon's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_CLOSE);
+        }
+    }
+    // create a extra FXMenuCommand if mouse is over a vertex
+    const int index = getVertexIndex(shape, myNet->getViewNet()->getPositionInformation());
+    if (index != -1) {
+        // check if we're in network mode
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
+        }
+        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Remove geometry point"), TL("Remove geometry point under mouse"), nullptr, &parent, MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Set first geometry point"), TL("Set first geometry point"), nullptr, &parent, MID_GNE_SHAPEEDITED_SET_FIRST_POINT);
+        // disable setFirstPoint if shape only have three points
+        if ((shape.isClosed() && (shape.size() <= 4)) || (!shape.isClosed() && (shape.size() <= 2))) {
+            removeGeometryPoint->disable();
+        }
+        // disable setFirstPoint if mouse is over first point
+        if (index == 0) {
+            setFirstPoint->disable();
+        }
+    }
+    return ret;
+}
+
+
+int
+GNENetworkElement::getVertexIndex(const PositionVector& shape, const Position& pos) {
+    // first check if vertex already exists
+    for (const auto& shapePosition : shape) {
+        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
+            return shape.indexOfClosest(shapePosition);
+        }
+    }
+    return -1;
 }
 
 /****************************************************************************/

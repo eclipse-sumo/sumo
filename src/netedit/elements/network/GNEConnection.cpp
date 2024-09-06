@@ -347,28 +347,32 @@ GNEConnection::smootShape() {
 
 GUIGLObjectPopupMenu*
 GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, app);
-    // check if we're in supermode network
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-        // create menu commands
-        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
-        GUIDesigns::buildFXMenuCommand(ret, "Smooth connection shape", nullptr, &parent, MID_GNE_CONNECTION_SMOOTH_SHAPE);
-        // check if menu commands has to be disabled
-        NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
-        // check if we're in the correct edit mode
-        if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
-            mcCustomShape->disable();
+    if (myShapeEdited) {
+        return getShapeEditedPopUpMenu(app, parent, getNBEdgeConnection().customShape);
+    } else {
+        GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+        buildPopupHeader(ret, app);
+        buildCenterPopupEntry(ret);
+        buildNameCopyPopupEntry(ret);
+        // build selection and show parameters menu
+        myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+        buildShowParamsPopupEntry(ret);
+        // build position copy entry
+        buildPositionCopyEntry(ret, app);
+        // check if we're in supermode network
+        if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            // create menu commands
+            FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
+            GUIDesigns::buildFXMenuCommand(ret, "Smooth connection shape", nullptr, &parent, MID_GNE_CONNECTION_SMOOTH_SHAPE);
+            // check if menu commands has to be disabled
+            NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
+            // check if we're in the correct edit mode
+            if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+                mcCustomShape->disable();
+            }
         }
+        return ret;
     }
-    return ret;
 }
 
 
