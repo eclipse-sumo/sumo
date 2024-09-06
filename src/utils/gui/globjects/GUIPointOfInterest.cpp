@@ -149,7 +149,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         }
     } else {
         // fallback if no image is defined
-        GLHelper::drawFilledCircle((double) 1.3 * exaggeration, s.poiDetail);
+        GLHelper::drawFilledCircle(width * 0.5 * exaggeration, s.poiDetail);
         // check if draw polygon
         if (POI->getIcon() != POIIcon::NONE) {
             // translate
