@@ -1725,7 +1725,7 @@ GNEViewNet::hotkeyEnter() {
                 myViewParent->getTLSEditorFrame()->getTLSDefinition()->onCmdSaveChanges(nullptr, 0, nullptr);
             }
         } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
-            myEditNetworkElementShapes.commitEditedShape();
+            myEditNetworkElementShapes.commitShapeEdited();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_SHAPE) {
             if (myViewParent->getShapeFrame()->getDrawingShapeModule()->isDrawing()) {
                 // stop current drawing
@@ -2119,6 +2119,33 @@ GNEViewNet::getTAZAtPopupPosition() {
             auto TAZ = dynamic_cast<GNETAZ*>(myNet->getAttributeCarriers()->retrieveAdditional(glObject.object, false));
             if (TAZ) {
                 return TAZ;
+            }
+        }
+    }
+    return nullptr;
+}
+
+
+GNENetworkElement*
+GNEViewNet::getShapeEditedAtPopupPosition() {
+    // get first object that can be parsed to TAZ element
+    for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
+        for (const auto& glObject : glObjectLayer.second) {
+            if (glObject.object->getType() == GLO_JUNCTION) {
+                auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object);
+                if (junction->isShapeEdited()) {
+                    return junction;
+                }
+            } else if (glObject.object->getType() == GLO_CROSSING) {
+                auto crossing = myNet->getAttributeCarriers()->retrieveCrossing(glObject.object);
+                if (crossing->isShapeEdited()) {
+                    return crossing;
+                }
+            } else if (glObject.object->getType() == GLO_CONNECTION) {
+                auto connection = myNet->getAttributeCarriers()->retrieveConnection(glObject.object);
+                if (connection->isShapeEdited()) {
+                    return connection;
+                }
             }
         }
     }
@@ -2768,36 +2795,84 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // simplify edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->simplifyShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // close edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->closeShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // open edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->openShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // set first geometry point in edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->setFirstGeometryPointShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // delete geometry point edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->deleteGeometryPointShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdResetShapeEdited(FXObject*, FXSelector, void*) {
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // simplify edited shape using undo-redo
+        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->resetShapeEdited();
+        myNet->getViewNet()->getUndoList()->end();
+    }
     return 1;
 }
 

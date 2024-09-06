@@ -1422,7 +1422,7 @@ struct GNEViewNetHelper {
         void stopEditCustomShape();
 
         /// @brief save edited shape
-        void commitEditedShape();
+        void commitShapeEdited();
 
         /// @brief pointer to edited network element
         GNENetworkElement* getEditedNetworkElement() const;

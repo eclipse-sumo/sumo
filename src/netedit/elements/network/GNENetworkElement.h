@@ -76,12 +76,6 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier (constant)
     const GUIGlObject* getGUIGlObject() const;
 
-    /// @brief set shape edited
-    void setShapeEdited(const bool value);
-
-    /// @brief check if shape is being edited
-    bool isShapeEdited() const;
-
     /// @brief check if current network element is valid to be written into XML (by default true, can be reimplemented in children)
     virtual bool isNetworkElementValid() const;
 
@@ -202,6 +196,34 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
+    /// @}
+
+    /// @name functions related with shape editing
+    /// @{
+
+    /// @brief set shape edited
+    void setShapeEdited(const bool value);
+
+    /// @brief check if shape is being edited
+    bool isShapeEdited() const;
+
+    /// @brief simplify shape edited
+    void simplifyShapeEdited();
+
+    /// @brief close shape edited
+    void closeShapeEdited();
+
+    /// @brief open shape edited
+    void openShapeEdited();
+
+    /// @brief set first geometry point shape edited
+    void setFirstGeometryPointShapeEdited();
+
+    /// @brief delete geometry point shape edited
+    void deleteGeometryPointShapeEdited();
+
+    /// @brief reset shape edited
+    void resetShapeEdited();
     /// @}
 
     /// @brief set network element id

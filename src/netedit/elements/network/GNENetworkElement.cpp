@@ -64,18 +64,6 @@ GNENetworkElement::getGUIGlObject() const {
 }
 
 
-void
-GNENetworkElement::setShapeEdited(const bool value) {
-    myShapeEdited = value;
-}
-
-
-bool
-GNENetworkElement::isShapeEdited() const {
-    return myShapeEdited;
-}
-
-
 bool
 GNENetworkElement::GNENetworkElement::isNetworkElementValid() const {
     // implement in children
@@ -168,6 +156,54 @@ GNENetworkElement::getHierarchyName() const {
     } else {
         return getTagStr();
     }
+}
+
+
+void
+GNENetworkElement::setShapeEdited(const bool value) {
+    myShapeEdited = value;
+}
+
+
+bool
+GNENetworkElement::isShapeEdited() const {
+    return myShapeEdited;
+}
+
+
+void
+GNENetworkElement::simplifyShapeEdited() {
+
+}
+
+
+void
+GNENetworkElement::closeShapeEdited() {
+
+}
+
+
+void
+GNENetworkElement::openShapeEdited() {
+
+}
+
+
+void
+GNENetworkElement::setFirstGeometryPointShapeEdited() {
+
+}
+
+
+void
+GNENetworkElement::deleteGeometryPointShapeEdited() {
+
+}
+
+
+void
+GNENetworkElement::resetShapeEdited() {
+
 }
 
 

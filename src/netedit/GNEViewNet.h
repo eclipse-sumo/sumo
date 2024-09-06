@@ -814,6 +814,9 @@ private:
     /// @brief try to retrieve a TAZ at popup position
     GNETAZ* getTAZAtPopupPosition();
 
+    /// @brief try to retreive a edited shape at popup position
+    GNENetworkElement* getShapeEditedAtPopupPosition();
+
     /// @brief Auxiliary function used by onLeftBtnPress(...)
     void processClick(void* eventData);
 

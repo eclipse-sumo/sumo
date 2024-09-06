@@ -3894,12 +3894,9 @@ GNEViewNetHelper::EditNetworkElementShapes::stopEditCustomShape() {
 
 
 void
-GNEViewNetHelper::EditNetworkElementShapes::commitEditedShape() {
+GNEViewNetHelper::EditNetworkElementShapes::commitShapeEdited() {
     // save edited junction's shape
     if (myEditedNetworkElement != nullptr) {
-
-        /* */
-
         // stop edit custom shape
         stopEditCustomShape();
     }
