@@ -1573,9 +1573,18 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     if (subLast < 0) {
         if (foe->myTerminateRoute) {
             // assume the bidi conflict is resolved by leaving the network
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " terminates\n";
+#endif
         } else if (myTerminateRoute) {
             foe->myFoes.push_back(this);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terinates, foe=" << foe->getID() << "\n";
+#endif
         } else {
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " failed\n";
+#endif
             WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
         }
         return;
@@ -1586,6 +1595,9 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
             // can re-use existing sub-driveway
             foe->myFoes.push_back(cand);
             cand->myFoes.push_back(foe);
+#ifdef DEBUG_BUILD_SUBDRIVEWAY
+            std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " useExisting=" << cand->getID() << "\n";
+#endif
             return;
         }
     }
