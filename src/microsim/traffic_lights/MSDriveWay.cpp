@@ -283,7 +283,7 @@ MSDriveWay::conflictLinkApproached() const {
 
 
 bool
-MSDriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink) const {
+MSDriveWay::hasLinkConflict(const Approaching& veh, const MSLink* foeLink) const {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
     if (gDebugFlag4) {
         std::cout << "   checkLinkConflict foeLink=" << getTLLinkID(foeLink) << "\n";
@@ -499,6 +499,20 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
             }
             return true;
+        } else if (foeDW != this && isDepartDriveway() && !foeDW->isDepartDriveway()) {
+            if (foeDW->myOrigin->getApproaching().size() > 0) {
+                Approaching foeA = foeDW->myOrigin->getClosest();
+                const SUMOVehicle* foe = foeA.first;
+                if (foeA.second.dist < foe->getBrakeGap(true)) {
+                    MSRouteIterator firstIt = std::find(foe->getCurrentRouteEdge(), foe->getRoute().end(), foeDW->myRoute.front());
+                    if (firstIt != foe->getRoute().end()) {
+                        if (foeDW->match(foe->getRoute(), firstIt)) {
+                            //std::cout << SIMTIME << " " << getID() << " blocked by " << foeDW->getID() << " (approached by " << foe->getID() << ")\n";
+                            return true;
+                        }
+                    }
+                }
+            }
         }
     }
     return false;

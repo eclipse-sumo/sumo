@@ -226,7 +226,7 @@ protected:
     bool deadlockLaneOccupied(const SUMOVehicle* ego, bool store = true) const;
 
     /// @brief Whether the approaching vehicle is prevent from driving by another vehicle approaching the given link
-    bool hasLinkConflict(const Approaching& closest, MSLink* foeLink) const;
+    bool hasLinkConflict(const Approaching& closest, const MSLink* foeLink) const;
 
     /// @brief Wether this driveway (route) overlaps with the given one
     bool overlap(const MSDriveWay& other) const;
@@ -279,7 +279,7 @@ protected:
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);
 
-    bool isDepartDriveway() {
+    bool isDepartDriveway() const {
         return myOrigin == nullptr;
     };
 
