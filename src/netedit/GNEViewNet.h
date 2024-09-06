@@ -235,6 +235,9 @@ public:
     /// @brief apply template to edge
     long onCmdEgeApplyTemplate(FXObject*, FXSelector, void*);
 
+    /// @name specific of shape edited
+    /// @{
+
     /// @brief simply shape of current polygon
     long onCmdSimplifyShape(FXObject*, FXSelector, void*);
 
@@ -252,6 +255,30 @@ public:
 
     /// @brief set as first geometry point the closes geometry point
     long onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*);
+
+    /// @}
+
+    /// @name specific of shape edited
+    /// @{
+    /// @brief simply shape edited
+    long onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief close opened shape edited
+    long onCmdCloseShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief open closed shape edited
+    long onCmdOpenShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief set first geometry point in shape edited
+    long onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief delete the closes geometry point in shape edited
+    long onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief reset shape edited
+    long onCmdResetShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @}
 
     /// @brief transform POI to POILane, and vice versa
     long onCmdTransformPOI(FXObject*, FXSelector, void*);

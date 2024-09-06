@@ -214,6 +214,13 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SELECT,                  GNEViewNet::onCmdSelectPolygonElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPoint),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
+    // edit custom shapes
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_SIMPLIFY,                GNEViewNet::onCmdSimplifyShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_CLOSE,                   GNEViewNet::onCmdCloseShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_OPEN,                    GNEViewNet::onCmdOpenShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPointShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPointShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_RESET,                   GNEViewNet::onCmdResetShapeEdited),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
     // Demand elements
@@ -2755,6 +2762,42 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
         updateViewNet();
     }
 
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdResetShapeEdited(FXObject*, FXSelector, void*) {
     return 1;
 }
 
