@@ -1307,6 +1307,24 @@ enum {
 
     /// @}
 
+    /// @name GNEPoly messages
+    /// @{
+
+    /// @brief simplify shape edited geometry
+    MID_GNE_SHAPEEDITED_SIMPLIFY,
+    /// @brief close opened shape edited
+    MID_GNE_SHAPEEDITED_CLOSE,
+    /// @brief open closed shape edited
+    MID_GNE_SHAPEEDITED_OPEN,
+    /// @brief Set a vertex of shape edited as first vertex
+    MID_GNE_SHAPEEDITED_SET_FIRST_POINT,
+    /// @brief delete geometry point in shape edited
+    MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,
+    /// @brief reset shape
+    MID_GNE_SHAPEEDITED_RESET,
+
+    /// @}
+
     /// @name GNEPOI messages
     /// @{
 
