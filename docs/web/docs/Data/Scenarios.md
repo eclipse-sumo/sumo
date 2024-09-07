@@ -78,7 +78,17 @@ Italy.
 
 # Toronto
 
-- [Toronto Scenarios on GitHub](https://github.com/Jahandad-Baloch/TorontoSUMONetworks)
+- [**TorontoSUMONetworks on GitHub**](https://github.com/Jahandad-Baloch/TorontoSUMONetworks)
+
+TorontoSUMONetworks is an open-source platform designed for creating, manipulating, and simulating traffic networks in Toronto using SUMO. This tool provides a realistic simulation environment for transportation research, urban planning, and traffic management. Its flexibility makes it valuable for diverse research areas, including Intelligent Transportation Systems (ITS), Reinforcement Learning for Adaptive Traffic Signal Control (ATSC), and more.
+
+Key Features:
+- Realistic traffic simulations based on the Toronto network, including major arterials and local streets.
+- Multi-modal transportation support, simulating private vehicles, buses, bicycles, and pedestrians.
+- Utilizes real-world data from the City of Toronto Open Data Portal for accurate simulations.
+- Highly configurable, supporting detectors like inductionloop, lanearea, and multi-entry/exit for traffic management.
+
+This project offers a comprehensive platform for researchers, urban planners, and engineers aiming to improve urban mobility and optimize traffic systems through advanced simulation and analysis.
 
 # Turin SUMO Traffic (TuST)
 A large-scale mesoscopic traffic simulation of a 600-sqkm area around the Municipality of Turin.
