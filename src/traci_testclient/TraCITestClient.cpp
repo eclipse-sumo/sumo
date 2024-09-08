@@ -619,7 +619,7 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
         answerLog << " ]" << std::endl;
     } else if (valueDataType == libsumo::TYPE_COMPOUND) {
         int no = inMsg.readInt();
-        answerLog << " compound value with " << no << " members: [ ";
+        answerLog << " compound value with " << no << " members: [";
         for (int i = 0; i < no; ++i) {
             int currentValueDataType = inMsg.readUnsignedByte();
             answerLog << " valueDataType=" << currentValueDataType;
