@@ -43,7 +43,7 @@ The generated XML file looks like this:
 </fcd-export>
 ```
 
-The values without a tick in the "On" column need to be [enabled explicitly](#further-options) and the ones without a tick at "Meso" are not available for the [mesoscopic simulation](../Meso.md).
+The values without a tick in the "On" column need to be [enabled explicitly](#further_options) and the ones without a tick at "Meso" are not available for the [mesoscopic simulation](../Meso.md).
 
 | Name     | Type                 | On | Meso | Description                                                                                                 |
 | -------- | -------------------- | -- | ---- | ----------------------------------------------------------------------------------------------------------- |
