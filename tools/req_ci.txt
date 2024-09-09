@@ -3,4 +3,4 @@
 ortools==9.5.2237; python_version < '3.12'
 pandas<2.2.0
 matplotlib==3.8.4; python_version >= '3.9'
-contourpy==1.2.1
+contourpy==1.2.1; python_version >= '3.9'
