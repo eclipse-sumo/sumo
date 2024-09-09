@@ -642,7 +642,7 @@ Every time the control logic is executed, all `assignment`s are executed in the 
 - if **id** is the id of a condition element, the value of that conditions is replaced by a string representation of the result (The accuracy of this representation is limited by simulation option **--precision**)
 - if **id** is not the id of a condition element, a double valued variable with that id is created / updated in the current scope. If the assignment is not part of a [use-defined functions](#custom_function_definitions), this is the global scope
 
-The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/basic/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
+The test case [find_primes](https://sumo.dlr.de/extractTest.php?path=sumo/tls/actuated/conditions/assignments/find_primes) computes all prime numbers below 100 inside the traffic light controller as a capability demonstration.
 
 ### Custom function definitions
 
