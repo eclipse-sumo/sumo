@@ -5,7 +5,7 @@
             <entry id="v0" time="20.00" reason="1"/>
             <exit id="v0" time="49.00" reason="1"/>
             <entry id="v1" time="51.00" reason="1"/>
-            <exit id="v1" time="91.00" reason="1"/>
+            <exit id="v1" time="329.00" reason="1"/>
         </driveWay>
     </link>
 </railSignal>
@@ -14,9 +14,9 @@
     <link linkIndex="1" from="E2_0" to=":J3_2_0">
         <driveWay id="J3.0">
             <entry id="v0" time="45.00" reason="1"/>
-            <exit id="v0" time="59.00" reason="1"/>
-            <entry id="v1" time="86.00" reason="1"/>
-            <exit id="v1" time="101.00" reason="1"/>
+            <exit id="v0" time="309.00" reason="1"/>
+            <entry id="v1" time="312.00" reason="1"/>
+            <exit id="v1" time="362.00" reason="1"/>
         </driveWay>
     </link>
 </railSignal>
@@ -24,10 +24,10 @@
     <link linkIndex="0" from="-E4_0" to=":J4_0_0"/>
     <link linkIndex="1" from="E3_0" to=":J4_1_0">
         <driveWay id="J4.0">
-            <entry id="v1" time="105.00" reason="1"/>
-            <exit id="v1" time="130.00" reason="9"/>
             <entry id="v0" time="301.00" reason="1"/>
             <exit id="v0" time="316.00" reason="9"/>
+            <entry id="v1" time="353.00" reason="1"/>
+            <exit id="v1" time="369.00" reason="9"/>
         </driveWay>
     </link>
 </railSignal>
