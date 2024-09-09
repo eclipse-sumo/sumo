@@ -49,7 +49,7 @@ import sumolib
 net = sumolib.net.readNet('myNet.net.xml')
 
 # retrieve the coordinate of a node based on its ID
-print net.getNode('myNodeID').getCoord()
+print(net.getNode('myNodeID').getCoord())
 
 # retrieve the successor node ID of an edge
 nextNodeID = net.getEdge('myEdgeID').getToNode().getID()
