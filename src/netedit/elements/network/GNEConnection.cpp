@@ -419,8 +419,16 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             drawConnection(s, d, shapeSuperposed, connectionExaggeration);
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 0.1);
-            // draw dotted contour
-            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contour depending if we're editing the custom shape
+            const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+            if (editedNetworkElement && (editedNetworkElement == this)) {
+                // draw dotted contour geometry points
+                myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, shapeSuperposed, s.neteditSizeSettings.connectionGeometryPointRadius,
+                        connectionExaggeration, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                // draw dotted contour
+                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
         // calculate contour
         calculateConnectionContour(s, d, shapeSuperposed, connectionExaggeration);
@@ -789,12 +797,13 @@ GNEConnection::calculateConnectionContour(const GUIVisualizationSettings& s, con
         const PositionVector& shape, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myFromLane->getParentEdge()->getToJunction())) {
-        // calculate connection shape contour
-        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         // calculate geometry points contour if we're editing shape
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, shape, s.neteditSizeSettings.connectionGeometryPointRadius,
                     exaggeration, true);
+        } else {
+            // calculate connection shape contour
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, shape, s.connectionSettings.connectionWidth, exaggeration, true, true, 0);
         }
     }
 }

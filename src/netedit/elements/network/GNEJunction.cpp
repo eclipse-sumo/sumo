@@ -1711,8 +1711,6 @@ GNEJunction::drawJunctionAsShape(const GUIVisualizationSettings& s, const GUIVis
         // draw shape points only in Network supermode
         if (myShapeEdited && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork() &&
                 s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.junctionGeometryPointRadius)) {
-            // get mouse position
-            const auto mousePos = myNet->getViewNet()->getPositionInformation();
             // set color
             const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
             // calculate geometry

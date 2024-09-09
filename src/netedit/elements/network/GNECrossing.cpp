@@ -252,8 +252,16 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
-            // draw dotted contour
-            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contour depending if we're editing the custom shape
+            const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+            if (editedNetworkElement && (editedNetworkElement == this)) {
+                // draw dotted contour geometry points
+                myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myCrossingGeometry.getShape(), s.neteditSizeSettings.crossingGeometryPointRadius,
+                        crossingExaggeration, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                // draw dotted contour
+                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
         }
         // calculate contour
         calculateCrossingContour(s, d, crossingWidth, crossingExaggeration);
@@ -549,6 +557,12 @@ GNECrossing::drawCrossing(const GUIVisualizationSettings& s, const GUIVisualizat
                 s.drawMovingGeometryPoint(exaggeration, s.neteditSizeSettings.crossingGeometryPointRadius)) {
             // color
             const RGBColor darkerColor = crossingColor.changedBrightness(-32);
+            // draw on top of of the white area between the rails
+            glTranslated(0, 0, 0.2);
+            // set color
+            GLHelper::setColor(darkerColor);
+            // draw shape
+            GUIGeometry::drawGeometry(d, myCrossingGeometry.getShape(), s.neteditSizeSettings.crossingGeometryPointRadius * 0.4);
             // draw geometry points
             GUIGeometry::drawGeometryPoints(d, myCrossingGeometry.getShape(), darkerColor,
                                             s.neteditSizeSettings.crossingGeometryPointRadius, exaggeration,
@@ -615,13 +629,14 @@ GNECrossing::calculateCrossingContour(const GUIVisualizationSettings& s, const G
                                       const double width, const double exaggeration) const {
     // first check if junction parent was inserted with full boundary
     if (!gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
-        // calculate contour
-        myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
         // check if calculate contour for geometry points
         if (myShapeEdited) {
             myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myCrossingGeometry.getShape(),
                     s.neteditSizeSettings.crossingGeometryPointRadius,
                     exaggeration, true);
+        } else {
+            // calculate contour
+            myNetworkElementContour.calculateContourExtrudedShape(s, d, this, myCrossingGeometry.getShape(), width, exaggeration, true, true, 0);
         }
     }
 }
