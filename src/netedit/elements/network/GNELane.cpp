@@ -427,9 +427,10 @@ GNELane::checkDrawSelectContour() const {
 
 bool
 GNELane::checkDrawMoveContour() const {
-    // only move if shape is being edited
-    if (myShapeEdited && !myNet->getViewNet()->isCurrentlyMovingElements()) {
-        return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+    // check if we're editing this network element
+    const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+    if (editedNetworkElement) {
+        return editedNetworkElement == this;
     } else {
         return false;
     }

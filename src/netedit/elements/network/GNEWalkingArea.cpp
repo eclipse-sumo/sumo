@@ -158,22 +158,26 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // only continue if exaggeration is greater than 0 and junction's shape is greater than 4
     if ((myParentJunction->getNBNode()->getShape().area() > 4) &&
             (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
-        // get detail level
-        const auto d = s.getDetailLevel(walkingAreaExaggeration);
-        // draw geometry only if we'rent in drawForObjectUnderCursor mode
-        if (!s.drawForViewObjectsHandler) {
-            // draw walking area
-            drawWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration);
-            // draw walkingArea name
-            if (s.cwaEdgeName.show(this)) {
-                drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+        // don't draw this walking area if we're editing their junction parent
+        const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+        if (editedNetworkElement && editedNetworkElement != myParentJunction) {
+            // get detail level
+            const auto d = s.getDetailLevel(walkingAreaExaggeration);
+            // draw geometry only if we'rent in drawForObjectUnderCursor mode
+            if (!s.drawForViewObjectsHandler) {
+                // draw walking area
+                drawWalkingArea(s, d, walkingAreaShape, walkingAreaExaggeration);
+                // draw walkingArea name
+                if (s.cwaEdgeName.show(this)) {
+                    drawName(walkingAreaShape.getCentroid(), s.scale, s.edgeName, 0, true);
+                }
+                // draw dotted contour
+                myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
             }
-            // draw dotted contour
-            myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-        }
-        // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
-        if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
-            myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, walkingAreaExaggeration);
+            // draw dotted contour (except in contour mode) checking if junction parent was inserted with full boundary
+            if (!drawInContourMode() && !gViewObjectsHandler.checkBoundaryParentElement(this, myParentJunction)) {
+                myNetworkElementContour.calculateContourClosedShape(s, d, this, walkingAreaShape, walkingAreaExaggeration);
+            }
         }
     }
 }

@@ -313,9 +313,9 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
     // only allow open/close for junctions
     if (myTagProperty.getTag() == SUMO_TAG_JUNCTION) {
         if (shape.isClosed()) {
-            GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open polygon's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_OPEN);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open junction's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_OPEN);
         } else {
-            GUIDesigns::buildFXMenuCommand(ret, TL("Close shape"), TL("Close polygon's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_CLOSE);
+            GUIDesigns::buildFXMenuCommand(ret, TL("Close shape"), TL("Close junction's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_CLOSE);
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex

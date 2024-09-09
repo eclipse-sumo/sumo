@@ -417,17 +417,32 @@ GNEEdge::checkDrawMoveContour() const {
     // check if we're in move mode
     if (!myNet->getViewNet()->isCurrentlyMovingElements() && editModes.isCurrentSupermodeNetwork() &&
             (editModes.networkEditMode == NetworkEditMode::NETWORK_MOVE)) {
-        // check lanes
-        for (const auto& lane : myLanes) {
-            if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
-                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+        // check if we're editing this network element
+        const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+        if (editedNetworkElement) {
+            if (editedNetworkElement == this) {
+                return true;
+            } else {
+                // check lanes
+                for (const auto& lane : myLanes) {
+                    if (editedNetworkElement == lane) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            // check lanes
+            for (const auto& lane : myLanes) {
+                if (myNet->getViewNet()->checkOverLockedElement(lane, mySelected) &&
+                        (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == lane)) {
+                    return true;
+                }
+            }
+            // check edge
+            if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
+                    (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
                 return true;
             }
-        }
-        // check edge
-        if (myNet->getViewNet()->checkOverLockedElement(this, mySelected) &&
-                (myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this)) {
-            return true;
         }
         // nothing to draw
         return false;

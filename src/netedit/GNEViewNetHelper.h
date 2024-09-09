@@ -1436,7 +1436,6 @@ struct GNEViewNetHelper {
 
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
-
     };
 
     /// @brief struct for pack all variables and functions related with Block Icon
