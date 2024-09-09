@@ -138,6 +138,13 @@ public:
      */
     virtual const MSLane* getLane() const = 0;
 
+    /** @brief Returns the lane the where the rear of the object is currently at
+     *
+     * @return The current back lane or nullptr if the object is not on a lane
+     */
+    virtual const MSLane* getBackLane() const = 0;
+
+
     /// @brief return index of edge within route
     virtual int getRoutePosition() const = 0;
 

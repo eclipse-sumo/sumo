@@ -219,7 +219,7 @@ MSDriveWay::notifyLeaveBack(SUMOTrafficObject& veh, Notification reason, const M
     std::cout << SIMTIME << " notifyLeaveBack " << getDescription() << " veh=" << veh.getID() << " lane=" << Named::getIDSecure(leftLane) << " reason=" << toString(reason) << "\n";
 #endif
     if (veh.isVehicle()) {
-        if (leftLane == myForward.back()) {
+        if (leftLane == myForward.back() && veh.getBackLane() != leftLane->getBidiLane()) {
             myTrains.erase(&dynamic_cast<SUMOVehicle&>(veh));
             if (myWriteVehicles) {
                 myVehicleEvents.push_back(VehicleEvent(SIMSTEP, false, veh.getID(), reason));
