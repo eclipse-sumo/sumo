@@ -199,7 +199,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     myMinWidth = oc.getFloat("opendrive.min-width");
     myImportInternalShapes = oc.getBool("opendrive.internal-shapes");
     myIgnoreMisplacedSignals = oc.getBool("opendrive.ignore-misplaced-signals");
-    bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
+    const bool customLaneShapes = oc.getBool("opendrive.lane-shapes");
     NBTypeCont& tc = nb.getTypeCont();
     NBNodeCont& nc = nb.getNodeCont();
     // build the handler
@@ -486,7 +486,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 sE = nextS / cF;
             }
-            PositionVector geom = geomWithOffset.getSubpart2D(sB, sE);
+            const PositionVector geom = geomWithOffset.getSubpart2D(sB, sE).simplified2(false);
             std::string id = e->id;
             if (positionIDs) {
                 if (sFrom != e->from || sTo != e->to) {
