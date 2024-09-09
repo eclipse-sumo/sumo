@@ -171,38 +171,87 @@ GNENetworkElement::isShapeEdited() const {
 }
 
 
-void
-GNENetworkElement::simplifyShapeEdited() {
-
+int
+GNENetworkElement::getGeometryPointUnderCursorShapeEdited() const {
+    const auto& s = myNet->getViewNet()->getVisualisationSettings();
+    // calculate squared geometry point radius depending of edited item
+    double geometryPointRadius = s.neteditSizeSettings.polygonGeometryPointRadius;
+    if (myTagProperty.getTag() == SUMO_TAG_JUNCTION) {
+        geometryPointRadius = s.neteditSizeSettings.junctionGeometryPointRadius;
+    } else if (myTagProperty.getTag() == SUMO_TAG_EDGE) {
+        geometryPointRadius = s.neteditSizeSettings.edgeGeometryPointRadius;
+    } else if (myTagProperty.getTag() == SUMO_TAG_LANE) {
+        geometryPointRadius = s.neteditSizeSettings.laneGeometryPointRadius;
+    } else if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
+        geometryPointRadius = s.neteditSizeSettings.connectionGeometryPointRadius;
+    } else if (myTagProperty.getTag() == SUMO_TAG_CROSSING) {
+        geometryPointRadius = s.neteditSizeSettings.crossingGeometryPointRadius;
+    }
+    const auto geometryPointRadiusSquared = (geometryPointRadius * geometryPointRadius);
+    const auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    const auto mousePos = myNet->getViewNet()->getPositionInformation();
+    for (int i = 0; i < (int)shape.size(); i++) {
+        if (shape[i].distanceSquaredTo2D(mousePos) < geometryPointRadiusSquared) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 
 void
-GNENetworkElement::closeShapeEdited() {
-
+GNENetworkElement::simplifyShapeEdited(GNEUndoList* undoList) {
+    auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    const auto simplifiedShape = shape.simplified();
+    setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), undoList);
 }
 
 
 void
-GNENetworkElement::openShapeEdited() {
-
+GNENetworkElement::closeShapeEdited(GNEUndoList* undoList) {
+    auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    shape.closePolygon();
+    setAttribute(SUMO_ATTR_SHAPE, toString(shape), undoList);
 }
 
 
 void
-GNENetworkElement::setFirstGeometryPointShapeEdited() {
-
+GNENetworkElement::openShapeEdited(GNEUndoList* undoList) {
+    auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    shape.pop_back();
+    setAttribute(SUMO_ATTR_SHAPE, toString(shape), undoList);
 }
 
 
 void
-GNENetworkElement::deleteGeometryPointShapeEdited() {
-
+GNENetworkElement::setFirstGeometryPointShapeEdited(int index, GNEUndoList* undoList) {
+    const auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    PositionVector newShape;
+    for (int i = index; i < (int)shape.size(); i++) {
+        newShape.push_back(shape[i]);
+    }
+    for (int i = 0; i < index; i++) {
+        newShape.push_back(shape[i]);
+    }
+    setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
 }
 
 
 void
-GNENetworkElement::resetShapeEdited() {
+GNENetworkElement::deleteGeometryPointShapeEdited(int index, GNEUndoList* undoList) {
+    const auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    PositionVector newShape;
+    for (int i = 0; i < (int)shape.size(); i++) {
+        if (i != index) {
+            newShape.push_back(shape[i]);
+        }
+    }
+    setAttribute(SUMO_ATTR_SHAPE, toString(newShape), undoList);
+}
+
+
+void
+GNENetworkElement::resetShapeEdited(GNEUndoList* /*undoList*/) {
 
 }
 
@@ -249,7 +298,7 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
     new FXMenuSeparator(ret);
     FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_SHAPEEDITED_SIMPLIFY);
     // disable simplify shape if polygon was already simplified
-    if (mySimplifiedShapEdited || shape.size() <= 2) {
+    if (shape.size() <= 2) {
         simplifyShape->disable();
     }
     // only allow open/close for non juPedSim polygons
@@ -261,7 +310,7 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
-    const int index = getVertexIndex(shape, myNet->getViewNet()->getPositionInformation());
+    const int index = getGeometryPointUnderCursorShapeEdited();
     if (index != -1) {
         // check if we're in network mode
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {

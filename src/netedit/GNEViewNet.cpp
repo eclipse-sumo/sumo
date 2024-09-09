@@ -2795,13 +2795,14 @@ GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
         // simplify edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->simplifyShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->simplifyShapeEdited(undoList);
+        undoList->end();
     }
     return 1;
 }
@@ -2809,13 +2810,14 @@ GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
         // close edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->closeShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->closeShapeEdited(undoList);
+        undoList->end();
     }
     return 1;
 }
@@ -2823,13 +2825,14 @@ GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
         // open edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->openShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->openShapeEdited(undoList);
+        undoList->end();
     }
     return 1;
 }
@@ -2837,13 +2840,16 @@ GNEViewNet::onCmdOpenShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
+        // get geometry point index under cursor
+        const auto geometryPointIndex = shapeEdited->getGeometryPointUnderCursorShapeEdited();
         // set first geometry point in edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->setFirstGeometryPointShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->setFirstGeometryPointShapeEdited(geometryPointIndex, undoList);
+        undoList->end();
     }
     return 1;
 }
@@ -2851,13 +2857,16 @@ GNEViewNet::onCmdSetFirstGeometryPointShapeEdited(FXObject*, FXSelector, void*) 
 
 long
 GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
+        // get geometry point index under cursor
+        const auto geometryPointIndex = shapeEdited->getGeometryPointUnderCursorShapeEdited();
         // delete geometry point edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->deleteGeometryPointShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->deleteGeometryPointShapeEdited(geometryPointIndex, undoList);
+        undoList->end();
     }
     return 1;
 }
@@ -2865,13 +2874,14 @@ GNEViewNet::onCmdDeleteGeometryPointShapeEdited(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdResetShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
     GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
     if (shapeEdited) {
         // simplify edited shape using undo-redo
-        myNet->getViewNet()->getUndoList()->begin(shapeEdited, TL("simplify edited shape"));
-        shapeEdited->resetShapeEdited();
-        myNet->getViewNet()->getUndoList()->end();
+        undoList->begin(shapeEdited, TL("simplify edited shape"));
+        shapeEdited->resetShapeEdited(undoList);
+        undoList->end();
     }
     return 1;
 }

@@ -213,23 +213,27 @@ public:
     /// @brief check if shape is being edited
     bool isShapeEdited() const;
 
+    /// @brief get index geometry point under cursor of shape edited
+    int getGeometryPointUnderCursorShapeEdited() const;
+
     /// @brief simplify shape edited
-    void simplifyShapeEdited();
+    void simplifyShapeEdited(GNEUndoList* undoList);
 
     /// @brief close shape edited
-    void closeShapeEdited();
+    void closeShapeEdited(GNEUndoList* undoList);
 
     /// @brief open shape edited
-    void openShapeEdited();
+    void openShapeEdited(GNEUndoList* undoList);
 
     /// @brief set first geometry point shape edited
-    void setFirstGeometryPointShapeEdited();
+    void setFirstGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
 
     /// @brief delete geometry point shape edited
-    void deleteGeometryPointShapeEdited();
+    void deleteGeometryPointShapeEdited(const int index, GNEUndoList* undoList);
 
     /// @brief reset shape edited
-    void resetShapeEdited();
+    void resetShapeEdited(GNEUndoList* undoList);
+
     /// @}
 
     /// @brief set network element id
@@ -241,9 +245,6 @@ public:
 protected:
     /// @brief flag to check if element shape is being edited
     bool myShapeEdited;
-
-    /// @brief flag to indicate if shape edited is simplified
-    bool mySimplifiedShapEdited;
 
     /// @brief network element contour
     GNEContour myNetworkElementContour;
