@@ -86,3 +86,6 @@ reversal_in_first_block2
 
 # train must not exit driveway by reversal
 double_reversal_dwEnd
+
+# invalid conflict when a train reverses within the bidi section, causing emergency braking
+bidiDepart_reversal
