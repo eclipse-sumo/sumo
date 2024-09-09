@@ -252,6 +252,12 @@ GNEWalkingArea::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEWalkingArea::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEWalkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     if (value == getAttribute(key)) {

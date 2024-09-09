@@ -1210,6 +1210,17 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEEdge::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+            return myNBEdge->getInnerGeometry();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 std::string
 GNEEdge::getAttributeForSelection(SumoXMLAttr key) const {
     std::string result = getAttribute(key);

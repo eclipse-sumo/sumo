@@ -341,6 +341,12 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNEEdgeType::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNEEdgeType::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("EdgeType attributes cannot be edited here");

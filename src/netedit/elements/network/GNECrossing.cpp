@@ -352,12 +352,25 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(crossing->customTLIndex < 0 ? crossing->tlLinkIndex : crossing->customTLIndex);
         case SUMO_ATTR_TLLINKINDEX2:
             return toString(crossing->customTLIndex2 < 0 ? crossing->tlLinkIndex2 : crossing->customTLIndex2);
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return crossing->getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+PositionVector
+GNECrossing::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return getNBCrossing()->customShape;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -377,6 +390,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_PRIORITY:
         case SUMO_ATTR_TLLINKINDEX:
         case SUMO_ATTR_TLLINKINDEX2:
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -442,10 +456,10 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
                     && (parse<double>(value) >= 0 || parse<double>(value) == -1)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // empty shapes are allowed
             return canParse<PositionVector>(value);
-        }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -651,7 +665,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // make new value visible immediately
             crossing->tlLinkIndex2 = crossing->customTLIndex2;
             break;
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // set custom shape
             crossing->customShape = parse<PositionVector>(value);
             // update boundary
@@ -659,7 +674,6 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
                 updateCenteringBoundary(false);
             }
             break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

@@ -524,10 +524,23 @@ GNEConnection::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_STATE:
             return toString(getEdgeFrom()->getNBEdge()->getToNode()->getLinkState(
                                 getEdgeFrom()->getNBEdge(), nbCon.toEdge, nbCon.fromLane, nbCon.toLane, nbCon.mayDefinitelyPass, nbCon.tlID));
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(nbCon.customShape);
         case GNE_ATTR_PARAMETERS:
             return nbCon.getParametersStr();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+PositionVector
+GNEConnection::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return getNBEdgeConnection().customShape;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -553,6 +566,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_CHANGE_RIGHT:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_LENGTH:
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case SUMO_ATTR_TYPE:
         case GNE_ATTR_SELECTED:
@@ -829,10 +843,10 @@ GNEConnection::isValid(SumoXMLAttr key, const std::string& value) {
             }
         case SUMO_ATTR_LENGTH:
             return canParse<double>(value) && (parse<double>(value) >= -1);
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // empty custom shapes are allowed
             return canParse<PositionVector>(value);
-        }
         case SUMO_ATTR_STATE:
             return false;
         case SUMO_ATTR_DIR:
@@ -930,36 +944,31 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LENGTH:
             nbCon.customLength = parse<double>(value);
             break;
-        case SUMO_ATTR_ALLOW: {
+        case SUMO_ATTR_ALLOW:
             nbCon.permissions = parseVehicleClasses(value);
             break;
-        }
-        case SUMO_ATTR_DISALLOW: {
+        case SUMO_ATTR_DISALLOW:
             nbCon.permissions = invertPermissions(parseVehicleClasses(value));
             break;
-        }
-        case SUMO_ATTR_CHANGE_LEFT: {
+        case SUMO_ATTR_CHANGE_LEFT:
             nbCon.changeLeft = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
             break;
-        }
-        case SUMO_ATTR_CHANGE_RIGHT: {
+        case SUMO_ATTR_CHANGE_RIGHT:
             nbCon.changeRight = value == "" ? SVC_UNSPECIFIED : parseVehicleClasses(value);
             break;
-        }
         case SUMO_ATTR_STATE:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_DIR:
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             nbCon.customShape = parse<PositionVector>(value);
             // update centering boundary
             updateCenteringBoundary(false);
             break;
-        }
-        case SUMO_ATTR_TYPE: {
+        case SUMO_ATTR_TYPE:
             nbCon.edgeType = value;
             break;
-        }
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
                 selectAttributeCarrier();

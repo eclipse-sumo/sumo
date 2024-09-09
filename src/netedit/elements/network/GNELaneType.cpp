@@ -218,6 +218,12 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
 }
 
 
+PositionVector
+GNELaneType::getAttributePositionVector(SumoXMLAttr key) const {
+    throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
 void
 GNELaneType::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument("laneType attributes cannot be edited here");

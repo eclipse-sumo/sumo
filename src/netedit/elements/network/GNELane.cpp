@@ -718,6 +718,7 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).endOffset);
         case SUMO_ATTR_ACCELERATION:
             return toString(edge->getLaneStruct(myIndex).accelRamp);
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(edge->getLaneStruct(myIndex).customShape);
         case GNE_ATTR_OPPOSITE:
@@ -745,6 +746,19 @@ GNELane::getAttribute(SumoXMLAttr key) const {
     }
 }
 
+
+PositionVector
+GNELane::getAttributePositionVector(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
+            return myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
 std::string
 GNELane::getAttributeForSelection(SumoXMLAttr key) const {
     std::string result = getAttribute(key);
@@ -769,6 +783,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FRICTION:
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_ACCELERATION:
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
         case GNE_ATTR_OPPOSITE:
         case SUMO_ATTR_TYPE:
@@ -816,7 +831,8 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case SUMO_ATTR_ACCELERATION:
             return canParse<bool>(value);
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // A lane shape can either be empty or have more than 1 element
             if (value.empty()) {
                 return true;
@@ -824,7 +840,6 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
                 return parse<PositionVector>(value).size() > 1;
             }
             return false;
-        }
         case GNE_ATTR_OPPOSITE: {
             if (value.empty()) {
                 return true;
@@ -944,13 +959,13 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ACCELERATION:
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
-        case SUMO_ATTR_CUSTOMSHAPE: {
+        case SUMO_ATTR_SHAPE:
+        case SUMO_ATTR_CUSTOMSHAPE:
             // set new shape
             edge->setLaneShape(myIndex, parse<PositionVector>(value));
             // update edge parent boundary
             myParentEdge->updateCenteringBoundary(true);
             break;
-        }
         case GNE_ATTR_OPPOSITE: {
             if (value != "") {
                 NBEdge* oppEdge = myNet->getEdgeCont().retrieve(value.substr(0, value.rfind("_")));
