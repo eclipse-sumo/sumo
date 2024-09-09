@@ -160,7 +160,7 @@ GNEWalkingArea::drawGL(const GUIVisualizationSettings& s) const {
             (walkingAreaShape.size() > 0) && s.drawCrossingsAndWalkingareas) {
         // don't draw this walking area if we're editing their junction parent
         const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
-        if (editedNetworkElement && editedNetworkElement != myParentJunction) {
+        if (!editedNetworkElement || (editedNetworkElement != myParentJunction)) {
             // get detail level
             const auto d = s.getDetailLevel(walkingAreaExaggeration);
             // draw geometry only if we'rent in drawForObjectUnderCursor mode

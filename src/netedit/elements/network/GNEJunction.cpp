@@ -643,13 +643,21 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 GNEViewNetHelper::LockIcon::drawLockIcon(d, this, getType(), getPositionInView(), 1);
                 // draw junction name
                 drawJunctionName(s);
-                // draw dotted contour for shape
-                if (junctionShapeArea >= 4) {
-                    myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-                }
-                // draw dotted contour for bubble
-                if (drawBubble) {
-                    myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                // draw dotted contour depending if we're editing the custom shape
+                const GNENetworkElement* editedNetworkElement = myNet->getViewNet()->getEditNetworkElementShapes().getEditedNetworkElement();
+                if (editedNetworkElement && (editedNetworkElement == this)) {
+                    // draw dotted contour geometry points
+                    myNetworkElementContour.drawDottedContourGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.junctionGeometryPointRadius,
+                            junctionExaggeration, s.dottedContourSettings.segmentWidthSmall);
+                } else {
+                    // draw dotted contour for shape
+                    if (junctionShapeArea >= 4) {
+                        myNetworkElementContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                    }
+                    // draw dotted contour for bubble
+                    if (drawBubble) {
+                        myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                    }
                 }
             }
             // calculate junction contour (always before children)
@@ -1823,7 +1831,7 @@ GNEJunction::calculateJunctioncontour(const GUIVisualizationSettings& s, const G
         }
         // check geometry points if we're editing shape
         if (myShapeEdited) {
-            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.connectionGeometryPointRadius,
+            myNetworkElementContour.calculateContourAllGeometryPoints(s, d, this, myNBNode->getShape(), s.neteditSizeSettings.junctionGeometryPointRadius,
                     exaggeration, true);
         }
     }
