@@ -263,6 +263,9 @@ public:
     /// @brief simply shape edited
     long onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*);
 
+    /// @brief straight shape edited
+    long onCmdStraightenShapeEdited(FXObject*, FXSelector, void*);
+
     /// @brief close opened shape edited
     long onCmdCloseShapeEdited(FXObject*, FXSelector, void*);
 
@@ -277,6 +280,9 @@ public:
 
     /// @brief reset shape edited
     long onCmdResetShapeEdited(FXObject*, FXSelector, void*);
+
+    /// @brief finish shape edited
+    long onCmdFinishShapeEdited(FXObject*, FXSelector, void*);
 
     /// @}
 

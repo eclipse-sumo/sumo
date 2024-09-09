@@ -1312,6 +1312,8 @@ enum {
 
     /// @brief simplify shape edited geometry
     MID_GNE_SHAPEEDITED_SIMPLIFY,
+    /// @brief straighten shape edited geometry
+    MID_GNE_SHAPEEDITED_STRAIGHTEN,
     /// @brief close opened shape edited
     MID_GNE_SHAPEEDITED_CLOSE,
     /// @brief open closed shape edited
@@ -1322,6 +1324,8 @@ enum {
     MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,
     /// @brief reset shape
     MID_GNE_SHAPEEDITED_RESET,
+    /// @brief finish editing shape edited
+    MID_GNE_SHAPEEDITED_FINISH,
 
     /// @}
 

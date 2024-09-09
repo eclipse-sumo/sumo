@@ -216,11 +216,13 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPoint),
     // edit custom shapes
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_SIMPLIFY,                GNEViewNet::onCmdSimplifyShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_STRAIGHTEN,              GNEViewNet::onCmdStraightenShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_CLOSE,                   GNEViewNet::onCmdCloseShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_OPEN,                    GNEViewNet::onCmdOpenShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_SET_FIRST_POINT,         GNEViewNet::onCmdSetFirstGeometryPointShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT,   GNEViewNet::onCmdDeleteGeometryPointShapeEdited),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_RESET,                   GNEViewNet::onCmdResetShapeEdited),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_SHAPEEDITED_FINISH,                  GNEViewNet::onCmdFinishShapeEdited),
     // POIs
     FXMAPFUNC(SEL_COMMAND, MID_GNE_POI_TRANSFORM,   GNEViewNet::onCmdTransformPOI),
     // Demand elements
@@ -2809,6 +2811,21 @@ GNEViewNet::onCmdSimplifyShapeEdited(FXObject*, FXSelector, void*) {
 
 
 long
+GNEViewNet::onCmdStraightenShapeEdited(FXObject*, FXSelector, void*) {
+    auto undoList = myNet->getViewNet()->getUndoList();
+    // get shape edited under mouse
+    GNENetworkElement* shapeEdited = getShapeEditedAtPopupPosition();
+    if (shapeEdited) {
+        // simplify edited shape using undo-redo
+        undoList->begin(shapeEdited, TL("straigthen edited shape"));
+        shapeEdited->straigthenShapeEdited(undoList);
+        undoList->end();
+    }
+    return 1;
+}
+
+
+long
 GNEViewNet::onCmdCloseShapeEdited(FXObject*, FXSelector, void*) {
     auto undoList = myNet->getViewNet()->getUndoList();
     // get shape edited under mouse
@@ -2883,6 +2900,14 @@ GNEViewNet::onCmdResetShapeEdited(FXObject*, FXSelector, void*) {
         shapeEdited->resetShapeEdited(undoList);
         undoList->end();
     }
+    return 1;
+}
+
+
+long
+GNEViewNet::onCmdFinishShapeEdited(FXObject*, FXSelector, void*) {
+    // the same behavior as when we press enter
+    hotkeyEnter();
     return 1;
 }
 

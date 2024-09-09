@@ -219,6 +219,9 @@ public:
     /// @brief simplify shape edited
     void simplifyShapeEdited(GNEUndoList* undoList);
 
+    /// @brief straigthen shape edited
+    void straigthenShapeEdited(GNEUndoList* undoList);
+
     /// @brief close shape edited
     void closeShapeEdited(GNEUndoList* undoList);
 

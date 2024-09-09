@@ -217,6 +217,16 @@ GNENetworkElement::simplifyShapeEdited(GNEUndoList* undoList) {
 
 
 void
+GNENetworkElement::straigthenShapeEdited(GNEUndoList* undoList) {
+    const auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
+    PositionVector straigthenShape;
+    straigthenShape.push_front(shape.front());
+    straigthenShape.push_back(shape.back());
+    setAttribute(SUMO_ATTR_SHAPE, toString(straigthenShape), undoList);
+}
+
+
+void
 GNENetworkElement::closeShapeEdited(GNEUndoList* undoList) {
     auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
     shape.closePolygon();
@@ -304,18 +314,25 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
     if (OptionsCont::getOptions().getBool("gui-testing")) {
         GUIDesigns::buildFXMenuCommand(ret, TL("Copy test coordinates to clipboard"), nullptr, ret, MID_COPY_TEST_COORDINATES);
     }
+    // add separator
     new FXMenuSeparator(ret);
-    FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify Shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_SHAPEEDITED_SIMPLIFY);
-    // disable simplify shape if polygon was already simplified
-    if (shape.size() <= 2) {
-        simplifyShape->disable();
-    }
     // only allow open/close for junctions
     if (myTagProperty.getTag() == SUMO_TAG_JUNCTION) {
+        FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, TL("Simplify shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_SHAPEEDITED_SIMPLIFY);
+        // disable simplify shape if polygon is only a line
+        if (shape.size() <= 2) {
+            simplifyShape->disable();
+        }
         if (shape.isClosed()) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open junction's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_OPEN);
         } else {
             GUIDesigns::buildFXMenuCommand(ret, TL("Close shape"), TL("Close junction's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_CLOSE);
+        }
+    } else {
+        FXMenuCommand* straightenShape = GUIDesigns::buildFXMenuCommand(ret, TL("Straighten shape"), TL("Replace current shape with a rectangle"), nullptr, &parent, MID_GNE_SHAPEEDITED_STRAIGHTEN);
+        // disable straighten shape if polygon is already straight
+        if (shape.size() <= 2) {
+            straightenShape->disable();
         }
     }
     // create a extra FXMenuCommand if mouse is over a vertex
@@ -332,6 +349,10 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
             setFirstPoint->disable();
         }
     }
+    // add separator
+    new FXMenuSeparator(ret);
+    // add finish
+    GUIDesigns::buildFXMenuCommand(ret, TL("Finish editing (Enter)"), nullptr, &parent, MID_GNE_SHAPEEDITED_FINISH);
     return ret;
 }
 
