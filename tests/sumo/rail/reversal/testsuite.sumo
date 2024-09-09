@@ -83,3 +83,6 @@ reversal_in_first_block
 
 # avoid spurious foe checks, both driveways have a route that ends at the network boundary (terminateRoute)
 reversal_in_first_block2
+
+# train must not exit driveway by reversal
+double_reversal_dwEnd
