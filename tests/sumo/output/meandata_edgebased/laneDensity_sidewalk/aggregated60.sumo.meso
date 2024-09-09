@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2021-11-23 12:57:30 by Eclipse SUMO sumo Version v1_11_0+0012-279bcfd
+<!-- generated on 2024-09-09 09:27:16 by Eclipse SUMO sumo Version v1_20_0+1915-abb849f738d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+This file may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net2.net.xml"/>
+        <net-file value="net3.net.xml"/>
         <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
     </input>
 
@@ -25,12 +30,10 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <time-to-teleport value="-1"/>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
-        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -39,12 +42,12 @@ SPDX-License-Identifier: EPL-2.0
         <mesosim value="true"/>
     </mesoscopic>
 
-</configuration>
+</sumoConfiguration>
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="600.00" end="660.00" id="dump_60">
-        <edge id="CN" sampledSeconds="2160.00" traveltime="1006.62" overlapTraveltime="1061.36" density="391.52" laneDensity="195.76" occupancy="97.88" waitingTime="0.00" timeLoss="0.00" speed="0.09" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="SC" sampledSeconds="2160.00" traveltime="993.48" overlapTraveltime="1047.50" density="391.52" laneDensity="195.76" occupancy="97.88" waitingTime="2160.00" timeLoss="2145.61" speed="0.09" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="CN" sampledSeconds="2040.00" traveltime="1006.26" overlapTraveltime="1064.15" density="391.25" laneDensity="130.42" occupancy="65.21" waitingTime="0.00" timeLoss="0.00" speed="0.09" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="SC" sampledSeconds="2040.00" traveltime="993.97" overlapTraveltime="1052.16" density="398.13" laneDensity="132.71" occupancy="66.35" waitingTime="2040.00" timeLoss="2027.38" speed="0.09" speedRelative="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
