@@ -173,6 +173,9 @@ public:
         return (int)myLanes->size();
     }
 
+    /// @brief return the number of lanes that permit non-weak modes if the edge allows non weak modes and the number of lanes otherwise
+    int getNumDrivingLanes() const;
+
     /// @brief return total number of vehicles on this edges lanes or segments
     int getVehicleNumber() const;
 

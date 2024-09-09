@@ -560,7 +560,7 @@ MSMeanData::writeAggregated(OutputDevice& dev, SUMOTime startTime, SUMOTime stop
     double totalTT = 0;
     for (MSEdge* edge : myEdges) {
         edgeLengthSum += edge->getLength();
-        laneNumber += edge->getNumLanes();
+        laneNumber += edge->getNumDrivingLanes();
         speedSum += edge->getSpeedLimit();
         totalTT += edge->getLength() / edge->getSpeedLimit();
     }
@@ -610,7 +610,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
             MeanDataValues* data = edgeValues.front();
             if (writePrefix(dev, *data, SUMO_TAG_EDGE, getEdgeID(edge))) {
                 data->write(dev, myWrittenAttributes, stopTime - startTime,
-                            (int)edge->getLanes().size(),
+                            edge->getNumDrivingLanes(),
                             edge->getSpeedLimit(),
                             myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
@@ -651,7 +651,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
         if (myTrackVehicles) {
             MeanDataValues& meanData = **edgeValues.begin();
             if (writePrefix(dev, meanData, SUMO_TAG_EDGE, edge->getID())) {
-                meanData.write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
+                meanData.write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             if (!MSNet::getInstance()->skipFinalReset()) {
@@ -667,7 +667,7 @@ MSMeanData::writeEdge(OutputDevice& dev,
                 }
             }
             if (writePrefix(dev, *sumData, SUMO_TAG_EDGE, getEdgeID(edge))) {
-                sumData->write(dev, myWrittenAttributes, stopTime - startTime, (int)edge->getLanes().size(), edge->getSpeedLimit(),
+                sumData->write(dev, myWrittenAttributes, stopTime - startTime, edge->getNumDrivingLanes(), edge->getSpeedLimit(),
                                myPrintDefaults ? edge->getLength() / edge->getSpeedLimit() : -1.);
             }
             delete sumData;

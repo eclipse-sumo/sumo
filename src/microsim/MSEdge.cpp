@@ -1458,6 +1458,23 @@ MSEdge::getVehicles() const {
     return result;
 }
 
+int
+MSEdge::getNumDrivingLanes() const {
+    int result = 0;
+    SVCPermissions filter = SVCAll;
+    if ((myCombinedPermissions & ~(SVC_PEDESTRIAN | SVC_WHEELCHAIR)) != 0) {
+        filter = ~(SVC_PEDESTRIAN | SVC_WHEELCHAIR);
+    } else if ((myCombinedPermissions & (SVC_PEDESTRIAN | SVC_WHEELCHAIR)) != 0) {
+        // filter out green verge
+        filter = (SVC_PEDESTRIAN | SVC_WHEELCHAIR);
+    }
+    for (const MSLane* const l : *myLanes) {
+        if ((l->getPermissions() & filter) != 0) {
+            result++;
+        }
+    }
+    return result;
+}
 
 int
 MSEdge::getVehicleNumber() const {
