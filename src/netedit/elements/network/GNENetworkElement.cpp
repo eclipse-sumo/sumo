@@ -202,7 +202,16 @@ GNENetworkElement::getGeometryPointUnderCursorShapeEdited() const {
 void
 GNENetworkElement::simplifyShapeEdited(GNEUndoList* undoList) {
     auto shape = getAttributePositionVector(SUMO_ATTR_SHAPE);
-    const auto simplifiedShape = shape.simplified();
+    const Boundary b = shape.getBoxBoundary();
+    // create a square as simplified shape
+    PositionVector simplifiedShape;
+    simplifiedShape.push_back(Position(b.xmin(), b.ymin()));
+    simplifiedShape.push_back(Position(b.xmin(), b.ymax()));
+    simplifiedShape.push_back(Position(b.xmax(), b.ymax()));
+    simplifiedShape.push_back(Position(b.xmax(), b.ymin()));
+    if (shape.isClosed()) {
+        simplifiedShape.push_back(simplifiedShape[0]);
+    }
     setAttribute(SUMO_ATTR_SHAPE, toString(simplifiedShape), undoList);
 }
 
@@ -301,8 +310,8 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
     if (shape.size() <= 2) {
         simplifyShape->disable();
     }
-    // only allow open/close for non juPedSim polygons
-    if (!myTagProperty.isJuPedSimElement()) {
+    // only allow open/close for junctions
+    if (myTagProperty.getTag() == SUMO_TAG_JUNCTION) {
         if (shape.isClosed()) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Open shape"), TL("Open polygon's shape"), nullptr, &parent, MID_GNE_SHAPEEDITED_OPEN);
         } else {
@@ -312,11 +321,7 @@ GNENetworkElement::getShapeEditedPopUpMenu(GUIMainWindow& app, GUISUMOAbstractVi
     // create a extra FXMenuCommand if mouse is over a vertex
     const int index = getGeometryPointUnderCursorShapeEdited();
     if (index != -1) {
-        // check if we're in network mode
-        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            GUIDesigns::buildFXMenuCommand(ret, "Set custom Geometry Point", nullptr, &parent, MID_GNE_CUSTOM_GEOMETRYPOINT);
-        }
-        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Remove geometry point"), TL("Remove geometry point under mouse"), nullptr, &parent, MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Remove geometry point (shift+click)"), TL("Remove geometry point under mouse"), nullptr, &parent, MID_GNE_SHAPEEDITED_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, TL("Set first geometry point"), TL("Set first geometry point"), nullptr, &parent, MID_GNE_SHAPEEDITED_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
         if ((shape.isClosed() && (shape.size() <= 4)) || (!shape.isClosed() && (shape.size() <= 2))) {
