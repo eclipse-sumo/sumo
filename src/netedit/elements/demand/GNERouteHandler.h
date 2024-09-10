@@ -146,7 +146,7 @@ public:
 
     /// @brief build tranship
     void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                       const double arrivalPosition, const double departPosition, const double speed);
+                       const double arrivalPosition, const double departPosition, const double speed, const SUMOTime duration);
 
     /// @brief build person stop
     void buildPersonStop(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,

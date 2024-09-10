@@ -792,7 +792,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
 
 void
 GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                               const double arrivalPosition, const double departPosition, const double speed) {
+                               const double arrivalPosition, const double departPosition, const double speed, const SUMOTime duration) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     const auto tagIcon = GNEDemandElementPlan::getTranshipTagIcon(planParameters);
@@ -804,7 +804,8 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
-        GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPosition, departPosition, speed);
+        GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
+                arrivalPosition, departPosition, speed, duration);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(tranship, TLF("add % in '%'", tranship->getTagStr(), containerParent->getID()));
@@ -1175,7 +1176,7 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
                              false;
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanTranship()) {
-        buildTranship(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, departPos, speed);
+        buildTranship(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, departPos, speed, duration);
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
         buildTransport(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
@@ -1344,7 +1345,8 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
         buildTranship(planObject, planParameters,
                       planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                       planObject->getDoubleAttribute(SUMO_ATTR_DEPARTPOS),
-                      planObject->getDoubleAttribute(SUMO_ATTR_SPEED));
+                      planObject->getDoubleAttribute(SUMO_ATTR_SPEED),
+                      planObject->getTimeAttribute(SUMO_ATTR_DURATION));
     } else if (tagProperty.isPlanStopContainer()) {
         // set parameters
         int parameterSet = 0;

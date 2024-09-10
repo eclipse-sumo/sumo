@@ -50,10 +50,11 @@ public:
      * @param[in] planParameters plan parameters
      * @param[in] departPosition depart pos
      * @param[in] arrivalPosition arrival pos
-     * @param[in] speed tranship speed
+     * @param[in] speed tranship speed (not together with duration)
+     * @param[in] duraiton tranship duration (not together with speed)
      */
     GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
-                const double departPosition, const double arrivalPosition, const double speed);
+                const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration);
 
     /// @brief destructor
     ~GNETranship();
@@ -208,7 +209,10 @@ public:
 
 protected:
     /// @brief speed
-    double mySpeed;
+    double mySpeed = 0;
+
+    /// @brief duration
+    SUMOTime myDuration = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else

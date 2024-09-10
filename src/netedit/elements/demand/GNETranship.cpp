@@ -43,13 +43,14 @@ mySpeed(0) {
 
 
 GNETranship::GNETranship(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
-                         const double departPosition, const double arrivalPosition, const double speed) :
+                         const double departPosition, const double arrivalPosition, const double speed, const SUMOTime duration) :
     GNEDemandElement(containerParent, net, GLO_TRANSHIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
 planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
 GNEDemandElementPlan(this, departPosition, arrivalPosition),
-mySpeed(speed) {
+mySpeed(speed),
+myDuration(duration) {
 }
 
 
@@ -74,9 +75,13 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
     writeOriginStop(device);
     // write rest of attributes
     device.openTag(SUMO_TAG_TRANSHIP);
-    writeLocationAttributes(device);
+    // speed
     if (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED)) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
+    // duration
+    if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
+        device.writeAttr(SUMO_ATTR_DURATION, myDuration);
     }
     device.closeTag();
 }
@@ -189,9 +194,10 @@ GNETranship::getLastPathLane() const {
 std::string
 GNETranship::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
             return toString(mySpeed);
+        case SUMO_ATTR_DURATION:
+            return toString(myDuration);
         default:
             return getPlanAttribute(key);
     }
@@ -200,7 +206,12 @@ GNETranship::getAttribute(SumoXMLAttr key) const {
 
 double
 GNETranship::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return mySpeed;
+        default:
+            return getPlanAttributeDouble(key);
+    }
 }
 
 
@@ -213,8 +224,8 @@ GNETranship::getAttributePosition(SumoXMLAttr key) const {
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_DURATION:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -227,9 +238,10 @@ GNETranship::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
 bool
 GNETranship::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_DURATION:
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
         default:
             return isPlanValid(key, value);
     }
@@ -266,9 +278,11 @@ GNETranship::getACParametersMap() const {
 void
 GNETranship::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        // Common attributes
         case SUMO_ATTR_SPEED:
-            mySpeed = parse<double>(value);
+            mySpeed = GNEAttributeCarrier::parse<double>(value);
+            break;
+        case SUMO_ATTR_DURATION:
+            myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
             break;
         default:
             setPlanAttribute(key, value);
