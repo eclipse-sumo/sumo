@@ -125,3 +125,9 @@ update_driveways
 
 # both sides of a siding are used in both directions
 siding_both_ways
+
+# siding cannot be used because it is already occupied
+siding_deadlock
+
+# siding cannot be used because the trains are too long
+sidingShort_deadlock
