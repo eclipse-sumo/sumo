@@ -13,4 +13,4 @@ exclude = ['%7B%7BSource%7D%7D', '^https://sumo\.dlr\.de/pydoc/', '^https://sumo
            '^https://stackoverflow\.com/questions/', '^https://askubuntu\.com/questions/',
            '^https://www\.udemy\.com/course/ferramenta-de-microssimulacao-de-trafego-sumo/',
            '^https://www\.colliseum\.eu',
-           '^https://elib\.dlr\.de/cgi/', '^https://wiki\.dlr\.de/']
+           '^https://elib\.dlr\.de/cgi/', '^https://wiki\.dlr\.de/', 'https://infoscience\.epfl\.ch/record/']
