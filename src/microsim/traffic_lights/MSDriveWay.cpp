@@ -981,7 +981,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                     }
 #endif
                 }
-                if (links.size() > 1) {
+                if (links.size() > 1 && !foundUnsafeSwitch) {
                     // switch on driveway
                     mySwitchDriveWays[link].push_back(this);
                     myForwardSwitches.push_back(link);
