@@ -75,6 +75,9 @@ GNETranship::writeDemandElement(OutputDevice& device) const {
     // write rest of attributes
     device.openTag(SUMO_TAG_TRANSHIP);
     writeLocationAttributes(device);
+    if (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED)) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
     device.closeTag();
 }
 
