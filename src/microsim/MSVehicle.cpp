@@ -2270,6 +2270,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
     bool foundRailSignal = !isRailway(getVClass());
+    bool planningToStop = false;
 #ifdef PARALLEL_STOPWATCH
     myLane->getStopWatch()[0].start();
 #endif
@@ -2559,9 +2560,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
             // if the vehicle is going to stop we don't need to look further
             // (except for trains that make use of further link-approach registration for safety purposes)
-            if (!isWaypoint && !isRailway(getVClass())) {
-                lfLinks.emplace_back(v, newStopDist);
-                break;
+            if (!isWaypoint) {
+                planningToStop = true;
+                if (!isRailway(getVClass())) {
+                    lfLinks.emplace_back(v, newStopDist);
+                    break;
+                }
             }
         }
 
@@ -2873,7 +2877,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // if stopping is possible, arrivalTime can be arbitrarily large. A small value keeps fractional times (impatience) meaningful
         double arrivalSpeedBraking = 0;
         const double bGap = cfModel.brakeGap(v);
-        if (seen < bGap && !isStopped()) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
+        if (seen < bGap && !isStopped() && !planningToStop) { // XXX: should this use the current speed (at least for the ballistic case)? (Leo) Refs. #2575
             // vehicle cannot come to a complete stop in time
             if (MSGlobals::gSemiImplicitEulerUpdate) {
                 arrivalSpeedBraking = cfModel.getMinimalArrivalSpeedEuler(seen, v);
