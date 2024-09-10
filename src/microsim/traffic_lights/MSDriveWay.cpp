@@ -837,7 +837,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
     bool seekBidiSwitch = true;
     bool foundUnsafeSwitch = false;
     MSLane* toLane = origin ? origin->getViaLaneOrLane() : (*next)->getLanes()[0];
-    const std::string warnID = origin ? "rail signal " + getClickableTLLinkID(origin) + "'" : "insertion lane '" + toLane->getID() + "'";
+    const std::string warnID = origin ? "rail signal " + getClickableTLLinkID(origin) : "insertion lane '" + toLane->getID() + "'";
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
     gDebugFlag4 = DEBUG_HELPER(orignRS);
     if (gDebugFlag4) std::cout << "buildRoute origin=" << warnID << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
