@@ -30,13 +30,13 @@ file="<OUTPUT_FILE>" \[vTypes="<LIST>"\] \[excludeEmpty="true"\]/\>
 
 ```xml
 <linkData xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/linkdata.xsd">
-   <timeSlice startTime="0" duration="60000"/>
-   <timeSlice startTime="60000" duration="60000">
-       <link id="32" amount="2" averageSpeed="888"/>
-       <link id="35" amount="2" averageSpeed="879"/>
-       <link id="38" amount="4" averageSpeed="859"/>
-   </timeSlice>
-   ...
+   <timeSlice startTime="0" duration="60000"/>
+   <timeSlice startTime="60000" duration="60000">
+       <link id="32" amount="2" averageSpeed="888"/>
+       <link id="35" amount="2" averageSpeed="879"/>
+       <link id="38" amount="4" averageSpeed="859"/>
+   </timeSlice>
+   ...
 </linkData>
 ```
 

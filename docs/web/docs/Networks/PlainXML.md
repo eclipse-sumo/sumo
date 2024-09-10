@@ -37,16 +37,16 @@ build the network. If you only use edges and nodes, stored in
 look like:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 If you also use connections and types the call is:
 
 ```
-netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
-  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
-  --output-file=MySUMONet.net.xml
+netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
+  --connection-files=MyConnections.con.xml --type-files=MyTypes.typ.xml \
+  --output-file=MySUMONet.net.xml
 ```
 
 The options used here, including their abbreviations, are documented on
@@ -681,15 +681,15 @@ With the example below, one new node is created which splits the forward
 and backward edge:
 
 ```xml
-   <edge id="123">
-       <split id="newNode" pos="150"/>
-   </edge>
+   <edge id="123">
+       <split id="newNode" pos="150"/>
+   </edge>
 ```
 
 ```xml
-   <edge id="-123">
-       <split id="newNode" pos="-150"/>
-   </edge>
+   <edge id="-123">
+       <split id="newNode" pos="-150"/>
+   </edge>
 ```
 
 The definition of a split uses the following attributes:
@@ -835,7 +835,7 @@ limits:
 
 ```xml
 <type id="a" priority="3" numLanes="3" speed="38.89">
-   <restriction vClass="truck" speed="27.89"/>
+   <restriction vClass="truck" speed="27.89"/>
 </type>
 ```
 

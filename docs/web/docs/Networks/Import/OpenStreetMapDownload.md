@@ -72,8 +72,8 @@ the appropriate map location and observing the coordinates in the status
 bar. The inner city of Berlin lies within the following coordinates:
 
 ```
-SW-corner: 13.278 52.473
-NE-corner: 13.471 52.552
+SW-corner: 13.278 52.473
+NE-corner: 13.471 52.552
 ```
 
 ## Download the area
@@ -97,7 +97,7 @@ you can download your data by entering the URI in a web-browers or by
 using another program such as [wget](http://wget.addictivecode.org/).
 
 ```
-wget.exe "https://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552" -O berlin.osm.xml
+wget.exe "https://api.openstreetmap.org/api/0.6/map?bbox=13.278,52.473,13.471,52.552" -O berlin.osm.xml
 ```
 
 **Important:** the API version number *0.6* will eventually be outdated.
@@ -231,7 +231,7 @@ help script *osmGet.py* located within {{SUMO}}/tools allows to
 extract a larger area by splitting the requests. The call is:
 
 ```
-osmGet.py <PREFIX> <BOUNDING_BOX> <TILES_NUMBER>
+osmGet.py <PREFIX> <BOUNDING_BOX> <TILES_NUMBER>
 ```
 
 The bounding box must be given as

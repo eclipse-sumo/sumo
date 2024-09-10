@@ -34,7 +34,7 @@ major difference is, that the method return values must be casted in the
 calling code:
 
 ```
-double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
+double timeSeconds = (double)conn.do_job_get(Simulation.getTime());
 ```
 
 ## Examples

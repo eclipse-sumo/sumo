@@ -28,8 +28,8 @@ below any other `#include` or `#define` macros). The debugging code
 (e.g. some output to `std::cout`) should then be surrounded by
 
 ```
-#ifdef DEBUG_THIS_CODE
-    ...
+#ifdef DEBUG_THIS_CODE
+    ...
 #endif
 ```
 
@@ -49,10 +49,10 @@ you should insert a corresponding debug condition
 the debug code further as
 
 ```
-#ifdef DEBUG_THIS_CODE
-    if DEBUG_COND {
-        ...
-    }
+#ifdef DEBUG_THIS_CODE
+    if DEBUG_COND {
+        ...
+    }
 #endif
 ```
 
@@ -62,12 +62,12 @@ also define debug conditions with arguments to become a bit more
 flexible. For example:
 
 ```
-#define DEBUG_COND(x) (x != 0 && x->getID() == "my_new_ferrari")
-    ...
-#ifdef DEBUG_THIS_CODE
-    if DEBUG_COND(veh_pointer) {
-        ...
-    }
+#define DEBUG_COND(x) (x != 0 && x->getID() == "my_new_ferrari")
+    ...
+#ifdef DEBUG_THIS_CODE
+    if DEBUG_COND(veh_pointer) {
+        ...
+    }
 #endif
 ```
 

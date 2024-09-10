@@ -758,7 +758,7 @@ Assuming the program as defined above is put in a file called
 [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) like this
 
 ```
-sumo -a tls.add.xml ...<other options for network and routes>
+sumo -a tls.add.xml ...<other options for network and routes>
 ```
 
 ## Switching TLS 'off'

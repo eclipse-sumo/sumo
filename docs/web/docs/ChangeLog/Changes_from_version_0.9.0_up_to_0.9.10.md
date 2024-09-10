@@ -501,7 +501,7 @@ Together with this extension, the import of ArcView-files has been
 rechecked and now allows to import networks stored in other schemes than
 the one NavTeq uses. The new options are described [here](../Networks/Import/ArcView.md).
 
-Some further comments on importing ArcView-files are available [here](../Networks/Import/ArcView.md#arcview_import_options). By now, they include only some comments on importing an open-source network of Osnabrück. You can take a look at this [here](../Networks/Import/ArcView.md#frida_network_city_of_osnabruck) and also download it from [here](https://frida.intevation.org/download.html).
+Some further comments on importing ArcView-files are available [here](../Networks/Import/ArcView.md#arcview_import_options). By now, they include only some comments on importing an open-source network of Osnabrück. You can take a look at this [here](../Networks/Import/ArcView.md#frida_network_city_of_osnabruck) and also download it from [here](https://frida.intevation.org/download.html).
 
 
 **3.** The developer documentation has been split into several parts.

@@ -63,8 +63,8 @@ you have `ENABLE_CS_BINDINGS` set in your cmake configuration.
     library. The method below is mostly used for testing libtraci.
 
 ```py
-import libtraci
-libtraci.start(["sumo", "-c", "test.sumocfg"])
+import libtraci
+libtraci.start(["sumo", "-c", "test.sumocfg"])
 libtraci.simulationStep()
 libtraci.close()
 ```
@@ -72,7 +72,7 @@ libtraci.close()
 Existing traci scripts can mostly be reused by calling
 
 ```py
-import libtraci as traci
+import libtraci as traci
 ```
 
 In case you have a lot of scripts you can also set the environment
@@ -157,6 +157,6 @@ just as in Python by adding the `py.` prefix. (Please note that this is actually
 implementation.)
 
 ```
-py.traci.start(["sumo", "-c", "test.sumocfg"])
+py.traci.start(["sumo", "-c", "test.sumocfg"])
 py.traci.simulationStep()
 ```

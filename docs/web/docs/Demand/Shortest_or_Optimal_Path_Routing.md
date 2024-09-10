@@ -252,7 +252,7 @@ When running [duarouter](../duarouter.md) you may encounter errors
 of the type
 
 ```
-Error: No connection between 'edge1' and 'edge2' found
+Error: No connection between 'edge1' and 'edge2' found
 ```
 
 This is caused be an unconnected network. If your network has vehicle

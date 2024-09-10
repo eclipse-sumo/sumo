@@ -73,7 +73,7 @@ title: SUMOPlayer
 You can run the player as following:
 
 ```
-sumo ... --no-step-log --netstate-dump - | java -jar SUMOPlayer.jar -d - -c <probability> -n <used_network_file> ...
+sumo ... --no-step-log --netstate-dump - | java -jar SUMOPlayer.jar -d - -c <probability> -n <used_network_file> ...
 ```
 
 ("-" redirects the dump to stdout)

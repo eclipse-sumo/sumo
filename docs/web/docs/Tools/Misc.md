@@ -8,19 +8,19 @@ Creates a vehicle type distribution by sampling from configurable value
 distributions for the [desired `vType`-parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types). Example:
 
 ```
-python tools/createVehTypeDistribution.py config.txt
+python tools/createVehTypeDistribution.py config.txt
 ```
 
 The only required parameter is the configuration file in the format
 shown below (*example config.txt*):
 
 ```
-tau; normal(0.8,0.1)
-sigma; normal(0.5,0.2)
-length; normal(4.9,0.2); [3.5,5.5]
-param; myCustomParameter; normal(5, 2); [0, 12]
-vClass; passenger
-carFollowModel; Krauss
+tau; normal(0.8,0.1)
+sigma; normal(0.5,0.2)
+length; normal(4.9,0.2); [3.5,5.5]
+param; myCustomParameter; normal(5, 2); [0, 12]
+vClass; passenger
+carFollowModel; Krauss
 ```
 
 In the config file, one line is used per vehicle type attribute. The
@@ -70,7 +70,7 @@ external screen capture software or using the internal screenshot feature. The s
 
 Example:
 ```
-python tools/createScreenshotSequence.py --sumocfg test.sumocfg -o outDir --begin 600 --end 900 -p filePrefix --zoom 600:500;900:1000 --translate 800:100,100;900:150,100 --include-time
+python tools/createScreenshotSequence.py --sumocfg test.sumocfg -o outDir --begin 600 --end 900 -p filePrefix --zoom 600:500;900:1000 --translate 800:100,100;900:150,100 --include-time
 ```
 This will run the configuration file named by **--sumocfg** in sumo-gui and register a TraCI step listener for the screenshot process. The time interval when to take a screenshot of each time step
 can be limited to start only at **--begin** (s) or to end at **--end** (s). If the end time is not defined explicitly, the script runs the simulation either up to the end value from the configuration (if defined)
@@ -165,15 +165,15 @@ Additional options:
 This script generates parking lots. Example:
 
 ```
-python tools/generateParkingLots.py -b <xmin, ymin, xmax, ymax> -c <connecting edge>
- [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
+python tools/generateParkingLots.py -b <xmin, ymin, xmax, ymax> -c <connecting edge>
+ [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
 ```
 
 or
 
 ```
-python tools/generateParkingLots.py -x <x-pos> -y <y-pos> -c <connecting edge>
- [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
+python tools/generateParkingLots.py -x <x-pos> -y <y-pos> -c <connecting edge>
+ [-i <parking-id> -n <number of parking spaces> -l <space-length> -a <space-angle> ...]
 ```
 
 The required parameter are the shape (--bounding-box) or the position
@@ -208,8 +208,8 @@ for extending rail-only networks with the bare minimum of pedestrian
 infrastructure for departing, changing trains and arriving. Example:
 
 ```
-python tools/generateStationEdges.py rail.net.xml stops.xml
- netconvert -s rail.net.xml -e stops.access.edg.xml -n stops.access.nod.xml --ptstop-files stops.xml -o railForPersons.net.xml --ptstop-output stopsWithAccess.xml
+python tools/generateStationEdges.py rail.net.xml stops.xml
+ netconvert -s rail.net.xml -e stops.access.edg.xml -n stops.access.nod.xml --ptstop-files stops.xml -o railForPersons.net.xml --ptstop-output stopsWithAccess.xml
 ```
 
 # generateRerouters.py
@@ -217,7 +217,7 @@ python tools/generateStationEdges.py rail.net.xml stops.xml
 This script generates rerouter for closing a given list of roads. It will automatically identify where to place the notification signs to facilitate rerouting.
 
 ```
-python tools/generateRerouters.py -n <net-file> -o <output-file> -x CLOSED_EDGE1,CLOSED_EDGE2
+python tools/generateRerouters.py -n <net-file> -o <output-file> -x CLOSED_EDGE1,CLOSED_EDGE2
 ```
 
 # generateContinuousRerouters.py
@@ -225,7 +225,7 @@ python tools/generateRerouters.py -n <net-file> -o <output-file> -x CLOSED_EDG
 This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end). Example:
 
 ```
-python tools/generateContinuousRerouters.py -n <net-file> -o <output-file>
+python tools/generateContinuousRerouters.py -n <net-file> -o <output-file>
 ```
 
 # generateParkingAreaRerouters.py
@@ -233,7 +233,7 @@ python tools/generateContinuousRerouters.py -n <net-file> -o <output-file>
 This script generates parking area rerouters from a parking area definition. Example:
 
 ```
-python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file>
+python tools/generateParkingAreaRerouters.py -n <net-file> -a <parkingArea-file> -o <output-file>
 ```
 
 # averageTripStatistics.py
@@ -244,7 +244,7 @@ different random seeds and averages the trip statistics output (see [trip statis
 Example:
 
 ```
-python tools/averageTripStatistics.py <sumocfg-file>
+python tools/averageTripStatistics.py <sumocfg-file>
 ```
 
 As default, the simulation will be run 10 times with an initial seed for
@@ -258,7 +258,7 @@ transport schedule (regular interval timetable) for all lines. The stop-to-stop
 travel times are determined by running a background simulation on an empty network using either a given route or shortest paths between stops. Example:
 
 ```
-python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-file> -o <output-file>
+python tools/ptlines2flows.py -n <net-file> -s <ptstops-file> -l <ptlines-file> -o <output-file>
 ```
 
 As output, the public transport lines are written as [flows](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md).
@@ -352,13 +352,13 @@ can be loaded with sumo-gui or netedit. The most useful options are -t for the
 
 - Retrieving data from the public ArcGIS online instance:
 ```
-python tools/tileGet.py -n test.net.xml -t 10
+python tools/tileGet.py -n test.net.xml -t 10
 ```
 
 - Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
 ```
-python tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
-python tools/tileGet.py -n test.net.xml -t 10 --url www.mapquestapi.com/staticmap/v5/map --key YOURKEY
+python tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
+python tools/tileGet.py -n test.net.xml -t 10 --url www.mapquestapi.com/staticmap/v5/map --key YOURKEY
 ```
 
 The generated setting file can be loaded in sumo-gui with:
@@ -400,7 +400,7 @@ Run a (sumo) configuration multiple times with different seeds.
 Example:
 
 ```
-python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
+python tools/runSeeds.py -k test.sumocfg --seeds 7,11,13
 ```
 
 - option **--seeds** can either be given as a list or as a range (`0:100`).

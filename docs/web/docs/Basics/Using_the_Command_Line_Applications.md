@@ -33,11 +33,11 @@ has been given, the application does not know what to do and prints only
 an information about itself:
 
 ```
-Eclipse SUMO netgenerate Version {{Version}}
- Build features: Linux-4.1.39-56-default Proj GDAL GUI
- Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
- License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
- Use --help to get the list of options.
+Eclipse SUMO netgenerate Version {{Version}}
+ Build features: Linux-4.1.39-56-default Proj GDAL GUI
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
+ Use --help to get the list of options.
 ```
 
 # Options
@@ -61,7 +61,7 @@ example, if one wants the simulation to load a certain road network,
 "mynet.net.xml", the following must be written:
 
 ```
---net mynet.net.xml
+--net mynet.net.xml
 ```
 
 The '--' in front indicates that the option's long name is following
@@ -77,7 +77,7 @@ Some often used options can be abbreviated. The abbreviation for the
 above:
 
 ```
--n mynet.net.xml
+-n mynet.net.xml
 ```
 
 Please note that an abbreviation is indicated using a single '-'.
@@ -89,7 +89,7 @@ If you want to append options to a list of values given in a
 [configuration file](#configuration_files_vs_command_line_parameter) you will use the following syntax:
 
 ```
-+a myAdditional.add.xml
++a myAdditional.add.xml
 ```
 
 Please note that you can use the abbreviated or the non-abbreviated name here but always a single '+'.
@@ -156,7 +156,7 @@ The according [sumo](../sumo.md) execution call - working with both
 configuration versions - would be:
 
 ```
-sumo.exe -c test.sumocfg
+sumo.exe -c test.sumocfg
 ```
 
 This means that instead of the parameters, we only give the name of the
@@ -165,7 +165,7 @@ options on the command line it is possible to leave out the "-c" as
 well:
 
 ```
-sumo.exe test.sumocfg
+sumo.exe test.sumocfg
 ```
 
 ## Naming Conventions for Configuration Files
@@ -393,7 +393,7 @@ the python tools. The easiest (but somewhat cumbersome) method is to run
 the tool using its full path:
 
 ```
-C:\Users\yourname>D:\path_to_sumo\tools\randomTrips.py  ... arguments ...
+C:\Users\yourname>D:\path_to_sumo\tools\randomTrips.py  ... arguments ...
 ```
 
 Alternatively, you can add the directory in which the tool lies to your

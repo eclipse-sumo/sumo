@@ -58,30 +58,30 @@ with the following definition (to be placed in an {{AdditionalFile}})
 
 ```xml
 <variableSpeedSign id="disturbance" lanes="10/1to1/1_0">
-    <step time="2000" speed="1"/>
-    <step time="2100"/>
-    <step time="3000" speed="1"/>
-    <step time="3100"/>
-    <step time="4000" speed="1"/>
-    <step time="4100"/>
-    <step time="5000" speed="1"/>
-    <step time="5200"/>
-    <step time="6000" speed="1"/>
-    <step time="6200"/>
-    <step time="7000" speed="1"/>
-    <step time="7200"/>
-    <step time="8000" speed="1"/>
-    <step time="8300"/>
-    <step time="9000" speed="1"/>
-    <step time="9300"/>
-    <step time="10000" speed="1"/>
-    <step time="10300"/>
-    <step time="11000" speed="1"/>
-    <step time="11400"/>
-    <step time="12000" speed="1"/>
-    <step time="12400"/>
-    <step time="13000" speed="1"/>
-    <step time="13400"/>
+    <step time="2000" speed="1"/>
+    <step time="2100"/>
+    <step time="3000" speed="1"/>
+    <step time="3100"/>
+    <step time="4000" speed="1"/>
+    <step time="4100"/>
+    <step time="5000" speed="1"/>
+    <step time="5200"/>
+    <step time="6000" speed="1"/>
+    <step time="6200"/>
+    <step time="7000" speed="1"/>
+    <step time="7200"/>
+    <step time="8000" speed="1"/>
+    <step time="8300"/>
+    <step time="9000" speed="1"/>
+    <step time="9300"/>
+    <step time="10000" speed="1"/>
+    <step time="10300"/>
+    <step time="11000" speed="1"/>
+    <step time="11400"/>
+    <step time="12000" speed="1"/>
+    <step time="12400"/>
+    <step time="13000" speed="1"/>
+    <step time="13400"/>
 </variableSpeedSign>
 ```
 
@@ -92,7 +92,7 @@ And a flow that continuously tries to add vehicles:
 
 ```xml
 <flow id="0" type="default" begin="0" end="60000" period="3" departPos="last" departSpeed="max" departLane="free">
-  <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
+  <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
 </flow>
 ```
 

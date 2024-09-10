@@ -31,7 +31,7 @@ The tool [duaIterate.py](../Tools/Assign.md#duaiteratepy) can be used to compute
     This script will require copious amounts of disk space
 
 ```
-python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
+python tools/assign/duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iterations>
 ```
 
 *duaIterate.py* supports many of the same options as

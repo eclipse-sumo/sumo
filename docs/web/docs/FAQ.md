@@ -77,7 +77,7 @@ title: FAQ
   that you used when registering for your account:
 
 ```
-git config --global user.email "email@example.com"
+git config --global user.email "email@example.com"
 ```
 
 - Create an [Eclipse account](https://accounts.eclipse.org/user/register) if you do not
@@ -90,15 +90,15 @@ git config --global user.email "email@example.com"
 - Clone the forked repository to your computer
 
 ```
-git clone https://github.com/yourgithubid/sumo.git
+git clone https://github.com/yourgithubid/sumo.git
 ```
 
 - Modify the files in the created sumo clone directory
 - From within this directory Commit your changes with
 
 ```
-git add src
-git commit -m "your change message" -s
+git add src
+git commit -m "your change message" -s
 ```
 
 !!! caution
@@ -107,7 +107,7 @@ git commit -m "your change message" -s
 - Push your changes to your fork on GitHub with
 
 ```
-git push
+git push
 ```
 
 - Send us a [pull request on GitHub](https://help.github.com/en/articles/creating-a-pull-request-from-a-fork)
@@ -379,7 +379,7 @@ There are plenty of git clients for all platforms. If you use the command line c
 can checkout sumo using the following command:
 
 ```
-git clone --recursive https://github.com/eclipse-sumo/sumo
+git clone --recursive https://github.com/eclipse-sumo/sumo
 ```
 
 If you want to see the full project history in your git checkout please
@@ -518,8 +518,8 @@ and simply type `git pull`.
   Errors such as
 
 ```
-Error: attribute name expected at
-At line/column 10/46
+Error: attribute name expected at
+At line/column 10/46
 ```
 
   can be caused by non-printing characters in the XML-file. Open your
@@ -1267,10 +1267,10 @@ as explained [here](TraCI/Interfacing_TraCI_from_Python.md) and
 path to your SUMO-installation into your script:
 
 ```
- import sys
- sys.path.append('/your/path/to/sumo/tools')
- import traci
- import sumolib
+ import sys
+ sys.path.append('/your/path/to/sumo/tools')
+ import traci
+ import sumolib
 ```
 
 ### the python scripts do not accept command line arguments (windows only)
@@ -1287,7 +1287,7 @@ script.py <argument>
 you do
 
 ```
-python script.py <argument>
+python script.py <argument>
 ```
 
 ### [osmWebWizard.py](Tools/Import/OSM.md#osmwebwizardpy) fails to generate Scenario on Windows 10

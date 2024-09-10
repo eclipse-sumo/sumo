@@ -24,7 +24,7 @@ route definitions, you may also (ab)use this facility to delete the edge
 from all relevant routes, e.g. edgemap\["10000"\] = ""
 
 ```
-vissim_parseRoutes.py <VISSIM_NETWORK> <OUTPUT_PREFIX>
+vissim_parseRoutes.py <VISSIM_NETWORK> <OUTPUT_PREFIX>
 ```
 
 The script is located in {{SUMO}}/tools/import/vissim. It is written in Python.
@@ -38,7 +38,7 @@ parameter). The read bus lines are saved as
 renamed by setting them within "edgemap" variable (see below).
 
 ```
-vissim_parseBusStops.py <VISSIM_NETWORK> <OUTPUT_PREFIX>
+vissim_parseBusStops.py <VISSIM_NETWORK> <OUTPUT_PREFIX>
 ```
 
 The script is located in {{SUMO}}/tools/import/vissim. It is written in Python.

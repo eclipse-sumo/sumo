@@ -124,17 +124,17 @@ will be added to the output:
 
 ```xml
 <personinfo id="person0" depart="0.00">
- <walk depart="0.00" arrival="47.00" arrivalPos="55.00"/>
- <ride waitingTime="74.00" vehicle="train0" depart="121.00" arrival="140.00" arrivalPos="92.00"/>
- <stop duration="20.00" arrival="160.00" arrivalPos="45.00" actType="singing"/>
+ <walk depart="0.00" arrival="47.00" arrivalPos="55.00"/>
+ <ride waitingTime="74.00" vehicle="train0" depart="121.00" arrival="140.00" arrivalPos="92.00"/>
+ <stop duration="20.00" arrival="160.00" arrivalPos="45.00" actType="singing"/>
 </personinfo>
 ```
 
 ```xml
 <containerinfo id="container0" depart="0.00">
-  <tranship depart="0.00" arrival="54.00" arrivalPos="55.00"/>
-  <transport waitingTime="103.00" vehicle="train0" depart="157.00" arrival="176.00" arrivalPos="92.00"/>
-  <stop duration="20.00" arrival="196.00" arrivalPos="40.00" actType="waiting"/>
+  <tranship depart="0.00" arrival="54.00" arrivalPos="55.00"/>
+  <transport waitingTime="103.00" vehicle="train0" depart="157.00" arrival="176.00" arrivalPos="92.00"/>
+  <stop duration="20.00" arrival="196.00" arrivalPos="40.00" actType="waiting"/>
 </containerinfo>
 ```
 

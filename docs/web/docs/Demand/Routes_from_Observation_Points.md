@@ -126,7 +126,7 @@ follows:
 ```
 Detector;Time;qPKW;qLKW;vPKW;vLKW
 myDet1;0;10;2;100;80
-... further entries ...
+... further entries ...
 ```
 
 This means the first time has to name the entries (columns). Their order
@@ -240,13 +240,13 @@ vehicles in its emitters-output. Assuming that
 [dfrouter](../dfrouter.md) was called with the options
 
 ```
-dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
+dfrouter --net-file net.net.xml --routes-output routes.rou.xml --emitters-output vehicles.rou.xml --measure-files flows.txt
 ```
 
 sumo must be called in the following way:
 
 ```
-sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
+sumo --net-file net.net.xml --additional-files routes.rou.xml,vehicles.rou.xml
 ```
 
 If you run the tool
@@ -254,8 +254,8 @@ If you run the tool
 to sort the vehicles, either of the following will work:
 
 ```
-sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
-sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
+sumo --net-file net.net.xml --route-files routes.rou.xml,sorted_vehicles.rou.xml
+sumo --net-file net.net.xml --route-files sorted_vehicles.rou.xml --additional-files routes.rou.xml
 ```
 
 # flowrouter.py

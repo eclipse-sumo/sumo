@@ -89,8 +89,8 @@ For each vehicle type, we schedule and position vehicle flows by adding the foll
 vType definitions (within the `<routes>` element!):
 
 ```xml
-        ...
-    <flow id="pkw" type="pkw" from="beg" to="end" begin="0" end="0" number="66" departPos="last"/>
+        ...
+    <flow id="pkw" type="pkw" from="beg" to="end" begin="0" end="0" number="66" departPos="last"/>
     <flow id="bus" type="bus" from="beg" to="end" begin="0" end="0" number="5" departPos="last"/>
     <flow id="tram" type="tram" from="beg" to="end" begin="0" end="0" number="2" departPos="last"/>
     <flow id="bike" type="bike" from="beg" to="end" begin="0" end="0" number="100" departPos="last"/>
@@ -98,7 +98,7 @@ vType definitions (within the `<routes>` element!):
 	<personFlow id="pedestrian" type="pedestrian" begin="0" end="0" number="100" departPos="-30">
        <walk from="beg" to="end" arrivalPos="-0.1"/>
     </personFlow>
-        ...
+        ...
 ```
 
 Notice that the pedestrian flow (represented by the `personFlow` element above) has a slightly different syntax, the reason for this is that pedestrians can walk or take a ride (use public transport for instance), and these different activities need to be communicated to [sumo](../sumo.md). For details on the meaning of the attributes of the flows, see the
@@ -123,13 +123,13 @@ Finally, to prepare the simulation, create a SUMO configuration file (name it
 
 ```xml
 <configuration>
-   <input>
-       <net-file value="sumolympics.net.xml"/>
-       <route-files value="sumolympics.rou.xml"/>
-   </input>
-   <processing>
-    <lateral-resolution value="1." />
-   </processing>
+   <input>
+       <net-file value="sumolympics.net.xml"/>
+       <route-files value="sumolympics.rou.xml"/>
+   </input>
+   <processing>
+    <lateral-resolution value="1." />
+   </processing>
 </configuration>
 ```
 

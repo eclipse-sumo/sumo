@@ -27,16 +27,16 @@ Additionally, individual parking spaces can be defined:
 
 ```xml
 <parkingArea id="ParkAreaB" lane="b_0" startPos="240" endPos="260" roadsideCapacity="0" width="5" length="10" angle="30">
-    <space x="853" y="623"/>
-    <space x="863" y="618"/>
-    <space x="873" y="613"/>
-    <space x="883" y="608"/>
-    <space x="893" y="603"/>
-    <space x="848" y="611" width="4" length="8" angle="120"/>
-    <space x="858" y="606" width="4" length="8" angle="120"/>
-    <space x="868" y="601" width="4" length="8" angle="120"/>
-    <space x="878" y="596" width="4" length="8" angle="120"/>
-    <space x="888" y="591" width="4" length="8" angle="120"/>
+    <space x="853" y="623"/>
+    <space x="863" y="618"/>
+    <space x="873" y="613"/>
+    <space x="883" y="608"/>
+    <space x="893" y="603"/>
+    <space x="848" y="611" width="4" length="8" angle="120"/>
+    <space x="858" y="606" width="4" length="8" angle="120"/>
+    <space x="868" y="601" width="4" length="8" angle="120"/>
+    <space x="878" y="596" width="4" length="8" angle="120"/>
+    <space x="888" y="591" width="4" length="8" angle="120"/>
 </parkingArea>
 ```
 

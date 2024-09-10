@@ -17,7 +17,7 @@ defined by begin (option **-b**, default 0) and end time (option **-e**, default
 prefix (option **--prefix**, default "") and a running number. Example call:
 
 ```
-python tools/randomTrips.py -n <net-file> -e 50
+python tools/randomTrips.py -n <net-file> -e 50
 ```
 
 The script does not check whether the chosen destination may be reached
@@ -56,7 +56,7 @@ The probabilities for selecting an edge may also be weighted by
 For additional ways to influence edge probabilities call
 
 ```
-python tools/randomTrips.py --help
+python tools/randomTrips.py --help
 ```
 
 ## Traffic Volume / Arrival rate
@@ -120,8 +120,8 @@ With the option **--trip-attributes** {{DT_STR}}, additional parameters can be g
 vehicles (note, usage of the quoting characters).
 
 ```
-python tools/randomTrips.py -n <net-file> 
-  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
+python tools/randomTrips.py -n <net-file>
+  --trip-attributes="departLane=\"best\" departSpeed=\"max\" departPos=\"random\""
 ```
 
 This would make the random vehicles be distributed randomly on their
@@ -137,7 +137,7 @@ to be prepared:
 
 ```xml
 <additional>
-  <vType id="myType" maxSpeed="27" vClass="passenger"/>
+  <vType id="myType" maxSpeed="27" vClass="passenger"/>
 </additional>
 ```
 
@@ -145,8 +145,8 @@ Then load this file (assume it was saved as *type.add.xml*) with the
 option --additional-file
 
 ```
-python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
-   --edge-permission passenger
+python tools/randomTrips.py -n <net-file> --trip-attributes="type=\"myType\"" --additional-file <add-file>
+   --edge-permission passenger
 ```
 
 Note the use of the option **--edge-permission** (deprecated alias: **--vclass**) which ensures that
@@ -168,7 +168,7 @@ By setting the option **--vehicle-class** a vehicle type definition that specifi
 class will be added to the output files. I.e.
 
 ```
-python tools/randomTrips.py --vehicle-class bus ...
+python tools/randomTrips.py --vehicle-class bus ...
 ```
 
 will add
@@ -181,7 +181,7 @@ Any **--trip-attributes** that are applicable to a vehicle type rather than a ve
 placed in the generated `vType` definition automatically:
 
 ```
-python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
+python tools/randomTrips.py --vehicle-class bus --trip-attributes="maxSpeed=\"27.8\""
 ```
 
 will add
@@ -263,17 +263,17 @@ To obtain trips from two specific locations (edges *a*, and *b*) to
 random destinations, use
 
 ```
-python tools/randomTrips.py --weights-prefix example  ...<other options>...
+python tools/randomTrips.py --weights-prefix example  ...<other options>...
 ```
 
 and define only the file *example.src.xml* as follows:
 
 ```xml
 <edgedata>
-  <interval begin="0" end="10"/>
-    <edge id="a" value="0.5"/>
-    <edge id="b" value="0.5"/>
-  </interval>
+  <interval begin="0" end="10"/>
+    <edge id="a" value="0.5"/>
+    <edge id="b" value="0.5"/>
+  </interval>
 </edgedata>
 ```
 

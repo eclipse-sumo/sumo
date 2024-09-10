@@ -24,13 +24,13 @@ parameter value. So, for importing a network from OpenStreetMap one
 could simply write:
 
 ```
-netconvert --osm my_osm_net.xml
+netconvert --osm my_osm_net.xml
 ```
 
 and for importing a VISUM-network:
 
 ```
-netconvert --visum my_visum_net.net
+netconvert --visum my_visum_net.net
 ```
 
 In both cases, as no output name is given, the SUMO network generated
@@ -40,7 +40,7 @@ the imported VISUM-network into a file named "my_sumo_net.net.xml",
 write:
 
 ```
-netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
+netconvert --visum my_visum_net.net -o my_sumo_net.net.xml
 ```
 
 Many further parameter steer how the network is imported and how the

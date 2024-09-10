@@ -7,7 +7,7 @@ title: Shapes
 Generate circular polygons with custom radius, and number of vertices.
 
 ```
-<SUMO\>/tools/shape/circlePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
+<SUMO\>/tools/shape/circlePolygon.py X,Y,RADIUS,NUMVERTICES [x2,y2,radius2,points2] ....
 ```
 
 - <X\>: Polygon center X
@@ -53,7 +53,7 @@ chains of connected edges are not allowed -\> this needs two different
 runs of this script. Output is written in file 'pois.add.xml'
 
 ```
-poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
+poi_alongRoads.py <NET> <EDGE_ID>[,<EDGE_ID>]* <DISTANCE>
 ```
 
 - <NET\>: The net to use for retrieving the geometry

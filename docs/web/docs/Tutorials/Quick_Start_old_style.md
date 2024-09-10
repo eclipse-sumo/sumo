@@ -342,7 +342,7 @@ In our example, the network file *quickstart.net.xml* will be generated
 by executing the following command in the command line
 
 ```
-netconvert –c quickstart.netccfg
+netconvert –c quickstart.netccfg
 ```
 
 The generated network file can be viewed with the use of
@@ -490,7 +490,7 @@ example network the respective configuration file is shown in Listing
 the following command.
 
 ```
-sumo –c quickstart.sumocfg
+sumo –c quickstart.sumocfg
 ```
 
 **Listing 1.7 Configuration file for the traffic simulation of the

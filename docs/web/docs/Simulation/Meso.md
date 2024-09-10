@@ -163,7 +163,7 @@ For an option value of *p*, The time penalty is computed by scaling the
 expected waiting time for random arrival within the cycle
 
 ```
-travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
+travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
 
 ### TLS-Flow-Penalty
@@ -174,8 +174,8 @@ according to the proportion of green time to cycle time.
 Higher penalty values can be used to reduce the flow even further while lower values increase the maximum flow.
 The latter is useful if the green split is not known exactly (because the traffic light program is guessed heuristically).
 ```
-greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
-headway = defaultHeadway / greenFraction
+greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
+headway = defaultHeadway / greenFraction
 ```
 
 Note, that the maximum flow cannot exceed the value at permanent green light regardless of penalty value.

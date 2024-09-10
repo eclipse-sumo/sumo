@@ -31,7 +31,7 @@ the type name is used as option name and the value indicates the
 position of the file. So
 
 ```
-polyconvert --visum mynet.net -o converted.poi.xml
+polyconvert --visum mynet.net -o converted.poi.xml
 ```
 imports from a VISUM-net file.
 

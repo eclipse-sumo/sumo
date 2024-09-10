@@ -70,22 +70,22 @@ length and identifier of each command is placed in front of the command.
 A scheme of this container is depicted below:
 
 ```
- 0                 7 8               15
+ 0                 7 8               15
 +--------------------------------------+
-| Message Length including this header |
+| Message Length including this header |
 +--------------------------------------+
-|      (Message Length, continued)     |
-+--------------------------------------+  \
-|     Length        |    Identifier    |  |
-+--------------------------------------+   > Command_0
-|           Command_0 content          |  |
-+--------------------------------------+  /
-                   ...
-+--------------------------------------+  \
-|     Length        |    Identifier    |  |
-+--------------------------------------+   > Command_n-1
-|          Command_n-1 content         |  |
-+--------------------------------------+  /
+|      (Message Length, continued)     |
++--------------------------------------+  \
+|     Length        |    Identifier    |  |
++--------------------------------------+   > Command_0
+|           Command_0 content          |  |
++--------------------------------------+  /
+                   ...
++--------------------------------------+  \
+|     Length        |    Identifier    |  |
++--------------------------------------+   > Command_n-1
+|          Command_n-1 content         |  |
++--------------------------------------+  /
 ```
 
 In some cases the length of a single command may not suffice, since the
@@ -95,16 +95,16 @@ and adding an integer length field. This extended scheme for a command
 looks as follows:
 
 ```
- 0                 7 8               15
-+--------------------------------------+  \
-|   Length = 0      |                  |  |
-+-------------------+                  |  |
-|        32 bit Integer Length         |  |
-|                   +------------------+   > Command
-|                   |   Identifier     |  |
-+--------------------------------------+  |
-|            Command content           |  |
-+--------------------------------------+  /
+ 0                 7 8               15
++--------------------------------------+  \
+|   Length = 0      |                  |  |
++-------------------+                  |  |
+|        32 bit Integer Length         |  |
+|                   +------------------+   > Command
+|                   |   Identifier     |  |
++--------------------------------------+  |
+|            Command content           |  |
++--------------------------------------+  /
 ```
 
 To simplify the usage of TraCI, we provide a class for handling the

@@ -98,8 +98,8 @@ and committing the changes after careful inspection
   <https://build.opensuse.org/package/show/science:dlr/sumo_nightly>
 - add a new version tag
 ```
-> git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
-> git push --tags
+> git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
+> git push --tags
 ```
 
 ### Release day

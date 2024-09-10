@@ -128,7 +128,7 @@ their [individual speedFactor](VehicleSpeed.md#edgelane_speed_and_speedfactor).
 The speedLimit is computed as
 
 ```
-speedLimit = sqrt(radius * factor)
+speedLimit = sqrt(radius * factor)
 ```
 
 where *factor* is set by **--junctions.limit-turn-speed** {{DT_FLOAT}} (default 5.5) If factor is set to 0, the

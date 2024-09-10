@@ -8,7 +8,7 @@ option for reading them is **--dlr-navteq-prefix** {{DT_FILE}} or **--dlr-navteq
 must be given only, example:
 
 ```
-netconvert --dlr-navteq=berlin_ --output-file=MySUMOFile.net.xml
+netconvert --dlr-navteq=berlin_ --output-file=MySUMOFile.net.xml
 ```
 
 # Format

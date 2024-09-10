@@ -41,21 +41,21 @@ If you run debian or ubuntu, SUMO is part of the regular distribution
 and can be installed like this:
 
 ```
-sudo apt-get install sumo sumo-tools sumo-doc
+sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 If you need a more up-to-date ubuntu version, it may be found in a
 separate ppa, which is added like this:
 
 ```
-sudo add-apt-repository ppa:sumo/stable
-sudo apt-get update
+sudo add-apt-repository ppa:sumo/stable
+sudo apt-get update
 ```
 
 and then again
 
 ```
-sudo apt-get install sumo sumo-tools sumo-doc
+sudo apt-get install sumo sumo-tools sumo-doc
 ```
 
 Precompiled binaries for different distributions like openSUSE and
@@ -85,17 +85,17 @@ SUMO can be easily installed on macOS by using [Homebrew](https://brew.sh). If y
 ```
 Please make sure your homebrew installation is up-to-date:
 ```
-brew update
+brew update
 ```
 If you want to use sumo-gui and/or netedit, you need to install XQuartz as a requirement:
 ```
-brew install --cask xquartz
+brew install --cask xquartz
 ```
 It may be necessary to logout and login again or even reboot to activate the XQuartz integration.
 You can then install the latest stable release of SUMO (with minimal requirements: ```fox```, ```proj```, ```xerces-c```) with the following commands:
 ```
-brew tap dlr-ts/sumo
-brew install sumo
+brew tap dlr-ts/sumo
+brew install sumo
 ```
 !!! note
     It is possible to install older vesions of SUMO using Homebrew. Running `brew search sumo` will list all available versions (v1.0.1 or newer). To install a specific version (e.g. version 1.9.0), just run `brew install sumo@1.9.0`.

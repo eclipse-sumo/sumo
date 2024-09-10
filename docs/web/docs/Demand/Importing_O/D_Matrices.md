@@ -182,7 +182,7 @@ assumed to be in the form <HOURS\>.<MINUTES\>. Please note that the end is
 exclusive; for example, if
 
 ```
-0.00 1.00
+0.00 1.00
 ```
 
 is given, the generated vehicles' depart times will be second 0 to
@@ -198,27 +198,27 @@ list. An example may look like this:
 
 ```
 $VMR
-* vehicle type
+* vehicle type
 4
-* From-Time  To-Time
-7.00 8.00
-* Factor
+* From-Time  To-Time
+7.00 8.00
+* Factor
 1.00
 *
-* some
-* additional
-* comments
-* District number
+* some
+* additional
+* comments
+* District number
 3
-* names:
-         1          2          3
+* names:
+         1          2          3
 *
-* District 1 Sum = 6
-         1          2          3
-* District 2 Sum = 15
-         4          5          6
-* District 2 Sum = 24
-         7          8          9
+* District 1 Sum = 6
+         1          2          3
+* District 2 Sum = 15
+         4          5          6
+* District 2 Sum = 24
+         7          8          9
 ```
 
 The 'M' in the type name indicates that a vehicle type is used, the "R"
@@ -240,22 +240,22 @@ ignore the string after the ';' that occurs after the type identifier
 
 ```
 $OR;D2
-* From-Time  To-Time
-7.00 8.00
-* Factor
+* From-Time  To-Time
+7.00 8.00
+* Factor
 1.00
-* some
-* additional
-* comments
-         1          1       1.00
-         1          2       2.00
-         1          3       3.00
-         2          1       4.00
-         2          2       5.00
-         2          3       6.00
-         3          1       7.00
-         3          2       8.00
-         3          3       9.00
+* some
+* additional
+* comments
+         1          1       1.00
+         1          2       2.00
+         1          3       3.00
+         2          1       4.00
+         2          2       5.00
+         2          3       6.00
+         3          1       7.00
+         3          2       8.00
+         3          3       9.00
 ```
 
 - The first line is a format specifier that must be included verbatim.
@@ -274,11 +274,11 @@ every vehicle type as follows:
 
 ```xml
 <demand xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/amitran/od.xsd">
-   <actorConfig id="0">
-       <timeSlice duration="86400000" startTime="0">
-           <odPair amount="100" destination="2" origin="1"/>
-       </timeSlice>
-   </actorConfig>
+   <actorConfig id="0">
+       <timeSlice duration="86400000" startTime="0">
+           <odPair amount="100" destination="2" origin="1"/>
+       </timeSlice>
+   </actorConfig>
 </demand>
 ```
 
@@ -404,8 +404,8 @@ defined within the O/D-matrix may be scaled via **--scale <SCALE\>**.
 Example call to [od2trips](../../od2trips.md):
 
 ```
-od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
-   --timeline.day-in-hours --timeline <TIME_LINE>
+od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
+   --timeline.day-in-hours --timeline <TIME_LINE>
 ```
 
 # Generated traffic modes

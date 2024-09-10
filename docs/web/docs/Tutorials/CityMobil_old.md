@@ -24,7 +24,7 @@ managers agentManager.py or simpleManager.py. If you want a visual
 display you have to provide the -g option, e.g.
 
 ```
-./simpleManager -g
+./simpleManager -g
 ```
 
 Further options are described by starting the scripts with -h.

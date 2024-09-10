@@ -5,7 +5,7 @@ title: Why Vehicles are teleporting
 When running a simulation, one may encounter the following warning:
 
 ```
-Warning: Teleporting vehicle '...'; waited too long, lane='...', time=....
+Warning: Teleporting vehicle '...'; waited too long, lane='...', time=....
 ```
 
 What does it mean?

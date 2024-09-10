@@ -239,7 +239,7 @@ device](Demand/Automatic_Routing.md).
 
 ```xml
 <additional>
-  <taz id="<TAZ_ID>" edges="<EDGE_ID> <EDGE_ID> ..."/>
+  <taz id="<TAZ_ID>" edges="<EDGE_ID> <EDGE_ID> ..."/>
   ...
 </additional>
 ```
@@ -599,14 +599,14 @@ Note, that the given type id refers to an edge type rather than a vehicle type. 
 Define a flow of vehicles that desire to drive at 120% of the speed limit without any deviation:
 
 ```xml
-  <vType id="example" speedFactor="1.2" speedDev="0"/>
+  <vType id="example" speedFactor="1.2" speedDev="0"/>
   <flow id="f" type="example" begin="0" end="3600" probability="0.2" from="A" to="B"/>
 ```
 
 Define a vehicle type with high speed deviation and no cut-off
 
 ```xml
-  <vType id="example2" speedFactor="norm(1.0,0.5)"/>
+  <vType id="example2" speedFactor="norm(1.0,0.5)"/>
 ```
 
 ## Vehicle Length
@@ -1005,7 +1005,7 @@ the driver has to stop unintentionally (i.e. due to a jam or waiting at
 an intersection). The impatience value is computed as
 
 ```xml
-MAX(0, MIN(1.0, baseImpatience + waitingTime / timeToMaxImpatience))
+MAX(0, MIN(1.0, baseImpatience + waitingTime / timeToMaxImpatience))
 ```
 
 Where baseImpatience is configured by setting the vType-attribute
@@ -1280,7 +1280,7 @@ By default color components should be given as integers in the range of
 (0,255) but other definitions are also supported:
 
 ```xml
-color="0.5, 0.5, 1.0"
+color="0.5, 0.5, 1.0"
 color="#FF0000"
 color="red"
 ```

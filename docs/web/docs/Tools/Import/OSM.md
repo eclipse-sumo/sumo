@@ -21,7 +21,7 @@ script *build.bat* to rebuild the random demand.
 Call:
 
 ```
-python tools/osmWebWizard.py
+python tools/osmWebWizard.py
 ```
 
 The script will keep running so you can build multiple scenarios in your
@@ -42,7 +42,7 @@ can be defined with one of the following options:
 Example:
 
 ```
-python tools/osmGet.py --bbox <bounding-box> --tiles <INT>
+python tools/osmGet.py --bbox <bounding-box> --tiles <INT>
 ```
 
 The additional option **--tiles** allows to split larger areas into multiple tiles and download requests.
@@ -53,13 +53,13 @@ The script creates a sumo network from the given osm file (i.e. from the output 
 Example:
 
 ```
-python tools/osmBuild.py --osm-file <osm-file>
+python tools/osmBuild.py --osm-file <osm-file>
 ```
 
 More additional options can be defined to manage the import. Example:
 
 ```
-python tools/osmBuild.py --osm-file <osm-file> [--vehicle-classes (all|road|publicTransport|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
+python tools/osmBuild.py --osm-file <osm-file> [--vehicle-classes (all|road|publicTransport|passenger)] [--type-file <TYPEMAP_FILE>] [--netconvert-options <OPT1,OPT2,OPT3>] [--polyconvert-options <OPT1,OPT2,OPT3>]
 ```
 
 The option **--vehicle-classes** allows to filter the roads to import by vehicles classes.
@@ -82,7 +82,7 @@ and **-polyconvert-options**.
 This script import taxi stands from OSM data. Using the option **--type** you can choose which type of element to add in the SUMO network. For example:
 
 ```
-python tools/import/osm/osmTaxiStop.py --osm-file <osm-file> -n <net-file> --type parkingArea
+python tools/import/osm/osmTaxiStop.py --osm-file <osm-file> -n <net-file> --type parkingArea
 ```
 
 Will add the taxi stands as parkingAreas.

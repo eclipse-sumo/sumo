@@ -26,7 +26,7 @@ We assume that you have the scenario and a configuration file named
 be able to start SUMO using your configuration like this:
 
 ```
-sumo -c myConfig.sumocfg
+sumo -c myConfig.sumocfg
 ```
 
 Now, we use the simulation to get an [fcd
@@ -37,7 +37,7 @@ of the applications supported by
 [fcd output](../Simulation/Output/FCDOutput.md) as follows:
 
 ```
-sumo -c myConfig.sumocfg --fcd-output sumoTrace.xml
+sumo -c myConfig.sumocfg --fcd-output sumoTrace.xml
 ```
 
 Through this method, we obtain the file "sumoTrace.xml".
@@ -50,7 +50,7 @@ file. We can generate one from the obtained [fcd
 output](../Simulation/Output/FCDOutput.md) using:
 
 ```
-traceExporter.py --fcd-input sumoTrace.xml --ns2mobility-output ns2mobility.tcl
+traceExporter.py --fcd-input sumoTrace.xml --ns2mobility-output ns2mobility.tcl
 ```
 
 We obtain the file "ns2mobility.tcl", which we can give ns2 as input.
@@ -73,8 +73,8 @@ of vehicles that are exported, where 1 is equal to 100 %. This means, if
 You want to have 10 % of vehicles to show up in Your ns2-trace, use:
 
 ```
-traceExporter.py --penetration 0.1 \
- --fcd-input sumoTrace.xml --ns2-mobilityoutput ns2mobility.tcl
+traceExporter.py --penetration 0.1 \
+ --fcd-input sumoTrace.xml --ns2-mobilityoutput ns2mobility.tcl
 ```
 
 The **--seed** {{DT_FLOAT}} allows you to give different random number initialisations for

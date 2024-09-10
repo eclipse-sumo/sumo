@@ -39,7 +39,7 @@ To run the example you need to execute the script *runner.py* with
 python
 
 ```
-python runner.py
+python runner.py
 ```
 
 !!! caution

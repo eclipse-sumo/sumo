@@ -153,7 +153,7 @@ configuration file:
 
 ```xml
 <processing>
-   <step-method.ballistic value="true"/>
+   <step-method.ballistic value="true"/>
 </processing>
 ```
 

@@ -42,7 +42,7 @@ network. A starting point can be to use the python sumolib to match the
 positions to the network:
 
 ```python
-if 'SUMO_HOME' in os.environ:
+if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib
 
@@ -113,7 +113,7 @@ must be given, while speed data is optional. All data is saved in csv
 format.
 
 ```
-Detector_id;Time(minutes);Number_of_passenger_cars;Number_of_trucks;Average_speed_of passenger_cars;Average_speed_of_trucks
+Detector_id;Time(minutes);Number_of_passenger_cars;Number_of_trucks;Average_speed_of passenger_cars;Average_speed_of_trucks
 ```
 
 ## Determining the routes
@@ -128,7 +128,7 @@ specify detectors and flows respectively. The type of the detectors
 given detector file. As an example the script can be executed as
 
 ```
-tools/detector/flowrouter.py -n net.net.xml -d detector.det.xml -f flow.csv`
+tools/detector/flowrouter.py -n net.net.xml -d detector.det.xml -f flow.csv`
 ```
 
 Moreover, there are options, which are not available in
@@ -144,7 +144,7 @@ options and the respective definitions can be found at
 [dfrouter](../dfrouter.md). As an example the execution call is
 
 ```
-dfrouter -n net.net.xml -d detectors.det.xml -f flows.csv -o routes.rou.xml`
+dfrouter -n net.net.xml -d detectors.det.xml -f flows.csv -o routes.rou.xml`
 ```
 
 Moreover, it is also possible to set up a configuration file with use of
@@ -166,7 +166,7 @@ latter one is based on SUMO's aggregated outputs. The script can be
 executed as following:
 
 ```
-tools/detector/flowFromEdgeData.py -d detectors.det.xml -e edgeData.xml -f detector_flows.xml -c flow_column`
+tools/detector/flowFromEdgeData.py -d detectors.det.xml -e edgeData.xml -f detector_flows.xml -c flow_column`
 ```
 
 , where `detectors.det.xml` mainly defines the relationship between
@@ -185,7 +185,7 @@ according to the pre-defined emitted flows and routes. The basic
 execution call is as following:
 
 ```
-tools/detector/flowFromRoutes.py -d detectors.det.xml -e emitters.flows.xml -f detector_flows.txt -r routes.rou.xml`
+tools/detector/flowFromRoutes.py -d detectors.det.xml -e emitters.flows.xml -f detector_flows.txt -r routes.rou.xml`
 ```
 
 , where `emitters.flows.xml` defines the route flows; `detector_flows.txt`

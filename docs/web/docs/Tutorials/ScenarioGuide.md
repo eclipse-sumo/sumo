@@ -90,13 +90,13 @@ patch.nod.xml :
 and patch the network like this:
 
 ```
-netconvert --sumo-net-file your.net.xml --node-files patch.nod.xml -o yourpatched.net.xml
+netconvert --sumo-net-file your.net.xml --node-files patch.nod.xml -o yourpatched.net.xml
 ```
 
 or perform the patch during the initial import:
 
 ```
-netconvert --osm-file yourOSMfile.xml --node-files patch.nod.xml ...<other options>
+netconvert --osm-file yourOSMfile.xml --node-files patch.nod.xml ...<other options>
 ```
 
 ### Modifying an imported network via plain.xml
@@ -106,13 +106,13 @@ network to plain.xml, modify the plain file and then re-assemble the
 network like this:
 
 ```
-netconvert --sumo-net-file your.net.xml --plain-output-prefix yourplain
+netconvert --sumo-net-file your.net.xml --plain-output-prefix yourplain
 ```
 
 or during import:
 
 ```
-netconvert --osm-files yourOSMinput.xml --plain-output-prefix yourplain ... <your other options>
+netconvert --osm-files yourOSMinput.xml --plain-output-prefix yourplain ... <your other options>
 ```
 
 This will give you the files:
@@ -128,13 +128,13 @@ You can edit these files and then reassemble the network by loading
 some or all of them:
 
 ```
-netconvert --edge-files yourplain.edg.xml --node-files yourplain.nod.xml -o new.net.xml
+netconvert --edge-files yourplain.edg.xml --node-files yourplain.nod.xml -o new.net.xml
 ```
 
 or
 
 ```
-netconvert --edge-files yourplain.edg.xml --node-files yourplain.nod.xml --connection-files yourplain.con.xml -o new.net.xml
+netconvert --edge-files yourplain.edg.xml --node-files yourplain.nod.xml --connection-files yourplain.con.xml -o new.net.xml
 ```
 
 !!! note

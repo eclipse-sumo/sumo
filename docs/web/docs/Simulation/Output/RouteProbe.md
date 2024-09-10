@@ -15,7 +15,7 @@ loaded by the simulation.
 
 ```xml
 <additional>
-  <routeProbe id="<ROUTEPROBE_ID>" edge="<EDGE_ID>" period="<PERIOD>" file="<OUTPUT_XMLFILE>"/>
+  <routeProbe id="<ROUTEPROBE_ID>" edge="<EDGE_ID>" period="<PERIOD>" file="<OUTPUT_XMLFILE>"/>
 </additional>
 ```
 
@@ -37,9 +37,9 @@ file](../../duarouter.md#outputs) which can be loaded directly in
 
 ```xml
 <route-probes>
-   <routeDistribution id="r3/1to2/1_80.00">
-      <route id="r1_80.00" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" probability="1.00"/>
-   </routeDistribution>
+   <routeDistribution id="r3/1to2/1_80.00">
+      <route id="r1_80.00" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1" probability="1.00"/>
+   </routeDistribution>
 </route-probes>
 ```
 

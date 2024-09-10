@@ -46,7 +46,7 @@ network). This takes the following form:
 
 ```xml
 <busStop id="myStop" lane="A_0" startPos="230" endPos="250">
-   <access lane="B_0" pos="150"/>
+   <access lane="B_0" pos="150"/>
 </busStop>
 ```
 
@@ -109,24 +109,24 @@ It is also possible to define a bus route without defining all
 intermediate edges:
 
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" from="2/0to2/1" to="2/0to2/1">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 The vehicle will take the fastest path between *from*-edge and *to*-edge
 that visits all stops in their correct order.
 
 Even the trip attributes 'from' and 'to' can be omitted to let the bus start at the first stop and end at the last. Using `departPos="stop"`, the vehicle will be inserted directly at the first stop in its route:
 ```xml
-   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
-       <stop busStop="busstop1" duration="20"/>
-       <stop busStop="busstop2" duration="20"/>
-       <stop busStop="busstop3" duration="20"/>
-       <stop busStop="busstop4" duration="20"/>
-   </trip>
+   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
 ```
 
 # Public Transport Schedules

@@ -16,11 +16,11 @@ below. Each person must have at least one stage in its plan.
 
 ```xml
 <person id="foo" depart="0">
-    <walk edges="a b c"/>
-    <ride from="c" to="d" lines="busline1"/>
-    <ride .../>
-    <walk .../>
-    <stop .../>
+    <walk edges="a b c"/>
+    <ride from="c" to="d" lines="busline1"/>
+    <ride .../>
+    <walk .../>
+    <stop .../>
 </person>
 ```
 
@@ -87,19 +87,19 @@ known:
 ## Examples
 
 ```xml
-   <personFlow id="p" begin="0" end="10" period="2">
-       <walk from="beg" to="end"/>
-   </personFlow>
+   <personFlow id="p" begin="0" end="10" period="2">
+       <walk from="beg" to="end"/>
+   </personFlow>
 ```
 
 ```xml
-   <personFlow id="person" begin="0" end="1" number="4" departPos="80">
-       <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
-       <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
-       <walk from="0/4to1/4" to="1/4to2/4" arrivalPos="45"/>
-       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
-       <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
-   </personFlow>
+   <personFlow id="person" begin="0" end="1" number="4" departPos="80">
+       <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
+       <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
+       <walk from="0/4to1/4" to="1/4to2/4" arrivalPos="45"/>
+       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
+       <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
+   </personFlow>
 ```
 
 # Simulation input

@@ -40,8 +40,8 @@ standard passenger cars. The file contents should look like this:
 
 ```xml
 <routes>
-   <vType id="car" type="passenger" length="5" accel="3.5" decel="2.2" sigma="1.0"/>
-   <flow id="carflow" type="car" beg="0" end="0" number="5"/>
+   <vType id="car" type="passenger" length="5" accel="3.5" decel="2.2" sigma="1.0"/>
+   <flow id="carflow" type="car" beg="0" end="0" number="5"/>
 </routes>
 ```
 
@@ -57,10 +57,10 @@ and net definitions:
 
 ```xml
 <configuration>
-    <input>
-       <net-file value="circles.net.xml"/>
-       <route-files value="circles.rou.xml"/>
-    </input>
+    <input>
+       <net-file value="circles.net.xml"/>
+       <route-files value="circles.rou.xml"/>
+    </input>
 </configuration>
 ```
 
@@ -104,9 +104,9 @@ Now we add the from-edge and the to-edge to the flow in
 `circles.rou.xml`:
 
 ```xml
- ...
-    <flow id="carflow" type="car" beg="0" end="0" number="5" from="edge1" to="edge2"/>
- ...
+ ...
+    <flow id="carflow" type="car" beg="0" end="0" number="5" from="edge1" to="edge2"/>
+ ...
 ```
 
 Let's try to run SUMO again. The window should now show the network you
@@ -144,16 +144,16 @@ for details):
 
 ```xml
 <additionals>
-    <rerouter id="rerouter_0" edges="edge1">
-        <interval end="1e9">
-           <destProbReroute id="edge2"/>
-        </interval>
-    </rerouter>
-    <rerouter id="rerouter_1" edges="edge2">
-        <interval end="1e9">
-           <destProbReroute id="edge1"/>
-        </interval>
-    </rerouter>
+    <rerouter id="rerouter_0" edges="edge1">
+        <interval end="1e9">
+           <destProbReroute id="edge2"/>
+        </interval>
+    </rerouter>
+    <rerouter id="rerouter_1" edges="edge2">
+        <interval end="1e9">
+           <destProbReroute id="edge1"/>
+        </interval>
+    </rerouter>
 </additionals>
 ```
 

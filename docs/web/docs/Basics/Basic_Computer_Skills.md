@@ -66,7 +66,7 @@ potentially more comfortable for repetitive tasks than using a GUI.
 Commands look like this
 
 ```
-netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
+netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
 ```
 Here *netconvert* is the name of the program and the rest of the command
 sets options for this program.
@@ -95,7 +95,7 @@ makes sure that you can execute SUMO-programs.
 3.  enter a command such as
 
 ```
-netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
+netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
 ```
 
 and press `enter`

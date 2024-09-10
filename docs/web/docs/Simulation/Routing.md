@@ -175,8 +175,8 @@ same speed on all edges:
 and then using that type to find the fastest route:
 
 ```
-stageResult = traci.simulation.findRoute(fromEdge, toEdge, "routeByDistance")
-shortestDistance = stage.length
+stageResult = traci.simulation.findRoute(fromEdge, toEdge, "routeByDistance")
+shortestDistance = stage.length
 ```
 
 !!! note

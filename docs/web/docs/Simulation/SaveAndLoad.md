@@ -12,7 +12,7 @@ To save the state at specified times during the simulation add the
 option **--save-state.times**
 
 ```
-sumo --save-state.times TIME1,TIME2,TIME3
+sumo --save-state.times TIME1,TIME2,TIME3
 ```
 
 By default the state will be written to files named *<PREFIX\>_<TIME\><SUFFIX\>* where *<PREFIX\>* can be set via option **--save-state.prefix** (default *state*), *<TIME\>* is the simulation time and *<SUFFIX\>* is either one of *.xml.gz* or *.xml* as controlled by the option **--save-state.suffix** (default *.xml.gz*).
@@ -24,7 +24,7 @@ When using the option **--save-state.times**, output files can also be specified
 option **--save-state.files**
 
 ```
-sumo --save-state.files FILE1,FILE2,FILE3
+sumo --save-state.files FILE1,FILE2,FILE3
 ```
 
 to set the file names explicitly. In particular if a plain text xml-file

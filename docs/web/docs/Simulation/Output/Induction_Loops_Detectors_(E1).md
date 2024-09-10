@@ -28,9 +28,9 @@ level of tags like so:
 
 ```xml
 <additional>
-  <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
-  <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
-  ....
+  <inductionLoop id="myLoop1" lane="foo_0" pos="42" period="900" file="out.xml"/>
+  <inductionLoop id="myLoop2" lane="foo_2" pos="42" period="900" file="out.xml"/>
+  ....
 </additional>
 ```
 

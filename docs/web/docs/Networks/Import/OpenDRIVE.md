@@ -6,7 +6,7 @@ For reading [OpenDRIVE networks](https://www.opendrive.org/), give
 [netconvert](../../netconvert.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
 ```
-netconvert --opendrive myOpenDriveNetwork.xodr -o mySUMOnetwork.net.xml
+netconvert --opendrive myOpenDriveNetwork.xodr -o mySUMOnetwork.net.xml
 ```
 
 [netconvert](../../netconvert.md) can also [write OpenDrive

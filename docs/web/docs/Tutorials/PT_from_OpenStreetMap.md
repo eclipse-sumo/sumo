@@ -24,8 +24,8 @@ In the first step PT stops and line information will be extracted. The
 step is performed by invoking netconvert as follows
 
 ```
-netconvert --osm-files osm.xml -o net.net.xml --osm.stop-output.length 20 
-    --ptstop-output additional.xml --ptline-output ptlines.xml
+netconvert --osm-files osm.xml -o net.net.xml --osm.stop-output.length 20
+    --ptstop-output additional.xml --ptline-output ptlines.xml
 ```
 
 , where
@@ -56,8 +56,8 @@ beyond the scope of this tutorial. The steps are performed by invoking
 the *ptlines2flows.py* script as follows
 
 ```
-python tools/ptlines2flows.py -n net.net.xml -s additional.xml -l ptlines.xml 
-    -o flows.rou.xml -p 600 --use-osm-routes
+python tools/ptlines2flows.py -n net.net.xml -s additional.xml -l ptlines.xml
+    -o flows.rou.xml -p 600 --use-osm-routes
 ```
 
 , where

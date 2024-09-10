@@ -71,15 +71,15 @@ in your start command instead of `sumo` or define the environment variable
 Make sure you have libsumo installed (`pip install libsumo`).
 
 ```py
-import libsumo
-libsumo.start(["sumo", "-c", "test.sumocfg"])
+import libsumo
+libsumo.start(["sumo", "-c", "test.sumocfg"])
 libsumo.simulationStep()
 ```
 
 Existing traci scripts can be reused (subject to the [limitations](#limitations) mentioned above) by calling
 
 ```py
-import libsumo as traci
+import libsumo as traci
 ```
 
 In case you have a lot of scripts you can also set the environment
@@ -183,6 +183,6 @@ Please install the [Python package](#python). You can then use all commands insi
 just as in Python by adding the `py.` prefix.
 
 ```
-py.libsumo.start(["sumo", "-c", "test.sumocfg"])
+py.libsumo.start(["sumo", "-c", "test.sumocfg"])
 py.libsumo.simulationStep()
 ```

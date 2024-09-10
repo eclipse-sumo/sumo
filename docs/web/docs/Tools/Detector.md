@@ -17,7 +17,7 @@ aggregated over the whole file but can be split into intervals by
 setting **-i** as time **in minutes**. Example call for hourly aggregation:
 
 ```
-<SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml -d detectors.xml -f flows20140520.csv -o routes.xml -e flows.xml -i 60
+<SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml -d detectors.xml -f flows20140520.csv -o routes.xml -e flows.xml -i 60
 ```
 
 Detectors which have no data (in the specified interval) or are
@@ -27,7 +27,7 @@ calculations use **--respect-zero**.
 For additional parameters call
 
 ```
-<SUMO_HOME>/tools/detector/flowrouter.py --help
+<SUMO_HOME>/tools/detector/flowrouter.py --help
 ```
 
 !!! caution
@@ -56,7 +56,7 @@ With the option **--params** {{DT_STR}}, additional parameters can be given to t
 vehicles (note, usage of the quoting characters).
 
 ```
-<SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml --params="departLane=\"best\" departSpeed=\"max\" type=\"myType""
+<SUMO_HOME>/tools/detector/flowrouter.py -n input_net.net.xml --params="departLane=\"best\" departSpeed=\"max\" type=\"myType""
 ```
 
 This would insert the vehicle with high speed on a reasonable lane. The
@@ -80,7 +80,7 @@ proportion to the incoming and outgoing flows (similar to the behavior of
 With the option **--flow-restrictions** {{DT_FILE}}, flow restriction for routes may be given. Each line in the input file takes the form:
 
 ```
-<FLOW1> <EDGE1> <EDGE2> ... <EDGEk>
+<FLOW1> <EDGE1> <EDGE2> ... <EDGEk>
 ```
 
 This specifies the maximum flow for a route that consists of the given
@@ -101,7 +101,7 @@ input counts with the outputs of flowrouter.py and
 [dfrouter](../dfrouter.md). Example:
 
 ```
-<SUMO_HOME>/tools/detector/flowFromRoutes.py -d detectors.xml -r routes.xml -e flows.xml
+<SUMO_HOME>/tools/detector/flowFromRoutes.py -d detectors.xml -r routes.xml -e flows.xml
 ```
 
 # flowFromEdgeData
@@ -109,7 +109,7 @@ input counts with the outputs of flowrouter.py and
 This script is similar to [flowFromRoutes.py](#flowfromroutespy). It generates traffic counts for detectors but uses [edgeData files](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md) as input instead of routes.
 It requires the use of an input flow file and then performs a comparison between input flows and edgdata flows
 ```
-<SUMO_HOME>/tools/detector/flowFromEdgeData.py -d detectors.xml -e edgedata.xml -f flows.txt
+<SUMO_HOME>/tools/detector/flowFromEdgeData.py -d detectors.xml -e edgedata.xml -f flows.txt
 ```
 
 
@@ -118,14 +118,14 @@ It requires the use of an input flow file and then performs a comparison between
 This script converts [detector flow files](../Demand/Routes_from_Observation_Points.md#computing_flows) to into [edgeData format](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#edge-based_network_states) (i.e. to be used by [routeSampler.py](Turns.md#edge_counts) or for [visualization in sumo-gui](../sumo-gui.md#visualizing_edge-related_data))
 Example:
 ```
-<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml
 ```
 
 # filterFlows.py
 
 Filters a flow file by detector ids and time range
 ```
-<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d det1,det2 -f input_flows.txt -b 3600 -e 7200 -o output_flows.txt
+<SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d det1,det2 -f input_flows.txt -b 3600 -e 7200 -o output_flows.txt
 ```
 
 # mapDetectors.py

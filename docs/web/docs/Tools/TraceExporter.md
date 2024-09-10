@@ -51,7 +51,7 @@ You convert a given [fcd output](../Simulation/Output/FCDOutput.md)
 into a format using a command like this:
 
 ```
-traceExporter.py --fcd-input myFCDoutput.xml --omnet-output myOMNETfile.xml
+traceExporter.py --fcd-input myFCDoutput.xml --omnet-output myOMNETfile.xml
 ```
 
 In the case given above, a file for [OMNET](https://www.omnetpp.org/)

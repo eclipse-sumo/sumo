@@ -103,16 +103,16 @@ parameters from `projParameter`, first. For
 proj-projected networks this would look like:
 
 ```
-Position2D cartesian = sumoXY(x, y);
-projPJ myProjection = pj_init_plus(projParameter.c_str());
+Position2D cartesian = sumoXY(x, y);
+projPJ myProjection = pj_init_plus(projParameter.c_str());
 cartesian.sub(netOffset);
-projUV p;
-p.u = cartesian.x();
-p.v = cartesian.y();
-p = pj_inv(p, myProjection);
-p.u *= RAD_TO_DEG;
-p.v *= RAD_TO_DEG;
-cartesian.set(p.u, p.v);
+projUV p;
+p.u = cartesian.x();
+p.v = cartesian.y();
+p = pj_inv(p, myProjection);
+p.u *= RAD_TO_DEG;
+p.v *= RAD_TO_DEG;
+cartesian.set(p.u, p.v);
 ```
 
 For networks with no projection

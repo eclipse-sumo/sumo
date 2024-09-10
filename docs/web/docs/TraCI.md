@@ -302,10 +302,10 @@ As an example use-case consider retrieving the x,y position of each
 vehicle during every simulation step (using the python client):
 
 ```py
-while traci.simulation.getMinExpectedNumber() > 0:
-    for veh_id in traci.vehicle.getIDList():
-         position = traci.vehicle.getPosition(veh_id)
-    traci.simulationStep()
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.vehicle.getIDList():
+         position = traci.vehicle.getPosition(veh_id)
+    traci.simulationStep()
 ```
 
 - This script is able to process about 25000 vehicles per second.
@@ -314,11 +314,11 @@ while traci.simulation.getMinExpectedNumber() > 0:
   [subscriptions](TraCI/Object_Variable_Subscription.md):
 
 ```py
-while traci.simulation.getMinExpectedNumber() > 0:
-    for veh_id in traci.simulation.getDepartedIDList():
-        traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
-    positions = traci.vehicle.getAllSubscriptionResults()
-    traci.simulationStep()
+while traci.simulation.getMinExpectedNumber() > 0:
+    for veh_id in traci.simulation.getDepartedIDList():
+        traci.vehicle.subscribe(veh_id, [traci.constants.VAR_POSITION])
+    positions = traci.vehicle.getAllSubscriptionResults()
+    traci.simulationStep()
 ```
 
 When using this script on the [Bologna

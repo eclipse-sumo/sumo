@@ -71,8 +71,8 @@ broken
 - open a visual studio command prompt, cd to the jpeg dir and execute
 
 ```
-nmake /f makefile.vc setup-v10
-nmake /f makefile.vc
+nmake /f makefile.vc setup-v10
+nmake /f makefile.vc
 ```
 
 - you will get a libjpeg lib (and no dll\!) in the jpeg dir

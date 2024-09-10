@@ -23,7 +23,7 @@ type:
 
 ```xml
 <vType id="bike" vClass="bicycle"/>
-<vehicle type="bike" .../>
+<vehicle type="bike" .../>
 ```
 
 Note, that that the `guiShape="bicycle"` along with [sensible default

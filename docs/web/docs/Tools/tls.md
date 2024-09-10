@@ -8,14 +8,14 @@ This script modifies the traffic-light offsets to coordinate them for a
 given traffic demand. Example call:
 
 ```
-python tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
+python tools/tlsCoordinator.py -n net.net.xml -r routes.rou.xml -o tlsOffsets.add.xml
 ```
 
 This would generate the file *tlsOffsets.add.xml* which can be loaded
 into [sumo](../sumo.md):
 
 ```
-sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
+sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
 ```
 
 !!! note
@@ -30,14 +30,14 @@ This script modifies the cycle lenth and the duration of green phases according 
 formula to best accommodate a given traffic demand. Example call:
 
 ```
-python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml -b begin_time
+python tools/tlsCycleAdaptation.py -n net.net.xml -r routes.rou.xml -o newTLS.add.xml -b begin_time
 ```
 
 This would generate the file *newTLS.add.xml* which can be loaded into
 [sumo](../sumo.md):
 
 ```
-sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
+sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
 ```
 
 !!! caution
@@ -71,7 +71,7 @@ This tool requires the program definition and the SUMO-network it shall
 be converted to:
 
 ```
-python tools/tls/tls_csv2SUMO.py <TLS_CSV> <NET>
+python tools/tls/tls_csv2SUMO.py <TLS_CSV> <NET>
 ```
 
 It prints the generated TLS definition on stdout (you can pipe it to a
@@ -236,7 +236,7 @@ time;31;16;6;16;31;16;6;16
 We convert those program definitions using
 
 ```
-python tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
+python tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
 ```
 
 And obtain the following programs after loading them into
@@ -257,7 +257,7 @@ creates the [sumo](../sumo.md) tls representation out of it. Example call to con
 additional file *tls.add.xml*:
 
 ```
-python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tl1.csv,tl2.csv -o tls.add.xml
 ```
 
 In the opposite direction, templates for csv-tls-descriptions of all tls
@@ -265,14 +265,14 @@ in a [sumo](../sumo.md) network can be written to a given directory
 and completed by hand:
 
 ```
-python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -m .
 ```
 It also provides a mechanism to convert an additional file *tls.add.xml* or the TL logic contained in a
 net file *net.net.xml* directly into a csv-tls-representation. Example call to convert an additional file *tls.add.xml*
 into csv-tls-representation(s):
 
 ```
-python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r --group
+python tools/tls/tls_csvSignalgroups.py -n net.net.xml -i tls.add.xml -r --group
 ```
 The csv output files (one per found TL logic) are written to the current working directory and named *tlID_programID.csv*. An additional file
 prefix can be prepended using the **--output** parameter. When adding the parameter **--group**, signal groups with identical signal states across all
@@ -312,7 +312,7 @@ optional, so are the keywords.
 
 ```
 [general]
-cycle time;60
+cycle time;60
 key;1
 subkey;SZP_LeftTurn
 offset;0
@@ -325,7 +325,7 @@ FZ21;-472_0;
 FZ31;-468_0;
 FZ32;-468_1;
 FZ41;-470_0;
-[signal groups]
+[signal groups]
 id;on1;off1;transOn;transOff
 FZ11;0;25;1;3
 FZ12;0;35;1;3
@@ -339,7 +339,7 @@ FZ41;40;55;1;3
 
 ```
 [general]
-cycle time;60
+cycle time;60
 key;1
 subkey;SZP_2Green
 offset;0
@@ -350,7 +350,7 @@ FZ21;-472_0;
 FZ31;-468_0;
 FZ32;-468_1;
 FZ41;-470_0;
-[signal groups]
+[signal groups]
 id;on1;off1;transOn;transOff;on2;off2
 FZ11;0;15;1;3;;
 FZ12;0;15;1;3;40;55
@@ -395,5 +395,5 @@ The corresponding yellow and red phases will be build and the 'next' attribute
 will be set to the appropriate transition phase.
 
 ```
-python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
+python tools/tls/buildTransitions.py -d <tlLogic-file> -o <output-file>
 ```

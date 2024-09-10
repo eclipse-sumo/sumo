@@ -40,12 +40,12 @@ Instead of defining the speed changes of a `<variableSpeedSign>` in the same fil
 
 ```xml
 <additional>
-  <variableSpeedSign id="VSS_ID" lanes="LANE_IDS" file="DEF_FILE">
-     <step time="<TIME>" speed="<SPEED>"/>
+  <variableSpeedSign id="VSS_ID" lanes="LANE_IDS" file="DEF_FILE">
+     <step time="<TIME>" speed="<SPEED>"/>
 
-     ... further entries ...
+     ... further entries ...
 
-  </variableSpeedSign>
+  </variableSpeedSign>
 </additional>
 ```
 
@@ -55,10 +55,10 @@ file has the following format:
 
 ```xml
 <vss>
-  <step time="<TIME>" speed="<SPEED>"/>
-  <step time="<TIME>" speed="<SPEED>"/>
+  <step time="<TIME>" speed="<SPEED>"/>
+  <step time="<TIME>" speed="<SPEED>"/>
 
-  ... further entries ...
+  ... further entries ...
 
 </vss>
 ```

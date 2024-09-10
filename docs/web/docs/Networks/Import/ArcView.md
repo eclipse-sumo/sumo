@@ -123,9 +123,9 @@ As a begin, we try to import the road graph. We use the information we
 have found and apply a projection:
 
 ```
-netconvert -v --shapefile-prefix tl_2008_36061_edges -o net.net.xml \
-   --shapefile.from-id TNIDF --shapefile.to-id TNIDT --arcview.street-id tlid \
-   --shapefile.use-defaults-on-failure
+netconvert -v --shapefile-prefix tl_2008_36061_edges -o net.net.xml \
+   --shapefile.from-id TNIDF --shapefile.to-id TNIDT --arcview.street-id tlid \
+   --shapefile.use-defaults-on-failure
 ```
 
 As a result, we obtain the network shown below.
@@ -221,9 +221,9 @@ looked quite messy. After having played with geocoordinate projections,
 this was fixed. So the call (so far) looks like this:
 
 ```
-netconvert --arcview strassen -o frida.net.xml \
-  --arcview.street-id strShapeID -t frida.typ.xml \
-  --arcview.type-id strTypID --use-projection
+netconvert --arcview strassen -o frida.net.xml \
+  --arcview.street-id strShapeID -t frida.typ.xml \
+  --arcview.type-id strTypID --use-projection
 ```
 
 ### Data Quality
