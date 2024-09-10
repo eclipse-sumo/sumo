@@ -89,3 +89,6 @@ double_reversal_dwEnd
 
 # invalid conflict when a train reverses within the bidi section, causing emergency braking
 bidiDepart_reversal
+
+# invalid conflict 
+routes_cross_twice
