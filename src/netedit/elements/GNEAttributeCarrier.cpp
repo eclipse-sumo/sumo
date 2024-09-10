@@ -9223,12 +9223,36 @@ GNEAttributeCarrier::fillPersonTripCommonAttributes(GNETagProperties& tagPropert
                                           TL("list of vehicle alternatives to take for the person trip"),
                                           "ANY");
     tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_WALKFACTOR,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("Walk factor"),
+                                          "0.00");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
+    tagProperties.addAttribute(attrProperty);
 }
 
 
 void
-GNEAttributeCarrier::fillWalkCommonAttributes(GNETagProperties& /*tagProperties*/) {
-    // currently walks don't have common attributes
+GNEAttributeCarrier::fillWalkCommonAttributes(GNETagProperties& tagProperties) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("speed of the person for this tranship in m/s (not together with duration)"),
+                                          "1.39");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("duration of the plan in second (not together with speed)"),
+                                          "0");
+    tagProperties.addAttribute(attrProperty);
 }
 
 
@@ -9237,11 +9261,15 @@ GNEAttributeCarrier::fillRideCommonAttributes(GNETagProperties& tagProperties) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // lines
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("list of vehicle alternatives to take for the ride"),
                                           "ANY");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
     tagProperties.addAttribute(attrProperty);
 }
 
@@ -9251,11 +9279,15 @@ GNEAttributeCarrier::fillTransportCommonAttributes(GNETagProperties& tagProperti
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // lines
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("list of vehicle alternatives to take for the transport"),
                                           "ANY");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
+                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("id of the travel group. Persons with the same group may share a taxi ride"));
     tagProperties.addAttribute(attrProperty);
 }
 
@@ -9265,11 +9297,16 @@ GNEAttributeCarrier::fillTranshipCommonAttributes(GNETagProperties& tagPropertie
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
-    // speed
     attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
                                           GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("speed of the container for this tranship in m/s"),
+                                          TL("speed of the person for this tranship in m/s (not together with duration)"),
                                           "1.39");
+    tagProperties.addAttribute(attrProperty);
+
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
+                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          TL("duration of the plan in second (not together with speed)"),
+                                          "0");
     tagProperties.addAttribute(attrProperty);
 }
 
