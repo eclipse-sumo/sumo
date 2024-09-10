@@ -78,6 +78,10 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
+    // group
+    if (myGroup.size() > 0) {
+        device.writeAttr(SUMO_ATTR_GROUP, myGroup);
+    }
     device.closeTag();
 }
 
