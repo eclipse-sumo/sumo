@@ -628,7 +628,6 @@ MSDriveWay::findProtection(const Approaching& veh, MSLink* link) const {
     }
 }
 
-
 bool
 MSDriveWay::overlap(const MSDriveWay& other) const {
     for (int i = 0; i < myCoreSize; i++) {
@@ -1218,13 +1217,21 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
     dw->checkFlanks(link, dw->myBidi, visited, false, flankSwitches);
     dw->checkFlanks(link, before, visited, true, flankSwitches);
     for (MSLink* fsLink : flankSwitches) {
-        //std::cout << getID() << " flankSwitch=" << link->getDescription() << "\n";
+#ifdef DEBUG_ADD_FOES
+        if (DEBUG_COND_DW) {
+            std::cout << " fsLink=" << fsLink->getDescription() << "\n";
+        }
+#endif
         dw->findFlankProtection(fsLink, 0, visited, fsLink, dw->myFlank);
     }
     std::set<MSLink*> flankSwitchesBidiExtended;
     dw->checkFlanks(link, dw->myBidiExtended, visited, false, flankSwitchesBidiExtended);
     for (MSLink* link : flankSwitchesBidiExtended) {
-        //std::cout << getID() << " flankSwitchBEx=" << link->getDescription() << "\n";
+#ifdef DEBUG_ADD_FOES
+        if (DEBUG_COND_DW) {
+            std::cout << " fsLinkExtended=" << link->getDescription() << "\n";
+        }
+#endif
         dw->findFlankProtection(link, 0, visited, link, dw->myBidiExtended);
     }
     MSRailSignal* rs = link ? const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(link->getTLLogic())) : nullptr;
@@ -1395,7 +1402,7 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
 void
 MSDriveWay::addFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " (" << myNumericalID << ") addFoes for link " << link->getDescription() << "\n";
+    std::cout << "driveway " << myID << " addFoes for link " << link->getDescription() << " extraCheck=" << extraCheck << "\n";
 #endif
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
@@ -1405,7 +1412,7 @@ MSDriveWay::addFoes(const MSLink* link) {
 #endif
             if (foe != this && (flankConflict(*foe) || foe->flankConflict(*this) || crossingConflict(*foe) || foe->crossingConflict(*this))) {
 #ifdef DEBUG_ADD_FOES
-                std::cout << "   foe=" << foe->myID << " (" << foe->getNumericalID() << ")\n";
+                std::cout << "   foe=" << foe->myID << "\n";
 #endif
                 myFoes.push_back(foe);
             }
@@ -1417,7 +1424,7 @@ MSDriveWay::addFoes(const MSLink* link) {
 void
 MSDriveWay::addSwitchFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " (" << myNumericalID << ") addSwitchFoes for link " << link->getDescription() << "\n";
+    std::cout << "driveway " << myID << " addSwitchFoes for link " << link->getDescription() << "\n";
 #endif
     auto it = mySwitchDriveWays.find(link);
     if (it != mySwitchDriveWays.end()) {
@@ -1438,7 +1445,7 @@ MSDriveWay::addSwitchFoes(const MSLink* link) {
 void
 MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " (" << myNumericalID << ") addBidiFoes extended=" << extended << "\n";
+    std::cout << "driveway " << myID << " addBidiFoes extended=" << extended << "\n";
 #endif
     const std::vector<const MSLane*>& bidiLanes = extended ? myBidiExtended : myBidi;
     for (const MSLane* bidi : bidiLanes) {
@@ -1485,7 +1492,7 @@ MSDriveWay::addBidiFoes(const MSRailSignal* ownSignal, bool extended) {
 void
 MSDriveWay::addParallelFoes(const MSLink* link, const MSEdge* first) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " (" << myNumericalID << ") addParallelFoes\n";
+    std::cout << "driveway " << myID << " addParallelFoes\n";
 #endif
     if (link) {
         addFoes(link);
