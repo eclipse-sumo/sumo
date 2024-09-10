@@ -32,13 +32,14 @@
 // ===========================================================================
 
 GNERide::GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
+                 const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
 planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
                                      GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines) {
+                                     myLines(lines),
+myGroup(group) {
 }
 
 
@@ -199,6 +200,8 @@ GNERide::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_GROUP:
+            return myGroup;
         default:
             return getPlanAttribute(key);
     }
@@ -221,6 +224,7 @@ void
 GNERide::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_GROUP:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -235,6 +239,8 @@ GNERide::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_GROUP:
+            return true;
         default:
             return isPlanValid(key, value);
     }
@@ -273,6 +279,9 @@ GNERide::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_GROUP:
+            myGroup = value;
             break;
         default:
             setPlanAttribute(key, value);

@@ -674,7 +674,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
 
 void
 GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                           double arrivalPos, const std::vector<std::string>& lines) {
+                           const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     const auto tagIcon = GNEDemandElementPlan::getRideTagIcon(planParameters);
@@ -686,7 +686,7 @@ GNERouteHandler::buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         WRITE_WARNING(TL("invalid combination for ride"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build ride
-        GNEDemandElement* ride = new GNERide(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines);
+        GNEDemandElement* ride = new GNERide(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(ride, TLF("add % in '%'", ride->getTagStr(), personParent->getID()));
@@ -1103,7 +1103,7 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
         buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines, walkFactor, group);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
-        buildRide(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
+        buildRide(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines, group);
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
         // set specific stop parameters
         int parameterSet = 0;
@@ -1314,7 +1314,8 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     } else if (tagProperty.isPlanRide()) {
         buildRide(planObject, planParameters,
                   planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                  planObject->getStringListAttribute(SUMO_ATTR_LINES));
+                  planObject->getStringListAttribute(SUMO_ATTR_LINES),
+                  planObject->getStringAttribute(SUMO_ATTR_GROUP));
     } else if (tagProperty.isPlanStopPerson()) {
         // set parameters
         int parameterSet = 0;

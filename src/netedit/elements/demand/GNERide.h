@@ -49,9 +49,10 @@ public:
      * @param[in] personParent person parent
      * @param[in] planParameters plan parameters
      * @param[in] lines list of lines
+     * @param[in] group group
      */
     GNERide(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-            double arrivalPosition, const std::vector<std::string>& lines);
+            const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor
     ~GNERide();
@@ -207,6 +208,9 @@ public:
 protected:
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
+
+    /// @brief group
+    std::string myGroup;
 
 private:
     /// @brief method for setting the attribute and nothing else
