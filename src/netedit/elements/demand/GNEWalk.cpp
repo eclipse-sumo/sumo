@@ -77,11 +77,11 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
     writeLocationAttributes(device);
     // speed
-    if (mySpeed > 0) {
+    if (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED)) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
     // duration
-    if (myDuration > 0) {
+    if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
         device.writeAttr(SUMO_ATTR_DURATION, myDuration);
     }
     device.closeTag();
