@@ -43,12 +43,14 @@ GNEDemandElementPlan(this, -1, -1) {
 
 
 GNEWalk::GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-                 const double arrivalPosition) :
+                 const double arrivalPosition, const double speed, const SUMOTime duration) :
     GNEDemandElement(personParent, net, GLO_WALK, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
 planParameters.getAdditionalElements(), planParameters.getDemandElements(personParent), {}),
-GNEDemandElementPlan(this, -1, arrivalPosition) {
+GNEDemandElementPlan(this, -1, arrivalPosition),
+mySpeed(speed),
+myDuration(duration) {
 }
 
 
@@ -74,6 +76,14 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     // write rest of attributes
     device.openTag(SUMO_TAG_WALK);
     writeLocationAttributes(device);
+    // speed
+    if (mySpeed > 0) {
+        device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
+    }
+    // duration
+    if (myDuration > 0) {
+        device.writeAttr(SUMO_ATTR_DURATION, myDuration);
+    }
     device.closeTag();
 }
 
@@ -184,13 +194,25 @@ GNEWalk::getLastPathLane() const {
 
 std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
-    return getPlanAttribute(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return toString(mySpeed);
+        case SUMO_ATTR_DURATION:
+            return toString(myDuration);
+        default:
+            return getPlanAttribute(key);
+    }
 }
 
 
 double
 GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
-    return getPlanAttributeDouble(key);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return mySpeed;
+        default:
+            return getPlanAttributeDouble(key);
+    }
 }
 
 
@@ -202,13 +224,28 @@ GNEWalk::getAttributePosition(SumoXMLAttr key) const {
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    setPlanAttribute(key, value, undoList);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+        case SUMO_ATTR_DURATION:
+            GNEChange_Attribute::changeAttribute(this, key, value, undoList);
+            break;
+        default:
+            setPlanAttribute(key, value, undoList);
+            break;
+    }
 }
 
 
 bool
 GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
-    return isPlanValid(key, value);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) >= 0);
+        case SUMO_ATTR_DURATION:
+            return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) >= 0);
+        default:
+            return isPlanValid(key, value);
+    }
 }
 
 
@@ -241,7 +278,17 @@ GNEWalk::getACParametersMap() const {
 
 void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
-    setPlanAttribute(key, value);
+    switch (key) {
+        case SUMO_ATTR_SPEED:
+            mySpeed = GNEAttributeCarrier::parse<double>(value);
+            break;
+        case SUMO_ATTR_DURATION:
+            myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
+            break;
+        default:
+            setPlanAttribute(key, value);
+            break;
+    }
 }
 
 

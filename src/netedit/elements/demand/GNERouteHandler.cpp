@@ -642,7 +642,7 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
 
 void
 GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                           double arrivalPos) {
+                           const double arrivalPos, const double speed, const SUMOTime duration) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     const auto tagIcon = GNEDemandElementPlan::getWalkTagIcon(planParameters);
@@ -654,7 +654,7 @@ GNERouteHandler::buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObj
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos);
+        GNEDemandElement* walk = new GNEWalk(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, speed, duration);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(walk, TLF("add % in '%'", walk->getTagStr(), personParent->getID()));
@@ -1097,9 +1097,11 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                              false;
     const double walkFactor = personPlanObject->hasDoubleAttribute(SUMO_ATTR_WALKFACTOR) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_WALKFACTOR) : 0;
     const std::string group = personPlanObject->hasStringAttribute(SUMO_ATTR_GROUP) ? personPlanObject->getStringAttribute(SUMO_ATTR_GROUP) : "";
+
+    const double speed = personPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) : 0;
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanWalk()) {
-        buildWalk(personPlanObject, planCreator->getPlanParameteres(), arrivalPos);
+        buildWalk(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, speed, duration);
     } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
         buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines, walkFactor, group);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
@@ -1310,7 +1312,9 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
                         planObject->getStringAttribute(SUMO_ATTR_GROUP));
     } else if (tagProperty.isPlanWalk()) {
         buildWalk(planObject, planParameters,
-                  planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
+                  planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                  planObject->getDoubleAttribute(SUMO_ATTR_SPEED),
+                  planObject->getTimeAttribute(SUMO_ATTR_DURATION));
     } else if (tagProperty.isPlanRide()) {
         buildRide(planObject, planParameters,
                   planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),

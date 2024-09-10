@@ -322,7 +322,9 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
         case SUMO_TAG_WALK:
             buildWalk(obj,
                       obj->getPlanParameters(),
-                      obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));
+                      obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
+                      obj->getDoubleAttribute(SUMO_ATTR_SPEED),
+                      obj->getTimeAttribute(SUMO_ATTR_DURATION));
             break;
         // container
         case SUMO_TAG_CONTAINER:
@@ -751,21 +753,21 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
     // plan parameters
     const auto planParameters = CommonXMLStructure::PlanParameters(myCommonXMLStructure.getCurrentSumoBaseObject(), attrs, parsedOk);
     // optional attributes
-    const double duration = attrs.getOpt<double>(SUMO_ATTR_DURATION, "", parsedOk, 0);
-    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
-    const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, "", parsedOk, 0);
-    if (parsedOk) {
+    const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
+    const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "", parsedOk, 0);
+    if ((speed > 0) && (duration > 0)) {
+        WRITE_ERROR(TL("Speed and duration attributes cannot be defined together in walks"));
+    } else if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_WALK);
         // add all attributes
         myCommonXMLStructure.getCurrentSumoBaseObject()->setPlanParameters(planParameters);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DURATION, duration);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
-        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS_LAT, departPosLat);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_SPEED, speed);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addTimeAttribute(SUMO_ATTR_DURATION, duration);
     }
 }
 

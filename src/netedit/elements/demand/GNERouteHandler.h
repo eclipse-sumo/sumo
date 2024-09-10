@@ -128,7 +128,7 @@ public:
 
     /// @brief build walk
     void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                   double arrivalPos);
+                   const double arrivalPos, const double speed, const SUMOTime duration);
 
     /// @brief build ride
     void buildRide(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,

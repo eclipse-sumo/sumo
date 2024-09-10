@@ -49,9 +49,11 @@ public:
      * @param[in] personParent person parent
      * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position
+     * @param[in] speed speed (not together with duration)
+     * @param[in] duration duration (not together with speed)
      */
     GNEWalk(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-            const double arrivalPosition);
+            const double arrivalPosition, const double speed, const SUMOTime duration);
 
     /// @brief destructor
     ~GNEWalk();
@@ -203,6 +205,13 @@ public:
 
     /// @brief get parameters map
     const Parameterised::Map& getACParametersMap() const;
+
+protected:
+    /// @brief speed
+    double mySpeed = 0;
+
+    /// @brief duration
+    SUMOTime myDuration = 0;
 
 private:
     /// @brief method for setting the attribute and nothing else

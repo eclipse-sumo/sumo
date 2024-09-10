@@ -9249,7 +9249,7 @@ GNEAttributeCarrier::fillWalkCommonAttributes(GNETagProperties& tagProperties) {
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("duration of the plan in second (not together with speed)"),
                                           "0");
     tagProperties.addAttribute(attrProperty);
@@ -9304,7 +9304,7 @@ GNEAttributeCarrier::fillTranshipCommonAttributes(GNETagProperties& tagPropertie
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_DURATION,
-                                          GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
+                                          GNEAttributeProperties::SUMOTIME | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUE,
                                           TL("duration of the plan in second (not together with speed)"),
                                           "0");
     tagProperties.addAttribute(attrProperty);
