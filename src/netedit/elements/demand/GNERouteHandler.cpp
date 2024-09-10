@@ -760,7 +760,7 @@ GNERouteHandler::buildContainerFlow(const CommonXMLStructure::SumoBaseObject* /*
 
 void
 GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                                const double arrivalPos, const std::vector<std::string>& lines) {
+                                const double arrivalPos, const std::vector<std::string>& lines, const std::string& group) {
     // get values
     GNEDemandElement* containerParent = getContainerParent(sumoBaseObject);
     const auto tagIcon = GNEDemandElementPlan::getTransportTagIcon(planParameters);
@@ -772,7 +772,7 @@ GNERouteHandler::buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBa
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build transport
-        GNEDemandElement* transport = new GNETransport(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines);
+        GNEDemandElement* transport = new GNETransport(myNet, tagIcon.first, tagIcon.second, containerParent, planParents, arrivalPos, lines, group);
         // continue depending of undo-redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(transport, TLF("add % in '%'", transport->getTagStr(), containerParent->getID()));
@@ -1098,7 +1098,6 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
                              false;
     const double walkFactor = personPlanObject->hasDoubleAttribute(SUMO_ATTR_WALKFACTOR) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_WALKFACTOR) : 0;
     const std::string group = personPlanObject->hasStringAttribute(SUMO_ATTR_GROUP) ? personPlanObject->getStringAttribute(SUMO_ATTR_GROUP) : "";
-
     const double speed = personPlanObject->hasDoubleAttribute(SUMO_ATTR_SPEED) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_SPEED) : 0;
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanWalk()) {
@@ -1174,11 +1173,12 @@ GNERouteHandler::buildContainerPlan(const GNEDemandElement* planTemplate, GNEDem
     const bool friendlyPos = containerPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? containerPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              containerPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(containerPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
+    const std::string group = containerPlanObject->hasStringAttribute(SUMO_ATTR_GROUP) ? containerPlanObject->getStringAttribute(SUMO_ATTR_GROUP) : "";
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanTranship()) {
         buildTranship(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, departPos, speed, duration);
     } else if (planTemplate->getTagProperty().isPlanTransport()) {
-        buildTransport(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
+        buildTransport(containerPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines, group);
     } else if (planTemplate->getTagProperty().isPlanStopContainer()) {
         // set stops specific parameters
         int parameterSet = 0;
@@ -1340,7 +1340,8 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
     } else if (tagProperty.isPlanTransport()) {
         buildTransport(planObject, planParameters,
                        planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                       planObject->getStringListAttribute(SUMO_ATTR_LINES));
+                       planObject->getStringListAttribute(SUMO_ATTR_LINES),
+                       planObject->getStringAttribute(SUMO_ATTR_GROUP));
     } else if (tagProperty.isPlanTranship()) {
         buildTranship(planObject, planParameters,
                       planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),

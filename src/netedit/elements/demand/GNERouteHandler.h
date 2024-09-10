@@ -142,7 +142,7 @@ public:
 
     /// @brief build transport
     void buildTransport(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                        const double arrivalPos, const std::vector<std::string>& lines);
+                        const double arrivalPos, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief build tranship
     void buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,

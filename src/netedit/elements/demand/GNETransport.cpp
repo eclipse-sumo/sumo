@@ -41,13 +41,14 @@ GNEDemandElementPlan(this, -1, -1) {
 
 
 GNETransport::GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
-                           const double arrivalPosition, const std::vector<std::string>& lines) :
+                           const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group) :
     GNEDemandElement(containerParent, net, GLO_TRANSPORT, tag, GUIIconSubSys::getIcon(icon),
                      GNEPathManager::PathElement::Options::DEMAND_ELEMENT,
                      planParameters.getJunctions(), planParameters.getEdges(), {},
 planParameters.getAdditionalElements(), planParameters.getDemandElements(containerParent), {}),
 GNEDemandElementPlan(this, -1, arrivalPosition),
-myLines(lines) {
+myLines(lines),
+myGroup(group) {
 }
 
 
@@ -75,6 +76,9 @@ GNETransport::writeDemandElement(OutputDevice& device) const {
     writeLocationAttributes(device);
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
+    }
+    if (myGroup.size() > 0) {
+        device.writeAttr(SUMO_ATTR_GROUP, myGroup);
     }
     device.closeTag();
 }
@@ -182,6 +186,8 @@ GNETransport::getAttribute(SumoXMLAttr key) const {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return joinToString(myLines, " ");
+        case SUMO_ATTR_GROUP:
+            return myGroup;
         default:
             return getPlanAttribute(key);
     }
@@ -204,6 +210,7 @@ void
 GNETransport::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_LINES:
+        case SUMO_ATTR_GROUP:
             GNEChange_Attribute::changeAttribute(this, key, value, undoList);
             break;
         default:
@@ -219,6 +226,8 @@ GNETransport::isValid(SumoXMLAttr key, const std::string& value) {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             return canParse<std::vector<std::string> >(value);
+        case SUMO_ATTR_GROUP:
+            return true;
         default:
             return isPlanValid(key, value);
     }
@@ -258,6 +267,9 @@ GNETransport::setAttribute(SumoXMLAttr key, const std::string& value) {
         // specific person plan attributes
         case SUMO_ATTR_LINES:
             myLines = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
+            break;
+        case SUMO_ATTR_GROUP:
+            myGroup = value;
             break;
         default:
             setPlanAttribute(key, value);

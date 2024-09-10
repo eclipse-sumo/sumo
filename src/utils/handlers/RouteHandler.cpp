@@ -340,7 +340,8 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
             buildTransport(obj,
                            obj->getPlanParameters(),
                            obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
-                           obj->getStringListAttribute(SUMO_ATTR_LINES));
+                           obj->getStringListAttribute(SUMO_ATTR_LINES),
+                           obj->getStringAttribute(SUMO_ATTR_GROUP));
             break;
         case SUMO_TAG_TRANSHIP:
             buildTranship(obj,
@@ -836,6 +837,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
     // optional attributes
     const std::vector<std::string> lines = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_LINES, "", parsedOk);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
+    const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, "", parsedOk, "");
     if (parsedOk) {
         // set tag
         myCommonXMLStructure.getCurrentSumoBaseObject()->setTag(SUMO_TAG_TRANSPORT);
@@ -843,6 +845,7 @@ RouteHandler::parseTransport(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->setPlanParameters(planParameters);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_GROUP, group);
     }
 }
 

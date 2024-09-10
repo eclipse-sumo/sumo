@@ -49,10 +49,11 @@ public:
      * @param[in] containerParent container parent
      * @param[in] planParameters plan parameters
      * @param[in] arrivalPosition arrival position
-     * @param[in] lines lines
+     * @param[in] lines transport lines
+     * @param[in] group transport group
      */
     GNETransport(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* containerParent, const GNEPlanParents& planParameters,
-                 const double arrivalPosition, const std::vector<std::string>& lines);
+                 const double arrivalPosition, const std::vector<std::string>& lines, const std::string& group);
 
     /// @brief destructor
     ~GNETransport();
@@ -208,6 +209,9 @@ public:
 protected:
     /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
+
+    /// @brief group
+    std::string myGroup;
 
 private:
     /// @brief method for setting the attribute and nothing else
