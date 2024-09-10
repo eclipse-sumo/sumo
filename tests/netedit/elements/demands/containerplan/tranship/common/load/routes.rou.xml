@@ -7,6 +7,14 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <transport from="Edge0" to="Edge1"/>
-        <tranship to="Edge2" lines="custom line"/>
+        <tranship to="Edge2" speed="dummy"/>
+    </container>
+	<container id="c_1" depart="0.00">
+        <transport from="Edge0" to="Edge1"/>
+        <tranship to="Edge2" speed="-12"/>
+    </container>
+	<container id="c_2" depart="0.00">
+        <transport from="Edge0" to="Edge1"/>
+        <tranship to="Edge2" speed="11.12"/>
     </container>
 </routes>
