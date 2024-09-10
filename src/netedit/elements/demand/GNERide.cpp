@@ -74,9 +74,8 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     // write rest of attributes
     device.openTag(SUMO_TAG_RIDE);
     writeLocationAttributes(device);
-    if (myLines.empty()) {
-        device.writeAttr(SUMO_ATTR_LINES, "ANY");
-    } else {
+    // lines
+    if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
     device.closeTag();
