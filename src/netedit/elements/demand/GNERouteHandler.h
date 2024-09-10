@@ -123,7 +123,8 @@ public:
 
     /// @brief build person trip
     void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                         double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines);
+                         const double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                         const std::vector<std::string>& lines, const double walkFactor, const std::string& group);
 
     /// @brief build walk
     void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,

@@ -50,10 +50,12 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      * @param[in] lines list of lines
+     * @param[in] walkFactor walk factor
+     * @param[in] group group
      */
     GNEPersonTrip(GNENet* net, SumoXMLTag tag, GUIIcon icon, GNEDemandElement* personParent, const GNEPlanParents& planParameters,
-                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
-                  const std::vector<std::string>& lines);
+                  const double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                  const std::vector<std::string>& lines, const double walkFactor, const std::string& group);
 
     /// @brief destructor
     ~GNEPersonTrip();
@@ -215,6 +217,12 @@ protected:
 
     /// @brief valid line or vehicle ids or ANY
     std::vector<std::string> myLines;
+
+    /// @brief walk factor
+    double myWalkFactor = 0;
+
+    /// @brief group
+    std::string myGroup;
 
 private:
     /// @brief method for setting the attribute and nothing else

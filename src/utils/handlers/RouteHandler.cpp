@@ -308,7 +308,9 @@ RouteHandler::parseSumoBaseObject(CommonXMLStructure::SumoBaseObject* obj) {
                             obj->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                             obj->getStringListAttribute(SUMO_ATTR_VTYPES),
                             obj->getStringListAttribute(SUMO_ATTR_MODES),
-                            obj->getStringListAttribute(SUMO_ATTR_LINES));
+                            obj->getStringListAttribute(SUMO_ATTR_LINES),
+                            obj->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
+                            obj->getStringAttribute(SUMO_ATTR_GROUP));
             break;
         case SUMO_TAG_RIDE:
             buildRide(obj,
@@ -716,6 +718,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
     std::vector<std::string> modes = attrs.getOpt<std::vector<std::string> >(SUMO_ATTR_MODES, "", parsedOk);
     const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
     const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
+    const double walkFactor = attrs.getOpt<double>(SUMO_ATTR_WALKFACTOR, "", parsedOk, 0);
+    const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, "", parsedOk, "");
     // check modes
     SVCPermissions dummyModeSet;
     std::string dummyError;
@@ -733,6 +737,8 @@ RouteHandler::parsePersonTrip(const SUMOSAXAttributes& attrs) {
         myCommonXMLStructure.getCurrentSumoBaseObject()->addStringListAttribute(SUMO_ATTR_LINES, lines);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_DEPARTPOS, departPos);
         myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_ARRIVALPOS, arrivalPos);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addDoubleAttribute(SUMO_ATTR_WALKFACTOR, walkFactor);
+        myCommonXMLStructure.getCurrentSumoBaseObject()->addStringAttribute(SUMO_ATTR_GROUP, group);
     }
 }
 

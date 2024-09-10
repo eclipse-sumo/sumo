@@ -608,7 +608,8 @@ GNERouteHandler::buildPersonFlow(const CommonXMLStructure::SumoBaseObject* /*sum
 
 void
 GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                                 double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) {
+                                 const double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                                 const std::vector<std::string>& lines, const double walkFactor, const std::string& group) {
     // get values
     GNEDemandElement* personParent = getPersonParent(sumoBaseObject);
     const auto tagIcon = GNEDemandElementPlan::getPersonTripTagIcon(planParameters);
@@ -620,7 +621,8 @@ GNERouteHandler::buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoB
         WRITE_WARNING(TL("invalid combination for personTrip"));
     } else if (planParents.checkIntegrity(tagIcon.first, personParent, planParameters)) {
         // build person trip
-        GNEDemandElement* personTrip = new GNEPersonTrip(myNet, tagIcon.first, tagIcon.second, personParent, planParents, arrivalPos, types, modes, lines);
+        GNEDemandElement* personTrip = new GNEPersonTrip(myNet, tagIcon.first, tagIcon.second, personParent, planParents,
+                arrivalPos, types, modes, lines, walkFactor, group);
         // continue depending of undo.redo
         if (myAllowUndoRedo) {
             myNet->getViewNet()->getUndoList()->begin(personTrip, TLF("add % in '%'", personTrip->getTagStr(), personParent->getID()));
@@ -1093,11 +1095,13 @@ GNERouteHandler::buildPersonPlan(const GNEDemandElement* planTemplate, GNEDemand
     const bool friendlyPos = personPlanObject->hasBoolAttribute(SUMO_ATTR_FRIENDLY_POS) ? personPlanObject->getBoolAttribute(SUMO_ATTR_FRIENDLY_POS) :
                              personPlanObject->hasStringAttribute(SUMO_ATTR_FRIENDLY_POS) ? GNEAttributeCarrier::parse<bool>(personPlanObject->getStringAttribute(SUMO_ATTR_FRIENDLY_POS)) :
                              false;
+    const double walkFactor = personPlanObject->hasDoubleAttribute(SUMO_ATTR_WALKFACTOR) ? personPlanObject->getDoubleAttribute(SUMO_ATTR_WALKFACTOR) : 0;
+    const std::string group = personPlanObject->hasStringAttribute(SUMO_ATTR_GROUP) ? personPlanObject->getStringAttribute(SUMO_ATTR_GROUP) : "";
     // build depending of plan type
     if (planTemplate->getTagProperty().isPlanWalk()) {
         buildWalk(personPlanObject, planCreator->getPlanParameteres(), arrivalPos);
     } else if (planTemplate->getTagProperty().isPlanPersonTrip()) {
-        buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines);
+        buildPersonTrip(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, types, modes, lines, walkFactor, group);
     } else if (planTemplate->getTagProperty().isPlanRide()) {
         buildRide(personPlanObject, planCreator->getPlanParameteres(), arrivalPos, lines);
     } else if (planTemplate->getTagProperty().isPlanStopPerson()) {
@@ -1301,7 +1305,9 @@ GNERouteHandler::duplicatePlan(const GNEDemandElement* originalPlan, GNEDemandEl
                         planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS),
                         planObject->getStringListAttribute(SUMO_ATTR_VTYPES),
                         planObject->getStringListAttribute(SUMO_ATTR_MODES),
-                        planObject->getStringListAttribute(SUMO_ATTR_LINES));
+                        planObject->getStringListAttribute(SUMO_ATTR_LINES),
+                        planObject->getDoubleAttribute(SUMO_ATTR_WALKFACTOR),
+                        planObject->getStringAttribute(SUMO_ATTR_GROUP));
     } else if (tagProperty.isPlanWalk()) {
         buildWalk(planObject, planParameters,
                   planObject->getDoubleAttribute(SUMO_ATTR_ARRIVALPOS));

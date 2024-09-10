@@ -110,7 +110,8 @@ public:
 
     /// @brief build person trip
     virtual void buildPersonTrip(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
-                                 double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes, const std::vector<std::string>& lines) = 0;
+                                 const double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes,
+                                 const std::vector<std::string>& lines, const double walkFactor, const std::string& group) = 0;
 
     /// @brief build walk
     virtual void buildWalk(const CommonXMLStructure::SumoBaseObject* sumoBaseObject, const CommonXMLStructure::PlanParameters& planParameters,
