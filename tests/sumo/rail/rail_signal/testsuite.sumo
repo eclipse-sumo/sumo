@@ -122,3 +122,6 @@ end_depart_within
 
 # a driveway is updated after being used
 update_driveways
+
+# both sides of a siding are used in both directions
+siding_both_ways
