@@ -9,3 +9,6 @@ waiting_time_bottom
 
 # insertion cannot happen if the driveway is approache by a fast train that cannot stop safely.
 insertion_vs_fastApproach
+
+# ensure stable priority decision if one train wants to stop before a signal
+stop_before_signal
