@@ -1,0 +1,9 @@
+<routes>
+    <route id="SW" edges="SC CW"/>
+    <vType id="car" vClass="passenger" sigma="0" guiShape="passenger"/>
+    <flow id="car_SW"  route="SW" type="car"        begin="70" end="100" period="4" departLane="best" departSpeed="max" color="yellow"/>
+
+    <person id="p0" depart="70" departPos="-10.0">
+        <walk edges="NC CS"/>
+    </person>
+</routes>

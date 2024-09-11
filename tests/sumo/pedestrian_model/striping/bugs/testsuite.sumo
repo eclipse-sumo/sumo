@@ -58,3 +58,6 @@ ticket15183
 # 
 # this time with fewer walkingareas
 ticket15183b
+
+# invalid blockage by pedestrian at red crossing
+ticket15468
