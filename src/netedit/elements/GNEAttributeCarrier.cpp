@@ -9220,8 +9220,7 @@ GNEAttributeCarrier::fillPersonTripCommonAttributes(GNETagProperties& tagPropert
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the person trip"),
-                                          "ANY");
+                                          TL("list of vehicle alternatives to take for the person trip"));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_WALKFACTOR,
@@ -9263,8 +9262,7 @@ GNEAttributeCarrier::fillRideCommonAttributes(GNETagProperties& tagProperties) {
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the ride"),
-                                          "ANY");
+                                          TL("list of vehicle alternatives to take for the ride"));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
@@ -9281,8 +9279,7 @@ GNEAttributeCarrier::fillTransportCommonAttributes(GNETagProperties& tagProperti
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_LINES,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::DEFAULTVALUE,
-                                          TL("list of vehicle alternatives to take for the transport"),
-                                          "ANY");
+                                          TL("list of vehicle alternatives to take for the transport"));
     tagProperties.addAttribute(attrProperty);
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_GROUP,
