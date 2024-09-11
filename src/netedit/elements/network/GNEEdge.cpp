@@ -677,16 +677,9 @@ GNEEdge::getOptionalName() const {
 
 GUIGLObjectPopupMenu*
 GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, app);
-    return ret;
+    // if we call this function, that's mean that we're clicked over a edge geometry point, then
+    // open the popup dialog of the lane[0] (back)
+    return myLanes.back()->getPopUpMenu(app, parent);
 }
 
 

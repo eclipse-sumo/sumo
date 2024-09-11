@@ -601,36 +601,41 @@ GNEViewNet::openObjectDialogAtCursor(const FXEvent* /*ev*/) {
             bool connections = false;
             bool TLS = false;
             // fill filtered objects
-            for (const auto& glObject : myViewObjectsSelector.getGLObjects()) {
-                // always avoid edges
-                if (glObject->getType() == GLO_EDGE) {
-                    continue;
-                }
-                if (glObject->getType() == GLO_CONNECTION) {
-                    connections = true;
-                }
-                if (glObject->getType() == GLO_TLLOGIC) {
-                    TLS = true;
-                }
-                filteredGLObjects.push_back(glObject);
-            }
-            auto it = filteredGLObjects.begin();
-            if (connections) {
-                // filter junctions if there are connections
-                while (it != filteredGLObjects.end()) {
-                    if ((*it)->getType() == GLO_JUNCTION) {
-                        it = filteredGLObjects.erase(it);
-                    } else {
-                        it++;
+            if ((myViewObjectsSelector.getGLObjects().size() == 1) && (myViewObjectsSelector.getGLObjects().back()->getType() == GLO_EDGE)) {
+                // special case for edge geometry points (because edges uses the lane pop ups)
+                filteredGLObjects.push_back(myViewObjectsSelector.getGLObjects().back());
+            } else {
+                for (const auto& glObject : myViewObjectsSelector.getGLObjects()) {
+                    // always avoid edges
+                    if (glObject->getType() == GLO_EDGE) {
+                        continue;
                     }
+                    if (glObject->getType() == GLO_CONNECTION) {
+                        connections = true;
+                    }
+                    if (glObject->getType() == GLO_TLLOGIC) {
+                        TLS = true;
+                    }
+                    filteredGLObjects.push_back(glObject);
                 }
-            } else if (TLS) {
-                // filter all elements except TLLogic
-                while (it != filteredGLObjects.end()) {
-                    if ((*it)->getType() != GLO_TLLOGIC) {
-                        it = filteredGLObjects.erase(it);
-                    } else {
-                        it++;
+                auto it = filteredGLObjects.begin();
+                if (connections) {
+                    // filter junctions if there are connections
+                    while (it != filteredGLObjects.end()) {
+                        if ((*it)->getType() == GLO_JUNCTION) {
+                            it = filteredGLObjects.erase(it);
+                        } else {
+                            it++;
+                        }
+                    }
+                } else if (TLS) {
+                    // filter all elements except TLLogic
+                    while (it != filteredGLObjects.end()) {
+                        if ((*it)->getType() != GLO_TLLOGIC) {
+                            it = filteredGLObjects.erase(it);
+                        } else {
+                            it++;
+                        }
                     }
                 }
             }
