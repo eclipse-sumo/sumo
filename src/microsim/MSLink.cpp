@@ -931,7 +931,7 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
             }
         }
     }
-    if (myApproachingPersons != nullptr) {
+    if (myApproachingPersons != nullptr && !haveRed()) {
         for (const auto& it : *myApproachingPersons) {
             if ((ego == nullptr
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) == 0
