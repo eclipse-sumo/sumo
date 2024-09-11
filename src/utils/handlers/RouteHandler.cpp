@@ -760,7 +760,7 @@ RouteHandler::parseWalk(const SUMOSAXAttributes& attrs) {
         // optional attributes
         const double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, "", parsedOk, -1);
         const double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, "", parsedOk, -1);
-        const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 0);
+        const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, "", parsedOk, 1.39);
         const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, "", parsedOk, 0);
         if (parsedOk) {
             // set tag

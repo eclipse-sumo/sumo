@@ -77,12 +77,12 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     device.openTag(SUMO_TAG_WALK);
     writeLocationAttributes(device);
     // speed
-    if (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED)) {
+    if ((mySpeed > 0) && (toString(mySpeed) != myTagProperty.getDefaultValue(SUMO_ATTR_SPEED))) {
         device.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     }
     // duration
     if (toString(myDuration) != myTagProperty.getDefaultValue(SUMO_ATTR_DURATION)) {
-        device.writeAttr(SUMO_ATTR_DURATION, myDuration);
+        device.writeAttr(SUMO_ATTR_DURATION, time2string(myDuration));
     }
     device.closeTag();
 }
@@ -196,9 +196,17 @@ std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_SPEED:
-            return toString(mySpeed);
+            if (mySpeed == 0) {
+                return "";
+            } else {
+                return toString(mySpeed);
+            }
         case SUMO_ATTR_DURATION:
-            return toString(myDuration);
+            if (myDuration == 0) {
+                return "";
+            } else {
+                return time2string(myDuration);
+            }
         default:
             return getPlanAttribute(key);
     }
@@ -280,10 +288,18 @@ void
 GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_SPEED:
-            mySpeed = GNEAttributeCarrier::parse<double>(value);
+            if (value.empty()) {
+                mySpeed = 0;
+            } else {
+                mySpeed = GNEAttributeCarrier::parse<double>(value);
+            }
             break;
         case SUMO_ATTR_DURATION:
-            myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
+            if (value.empty()) {
+                mySpeed = 0;
+            } else {
+                myDuration = GNEAttributeCarrier::parse<SUMOTime>(value);
+            }
             break;
         default:
             setPlanAttribute(key, value);
