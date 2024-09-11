@@ -256,9 +256,9 @@ public:
     /**@brief split edge at position by inserting a new junction
      * @param[in] edge The edge to be split
      * @param[in] pos The position on which to insert the new junction
-     * @return The new junction
+     * @return The new junction and the new edge
      */
-    GNEJunction* splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
+    std::pair<GNEJunction*, GNEEdge*> splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction = 0);
 
     /**@brief split all edges at position by inserting one new junction
      * @param[in] edge The edge to be split

@@ -902,7 +902,7 @@ GNENet::removeRestrictedLane(SUMOVehicleClass vclass, GNEEdge* edge, GNEUndoList
 }
 
 
-GNEJunction*
+std::pair<GNEJunction*, GNEEdge*>
 GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNEJunction* newJunction) {
     // begin undo list
     undoList->begin(edge, TL("split edge"));
@@ -1015,7 +1015,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     // finish undo list
     undoList->end();
     // return new junction
-    return newJunction;
+    return std::make_pair(newJunction, secondPart);
 }
 
 
@@ -1024,7 +1024,8 @@ GNENet::splitEdgesBidi(GNEEdge* edge, GNEEdge* oppositeEdge, const Position& pos
     GNEJunction* newJunction = nullptr;
     undoList->begin(edge, TL("split edges"));
     // split edge and save created junction
-    newJunction = splitEdge(edge, pos, undoList, newJunction);
+    auto newStuff = splitEdge(edge, pos, undoList, newJunction);
+    newJunction = newStuff.first;
     // split second edge
     splitEdge(oppositeEdge, pos, undoList, newJunction);
     if (edge->getLanes().back()->getAttribute(GNE_ATTR_OPPOSITE) != "") {
@@ -1174,6 +1175,16 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     std::vector<GNEJunction*> newJunctions;
     GNEEdge* templateEdge = nullptr;
     GNEEdge* prevOpposite = nullptr;
+    // store old crossings edges as ids because edges are renamed and pointers will be invalid
+    std::vector<std::pair<NBNode::Crossing, std::vector<std::string>>> oldCrossings;
+    for (const auto& crossing : junction->getGNECrossings()) {
+        std::vector<std::string> edgeIDs;
+        for (auto e : crossing->getCrossingEdges()) {
+            edgeIDs.push_back(e->getID());
+        }
+        oldCrossings.push_back(std::make_pair(*crossing->getNBCrossing(), edgeIDs));
+    }
+    std::map<std::string, std::string> edgeRename;
     // split incoming/outgoing edges
     for (GNEEdge* edge : edges) {
         GNEJunction* newJunction = nullptr;
@@ -1201,13 +1212,48 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
                                     ? MAX2(POSITION_EPS, geomLength - radius)
                                     : MIN2(geomLength - POSITION_EPS, radius));
         Position pos = edge->getNBEdge()->getGeometry().positionAtOffset2D(splitOffset);
-        newJunction = splitEdge(edge, pos, undoList, newJunction);
+        auto newStuff = splitEdge(edge, pos, undoList, newJunction);
+        newJunction = newStuff.first;
+        if (edge->getFromJunction() == junction) {
+            // edge will be deleted and the new part after the split kept. Preserve edge id
+            edgeRename[newStuff.second->getID()] = edge->getID();
+        }
         if (newJunctions.empty() || newJunction != newJunctions.back()) {
             newJunctions.push_back(newJunction);
         }
     }
+
     Position center = junction->getPositionInView();
     deleteJunction(junction, undoList);
+    // rename edges after the originals have been deleted
+    for (auto item : edgeRename) {
+        GNEEdge* outgoing = myAttributeCarriers->retrieveEdge(item.first);
+        outgoing->setAttribute(SUMO_ATTR_ID, item.second, undoList);
+    }
+    // restore crossings (after rename)
+    for (auto nbCItem : oldCrossings) {
+        for (GNEJunction* nj : newJunctions) {
+            nbCItem.first.edges.clear();
+            // check whether this junction has all the edges of the crossing
+            for (const std::string& ce : nbCItem.second) {
+                bool foundCE = false;
+                for (NBEdge* je : nj->getNBNode()->getEdges()) {
+                    if (je->getID() == ce) {
+                        foundCE = true;
+                        nbCItem.first.edges.push_back(je);
+                        break;
+                    }
+                }
+                if (!foundCE) {
+                    break;
+                }
+            }
+            if (nbCItem.first.edges.size() == nbCItem.second.size()) {
+                undoList->add(new GNEChange_Crossing(nj, nbCItem.first, true), true);
+                break;
+            }
+        }
+    }
     // create new edges to connect roundabout junctions (counter-clockwise)
     const double resolution = OptionsCont::getOptions().getFloat("opendrive.curve-resolution") * 3;
     for (int i = 0; i < (int)newJunctions.size(); i++) {
