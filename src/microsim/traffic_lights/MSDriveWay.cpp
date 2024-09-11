@@ -1280,6 +1280,11 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
             }
         } else {
             if (foe->bidiBlockedByEnd(*dw)) {
+#ifdef DEBUG_ADD_FOES
+                if (DEBUG_COND_DW) {
+                    std::cout << " setting " << dw->getID() << " as foe of " << foe->getID() << "\n";
+                }
+#endif
                 foe->myFoes.push_back(dw);
             } else {
                 dw->buildSubFoe(foe, movingBlock);
@@ -1402,7 +1407,7 @@ MSDriveWay::match(const MSRoute& route, MSRouteIterator firstIt) const {
 void
 MSDriveWay::addFoes(const MSLink* link) {
 #ifdef DEBUG_ADD_FOES
-    std::cout << "driveway " << myID << " addFoes for link " << link->getDescription() << " extraCheck=" << extraCheck << "\n";
+    std::cout << "driveway " << myID << " addFoes for link " << link->getDescription() << "\n";
 #endif
     const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
     if (rs != nullptr) {
