@@ -130,6 +130,8 @@ enum GUIGlObjectType {
     GLO_OVERHEAD_WIRE_SEGMENT = 141,
     /// @brief a segment of an overhead line
     GLO_TRACTIONSUBSTATION = 142,
+    /// @brief reserved GLO type for packing all additionals elements
+    GLO_ADDITIONALELEMENT_LAST = 189,
 
     /// @}
 
@@ -149,6 +151,8 @@ enum GUIGlObjectType {
     GLO_JPS_WALKABLEAREA = 203,
     /// @brief obstacles
     GLO_JPS_OBSTACLE = 204,
+    /// @brief reserved GLO type to pack shapes
+    GLO_SHAPE_LAST = 299,
 
     /// @}
 

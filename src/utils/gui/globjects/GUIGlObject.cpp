@@ -96,15 +96,16 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"vaporizer",               GLO_VAPORIZER},
     {"wire",                    GLO_WIRE},
     {"tractionsubstation",      GLO_TRACTIONSUBSTATION},
+    {"additionalLast",          GLO_ADDITIONALELEMENT_LAST},
     //
     {"laneArrows",              GLO_LANEARROWS},
     //
     {"shape",                   GLO_SHAPE},
     {"polygon",                 GLO_POLYGON},
     {"poi",                     GLO_POI},
-    //
     {"jupedsim.walkable_area",  GLO_JPS_WALKABLEAREA},
     {"jupedsim.obstacle",       GLO_JPS_OBSTACLE},
+    {"shapeLast",               GLO_SHAPE_LAST},
     //
     {"routeElement",            GLO_ROUTEELEMENT},
     {"vType",                   GLO_VTYPE},
