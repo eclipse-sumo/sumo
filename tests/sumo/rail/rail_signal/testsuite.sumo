@@ -134,3 +134,6 @@ sidingShort_deadlock
 
 # siding only has a signal on one side
 siding_oneSide
+
+# siding only has a signal on one side
+siding_oneSide_slow
