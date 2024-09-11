@@ -7,11 +7,11 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="Edge0" toJunction="Junction1"/>
-        <transport chargingStation="dummy" lines="ANY"/>
+        <transport chargingStation="dummy"/>
     </container>
 
     <container id="c_1" depart="0.00">
         <tranship from="Edge0" toJunction="Junction1"/>
-        <transport chargingStation="chargingStationA" lines="ANY"/>
+        <transport chargingStation="chargingStationA"/>
     </container>
 </routes>

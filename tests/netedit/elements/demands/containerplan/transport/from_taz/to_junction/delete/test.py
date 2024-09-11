@@ -60,7 +60,7 @@ netedit.typeEnter()
 netedit.deleteMode()
 
 # delete created plan
-netedit.leftClick(referencePosition, netedit.positions.elements.junction3)
+netedit.leftClick(referencePosition, netedit.positions.elements.demands.planEdge2Ped)
 
 # Check undo redo
 netedit.checkUndoRedo(referencePosition)

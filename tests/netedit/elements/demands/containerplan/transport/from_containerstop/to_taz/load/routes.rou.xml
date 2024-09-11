@@ -7,11 +7,11 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <tranship from="Edge0" containerStop="containerStopA"/>
-        <transport toTaz="dummy" lines="ANY"/>
+        <transport toTaz="dummy"/>
     </container>
 
     <container id="c_1" depart="0.00">
         <tranship from="Edge0" containerStop="containerStopA"/>
-        <transport toTaz="taz_red" lines="ANY"/>
+        <transport toTaz="taz_red"/>
     </container>
 </routes>
