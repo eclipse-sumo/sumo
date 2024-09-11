@@ -785,6 +785,7 @@ void
 GUIVehicle::selectBlockingFoes() const {
     double dist = myLane->getLength() - getPositionOnLane();
 #ifdef DEBUG_FOES
+    gDebugFlag1 = true;
     std::cout << SIMTIME << " selectBlockingFoes veh=" << getID() << " dist=" << dist << " numLinks=" << myLFLinkLanes.size() << "\n";
 #endif
     for (DriveItemVector::const_iterator i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
@@ -800,7 +801,7 @@ GUIVehicle::selectBlockingFoes() const {
         const bool isOpen =
 #endif
             dpi.myLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(), getVehicleType().getLength(),
-                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this);
+                               getImpatience(), getCarFollowModel().getMaxDecel(), getWaitingTime(), getLateralPositionOnLane(), &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
         if (!isOpen) {
             std::cout << "     closed due to:\n";
@@ -820,7 +821,7 @@ GUIVehicle::selectBlockingFoes() const {
                     parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                          getVehicleType().getLength(), getImpatience(),
                                          getCarFollowModel().getMaxDecel(),
-                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this);
+                                         getWaitingTime(), shadowLatPos, &blockingFoes, false, this, dpi.myDistance);
 #ifdef DEBUG_FOES
                 if (!isShadowOpen) {
                     std::cout <<  "    foes at shadow link=" << parallelLink->getViaLaneOrLane()->getID() << ":\n";
@@ -832,11 +833,12 @@ GUIVehicle::selectBlockingFoes() const {
             }
         }
         for (const auto& item : blockingFoes) {
-            gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            if (item->isVehicle()) {
+                gSelected.select(static_cast<const GUIVehicle*>(item)->getGlID());
+            } else {
+                gSelected.select(static_cast<const GUIPerson*>(item)->getGlID());
+            }
         }
-#ifdef DEBUG_FOES
-        gDebugFlag1 = true;
-#endif
         const MSLink::LinkLeaders linkLeaders = (dpi.myLink)->getLeaderInfo(this, dist, &blockingPersons);
 #ifdef DEBUG_FOES
         gDebugFlag1 = false;

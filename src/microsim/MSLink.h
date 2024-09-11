@@ -180,7 +180,7 @@ public:
     };
 
     typedef std::map<const SUMOVehicle*, const ApproachingVehicleInformation, ComparatorNumericalIdLess> ApproachInfos;
-    typedef std::vector<const SUMOVehicle*> BlockingFoes;
+    typedef std::vector<const SUMOTrafficObject*> BlockingFoes;
     typedef std::map<const MSPerson*, ApproachingPersonInformation> PersonApproachInfos;
 
     enum ConflictFlag {

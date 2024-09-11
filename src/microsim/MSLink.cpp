@@ -939,20 +939,24 @@ MSLink::blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSp
                     || ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_IGNORE_FOE_PROB, 0) < RandHelper::rand(ego->getRNG()))
                 && !ignoreFoe(ego, it.first)
                 && !((arrivalTime > it.second.leavingTime) || (leaveTime < it.second.arrivalTime))) {
-#ifdef MSLink_DEBUG_OPENED
-                if (gDebugFlag1) {
-                    std::cout << SIMTIME << ": " << ego->getID() << " conflict with person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime << "\n";
-                }
-#endif
                 // check whether braking is feasible (ego might have started to accelerate already)
                 const auto& cfm = ego->getVehicleType().getCarFollowModel();
+#ifdef MSLink_DEBUG_OPENED
+                if (gDebugFlag1) {
+                    std::cout << SIMTIME << ": " << ego->getID() << " conflict with person " << it.first->getID() << " aTime=" << arrivalTime << " foeATime=" << it.second.arrivalTime << " dist=" << dist << " bGap=" << cfm.brakeGap(ego->getSpeed(), cfm.getMaxDecel(), 0) << "\n";
+                }
+#endif
                 if (dist > cfm.brakeGap(ego->getSpeed(), cfm.getMaxDecel(), 0)) {
 #ifdef MSLink_DEBUG_OPENED
                     if (gDebugFlag1) {
                         std::cout << SIMTIME << ": " << ego->getID() << " blocked by person " << it.first->getID() << "\n";
                     }
 #endif
-                    return true;
+                    if (collectFoes == nullptr) {
+                        return true;
+                    } else {
+                        collectFoes->push_back(it.first);
+                    }
                 }
             }
         }
@@ -2013,6 +2017,9 @@ MSLink::getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
 #endif
     MSLink* foeLink = myFoeLinks[0];
     for (const auto& item : *foes) {
+        if (!item->isVehicle()) {
+            continue;
+        }
         const MSVehicle* foe = dynamic_cast<const MSVehicle*>(item);
         assert(foe != 0);
         const ApproachingVehicleInformation& avi = foeLink->getApproaching(foe);
