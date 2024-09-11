@@ -925,7 +925,7 @@ MSDriveWay::buildRoute(const MSLink* origin, double length,
                                 for (auto item : visited) {
                                     visitedEdges.insert(&item.first->getEdge());
                                 }
-                                while (next != end && visitedEdges.count(*next) == 0) {
+                                while (next != end) {
                                     // if bidiNext is used at some point, this driveway will be updated
                                     // by looking further along the route until a new protecting switch is found or there are no more bidi edges.
                                     // For this reason, we must record the rest of the route (or at least up to where it loops back on itself).
