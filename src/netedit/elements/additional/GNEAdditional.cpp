@@ -408,7 +408,8 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             GUIDesigns::buildFXMenuCommand(ret, TL("Mouse position over edge: ") + toString(innerPos + edgePos), nullptr, nullptr, 0);
         }
     } else {
-        GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position in view: ") + toString(getPositionInView().x()) + "," + toString(getPositionInView().y()), nullptr, nullptr, 0);
+        const auto mousePos = myNet->getViewNet()->getPositionInformation();
+        GUIDesigns::buildFXMenuCommand(ret, TL("Cursor position in view: ") + toString(mousePos.x()) + "," + toString(mousePos.y()), nullptr, nullptr, 0);
     }
     return ret;
 }
