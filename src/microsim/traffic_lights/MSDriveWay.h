@@ -83,7 +83,7 @@ public:
     bool bidiBlockedByEnd(const MSDriveWay& other) const;
 
     /// @brief Wether the route of other passes into the forward section of this driveway
-    bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other); 
+    bool forwardRouteConflict(std::set<const MSEdge*> forward, const MSDriveWay& other);
 
     /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
     bool conflictLaneOccupied(bool store = true, const SUMOVehicle* ego = nullptr) const;
@@ -288,6 +288,8 @@ protected:
         return myOrigin == nullptr;
     };
 
+    bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const;
+
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
 
@@ -314,7 +316,7 @@ private:
 
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
-    std::map<MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
+    std::map<const MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
 
     /* @brief shortened versions of this driveway to be used as foes instead of the long original
      * (ends as soon as the train has left a particular conflict section)

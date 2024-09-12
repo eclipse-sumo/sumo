@@ -45,6 +45,7 @@
 //#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_BUILD_SUBDRIVEWAY
 //#define DEBUG_ADD_FOES
+//#define DEBUG_BUILD_SIDINGS
 //#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_CHECK_FLANKS
 //#define DEBUG_SIGNALSTATE_PRIORITY
@@ -502,7 +503,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
             }
-            return true;
+            return !canUseSiding(ego, foeDW);
         } else if (foeDW != this && isDepartDriveway() && !foeDW->isDepartDriveway()) {
             if (foeDW->myOrigin->getApproaching().size() > 0) {
                 Approaching foeA = foeDW->myOrigin->getClosest();
@@ -512,7 +513,7 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     if (firstIt != foe->getRoute().end()) {
                         if (foeDW->match(foe->getRoute(), firstIt)) {
                             //std::cout << SIMTIME << " " << getID() << " blocked by " << foeDW->getID() << " (approached by " << foe->getID() << ")\n";
-                            return true;
+                            return !canUseSiding(ego, foeDW);
                         }
                     }
                 }
@@ -522,6 +523,18 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
     return false;
 }
 
+bool
+MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const {
+    //auto it = mySidings.find(foe);
+    //if (it != mySidings.end()) {
+    //    for (auto siding : it->second) {
+    //        if (siding.length >= ego->getLength()) {
+    //            return true;
+    //        }
+    //    }
+    //}
+    return false;
+}
 
 bool
 MSDriveWay::deadlockLaneOccupied(const SUMOVehicle* ego, bool store) const {
@@ -801,6 +814,8 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
             od.writeAttr("foe", item.first->getID());
             for (auto siding : item.second) {
                 od.openTag("siding");
+                //od.writeAttr("start", myRoute[siding.start]->getID());
+                //od.writeAttr("end", myRoute[siding.end]->getID());
                 od.writeAttr("start", siding.start);
                 od.writeAttr("end", siding.end);
                 od.writeAttr("length", siding.length);
@@ -1683,9 +1698,14 @@ void
 MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
     myFoes.push_back(foe);
     const MSEdge* foeEndBidi = foe->myForward.back()->getEdge().getBidiEdge();
-    auto foeSearchBeg = foe->myRoute.begin() + foe->myForward.size();
+    int forwardNormals = 0;
+    for (auto lane : foe->myForward) {
+        if (lane->isNormal()) {
+            forwardNormals++;
+        }
+    }
+    auto foeSearchBeg = foe->myRoute.begin() + forwardNormals;
     auto foeSearchEnd = foe->myRoute.end();
-
     if (foeEndBidi == nullptr) {
         throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
     }
@@ -1701,6 +1721,9 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
         throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
     }
     const MSEdge* next = myRoute[i];
+#ifdef DEBUG_BUILD_SIDINGS
+    std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+#endif
     i--;
     for (; i >= 0; i--) {
         const MSEdge* cur = myRoute[i];
@@ -1713,8 +1736,10 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
             }
         } else {
             auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
-            //std::cout << "addFoeCheckSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " found=" << (itFind != foeSearchEnd) << "\n";
             if (itFind != foeSearchEnd) {
+#ifdef DEBUG_BUILD_SIDINGS
+                std::cout << "endSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " length=" << length << "\n";
+#endif
                 mySidings[foe].push_back(Siding(i + 1, start, length));
                 start = -1;
                 length = 0;
@@ -1728,7 +1753,7 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
 }
 
 
-bool 
+bool
 MSDriveWay::hasRS(const MSEdge* cur, const MSEdge* next) {
     if (cur->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         // check if there is a controlled link between cur and next
