@@ -778,10 +778,16 @@ struct GNENetHelper {
         /// @brief map with internal lanes
         std::map<const GUIGlObject*, GNEInternalLane*> myInternalLanes;
 
+        /// @brief map with the tag and pointer to additional elements of net, sorted by IDs
+        std::map<SumoXMLTag, std::map<const std::string, GNEAdditional*> > myAdditionalIDs;
+
         /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEAdditional*> > myAdditionals;
 
-        /// @brief map with the tag and pointer to demand elements of net
+        /// @brief map with the tag and pointer to demand elements of net, sorted by IDs
+        std::map<SumoXMLTag, std::map<const std::string, GNEDemandElement*> > myDemandElementIDs;
+
+        /// @brief map with the tag and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<const GUIGlObject*, GNEDemandElement*> > myDemandElements;
 
         /// @brief map with the ID and pointer to all datasets of net

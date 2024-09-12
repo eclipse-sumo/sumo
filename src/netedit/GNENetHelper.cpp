@@ -57,29 +57,32 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net),
     myStopIndex(0) {
     // fill additionals with tags
-    auto additionalTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
-                          GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
-    for (const auto& additionalTag : additionalTags) {
-        myAdditionals.insert(std::make_pair(additionalTag.getTag(), std::map<const GUIGlObject*, GNEAdditional*>()));
+    auto additionalTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::ADDITIONALELEMENT |
+                                   GNETagProperties::TagType::SHAPE | GNETagProperties::TagType::TAZELEMENT | GNETagProperties::TagType::WIRE, false);
+    for (const auto& additionalTagProperty : additionalTagProperties) {
+        myAdditionals.insert(std::make_pair(additionalTagProperty.getTag(), std::map<const GUIGlObject*, GNEAdditional*>()));
+        if (additionalTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+            myAdditionalIDs.insert(std::make_pair(additionalTagProperty.getTag(), std::map<const std::string, GNEAdditional*>()));
+        }
     }
     // fill demand elements with tags
-    auto demandElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto& demandElementTag : demandElementTags) {
-        myDemandElements.insert(std::make_pair(demandElementTag.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
+    auto demandElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
+    for (const auto& demandElementTagProperty : demandElementTagProperties) {
+        myDemandElements.insert(std::make_pair(demandElementTagProperty.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
     }
-    auto stopTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
-    for (const auto& stopTag : stopTags) {
-        myDemandElements.insert(std::make_pair(stopTag.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
+    auto stopTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
+    for (const auto& stopTagProperty : stopTagProperties) {
+        myDemandElements.insert(std::make_pair(stopTagProperty.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
     }
     // fill data elements with tags
-    auto genericDataElementTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
-    for (const auto& genericDataElementTag : genericDataElementTags) {
-        myGenericDatas.insert(std::make_pair(genericDataElementTag.getTag(), std::map<const GUIGlObject*, GNEGenericData*>()));
+    auto genericDataElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::GENERICDATA, false);
+    for (const auto& genericDataElementTagProperty : genericDataElementTagProperties) {
+        myGenericDatas.insert(std::make_pair(genericDataElementTagProperty.getTag(), std::map<const GUIGlObject*, GNEGenericData*>()));
     }
     // fill meanDatas with tags
-    auto meanDataTags = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
-    for (const auto& meanDataTag : meanDataTags) {
-        myMeanDatas.insert(std::make_pair(meanDataTag.getTag(), std::map<const std::string, GNEMeanData*>()));
+    auto meanDataTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::MEANDATA, false);
+    for (const auto& meanDataTagProperty : meanDataTagProperties) {
+        myMeanDatas.insert(std::make_pair(meanDataTagProperty.getTag(), std::map<const std::string, GNEMeanData*>()));
     }
 }
 
@@ -972,10 +975,9 @@ GNENetHelper::AttributeCarriers::retrieveInternalLane(const GUIGlObject* glObjec
 
 GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    for (const auto& additional : myAdditionals.at(type)) {
-        if (additional.second->getID() == id) {
-            return additional.second;
-        }
+    auto it = myAdditionalIDs.at(type).find(id);
+    if (it != myAdditionalIDs.at(type).end()) {
+        return it->second;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant additional (string)");
@@ -988,10 +990,9 @@ GNENetHelper::AttributeCarriers::retrieveAdditional(SumoXMLTag type, const std::
 GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditionals(const std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
     for (const auto& type : types) {
-        for (const auto& additional : myAdditionals.at(type)) {
-            if (additional.second->getID() == id) {
-                return additional.second;
-            }
+        auto it = myAdditionalIDs.at(type).find(id);
+        if (it != myAdditionalIDs.at(type).end()) {
+            return it->second;
         }
     }
     if (hardFail) {
@@ -1098,6 +1099,9 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
     }
     // iterate over myAdditionals and clear all additionals
     for (auto& additionals : myAdditionals) {
+        additionals.second.clear();
+    }
+    for (auto& additionals : myAdditionalIDs) {
         additionals.second.clear();
     }
 }
@@ -2423,10 +2427,14 @@ GNENetHelper::AttributeCarriers::deleteInternalLane(GNEInternalLane* internalLan
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    if (myAdditionals.at(additional->getTagProperty().getTag()).count(additional) > 0) {
+    const auto tag = additional->getTagProperty().getTag();
+    if (myAdditionals.at(tag).count(additional) > 0) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     } else {
-        myAdditionals.at(additional->getTagProperty().getTag())[additional->getGUIGlObject()] = additional;
+        myAdditionals.at(tag)[additional->getGUIGlObject()] = additional;
+        if (additional->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+            myAdditionalIDs.at(tag)[additional->getID()] = additional;
+        }
     }
     // add element in grid
     if (additional->getTagProperty().isPlacedInRTree()) {
@@ -2443,17 +2451,21 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
+    const auto tag = additional->getTagProperty().getTag();
     // find demanElement in additionalTag
-    auto itFind = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getGUIGlObject());
+    auto itFind = myAdditionals.at(tag).find(additional->getGUIGlObject());
     // check if additional was previously inserted
-    if (itFind == myAdditionals.at(additional->getTagProperty().getTag()).end()) {
+    if (itFind == myAdditionals.at(tag).end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and GNEElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(additional);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
-    // remove from container
-    myAdditionals.at(additional->getTagProperty().getTag()).erase(itFind);
+    // remove from both container
+    myAdditionals.at(tag).erase(itFind);
+    if (additional->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+        myAdditionalIDs.at(tag).erase(myAdditionalIDs.at(tag).find(additional->getID()));
+    }
     // remove element from grid
     if (additional->getTagProperty().isPlacedInRTree()) {
         myNet->removeGLObjectFromGrid(additional);
