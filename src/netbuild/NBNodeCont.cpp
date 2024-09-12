@@ -643,7 +643,7 @@ NBNodeCont::generateNodeClusters(double maxDist, NodeClusters& into) const {
                 if (length + dist < maxDist) {
                     // don't add long "boring" appendages but always join the whole rail crossing or tls
                     const bool trueGeomLike = s->geometryLike();
-                    if (trueGeomLike || geometryLikeForClass(s, SVC_WEAK | SVC_DELIVERY)) {
+                    if (trueGeomLike || geometryLikeForClass(s, SVC_VULNERABLE | SVC_DELIVERY)) {
                         const bool hasTLS = n->isTrafficLight() || s->isTrafficLight();
                         const double fullLength = e->getGeometry().length2D();
                         const double length2 = bothCrossing || hasTLS || trueGeomLike ? length : fullLength;
@@ -999,8 +999,7 @@ NBNodeCont::pruneClusterFringe(NodeSet& cluster, double maxDist) const {
                             || isRailway(e->getPermissions()) // join railway crossings
                             || (clusterDist <= pedestrianFringeThreshold
                                 && (!pruneNoisyFringe
-                                    || ((e->getPermissions() & SVC_WEAK) != 0 &&
-                                        (e->getPermissions() & ~SVC_WEAK) == 0)
+                                    || isForVulnerableModes(e->getPermissions())
                                     // permit joining small opposite merges
                                     || getDiameter(cluster) < maxDist
                                     || cluster.size() == 2))

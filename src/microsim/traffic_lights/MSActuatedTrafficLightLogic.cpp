@@ -505,7 +505,7 @@ MSActuatedTrafficLightLogic::weakConflict(int tlIndex, const std::string& state)
                         const MSJunctionLogic* logic = junction->getLogic();
                         //std::cout << " greenLink=" << i << " isFoe=" << logic->getFoesFor(linkIndex).test(foeIndex) << "\n";
                         if (logic->getFoesFor(linkIndex).test(foeIndex)
-                                && (foe->getPermissions() & ~SVC_WEAK) != 0 // check1e
+                                && (foe->getPermissions() & ~SVC_VULNERABLE) != 0 // check1e
                                 && &foe->getLaneBefore()->getEdge() != &link->getLaneBefore()->getEdge()) { // check1f
                             //std::cout << " strongConflict " << tlIndex << " in phase " << state << " with link " << foe->getTLIndex() << "\n";
                             return false;
@@ -1079,7 +1079,7 @@ MSActuatedTrafficLightLogic::decideNextPhaseCustom(bool mustSwitch) {
         const std::string& condition = mustSwitch ? phase->finalTarget : phase->earlyTarget;
         //std::cout << SIMTIME << " mustSwitch=" << mustSwitch << " condition=" << condition << "\n";
         if (condition != "") {
-            // backward compatibility if a user redefined DEFAULT_CONDITION 
+            // backward compatibility if a user redefined DEFAULT_CONDITION
             if (condition == DEFAULT_CONDITION && myConditions.count(DEFAULT_CONDITION) == 0) {
                 if (gapControl() == std::numeric_limits<double>::max()) {
                     return next;

@@ -534,8 +534,8 @@ isSidewalk(SVCPermissions permissions) {
 
 
 bool
-isForWeakModes(SVCPermissions permissions) {
-    return ((permissions & SVC_WEAK) != 0 && (permissions & ~SVC_WEAK) == 0);
+isForVulnerableModes(SVCPermissions permissions) {
+    return ((permissions & SVC_VULNERABLE) != 0 && (permissions & ~SVC_VULNERABLE) == 0);
 }
 
 
