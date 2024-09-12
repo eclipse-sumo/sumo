@@ -272,13 +272,10 @@ GNEViewNetHelper::ViewObjectsSelector::filterAdditionals(const bool includeStopp
     for (const auto& additional : myViewObjects.additionals) {
         if (!includeStoppigPlaces && (additional->getType() > GLO_STOPPING_PLACE) && (additional->getType() < GLO_STOPPING_PLACE_LAST)) {
             continue;
+        } else if (!includeTAZs && (additional->getType() == GLO_TAZ)) {
+            continue;
         } else {
             additionals.push_back(additional);
-        }
-    }
-    if (includeTAZs) {
-        for (const auto& TAZ : myViewObjects.TAZs) {
-            additionals.push_back(TAZ);
         }
     }
     myViewObjects.filterElements(additionals);
@@ -327,7 +324,7 @@ GNEViewNetHelper::ViewObjectsSelector::filterLockedElements(const std::vector<GU
 
 const GUIGlObject*
 GNEViewNetHelper::ViewObjectsSelector::getGUIGlObjectFront() const {
-    if (myViewObjects.attributeCarriers.size() > 0) {
+    if (myViewObjects.GUIGlObjects.size() > 0) {
         return myViewObjects.GUIGlObjects.front();
     } else {
         return nullptr;
