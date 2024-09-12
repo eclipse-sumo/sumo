@@ -1713,6 +1713,12 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
             forwardNormals++;
         }
     }
+    if (forwardNormals == (int)foe->myRoute.size()) {
+#ifdef DEBUG_BUILD_SIDINGS
+        std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() <<  " aborted\n";
+#endif
+        return;
+    }
     auto foeSearchBeg = foe->myRoute.begin() + forwardNormals;
     auto foeSearchEnd = foe->myRoute.end();
     if (foeEndBidi == nullptr) {
@@ -1721,17 +1727,17 @@ MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
     int i;
     int start = -1;
     double length = 0;
-    for (i = (int)myRoute.size() - 1; i >= 0; i--) {
+    for (i = 0; i < (int)myRoute.size(); i++) {
         if (myRoute[i] == foeEndBidi) {
             break;
         }
     }
-    if (i == -1) {
+    if (i == (int)myRoute.size()) {
         throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
     }
     const MSEdge* next = myRoute[i];
 #ifdef DEBUG_BUILD_SIDINGS
-    std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
+    std::cout << "checkSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " next=" << next->getID() << " forwardNormals=" << forwardNormals << " frSize=" << foe->myRoute.size() << " foeSearchBeg=" << (*foeSearchBeg)->getID() << "\n";
 #endif
     i--;
     for (; i >= 0; i--) {
