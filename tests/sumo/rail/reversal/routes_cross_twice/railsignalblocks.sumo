@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-11 11:38:15 by Eclipse SUMO sumo Version v1_20_0+0560-666cfc249e9
+<!-- generated on 2024-09-12 10:56:47 by Eclipse SUMO sumo Version v1_20_0+0565-376859fd368
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,6 +48,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B2_0 E2_0"/>
                 <foes driveWays="B.0 B2.0.0 E.0.0 E2.0.0 gneJ5.d1"/>
+                <sidings foe="gneJ5.d1">
+                    <siding start="2" end="6" length="900.00"/>
+                </sidings>
             </driveWay>
             <subDriveWay id="B.0.0" vehicle="" edges="c d e">
                 <forward lanes="c_0 d_0 e_0"/>
@@ -67,6 +70,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <protectingSwitches links=""/>
                 <conflictLinks signals="B_0 E_0"/>
                 <foes driveWays="B.0.1 B2.0 E.0.1 E2.0.1 gneJ1.d0"/>
+                <sidings foe="gneJ1.d0">
+                    <siding start="2" end="6" length="941.42"/>
+                </sidings>
             </driveWay>
             <subDriveWay id="B2.0.0" vehicle="" edges="c2 d">
                 <forward lanes="c2_0 d_0"/>
@@ -121,6 +127,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links="J2_1"/>
             <conflictLinks signals="B2_0 E2_0"/>
             <foes driveWays="E2.0 gneJ1.d0 gneJ5.d1"/>
+            <sidings foe="gneJ5.d1">
+                <siding start="4" end="8" length="900.00"/>
+            </sidings>
         </driveWay>
     </departJunction>
     <departJunction id="gneJ5">
@@ -132,6 +141,9 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links="J2_0"/>
             <conflictLinks signals="B_0 E_0"/>
             <foes driveWays="E.0 gneJ1.d0 gneJ5.d1"/>
+            <sidings foe="gneJ1.d0">
+                <siding start="4" end="8" length="941.42"/>
+            </sidings>
         </driveWay>
     </departJunction>
 </railsignal-block-output>
