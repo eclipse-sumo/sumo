@@ -168,7 +168,7 @@ GNEJunction::checkDrawFromContour() const {
         }
         // continue depending of planCreator
         if (planCreator) {
-            if (planCreator->getPlanParameteres().fromEdge == getID()) {
+            if (planCreator->getPlanParameteres().fromJunction == getID()) {
                 return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
@@ -211,7 +211,7 @@ GNEJunction::checkDrawToContour() const {
         }
         // continue depending of planCreator
         if (planCreator) {
-            if (planCreator->getPlanParameteres().toEdge == getID()) {
+            if (planCreator->getPlanParameteres().toJunction == getID()) {
                 return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
