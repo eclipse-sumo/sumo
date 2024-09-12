@@ -235,6 +235,15 @@ struct GNEViewNetHelper {
         /// @brief filter (remove) lanes
         void filterLanes();
 
+        /// @brief filter (remove) polys and POIs
+        void filterShapes();
+
+        /// @brief filter (remove) additionals
+        void filterAdditionals(const bool includeStoppigPlaces, const bool includeTAZs);
+
+        /// @brief filter (remove) demand elements
+        void filterDemandElements(const bool includeRoutes);
+
         /// @brief filter locked elements (except the ignoreFilter)
         void filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter = {});
 

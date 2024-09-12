@@ -252,6 +252,55 @@ GNEViewNetHelper::ViewObjectsSelector::filterLanes() {
 
 
 void
+GNEViewNetHelper::ViewObjectsSelector::filterShapes() {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> shapes;
+    for (const auto& poly : myViewObjects.polys) {
+        shapes.push_back(poly);
+    }
+    for (const auto& POI : myViewObjects.POIs) {
+        shapes.push_back(POI);
+    }
+    myViewObjects.filterElements(shapes);
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::filterAdditionals(const bool includeStoppigPlaces, const bool includeTAZs) {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> additionals;
+    for (const auto& additional : myViewObjects.additionals) {
+        if (!includeStoppigPlaces && (additional->getType() > GLO_STOPPING_PLACE) && (additional->getType() < GLO_STOPPING_PLACE_LAST)) {
+            continue;
+        } else {
+            additionals.push_back(additional);
+        }
+    }
+    if (includeTAZs) {
+        for (const auto& TAZ : myViewObjects.TAZs) {
+            additionals.push_back(TAZ);
+        }
+    }
+    myViewObjects.filterElements(additionals);
+}
+
+
+void
+GNEViewNetHelper::ViewObjectsSelector::filterDemandElements(const bool includeRoutes) {
+    // get all elements to filter
+    std::vector<const GUIGlObject*> demandElements;
+    for (const auto& demandElement : myViewObjects.demandElements) {
+        if (!includeRoutes && (demandElement->getType() == GLO_ROUTE)) {
+            continue;
+        } else {
+            demandElements.push_back(demandElement);
+        }
+    }
+    myViewObjects.filterElements(demandElements);
+}
+
+
+void
 GNEViewNetHelper::ViewObjectsSelector::filterLockedElements(const std::vector<GUIGlObjectType> ignoreFilter) {
     std::vector<const GUIGlObject*> GUIGlObjects;
     // get all locked elements
