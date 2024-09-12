@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-12 10:34:32 by Eclipse SUMO sumo Version v1_20_0+0564-3fa13bff4d4
+<!-- generated on 2024-09-12 12:31:30 by Eclipse SUMO sumo Version v1_20_0+0566-a4ebdc7926d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -173,9 +173,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <protectingSwitches links=""/>
             <conflictLinks signals="w2_1 w3_3 w4_2"/>
             <foes driveWays="e2.d1 w2.0 w3.0 w4.0 w4.2"/>
-            <sidings foe="w2.0">
-                <siding start="1" end="1" length="813.44"/>
-            </sidings>
         </driveWay>
     </departJunction>
     <departJunction id="e1">

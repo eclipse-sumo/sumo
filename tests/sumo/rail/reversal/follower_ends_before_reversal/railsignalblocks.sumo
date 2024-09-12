@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-12 10:56:47 by Eclipse SUMO sumo Version v1_20_0+0565-376859fd368
+<!-- generated on 2024-09-12 12:31:30 by Eclipse SUMO sumo Version v1_20_0+0566-a4ebdc7926d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -48,9 +48,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <protectingSwitches links="SectionLink_11474_3 SectionLink_14066_3"/>
                 <conflictLinks signals="11486_0 11494_0 14092_0"/>
                 <foes driveWays="11339.0 11339.1 11514.0 11551.0.0 14092.0 14092.1"/>
-                <sidings foe="14092.0">
-                    <siding start="6" end="9" length="436.00"/>
-                </sidings>
             </driveWay>
             <subDriveWay id="11339.0.0" vehicle="" edges="F_11339-11336 F_SectionLink_11329-11552 F_11551-SectionLink_11326 F_SectionLink_11326-11324 F_SectionLink_11322-11515">
                 <forward lanes=":11339_1_0 F_11339-11336_0 :SectionLink_11329_3_0 F_SectionLink_11329-11552_0 :11551_2_0 F_11551-SectionLink_11326_0 :SectionLink_11326_3_0 F_SectionLink_11326-11324_0 :SectionLink_11322_2_0 F_SectionLink_11322-11515_0 :11514_2_0"/>
@@ -145,12 +142,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <protectingSwitches links="SectionLink_11474_3 SectionLink_14066_3"/>
                 <conflictLinks signals="11339_0 11486_0 11494_0 11514_0 14054_0"/>
                 <foes driveWays="11339.0 11514.0 11551.0 14072.0.0 14092.0 14092.1"/>
-                <sidings foe="11339.0">
-                    <siding start="4" end="5" length="1282.00"/>
-                </sidings>
-                <sidings foe="11514.0">
-                    <siding start="5" end="5" length="1281.00"/>
-                </sidings>
             </driveWay>
             <subDriveWay id="14092.0.0" vehicle="" edges="F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079">
                 <forward lanes=":14092_1_0 F_14092-14090_0 :14090_1_0 F_14090-SectionLink_14049_0 :SectionLink_14049_2_0 F_SectionLink_14049-14079_0 :14072_1_0"/>
@@ -163,12 +154,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <protectingSwitches links="SectionLink_11322_1 SectionLink_11326_0 SectionLink_11326_1"/>
                 <conflictLinks signals="11339_0 11486_0 11494_0 11514_0 14054_0"/>
                 <foes driveWays="11339.0 11514.0 11551.0 14072.0.0 14092.0 14092.1"/>
-                <sidings foe="11339.0">
-                    <siding start="4" end="5" length="1282.00"/>
-                </sidings>
-                <sidings foe="11514.0">
-                    <siding start="5" end="5" length="1281.00"/>
-                </sidings>
             </driveWay>
             <subDriveWay id="14092.1.0" vehicle="" edges="F_14092-14090 F_14090-SectionLink_14049 F_SectionLink_14049-14079">
                 <forward lanes=":14092_1_0 F_14092-14090_0 :14090_1_0 F_14090-SectionLink_14049_0 :SectionLink_14049_2_0 F_SectionLink_14049-14079_0 :14072_1_0"/>
