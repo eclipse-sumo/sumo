@@ -814,10 +814,8 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
             od.writeAttr("foe", item.first->getID());
             for (auto siding : item.second) {
                 od.openTag("siding");
-                //od.writeAttr("start", myRoute[siding.start]->getID());
-                //od.writeAttr("end", myRoute[siding.end]->getID());
-                od.writeAttr("start", siding.start);
-                od.writeAttr("end", siding.end);
+                od.writeAttr("start", myRoute[siding.start]->getID());
+                od.writeAttr("end", myRoute[siding.end]->getID());
                 od.writeAttr("length", siding.length);
                 od.closeTag();
             }
