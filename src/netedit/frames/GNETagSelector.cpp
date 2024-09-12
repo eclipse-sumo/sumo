@@ -297,8 +297,10 @@ GNETagSelector::ACTemplate::ACTemplate(GNENet* net, const GNETagProperties tagPr
     switch (tagProperty.getTag()) {
         // additional elements
         case SUMO_TAG_BUS_STOP:
+            myAC = GNEBusStop::buildBusStop(net);
+            break;
         case SUMO_TAG_TRAIN_STOP:
-            myAC = new GNEBusStop(tagProperty.getTag(), net);
+            myAC = GNEBusStop::buildTrainStop(net);
             break;
         case SUMO_TAG_ACCESS:
             myAC = new GNEAccess(net);
