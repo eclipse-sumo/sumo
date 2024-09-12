@@ -2982,12 +2982,12 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                                      int section, double sectionStart, double sectionEnd,
                                      std::vector<double>& splitPositions) {
     UNUSED_PARAMETER(section);
-    for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
-        OpenDriveLane& l = *k;
+    for (const OpenDriveLane& l : lanes) {
         SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
         if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getEdgeTypeShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(sPrev);
+#ifdef DEBUG_VARIABLE_WIDTHS
             if (gDebugFlag1) std::cout
                         << "findWidthSplit section=" << section
                         << "   sectionStart=" << sectionStart
@@ -2998,15 +2998,18 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                         << "    s=" << sPrev
                         << " w=" << wPrev
                         << "\n";
-            for (std::vector<OpenDriveWidth>::iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
+#endif
+            for (std::vector<OpenDriveWidth>::const_iterator it_w = l.widthData.begin(); it_w != l.widthData.end(); ++it_w) {
                 double sEnd = (it_w + 1) != l.widthData.end() ? (*(it_w + 1)).s : sectionEnd - sectionStart;
                 double w = (*it_w).computeAt(sEnd);
+#ifdef DEBUG_VARIABLE_WIDTHS
                 if (gDebugFlag1) std::cout
                             << "    sEnd=" << sEnd
                             << " s=" << (*it_w).s
                             << " a=" << (*it_w).a << " b=" << (*it_w).b << " c=" << (*it_w).c << " d=" << (*it_w).d
                             << " w=" << w
                             << "\n";
+#endif
                 const double changeDist = fabs(myMinWidth - wPrev);
                 if (((wPrev < myMinWidth) && (w > myMinWidth))
                         || ((wPrev > myMinWidth) && (w < myMinWidth))) {
@@ -3021,9 +3024,11 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                             // getting wider
                             splitPos -= POSITION_EPS;
                             if (splitPos < sPrev) {
+#ifdef DEBUG_VARIABLE_WIDTHS
                                 if (gDebugFlag1) {
                                     std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sPrev=" << sPrev << " wPrev=" << wPrev << "\n";
                                 }
+#endif
                                 splitPos = sPrev;
                                 break;
                             }
@@ -3031,17 +3036,21 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                             // getting thinner
                             splitPos += POSITION_EPS;
                             if (splitPos > sEnd) {
+#ifdef DEBUG_VARIABLE_WIDTHS
                                 if (gDebugFlag1) {
                                     std::cout << "        aborting search splitPos=" << splitPos << " wSplit=" << wSplit << " sEnd=" << sEnd << " w=" << w << "\n";
                                 }
+#endif
                                 splitPos = sEnd;
                                 break;
                             }
                         }
                         wSplit = (*it_w).computeAt(splitPos);
+#ifdef DEBUG_VARIABLE_WIDTHS
                         if (gDebugFlag1) {
                             std::cout << "        refined splitPos=" << splitPos << " w=" << wSplit << "\n";
                         }
+#endif
                     }
                     splitPositions.push_back(sectionStart + splitPos);
                 }
