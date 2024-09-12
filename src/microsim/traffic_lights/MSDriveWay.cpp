@@ -525,14 +525,14 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
 
 bool
 MSDriveWay::canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const {
-    //auto it = mySidings.find(foe);
-    //if (it != mySidings.end()) {
-    //    for (auto siding : it->second) {
-    //        if (siding.length >= ego->getLength()) {
-    //            return true;
-    //        }
-    //    }
-    //}
+    auto it = mySidings.find(foe);
+    if (it != mySidings.end()) {
+        for (auto siding : it->second) {
+            if (siding.length >= ego->getLength()) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
