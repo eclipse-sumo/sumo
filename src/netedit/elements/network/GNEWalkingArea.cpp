@@ -83,7 +83,7 @@ GNEWalkingArea::checkDrawRelatedContour() const {
 
 bool
 GNEWalkingArea::checkDrawOverContour() const {
-    return myParentJunction->checkDrawOverContour();
+    return false;
 }
 
 

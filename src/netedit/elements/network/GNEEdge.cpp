@@ -318,6 +318,7 @@ GNEEdge::checkDrawOverContour() const {
     // get modes and viewParent (for code legibility)
     const auto& modes = myNet->getViewNet()->getEditModes();
     const auto& viewParent = myNet->getViewNet()->getViewParent();
+    const auto& viewObjectsSelector = myNet->getViewNet()->getViewObjectsSelector();
     if (modes.isCurrentSupermodeDemand()) {
         // get current plan selector
         GNEPlanSelector* planSelector = nullptr;
@@ -331,16 +332,22 @@ GNEEdge::checkDrawOverContour() const {
             planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
         }
         // continue depending of plan selector
-        if (planSelector) {
-            if (planSelector->markEdges()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+        if (planSelector && planSelector->markEdges() && (viewObjectsSelector.getEdgeFront() == this)) {
+            if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
+                return false;
+            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isTAZElement()) {
+                return false;
+            } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+                return false;
+            } else {
+                return true;
             }
         } else if (modes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             // get current vehicle template
             const auto& vehicleTemplate = viewParent->getVehicleFrame()->getVehicleTagSelector()->getCurrentTemplateAC();
             // check if vehicle can be placed over from-to TAZs
             if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
-                return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
+                return myNet->getViewNet()->getViewObjectsSelector().getEdgeFront() == this;
             }
         }
     }

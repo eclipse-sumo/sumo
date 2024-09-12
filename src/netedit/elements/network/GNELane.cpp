@@ -357,34 +357,6 @@ GNELane::checkDrawRelatedContour() const {
 
 bool
 GNELane::checkDrawOverContour() const {
-    // get modes
-    const auto& modes = myNet->getViewNet()->getEditModes();
-    // get vehicle frame
-    const auto& vehicleFrame = myNet->getViewNet()->getViewParent()->getVehicleFrame();
-    const auto& personFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonFrame()->getPlanSelector();
-    const auto& personPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getPersonPlanFrame()->getPlanSelector();
-    const auto& containerFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerFrame()->getPlanSelector();
-    const auto& containerPlanFramePlanSelector = myNet->getViewNet()->getViewParent()->getContainerPlanFrame()->getPlanSelector();
-    // check if we're in vehicle mode
-    if (vehicleFrame->shown()) {
-        // get current vehicle template
-        const auto vehicleTemplate = vehicleFrame->getVehicleTagSelector()->getCurrentTemplateAC();
-        // check if vehicle can be placed over from-to edges
-        if (vehicleTemplate && vehicleTemplate->getTagProperty().vehicleEdges()) {
-            // check if lane is under cursor
-            return gViewObjectsHandler.isElementSelected(this);
-        } else {
-            return false;
-        }
-    } else if (modes.isCurrentSupermodeDemand()) {
-        // check if we're in person or personPlan modes
-        if (((modes.demandEditMode == DemandEditMode::DEMAND_PERSON) && personFramePlanSelector->markEdges()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) && personPlanFramePlanSelector->markEdges()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINER) && containerFramePlanSelector->markEdges()) ||
-                ((modes.demandEditMode == DemandEditMode::DEMAND_CONTAINERPLAN) && containerPlanFramePlanSelector->markEdges())) {
-            return myNet->getViewNet()->getViewObjectsSelector().getGUIGlObjectFront() == this;
-        }
-    }
     return false;
 }
 
