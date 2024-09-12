@@ -118,19 +118,8 @@ MSDriveWay::~MSDriveWay() {
     for (const MSLane* lane : myForward) {
         const_cast<MSLane*>(lane)->removeMoveReminder(this);
     }
-    for (MSDriveWay* foe : myFoes) {
-        if (foe == this) {
-            continue;
-        }
-        auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
-        if (it != foe->myFoes.end()) {
-            foe->myFoes.erase(it);
-        }
-        auto it2 = foe->mySidings.find(this);
-        if (it2 != foe->mySidings.end()) {
-            foe->mySidings.erase(it2);
-        }
-    }
+    cleanupPointersToSelf(myFoes);
+    cleanupPointersToSelf(myUpdateDelete);
     for (const MSLink* link : myForwardSwitches) {
         std::vector<MSDriveWay*>& dws = mySwitchDriveWays[link];
         dws.erase(std::find(dws.begin(), dws.end(), this));
@@ -154,6 +143,27 @@ MSDriveWay::~MSDriveWay() {
     }
     for (const MSDriveWay* sub : mySubDriveWays) {
         delete sub;
+    }
+}
+
+void
+MSDriveWay::cleanupPointersToSelf(const std::vector<MSDriveWay*> others) {
+    for (MSDriveWay* foe : others) {
+        if (foe == this) {
+            continue;
+        }
+        auto it = std::find(foe->myFoes.begin(), foe->myFoes.end(), this);
+        if (it != foe->myFoes.end()) {
+            foe->myFoes.erase(it);
+        }
+        auto it2 = foe->mySidings.find(this);
+        if (it2 != foe->mySidings.end()) {
+            foe->mySidings.erase(it2);
+        }
+        auto it3 = std::find(foe->myUpdateDelete.begin(), foe->myUpdateDelete.end(), this);
+        if (it3 != foe->myUpdateDelete.end()) {
+            foe->myUpdateDelete.erase(it3);
+        }
     }
 }
 
@@ -1315,6 +1325,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                 }
 #endif
                 foe->addFoeCheckSiding(dw);
+                dw->myUpdateDelete.push_back(foe);
             } else {
                 dw->buildSubFoe(foe, movingBlock);
             }

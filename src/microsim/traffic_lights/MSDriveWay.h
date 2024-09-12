@@ -290,6 +290,8 @@ protected:
 
     bool canUseSiding(const SUMOVehicle* ego, const MSDriveWay* foe) const;
 
+    void cleanupPointersToSelf(const std::vector<MSDriveWay*> others);
+
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(const MSLink* link);
 
@@ -317,6 +319,10 @@ private:
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
     std::map<const MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
+
+    /* @brief driveways that are not foes but to which this driveway is a foe
+     * (must be updated if this driveway is deleted */
+    std::vector<MSDriveWay*> myUpdateDelete;
 
     /* @brief shortened versions of this driveway to be used as foes instead of the long original
      * (ends as soon as the train has left a particular conflict section)
