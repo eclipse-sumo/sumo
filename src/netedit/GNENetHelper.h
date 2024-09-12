@@ -140,15 +140,8 @@ struct GNENetHelper {
          */
         GNEJunction* retrieveJunction(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get junction by glObject
-         * @param[in] glObject The GUIGlObject associated with the element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting junction should result in an exception
-         * @throws UnknownElement
-         */
-        GNEJunction* retrieveJunction(const GUIGlObject* glObject, bool hardFail = true) const;
-
         /// @brief get junctions
-        const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >& getJunctions() const;
+        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief return selected junctions
         std::vector<GNEJunction*> getSelectedJunctions() const;
@@ -245,13 +238,6 @@ struct GNENetHelper {
          */
         GNEEdge* retrieveEdge(const std::string& id, bool hardFail = true) const;
 
-        /**@brief get edge by glObject
-         * @param[in] glObject The GUIGlObject associated with the element
-         * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
-         * @throws UnknownElement
-         */
-        GNEEdge* retrieveEdge(const GUIGlObject* glObject, bool hardFail = true) const;
-
         /**@brief get all edges by from and to GNEJunction
          * @param[in] id The id of the desired edge
          * @param[in] hardFail Whether attempts to retrieve a nonexisting edge should result in an exception
@@ -260,7 +246,7 @@ struct GNENetHelper {
         std::vector<GNEEdge*> retrieveEdges(GNEJunction* from, GNEJunction* to) const;
 
         /// @brief map with the ID and pointer to edges of net
-        const std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> >& getEdges() const;
+        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /**@brief return all edges
          * @param[in] onlySelected Whether to return only selected edges
@@ -769,7 +755,7 @@ struct GNENetHelper {
         int myStopIndex;
 
         /// @brief map with the ID and pointer to junctions of net
-        std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> > myJunctions;
+        std::map<std::string, GNEJunction*> myJunctions;
 
         /// @brief set with crossings
         std::map<const GUIGlObject*, GNECrossing*> myCrossings;
@@ -781,7 +767,7 @@ struct GNENetHelper {
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
 
         /// @brief map with the ID and pointer to edges of net
-        std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > myEdges;
+        std::map<std::string, GNEEdge*> myEdges;
 
         /// @brief map with lanes
         std::map<const GUIGlObject*, GNELane*> myLanes;

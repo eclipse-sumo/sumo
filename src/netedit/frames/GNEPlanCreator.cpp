@@ -441,8 +441,8 @@ GNEPlanCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
         // set color
         GLHelper::setColor(RGBColor::ORANGE);
         // get two points
-        const Position posA = ACs->getJunctions().at(myPlanParameteres.fromJunction).second->getPositionInView();
-        const Position posB = ACs->getJunctions().at(myPlanParameteres.toJunction).second->getPositionInView();
+        const Position posA = ACs->getJunctions().at(myPlanParameteres.fromJunction)->getPositionInView();
+        const Position posB = ACs->getJunctions().at(myPlanParameteres.toJunction)->getPositionInView();
         const double rot = ((double)atan2((posB.x() - posA.x()), (posA.y() - posB.y())) * (double) 180.0 / (double)M_PI);
         const double len = posA.distanceTo2D(posB);
         // draw line
@@ -624,13 +624,13 @@ GNEPlanCreator::recalculatePath() {
         if (fromEdge && toEdge) {
             myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, toEdge));
         } else if (fromEdge && !myPlanParameteres.toJunction.empty()) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction).second));
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, fromEdge, ACs->getJunctions().at(myPlanParameteres.toJunction)));
         } else if (!myPlanParameteres.fromJunction.empty() && toEdge) {
-            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, ACs->getJunctions().at(myPlanParameteres.fromJunction).second, toEdge));
+            myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass, ACs->getJunctions().at(myPlanParameteres.fromJunction), toEdge));
         } else if (!myPlanParameteres.fromJunction.empty() && !myPlanParameteres.toJunction.empty()) {
             myPath.push_back(PlanPath(myFrameParent->getViewNet(), myVClass,
-                                      ACs->getJunctions().at(myPlanParameteres.fromJunction).second,
-                                      ACs->getJunctions().at(myPlanParameteres.toJunction).second));
+                                      ACs->getJunctions().at(myPlanParameteres.fromJunction),
+                                      ACs->getJunctions().at(myPlanParameteres.toJunction)));
         }
     }
 }

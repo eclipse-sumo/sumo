@@ -92,7 +92,7 @@ void
 GNEContainerPlanFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second.second->resetCandidateFlags();
+        edge.second->resetCandidateFlags();
     }
     // enable undo/redo
     myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();

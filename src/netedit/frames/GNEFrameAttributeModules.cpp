@@ -486,8 +486,8 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
         // iterate over network junction
         for (const auto& junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
-            if ((junction.second.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second.second)) {
+            if ((junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
+                    myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second)) {
                 return true;
             }
         }

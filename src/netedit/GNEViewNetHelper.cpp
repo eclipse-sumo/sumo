@@ -788,7 +788,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
     switch (glObject->getType()) {
         case GLO_JUNCTION: {
             // get junction
-            auto junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(glObject);
+            auto junction = myViewNet->getNet()->getAttributeCarriers()->retrieveJunction(glObject->getMicrosimID());
             // check front element
             if (glObject == frontGLObject) {
                 // insert at front
@@ -807,7 +807,7 @@ GNEViewNetHelper::ViewObjectsSelector::updateNetworkElements(ViewObjectsContaine
         }
         case GLO_EDGE: {
             // get edge
-            auto edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(glObject);
+            auto edge = myViewNet->getNet()->getAttributeCarriers()->retrieveEdge(glObject->getMicrosimID());
             // check front element
             if (glObject == frontGLObject) {
                 // insert at front

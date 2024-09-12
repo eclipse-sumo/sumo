@@ -529,14 +529,14 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 chooserLoc = &myACChoosers.ACChooserJunction;
                 locateTitle = TL("Junction Chooser");
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    ACsToLocate.push_back(junction.second.second);
+                    ACsToLocate.push_back(junction.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_E_LOCATEEDGE:
                 chooserLoc = &myACChoosers.ACChooserEdges;
                 locateTitle = TL("Edge Chooser");
                 for (const auto& edge : viewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    ACsToLocate.push_back(edge.second.second);
+                    ACsToLocate.push_back(edge.second);
                 }
                 break;
             case MID_HOTKEY_SHIFT_W_LOCATEWALKINGAREA:
@@ -600,8 +600,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 locateTitle = TL("TLS Chooser");
                 // fill ACsToLocate with junctions that haven TLS
                 for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
-                    if (junction.second.second->getNBNode()->getControllingTLS().size() > 0) {
-                        ACsToLocate.push_back(junction.second.second);
+                    if (junction.second->getNBNode()->getControllingTLS().size() > 0) {
+                        ACsToLocate.push_back(junction.second);
                     }
                 }
                 break;

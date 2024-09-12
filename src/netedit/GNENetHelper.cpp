@@ -94,17 +94,17 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     }
     // Drop Edges
     for (const auto& edge : myEdges) {
-        edge.second.second->decRef("GNENetHelper::~GNENet");
+        edge.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + edge.second.second->getTagStr() + " '" + edge.second.second->getID() + "' in AttributeCarriers destructor");
-        delete edge.second.second;
+        WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
+        delete edge.second;
     }
     // Drop myJunctions
     for (const auto& junction : myJunctions) {
-        junction.second.second->decRef("GNENetHelper::~GNENet");
+        junction.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + junction.second.second->getTagStr() + " '" + junction.second.second->getID() + "' in AttributeCarriers destructor");
-        delete junction.second.second;
+        WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
+        delete junction.second;
     }
     // Drop Additionals (Only used for additionals that were inserted without using GNEChange_Additional)
     for (const auto& additionalTag : myAdditionals) {
@@ -156,16 +156,16 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
 
 void
 GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
-    std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> > newEdgeMap;
-    std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> > newJunctionMap;
+    std::map<std::string, GNEEdge*> newEdgeMap;
+    std::map<std::string, GNEJunction*> newJunctionMap;
     // fill newEdgeMap
     for (const auto& edge : myEdges) {
-        edge.second.second->setEdgeID(edge.second.second->getNBEdge()->getID());
-        newEdgeMap[edge.second.second->getNBEdge()->getID()] = edge.second;
+        edge.second->setEdgeID(edge.second->getNBEdge()->getID());
+        newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
     }
     for (const auto& junction : myJunctions) {
-        newJunctionMap[junction.second.second->getNBNode()->getID()] = junction.second;
-        junction.second.second->setNetworkElementID(junction.second.second->getNBNode()->getID());
+        newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
+        junction.second->setNetworkElementID(junction.second->getNBNode()->getID());
     }
     myEdges = newEdgeMap;
     myJunctions = newJunctionMap;
@@ -177,7 +177,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
     // check what type of AC
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // Junction
-        const GNEJunction* junction = myJunctions.at(AC->getID()).second;
+        const GNEJunction* junction = myJunctions.at(AC->getID());
         if (junction->getNBNode()->getShape().size() == 0) {
             return shape.around(junction->getNBNode()->getCenter());
         } else {
@@ -185,7 +185,7 @@ GNENetHelper::AttributeCarriers::isNetworkElementAroundShape(GNEAttributeCarrier
         }
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // Edge
-        for (const auto& lane : myEdges.at(AC->getID()).second->getLanes()) {
+        for (const auto& lane : myEdges.at(AC->getID())->getLanes()) {
             if (shape.overlapsWith(lane->getLaneShape())) {
                 return true;
             }
@@ -242,11 +242,11 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(SumoXMLTag tag) {
     std::vector<GNEAttributeCarrier*> result;
     if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_JUNCTION)) {
         for (const auto& junction : myJunctions) {
-            result.push_back(junction.second.second);
+            result.push_back(junction.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_EDGE)) {
         for (const auto& edge : myEdges) {
-            result.push_back(edge.second.second);
+            result.push_back(edge.second);
         }
     } else if ((tag == SUMO_TAG_NOTHING) || (tag == SUMO_TAG_LANE)) {
         for (const auto& lane : myLanes) {
@@ -309,8 +309,8 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
     if (supermode == Supermode::NETWORK) {
         // network
         for (const auto& junction : myJunctions) {
-            if (!onlySelected || junction.second.second->isAttributeCarrierSelected()) {
-                result.push_back(junction.second.second);
+            if (!onlySelected || junction.second->isAttributeCarrierSelected()) {
+                result.push_back(junction.second);
             }
         }
         for (const auto& crossing : myCrossings) {
@@ -319,8 +319,8 @@ GNENetHelper::AttributeCarriers::retrieveAttributeCarriers(Supermode supermode, 
             }
         }
         for (const auto& edge : myEdges) {
-            if (!onlySelected || edge.second.second->isAttributeCarrierSelected()) {
-                result.push_back(edge.second.second);
+            if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+                result.push_back(edge.second);
             }
         }
         for (const auto& lane : myLanes) {
@@ -412,9 +412,11 @@ GNENetHelper::AttributeCarriers::getSelectedAttributeCarriers(const bool ignoreC
 
 GNEJunction*
 GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool hardFail) const {
-    if (myJunctions.count(id)) {
-        return myJunctions.at(id).second;
-    } else if (hardFail) {
+    auto it = myJunctions.find(id);
+    if (it != myJunctions.end()) {
+        return it->second;
+    }
+    if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Attempted to retrieve non-existant junction " + id);
     } else {
@@ -423,23 +425,7 @@ GNENetHelper::AttributeCarriers::retrieveJunction(const std::string& id, bool ha
 }
 
 
-GNEJunction*
-GNENetHelper::AttributeCarriers::retrieveJunction(const GUIGlObject* glObject, bool hardFail) const {
-    for (const auto& junctionPair : myJunctions) {
-        if (junctionPair.second.first == glObject) {
-            return junctionPair.second.second;
-        }
-    }
-    if (hardFail) {
-        // If junction wasn't found, throw exception
-        throw UnknownElement("Attempted to retrieve non-existant junction " + glObject->getMicrosimID());
-    } else {
-        return nullptr;
-    }
-}
-
-
-const std::map<std::string, std::pair<const GUIGlObject*, GNEJunction*> >&
+const std::map<std::string, GNEJunction*>&
 GNENetHelper::AttributeCarriers::getJunctions() const {
     return myJunctions;
 }
@@ -450,8 +436,8 @@ GNENetHelper::AttributeCarriers::getSelectedJunctions() const {
     std::vector<GNEJunction*> result;
     // returns junctions depending of selection
     for (const auto& junction : myJunctions) {
-        if (junction.second.second->isAttributeCarrierSelected()) {
-            result.push_back(junction.second.second);
+        if (junction.second->isAttributeCarrierSelected()) {
+            result.push_back(junction.second);
         }
     }
     return result;
@@ -463,7 +449,7 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     // increase reference
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
-    myJunctions[junction->getMicrosimID()] = std::make_pair(junction->getGUIGlObject(), junction);
+    myJunctions[junction->getMicrosimID()] = junction;
     // expand net boundary
     myNet->expandBoundary(junction->getCenteringBoundary());
     // add edge into grid
@@ -492,7 +478,7 @@ GNENetHelper::AttributeCarriers::addPrefixToJunctions(const std::string& prefix)
     // fill junctions again
     for (const auto& junction : junctionCopy) {
         // update microsim ID
-        junction.second.second->setNetworkElementID(prefix + junction.first);
+        junction.second->setNetworkElementID(prefix + junction.first);
         // insert in myJunctions again
         myJunctions[prefix + junction.first] = junction.second;
     }
@@ -513,7 +499,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEJunction* junction, const s
         // update microsim ID
         junction->setNetworkElementID(newID);
         // add it into myJunctions again
-        myJunctions[junction->getID()] = std::make_pair(junction->getGUIGlObject(), junction);
+        myJunctions[junction->getID()] = junction;
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
@@ -526,7 +512,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
     int counter = 0;
     for (const auto& junction : myJunctions) {
-        if (junction.second.second->isAttributeCarrierSelected()) {
+        if (junction.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -536,9 +522,11 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedJunctions() const {
 
 GNECrossing*
 GNENetHelper::AttributeCarriers::retrieveCrossing(const GUIGlObject* glObject, bool hardFail) const {
-    if (myCrossings.count(glObject)) {
-        return myCrossings.at(glObject);
-    } else if (hardFail) {
+    auto it = myCrossings.find(glObject);
+    if (it != myCrossings.end()) {
+        return it->second;
+    }
+    if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Attempted to retrieve non-existant crossing " + glObject->getMicrosimID());
     } else {
@@ -580,9 +568,11 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedCrossings() const {
 
 GNEWalkingArea*
 GNENetHelper::AttributeCarriers::retrieveWalkingArea(const GUIGlObject* glObject, bool hardFail) const {
-    if (myWalkingAreas.count(glObject)) {
-        return myWalkingAreas.at(glObject);
-    } else if (hardFail) {
+    auto it = myWalkingAreas.find(glObject);
+    if (it != myWalkingAreas.end()) {
+        return it->second;
+    }
+    if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Attempted to retrieve non-existant walkingArea " + glObject->getMicrosimID());
     } else {
@@ -689,27 +679,13 @@ GNENetHelper::AttributeCarriers::generateEdgeTypeID() const {
 
 GNEEdge*
 GNENetHelper::AttributeCarriers::retrieveEdge(const std::string& id, bool hardFail) const {
-    if (myEdges.count(id) > 0) {
-        return myEdges.at(id).second;
-    } else if (hardFail) {
-        // If edge wasn't found, throw exception
-        throw UnknownElement("Attempted to retrieve non-existant edge " + id);
-    } else {
-        return nullptr;
-    }
-}
-
-
-GNEEdge*
-GNENetHelper::AttributeCarriers::retrieveEdge(const GUIGlObject* glObject, bool hardFail) const {
-    for (const auto& edgePair : myEdges) {
-        if (edgePair.second.first == glObject) {
-            return edgePair.second.second;
-        }
+    auto it = myEdges.find(id);
+    if (it != myEdges.end()) {
+        return it->second;
     }
     if (hardFail) {
         // If edge wasn't found, throw exception
-        throw UnknownElement("Attempted to retrieve non-existant edge " + glObject->getMicrosimID());
+        throw UnknownElement("Attempted to retrieve non-existant edge " + id);
     } else {
         return nullptr;
     }
@@ -724,15 +700,15 @@ GNENetHelper::AttributeCarriers::retrieveEdges(GNEJunction* from, GNEJunction* t
     std::vector<GNEEdge*> edges;
     // iterate over Junctions
     for (const auto& edge : myEdges) {
-        if ((edge.second.second->getFromJunction() == from) && (edge.second.second->getToJunction() == to)) {
-            edges.push_back(edge.second.second);
+        if ((edge.second->getFromJunction() == from) && (edge.second->getToJunction() == to)) {
+            edges.push_back(edge.second);
         }
     }
     return edges;
 }
 
 
-const std::map<std::string, std::pair<const GUIGlObject*, GNEEdge*> >&
+const std::map<std::string, GNEEdge*>&
 GNENetHelper::AttributeCarriers::getEdges() const {
     return myEdges;
 }
@@ -743,8 +719,8 @@ GNENetHelper::AttributeCarriers::getSelectedEdges() const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
     for (const auto& edge : myEdges) {
-        if (edge.second.second->isAttributeCarrierSelected()) {
-            result.push_back(edge.second.second);
+        if (edge.second->isAttributeCarrierSelected()) {
+            result.push_back(edge.second);
         }
     }
     return result;
@@ -756,7 +732,7 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->incRef("GNENet::registerEdge");
     edge->setResponsible(false);
     // add edge to internal container of GNENet
-    myEdges[edge->getMicrosimID()] = std::make_pair(edge->getGUIGlObject(), edge);
+    myEdges[edge->getMicrosimID()] = edge;
     // insert all lanes
     for (const auto& lane : edge->getLanes()) {
         insertLane(lane);
@@ -792,7 +768,7 @@ GNENetHelper::AttributeCarriers::addPrefixToEdges(const std::string& prefix) {
     // fill edges again
     for (const auto& edge : edgeCopy) {
         // update microsim ID
-        edge.second.second->setNetworkElementID(prefix + edge.first);
+        edge.second->setNetworkElementID(prefix + edge.first);
         // insert in myEdges again
         myEdges[prefix + edge.first] = edge.second;
     }
@@ -813,7 +789,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEEdge* edge, const std::string& 
         // update microsim ID
         edge->setEdgeID(newID);
         // add it into myEdges again
-        myEdges[edge->getID()] = std::make_pair(edge->getGUIGlObject(), edge);
+        myEdges[edge->getID()] = edge;
         // rename all connections related to this edge
         for (const auto& lane : edge->getLanes()) {
             lane->updateConnectionIDs();
@@ -828,7 +804,7 @@ int
 GNENetHelper::AttributeCarriers::getNumberOfSelectedEdges() const {
     int counter = 0;
     for (const auto& edge : myEdges) {
-        if (edge.second.second->isAttributeCarrierSelected()) {
+        if (edge.second->isAttributeCarrierSelected()) {
             counter++;
         }
     }
@@ -872,9 +848,11 @@ GNENetHelper::AttributeCarriers::retrieveLane(const std::string& id, bool hardFa
 
 GNELane*
 GNENetHelper::AttributeCarriers::retrieveLane(const GUIGlObject* glObject, bool hardFail) const {
-    if (myLanes.count(glObject)) {
-        return myLanes.at(glObject);
-    } else if (hardFail) {
+    auto it = myLanes.find(glObject);
+    if (it != myLanes.end()) {
+        return it->second;
+    }
+    if (hardFail) {
         // If junction wasn't found, throw exception
         throw UnknownElement("Attempted to retrieve non-existant lane " + glObject->getMicrosimID());
     } else {
@@ -933,11 +911,9 @@ GNENetHelper::AttributeCarriers::retrieveConnection(const std::string& id, bool 
 
 GNEConnection*
 GNENetHelper::AttributeCarriers::retrieveConnection(const GUIGlObject* glObject, bool hardFail) const {
-    // iterate over connections
-    for (const auto& connection : myConnections) {
-        if (connection.second == glObject) {
-            return connection.second;
-        }
+    auto it = myConnections.find(glObject);
+    if (it != myConnections.end()) {
+        return it->second;
     }
     if (hardFail) {
         // If POI wasn't found, throw exception
@@ -981,11 +957,9 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedConnections() const {
 
 GNEInternalLane*
 GNENetHelper::AttributeCarriers::retrieveInternalLane(const GUIGlObject* glObject, bool hardFail) const {
-    // iterate over internalLanes
-    for (const auto& internalLane : myInternalLanes) {
-        if (internalLane.second == glObject) {
-            return internalLane.second;
-        }
+    auto it = myInternalLanes.find(glObject);
+    if (it != myInternalLanes.end()) {
+        return it->second;
     }
     if (hardFail) {
         // If POI wasn't found, throw exception
@@ -1032,10 +1006,9 @@ GNEAdditional*
 GNENetHelper::AttributeCarriers::retrieveAdditional(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all additionals
     for (const auto& additionalTag : myAdditionals) {
-        for (const auto& additionalPair : additionalTag.second) {
-            if (additionalPair.first == glObject) {
-                return additionalPair.second;
-            }
+        auto it = additionalTag.second.find(glObject);
+        if (it != additionalTag.second.end()) {
+            return it->second;
         }
     }
     if (hardFail) {
@@ -1381,10 +1354,9 @@ GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all demand elements
     for (const auto& demandElementTag : myDemandElements) {
-        for (const auto& demandElementPair : demandElementTag.second) {
-            if (demandElementPair.first == glObject) {
-                return demandElementPair.second;
-            }
+        auto it = demandElementTag.second.find(glObject);
+        if (it != demandElementTag.second.end()) {
+            return it->second;
         }
     }
     if (hardFail) {
@@ -1950,10 +1922,9 @@ GNEGenericData*
 GNENetHelper::AttributeCarriers::retrieveGenericData(const GUIGlObject* glObject, bool hardFail) const {
     // iterate over all genericDatas
     for (const auto& genericDataTag : myGenericDatas) {
-        for (const auto& genericDataPair : genericDataTag.second) {
-            if (genericDataPair.first == glObject) {
-                return genericDataPair.second;
-            }
+        auto it = genericDataTag.second.find(glObject);
+        if (it != genericDataTag.second.end()) {
+            return it->second;
         }
     }
     if (hardFail) {

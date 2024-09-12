@@ -389,7 +389,7 @@ void
 GNEPathManager::PathCalculator::calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge) {
     // first reset reachability of all lanes
     for (const auto& edge : originEdge->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second.second->getLanes()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->resetReachability();
         }
     }

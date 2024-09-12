@@ -782,8 +782,8 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
     } else if (objectType == GLO_JUNCTION) {
         if (active == 3) {
             for (const auto& junction : myNet->getAttributeCarriers()->getJunctions()) {
-                minValue = MIN2(minValue, junction.second.second->getPositionInView().z());
-                maxValue = MAX2(maxValue, junction.second.second->getPositionInView().z());
+                minValue = MIN2(minValue, junction.second->getPositionInView().z());
+                maxValue = MAX2(maxValue, junction.second->getPositionInView().z());
             }
         }
     } else if (objectType == GLO_TAZRELDATA) {
@@ -1973,7 +1973,7 @@ GNEViewNet::getJunctionAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
-            auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object, false);
+            auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object->getMicrosimID(), false);
             if (junction) {
                 return junction;
             }
@@ -2033,7 +2033,7 @@ GNEViewNet::getEdgeAtPopupPosition() {
     // get first object that can be found in their container
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
-            auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.object, false);
+            auto edge = myNet->getAttributeCarriers()->retrieveEdge(glObject.object->getMicrosimID(), false);
             if (edge) {
                 return edge;
             }
@@ -2139,7 +2139,7 @@ GNEViewNet::getShapeEditedAtPopupPosition() {
     for (const auto& glObjectLayer : gViewObjectsHandler.getSelectedObjects()) {
         for (const auto& glObject : glObjectLayer.second) {
             if (glObject.object->getType() == GLO_JUNCTION) {
-                auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object);
+                auto junction = myNet->getAttributeCarriers()->retrieveJunction(glObject.object->getMicrosimID());
                 if (junction->isShapeEdited()) {
                     return junction;
                 }
@@ -2620,8 +2620,8 @@ GNEViewNet::onCmdEgeApplyTemplate(FXObject*, FXSelector, void*) {
         if (edgeAtPosition->isAttributeCarrierSelected()) {
             // copy template in all selected edges
             for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
-                if (edge.second.second->isAttributeCarrierSelected()) {
-                    edge.second.second->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
+                if (edge.second->isAttributeCarrierSelected()) {
+                    edge.second->copyTemplate(myViewParent->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myUndoList);
                 }
             }
         } else {
@@ -3268,7 +3268,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         // select all lanes with reachability greater than 0
         myUndoList->begin(laneAtPopupPosition, TL("select lane reachability"));
         for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
-            for (const auto& lane : edge.second.second->getLanes()) {
+            for (const auto& lane : edge.second->getLanes()) {
                 if (lane->getReachability() >= 0) {
                     lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
                 }

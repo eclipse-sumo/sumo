@@ -546,7 +546,7 @@ GNEGenericDataFrame::hide() {
     if (myPathCreator) {
         // reset candidate edges
         for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            edge.second.second->resetCandidateFlags();
+            edge.second->resetCandidateFlags();
         }
     }
     // hide frame

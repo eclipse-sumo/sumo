@@ -497,40 +497,40 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
     // get attribute carriers (only for improve code legibly)
     const auto& ACs = mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers();
     // extract all network elements
-    std::vector<std::pair<const GUIGlObject*, GNEAttributeCarrier*> > networkACs;
+    std::vector<GNEAttributeCarrier*> networkACs;
     // add junctions
     for (const auto& junction : ACs->getJunctions()) {
         networkACs.push_back(junction.second);
         // due we iterate over all junctions, only it's necessary iterate over incoming edges
-        for (const auto& incomingEdge : junction.second.second->getGNEIncomingEdges()) {
+        for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
             if (!filterLanes || mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
-                networkACs.push_back(std::make_pair(incomingEdge->getGUIGlObject(), incomingEdge));
+                networkACs.push_back(incomingEdge);
             }
             // add lanes
             if (!filterLanes || !mySelectorFrameParent->getViewNet()->getNetworkViewOptions().selectEdges()) {
                 for (const auto& lane : incomingEdge->getLanes()) {
-                    networkACs.push_back(std::make_pair(lane->getGUIGlObject(), lane));
+                    networkACs.push_back(lane);
                 }
             }
             // add connections
             for (const auto& connection : incomingEdge->getGNEConnections()) {
-                networkACs.push_back(std::make_pair(connection->getGUIGlObject(), connection));
+                networkACs.push_back(connection);
             }
         }
         // add crossings
-        for (const auto& crossing : junction.second.second->getGNECrossings()) {
-            networkACs.push_back(std::make_pair(crossing->getGUIGlObject(), crossing));
+        for (const auto& crossing : junction.second->getGNECrossings()) {
+            networkACs.push_back(crossing);
         }
         // add walkingArea
-        for (const auto& walkingArea : junction.second.second->getGNEWalkingAreas()) {
-            networkACs.push_back(std::make_pair(walkingArea->getGUIGlObject(), walkingArea));
+        for (const auto& walkingArea : junction.second->getGNEWalkingAreas()) {
+            networkACs.push_back(walkingArea);
         }
     }
     // add additionals
     for (const auto& additionalTags : ACs->getAdditionals()) {
         for (const auto& additional : additionalTags.second) {
             if (additional.second->getTagProperty().isSelectable()) {
-                networkACs.push_back(additional);
+                networkACs.push_back(additional.second);
             }
         }
     }
@@ -540,16 +540,16 @@ GNESelectorFrame::SelectionOperation::processMassiveNetworkElementSelection(cons
     std::pair<std::vector<std::pair<bool, GNEAttributeCarrier*> >, std::vector<std::pair<bool, GNEAttributeCarrier*> > > ACsToSelectUnselect;
     // iterate over network ACs
     for (const auto& networkAC : networkACs) {
-        const auto networkACObjectType = networkAC.first->getType();
+        const auto networkACObjectType = networkAC->getGUIGlObject()->getType();
         // save locking status in checkedTypes
         if (checkedTypes.find(networkACObjectType) == checkedTypes.end()) {
-            checkedTypes[networkACObjectType] = networkAC.first->isGLObjectLocked();
+            checkedTypes[networkACObjectType] = networkAC->getGUIGlObject()->isGLObjectLocked();
         }
         // save element and their locking status
-        if (networkAC.second->isAttributeCarrierSelected()) {
-            ACsToSelectUnselect.second.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC.second));
+        if (networkAC->isAttributeCarrierSelected()) {
+            ACsToSelectUnselect.second.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC));
         } else {
-            ACsToSelectUnselect.first.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC.second));
+            ACsToSelectUnselect.first.push_back(std::make_pair(checkedTypes.at(networkACObjectType), networkAC));
         }
     }
     return ACsToSelectUnselect;
