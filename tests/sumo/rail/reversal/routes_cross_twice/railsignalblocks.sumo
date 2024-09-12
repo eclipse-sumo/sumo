@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-12 12:34:23 by Eclipse SUMO sumo Version v1_20_0+0566-a4ebdc7926d
+<!-- generated on 2024-09-12 12:35:33 by Eclipse SUMO sumo Version v1_20_0+0568-ab18df35bfe
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B2_0 E2_0"/>
                 <foes driveWays="B.0 B2.0.0 E.0.0 E2.0.0 gneJ5.d1"/>
                 <sidings foe="gneJ5.d1">
-                    <siding start="2" end="6" length="900.00"/>
+                    <siding start="e" end="-f" length="900.00"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="B.0.0" vehicle="" edges="c d e">
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <conflictLinks signals="B_0 E_0"/>
                 <foes driveWays="B.0.1 B2.0 E.0.1 E2.0.1 gneJ1.d0"/>
                 <sidings foe="gneJ1.d0">
-                    <siding start="2" end="6" length="941.42"/>
+                    <siding start="e2" end="-f2" length="941.42"/>
                 </sidings>
             </driveWay>
             <subDriveWay id="B2.0.0" vehicle="" edges="c2 d">
@@ -128,7 +128,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="B2_0 E2_0"/>
             <foes driveWays="E2.0 gneJ1.d0 gneJ5.d1"/>
             <sidings foe="gneJ5.d1">
-                <siding start="4" end="8" length="900.00"/>
+                <siding start="e" end="-f" length="900.00"/>
             </sidings>
         </driveWay>
     </departJunction>
@@ -142,7 +142,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <conflictLinks signals="B_0 E_0"/>
             <foes driveWays="E.0 gneJ1.d0 gneJ5.d1"/>
             <sidings foe="gneJ1.d0">
-                <siding start="4" end="8" length="941.42"/>
+                <siding start="e2" end="-f2" length="941.42"/>
             </sidings>
         </driveWay>
     </departJunction>
