@@ -35,7 +35,6 @@ netedit/elements/additionals/calibrator/load/parameters/additionals.add.xml:10:0
 netedit/elements/additionals/calibrator/load/parameters/additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/elements/additionals/calibrator/load/period/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'period': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/elements/additionals/calibrator/load/period/additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'calibrator', attribute 'period': [facet 'minExclusive'] The value '-50.00' must be greater than '0'.
-netedit/elements/additionals/calibrator/load/pos/additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'calibrator': The attribute 'pos' is required but missing.
 netedit/elements/additionals/calibrator/load/pos/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'calibrator', attribute 'pos': [facet 'pattern'] The value 'dummyPosition' is not accepted by the pattern '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)'.
 netedit/elements/additionals/calibratorflow/load/arrivallane/additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'flow', attribute 'id': The attribute 'id' is not allowed.
 netedit/elements/additionals/calibratorflow/load/arrivallane/additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_3: Element 'flow', attribute 'arrivalLane': 'dummyArrivalLane' is not a valid value of the union type 'arrivalLaneType'.
@@ -126,7 +125,6 @@ netedit/elements/additionals/calibratorlane/load/parameters/additionals.add.xml:
 netedit/elements/additionals/calibratorlane/load/parameters/additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/elements/additionals/calibratorlane/load/period/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'period': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/elements/additionals/calibratorlane/load/period/additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'calibrator', attribute 'period': [facet 'minExclusive'] The value '-50.00' must be greater than '0'.
-netedit/elements/additionals/calibratorlane/load/pos/additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'calibrator': The attribute 'pos' is required but missing.
 netedit/elements/additionals/calibratorlane/load/pos/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'calibrator', attribute 'pos': [facet 'pattern'] The value 'dummyPosition' is not accepted by the pattern '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)'.
 netedit/elements/additionals/chargingstation/load/chargedelay/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'chargingStation', attribute 'chargeDelay': [facet 'pattern'] The value 'dummyCharge' is not accepted by the pattern '[-+]?((\d+\.?|(\d*\.\d+))([eE][-+]?\d+)?|Inf|inf|INF)'.
 netedit/elements/additionals/chargingstation/load/chargeintransit/additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'chargingStation', attribute 'chargeInTransit': [facet 'enumeration'] The value 'dummyChargeInTransit' is not an element of the set {'true', 'false', 'True', 'False', 'yes', 'no', 'on', 'off', '1', '0', 'x', '-'}.
@@ -347,17 +345,17 @@ netedit/elements/shapes/poilane/inspect_selected/additionals.add.xml:58:0:ERROR:
 sumo/devices/rerouting/personTrip/errors/access_invalid/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'access': This element is not expected.
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "D:\SUMO\tools\build_config\schemaCheck.py", line 52, in validate
+  File "/scr1/sumo/tests/../tools/build_config/schemaCheck.py", line 52, in validate
     doc = etree.parse(f)
-  File "src\lxml\etree.pyx", line 3541, in lxml.etree.parse
-  File "src\lxml\parser.pxi", line 1879, in lxml.etree._parseDocument
-  File "src\lxml\parser.pxi", line 1905, in lxml.etree._parseDocumentFromURL
-  File "src\lxml\parser.pxi", line 1808, in lxml.etree._parseDocFromFile
-  File "src\lxml\parser.pxi", line 1180, in lxml.etree._BaseParser._parseDocFromFile
-  File "src\lxml\parser.pxi", line 618, in lxml.etree._ParserContext._handleParseResultDoc
-  File "src\lxml\parser.pxi", line 728, in lxml.etree._handleParseResult
-  File "src\lxml\parser.pxi", line 657, in lxml.etree._raiseParseError
-  File "file:/D:/SUMO/tests/sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml", line 5
+  File "src/lxml/etree.pyx", line 3536, in lxml.etree.parse
+  File "src/lxml/parser.pxi", line 1876, in lxml.etree._parseDocument
+  File "src/lxml/parser.pxi", line 1902, in lxml.etree._parseDocumentFromURL
+  File "src/lxml/parser.pxi", line 1805, in lxml.etree._parseDocFromFile
+  File "src/lxml/parser.pxi", line 1177, in lxml.etree._BaseParser._parseDocFromFile
+  File "src/lxml/parser.pxi", line 615, in lxml.etree._ParserContext._handleParseResultDoc
+  File "src/lxml/parser.pxi", line 725, in lxml.etree._handleParseResult
+  File "src/lxml/parser.pxi", line 654, in lxml.etree._raiseParseError
+  File "/scr1/sumo/tests/sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml", line 5
 lxml.etree.XMLSyntaxError: Opening and ending tag mismatch: additional line 1 and calibrator, line 5, column 18
 sumo/extended/vaporizer/errors/begin_empty/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'vaporizer', attribute 'begin': '' is not a valid value of the atomic type 'nonNegativeFloatType'.
 sumo/extended/vaporizer/errors/begin_negative/input_additional2.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'vaporizer', attribute 'begin': [facet 'minInclusive'] The value '-10' is less than the minimum value allowed ('0').
