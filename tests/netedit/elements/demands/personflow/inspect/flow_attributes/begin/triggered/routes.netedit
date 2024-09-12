@@ -6,6 +6,6 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <personFlow id="pf_0" begin="triggered" end="3600.00" personsPerHour="1800">
-        <ride from="Edge0" to="Edge2" lines="ANY"/>
+        <ride from="Edge0" to="Edge2"/>
     </personFlow>
 </routes>

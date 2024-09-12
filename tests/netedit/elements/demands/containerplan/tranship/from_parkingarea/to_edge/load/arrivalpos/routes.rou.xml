@@ -7,11 +7,11 @@
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
         <transport from="Edge0" parkingArea="parkingAreaA"/>
-        <tranship to="EdgeCenter0" arrivalPos="dummy" lines="ANY"/>
+        <tranship to="EdgeCenter0" arrivalPos="dummy"/>
     </container>
 
     <container id="c_1" depart="0.00">
         <transport from="Edge0" parkingArea="parkingAreaA"/>
-        <tranship to="EdgeCenter0" arrivalPos="2.50" lines="ANY"/>
+        <tranship to="EdgeCenter0" arrivalPos="2.50"/>
     </container>
 </routes>

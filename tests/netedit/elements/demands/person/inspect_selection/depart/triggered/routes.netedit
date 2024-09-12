@@ -9,12 +9,12 @@
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
-        <ride from="Edge0" to="Edge2" lines="ANY"/>
+        <ride from="Edge0" to="Edge2"/>
     </person>
     <person id="f_1" depart="triggered" departPos="11.00" color="blue">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>
-        <ride from="Edge1" to="Edge2" lines="ANY"/>
+        <ride from="Edge1" to="Edge2"/>
     </person>
 </routes>

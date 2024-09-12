@@ -16,7 +16,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <!-- Vehicles, persons and containers (sorted by depart) -->
     <container id="c_0" depart="0.00">
-        <transport from="Edge0" toTaz="taz_red" lines="ANY"/>
+        <transport from="Edge0" toTaz="taz_red"/>
         <tranship chargingStation="chargingStationA"/>
     </container>
 </routes>
