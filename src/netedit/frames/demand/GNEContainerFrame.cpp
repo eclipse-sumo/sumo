@@ -127,11 +127,11 @@ GNEContainerFrame::addContainer(const GNEViewNetHelper::ViewObjectsSelector& vie
             return myPlanCreator->addRoute(o);
         }
     }
-    if (!viewObjects.getLanes().empty()) {
-        return myPlanCreator->addEdge(viewObjects.getLanes().front());
-    }
     if (!viewObjects.getJunctions().empty()) {
         return myPlanCreator->addJunction(viewObjects.getJunctions().front());
+    }
+    if (!viewObjects.getLanes().empty()) {
+        return myPlanCreator->addEdge(viewObjects.getLanes().front());
     }
     if (!viewObjects.getTAZs().empty()) {
         return myPlanCreator->addTAZ(viewObjects.getTAZs().front());

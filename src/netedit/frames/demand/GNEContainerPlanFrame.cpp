@@ -136,10 +136,10 @@ GNEContainerPlanFrame::addContainerPlanElement(const GNEViewNetHelper::ViewObjec
     } else if (myPlanSelector->markStoppingPlaces() && viewObjects.getAdditionalFront() &&
                (viewObjects.getAdditionalFront()->getTagProperty().isStoppingPlace())) {
         return myPlanCreator->addStoppingPlace(viewObjects.getAdditionalFront());
-    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
-        return myPlanCreator->addEdge(viewObjects.getLaneFront());
     } else if (myPlanSelector->markJunctions() && viewObjects.getJunctionFront()) {
         return myPlanCreator->addJunction(viewObjects.getJunctionFront());
+    } else if (myPlanSelector->markEdges() && viewObjects.getLaneFront()) {
+        return myPlanCreator->addEdge(viewObjects.getLaneFront());
     } else if (myPlanSelector->markTAZs() && viewObjects.getTAZFront()) {
         return myPlanCreator->addTAZ(viewObjects.getTAZFront());
     } else {
