@@ -383,6 +383,9 @@ struct GNENetHelper {
         /// @brief clear additionals
         void clearAdditionals();
 
+        /// @brief update additional ID in container
+        void updateAdditionalID(GNEAdditional* additional, const std::string& newID);
+
         /// @brief generate additional id
         std::string generateAdditionalID(SumoXMLTag type) const;
 
