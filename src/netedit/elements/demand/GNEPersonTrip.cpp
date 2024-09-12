@@ -81,7 +81,7 @@ GNEPersonTrip::writeDemandElement(OutputDevice& device) const {
     if (myModes.size() > 0) {
         device.writeAttr(SUMO_ATTR_MODES, myModes);
     }
-    if (myLines.size() > 0 && (myLines.size() != 1 || myLines.front() != "ANY")) {
+    if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, myLines);
     }
     if (myVTypes.size() > 0) {
