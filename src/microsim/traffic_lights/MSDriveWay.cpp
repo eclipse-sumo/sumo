@@ -125,6 +125,10 @@ MSDriveWay::~MSDriveWay() {
         if (it != foe->myFoes.end()) {
             foe->myFoes.erase(it);
         }
+        auto it2 = foe->mySidings.find(this);
+        if (it2 != foe->mySidings.end()) {
+            foe->mySidings.erase(it2);
+        }
     }
     for (const MSLink* link : myForwardSwitches) {
         std::vector<MSDriveWay*>& dws = mySwitchDriveWays[link];
@@ -792,6 +796,18 @@ MSDriveWay::writeBlocks(OutputDevice& od) const {
             od.writeAttr("driveWays", joinToStringSorting(foes, " "));
             od.closeTag();
         }
+        for (auto item : mySidings) {
+            od.openTag("sidings");
+            od.writeAttr("foe", item.first->getID());
+            for (auto siding : item.second) {
+                od.openTag("siding");
+                od.writeAttr("start", siding.start);
+                od.writeAttr("end", siding.end);
+                od.writeAttr("length", siding.length);
+                od.closeTag();
+            }
+            od.closeTag();
+        }
     }
     od.closeTag(); // driveWay
 
@@ -1285,12 +1301,12 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
                     std::cout << " setting " << dw->getID() << " as foe of " << foe->getID() << "\n";
                 }
 #endif
-                foe->myFoes.push_back(dw);
+                foe->addFoeCheckSiding(dw);
             } else {
                 dw->buildSubFoe(foe, movingBlock);
             }
             if (dw->bidiBlockedByEnd(*foe)) {
-                dw->myFoes.push_back(foe);
+                dw->addFoeCheckSiding(foe);
             } else  {
                 foe->buildSubFoe(dw, movingBlock);
             }
@@ -1661,6 +1677,70 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
 #endif
+}
+
+void
+MSDriveWay::addFoeCheckSiding(MSDriveWay* foe) {
+    myFoes.push_back(foe);
+    const MSEdge* foeEndBidi = foe->myForward.back()->getEdge().getBidiEdge();
+    auto foeSearchBeg = foe->myRoute.begin() + foe->myForward.size();
+    auto foeSearchEnd = foe->myRoute.end();
+
+    if (foeEndBidi == nullptr) {
+        throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " noBidi\n");
+    }
+    int i;
+    int start = -1;
+    double length = 0;
+    for (i = (int)myRoute.size() - 1; i >= 0; i--) {
+        if (myRoute[i] == foeEndBidi) {
+            break;
+        }
+    }
+    if (i == -1) {
+        throw ProcessError("addFoeCheckSiding " + getID() + " foe=" + foe->getID() + " foeEndBidi=" + foeEndBidi->getID() + " not on route\n");
+    }
+    const MSEdge* next = myRoute[i];
+    i--;
+    for (; i >= 0; i--) {
+        const MSEdge* cur = myRoute[i];
+        if (start == -1) {
+            if (hasRS(cur, next)) {
+                if (std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge()) == foeSearchEnd) {
+                    start = i;
+                    length = cur->getLength();
+                }
+            }
+        } else {
+            auto itFind = std::find(foeSearchBeg, foeSearchEnd, cur->getBidiEdge());
+            //std::cout << "addFoeCheckSiding " << getID() << " foe=" << foe->getID() << " i=" << i << " curBidi=" << Named::getIDSecure(cur->getBidiEdge()) << " found=" << (itFind != foeSearchEnd) << "\n";
+            if (itFind != foeSearchEnd) {
+                mySidings[foe].push_back(Siding(i + 1, start, length));
+                start = -1;
+                length = 0;
+                foeSearchBeg = itFind;
+            } else {
+                length += cur->getLength();
+            }
+        }
+        next = cur;
+    }
+}
+
+
+bool 
+MSDriveWay::hasRS(const MSEdge* cur, const MSEdge* next) {
+    if (cur->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        // check if there is a controlled link between cur and next
+        for (auto lane : cur->getLanes()) {
+            for (const MSLink* link : lane->getLinkCont()) {
+                if (&link->getLane()->getEdge() == next && link->getTLLogic() != nullptr) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 

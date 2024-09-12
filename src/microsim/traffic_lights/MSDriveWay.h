@@ -145,6 +145,8 @@ public:
 
     static void init();
 
+    static bool hasRS(const MSEdge* cur, const MSEdge* next);
+
     /// @brief Whether veh must yield to the foe train
     static bool mustYield(const Approaching& veh, const Approaching& foe);
 
@@ -261,6 +263,9 @@ protected:
     /// @brief add all driveWays that start at the given link as foes
     void addFoes(const MSLink* link);
 
+    /// @brief add foe and update sidings
+    void addFoeCheckSiding(MSDriveWay* foe);
+
     /// @brief add all driveWays that pass the given link as foes
     void addSwitchFoes(const MSLink* link);
 
@@ -297,10 +302,19 @@ protected:
 
 private:
 
+    struct Siding {
+        Siding(int s, int e, double l) : start(s), end(e), length(l) {}
+        // indices along route
+        int start;
+        int end;
+        double length;
+    };
+
     std::set<SUMOVehicle*> myTrains;
 
     std::vector<VehicleEvent> myVehicleEvents;
     std::vector<MSDriveWay*> myFoes;
+    std::map<MSDriveWay*, std::vector<Siding>, ComparatorIdLess> mySidings;
 
     /* @brief shortened versions of this driveway to be used as foes instead of the long original
      * (ends as soon as the train has left a particular conflict section)
