@@ -5944,8 +5944,8 @@ GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
 
 void
 GNEViewNet::processLeftButtonPressDemand(void* eventData) {
-    // get front AC
-    const auto AC = myViewObjectsSelector.getAttributeCarrierFront();
+    // filter shapes (because POIs and polygons doesn't interact in demand mode)
+    myViewObjectsSelector.filterShapes();
     // decide what to do based on mode
     switch (myEditModes.demandEditMode) {
         case DemandEditMode::DEMAND_INSPECT: {
@@ -5958,13 +5958,15 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_DELETE: {
+            // filter locked elements
+            myViewObjectsSelector.filterLockedElements();
+            // get front AC
+            const auto frontAC = myViewObjectsSelector.getAttributeCarrierFront();
             // check conditions
-            if (AC) {
+            if (frontAC) {
                 // check if we are deleting a selection or an single attribute carrier
-                if (AC->isAttributeCarrierSelected()) {
-                    if (!AC->getGUIGlObject()->isGLObjectLocked()) {
-                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
-                    }
+                if (frontAC->isAttributeCarrierSelected()) {
+                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myViewObjectsSelector);
                 }
@@ -5993,11 +5995,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             }
             break;
         case DemandEditMode::DEMAND_MOVE: {
+            // filter locked elements
+            myViewObjectsSelector.filterLockedElements();
+            // get front AC
+            const auto frontAC = myViewObjectsSelector.getAttributeCarrierFront();
             // check that AC under cursor is a demand element
-            if (AC && !myLockManager.isObjectLocked(AC->getGUIGlObject()->getType(), AC->isAttributeCarrierSelected()) &&
-                    AC->getTagProperty().isDemandElement()) {
+            if (frontAC) {
                 // check if we're moving a set of selected items
-                if (AC->isAttributeCarrierSelected()) {
+                if (frontAC->isAttributeCarrierSelected()) {
                     // move selected ACs
                     myMoveMultipleElements.beginMoveSelection();
                     // update view
@@ -6023,6 +6028,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_VEHICLE: {
+            // filter additionals (except TAZs) and demands (except routes)
+            myViewObjectsSelector.filterAdditionals(true, false);
+            myViewObjectsSelector.filterDemandElements(false);
             // Handle click
             myViewParent->getVehicleFrame()->addVehicle(myViewObjectsSelector, myMouseButtonKeyPressed);
             // process click
@@ -6030,6 +6038,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_STOP: {
+            // filter additionals (except stoppingPlaces) and demands
+            myViewObjectsSelector.filterAdditionals(false, true);
+            myViewObjectsSelector.filterDemandElements(true);
             // Handle click
             if ((getPositionInformation() == myLastClickedPosition) && !myMouseButtonKeyPressed.controlKeyPressed()) {
                 WRITE_WARNING(TL("Control + click to create two stop in the same position"));
@@ -6044,6 +6055,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_PERSON: {
+            // filter additionals (except stoppingPlaces and TAZs)
+            myViewObjectsSelector.filterAdditionals(false, false);
+            // special case if we're creating person over walk routes
+            if (myViewParent->getPersonFrame()->getPlanSelector()->getCurrentPlanTagProperties().planRoute()) {
+                myViewObjectsSelector.filterDemandElements(false);
+            } else {
+                myViewObjectsSelector.filterDemandElements(true);
+            }
             // Handle click
             myViewParent->getPersonFrame()->addPerson(myViewObjectsSelector);
             // process click
@@ -6051,6 +6070,14 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
+            // filter additionals (except stoppingPlaces and TAZs)
+            myViewObjectsSelector.filterAdditionals(false, false);
+            // special case if we're creating person over walk routes
+            if (myViewParent->getPersonPlanFrame()->getPlanSelector()->getCurrentPlanTagProperties().planRoute()) {
+                myViewObjectsSelector.filterDemandElements(false);
+            } else {
+                myViewObjectsSelector.filterDemandElements(true);
+            }
             // Handle person plan click
             myViewParent->getPersonPlanFrame()->addPersonPlanElement(myViewObjectsSelector);
             // process click
@@ -6058,6 +6085,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_CONTAINER: {
+            // filter additionals (except stoppingPlaces and TAZs) and demands
+            myViewObjectsSelector.filterAdditionals(false, false);
+            myViewObjectsSelector.filterDemandElements(true);
             // Handle click
             myViewParent->getContainerFrame()->addContainer(myViewObjectsSelector);
             // process click
@@ -6065,6 +6095,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_CONTAINERPLAN: {
+            // filter additionals (except stoppingPlaces and TAZs) and demands
+            myViewObjectsSelector.filterAdditionals(false, false);
+            myViewObjectsSelector.filterDemandElements(true);
             // Handle container plan click
             myViewParent->getContainerPlanFrame()->addContainerPlanElement(myViewObjectsSelector);
             // process click
