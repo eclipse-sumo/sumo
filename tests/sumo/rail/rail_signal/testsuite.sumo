@@ -126,6 +126,10 @@ update_driveways
 # both sides of a siding are used in both directions
 siding_both_ways
 
+# both sides of a siding are used in both directions.
+# Check that all other foes are checked even after a usable siding is found for one foe.
+siding_both_ways_addTrain
+
 # both sides of a siding are used in both directions but the "wrong" way is only used by stumps
 siding_both_ways2
 
