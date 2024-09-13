@@ -938,7 +938,7 @@ NBEdgeCont::recheckLanes() {
         for (const NBEdge::Lane& l : edge->getLanes()) {
             if (startOffset + l.endOffset > edge->getLength()) {
                 WRITE_WARNINGF(TL("Invalid endOffset % at lane '%' with length % (startOffset %)."),
-                            toString(l.endOffset), edge->getLaneID(i), toString(l.shape.length()), toString(startOffset));
+                               toString(l.endOffset), edge->getLaneID(i), toString(l.shape.length()), toString(startOffset));
             } else if (l.speed < 0.) {
                 WRITE_WARNINGF(TL("Negative allowed speed (%) on lane '%', use --speed.minimum to prevent this."), toString(l.speed), edge->getLaneID(i));
             } else if (l.speed == 0.) {
@@ -2212,6 +2212,7 @@ NBEdgeCont::removeEdgesBySpeed(NBDistrictCont& dc) {
     return numRemoved;
 }
 
+
 int
 NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
     EdgeSet toRemove;
@@ -2236,4 +2237,39 @@ NBEdgeCont::removeEdgesByPermissions(NBDistrictCont& dc) {
     }
     return numRemoved;
 }
+
+
+int
+NBEdgeCont::removeLanesByWidth(NBDistrictCont& dc, const double minWidth) {
+    EdgeSet toRemove;
+    for (auto item : myEdges) {
+        NBEdge* const edge = item.second;
+        std::vector<int> indices;
+        int idx = 0;
+        for (const auto& lane : edge->getLanes()) {
+            if (lane.width != NBEdge::UNSPECIFIED_WIDTH && lane.width < minWidth) {
+                indices.push_back(idx);
+            }
+            idx++;
+        }
+        if (indices.size() == edge->getNumLanes()) {
+            toRemove.insert(edge);
+        } else {
+            for (const int i : indices) {
+                edge->deleteLane(i, false, true);
+            }
+        }
+    }
+    int numRemoved = 0;
+    for (NBEdge* edge : toRemove) {
+        // explicit whitelist overrides removal
+        if (myEdges2Keep.size() == 0 || myEdges2Keep.count(edge->getID()) == 0) {
+            extract(dc, edge);
+            numRemoved++;
+        }
+    }
+    return numRemoved;
+}
+
+
 /****************************************************************************/

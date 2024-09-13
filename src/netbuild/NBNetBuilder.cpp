@@ -129,6 +129,13 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             WRITE_MESSAGEF(TL(" Removed % edges based on vClass."), removed2);
         }
     }
+    if (mayAddOrRemove && oc.getFloat("keep-lanes.min-width") > 0.) {
+        const int removed = myEdgeCont.removeLanesByWidth(myDistrictCont, oc.getFloat("keep-lanes.min-width"));
+        if (removed > 0) {
+            numRemovedEdges += removed;
+            WRITE_MESSAGEF(TL(" Removed % edges because of lane width."), removed);
+        }
+    }
     // Processing pt stops and lines
     if (!myPTStopCont.getStops().empty()) {
         before = PROGRESS_BEGIN_TIME_MESSAGE(TL("Processing public transport stops"));

@@ -683,6 +683,9 @@ NBFrame::fillOptions(OptionsCont& oc, bool forNetgen) {
         oc.addDescription("remove-edges.isolated", "Edge Removal", TL("Removes isolated edges"));
     }
 
+    oc.doRegister("keep-lanes.min-width", new Option_Float(0.01));
+    oc.addDescription("keep-lanes.min-width", "Edge Removal", TL("Only keep lanes with width in meters > FLOAT"));
+
 
     // unregulated nodes options
     oc.doRegister("keep-nodes-unregulated", new Option_Bool(false));

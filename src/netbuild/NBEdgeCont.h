@@ -615,6 +615,7 @@ public:
     /// @brief return number of edges removed
     int removeEdgesBySpeed(NBDistrictCont& dc);
     int removeEdgesByPermissions(NBDistrictCont& dc);
+    int removeLanesByWidth(NBDistrictCont& dc, const double minWidth);
 
 private:
     /// @brief compute the form factor for a loop of edges
