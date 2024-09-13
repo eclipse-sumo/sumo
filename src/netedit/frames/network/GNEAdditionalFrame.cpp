@@ -269,7 +269,7 @@ GNEAdditionalFrame::createPath(const bool /* useLastRoute */) {
             // fill netedit attributes
             if (myNeteditAttributes->getNeteditAttributesAndValues(myBaseAdditional, nullptr)) {
                 // Check if ID has to be generated
-                if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+                if (tagProperty.hasAttribute(SUMO_ATTR_ID)) {
                     myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperty.getTag()));
                 }
                 // add lane IDs
@@ -466,7 +466,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(GNELane* lane, const GNETagPropertie
         // Check if ID has to be generated
         if (tagProperties.getTag() == SUMO_TAG_VAPORIZER) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, lane->getParentEdge()->getID());
-        } else if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+        } else if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
@@ -504,7 +504,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         // Get attribute lane
         myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
         // Check if ID has to be generated
-        if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+        if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {
@@ -566,7 +566,7 @@ GNEAdditionalFrame::buildAdditionalOverView(const GNETagProperties& tagPropertie
         return false;
     }
     // Check if ID has to be generated
-    if (!myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
+    if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
         myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
     }
     // Obtain position as the clicked position over view
