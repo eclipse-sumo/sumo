@@ -460,7 +460,6 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     myNet->expandBoundary(junction->getCenteringBoundary());
     // add edge into grid
     myNet->addGLObjectIntoGrid(junction);
-    junction->setJunctionInGrid();
     // update geometry
     junction->updateGeometry();
     // add z in net boundary

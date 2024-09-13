@@ -156,14 +156,6 @@ public:
     /// @brief return GNEJunction neighbours
     std::vector<GNEJunction*> getJunctionNeighbours() const;
 
-    /// @brief check if junction is currently in grid
-    bool isJunctionInGrid() const;
-
-    /// @brief notify the junction as being in the RTree
-    void setJunctionInGrid() {
-        myJunctionInGrid = true;
-    }
-
     /// @brief add incoming GNEEdge
     void addIncomingGNEEdge(GNEEdge* edge);
 
@@ -315,9 +307,6 @@ protected:
 
     /// @brief edge boundary
     Boundary myJunctionBoundary;
-
-    /// @brief flag for check if junction is currently in grid
-    bool myJunctionInGrid = true;
 
     /// @brief drawing toggle (used to avoid double draws)
     int* myDrawingToggle;
