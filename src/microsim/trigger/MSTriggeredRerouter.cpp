@@ -539,15 +539,16 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
     if (rerouteDef->closed.empty() || destUnreachable || rerouteDef->isVia || affected(tObject.getUpcomingEdgeIDs(), rerouteDef->closed)) {
         if (tObject.isVehicle()) {
             SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+            const bool canChangeDest = rerouteDef->edgeProbs.getOverallProb() > 0;
             MSVehicleRouter& router = hasReroutingDevice
                                       ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass(), rerouteDef->closed)
                                       : MSNet::getInstance()->getRouterTT(veh.getRNGIndex(), rerouteDef->closed);
-            router.compute(veh.getEdge(), newEdge, &veh, now, edges);
-            if (edges.size() == 0 && !keepDestination && rerouteDef->edgeProbs.getOverallProb() > 0) {
+            bool ok = veh.reroute(now, getID(), router, false, false, canChangeDest, newEdge);
+            if (!ok && !keepDestination && canChangeDest) {
                 // destination unreachable due to closed intermediate edges. pick among alternative targets
                 RandomDistributor<MSEdge*> edgeProbs2 = rerouteDef->edgeProbs;
                 edgeProbs2.remove(const_cast<MSEdge*>(newEdge));
-                while (edges.size() == 0 && edgeProbs2.getVals().size() > 0) {
+                while (!ok && edgeProbs2.getVals().size() > 0) {
                     newEdge = edgeProbs2.get();
                     edgeProbs2.remove(const_cast<MSEdge*>(newEdge));
                     if (newEdge == &mySpecialDest_terminateRoute) {
@@ -558,23 +559,18 @@ MSTriggeredRerouter::triggerRouting(SUMOTrafficObject& tObject, MSMoveReminder::
                         newEdge = lastEdge;
                         break;
                     }
-                    router.compute(veh.getEdge(), newEdge, &veh, now, edges);
+                    ok = veh.reroute(now, getID(), router, false, false, true, newEdge);
                 }
 
             }
             if (!rerouteDef->isVia) {
-                const double routeCost = router.recomputeCosts(edges, &veh, now);
-                hasReroutingDevice
-                ? MSRoutingEngine::getRouterTT(veh.getRNGIndex(), veh.getVClass())
-                : MSNet::getInstance()->getRouterTT(veh.getRNGIndex()); // reset closed edges
-                const bool useNewRoute = veh.replaceRouteEdges(edges, routeCost, 0, getID());
 #ifdef DEBUG_REROUTER
                 if (DEBUGCOND) std::cout << "   rerouting:  newDest=" << newEdge->getID()
                                              << " newEdges=" << toString(edges)
                                              << " useNewRoute=" << useNewRoute << " newArrivalPos=" << newArrivalPos << " numClosed=" << rerouteDef->closed.size()
                                              << " destUnreachable=" << destUnreachable << " containsClosed=" << veh.getRoute().containsAnyOf(rerouteDef->closed) << "\n";
 #endif
-                if (useNewRoute && newArrivalPos != -1) {
+                if (ok && newArrivalPos != -1) {
                     // must be called here because replaceRouteEdges may also set the arrivalPos
                     veh.setArrivalPos(newArrivalPos);
                 }
