@@ -109,7 +109,7 @@ public:
 
     /**@brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
-     * @note only use in GNEViewNet constructor
+     * @note only use in GNEViewNet constructor. For edit grid ALWAYS use addGLObjectIntoGrid/removeGLObjectIntoGrid
      */
     SUMORTree& getGrid();
 

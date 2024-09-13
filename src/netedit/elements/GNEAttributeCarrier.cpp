@@ -54,9 +54,7 @@ const std::string GNEAttributeCarrier::False = toString(false);
 
 GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myTagProperty(getTagProperty(tag)),
-    myNet(net),
-    mySelected(false),
-    myIsTemplate(false) {
+    myNet(net) {
 }
 
 
@@ -122,6 +120,18 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
     } else {
         return false;
     }
+}
+
+
+void
+GNEAttributeCarrier::setInGrid(bool value) {
+    myInGrid = value;
+}
+
+
+bool
+GNEAttributeCarrier::inGrid() const {
+    return myInGrid;
 }
 
 

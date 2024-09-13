@@ -86,6 +86,16 @@ public:
     /// @brief get GNEHierarchicalElement associated with this AttributeCarrier
     virtual GNEHierarchicalElement* getHierarchicalElement() = 0;
 
+    /// @name Function related with grid (needed for elements that aren't always in grid)
+    /// @{
+    /// @brief mark if this AC was inserted in grid or not
+    void setInGrid(bool value);
+
+    /// @brief check if this AC was inserted in grid
+    bool inGrid() const;
+
+    /// @}
+
     /// @name Function related with graphics (must be implemented in all children)
     /// @{
     /// @brief get GUIGlObject associated with this AttributeCarrier
@@ -330,13 +340,16 @@ protected:
     const GNETagProperties& myTagProperty;
 
     /// @brief pointer to net
-    GNENet* myNet;
+    GNENet* myNet = nullptr;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
-    bool mySelected;
+    bool mySelected = false;
+
+    /// @brief boolean to check if this AC is in grid
+    bool myInGrid = false;
 
     /// @brief whether the current object is a template object (not drawn in the view)
-    bool myIsTemplate;
+    bool myIsTemplate = false;
 
     /// @brief method for enable or disable the attribute and nothing else (used in GNEChange_ToggleAttribute)
     virtual void toggleAttribute(SumoXMLAttr key, const bool value);
