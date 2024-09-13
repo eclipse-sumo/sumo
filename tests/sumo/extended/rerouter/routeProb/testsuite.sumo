@@ -1,0 +1,11 @@
+# routeProbRreroute that filters by vehicle type
+# 
+routeProb_type
+
+# routeProbRreroute on a short edge cannot send the vehicle on a different route if it's already comitted to another one.
+# 
+routeProb_pastEdge
+
+# test lane changing on the rerouter edge (#10943)
+# 
+routeProb_multiLane

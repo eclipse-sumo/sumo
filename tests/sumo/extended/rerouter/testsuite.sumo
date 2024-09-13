@@ -7,6 +7,7 @@
 # - ignore-route-errors on/off
 closingReroute
 closingLaneReroute
+routeProb
 
 # circular route tests
 cyclic_route
@@ -29,18 +30,6 @@ closing_and_dest_prob_and_specialDestinations
 # Vehicles that do not drive through the closed area should not be affected
 closing_and_dest_prob_unaffected
 closing_timeThreshold
-
-# routeProbRreroute that filters by vehicle type
-# 
-routeProb_type
-
-# routeProbRreroute on a short edge cannot send the vehicle on a different route if it's already comitted to another one.
-# 
-routeProb_pastEdge
-
-# test lane changing on the rerouter edge (#10943)
-# 
-routeProb_multiLane
 
 # closing an edge with probability 0.5
 closing_with_prob
