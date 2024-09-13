@@ -605,6 +605,9 @@ public:
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool checkMergeJunctions();
 
+    /// @brief ask merge junctions
+    bool askMergeJunctions(const GNEJunction* movedJunction, const GNEJunction* targetJunction);
+
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);
 

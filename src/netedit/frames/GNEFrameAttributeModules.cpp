@@ -485,10 +485,11 @@ GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, c
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
-        for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+        for (const auto& targetjunction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
-            if (junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) {
-                viewNet->getNet()->mergeJunctions(movedJunction, junction.second, viewNet->getUndoList());
+            if ((targetjunction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
+                    viewNet->askMergeJunctions(movedJunction, targetjunction.second)) {
+                viewNet->getNet()->mergeJunctions(movedJunction, targetjunction.second, viewNet->getUndoList());
                 return true;
             }
         }
