@@ -1108,7 +1108,7 @@ MSVehicle::hasArrived() const {
 bool
 MSVehicle::hasArrivedInternal(bool oppositeTransformed) const {
     return ((myCurrEdge == myRoute->end() - 1 || (myParameter->arrivalEdge >= 0 && getRoutePosition() >= myParameter->arrivalEdge))
-            && (myStops.empty() || myStops.front().edge != myCurrEdge)
+            && (myStops.empty() || myStops.front().edge != myCurrEdge || myStops.front().getSpeed() > 0)
             && ((myLaneChangeModel->isOpposite() && !oppositeTransformed) ? myLane->getLength() - myState.myPos : myState.myPos) > myArrivalPos - POSITION_EPS
             && !isRemoteControlled());
 }
