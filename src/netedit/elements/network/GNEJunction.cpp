@@ -212,6 +212,15 @@ GNEJunction::checkDrawToContour() const {
                     (viewParent->getCreateEdgeFrame()->getJunctionSource() != this)) {
                 return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
             }
+        } else if (modes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            // check if we're moving a junction
+            const auto movedJunction = dynamic_cast<GNEJunction*>(myNet->getViewNet()->getMoveSingleElementValues().getMovedElement());
+            if (movedJunction && (movedJunction != this)) {
+                // calculate distance between both centers
+                const double junctionBubbleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius;
+                const double radiusTo = getExaggeration(myNet->getViewNet()->getVisualisationSettings()) * junctionBubbleRadius;
+                return myNBNode->getPosition().distanceSquaredTo2D(movedJunction->getPositionInView()) < (radiusTo * radiusTo);
+            }
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
