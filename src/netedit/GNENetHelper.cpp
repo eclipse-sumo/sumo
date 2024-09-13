@@ -69,6 +69,9 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     auto demandElementTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::DEMANDELEMENT, false);
     for (const auto& demandElementTagProperty : demandElementTagProperties) {
         myDemandElements.insert(std::make_pair(demandElementTagProperty.getTag(), std::map<const GUIGlObject*, GNEDemandElement*>()));
+        if (demandElementTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+            myDemandElementIDs.insert(std::make_pair(demandElementTagProperty.getTag(), std::map<const std::string, GNEDemandElement*>()));
+        }
     }
     auto stopTagProperties = GNEAttributeCarrier::getTagPropertiesByType(GNETagProperties::TagType::VEHICLESTOP, false);
     for (const auto& stopTagProperty : stopTagProperties) {
@@ -1340,10 +1343,9 @@ GNENetHelper::AttributeCarriers::getNumberOfSelectedWires() const {
 
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
-    for (const auto& demandElement : myDemandElements.at(type)) {
-        if (demandElement.second->getID() == id) {
-            return demandElement.second;
-        }
+    auto it = myDemandElementIDs.at(type).find(id);
+    if (it != myDemandElementIDs.at(type).end()) {
+        return it->second;
     }
     if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant demand element (string)");
@@ -1356,10 +1358,9 @@ GNENetHelper::AttributeCarriers::retrieveDemandElement(SumoXMLTag type, const st
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::retrieveDemandElements(std::vector<SumoXMLTag> types, const std::string& id, bool hardFail) const {
     for (const auto& type : types) {
-        for (const auto& demandElement : myDemandElements.at(type)) {
-            if (demandElement.second->getID() == id) {
-                return demandElement.second;
-            }
+        auto it = myDemandElementIDs.at(type).find(id);
+        if (it != myDemandElementIDs.at(type).end()) {
+            return it->second;
         }
     }
     if (hardFail) {
@@ -1497,10 +1498,9 @@ GNENetHelper::AttributeCarriers::generateDemandElementID(SumoXMLTag tag) const {
 
 GNEDemandElement*
 GNENetHelper::AttributeCarriers::getDefaultType() const {
-    for (const auto& vType : myDemandElements.at(SUMO_TAG_VTYPE)) {
-        if (vType.second->getID() == DEFAULT_VTYPE_ID) {
-            return vType.second;
-        }
+    auto it = myDemandElementIDs.at(SUMO_TAG_VTYPE).find(DEFAULT_VTYPE_ID);
+    if (it != myDemandElementIDs.at(SUMO_TAG_VTYPE).end()) {
+        return it->second;
     }
     throw ProcessError(TL("Default vType doesn't exist"));
 }
@@ -1518,6 +1518,25 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
     for (auto& demandElements : myDemandElements) {
         demandElements.second.clear();
     }
+    for (auto& demandElements : myDemandElementIDs) {
+        demandElements.second.clear();
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateDemandElementID(GNEDemandElement* demandElement, const std::string& newID) {
+    const auto tag = demandElement->getTagProperty().getTag();
+    const auto it = myDemandElementIDs.at(tag).find(demandElement->getID());
+    if (it == myDemandElementIDs.at(tag).end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in AttributeCarriers.demandElements");
+    } else {
+        // remove from container, set new Id, and insert it again
+        myDemandElementIDs.at(tag).erase(it);
+        // set microsim ID
+        demandElement->setMicrosimID(newID);
+        myDemandElementIDs.at(tag)[newID] = demandElement;
+    }
 }
 
 
@@ -1526,35 +1545,41 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultVehicleType = new GNEVType(myNet, DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getGUIGlObject(), defaultVehicleType));
+    myDemandElementIDs.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
     defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
 
     // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultBikeType = new GNEVType(myNet, DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getGUIGlObject(), defaultBikeType));
+    myDemandElementIDs.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
     defaultBikeType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
 
     // Create default taxi Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultTaxiType = new GNEVType(myNet, DEFAULT_TAXITYPE_ID, SVC_TAXI);
     myDemandElements.at(defaultTaxiType->getTagProperty().getTag()).insert(std::make_pair(defaultTaxiType->getGUIGlObject(), defaultTaxiType));
+    myDemandElementIDs.at(defaultTaxiType->getTagProperty().getTag()).insert(std::make_pair(defaultTaxiType->getID(), defaultTaxiType));
     defaultTaxiType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultTaxiType->incRef("GNENet::DEFAULT_TAXITYPE_ID");
 
     // Create default rail Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultRailType = new GNEVType(myNet, DEFAULT_RAILTYPE_ID, SVC_RAIL);
     myDemandElements.at(defaultRailType->getTagProperty().getTag()).insert(std::make_pair(defaultRailType->getGUIGlObject(), defaultRailType));
+    myDemandElementIDs.at(defaultRailType->getTagProperty().getTag()).insert(std::make_pair(defaultRailType->getID(), defaultRailType));
     defaultRailType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultRailType->incRef("GNENet::DEFAULT_RAILTYPE_ID");
 
     // Create default person Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultPersonType = new GNEVType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getGUIGlObject(), defaultPersonType));
+    myDemandElementIDs.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
     defaultPersonType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 
     // Create default container Type (it has to be created here due myViewNet was previously nullptr)
     GNEVType* defaultContainerType = new GNEVType(myNet, DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     myDemandElements.at(defaultContainerType->getTagProperty().getTag()).insert(std::make_pair(defaultContainerType->getGUIGlObject(), defaultContainerType));
+    myDemandElementIDs.at(defaultContainerType->getTagProperty().getTag()).insert(std::make_pair(defaultContainerType->getID(), defaultContainerType));
     defaultContainerType->parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     defaultContainerType->incRef("GNENet::DEFAULT_CONTAINERTYPE_ID");
 }
@@ -2495,10 +2520,14 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
 
 void
 GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandElement) {
-    if (myDemandElements.at(demandElement->getTagProperty().getTag()).count(demandElement) > 0) {
+    const auto tag = demandElement->getTagProperty().getTag();
+    if (myDemandElements.at(tag).count(demandElement) > 0) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     } else {
-        myDemandElements.at(demandElement->getTagProperty().getTag())[demandElement->getGUIGlObject()] = demandElement;
+        myDemandElements.at(tag)[demandElement->getGUIGlObject()] = demandElement;
+        if (demandElement->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+            myDemandElementIDs.at(tag)[demandElement->getID()] = demandElement;
+        }
     }
     // add element in grid
     myNet->addGLObjectIntoGrid(demandElement);
@@ -2519,10 +2548,11 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 
 void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, const bool updateFrames) {
+    const auto tag = demandElement->getTagProperty().getTag();
     // find demanElement in demandElementTag
-    auto itFind = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getGUIGlObject());
+    auto itFind = myDemandElements.at(tag).find(demandElement->getGUIGlObject());
     // check if demandElement was previously inserted
-    if (itFind == myDemandElements.at(demandElement->getTagProperty().getTag()).end()) {
+    if (itFind == myDemandElements.at(tag).end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' wasn't previously inserted");
     }
     // remove it from inspected elements and GNEElementTree
@@ -2535,7 +2565,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         myNet->getViewNet()->setLastCreatedRoute(nullptr);
     }
     // erase it from container
-    myDemandElements.at(demandElement->getTagProperty().getTag()).erase(itFind);
+    myDemandElements.at(tag).erase(itFind);
+    if (demandElement->getTagProperty().hasAttribute(SUMO_ATTR_ID)) {
+        myDemandElementIDs.at(tag).erase(myDemandElementIDs.at(tag).find(demandElement->getID()));
+    }
     // remove element from grid
     myNet->removeGLObjectFromGrid(demandElement);
     // delete path element

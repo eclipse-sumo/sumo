@@ -406,8 +406,10 @@ GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag>& tags, co
 
 void
 GNEDemandElement::setDemandElementID(const std::string& newID) {
-    // set microsim ID
-    setMicrosimID(newID);
+    // update ID
+    if (!isTemplate()) {
+        myNet->getAttributeCarriers()->updateDemandElementID(this, newID);
+    }
     // check if update ids of child elements
     if (myTagProperty.isPerson() || myTagProperty.isContainer()) {
         // Change IDs of all person plans children (stops, embedded routes...)

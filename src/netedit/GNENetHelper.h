@@ -461,6 +461,9 @@ struct GNENetHelper {
         /// @brief clear demand elements
         void clearDemandElements();
 
+        /// @brief update demand element ID in container
+        void updateDemandElementID(GNEDemandElement* demandElement, const std::string& newID);
+
         /// @brief add default VTypes
         void addDefaultVTypes();
 
