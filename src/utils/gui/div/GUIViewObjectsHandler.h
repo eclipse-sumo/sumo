@@ -28,6 +28,7 @@
 // class declaration
 // ===========================================================================
 
+class GNEJunction;
 class GNEEdge;
 class GNELane;
 class GNERoute;
@@ -126,6 +127,12 @@ public:
     /// @brief isolate edge geometry points (used for moving)
     void isolateEdgeGeometryPoints();
 
+    /// @brief get merging junctions
+    const std::vector<const GNEJunction*>& getMergingJunctions() const;
+
+    /// @brief add to merging junctions (used for marking junctions to merge)
+    bool addMergingJunctions(const GNEJunction* junction);
+
     /// @brief recompute boundaries
     GUIGlObjectType recomputeBoundaries = GLO_NETWORK;
 
@@ -165,6 +172,9 @@ protected:
 
     /// @brief empty geometry points
     std::vector<int> myEmptyGeometryPoints;
+
+    /// @brief merging junctions
+    std::vector<const GNEJunction*> myMergingJunctions;
 
 private:
     /// @brief set copy constructor private
