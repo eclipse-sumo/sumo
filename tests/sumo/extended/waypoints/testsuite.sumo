@@ -22,6 +22,9 @@ until_late
 # no stopping necessary if the train passes after the until-time
 until_late_parking
 
+# stop is at the end of the route
+until_late_parking2
+
 # using waypoint with attribute 'until' should trigger stopping if the vehicle arrives too early
 until_busStop_parking
 
