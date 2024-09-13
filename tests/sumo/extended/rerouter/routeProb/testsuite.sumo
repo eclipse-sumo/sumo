@@ -9,3 +9,6 @@ routeProb_pastEdge
 # test lane changing on the rerouter edge (#10943)
 # 
 routeProb_multiLane
+
+# replacement route has stops
+with_stops
