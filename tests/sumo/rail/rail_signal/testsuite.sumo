@@ -126,14 +126,11 @@ update_driveways
 # both sides of a siding are used in both directions
 siding_both_ways
 
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps
+siding_both_ways2
+
 # siding cannot be used because it is already occupied
 siding_deadlock
 
 # siding cannot be used because the trains are too long
 sidingShort_deadlock
-
-# siding only has a signal on one side
-siding_oneSide
-
-# siding only has a signal on one side
-siding_oneSide_slow
