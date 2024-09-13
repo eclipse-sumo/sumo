@@ -864,10 +864,12 @@ GNEViewNet::showJunctionAsBubbles() const {
 
 
 bool
-GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction) {
-    if (movedJunction && targetJunction &&
-            !movedJunction->isAttributeCarrierSelected() && !targetJunction->isAttributeCarrierSelected() &&
-            (movedJunction != targetJunction)) {
+GNEViewNet::checkMergeJunctions() {
+    // first check if there are junctions to merging
+    if (gViewObjectsHandler.getMergingJunctions().size() > 1) {
+        // get junctions (this call is neccesary because merging junctions are constants)
+        auto movedJunction = myNet->getAttributeCarriers()->retrieveJunction(gViewObjectsHandler.getMergingJunctions().at(0)->getID());
+        auto targetJunction = myNet->getAttributeCarriers()->retrieveJunction(gViewObjectsHandler.getMergingJunctions().at(1)->getID());
         // optionally ask for confirmation
         if (!myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");

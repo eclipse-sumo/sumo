@@ -477,17 +477,18 @@ GNEFrameAttributeModules::AttributesEditorRow::stripWhitespaceAfterComma(const s
 
 bool
 GNEFrameAttributeModules::AttributesEditorRow::mergeJunction(SumoXMLAttr attr, const std::vector<GNEAttributeCarrier*>& inspectedACs, const std::string& newVal) const {
+    auto viewNet = myAttributesEditorParent->getFrameParent()->getViewNet();
     // check if we're editing junction position
     if ((inspectedACs.size() == 1) && (inspectedACs.front()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) && (attr == SUMO_ATTR_POSITION)) {
         // retrieve original junction
-        GNEJunction* movedJunction = myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->retrieveJunction(inspectedACs.front()->getID());
+        GNEJunction* movedJunction = viewNet->getNet()->getAttributeCarriers()->retrieveJunction(inspectedACs.front()->getID());
         // parse position
         const Position newPosition = GNEAttributeCarrier::parse<Position>(newVal);
         // iterate over network junction
-        for (const auto& junction : myAttributesEditorParent->getFrameParent()->getViewNet()->getNet()->getAttributeCarriers()->getJunctions()) {
+        for (const auto& junction : viewNet->getNet()->getAttributeCarriers()->getJunctions()) {
             // check distance position
-            if ((junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) &&
-                    myAttributesEditorParent->getFrameParent()->getViewNet()->mergeJunctions(movedJunction, junction.second)) {
+            if (junction.second->getPositionInView().distanceTo2D(newPosition) < POSITION_EPS) {
+                viewNet->getNet()->mergeJunctions(movedJunction, junction.second, viewNet->getUndoList());
                 return true;
             }
         }

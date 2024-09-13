@@ -603,7 +603,7 @@ public:
     bool showJunctionAsBubbles() const;
 
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
+    bool checkMergeJunctions();
 
     /// @brief ask about change supermode
     bool aksChangeSupermode(const std::string& operation, Supermode expectedSupermode);

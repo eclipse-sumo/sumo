@@ -219,7 +219,12 @@ GNEJunction::checkDrawToContour() const {
                 // calculate distance between both centers
                 const double junctionBubbleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius;
                 const double radiusTo = getExaggeration(myNet->getViewNet()->getVisualisationSettings()) * junctionBubbleRadius;
-                return myNBNode->getPosition().distanceSquaredTo2D(movedJunction->getPositionInView()) < (radiusTo * radiusTo);
+                if (myNBNode->getPosition().distanceSquaredTo2D(movedJunction->getPositionInView()) < (radiusTo * radiusTo)) {
+                    // add it in the list of merging junction (first the moved junction)
+                    gViewObjectsHandler.addMergingJunctions(movedJunction);
+                    gViewObjectsHandler.addMergingJunctions(this);
+                    return true;
+                }
             }
         }
     } else if (modes.isCurrentSupermodeDemand()) {
@@ -1986,14 +1991,6 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
 
 void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
-    // check if there is another junction in the same position
-    GNEJunction* secondJunction = nullptr;
-    const auto& clickedJunctions = myNet->getViewNet()->getViewObjectsSelector().getJunctions();
-    for (auto it = clickedJunctions.begin(); (it != clickedJunctions.end()) && (secondJunction == nullptr); it++) {
-        if (*it != this) {
-            secondJunction = *it;
-        }
-    }
     // make sure that newShape isn't empty
     if (moveResult.shapeToUpdate.size() > 0) {
         // check if we're editing a shape
@@ -2002,9 +1999,11 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
             undoList->begin(this, "moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             setAttribute(SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate), undoList);
             undoList->end();
-        } else if (!myNet->getViewNet()->mergeJunctions(this, secondJunction)) {
+        } else {
             setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front()), undoList);
         }
+        // check merge junctions
+        myNet->getViewNet()->checkMergeJunctions();
     }
 }
 
