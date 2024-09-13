@@ -513,7 +513,13 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                 }
                 /// @todo: if foe occupies more than one edge we should add all of them to the occupied vector
             }
-            return !canUseSiding(ego, foeDW);
+            bool useSiding = canUseSiding(ego, foeDW);
+            if (useSiding) {
+                //std::cout << SIMTIME << " " << getID() << " ego=" << ego->getID() << " foeDW=" << foeDW->getID() << " myFoes=" << toString(myFoes) << "\n";
+                continue;
+            } else {
+                return true;
+            }
         } else if (foeDW != this && isDepartDriveway() && !foeDW->isDepartDriveway()) {
             if (foeDW->myOrigin->getApproaching().size() > 0) {
                 Approaching foeA = foeDW->myOrigin->getClosest();
@@ -523,7 +529,13 @@ MSDriveWay::foeDriveWayOccupied(bool store, const SUMOVehicle* ego, MSEdgeVector
                     if (firstIt != foe->getRoute().end()) {
                         if (foeDW->match(foe->getRoute(), firstIt)) {
                             //std::cout << SIMTIME << " " << getID() << " blocked by " << foeDW->getID() << " (approached by " << foe->getID() << ")\n";
-                            return !canUseSiding(ego, foeDW);
+                            bool useSiding = canUseSiding(ego, foeDW);
+                            if (useSiding) {
+                                //std::cout << SIMTIME << " " << getID() << " ego=" << ego->getID() << " foeDW=" << foeDW->getID() << " myFoes=" << toString(myFoes) << "\n";
+                                continue;
+                            } else {
+                                return true;
+                            }
                         }
                     }
                 }
