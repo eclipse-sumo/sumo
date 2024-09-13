@@ -26,6 +26,7 @@
 #include <netbuild/NBOwnTLDef.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/demand/GNEPlanParents.h>
 #include <netedit/frames/demand/GNEVehicleFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
@@ -154,6 +155,14 @@ GNEJunction::checkDrawFromContour() const {
         if (inspectedAC->hasAttribute(SUMO_ATTR_FROM_JUNCTION) && (inspectedAC->getAttribute(SUMO_ATTR_FROM_JUNCTION) == getID())) {
             return true;
         }
+    } else if (modes.isCurrentSupermodeNetwork()) {
+        if (modes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+            if (viewParent->getCreateEdgeFrame()->getJunctionSource()) {
+                return viewParent->getCreateEdgeFrame()->getJunctionSource() == this;
+            } else {
+                return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
+            }
+        }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
         GNEPlanCreator* planCreator = nullptr;
@@ -196,6 +205,13 @@ GNEJunction::checkDrawToContour() const {
         // check if ends in this junction
         if (inspectedAC->getTagProperty().vehicleJunctions() && (inspectedAC->getAttribute(SUMO_ATTR_TO_JUNCTION) == getID())) {
             return true;
+        }
+    } else if (modes.isCurrentSupermodeNetwork()) {
+        if (modes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+            if (viewParent->getCreateEdgeFrame()->getJunctionSource() &&
+                    (viewParent->getCreateEdgeFrame()->getJunctionSource() != this)) {
+                return myNet->getViewNet()->getViewObjectsSelector().getJunctionFront() == this;
+            }
         }
     } else if (modes.isCurrentSupermodeDemand()) {
         // get current GNEPlanCreator
