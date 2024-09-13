@@ -1,3 +1,4 @@
-Warning: Vehicle 'flow.20' performs emergency braking on lane 'beg_2' with decel=9.00, wished=4.50, severity=1.00, time=21.00.
-Warning: Vehicle 'flow.20' performs emergency stop at the end of lane 'beg_1' because there is no connection to the next edge (decel=-18.80, offset=0.50), time=22.00.
-Warning: Vehicle 'flow.22' performs emergency braking on lane 'beg_1' with decel=9.00, wished=4.50, severity=1.00, time=23.00.
+Warning: No connection between edge 'beg2' and edge 'end' found.
+Warning: No route for vehicle 'flow.20' found.
+Warning: No connection between edge 'beg2' and edge 'end' found.
+Warning: No route for vehicle 'flow.21' found.
