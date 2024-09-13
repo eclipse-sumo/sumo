@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-21 14:21:29 by Eclipse SUMO netgenerate Version v1_14_1+14496-f6b8788bf11
+<!-- generated on 2024-09-12 14:47:37 by Eclipse SUMO netgenerate Version v1_20_0+1963-cf76c26275c
 -->
 
 <netgenerateConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -506,6 +506,9 @@
 
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
         <keep-edges.in-geo-boundary value="" type="STR[]"/>
+
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
 
     </edge_removal>
 

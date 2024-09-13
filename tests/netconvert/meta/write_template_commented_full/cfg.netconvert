@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-08-20 15:07:12 by Eclipse SUMO netconvert Version v1_14_1+14469-45ab8384f8c
+<!-- generated on 2024-09-12 14:47:37 by Eclipse SUMO netconvert Version v1_20_0+1963-cf76c26275c
 -->
 
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -620,6 +620,9 @@
 
         <!-- Removes isolated edges -->
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL"/>
+
+        <!-- Only keep lanes with width in meters &gt; FLOAT -->
+        <keep-lanes.min-width value="0.01" type="FLOAT"/>
 
     </edge_removal>
 

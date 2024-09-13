@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_20_0+1699-94bb18538d6
+Eclipse SUMO netgenerate Version v1_20_0+1963-cf76c26275c
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -348,6 +348,8 @@ Edge Removal Options:
                                         GEODETIC corner coordinates
                                         <lon-min,lat-min,lon-max,lat-max> or as
                                         polygon <lon0,lat0,lon1,lat1,...>)
+  --keep-lanes.min-width FLOAT         Only keep lanes with width in meters >
+                                        FLOAT
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated

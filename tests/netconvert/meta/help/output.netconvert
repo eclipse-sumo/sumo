@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_20_0+1699-94bb18538d6
+Eclipse SUMO netconvert Version v1_20_0+1963-cf76c26275c
  Copyright (C) 2001-2024 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -403,6 +403,8 @@ Edge Removal Options:
                                         connected components
   --remove-edges.by-type STR[]         Remove edges where type is in STR[]
   --remove-edges.isolated              Removes isolated edges
+  --keep-lanes.min-width FLOAT         Only keep lanes with width in meters >
+                                        FLOAT
 
 Unregulated Nodes Options:
   --keep-nodes-unregulated             All nodes will be unregulated
