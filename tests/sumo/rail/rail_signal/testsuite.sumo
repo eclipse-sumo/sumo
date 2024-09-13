@@ -133,6 +133,11 @@ siding_both_ways_addTrain
 # both sides of a siding are used in both directions but the "wrong" way is only used by stumps
 siding_both_ways2
 
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps.
+# 
+# One of the driveways doesn't have the terminateRoute flag.
+siding_both_ways3
+
 # siding cannot be used because it is already occupied
 siding_deadlock
 
