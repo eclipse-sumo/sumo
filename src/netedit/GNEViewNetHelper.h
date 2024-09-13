@@ -1053,6 +1053,9 @@ struct GNEViewNetHelper {
         /// @brief check if there are moving elements
         bool isCurrentlyMovingSingleElement() const;
 
+        /// @brief get moved element
+        GNEMoveElement* getMovedElement() const;
+
     protected:
         /// @brief calculate offset
         const GNEMoveOffset calculateMoveOffset() const;
@@ -1065,7 +1068,7 @@ struct GNEViewNetHelper {
         Position myRelativeClickedPosition;
 
         /// @brief move operations
-        std::vector<GNEMoveOperation*> myMoveOperations;
+        GNEMoveOperation* myMoveOperation = nullptr;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements

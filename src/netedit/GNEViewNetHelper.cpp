@@ -1185,7 +1185,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getJunctionFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1195,7 +1195,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getLaneFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1205,7 +1205,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getCrossingFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1215,7 +1215,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getConnectionFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1225,7 +1225,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveNetworkElementShape() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getWalkingAreaFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1249,7 +1249,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPolyFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1259,7 +1259,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getPOIFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1269,7 +1269,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getAdditionalFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1281,7 +1281,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
             GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
+                myMoveOperation = moveOperation;
                 return true;
             } else {
                 return false;
@@ -1291,7 +1291,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
             GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getJunctionFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
+                myMoveOperation = moveOperation;
                 return true;
             } else {
                 return false;
@@ -1309,7 +1309,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
             GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getEdgeFront()->getMoveOperation();
             // continue if move operation is valid
             if (moveOperation) {
-                myMoveOperations.push_back(moveOperation);
+                myMoveOperation = moveOperation;
                 return true;
             } else {
                 return false;
@@ -1320,7 +1320,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementNetworkMode() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getLaneFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1344,7 +1344,7 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
         GNEMoveOperation* moveOperation = myViewNet->myViewObjectsSelector.getDemandElementFront()->getMoveOperation();
         // continue if move operation is valid
         if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
+            myMoveOperation = moveOperation;
             return true;
         } else {
             return false;
@@ -1359,47 +1359,50 @@ GNEViewNetHelper::MoveSingleElementModul::beginMoveSingleElementDemandMode() {
 
 void
 GNEViewNetHelper::MoveSingleElementModul::moveSingleElement(const bool mouseLeftButtonPressed) {
-    // calculate moveOffset
-    const GNEMoveOffset moveOffset = calculateMoveOffset();
-    // check if mouse button is pressed
-    if (mouseLeftButtonPressed) {
-        // iterate over all operations
-        for (const auto& moveOperation : myMoveOperations) {
+    if (myMoveOperation) {
+        // calculate moveOffset
+        const GNEMoveOffset moveOffset = calculateMoveOffset();
+        // check if mouse button is pressed
+        if (mouseLeftButtonPressed) {
             // move elements
-            GNEMoveElement::moveElement(myViewNet, moveOperation, moveOffset);
-        }
-    } else {
-        // iterate over all operations
-        for (const auto& moveOperation : myMoveOperations) {
+            GNEMoveElement::moveElement(myViewNet, myMoveOperation, moveOffset);
+        } else {
             // commit move
-            GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
+            GNEMoveElement::commitMove(myViewNet, myMoveOperation, moveOffset, myViewNet->getUndoList());
             // don't forget delete move operation
-            delete moveOperation;
+            delete myMoveOperation;
+            myMoveOperation = nullptr;
         }
-        // clear move operations
-        myMoveOperations.clear();
     }
 }
 
 
 void
 GNEViewNetHelper::MoveSingleElementModul::finishMoveSingleElement() {
-    // calculate moveOffset
-    const GNEMoveOffset moveOffset = calculateMoveOffset();
-    // finish all move operations
-    for (const auto& moveOperation : myMoveOperations) {
-        GNEMoveElement::commitMove(myViewNet, moveOperation, moveOffset, myViewNet->getUndoList());
+    if (myMoveOperation) {
+        // calculate moveOffset
+        const GNEMoveOffset moveOffset = calculateMoveOffset();
+        GNEMoveElement::commitMove(myViewNet, myMoveOperation, moveOffset, myViewNet->getUndoList());
         // don't forget delete move operation
-        delete moveOperation;
+        delete myMoveOperation;
+        myMoveOperation = nullptr;
     }
-    // clear move operations
-    myMoveOperations.clear();
 }
 
 
 bool
 GNEViewNetHelper::MoveSingleElementModul::isCurrentlyMovingSingleElement() const {
-    return myMoveOperations.size() > 0;
+    return myMoveOperation != nullptr;
+}
+
+
+GNEMoveElement*
+GNEViewNetHelper::MoveSingleElementModul::getMovedElement() const {
+    if (myMoveOperation) {
+        return myMoveOperation->moveElement;
+    } else {
+        return nullptr;
+    }
 }
 
 

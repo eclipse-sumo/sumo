@@ -83,6 +83,9 @@ public:
     /// @brief get objects under cursor
     const GNEViewNetHelper::ViewObjectsSelector& getViewObjectsSelector() const;
 
+    /// @brief get move single element values
+    const GNEViewNetHelper::MoveSingleElementModul& getMoveSingleElementValues() const;
+
     /// @brief get move multiple element values
     const GNEViewNetHelper::MoveMultipleElementModul& getMoveMultipleElementValues() const;
 

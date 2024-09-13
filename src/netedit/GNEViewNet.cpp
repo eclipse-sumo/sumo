@@ -537,6 +537,12 @@ GNEViewNet::updateObjectsInPosition(const Position& pos) {
 }
 
 
+const GNEViewNetHelper::MoveSingleElementModul&
+GNEViewNet::getMoveSingleElementValues() const {
+    return myMoveSingleElement;
+}
+
+
 const GNEViewNetHelper::MoveMultipleElementModul&
 GNEViewNet::getMoveMultipleElementValues() const {
     return myMoveMultipleElements;
