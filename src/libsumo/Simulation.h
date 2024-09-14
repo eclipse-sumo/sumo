@@ -166,7 +166,7 @@ public:
     static double loadState(const std::string& fileName);
     static void writeMessage(const std::string& msg);
 
-    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE, const libsumo::TraCIResults& params = libsumo::TraCIResults());
+    static void subscribe(const std::vector<int>& varIDs = std::vector<int>({-1}), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE, const libsumo::TraCIResults& params = libsumo::TraCIResults());
     static const libsumo::TraCIResults getSubscriptionResults();
 
     LIBSUMO_SUBSCRIPTION_API
