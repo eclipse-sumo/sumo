@@ -11,3 +11,9 @@ teleport_multihop
 
 # test option time-to-teleport.remove
 time-to-teleport.remove
+
+# test option time to teleport
+time-to-teleport.disconnected
+
+# test option time to teleport
+time-to-teleport.disconnected_higher
