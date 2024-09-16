@@ -151,3 +151,6 @@ ticket13710
 
 # older moveToXY overwrites changeTarget 
 ticket15123
+
+# setStopParameter expected
+ticket15486
