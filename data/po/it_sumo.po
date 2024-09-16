@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-16 13:20+0000\n"
+"PO-Revision-Date: 2024-09-16 19:26+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -6651,7 +6651,7 @@ msgstr "Controllo delle pendenze degli archi"
 
 #: src/netbuild/NBNetBuilder.cpp:689
 msgid "Find accesses for pt rail stops"
-msgstr ""
+msgstr "Trovare accessi alle fermate ferroviarie del trasporto pubblico"
 
 #: src/netbuild/NBNetBuilder.cpp:712
 msgid ""
@@ -6673,11 +6673,13 @@ msgstr "Codice identificativo '%' invalido."
 
 #: src/netbuild/NBNode.cpp:471
 msgid " Removing self-looping edge '%'"
-msgstr ""
+msgstr " Rimozione dell'arco ciclico '%'"
 
 #: src/netbuild/NBNode.cpp:779
 msgid "Could not compute indirect left turn shape at node '%'"
 msgstr ""
+"Non ho potuto calcolare la forma per svoltare a sinistra indirettamente al "
+"nodo '%'"
 
 #: src/netbuild/NBNode.cpp:795
 #, c-format
@@ -6713,11 +6715,11 @@ msgstr ""
 #: src/netbuild/NBNode.cpp:1178
 #, c-format
 msgid "Shape for junction '%' has distance % to its given position."
-msgstr ""
+msgstr "La forma dell'incrocio '%' dista % dalla sua posizione data."
 
 #: src/netbuild/NBNode.cpp:1182
 msgid "For junction '%': could not compute shape."
-msgstr ""
+msgstr "Per l'incrocio '%': non ho potuto calcolare la forma."
 
 #: src/netbuild/NBNode.cpp:1893
 msgid "Something went wrong during the building of a connection..."
@@ -6782,15 +6784,15 @@ msgstr ""
 
 #: src/netbuild/NBNodeCont.cpp:322
 msgid "Removed a road without junctions: %."
-msgstr ""
+msgstr "Una via senza incroci è stata rimossa: %."
 
 #: src/netbuild/NBNodeCont.cpp:410
 msgid "Found % components and removed % (% edges)."
-msgstr ""
+msgstr "% componenti sono stati trovati e % rimossi (% archi)."
 
 #: src/netbuild/NBNodeCont.cpp:452
 msgid "Removed % railway components (% edges)."
-msgstr ""
+msgstr "% componenti ferroviari sono stati rimossi (% archi)."
 
 #: src/netbuild/NBNodeCont.cpp:696
 #, c-format
