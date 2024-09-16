@@ -55,7 +55,11 @@ title: ChangeLog
   - Fixed low insertion speed for `departSpeed="max"` with waypoint #15308
   - Fixed nondeterministc order of constraint trackers in saved state #15406
   - Fixed infinite loop if rerouter interval end < begin #15416
-  - Fixed bug where vType-param "device.rerouting.probability" could not be used to prevent rerouting #15288 
+  - Fixed bug where vType-param "device.rerouting.probability" could not be used to prevent rerouting #15288
+  - Fixed nondeterministc order of constraint trackers in saved state #15406
+  - edgeData output now excludes non-driving lanes from laneDensity computation #15383
+  - rerouter closingReroute now preserves all existing stops when computing new route #14610
+  - Fixed invalid emergency stop message for waypoint at route end #15485 
 
 - netconvert
   - Fixed crash when guessing ramps #14836 (regression in 1.20.0)
@@ -75,13 +79,16 @@ title: ChangeLog
   - Fixed broken lane shape in opendrive import #15197
   - Matsim import now handles node ids with unusual characters #15196
   - Fixed crash during opendrive import with boundary filter #15243
-  - Fixed crash when using tlLayout="alternateOneWay" with crossings #14027 
+  - Fixed crash when using tlLayout="alternateOneWay" with crossings #14027
+  - Connections from the same edge to the same target edge that cross over each other are now recognized as being in conflict. #15257 
 
 - netedit
   - Polygon context menu functions *simplify shape* and *close shape* are working again #14857 (regression in 1.6.0)
+  - Custom junction shape polygon now has the correct context menu #14858 (regression in 1.6.0)
   - Fixed crash when attempting to transform person to personFlow #15040 (regression in 1.19.0)
   - Fixed Crash during undo-redo of stops/waypoints over stoppingPlaces #15249 (regression in 1.19.0)
   - Fixed crash when editing person and container types for a selection #15255 (regression in 1.19.0)
+  - Fixed junction highlighting on hovering in edge mode #15413 (regression in 1.19.0)
   - Fixed invalid tls link indices #14949 (regression in 1.20.0)
   - Fixed inspecting and selecting elements in data mode #14999 (regression in 1.20.0)
   - Fixed bug where additionals were not saved when saving a NeteditConfig #14739 (regression in 1.20.0)
@@ -122,7 +129,18 @@ title: ChangeLog
   - Fixed crash trying to move persons over TAZ #15365
   - Fixed crash when using taxi with pre-booking and ride sharing #15385
   - Fixed crash joining junctions with crossings #15328
-  - Fixed loss of TAZ edges after recomputing with volatile options #15401 
+  - Fixed loss of TAZ edges after recomputing with volatile options #15401
+  - Stop attribute `parking` now takes effect when set in *Stop mode* #15439
+  - Crossings are now preserved when converting a junction to a roundabout #15231
+  - Hotkey ESC now aborts creation of edgeRelation #15228
+  - Right click over geometry point now opens edge context menu #15322
+  - Fixed invalid "Cursor position in view" values in contextual menu for E2 multilane detectors #15064
+  - Fixed crash changing type inspecting multiple containers #14081
+  - Persons and container may now use any kind of stopping place #12384
+  - Target highlighting in person and container modes now works when mouse is over another person / container #14803
+  - Fixed slow-down when loading many polygons #14600
+  - Fixed junction merging with active grid #15483
+  - Can now load laneAreaDetector defined with endPos #14683 
 
 - sumo-gui
   - Reloading now works if SUMO_HOME is not set #14830 (regression in 1.15.0)
@@ -155,10 +173,13 @@ title: ChangeLog
   - traci.simulation.findIntermodalRoute can now be used to find taxi mode routes #15172
   - traci.vehicle.getNextTLS now works for parking vehicles #15181
   - Fixed crash when calling vehicle.getDrivingDistance2D in meso #15404
-  - vehicle.getLeader retrieval now works beyond 3000m if subsequent edges have only 1 lane (i.e. for railways) #15418 
+  - vehicle.getLeader retrieval now works beyond 3000m if subsequent edges have only 1 lane (i.e. for railways) #15418
+  - subscribeContext when used without varIDs now uses the default attributes of the target domain. #15430
+  - vehicle.getLanePosition is now working for a parked vehicle #15450 
 
 - tools
   - osmGet.py: Fixed error downloading data from servers that do not provide gzipped data. #15105 (regression in 1.20.0)
+  - sumolib.net.readNet now works with old versions of lxml and pathlib.Path arguments #15422 (regression in 1.20.0)
   - generateParkingAreaRerouters.py : No longer fails if there are more than parkingAreas in the input file #14880
   - traceExporter.py: fixed inconsistent trj-output #14925
   - matsim_importPlans.py: now properly quotes all parameters to ensure that the output is valid XML #14988
@@ -190,7 +211,8 @@ title: ChangeLog
   - chargingStation default power is now 22kW (instead of 0) #15144  
   - Added warning for unusual distribution definitions #15146
   - fcd-output now contains the vtype for pedestrians #15210
-  - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240 
+  - Added option **--chargingstations-output.aggregated ** to write output that is more compact #15240
+  - vType attribute `jmAllwayStopWait` can now be used to customize required waiting time at allwayStop #15428
 
 - netedit
   - Junctions and edges now have the virtual attribute `isRoundabout`. This makes it easy to select and find all roundabouts in a network #14865
@@ -208,6 +230,7 @@ title: ChangeLog
   - Different color schemes are now supported when calibrating colors to the data (recalibrate rainbow) #12483
   - Improved rendering speed on right-click #15035
   - Reduce width of lane parameter dialog (by adding linebreaks) #15051
+  - POI attribute `width` can now be used to configure POI size (in m) #15444  
 
 - meso
   - vType attribute `jmTimeGapMinor` is now considered when running with option **--meso-junction-control** #15171
@@ -235,7 +258,8 @@ title: ChangeLog
   - Added functions `getMass` and `setMass` to the vehicle, person and vehicletype dommains #15258
   - Added person stages now support all stopping places and not only busStops #15281
   - Meso simulation now supports functions `vehicle.getSegmentIndex` and `vehicle.getSegmentID` #14681
-  - Meso simulation with option **--meso-lane-queue** now supports `vehicle.getLaneIndex` #15341  
+  - Meso simulation with option **--meso-lane-queue** now supports `vehicle.getLaneIndex` #15341
+  
 
 - tools
   - plotXMLAttributes.py: can now use special attribute `@FILE` to simplify plotting of multiple files where each file provides one value #14843
@@ -262,7 +286,8 @@ title: ChangeLog
 - Fixed broken images in game-cross scenario #15083
 - DEFAULT_CONTAINERTYPE now uses vClass `container` #15092
 - parkingArea default roadsideCapacity is 1 (instead of 0) if no space definitions are given #15264
-- plotting tools can now handle Matplotlib versions suffix like ".post1" #15372 
+- plotting tools can now handle Matplotlib versions suffix like ".post1" #15372
+- Fixed invalid characters in documentation command examples #15441 
 
 ## Version 1.20.0 (07.05.2024)
 
