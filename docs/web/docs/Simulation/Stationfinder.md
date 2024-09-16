@@ -17,6 +17,7 @@ charging stations in case they won't make it to their destinations otherwise. Op
 
 The following table gives the full list of possible parameters for the stationfinder device. Each of these parameters must be specified as a child
 element of the form `<param key=device.stationfinder.<PARAMETER NAME> value=<PARAMETER VALUE>` of the appropriate demand definition element (e.g. `<vehicle ... />`, `<vType ... />`, or `<flow ... />`).
+The parameters take effect only on vehicles which have been assigned a stationfinder device by one of the [device assignment options](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
 | Parameter             | Type             | Range                   | Default          | Description                                                                         |
 | --------------------- | ---------------- | ----------------------- | ---------------- | ----------------------------------------------------------------------------------- |
