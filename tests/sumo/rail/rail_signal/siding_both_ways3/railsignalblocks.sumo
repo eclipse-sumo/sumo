@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-13 16:35:56 by Eclipse SUMO sumo Version v1_20_0+0577-17ad93bf87d
+<!-- generated on 2024-09-16 16:26:10 by Eclipse SUMO sumo Version v1_20_0+0581-47be2ef7dc8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":E_3_0 e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"/>
                 <protectingSwitches links="B_3"/>
                 <conflictLinks signals=""/>
-                <foes driveWays="D.0 F.0 F.1.0 F.d0 F.d4.0 G.d3"/>
+                <foes driveWays="D.0 F.0 F.1.0 F.d0 G.d3"/>
             </driveWay>
             <subDriveWay id="D.0.0" vehicle="" edges="e f">
                 <forward lanes=":D_1_0 e_0 :E_2_0 f_0 :F_1_0"/>
@@ -115,7 +115,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":D_1_0 :E_3_0 e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"/>
                 <protectingSwitches links="B_3"/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="D.0.0 F.0 F.1.0 F.d0 F.d4.0"/>
+                <foes driveWays="D.0.0 F.0 F.1.0 F.d0"/>
             </driveWay>
             <subDriveWay id="F.0.0" vehicle="" edges="-f">
                 <forward lanes=":F_0_0 -f_0"/>
@@ -127,7 +127,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
                 <flank lanes=":E_2_0 e_0 :D_1_0"/>
                 <protectingSwitches links="B_3"/>
                 <conflictLinks signals="A_0 D_0"/>
-                <foes driveWays="A.0 A.1 A.d1 D.0.0 E.d5 F.0.0 F.1 F.d4 J0.d2"/>
+                <foes driveWays="A.0 A.d1 D.0.0 F.0.0 F.1 J0.d2"/>
                 <sidings foe="J0.d2">
                     <siding start="-e2" end="-d2" length="234.07"/>
                 </sidings>
@@ -137,17 +137,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             </subDriveWay>
         </link>
     </railSignal>
-    <departJunction id="E">
-        <driveWay id="E.d5" vehicle="t1" edges="-e2 -d2 -c2 -b -a">
-            <forward lanes="-e2_0 :D2_0_0 -d2_0"/>
-            <bidi lanes="e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"
-                    deadlockCheck="b_0 :A_1_0 a_0"/>
-            <flank lanes=":E_0_0"/>
-            <protectingSwitches links="B_3 E_0"/>
-            <conflictLinks signals="A_0 F_0"/>
-            <foes driveWays="A.0 A.d1 E.d5 F.1 F.d4"/>
-        </driveWay>
-    </departJunction>
     <departJunction id="F">
         <driveWay id="F.d0" vehicle="v0" edges="-f -e">
             <forward lanes="-f_0 :E_1_0 -e_0"/>
@@ -155,26 +144,8 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":D_1_0 :E_3_0 e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0 :F_0_0"/>
             <protectingSwitches links="B_3"/>
             <conflictLinks signals="A_0 D_0 F_0"/>
-            <foes driveWays="D.0.1 F.0 F.d0 F.d4.0"/>
+            <foes driveWays="D.0.1 F.0 F.d0"/>
         </driveWay>
-        <subDriveWay id="F.d0.0" vehicle="" edges="-f">
-            <forward lanes="-f_0"/>
-        </subDriveWay>
-        <driveWay id="F.d4" vehicle="t1" edges="-f -e2 -d2 -c2 -b -a">
-            <forward lanes="-f_0 :E_0_0 -e2_0 :D2_0_0 -d2_0"/>
-            <bidi lanes="f_0 :E_3_0 e2_0 :D2_1_0 d2_0 :C2_1_0 c2_0 :B_3_0"
-                    deadlockCheck="b_0 :A_1_0 a_0"/>
-            <flank lanes=":E_2_0 e_0 :D_1_0 :F_0_0"/>
-            <protectingSwitches links="B_3"/>
-            <conflictLinks signals="A_0 D_0 F_0"/>
-            <foes driveWays="A.0 A.1 A.d1 D.0.1 E.d5 F.0.0 F.1 F.d0.0 F.d4 J0.d2"/>
-            <sidings foe="J0.d2">
-                <siding start="-e2" end="-d2" length="234.07"/>
-            </sidings>
-        </driveWay>
-        <subDriveWay id="F.d4.0" vehicle="" edges="-f">
-            <forward lanes="-f_0"/>
-        </subDriveWay>
     </departJunction>
     <departJunction id="G">
         <driveWay id="G.d3" vehicle="t1" edges="-g -f -e2 -d2 -c2 -b -a">
@@ -184,7 +155,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <flank lanes=":E_2_0 e_0 :D_1_0"/>
             <protectingSwitches links="B_3"/>
             <conflictLinks signals="A_0 D_0"/>
-            <foes driveWays="A.1 D.0 G.d3 J0.d2"/>
+            <foes driveWays="D.0 G.d3 J0.d2"/>
             <sidings foe="J0.d2">
                 <siding start="-e2" end="-d2" length="234.07"/>
             </sidings>
