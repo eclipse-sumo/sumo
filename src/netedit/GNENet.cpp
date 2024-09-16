@@ -2841,9 +2841,9 @@ GNENet::initJunctionsAndEdges() {
             throw ProcessError(TL("Network size exceeds 1 Lightyear. Please reconsider your inputs.") + std::string("\n"));
         }
     }
-    // make sure myGrid is initialized even for an empty net
+    // make sure myGrid is initialized even for an empty net. This ensure that the network starts with a zoom of 100
     if (myAttributeCarriers->getEdges().size() == 0) {
-        myGrid.add(Boundary(-10, -10, 10, 10));
+        myGrid.add(Boundary(-50, -50, 50, 50));
     }
     // recalculate all lane2lane connections
     for (const auto& edge : myAttributeCarriers->getEdges()) {
