@@ -407,7 +407,9 @@ GNEDemandElement::isValidDemandElementID(const std::vector<SumoXMLTag>& tags, co
 void
 GNEDemandElement::setDemandElementID(const std::string& newID) {
     // update ID
-    if (!isTemplate() && myTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+    if (isTemplate()) {
+        setMicrosimID(newID);
+    } else {
         myNet->getAttributeCarriers()->updateDemandElementID(this, newID);
     }
     // check if update ids of child elements

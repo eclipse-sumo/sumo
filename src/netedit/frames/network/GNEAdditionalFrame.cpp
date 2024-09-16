@@ -504,7 +504,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(GNELane* lane, const GNETagPropertie
         // Get attribute lane
         myBaseAdditional->addStringAttribute(SUMO_ATTR_LANE, lane->getID());
         // Check if ID has to be generated
-        if (tagProperties.hasAttribute(SUMO_ATTR_ID)) {
+        if (tagProperties.hasAttribute(SUMO_ATTR_ID) && !myBaseAdditional->hasStringAttribute(SUMO_ATTR_ID)) {
             myBaseAdditional->addStringAttribute(SUMO_ATTR_ID, myViewNet->getNet()->getAttributeCarriers()->generateAdditionalID(tagProperties.getTag()));
         }
     } else {

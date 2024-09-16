@@ -557,7 +557,9 @@ GNEAdditional::isValidDetectorID(const std::vector<SumoXMLTag>& tags, const std:
 void
 GNEAdditional::setAdditionalID(const std::string& newID) {
     // update ID
-    if (!isTemplate()) {
+    if (isTemplate()) {
+        setMicrosimID(newID);
+    } else {
         myNet->getAttributeCarriers()->updateAdditionalID(this, newID);
     }
     // change IDs of certain children
