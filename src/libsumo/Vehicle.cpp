@@ -204,7 +204,7 @@ Vehicle::getSegmentID(const std::string& vehID) {
 int
 Vehicle::getSegmentIndex(const std::string& vehID) {
     MSBaseVehicle* veh = Helper::getVehicle(vehID);
-    return veh->isOnRoad()? CALL_MESO_FUN(veh, getSegment()->getIndex(), INVALID_INT_VALUE): INVALID_INT_VALUE;
+    return veh->isOnRoad() ? CALL_MESO_FUN(veh, getSegment()->getIndex(), INVALID_INT_VALUE) : INVALID_INT_VALUE;
 }
 
 std::string
@@ -2168,7 +2168,7 @@ Vehicle::setSignals(const std::string& vehID, int signals) {
 
 
 void
-Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double position, int reason) {
+Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double pos, int reason) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -2181,7 +2181,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
         throw TraCIException("Unknown lane '" + laneID + "'.");
     }
     if (veh->getLane() == l) {
-        veh->setTentativeLaneAndPosition(l, position, veh->getLateralPositionOnLane());
+        veh->setTentativeLaneAndPosition(l, pos, veh->getLateralPositionOnLane());
         return;
     }
     MSEdge* destinationEdge = &l->getEdge();
@@ -2211,7 +2211,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
         veh->addToOdometer(-veh->getLane()->getLength());
         veh->getMutableLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
     } else {
-        veh->setTentativeLaneAndPosition(l, position);
+        veh->setTentativeLaneAndPosition(l, pos);
     }
     const int oldRouteIndex = veh->getRoutePosition();
     const int newRouteIndex = (int)(it - veh->getRoute().begin());
@@ -2231,7 +2231,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
         } else if (reason == MOVE_NORMAL) {
             moveReminderReason = MSMoveReminder::NOTIFICATION_JUNCTION;
         } else if (reason == MOVE_AUTOMATIC) {
-            Position newPos = l->geometryPositionAtOffset(position);
+            Position newPos = l->geometryPositionAtOffset(pos);
             const double dist = newPos.distanceTo2D(oldPos);
             if (dist < SPEED2DIST(veh->getMaxSpeed())) {
                 moveReminderReason = MSMoveReminder::NOTIFICATION_JUNCTION;
@@ -2244,7 +2244,7 @@ Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double posi
     } else {
         moveReminderReason = MSMoveReminder::NOTIFICATION_DEPARTED;
     }
-    l->forceVehicleInsertion(veh, position, moveReminderReason);
+    l->forceVehicleInsertion(veh, pos, moveReminderReason);
 }
 
 

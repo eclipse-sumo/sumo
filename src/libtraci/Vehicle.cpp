@@ -1150,11 +1150,11 @@ Vehicle::setSignals(const std::string& vehID, int signals) {
 
 
 void
-Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double position, int reason) {
+Vehicle::moveTo(const std::string& vehID, const std::string& laneID, double pos, int reason) {
     tcpip::Storage content;
     StoHelp::writeCompound(content, 3);
     StoHelp::writeTypedString(content, laneID);
-    StoHelp::writeTypedDouble(content, position);
+    StoHelp::writeTypedDouble(content, pos);
     StoHelp::writeTypedInt(content, reason);
     Dom::set(libsumo::VAR_MOVE_TO, vehID, &content);
 }

@@ -209,7 +209,7 @@ public:
     static void rerouteTraveltime(const std::string& vehID, const bool currentTravelTimes = true);
     static void rerouteEffort(const std::string& vehID);
     static void setSignals(const std::string& vehID, int signals);
-    static void moveTo(const std::string& vehID, const std::string& laneID, double position, int reason = libsumo::MOVE_AUTOMATIC);
+    static void moveTo(const std::string& vehID, const std::string& laneID, double pos, int reason = libsumo::MOVE_AUTOMATIC);
     static void moveToXY(const std::string& vehID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1, double matchThreshold = 100);
     static void remove(const std::string& vehID, char reason = libsumo::REMOVE_VAPORIZED);
     static void setLine(const std::string& vehID, const std::string& line);

@@ -42,6 +42,8 @@ for dt in traci.DOMAINS:
                         if fl[0] == ft[0]:
                             sigt = inspect.signature(ft[1])
                             sigl = inspect.signature(fl[1])
+                            if VERBOSE:
+                                print("checking", sigt, sigl)
                             if sigt != sigl:
                                 params = list(sigl.parameters.values())
                                 if not params or params[0].kind != inspect.Parameter.VAR_POSITIONAL:
