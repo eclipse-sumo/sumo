@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-21 10:09+0000\n"
+"PO-Revision-Date: 2024-09-16 13:20+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1385,52 +1385,59 @@ msgstr ""
 
 #: src/microsim/MSBaseVehicle.cpp:1672 src/microsim/MSBaseVehicle.cpp:1884
 msgid "disallowed stop lane '%'"
-msgstr ""
+msgstr "corsia della fermata '%' vietata"
 
 #: src/microsim/MSBaseVehicle.cpp:1691 src/microsim/MSBaseVehicle.cpp:1785
 #: src/microsim/MSBaseVehicle.cpp:1912
 msgid "no route found from edge '%' to stop edge '%'"
 msgstr ""
+"non è stato trovato nessun'itinerario tra l'arco '%' e l'arco di fermata '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1700 src/microsim/MSBaseVehicle.cpp:1921
 msgid "no route found from stop edge '%' to edge '%'"
 msgstr ""
+"non è stato trovato nessun'itinerario tra l'arco di fermata '%' e l'arco '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:1712 src/microsim/MSBaseVehicle.cpp:1935
 msgid ""
 "Mesoscopic simulation does not allow stopping on internal edge '%' for "
 "vehicle '%'."
 msgstr ""
+"La simulazione mesoscopica non permette di fermarsi sull'arco interno '%' "
+"con il veicolo '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:1767
 msgid "cannot reroute towards reached stop"
-msgstr ""
+msgstr "non si può trovare un itinerario verso una fermata oltrepassata"
 
 #: src/microsim/MSBaseVehicle.cpp:1848
 msgid "unable to replace stop with teleporting"
-msgstr ""
+msgstr "impossibile di sostituire la fermata usando il teletrasporto"
 
 #: src/microsim/MSBaseVehicle.cpp:1876
 msgid "cannot insert stop before the currently reached stop"
 msgstr ""
+"impossibile di inserire la fermata prima di quella raggiunta attualmente"
 
 #: src/microsim/MSBaseVehicle.cpp:1892
 msgid "Vehicle '%' does not have the right badge to access parkingArea '%'."
 msgstr ""
+"Il veicolo '%' non possiede la credenziale giusta per accedere al parcheggio "
+"'%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2189
 #, c-format
 msgid "creating device of type '%' is not supported"
-msgstr ""
+msgstr "non è supportata la creazione di attrezzi del tipo '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2202 src/microsim/MSBaseVehicle.cpp:2214
 #, c-format
 msgid "no device of type '%' exists"
-msgstr ""
+msgstr "non esiste nessun'attrezzo del tipo '%'"
 
 #: src/microsim/MSBaseVehicle.cpp:2225
 msgid "Vehicle '%' does not support junctionModel parameter '%'."
-msgstr ""
+msgstr "Il veicolo '%' non supporta il parametro di modello di incroci '%'."
 
 #: src/microsim/MSBaseVehicle.cpp:2271
 msgid "could not interpret routing.mode '%'"
