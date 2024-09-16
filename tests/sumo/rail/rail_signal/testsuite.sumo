@@ -138,6 +138,11 @@ siding_both_ways2
 # One of the driveways doesn't have the terminateRoute flag.
 siding_both_ways3
 
+# both sides of a siding are used in both directions but the "wrong" way is only used by stumps.
+# 
+# both  driveways don't have the terminateRoute flag.
+siding_both_ways4
+
 # siding cannot be used because it is already occupied
 siding_deadlock
 
