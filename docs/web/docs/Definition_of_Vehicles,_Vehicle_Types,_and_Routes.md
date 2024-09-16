@@ -1298,6 +1298,7 @@ placeholder `<DEVICENAME>` below
 
 - [emission](Models/Emissions.md)
 - [battery](Models/Electric.md)
+- [stationfinder](Simulation/Stationfinder.md)
 - [elechybrid](Models/ElectricHybrid.md)
 - [btreiver](Simulation/Bluetooth.md)
 - [btsender](Simulation/Bluetooth.md)
