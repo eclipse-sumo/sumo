@@ -2283,15 +2283,18 @@ MSLane::executeMovements(const SUMOTime t) {
         const SUMOTime tttb = firstNotStopped->getVehicleType().getParameter().getTimeToTeleportBidi(MSGlobals::gTimeToTeleportBidi);
         if (ttt > 0 || MSGlobals::gTimeToGridlockHighways > 0 || MSGlobals::gTimeToTeleportDisconnected >= 0 || tttb > 0) {
             const bool wrongLane = !appropriate(firstNotStopped);
-            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt;
+            const bool disconnected = (MSGlobals::gTimeToTeleportDisconnected >= 0
+                    && firstNotStopped->succEdge(1) != nullptr
+                    && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr);
+
+            const bool r1 = ttt > 0 && firstNotStopped->getWaitingTime() > ttt && !disconnected;
             const bool r2 = !r1 && MSGlobals::gTimeToGridlockHighways > 0
                             && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToGridlockHighways
-                            && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane;
-            const bool r3 = !r1 && !r2 && MSGlobals::gTimeToTeleportDisconnected >= 0 && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected
-                            && firstNotStopped->succEdge(1) != nullptr
-                            && firstNotStopped->getEdge()->allowedLanes(*firstNotStopped->succEdge(1), firstNotStopped->getVClass()) == nullptr;
+                            && getSpeedLimit() > MSGlobals::gGridlockHighwaysSpeed && wrongLane
+                            && !disconnected;
+            const bool r3 = disconnected && firstNotStopped->getWaitingTime() > MSGlobals::gTimeToTeleportDisconnected;
             const bool r4 = !r1 && !r2 && !r3 && tttb > 0
-                            && firstNotStopped->getWaitingTime() > tttb && getBidiLane();
+                            && firstNotStopped->getWaitingTime() > tttb && getBidiLane() && !disconnected;
             if (r1 || r2 || r3 || r4) {
                 const std::vector<MSLink*>::const_iterator link = succLinkSec(*firstNotStopped, 1, *this, firstNotStopped->getBestLanesContinuation());
                 const bool minorLink = !wrongLane && (link != myLinks.end()) && !((*link)->havePriority());
