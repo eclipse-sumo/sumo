@@ -67,7 +67,7 @@ def parse_args():
 
     options.subparts = []
     if options.subpart is not None:
-        options.subparts.append(options.subpart.split(','))
+        options.subparts.append(options.subpart.strip("'").split(','))
     if options.subpart_file is not None:
         with open(options.subpart_file) as subparts:
             for line in subparts:
