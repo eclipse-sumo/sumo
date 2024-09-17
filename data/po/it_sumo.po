@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-16 19:26+0000\n"
+"PO-Revision-Date: 2024-09-17 09:22+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4283,25 +4283,29 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:94
 msgid "The period between successive calls to the dispatcher"
-msgstr ""
+msgstr "Il periodo tra due chiamate succesive dell'invio"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:97
 msgid "The behavior of idle taxis [stop|randomCircling]"
-msgstr ""
+msgstr "Il comportamento di taxi inattivi (senza carico) [stop|randomCircling]"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:100
 msgid "Write information from the idling algorithm to FILE"
-msgstr ""
+msgstr "Scrivi informazioni al riguardo dell'algoritmo per l'inattività in FILE"
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:118
 msgid "Vehicle '%' with device.taxi should have vClass taxi instead of '%'."
 msgstr ""
+"Il veicolo '%' con l'attrezzo device.taxi dovrebbe avere la classe di "
+"veicolo taxi invece de '%'."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:126
 msgid ""
 "Vehicle '%' with personCapacity % and containerCapacity % is not usable as "
 "taxi."
 msgstr ""
+"Il veicolo '%' con personCapacity % e containerCapacity % non può essere "
+"usato come taxi."
 
 #: src/microsim/devices/MSDevice_Taxi.cpp:151
 #, c-format
@@ -4369,13 +4373,16 @@ msgstr ""
 
 #: src/microsim/devices/MSDevice_ToC.cpp:125
 msgid "Deceleration rate applied during a 'minimum risk maneuver'."
-msgstr ""
+msgstr "Rata di decelerazione applicata durante una 'manovra a rischio minimo'."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:127
 msgid ""
 "Time, which the vehicle requires to have ahead to continue in automated "
 "mode. The default value of 0 indicates no dynamic triggering of ToCs."
 msgstr ""
+"Tempo in avanti necessario per il veicolo per proseguire in moto automatico. "
+"Il valore standard di 0 indica che la transizione di controllo non avverrà "
+"in modo dinamico."
 
 #: src/microsim/devices/MSDevice_ToC.cpp:129
 msgid "Probability that a dynamically triggered TOR is not answered in time."
