@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-09-17 09:22+0000\n"
+"PO-Revision-Date: 2024-09-17 09:31+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/it/>\n"
@@ -4510,32 +4510,35 @@ msgid ""
 "Mixing reservations of persons and containers with the same group is not "
 "supported for % and %"
 msgstr ""
+"Non è possibile combinare prenotazioni di persone e di contenitori "
+"all'interno dello stesso gruppo per % e %"
 
 #: src/microsim/devices/MSDispatch.cpp:248
 msgid "Inconsistent group reservations."
-msgstr ""
+msgstr "Prenotazioni di gruppo inconsistenti."
 
 #: src/microsim/devices/MSDispatch.cpp:252
 msgid "Inconsistent group reservations (2)."
-msgstr ""
+msgstr "Prenotazioni di gruppo inconsistenti (2)."
 
 #: src/microsim/devices/MSIdling.cpp:66
 msgid "Idle taxi '%' has no next segment to stop. time=%."
 msgstr ""
+"Il taxi inattivo '%' non ha un segmento successivo dove fermarsi. Ore=%."
 
 #: src/microsim/devices/MSIdling.cpp:110
 #, c-format
 msgid "Idle taxi '%' could not stop within %m"
-msgstr ""
+msgstr "Il taxi inattivo '%' non si è potuto fermare tra %m"
 
 #: src/microsim/devices/MSIdling.cpp:163
 #, c-format
 msgid "Vehicle '%' ends idling in a cul-de-sac"
-msgstr ""
+msgstr "Il veicolo '%' termina inattivo in un vicolo cieco"
 
 #: src/microsim/devices/MSIdling.cpp:189
 msgid "Could not determine taxi stand for vehicle '%' at time=%"
-msgstr ""
+msgstr "Non ho potuto trovare la fermata di taxi '%' alle ore=%"
 
 #: src/microsim/devices/MSRoutingEngine.cpp:98
 msgid "Rerouting is useless if the edge weights do not get updated!"
