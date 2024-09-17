@@ -357,7 +357,7 @@ vehicle if the first try fails
 - `"center"`: center of the lane (offset 0). *This is the default*
 - `"left"`: touching the left border of the lane
 - `"right"`: touching the right border of the lane
-                  |
+
 ### arrivalLane
 
 Determines the lane on which the vehicle should end its route
