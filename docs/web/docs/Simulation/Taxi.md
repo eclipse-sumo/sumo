@@ -150,7 +150,7 @@ By default, vehicles will leave the simulation after reaching the end of their f
 
 When using idle-algorithm **taxistand**, the following inputs must be provided:
 
-- each taxi stand must be defined as a [parkingAreas](ParkingArea.md)
+- each taxi stand must be defined as a [parkingArea](ParkingArea.md)
 - the list of parkingAreas that may be used for a particular taxi or taxi fleet must be defined as a `<rerouter>`-element according to the [description for parking search simulation](Rerouter.md#rerouting_to_an_alternative_parking_area).
 - the taxi must define the parameter `device.taxi.stands-rerouter` either as a child element of the `<vehicle>` or its `<vType>` and declare the rerouter id.
 
