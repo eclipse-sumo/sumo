@@ -559,6 +559,8 @@ GNEAdditional::setAdditionalID(const std::string& newID) {
     // update ID
     if (isTemplate()) {
         setMicrosimID(newID);
+    } else if ((myTagProperty.getTag() == SUMO_TAG_VAPORIZER) || !myTagProperty.hasAttribute(SUMO_ATTR_ID)) {
+        setMicrosimID(newID);
     } else {
         myNet->getAttributeCarriers()->updateAdditionalID(this, newID);
     }
