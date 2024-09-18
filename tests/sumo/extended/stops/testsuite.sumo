@@ -88,6 +88,12 @@ looped_route2
 # stop edge is passed multiple times but vehicle doesn't stop on every iteration
 looped_skip
 
+# stop edge is passed multiple times but vehicle doesn't stop on every iteration (cannot skip enough)
+looped_skip_warn
+
+# stop edge is passed multiple times but vehicle doesn't stop on every iteration (cannot skip enough), no warning because the route doesn't even loop
+looped_skip_noWarn
+
 # public-transport-style stops:
 # - with until-attribute 
 # - inside a stand-alone route
