@@ -85,6 +85,9 @@ looped_route
 # later stop is before previous stop edge and must be used on the second time it is reached
 looped_route2
 
+# stop edge is passed multiple times but vehicle doesn't stop on every iteration
+looped_skip
+
 # public-transport-style stops:
 # - with until-attribute 
 # - inside a stand-alone route
