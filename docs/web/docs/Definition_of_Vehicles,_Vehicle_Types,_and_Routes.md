@@ -1131,7 +1131,7 @@ A distribution can be used just as using individual types and routes:
 ```
 
 !!! caution
-    When using [duarouter](duarouter.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that the each vehicles route will fit its sampled `vClass` when using the input files with [sumo](sumo.md)
+    When using [duarouter](duarouter.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that each vehicles route will fit its sampled `vClass` when using the input files with [sumo](sumo.md)
 
 # Stops and waypoints
 
