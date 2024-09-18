@@ -180,9 +180,6 @@ def main(options):
             addChildToParent(rootParking, unusedParking)
         unchangedParkings = []
 
-        # debug
-        print(edge2chargingPointCount)
-
         for edge, parkingAreas in edge2parkingArea.items():
             if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0):
                 if options.verbose:
