@@ -1281,6 +1281,20 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             }
 #endif
         }
+        // skip a number of occurences of stopEdge in looped route
+        int skipLooped = stopPar.index - static_cast<int>(myStops.size());
+        for (int j = 0; j < skipLooped; j++) {
+            auto nextIt = std::find(stop.edge + 1, myRoute->end(), stopEdge);
+            if (nextIt == myRoute->end()) {
+                if (std::find(myRoute->begin(), stop.edge, stopEdge) != stop.edge) {
+                    // only warn if the route loops over the stop edge at least once
+                    errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' could not skip " + toString(skipLooped) + " occurences of stop edge '" + stopEdge->getID() + "' in looped route.";
+                }
+                break;
+            } else {
+                stop.edge = nextIt;
+            }
+        }
     } else {
         if (stopPar.index == STOP_INDEX_FIT) {
             while (iter != myStops.end() && (iter->edge < stop.edge ||
