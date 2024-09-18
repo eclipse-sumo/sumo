@@ -527,12 +527,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 lanesBuilt = true;
                 std::vector<OpenDriveLane>& lanes = (*j).lanesByDir[OPENDRIVE_TAG_RIGHT];
                 std::sort(lanes.begin(), lanes.end(), LaneSorter());
-                for (std::vector<OpenDriveLane>::const_iterator k = lanes.begin(); k != lanes.end(); ++k) {
-                    std::map<int, int>::const_iterator lp = (*j).laneMap.find((*k).id);
+                for (const OpenDriveLane& odl : lanes) {
+                    std::map<int, int>::const_iterator lp = (*j).laneMap.find(odl.id);
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
-                        setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
-                        laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = (*k).id;
+                        setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), odl, saveOrigIDs, tc);
+                        laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = odl.id;
                         if (useOffsets) {
                             PositionVector laneShape = laneGeom;
                             laneShape.move2sideCustom(offsets);
@@ -542,7 +542,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         useOffsets = true;
                     }
                     if (customLaneShapes) {
-                        addOffsets(false, laneGeom, (*k).widthData, e->id + "_" + toString((*k).id), offsets);
+                        addOffsets(false, laneGeom, odl.widthData, e->id + "_" + toString(odl.id), offsets);
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
@@ -1044,7 +1044,7 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
     const double maxWidth = tc.getEdgeTypeMaxWidth(odLane.type);
 
     const bool forbiddenNarrow = (sumoLane.width < myMinWidth
-                                  && (sumoLane.permissions & SVC_PASSENGER) != 0
+                                  && (sumoLane.permissions & ~SVC_VULNERABLE) != 0
                                   && sumoLane.width < tc.getEdgeTypeWidth(odLane.type));
 
     if (sumoLane.width >= 0 && widthResolution > 0) {
@@ -2983,7 +2983,7 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                                      std::vector<double>& splitPositions) {
     UNUSED_PARAMETER(section);
     for (const OpenDriveLane& l : lanes) {
-        SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
+        const SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~SVC_VULNERABLE;
         if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getEdgeTypeShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(sPrev);
@@ -3015,9 +3015,11 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
                         || ((wPrev > myMinWidth) && (w < myMinWidth))) {
                     double splitPos = sPrev + (sEnd - sPrev) / fabs(w - wPrev) * changeDist;
                     double wSplit = (*it_w).computeAt(splitPos);
+#ifdef DEBUG_VARIABLE_WIDTHS
                     if (gDebugFlag1) {
                         std::cout << "     candidate splitPos=" << splitPos << " w=" << wSplit << "\n";
                     }
+#endif
                     // ensure that the thin part is actually thin enough
                     while (wSplit > myMinWidth) {
                         if (wPrev < myMinWidth) {
