@@ -111,5 +111,8 @@ continous_lanechange
 # vehicle stops twice in the same spot, state is saved before departure
 stops_looped
 
+# vehicle passes an edge twice but stops on the second pass
+stops_looped2
+
 # two vehicles saved and reloaded
 replay

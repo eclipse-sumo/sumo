@@ -79,6 +79,7 @@ detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
 stopinfos:stopinfos.xml
+stopinfos2:stopinfos2.xml
 collisions:collisions.xml
 ssm:ssm.xml
 summary:summary.xml
@@ -136,6 +137,7 @@ fcd3:<!--{[->]}-->
 fcd4:<!--{[->]}-->
 stops:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
+stopinfos2:<!--{[->]}-->
 collisions:<!--{[->]}-->
 ssm:<!--{[->]}-->
 summary:<!--{[->]}-->
