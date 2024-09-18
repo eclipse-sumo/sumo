@@ -73,6 +73,9 @@ def getOptions(args=None):
     argParser.add_argument("--include-existing", dest="includeExisting", action="store_true",
                            default=False,
                            help="If set, loaded charging stations from input files will contribute to the density")
+    argParser.add_argument("--skip-equipped-edges", dest="skipEquippedEdges", action="store_true",
+                           default=False,
+                           help="If set, edges where a charging station already exists are skipped")
     argParser.add_argument("--only-roadside", dest="onlyRoadside", action="store_true",
                            default=False, help="Only use roadside parking for charging points")
     argParser.add_argument("--only-parking-lot", dest="onlyParkingLot", action="store_true",
@@ -154,7 +157,7 @@ def main(options):
     # count already existing charging points per edge
     if options.includeExisting:
         for cs in existingChargingStations:
-            edge = net.getLane(node.lane).getEdge()
+            edge = net.getLane(cs.getAttribute("lane")).getEdge()
             for item in edge2parkingArea[edge]:
                 if item[0].getAttribute("id") == cs.getAttribute("parkingArea"):
                     if edge not in edge2chargingPointCount:
@@ -177,8 +180,15 @@ def main(options):
             addChildToParent(rootParking, unusedParking)
         unchangedParkings = []
 
+        # debug
+        print(edge2chargingPointCount)
+
         for edge, parkingAreas in edge2parkingArea.items():
-            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0:
+            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0):
+                if options.verbose:
+                    print("Skip edge %s" % str(edge.getID()))
+                if len(parkingAreas) > 0:
+                    unchangedParkings.extend([pa[0] for pa in parkingAreas])
                 continue
             randomNumber = random.random()
             usedParkingAreas = []
@@ -236,6 +246,7 @@ def main(options):
             for node, _ in parkingAreas:
                 if node not in usedParkingAreas:
                     unchangedParkings.append(node)
+        print(unchangedParkings)
         for node in unchangedParkings:
             addChildToParent(rootParking, node, secondChildTags=["param", "space"])
 
