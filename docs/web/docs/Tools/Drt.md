@@ -4,7 +4,7 @@ title: DRT
 
 # drtOnline.py
 
-The drtOnline.py tool allows you to simulate shared demand responsive transport (DRT).
+The `drtOnline.py` tool allows you to simulate shared demand responsive transport (DRT).
 The tool uses [TraCI](../TraCI.md) and the [taxi device](../Simulation/Taxi.md) to control
 the requests and the drt vehicles. Requests arrive dynamically and are handled by
 a dispatcher that seeks to combine multiple requests in order to maximize the number
@@ -21,7 +21,7 @@ use pip instead.
 
 The minimal call is:
 
-```
+```sh
 python tools/drt/drtOnline.py -n <net-file> -r <route-file> --taxi <vehicle-file>
 ```
 
@@ -72,26 +72,44 @@ available for the routing of the drt vehicles.
 
 # drtOrtools.py
 
-The tool drtOrtools.py models demand responsive transport (DRT) in SUMO via
-[TraCI](../TraCI.md) and uses
+The tool `drtOrtools.py` models demand responsive transport (DRT) in SUMO via
+[TraCI](../TraCI.md) and the [taxi device](../Simulation/Taxi.md) and uses
 [ortools](https://github.com/google/or-tools) to solve the vehicle routing problems.
 
-As with drtOnline.py, requests arrive dynamically and multiple requests are
+As `drtOnline.py`, requests arrive dynamically and multiple requests are
 combined in order to maximize the number of requests served while minimizing
-the mileage (or duration) of the entire vehicle fleet.
+the mileage (or duration) of the entire vehicle fleet. Due to the use of ortools as
+the solver, further extensions are easier to model.
 
-The tool requires Python and the packages numpy and ortools. The minimum call is:
+The tool requires python and the packages `numpy` and `ortools`. The minimum call is:
 
-```
+```sh
 python drtOrtools.py -s example.sumocfg
 ```
 
 with `example.sumocfg` being a valid SUMO configuration file which refers to
-a network file, routes etc.
+a network file, routes etc. The routes files should contain taxis with taxi devices
+and persons (or containers) with rides including `lines="taxi"`.
+Also [pre-booking](../Simulation/Taxi.md#prebooking) is possible.
+
+`drtOrtools.py` has the following options:
+
+| Attribute Name | Value Type      | Default          | Description                             |
+| -------------- | --------------- | ---------------- | --------------------------------------- |
+| **-e --end**   | int (seconds)   | end time in `.sumocfg` else 90000s | time step to end the simulation |
+| **-i --interval** | int (seconds)| 30s              | time interval for collecting requests, if there are new requests after this interval the solver starts |
+| **-n --nogui** | bool            | false            | if true, uses only the command line version of sumo, else uses sumo-gui |
+| **-v --verbose** | bool          | false            | prints more information about the dispatch calculation |
+| **-t --time-limit** | int (seconds) | 10s           | maximum time for the solver to calculate a singe dispatch problem |
+| **-d --cost-type** | str('distance' or 'time') | distance | defines if distance or time is used as costs for the dispatch |
+| **-f --drf**   | float           | 1.5              | direct route factor: factor for maximum allowed cost for the route of a request in relation to the minimum possible cost (of the direct route); use '-1' to ignore this constraint |
+| **-a --fix-allocation** | bool   | false            | if true: as soon as a solution was found and a request was assigned to a taxi, this assignment keeps up for all following calculations |
+| **-w --waiting-time** | int (seconds) | 900s        | maximum waiting time until service after spontaneous booking or the earliest pick-up time |
+| **-p --penalty-factor** | 'dynamic' or int | 'dynamic' | factor for different penalties of constraints in realtion to the routing costs; 'dynamic' prefers holding constraints of already accepted requests, than accepting new requests |
 
 For further help on the command line arguments run:
 
-```
+```sh
 python drtOrtools.py --help
 ```
 
@@ -99,6 +117,7 @@ The solver requires a matrix with costs to travel
 between drop-off locations, pick-up locations and current vehicle positions.
 Costs can be distances or travel times depending on the option `--cost-type`.
 The costs are obtained during simulation by calls to `traci.simulation.findRoute()`.
-In a regular interval (option `--interval`), open requests are assigned to
-vehicles of the DRT fleet and the cost matrixed is passed to the auxiliary file
-ortools_pdp.py, where the vehicle routing problem is solved using ortools.
+After a regular interval (option `--interval`), open requests are assigned to
+vehicles of the DRT fleet and the cost matrix is passed to the auxiliary file
+`ortools_pdp.py`, where the vehicle routing problem is solved using ortools.
+The solution is translated and applied with `traci.vehicle.dispatchTaxi`.
