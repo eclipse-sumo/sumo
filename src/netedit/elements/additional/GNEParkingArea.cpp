@@ -213,12 +213,14 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-            myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
-            // draw dotted contours for geometry points
-            myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
-                    1, s.dottedContourSettings.segmentWidthSmall);
+            // draw dotted contours
+            if (movingGeometryPoints) {
+                myAdditionalContour.drawDottedContourGeometryPoints(s, d, this, myAdditionalGeometry.getShape(), s.neteditSizeSettings.additionalGeometryPointRadius,
+                        1, s.dottedContourSettings.segmentWidthSmall);
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+                myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+            }
         }
         // draw demand element children
         drawDemandElementChildren(s);
