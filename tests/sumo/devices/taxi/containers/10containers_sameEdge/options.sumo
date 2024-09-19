@@ -2,3 +2,4 @@
 -r input_routes.rou.xml
 -a input_additional.add.xml
 --tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished

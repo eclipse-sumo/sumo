@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-19 09:51:33 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
+<!-- generated on 2024-09-19 10:24:13 by Eclipse SUMO sumo Version v1_20_0+2053-3265c62a7f9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
     </output>
 
     <processing>
@@ -38,57 +39,57 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="t_0" depart="0.00" departLane="E0_0" departPos="7.20" departSpeed="0.00" departDelay="0.00" arrival="311.00" arrivalLane="E0_0" arrivalPos="500.00" arrivalSpeed="9.77" duration="311.00" routeLength="492.80" waitingTime="1.00" waitingCount="1" stopTime="249.00" timeLoss="26.01" rerouteNo="3" devices="tripinfo_t_0 routing_t_0 taxi_t_0 container_t_0" vType="truck" speedFactor="1.00" vaporized="">
-        <taxi customers="1" occupiedDistance="300.05" occupiedTime="33.00"/>
-    </tripinfo>
     <containerinfo id="cf_0.0" depart="0.00" type="DEFAULT_CONTAINERTYPE" duration="3863.00" waitingTime="113.00" timeLoss="9.41" traveltime="90.00">
         <stop duration="60.00" arrival="60.00" arrivalPos="100.00" actType="waiting"/>
         <transport waitingTime="113.00" vehicle="t_0" depart="173.00" arrival="263.00" arrivalPos="449.99" duration="90.00" routeLength="300.05" timeLoss="9.41"/>
         <stop duration="3600.00" arrival="3863.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.1" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.1" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="4154.00" waitingTime="403.00" timeLoss="10.40" traveltime="91.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="403.00" vehicle="t_0" depart="464.00" arrival="555.00" arrivalPos="449.99" duration="91.00" routeLength="300.05" timeLoss="10.40"/>
+        <stop duration="3600.00" arrival="4155.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.2" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.2" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="4454.00" waitingTime="704.00" timeLoss="9.41" traveltime="90.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="704.00" vehicle="t_0" depart="765.00" arrival="855.00" arrivalPos="449.96" duration="90.00" routeLength="300.01" timeLoss="9.41"/>
+        <stop duration="3600.00" arrival="4455.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.3" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.3" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="4755.00" waitingTime="1004.00" timeLoss="10.41" traveltime="91.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="1004.00" vehicle="t_0" depart="1065.00" arrival="1156.00" arrivalPos="450.00" duration="91.00" routeLength="300.00" timeLoss="10.41"/>
+        <stop duration="3600.00" arrival="4756.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.4" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.4" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="5051.00" waitingTime="1302.00" timeLoss="8.40" traveltime="89.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="1302.00" vehicle="t_0" depart="1363.00" arrival="1452.00" arrivalPos="449.99" duration="89.00" routeLength="300.08" timeLoss="8.40"/>
+        <stop duration="3600.00" arrival="5052.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.5" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.5" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="5352.00" waitingTime="1603.00" timeLoss="8.41" traveltime="89.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="1603.00" vehicle="t_0" depart="1664.00" arrival="1753.00" arrivalPos="449.99" duration="89.00" routeLength="300.06" timeLoss="8.41"/>
+        <stop duration="3600.00" arrival="5353.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.6" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.6" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="5653.00" waitingTime="1904.00" timeLoss="8.40" traveltime="89.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="1904.00" vehicle="t_0" depart="1965.00" arrival="2054.00" arrivalPos="449.99" duration="89.00" routeLength="300.04" timeLoss="8.40"/>
+        <stop duration="3600.00" arrival="5654.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.7" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.7" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="5952.00" waitingTime="2203.00" timeLoss="8.41" traveltime="89.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="2203.00" vehicle="t_0" depart="2264.00" arrival="2353.00" arrivalPos="449.97" duration="89.00" routeLength="300.05" timeLoss="8.41"/>
+        <stop duration="3600.00" arrival="5953.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.8" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.8" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="6253.00" waitingTime="2504.00" timeLoss="8.41" traveltime="89.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="2504.00" vehicle="t_0" depart="2565.00" arrival="2654.00" arrivalPos="449.97" duration="89.00" routeLength="300.05" timeLoss="8.41"/>
+        <stop duration="3600.00" arrival="6254.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
-    <containerinfo id="cf_0.9" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="-1" waitingTime="3803.00" timeLoss="-1" traveltime="-1">
+    <containerinfo id="cf_0.9" depart="1.00" type="DEFAULT_CONTAINERTYPE" duration="6555.00" waitingTime="2805.00" timeLoss="9.40" traveltime="90.00">
         <stop duration="60.00" arrival="61.00" arrivalPos="100.00" actType="waiting"/>
-        <transport waitingTime="3803.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="-1" duration="-1" routeLength="-1" timeLoss="-1"/>
-        <stop duration="-1" arrival="-0.00" arrivalPos="450.00" actType="waiting"/>
+        <transport waitingTime="2805.00" vehicle="t_0" depart="2866.00" arrival="2956.00" arrivalPos="450.00" duration="90.00" routeLength="300.03" timeLoss="9.40"/>
+        <stop duration="3600.00" arrival="6556.00" arrivalPos="450.00" actType="waiting"/>
     </containerinfo>
+    <tripinfo id="t_0" depart="0.00" departLane="E0_0" departPos="7.20" departSpeed="0.00" departDelay="0.00" arrival="-1.00" arrivalLane="" arrivalPos="-1.00" arrivalSpeed="-1.00" duration="6557.00" routeLength="9526.86" waitingTime="2.00" waitingCount="2" stopTime="5576.00" timeLoss="281.22" rerouteNo="19" devices="tripinfo_t_0 routing_t_0 taxi_t_0 container_t_0" vType="truck" speedFactor="1.00" vaporized="">
+        <taxi customers="10" occupiedDistance="3000.44" occupiedTime="327.00"/>
+    </tripinfo>
 </tripinfos>
