@@ -240,6 +240,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, const bool close, const boo
             }
         }
     }
+    if (index > 0) {
+        dev.writeAttr(SUMO_ATTR_INDEX, index);
+    }
     if ((parametersSet & STOP_POSLAT_SET) != 0 && posLat != INVALID_DOUBLE) {
         dev.writeAttr(SUMO_ATTR_POSITION_LAT, posLat);
     }
