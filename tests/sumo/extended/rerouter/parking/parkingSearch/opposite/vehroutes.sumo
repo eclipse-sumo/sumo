@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-02 22:26:18 by Eclipse SUMO sumo Version v1_20_0+1817-cf21a49bd7a
+<!-- generated on 2024-09-19 08:51:10 by Eclipse SUMO sumo Version v1_20_0+2048-31af531e001
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -132,7 +132,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="30.68" savings="0.00" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="38.00" probability="0" edges="A0A1 A1A2 A2A3" routeLength="288.70"/>
             <route cost="72.21" savings="-62.10" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A2 A2A3" exitTimes="27.00 38.00 48.00 59.00 70.00 -1 -1"/>
         </routeDistribution>
-        <stop parkingArea="parkA1A2" duration="3600.00" started="112.00" ended="-1"/>
+        <stop parkingArea="parkA1A2" index="1" duration="3600.00" started="112.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.8" type="car" depart="18.00" departSpeed="3.9531" speedFactor="0.2846" routeLength="3861.21">
@@ -339,7 +339,7 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
             <route cost="29.92" savings="0.00" replacedOnEdge="A2A3" replacedOnIndex="2" reason="parkA2A3:parkingAreaReroute" replacedAtTime="60.00" probability="0" edges="A0A1 A1A2 A2A3" routeLength="288.70"/>
             <route cost="90.65" savings="-80.80" edges="A0A1 A1A2 A2A3 A3A2 A2A1 A1A0 A0A1 A1A2 A2A3" exitTimes="49.00 60.00 70.00 85.00 104.00 114.00 -1 -1 -1"/>
         </routeDistribution>
-        <stop parkingArea="parkA0A1" duration="3600.00" started="121.00" ended="-1"/>
+        <stop parkingArea="parkA0A1" index="1" duration="3600.00" started="121.00" ended="-1"/>
     </vehicle>
 
     <vehicle id="ego.17" type="car" depart="39.00" departSpeed="5.6447" speedFactor="0.6811" routeLength="6969.11">
