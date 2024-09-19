@@ -466,6 +466,9 @@ public:
         /// @brief at which position in the stops list
         int index = 0;
 
+        /// @brief at which position within the route (only used for state saving)
+        mutable int routeIndex = 0;
+
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
 

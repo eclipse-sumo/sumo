@@ -1130,6 +1130,9 @@ private:
     /// @brief helper function
     bool insertJump(int nextStopIndex, MSRouteIterator itStart, std::string& errorMsg);
 
+    /// @brief patch stop.pars.index to record the number of skipped candidate edges before stop.edge (in a looped route)
+    void setSkips(MSStop& stop, int prevActiveStops);
+
 private:
     /// invalidated assignment operator
     MSBaseVehicle& operator=(const MSBaseVehicle& s) = delete;

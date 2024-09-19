@@ -567,6 +567,7 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
             // relative to that edge must be adapted
             lastPos += (*myCurrEdge)->getLength();
         }
+        int stopIndex = 0;
         for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
             double endPos = iter->getEndPos(*this);
 #ifdef DEBUG_REPLACE_ROUTE
@@ -595,9 +596,11 @@ MSBaseVehicle::replaceRoute(ConstMSRoutePtr newRoute, const std::string& info, b
                 iter = myStops.erase(iter);
                 continue;
             } else {
+                setSkips(*iter, stopIndex);
                 searchStart = iter->edge;
             }
             ++iter;
+            stopIndex++;
         }
         // add new stops
         if (addRouteStops) {
@@ -1406,12 +1409,53 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                    + "' set to end at " + time2string(stop.getUntil())
                    + " earlier than arrival at " + time2string(stop.pars.arrival) + ".";
     }
+    setSkips(stop, myStops.size());
     myStops.insert(iter, stop);
     //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
     //    << " routeIndex=" << (stop.edge - myRoute->begin())
     //    << " stopIndex=" << std::distance(myStops.begin(), iter)
     //    << " route=" << toString(myRoute->getEdges())  << "\n";
     return true;
+}
+
+
+void
+MSBaseVehicle::setSkips(MSStop& stop, int prevActiveStops) {
+    if (hasDeparted() && stop.pars.index <= 0 && stop.edge > myRoute->begin()) {
+        // if the route is looped we must patch the index to ensure that state
+        // loading (and vehroute-output) encode the correct number of skips
+        int foundSkips = 0;
+        MSRouteIterator itPrev;
+        double prevEndPos;
+        if (prevActiveStops > 0) {
+            assert(myStops.size() >= prevActiveStops);
+            auto prevStopIt = myStops.begin();
+            std::advance(prevStopIt, prevActiveStops - 1);
+            const MSStop& prev = *prevStopIt;
+            itPrev = prev.edge;
+            prevEndPos = prev.pars.endPos;
+        } else if (myPastStops.size() > 0) {
+            itPrev = myRoute->begin() + myPastStops.back().routeIndex;
+            prevEndPos = myPastStops.back().endPos;
+        } else {
+            itPrev = myRoute->begin() + myParameter->departEdge;
+            prevEndPos = myDepartPos;
+        }
+        if (*itPrev == *stop.edge && prevEndPos > stop.pars.endPos) {
+            itPrev++;
+        }
+        //std::cout << SIMTIME << " veh=" << getID() << " prevActive=" << prevActiveStops << " edge=" << (*stop.edge)->getID() << " routeIndex=" << (stop.edge - myRoute->begin()) << " prevIndex=" << (itPrev - myRoute->begin()) << "\n";
+        while (itPrev < stop.edge) {
+            if (*itPrev == *stop.edge) {
+                foundSkips++;
+            }
+            itPrev++;
+        }
+        if (foundSkips > 0) {
+            //std::cout << "   foundSkips=" << foundSkips << "\n";
+            const_cast<SUMOVehicleParameter::Stop&>(stop.pars).index = myPastStops.size() + prevActiveStops + foundSkips;
+        }
+    }
 }
 
 
