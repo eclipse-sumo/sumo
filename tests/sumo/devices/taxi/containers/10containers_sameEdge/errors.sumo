@@ -1,0 +1,10 @@
+Warning: Vehicle 't_0' with device.taxi should have vClass taxi instead of 'truck'.
+Warning: Container 'cf_0.1' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.2' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.3' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.4' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.5' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.6' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.7' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.8' aborted waiting for taxi at containerStop 'ct_0'.
+Warning: Container 'cf_0.9' aborted waiting for taxi at containerStop 'ct_0'.
