@@ -161,6 +161,9 @@ protected:
     /// @brief end time in which this vaporizer is placed
     SUMOTime myEnd;
 
+    /// @brief symbol base contour
+    GNEContour mySymbolBaseContour;
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

@@ -201,7 +201,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
                         1, s.dottedContourSettings.segmentWidthSmall);
             } else {
                 myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-                myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
             }
         }
         // draw demand element children

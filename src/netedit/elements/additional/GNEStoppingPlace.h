@@ -160,6 +160,9 @@ protected:
     /// @brief The position of the sign
     Position mySignPos;
 
+    /// @brief circle contour
+    GNEContour myCircleContour;
+
     /// @brief circle width resolution for all stopping places
     static const double myCircleWidth;
 

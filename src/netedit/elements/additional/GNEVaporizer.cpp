@@ -199,12 +199,12 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalName(s);
             // draw dotted contours
             myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-            myAdditionalContourAuxiliary.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+            mySymbolBaseContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
         }
         // calculate contours
         myAdditionalContour.calculateContourRectangleShape(s, d, this, myAdditionalGeometry.getShape().front(), s.additionalSettings.vaporizerSize,
                 s.additionalSettings.vaporizerSize, 0, 0, 0, vaporizerExaggeration);
-        myAdditionalContourAuxiliary.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, true, true, 0);
+        mySymbolBaseContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration, true, true, 0);
     }
 }
 
