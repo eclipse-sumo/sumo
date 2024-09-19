@@ -168,6 +168,7 @@ def main(options):
 
     # iterate edges with parkingArea groups and randomly select a charging point count
     totalChargingPoints = math.floor(totalCapacity * options.probability * options.density)
+    totalExistingCount = sum(edge2chargingPointCount.values())
     if options.verbose:
         print("Charging points to distribute: %.0f on %.0f parking spaces (%.2f%%)" %
               (totalChargingPoints, totalCapacity, totalChargingPoints/totalCapacity*100 if totalCapacity > 0 else 0))
@@ -180,8 +181,14 @@ def main(options):
             addChildToParent(rootParking, unusedParking)
         unchangedParkings = []
 
+        checkEdges = True
+        if options.includeExisting and totalExistingCount >= totalChargingPoints:
+            if options.verbose:
+                print("Charging stations loaded from files %s already fulfil the requested number of charging points." % options.addFiles)
+            checkEdges = False
+
         for edge, parkingAreas in edge2parkingArea.items():
-            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0):
+            if (checkSelection and not edge.isSelected()) or len(parkingAreas) == 0 or (options.skipEquippedEdges and edge in edge2chargingPointCount and edge2chargingPointCount[edge] > 0) or not checkEdges:
                 if options.verbose:
                     print("Skip edge %s" % str(edge.getID()))
                 if len(parkingAreas) > 0:
