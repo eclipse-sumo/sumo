@@ -278,8 +278,10 @@ protected:
     /// @brief derive foe driveways that enter the bidi section by reversing
     void addReversalFoes();
 
-    /// @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
-    void buildSubFoe(MSDriveWay* foe, bool movingBlock);
+    /* @brief build shortened driveway that ends where the foe train leaves the conflict zone of this driveway
+     * @return whether the foe has received a new entry in myFoes
+     */
+    bool buildSubFoe(MSDriveWay* foe, bool movingBlock);
 
     /// @brief add symmetical conflict link for foes when building a new driveway
     void addConflictLink(const MSLink* link);

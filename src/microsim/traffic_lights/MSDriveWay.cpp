@@ -1343,6 +1343,7 @@ MSDriveWay::buildDriveWay(const std::string& id, const MSLink* link, MSRouteIter
             }
             if (dw->bidiBlockedByEnd(*foe)) {
                 dw->addFoeCheckSiding(foe);
+                foe->myUpdateDelete.push_back(dw);
             } else  {
                 foe->buildSubFoe(dw, movingBlock);
             }
@@ -1608,7 +1609,7 @@ MSDriveWay::addReversalFoes() {
 }
 
 
-void
+bool
 MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
     // Subdriveways (Teilfahrstraße) model the resolution of a driving conflict
     // before a vehicle has left the driveway. This is possible when the driveway diverges from the foe
@@ -1655,9 +1656,11 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #endif
         } else if (myTerminateRoute && myBidi.size() <= myForward.size()) {
             foe->myFoes.push_back(this);
+            myUpdateDelete.push_back(foe);
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " terminates, foe=" << foe->getID() << "\n";
 #endif
+            return true;
         } else if (foe->myReversals.size() % 2 == 1) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " has " << foe->myReversals.size() << " reversals\n";
@@ -1668,7 +1671,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #endif
             WRITE_WARNINGF("No point of conflict found between driveway '%' and driveway '%' when creating sub-driveway", getID(), foe->getID());
         }
-        return;
+        return false;
     }
     int subSize = subLast + 1;
     for (MSDriveWay* cand : mySubDriveWays) {
@@ -1679,7 +1682,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
             std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " useExisting=" << cand->getID() << "\n";
 #endif
-            return;
+            return true;
         }
     }
     MSDriveWay* sub = new MSDriveWay(myOrigin, getID() + "." + toString(mySubDriveWays.size()));
@@ -1713,6 +1716,7 @@ MSDriveWay::buildSubFoe(MSDriveWay* foe, bool movingBlock) {
 #ifdef DEBUG_BUILD_SUBDRIVEWAY
     std::cout << SIMTIME << " buildSubFoe dw=" << getID() << " foe=" << foe->getID() << " sub=" << sub->getID() << " route=" << toString(sub->myRoute) << "\n";
 #endif
+    return true;
 }
 
 void
