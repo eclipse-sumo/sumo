@@ -105,7 +105,21 @@ class Reservation:
 
     def get_persons(self) -> list[str]:
         return self.reservation.persons
+    
+    def get_earliest_pickup(self) -> int:
+        person_id = self.get_persons()[0]
+        pickup_earliest = traci.person.getParameter(person_id, "pickup_earliest") or traci.person.getParameter(person_id, "earliestPickupTime")
+        if pickup_earliest:
+            pickup_earliest = round(float(pickup_earliest))
+        return pickup_earliest
 
+    def get_dropoff_latest(self) -> int:
+        person_id = self.get_persons()[0]
+        dropoff_latest = traci.person.getParameter(person_id, "dropoff_latest") or traci.person.getParameter(person_id, "latestDropoffTime")
+        if dropoff_latest:
+            dropoff_latest = round(float(dropoff_latest))
+        return dropoff_latest
+    
     def update_direct_route_cost(self, type_vehicle: str, cost_matrix: list[list[int]] = None,
                                  cost_type: CostType = CostType.DISTANCE):
         if self.direct_route_cost:
@@ -387,20 +401,11 @@ def get_time_window_of_node_object(node_object: NodeObject, node: int, end: int)
         time_window_end = max_time if device_taxi_end == '' else round(float(device_taxi_end))
         time_window = (current_time, time_window_end)
     elif isinstance(node_object, Reservation):
-        person_id = node_object.get_persons()[0]
         if node_object.is_from_node(node):
-            pickup_earliest = traci.person.getParameter(person_id, "pickup_earliest")
-            if pickup_earliest:
-                pickup_earliest = round(float(pickup_earliest))
-            else:
-                pickup_earliest = current_time
+            pickup_earliest = node_object.get_earliest_pickup() or current_time
             time_window = (pickup_earliest, max_time)
         if node_object.is_to_node(node):
-            dropoff_latest = traci.person.getParameter(person_id, "dropoff_latest")
-            if dropoff_latest:
-                dropoff_latest = round(float(dropoff_latest))
-            else:
-                dropoff_latest = max_time
+            dropoff_latest = node_object.get_dropoff_latest() or max_time
             time_window = (current_time, dropoff_latest)
     else:
         raise ValueError(f"Cannot set time window for node {node}.")
