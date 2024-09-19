@@ -290,7 +290,7 @@ GNEJunction::checkDrawOverContour() const {
             planSelector = viewParent->getContainerPlanFrame()->getPlanSelector();
         }
         // continue depending of plan selector
-        if (planSelector && planSelector->markEdges() && (viewObjectsSelector.getJunctionFront() == this)) {
+        if (planSelector && planSelector->markJunctions() && (viewObjectsSelector.getJunctionFront() == this)) {
             if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isStoppingPlace()) {
                 return false;
             } else if (viewObjectsSelector.getAttributeCarrierFront()->getTagProperty().isTAZElement()) {
