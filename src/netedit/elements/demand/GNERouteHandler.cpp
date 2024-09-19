@@ -802,6 +802,8 @@ GNERouteHandler::buildTranship(const CommonXMLStructure::SumoBaseObject* sumoBas
         WRITE_WARNING(TL("invalid container parent"));
     } else if (tagIcon.first == SUMO_TAG_NOTHING) {
         WRITE_WARNING(TL("invalid combination for personTrip"));
+    } else if (duration < 0) {
+        WRITE_WARNING(TL("tranship's duration cannot be negative"));
     } else if (planParents.checkIntegrity(tagIcon.first, containerParent, planParameters)) {
         // build tranship
         GNEDemandElement* tranship = new GNETranship(myNet, tagIcon.first, tagIcon.second, containerParent, planParents,
