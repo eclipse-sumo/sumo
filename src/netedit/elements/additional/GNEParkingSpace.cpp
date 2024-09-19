@@ -225,10 +225,12 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         const double parkingSpaceWidth = myShapeWidth.length2D() * 0.5 + (spaceExaggeration * 0.1);
         // get detail level
         const auto d = s.getDetailLevel(spaceExaggeration);
+        // check if draw moving geometry points
+        const bool movingGeometryPoints = drawMovingGeometryPoints(false);
         // draw geometry only if we'rent in drawForObjectUnderCursor mode
         if (s.checkDrawAdditional(d, isAttributeCarrierSelected())) {
             // draw space
-            drawSpace(s, d, parkingSpaceWidth);
+            drawSpace(s, d, parkingSpaceWidth, movingGeometryPoints);
             // draw parent and child lines
             drawParentChildLines(s, s.additionalSettings.connectionColor);
             // draw lock icon
@@ -237,11 +239,29 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             drawAdditionalID(s);
             // draw additional name
             drawAdditionalName(s);
-            // draw dotted contour
-            myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            // draw dotted contours
+            if (movingGeometryPoints) {
+                // get snap radius
+                const double snapRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.additionalGeometryPointRadius;
+                const double snapRadiusSquared = snapRadius * snapRadius;
+                // get mouse position
+                const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+                // check if we're editing width or height
+                if (myShapeLength.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) {
+                    myMovingContourUp.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMovingContourDown.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                } else if ((myShapeWidth.front().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared) ||
+                           (myShapeWidth.back().distanceSquaredTo2D(mousePosition) <= snapRadiusSquared)) {
+                    myMovingContourLeft.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                    myMovingContourRight.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                }
+            } else {
+                myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
+            }
+
         }
         // calculate contour
-        calculateSpaceContour(s, d, parkingSpaceWidth, spaceExaggeration);
+        calculateSpaceContour(s, d, parkingSpaceWidth, spaceExaggeration, movingGeometryPoints);
     }
 }
 
@@ -363,7 +383,7 @@ GNEParkingSpace::getHierarchyName() const {
 
 void
 GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                           const double width) const {
+                           const double width, const bool movingGeometryPoints) const {
     // get angle
     const double angle = getAttributeDouble(SUMO_ATTR_ANGLE);
     // get contour color
@@ -394,9 +414,15 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
         GLHelper::drawBoxLines(shapeLengthInner, width - 0.1);
     }
     // draw geometry points
-    drawUpGeometryPoint(s, d, myShapeLength.back(), angle, contourColor);
-    drawLeftGeometryPoint(s, d, myShapeWidth.back(), angle - 90, contourColor);
-    drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, contourColor);
+    if (movingGeometryPoints) {
+        if (myShapeLength.size() > 0) {
+            drawUpGeometryPoint(s, d, myShapeLength.back(), angle, RGBColor::ORANGE);
+        }
+        if (myShapeWidth.size() > 0) {
+            drawLeftGeometryPoint(s, d, myShapeWidth.back(), angle - 90, RGBColor::ORANGE);
+            drawRightGeometryPoint(s, d, myShapeWidth.front(), angle - 90, RGBColor::ORANGE);
+        }
+    }
     // pop layer matrix
     GLHelper::popMatrix();
 }
@@ -404,9 +430,15 @@ GNEParkingSpace::drawSpace(const GUIVisualizationSettings& s, const GUIVisualiza
 
 void
 GNEParkingSpace::calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                                       const double width, const double exaggeration) const {
-    // calculate contour and draw dotted geometry
-    myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, width, exaggeration, true, true, 0);
+                                       const double width, const double exaggeration, const bool movingGeometryPoints) const {
+    // check if we're calculating the contour or the moving geometry points
+    if (movingGeometryPoints) {
+        myMovingContourUp.calculateContourCircleShape(s, d, this, myShapeLength.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
+        myMovingContourLeft.calculateContourCircleShape(s, d, this, myShapeWidth.front(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
+        myMovingContourRight.calculateContourCircleShape(s, d, this, myShapeWidth.back(), s.neteditSizeSettings.additionalGeometryPointRadius, exaggeration);
+    } else {
+        myAdditionalContour.calculateContourExtrudedShape(s, d, this, myShapeLength, width, exaggeration, true, true, 0);
+    }
 }
 
 

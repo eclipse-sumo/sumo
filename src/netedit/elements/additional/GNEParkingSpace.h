@@ -184,14 +184,26 @@ protected:
     /// @brief Slope of Parking Space
     double mySlope;
 
+    /// @brief variable used for moving contour up
+    GNEContour myMovingContourUp;
+
+    /// @brief variable used for moving contour down
+    GNEContour myMovingContourDown;
+
+    /// @brief variable used for moving contour left
+    GNEContour myMovingContourLeft;
+
+    /// @brief variable used for moving contour right
+    GNEContour myMovingContourRight;
+
 private:
     /// @brief draw space
     void drawSpace(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                   const double width) const;
+                   const double width, const bool movingGeometryPoints) const;
 
     /// @brief calculate space contour
     void calculateSpaceContour(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d,
-                               const double width, const double exaggeration) const;
+                               const double width, const double exaggeration, const bool movingGeometryPoints) const;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
