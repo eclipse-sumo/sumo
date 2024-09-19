@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: sumo\n"
 "Report-Msgid-Bugs-To: sumo-dev@eclipse.org\n"
 "POT-Creation-Date: 2024-07-22 10:12+0200\n"
-"PO-Revision-Date: 2024-08-21 11:38+0000\n"
+"PO-Revision-Date: 2024-09-19 10:24+0000\n"
 "Last-Translator: Mirko Barthauer <mirko.barthauer@dlr.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/eclipse-sumo/"
 "applications/de/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: src/activitygen/AGActivityGen.cpp:46
 msgid "Reading input"
@@ -1541,7 +1541,7 @@ msgstr "Das Fahrzeug '%' unterstützt den Knotenpunktmodellparameter '%' nicht."
 
 #: src/microsim/MSBaseVehicle.cpp:2271
 msgid "could not interpret routing.mode '%'"
-msgstr ""
+msgstr "der Wert '%' von routing.mode konnte nicht interpretiert werden"
 
 #: src/microsim/MSBaseVehicle.cpp:2354
 msgid "Invalid device parameter '%' for vehicle '%'."
@@ -1578,6 +1578,8 @@ msgstr ""
 #: src/microsim/MSBaseVehicle.cpp:2390
 msgid "Invalid check for device. Expected format is 'has.DEVICENAME.device'."
 msgstr ""
+"Ungültige Abfrage nach einer Einrichtung. Das erwartete Format lautet 'has."
+"DEVICENAME.device'."
 
 #: src/microsim/MSBaseVehicle.cpp:2417
 msgid "Unsupported parking parameter '%' for vehicle '%'."
@@ -3039,21 +3041,27 @@ msgstr "Fahrzeug '%' wird teleportier; % mit Fahrzeug '%"
 
 #: src/microsim/MSLane.cpp:2057
 msgid "Removing % participants: vehicle '%', vehicle '%"
-msgstr ""
+msgstr "Es werden % Teilnehmer entfernt: Fahrzeug '%', Fahrzeug '%"
 
 #: src/microsim/MSLane.cpp:2070
 msgid "Keeping remote-controlled % participants: vehicle '%', vehicle '%"
 msgstr ""
+"Es werden % extern gesteuerte Teilnehmer beibehalten: Fahrzeug '%', Fahrzeug "
+"'%"
 
 #: src/microsim/MSLane.cpp:2072
 msgid ""
 "Removing % participant: vehicle '%', keeping remote-controlled vehicle '%"
 msgstr ""
+"Es wird % Teilnehmer entfernt: Fahrzeug '%'; Beibehalten des extern "
+"gesteuerten Fahrzeugs '%"
 
 #: src/microsim/MSLane.cpp:2075
 msgid ""
 "Keeping remote-controlled % participant: vehicle '%', removing vehicle '%"
 msgstr ""
+"Es wird % extern gesteuerter Teilnehmer beibehalten: Fahrzeug '%'; Entfernt "
+"wird Fahrzeug '%"
 
 #: src/microsim/MSLane.cpp:2086
 msgid ", latGap="
@@ -3190,7 +3198,7 @@ msgstr "Zu viele Teleports."
 
 #: src/microsim/MSNet.cpp:945
 msgid "TraCI issued load command."
-msgstr ""
+msgstr "TraCI hat eine Ladeanweisung ausgegeben."
 
 #: src/microsim/MSNet.cpp:947
 msgid "Unknown reason."
