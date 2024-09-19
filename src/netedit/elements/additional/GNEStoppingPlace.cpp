@@ -36,10 +36,10 @@
 // static members
 // ===========================================================================
 
-const double GNEStoppingPlace::myCircleWidth = 1.1;
-const double GNEStoppingPlace::myCircleWidthSquared = 1.21;
-const double GNEStoppingPlace::myCircleInWidth = 0.9;
-const double GNEStoppingPlace::myCircleInText = 1.6;
+const double GNEStoppingPlace::mySymbolExternalRadius = 1.1;
+const double GNEStoppingPlace::mySymbolExternalRadiusSquared = 1.21;
+const double GNEStoppingPlace::mySymbolInternalRadius = 0.9;
+const double GNEStoppingPlace::mySymbolInternalText = 1.6;
 
 // ===========================================================================
 // member method definitions
@@ -306,7 +306,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std:
             // push a new matrix for every line
             GLHelper::pushMatrix();
             // translate
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            glTranslated(mySymbolPosition.x(), mySymbolPosition.y(), 0);
             // rotate over lane
             GUIGeometry::rotateOverLane(rot);
             // draw line with a color depending of the selection status
@@ -334,7 +334,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
         // push matrix
         GLHelper::pushMatrix();
         // Start drawing sign traslating matrix to signal position
-        glTranslated(mySignPos.x(), mySignPos.y(), 0);
+        glTranslated(mySymbolPosition.x(), mySymbolPosition.y(), 0);
         // rotate over lane
         GUIGeometry::rotateOverLane(rot);
         // scale matrix depending of the exaggeration
@@ -342,7 +342,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
         // set color
         GLHelper::setColor(baseColor);
         // Draw circle
-        GLHelper::drawFilledCircleDetailled(d, myCircleWidth);
+        GLHelper::drawFilledCircleDetailled(d, mySymbolExternalRadius);
         // continue depending of rectangle selection
         if (d <= GUIVisualizationSettings::Detail::Text) {
             // Traslate to front
@@ -350,9 +350,9 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
             // set color
             GLHelper::setColor(signColor);
             // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircleDetailled(d, myCircleInWidth);
+            GLHelper::drawFilledCircleDetailled(d, mySymbolInternalRadius);
             // draw H depending of detailSettings
-            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
+            GLHelper::drawText(word, Position(), .1, mySymbolInternalText, baseColor);
         }
         // pop draw matrix
         GLHelper::popMatrix();
@@ -376,7 +376,7 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
     } else {
         // don't exaggerate contour
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
-        myCircleContour.calculateContourCircleShape(s, d, this, mySignPos, myCircleWidth, exaggeration);
+        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, mySymbolExternalRadius, exaggeration);
     }
 }
 

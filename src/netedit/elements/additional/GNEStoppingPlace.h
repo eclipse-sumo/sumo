@@ -158,22 +158,22 @@ protected:
     bool myFriendlyPosition;
 
     /// @brief The position of the sign
-    Position mySignPos;
+    Position mySymbolPosition;
 
     /// @brief circle contour
-    GNEContour myCircleContour;
+    GNEContour mySymbolContour;
 
     /// @brief circle width resolution for all stopping places
-    static const double myCircleWidth;
+    static const double mySymbolExternalRadius;
 
     /// @brief squared circle width resolution for all stopping places
-    static const double myCircleWidthSquared;
+    static const double mySymbolExternalRadiusSquared;
 
     /// @brief inner circle width resolution for all stopping places
-    static const double myCircleInWidth;
+    static const double mySymbolInternalRadius;
 
     /// @brief text inner circle width resolution for all stopping places
-    static const double myCircleInText;
+    static const double mySymbolInternalText;
 
     /// @brief set geometry common to all stopping places
     void setStoppingPlaceGeometry(double movingToSide);

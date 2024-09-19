@@ -112,7 +112,7 @@ GNEContainerStop::updateGeometry() {
     // Move shape to side
     tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
     // Get position of the sign
-    mySignPos = tmpShape.getLineCenter();
+    mySymbolPosition = tmpShape.getLineCenter();
 }
 
 
@@ -179,7 +179,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
                         1, s.dottedContourSettings.segmentWidthSmall);
             } else {
                 myAdditionalContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidth, true);
-                myCircleContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
+                mySymbolContour.drawDottedContours(s, d, this, s.dottedContourSettings.segmentWidthSmall, true);
             }
         }
         // draw demand element children
