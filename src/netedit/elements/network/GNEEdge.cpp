@@ -1026,34 +1026,18 @@ GNEEdge::getGNECrossings() {
 void
 GNEEdge::copyTemplate(const GNEEdgeTemplate* edgeTemplate, GNEUndoList* undoList) {
     // copy edge-specific attributes
-    setAttribute(SUMO_ATTR_NUMLANES,        edgeTemplate->getAttribute(SUMO_ATTR_NUMLANES),         undoList);
-    setAttribute(SUMO_ATTR_TYPE,            edgeTemplate->getAttribute(SUMO_ATTR_TYPE),             undoList);
-    setAttribute(SUMO_ATTR_PRIORITY,        edgeTemplate->getAttribute(SUMO_ATTR_PRIORITY),         undoList);
-    setAttribute(SUMO_ATTR_SPREADTYPE,      edgeTemplate->getAttribute(SUMO_ATTR_SPREADTYPE),       undoList);
-    setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate->getAttribute(GNE_ATTR_STOPOFFSET),        undoList);
-    setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate->getAttribute(GNE_ATTR_STOPOEXCEPTION),    undoList);
-    // copy raw values for lane-specific attributes
-    if (isValid(SUMO_ATTR_SPEED, edgeTemplate->getAttribute(SUMO_ATTR_SPEED))) {
-        setAttribute(SUMO_ATTR_SPEED,       edgeTemplate->getAttribute(SUMO_ATTR_SPEED),            undoList);
-    }
-    if (isValid(SUMO_ATTR_FRICTION, edgeTemplate->getAttribute(SUMO_ATTR_FRICTION))) {
-        setAttribute(SUMO_ATTR_FRICTION,    edgeTemplate->getAttribute(SUMO_ATTR_FRICTION),      undoList);
-    }
-    if (isValid(SUMO_ATTR_WIDTH, edgeTemplate->getAttribute(SUMO_ATTR_WIDTH))) {
-        setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate->getAttribute(SUMO_ATTR_WIDTH),            undoList);
-    }
-    if (isValid(SUMO_ATTR_ENDOFFSET, edgeTemplate->getAttribute(SUMO_ATTR_ENDOFFSET))) {
-        setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate->getAttribute(SUMO_ATTR_ENDOFFSET),        undoList);
+    for (const auto& attProperty : myTagProperty) {
+        if (attProperty.isCopyable() && isValid(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()))) {
+            setAttribute(attProperty.getAttr(), edgeTemplate->getAttribute(attProperty.getAttr()), undoList);
+        }
     }
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ALLOW),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_SPEED),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_FRICTION,        edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_FRICTION),       undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,           edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_WIDTH),          undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET),      undoList);
-        myLanes[i]->setAttribute(GNE_ATTR_STOPOFFSET,       edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_STOPOFFSET),      undoList);
-        myLanes[i]->setAttribute(GNE_ATTR_STOPOEXCEPTION,   edgeTemplate->getLaneTemplates().at(i)->getAttribute(GNE_ATTR_STOPOEXCEPTION),  undoList);
+        for (const auto& attProperty : edgeTemplate->getLaneTemplates().at(i)->getTagProperty()) {
+            if (attProperty.isCopyable() && myLanes[i]->isValid(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()))) {
+                myLanes[i]->setAttribute(attProperty.getAttr(), edgeTemplate->getLaneTemplates().at(i)->getAttribute(attProperty.getAttr()),  undoList);
+            }
+        }
     }
 }
 
