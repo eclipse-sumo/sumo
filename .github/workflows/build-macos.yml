@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-12, macos-13, macos-14]
+        os: [macos-13, macos-14]
     runs-on: ${{ matrix.os }}
     env:
       CCACHE_COMPILERTYPE: clang
