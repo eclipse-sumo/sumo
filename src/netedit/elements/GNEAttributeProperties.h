@@ -70,6 +70,7 @@ public:
         ACTIVATABLE =       1 << 22,    // Attribute can be switch on/off using a checkbox in frame
         FLOWDEFINITION =    1 << 23,    // Attribute is part of a flow definition (Number, vehsPerHour...)
         AUTOMATICID =       1 << 24,    // Attribute id can generate their own ID (used by additionals, vehicles, etc...)
+        COPYABLE =          1 << 25,    // Attribute can be copied over other element with the same tagProperty (used for edge/lane templates)
     };
 
     /// @brief default constructor
@@ -212,6 +213,9 @@ public:
 
     /// @brief return true if attribute ID can generate an automatic ID
     bool hasAutomaticID() const;
+
+    /// @brief return true if attribute ID is copyable
+    bool isCopyable() const;
 
 private:
     /// @brief XML Attribute
