@@ -33,15 +33,6 @@
 #include "GNEAdditionalHandler.h"
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-const double GNEStoppingPlace::mySymbolExternalRadius = 1.1;
-const double GNEStoppingPlace::mySymbolExternalRadiusSquared = 1.21;
-const double GNEStoppingPlace::mySymbolInternalRadius = 0.9;
-const double GNEStoppingPlace::mySymbolInternalText = 1.6;
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 
@@ -323,8 +314,8 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings::Detail d, const std:
 
 
 void
-GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const double exaggeration, const RGBColor& baseColor,
-                           const RGBColor& signColor, const std::string& word) const {
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const GUIVisualizationSettings::Detail d, const double exaggeration,
+                           const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const {
     // only draw in level 2
     if (d <= GUIVisualizationSettings::Detail::AdditionalDetails) {
         // calculate middle point
@@ -342,7 +333,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
         // set color
         GLHelper::setColor(baseColor);
         // Draw circle
-        GLHelper::drawFilledCircleDetailled(d, mySymbolExternalRadius);
+        GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolExternalRadius);
         // continue depending of rectangle selection
         if (d <= GUIVisualizationSettings::Detail::Text) {
             // Traslate to front
@@ -350,9 +341,9 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings::Detail d, const doubl
             // set color
             GLHelper::setColor(signColor);
             // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircleDetailled(d, mySymbolInternalRadius);
+            GLHelper::drawFilledCircleDetailled(d, s.stoppingPlaceSettings.symbolInternalRadius);
             // draw H depending of detailSettings
-            GLHelper::drawText(word, Position(), .1, mySymbolInternalText, baseColor);
+            GLHelper::drawText(word, Position(), .1, s.stoppingPlaceSettings.symbolInternalTextSize, baseColor);
         }
         // pop draw matrix
         GLHelper::popMatrix();
@@ -376,7 +367,7 @@ GNEStoppingPlace::calculateStoppingPlaceContour(const GUIVisualizationSettings& 
     } else {
         // don't exaggerate contour
         myAdditionalContour.calculateContourExtrudedShape(s, d, this, myAdditionalGeometry.getShape(), width, 1, true, true, 0);
-        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, mySymbolExternalRadius, exaggeration);
+        mySymbolContour.calculateContourCircleShape(s, d, this, mySymbolPosition, s.stoppingPlaceSettings.symbolExternalRadius, exaggeration);
     }
 }
 

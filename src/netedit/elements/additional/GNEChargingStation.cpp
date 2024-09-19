@@ -163,7 +163,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw charging power and efficiency
             drawLines(d, {toString(myChargingPower)}, baseColor);
             // draw sign
-            drawSign(d, chargingStationExaggeration, baseColor, signColor, "C");
+            drawSign(s, d, chargingStationExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);

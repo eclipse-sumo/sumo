@@ -490,6 +490,15 @@ struct GUIVisualizationStoppingPlaceSettings {
 
     /// @brief chargingStation width
     static const double chargingStationWidth;
+
+    /// @brief symbol external radius
+    static const double symbolExternalRadius;
+
+    /// @brief symbol internal radius
+    static const double symbolInternalRadius;
+
+    /// @brief symbol internal text size
+    static const double symbolInternalTextSize;
 };
 
 
@@ -615,13 +624,13 @@ public:
     GUIVisualizationSettings(const std::string& _name, bool _netedit = false);
 
     /// @brief check if draw junction
-    bool checkDrawJunction(const Boundary &b, const bool selected) const;
+    bool checkDrawJunction(const Boundary& b, const bool selected) const;
 
     /// @brief check if draw additionals
     bool checkDrawAdditional(Detail d, const bool selected) const;
 
     /// @brief check if draw polygon
-    bool checkDrawPoly(const Boundary &b, const bool selected) const;
+    bool checkDrawPoly(const Boundary& b, const bool selected) const;
 
     /// @brief check if draw POI
     bool checkDrawPOI(const double w, const double h, const Detail d, const bool selected) const;

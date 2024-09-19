@@ -157,7 +157,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw lines
             drawLines(d, myLines, baseColor);
             // draw sign
-            drawSign(d, containerStopExaggeration, baseColor, signColor, "C");
+            drawSign(s, d, containerStopExaggeration, baseColor, signColor, "C");
             // draw geometry points
             if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);

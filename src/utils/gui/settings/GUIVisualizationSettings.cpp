@@ -153,6 +153,9 @@ const double GUIVisualizationStoppingPlaceSettings::busStopWidth(1);
 const double GUIVisualizationStoppingPlaceSettings::trainStopWidth(0.5);
 const double GUIVisualizationStoppingPlaceSettings::containerStopWidth(3);
 const double GUIVisualizationStoppingPlaceSettings::chargingStationWidth(1);
+const double GUIVisualizationStoppingPlaceSettings::symbolExternalRadius(1.1);
+const double GUIVisualizationStoppingPlaceSettings::symbolInternalRadius(0.9);
+const double GUIVisualizationStoppingPlaceSettings::symbolInternalTextSize(1.6);
 
 // -------------------------------------------------------------------------
 // Dotted contour values
@@ -668,7 +671,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(const std::string& _name, boo
 
 
 bool
-GUIVisualizationSettings::checkDrawJunction(const Boundary &b, const bool selected) const {
+GUIVisualizationSettings::checkDrawJunction(const Boundary& b, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (junctionSize.constantSize) {
@@ -696,7 +699,7 @@ GUIVisualizationSettings::checkDrawAdditional(const Detail d, const bool selecte
 
 
 bool
-GUIVisualizationSettings::checkDrawPoly(const Boundary &b, const bool selected) const {
+GUIVisualizationSettings::checkDrawPoly(const Boundary& b, const bool selected) const {
     if (drawForViewObjectsHandler) {
         return false;
     } else if (polySize.constantSize) {

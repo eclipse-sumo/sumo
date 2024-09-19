@@ -189,7 +189,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
             GUIGeometry::drawGeometry(d, myAdditionalGeometry, myWidth * 0.5 * MIN2(1.0, parkingAreaExaggeration));
             // draw sign
-            drawSign(d, parkingAreaExaggeration, baseColor, signColor, "P");
+            drawSign(s, d, parkingAreaExaggeration, baseColor, signColor, "P");
             // Traslate to front
             glTranslated(0, 0, 0.1);
             // draw lotSpaceDefinitions

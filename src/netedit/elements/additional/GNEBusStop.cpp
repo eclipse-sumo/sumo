@@ -175,7 +175,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw lines
             drawLines(d, myLines, baseColor);
             // draw sign
-            drawSign(d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
+            drawSign(s, d, busStopExaggeration, baseColor, signColor, (myTagProperty.getTag() == SUMO_TAG_BUS_STOP) ? "H" : "T");
             // draw geometry points
             if (movingGeometryPoints && (myStartPosition != INVALID_DOUBLE)) {
                 drawLeftGeometryPoint(s, d, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front(), baseColor);
