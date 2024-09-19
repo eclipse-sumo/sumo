@@ -1134,33 +1134,35 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
         const bool lastLane = (myIndex == (myParentEdge->getNBEdge()->getNumLanes() - 1));
         // declare separator width
         const auto separatorWidth = SUMO_const_laneMarkWidth * 0.5;
-        // get change left and right for passengers
-        const bool changeLeft = lastLane? true : myParentEdge->getNBEdge()->allowsChangingLeft(myIndex, SVC_PASSENGER);
-        const bool changeRight = firstlane? true : myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
+        // get passengers change left and right for previous, current and next lane
+        const bool changeRightTop = lastLane ? true : myParentEdge->getNBEdge()->allowsChangingRight(myIndex + 1, SVC_PASSENGER);
+        const bool changeLeftCurrent = lastLane ? true : myParentEdge->getNBEdge()->allowsChangingLeft(myIndex, SVC_PASSENGER);
+        const bool changeRightCurrent = firstlane ? true : myParentEdge->getNBEdge()->allowsChangingRight(myIndex, SVC_PASSENGER);
+        const bool changeLeftBot = firstlane ? true : myParentEdge->getNBEdge()->allowsChangingLeft(myIndex - 1, SVC_PASSENGER);
         // save current color
         const auto currentColor = GLHelper::getColor();
         // separator offsets
-        const double topSeparatorOffset = myDrawingConstants->getOffset() + (myDrawingConstants->getDrawingWidth() * -1) - separatorWidth;
-        const double botSeparatorOffset = myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() + separatorWidth;
+        const double topSeparatorOffset = myDrawingConstants->getOffset() + (myDrawingConstants->getDrawingWidth() * -1) + separatorWidth;
+        const double botSeparatorOffset = myDrawingConstants->getOffset() + myDrawingConstants->getDrawingWidth() - separatorWidth;
         // push matrix
         GLHelper::pushMatrix();
         // translate
         glTranslated(0, 0, 0.1);
         // continue depending of lanes
-        if (firstlane && lastLane) {
+        if (myDrawingConstants->drawSuperposed() || (firstlane && lastLane)) {
             // draw top and bot separator only
             GLHelper::setColor(RGBColor::WHITE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
         } else if (firstlane) {
             // draw top separator
-            GLHelper::setColor(changeLeft? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? RGBColor::WHITE : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // check if draw inverse marking
-            if (changeLeft) {
+            if (changeLeftCurrent) {
                 GLHelper::setColor(currentColor);
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                    3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
+                                              3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
             }
             // draw bot separator
             GLHelper::setColor(RGBColor::WHITE);
@@ -1170,32 +1172,32 @@ GNELane::drawMarkingsAndBoundings(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(RGBColor::WHITE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // draw bot separator
-            GLHelper::setColor(changeRight? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? RGBColor::WHITE : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
             // check if draw inverse marking
-            if (changeRight) {
+            if (changeRightCurrent) {
                 GLHelper::setColor(currentColor);
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                    3, 6, botSeparatorOffset, true, true, s.lefthand, 1);
+                                              3, 6, botSeparatorOffset, true, true, s.lefthand, 1);
             }
         } else {
             // draw top separator
-            GLHelper::setColor(changeLeft? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeLeftCurrent && changeRightTop) ? RGBColor::WHITE : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, topSeparatorOffset);
             // check if draw inverse marking
-            if (changeLeft) {
+            if (changeLeftCurrent) {
                 GLHelper::setColor(currentColor);
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                    3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
+                                              3, 6, topSeparatorOffset, true, true, s.lefthand, 1);
             }
             // draw bot separator
-            GLHelper::setColor(changeRight? RGBColor::WHITE : RGBColor::ORANGE);
+            GLHelper::setColor((changeRightCurrent && changeLeftBot) ? RGBColor::WHITE : RGBColor::ORANGE);
             GUIGeometry::drawGeometry(myDrawingConstants->getDetail(), myLaneGeometry, separatorWidth, botSeparatorOffset);
             // check if draw inverse marking
-            if (changeRight) {
+            if (changeRightCurrent) {
                 GLHelper::setColor(currentColor);
                 GLHelper::drawInverseMarkings(myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(),
-                                    3, 6, botSeparatorOffset, true, true, s.lefthand, 1);
+                                              3, 6, botSeparatorOffset, true, true, s.lefthand, 1);
             }
         }
         // pop matrix
