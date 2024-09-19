@@ -391,6 +391,10 @@ MSDevice_FCDReplay::FCDHandler::updateTrafficObjects(const SUMOTime intervalStar
             // new data for existing person / vehicle
             if (isPerson) {
                 MSTransportable* person = MSNet::getInstance()->getPersonControl().get(id);
+                if (person == nullptr) {
+                    // TODO this should not happen
+                    continue;
+                }
                 // TODO optimize: no need to regenerate the whole plan
                 MSTransportable::MSTransportablePlan* plan = makePlan(person->getParameter(), std::get<3>(desc.second), std::get<4>(desc.second), t);
                 const int stageIndex = person->getNumRemainingStages() - 1;
