@@ -1,3 +1,4 @@
 --no-step-log --no-duration-log --net-file=net2.net.xml --routes=input_routes.rou.xml
 --stop-output stopinfos.xml
 --tls.all-off
+--vehroute-output vehroutes.xml
