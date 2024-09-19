@@ -1,15 +1,15 @@
 to_edge
 
-to_junction
+#to_junction
 
-to_taz
+#to_taz
 
-to_busstop
+#to_busstop
 
-to_trainstop
+#to_trainstop
 
 to_containerstop
 
-to_chargingstation
+#to_chargingstation
 
-to_parkingarea
+#to_parkingarea

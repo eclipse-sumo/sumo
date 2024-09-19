@@ -1,0 +1,2 @@
+Warning: Invalid to bus stop 'A' used in walk: edge->busstop of person 'p_0'
+Warning: Invalid from bus stop 'A' used in persontrip: busstop->parkingarea of person 'p_0'

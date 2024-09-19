@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-09-11 10:56:52 by Eclipse SUMO netedit Version v1_20_0+1948-ce62a4c7b19
+<!-- generated on 2024-09-19 15:29:10 by Eclipse SUMO netedit Version v1_20_0+2075-e773f102b21
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,7 +20,6 @@ SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
     </container>
     <container id="c_1" depart="0.00">
         <transport from="Edge0" to="Edge1"/>
-        <tranship to="Edge2" duration="-12.00"/>
     </container>
     <container id="c_2" depart="0.00">
         <transport from="Edge0" to="Edge1"/>
