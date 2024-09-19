@@ -1054,15 +1054,17 @@ GNEEdge::copyEdgeType(const GNEEdgeType* edgeType, GNEUndoList* undoList) {
     // set type (only for info)
     setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // copy attributes
-    for (const auto& attrProperties : edgeTypeProperties) {
-        setAttribute(attrProperties.getAttr(), edgeType->getAttribute(attrProperties.getAttr()), undoList);
+    for (const auto& attrProperty : edgeTypeProperties) {
+        if (attrProperty.isCopyable()) {
+            setAttribute(attrProperty.getAttr(), edgeType->getAttribute(attrProperty.getAttr()), undoList);
+        }
     }
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        for (const auto& attrProperties : laneTypeProperties) {
-            if (edgeType->getLaneTypes().at(i)->getAttribute(attrProperties.getAttr()) != laneTypeProperties.getAttributeProperties(attrProperties.getAttr()).getDefaultValue()) {
-                myLanes[i]->setAttribute(attrProperties.getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperties.getAttr()), undoList);
+        for (const auto& attrProperty : laneTypeProperties) {
+            if (attrProperty.isCopyable() && (edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()) != laneTypeProperties.getAttributeProperties(attrProperty.getAttr()).getDefaultValue())) {
+                myLanes[i]->setAttribute(attrProperty.getAttr(), edgeType->getLaneTypes().at(i)->getAttribute(attrProperty.getAttr()), undoList);
             }
         }
         if (edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS).size() > 0) {
