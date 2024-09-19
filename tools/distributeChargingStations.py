@@ -250,7 +250,6 @@ def main(options):
             for node, _ in parkingAreas:
                 if node not in usedParkingAreas:
                     unchangedParkings.append(node)
-        print(unchangedParkings)
         for node in unchangedParkings:
             addChildToParent(rootParking, node, secondChildTags=["param", "space"])
 
