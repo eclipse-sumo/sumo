@@ -1,10 +1,10 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="paE1_shift" lane="E1_0" length="8.0" roadsideCapacity="5" startPos="57.142857142857146" endPos="200.0"/>
-    <parkingArea id="paE1" lane="E1_0" length="8.0" roadsideCapacity="2" startPos="0" endPos="57.142857142857146"/>
-    <chargingStation id="CS0" lane="E1_0" startPos="0" endPos="57.142857142857146" power="22000" efficiency="0.95" parkingArea="paE1"/>
     <parkingArea id="paE2_shift" lane="E2_0" length="8.0" roadsideCapacity="5" startPos="85.71428571428571" endPos="300.0"/>
     <parkingArea id="paE2" lane="E2_0" length="8.0" roadsideCapacity="2" startPos="0" endPos="85.71428571428571"/>
-    <chargingStation id="CS1" lane="E2_0" startPos="0" endPos="85.71428571428571" power="22000" efficiency="0.95" parkingArea="paE2"/>
-    <parkingArea id="paE0" lane="E0_0" length="8.0" roadsideCapacity="7"/>
+    <chargingStation id="CS0" lane="E2_0" startPos="0" endPos="85.71428571428571" power="22000" efficiency="0.95" parkingArea="paE2"/>
+    <parkingArea id="paE0_shift" lane="E0_0" length="8.0" roadsideCapacity="5" startPos="28.571428571428573" endPos="100.0"/>
+    <parkingArea id="paE0" lane="E0_0" length="8.0" roadsideCapacity="2" startPos="0" endPos="28.571428571428573"/>
+    <chargingStation id="CS1" lane="E0_0" startPos="0" endPos="28.571428571428573" power="22000" efficiency="0.95" parkingArea="paE0"/>
+    <parkingArea id="paE1" lane="E1_0" length="8.0" roadsideCapacity="7"/>
     <parkingArea id="paE3" lane="E3_0" length="8.0" roadsideCapacity="7"/>
 </additional>
